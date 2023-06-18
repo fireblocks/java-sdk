@@ -1,0 +1,218 @@
+# PaymentsPayoutApi
+
+All URIs are relative to *https://api.fireblocks.io/v1*
+
+| Method | HTTP request | Description |
+|------------- | ------------- | -------------|
+| [**createPayout**](PaymentsPayoutApi.md#createPayout) | **POST** /payments/payout | Create a payout instruction set |
+| [**executePayoutAction**](PaymentsPayoutApi.md#executePayoutAction) | **POST** /payments/payout/{payoutId}/actions/execute | Execute a payout instruction set |
+| [**getPayoutById**](PaymentsPayoutApi.md#getPayoutById) | **GET** /payments/payout/{payoutId} | Get the status of a payout instruction set |
+
+
+
+## createPayout
+
+> PayoutResponse createPayout(createPayoutRequest)
+
+Create a payout instruction set
+
+**Note:** The reference content in this section documents the Payments Engine endpoint. The Payments Engine endpoints include APIs available only for customers with Payments Engine enabled on their accounts. &lt;/br&gt; &lt;/br&gt;These endpoints are currently in beta and might be subject to changes.&lt;/br&gt; &lt;/br&gt;If you want to learn more about Fireblocks Payments Engine, please contact your Fireblocks Customer Success Manager or email CSM@fireblocks.com. &lt;/br&gt; &lt;/br&gt; &lt;b u&gt;Create a payout instruction set.&lt;/b&gt; &lt;/u&gt;&lt;/br&gt; A payout instruction set is a set of instructions for distributing payments from a single payment account to a list of payee accounts. &lt;/br&gt; The instruction set defines: &lt;/br&gt; &lt;ul&gt; &lt;li&gt;the payment account and its account type (vault, exchange, or fiat). &lt;/li&gt; &lt;li&gt;the account type (vault account, exchange account, whitelisted address, network connection, fiat account, or merchant account), the amount, and the asset of payment for each payee account.&lt;/li&gt; &lt;/ul&gt; 
+
+### Example
+
+```java
+// Import classes:
+import org.openapitools.client.ApiClient;
+import org.openapitools.client.ApiException;
+import org.openapitools.client.Configuration;
+import org.openapitools.client.models.*;
+import org.openapitools.client.api.PaymentsPayoutApi;
+
+public class Example {
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("https://api.fireblocks.io/v1");
+
+        PaymentsPayoutApi apiInstance = new PaymentsPayoutApi(defaultClient);
+        CreatePayoutRequest createPayoutRequest = new CreatePayoutRequest(); // CreatePayoutRequest | 
+        try {
+            PayoutResponse result = apiInstance.createPayout(createPayoutRequest);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling PaymentsPayoutApi#createPayout");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **createPayoutRequest** | [**CreatePayoutRequest**](CreatePayoutRequest.md)|  | [optional] |
+
+### Return type
+
+[**PayoutResponse**](PayoutResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | The payout instruction set creation succeeded and returns the generated instruction set with a unique payout IDThe payout ID will be used for executing the payout and checking the payout status. |  -  |
+| **400** | Bad request |  -  |
+| **401** | Unauthorized. Missing / invalid JWT token in Authorization header. |  -  |
+| **5XX** | Internal error. |  -  |
+
+
+## executePayoutAction
+
+> DispatchPayoutResponse executePayoutAction(payoutId)
+
+Execute a payout instruction set
+
+**Note:** The reference content in this section documents the Payments Engine endpoint. The Payments Engine endpoints include APIs available only for customers with Payments Engine enabled on their accounts. &lt;/br&gt; &lt;/br&gt;These endpoints are currently in beta and might be subject to changes.&lt;/br&gt; &lt;/br&gt;If you want to learn more about Fireblocks Payments Engine, please contact your Fireblocks Customer Success Manager or email CSM@fireblocks.com. &lt;/br&gt; &lt;/br&gt;&lt;b u&gt;Execute a payout instruction set.&lt;/b&gt; &lt;/u&gt; &lt;/br&gt; &lt;/br&gt;The instruction set will be verified and executed.&lt;/br&gt; &lt;b&gt;&lt;u&gt;Source locking&lt;/br&gt;&lt;/b&gt; &lt;/u&gt; If you are executing a payout instruction set from a payment account with an already active payout the active payout will complete before the new payout instruction set can be executed. &lt;/br&gt; You cannot execute the same payout instruction set more than once. 
+
+### Example
+
+```java
+// Import classes:
+import org.openapitools.client.ApiClient;
+import org.openapitools.client.ApiException;
+import org.openapitools.client.Configuration;
+import org.openapitools.client.models.*;
+import org.openapitools.client.api.PaymentsPayoutApi;
+
+public class Example {
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("https://api.fireblocks.io/v1");
+
+        PaymentsPayoutApi apiInstance = new PaymentsPayoutApi(defaultClient);
+        String payoutId = "1fe3b61f-7e1f-4a19-aff0-4f0a524d44d7"; // String | the payout id received from the creation of the payout instruction set
+        try {
+            DispatchPayoutResponse result = apiInstance.executePayoutAction(payoutId);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling PaymentsPayoutApi#executePayoutAction");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **payoutId** | **String**| the payout id received from the creation of the payout instruction set | |
+
+### Return type
+
+[**DispatchPayoutResponse**](DispatchPayoutResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Executed the payout instruction set |  -  |
+| **400** | Bad request |  -  |
+| **401** | Unauthorized. Missing / invalid JWT token in Authorization header. |  -  |
+| **5XX** | Internal error. |  -  |
+
+
+## getPayoutById
+
+> PayoutResponse getPayoutById(payoutId)
+
+Get the status of a payout instruction set
+
+**Note:** The reference content in this section documents the Payments Engine endpoint. The Payments Engine endpoints include APIs available only for customers with Payments Engine enabled on their accounts. &lt;/br&gt; &lt;/br&gt;These endpoints are currently in beta and might be subject to changes.&lt;/br&gt; &lt;/br&gt;If you want to learn more about Fireblocks Payments Engine, please contact your Fireblocks Customer Success Manager or email CSM@fireblocks.com. &lt;/br&gt; 
+
+### Example
+
+```java
+// Import classes:
+import org.openapitools.client.ApiClient;
+import org.openapitools.client.ApiException;
+import org.openapitools.client.Configuration;
+import org.openapitools.client.models.*;
+import org.openapitools.client.api.PaymentsPayoutApi;
+
+public class Example {
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("https://api.fireblocks.io/v1");
+
+        PaymentsPayoutApi apiInstance = new PaymentsPayoutApi(defaultClient);
+        String payoutId = "1fe3b61f-7e1f-4a19-aff0-4f0a524d44d7"; // String | the payout id received from the creation of the payout instruction set
+        try {
+            PayoutResponse result = apiInstance.getPayoutById(payoutId);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling PaymentsPayoutApi#getPayoutById");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **payoutId** | **String**| the payout id received from the creation of the payout instruction set | |
+
+### Return type
+
+[**PayoutResponse**](PayoutResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Returns the current status of the payout instruction set, including the status of each payout instruction and the transactions created in the process. |  -  |
+| **401** | Unauthorized. Missing / invalid JWT token in Authorization header. |  -  |
+| **404** | No payout with the given payout ID exists. |  -  |
+| **5XX** | Internal error. |  -  |
+
