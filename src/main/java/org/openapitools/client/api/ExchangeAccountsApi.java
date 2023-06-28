@@ -18,11 +18,11 @@ import org.openapitools.client.Configuration;
 import org.openapitools.client.model.*;
 import org.openapitools.client.Pair;
 
-import org.openapitools.client.model.ConvertAssetsRequest;
+import org.openapitools.client.model.ConvertExchangeAccountRequest;
+import org.openapitools.client.model.CreateInternalTransferRequest;
 import org.openapitools.client.model.Error;
 import org.openapitools.client.model.ExchangeAccount;
 import org.openapitools.client.model.ExchangeAsset;
-import org.openapitools.client.model.InternalTransferRequest;
 
 import com.sun.jersey.api.client.GenericType;
 import java.util.ArrayList;
@@ -54,11 +54,11 @@ public class ExchangeAccountsApi {
    * Convert exchange account funds from the source asset to the destination asset. Coinbase (USD to USDC, USDC to USD) and Bitso (MXN to USD) are supported conversions.
    * Convert assets within an exchange account
    * @param exchangeAccountId The ID of the exchange account. Please make sure the exchange supports conversions. To find the ID of your exchange account, use GET/exchange_accounts. (required)
-   * @param convertAssetsRequest  (optional)
+   * @param convertExchangeAccountRequest  (optional)
    * @throws ApiException if fails to make API call
    */
-  public void convertAssets(String exchangeAccountId, ConvertAssetsRequest convertAssetsRequest) throws ApiException {
-    Object localVarPostBody = convertAssetsRequest;
+  public void convertAssets(String exchangeAccountId, ConvertExchangeAccountRequest convertExchangeAccountRequest) throws ApiException {
+    Object localVarPostBody = convertExchangeAccountRequest;
     
     // verify the required parameter 'exchangeAccountId' is set
     if (exchangeAccountId == null) {
@@ -231,14 +231,14 @@ public class ExchangeAccountsApi {
     return apiClient.invokeAPI(localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccept, localVarContentType, localVarAuthNames, localVarReturnType);
       }
   /**
-   * Internal tranfer for exchange accounts
+   * Internal transfer for exchange accounts
    * Transfers funds between trading accounts under the same exchange account.
    * @param exchangeAccountId The ID of the exchange account to return (required)
-   * @param internalTransferRequest  (optional)
+   * @param createInternalTransferRequest  (optional)
    * @throws ApiException if fails to make API call
    */
-  public void internalTransfer(String exchangeAccountId, InternalTransferRequest internalTransferRequest) throws ApiException {
-    Object localVarPostBody = internalTransferRequest;
+  public void internalTransfer(String exchangeAccountId, CreateInternalTransferRequest createInternalTransferRequest) throws ApiException {
+    Object localVarPostBody = createInternalTransferRequest;
     
     // verify the required parameter 'exchangeAccountId' is set
     if (exchangeAccountId == null) {
