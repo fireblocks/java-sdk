@@ -95,7 +95,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/createVaultAccount_request'
+              $ref: '#/components/schemas/CreateVaultAccountRequest'
         required: true
       responses:
         "200":
@@ -1397,7 +1397,7 @@ paths:
           name: Fireblocks SDK Python example
         - language: javascript
           code: |
-            const PublicKeyInfoArgs = { algorithm: 'MPC_ECDSA_SECP256K1', derivationPath: '[44,0,0,0,0]' } const pubKey = await fireblocks.getPublicKeyInfo(PublicKeyInfoArgs);
+            const PublicKeyInfoArgs = { assetId: 'ETH', vaultAccountId: 0, change: 0, addressIndex: 0, compressed: true } const pubKey = await fireblocks.getPublicKeyInfoForVaultAccount(PublicKeyInfoArgs);
           name: Fireblocks SDK Javascript example
       x-accepts: application/json
   /vault/assets:
@@ -1599,7 +1599,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/internalTransfer_request'
+              $ref: '#/components/schemas/CreateInternalTransferRequest'
       responses:
         "201":
           description: Transfer succeeded
@@ -1615,7 +1615,7 @@ paths:
           headers:
             X-Request-ID:
               $ref: '#/components/headers/X-Request-ID'
-      summary: Internal tranfer for exchange accounts
+      summary: Internal transfer for exchange accounts
       tags:
       - Exchange accounts
       x-content-type: application/json
@@ -1639,7 +1639,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/convertAssets_request'
+              $ref: '#/components/schemas/ConvertExchangeAccountRequest'
       responses:
         "200":
           description: Conversion successful
@@ -8065,20 +8065,22 @@ components:
             \ for the list of transaction sub statuses."
           type: string
         txHash:
-          description: "The hash of the transaction on the blockchain.\n * This parameter\
-            \ exists if at least one of the following conditions is met:\n\n     1.\
-            \ The transaction’s source type is `UNKNOWN`, `WHITELISTED_ADDRESS`, `NETWORK_CONNECTION`,\
-            \ `ONE_TIME_ADDRESS`, `FIAT_ACCOUNT` or `GAS_STATION`.\n\n     2. The\
-            \ transaction’s source type is `VAULT` and the status is either: `CONFIRMING`,\
-            \ `COMPLETED`, or was in any of these statuses prior to changing to `FAILED`\
-            \ or `REJECTED`. In some instances, transactions in status `BROADCASTING`\
-            \ will include the txHash as well.\n\n     3. The transaction’s source\
-            \ type is `EXCHANGE_ACCOUNT` and the transaction’s destination type is\
-            \ `VAULT`, and the status is either: `CONFIRMING`, `COMPLETED`, or was\
-            \ in any of these status prior to changing to `FAILED`.\n  \n\n* In addition,\
-            \ the following conditions must be met:\n\n    1. The asset is a crypto\
-            \ asset (not fiat).\n\n    2. The transaction operation is not RAW or\
-            \ `TYPED_MESSAGE`."
+          description: |-
+            The hash of the transaction on the blockchain.
+             * This parameter exists if at least one of the following conditions is met:
+
+                 1. The transaction’s source type is `UNKNOWN`, `WHITELISTED_ADDRESS`, `NETWORK_CONNECTION`, `ONE_TIME_ADDRESS`, `FIAT_ACCOUNT` or `GAS_STATION`.
+
+                 2. The transaction’s source type is `VAULT` and the status is either: `CONFIRMING`, `COMPLETED`, or was in any of these statuses prior to changing to `FAILED` or `REJECTED`. In some instances, transactions in status `BROADCASTING` will include the txHash as well.
+
+                 3. The transaction’s source type is `EXCHANGE_ACCOUNT` and the transaction’s destination type is `VAULT`, and the status is either: `CONFIRMING`, `COMPLETED`, or was in any of these status prior to changing to `FAILED`.
+
+
+            * In addition, the following conditions must be met:
+
+                1. The asset is a crypto asset (not fiat).
+
+                2. The transaction operation is not RAW or `TYPED_MESSAGE`.
           type: string
         operation:
           $ref: '#/components/schemas/GetTransactionOperation'
@@ -8638,14 +8640,14 @@ components:
           type: string
         externalTxId:
           description: "An optional but highly recommended parameter. Fireblocks will\
-            \ reject future transactions with same ID. \n \nYou should set this to\
-            \ a unique ID representing the transaction, to avoid submitting the same\
+            \ reject future transactions with same ID. \nYou should set this to a\
+            \ unique ID representing the transaction, to avoid submitting the same\
             \ transaction twice. This helps with cases where submitting the transaction\
             \ responds with an error code due to Internet interruptions, but the transaction\
             \ was actually sent and processed. To validate whether a transaction has\
             \ been processed, [Find a specific transaction by external transaction\
             \ ID](https://developers.fireblocks.com/reference/get_transactions-external-tx-id-externaltxid).\n\
-            \ \nThere is no specific format required for this parameter."
+            There is no specific format required for this parameter."
           example: 00000000-0000-0000-0000-000000000000
           type: string
         assetId:
@@ -9537,8 +9539,8 @@ components:
           $ref: '#/components/schemas/XBSettlementConfigStepsRecord'
         conversionSlippageBasisPoints:
           default: 10000
-          description: |
-            Slippage configuarion in basis points, the default value is 10%
+          description: "Slippage configuarion in basis points, the default value is\
+            \ 10%"
           maximum: 10000
           minimum: 0
           type: integer
@@ -9563,8 +9565,8 @@ components:
           $ref: '#/components/schemas/XBSettlementConfigStepsRecord'
         conversionSlippageBasisPoints:
           default: 10000
-          description: |
-            Slippage configuarion in basis points, the default value is 10%
+          description: "Slippage configuarion in basis points, the default value is\
+            \ 10%"
           maximum: 10000
           minimum: 0
           type: integer
@@ -9609,8 +9611,8 @@ components:
       properties:
         conversionSlippageBasisPoints:
           default: 10000
-          description: |
-            Slippage configuarion in basis points, the default value is 10%
+          description: "Slippage configuarion in basis points, the default value is\
+            \ 10%"
           maximum: 10000
           minimum: 0
           type: integer
@@ -9689,8 +9691,8 @@ components:
           $ref: '#/components/schemas/XBSettlementConfigStepsRecord'
         conversionSlippageBasisPoints:
           default: 10000
-          description: |
-            Slippage configuarion in basis points, the default value is 10%
+          description: "Slippage configuarion in basis points, the default value is\
+            \ 10%"
           maximum: 10000
           minimum: 0
           type: integer
@@ -9875,6 +9877,22 @@ components:
       - amount
       - configId
       type: object
+    CreateInternalTransferRequest:
+      example:
+        amount: amount
+        sourceType: null
+        asset: asset
+        destType: null
+      properties:
+        asset:
+          type: string
+        amount:
+          type: string
+        sourceType:
+          $ref: '#/components/schemas/TradingAccountType'
+        destType:
+          $ref: '#/components/schemas/TradingAccountType'
+      type: object
     XBSettlementCreateFlowResponse:
       $ref: '#/components/schemas/XBSettlementFlowPreviewModel'
     XBSettlementFlowExecutionModel:
@@ -9962,8 +9980,7 @@ components:
       type: object
     XBSettlementConversionSlippageBasisPoints:
       default: 10000
-      description: |
-        Slippage configuarion in basis points, the default value is 10%
+      description: "Slippage configuarion in basis points, the default value is 10%"
       maximum: 10000
       minimum: 0
       type: integer
@@ -10483,7 +10500,7 @@ components:
           description: "\"type\" will tell you if the virtual asset value converted\
             \ to FIAT value of the withdrawal request is above (=TRAVELRULE) or below\
             \ (=BELOW_THRESHOLD) the threshold in your jurisdiction. If it is to an\
-            \ unhosted wallet which does not require travel rule information to be\
+            \ unhosted wallet which does not require travel rule information to  be\
             \ sent and only collected, it will say NON_CUSTODIAL."
           example: TRAVELRULE
           type: string
@@ -11171,14 +11188,12 @@ components:
       - did
       - pii_didkey
       type: object
-    ErrorResponse:
-      properties:
-        error:
-          $ref: '#/components/schemas/ErrorResponse_error'
-      required:
-      - error
-      type: object
-    createVaultAccount_request:
+    CreateVaultAccountRequest:
+      example:
+        hiddenOnUI: true
+        name: name
+        customerRefId: customerRefId
+        autoFuel: true
       properties:
         name:
           description: Account Name
@@ -11193,6 +11208,41 @@ components:
         autoFuel:
           description: Optional - Sets the autoFuel property of the vault account
           type: boolean
+      required:
+      - did
+      - pii_didkey
+      type: object
+    ConvertExchangeAccountRequest:
+      example:
+        amount: 0.8008281904610115
+        destAsset: destAsset
+        srcAsset: srcAsset
+      properties:
+        srcAsset:
+          description: Name of the source asset (must be in a currency that is supported
+            for conversions in the selected exchange type that corresponds to your
+            exchange ID)
+          type: string
+        destAsset:
+          description: Name of the destination asset (must be in a currency that is
+            supported for conversions in the selected exchange type that corresponds
+            to your exchange ID)
+          type: string
+        amount:
+          description: The amount to transfer (in the currency of the source asset)
+          type: number
+      required:
+      - amount
+      - destAsset
+      - srcAsset
+      type: object
+    ErrorResponse:
+      properties:
+        error:
+          $ref: '#/components/schemas/ErrorResponse_error'
+      required:
+      - error
+      type: object
     updateVaultAccount_request:
       properties:
         name:
@@ -11227,35 +11277,6 @@ components:
         description:
           description: The address description
           type: string
-    internalTransfer_request:
-      properties:
-        asset:
-          type: string
-        amount:
-          type: string
-        sourceType:
-          $ref: '#/components/schemas/TradingAccountType'
-        destType:
-          $ref: '#/components/schemas/TradingAccountType'
-    convertAssets_request:
-      properties:
-        srcAsset:
-          description: Name of the source asset (must be in a currency that is supported
-            for conversions in the selected exchange type that corresponds to your
-            exchange ID)
-          type: string
-        destAsset:
-          description: Name of the destination asset (must be in a currency that is
-            supported for conversions in the selected exchange type that corresponds
-            to your exchange ID)
-          type: string
-        amount:
-          description: The amount to transfer (in the currency of the source asset)
-          type: number
-      required:
-      - amount
-      - destAsset
-      - srcAsset
     redeemFundsToLinkedDDA_request:
       properties:
         amount:

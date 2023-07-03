@@ -108,7 +108,7 @@ public class XBSettlementConfigEditRequestBody {
   }
 
    /**
-   * Slippage configuarion in basis points, the default value is 10% 
+   * Slippage configuarion in basis points, the default value is 10%
    * minimum: 0
    * maximum: 10000
    * @return conversionSlippageBasisPoints
