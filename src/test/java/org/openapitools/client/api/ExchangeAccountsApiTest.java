@@ -14,11 +14,11 @@
 package org.openapitools.client.api;
 
 import org.openapitools.client.ApiException;
-import org.openapitools.client.model.ConvertAssetsRequest;
+import org.openapitools.client.model.ConvertExchangeAccountRequest;
+import org.openapitools.client.model.CreateInternalTransferRequest;
 import org.openapitools.client.model.Error;
 import org.openapitools.client.model.ExchangeAccount;
 import org.openapitools.client.model.ExchangeAsset;
-import org.openapitools.client.model.InternalTransferRequest;
 import org.junit.Test;
 import org.junit.Ignore;
 import org.junit.Assert;
@@ -49,8 +49,8 @@ public class ExchangeAccountsApiTest {
     @Test
     public void convertAssetsTest() throws ApiException {
         String exchangeAccountId = null;
-        ConvertAssetsRequest convertAssetsRequest = null;
-        api.convertAssets(exchangeAccountId, convertAssetsRequest);
+        ConvertExchangeAccountRequest convertExchangeAccountRequest = null;
+        api.convertAssets(exchangeAccountId, convertExchangeAccountRequest);
 
         // TODO: test validations
     }
@@ -100,7 +100,7 @@ public class ExchangeAccountsApiTest {
         // TODO: test validations
     }
     /**
-     * Internal tranfer for exchange accounts
+     * Internal transfer for exchange accounts
      *
      * Transfers funds between trading accounts under the same exchange account.
      *
@@ -110,8 +110,8 @@ public class ExchangeAccountsApiTest {
     @Test
     public void internalTransferTest() throws ApiException {
         String exchangeAccountId = null;
-        InternalTransferRequest internalTransferRequest = null;
-        api.internalTransfer(exchangeAccountId, internalTransferRequest);
+        CreateInternalTransferRequest createInternalTransferRequest = null;
+        api.internalTransfer(exchangeAccountId, createInternalTransferRequest);
 
         // TODO: test validations
     }

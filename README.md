@@ -11,7 +11,7 @@ To use the Fireblocks SDK, follow these steps:
 Install the SDK using npm:
 
 ```shell
-npm install fireblocks-sdk
+npm install fireblocks-api-client-java
 ```
 
 ## Usage

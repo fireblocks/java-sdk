@@ -35,7 +35,6 @@ import java.util.StringJoiner;
   CreateVaultAccountRequest.JSON_PROPERTY_CUSTOMER_REF_ID,
   CreateVaultAccountRequest.JSON_PROPERTY_AUTO_FUEL
 })
-@JsonTypeName("createVaultAccount_request")
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class CreateVaultAccountRequest {
   public static final String JSON_PROPERTY_NAME = "name";
