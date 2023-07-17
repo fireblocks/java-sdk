@@ -8,13 +8,13 @@ All URIs are relative to *https://api.fireblocks.io/v1*
 | [**getExchangeAccountAsset**](ExchangeAccountsApi.md#getExchangeAccountAsset) | **GET** /exchange_accounts/{exchangeAccountId}/{assetId} | Find an asset for an exchange account |
 | [**getExchangeAccountById**](ExchangeAccountsApi.md#getExchangeAccountById) | **GET** /exchange_accounts/{exchangeAccountId} | Find a specific exchange account |
 | [**getExchangeAccounts**](ExchangeAccountsApi.md#getExchangeAccounts) | **GET** /exchange_accounts | List exchange accounts |
-| [**internalTransfer**](ExchangeAccountsApi.md#internalTransfer) | **POST** /exchange_accounts/{exchangeAccountId}/internal_transfer | Internal tranfer for exchange accounts |
+| [**internalTransfer**](ExchangeAccountsApi.md#internalTransfer) | **POST** /exchange_accounts/{exchangeAccountId}/internal_transfer | Internal transfer for exchange accounts |
 
 
 
 ## convertAssets
 
-> convertAssets(exchangeAccountId, convertAssetsRequest)
+> convertAssets(exchangeAccountId, convertExchangeAccountRequest)
 
 Convert exchange account funds from the source asset to the destination asset. Coinbase (USD to USDC, USDC to USD) and Bitso (MXN to USD) are supported conversions.
 
@@ -37,9 +37,9 @@ public class Example {
 
         ExchangeAccountsApi apiInstance = new ExchangeAccountsApi(defaultClient);
         String exchangeAccountId = "exchangeAccountId_example"; // String | The ID of the exchange account. Please make sure the exchange supports conversions. To find the ID of your exchange account, use GET/exchange_accounts.
-        ConvertAssetsRequest convertAssetsRequest = new ConvertAssetsRequest(); // ConvertAssetsRequest | 
+        ConvertExchangeAccountRequest convertExchangeAccountRequest = new ConvertExchangeAccountRequest(); // ConvertExchangeAccountRequest | 
         try {
-            apiInstance.convertAssets(exchangeAccountId, convertAssetsRequest);
+            apiInstance.convertAssets(exchangeAccountId, convertExchangeAccountRequest);
         } catch (ApiException e) {
             System.err.println("Exception when calling ExchangeAccountsApi#convertAssets");
             System.err.println("Status code: " + e.getCode());
@@ -57,7 +57,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **exchangeAccountId** | **String**| The ID of the exchange account. Please make sure the exchange supports conversions. To find the ID of your exchange account, use GET/exchange_accounts. | |
-| **convertAssetsRequest** | [**ConvertAssetsRequest**](ConvertAssetsRequest.md)|  | [optional] |
+| **convertExchangeAccountRequest** | [**ConvertExchangeAccountRequest**](ConvertExchangeAccountRequest.md)|  | [optional] |
 
 ### Return type
 
@@ -281,9 +281,9 @@ No authorization required
 
 ## internalTransfer
 
-> internalTransfer(exchangeAccountId, internalTransferRequest)
+> internalTransfer(exchangeAccountId, createInternalTransferRequest)
 
-Internal tranfer for exchange accounts
+Internal transfer for exchange accounts
 
 Transfers funds between trading accounts under the same exchange account.
 
@@ -304,9 +304,9 @@ public class Example {
 
         ExchangeAccountsApi apiInstance = new ExchangeAccountsApi(defaultClient);
         String exchangeAccountId = "exchangeAccountId_example"; // String | The ID of the exchange account to return
-        InternalTransferRequest internalTransferRequest = new InternalTransferRequest(); // InternalTransferRequest | 
+        CreateInternalTransferRequest createInternalTransferRequest = new CreateInternalTransferRequest(); // CreateInternalTransferRequest | 
         try {
-            apiInstance.internalTransfer(exchangeAccountId, internalTransferRequest);
+            apiInstance.internalTransfer(exchangeAccountId, createInternalTransferRequest);
         } catch (ApiException e) {
             System.err.println("Exception when calling ExchangeAccountsApi#internalTransfer");
             System.err.println("Status code: " + e.getCode());
@@ -324,7 +324,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **exchangeAccountId** | **String**| The ID of the exchange account to return | |
-| **internalTransferRequest** | [**InternalTransferRequest**](InternalTransferRequest.md)|  | [optional] |
+| **createInternalTransferRequest** | [**CreateInternalTransferRequest**](CreateInternalTransferRequest.md)|  | [optional] |
 
 ### Return type
 

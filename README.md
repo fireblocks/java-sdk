@@ -2,17 +2,66 @@
 
 The Fireblocks SDK allows developers to integrate with the Fireblocks platform and perform various operations, such as managing vault accounts and executing transactions.
 
-For detailed documentation and additional resources, please refer to the [Fireblocks Developer Portal](https://developer.fireblocks.com/).
+For detailed documentation and additional resources, please refer to the [Fireblocks Developer Portal](https://developers.fireblocks.com/).
+
+Building the API client library requires:
+
+1. Java 1.8+
+2. Maven/Gradle
 
 ## Installation
 
-To use the Fireblocks SDK, follow these steps:
-
-Install the SDK using npm:
+To install the API client library to your local Maven repository, simply execute:
 
 ```shell
-npm install fireblocks-sdk
+mvn clean install
 ```
+
+To deploy it to a remote Maven repository instead, configure the settings of the repository and execute:
+
+```shell
+mvn clean deploy
+```
+
+Refer to the [OSSRH Guide](http://central.sonatype.org/pages/ossrh-guide.html) for more information.
+
+### Maven users
+
+Add this dependency to your project's POM:
+
+```xml
+<dependency>
+    <groupId>com.fireblocks</groupId>
+    <artifactId>fireblocks-api-client</artifactId>
+    <version>2.10.0</version>
+    <scope>compile</scope>
+</dependency>
+```
+
+See the [Releases page](https://github.com/fireblocks/fireblocks-api-client-java/releases) for the latest available version.
+
+### Gradle users
+
+Add this dependency to your project's build file:
+
+```groovy
+compile "com.fireblocks:fireblocks-api-client:2.0.0"
+```
+
+See the [Releases page](https://github.com/fireblocks/fireblocks-api-client-java/releases) for the latest available version.
+
+### Others
+
+At first generate the JAR by executing:
+
+```shell
+mvn clean package
+```
+
+Then manually install the following JARs:
+
+- `target/fireblocks-api-client-<VERSION>.jar`
+    - `target/lib/*.jar`
 
 ## Usage
 
