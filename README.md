@@ -1,5 +1,6 @@
 # Fireblocks Java SDK (Beta)
-[![Maven version](https://badge.fury.io/java/fireblocks.svg)](https://badge.fury.io/java/fireblocks)
+
+[//]: # ([![Maven version]&#40;https://badge.fury.io/java/fireblocks.svg&#41;]&#40;https://badge.fury.io/java/fireblocks&#41;)
 > **Warning**
 > This package is currently in a beta stage and should be used at your own risk.
 > The provided interfaces might go through backwards-incompatibale changes.
