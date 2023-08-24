@@ -3,7 +3,7 @@
 > **Warning**
 > This package is currently in a beta stage and should be used at your own risk.
 > The provided interfaces might go through backwards-incompatibale changes.
-> For a more stable SDK, please use the [Fireblocks Javascript/Typescript SDK](https://github.com/fireblocks/fireblocks-sdk-js)
+
 
 For detailed API documentation please refer to the [Fireblocks API Reference](https://developers.fireblocks.com/reference/).
 
