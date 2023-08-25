@@ -98,6 +98,7 @@ public class Main {
         /** Create Vault Account **/
         CreateVaultAccountRequest createVaultAccountRequest = new CreateVaultAccountRequest();
         createVaultAccountRequest.name("My New Vault Account");
+        VaultAccount createVaultAccountResponse = vaultApi.createVaultAccount(createVaultAccountRequest);
     }
 
     public static String getKey() throws Exception {
