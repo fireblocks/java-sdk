@@ -1,0 +1,28 @@
+name: Java CI with Maven
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up JDK
+      uses: actions/setup-java@v2
+      with:
+        java-version: '8'  # Change to your desired Java version
+
+    - name: Build and deploy
+      env:
+        MAVEN_SETTINGS: ${{ secrets.MAVEN_SETTINGS }}  # Reference your Maven settings.xml secret
+      run: |
+        # Configure Maven settings
+        echo "$MAVEN_SETTINGS" > settings.xml
+
+        # Build and deploy your project
+        ./mvnw clean deploy --settings settings.xml

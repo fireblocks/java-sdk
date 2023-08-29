@@ -1,0 +1,23 @@
+
+
+# PolicyStatus
+
+## Enum
+
+
+* `SUCCESS` (value: `"SUCCESS"`)
+
+* `UNVALIDATED` (value: `"UNVALIDATED"`)
+
+* `INVALID_CONFIGURATION` (value: `"INVALID_CONFIGURATION"`)
+
+* `PENDING` (value: `"PENDING"`)
+
+* `PENDING_CONSOLE_APPROVAL` (value: `"PENDING_CONSOLE_APPROVAL"`)
+
+* `AWAITING_QUORUM` (value: `"AWAITING_QUORUM"`)
+
+* `UNHANDLED_ERROR` (value: `"UNHANDLED_ERROR"`)
+
+
+
