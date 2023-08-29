@@ -12,7 +12,13 @@
         This SDK empowers developers to build robust applications that can interact with the Fireblocks platform's features, including creating and managing vault accounts, initiating secure transactions, managing assets, and more. It abstracts complex interactions with the Fireblocks API, making it easier for developers to leverage the platform's capabilities while adhering to best practices in security and efficiency.
 
         Whether you're working on a cryptocurrency exchange, wallet application, or any other financial platform involving digital assets, the Fireblocks Official SDK simplifies the integration process and allows you to harness the power of Fireblocks' secure infrastructure. Stay ahead in the world of digital assets with this powerful SDK at your fingertips.</description>
-
+         
+    <distributionManagement>
+        <repository>
+            <id>sonatype-nexus-staging</id>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
+    </distributionManagement>
 
     <licenses>
         <license>
