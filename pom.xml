@@ -13,12 +13,13 @@
 
         Whether you're working on a cryptocurrency exchange, wallet application, or any other financial platform involving digital assets, the Fireblocks Official SDK simplifies the integration process and allows you to harness the power of Fireblocks' secure infrastructure. Stay ahead in the world of digital assets with this powerful SDK at your fingertips.</description>
          
-    <distributionManagement>
-        <repository>
-            <id>sonatype-nexus-staging</id>
-            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-        </repository>
-    </distributionManagement>
+ <distributionManagement>
+    <repository>
+      <id>github</id>
+      <name>GitHub Packages</name>
+      <url>https://maven.pkg.github.com/fireblocks/java-sdk</url>
+    </repository>
+  </distributionManagement>
 
     <licenses>
         <license>
