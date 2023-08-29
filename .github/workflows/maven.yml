@@ -5,24 +5,18 @@ on:
     types: [published]
 
 jobs:
-  build:
+  publish:
     runs-on: ubuntu-latest
-
+    permissions:
+      contents: read
+      packages: write
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
-
-    - name: Set up JDK
-      uses: actions/setup-java@v2
-      with:
-        java-version: '8'  # Change to your desired Java version
-
-    - name: Build and deploy
-      env:
-        MAVEN_SETTINGS: ${{ secrets.MAVEN_SETTINGS }}  # Reference your Maven settings.xml secret
-      run: |
-        # Configure Maven settings
-        echo "$MAVEN_SETTINGS" > settings.xml
-
-        # Build and deploy your project
-        ./mvnw clean deploy --settings settings.xml
+      - uses: actions/checkout@v3
+      - uses: actions/setup-java@v3
+        with:
+          java-version: '11'
+          distribution: 'temurin'
+      - name: Publish package
+        run: mvn --batch-mode deploy
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
