@@ -4,10 +4,12 @@ import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.Configuration;
+import com.fireblocks.sdk.model.Ncw;
+import com.fireblocks.sdk.model.RequestOptions;
 import com.fireblocks.sdk.Pair;
-
+import java.util.Optional;
 import javax.ws.rs.core.GenericType;
-
+import java.util.UUID;
 import com.fireblocks.sdk.model.ConvertAssetsRequest;
 import com.fireblocks.sdk.model.CreateInternalTransferRequest;
 import com.fireblocks.sdk.model.Error;
@@ -45,8 +47,12 @@ public class ExchangeAccountsApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
+  public void convertAssets(String exchangeAccountId, ConvertAssetsRequest convertAssetsRequest,  RequestOptions requestOptions) throws ApiException {
+    convertAssetsWithHttpInfo(exchangeAccountId,convertAssetsRequest, requestOptions);
+  }
+
   public void convertAssets(String exchangeAccountId, ConvertAssetsRequest convertAssetsRequest) throws ApiException {
-    convertAssetsWithHttpInfo(exchangeAccountId, convertAssetsRequest);
+  convertAssetsWithHttpInfo(exchangeAccountId,convertAssetsRequest, null);
   }
 
   /**
@@ -63,7 +69,7 @@ public class ExchangeAccountsApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
-  public ApiResponse<Void> convertAssetsWithHttpInfo(String exchangeAccountId, ConvertAssetsRequest convertAssetsRequest) throws ApiException {
+  public ApiResponse<Void> convertAssetsWithHttpInfo(String exchangeAccountId,ConvertAssetsRequest convertAssetsRequest, RequestOptions requestOptions) throws ApiException {
     // Check required parameters
     if (exchangeAccountId == null) {
       throw new ApiException(400, "Missing the required parameter 'exchangeAccountId' when calling convertAssets");
@@ -73,10 +79,18 @@ public class ExchangeAccountsApi {
     String localVarPath = "/exchange_accounts/{exchangeAccountId}/convert"
             .replaceAll("\\{exchangeAccountId}", apiClient.escapeString(exchangeAccountId));
 
+    Map<String, String> localVarHeaderParams = new LinkedHashMap<>();
+    Object _body = convertAssetsRequest;
+    // Extract and set Idempotency-Key header
+    Optional.ofNullable(requestOptions.getIdempotencyKey()).map(Object::toString).ifPresent(idempotencyKey -> localVarHeaderParams.put("Idempotency-Key", idempotencyKey));
+
+    // Extract and set X-End-User-Wallet-Id header
+    Optional.ofNullable(requestOptions.getNcw()).map(ncw -> ncw.getWalletId()).map(Object::toString).ifPresent(ncwWalletId -> localVarHeaderParams.put("X-End-User-Wallet-Id", ncwWalletId));
+
     String localVarAccept = apiClient.selectHeaderAccept("application/json");
     String localVarContentType = apiClient.selectHeaderContentType("application/json");
     return apiClient.invokeAPI("ExchangeAccountsApi.convertAssets", localVarPath, "POST", new ArrayList<>(), convertAssetsRequest,
-                               new LinkedHashMap<>(), new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
+                                localVarHeaderParams, new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
                                null, null, false);
   }
   /**
@@ -93,8 +107,12 @@ public class ExchangeAccountsApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
+  public ExchangeAsset getExchangeAccountAsset(String exchangeAccountId, String assetId,  RequestOptions requestOptions) throws ApiException {
+     return getExchangeAccountAssetWithHttpInfo(exchangeAccountId,assetId, requestOptions).getData();
+  }
+
   public ExchangeAsset getExchangeAccountAsset(String exchangeAccountId, String assetId) throws ApiException {
-    return getExchangeAccountAssetWithHttpInfo(exchangeAccountId, assetId).getData();
+   return getExchangeAccountAssetWithHttpInfo(exchangeAccountId,assetId, null).getData();
   }
 
   /**
@@ -111,7 +129,7 @@ public class ExchangeAccountsApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
-  public ApiResponse<ExchangeAsset> getExchangeAccountAssetWithHttpInfo(String exchangeAccountId, String assetId) throws ApiException {
+  public ApiResponse<ExchangeAsset> getExchangeAccountAssetWithHttpInfo(String exchangeAccountId,String assetId, RequestOptions requestOptions) throws ApiException {
     // Check required parameters
     if (exchangeAccountId == null) {
       throw new ApiException(400, "Missing the required parameter 'exchangeAccountId' when calling getExchangeAccountAsset");
@@ -125,11 +143,18 @@ public class ExchangeAccountsApi {
             .replaceAll("\\{exchangeAccountId}", apiClient.escapeString(exchangeAccountId))
             .replaceAll("\\{assetId}", apiClient.escapeString(assetId));
 
+    Map<String, String> localVarHeaderParams = new LinkedHashMap<>();
+    // Extract and set Idempotency-Key header
+    Optional.ofNullable(requestOptions.getIdempotencyKey()).map(Object::toString).ifPresent(idempotencyKey -> localVarHeaderParams.put("Idempotency-Key", idempotencyKey));
+
+    // Extract and set X-End-User-Wallet-Id header
+    Optional.ofNullable(requestOptions.getNcw()).map(ncw -> ncw.getWalletId()).map(Object::toString).ifPresent(ncwWalletId -> localVarHeaderParams.put("X-End-User-Wallet-Id", ncwWalletId));
+
     String localVarAccept = apiClient.selectHeaderAccept("*/*", "application/json");
     String localVarContentType = apiClient.selectHeaderContentType();
     GenericType<ExchangeAsset> localVarReturnType = new GenericType<ExchangeAsset>() {};
     return apiClient.invokeAPI("ExchangeAccountsApi.getExchangeAccountAsset", localVarPath, "GET", new ArrayList<>(), null,
-                               new LinkedHashMap<>(), new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
+                                localVarHeaderParams, new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
                                null, localVarReturnType, false);
   }
   /**
@@ -145,8 +170,12 @@ public class ExchangeAccountsApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
+  public ExchangeAccount getExchangeAccountById(String exchangeAccountId,  RequestOptions requestOptions) throws ApiException {
+     return getExchangeAccountByIdWithHttpInfo(exchangeAccountId, requestOptions).getData();
+  }
+
   public ExchangeAccount getExchangeAccountById(String exchangeAccountId) throws ApiException {
-    return getExchangeAccountByIdWithHttpInfo(exchangeAccountId).getData();
+   return getExchangeAccountByIdWithHttpInfo(exchangeAccountId, null).getData();
   }
 
   /**
@@ -162,7 +191,7 @@ public class ExchangeAccountsApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
-  public ApiResponse<ExchangeAccount> getExchangeAccountByIdWithHttpInfo(String exchangeAccountId) throws ApiException {
+  public ApiResponse<ExchangeAccount> getExchangeAccountByIdWithHttpInfo(String exchangeAccountId, RequestOptions requestOptions) throws ApiException {
     // Check required parameters
     if (exchangeAccountId == null) {
       throw new ApiException(400, "Missing the required parameter 'exchangeAccountId' when calling getExchangeAccountById");
@@ -172,11 +201,18 @@ public class ExchangeAccountsApi {
     String localVarPath = "/exchange_accounts/{exchangeAccountId}"
             .replaceAll("\\{exchangeAccountId}", apiClient.escapeString(exchangeAccountId));
 
+    Map<String, String> localVarHeaderParams = new LinkedHashMap<>();
+    // Extract and set Idempotency-Key header
+    Optional.ofNullable(requestOptions.getIdempotencyKey()).map(Object::toString).ifPresent(idempotencyKey -> localVarHeaderParams.put("Idempotency-Key", idempotencyKey));
+
+    // Extract and set X-End-User-Wallet-Id header
+    Optional.ofNullable(requestOptions.getNcw()).map(ncw -> ncw.getWalletId()).map(Object::toString).ifPresent(ncwWalletId -> localVarHeaderParams.put("X-End-User-Wallet-Id", ncwWalletId));
+
     String localVarAccept = apiClient.selectHeaderAccept("*/*", "application/json");
     String localVarContentType = apiClient.selectHeaderContentType();
     GenericType<ExchangeAccount> localVarReturnType = new GenericType<ExchangeAccount>() {};
     return apiClient.invokeAPI("ExchangeAccountsApi.getExchangeAccountById", localVarPath, "GET", new ArrayList<>(), null,
-                               new LinkedHashMap<>(), new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
+                                localVarHeaderParams, new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
                                null, localVarReturnType, false);
   }
   /**
@@ -191,8 +227,12 @@ public class ExchangeAccountsApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
+  public List<ExchangeAccount> getExchangeAccounts( RequestOptions requestOptions) throws ApiException {
+     return getExchangeAccountsWithHttpInfo( requestOptions).getData();
+  }
+
   public List<ExchangeAccount> getExchangeAccounts() throws ApiException {
-    return getExchangeAccountsWithHttpInfo().getData();
+   return getExchangeAccountsWithHttpInfo( null).getData();
   }
 
   /**
@@ -207,12 +247,19 @@ public class ExchangeAccountsApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
-  public ApiResponse<List<ExchangeAccount>> getExchangeAccountsWithHttpInfo() throws ApiException {
+  public ApiResponse<List<ExchangeAccount>> getExchangeAccountsWithHttpInfo( RequestOptions requestOptions) throws ApiException {
+    Map<String, String> localVarHeaderParams = new LinkedHashMap<>();
+    // Extract and set Idempotency-Key header
+    Optional.ofNullable(requestOptions.getIdempotencyKey()).map(Object::toString).ifPresent(idempotencyKey -> localVarHeaderParams.put("Idempotency-Key", idempotencyKey));
+
+    // Extract and set X-End-User-Wallet-Id header
+    Optional.ofNullable(requestOptions.getNcw()).map(ncw -> ncw.getWalletId()).map(Object::toString).ifPresent(ncwWalletId -> localVarHeaderParams.put("X-End-User-Wallet-Id", ncwWalletId));
+
     String localVarAccept = apiClient.selectHeaderAccept("*/*", "application/json");
     String localVarContentType = apiClient.selectHeaderContentType();
     GenericType<List<ExchangeAccount>> localVarReturnType = new GenericType<List<ExchangeAccount>>() {};
     return apiClient.invokeAPI("ExchangeAccountsApi.getExchangeAccounts", "/exchange_accounts", "GET", new ArrayList<>(), null,
-                               new LinkedHashMap<>(), new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
+                                localVarHeaderParams, new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
                                null, localVarReturnType, false);
   }
   /**
@@ -228,8 +275,12 @@ public class ExchangeAccountsApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
+  public void internalTransfer(String exchangeAccountId, CreateInternalTransferRequest createInternalTransferRequest,  RequestOptions requestOptions) throws ApiException {
+    internalTransferWithHttpInfo(exchangeAccountId,createInternalTransferRequest, requestOptions);
+  }
+
   public void internalTransfer(String exchangeAccountId, CreateInternalTransferRequest createInternalTransferRequest) throws ApiException {
-    internalTransferWithHttpInfo(exchangeAccountId, createInternalTransferRequest);
+  internalTransferWithHttpInfo(exchangeAccountId,createInternalTransferRequest, null);
   }
 
   /**
@@ -246,7 +297,7 @@ public class ExchangeAccountsApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
-  public ApiResponse<Void> internalTransferWithHttpInfo(String exchangeAccountId, CreateInternalTransferRequest createInternalTransferRequest) throws ApiException {
+  public ApiResponse<Void> internalTransferWithHttpInfo(String exchangeAccountId,CreateInternalTransferRequest createInternalTransferRequest, RequestOptions requestOptions) throws ApiException {
     // Check required parameters
     if (exchangeAccountId == null) {
       throw new ApiException(400, "Missing the required parameter 'exchangeAccountId' when calling internalTransfer");
@@ -256,10 +307,18 @@ public class ExchangeAccountsApi {
     String localVarPath = "/exchange_accounts/{exchangeAccountId}/internal_transfer"
             .replaceAll("\\{exchangeAccountId}", apiClient.escapeString(exchangeAccountId));
 
+    Map<String, String> localVarHeaderParams = new LinkedHashMap<>();
+    Object _body = createInternalTransferRequest;
+    // Extract and set Idempotency-Key header
+    Optional.ofNullable(requestOptions.getIdempotencyKey()).map(Object::toString).ifPresent(idempotencyKey -> localVarHeaderParams.put("Idempotency-Key", idempotencyKey));
+
+    // Extract and set X-End-User-Wallet-Id header
+    Optional.ofNullable(requestOptions.getNcw()).map(ncw -> ncw.getWalletId()).map(Object::toString).ifPresent(ncwWalletId -> localVarHeaderParams.put("X-End-User-Wallet-Id", ncwWalletId));
+
     String localVarAccept = apiClient.selectHeaderAccept("application/json");
     String localVarContentType = apiClient.selectHeaderContentType("application/json");
     return apiClient.invokeAPI("ExchangeAccountsApi.internalTransfer", localVarPath, "POST", new ArrayList<>(), createInternalTransferRequest,
-                               new LinkedHashMap<>(), new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
+                                localVarHeaderParams, new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
                                null, null, false);
   }
 }

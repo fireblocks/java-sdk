@@ -4,10 +4,12 @@ import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.Configuration;
+import com.fireblocks.sdk.model.Ncw;
+import com.fireblocks.sdk.model.RequestOptions;
 import com.fireblocks.sdk.Pair;
-
+import java.util.Optional;
 import javax.ws.rs.core.GenericType;
-
+import java.util.UUID;
 import java.math.BigDecimal;
 import com.fireblocks.sdk.model.CreateAddressResponse;
 import com.fireblocks.sdk.model.CreateVaultAccountAssetAddressRequest;
@@ -59,8 +61,12 @@ public class VaultsApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
+  public CreateVaultAssetResponse activateAssetForVaultAccount(String vaultAccountId, String assetId,  RequestOptions requestOptions) throws ApiException {
+     return activateAssetForVaultAccountWithHttpInfo(vaultAccountId,assetId, requestOptions).getData();
+  }
+
   public CreateVaultAssetResponse activateAssetForVaultAccount(String vaultAccountId, String assetId) throws ApiException {
-    return activateAssetForVaultAccountWithHttpInfo(vaultAccountId, assetId).getData();
+   return activateAssetForVaultAccountWithHttpInfo(vaultAccountId,assetId, null).getData();
   }
 
   /**
@@ -77,7 +83,7 @@ public class VaultsApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
-  public ApiResponse<CreateVaultAssetResponse> activateAssetForVaultAccountWithHttpInfo(String vaultAccountId, String assetId) throws ApiException {
+  public ApiResponse<CreateVaultAssetResponse> activateAssetForVaultAccountWithHttpInfo(String vaultAccountId,String assetId, RequestOptions requestOptions) throws ApiException {
     // Check required parameters
     if (vaultAccountId == null) {
       throw new ApiException(400, "Missing the required parameter 'vaultAccountId' when calling activateAssetForVaultAccount");
@@ -91,11 +97,18 @@ public class VaultsApi {
             .replaceAll("\\{vaultAccountId}", apiClient.escapeString(vaultAccountId))
             .replaceAll("\\{assetId}", apiClient.escapeString(assetId));
 
+    Map<String, String> localVarHeaderParams = new LinkedHashMap<>();
+    // Extract and set Idempotency-Key header
+    Optional.ofNullable(requestOptions.getIdempotencyKey()).map(Object::toString).ifPresent(idempotencyKey -> localVarHeaderParams.put("Idempotency-Key", idempotencyKey));
+
+    // Extract and set X-End-User-Wallet-Id header
+    Optional.ofNullable(requestOptions.getNcw()).map(ncw -> ncw.getWalletId()).map(Object::toString).ifPresent(ncwWalletId -> localVarHeaderParams.put("X-End-User-Wallet-Id", ncwWalletId));
+
     String localVarAccept = apiClient.selectHeaderAccept("*/*", "application/json");
     String localVarContentType = apiClient.selectHeaderContentType();
     GenericType<CreateVaultAssetResponse> localVarReturnType = new GenericType<CreateVaultAssetResponse>() {};
     return apiClient.invokeAPI("VaultsApi.activateAssetForVaultAccount", localVarPath, "POST", new ArrayList<>(), null,
-                               new LinkedHashMap<>(), new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
+                                localVarHeaderParams, new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
                                null, localVarReturnType, false);
   }
   /**
@@ -113,8 +126,12 @@ public class VaultsApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
+  public CreateAddressResponse createLegacyAddressForVaultAccountAsset(String vaultAccountId, String assetId, String addressId,  RequestOptions requestOptions) throws ApiException {
+     return createLegacyAddressForVaultAccountAssetWithHttpInfo(vaultAccountId,assetId,addressId, requestOptions).getData();
+  }
+
   public CreateAddressResponse createLegacyAddressForVaultAccountAsset(String vaultAccountId, String assetId, String addressId) throws ApiException {
-    return createLegacyAddressForVaultAccountAssetWithHttpInfo(vaultAccountId, assetId, addressId).getData();
+   return createLegacyAddressForVaultAccountAssetWithHttpInfo(vaultAccountId,assetId,addressId, null).getData();
   }
 
   /**
@@ -132,7 +149,7 @@ public class VaultsApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
-  public ApiResponse<CreateAddressResponse> createLegacyAddressForVaultAccountAssetWithHttpInfo(String vaultAccountId, String assetId, String addressId) throws ApiException {
+  public ApiResponse<CreateAddressResponse> createLegacyAddressForVaultAccountAssetWithHttpInfo(String vaultAccountId,String assetId,String addressId, RequestOptions requestOptions) throws ApiException {
     // Check required parameters
     if (vaultAccountId == null) {
       throw new ApiException(400, "Missing the required parameter 'vaultAccountId' when calling createLegacyAddressForVaultAccountAsset");
@@ -150,11 +167,18 @@ public class VaultsApi {
             .replaceAll("\\{assetId}", apiClient.escapeString(assetId))
             .replaceAll("\\{addressId}", apiClient.escapeString(addressId));
 
+    Map<String, String> localVarHeaderParams = new LinkedHashMap<>();
+    // Extract and set Idempotency-Key header
+    Optional.ofNullable(requestOptions.getIdempotencyKey()).map(Object::toString).ifPresent(idempotencyKey -> localVarHeaderParams.put("Idempotency-Key", idempotencyKey));
+
+    // Extract and set X-End-User-Wallet-Id header
+    Optional.ofNullable(requestOptions.getNcw()).map(ncw -> ncw.getWalletId()).map(Object::toString).ifPresent(ncwWalletId -> localVarHeaderParams.put("X-End-User-Wallet-Id", ncwWalletId));
+
     String localVarAccept = apiClient.selectHeaderAccept("*/*", "application/json");
     String localVarContentType = apiClient.selectHeaderContentType();
     GenericType<CreateAddressResponse> localVarReturnType = new GenericType<CreateAddressResponse>() {};
     return apiClient.invokeAPI("VaultsApi.createLegacyAddressForVaultAccountAsset", localVarPath, "POST", new ArrayList<>(), null,
-                               new LinkedHashMap<>(), new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
+                                localVarHeaderParams, new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
                                null, localVarReturnType, false);
   }
   /**
@@ -170,8 +194,12 @@ public class VaultsApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
+  public VaultAccount createVaultAccount(CreateVaultAccountRequest createVaultAccountRequest,  RequestOptions requestOptions) throws ApiException {
+     return createVaultAccountWithHttpInfo(createVaultAccountRequest, requestOptions).getData();
+  }
+
   public VaultAccount createVaultAccount(CreateVaultAccountRequest createVaultAccountRequest) throws ApiException {
-    return createVaultAccountWithHttpInfo(createVaultAccountRequest).getData();
+   return createVaultAccountWithHttpInfo(createVaultAccountRequest, null).getData();
   }
 
   /**
@@ -187,17 +215,25 @@ public class VaultsApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
-  public ApiResponse<VaultAccount> createVaultAccountWithHttpInfo(CreateVaultAccountRequest createVaultAccountRequest) throws ApiException {
+  public ApiResponse<VaultAccount> createVaultAccountWithHttpInfo(CreateVaultAccountRequest createVaultAccountRequest, RequestOptions requestOptions) throws ApiException {
     // Check required parameters
     if (createVaultAccountRequest == null) {
       throw new ApiException(400, "Missing the required parameter 'createVaultAccountRequest' when calling createVaultAccount");
     }
 
+    Map<String, String> localVarHeaderParams = new LinkedHashMap<>();
+    Object _body = createVaultAccountRequest;
+    // Extract and set Idempotency-Key header
+    Optional.ofNullable(requestOptions.getIdempotencyKey()).map(Object::toString).ifPresent(idempotencyKey -> localVarHeaderParams.put("Idempotency-Key", idempotencyKey));
+
+    // Extract and set X-End-User-Wallet-Id header
+    Optional.ofNullable(requestOptions.getNcw()).map(ncw -> ncw.getWalletId()).map(Object::toString).ifPresent(ncwWalletId -> localVarHeaderParams.put("X-End-User-Wallet-Id", ncwWalletId));
+
     String localVarAccept = apiClient.selectHeaderAccept("*/*", "application/json");
     String localVarContentType = apiClient.selectHeaderContentType("application/json");
     GenericType<VaultAccount> localVarReturnType = new GenericType<VaultAccount>() {};
     return apiClient.invokeAPI("VaultsApi.createVaultAccount", "/vault/accounts", "POST", new ArrayList<>(), createVaultAccountRequest,
-                               new LinkedHashMap<>(), new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
+                                localVarHeaderParams, new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
                                null, localVarReturnType, false);
   }
   /**
@@ -215,8 +251,12 @@ public class VaultsApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
+  public CreateVaultAssetResponse createVaultAccountAsset(String vaultAccountId, String assetId, CreateVaultAccountAssetRequest createVaultAccountAssetRequest,  RequestOptions requestOptions) throws ApiException {
+     return createVaultAccountAssetWithHttpInfo(vaultAccountId,assetId,createVaultAccountAssetRequest, requestOptions).getData();
+  }
+
   public CreateVaultAssetResponse createVaultAccountAsset(String vaultAccountId, String assetId, CreateVaultAccountAssetRequest createVaultAccountAssetRequest) throws ApiException {
-    return createVaultAccountAssetWithHttpInfo(vaultAccountId, assetId, createVaultAccountAssetRequest).getData();
+   return createVaultAccountAssetWithHttpInfo(vaultAccountId,assetId,createVaultAccountAssetRequest, null).getData();
   }
 
   /**
@@ -234,7 +274,7 @@ public class VaultsApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
-  public ApiResponse<CreateVaultAssetResponse> createVaultAccountAssetWithHttpInfo(String vaultAccountId, String assetId, CreateVaultAccountAssetRequest createVaultAccountAssetRequest) throws ApiException {
+  public ApiResponse<CreateVaultAssetResponse> createVaultAccountAssetWithHttpInfo(String vaultAccountId,String assetId,CreateVaultAccountAssetRequest createVaultAccountAssetRequest, RequestOptions requestOptions) throws ApiException {
     // Check required parameters
     if (vaultAccountId == null) {
       throw new ApiException(400, "Missing the required parameter 'vaultAccountId' when calling createVaultAccountAsset");
@@ -248,11 +288,19 @@ public class VaultsApi {
             .replaceAll("\\{vaultAccountId}", apiClient.escapeString(vaultAccountId))
             .replaceAll("\\{assetId}", apiClient.escapeString(assetId));
 
+    Map<String, String> localVarHeaderParams = new LinkedHashMap<>();
+    Object _body = createVaultAccountAssetRequest;
+    // Extract and set Idempotency-Key header
+    Optional.ofNullable(requestOptions.getIdempotencyKey()).map(Object::toString).ifPresent(idempotencyKey -> localVarHeaderParams.put("Idempotency-Key", idempotencyKey));
+
+    // Extract and set X-End-User-Wallet-Id header
+    Optional.ofNullable(requestOptions.getNcw()).map(ncw -> ncw.getWalletId()).map(Object::toString).ifPresent(ncwWalletId -> localVarHeaderParams.put("X-End-User-Wallet-Id", ncwWalletId));
+
     String localVarAccept = apiClient.selectHeaderAccept("*/*", "application/json");
     String localVarContentType = apiClient.selectHeaderContentType("application/json");
     GenericType<CreateVaultAssetResponse> localVarReturnType = new GenericType<CreateVaultAssetResponse>() {};
     return apiClient.invokeAPI("VaultsApi.createVaultAccountAsset", localVarPath, "POST", new ArrayList<>(), createVaultAccountAssetRequest,
-                               new LinkedHashMap<>(), new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
+                                localVarHeaderParams, new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
                                null, localVarReturnType, false);
   }
   /**
@@ -270,8 +318,12 @@ public class VaultsApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
+  public CreateAddressResponse createVaultAccountAssetAddress(String vaultAccountId, String assetId, CreateVaultAccountAssetAddressRequest createVaultAccountAssetAddressRequest,  RequestOptions requestOptions) throws ApiException {
+     return createVaultAccountAssetAddressWithHttpInfo(vaultAccountId,assetId,createVaultAccountAssetAddressRequest, requestOptions).getData();
+  }
+
   public CreateAddressResponse createVaultAccountAssetAddress(String vaultAccountId, String assetId, CreateVaultAccountAssetAddressRequest createVaultAccountAssetAddressRequest) throws ApiException {
-    return createVaultAccountAssetAddressWithHttpInfo(vaultAccountId, assetId, createVaultAccountAssetAddressRequest).getData();
+   return createVaultAccountAssetAddressWithHttpInfo(vaultAccountId,assetId,createVaultAccountAssetAddressRequest, null).getData();
   }
 
   /**
@@ -289,7 +341,7 @@ public class VaultsApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
-  public ApiResponse<CreateAddressResponse> createVaultAccountAssetAddressWithHttpInfo(String vaultAccountId, String assetId, CreateVaultAccountAssetAddressRequest createVaultAccountAssetAddressRequest) throws ApiException {
+  public ApiResponse<CreateAddressResponse> createVaultAccountAssetAddressWithHttpInfo(String vaultAccountId,String assetId,CreateVaultAccountAssetAddressRequest createVaultAccountAssetAddressRequest, RequestOptions requestOptions) throws ApiException {
     // Check required parameters
     if (vaultAccountId == null) {
       throw new ApiException(400, "Missing the required parameter 'vaultAccountId' when calling createVaultAccountAssetAddress");
@@ -303,11 +355,19 @@ public class VaultsApi {
             .replaceAll("\\{vaultAccountId}", apiClient.escapeString(vaultAccountId))
             .replaceAll("\\{assetId}", apiClient.escapeString(assetId));
 
+    Map<String, String> localVarHeaderParams = new LinkedHashMap<>();
+    Object _body = createVaultAccountAssetAddressRequest;
+    // Extract and set Idempotency-Key header
+    Optional.ofNullable(requestOptions.getIdempotencyKey()).map(Object::toString).ifPresent(idempotencyKey -> localVarHeaderParams.put("Idempotency-Key", idempotencyKey));
+
+    // Extract and set X-End-User-Wallet-Id header
+    Optional.ofNullable(requestOptions.getNcw()).map(ncw -> ncw.getWalletId()).map(Object::toString).ifPresent(ncwWalletId -> localVarHeaderParams.put("X-End-User-Wallet-Id", ncwWalletId));
+
     String localVarAccept = apiClient.selectHeaderAccept("*/*", "application/json");
     String localVarContentType = apiClient.selectHeaderContentType("application/json");
     GenericType<CreateAddressResponse> localVarReturnType = new GenericType<CreateAddressResponse>() {};
     return apiClient.invokeAPI("VaultsApi.createVaultAccountAssetAddress", localVarPath, "POST", new ArrayList<>(), createVaultAccountAssetAddressRequest,
-                               new LinkedHashMap<>(), new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
+                                localVarHeaderParams, new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
                                null, localVarReturnType, false);
   }
   /**
@@ -326,8 +386,12 @@ public class VaultsApi {
        <tr><td> 200 </td><td> A PaginatedAssetWalletResponse object </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
+  public PaginatedAssetWalletResponse getAssetWallets(BigDecimal totalAmountLargerThan, String assetId, String before, String after, BigDecimal limit,  RequestOptions requestOptions) throws ApiException {
+     return getAssetWalletsWithHttpInfo(totalAmountLargerThan,assetId,before,after,limit, requestOptions).getData();
+  }
+
   public PaginatedAssetWalletResponse getAssetWallets(BigDecimal totalAmountLargerThan, String assetId, String before, String after, BigDecimal limit) throws ApiException {
-    return getAssetWalletsWithHttpInfo(totalAmountLargerThan, assetId, before, after, limit).getData();
+   return getAssetWalletsWithHttpInfo(totalAmountLargerThan,assetId,before,after,limit, null).getData();
   }
 
   /**
@@ -346,7 +410,7 @@ public class VaultsApi {
        <tr><td> 200 </td><td> A PaginatedAssetWalletResponse object </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
-  public ApiResponse<PaginatedAssetWalletResponse> getAssetWalletsWithHttpInfo(BigDecimal totalAmountLargerThan, String assetId, String before, String after, BigDecimal limit) throws ApiException {
+  public ApiResponse<PaginatedAssetWalletResponse> getAssetWalletsWithHttpInfo(BigDecimal totalAmountLargerThan,String assetId,String before,String after,BigDecimal limit, RequestOptions requestOptions) throws ApiException {
     // Query parameters
     List<Pair> localVarQueryParams = new ArrayList<>(
             apiClient.parameterToPairs("", "totalAmountLargerThan", totalAmountLargerThan)
@@ -356,11 +420,18 @@ public class VaultsApi {
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "after", after));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "limit", limit));
 
+    Map<String, String> localVarHeaderParams = new LinkedHashMap<>();
+    // Extract and set Idempotency-Key header
+    Optional.ofNullable(requestOptions.getIdempotencyKey()).map(Object::toString).ifPresent(idempotencyKey -> localVarHeaderParams.put("Idempotency-Key", idempotencyKey));
+
+    // Extract and set X-End-User-Wallet-Id header
+    Optional.ofNullable(requestOptions.getNcw()).map(ncw -> ncw.getWalletId()).map(Object::toString).ifPresent(ncwWalletId -> localVarHeaderParams.put("X-End-User-Wallet-Id", ncwWalletId));
+
     String localVarAccept = apiClient.selectHeaderAccept("*/*");
     String localVarContentType = apiClient.selectHeaderContentType();
     GenericType<PaginatedAssetWalletResponse> localVarReturnType = new GenericType<PaginatedAssetWalletResponse>() {};
     return apiClient.invokeAPI("VaultsApi.getAssetWallets", "/vault/asset_wallets", "GET", localVarQueryParams, null,
-                               new LinkedHashMap<>(), new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
+                                localVarHeaderParams, new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
                                null, localVarReturnType, false);
   }
   /**
@@ -377,8 +448,12 @@ public class VaultsApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
+  public void getMaxSpendableAmount(String vaultAccountId, String assetId, Boolean manualSignging,  RequestOptions requestOptions) throws ApiException {
+    getMaxSpendableAmountWithHttpInfo(vaultAccountId,assetId,manualSignging, requestOptions);
+  }
+
   public void getMaxSpendableAmount(String vaultAccountId, String assetId, Boolean manualSignging) throws ApiException {
-    getMaxSpendableAmountWithHttpInfo(vaultAccountId, assetId, manualSignging);
+  getMaxSpendableAmountWithHttpInfo(vaultAccountId,assetId,manualSignging, null);
   }
 
   /**
@@ -396,7 +471,7 @@ public class VaultsApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
-  public ApiResponse<Void> getMaxSpendableAmountWithHttpInfo(String vaultAccountId, String assetId, Boolean manualSignging) throws ApiException {
+  public ApiResponse<Void> getMaxSpendableAmountWithHttpInfo(String vaultAccountId,String assetId,Boolean manualSignging, RequestOptions requestOptions) throws ApiException {
     // Check required parameters
     if (vaultAccountId == null) {
       throw new ApiException(400, "Missing the required parameter 'vaultAccountId' when calling getMaxSpendableAmount");
@@ -415,10 +490,17 @@ public class VaultsApi {
             apiClient.parameterToPairs("", "manualSignging", manualSignging)
     );
 
+    Map<String, String> localVarHeaderParams = new LinkedHashMap<>();
+    // Extract and set Idempotency-Key header
+    Optional.ofNullable(requestOptions.getIdempotencyKey()).map(Object::toString).ifPresent(idempotencyKey -> localVarHeaderParams.put("Idempotency-Key", idempotencyKey));
+
+    // Extract and set X-End-User-Wallet-Id header
+    Optional.ofNullable(requestOptions.getNcw()).map(ncw -> ncw.getWalletId()).map(Object::toString).ifPresent(ncwWalletId -> localVarHeaderParams.put("X-End-User-Wallet-Id", ncwWalletId));
+
     String localVarAccept = apiClient.selectHeaderAccept("application/json");
     String localVarContentType = apiClient.selectHeaderContentType();
     return apiClient.invokeAPI("VaultsApi.getMaxSpendableAmount", localVarPath, "GET", localVarQueryParams, null,
-                               new LinkedHashMap<>(), new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
+                                localVarHeaderParams, new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
                                null, null, false);
   }
   /**
@@ -440,8 +522,12 @@ public class VaultsApi {
        <tr><td> 200 </td><td> A VaultAccountsPagedResponse object </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
+  public VaultAccountsPagedResponse getPagedVaultAccounts(String namePrefix, String nameSuffix, BigDecimal minAmountThreshold, String assetId, String orderBy, String before, String after, BigDecimal limit,  RequestOptions requestOptions) throws ApiException {
+     return getPagedVaultAccountsWithHttpInfo(namePrefix,nameSuffix,minAmountThreshold,assetId,orderBy,before,after,limit, requestOptions).getData();
+  }
+
   public VaultAccountsPagedResponse getPagedVaultAccounts(String namePrefix, String nameSuffix, BigDecimal minAmountThreshold, String assetId, String orderBy, String before, String after, BigDecimal limit) throws ApiException {
-    return getPagedVaultAccountsWithHttpInfo(namePrefix, nameSuffix, minAmountThreshold, assetId, orderBy, before, after, limit).getData();
+   return getPagedVaultAccountsWithHttpInfo(namePrefix,nameSuffix,minAmountThreshold,assetId,orderBy,before,after,limit, null).getData();
   }
 
   /**
@@ -463,7 +549,7 @@ public class VaultsApi {
        <tr><td> 200 </td><td> A VaultAccountsPagedResponse object </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
-  public ApiResponse<VaultAccountsPagedResponse> getPagedVaultAccountsWithHttpInfo(String namePrefix, String nameSuffix, BigDecimal minAmountThreshold, String assetId, String orderBy, String before, String after, BigDecimal limit) throws ApiException {
+  public ApiResponse<VaultAccountsPagedResponse> getPagedVaultAccountsWithHttpInfo(String namePrefix,String nameSuffix,BigDecimal minAmountThreshold,String assetId,String orderBy,String before,String after,BigDecimal limit, RequestOptions requestOptions) throws ApiException {
     // Query parameters
     List<Pair> localVarQueryParams = new ArrayList<>(
             apiClient.parameterToPairs("", "namePrefix", namePrefix)
@@ -476,11 +562,18 @@ public class VaultsApi {
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "after", after));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "limit", limit));
 
+    Map<String, String> localVarHeaderParams = new LinkedHashMap<>();
+    // Extract and set Idempotency-Key header
+    Optional.ofNullable(requestOptions.getIdempotencyKey()).map(Object::toString).ifPresent(idempotencyKey -> localVarHeaderParams.put("Idempotency-Key", idempotencyKey));
+
+    // Extract and set X-End-User-Wallet-Id header
+    Optional.ofNullable(requestOptions.getNcw()).map(ncw -> ncw.getWalletId()).map(Object::toString).ifPresent(ncwWalletId -> localVarHeaderParams.put("X-End-User-Wallet-Id", ncwWalletId));
+
     String localVarAccept = apiClient.selectHeaderAccept("*/*");
     String localVarContentType = apiClient.selectHeaderContentType();
     GenericType<VaultAccountsPagedResponse> localVarReturnType = new GenericType<VaultAccountsPagedResponse>() {};
     return apiClient.invokeAPI("VaultsApi.getPagedVaultAccounts", "/vault/accounts_paged", "GET", localVarQueryParams, null,
-                               new LinkedHashMap<>(), new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
+                                localVarHeaderParams, new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
                                null, localVarReturnType, false);
   }
   /**
@@ -498,8 +591,12 @@ public class VaultsApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
+  public PublicKeyInformation getPublicKeyInfo(String derivationPath, String algorithm, Boolean compressed,  RequestOptions requestOptions) throws ApiException {
+     return getPublicKeyInfoWithHttpInfo(derivationPath,algorithm,compressed, requestOptions).getData();
+  }
+
   public PublicKeyInformation getPublicKeyInfo(String derivationPath, String algorithm, Boolean compressed) throws ApiException {
-    return getPublicKeyInfoWithHttpInfo(derivationPath, algorithm, compressed).getData();
+   return getPublicKeyInfoWithHttpInfo(derivationPath,algorithm,compressed, null).getData();
   }
 
   /**
@@ -517,7 +614,7 @@ public class VaultsApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
-  public ApiResponse<PublicKeyInformation> getPublicKeyInfoWithHttpInfo(String derivationPath, String algorithm, Boolean compressed) throws ApiException {
+  public ApiResponse<PublicKeyInformation> getPublicKeyInfoWithHttpInfo(String derivationPath,String algorithm,Boolean compressed, RequestOptions requestOptions) throws ApiException {
     // Check required parameters
     if (derivationPath == null) {
       throw new ApiException(400, "Missing the required parameter 'derivationPath' when calling getPublicKeyInfo");
@@ -533,11 +630,18 @@ public class VaultsApi {
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "algorithm", algorithm));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "compressed", compressed));
 
+    Map<String, String> localVarHeaderParams = new LinkedHashMap<>();
+    // Extract and set Idempotency-Key header
+    Optional.ofNullable(requestOptions.getIdempotencyKey()).map(Object::toString).ifPresent(idempotencyKey -> localVarHeaderParams.put("Idempotency-Key", idempotencyKey));
+
+    // Extract and set X-End-User-Wallet-Id header
+    Optional.ofNullable(requestOptions.getNcw()).map(ncw -> ncw.getWalletId()).map(Object::toString).ifPresent(ncwWalletId -> localVarHeaderParams.put("X-End-User-Wallet-Id", ncwWalletId));
+
     String localVarAccept = apiClient.selectHeaderAccept("*/*", "application/json");
     String localVarContentType = apiClient.selectHeaderContentType();
     GenericType<PublicKeyInformation> localVarReturnType = new GenericType<PublicKeyInformation>() {};
     return apiClient.invokeAPI("VaultsApi.getPublicKeyInfo", "/vault/public_key_info/", "GET", localVarQueryParams, null,
-                               new LinkedHashMap<>(), new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
+                                localVarHeaderParams, new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
                                null, localVarReturnType, false);
   }
   /**
@@ -557,8 +661,12 @@ public class VaultsApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
+  public PublicKeyInformation getPublicKeyInfoForAddress(String vaultAccountId, String assetId, BigDecimal change, BigDecimal addressIndex, Boolean compressed,  RequestOptions requestOptions) throws ApiException {
+     return getPublicKeyInfoForAddressWithHttpInfo(vaultAccountId,assetId,change,addressIndex,compressed, requestOptions).getData();
+  }
+
   public PublicKeyInformation getPublicKeyInfoForAddress(String vaultAccountId, String assetId, BigDecimal change, BigDecimal addressIndex, Boolean compressed) throws ApiException {
-    return getPublicKeyInfoForAddressWithHttpInfo(vaultAccountId, assetId, change, addressIndex, compressed).getData();
+   return getPublicKeyInfoForAddressWithHttpInfo(vaultAccountId,assetId,change,addressIndex,compressed, null).getData();
   }
 
   /**
@@ -578,7 +686,7 @@ public class VaultsApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
-  public ApiResponse<PublicKeyInformation> getPublicKeyInfoForAddressWithHttpInfo(String vaultAccountId, String assetId, BigDecimal change, BigDecimal addressIndex, Boolean compressed) throws ApiException {
+  public ApiResponse<PublicKeyInformation> getPublicKeyInfoForAddressWithHttpInfo(String vaultAccountId,String assetId,BigDecimal change,BigDecimal addressIndex,Boolean compressed, RequestOptions requestOptions) throws ApiException {
     // Check required parameters
     if (vaultAccountId == null) {
       throw new ApiException(400, "Missing the required parameter 'vaultAccountId' when calling getPublicKeyInfoForAddress");
@@ -605,11 +713,18 @@ public class VaultsApi {
             apiClient.parameterToPairs("", "compressed", compressed)
     );
 
+    Map<String, String> localVarHeaderParams = new LinkedHashMap<>();
+    // Extract and set Idempotency-Key header
+    Optional.ofNullable(requestOptions.getIdempotencyKey()).map(Object::toString).ifPresent(idempotencyKey -> localVarHeaderParams.put("Idempotency-Key", idempotencyKey));
+
+    // Extract and set X-End-User-Wallet-Id header
+    Optional.ofNullable(requestOptions.getNcw()).map(ncw -> ncw.getWalletId()).map(Object::toString).ifPresent(ncwWalletId -> localVarHeaderParams.put("X-End-User-Wallet-Id", ncwWalletId));
+
     String localVarAccept = apiClient.selectHeaderAccept("*/*", "application/json");
     String localVarContentType = apiClient.selectHeaderContentType();
     GenericType<PublicKeyInformation> localVarReturnType = new GenericType<PublicKeyInformation>() {};
     return apiClient.invokeAPI("VaultsApi.getPublicKeyInfoForAddress", localVarPath, "GET", localVarQueryParams, null,
-                               new LinkedHashMap<>(), new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
+                                localVarHeaderParams, new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
                                null, localVarReturnType, false);
   }
   /**
@@ -626,8 +741,12 @@ public class VaultsApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
+  public VaultAsset getVaultAccountAsset(String vaultAccountId, String assetId,  RequestOptions requestOptions) throws ApiException {
+     return getVaultAccountAssetWithHttpInfo(vaultAccountId,assetId, requestOptions).getData();
+  }
+
   public VaultAsset getVaultAccountAsset(String vaultAccountId, String assetId) throws ApiException {
-    return getVaultAccountAssetWithHttpInfo(vaultAccountId, assetId).getData();
+   return getVaultAccountAssetWithHttpInfo(vaultAccountId,assetId, null).getData();
   }
 
   /**
@@ -644,7 +763,7 @@ public class VaultsApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
-  public ApiResponse<VaultAsset> getVaultAccountAssetWithHttpInfo(String vaultAccountId, String assetId) throws ApiException {
+  public ApiResponse<VaultAsset> getVaultAccountAssetWithHttpInfo(String vaultAccountId,String assetId, RequestOptions requestOptions) throws ApiException {
     // Check required parameters
     if (vaultAccountId == null) {
       throw new ApiException(400, "Missing the required parameter 'vaultAccountId' when calling getVaultAccountAsset");
@@ -658,11 +777,18 @@ public class VaultsApi {
             .replaceAll("\\{vaultAccountId}", apiClient.escapeString(vaultAccountId))
             .replaceAll("\\{assetId}", apiClient.escapeString(assetId));
 
+    Map<String, String> localVarHeaderParams = new LinkedHashMap<>();
+    // Extract and set Idempotency-Key header
+    Optional.ofNullable(requestOptions.getIdempotencyKey()).map(Object::toString).ifPresent(idempotencyKey -> localVarHeaderParams.put("Idempotency-Key", idempotencyKey));
+
+    // Extract and set X-End-User-Wallet-Id header
+    Optional.ofNullable(requestOptions.getNcw()).map(ncw -> ncw.getWalletId()).map(Object::toString).ifPresent(ncwWalletId -> localVarHeaderParams.put("X-End-User-Wallet-Id", ncwWalletId));
+
     String localVarAccept = apiClient.selectHeaderAccept("*/*", "application/json");
     String localVarContentType = apiClient.selectHeaderContentType();
     GenericType<VaultAsset> localVarReturnType = new GenericType<VaultAsset>() {};
     return apiClient.invokeAPI("VaultsApi.getVaultAccountAsset", localVarPath, "GET", new ArrayList<>(), null,
-                               new LinkedHashMap<>(), new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
+                                localVarHeaderParams, new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
                                null, localVarReturnType, false);
   }
   /**
@@ -679,8 +805,12 @@ public class VaultsApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
+  public List<VaultWalletAddress> getVaultAccountAssetAddresses(String vaultAccountId, String assetId,  RequestOptions requestOptions) throws ApiException {
+     return getVaultAccountAssetAddressesWithHttpInfo(vaultAccountId,assetId, requestOptions).getData();
+  }
+
   public List<VaultWalletAddress> getVaultAccountAssetAddresses(String vaultAccountId, String assetId) throws ApiException {
-    return getVaultAccountAssetAddressesWithHttpInfo(vaultAccountId, assetId).getData();
+   return getVaultAccountAssetAddressesWithHttpInfo(vaultAccountId,assetId, null).getData();
   }
 
   /**
@@ -697,7 +827,7 @@ public class VaultsApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
-  public ApiResponse<List<VaultWalletAddress>> getVaultAccountAssetAddressesWithHttpInfo(String vaultAccountId, String assetId) throws ApiException {
+  public ApiResponse<List<VaultWalletAddress>> getVaultAccountAssetAddressesWithHttpInfo(String vaultAccountId,String assetId, RequestOptions requestOptions) throws ApiException {
     // Check required parameters
     if (vaultAccountId == null) {
       throw new ApiException(400, "Missing the required parameter 'vaultAccountId' when calling getVaultAccountAssetAddresses");
@@ -711,11 +841,18 @@ public class VaultsApi {
             .replaceAll("\\{vaultAccountId}", apiClient.escapeString(vaultAccountId))
             .replaceAll("\\{assetId}", apiClient.escapeString(assetId));
 
+    Map<String, String> localVarHeaderParams = new LinkedHashMap<>();
+    // Extract and set Idempotency-Key header
+    Optional.ofNullable(requestOptions.getIdempotencyKey()).map(Object::toString).ifPresent(idempotencyKey -> localVarHeaderParams.put("Idempotency-Key", idempotencyKey));
+
+    // Extract and set X-End-User-Wallet-Id header
+    Optional.ofNullable(requestOptions.getNcw()).map(ncw -> ncw.getWalletId()).map(Object::toString).ifPresent(ncwWalletId -> localVarHeaderParams.put("X-End-User-Wallet-Id", ncwWalletId));
+
     String localVarAccept = apiClient.selectHeaderAccept("*/*", "application/json");
     String localVarContentType = apiClient.selectHeaderContentType();
     GenericType<List<VaultWalletAddress>> localVarReturnType = new GenericType<List<VaultWalletAddress>>() {};
     return apiClient.invokeAPI("VaultsApi.getVaultAccountAssetAddresses", localVarPath, "GET", new ArrayList<>(), null,
-                               new LinkedHashMap<>(), new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
+                                localVarHeaderParams, new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
                                null, localVarReturnType, false);
   }
   /**
@@ -732,8 +869,12 @@ public class VaultsApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
+  public List<UnspentInputsResponse> getVaultAccountAssetUnspentInputs(String vaultAccountId, String assetId,  RequestOptions requestOptions) throws ApiException {
+     return getVaultAccountAssetUnspentInputsWithHttpInfo(vaultAccountId,assetId, requestOptions).getData();
+  }
+
   public List<UnspentInputsResponse> getVaultAccountAssetUnspentInputs(String vaultAccountId, String assetId) throws ApiException {
-    return getVaultAccountAssetUnspentInputsWithHttpInfo(vaultAccountId, assetId).getData();
+   return getVaultAccountAssetUnspentInputsWithHttpInfo(vaultAccountId,assetId, null).getData();
   }
 
   /**
@@ -750,7 +891,7 @@ public class VaultsApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
-  public ApiResponse<List<UnspentInputsResponse>> getVaultAccountAssetUnspentInputsWithHttpInfo(String vaultAccountId, String assetId) throws ApiException {
+  public ApiResponse<List<UnspentInputsResponse>> getVaultAccountAssetUnspentInputsWithHttpInfo(String vaultAccountId,String assetId, RequestOptions requestOptions) throws ApiException {
     // Check required parameters
     if (vaultAccountId == null) {
       throw new ApiException(400, "Missing the required parameter 'vaultAccountId' when calling getVaultAccountAssetUnspentInputs");
@@ -764,11 +905,18 @@ public class VaultsApi {
             .replaceAll("\\{vaultAccountId}", apiClient.escapeString(vaultAccountId))
             .replaceAll("\\{assetId}", apiClient.escapeString(assetId));
 
+    Map<String, String> localVarHeaderParams = new LinkedHashMap<>();
+    // Extract and set Idempotency-Key header
+    Optional.ofNullable(requestOptions.getIdempotencyKey()).map(Object::toString).ifPresent(idempotencyKey -> localVarHeaderParams.put("Idempotency-Key", idempotencyKey));
+
+    // Extract and set X-End-User-Wallet-Id header
+    Optional.ofNullable(requestOptions.getNcw()).map(ncw -> ncw.getWalletId()).map(Object::toString).ifPresent(ncwWalletId -> localVarHeaderParams.put("X-End-User-Wallet-Id", ncwWalletId));
+
     String localVarAccept = apiClient.selectHeaderAccept("*/*", "application/json");
     String localVarContentType = apiClient.selectHeaderContentType();
     GenericType<List<UnspentInputsResponse>> localVarReturnType = new GenericType<List<UnspentInputsResponse>>() {};
     return apiClient.invokeAPI("VaultsApi.getVaultAccountAssetUnspentInputs", localVarPath, "GET", new ArrayList<>(), null,
-                               new LinkedHashMap<>(), new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
+                                localVarHeaderParams, new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
                                null, localVarReturnType, false);
   }
   /**
@@ -784,8 +932,12 @@ public class VaultsApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
+  public VaultAccount getVaultAccountById(String vaultAccountId,  RequestOptions requestOptions) throws ApiException {
+     return getVaultAccountByIdWithHttpInfo(vaultAccountId, requestOptions).getData();
+  }
+
   public VaultAccount getVaultAccountById(String vaultAccountId) throws ApiException {
-    return getVaultAccountByIdWithHttpInfo(vaultAccountId).getData();
+   return getVaultAccountByIdWithHttpInfo(vaultAccountId, null).getData();
   }
 
   /**
@@ -801,7 +953,7 @@ public class VaultsApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
-  public ApiResponse<VaultAccount> getVaultAccountByIdWithHttpInfo(String vaultAccountId) throws ApiException {
+  public ApiResponse<VaultAccount> getVaultAccountByIdWithHttpInfo(String vaultAccountId, RequestOptions requestOptions) throws ApiException {
     // Check required parameters
     if (vaultAccountId == null) {
       throw new ApiException(400, "Missing the required parameter 'vaultAccountId' when calling getVaultAccountById");
@@ -811,11 +963,18 @@ public class VaultsApi {
     String localVarPath = "/vault/accounts/{vaultAccountId}"
             .replaceAll("\\{vaultAccountId}", apiClient.escapeString(vaultAccountId));
 
+    Map<String, String> localVarHeaderParams = new LinkedHashMap<>();
+    // Extract and set Idempotency-Key header
+    Optional.ofNullable(requestOptions.getIdempotencyKey()).map(Object::toString).ifPresent(idempotencyKey -> localVarHeaderParams.put("Idempotency-Key", idempotencyKey));
+
+    // Extract and set X-End-User-Wallet-Id header
+    Optional.ofNullable(requestOptions.getNcw()).map(ncw -> ncw.getWalletId()).map(Object::toString).ifPresent(ncwWalletId -> localVarHeaderParams.put("X-End-User-Wallet-Id", ncwWalletId));
+
     String localVarAccept = apiClient.selectHeaderAccept("*/*", "application/json");
     String localVarContentType = apiClient.selectHeaderContentType();
     GenericType<VaultAccount> localVarReturnType = new GenericType<VaultAccount>() {};
     return apiClient.invokeAPI("VaultsApi.getVaultAccountById", localVarPath, "GET", new ArrayList<>(), null,
-                               new LinkedHashMap<>(), new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
+                                localVarHeaderParams, new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
                                null, localVarReturnType, false);
   }
   /**
@@ -834,8 +993,12 @@ public class VaultsApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
+  public List<VaultAccount> getVaultAccounts(String namePrefix, String nameSuffix, BigDecimal minAmountThreshold, String assetId,  RequestOptions requestOptions) throws ApiException {
+     return getVaultAccountsWithHttpInfo(namePrefix,nameSuffix,minAmountThreshold,assetId, requestOptions).getData();
+  }
+
   public List<VaultAccount> getVaultAccounts(String namePrefix, String nameSuffix, BigDecimal minAmountThreshold, String assetId) throws ApiException {
-    return getVaultAccountsWithHttpInfo(namePrefix, nameSuffix, minAmountThreshold, assetId).getData();
+   return getVaultAccountsWithHttpInfo(namePrefix,nameSuffix,minAmountThreshold,assetId, null).getData();
   }
 
   /**
@@ -854,7 +1017,7 @@ public class VaultsApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
-  public ApiResponse<List<VaultAccount>> getVaultAccountsWithHttpInfo(String namePrefix, String nameSuffix, BigDecimal minAmountThreshold, String assetId) throws ApiException {
+  public ApiResponse<List<VaultAccount>> getVaultAccountsWithHttpInfo(String namePrefix,String nameSuffix,BigDecimal minAmountThreshold,String assetId, RequestOptions requestOptions) throws ApiException {
     // Query parameters
     List<Pair> localVarQueryParams = new ArrayList<>(
             apiClient.parameterToPairs("", "namePrefix", namePrefix)
@@ -863,11 +1026,18 @@ public class VaultsApi {
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "minAmountThreshold", minAmountThreshold));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "assetId", assetId));
 
+    Map<String, String> localVarHeaderParams = new LinkedHashMap<>();
+    // Extract and set Idempotency-Key header
+    Optional.ofNullable(requestOptions.getIdempotencyKey()).map(Object::toString).ifPresent(idempotencyKey -> localVarHeaderParams.put("Idempotency-Key", idempotencyKey));
+
+    // Extract and set X-End-User-Wallet-Id header
+    Optional.ofNullable(requestOptions.getNcw()).map(ncw -> ncw.getWalletId()).map(Object::toString).ifPresent(ncwWalletId -> localVarHeaderParams.put("X-End-User-Wallet-Id", ncwWalletId));
+
     String localVarAccept = apiClient.selectHeaderAccept("*/*", "application/json");
     String localVarContentType = apiClient.selectHeaderContentType();
     GenericType<List<VaultAccount>> localVarReturnType = new GenericType<List<VaultAccount>>() {};
     return apiClient.invokeAPI("VaultsApi.getVaultAccounts", "/vault/accounts", "GET", localVarQueryParams, null,
-                               new LinkedHashMap<>(), new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
+                                localVarHeaderParams, new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
                                null, localVarReturnType, false);
   }
   /**
@@ -883,8 +1053,12 @@ public class VaultsApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
+  public VaultAsset getVaultAssetById(String assetId,  RequestOptions requestOptions) throws ApiException {
+     return getVaultAssetByIdWithHttpInfo(assetId, requestOptions).getData();
+  }
+
   public VaultAsset getVaultAssetById(String assetId) throws ApiException {
-    return getVaultAssetByIdWithHttpInfo(assetId).getData();
+   return getVaultAssetByIdWithHttpInfo(assetId, null).getData();
   }
 
   /**
@@ -900,7 +1074,7 @@ public class VaultsApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
-  public ApiResponse<VaultAsset> getVaultAssetByIdWithHttpInfo(String assetId) throws ApiException {
+  public ApiResponse<VaultAsset> getVaultAssetByIdWithHttpInfo(String assetId, RequestOptions requestOptions) throws ApiException {
     // Check required parameters
     if (assetId == null) {
       throw new ApiException(400, "Missing the required parameter 'assetId' when calling getVaultAssetById");
@@ -910,11 +1084,18 @@ public class VaultsApi {
     String localVarPath = "/vault/assets/{assetId}"
             .replaceAll("\\{assetId}", apiClient.escapeString(assetId));
 
+    Map<String, String> localVarHeaderParams = new LinkedHashMap<>();
+    // Extract and set Idempotency-Key header
+    Optional.ofNullable(requestOptions.getIdempotencyKey()).map(Object::toString).ifPresent(idempotencyKey -> localVarHeaderParams.put("Idempotency-Key", idempotencyKey));
+
+    // Extract and set X-End-User-Wallet-Id header
+    Optional.ofNullable(requestOptions.getNcw()).map(ncw -> ncw.getWalletId()).map(Object::toString).ifPresent(ncwWalletId -> localVarHeaderParams.put("X-End-User-Wallet-Id", ncwWalletId));
+
     String localVarAccept = apiClient.selectHeaderAccept("*/*", "application/json");
     String localVarContentType = apiClient.selectHeaderContentType();
     GenericType<VaultAsset> localVarReturnType = new GenericType<VaultAsset>() {};
     return apiClient.invokeAPI("VaultsApi.getVaultAssetById", localVarPath, "GET", new ArrayList<>(), null,
-                               new LinkedHashMap<>(), new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
+                                localVarHeaderParams, new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
                                null, localVarReturnType, false);
   }
   /**
@@ -931,8 +1112,12 @@ public class VaultsApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
+  public List<VaultAsset> getVaultAssets(String accountNamePrefix, String accountNameSuffix,  RequestOptions requestOptions) throws ApiException {
+     return getVaultAssetsWithHttpInfo(accountNamePrefix,accountNameSuffix, requestOptions).getData();
+  }
+
   public List<VaultAsset> getVaultAssets(String accountNamePrefix, String accountNameSuffix) throws ApiException {
-    return getVaultAssetsWithHttpInfo(accountNamePrefix, accountNameSuffix).getData();
+   return getVaultAssetsWithHttpInfo(accountNamePrefix,accountNameSuffix, null).getData();
   }
 
   /**
@@ -949,18 +1134,25 @@ public class VaultsApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
-  public ApiResponse<List<VaultAsset>> getVaultAssetsWithHttpInfo(String accountNamePrefix, String accountNameSuffix) throws ApiException {
+  public ApiResponse<List<VaultAsset>> getVaultAssetsWithHttpInfo(String accountNamePrefix,String accountNameSuffix, RequestOptions requestOptions) throws ApiException {
     // Query parameters
     List<Pair> localVarQueryParams = new ArrayList<>(
             apiClient.parameterToPairs("", "accountNamePrefix", accountNamePrefix)
     );
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "accountNameSuffix", accountNameSuffix));
 
+    Map<String, String> localVarHeaderParams = new LinkedHashMap<>();
+    // Extract and set Idempotency-Key header
+    Optional.ofNullable(requestOptions.getIdempotencyKey()).map(Object::toString).ifPresent(idempotencyKey -> localVarHeaderParams.put("Idempotency-Key", idempotencyKey));
+
+    // Extract and set X-End-User-Wallet-Id header
+    Optional.ofNullable(requestOptions.getNcw()).map(ncw -> ncw.getWalletId()).map(Object::toString).ifPresent(ncwWalletId -> localVarHeaderParams.put("X-End-User-Wallet-Id", ncwWalletId));
+
     String localVarAccept = apiClient.selectHeaderAccept("*/*", "application/json");
     String localVarContentType = apiClient.selectHeaderContentType();
     GenericType<List<VaultAsset>> localVarReturnType = new GenericType<List<VaultAsset>>() {};
     return apiClient.invokeAPI("VaultsApi.getVaultAssets", "/vault/assets", "GET", localVarQueryParams, null,
-                               new LinkedHashMap<>(), new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
+                                localVarHeaderParams, new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
                                null, localVarReturnType, false);
   }
   /**
@@ -975,8 +1167,12 @@ public class VaultsApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
+  public void hideVaultAccount(String vaultAccountId,  RequestOptions requestOptions) throws ApiException {
+    hideVaultAccountWithHttpInfo(vaultAccountId, requestOptions);
+  }
+
   public void hideVaultAccount(String vaultAccountId) throws ApiException {
-    hideVaultAccountWithHttpInfo(vaultAccountId);
+  hideVaultAccountWithHttpInfo(vaultAccountId, null);
   }
 
   /**
@@ -992,7 +1188,7 @@ public class VaultsApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
-  public ApiResponse<Void> hideVaultAccountWithHttpInfo(String vaultAccountId) throws ApiException {
+  public ApiResponse<Void> hideVaultAccountWithHttpInfo(String vaultAccountId, RequestOptions requestOptions) throws ApiException {
     // Check required parameters
     if (vaultAccountId == null) {
       throw new ApiException(400, "Missing the required parameter 'vaultAccountId' when calling hideVaultAccount");
@@ -1002,10 +1198,17 @@ public class VaultsApi {
     String localVarPath = "/vault/accounts/{vaultAccountId}/hide"
             .replaceAll("\\{vaultAccountId}", apiClient.escapeString(vaultAccountId));
 
+    Map<String, String> localVarHeaderParams = new LinkedHashMap<>();
+    // Extract and set Idempotency-Key header
+    Optional.ofNullable(requestOptions.getIdempotencyKey()).map(Object::toString).ifPresent(idempotencyKey -> localVarHeaderParams.put("Idempotency-Key", idempotencyKey));
+
+    // Extract and set X-End-User-Wallet-Id header
+    Optional.ofNullable(requestOptions.getNcw()).map(ncw -> ncw.getWalletId()).map(Object::toString).ifPresent(ncwWalletId -> localVarHeaderParams.put("X-End-User-Wallet-Id", ncwWalletId));
+
     String localVarAccept = apiClient.selectHeaderAccept("application/json");
     String localVarContentType = apiClient.selectHeaderContentType();
     return apiClient.invokeAPI("VaultsApi.hideVaultAccount", localVarPath, "POST", new ArrayList<>(), null,
-                               new LinkedHashMap<>(), new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
+                                localVarHeaderParams, new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
                                null, null, false);
   }
   /**
@@ -1021,8 +1224,12 @@ public class VaultsApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
+  public void setAutoFuelForVaultAccount(String vaultAccountId, SetAutoFuelForVaultAccountRequest setAutoFuelForVaultAccountRequest,  RequestOptions requestOptions) throws ApiException {
+    setAutoFuelForVaultAccountWithHttpInfo(vaultAccountId,setAutoFuelForVaultAccountRequest, requestOptions);
+  }
+
   public void setAutoFuelForVaultAccount(String vaultAccountId, SetAutoFuelForVaultAccountRequest setAutoFuelForVaultAccountRequest) throws ApiException {
-    setAutoFuelForVaultAccountWithHttpInfo(vaultAccountId, setAutoFuelForVaultAccountRequest);
+  setAutoFuelForVaultAccountWithHttpInfo(vaultAccountId,setAutoFuelForVaultAccountRequest, null);
   }
 
   /**
@@ -1039,7 +1246,7 @@ public class VaultsApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
-  public ApiResponse<Void> setAutoFuelForVaultAccountWithHttpInfo(String vaultAccountId, SetAutoFuelForVaultAccountRequest setAutoFuelForVaultAccountRequest) throws ApiException {
+  public ApiResponse<Void> setAutoFuelForVaultAccountWithHttpInfo(String vaultAccountId,SetAutoFuelForVaultAccountRequest setAutoFuelForVaultAccountRequest, RequestOptions requestOptions) throws ApiException {
     // Check required parameters
     if (vaultAccountId == null) {
       throw new ApiException(400, "Missing the required parameter 'vaultAccountId' when calling setAutoFuelForVaultAccount");
@@ -1052,10 +1259,18 @@ public class VaultsApi {
     String localVarPath = "/vault/accounts/{vaultAccountId}/set_auto_fuel"
             .replaceAll("\\{vaultAccountId}", apiClient.escapeString(vaultAccountId));
 
+    Map<String, String> localVarHeaderParams = new LinkedHashMap<>();
+    Object _body = setAutoFuelForVaultAccountRequest;
+    // Extract and set Idempotency-Key header
+    Optional.ofNullable(requestOptions.getIdempotencyKey()).map(Object::toString).ifPresent(idempotencyKey -> localVarHeaderParams.put("Idempotency-Key", idempotencyKey));
+
+    // Extract and set X-End-User-Wallet-Id header
+    Optional.ofNullable(requestOptions.getNcw()).map(ncw -> ncw.getWalletId()).map(Object::toString).ifPresent(ncwWalletId -> localVarHeaderParams.put("X-End-User-Wallet-Id", ncwWalletId));
+
     String localVarAccept = apiClient.selectHeaderAccept("application/json");
     String localVarContentType = apiClient.selectHeaderContentType("application/json");
     return apiClient.invokeAPI("VaultsApi.setAutoFuelForVaultAccount", localVarPath, "POST", new ArrayList<>(), setAutoFuelForVaultAccountRequest,
-                               new LinkedHashMap<>(), new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
+                                localVarHeaderParams, new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
                                null, null, false);
   }
   /**
@@ -1071,8 +1286,12 @@ public class VaultsApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
+  public void setCustomerRefIdForVaultAccount(String vaultAccountId, SetCustomerRefIdForVaultAccountRequest setCustomerRefIdForVaultAccountRequest,  RequestOptions requestOptions) throws ApiException {
+    setCustomerRefIdForVaultAccountWithHttpInfo(vaultAccountId,setCustomerRefIdForVaultAccountRequest, requestOptions);
+  }
+
   public void setCustomerRefIdForVaultAccount(String vaultAccountId, SetCustomerRefIdForVaultAccountRequest setCustomerRefIdForVaultAccountRequest) throws ApiException {
-    setCustomerRefIdForVaultAccountWithHttpInfo(vaultAccountId, setCustomerRefIdForVaultAccountRequest);
+  setCustomerRefIdForVaultAccountWithHttpInfo(vaultAccountId,setCustomerRefIdForVaultAccountRequest, null);
   }
 
   /**
@@ -1089,7 +1308,7 @@ public class VaultsApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
-  public ApiResponse<Void> setCustomerRefIdForVaultAccountWithHttpInfo(String vaultAccountId, SetCustomerRefIdForVaultAccountRequest setCustomerRefIdForVaultAccountRequest) throws ApiException {
+  public ApiResponse<Void> setCustomerRefIdForVaultAccountWithHttpInfo(String vaultAccountId,SetCustomerRefIdForVaultAccountRequest setCustomerRefIdForVaultAccountRequest, RequestOptions requestOptions) throws ApiException {
     // Check required parameters
     if (vaultAccountId == null) {
       throw new ApiException(400, "Missing the required parameter 'vaultAccountId' when calling setCustomerRefIdForVaultAccount");
@@ -1102,10 +1321,18 @@ public class VaultsApi {
     String localVarPath = "/vault/accounts/{vaultAccountId}/set_customer_ref_id"
             .replaceAll("\\{vaultAccountId}", apiClient.escapeString(vaultAccountId));
 
+    Map<String, String> localVarHeaderParams = new LinkedHashMap<>();
+    Object _body = setCustomerRefIdForVaultAccountRequest;
+    // Extract and set Idempotency-Key header
+    Optional.ofNullable(requestOptions.getIdempotencyKey()).map(Object::toString).ifPresent(idempotencyKey -> localVarHeaderParams.put("Idempotency-Key", idempotencyKey));
+
+    // Extract and set X-End-User-Wallet-Id header
+    Optional.ofNullable(requestOptions.getNcw()).map(ncw -> ncw.getWalletId()).map(Object::toString).ifPresent(ncwWalletId -> localVarHeaderParams.put("X-End-User-Wallet-Id", ncwWalletId));
+
     String localVarAccept = apiClient.selectHeaderAccept("application/json");
     String localVarContentType = apiClient.selectHeaderContentType("application/json");
     return apiClient.invokeAPI("VaultsApi.setCustomerRefIdForVaultAccount", localVarPath, "POST", new ArrayList<>(), setCustomerRefIdForVaultAccountRequest,
-                               new LinkedHashMap<>(), new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
+                                localVarHeaderParams, new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
                                null, null, false);
   }
   /**
@@ -1123,8 +1350,12 @@ public class VaultsApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
+  public void setCustomerRefIdForVaultAccountAssetAddress(String vaultAccountId, String assetId, String addressId, SetCustomerRefIdForVaultAccountRequest setCustomerRefIdForVaultAccountRequest,  RequestOptions requestOptions) throws ApiException {
+    setCustomerRefIdForVaultAccountAssetAddressWithHttpInfo(vaultAccountId,assetId,addressId,setCustomerRefIdForVaultAccountRequest, requestOptions);
+  }
+
   public void setCustomerRefIdForVaultAccountAssetAddress(String vaultAccountId, String assetId, String addressId, SetCustomerRefIdForVaultAccountRequest setCustomerRefIdForVaultAccountRequest) throws ApiException {
-    setCustomerRefIdForVaultAccountAssetAddressWithHttpInfo(vaultAccountId, assetId, addressId, setCustomerRefIdForVaultAccountRequest);
+  setCustomerRefIdForVaultAccountAssetAddressWithHttpInfo(vaultAccountId,assetId,addressId,setCustomerRefIdForVaultAccountRequest, null);
   }
 
   /**
@@ -1143,7 +1374,7 @@ public class VaultsApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
-  public ApiResponse<Void> setCustomerRefIdForVaultAccountAssetAddressWithHttpInfo(String vaultAccountId, String assetId, String addressId, SetCustomerRefIdForVaultAccountRequest setCustomerRefIdForVaultAccountRequest) throws ApiException {
+  public ApiResponse<Void> setCustomerRefIdForVaultAccountAssetAddressWithHttpInfo(String vaultAccountId,String assetId,String addressId,SetCustomerRefIdForVaultAccountRequest setCustomerRefIdForVaultAccountRequest, RequestOptions requestOptions) throws ApiException {
     // Check required parameters
     if (vaultAccountId == null) {
       throw new ApiException(400, "Missing the required parameter 'vaultAccountId' when calling setCustomerRefIdForVaultAccountAssetAddress");
@@ -1164,10 +1395,18 @@ public class VaultsApi {
             .replaceAll("\\{assetId}", apiClient.escapeString(assetId))
             .replaceAll("\\{addressId}", apiClient.escapeString(addressId));
 
+    Map<String, String> localVarHeaderParams = new LinkedHashMap<>();
+    Object _body = setCustomerRefIdForVaultAccountRequest;
+    // Extract and set Idempotency-Key header
+    Optional.ofNullable(requestOptions.getIdempotencyKey()).map(Object::toString).ifPresent(idempotencyKey -> localVarHeaderParams.put("Idempotency-Key", idempotencyKey));
+
+    // Extract and set X-End-User-Wallet-Id header
+    Optional.ofNullable(requestOptions.getNcw()).map(ncw -> ncw.getWalletId()).map(Object::toString).ifPresent(ncwWalletId -> localVarHeaderParams.put("X-End-User-Wallet-Id", ncwWalletId));
+
     String localVarAccept = apiClient.selectHeaderAccept("application/json");
     String localVarContentType = apiClient.selectHeaderContentType("application/json");
     return apiClient.invokeAPI("VaultsApi.setCustomerRefIdForVaultAccountAssetAddress", localVarPath, "POST", new ArrayList<>(), setCustomerRefIdForVaultAccountRequest,
-                               new LinkedHashMap<>(), new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
+                                localVarHeaderParams, new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
                                null, null, false);
   }
   /**
@@ -1182,8 +1421,12 @@ public class VaultsApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
+  public void unhideVaultAccount(String vaultAccountId,  RequestOptions requestOptions) throws ApiException {
+    unhideVaultAccountWithHttpInfo(vaultAccountId, requestOptions);
+  }
+
   public void unhideVaultAccount(String vaultAccountId) throws ApiException {
-    unhideVaultAccountWithHttpInfo(vaultAccountId);
+  unhideVaultAccountWithHttpInfo(vaultAccountId, null);
   }
 
   /**
@@ -1199,7 +1442,7 @@ public class VaultsApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
-  public ApiResponse<Void> unhideVaultAccountWithHttpInfo(String vaultAccountId) throws ApiException {
+  public ApiResponse<Void> unhideVaultAccountWithHttpInfo(String vaultAccountId, RequestOptions requestOptions) throws ApiException {
     // Check required parameters
     if (vaultAccountId == null) {
       throw new ApiException(400, "Missing the required parameter 'vaultAccountId' when calling unhideVaultAccount");
@@ -1209,10 +1452,17 @@ public class VaultsApi {
     String localVarPath = "/vault/accounts/{vaultAccountId}/unhide"
             .replaceAll("\\{vaultAccountId}", apiClient.escapeString(vaultAccountId));
 
+    Map<String, String> localVarHeaderParams = new LinkedHashMap<>();
+    // Extract and set Idempotency-Key header
+    Optional.ofNullable(requestOptions.getIdempotencyKey()).map(Object::toString).ifPresent(idempotencyKey -> localVarHeaderParams.put("Idempotency-Key", idempotencyKey));
+
+    // Extract and set X-End-User-Wallet-Id header
+    Optional.ofNullable(requestOptions.getNcw()).map(ncw -> ncw.getWalletId()).map(Object::toString).ifPresent(ncwWalletId -> localVarHeaderParams.put("X-End-User-Wallet-Id", ncwWalletId));
+
     String localVarAccept = apiClient.selectHeaderAccept("application/json");
     String localVarContentType = apiClient.selectHeaderContentType();
     return apiClient.invokeAPI("VaultsApi.unhideVaultAccount", localVarPath, "POST", new ArrayList<>(), null,
-                               new LinkedHashMap<>(), new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
+                                localVarHeaderParams, new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
                                null, null, false);
   }
   /**
@@ -1228,8 +1478,12 @@ public class VaultsApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
+  public void updateVaultAccount(String vaultAccountId, UpdateVaultAccountRequest updateVaultAccountRequest,  RequestOptions requestOptions) throws ApiException {
+    updateVaultAccountWithHttpInfo(vaultAccountId,updateVaultAccountRequest, requestOptions);
+  }
+
   public void updateVaultAccount(String vaultAccountId, UpdateVaultAccountRequest updateVaultAccountRequest) throws ApiException {
-    updateVaultAccountWithHttpInfo(vaultAccountId, updateVaultAccountRequest);
+  updateVaultAccountWithHttpInfo(vaultAccountId,updateVaultAccountRequest, null);
   }
 
   /**
@@ -1246,7 +1500,7 @@ public class VaultsApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
-  public ApiResponse<Void> updateVaultAccountWithHttpInfo(String vaultAccountId, UpdateVaultAccountRequest updateVaultAccountRequest) throws ApiException {
+  public ApiResponse<Void> updateVaultAccountWithHttpInfo(String vaultAccountId,UpdateVaultAccountRequest updateVaultAccountRequest, RequestOptions requestOptions) throws ApiException {
     // Check required parameters
     if (vaultAccountId == null) {
       throw new ApiException(400, "Missing the required parameter 'vaultAccountId' when calling updateVaultAccount");
@@ -1259,10 +1513,18 @@ public class VaultsApi {
     String localVarPath = "/vault/accounts/{vaultAccountId}"
             .replaceAll("\\{vaultAccountId}", apiClient.escapeString(vaultAccountId));
 
+    Map<String, String> localVarHeaderParams = new LinkedHashMap<>();
+    Object _body = updateVaultAccountRequest;
+    // Extract and set Idempotency-Key header
+    Optional.ofNullable(requestOptions.getIdempotencyKey()).map(Object::toString).ifPresent(idempotencyKey -> localVarHeaderParams.put("Idempotency-Key", idempotencyKey));
+
+    // Extract and set X-End-User-Wallet-Id header
+    Optional.ofNullable(requestOptions.getNcw()).map(ncw -> ncw.getWalletId()).map(Object::toString).ifPresent(ncwWalletId -> localVarHeaderParams.put("X-End-User-Wallet-Id", ncwWalletId));
+
     String localVarAccept = apiClient.selectHeaderAccept("application/json");
     String localVarContentType = apiClient.selectHeaderContentType("application/json");
     return apiClient.invokeAPI("VaultsApi.updateVaultAccount", localVarPath, "PUT", new ArrayList<>(), updateVaultAccountRequest,
-                               new LinkedHashMap<>(), new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
+                                localVarHeaderParams, new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
                                null, null, false);
   }
   /**
@@ -1280,8 +1542,12 @@ public class VaultsApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
+  public void updateVaultAccountAssetAddress(String vaultAccountId, String assetId, String addressId, UpdateVaultAccountAssetAddressRequest updateVaultAccountAssetAddressRequest,  RequestOptions requestOptions) throws ApiException {
+    updateVaultAccountAssetAddressWithHttpInfo(vaultAccountId,assetId,addressId,updateVaultAccountAssetAddressRequest, requestOptions);
+  }
+
   public void updateVaultAccountAssetAddress(String vaultAccountId, String assetId, String addressId, UpdateVaultAccountAssetAddressRequest updateVaultAccountAssetAddressRequest) throws ApiException {
-    updateVaultAccountAssetAddressWithHttpInfo(vaultAccountId, assetId, addressId, updateVaultAccountAssetAddressRequest);
+  updateVaultAccountAssetAddressWithHttpInfo(vaultAccountId,assetId,addressId,updateVaultAccountAssetAddressRequest, null);
   }
 
   /**
@@ -1300,7 +1566,7 @@ public class VaultsApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
-  public ApiResponse<Void> updateVaultAccountAssetAddressWithHttpInfo(String vaultAccountId, String assetId, String addressId, UpdateVaultAccountAssetAddressRequest updateVaultAccountAssetAddressRequest) throws ApiException {
+  public ApiResponse<Void> updateVaultAccountAssetAddressWithHttpInfo(String vaultAccountId,String assetId,String addressId,UpdateVaultAccountAssetAddressRequest updateVaultAccountAssetAddressRequest, RequestOptions requestOptions) throws ApiException {
     // Check required parameters
     if (vaultAccountId == null) {
       throw new ApiException(400, "Missing the required parameter 'vaultAccountId' when calling updateVaultAccountAssetAddress");
@@ -1318,10 +1584,18 @@ public class VaultsApi {
             .replaceAll("\\{assetId}", apiClient.escapeString(assetId))
             .replaceAll("\\{addressId}", apiClient.escapeString(addressId));
 
+    Map<String, String> localVarHeaderParams = new LinkedHashMap<>();
+    Object _body = updateVaultAccountAssetAddressRequest;
+    // Extract and set Idempotency-Key header
+    Optional.ofNullable(requestOptions.getIdempotencyKey()).map(Object::toString).ifPresent(idempotencyKey -> localVarHeaderParams.put("Idempotency-Key", idempotencyKey));
+
+    // Extract and set X-End-User-Wallet-Id header
+    Optional.ofNullable(requestOptions.getNcw()).map(ncw -> ncw.getWalletId()).map(Object::toString).ifPresent(ncwWalletId -> localVarHeaderParams.put("X-End-User-Wallet-Id", ncwWalletId));
+
     String localVarAccept = apiClient.selectHeaderAccept("application/json");
     String localVarContentType = apiClient.selectHeaderContentType("application/json");
     return apiClient.invokeAPI("VaultsApi.updateVaultAccountAssetAddress", localVarPath, "PUT", new ArrayList<>(), updateVaultAccountAssetAddressRequest,
-                               new LinkedHashMap<>(), new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
+                                localVarHeaderParams, new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
                                null, null, false);
   }
   /**
@@ -1339,8 +1613,12 @@ public class VaultsApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
+  public VaultAsset updateVaultAccountAssetBalance(String vaultAccountId, String assetId, Object body,  RequestOptions requestOptions) throws ApiException {
+     return updateVaultAccountAssetBalanceWithHttpInfo(vaultAccountId,assetId,body, requestOptions).getData();
+  }
+
   public VaultAsset updateVaultAccountAssetBalance(String vaultAccountId, String assetId, Object body) throws ApiException {
-    return updateVaultAccountAssetBalanceWithHttpInfo(vaultAccountId, assetId, body).getData();
+   return updateVaultAccountAssetBalanceWithHttpInfo(vaultAccountId,assetId,body, null).getData();
   }
 
   /**
@@ -1358,7 +1636,7 @@ public class VaultsApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
-  public ApiResponse<VaultAsset> updateVaultAccountAssetBalanceWithHttpInfo(String vaultAccountId, String assetId, Object body) throws ApiException {
+  public ApiResponse<VaultAsset> updateVaultAccountAssetBalanceWithHttpInfo(String vaultAccountId,String assetId,Object body, RequestOptions requestOptions) throws ApiException {
     // Check required parameters
     if (vaultAccountId == null) {
       throw new ApiException(400, "Missing the required parameter 'vaultAccountId' when calling updateVaultAccountAssetBalance");
@@ -1372,11 +1650,19 @@ public class VaultsApi {
             .replaceAll("\\{vaultAccountId}", apiClient.escapeString(vaultAccountId))
             .replaceAll("\\{assetId}", apiClient.escapeString(assetId));
 
+    Map<String, String> localVarHeaderParams = new LinkedHashMap<>();
+    Object _body = body;
+    // Extract and set Idempotency-Key header
+    Optional.ofNullable(requestOptions.getIdempotencyKey()).map(Object::toString).ifPresent(idempotencyKey -> localVarHeaderParams.put("Idempotency-Key", idempotencyKey));
+
+    // Extract and set X-End-User-Wallet-Id header
+    Optional.ofNullable(requestOptions.getNcw()).map(ncw -> ncw.getWalletId()).map(Object::toString).ifPresent(ncwWalletId -> localVarHeaderParams.put("X-End-User-Wallet-Id", ncwWalletId));
+
     String localVarAccept = apiClient.selectHeaderAccept("*/*", "application/json");
     String localVarContentType = apiClient.selectHeaderContentType();
     GenericType<VaultAsset> localVarReturnType = new GenericType<VaultAsset>() {};
     return apiClient.invokeAPI("VaultsApi.updateVaultAccountAssetBalance", localVarPath, "POST", new ArrayList<>(), body,
-                               new LinkedHashMap<>(), new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
+                                localVarHeaderParams, new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
                                null, localVarReturnType, false);
   }
 }

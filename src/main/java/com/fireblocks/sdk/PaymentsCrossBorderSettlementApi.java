@@ -4,10 +4,12 @@ import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.Configuration;
+import com.fireblocks.sdk.model.Ncw;
+import com.fireblocks.sdk.model.RequestOptions;
 import com.fireblocks.sdk.Pair;
-
+import java.util.Optional;
 import javax.ws.rs.core.GenericType;
-
+import java.util.UUID;
 import com.fireblocks.sdk.model.ErrorResponse;
 import com.fireblocks.sdk.model.XBSettlementConfigCreationRequestBody;
 import com.fireblocks.sdk.model.XBSettlementConfigEditRequestBody;
@@ -52,8 +54,12 @@ public class PaymentsCrossBorderSettlementApi {
        <tr><td> 5XX </td><td> Internal error. </td><td>  -  </td></tr>
      </table>
    */
+  public XBSettlementConfigModel createXBSettlementConfig(XBSettlementConfigCreationRequestBody xbSettlementConfigCreationRequestBody,  RequestOptions requestOptions) throws ApiException {
+     return createXBSettlementConfigWithHttpInfo(xbSettlementConfigCreationRequestBody, requestOptions).getData();
+  }
+
   public XBSettlementConfigModel createXBSettlementConfig(XBSettlementConfigCreationRequestBody xbSettlementConfigCreationRequestBody) throws ApiException {
-    return createXBSettlementConfigWithHttpInfo(xbSettlementConfigCreationRequestBody).getData();
+   return createXBSettlementConfigWithHttpInfo(xbSettlementConfigCreationRequestBody, null).getData();
   }
 
   /**
@@ -71,12 +77,20 @@ public class PaymentsCrossBorderSettlementApi {
        <tr><td> 5XX </td><td> Internal error. </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<XBSettlementConfigModel> createXBSettlementConfigWithHttpInfo(XBSettlementConfigCreationRequestBody xbSettlementConfigCreationRequestBody) throws ApiException {
+  public ApiResponse<XBSettlementConfigModel> createXBSettlementConfigWithHttpInfo(XBSettlementConfigCreationRequestBody xbSettlementConfigCreationRequestBody, RequestOptions requestOptions) throws ApiException {
+    Map<String, String> localVarHeaderParams = new LinkedHashMap<>();
+    Object _body = xbSettlementConfigCreationRequestBody;
+    // Extract and set Idempotency-Key header
+    Optional.ofNullable(requestOptions.getIdempotencyKey()).map(Object::toString).ifPresent(idempotencyKey -> localVarHeaderParams.put("Idempotency-Key", idempotencyKey));
+
+    // Extract and set X-End-User-Wallet-Id header
+    Optional.ofNullable(requestOptions.getNcw()).map(ncw -> ncw.getWalletId()).map(Object::toString).ifPresent(ncwWalletId -> localVarHeaderParams.put("X-End-User-Wallet-Id", ncwWalletId));
+
     String localVarAccept = apiClient.selectHeaderAccept("application/json");
     String localVarContentType = apiClient.selectHeaderContentType("application/json");
     GenericType<XBSettlementConfigModel> localVarReturnType = new GenericType<XBSettlementConfigModel>() {};
     return apiClient.invokeAPI("PaymentsCrossBorderSettlementApi.createXBSettlementConfig", "/payments/xb-settlements/configs", "POST", new ArrayList<>(), xbSettlementConfigCreationRequestBody,
-                               new LinkedHashMap<>(), new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
+                                localVarHeaderParams, new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
                                null, localVarReturnType, false);
   }
   /**
@@ -94,8 +108,12 @@ public class PaymentsCrossBorderSettlementApi {
        <tr><td> 5XX </td><td> Internal error. </td><td>  -  </td></tr>
      </table>
    */
+  public XBSettlementFlowPreviewModel createXBSettlementFlow(XBSettlementCreateFlowRequestBody xbSettlementCreateFlowRequestBody,  RequestOptions requestOptions) throws ApiException {
+     return createXBSettlementFlowWithHttpInfo(xbSettlementCreateFlowRequestBody, requestOptions).getData();
+  }
+
   public XBSettlementFlowPreviewModel createXBSettlementFlow(XBSettlementCreateFlowRequestBody xbSettlementCreateFlowRequestBody) throws ApiException {
-    return createXBSettlementFlowWithHttpInfo(xbSettlementCreateFlowRequestBody).getData();
+   return createXBSettlementFlowWithHttpInfo(xbSettlementCreateFlowRequestBody, null).getData();
   }
 
   /**
@@ -113,12 +131,20 @@ public class PaymentsCrossBorderSettlementApi {
        <tr><td> 5XX </td><td> Internal error. </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<XBSettlementFlowPreviewModel> createXBSettlementFlowWithHttpInfo(XBSettlementCreateFlowRequestBody xbSettlementCreateFlowRequestBody) throws ApiException {
+  public ApiResponse<XBSettlementFlowPreviewModel> createXBSettlementFlowWithHttpInfo(XBSettlementCreateFlowRequestBody xbSettlementCreateFlowRequestBody, RequestOptions requestOptions) throws ApiException {
+    Map<String, String> localVarHeaderParams = new LinkedHashMap<>();
+    Object _body = xbSettlementCreateFlowRequestBody;
+    // Extract and set Idempotency-Key header
+    Optional.ofNullable(requestOptions.getIdempotencyKey()).map(Object::toString).ifPresent(idempotencyKey -> localVarHeaderParams.put("Idempotency-Key", idempotencyKey));
+
+    // Extract and set X-End-User-Wallet-Id header
+    Optional.ofNullable(requestOptions.getNcw()).map(ncw -> ncw.getWalletId()).map(Object::toString).ifPresent(ncwWalletId -> localVarHeaderParams.put("X-End-User-Wallet-Id", ncwWalletId));
+
     String localVarAccept = apiClient.selectHeaderAccept("application/json");
     String localVarContentType = apiClient.selectHeaderContentType("application/json");
     GenericType<XBSettlementFlowPreviewModel> localVarReturnType = new GenericType<XBSettlementFlowPreviewModel>() {};
     return apiClient.invokeAPI("PaymentsCrossBorderSettlementApi.createXBSettlementFlow", "/payments/xb-settlements/flows", "POST", new ArrayList<>(), xbSettlementCreateFlowRequestBody,
-                               new LinkedHashMap<>(), new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
+                                localVarHeaderParams, new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
                                null, localVarReturnType, false);
   }
   /**
@@ -136,8 +162,12 @@ public class PaymentsCrossBorderSettlementApi {
        <tr><td> 5XX </td><td> Internal error. </td><td>  -  </td></tr>
      </table>
    */
+  public XBSettlementConfigModel deleteXBSettlementConfig(String configId,  RequestOptions requestOptions) throws ApiException {
+     return deleteXBSettlementConfigWithHttpInfo(configId, requestOptions).getData();
+  }
+
   public XBSettlementConfigModel deleteXBSettlementConfig(String configId) throws ApiException {
-    return deleteXBSettlementConfigWithHttpInfo(configId).getData();
+   return deleteXBSettlementConfigWithHttpInfo(configId, null).getData();
   }
 
   /**
@@ -155,7 +185,7 @@ public class PaymentsCrossBorderSettlementApi {
        <tr><td> 5XX </td><td> Internal error. </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<XBSettlementConfigModel> deleteXBSettlementConfigWithHttpInfo(String configId) throws ApiException {
+  public ApiResponse<XBSettlementConfigModel> deleteXBSettlementConfigWithHttpInfo(String configId, RequestOptions requestOptions) throws ApiException {
     // Check required parameters
     if (configId == null) {
       throw new ApiException(400, "Missing the required parameter 'configId' when calling deleteXBSettlementConfig");
@@ -165,11 +195,18 @@ public class PaymentsCrossBorderSettlementApi {
     String localVarPath = "/payments/xb-settlements/configs/{configId}"
             .replaceAll("\\{configId}", apiClient.escapeString(configId));
 
+    Map<String, String> localVarHeaderParams = new LinkedHashMap<>();
+    // Extract and set Idempotency-Key header
+    Optional.ofNullable(requestOptions.getIdempotencyKey()).map(Object::toString).ifPresent(idempotencyKey -> localVarHeaderParams.put("Idempotency-Key", idempotencyKey));
+
+    // Extract and set X-End-User-Wallet-Id header
+    Optional.ofNullable(requestOptions.getNcw()).map(ncw -> ncw.getWalletId()).map(Object::toString).ifPresent(ncwWalletId -> localVarHeaderParams.put("X-End-User-Wallet-Id", ncwWalletId));
+
     String localVarAccept = apiClient.selectHeaderAccept("application/json");
     String localVarContentType = apiClient.selectHeaderContentType();
     GenericType<XBSettlementConfigModel> localVarReturnType = new GenericType<XBSettlementConfigModel>() {};
     return apiClient.invokeAPI("PaymentsCrossBorderSettlementApi.deleteXBSettlementConfig", localVarPath, "DELETE", new ArrayList<>(), null,
-                               new LinkedHashMap<>(), new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
+                                localVarHeaderParams, new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
                                null, localVarReturnType, false);
   }
   /**
@@ -189,8 +226,12 @@ public class PaymentsCrossBorderSettlementApi {
        <tr><td> 5XX </td><td> Internal error. </td><td>  -  </td></tr>
      </table>
    */
+  public XBSettlementFlowExecutionModel executeXBSettlementFlowAction(String flowId, XBSettlementFlowExecutionRequestBody xbSettlementFlowExecutionRequestBody,  RequestOptions requestOptions) throws ApiException {
+     return executeXBSettlementFlowActionWithHttpInfo(flowId,xbSettlementFlowExecutionRequestBody, requestOptions).getData();
+  }
+
   public XBSettlementFlowExecutionModel executeXBSettlementFlowAction(String flowId, XBSettlementFlowExecutionRequestBody xbSettlementFlowExecutionRequestBody) throws ApiException {
-    return executeXBSettlementFlowActionWithHttpInfo(flowId, xbSettlementFlowExecutionRequestBody).getData();
+   return executeXBSettlementFlowActionWithHttpInfo(flowId,xbSettlementFlowExecutionRequestBody, null).getData();
   }
 
   /**
@@ -210,7 +251,7 @@ public class PaymentsCrossBorderSettlementApi {
        <tr><td> 5XX </td><td> Internal error. </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<XBSettlementFlowExecutionModel> executeXBSettlementFlowActionWithHttpInfo(String flowId, XBSettlementFlowExecutionRequestBody xbSettlementFlowExecutionRequestBody) throws ApiException {
+  public ApiResponse<XBSettlementFlowExecutionModel> executeXBSettlementFlowActionWithHttpInfo(String flowId,XBSettlementFlowExecutionRequestBody xbSettlementFlowExecutionRequestBody, RequestOptions requestOptions) throws ApiException {
     // Check required parameters
     if (flowId == null) {
       throw new ApiException(400, "Missing the required parameter 'flowId' when calling executeXBSettlementFlowAction");
@@ -220,11 +261,19 @@ public class PaymentsCrossBorderSettlementApi {
     String localVarPath = "/payments/xb-settlements/flows/{flowId}/actions/execute"
             .replaceAll("\\{flowId}", apiClient.escapeString(flowId));
 
+    Map<String, String> localVarHeaderParams = new LinkedHashMap<>();
+    Object _body = xbSettlementFlowExecutionRequestBody;
+    // Extract and set Idempotency-Key header
+    Optional.ofNullable(requestOptions.getIdempotencyKey()).map(Object::toString).ifPresent(idempotencyKey -> localVarHeaderParams.put("Idempotency-Key", idempotencyKey));
+
+    // Extract and set X-End-User-Wallet-Id header
+    Optional.ofNullable(requestOptions.getNcw()).map(ncw -> ncw.getWalletId()).map(Object::toString).ifPresent(ncwWalletId -> localVarHeaderParams.put("X-End-User-Wallet-Id", ncwWalletId));
+
     String localVarAccept = apiClient.selectHeaderAccept("application/json");
     String localVarContentType = apiClient.selectHeaderContentType("application/json");
     GenericType<XBSettlementFlowExecutionModel> localVarReturnType = new GenericType<XBSettlementFlowExecutionModel>() {};
     return apiClient.invokeAPI("PaymentsCrossBorderSettlementApi.executeXBSettlementFlowAction", localVarPath, "POST", new ArrayList<>(), xbSettlementFlowExecutionRequestBody,
-                               new LinkedHashMap<>(), new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
+                                localVarHeaderParams, new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
                                null, localVarReturnType, false);
   }
   /**
@@ -242,8 +291,12 @@ public class PaymentsCrossBorderSettlementApi {
        <tr><td> 5XX </td><td> Internal error. </td><td>  -  </td></tr>
      </table>
    */
+  public XBSettlementConfigModel getXBSettlementConfigById(String configId,  RequestOptions requestOptions) throws ApiException {
+     return getXBSettlementConfigByIdWithHttpInfo(configId, requestOptions).getData();
+  }
+
   public XBSettlementConfigModel getXBSettlementConfigById(String configId) throws ApiException {
-    return getXBSettlementConfigByIdWithHttpInfo(configId).getData();
+   return getXBSettlementConfigByIdWithHttpInfo(configId, null).getData();
   }
 
   /**
@@ -261,7 +314,7 @@ public class PaymentsCrossBorderSettlementApi {
        <tr><td> 5XX </td><td> Internal error. </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<XBSettlementConfigModel> getXBSettlementConfigByIdWithHttpInfo(String configId) throws ApiException {
+  public ApiResponse<XBSettlementConfigModel> getXBSettlementConfigByIdWithHttpInfo(String configId, RequestOptions requestOptions) throws ApiException {
     // Check required parameters
     if (configId == null) {
       throw new ApiException(400, "Missing the required parameter 'configId' when calling getXBSettlementConfigById");
@@ -271,11 +324,18 @@ public class PaymentsCrossBorderSettlementApi {
     String localVarPath = "/payments/xb-settlements/configs/{configId}"
             .replaceAll("\\{configId}", apiClient.escapeString(configId));
 
+    Map<String, String> localVarHeaderParams = new LinkedHashMap<>();
+    // Extract and set Idempotency-Key header
+    Optional.ofNullable(requestOptions.getIdempotencyKey()).map(Object::toString).ifPresent(idempotencyKey -> localVarHeaderParams.put("Idempotency-Key", idempotencyKey));
+
+    // Extract and set X-End-User-Wallet-Id header
+    Optional.ofNullable(requestOptions.getNcw()).map(ncw -> ncw.getWalletId()).map(Object::toString).ifPresent(ncwWalletId -> localVarHeaderParams.put("X-End-User-Wallet-Id", ncwWalletId));
+
     String localVarAccept = apiClient.selectHeaderAccept("application/json");
     String localVarContentType = apiClient.selectHeaderContentType();
     GenericType<XBSettlementConfigModel> localVarReturnType = new GenericType<XBSettlementConfigModel>() {};
     return apiClient.invokeAPI("PaymentsCrossBorderSettlementApi.getXBSettlementConfigById", localVarPath, "GET", new ArrayList<>(), null,
-                               new LinkedHashMap<>(), new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
+                                localVarHeaderParams, new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
                                null, localVarReturnType, false);
   }
   /**
@@ -291,8 +351,12 @@ public class PaymentsCrossBorderSettlementApi {
        <tr><td> 5XX </td><td> Internal error. </td><td>  -  </td></tr>
      </table>
    */
+  public XBSettlementGetAllConfigsResponse getXBSettlementConfigs( RequestOptions requestOptions) throws ApiException {
+     return getXBSettlementConfigsWithHttpInfo( requestOptions).getData();
+  }
+
   public XBSettlementGetAllConfigsResponse getXBSettlementConfigs() throws ApiException {
-    return getXBSettlementConfigsWithHttpInfo().getData();
+   return getXBSettlementConfigsWithHttpInfo( null).getData();
   }
 
   /**
@@ -308,12 +372,19 @@ public class PaymentsCrossBorderSettlementApi {
        <tr><td> 5XX </td><td> Internal error. </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<XBSettlementGetAllConfigsResponse> getXBSettlementConfigsWithHttpInfo() throws ApiException {
+  public ApiResponse<XBSettlementGetAllConfigsResponse> getXBSettlementConfigsWithHttpInfo( RequestOptions requestOptions) throws ApiException {
+    Map<String, String> localVarHeaderParams = new LinkedHashMap<>();
+    // Extract and set Idempotency-Key header
+    Optional.ofNullable(requestOptions.getIdempotencyKey()).map(Object::toString).ifPresent(idempotencyKey -> localVarHeaderParams.put("Idempotency-Key", idempotencyKey));
+
+    // Extract and set X-End-User-Wallet-Id header
+    Optional.ofNullable(requestOptions.getNcw()).map(ncw -> ncw.getWalletId()).map(Object::toString).ifPresent(ncwWalletId -> localVarHeaderParams.put("X-End-User-Wallet-Id", ncwWalletId));
+
     String localVarAccept = apiClient.selectHeaderAccept("application/json");
     String localVarContentType = apiClient.selectHeaderContentType();
     GenericType<XBSettlementGetAllConfigsResponse> localVarReturnType = new GenericType<XBSettlementGetAllConfigsResponse>() {};
     return apiClient.invokeAPI("PaymentsCrossBorderSettlementApi.getXBSettlementConfigs", "/payments/xb-settlements/configs", "GET", new ArrayList<>(), null,
-                               new LinkedHashMap<>(), new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
+                                localVarHeaderParams, new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
                                null, localVarReturnType, false);
   }
   /**
@@ -331,8 +402,12 @@ public class PaymentsCrossBorderSettlementApi {
        <tr><td> 5XX </td><td> Internal error. </td><td>  -  </td></tr>
      </table>
    */
+  public XBSettlementGetFlowResponse getXBSettlementFlowById(String flowId,  RequestOptions requestOptions) throws ApiException {
+     return getXBSettlementFlowByIdWithHttpInfo(flowId, requestOptions).getData();
+  }
+
   public XBSettlementGetFlowResponse getXBSettlementFlowById(String flowId) throws ApiException {
-    return getXBSettlementFlowByIdWithHttpInfo(flowId).getData();
+   return getXBSettlementFlowByIdWithHttpInfo(flowId, null).getData();
   }
 
   /**
@@ -350,7 +425,7 @@ public class PaymentsCrossBorderSettlementApi {
        <tr><td> 5XX </td><td> Internal error. </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<XBSettlementGetFlowResponse> getXBSettlementFlowByIdWithHttpInfo(String flowId) throws ApiException {
+  public ApiResponse<XBSettlementGetFlowResponse> getXBSettlementFlowByIdWithHttpInfo(String flowId, RequestOptions requestOptions) throws ApiException {
     // Check required parameters
     if (flowId == null) {
       throw new ApiException(400, "Missing the required parameter 'flowId' when calling getXBSettlementFlowById");
@@ -360,11 +435,18 @@ public class PaymentsCrossBorderSettlementApi {
     String localVarPath = "/payments/xb-settlements/flows/{flowId}"
             .replaceAll("\\{flowId}", apiClient.escapeString(flowId));
 
+    Map<String, String> localVarHeaderParams = new LinkedHashMap<>();
+    // Extract and set Idempotency-Key header
+    Optional.ofNullable(requestOptions.getIdempotencyKey()).map(Object::toString).ifPresent(idempotencyKey -> localVarHeaderParams.put("Idempotency-Key", idempotencyKey));
+
+    // Extract and set X-End-User-Wallet-Id header
+    Optional.ofNullable(requestOptions.getNcw()).map(ncw -> ncw.getWalletId()).map(Object::toString).ifPresent(ncwWalletId -> localVarHeaderParams.put("X-End-User-Wallet-Id", ncwWalletId));
+
     String localVarAccept = apiClient.selectHeaderAccept("application/json");
     String localVarContentType = apiClient.selectHeaderContentType();
     GenericType<XBSettlementGetFlowResponse> localVarReturnType = new GenericType<XBSettlementGetFlowResponse>() {};
     return apiClient.invokeAPI("PaymentsCrossBorderSettlementApi.getXBSettlementFlowById", localVarPath, "GET", new ArrayList<>(), null,
-                               new LinkedHashMap<>(), new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
+                                localVarHeaderParams, new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
                                null, localVarReturnType, false);
   }
   /**
@@ -384,8 +466,12 @@ public class PaymentsCrossBorderSettlementApi {
        <tr><td> 5XX </td><td> Internal error. </td><td>  -  </td></tr>
      </table>
    */
+  public XBSettlementConfigModel updateXBSettlementConfig(String configId, XBSettlementConfigEditRequestBody xbSettlementConfigEditRequestBody,  RequestOptions requestOptions) throws ApiException {
+     return updateXBSettlementConfigWithHttpInfo(configId,xbSettlementConfigEditRequestBody, requestOptions).getData();
+  }
+
   public XBSettlementConfigModel updateXBSettlementConfig(String configId, XBSettlementConfigEditRequestBody xbSettlementConfigEditRequestBody) throws ApiException {
-    return updateXBSettlementConfigWithHttpInfo(configId, xbSettlementConfigEditRequestBody).getData();
+   return updateXBSettlementConfigWithHttpInfo(configId,xbSettlementConfigEditRequestBody, null).getData();
   }
 
   /**
@@ -405,7 +491,7 @@ public class PaymentsCrossBorderSettlementApi {
        <tr><td> 5XX </td><td> Internal error. </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<XBSettlementConfigModel> updateXBSettlementConfigWithHttpInfo(String configId, XBSettlementConfigEditRequestBody xbSettlementConfigEditRequestBody) throws ApiException {
+  public ApiResponse<XBSettlementConfigModel> updateXBSettlementConfigWithHttpInfo(String configId,XBSettlementConfigEditRequestBody xbSettlementConfigEditRequestBody, RequestOptions requestOptions) throws ApiException {
     // Check required parameters
     if (configId == null) {
       throw new ApiException(400, "Missing the required parameter 'configId' when calling updateXBSettlementConfig");
@@ -415,11 +501,19 @@ public class PaymentsCrossBorderSettlementApi {
     String localVarPath = "/payments/xb-settlements/configs/{configId}"
             .replaceAll("\\{configId}", apiClient.escapeString(configId));
 
+    Map<String, String> localVarHeaderParams = new LinkedHashMap<>();
+    Object _body = xbSettlementConfigEditRequestBody;
+    // Extract and set Idempotency-Key header
+    Optional.ofNullable(requestOptions.getIdempotencyKey()).map(Object::toString).ifPresent(idempotencyKey -> localVarHeaderParams.put("Idempotency-Key", idempotencyKey));
+
+    // Extract and set X-End-User-Wallet-Id header
+    Optional.ofNullable(requestOptions.getNcw()).map(ncw -> ncw.getWalletId()).map(Object::toString).ifPresent(ncwWalletId -> localVarHeaderParams.put("X-End-User-Wallet-Id", ncwWalletId));
+
     String localVarAccept = apiClient.selectHeaderAccept("application/json");
     String localVarContentType = apiClient.selectHeaderContentType("application/json");
     GenericType<XBSettlementConfigModel> localVarReturnType = new GenericType<XBSettlementConfigModel>() {};
     return apiClient.invokeAPI("PaymentsCrossBorderSettlementApi.updateXBSettlementConfig", localVarPath, "PUT", new ArrayList<>(), xbSettlementConfigEditRequestBody,
-                               new LinkedHashMap<>(), new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
+                                localVarHeaderParams, new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
                                null, localVarReturnType, false);
   }
 }

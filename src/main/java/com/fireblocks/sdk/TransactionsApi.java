@@ -4,10 +4,12 @@ import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.Configuration;
+import com.fireblocks.sdk.model.Ncw;
+import com.fireblocks.sdk.model.RequestOptions;
 import com.fireblocks.sdk.Pair;
-
+import java.util.Optional;
 import javax.ws.rs.core.GenericType;
-
+import java.util.UUID;
 import com.fireblocks.sdk.model.CancelTransactionResponse;
 import com.fireblocks.sdk.model.CreateTransactionResponse;
 import com.fireblocks.sdk.model.DropTransactionRequest;
@@ -54,8 +56,12 @@ public class TransactionsApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
+  public CancelTransactionResponse cancelTransaction(String txId,  RequestOptions requestOptions) throws ApiException {
+     return cancelTransactionWithHttpInfo(txId, requestOptions).getData();
+  }
+
   public CancelTransactionResponse cancelTransaction(String txId) throws ApiException {
-    return cancelTransactionWithHttpInfo(txId).getData();
+   return cancelTransactionWithHttpInfo(txId, null).getData();
   }
 
   /**
@@ -71,7 +77,7 @@ public class TransactionsApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
-  public ApiResponse<CancelTransactionResponse> cancelTransactionWithHttpInfo(String txId) throws ApiException {
+  public ApiResponse<CancelTransactionResponse> cancelTransactionWithHttpInfo(String txId, RequestOptions requestOptions) throws ApiException {
     // Check required parameters
     if (txId == null) {
       throw new ApiException(400, "Missing the required parameter 'txId' when calling cancelTransaction");
@@ -81,11 +87,18 @@ public class TransactionsApi {
     String localVarPath = "/transactions/{txId}/cancel"
             .replaceAll("\\{txId}", apiClient.escapeString(txId));
 
+    Map<String, String> localVarHeaderParams = new LinkedHashMap<>();
+    // Extract and set Idempotency-Key header
+    Optional.ofNullable(requestOptions.getIdempotencyKey()).map(Object::toString).ifPresent(idempotencyKey -> localVarHeaderParams.put("Idempotency-Key", idempotencyKey));
+
+    // Extract and set X-End-User-Wallet-Id header
+    Optional.ofNullable(requestOptions.getNcw()).map(ncw -> ncw.getWalletId()).map(Object::toString).ifPresent(ncwWalletId -> localVarHeaderParams.put("X-End-User-Wallet-Id", ncwWalletId));
+
     String localVarAccept = apiClient.selectHeaderAccept("*/*", "application/json");
     String localVarContentType = apiClient.selectHeaderContentType();
     GenericType<CancelTransactionResponse> localVarReturnType = new GenericType<CancelTransactionResponse>() {};
     return apiClient.invokeAPI("TransactionsApi.cancelTransaction", localVarPath, "POST", new ArrayList<>(), null,
-                               new LinkedHashMap<>(), new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
+                                localVarHeaderParams, new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
                                null, localVarReturnType, false);
   }
   /**
@@ -101,8 +114,12 @@ public class TransactionsApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
+  public CreateTransactionResponse createTransaction(TransactionRequest transactionRequest,  RequestOptions requestOptions) throws ApiException {
+     return createTransactionWithHttpInfo(transactionRequest, requestOptions).getData();
+  }
+
   public CreateTransactionResponse createTransaction(TransactionRequest transactionRequest) throws ApiException {
-    return createTransactionWithHttpInfo(transactionRequest).getData();
+   return createTransactionWithHttpInfo(transactionRequest, null).getData();
   }
 
   /**
@@ -118,12 +135,44 @@ public class TransactionsApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
-  public ApiResponse<CreateTransactionResponse> createTransactionWithHttpInfo(TransactionRequest transactionRequest) throws ApiException {
+  public ApiResponse<CreateTransactionResponse> createTransactionWithHttpInfo(TransactionRequest transactionRequest, RequestOptions requestOptions) throws ApiException {
+    Map<String, String> localVarHeaderParams = new LinkedHashMap<>();
+    Object _body = transactionRequest;
+    if ("END_USER_WALLET".equals(
+                Optional.ofNullable(_body)
+                        .map(b -> (TransactionRequest) b)
+                        .map(b -> b.getSource())
+                        .map(source -> source.getType())
+                        .orElse(null)) &&
+            !Optional.ofNullable(requestOptions.getNcw())
+                .map(ncw -> (Ncw) ncw) // Assuming requestOptions contains an "ncw" key with an Ncw object
+                .map(ncw -> ncw.getWalletId())
+                .isPresent()) {
+
+                    // Extract walletId and update requestOptions
+                    Optional.ofNullable(_body)
+                        .map(b -> (TransactionRequest) b)
+                        .map(b -> b.getSource())
+                        .map(source -> source.getWalletId())
+                        .ifPresent(walletId -> {
+                            Ncw ncw = Optional.ofNullable(requestOptions.getNcw())
+                                    .map(ncwObject -> (Ncw) ncwObject)
+                                    .orElse(new Ncw());
+                            ncw.setWalletId(walletId.toString());
+                            requestOptions.setNcw(ncw);
+                        });
+        }
+    // Extract and set Idempotency-Key header
+    Optional.ofNullable(requestOptions.getIdempotencyKey()).map(Object::toString).ifPresent(idempotencyKey -> localVarHeaderParams.put("Idempotency-Key", idempotencyKey));
+
+    // Extract and set X-End-User-Wallet-Id header
+    Optional.ofNullable(requestOptions.getNcw()).map(ncw -> ncw.getWalletId()).map(Object::toString).ifPresent(ncwWalletId -> localVarHeaderParams.put("X-End-User-Wallet-Id", ncwWalletId));
+
     String localVarAccept = apiClient.selectHeaderAccept("*/*", "application/json");
     String localVarContentType = apiClient.selectHeaderContentType("application/json");
     GenericType<CreateTransactionResponse> localVarReturnType = new GenericType<CreateTransactionResponse>() {};
     return apiClient.invokeAPI("TransactionsApi.createTransaction", "/transactions", "POST", new ArrayList<>(), transactionRequest,
-                               new LinkedHashMap<>(), new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
+                                localVarHeaderParams, new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
                                null, localVarReturnType, false);
   }
   /**
@@ -140,8 +189,12 @@ public class TransactionsApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
+  public DropTransactionResponse dropTransaction(String txId, DropTransactionRequest dropTransactionRequest,  RequestOptions requestOptions) throws ApiException {
+     return dropTransactionWithHttpInfo(txId,dropTransactionRequest, requestOptions).getData();
+  }
+
   public DropTransactionResponse dropTransaction(String txId, DropTransactionRequest dropTransactionRequest) throws ApiException {
-    return dropTransactionWithHttpInfo(txId, dropTransactionRequest).getData();
+   return dropTransactionWithHttpInfo(txId,dropTransactionRequest, null).getData();
   }
 
   /**
@@ -158,7 +211,7 @@ public class TransactionsApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
-  public ApiResponse<DropTransactionResponse> dropTransactionWithHttpInfo(String txId, DropTransactionRequest dropTransactionRequest) throws ApiException {
+  public ApiResponse<DropTransactionResponse> dropTransactionWithHttpInfo(String txId,DropTransactionRequest dropTransactionRequest, RequestOptions requestOptions) throws ApiException {
     // Check required parameters
     if (txId == null) {
       throw new ApiException(400, "Missing the required parameter 'txId' when calling dropTransaction");
@@ -168,11 +221,19 @@ public class TransactionsApi {
     String localVarPath = "/transactions/{txId}/drop"
             .replaceAll("\\{txId}", apiClient.escapeString(txId));
 
+    Map<String, String> localVarHeaderParams = new LinkedHashMap<>();
+    Object _body = dropTransactionRequest;
+    // Extract and set Idempotency-Key header
+    Optional.ofNullable(requestOptions.getIdempotencyKey()).map(Object::toString).ifPresent(idempotencyKey -> localVarHeaderParams.put("Idempotency-Key", idempotencyKey));
+
+    // Extract and set X-End-User-Wallet-Id header
+    Optional.ofNullable(requestOptions.getNcw()).map(ncw -> ncw.getWalletId()).map(Object::toString).ifPresent(ncwWalletId -> localVarHeaderParams.put("X-End-User-Wallet-Id", ncwWalletId));
+
     String localVarAccept = apiClient.selectHeaderAccept("*/*", "application/json");
     String localVarContentType = apiClient.selectHeaderContentType("application/json");
     GenericType<DropTransactionResponse> localVarReturnType = new GenericType<DropTransactionResponse>() {};
     return apiClient.invokeAPI("TransactionsApi.dropTransaction", localVarPath, "POST", new ArrayList<>(), dropTransactionRequest,
-                               new LinkedHashMap<>(), new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
+                                localVarHeaderParams, new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
                                null, localVarReturnType, false);
   }
   /**
@@ -188,8 +249,12 @@ public class TransactionsApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
+  public EstimatedNetworkFeeResponse estimateNetworkFee(String assetId,  RequestOptions requestOptions) throws ApiException {
+     return estimateNetworkFeeWithHttpInfo(assetId, requestOptions).getData();
+  }
+
   public EstimatedNetworkFeeResponse estimateNetworkFee(String assetId) throws ApiException {
-    return estimateNetworkFeeWithHttpInfo(assetId).getData();
+   return estimateNetworkFeeWithHttpInfo(assetId, null).getData();
   }
 
   /**
@@ -205,7 +270,7 @@ public class TransactionsApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
-  public ApiResponse<EstimatedNetworkFeeResponse> estimateNetworkFeeWithHttpInfo(String assetId) throws ApiException {
+  public ApiResponse<EstimatedNetworkFeeResponse> estimateNetworkFeeWithHttpInfo(String assetId, RequestOptions requestOptions) throws ApiException {
     // Check required parameters
     if (assetId == null) {
       throw new ApiException(400, "Missing the required parameter 'assetId' when calling estimateNetworkFee");
@@ -216,11 +281,18 @@ public class TransactionsApi {
             apiClient.parameterToPairs("", "assetId", assetId)
     );
 
+    Map<String, String> localVarHeaderParams = new LinkedHashMap<>();
+    // Extract and set Idempotency-Key header
+    Optional.ofNullable(requestOptions.getIdempotencyKey()).map(Object::toString).ifPresent(idempotencyKey -> localVarHeaderParams.put("Idempotency-Key", idempotencyKey));
+
+    // Extract and set X-End-User-Wallet-Id header
+    Optional.ofNullable(requestOptions.getNcw()).map(ncw -> ncw.getWalletId()).map(Object::toString).ifPresent(ncwWalletId -> localVarHeaderParams.put("X-End-User-Wallet-Id", ncwWalletId));
+
     String localVarAccept = apiClient.selectHeaderAccept("*/*", "application/json");
     String localVarContentType = apiClient.selectHeaderContentType();
     GenericType<EstimatedNetworkFeeResponse> localVarReturnType = new GenericType<EstimatedNetworkFeeResponse>() {};
     return apiClient.invokeAPI("TransactionsApi.estimateNetworkFee", "/estimate_network_fee", "GET", localVarQueryParams, null,
-                               new LinkedHashMap<>(), new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
+                                localVarHeaderParams, new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
                                null, localVarReturnType, false);
   }
   /**
@@ -236,8 +308,12 @@ public class TransactionsApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
+  public EstimatedTransactionFeeResponse estimateTransactionFee(TransactionRequest transactionRequest,  RequestOptions requestOptions) throws ApiException {
+     return estimateTransactionFeeWithHttpInfo(transactionRequest, requestOptions).getData();
+  }
+
   public EstimatedTransactionFeeResponse estimateTransactionFee(TransactionRequest transactionRequest) throws ApiException {
-    return estimateTransactionFeeWithHttpInfo(transactionRequest).getData();
+   return estimateTransactionFeeWithHttpInfo(transactionRequest, null).getData();
   }
 
   /**
@@ -253,12 +329,20 @@ public class TransactionsApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
-  public ApiResponse<EstimatedTransactionFeeResponse> estimateTransactionFeeWithHttpInfo(TransactionRequest transactionRequest) throws ApiException {
+  public ApiResponse<EstimatedTransactionFeeResponse> estimateTransactionFeeWithHttpInfo(TransactionRequest transactionRequest, RequestOptions requestOptions) throws ApiException {
+    Map<String, String> localVarHeaderParams = new LinkedHashMap<>();
+    Object _body = transactionRequest;
+    // Extract and set Idempotency-Key header
+    Optional.ofNullable(requestOptions.getIdempotencyKey()).map(Object::toString).ifPresent(idempotencyKey -> localVarHeaderParams.put("Idempotency-Key", idempotencyKey));
+
+    // Extract and set X-End-User-Wallet-Id header
+    Optional.ofNullable(requestOptions.getNcw()).map(ncw -> ncw.getWalletId()).map(Object::toString).ifPresent(ncwWalletId -> localVarHeaderParams.put("X-End-User-Wallet-Id", ncwWalletId));
+
     String localVarAccept = apiClient.selectHeaderAccept("*/*", "application/json");
     String localVarContentType = apiClient.selectHeaderContentType("application/json");
     GenericType<EstimatedTransactionFeeResponse> localVarReturnType = new GenericType<EstimatedTransactionFeeResponse>() {};
     return apiClient.invokeAPI("TransactionsApi.estimateTransactionFee", "/transactions/estimate_fee", "POST", new ArrayList<>(), transactionRequest,
-                               new LinkedHashMap<>(), new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
+                                localVarHeaderParams, new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
                                null, localVarReturnType, false);
   }
   /**
@@ -273,8 +357,12 @@ public class TransactionsApi {
        <tr><td> 200 </td><td> freeze response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
+  public FreezeTransactionResponse freezeTransaction(String txId,  RequestOptions requestOptions) throws ApiException {
+     return freezeTransactionWithHttpInfo(txId, requestOptions).getData();
+  }
+
   public FreezeTransactionResponse freezeTransaction(String txId) throws ApiException {
-    return freezeTransactionWithHttpInfo(txId).getData();
+   return freezeTransactionWithHttpInfo(txId, null).getData();
   }
 
   /**
@@ -289,7 +377,7 @@ public class TransactionsApi {
        <tr><td> 200 </td><td> freeze response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
-  public ApiResponse<FreezeTransactionResponse> freezeTransactionWithHttpInfo(String txId) throws ApiException {
+  public ApiResponse<FreezeTransactionResponse> freezeTransactionWithHttpInfo(String txId, RequestOptions requestOptions) throws ApiException {
     // Check required parameters
     if (txId == null) {
       throw new ApiException(400, "Missing the required parameter 'txId' when calling freezeTransaction");
@@ -299,11 +387,18 @@ public class TransactionsApi {
     String localVarPath = "/transactions/{txId}/freeze"
             .replaceAll("\\{txId}", apiClient.escapeString(txId));
 
+    Map<String, String> localVarHeaderParams = new LinkedHashMap<>();
+    // Extract and set Idempotency-Key header
+    Optional.ofNullable(requestOptions.getIdempotencyKey()).map(Object::toString).ifPresent(idempotencyKey -> localVarHeaderParams.put("Idempotency-Key", idempotencyKey));
+
+    // Extract and set X-End-User-Wallet-Id header
+    Optional.ofNullable(requestOptions.getNcw()).map(ncw -> ncw.getWalletId()).map(Object::toString).ifPresent(ncwWalletId -> localVarHeaderParams.put("X-End-User-Wallet-Id", ncwWalletId));
+
     String localVarAccept = apiClient.selectHeaderAccept("*/*");
     String localVarContentType = apiClient.selectHeaderContentType();
     GenericType<FreezeTransactionResponse> localVarReturnType = new GenericType<FreezeTransactionResponse>() {};
     return apiClient.invokeAPI("TransactionsApi.freezeTransaction", localVarPath, "POST", new ArrayList<>(), null,
-                               new LinkedHashMap<>(), new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
+                                localVarHeaderParams, new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
                                null, localVarReturnType, false);
   }
   /**
@@ -319,8 +414,12 @@ public class TransactionsApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
+  public TransactionResponse getTransactionByExternalId(String externalTxId,  RequestOptions requestOptions) throws ApiException {
+     return getTransactionByExternalIdWithHttpInfo(externalTxId, requestOptions).getData();
+  }
+
   public TransactionResponse getTransactionByExternalId(String externalTxId) throws ApiException {
-    return getTransactionByExternalIdWithHttpInfo(externalTxId).getData();
+   return getTransactionByExternalIdWithHttpInfo(externalTxId, null).getData();
   }
 
   /**
@@ -336,7 +435,7 @@ public class TransactionsApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
-  public ApiResponse<TransactionResponse> getTransactionByExternalIdWithHttpInfo(String externalTxId) throws ApiException {
+  public ApiResponse<TransactionResponse> getTransactionByExternalIdWithHttpInfo(String externalTxId, RequestOptions requestOptions) throws ApiException {
     // Check required parameters
     if (externalTxId == null) {
       throw new ApiException(400, "Missing the required parameter 'externalTxId' when calling getTransactionByExternalId");
@@ -346,11 +445,18 @@ public class TransactionsApi {
     String localVarPath = "/transactions/external_tx_id/{externalTxId}/"
             .replaceAll("\\{externalTxId}", apiClient.escapeString(externalTxId));
 
+    Map<String, String> localVarHeaderParams = new LinkedHashMap<>();
+    // Extract and set Idempotency-Key header
+    Optional.ofNullable(requestOptions.getIdempotencyKey()).map(Object::toString).ifPresent(idempotencyKey -> localVarHeaderParams.put("Idempotency-Key", idempotencyKey));
+
+    // Extract and set X-End-User-Wallet-Id header
+    Optional.ofNullable(requestOptions.getNcw()).map(ncw -> ncw.getWalletId()).map(Object::toString).ifPresent(ncwWalletId -> localVarHeaderParams.put("X-End-User-Wallet-Id", ncwWalletId));
+
     String localVarAccept = apiClient.selectHeaderAccept("*/*", "application/json");
     String localVarContentType = apiClient.selectHeaderContentType();
     GenericType<TransactionResponse> localVarReturnType = new GenericType<TransactionResponse>() {};
     return apiClient.invokeAPI("TransactionsApi.getTransactionByExternalId", localVarPath, "GET", new ArrayList<>(), null,
-                               new LinkedHashMap<>(), new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
+                                localVarHeaderParams, new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
                                null, localVarReturnType, false);
   }
   /**
@@ -367,8 +473,12 @@ public class TransactionsApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
+  public TransactionResponse getTransactionById(String txId,  RequestOptions requestOptions) throws ApiException {
+     return getTransactionByIdWithHttpInfo(txId, requestOptions).getData();
+  }
+
   public TransactionResponse getTransactionById(String txId) throws ApiException {
-    return getTransactionByIdWithHttpInfo(txId).getData();
+   return getTransactionByIdWithHttpInfo(txId, null).getData();
   }
 
   /**
@@ -385,7 +495,7 @@ public class TransactionsApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
-  public ApiResponse<TransactionResponse> getTransactionByIdWithHttpInfo(String txId) throws ApiException {
+  public ApiResponse<TransactionResponse> getTransactionByIdWithHttpInfo(String txId, RequestOptions requestOptions) throws ApiException {
     // Check required parameters
     if (txId == null) {
       throw new ApiException(400, "Missing the required parameter 'txId' when calling getTransactionById");
@@ -395,11 +505,18 @@ public class TransactionsApi {
     String localVarPath = "/transactions/{txId}"
             .replaceAll("\\{txId}", apiClient.escapeString(txId));
 
+    Map<String, String> localVarHeaderParams = new LinkedHashMap<>();
+    // Extract and set Idempotency-Key header
+    Optional.ofNullable(requestOptions.getIdempotencyKey()).map(Object::toString).ifPresent(idempotencyKey -> localVarHeaderParams.put("Idempotency-Key", idempotencyKey));
+
+    // Extract and set X-End-User-Wallet-Id header
+    Optional.ofNullable(requestOptions.getNcw()).map(ncw -> ncw.getWalletId()).map(Object::toString).ifPresent(ncwWalletId -> localVarHeaderParams.put("X-End-User-Wallet-Id", ncwWalletId));
+
     String localVarAccept = apiClient.selectHeaderAccept("*/*", "application/json");
     String localVarContentType = apiClient.selectHeaderContentType();
     GenericType<TransactionResponse> localVarReturnType = new GenericType<TransactionResponse>() {};
     return apiClient.invokeAPI("TransactionsApi.getTransactionById", localVarPath, "GET", new ArrayList<>(), null,
-                               new LinkedHashMap<>(), new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
+                                localVarHeaderParams, new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
                                null, localVarReturnType, false);
   }
   /**
@@ -428,8 +545,12 @@ public class TransactionsApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
+  public List<TransactionResponse> getTransactions(String before, String after, String status, String orderBy, String sort, Integer limit, String sourceType, String sourceId, String destType, String destId, String assets, String txHash, String sourceWalletId, String destWalletId,  RequestOptions requestOptions) throws ApiException {
+     return getTransactionsWithHttpInfo(before,after,status,orderBy,sort,limit,sourceType,sourceId,destType,destId,assets,txHash,sourceWalletId,destWalletId, requestOptions).getData();
+  }
+
   public List<TransactionResponse> getTransactions(String before, String after, String status, String orderBy, String sort, Integer limit, String sourceType, String sourceId, String destType, String destId, String assets, String txHash, String sourceWalletId, String destWalletId) throws ApiException {
-    return getTransactionsWithHttpInfo(before, after, status, orderBy, sort, limit, sourceType, sourceId, destType, destId, assets, txHash, sourceWalletId, destWalletId).getData();
+   return getTransactionsWithHttpInfo(before,after,status,orderBy,sort,limit,sourceType,sourceId,destType,destId,assets,txHash,sourceWalletId,destWalletId, null).getData();
   }
 
   /**
@@ -458,7 +579,7 @@ public class TransactionsApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
-  public ApiResponse<List<TransactionResponse>> getTransactionsWithHttpInfo(String before, String after, String status, String orderBy, String sort, Integer limit, String sourceType, String sourceId, String destType, String destId, String assets, String txHash, String sourceWalletId, String destWalletId) throws ApiException {
+  public ApiResponse<List<TransactionResponse>> getTransactionsWithHttpInfo(String before,String after,String status,String orderBy,String sort,Integer limit,String sourceType,String sourceId,String destType,String destId,String assets,String txHash,String sourceWalletId,String destWalletId, RequestOptions requestOptions) throws ApiException {
     // Query parameters
     List<Pair> localVarQueryParams = new ArrayList<>(
             apiClient.parameterToPairs("", "before", before)
@@ -477,11 +598,18 @@ public class TransactionsApi {
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "sourceWalletId", sourceWalletId));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "destWalletId", destWalletId));
 
+    Map<String, String> localVarHeaderParams = new LinkedHashMap<>();
+    // Extract and set Idempotency-Key header
+    Optional.ofNullable(requestOptions.getIdempotencyKey()).map(Object::toString).ifPresent(idempotencyKey -> localVarHeaderParams.put("Idempotency-Key", idempotencyKey));
+
+    // Extract and set X-End-User-Wallet-Id header
+    Optional.ofNullable(requestOptions.getNcw()).map(ncw -> ncw.getWalletId()).map(Object::toString).ifPresent(ncwWalletId -> localVarHeaderParams.put("X-End-User-Wallet-Id", ncwWalletId));
+
     String localVarAccept = apiClient.selectHeaderAccept("*/*", "application/json");
     String localVarContentType = apiClient.selectHeaderContentType();
     GenericType<List<TransactionResponse>> localVarReturnType = new GenericType<List<TransactionResponse>>() {};
     return apiClient.invokeAPI("TransactionsApi.getTransactions", "/transactions", "GET", localVarQueryParams, null,
-                               new LinkedHashMap<>(), new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
+                                localVarHeaderParams, new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
                                null, localVarReturnType, false);
   }
   /**
@@ -498,8 +626,12 @@ public class TransactionsApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
+  public SetConfirmationsThresholdResponse setConfirmationThresholdForTransaction(String txId, SetConfirmationsThresholdRequest setConfirmationsThresholdRequest,  RequestOptions requestOptions) throws ApiException {
+     return setConfirmationThresholdForTransactionWithHttpInfo(txId,setConfirmationsThresholdRequest, requestOptions).getData();
+  }
+
   public SetConfirmationsThresholdResponse setConfirmationThresholdForTransaction(String txId, SetConfirmationsThresholdRequest setConfirmationsThresholdRequest) throws ApiException {
-    return setConfirmationThresholdForTransactionWithHttpInfo(txId, setConfirmationsThresholdRequest).getData();
+   return setConfirmationThresholdForTransactionWithHttpInfo(txId,setConfirmationsThresholdRequest, null).getData();
   }
 
   /**
@@ -516,7 +648,7 @@ public class TransactionsApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
-  public ApiResponse<SetConfirmationsThresholdResponse> setConfirmationThresholdForTransactionWithHttpInfo(String txId, SetConfirmationsThresholdRequest setConfirmationsThresholdRequest) throws ApiException {
+  public ApiResponse<SetConfirmationsThresholdResponse> setConfirmationThresholdForTransactionWithHttpInfo(String txId,SetConfirmationsThresholdRequest setConfirmationsThresholdRequest, RequestOptions requestOptions) throws ApiException {
     // Check required parameters
     if (txId == null) {
       throw new ApiException(400, "Missing the required parameter 'txId' when calling setConfirmationThresholdForTransaction");
@@ -526,11 +658,19 @@ public class TransactionsApi {
     String localVarPath = "/transactions/{txId}/set_confirmation_threshold"
             .replaceAll("\\{txId}", apiClient.escapeString(txId));
 
+    Map<String, String> localVarHeaderParams = new LinkedHashMap<>();
+    Object _body = setConfirmationsThresholdRequest;
+    // Extract and set Idempotency-Key header
+    Optional.ofNullable(requestOptions.getIdempotencyKey()).map(Object::toString).ifPresent(idempotencyKey -> localVarHeaderParams.put("Idempotency-Key", idempotencyKey));
+
+    // Extract and set X-End-User-Wallet-Id header
+    Optional.ofNullable(requestOptions.getNcw()).map(ncw -> ncw.getWalletId()).map(Object::toString).ifPresent(ncwWalletId -> localVarHeaderParams.put("X-End-User-Wallet-Id", ncwWalletId));
+
     String localVarAccept = apiClient.selectHeaderAccept("*/*", "application/json");
     String localVarContentType = apiClient.selectHeaderContentType("application/json");
     GenericType<SetConfirmationsThresholdResponse> localVarReturnType = new GenericType<SetConfirmationsThresholdResponse>() {};
     return apiClient.invokeAPI("TransactionsApi.setConfirmationThresholdForTransaction", localVarPath, "POST", new ArrayList<>(), setConfirmationsThresholdRequest,
-                               new LinkedHashMap<>(), new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
+                                localVarHeaderParams, new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
                                null, localVarReturnType, false);
   }
   /**
@@ -547,8 +687,12 @@ public class TransactionsApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
+  public SetConfirmationsThresholdResponse setConfirmationThresholdForTransactionByHash(String txHash, SetConfirmationsThresholdRequest setConfirmationsThresholdRequest,  RequestOptions requestOptions) throws ApiException {
+     return setConfirmationThresholdForTransactionByHashWithHttpInfo(txHash,setConfirmationsThresholdRequest, requestOptions).getData();
+  }
+
   public SetConfirmationsThresholdResponse setConfirmationThresholdForTransactionByHash(String txHash, SetConfirmationsThresholdRequest setConfirmationsThresholdRequest) throws ApiException {
-    return setConfirmationThresholdForTransactionByHashWithHttpInfo(txHash, setConfirmationsThresholdRequest).getData();
+   return setConfirmationThresholdForTransactionByHashWithHttpInfo(txHash,setConfirmationsThresholdRequest, null).getData();
   }
 
   /**
@@ -565,7 +709,7 @@ public class TransactionsApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
-  public ApiResponse<SetConfirmationsThresholdResponse> setConfirmationThresholdForTransactionByHashWithHttpInfo(String txHash, SetConfirmationsThresholdRequest setConfirmationsThresholdRequest) throws ApiException {
+  public ApiResponse<SetConfirmationsThresholdResponse> setConfirmationThresholdForTransactionByHashWithHttpInfo(String txHash,SetConfirmationsThresholdRequest setConfirmationsThresholdRequest, RequestOptions requestOptions) throws ApiException {
     // Check required parameters
     if (txHash == null) {
       throw new ApiException(400, "Missing the required parameter 'txHash' when calling setConfirmationThresholdForTransactionByHash");
@@ -575,11 +719,19 @@ public class TransactionsApi {
     String localVarPath = "/txHash/{txHash}/set_confirmation_threshold"
             .replaceAll("\\{txHash}", apiClient.escapeString(txHash));
 
+    Map<String, String> localVarHeaderParams = new LinkedHashMap<>();
+    Object _body = setConfirmationsThresholdRequest;
+    // Extract and set Idempotency-Key header
+    Optional.ofNullable(requestOptions.getIdempotencyKey()).map(Object::toString).ifPresent(idempotencyKey -> localVarHeaderParams.put("Idempotency-Key", idempotencyKey));
+
+    // Extract and set X-End-User-Wallet-Id header
+    Optional.ofNullable(requestOptions.getNcw()).map(ncw -> ncw.getWalletId()).map(Object::toString).ifPresent(ncwWalletId -> localVarHeaderParams.put("X-End-User-Wallet-Id", ncwWalletId));
+
     String localVarAccept = apiClient.selectHeaderAccept("*/*", "application/json");
     String localVarContentType = apiClient.selectHeaderContentType("application/json");
     GenericType<SetConfirmationsThresholdResponse> localVarReturnType = new GenericType<SetConfirmationsThresholdResponse>() {};
     return apiClient.invokeAPI("TransactionsApi.setConfirmationThresholdForTransactionByHash", localVarPath, "POST", new ArrayList<>(), setConfirmationsThresholdRequest,
-                               new LinkedHashMap<>(), new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
+                                localVarHeaderParams, new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
                                null, localVarReturnType, false);
   }
   /**
@@ -594,8 +746,12 @@ public class TransactionsApi {
        <tr><td> 200 </td><td> Unfreeze response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
+  public UnfreezeTransactionResponse unfreezeTransaction(String txId,  RequestOptions requestOptions) throws ApiException {
+     return unfreezeTransactionWithHttpInfo(txId, requestOptions).getData();
+  }
+
   public UnfreezeTransactionResponse unfreezeTransaction(String txId) throws ApiException {
-    return unfreezeTransactionWithHttpInfo(txId).getData();
+   return unfreezeTransactionWithHttpInfo(txId, null).getData();
   }
 
   /**
@@ -610,7 +766,7 @@ public class TransactionsApi {
        <tr><td> 200 </td><td> Unfreeze response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
-  public ApiResponse<UnfreezeTransactionResponse> unfreezeTransactionWithHttpInfo(String txId) throws ApiException {
+  public ApiResponse<UnfreezeTransactionResponse> unfreezeTransactionWithHttpInfo(String txId, RequestOptions requestOptions) throws ApiException {
     // Check required parameters
     if (txId == null) {
       throw new ApiException(400, "Missing the required parameter 'txId' when calling unfreezeTransaction");
@@ -620,11 +776,18 @@ public class TransactionsApi {
     String localVarPath = "/transactions/{txId}/unfreeze"
             .replaceAll("\\{txId}", apiClient.escapeString(txId));
 
+    Map<String, String> localVarHeaderParams = new LinkedHashMap<>();
+    // Extract and set Idempotency-Key header
+    Optional.ofNullable(requestOptions.getIdempotencyKey()).map(Object::toString).ifPresent(idempotencyKey -> localVarHeaderParams.put("Idempotency-Key", idempotencyKey));
+
+    // Extract and set X-End-User-Wallet-Id header
+    Optional.ofNullable(requestOptions.getNcw()).map(ncw -> ncw.getWalletId()).map(Object::toString).ifPresent(ncwWalletId -> localVarHeaderParams.put("X-End-User-Wallet-Id", ncwWalletId));
+
     String localVarAccept = apiClient.selectHeaderAccept("*/*");
     String localVarContentType = apiClient.selectHeaderContentType();
     GenericType<UnfreezeTransactionResponse> localVarReturnType = new GenericType<UnfreezeTransactionResponse>() {};
     return apiClient.invokeAPI("TransactionsApi.unfreezeTransaction", localVarPath, "POST", new ArrayList<>(), null,
-                               new LinkedHashMap<>(), new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
+                                localVarHeaderParams, new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
                                null, localVarReturnType, false);
   }
   /**
@@ -641,8 +804,12 @@ public class TransactionsApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
+  public ValidateAddressResponse validateAddress(String assetId, String address,  RequestOptions requestOptions) throws ApiException {
+     return validateAddressWithHttpInfo(assetId,address, requestOptions).getData();
+  }
+
   public ValidateAddressResponse validateAddress(String assetId, String address) throws ApiException {
-    return validateAddressWithHttpInfo(assetId, address).getData();
+   return validateAddressWithHttpInfo(assetId,address, null).getData();
   }
 
   /**
@@ -659,7 +826,7 @@ public class TransactionsApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
-  public ApiResponse<ValidateAddressResponse> validateAddressWithHttpInfo(String assetId, String address) throws ApiException {
+  public ApiResponse<ValidateAddressResponse> validateAddressWithHttpInfo(String assetId,String address, RequestOptions requestOptions) throws ApiException {
     // Check required parameters
     if (assetId == null) {
       throw new ApiException(400, "Missing the required parameter 'assetId' when calling validateAddress");
@@ -673,11 +840,18 @@ public class TransactionsApi {
             .replaceAll("\\{assetId}", apiClient.escapeString(assetId))
             .replaceAll("\\{address}", apiClient.escapeString(address));
 
+    Map<String, String> localVarHeaderParams = new LinkedHashMap<>();
+    // Extract and set Idempotency-Key header
+    Optional.ofNullable(requestOptions.getIdempotencyKey()).map(Object::toString).ifPresent(idempotencyKey -> localVarHeaderParams.put("Idempotency-Key", idempotencyKey));
+
+    // Extract and set X-End-User-Wallet-Id header
+    Optional.ofNullable(requestOptions.getNcw()).map(ncw -> ncw.getWalletId()).map(Object::toString).ifPresent(ncwWalletId -> localVarHeaderParams.put("X-End-User-Wallet-Id", ncwWalletId));
+
     String localVarAccept = apiClient.selectHeaderAccept("*/*", "application/json");
     String localVarContentType = apiClient.selectHeaderContentType();
     GenericType<ValidateAddressResponse> localVarReturnType = new GenericType<ValidateAddressResponse>() {};
     return apiClient.invokeAPI("TransactionsApi.validateAddress", localVarPath, "GET", new ArrayList<>(), null,
-                               new LinkedHashMap<>(), new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
+                                localVarHeaderParams, new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
                                null, localVarReturnType, false);
   }
 }

@@ -4,10 +4,12 @@ import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.Configuration;
+import com.fireblocks.sdk.model.Ncw;
+import com.fireblocks.sdk.model.RequestOptions;
 import com.fireblocks.sdk.Pair;
-
+import java.util.Optional;
 import javax.ws.rs.core.GenericType;
-
+import java.util.UUID;
 import com.fireblocks.sdk.model.CreateUsersGroupResponse;
 import com.fireblocks.sdk.model.Error;
 import com.fireblocks.sdk.model.UserGroupCreateRequest;
@@ -46,8 +48,12 @@ public class UsersGroupsBetaApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
+  public CreateUsersGroupResponse createUserGroup(UserGroupCreateRequest userGroupCreateRequest,  RequestOptions requestOptions) throws ApiException {
+     return createUserGroupWithHttpInfo(userGroupCreateRequest, requestOptions).getData();
+  }
+
   public CreateUsersGroupResponse createUserGroup(UserGroupCreateRequest userGroupCreateRequest) throws ApiException {
-    return createUserGroupWithHttpInfo(userGroupCreateRequest).getData();
+   return createUserGroupWithHttpInfo(userGroupCreateRequest, null).getData();
   }
 
   /**
@@ -63,17 +69,25 @@ public class UsersGroupsBetaApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
-  public ApiResponse<CreateUsersGroupResponse> createUserGroupWithHttpInfo(UserGroupCreateRequest userGroupCreateRequest) throws ApiException {
+  public ApiResponse<CreateUsersGroupResponse> createUserGroupWithHttpInfo(UserGroupCreateRequest userGroupCreateRequest, RequestOptions requestOptions) throws ApiException {
     // Check required parameters
     if (userGroupCreateRequest == null) {
       throw new ApiException(400, "Missing the required parameter 'userGroupCreateRequest' when calling createUserGroup");
     }
 
+    Map<String, String> localVarHeaderParams = new LinkedHashMap<>();
+    Object _body = userGroupCreateRequest;
+    // Extract and set Idempotency-Key header
+    Optional.ofNullable(requestOptions.getIdempotencyKey()).map(Object::toString).ifPresent(idempotencyKey -> localVarHeaderParams.put("Idempotency-Key", idempotencyKey));
+
+    // Extract and set X-End-User-Wallet-Id header
+    Optional.ofNullable(requestOptions.getNcw()).map(ncw -> ncw.getWalletId()).map(Object::toString).ifPresent(ncwWalletId -> localVarHeaderParams.put("X-End-User-Wallet-Id", ncwWalletId));
+
     String localVarAccept = apiClient.selectHeaderAccept("*/*", "application/json");
     String localVarContentType = apiClient.selectHeaderContentType("application/json");
     GenericType<CreateUsersGroupResponse> localVarReturnType = new GenericType<CreateUsersGroupResponse>() {};
     return apiClient.invokeAPI("UsersGroupsBetaApi.createUserGroup", "/users_groups", "POST", new ArrayList<>(), userGroupCreateRequest,
-                               new LinkedHashMap<>(), new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
+                                localVarHeaderParams, new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
                                null, localVarReturnType, false);
   }
   /**
@@ -88,8 +102,12 @@ public class UsersGroupsBetaApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
+  public void deleteUserGroup(String groupId,  RequestOptions requestOptions) throws ApiException {
+    deleteUserGroupWithHttpInfo(groupId, requestOptions);
+  }
+
   public void deleteUserGroup(String groupId) throws ApiException {
-    deleteUserGroupWithHttpInfo(groupId);
+  deleteUserGroupWithHttpInfo(groupId, null);
   }
 
   /**
@@ -105,7 +123,7 @@ public class UsersGroupsBetaApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
-  public ApiResponse<Void> deleteUserGroupWithHttpInfo(String groupId) throws ApiException {
+  public ApiResponse<Void> deleteUserGroupWithHttpInfo(String groupId, RequestOptions requestOptions) throws ApiException {
     // Check required parameters
     if (groupId == null) {
       throw new ApiException(400, "Missing the required parameter 'groupId' when calling deleteUserGroup");
@@ -115,10 +133,17 @@ public class UsersGroupsBetaApi {
     String localVarPath = "/users_groups/{groupId}"
             .replaceAll("\\{groupId}", apiClient.escapeString(groupId));
 
+    Map<String, String> localVarHeaderParams = new LinkedHashMap<>();
+    // Extract and set Idempotency-Key header
+    Optional.ofNullable(requestOptions.getIdempotencyKey()).map(Object::toString).ifPresent(idempotencyKey -> localVarHeaderParams.put("Idempotency-Key", idempotencyKey));
+
+    // Extract and set X-End-User-Wallet-Id header
+    Optional.ofNullable(requestOptions.getNcw()).map(ncw -> ncw.getWalletId()).map(Object::toString).ifPresent(ncwWalletId -> localVarHeaderParams.put("X-End-User-Wallet-Id", ncwWalletId));
+
     String localVarAccept = apiClient.selectHeaderAccept("application/json");
     String localVarContentType = apiClient.selectHeaderContentType();
     return apiClient.invokeAPI("UsersGroupsBetaApi.deleteUserGroup", localVarPath, "DELETE", new ArrayList<>(), null,
-                               new LinkedHashMap<>(), new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
+                                localVarHeaderParams, new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
                                null, null, false);
   }
   /**
@@ -134,8 +159,12 @@ public class UsersGroupsBetaApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
+  public UsersGroupResponse getUserGroup(String groupId,  RequestOptions requestOptions) throws ApiException {
+     return getUserGroupWithHttpInfo(groupId, requestOptions).getData();
+  }
+
   public UsersGroupResponse getUserGroup(String groupId) throws ApiException {
-    return getUserGroupWithHttpInfo(groupId).getData();
+   return getUserGroupWithHttpInfo(groupId, null).getData();
   }
 
   /**
@@ -151,7 +180,7 @@ public class UsersGroupsBetaApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
-  public ApiResponse<UsersGroupResponse> getUserGroupWithHttpInfo(String groupId) throws ApiException {
+  public ApiResponse<UsersGroupResponse> getUserGroupWithHttpInfo(String groupId, RequestOptions requestOptions) throws ApiException {
     // Check required parameters
     if (groupId == null) {
       throw new ApiException(400, "Missing the required parameter 'groupId' when calling getUserGroup");
@@ -161,11 +190,18 @@ public class UsersGroupsBetaApi {
     String localVarPath = "/users_groups/{groupId}"
             .replaceAll("\\{groupId}", apiClient.escapeString(groupId));
 
+    Map<String, String> localVarHeaderParams = new LinkedHashMap<>();
+    // Extract and set Idempotency-Key header
+    Optional.ofNullable(requestOptions.getIdempotencyKey()).map(Object::toString).ifPresent(idempotencyKey -> localVarHeaderParams.put("Idempotency-Key", idempotencyKey));
+
+    // Extract and set X-End-User-Wallet-Id header
+    Optional.ofNullable(requestOptions.getNcw()).map(ncw -> ncw.getWalletId()).map(Object::toString).ifPresent(ncwWalletId -> localVarHeaderParams.put("X-End-User-Wallet-Id", ncwWalletId));
+
     String localVarAccept = apiClient.selectHeaderAccept("*/*", "application/json");
     String localVarContentType = apiClient.selectHeaderContentType();
     GenericType<UsersGroupResponse> localVarReturnType = new GenericType<UsersGroupResponse>() {};
     return apiClient.invokeAPI("UsersGroupsBetaApi.getUserGroup", localVarPath, "GET", new ArrayList<>(), null,
-                               new LinkedHashMap<>(), new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
+                                localVarHeaderParams, new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
                                null, localVarReturnType, false);
   }
   /**
@@ -180,8 +216,12 @@ public class UsersGroupsBetaApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
+  public List<UsersGroupResponse> getUserGroups( RequestOptions requestOptions) throws ApiException {
+     return getUserGroupsWithHttpInfo( requestOptions).getData();
+  }
+
   public List<UsersGroupResponse> getUserGroups() throws ApiException {
-    return getUserGroupsWithHttpInfo().getData();
+   return getUserGroupsWithHttpInfo( null).getData();
   }
 
   /**
@@ -196,12 +236,19 @@ public class UsersGroupsBetaApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
-  public ApiResponse<List<UsersGroupResponse>> getUserGroupsWithHttpInfo() throws ApiException {
+  public ApiResponse<List<UsersGroupResponse>> getUserGroupsWithHttpInfo( RequestOptions requestOptions) throws ApiException {
+    Map<String, String> localVarHeaderParams = new LinkedHashMap<>();
+    // Extract and set Idempotency-Key header
+    Optional.ofNullable(requestOptions.getIdempotencyKey()).map(Object::toString).ifPresent(idempotencyKey -> localVarHeaderParams.put("Idempotency-Key", idempotencyKey));
+
+    // Extract and set X-End-User-Wallet-Id header
+    Optional.ofNullable(requestOptions.getNcw()).map(ncw -> ncw.getWalletId()).map(Object::toString).ifPresent(ncwWalletId -> localVarHeaderParams.put("X-End-User-Wallet-Id", ncwWalletId));
+
     String localVarAccept = apiClient.selectHeaderAccept("*/*", "application/json");
     String localVarContentType = apiClient.selectHeaderContentType();
     GenericType<List<UsersGroupResponse>> localVarReturnType = new GenericType<List<UsersGroupResponse>>() {};
     return apiClient.invokeAPI("UsersGroupsBetaApi.getUserGroups", "/users_groups", "GET", new ArrayList<>(), null,
-                               new LinkedHashMap<>(), new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
+                                localVarHeaderParams, new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
                                null, localVarReturnType, false);
   }
   /**
@@ -218,8 +265,12 @@ public class UsersGroupsBetaApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
+  public UserGroupCreateResponse updateUserGroup(String groupId, UserGroupUpdateRequest userGroupUpdateRequest,  RequestOptions requestOptions) throws ApiException {
+     return updateUserGroupWithHttpInfo(groupId,userGroupUpdateRequest, requestOptions).getData();
+  }
+
   public UserGroupCreateResponse updateUserGroup(String groupId, UserGroupUpdateRequest userGroupUpdateRequest) throws ApiException {
-    return updateUserGroupWithHttpInfo(groupId, userGroupUpdateRequest).getData();
+   return updateUserGroupWithHttpInfo(groupId,userGroupUpdateRequest, null).getData();
   }
 
   /**
@@ -236,7 +287,7 @@ public class UsersGroupsBetaApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
-  public ApiResponse<UserGroupCreateResponse> updateUserGroupWithHttpInfo(String groupId, UserGroupUpdateRequest userGroupUpdateRequest) throws ApiException {
+  public ApiResponse<UserGroupCreateResponse> updateUserGroupWithHttpInfo(String groupId,UserGroupUpdateRequest userGroupUpdateRequest, RequestOptions requestOptions) throws ApiException {
     // Check required parameters
     if (groupId == null) {
       throw new ApiException(400, "Missing the required parameter 'groupId' when calling updateUserGroup");
@@ -249,11 +300,19 @@ public class UsersGroupsBetaApi {
     String localVarPath = "/users_groups/{groupId}"
             .replaceAll("\\{groupId}", apiClient.escapeString(groupId));
 
+    Map<String, String> localVarHeaderParams = new LinkedHashMap<>();
+    Object _body = userGroupUpdateRequest;
+    // Extract and set Idempotency-Key header
+    Optional.ofNullable(requestOptions.getIdempotencyKey()).map(Object::toString).ifPresent(idempotencyKey -> localVarHeaderParams.put("Idempotency-Key", idempotencyKey));
+
+    // Extract and set X-End-User-Wallet-Id header
+    Optional.ofNullable(requestOptions.getNcw()).map(ncw -> ncw.getWalletId()).map(Object::toString).ifPresent(ncwWalletId -> localVarHeaderParams.put("X-End-User-Wallet-Id", ncwWalletId));
+
     String localVarAccept = apiClient.selectHeaderAccept("*/*", "application/json");
     String localVarContentType = apiClient.selectHeaderContentType("application/json");
     GenericType<UserGroupCreateResponse> localVarReturnType = new GenericType<UserGroupCreateResponse>() {};
     return apiClient.invokeAPI("UsersGroupsBetaApi.updateUserGroup", localVarPath, "PUT", new ArrayList<>(), userGroupUpdateRequest,
-                               new LinkedHashMap<>(), new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
+                                localVarHeaderParams, new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
                                null, localVarReturnType, false);
   }
 }

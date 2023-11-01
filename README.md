@@ -1,10 +1,8 @@
 # Fireblocks Java SDK (Beta)
-
-[//]: # ([![Maven version]&#40;https://badge.fury.io/java/fireblocks.svg&#41;]&#40;https://badge.fury.io/java/fireblocks&#41;)
+<!--[![Maven version](https://badge.fury.io/java/fireblocks.svg)](https://badge.fury.io/java/fireblocks)-->
 > **Warning**
 > This package is currently in a beta stage and should be used at your own risk.
 > The provided interfaces might go through backwards-incompatibale changes.
-
 
 For detailed API documentation please refer to the [Fireblocks API Reference](https://developers.fireblocks.com/reference/).
 
@@ -421,6 +419,7 @@ Class | Method | HTTP request | Description
  - [InstructionAmount](docs/InstructionAmount.md)
  - [ListOwnedCollections200Response](docs/ListOwnedCollections200Response.md)
  - [MediaEntityResponse](docs/MediaEntityResponse.md)
+ - [Ncw](docs/Ncw.md)
  - [NetworkChannel](docs/NetworkChannel.md)
  - [NetworkConnection](docs/NetworkConnection.md)
  - [NetworkConnectionResponse](docs/NetworkConnectionResponse.md)
@@ -486,6 +485,7 @@ Class | Method | HTTP request | Description
  - [PublishResult](docs/PublishResult.md)
  - [RedeemFundsToLinkedDDARequest](docs/RedeemFundsToLinkedDDARequest.md)
  - [RemoveCollateralRequestBody](docs/RemoveCollateralRequestBody.md)
+ - [RequestOptions](docs/RequestOptions.md)
  - [ResendWebhooksForTransactionRequest](docs/ResendWebhooksForTransactionRequest.md)
  - [ResendWebhooksResponse](docs/ResendWebhooksResponse.md)
  - [RespondToConnectionRequest](docs/RespondToConnectionRequest.md)

@@ -3829,6 +3829,7 @@ paths:
       summary: Create a new transaction
       tags:
       - Transactions
+      x-ncw-supported: true
       x-readme:
         code-samples:
         - language: python
@@ -12578,6 +12579,18 @@ components:
       - errors
       - index
       - status
+      type: object
+    RequestOptions:
+      properties:
+        idempotencyKey:
+          type: string
+        ncw:
+          $ref: '#/components/schemas/Ncw'
+      type: object
+    Ncw:
+      properties:
+        walletId:
+          type: string
       type: object
     PolicyRuleError:
       description: Rule validation result error

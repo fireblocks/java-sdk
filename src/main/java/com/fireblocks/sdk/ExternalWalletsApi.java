@@ -4,10 +4,12 @@ import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.Configuration;
+import com.fireblocks.sdk.model.Ncw;
+import com.fireblocks.sdk.model.RequestOptions;
 import com.fireblocks.sdk.Pair;
-
+import java.util.Optional;
 import javax.ws.rs.core.GenericType;
-
+import java.util.UUID;
 import com.fireblocks.sdk.model.AddAssetToExternalWalletRequest;
 import com.fireblocks.sdk.model.CreateInternalWalletRequest;
 import com.fireblocks.sdk.model.Error;
@@ -48,8 +50,12 @@ public class ExternalWalletsApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
+  public ExternalWalletAsset addAssetToExternalWallet(String walletId, String assetId, AddAssetToExternalWalletRequest addAssetToExternalWalletRequest,  RequestOptions requestOptions) throws ApiException {
+     return addAssetToExternalWalletWithHttpInfo(walletId,assetId,addAssetToExternalWalletRequest, requestOptions).getData();
+  }
+
   public ExternalWalletAsset addAssetToExternalWallet(String walletId, String assetId, AddAssetToExternalWalletRequest addAssetToExternalWalletRequest) throws ApiException {
-    return addAssetToExternalWalletWithHttpInfo(walletId, assetId, addAssetToExternalWalletRequest).getData();
+   return addAssetToExternalWalletWithHttpInfo(walletId,assetId,addAssetToExternalWalletRequest, null).getData();
   }
 
   /**
@@ -67,7 +73,7 @@ public class ExternalWalletsApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
-  public ApiResponse<ExternalWalletAsset> addAssetToExternalWalletWithHttpInfo(String walletId, String assetId, AddAssetToExternalWalletRequest addAssetToExternalWalletRequest) throws ApiException {
+  public ApiResponse<ExternalWalletAsset> addAssetToExternalWalletWithHttpInfo(String walletId,String assetId,AddAssetToExternalWalletRequest addAssetToExternalWalletRequest, RequestOptions requestOptions) throws ApiException {
     // Check required parameters
     if (walletId == null) {
       throw new ApiException(400, "Missing the required parameter 'walletId' when calling addAssetToExternalWallet");
@@ -81,11 +87,19 @@ public class ExternalWalletsApi {
             .replaceAll("\\{walletId}", apiClient.escapeString(walletId))
             .replaceAll("\\{assetId}", apiClient.escapeString(assetId));
 
+    Map<String, String> localVarHeaderParams = new LinkedHashMap<>();
+    Object _body = addAssetToExternalWalletRequest;
+    // Extract and set Idempotency-Key header
+    Optional.ofNullable(requestOptions.getIdempotencyKey()).map(Object::toString).ifPresent(idempotencyKey -> localVarHeaderParams.put("Idempotency-Key", idempotencyKey));
+
+    // Extract and set X-End-User-Wallet-Id header
+    Optional.ofNullable(requestOptions.getNcw()).map(ncw -> ncw.getWalletId()).map(Object::toString).ifPresent(ncwWalletId -> localVarHeaderParams.put("X-End-User-Wallet-Id", ncwWalletId));
+
     String localVarAccept = apiClient.selectHeaderAccept("*/*", "application/json");
     String localVarContentType = apiClient.selectHeaderContentType("application/json");
     GenericType<ExternalWalletAsset> localVarReturnType = new GenericType<ExternalWalletAsset>() {};
     return apiClient.invokeAPI("ExternalWalletsApi.addAssetToExternalWallet", localVarPath, "POST", new ArrayList<>(), addAssetToExternalWalletRequest,
-                               new LinkedHashMap<>(), new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
+                                localVarHeaderParams, new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
                                null, localVarReturnType, false);
   }
   /**
@@ -101,8 +115,12 @@ public class ExternalWalletsApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
+  public UnmanagedWallet createExternalWallet(CreateInternalWalletRequest createInternalWalletRequest,  RequestOptions requestOptions) throws ApiException {
+     return createExternalWalletWithHttpInfo(createInternalWalletRequest, requestOptions).getData();
+  }
+
   public UnmanagedWallet createExternalWallet(CreateInternalWalletRequest createInternalWalletRequest) throws ApiException {
-    return createExternalWalletWithHttpInfo(createInternalWalletRequest).getData();
+   return createExternalWalletWithHttpInfo(createInternalWalletRequest, null).getData();
   }
 
   /**
@@ -118,12 +136,20 @@ public class ExternalWalletsApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
-  public ApiResponse<UnmanagedWallet> createExternalWalletWithHttpInfo(CreateInternalWalletRequest createInternalWalletRequest) throws ApiException {
+  public ApiResponse<UnmanagedWallet> createExternalWalletWithHttpInfo(CreateInternalWalletRequest createInternalWalletRequest, RequestOptions requestOptions) throws ApiException {
+    Map<String, String> localVarHeaderParams = new LinkedHashMap<>();
+    Object _body = createInternalWalletRequest;
+    // Extract and set Idempotency-Key header
+    Optional.ofNullable(requestOptions.getIdempotencyKey()).map(Object::toString).ifPresent(idempotencyKey -> localVarHeaderParams.put("Idempotency-Key", idempotencyKey));
+
+    // Extract and set X-End-User-Wallet-Id header
+    Optional.ofNullable(requestOptions.getNcw()).map(ncw -> ncw.getWalletId()).map(Object::toString).ifPresent(ncwWalletId -> localVarHeaderParams.put("X-End-User-Wallet-Id", ncwWalletId));
+
     String localVarAccept = apiClient.selectHeaderAccept("*/*", "application/json");
     String localVarContentType = apiClient.selectHeaderContentType("application/json");
     GenericType<UnmanagedWallet> localVarReturnType = new GenericType<UnmanagedWallet>() {};
     return apiClient.invokeAPI("ExternalWalletsApi.createExternalWallet", "/external_wallets", "POST", new ArrayList<>(), createInternalWalletRequest,
-                               new LinkedHashMap<>(), new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
+                                localVarHeaderParams, new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
                                null, localVarReturnType, false);
   }
   /**
@@ -138,8 +164,12 @@ public class ExternalWalletsApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
+  public void deleteExternalWallet(String walletId,  RequestOptions requestOptions) throws ApiException {
+    deleteExternalWalletWithHttpInfo(walletId, requestOptions);
+  }
+
   public void deleteExternalWallet(String walletId) throws ApiException {
-    deleteExternalWalletWithHttpInfo(walletId);
+  deleteExternalWalletWithHttpInfo(walletId, null);
   }
 
   /**
@@ -155,7 +185,7 @@ public class ExternalWalletsApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
-  public ApiResponse<Void> deleteExternalWalletWithHttpInfo(String walletId) throws ApiException {
+  public ApiResponse<Void> deleteExternalWalletWithHttpInfo(String walletId, RequestOptions requestOptions) throws ApiException {
     // Check required parameters
     if (walletId == null) {
       throw new ApiException(400, "Missing the required parameter 'walletId' when calling deleteExternalWallet");
@@ -165,10 +195,17 @@ public class ExternalWalletsApi {
     String localVarPath = "/external_wallets/{walletId}"
             .replaceAll("\\{walletId}", apiClient.escapeString(walletId));
 
+    Map<String, String> localVarHeaderParams = new LinkedHashMap<>();
+    // Extract and set Idempotency-Key header
+    Optional.ofNullable(requestOptions.getIdempotencyKey()).map(Object::toString).ifPresent(idempotencyKey -> localVarHeaderParams.put("Idempotency-Key", idempotencyKey));
+
+    // Extract and set X-End-User-Wallet-Id header
+    Optional.ofNullable(requestOptions.getNcw()).map(ncw -> ncw.getWalletId()).map(Object::toString).ifPresent(ncwWalletId -> localVarHeaderParams.put("X-End-User-Wallet-Id", ncwWalletId));
+
     String localVarAccept = apiClient.selectHeaderAccept("application/json");
     String localVarContentType = apiClient.selectHeaderContentType();
     return apiClient.invokeAPI("ExternalWalletsApi.deleteExternalWallet", localVarPath, "DELETE", new ArrayList<>(), null,
-                               new LinkedHashMap<>(), new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
+                                localVarHeaderParams, new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
                                null, null, false);
   }
   /**
@@ -185,8 +222,12 @@ public class ExternalWalletsApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
+  public ExternalWalletAsset getAssetInExternalWallet(String walletId, String assetId,  RequestOptions requestOptions) throws ApiException {
+     return getAssetInExternalWalletWithHttpInfo(walletId,assetId, requestOptions).getData();
+  }
+
   public ExternalWalletAsset getAssetInExternalWallet(String walletId, String assetId) throws ApiException {
-    return getAssetInExternalWalletWithHttpInfo(walletId, assetId).getData();
+   return getAssetInExternalWalletWithHttpInfo(walletId,assetId, null).getData();
   }
 
   /**
@@ -203,7 +244,7 @@ public class ExternalWalletsApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
-  public ApiResponse<ExternalWalletAsset> getAssetInExternalWalletWithHttpInfo(String walletId, String assetId) throws ApiException {
+  public ApiResponse<ExternalWalletAsset> getAssetInExternalWalletWithHttpInfo(String walletId,String assetId, RequestOptions requestOptions) throws ApiException {
     // Check required parameters
     if (walletId == null) {
       throw new ApiException(400, "Missing the required parameter 'walletId' when calling getAssetInExternalWallet");
@@ -217,11 +258,18 @@ public class ExternalWalletsApi {
             .replaceAll("\\{walletId}", apiClient.escapeString(walletId))
             .replaceAll("\\{assetId}", apiClient.escapeString(assetId));
 
+    Map<String, String> localVarHeaderParams = new LinkedHashMap<>();
+    // Extract and set Idempotency-Key header
+    Optional.ofNullable(requestOptions.getIdempotencyKey()).map(Object::toString).ifPresent(idempotencyKey -> localVarHeaderParams.put("Idempotency-Key", idempotencyKey));
+
+    // Extract and set X-End-User-Wallet-Id header
+    Optional.ofNullable(requestOptions.getNcw()).map(ncw -> ncw.getWalletId()).map(Object::toString).ifPresent(ncwWalletId -> localVarHeaderParams.put("X-End-User-Wallet-Id", ncwWalletId));
+
     String localVarAccept = apiClient.selectHeaderAccept("*/*", "application/json");
     String localVarContentType = apiClient.selectHeaderContentType();
     GenericType<ExternalWalletAsset> localVarReturnType = new GenericType<ExternalWalletAsset>() {};
     return apiClient.invokeAPI("ExternalWalletsApi.getAssetInExternalWallet", localVarPath, "GET", new ArrayList<>(), null,
-                               new LinkedHashMap<>(), new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
+                                localVarHeaderParams, new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
                                null, localVarReturnType, false);
   }
   /**
@@ -237,8 +285,12 @@ public class ExternalWalletsApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
+  public UnmanagedWallet getExternalWalletById(String walletId,  RequestOptions requestOptions) throws ApiException {
+     return getExternalWalletByIdWithHttpInfo(walletId, requestOptions).getData();
+  }
+
   public UnmanagedWallet getExternalWalletById(String walletId) throws ApiException {
-    return getExternalWalletByIdWithHttpInfo(walletId).getData();
+   return getExternalWalletByIdWithHttpInfo(walletId, null).getData();
   }
 
   /**
@@ -254,7 +306,7 @@ public class ExternalWalletsApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
-  public ApiResponse<UnmanagedWallet> getExternalWalletByIdWithHttpInfo(String walletId) throws ApiException {
+  public ApiResponse<UnmanagedWallet> getExternalWalletByIdWithHttpInfo(String walletId, RequestOptions requestOptions) throws ApiException {
     // Check required parameters
     if (walletId == null) {
       throw new ApiException(400, "Missing the required parameter 'walletId' when calling getExternalWalletById");
@@ -264,11 +316,18 @@ public class ExternalWalletsApi {
     String localVarPath = "/external_wallets/{walletId}"
             .replaceAll("\\{walletId}", apiClient.escapeString(walletId));
 
+    Map<String, String> localVarHeaderParams = new LinkedHashMap<>();
+    // Extract and set Idempotency-Key header
+    Optional.ofNullable(requestOptions.getIdempotencyKey()).map(Object::toString).ifPresent(idempotencyKey -> localVarHeaderParams.put("Idempotency-Key", idempotencyKey));
+
+    // Extract and set X-End-User-Wallet-Id header
+    Optional.ofNullable(requestOptions.getNcw()).map(ncw -> ncw.getWalletId()).map(Object::toString).ifPresent(ncwWalletId -> localVarHeaderParams.put("X-End-User-Wallet-Id", ncwWalletId));
+
     String localVarAccept = apiClient.selectHeaderAccept("*/*", "application/json");
     String localVarContentType = apiClient.selectHeaderContentType();
     GenericType<UnmanagedWallet> localVarReturnType = new GenericType<UnmanagedWallet>() {};
     return apiClient.invokeAPI("ExternalWalletsApi.getExternalWalletById", localVarPath, "GET", new ArrayList<>(), null,
-                               new LinkedHashMap<>(), new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
+                                localVarHeaderParams, new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
                                null, localVarReturnType, false);
   }
   /**
@@ -283,8 +342,12 @@ public class ExternalWalletsApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
+  public List<UnmanagedWallet> getExternalWallets( RequestOptions requestOptions) throws ApiException {
+     return getExternalWalletsWithHttpInfo( requestOptions).getData();
+  }
+
   public List<UnmanagedWallet> getExternalWallets() throws ApiException {
-    return getExternalWalletsWithHttpInfo().getData();
+   return getExternalWalletsWithHttpInfo( null).getData();
   }
 
   /**
@@ -299,12 +362,19 @@ public class ExternalWalletsApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
-  public ApiResponse<List<UnmanagedWallet>> getExternalWalletsWithHttpInfo() throws ApiException {
+  public ApiResponse<List<UnmanagedWallet>> getExternalWalletsWithHttpInfo( RequestOptions requestOptions) throws ApiException {
+    Map<String, String> localVarHeaderParams = new LinkedHashMap<>();
+    // Extract and set Idempotency-Key header
+    Optional.ofNullable(requestOptions.getIdempotencyKey()).map(Object::toString).ifPresent(idempotencyKey -> localVarHeaderParams.put("Idempotency-Key", idempotencyKey));
+
+    // Extract and set X-End-User-Wallet-Id header
+    Optional.ofNullable(requestOptions.getNcw()).map(ncw -> ncw.getWalletId()).map(Object::toString).ifPresent(ncwWalletId -> localVarHeaderParams.put("X-End-User-Wallet-Id", ncwWalletId));
+
     String localVarAccept = apiClient.selectHeaderAccept("*/*", "application/json");
     String localVarContentType = apiClient.selectHeaderContentType();
     GenericType<List<UnmanagedWallet>> localVarReturnType = new GenericType<List<UnmanagedWallet>>() {};
     return apiClient.invokeAPI("ExternalWalletsApi.getExternalWallets", "/external_wallets", "GET", new ArrayList<>(), null,
-                               new LinkedHashMap<>(), new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
+                                localVarHeaderParams, new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
                                null, localVarReturnType, false);
   }
   /**
@@ -320,8 +390,12 @@ public class ExternalWalletsApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
+  public void removeAssetFromExternalWallet(String walletId, String assetId,  RequestOptions requestOptions) throws ApiException {
+    removeAssetFromExternalWalletWithHttpInfo(walletId,assetId, requestOptions);
+  }
+
   public void removeAssetFromExternalWallet(String walletId, String assetId) throws ApiException {
-    removeAssetFromExternalWalletWithHttpInfo(walletId, assetId);
+  removeAssetFromExternalWalletWithHttpInfo(walletId,assetId, null);
   }
 
   /**
@@ -338,7 +412,7 @@ public class ExternalWalletsApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
-  public ApiResponse<Void> removeAssetFromExternalWalletWithHttpInfo(String walletId, String assetId) throws ApiException {
+  public ApiResponse<Void> removeAssetFromExternalWalletWithHttpInfo(String walletId,String assetId, RequestOptions requestOptions) throws ApiException {
     // Check required parameters
     if (walletId == null) {
       throw new ApiException(400, "Missing the required parameter 'walletId' when calling removeAssetFromExternalWallet");
@@ -352,10 +426,17 @@ public class ExternalWalletsApi {
             .replaceAll("\\{walletId}", apiClient.escapeString(walletId))
             .replaceAll("\\{assetId}", apiClient.escapeString(assetId));
 
+    Map<String, String> localVarHeaderParams = new LinkedHashMap<>();
+    // Extract and set Idempotency-Key header
+    Optional.ofNullable(requestOptions.getIdempotencyKey()).map(Object::toString).ifPresent(idempotencyKey -> localVarHeaderParams.put("Idempotency-Key", idempotencyKey));
+
+    // Extract and set X-End-User-Wallet-Id header
+    Optional.ofNullable(requestOptions.getNcw()).map(ncw -> ncw.getWalletId()).map(Object::toString).ifPresent(ncwWalletId -> localVarHeaderParams.put("X-End-User-Wallet-Id", ncwWalletId));
+
     String localVarAccept = apiClient.selectHeaderAccept("application/json");
     String localVarContentType = apiClient.selectHeaderContentType();
     return apiClient.invokeAPI("ExternalWalletsApi.removeAssetFromExternalWallet", localVarPath, "DELETE", new ArrayList<>(), null,
-                               new LinkedHashMap<>(), new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
+                                localVarHeaderParams, new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
                                null, null, false);
   }
   /**
@@ -371,8 +452,12 @@ public class ExternalWalletsApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
+  public void setCustomerRefIdForExternalWallet(String walletId, SetCustomerRefIdForVaultAccountRequest setCustomerRefIdForVaultAccountRequest,  RequestOptions requestOptions) throws ApiException {
+    setCustomerRefIdForExternalWalletWithHttpInfo(walletId,setCustomerRefIdForVaultAccountRequest, requestOptions);
+  }
+
   public void setCustomerRefIdForExternalWallet(String walletId, SetCustomerRefIdForVaultAccountRequest setCustomerRefIdForVaultAccountRequest) throws ApiException {
-    setCustomerRefIdForExternalWalletWithHttpInfo(walletId, setCustomerRefIdForVaultAccountRequest);
+  setCustomerRefIdForExternalWalletWithHttpInfo(walletId,setCustomerRefIdForVaultAccountRequest, null);
   }
 
   /**
@@ -389,7 +474,7 @@ public class ExternalWalletsApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
-  public ApiResponse<Void> setCustomerRefIdForExternalWalletWithHttpInfo(String walletId, SetCustomerRefIdForVaultAccountRequest setCustomerRefIdForVaultAccountRequest) throws ApiException {
+  public ApiResponse<Void> setCustomerRefIdForExternalWalletWithHttpInfo(String walletId,SetCustomerRefIdForVaultAccountRequest setCustomerRefIdForVaultAccountRequest, RequestOptions requestOptions) throws ApiException {
     // Check required parameters
     if (walletId == null) {
       throw new ApiException(400, "Missing the required parameter 'walletId' when calling setCustomerRefIdForExternalWallet");
@@ -402,10 +487,18 @@ public class ExternalWalletsApi {
     String localVarPath = "/external_wallets/{walletId}/set_customer_ref_id"
             .replaceAll("\\{walletId}", apiClient.escapeString(walletId));
 
+    Map<String, String> localVarHeaderParams = new LinkedHashMap<>();
+    Object _body = setCustomerRefIdForVaultAccountRequest;
+    // Extract and set Idempotency-Key header
+    Optional.ofNullable(requestOptions.getIdempotencyKey()).map(Object::toString).ifPresent(idempotencyKey -> localVarHeaderParams.put("Idempotency-Key", idempotencyKey));
+
+    // Extract and set X-End-User-Wallet-Id header
+    Optional.ofNullable(requestOptions.getNcw()).map(ncw -> ncw.getWalletId()).map(Object::toString).ifPresent(ncwWalletId -> localVarHeaderParams.put("X-End-User-Wallet-Id", ncwWalletId));
+
     String localVarAccept = apiClient.selectHeaderAccept("application/json");
     String localVarContentType = apiClient.selectHeaderContentType("application/json");
     return apiClient.invokeAPI("ExternalWalletsApi.setCustomerRefIdForExternalWallet", localVarPath, "POST", new ArrayList<>(), setCustomerRefIdForVaultAccountRequest,
-                               new LinkedHashMap<>(), new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
+                                localVarHeaderParams, new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
                                null, null, false);
   }
 }

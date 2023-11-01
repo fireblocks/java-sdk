@@ -4,10 +4,12 @@ import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.Configuration;
+import com.fireblocks.sdk.model.Ncw;
+import com.fireblocks.sdk.model.RequestOptions;
 import com.fireblocks.sdk.Pair;
-
+import java.util.Optional;
 import javax.ws.rs.core.GenericType;
-
+import java.util.UUID;
 import com.fireblocks.sdk.model.CheckThirdPartyRoutingForNetworkConnection200Response;
 import com.fireblocks.sdk.model.CreateNetworkIdRequest;
 import com.fireblocks.sdk.model.Error;
@@ -53,8 +55,12 @@ public class NetworkConnectionsApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
+  public CheckThirdPartyRoutingForNetworkConnection200Response checkThirdPartyRoutingForNetworkConnection(String connectionId, String assetType,  RequestOptions requestOptions) throws ApiException {
+     return checkThirdPartyRoutingForNetworkConnectionWithHttpInfo(connectionId,assetType, requestOptions).getData();
+  }
+
   public CheckThirdPartyRoutingForNetworkConnection200Response checkThirdPartyRoutingForNetworkConnection(String connectionId, String assetType) throws ApiException {
-    return checkThirdPartyRoutingForNetworkConnectionWithHttpInfo(connectionId, assetType).getData();
+   return checkThirdPartyRoutingForNetworkConnectionWithHttpInfo(connectionId,assetType, null).getData();
   }
 
   /**
@@ -71,7 +77,7 @@ public class NetworkConnectionsApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
-  public ApiResponse<CheckThirdPartyRoutingForNetworkConnection200Response> checkThirdPartyRoutingForNetworkConnectionWithHttpInfo(String connectionId, String assetType) throws ApiException {
+  public ApiResponse<CheckThirdPartyRoutingForNetworkConnection200Response> checkThirdPartyRoutingForNetworkConnectionWithHttpInfo(String connectionId,String assetType, RequestOptions requestOptions) throws ApiException {
     // Check required parameters
     if (connectionId == null) {
       throw new ApiException(400, "Missing the required parameter 'connectionId' when calling checkThirdPartyRoutingForNetworkConnection");
@@ -85,11 +91,18 @@ public class NetworkConnectionsApi {
             .replaceAll("\\{connectionId}", apiClient.escapeString(connectionId))
             .replaceAll("\\{assetType}", apiClient.escapeString(assetType));
 
+    Map<String, String> localVarHeaderParams = new LinkedHashMap<>();
+    // Extract and set Idempotency-Key header
+    Optional.ofNullable(requestOptions.getIdempotencyKey()).map(Object::toString).ifPresent(idempotencyKey -> localVarHeaderParams.put("Idempotency-Key", idempotencyKey));
+
+    // Extract and set X-End-User-Wallet-Id header
+    Optional.ofNullable(requestOptions.getNcw()).map(ncw -> ncw.getWalletId()).map(Object::toString).ifPresent(ncwWalletId -> localVarHeaderParams.put("X-End-User-Wallet-Id", ncwWalletId));
+
     String localVarAccept = apiClient.selectHeaderAccept("*/*", "application/json");
     String localVarContentType = apiClient.selectHeaderContentType();
     GenericType<CheckThirdPartyRoutingForNetworkConnection200Response> localVarReturnType = new GenericType<CheckThirdPartyRoutingForNetworkConnection200Response>() {};
     return apiClient.invokeAPI("NetworkConnectionsApi.checkThirdPartyRoutingForNetworkConnection", localVarPath, "GET", new ArrayList<>(), null,
-                               new LinkedHashMap<>(), new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
+                                localVarHeaderParams, new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
                                null, localVarReturnType, false);
   }
   /**
@@ -105,8 +118,12 @@ public class NetworkConnectionsApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
+  public NetworkConnectionResponse createNetworkConnection(NetworkConnection networkConnection,  RequestOptions requestOptions) throws ApiException {
+     return createNetworkConnectionWithHttpInfo(networkConnection, requestOptions).getData();
+  }
+
   public NetworkConnectionResponse createNetworkConnection(NetworkConnection networkConnection) throws ApiException {
-    return createNetworkConnectionWithHttpInfo(networkConnection).getData();
+   return createNetworkConnectionWithHttpInfo(networkConnection, null).getData();
   }
 
   /**
@@ -122,12 +139,20 @@ public class NetworkConnectionsApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
-  public ApiResponse<NetworkConnectionResponse> createNetworkConnectionWithHttpInfo(NetworkConnection networkConnection) throws ApiException {
+  public ApiResponse<NetworkConnectionResponse> createNetworkConnectionWithHttpInfo(NetworkConnection networkConnection, RequestOptions requestOptions) throws ApiException {
+    Map<String, String> localVarHeaderParams = new LinkedHashMap<>();
+    Object _body = networkConnection;
+    // Extract and set Idempotency-Key header
+    Optional.ofNullable(requestOptions.getIdempotencyKey()).map(Object::toString).ifPresent(idempotencyKey -> localVarHeaderParams.put("Idempotency-Key", idempotencyKey));
+
+    // Extract and set X-End-User-Wallet-Id header
+    Optional.ofNullable(requestOptions.getNcw()).map(ncw -> ncw.getWalletId()).map(Object::toString).ifPresent(ncwWalletId -> localVarHeaderParams.put("X-End-User-Wallet-Id", ncwWalletId));
+
     String localVarAccept = apiClient.selectHeaderAccept("*/*", "application/json");
     String localVarContentType = apiClient.selectHeaderContentType("application/json");
     GenericType<NetworkConnectionResponse> localVarReturnType = new GenericType<NetworkConnectionResponse>() {};
     return apiClient.invokeAPI("NetworkConnectionsApi.createNetworkConnection", "/network_connections", "POST", new ArrayList<>(), networkConnection,
-                               new LinkedHashMap<>(), new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
+                                localVarHeaderParams, new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
                                null, localVarReturnType, false);
   }
   /**
@@ -143,8 +168,12 @@ public class NetworkConnectionsApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
+  public NetworkIdResponse createNetworkId(CreateNetworkIdRequest createNetworkIdRequest,  RequestOptions requestOptions) throws ApiException {
+     return createNetworkIdWithHttpInfo(createNetworkIdRequest, requestOptions).getData();
+  }
+
   public NetworkIdResponse createNetworkId(CreateNetworkIdRequest createNetworkIdRequest) throws ApiException {
-    return createNetworkIdWithHttpInfo(createNetworkIdRequest).getData();
+   return createNetworkIdWithHttpInfo(createNetworkIdRequest, null).getData();
   }
 
   /**
@@ -160,12 +189,20 @@ public class NetworkConnectionsApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
-  public ApiResponse<NetworkIdResponse> createNetworkIdWithHttpInfo(CreateNetworkIdRequest createNetworkIdRequest) throws ApiException {
+  public ApiResponse<NetworkIdResponse> createNetworkIdWithHttpInfo(CreateNetworkIdRequest createNetworkIdRequest, RequestOptions requestOptions) throws ApiException {
+    Map<String, String> localVarHeaderParams = new LinkedHashMap<>();
+    Object _body = createNetworkIdRequest;
+    // Extract and set Idempotency-Key header
+    Optional.ofNullable(requestOptions.getIdempotencyKey()).map(Object::toString).ifPresent(idempotencyKey -> localVarHeaderParams.put("Idempotency-Key", idempotencyKey));
+
+    // Extract and set X-End-User-Wallet-Id header
+    Optional.ofNullable(requestOptions.getNcw()).map(ncw -> ncw.getWalletId()).map(Object::toString).ifPresent(ncwWalletId -> localVarHeaderParams.put("X-End-User-Wallet-Id", ncwWalletId));
+
     String localVarAccept = apiClient.selectHeaderAccept("*/*", "application/json");
     String localVarContentType = apiClient.selectHeaderContentType("application/json");
     GenericType<NetworkIdResponse> localVarReturnType = new GenericType<NetworkIdResponse>() {};
     return apiClient.invokeAPI("NetworkConnectionsApi.createNetworkId", "/network_ids", "POST", new ArrayList<>(), createNetworkIdRequest,
-                               new LinkedHashMap<>(), new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
+                                localVarHeaderParams, new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
                                null, localVarReturnType, false);
   }
   /**
@@ -181,8 +218,12 @@ public class NetworkConnectionsApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
+  public SetRoutingPolicyForNetworkConnection200Response deleteNetworkConnection(String connectionId,  RequestOptions requestOptions) throws ApiException {
+     return deleteNetworkConnectionWithHttpInfo(connectionId, requestOptions).getData();
+  }
+
   public SetRoutingPolicyForNetworkConnection200Response deleteNetworkConnection(String connectionId) throws ApiException {
-    return deleteNetworkConnectionWithHttpInfo(connectionId).getData();
+   return deleteNetworkConnectionWithHttpInfo(connectionId, null).getData();
   }
 
   /**
@@ -198,7 +239,7 @@ public class NetworkConnectionsApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
-  public ApiResponse<SetRoutingPolicyForNetworkConnection200Response> deleteNetworkConnectionWithHttpInfo(String connectionId) throws ApiException {
+  public ApiResponse<SetRoutingPolicyForNetworkConnection200Response> deleteNetworkConnectionWithHttpInfo(String connectionId, RequestOptions requestOptions) throws ApiException {
     // Check required parameters
     if (connectionId == null) {
       throw new ApiException(400, "Missing the required parameter 'connectionId' when calling deleteNetworkConnection");
@@ -208,11 +249,18 @@ public class NetworkConnectionsApi {
     String localVarPath = "/network_connections/{connectionId}"
             .replaceAll("\\{connectionId}", apiClient.escapeString(connectionId));
 
+    Map<String, String> localVarHeaderParams = new LinkedHashMap<>();
+    // Extract and set Idempotency-Key header
+    Optional.ofNullable(requestOptions.getIdempotencyKey()).map(Object::toString).ifPresent(idempotencyKey -> localVarHeaderParams.put("Idempotency-Key", idempotencyKey));
+
+    // Extract and set X-End-User-Wallet-Id header
+    Optional.ofNullable(requestOptions.getNcw()).map(ncw -> ncw.getWalletId()).map(Object::toString).ifPresent(ncwWalletId -> localVarHeaderParams.put("X-End-User-Wallet-Id", ncwWalletId));
+
     String localVarAccept = apiClient.selectHeaderAccept("*/*", "application/json");
     String localVarContentType = apiClient.selectHeaderContentType();
     GenericType<SetRoutingPolicyForNetworkConnection200Response> localVarReturnType = new GenericType<SetRoutingPolicyForNetworkConnection200Response>() {};
     return apiClient.invokeAPI("NetworkConnectionsApi.deleteNetworkConnection", localVarPath, "DELETE", new ArrayList<>(), null,
-                               new LinkedHashMap<>(), new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
+                                localVarHeaderParams, new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
                                null, localVarReturnType, false);
   }
   /**
@@ -228,8 +276,12 @@ public class NetworkConnectionsApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
+  public SetRoutingPolicyForNetworkConnection200Response deleteNetworkId(String networkId,  RequestOptions requestOptions) throws ApiException {
+     return deleteNetworkIdWithHttpInfo(networkId, requestOptions).getData();
+  }
+
   public SetRoutingPolicyForNetworkConnection200Response deleteNetworkId(String networkId) throws ApiException {
-    return deleteNetworkIdWithHttpInfo(networkId).getData();
+   return deleteNetworkIdWithHttpInfo(networkId, null).getData();
   }
 
   /**
@@ -245,7 +297,7 @@ public class NetworkConnectionsApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
-  public ApiResponse<SetRoutingPolicyForNetworkConnection200Response> deleteNetworkIdWithHttpInfo(String networkId) throws ApiException {
+  public ApiResponse<SetRoutingPolicyForNetworkConnection200Response> deleteNetworkIdWithHttpInfo(String networkId, RequestOptions requestOptions) throws ApiException {
     // Check required parameters
     if (networkId == null) {
       throw new ApiException(400, "Missing the required parameter 'networkId' when calling deleteNetworkId");
@@ -255,11 +307,18 @@ public class NetworkConnectionsApi {
     String localVarPath = "/network_ids/{networkId}"
             .replaceAll("\\{networkId}", apiClient.escapeString(networkId));
 
+    Map<String, String> localVarHeaderParams = new LinkedHashMap<>();
+    // Extract and set Idempotency-Key header
+    Optional.ofNullable(requestOptions.getIdempotencyKey()).map(Object::toString).ifPresent(idempotencyKey -> localVarHeaderParams.put("Idempotency-Key", idempotencyKey));
+
+    // Extract and set X-End-User-Wallet-Id header
+    Optional.ofNullable(requestOptions.getNcw()).map(ncw -> ncw.getWalletId()).map(Object::toString).ifPresent(ncwWalletId -> localVarHeaderParams.put("X-End-User-Wallet-Id", ncwWalletId));
+
     String localVarAccept = apiClient.selectHeaderAccept("*/*", "application/json");
     String localVarContentType = apiClient.selectHeaderContentType();
     GenericType<SetRoutingPolicyForNetworkConnection200Response> localVarReturnType = new GenericType<SetRoutingPolicyForNetworkConnection200Response>() {};
     return apiClient.invokeAPI("NetworkConnectionsApi.deleteNetworkId", localVarPath, "DELETE", new ArrayList<>(), null,
-                               new LinkedHashMap<>(), new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
+                                localVarHeaderParams, new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
                                null, localVarReturnType, false);
   }
   /**
@@ -275,8 +334,12 @@ public class NetworkConnectionsApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
+  public NetworkConnectionResponse getNetworkConnectionById(String connectionId,  RequestOptions requestOptions) throws ApiException {
+     return getNetworkConnectionByIdWithHttpInfo(connectionId, requestOptions).getData();
+  }
+
   public NetworkConnectionResponse getNetworkConnectionById(String connectionId) throws ApiException {
-    return getNetworkConnectionByIdWithHttpInfo(connectionId).getData();
+   return getNetworkConnectionByIdWithHttpInfo(connectionId, null).getData();
   }
 
   /**
@@ -292,7 +355,7 @@ public class NetworkConnectionsApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
-  public ApiResponse<NetworkConnectionResponse> getNetworkConnectionByIdWithHttpInfo(String connectionId) throws ApiException {
+  public ApiResponse<NetworkConnectionResponse> getNetworkConnectionByIdWithHttpInfo(String connectionId, RequestOptions requestOptions) throws ApiException {
     // Check required parameters
     if (connectionId == null) {
       throw new ApiException(400, "Missing the required parameter 'connectionId' when calling getNetworkConnectionById");
@@ -302,11 +365,18 @@ public class NetworkConnectionsApi {
     String localVarPath = "/network_connections/{connectionId}"
             .replaceAll("\\{connectionId}", apiClient.escapeString(connectionId));
 
+    Map<String, String> localVarHeaderParams = new LinkedHashMap<>();
+    // Extract and set Idempotency-Key header
+    Optional.ofNullable(requestOptions.getIdempotencyKey()).map(Object::toString).ifPresent(idempotencyKey -> localVarHeaderParams.put("Idempotency-Key", idempotencyKey));
+
+    // Extract and set X-End-User-Wallet-Id header
+    Optional.ofNullable(requestOptions.getNcw()).map(ncw -> ncw.getWalletId()).map(Object::toString).ifPresent(ncwWalletId -> localVarHeaderParams.put("X-End-User-Wallet-Id", ncwWalletId));
+
     String localVarAccept = apiClient.selectHeaderAccept("*/*", "application/json");
     String localVarContentType = apiClient.selectHeaderContentType();
     GenericType<NetworkConnectionResponse> localVarReturnType = new GenericType<NetworkConnectionResponse>() {};
     return apiClient.invokeAPI("NetworkConnectionsApi.getNetworkConnectionById", localVarPath, "GET", new ArrayList<>(), null,
-                               new LinkedHashMap<>(), new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
+                                localVarHeaderParams, new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
                                null, localVarReturnType, false);
   }
   /**
@@ -321,8 +391,12 @@ public class NetworkConnectionsApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
+  public List<NetworkConnectionResponse> getNetworkConnections( RequestOptions requestOptions) throws ApiException {
+     return getNetworkConnectionsWithHttpInfo( requestOptions).getData();
+  }
+
   public List<NetworkConnectionResponse> getNetworkConnections() throws ApiException {
-    return getNetworkConnectionsWithHttpInfo().getData();
+   return getNetworkConnectionsWithHttpInfo( null).getData();
   }
 
   /**
@@ -337,12 +411,19 @@ public class NetworkConnectionsApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
-  public ApiResponse<List<NetworkConnectionResponse>> getNetworkConnectionsWithHttpInfo() throws ApiException {
+  public ApiResponse<List<NetworkConnectionResponse>> getNetworkConnectionsWithHttpInfo( RequestOptions requestOptions) throws ApiException {
+    Map<String, String> localVarHeaderParams = new LinkedHashMap<>();
+    // Extract and set Idempotency-Key header
+    Optional.ofNullable(requestOptions.getIdempotencyKey()).map(Object::toString).ifPresent(idempotencyKey -> localVarHeaderParams.put("Idempotency-Key", idempotencyKey));
+
+    // Extract and set X-End-User-Wallet-Id header
+    Optional.ofNullable(requestOptions.getNcw()).map(ncw -> ncw.getWalletId()).map(Object::toString).ifPresent(ncwWalletId -> localVarHeaderParams.put("X-End-User-Wallet-Id", ncwWalletId));
+
     String localVarAccept = apiClient.selectHeaderAccept("*/*", "application/json");
     String localVarContentType = apiClient.selectHeaderContentType();
     GenericType<List<NetworkConnectionResponse>> localVarReturnType = new GenericType<List<NetworkConnectionResponse>>() {};
     return apiClient.invokeAPI("NetworkConnectionsApi.getNetworkConnections", "/network_connections", "GET", new ArrayList<>(), null,
-                               new LinkedHashMap<>(), new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
+                                localVarHeaderParams, new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
                                null, localVarReturnType, false);
   }
   /**
@@ -358,8 +439,12 @@ public class NetworkConnectionsApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
+  public NetworkIdResponse getNetworkIdById(String networkId,  RequestOptions requestOptions) throws ApiException {
+     return getNetworkIdByIdWithHttpInfo(networkId, requestOptions).getData();
+  }
+
   public NetworkIdResponse getNetworkIdById(String networkId) throws ApiException {
-    return getNetworkIdByIdWithHttpInfo(networkId).getData();
+   return getNetworkIdByIdWithHttpInfo(networkId, null).getData();
   }
 
   /**
@@ -375,7 +460,7 @@ public class NetworkConnectionsApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
-  public ApiResponse<NetworkIdResponse> getNetworkIdByIdWithHttpInfo(String networkId) throws ApiException {
+  public ApiResponse<NetworkIdResponse> getNetworkIdByIdWithHttpInfo(String networkId, RequestOptions requestOptions) throws ApiException {
     // Check required parameters
     if (networkId == null) {
       throw new ApiException(400, "Missing the required parameter 'networkId' when calling getNetworkIdById");
@@ -385,11 +470,18 @@ public class NetworkConnectionsApi {
     String localVarPath = "/network_ids/{networkId}"
             .replaceAll("\\{networkId}", apiClient.escapeString(networkId));
 
+    Map<String, String> localVarHeaderParams = new LinkedHashMap<>();
+    // Extract and set Idempotency-Key header
+    Optional.ofNullable(requestOptions.getIdempotencyKey()).map(Object::toString).ifPresent(idempotencyKey -> localVarHeaderParams.put("Idempotency-Key", idempotencyKey));
+
+    // Extract and set X-End-User-Wallet-Id header
+    Optional.ofNullable(requestOptions.getNcw()).map(ncw -> ncw.getWalletId()).map(Object::toString).ifPresent(ncwWalletId -> localVarHeaderParams.put("X-End-User-Wallet-Id", ncwWalletId));
+
     String localVarAccept = apiClient.selectHeaderAccept("*/*", "application/json");
     String localVarContentType = apiClient.selectHeaderContentType();
     GenericType<NetworkIdResponse> localVarReturnType = new GenericType<NetworkIdResponse>() {};
     return apiClient.invokeAPI("NetworkConnectionsApi.getNetworkIdById", localVarPath, "GET", new ArrayList<>(), null,
-                               new LinkedHashMap<>(), new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
+                                localVarHeaderParams, new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
                                null, localVarReturnType, false);
   }
   /**
@@ -404,8 +496,12 @@ public class NetworkConnectionsApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
+  public List<GetNetworkIds200ResponseInner> getNetworkIds( RequestOptions requestOptions) throws ApiException {
+     return getNetworkIdsWithHttpInfo( requestOptions).getData();
+  }
+
   public List<GetNetworkIds200ResponseInner> getNetworkIds() throws ApiException {
-    return getNetworkIdsWithHttpInfo().getData();
+   return getNetworkIdsWithHttpInfo( null).getData();
   }
 
   /**
@@ -420,12 +516,19 @@ public class NetworkConnectionsApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
-  public ApiResponse<List<GetNetworkIds200ResponseInner>> getNetworkIdsWithHttpInfo() throws ApiException {
+  public ApiResponse<List<GetNetworkIds200ResponseInner>> getNetworkIdsWithHttpInfo( RequestOptions requestOptions) throws ApiException {
+    Map<String, String> localVarHeaderParams = new LinkedHashMap<>();
+    // Extract and set Idempotency-Key header
+    Optional.ofNullable(requestOptions.getIdempotencyKey()).map(Object::toString).ifPresent(idempotencyKey -> localVarHeaderParams.put("Idempotency-Key", idempotencyKey));
+
+    // Extract and set X-End-User-Wallet-Id header
+    Optional.ofNullable(requestOptions.getNcw()).map(ncw -> ncw.getWalletId()).map(Object::toString).ifPresent(ncwWalletId -> localVarHeaderParams.put("X-End-User-Wallet-Id", ncwWalletId));
+
     String localVarAccept = apiClient.selectHeaderAccept("*/*", "application/json");
     String localVarContentType = apiClient.selectHeaderContentType();
     GenericType<List<GetNetworkIds200ResponseInner>> localVarReturnType = new GenericType<List<GetNetworkIds200ResponseInner>>() {};
     return apiClient.invokeAPI("NetworkConnectionsApi.getNetworkIds", "/network_ids", "GET", new ArrayList<>(), null,
-                               new LinkedHashMap<>(), new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
+                                localVarHeaderParams, new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
                                null, localVarReturnType, false);
   }
   /**
@@ -442,8 +545,12 @@ public class NetworkConnectionsApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
+  public SetRoutingPolicyForNetworkConnection200Response setDiscoverabilityForNetworkId(String networkId, SetDiscoverabilityForNetworkIdRequest setDiscoverabilityForNetworkIdRequest,  RequestOptions requestOptions) throws ApiException {
+     return setDiscoverabilityForNetworkIdWithHttpInfo(networkId,setDiscoverabilityForNetworkIdRequest, requestOptions).getData();
+  }
+
   public SetRoutingPolicyForNetworkConnection200Response setDiscoverabilityForNetworkId(String networkId, SetDiscoverabilityForNetworkIdRequest setDiscoverabilityForNetworkIdRequest) throws ApiException {
-    return setDiscoverabilityForNetworkIdWithHttpInfo(networkId, setDiscoverabilityForNetworkIdRequest).getData();
+   return setDiscoverabilityForNetworkIdWithHttpInfo(networkId,setDiscoverabilityForNetworkIdRequest, null).getData();
   }
 
   /**
@@ -460,7 +567,7 @@ public class NetworkConnectionsApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
-  public ApiResponse<SetRoutingPolicyForNetworkConnection200Response> setDiscoverabilityForNetworkIdWithHttpInfo(String networkId, SetDiscoverabilityForNetworkIdRequest setDiscoverabilityForNetworkIdRequest) throws ApiException {
+  public ApiResponse<SetRoutingPolicyForNetworkConnection200Response> setDiscoverabilityForNetworkIdWithHttpInfo(String networkId,SetDiscoverabilityForNetworkIdRequest setDiscoverabilityForNetworkIdRequest, RequestOptions requestOptions) throws ApiException {
     // Check required parameters
     if (networkId == null) {
       throw new ApiException(400, "Missing the required parameter 'networkId' when calling setDiscoverabilityForNetworkId");
@@ -473,11 +580,19 @@ public class NetworkConnectionsApi {
     String localVarPath = "/network_ids/{networkId}/set_discoverability"
             .replaceAll("\\{networkId}", apiClient.escapeString(networkId));
 
+    Map<String, String> localVarHeaderParams = new LinkedHashMap<>();
+    Object _body = setDiscoverabilityForNetworkIdRequest;
+    // Extract and set Idempotency-Key header
+    Optional.ofNullable(requestOptions.getIdempotencyKey()).map(Object::toString).ifPresent(idempotencyKey -> localVarHeaderParams.put("Idempotency-Key", idempotencyKey));
+
+    // Extract and set X-End-User-Wallet-Id header
+    Optional.ofNullable(requestOptions.getNcw()).map(ncw -> ncw.getWalletId()).map(Object::toString).ifPresent(ncwWalletId -> localVarHeaderParams.put("X-End-User-Wallet-Id", ncwWalletId));
+
     String localVarAccept = apiClient.selectHeaderAccept("*/*", "application/json");
     String localVarContentType = apiClient.selectHeaderContentType("application/json");
     GenericType<SetRoutingPolicyForNetworkConnection200Response> localVarReturnType = new GenericType<SetRoutingPolicyForNetworkConnection200Response>() {};
     return apiClient.invokeAPI("NetworkConnectionsApi.setDiscoverabilityForNetworkId", localVarPath, "PATCH", new ArrayList<>(), setDiscoverabilityForNetworkIdRequest,
-                               new LinkedHashMap<>(), new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
+                                localVarHeaderParams, new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
                                null, localVarReturnType, false);
   }
   /**
@@ -494,8 +609,12 @@ public class NetworkConnectionsApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
+  public SetRoutingPolicyForNetworkConnection200Response setNetworkIdName(String networkId, SetNetworkIdNameRequest setNetworkIdNameRequest,  RequestOptions requestOptions) throws ApiException {
+     return setNetworkIdNameWithHttpInfo(networkId,setNetworkIdNameRequest, requestOptions).getData();
+  }
+
   public SetRoutingPolicyForNetworkConnection200Response setNetworkIdName(String networkId, SetNetworkIdNameRequest setNetworkIdNameRequest) throws ApiException {
-    return setNetworkIdNameWithHttpInfo(networkId, setNetworkIdNameRequest).getData();
+   return setNetworkIdNameWithHttpInfo(networkId,setNetworkIdNameRequest, null).getData();
   }
 
   /**
@@ -512,7 +631,7 @@ public class NetworkConnectionsApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
-  public ApiResponse<SetRoutingPolicyForNetworkConnection200Response> setNetworkIdNameWithHttpInfo(String networkId, SetNetworkIdNameRequest setNetworkIdNameRequest) throws ApiException {
+  public ApiResponse<SetRoutingPolicyForNetworkConnection200Response> setNetworkIdNameWithHttpInfo(String networkId,SetNetworkIdNameRequest setNetworkIdNameRequest, RequestOptions requestOptions) throws ApiException {
     // Check required parameters
     if (networkId == null) {
       throw new ApiException(400, "Missing the required parameter 'networkId' when calling setNetworkIdName");
@@ -525,11 +644,19 @@ public class NetworkConnectionsApi {
     String localVarPath = "/network_ids/{networkId}/set_name"
             .replaceAll("\\{networkId}", apiClient.escapeString(networkId));
 
+    Map<String, String> localVarHeaderParams = new LinkedHashMap<>();
+    Object _body = setNetworkIdNameRequest;
+    // Extract and set Idempotency-Key header
+    Optional.ofNullable(requestOptions.getIdempotencyKey()).map(Object::toString).ifPresent(idempotencyKey -> localVarHeaderParams.put("Idempotency-Key", idempotencyKey));
+
+    // Extract and set X-End-User-Wallet-Id header
+    Optional.ofNullable(requestOptions.getNcw()).map(ncw -> ncw.getWalletId()).map(Object::toString).ifPresent(ncwWalletId -> localVarHeaderParams.put("X-End-User-Wallet-Id", ncwWalletId));
+
     String localVarAccept = apiClient.selectHeaderAccept("*/*", "application/json");
     String localVarContentType = apiClient.selectHeaderContentType("application/json");
     GenericType<SetRoutingPolicyForNetworkConnection200Response> localVarReturnType = new GenericType<SetRoutingPolicyForNetworkConnection200Response>() {};
     return apiClient.invokeAPI("NetworkConnectionsApi.setNetworkIdName", localVarPath, "PATCH", new ArrayList<>(), setNetworkIdNameRequest,
-                               new LinkedHashMap<>(), new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
+                                localVarHeaderParams, new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
                                null, localVarReturnType, false);
   }
   /**
@@ -546,8 +673,12 @@ public class NetworkConnectionsApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
+  public SetRoutingPolicyForNetworkConnection200Response setRoutingPolicyForNetworkConnection(String connectionId, SetRoutingPolicyForNetworkConnectionRequest setRoutingPolicyForNetworkConnectionRequest,  RequestOptions requestOptions) throws ApiException {
+     return setRoutingPolicyForNetworkConnectionWithHttpInfo(connectionId,setRoutingPolicyForNetworkConnectionRequest, requestOptions).getData();
+  }
+
   public SetRoutingPolicyForNetworkConnection200Response setRoutingPolicyForNetworkConnection(String connectionId, SetRoutingPolicyForNetworkConnectionRequest setRoutingPolicyForNetworkConnectionRequest) throws ApiException {
-    return setRoutingPolicyForNetworkConnectionWithHttpInfo(connectionId, setRoutingPolicyForNetworkConnectionRequest).getData();
+   return setRoutingPolicyForNetworkConnectionWithHttpInfo(connectionId,setRoutingPolicyForNetworkConnectionRequest, null).getData();
   }
 
   /**
@@ -564,7 +695,7 @@ public class NetworkConnectionsApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
-  public ApiResponse<SetRoutingPolicyForNetworkConnection200Response> setRoutingPolicyForNetworkConnectionWithHttpInfo(String connectionId, SetRoutingPolicyForNetworkConnectionRequest setRoutingPolicyForNetworkConnectionRequest) throws ApiException {
+  public ApiResponse<SetRoutingPolicyForNetworkConnection200Response> setRoutingPolicyForNetworkConnectionWithHttpInfo(String connectionId,SetRoutingPolicyForNetworkConnectionRequest setRoutingPolicyForNetworkConnectionRequest, RequestOptions requestOptions) throws ApiException {
     // Check required parameters
     if (connectionId == null) {
       throw new ApiException(400, "Missing the required parameter 'connectionId' when calling setRoutingPolicyForNetworkConnection");
@@ -574,11 +705,19 @@ public class NetworkConnectionsApi {
     String localVarPath = "/network_connections/{connectionId}/set_routing_policy"
             .replaceAll("\\{connectionId}", apiClient.escapeString(connectionId));
 
+    Map<String, String> localVarHeaderParams = new LinkedHashMap<>();
+    Object _body = setRoutingPolicyForNetworkConnectionRequest;
+    // Extract and set Idempotency-Key header
+    Optional.ofNullable(requestOptions.getIdempotencyKey()).map(Object::toString).ifPresent(idempotencyKey -> localVarHeaderParams.put("Idempotency-Key", idempotencyKey));
+
+    // Extract and set X-End-User-Wallet-Id header
+    Optional.ofNullable(requestOptions.getNcw()).map(ncw -> ncw.getWalletId()).map(Object::toString).ifPresent(ncwWalletId -> localVarHeaderParams.put("X-End-User-Wallet-Id", ncwWalletId));
+
     String localVarAccept = apiClient.selectHeaderAccept("*/*", "application/json");
     String localVarContentType = apiClient.selectHeaderContentType("application/json");
     GenericType<SetRoutingPolicyForNetworkConnection200Response> localVarReturnType = new GenericType<SetRoutingPolicyForNetworkConnection200Response>() {};
     return apiClient.invokeAPI("NetworkConnectionsApi.setRoutingPolicyForNetworkConnection", localVarPath, "PATCH", new ArrayList<>(), setRoutingPolicyForNetworkConnectionRequest,
-                               new LinkedHashMap<>(), new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
+                                localVarHeaderParams, new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
                                null, localVarReturnType, false);
   }
   /**
@@ -595,8 +734,12 @@ public class NetworkConnectionsApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
+  public SetRoutingPolicyForNetworkConnection200Response setRoutingPolicyForNetworkId(String networkId, SetRoutingPolicyForNetworkIdRequest setRoutingPolicyForNetworkIdRequest,  RequestOptions requestOptions) throws ApiException {
+     return setRoutingPolicyForNetworkIdWithHttpInfo(networkId,setRoutingPolicyForNetworkIdRequest, requestOptions).getData();
+  }
+
   public SetRoutingPolicyForNetworkConnection200Response setRoutingPolicyForNetworkId(String networkId, SetRoutingPolicyForNetworkIdRequest setRoutingPolicyForNetworkIdRequest) throws ApiException {
-    return setRoutingPolicyForNetworkIdWithHttpInfo(networkId, setRoutingPolicyForNetworkIdRequest).getData();
+   return setRoutingPolicyForNetworkIdWithHttpInfo(networkId,setRoutingPolicyForNetworkIdRequest, null).getData();
   }
 
   /**
@@ -613,7 +756,7 @@ public class NetworkConnectionsApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
-  public ApiResponse<SetRoutingPolicyForNetworkConnection200Response> setRoutingPolicyForNetworkIdWithHttpInfo(String networkId, SetRoutingPolicyForNetworkIdRequest setRoutingPolicyForNetworkIdRequest) throws ApiException {
+  public ApiResponse<SetRoutingPolicyForNetworkConnection200Response> setRoutingPolicyForNetworkIdWithHttpInfo(String networkId,SetRoutingPolicyForNetworkIdRequest setRoutingPolicyForNetworkIdRequest, RequestOptions requestOptions) throws ApiException {
     // Check required parameters
     if (networkId == null) {
       throw new ApiException(400, "Missing the required parameter 'networkId' when calling setRoutingPolicyForNetworkId");
@@ -623,11 +766,19 @@ public class NetworkConnectionsApi {
     String localVarPath = "/network_ids/{networkId}/set_routing_policy"
             .replaceAll("\\{networkId}", apiClient.escapeString(networkId));
 
+    Map<String, String> localVarHeaderParams = new LinkedHashMap<>();
+    Object _body = setRoutingPolicyForNetworkIdRequest;
+    // Extract and set Idempotency-Key header
+    Optional.ofNullable(requestOptions.getIdempotencyKey()).map(Object::toString).ifPresent(idempotencyKey -> localVarHeaderParams.put("Idempotency-Key", idempotencyKey));
+
+    // Extract and set X-End-User-Wallet-Id header
+    Optional.ofNullable(requestOptions.getNcw()).map(ncw -> ncw.getWalletId()).map(Object::toString).ifPresent(ncwWalletId -> localVarHeaderParams.put("X-End-User-Wallet-Id", ncwWalletId));
+
     String localVarAccept = apiClient.selectHeaderAccept("*/*", "application/json");
     String localVarContentType = apiClient.selectHeaderContentType("application/json");
     GenericType<SetRoutingPolicyForNetworkConnection200Response> localVarReturnType = new GenericType<SetRoutingPolicyForNetworkConnection200Response>() {};
     return apiClient.invokeAPI("NetworkConnectionsApi.setRoutingPolicyForNetworkId", localVarPath, "PATCH", new ArrayList<>(), setRoutingPolicyForNetworkIdRequest,
-                               new LinkedHashMap<>(), new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
+                                localVarHeaderParams, new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
                                null, localVarReturnType, false);
   }
 }
