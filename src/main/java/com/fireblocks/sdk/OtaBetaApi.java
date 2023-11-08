@@ -4,10 +4,12 @@ import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.Configuration;
+import com.fireblocks.sdk.model.Ncw;
+import com.fireblocks.sdk.model.RequestOptions;
 import com.fireblocks.sdk.Pair;
-
+import java.util.Optional;
 import javax.ws.rs.core.GenericType;
-
+import java.util.UUID;
 import com.fireblocks.sdk.model.GetOtaStatus200Response;
 import com.fireblocks.sdk.model.SetOtaStatusRequest;
 
@@ -41,8 +43,12 @@ public class OtaBetaApi {
        <tr><td> 404 </td><td> Configuration not found for tenant </td><td>  -  </td></tr>
      </table>
    */
+  public GetOtaStatus200Response getOtaStatus( RequestOptions requestOptions) throws ApiException {
+     return getOtaStatusWithHttpInfo( requestOptions).getData();
+  }
+
   public GetOtaStatus200Response getOtaStatus() throws ApiException {
-    return getOtaStatusWithHttpInfo().getData();
+   return getOtaStatusWithHttpInfo( null).getData();
   }
 
   /**
@@ -57,12 +63,19 @@ public class OtaBetaApi {
        <tr><td> 404 </td><td> Configuration not found for tenant </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<GetOtaStatus200Response> getOtaStatusWithHttpInfo() throws ApiException {
+  public ApiResponse<GetOtaStatus200Response> getOtaStatusWithHttpInfo( RequestOptions requestOptions) throws ApiException {
+    Map<String, String> localVarHeaderParams = new LinkedHashMap<>();
+    // Extract and set Idempotency-Key header
+    Optional.ofNullable(requestOptions.getIdempotencyKey()).map(Object::toString).ifPresent(idempotencyKey -> localVarHeaderParams.put("Idempotency-Key", idempotencyKey));
+
+    // Extract and set X-End-User-Wallet-Id header
+    Optional.ofNullable(requestOptions.getNcw()).map(ncw -> ncw.getWalletId()).map(Object::toString).ifPresent(ncwWalletId -> localVarHeaderParams.put("X-End-User-Wallet-Id", ncwWalletId));
+
     String localVarAccept = apiClient.selectHeaderAccept("application/json");
     String localVarContentType = apiClient.selectHeaderContentType();
     GenericType<GetOtaStatus200Response> localVarReturnType = new GenericType<GetOtaStatus200Response>() {};
     return apiClient.invokeAPI("OtaBetaApi.getOtaStatus", "/management/ota", "GET", new ArrayList<>(), null,
-                               new LinkedHashMap<>(), new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
+                                localVarHeaderParams, new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
                                null, localVarReturnType, false);
   }
   /**
@@ -79,8 +92,12 @@ public class OtaBetaApi {
        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
      </table>
    */
+  public void setOtaStatus(SetOtaStatusRequest setOtaStatusRequest,  RequestOptions requestOptions) throws ApiException {
+    setOtaStatusWithHttpInfo(setOtaStatusRequest, requestOptions);
+  }
+
   public void setOtaStatus(SetOtaStatusRequest setOtaStatusRequest) throws ApiException {
-    setOtaStatusWithHttpInfo(setOtaStatusRequest);
+  setOtaStatusWithHttpInfo(setOtaStatusRequest, null);
   }
 
   /**
@@ -98,16 +115,24 @@ public class OtaBetaApi {
        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<Void> setOtaStatusWithHttpInfo(SetOtaStatusRequest setOtaStatusRequest) throws ApiException {
+  public ApiResponse<Void> setOtaStatusWithHttpInfo(SetOtaStatusRequest setOtaStatusRequest, RequestOptions requestOptions) throws ApiException {
     // Check required parameters
     if (setOtaStatusRequest == null) {
       throw new ApiException(400, "Missing the required parameter 'setOtaStatusRequest' when calling setOtaStatus");
     }
 
+    Map<String, String> localVarHeaderParams = new LinkedHashMap<>();
+    Object _body = setOtaStatusRequest;
+    // Extract and set Idempotency-Key header
+    Optional.ofNullable(requestOptions.getIdempotencyKey()).map(Object::toString).ifPresent(idempotencyKey -> localVarHeaderParams.put("Idempotency-Key", idempotencyKey));
+
+    // Extract and set X-End-User-Wallet-Id header
+    Optional.ofNullable(requestOptions.getNcw()).map(ncw -> ncw.getWalletId()).map(Object::toString).ifPresent(ncwWalletId -> localVarHeaderParams.put("X-End-User-Wallet-Id", ncwWalletId));
+
     String localVarAccept = apiClient.selectHeaderAccept();
     String localVarContentType = apiClient.selectHeaderContentType("application/json");
     return apiClient.invokeAPI("OtaBetaApi.setOtaStatus", "/management/ota", "POST", new ArrayList<>(), setOtaStatusRequest,
-                               new LinkedHashMap<>(), new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
+                                localVarHeaderParams, new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
                                null, null, false);
   }
 }

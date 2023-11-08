@@ -4,10 +4,12 @@ import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.Configuration;
+import com.fireblocks.sdk.model.Ncw;
+import com.fireblocks.sdk.model.RequestOptions;
 import com.fireblocks.sdk.Pair;
-
+import java.util.Optional;
 import javax.ws.rs.core.GenericType;
-
+import java.util.UUID;
 import com.fireblocks.sdk.model.DraftReviewAndValidationResponse;
 import com.fireblocks.sdk.model.Error;
 import com.fireblocks.sdk.model.PolicyAndValidationResponse;
@@ -46,8 +48,12 @@ public class PolicyEditorBetaApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
+  public PolicyAndValidationResponse getActivePolicy( RequestOptions requestOptions) throws ApiException {
+     return getActivePolicyWithHttpInfo( requestOptions).getData();
+  }
+
   public PolicyAndValidationResponse getActivePolicy() throws ApiException {
-    return getActivePolicyWithHttpInfo().getData();
+   return getActivePolicyWithHttpInfo( null).getData();
   }
 
   /**
@@ -62,12 +68,19 @@ public class PolicyEditorBetaApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
-  public ApiResponse<PolicyAndValidationResponse> getActivePolicyWithHttpInfo() throws ApiException {
+  public ApiResponse<PolicyAndValidationResponse> getActivePolicyWithHttpInfo( RequestOptions requestOptions) throws ApiException {
+    Map<String, String> localVarHeaderParams = new LinkedHashMap<>();
+    // Extract and set Idempotency-Key header
+    Optional.ofNullable(requestOptions.getIdempotencyKey()).map(Object::toString).ifPresent(idempotencyKey -> localVarHeaderParams.put("Idempotency-Key", idempotencyKey));
+
+    // Extract and set X-End-User-Wallet-Id header
+    Optional.ofNullable(requestOptions.getNcw()).map(ncw -> ncw.getWalletId()).map(Object::toString).ifPresent(ncwWalletId -> localVarHeaderParams.put("X-End-User-Wallet-Id", ncwWalletId));
+
     String localVarAccept = apiClient.selectHeaderAccept("*/*", "application/json");
     String localVarContentType = apiClient.selectHeaderContentType();
     GenericType<PolicyAndValidationResponse> localVarReturnType = new GenericType<PolicyAndValidationResponse>() {};
     return apiClient.invokeAPI("PolicyEditorBetaApi.getActivePolicy", "/tap/active_policy", "GET", new ArrayList<>(), null,
-                               new LinkedHashMap<>(), new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
+                                localVarHeaderParams, new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
                                null, localVarReturnType, false);
   }
   /**
@@ -82,8 +95,12 @@ public class PolicyEditorBetaApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
+  public DraftReviewAndValidationResponse getDraft( RequestOptions requestOptions) throws ApiException {
+     return getDraftWithHttpInfo( requestOptions).getData();
+  }
+
   public DraftReviewAndValidationResponse getDraft() throws ApiException {
-    return getDraftWithHttpInfo().getData();
+   return getDraftWithHttpInfo( null).getData();
   }
 
   /**
@@ -98,12 +115,19 @@ public class PolicyEditorBetaApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
-  public ApiResponse<DraftReviewAndValidationResponse> getDraftWithHttpInfo() throws ApiException {
+  public ApiResponse<DraftReviewAndValidationResponse> getDraftWithHttpInfo( RequestOptions requestOptions) throws ApiException {
+    Map<String, String> localVarHeaderParams = new LinkedHashMap<>();
+    // Extract and set Idempotency-Key header
+    Optional.ofNullable(requestOptions.getIdempotencyKey()).map(Object::toString).ifPresent(idempotencyKey -> localVarHeaderParams.put("Idempotency-Key", idempotencyKey));
+
+    // Extract and set X-End-User-Wallet-Id header
+    Optional.ofNullable(requestOptions.getNcw()).map(ncw -> ncw.getWalletId()).map(Object::toString).ifPresent(ncwWalletId -> localVarHeaderParams.put("X-End-User-Wallet-Id", ncwWalletId));
+
     String localVarAccept = apiClient.selectHeaderAccept("*/*", "application/json");
     String localVarContentType = apiClient.selectHeaderContentType();
     GenericType<DraftReviewAndValidationResponse> localVarReturnType = new GenericType<DraftReviewAndValidationResponse>() {};
     return apiClient.invokeAPI("PolicyEditorBetaApi.getDraft", "/tap/draft", "GET", new ArrayList<>(), null,
-                               new LinkedHashMap<>(), new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
+                                localVarHeaderParams, new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
                                null, localVarReturnType, false);
   }
   /**
@@ -119,8 +143,12 @@ public class PolicyEditorBetaApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
+  public PublishResult publishDraft(PublishDraftRequest publishDraftRequest,  RequestOptions requestOptions) throws ApiException {
+     return publishDraftWithHttpInfo(publishDraftRequest, requestOptions).getData();
+  }
+
   public PublishResult publishDraft(PublishDraftRequest publishDraftRequest) throws ApiException {
-    return publishDraftWithHttpInfo(publishDraftRequest).getData();
+   return publishDraftWithHttpInfo(publishDraftRequest, null).getData();
   }
 
   /**
@@ -136,17 +164,25 @@ public class PolicyEditorBetaApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
-  public ApiResponse<PublishResult> publishDraftWithHttpInfo(PublishDraftRequest publishDraftRequest) throws ApiException {
+  public ApiResponse<PublishResult> publishDraftWithHttpInfo(PublishDraftRequest publishDraftRequest, RequestOptions requestOptions) throws ApiException {
     // Check required parameters
     if (publishDraftRequest == null) {
       throw new ApiException(400, "Missing the required parameter 'publishDraftRequest' when calling publishDraft");
     }
 
+    Map<String, String> localVarHeaderParams = new LinkedHashMap<>();
+    Object _body = publishDraftRequest;
+    // Extract and set Idempotency-Key header
+    Optional.ofNullable(requestOptions.getIdempotencyKey()).map(Object::toString).ifPresent(idempotencyKey -> localVarHeaderParams.put("Idempotency-Key", idempotencyKey));
+
+    // Extract and set X-End-User-Wallet-Id header
+    Optional.ofNullable(requestOptions.getNcw()).map(ncw -> ncw.getWalletId()).map(Object::toString).ifPresent(ncwWalletId -> localVarHeaderParams.put("X-End-User-Wallet-Id", ncwWalletId));
+
     String localVarAccept = apiClient.selectHeaderAccept("*/*", "application/json");
     String localVarContentType = apiClient.selectHeaderContentType("application/json");
     GenericType<PublishResult> localVarReturnType = new GenericType<PublishResult>() {};
     return apiClient.invokeAPI("PolicyEditorBetaApi.publishDraft", "/tap/draft", "POST", new ArrayList<>(), publishDraftRequest,
-                               new LinkedHashMap<>(), new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
+                                localVarHeaderParams, new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
                                null, localVarReturnType, false);
   }
   /**
@@ -162,8 +198,12 @@ public class PolicyEditorBetaApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
+  public PublishResult publishPolicyRules(PublishPolicyRulesRequest publishPolicyRulesRequest,  RequestOptions requestOptions) throws ApiException {
+     return publishPolicyRulesWithHttpInfo(publishPolicyRulesRequest, requestOptions).getData();
+  }
+
   public PublishResult publishPolicyRules(PublishPolicyRulesRequest publishPolicyRulesRequest) throws ApiException {
-    return publishPolicyRulesWithHttpInfo(publishPolicyRulesRequest).getData();
+   return publishPolicyRulesWithHttpInfo(publishPolicyRulesRequest, null).getData();
   }
 
   /**
@@ -179,17 +219,25 @@ public class PolicyEditorBetaApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
-  public ApiResponse<PublishResult> publishPolicyRulesWithHttpInfo(PublishPolicyRulesRequest publishPolicyRulesRequest) throws ApiException {
+  public ApiResponse<PublishResult> publishPolicyRulesWithHttpInfo(PublishPolicyRulesRequest publishPolicyRulesRequest, RequestOptions requestOptions) throws ApiException {
     // Check required parameters
     if (publishPolicyRulesRequest == null) {
       throw new ApiException(400, "Missing the required parameter 'publishPolicyRulesRequest' when calling publishPolicyRules");
     }
 
+    Map<String, String> localVarHeaderParams = new LinkedHashMap<>();
+    Object _body = publishPolicyRulesRequest;
+    // Extract and set Idempotency-Key header
+    Optional.ofNullable(requestOptions.getIdempotencyKey()).map(Object::toString).ifPresent(idempotencyKey -> localVarHeaderParams.put("Idempotency-Key", idempotencyKey));
+
+    // Extract and set X-End-User-Wallet-Id header
+    Optional.ofNullable(requestOptions.getNcw()).map(ncw -> ncw.getWalletId()).map(Object::toString).ifPresent(ncwWalletId -> localVarHeaderParams.put("X-End-User-Wallet-Id", ncwWalletId));
+
     String localVarAccept = apiClient.selectHeaderAccept("*/*", "application/json");
     String localVarContentType = apiClient.selectHeaderContentType("application/json");
     GenericType<PublishResult> localVarReturnType = new GenericType<PublishResult>() {};
     return apiClient.invokeAPI("PolicyEditorBetaApi.publishPolicyRules", "/tap/publish", "POST", new ArrayList<>(), publishPolicyRulesRequest,
-                               new LinkedHashMap<>(), new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
+                                localVarHeaderParams, new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
                                null, localVarReturnType, false);
   }
   /**
@@ -205,8 +253,12 @@ public class PolicyEditorBetaApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
+  public DraftReviewAndValidationResponse updateDraft(UpdateDraftRequest updateDraftRequest,  RequestOptions requestOptions) throws ApiException {
+     return updateDraftWithHttpInfo(updateDraftRequest, requestOptions).getData();
+  }
+
   public DraftReviewAndValidationResponse updateDraft(UpdateDraftRequest updateDraftRequest) throws ApiException {
-    return updateDraftWithHttpInfo(updateDraftRequest).getData();
+   return updateDraftWithHttpInfo(updateDraftRequest, null).getData();
   }
 
   /**
@@ -222,17 +274,25 @@ public class PolicyEditorBetaApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
-  public ApiResponse<DraftReviewAndValidationResponse> updateDraftWithHttpInfo(UpdateDraftRequest updateDraftRequest) throws ApiException {
+  public ApiResponse<DraftReviewAndValidationResponse> updateDraftWithHttpInfo(UpdateDraftRequest updateDraftRequest, RequestOptions requestOptions) throws ApiException {
     // Check required parameters
     if (updateDraftRequest == null) {
       throw new ApiException(400, "Missing the required parameter 'updateDraftRequest' when calling updateDraft");
     }
 
+    Map<String, String> localVarHeaderParams = new LinkedHashMap<>();
+    Object _body = updateDraftRequest;
+    // Extract and set Idempotency-Key header
+    Optional.ofNullable(requestOptions.getIdempotencyKey()).map(Object::toString).ifPresent(idempotencyKey -> localVarHeaderParams.put("Idempotency-Key", idempotencyKey));
+
+    // Extract and set X-End-User-Wallet-Id header
+    Optional.ofNullable(requestOptions.getNcw()).map(ncw -> ncw.getWalletId()).map(Object::toString).ifPresent(ncwWalletId -> localVarHeaderParams.put("X-End-User-Wallet-Id", ncwWalletId));
+
     String localVarAccept = apiClient.selectHeaderAccept("*/*", "application/json");
     String localVarContentType = apiClient.selectHeaderContentType("application/json");
     GenericType<DraftReviewAndValidationResponse> localVarReturnType = new GenericType<DraftReviewAndValidationResponse>() {};
     return apiClient.invokeAPI("PolicyEditorBetaApi.updateDraft", "/tap/draft", "PUT", new ArrayList<>(), updateDraftRequest,
-                               new LinkedHashMap<>(), new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
+                                localVarHeaderParams, new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
                                null, localVarReturnType, false);
   }
 }

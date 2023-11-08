@@ -4,10 +4,12 @@ import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.Configuration;
+import com.fireblocks.sdk.model.Ncw;
+import com.fireblocks.sdk.model.RequestOptions;
 import com.fireblocks.sdk.Pair;
-
+import java.util.Optional;
 import javax.ws.rs.core.GenericType;
-
+import java.util.UUID;
 import com.fireblocks.sdk.model.Error;
 import com.fireblocks.sdk.model.ResendWebhooksForTransactionRequest;
 import com.fireblocks.sdk.model.ResendWebhooksResponse;
@@ -42,8 +44,12 @@ public class WebhooksApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
+  public ResendWebhooksResponse resendWebhooks( RequestOptions requestOptions) throws ApiException {
+     return resendWebhooksWithHttpInfo( requestOptions).getData();
+  }
+
   public ResendWebhooksResponse resendWebhooks() throws ApiException {
-    return resendWebhooksWithHttpInfo().getData();
+   return resendWebhooksWithHttpInfo( null).getData();
   }
 
   /**
@@ -58,12 +64,19 @@ public class WebhooksApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
-  public ApiResponse<ResendWebhooksResponse> resendWebhooksWithHttpInfo() throws ApiException {
+  public ApiResponse<ResendWebhooksResponse> resendWebhooksWithHttpInfo( RequestOptions requestOptions) throws ApiException {
+    Map<String, String> localVarHeaderParams = new LinkedHashMap<>();
+    // Extract and set Idempotency-Key header
+    Optional.ofNullable(requestOptions.getIdempotencyKey()).map(Object::toString).ifPresent(idempotencyKey -> localVarHeaderParams.put("Idempotency-Key", idempotencyKey));
+
+    // Extract and set X-End-User-Wallet-Id header
+    Optional.ofNullable(requestOptions.getNcw()).map(ncw -> ncw.getWalletId()).map(Object::toString).ifPresent(ncwWalletId -> localVarHeaderParams.put("X-End-User-Wallet-Id", ncwWalletId));
+
     String localVarAccept = apiClient.selectHeaderAccept("*/*", "application/json");
     String localVarContentType = apiClient.selectHeaderContentType();
     GenericType<ResendWebhooksResponse> localVarReturnType = new GenericType<ResendWebhooksResponse>() {};
     return apiClient.invokeAPI("WebhooksApi.resendWebhooks", "/webhooks/resend", "POST", new ArrayList<>(), null,
-                               new LinkedHashMap<>(), new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
+                                localVarHeaderParams, new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
                                null, localVarReturnType, false);
   }
   /**
@@ -79,8 +92,12 @@ public class WebhooksApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
+  public void resendWebhooksForTransaction(String txId, ResendWebhooksForTransactionRequest resendWebhooksForTransactionRequest,  RequestOptions requestOptions) throws ApiException {
+    resendWebhooksForTransactionWithHttpInfo(txId,resendWebhooksForTransactionRequest, requestOptions);
+  }
+
   public void resendWebhooksForTransaction(String txId, ResendWebhooksForTransactionRequest resendWebhooksForTransactionRequest) throws ApiException {
-    resendWebhooksForTransactionWithHttpInfo(txId, resendWebhooksForTransactionRequest);
+  resendWebhooksForTransactionWithHttpInfo(txId,resendWebhooksForTransactionRequest, null);
   }
 
   /**
@@ -97,7 +114,7 @@ public class WebhooksApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
-  public ApiResponse<Void> resendWebhooksForTransactionWithHttpInfo(String txId, ResendWebhooksForTransactionRequest resendWebhooksForTransactionRequest) throws ApiException {
+  public ApiResponse<Void> resendWebhooksForTransactionWithHttpInfo(String txId,ResendWebhooksForTransactionRequest resendWebhooksForTransactionRequest, RequestOptions requestOptions) throws ApiException {
     // Check required parameters
     if (txId == null) {
       throw new ApiException(400, "Missing the required parameter 'txId' when calling resendWebhooksForTransaction");
@@ -110,10 +127,18 @@ public class WebhooksApi {
     String localVarPath = "/webhooks/resend/{txId}"
             .replaceAll("\\{txId}", apiClient.escapeString(txId));
 
+    Map<String, String> localVarHeaderParams = new LinkedHashMap<>();
+    Object _body = resendWebhooksForTransactionRequest;
+    // Extract and set Idempotency-Key header
+    Optional.ofNullable(requestOptions.getIdempotencyKey()).map(Object::toString).ifPresent(idempotencyKey -> localVarHeaderParams.put("Idempotency-Key", idempotencyKey));
+
+    // Extract and set X-End-User-Wallet-Id header
+    Optional.ofNullable(requestOptions.getNcw()).map(ncw -> ncw.getWalletId()).map(Object::toString).ifPresent(ncwWalletId -> localVarHeaderParams.put("X-End-User-Wallet-Id", ncwWalletId));
+
     String localVarAccept = apiClient.selectHeaderAccept("application/json");
     String localVarContentType = apiClient.selectHeaderContentType("application/json");
     return apiClient.invokeAPI("WebhooksApi.resendWebhooksForTransaction", localVarPath, "POST", new ArrayList<>(), resendWebhooksForTransactionRequest,
-                               new LinkedHashMap<>(), new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
+                                localVarHeaderParams, new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
                                null, null, false);
   }
 }

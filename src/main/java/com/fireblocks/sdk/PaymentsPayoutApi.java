@@ -4,10 +4,12 @@ import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.Configuration;
+import com.fireblocks.sdk.model.Ncw;
+import com.fireblocks.sdk.model.RequestOptions;
 import com.fireblocks.sdk.Pair;
-
+import java.util.Optional;
 import javax.ws.rs.core.GenericType;
-
+import java.util.UUID;
 import com.fireblocks.sdk.model.CreatePayoutRequest;
 import com.fireblocks.sdk.model.DispatchPayoutResponse;
 import com.fireblocks.sdk.model.ErrorResponse;
@@ -46,8 +48,12 @@ public class PaymentsPayoutApi {
        <tr><td> 5XX </td><td> Internal error. </td><td>  -  </td></tr>
      </table>
    */
+  public PayoutResponse createPayout(CreatePayoutRequest createPayoutRequest,  RequestOptions requestOptions) throws ApiException {
+     return createPayoutWithHttpInfo(createPayoutRequest, requestOptions).getData();
+  }
+
   public PayoutResponse createPayout(CreatePayoutRequest createPayoutRequest) throws ApiException {
-    return createPayoutWithHttpInfo(createPayoutRequest).getData();
+   return createPayoutWithHttpInfo(createPayoutRequest, null).getData();
   }
 
   /**
@@ -65,12 +71,20 @@ public class PaymentsPayoutApi {
        <tr><td> 5XX </td><td> Internal error. </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<PayoutResponse> createPayoutWithHttpInfo(CreatePayoutRequest createPayoutRequest) throws ApiException {
+  public ApiResponse<PayoutResponse> createPayoutWithHttpInfo(CreatePayoutRequest createPayoutRequest, RequestOptions requestOptions) throws ApiException {
+    Map<String, String> localVarHeaderParams = new LinkedHashMap<>();
+    Object _body = createPayoutRequest;
+    // Extract and set Idempotency-Key header
+    Optional.ofNullable(requestOptions.getIdempotencyKey()).map(Object::toString).ifPresent(idempotencyKey -> localVarHeaderParams.put("Idempotency-Key", idempotencyKey));
+
+    // Extract and set X-End-User-Wallet-Id header
+    Optional.ofNullable(requestOptions.getNcw()).map(ncw -> ncw.getWalletId()).map(Object::toString).ifPresent(ncwWalletId -> localVarHeaderParams.put("X-End-User-Wallet-Id", ncwWalletId));
+
     String localVarAccept = apiClient.selectHeaderAccept("application/json");
     String localVarContentType = apiClient.selectHeaderContentType("application/json");
     GenericType<PayoutResponse> localVarReturnType = new GenericType<PayoutResponse>() {};
     return apiClient.invokeAPI("PaymentsPayoutApi.createPayout", "/payments/payout", "POST", new ArrayList<>(), createPayoutRequest,
-                               new LinkedHashMap<>(), new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
+                                localVarHeaderParams, new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
                                null, localVarReturnType, false);
   }
   /**
@@ -88,8 +102,12 @@ public class PaymentsPayoutApi {
        <tr><td> 5XX </td><td> Internal error. </td><td>  -  </td></tr>
      </table>
    */
+  public DispatchPayoutResponse executePayoutAction(String payoutId,  RequestOptions requestOptions) throws ApiException {
+     return executePayoutActionWithHttpInfo(payoutId, requestOptions).getData();
+  }
+
   public DispatchPayoutResponse executePayoutAction(String payoutId) throws ApiException {
-    return executePayoutActionWithHttpInfo(payoutId).getData();
+   return executePayoutActionWithHttpInfo(payoutId, null).getData();
   }
 
   /**
@@ -107,7 +125,7 @@ public class PaymentsPayoutApi {
        <tr><td> 5XX </td><td> Internal error. </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<DispatchPayoutResponse> executePayoutActionWithHttpInfo(String payoutId) throws ApiException {
+  public ApiResponse<DispatchPayoutResponse> executePayoutActionWithHttpInfo(String payoutId, RequestOptions requestOptions) throws ApiException {
     // Check required parameters
     if (payoutId == null) {
       throw new ApiException(400, "Missing the required parameter 'payoutId' when calling executePayoutAction");
@@ -117,11 +135,18 @@ public class PaymentsPayoutApi {
     String localVarPath = "/payments/payout/{payoutId}/actions/execute"
             .replaceAll("\\{payoutId}", apiClient.escapeString(payoutId));
 
+    Map<String, String> localVarHeaderParams = new LinkedHashMap<>();
+    // Extract and set Idempotency-Key header
+    Optional.ofNullable(requestOptions.getIdempotencyKey()).map(Object::toString).ifPresent(idempotencyKey -> localVarHeaderParams.put("Idempotency-Key", idempotencyKey));
+
+    // Extract and set X-End-User-Wallet-Id header
+    Optional.ofNullable(requestOptions.getNcw()).map(ncw -> ncw.getWalletId()).map(Object::toString).ifPresent(ncwWalletId -> localVarHeaderParams.put("X-End-User-Wallet-Id", ncwWalletId));
+
     String localVarAccept = apiClient.selectHeaderAccept("application/json");
     String localVarContentType = apiClient.selectHeaderContentType();
     GenericType<DispatchPayoutResponse> localVarReturnType = new GenericType<DispatchPayoutResponse>() {};
     return apiClient.invokeAPI("PaymentsPayoutApi.executePayoutAction", localVarPath, "POST", new ArrayList<>(), null,
-                               new LinkedHashMap<>(), new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
+                                localVarHeaderParams, new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
                                null, localVarReturnType, false);
   }
   /**
@@ -139,8 +164,12 @@ public class PaymentsPayoutApi {
        <tr><td> 5XX </td><td> Internal error. </td><td>  -  </td></tr>
      </table>
    */
+  public PayoutResponse getPayoutById(String payoutId,  RequestOptions requestOptions) throws ApiException {
+     return getPayoutByIdWithHttpInfo(payoutId, requestOptions).getData();
+  }
+
   public PayoutResponse getPayoutById(String payoutId) throws ApiException {
-    return getPayoutByIdWithHttpInfo(payoutId).getData();
+   return getPayoutByIdWithHttpInfo(payoutId, null).getData();
   }
 
   /**
@@ -158,7 +187,7 @@ public class PaymentsPayoutApi {
        <tr><td> 5XX </td><td> Internal error. </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<PayoutResponse> getPayoutByIdWithHttpInfo(String payoutId) throws ApiException {
+  public ApiResponse<PayoutResponse> getPayoutByIdWithHttpInfo(String payoutId, RequestOptions requestOptions) throws ApiException {
     // Check required parameters
     if (payoutId == null) {
       throw new ApiException(400, "Missing the required parameter 'payoutId' when calling getPayoutById");
@@ -168,11 +197,18 @@ public class PaymentsPayoutApi {
     String localVarPath = "/payments/payout/{payoutId}"
             .replaceAll("\\{payoutId}", apiClient.escapeString(payoutId));
 
+    Map<String, String> localVarHeaderParams = new LinkedHashMap<>();
+    // Extract and set Idempotency-Key header
+    Optional.ofNullable(requestOptions.getIdempotencyKey()).map(Object::toString).ifPresent(idempotencyKey -> localVarHeaderParams.put("Idempotency-Key", idempotencyKey));
+
+    // Extract and set X-End-User-Wallet-Id header
+    Optional.ofNullable(requestOptions.getNcw()).map(ncw -> ncw.getWalletId()).map(Object::toString).ifPresent(ncwWalletId -> localVarHeaderParams.put("X-End-User-Wallet-Id", ncwWalletId));
+
     String localVarAccept = apiClient.selectHeaderAccept("application/json");
     String localVarContentType = apiClient.selectHeaderContentType();
     GenericType<PayoutResponse> localVarReturnType = new GenericType<PayoutResponse>() {};
     return apiClient.invokeAPI("PaymentsPayoutApi.getPayoutById", localVarPath, "GET", new ArrayList<>(), null,
-                               new LinkedHashMap<>(), new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
+                                localVarHeaderParams, new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
                                null, localVarReturnType, false);
   }
 }

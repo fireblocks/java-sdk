@@ -4,10 +4,12 @@ import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.Configuration;
+import com.fireblocks.sdk.model.Ncw;
+import com.fireblocks.sdk.model.RequestOptions;
 import com.fireblocks.sdk.Pair;
-
+import java.util.Optional;
 import javax.ws.rs.core.GenericType;
-
+import java.util.UUID;
 import com.fireblocks.sdk.model.CreateInternalWalletAssetRequest;
 import com.fireblocks.sdk.model.CreateInternalWalletRequest;
 import com.fireblocks.sdk.model.Error;
@@ -46,8 +48,12 @@ public class InternalWalletsApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
+  public UnmanagedWallet createInternalWallet(CreateInternalWalletRequest createInternalWalletRequest,  RequestOptions requestOptions) throws ApiException {
+     return createInternalWalletWithHttpInfo(createInternalWalletRequest, requestOptions).getData();
+  }
+
   public UnmanagedWallet createInternalWallet(CreateInternalWalletRequest createInternalWalletRequest) throws ApiException {
-    return createInternalWalletWithHttpInfo(createInternalWalletRequest).getData();
+   return createInternalWalletWithHttpInfo(createInternalWalletRequest, null).getData();
   }
 
   /**
@@ -63,12 +69,20 @@ public class InternalWalletsApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
-  public ApiResponse<UnmanagedWallet> createInternalWalletWithHttpInfo(CreateInternalWalletRequest createInternalWalletRequest) throws ApiException {
+  public ApiResponse<UnmanagedWallet> createInternalWalletWithHttpInfo(CreateInternalWalletRequest createInternalWalletRequest, RequestOptions requestOptions) throws ApiException {
+    Map<String, String> localVarHeaderParams = new LinkedHashMap<>();
+    Object _body = createInternalWalletRequest;
+    // Extract and set Idempotency-Key header
+    Optional.ofNullable(requestOptions.getIdempotencyKey()).map(Object::toString).ifPresent(idempotencyKey -> localVarHeaderParams.put("Idempotency-Key", idempotencyKey));
+
+    // Extract and set X-End-User-Wallet-Id header
+    Optional.ofNullable(requestOptions.getNcw()).map(ncw -> ncw.getWalletId()).map(Object::toString).ifPresent(ncwWalletId -> localVarHeaderParams.put("X-End-User-Wallet-Id", ncwWalletId));
+
     String localVarAccept = apiClient.selectHeaderAccept("*/*", "application/json");
     String localVarContentType = apiClient.selectHeaderContentType("application/json");
     GenericType<UnmanagedWallet> localVarReturnType = new GenericType<UnmanagedWallet>() {};
     return apiClient.invokeAPI("InternalWalletsApi.createInternalWallet", "/internal_wallets", "POST", new ArrayList<>(), createInternalWalletRequest,
-                               new LinkedHashMap<>(), new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
+                                localVarHeaderParams, new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
                                null, localVarReturnType, false);
   }
   /**
@@ -86,8 +100,12 @@ public class InternalWalletsApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
+  public WalletAsset createInternalWalletAsset(String walletId, String assetId, CreateInternalWalletAssetRequest createInternalWalletAssetRequest,  RequestOptions requestOptions) throws ApiException {
+     return createInternalWalletAssetWithHttpInfo(walletId,assetId,createInternalWalletAssetRequest, requestOptions).getData();
+  }
+
   public WalletAsset createInternalWalletAsset(String walletId, String assetId, CreateInternalWalletAssetRequest createInternalWalletAssetRequest) throws ApiException {
-    return createInternalWalletAssetWithHttpInfo(walletId, assetId, createInternalWalletAssetRequest).getData();
+   return createInternalWalletAssetWithHttpInfo(walletId,assetId,createInternalWalletAssetRequest, null).getData();
   }
 
   /**
@@ -105,7 +123,7 @@ public class InternalWalletsApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
-  public ApiResponse<WalletAsset> createInternalWalletAssetWithHttpInfo(String walletId, String assetId, CreateInternalWalletAssetRequest createInternalWalletAssetRequest) throws ApiException {
+  public ApiResponse<WalletAsset> createInternalWalletAssetWithHttpInfo(String walletId,String assetId,CreateInternalWalletAssetRequest createInternalWalletAssetRequest, RequestOptions requestOptions) throws ApiException {
     // Check required parameters
     if (walletId == null) {
       throw new ApiException(400, "Missing the required parameter 'walletId' when calling createInternalWalletAsset");
@@ -119,11 +137,19 @@ public class InternalWalletsApi {
             .replaceAll("\\{walletId}", apiClient.escapeString(walletId))
             .replaceAll("\\{assetId}", apiClient.escapeString(assetId));
 
+    Map<String, String> localVarHeaderParams = new LinkedHashMap<>();
+    Object _body = createInternalWalletAssetRequest;
+    // Extract and set Idempotency-Key header
+    Optional.ofNullable(requestOptions.getIdempotencyKey()).map(Object::toString).ifPresent(idempotencyKey -> localVarHeaderParams.put("Idempotency-Key", idempotencyKey));
+
+    // Extract and set X-End-User-Wallet-Id header
+    Optional.ofNullable(requestOptions.getNcw()).map(ncw -> ncw.getWalletId()).map(Object::toString).ifPresent(ncwWalletId -> localVarHeaderParams.put("X-End-User-Wallet-Id", ncwWalletId));
+
     String localVarAccept = apiClient.selectHeaderAccept("*/*", "application/json");
     String localVarContentType = apiClient.selectHeaderContentType("application/json");
     GenericType<WalletAsset> localVarReturnType = new GenericType<WalletAsset>() {};
     return apiClient.invokeAPI("InternalWalletsApi.createInternalWalletAsset", localVarPath, "POST", new ArrayList<>(), createInternalWalletAssetRequest,
-                               new LinkedHashMap<>(), new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
+                                localVarHeaderParams, new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
                                null, localVarReturnType, false);
   }
   /**
@@ -138,8 +164,12 @@ public class InternalWalletsApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
+  public void deleteInternalWallet(String walletId,  RequestOptions requestOptions) throws ApiException {
+    deleteInternalWalletWithHttpInfo(walletId, requestOptions);
+  }
+
   public void deleteInternalWallet(String walletId) throws ApiException {
-    deleteInternalWalletWithHttpInfo(walletId);
+  deleteInternalWalletWithHttpInfo(walletId, null);
   }
 
   /**
@@ -155,7 +185,7 @@ public class InternalWalletsApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
-  public ApiResponse<Void> deleteInternalWalletWithHttpInfo(String walletId) throws ApiException {
+  public ApiResponse<Void> deleteInternalWalletWithHttpInfo(String walletId, RequestOptions requestOptions) throws ApiException {
     // Check required parameters
     if (walletId == null) {
       throw new ApiException(400, "Missing the required parameter 'walletId' when calling deleteInternalWallet");
@@ -165,10 +195,17 @@ public class InternalWalletsApi {
     String localVarPath = "/internal_wallets/{walletId}"
             .replaceAll("\\{walletId}", apiClient.escapeString(walletId));
 
+    Map<String, String> localVarHeaderParams = new LinkedHashMap<>();
+    // Extract and set Idempotency-Key header
+    Optional.ofNullable(requestOptions.getIdempotencyKey()).map(Object::toString).ifPresent(idempotencyKey -> localVarHeaderParams.put("Idempotency-Key", idempotencyKey));
+
+    // Extract and set X-End-User-Wallet-Id header
+    Optional.ofNullable(requestOptions.getNcw()).map(ncw -> ncw.getWalletId()).map(Object::toString).ifPresent(ncwWalletId -> localVarHeaderParams.put("X-End-User-Wallet-Id", ncwWalletId));
+
     String localVarAccept = apiClient.selectHeaderAccept("application/json");
     String localVarContentType = apiClient.selectHeaderContentType();
     return apiClient.invokeAPI("InternalWalletsApi.deleteInternalWallet", localVarPath, "DELETE", new ArrayList<>(), null,
-                               new LinkedHashMap<>(), new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
+                                localVarHeaderParams, new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
                                null, null, false);
   }
   /**
@@ -184,8 +221,12 @@ public class InternalWalletsApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
+  public void deleteInternalWalletAsset(String walletId, String assetId,  RequestOptions requestOptions) throws ApiException {
+    deleteInternalWalletAssetWithHttpInfo(walletId,assetId, requestOptions);
+  }
+
   public void deleteInternalWalletAsset(String walletId, String assetId) throws ApiException {
-    deleteInternalWalletAssetWithHttpInfo(walletId, assetId);
+  deleteInternalWalletAssetWithHttpInfo(walletId,assetId, null);
   }
 
   /**
@@ -202,7 +243,7 @@ public class InternalWalletsApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
-  public ApiResponse<Void> deleteInternalWalletAssetWithHttpInfo(String walletId, String assetId) throws ApiException {
+  public ApiResponse<Void> deleteInternalWalletAssetWithHttpInfo(String walletId,String assetId, RequestOptions requestOptions) throws ApiException {
     // Check required parameters
     if (walletId == null) {
       throw new ApiException(400, "Missing the required parameter 'walletId' when calling deleteInternalWalletAsset");
@@ -216,10 +257,17 @@ public class InternalWalletsApi {
             .replaceAll("\\{walletId}", apiClient.escapeString(walletId))
             .replaceAll("\\{assetId}", apiClient.escapeString(assetId));
 
+    Map<String, String> localVarHeaderParams = new LinkedHashMap<>();
+    // Extract and set Idempotency-Key header
+    Optional.ofNullable(requestOptions.getIdempotencyKey()).map(Object::toString).ifPresent(idempotencyKey -> localVarHeaderParams.put("Idempotency-Key", idempotencyKey));
+
+    // Extract and set X-End-User-Wallet-Id header
+    Optional.ofNullable(requestOptions.getNcw()).map(ncw -> ncw.getWalletId()).map(Object::toString).ifPresent(ncwWalletId -> localVarHeaderParams.put("X-End-User-Wallet-Id", ncwWalletId));
+
     String localVarAccept = apiClient.selectHeaderAccept("application/json");
     String localVarContentType = apiClient.selectHeaderContentType();
     return apiClient.invokeAPI("InternalWalletsApi.deleteInternalWalletAsset", localVarPath, "DELETE", new ArrayList<>(), null,
-                               new LinkedHashMap<>(), new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
+                                localVarHeaderParams, new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
                                null, null, false);
   }
   /**
@@ -236,8 +284,12 @@ public class InternalWalletsApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
+  public WalletAsset getInternalWalletAsset(String walletId, String assetId,  RequestOptions requestOptions) throws ApiException {
+     return getInternalWalletAssetWithHttpInfo(walletId,assetId, requestOptions).getData();
+  }
+
   public WalletAsset getInternalWalletAsset(String walletId, String assetId) throws ApiException {
-    return getInternalWalletAssetWithHttpInfo(walletId, assetId).getData();
+   return getInternalWalletAssetWithHttpInfo(walletId,assetId, null).getData();
   }
 
   /**
@@ -254,7 +306,7 @@ public class InternalWalletsApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
-  public ApiResponse<WalletAsset> getInternalWalletAssetWithHttpInfo(String walletId, String assetId) throws ApiException {
+  public ApiResponse<WalletAsset> getInternalWalletAssetWithHttpInfo(String walletId,String assetId, RequestOptions requestOptions) throws ApiException {
     // Check required parameters
     if (walletId == null) {
       throw new ApiException(400, "Missing the required parameter 'walletId' when calling getInternalWalletAsset");
@@ -268,11 +320,18 @@ public class InternalWalletsApi {
             .replaceAll("\\{walletId}", apiClient.escapeString(walletId))
             .replaceAll("\\{assetId}", apiClient.escapeString(assetId));
 
+    Map<String, String> localVarHeaderParams = new LinkedHashMap<>();
+    // Extract and set Idempotency-Key header
+    Optional.ofNullable(requestOptions.getIdempotencyKey()).map(Object::toString).ifPresent(idempotencyKey -> localVarHeaderParams.put("Idempotency-Key", idempotencyKey));
+
+    // Extract and set X-End-User-Wallet-Id header
+    Optional.ofNullable(requestOptions.getNcw()).map(ncw -> ncw.getWalletId()).map(Object::toString).ifPresent(ncwWalletId -> localVarHeaderParams.put("X-End-User-Wallet-Id", ncwWalletId));
+
     String localVarAccept = apiClient.selectHeaderAccept("*/*", "application/json");
     String localVarContentType = apiClient.selectHeaderContentType();
     GenericType<WalletAsset> localVarReturnType = new GenericType<WalletAsset>() {};
     return apiClient.invokeAPI("InternalWalletsApi.getInternalWalletAsset", localVarPath, "GET", new ArrayList<>(), null,
-                               new LinkedHashMap<>(), new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
+                                localVarHeaderParams, new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
                                null, localVarReturnType, false);
   }
   /**
@@ -288,8 +347,12 @@ public class InternalWalletsApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
+  public UnmanagedWallet getInternalWalletById(String walletId,  RequestOptions requestOptions) throws ApiException {
+     return getInternalWalletByIdWithHttpInfo(walletId, requestOptions).getData();
+  }
+
   public UnmanagedWallet getInternalWalletById(String walletId) throws ApiException {
-    return getInternalWalletByIdWithHttpInfo(walletId).getData();
+   return getInternalWalletByIdWithHttpInfo(walletId, null).getData();
   }
 
   /**
@@ -305,7 +368,7 @@ public class InternalWalletsApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
-  public ApiResponse<UnmanagedWallet> getInternalWalletByIdWithHttpInfo(String walletId) throws ApiException {
+  public ApiResponse<UnmanagedWallet> getInternalWalletByIdWithHttpInfo(String walletId, RequestOptions requestOptions) throws ApiException {
     // Check required parameters
     if (walletId == null) {
       throw new ApiException(400, "Missing the required parameter 'walletId' when calling getInternalWalletById");
@@ -315,11 +378,18 @@ public class InternalWalletsApi {
     String localVarPath = "/internal_wallets/{walletId}"
             .replaceAll("\\{walletId}", apiClient.escapeString(walletId));
 
+    Map<String, String> localVarHeaderParams = new LinkedHashMap<>();
+    // Extract and set Idempotency-Key header
+    Optional.ofNullable(requestOptions.getIdempotencyKey()).map(Object::toString).ifPresent(idempotencyKey -> localVarHeaderParams.put("Idempotency-Key", idempotencyKey));
+
+    // Extract and set X-End-User-Wallet-Id header
+    Optional.ofNullable(requestOptions.getNcw()).map(ncw -> ncw.getWalletId()).map(Object::toString).ifPresent(ncwWalletId -> localVarHeaderParams.put("X-End-User-Wallet-Id", ncwWalletId));
+
     String localVarAccept = apiClient.selectHeaderAccept("*/*", "application/json");
     String localVarContentType = apiClient.selectHeaderContentType();
     GenericType<UnmanagedWallet> localVarReturnType = new GenericType<UnmanagedWallet>() {};
     return apiClient.invokeAPI("InternalWalletsApi.getInternalWalletById", localVarPath, "GET", new ArrayList<>(), null,
-                               new LinkedHashMap<>(), new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
+                                localVarHeaderParams, new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
                                null, localVarReturnType, false);
   }
   /**
@@ -334,8 +404,12 @@ public class InternalWalletsApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
+  public List<UnmanagedWallet> getInternalWallets( RequestOptions requestOptions) throws ApiException {
+     return getInternalWalletsWithHttpInfo( requestOptions).getData();
+  }
+
   public List<UnmanagedWallet> getInternalWallets() throws ApiException {
-    return getInternalWalletsWithHttpInfo().getData();
+   return getInternalWalletsWithHttpInfo( null).getData();
   }
 
   /**
@@ -350,12 +424,19 @@ public class InternalWalletsApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
-  public ApiResponse<List<UnmanagedWallet>> getInternalWalletsWithHttpInfo() throws ApiException {
+  public ApiResponse<List<UnmanagedWallet>> getInternalWalletsWithHttpInfo( RequestOptions requestOptions) throws ApiException {
+    Map<String, String> localVarHeaderParams = new LinkedHashMap<>();
+    // Extract and set Idempotency-Key header
+    Optional.ofNullable(requestOptions.getIdempotencyKey()).map(Object::toString).ifPresent(idempotencyKey -> localVarHeaderParams.put("Idempotency-Key", idempotencyKey));
+
+    // Extract and set X-End-User-Wallet-Id header
+    Optional.ofNullable(requestOptions.getNcw()).map(ncw -> ncw.getWalletId()).map(Object::toString).ifPresent(ncwWalletId -> localVarHeaderParams.put("X-End-User-Wallet-Id", ncwWalletId));
+
     String localVarAccept = apiClient.selectHeaderAccept("*/*", "application/json");
     String localVarContentType = apiClient.selectHeaderContentType();
     GenericType<List<UnmanagedWallet>> localVarReturnType = new GenericType<List<UnmanagedWallet>>() {};
     return apiClient.invokeAPI("InternalWalletsApi.getInternalWallets", "/internal_wallets", "GET", new ArrayList<>(), null,
-                               new LinkedHashMap<>(), new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
+                                localVarHeaderParams, new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
                                null, localVarReturnType, false);
   }
   /**
@@ -371,8 +452,12 @@ public class InternalWalletsApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
+  public void setCustomerRefIdForInternalWallet(String walletId, SetCustomerRefIdForVaultAccountRequest setCustomerRefIdForVaultAccountRequest,  RequestOptions requestOptions) throws ApiException {
+    setCustomerRefIdForInternalWalletWithHttpInfo(walletId,setCustomerRefIdForVaultAccountRequest, requestOptions);
+  }
+
   public void setCustomerRefIdForInternalWallet(String walletId, SetCustomerRefIdForVaultAccountRequest setCustomerRefIdForVaultAccountRequest) throws ApiException {
-    setCustomerRefIdForInternalWalletWithHttpInfo(walletId, setCustomerRefIdForVaultAccountRequest);
+  setCustomerRefIdForInternalWalletWithHttpInfo(walletId,setCustomerRefIdForVaultAccountRequest, null);
   }
 
   /**
@@ -389,7 +474,7 @@ public class InternalWalletsApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
-  public ApiResponse<Void> setCustomerRefIdForInternalWalletWithHttpInfo(String walletId, SetCustomerRefIdForVaultAccountRequest setCustomerRefIdForVaultAccountRequest) throws ApiException {
+  public ApiResponse<Void> setCustomerRefIdForInternalWalletWithHttpInfo(String walletId,SetCustomerRefIdForVaultAccountRequest setCustomerRefIdForVaultAccountRequest, RequestOptions requestOptions) throws ApiException {
     // Check required parameters
     if (walletId == null) {
       throw new ApiException(400, "Missing the required parameter 'walletId' when calling setCustomerRefIdForInternalWallet");
@@ -402,10 +487,18 @@ public class InternalWalletsApi {
     String localVarPath = "/internal_wallets/{walletId}/set_customer_ref_id"
             .replaceAll("\\{walletId}", apiClient.escapeString(walletId));
 
+    Map<String, String> localVarHeaderParams = new LinkedHashMap<>();
+    Object _body = setCustomerRefIdForVaultAccountRequest;
+    // Extract and set Idempotency-Key header
+    Optional.ofNullable(requestOptions.getIdempotencyKey()).map(Object::toString).ifPresent(idempotencyKey -> localVarHeaderParams.put("Idempotency-Key", idempotencyKey));
+
+    // Extract and set X-End-User-Wallet-Id header
+    Optional.ofNullable(requestOptions.getNcw()).map(ncw -> ncw.getWalletId()).map(Object::toString).ifPresent(ncwWalletId -> localVarHeaderParams.put("X-End-User-Wallet-Id", ncwWalletId));
+
     String localVarAccept = apiClient.selectHeaderAccept("application/json");
     String localVarContentType = apiClient.selectHeaderContentType("application/json");
     return apiClient.invokeAPI("InternalWalletsApi.setCustomerRefIdForInternalWallet", localVarPath, "POST", new ArrayList<>(), setCustomerRefIdForVaultAccountRequest,
-                               new LinkedHashMap<>(), new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
+                                localVarHeaderParams, new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
                                null, null, false);
   }
 }

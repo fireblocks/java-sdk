@@ -4,10 +4,12 @@ import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.Configuration;
+import com.fireblocks.sdk.model.Ncw;
+import com.fireblocks.sdk.model.RequestOptions;
 import com.fireblocks.sdk.Pair;
-
+import java.util.Optional;
 import javax.ws.rs.core.GenericType;
-
+import java.util.UUID;
 import com.fireblocks.sdk.model.Error;
 import com.fireblocks.sdk.model.GasStationConfiguration;
 import com.fireblocks.sdk.model.GasStationPropertiesResponse;
@@ -42,8 +44,12 @@ public class GasStationsApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
+  public GasStationPropertiesResponse getGasStation( RequestOptions requestOptions) throws ApiException {
+     return getGasStationWithHttpInfo( requestOptions).getData();
+  }
+
   public GasStationPropertiesResponse getGasStation() throws ApiException {
-    return getGasStationWithHttpInfo().getData();
+   return getGasStationWithHttpInfo( null).getData();
   }
 
   /**
@@ -58,12 +64,19 @@ public class GasStationsApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
-  public ApiResponse<GasStationPropertiesResponse> getGasStationWithHttpInfo() throws ApiException {
+  public ApiResponse<GasStationPropertiesResponse> getGasStationWithHttpInfo( RequestOptions requestOptions) throws ApiException {
+    Map<String, String> localVarHeaderParams = new LinkedHashMap<>();
+    // Extract and set Idempotency-Key header
+    Optional.ofNullable(requestOptions.getIdempotencyKey()).map(Object::toString).ifPresent(idempotencyKey -> localVarHeaderParams.put("Idempotency-Key", idempotencyKey));
+
+    // Extract and set X-End-User-Wallet-Id header
+    Optional.ofNullable(requestOptions.getNcw()).map(ncw -> ncw.getWalletId()).map(Object::toString).ifPresent(ncwWalletId -> localVarHeaderParams.put("X-End-User-Wallet-Id", ncwWalletId));
+
     String localVarAccept = apiClient.selectHeaderAccept("*/*", "application/json");
     String localVarContentType = apiClient.selectHeaderContentType();
     GenericType<GasStationPropertiesResponse> localVarReturnType = new GenericType<GasStationPropertiesResponse>() {};
     return apiClient.invokeAPI("GasStationsApi.getGasStation", "/gas_station", "GET", new ArrayList<>(), null,
-                               new LinkedHashMap<>(), new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
+                                localVarHeaderParams, new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
                                null, localVarReturnType, false);
   }
   /**
@@ -79,8 +92,12 @@ public class GasStationsApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
+  public GasStationPropertiesResponse getGasStationByAssetId(String assetId,  RequestOptions requestOptions) throws ApiException {
+     return getGasStationByAssetIdWithHttpInfo(assetId, requestOptions).getData();
+  }
+
   public GasStationPropertiesResponse getGasStationByAssetId(String assetId) throws ApiException {
-    return getGasStationByAssetIdWithHttpInfo(assetId).getData();
+   return getGasStationByAssetIdWithHttpInfo(assetId, null).getData();
   }
 
   /**
@@ -96,7 +113,7 @@ public class GasStationsApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
-  public ApiResponse<GasStationPropertiesResponse> getGasStationByAssetIdWithHttpInfo(String assetId) throws ApiException {
+  public ApiResponse<GasStationPropertiesResponse> getGasStationByAssetIdWithHttpInfo(String assetId, RequestOptions requestOptions) throws ApiException {
     // Check required parameters
     if (assetId == null) {
       throw new ApiException(400, "Missing the required parameter 'assetId' when calling getGasStationByAssetId");
@@ -106,11 +123,18 @@ public class GasStationsApi {
     String localVarPath = "/gas_station/{assetId}"
             .replaceAll("\\{assetId}", apiClient.escapeString(assetId));
 
+    Map<String, String> localVarHeaderParams = new LinkedHashMap<>();
+    // Extract and set Idempotency-Key header
+    Optional.ofNullable(requestOptions.getIdempotencyKey()).map(Object::toString).ifPresent(idempotencyKey -> localVarHeaderParams.put("Idempotency-Key", idempotencyKey));
+
+    // Extract and set X-End-User-Wallet-Id header
+    Optional.ofNullable(requestOptions.getNcw()).map(ncw -> ncw.getWalletId()).map(Object::toString).ifPresent(ncwWalletId -> localVarHeaderParams.put("X-End-User-Wallet-Id", ncwWalletId));
+
     String localVarAccept = apiClient.selectHeaderAccept("*/*", "application/json");
     String localVarContentType = apiClient.selectHeaderContentType();
     GenericType<GasStationPropertiesResponse> localVarReturnType = new GenericType<GasStationPropertiesResponse>() {};
     return apiClient.invokeAPI("GasStationsApi.getGasStationByAssetId", localVarPath, "GET", new ArrayList<>(), null,
-                               new LinkedHashMap<>(), new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
+                                localVarHeaderParams, new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
                                null, localVarReturnType, false);
   }
   /**
@@ -125,8 +149,12 @@ public class GasStationsApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
+  public void updateGasStationConfiguration(GasStationConfiguration gasStationConfiguration,  RequestOptions requestOptions) throws ApiException {
+    updateGasStationConfigurationWithHttpInfo(gasStationConfiguration, requestOptions);
+  }
+
   public void updateGasStationConfiguration(GasStationConfiguration gasStationConfiguration) throws ApiException {
-    updateGasStationConfigurationWithHttpInfo(gasStationConfiguration);
+  updateGasStationConfigurationWithHttpInfo(gasStationConfiguration, null);
   }
 
   /**
@@ -142,16 +170,24 @@ public class GasStationsApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
-  public ApiResponse<Void> updateGasStationConfigurationWithHttpInfo(GasStationConfiguration gasStationConfiguration) throws ApiException {
+  public ApiResponse<Void> updateGasStationConfigurationWithHttpInfo(GasStationConfiguration gasStationConfiguration, RequestOptions requestOptions) throws ApiException {
     // Check required parameters
     if (gasStationConfiguration == null) {
       throw new ApiException(400, "Missing the required parameter 'gasStationConfiguration' when calling updateGasStationConfiguration");
     }
 
+    Map<String, String> localVarHeaderParams = new LinkedHashMap<>();
+    Object _body = gasStationConfiguration;
+    // Extract and set Idempotency-Key header
+    Optional.ofNullable(requestOptions.getIdempotencyKey()).map(Object::toString).ifPresent(idempotencyKey -> localVarHeaderParams.put("Idempotency-Key", idempotencyKey));
+
+    // Extract and set X-End-User-Wallet-Id header
+    Optional.ofNullable(requestOptions.getNcw()).map(ncw -> ncw.getWalletId()).map(Object::toString).ifPresent(ncwWalletId -> localVarHeaderParams.put("X-End-User-Wallet-Id", ncwWalletId));
+
     String localVarAccept = apiClient.selectHeaderAccept("application/json");
     String localVarContentType = apiClient.selectHeaderContentType("application/json");
     return apiClient.invokeAPI("GasStationsApi.updateGasStationConfiguration", "/gas_station/configuration", "PUT", new ArrayList<>(), gasStationConfiguration,
-                               new LinkedHashMap<>(), new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
+                                localVarHeaderParams, new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
                                null, null, false);
   }
   /**
@@ -167,8 +203,12 @@ public class GasStationsApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
+  public void updateGasStationConfigurationByAssetId(String assetId, GasStationConfiguration gasStationConfiguration,  RequestOptions requestOptions) throws ApiException {
+    updateGasStationConfigurationByAssetIdWithHttpInfo(assetId,gasStationConfiguration, requestOptions);
+  }
+
   public void updateGasStationConfigurationByAssetId(String assetId, GasStationConfiguration gasStationConfiguration) throws ApiException {
-    updateGasStationConfigurationByAssetIdWithHttpInfo(assetId, gasStationConfiguration);
+  updateGasStationConfigurationByAssetIdWithHttpInfo(assetId,gasStationConfiguration, null);
   }
 
   /**
@@ -185,7 +225,7 @@ public class GasStationsApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
-  public ApiResponse<Void> updateGasStationConfigurationByAssetIdWithHttpInfo(String assetId, GasStationConfiguration gasStationConfiguration) throws ApiException {
+  public ApiResponse<Void> updateGasStationConfigurationByAssetIdWithHttpInfo(String assetId,GasStationConfiguration gasStationConfiguration, RequestOptions requestOptions) throws ApiException {
     // Check required parameters
     if (assetId == null) {
       throw new ApiException(400, "Missing the required parameter 'assetId' when calling updateGasStationConfigurationByAssetId");
@@ -198,10 +238,18 @@ public class GasStationsApi {
     String localVarPath = "/gas_station/configuration/{assetId}"
             .replaceAll("\\{assetId}", apiClient.escapeString(assetId));
 
+    Map<String, String> localVarHeaderParams = new LinkedHashMap<>();
+    Object _body = gasStationConfiguration;
+    // Extract and set Idempotency-Key header
+    Optional.ofNullable(requestOptions.getIdempotencyKey()).map(Object::toString).ifPresent(idempotencyKey -> localVarHeaderParams.put("Idempotency-Key", idempotencyKey));
+
+    // Extract and set X-End-User-Wallet-Id header
+    Optional.ofNullable(requestOptions.getNcw()).map(ncw -> ncw.getWalletId()).map(Object::toString).ifPresent(ncwWalletId -> localVarHeaderParams.put("X-End-User-Wallet-Id", ncwWalletId));
+
     String localVarAccept = apiClient.selectHeaderAccept("application/json");
     String localVarContentType = apiClient.selectHeaderContentType("application/json");
     return apiClient.invokeAPI("GasStationsApi.updateGasStationConfigurationByAssetId", localVarPath, "PUT", new ArrayList<>(), gasStationConfiguration,
-                               new LinkedHashMap<>(), new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
+                                localVarHeaderParams, new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
                                null, null, false);
   }
 }

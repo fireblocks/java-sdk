@@ -4,10 +4,12 @@ import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.Configuration;
+import com.fireblocks.sdk.model.Ncw;
+import com.fireblocks.sdk.model.RequestOptions;
 import com.fireblocks.sdk.Pair;
-
+import java.util.Optional;
 import javax.ws.rs.core.GenericType;
-
+import java.util.UUID;
 import java.math.BigDecimal;
 import com.fireblocks.sdk.model.CreateConnectionRequest;
 import com.fireblocks.sdk.model.CreateConnectionResponse;
@@ -47,8 +49,12 @@ public class Web3ConnectionsApi {
        <tr><td> 500 </td><td> Something went wrong </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
+  public CreateConnectionResponse create(CreateConnectionRequest createConnectionRequest,  RequestOptions requestOptions) throws ApiException {
+     return createWithHttpInfo(createConnectionRequest, requestOptions).getData();
+  }
+
   public CreateConnectionResponse create(CreateConnectionRequest createConnectionRequest) throws ApiException {
-    return createWithHttpInfo(createConnectionRequest).getData();
+   return createWithHttpInfo(createConnectionRequest, null).getData();
   }
 
   /**
@@ -65,17 +71,25 @@ public class Web3ConnectionsApi {
        <tr><td> 500 </td><td> Something went wrong </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
-  public ApiResponse<CreateConnectionResponse> createWithHttpInfo(CreateConnectionRequest createConnectionRequest) throws ApiException {
+  public ApiResponse<CreateConnectionResponse> createWithHttpInfo(CreateConnectionRequest createConnectionRequest, RequestOptions requestOptions) throws ApiException {
     // Check required parameters
     if (createConnectionRequest == null) {
       throw new ApiException(400, "Missing the required parameter 'createConnectionRequest' when calling create");
     }
 
+    Map<String, String> localVarHeaderParams = new LinkedHashMap<>();
+    Object _body = createConnectionRequest;
+    // Extract and set Idempotency-Key header
+    Optional.ofNullable(requestOptions.getIdempotencyKey()).map(Object::toString).ifPresent(idempotencyKey -> localVarHeaderParams.put("Idempotency-Key", idempotencyKey));
+
+    // Extract and set X-End-User-Wallet-Id header
+    Optional.ofNullable(requestOptions.getNcw()).map(ncw -> ncw.getWalletId()).map(Object::toString).ifPresent(ncwWalletId -> localVarHeaderParams.put("X-End-User-Wallet-Id", ncwWalletId));
+
     String localVarAccept = apiClient.selectHeaderAccept("application/json");
     String localVarContentType = apiClient.selectHeaderContentType("application/json");
     GenericType<CreateConnectionResponse> localVarReturnType = new GenericType<CreateConnectionResponse>() {};
     return apiClient.invokeAPI("Web3ConnectionsApi.create", "/connections/wc", "POST", new ArrayList<>(), createConnectionRequest,
-                               new LinkedHashMap<>(), new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
+                                localVarHeaderParams, new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
                                null, localVarReturnType, false);
   }
   /**
@@ -96,8 +110,12 @@ public class Web3ConnectionsApi {
        <tr><td> 500 </td><td> Something went wrong </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
+  public GetConnectionsResponse get(String order, GetFilterParameter filter, String sort, BigDecimal pageSize, String next,  RequestOptions requestOptions) throws ApiException {
+     return getWithHttpInfo(order,filter,sort,pageSize,next, requestOptions).getData();
+  }
+
   public GetConnectionsResponse get(String order, GetFilterParameter filter, String sort, BigDecimal pageSize, String next) throws ApiException {
-    return getWithHttpInfo(order, filter, sort, pageSize, next).getData();
+   return getWithHttpInfo(order,filter,sort,pageSize,next, null).getData();
   }
 
   /**
@@ -118,7 +136,7 @@ public class Web3ConnectionsApi {
        <tr><td> 500 </td><td> Something went wrong </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
-  public ApiResponse<GetConnectionsResponse> getWithHttpInfo(String order, GetFilterParameter filter, String sort, BigDecimal pageSize, String next) throws ApiException {
+  public ApiResponse<GetConnectionsResponse> getWithHttpInfo(String order,GetFilterParameter filter,String sort,BigDecimal pageSize,String next, RequestOptions requestOptions) throws ApiException {
     // Query parameters
     List<Pair> localVarQueryParams = new ArrayList<>(
             apiClient.parameterToPairs("", "order", order)
@@ -128,11 +146,18 @@ public class Web3ConnectionsApi {
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "pageSize", pageSize));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "next", next));
 
+    Map<String, String> localVarHeaderParams = new LinkedHashMap<>();
+    // Extract and set Idempotency-Key header
+    Optional.ofNullable(requestOptions.getIdempotencyKey()).map(Object::toString).ifPresent(idempotencyKey -> localVarHeaderParams.put("Idempotency-Key", idempotencyKey));
+
+    // Extract and set X-End-User-Wallet-Id header
+    Optional.ofNullable(requestOptions.getNcw()).map(ncw -> ncw.getWalletId()).map(Object::toString).ifPresent(ncwWalletId -> localVarHeaderParams.put("X-End-User-Wallet-Id", ncwWalletId));
+
     String localVarAccept = apiClient.selectHeaderAccept("application/json");
     String localVarContentType = apiClient.selectHeaderContentType();
     GenericType<GetConnectionsResponse> localVarReturnType = new GenericType<GetConnectionsResponse>() {};
     return apiClient.invokeAPI("Web3ConnectionsApi.get", "/connections", "GET", localVarQueryParams, null,
-                               new LinkedHashMap<>(), new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
+                                localVarHeaderParams, new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
                                null, localVarReturnType, false);
   }
   /**
@@ -148,8 +173,12 @@ public class Web3ConnectionsApi {
        <tr><td> 500 </td><td> Something went wrong </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
+  public void remove(String id,  RequestOptions requestOptions) throws ApiException {
+    removeWithHttpInfo(id, requestOptions);
+  }
+
   public void remove(String id) throws ApiException {
-    removeWithHttpInfo(id);
+  removeWithHttpInfo(id, null);
   }
 
   /**
@@ -166,7 +195,7 @@ public class Web3ConnectionsApi {
        <tr><td> 500 </td><td> Something went wrong </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
-  public ApiResponse<Void> removeWithHttpInfo(String id) throws ApiException {
+  public ApiResponse<Void> removeWithHttpInfo(String id, RequestOptions requestOptions) throws ApiException {
     // Check required parameters
     if (id == null) {
       throw new ApiException(400, "Missing the required parameter 'id' when calling remove");
@@ -176,10 +205,17 @@ public class Web3ConnectionsApi {
     String localVarPath = "/connections/wc/{id}"
             .replaceAll("\\{id}", apiClient.escapeString(id));
 
+    Map<String, String> localVarHeaderParams = new LinkedHashMap<>();
+    // Extract and set Idempotency-Key header
+    Optional.ofNullable(requestOptions.getIdempotencyKey()).map(Object::toString).ifPresent(idempotencyKey -> localVarHeaderParams.put("Idempotency-Key", idempotencyKey));
+
+    // Extract and set X-End-User-Wallet-Id header
+    Optional.ofNullable(requestOptions.getNcw()).map(ncw -> ncw.getWalletId()).map(Object::toString).ifPresent(ncwWalletId -> localVarHeaderParams.put("X-End-User-Wallet-Id", ncwWalletId));
+
     String localVarAccept = apiClient.selectHeaderAccept();
     String localVarContentType = apiClient.selectHeaderContentType();
     return apiClient.invokeAPI("Web3ConnectionsApi.remove", localVarPath, "DELETE", new ArrayList<>(), null,
-                               new LinkedHashMap<>(), new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
+                                localVarHeaderParams, new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
                                null, null, false);
   }
   /**
@@ -197,8 +233,12 @@ public class Web3ConnectionsApi {
        <tr><td> 500 </td><td> Something went wrong </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
+  public void submit(String id, RespondToConnectionRequest respondToConnectionRequest,  RequestOptions requestOptions) throws ApiException {
+    submitWithHttpInfo(id,respondToConnectionRequest, requestOptions);
+  }
+
   public void submit(String id, RespondToConnectionRequest respondToConnectionRequest) throws ApiException {
-    submitWithHttpInfo(id, respondToConnectionRequest);
+  submitWithHttpInfo(id,respondToConnectionRequest, null);
   }
 
   /**
@@ -217,7 +257,7 @@ public class Web3ConnectionsApi {
        <tr><td> 500 </td><td> Something went wrong </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
-  public ApiResponse<Void> submitWithHttpInfo(String id, RespondToConnectionRequest respondToConnectionRequest) throws ApiException {
+  public ApiResponse<Void> submitWithHttpInfo(String id,RespondToConnectionRequest respondToConnectionRequest, RequestOptions requestOptions) throws ApiException {
     // Check required parameters
     if (id == null) {
       throw new ApiException(400, "Missing the required parameter 'id' when calling submit");
@@ -230,10 +270,18 @@ public class Web3ConnectionsApi {
     String localVarPath = "/connections/wc/{id}"
             .replaceAll("\\{id}", apiClient.escapeString(id));
 
+    Map<String, String> localVarHeaderParams = new LinkedHashMap<>();
+    Object _body = respondToConnectionRequest;
+    // Extract and set Idempotency-Key header
+    Optional.ofNullable(requestOptions.getIdempotencyKey()).map(Object::toString).ifPresent(idempotencyKey -> localVarHeaderParams.put("Idempotency-Key", idempotencyKey));
+
+    // Extract and set X-End-User-Wallet-Id header
+    Optional.ofNullable(requestOptions.getNcw()).map(ncw -> ncw.getWalletId()).map(Object::toString).ifPresent(ncwWalletId -> localVarHeaderParams.put("X-End-User-Wallet-Id", ncwWalletId));
+
     String localVarAccept = apiClient.selectHeaderAccept();
     String localVarContentType = apiClient.selectHeaderContentType("application/json");
     return apiClient.invokeAPI("Web3ConnectionsApi.submit", localVarPath, "PUT", new ArrayList<>(), respondToConnectionRequest,
-                               new LinkedHashMap<>(), new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
+                                localVarHeaderParams, new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
                                null, null, false);
   }
 }

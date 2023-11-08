@@ -4,10 +4,12 @@ import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.Configuration;
+import com.fireblocks.sdk.model.Ncw;
+import com.fireblocks.sdk.model.RequestOptions;
 import com.fireblocks.sdk.Pair;
-
+import java.util.Optional;
 import javax.ws.rs.core.GenericType;
-
+import java.util.UUID;
 import com.fireblocks.sdk.model.AddCollateralRequestBody;
 import com.fireblocks.sdk.model.CreateTransactionResponse;
 import com.fireblocks.sdk.model.Error;
@@ -47,8 +49,12 @@ public class OffExchangesApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
+  public CreateTransactionResponse addOffExchange(AddCollateralRequestBody addCollateralRequestBody,  RequestOptions requestOptions) throws ApiException {
+     return addOffExchangeWithHttpInfo(addCollateralRequestBody, requestOptions).getData();
+  }
+
   public CreateTransactionResponse addOffExchange(AddCollateralRequestBody addCollateralRequestBody) throws ApiException {
-    return addOffExchangeWithHttpInfo(addCollateralRequestBody).getData();
+   return addOffExchangeWithHttpInfo(addCollateralRequestBody, null).getData();
   }
 
   /**
@@ -64,12 +70,20 @@ public class OffExchangesApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
-  public ApiResponse<CreateTransactionResponse> addOffExchangeWithHttpInfo(AddCollateralRequestBody addCollateralRequestBody) throws ApiException {
+  public ApiResponse<CreateTransactionResponse> addOffExchangeWithHttpInfo(AddCollateralRequestBody addCollateralRequestBody, RequestOptions requestOptions) throws ApiException {
+    Map<String, String> localVarHeaderParams = new LinkedHashMap<>();
+    Object _body = addCollateralRequestBody;
+    // Extract and set Idempotency-Key header
+    Optional.ofNullable(requestOptions.getIdempotencyKey()).map(Object::toString).ifPresent(idempotencyKey -> localVarHeaderParams.put("Idempotency-Key", idempotencyKey));
+
+    // Extract and set X-End-User-Wallet-Id header
+    Optional.ofNullable(requestOptions.getNcw()).map(ncw -> ncw.getWalletId()).map(Object::toString).ifPresent(ncwWalletId -> localVarHeaderParams.put("X-End-User-Wallet-Id", ncwWalletId));
+
     String localVarAccept = apiClient.selectHeaderAccept("*/*", "application/json");
     String localVarContentType = apiClient.selectHeaderContentType("application/json");
     GenericType<CreateTransactionResponse> localVarReturnType = new GenericType<CreateTransactionResponse>() {};
     return apiClient.invokeAPI("OffExchangesApi.addOffExchange", "/off_exchange/add", "POST", new ArrayList<>(), addCollateralRequestBody,
-                               new LinkedHashMap<>(), new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
+                                localVarHeaderParams, new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
                                null, localVarReturnType, false);
   }
   /**
@@ -85,8 +99,12 @@ public class OffExchangesApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
+  public ExchangeAccount getOffExchangeCollateralAccounts(String mainExchangeAccountId,  RequestOptions requestOptions) throws ApiException {
+     return getOffExchangeCollateralAccountsWithHttpInfo(mainExchangeAccountId, requestOptions).getData();
+  }
+
   public ExchangeAccount getOffExchangeCollateralAccounts(String mainExchangeAccountId) throws ApiException {
-    return getOffExchangeCollateralAccountsWithHttpInfo(mainExchangeAccountId).getData();
+   return getOffExchangeCollateralAccountsWithHttpInfo(mainExchangeAccountId, null).getData();
   }
 
   /**
@@ -102,7 +120,7 @@ public class OffExchangesApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
-  public ApiResponse<ExchangeAccount> getOffExchangeCollateralAccountsWithHttpInfo(String mainExchangeAccountId) throws ApiException {
+  public ApiResponse<ExchangeAccount> getOffExchangeCollateralAccountsWithHttpInfo(String mainExchangeAccountId, RequestOptions requestOptions) throws ApiException {
     // Check required parameters
     if (mainExchangeAccountId == null) {
       throw new ApiException(400, "Missing the required parameter 'mainExchangeAccountId' when calling getOffExchangeCollateralAccounts");
@@ -112,11 +130,18 @@ public class OffExchangesApi {
     String localVarPath = "/off_exchange/collateral_accounts/{mainExchangeAccountId}"
             .replaceAll("\\{mainExchangeAccountId}", apiClient.escapeString(mainExchangeAccountId));
 
+    Map<String, String> localVarHeaderParams = new LinkedHashMap<>();
+    // Extract and set Idempotency-Key header
+    Optional.ofNullable(requestOptions.getIdempotencyKey()).map(Object::toString).ifPresent(idempotencyKey -> localVarHeaderParams.put("Idempotency-Key", idempotencyKey));
+
+    // Extract and set X-End-User-Wallet-Id header
+    Optional.ofNullable(requestOptions.getNcw()).map(ncw -> ncw.getWalletId()).map(Object::toString).ifPresent(ncwWalletId -> localVarHeaderParams.put("X-End-User-Wallet-Id", ncwWalletId));
+
     String localVarAccept = apiClient.selectHeaderAccept("*/*", "application/json");
     String localVarContentType = apiClient.selectHeaderContentType();
     GenericType<ExchangeAccount> localVarReturnType = new GenericType<ExchangeAccount>() {};
     return apiClient.invokeAPI("OffExchangesApi.getOffExchangeCollateralAccounts", localVarPath, "GET", new ArrayList<>(), null,
-                               new LinkedHashMap<>(), new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
+                                localVarHeaderParams, new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
                                null, localVarReturnType, false);
   }
   /**
@@ -132,8 +157,12 @@ public class OffExchangesApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
+  public SettlementResponse getOffExchangeSettlementTransactions(String mainExchangeAccountId,  RequestOptions requestOptions) throws ApiException {
+     return getOffExchangeSettlementTransactionsWithHttpInfo(mainExchangeAccountId, requestOptions).getData();
+  }
+
   public SettlementResponse getOffExchangeSettlementTransactions(String mainExchangeAccountId) throws ApiException {
-    return getOffExchangeSettlementTransactionsWithHttpInfo(mainExchangeAccountId).getData();
+   return getOffExchangeSettlementTransactionsWithHttpInfo(mainExchangeAccountId, null).getData();
   }
 
   /**
@@ -149,7 +178,7 @@ public class OffExchangesApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
-  public ApiResponse<SettlementResponse> getOffExchangeSettlementTransactionsWithHttpInfo(String mainExchangeAccountId) throws ApiException {
+  public ApiResponse<SettlementResponse> getOffExchangeSettlementTransactionsWithHttpInfo(String mainExchangeAccountId, RequestOptions requestOptions) throws ApiException {
     // Check required parameters
     if (mainExchangeAccountId == null) {
       throw new ApiException(400, "Missing the required parameter 'mainExchangeAccountId' when calling getOffExchangeSettlementTransactions");
@@ -160,11 +189,18 @@ public class OffExchangesApi {
             apiClient.parameterToPairs("", "mainExchangeAccountId", mainExchangeAccountId)
     );
 
+    Map<String, String> localVarHeaderParams = new LinkedHashMap<>();
+    // Extract and set Idempotency-Key header
+    Optional.ofNullable(requestOptions.getIdempotencyKey()).map(Object::toString).ifPresent(idempotencyKey -> localVarHeaderParams.put("Idempotency-Key", idempotencyKey));
+
+    // Extract and set X-End-User-Wallet-Id header
+    Optional.ofNullable(requestOptions.getNcw()).map(ncw -> ncw.getWalletId()).map(Object::toString).ifPresent(ncwWalletId -> localVarHeaderParams.put("X-End-User-Wallet-Id", ncwWalletId));
+
     String localVarAccept = apiClient.selectHeaderAccept("*/*", "application/json");
     String localVarContentType = apiClient.selectHeaderContentType();
     GenericType<SettlementResponse> localVarReturnType = new GenericType<SettlementResponse>() {};
     return apiClient.invokeAPI("OffExchangesApi.getOffExchangeSettlementTransactions", "/off_exchange/settlements/transactions", "GET", localVarQueryParams, null,
-                               new LinkedHashMap<>(), new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
+                                localVarHeaderParams, new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
                                null, localVarReturnType, false);
   }
   /**
@@ -180,8 +216,12 @@ public class OffExchangesApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
+  public CreateTransactionResponse removeOffExchange(RemoveCollateralRequestBody removeCollateralRequestBody,  RequestOptions requestOptions) throws ApiException {
+     return removeOffExchangeWithHttpInfo(removeCollateralRequestBody, requestOptions).getData();
+  }
+
   public CreateTransactionResponse removeOffExchange(RemoveCollateralRequestBody removeCollateralRequestBody) throws ApiException {
-    return removeOffExchangeWithHttpInfo(removeCollateralRequestBody).getData();
+   return removeOffExchangeWithHttpInfo(removeCollateralRequestBody, null).getData();
   }
 
   /**
@@ -197,12 +237,20 @@ public class OffExchangesApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
-  public ApiResponse<CreateTransactionResponse> removeOffExchangeWithHttpInfo(RemoveCollateralRequestBody removeCollateralRequestBody) throws ApiException {
+  public ApiResponse<CreateTransactionResponse> removeOffExchangeWithHttpInfo(RemoveCollateralRequestBody removeCollateralRequestBody, RequestOptions requestOptions) throws ApiException {
+    Map<String, String> localVarHeaderParams = new LinkedHashMap<>();
+    Object _body = removeCollateralRequestBody;
+    // Extract and set Idempotency-Key header
+    Optional.ofNullable(requestOptions.getIdempotencyKey()).map(Object::toString).ifPresent(idempotencyKey -> localVarHeaderParams.put("Idempotency-Key", idempotencyKey));
+
+    // Extract and set X-End-User-Wallet-Id header
+    Optional.ofNullable(requestOptions.getNcw()).map(ncw -> ncw.getWalletId()).map(Object::toString).ifPresent(ncwWalletId -> localVarHeaderParams.put("X-End-User-Wallet-Id", ncwWalletId));
+
     String localVarAccept = apiClient.selectHeaderAccept("*/*", "application/json");
     String localVarContentType = apiClient.selectHeaderContentType("application/json");
     GenericType<CreateTransactionResponse> localVarReturnType = new GenericType<CreateTransactionResponse>() {};
     return apiClient.invokeAPI("OffExchangesApi.removeOffExchange", "/off_exchange/remove", "POST", new ArrayList<>(), removeCollateralRequestBody,
-                               new LinkedHashMap<>(), new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
+                                localVarHeaderParams, new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
                                null, localVarReturnType, false);
   }
   /**
@@ -218,8 +266,12 @@ public class OffExchangesApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
+  public SettlementResponse settleOffExchangeTrades(SettlementRequestBody settlementRequestBody,  RequestOptions requestOptions) throws ApiException {
+     return settleOffExchangeTradesWithHttpInfo(settlementRequestBody, requestOptions).getData();
+  }
+
   public SettlementResponse settleOffExchangeTrades(SettlementRequestBody settlementRequestBody) throws ApiException {
-    return settleOffExchangeTradesWithHttpInfo(settlementRequestBody).getData();
+   return settleOffExchangeTradesWithHttpInfo(settlementRequestBody, null).getData();
   }
 
   /**
@@ -235,12 +287,20 @@ public class OffExchangesApi {
        <tr><td> 0 </td><td> Error Response </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
-  public ApiResponse<SettlementResponse> settleOffExchangeTradesWithHttpInfo(SettlementRequestBody settlementRequestBody) throws ApiException {
+  public ApiResponse<SettlementResponse> settleOffExchangeTradesWithHttpInfo(SettlementRequestBody settlementRequestBody, RequestOptions requestOptions) throws ApiException {
+    Map<String, String> localVarHeaderParams = new LinkedHashMap<>();
+    Object _body = settlementRequestBody;
+    // Extract and set Idempotency-Key header
+    Optional.ofNullable(requestOptions.getIdempotencyKey()).map(Object::toString).ifPresent(idempotencyKey -> localVarHeaderParams.put("Idempotency-Key", idempotencyKey));
+
+    // Extract and set X-End-User-Wallet-Id header
+    Optional.ofNullable(requestOptions.getNcw()).map(ncw -> ncw.getWalletId()).map(Object::toString).ifPresent(ncwWalletId -> localVarHeaderParams.put("X-End-User-Wallet-Id", ncwWalletId));
+
     String localVarAccept = apiClient.selectHeaderAccept("*/*", "application/json");
     String localVarContentType = apiClient.selectHeaderContentType("application/json");
     GenericType<SettlementResponse> localVarReturnType = new GenericType<SettlementResponse>() {};
     return apiClient.invokeAPI("OffExchangesApi.settleOffExchangeTrades", "/off_exchange/settlements/trader", "POST", new ArrayList<>(), settlementRequestBody,
-                               new LinkedHashMap<>(), new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
+                                localVarHeaderParams, new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
                                null, localVarReturnType, false);
   }
 }

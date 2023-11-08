@@ -4,10 +4,12 @@ import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.Configuration;
+import com.fireblocks.sdk.model.Ncw;
+import com.fireblocks.sdk.model.RequestOptions;
 import com.fireblocks.sdk.Pair;
-
+import java.util.Optional;
 import javax.ws.rs.core.GenericType;
-
+import java.util.UUID;
 import java.math.BigDecimal;
 import com.fireblocks.sdk.model.TravelRuleGetAllVASPsResponse;
 import com.fireblocks.sdk.model.TravelRuleUpdateVASPDetails;
@@ -49,8 +51,12 @@ public class TravelRuleBetaApi {
        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
      </table>
    */
+  public TravelRuleVASP getVASPByDID(String did, String fields,  RequestOptions requestOptions) throws ApiException {
+     return getVASPByDIDWithHttpInfo(did,fields, requestOptions).getData();
+  }
+
   public TravelRuleVASP getVASPByDID(String did, String fields) throws ApiException {
-    return getVASPByDIDWithHttpInfo(did, fields).getData();
+   return getVASPByDIDWithHttpInfo(did,fields, null).getData();
   }
 
   /**
@@ -68,7 +74,7 @@ public class TravelRuleBetaApi {
        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<TravelRuleVASP> getVASPByDIDWithHttpInfo(String did, String fields) throws ApiException {
+  public ApiResponse<TravelRuleVASP> getVASPByDIDWithHttpInfo(String did,String fields, RequestOptions requestOptions) throws ApiException {
     // Check required parameters
     if (did == null) {
       throw new ApiException(400, "Missing the required parameter 'did' when calling getVASPByDID");
@@ -83,11 +89,18 @@ public class TravelRuleBetaApi {
             apiClient.parameterToPairs("", "fields", fields)
     );
 
+    Map<String, String> localVarHeaderParams = new LinkedHashMap<>();
+    // Extract and set Idempotency-Key header
+    Optional.ofNullable(requestOptions.getIdempotencyKey()).map(Object::toString).ifPresent(idempotencyKey -> localVarHeaderParams.put("Idempotency-Key", idempotencyKey));
+
+    // Extract and set X-End-User-Wallet-Id header
+    Optional.ofNullable(requestOptions.getNcw()).map(ncw -> ncw.getWalletId()).map(Object::toString).ifPresent(ncwWalletId -> localVarHeaderParams.put("X-End-User-Wallet-Id", ncwWalletId));
+
     String localVarAccept = apiClient.selectHeaderAccept("application/json");
     String localVarContentType = apiClient.selectHeaderContentType();
     GenericType<TravelRuleVASP> localVarReturnType = new GenericType<TravelRuleVASP>() {};
     return apiClient.invokeAPI("TravelRuleBetaApi.getVASPByDID", localVarPath, "GET", localVarQueryParams, null,
-                               new LinkedHashMap<>(), new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
+                                localVarHeaderParams, new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
                                null, localVarReturnType, false);
   }
   /**
@@ -105,8 +118,12 @@ public class TravelRuleBetaApi {
        <tr><td> 200 </td><td> Get all VASPs </td><td>  -  </td></tr>
      </table>
    */
+  public TravelRuleGetAllVASPsResponse getVASPs(String order, BigDecimal perPage, BigDecimal page, String fields,  RequestOptions requestOptions) throws ApiException {
+     return getVASPsWithHttpInfo(order,perPage,page,fields, requestOptions).getData();
+  }
+
   public TravelRuleGetAllVASPsResponse getVASPs(String order, BigDecimal perPage, BigDecimal page, String fields) throws ApiException {
-    return getVASPsWithHttpInfo(order, perPage, page, fields).getData();
+   return getVASPsWithHttpInfo(order,perPage,page,fields, null).getData();
   }
 
   /**
@@ -124,7 +141,7 @@ public class TravelRuleBetaApi {
        <tr><td> 200 </td><td> Get all VASPs </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<TravelRuleGetAllVASPsResponse> getVASPsWithHttpInfo(String order, BigDecimal perPage, BigDecimal page, String fields) throws ApiException {
+  public ApiResponse<TravelRuleGetAllVASPsResponse> getVASPsWithHttpInfo(String order,BigDecimal perPage,BigDecimal page,String fields, RequestOptions requestOptions) throws ApiException {
     // Query parameters
     List<Pair> localVarQueryParams = new ArrayList<>(
             apiClient.parameterToPairs("", "order", order)
@@ -133,11 +150,18 @@ public class TravelRuleBetaApi {
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "page", page));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "fields", fields));
 
+    Map<String, String> localVarHeaderParams = new LinkedHashMap<>();
+    // Extract and set Idempotency-Key header
+    Optional.ofNullable(requestOptions.getIdempotencyKey()).map(Object::toString).ifPresent(idempotencyKey -> localVarHeaderParams.put("Idempotency-Key", idempotencyKey));
+
+    // Extract and set X-End-User-Wallet-Id header
+    Optional.ofNullable(requestOptions.getNcw()).map(ncw -> ncw.getWalletId()).map(Object::toString).ifPresent(ncwWalletId -> localVarHeaderParams.put("X-End-User-Wallet-Id", ncwWalletId));
+
     String localVarAccept = apiClient.selectHeaderAccept("application/json");
     String localVarContentType = apiClient.selectHeaderContentType();
     GenericType<TravelRuleGetAllVASPsResponse> localVarReturnType = new GenericType<TravelRuleGetAllVASPsResponse>() {};
     return apiClient.invokeAPI("TravelRuleBetaApi.getVASPs", "/screening/travel_rule/vasp", "GET", localVarQueryParams, null,
-                               new LinkedHashMap<>(), new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
+                                localVarHeaderParams, new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
                                null, localVarReturnType, false);
   }
   /**
@@ -154,8 +178,12 @@ public class TravelRuleBetaApi {
        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
      </table>
    */
+  public TravelRuleUpdateVASPDetails travelRuleApiControllerUpdateVasp(TravelRuleUpdateVASPDetails travelRuleUpdateVASPDetails,  RequestOptions requestOptions) throws ApiException {
+     return travelRuleApiControllerUpdateVaspWithHttpInfo(travelRuleUpdateVASPDetails, requestOptions).getData();
+  }
+
   public TravelRuleUpdateVASPDetails travelRuleApiControllerUpdateVasp(TravelRuleUpdateVASPDetails travelRuleUpdateVASPDetails) throws ApiException {
-    return travelRuleApiControllerUpdateVaspWithHttpInfo(travelRuleUpdateVASPDetails).getData();
+   return travelRuleApiControllerUpdateVaspWithHttpInfo(travelRuleUpdateVASPDetails, null).getData();
   }
 
   /**
@@ -172,17 +200,25 @@ public class TravelRuleBetaApi {
        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<TravelRuleUpdateVASPDetails> travelRuleApiControllerUpdateVaspWithHttpInfo(TravelRuleUpdateVASPDetails travelRuleUpdateVASPDetails) throws ApiException {
+  public ApiResponse<TravelRuleUpdateVASPDetails> travelRuleApiControllerUpdateVaspWithHttpInfo(TravelRuleUpdateVASPDetails travelRuleUpdateVASPDetails, RequestOptions requestOptions) throws ApiException {
     // Check required parameters
     if (travelRuleUpdateVASPDetails == null) {
       throw new ApiException(400, "Missing the required parameter 'travelRuleUpdateVASPDetails' when calling travelRuleApiControllerUpdateVasp");
     }
 
+    Map<String, String> localVarHeaderParams = new LinkedHashMap<>();
+    Object _body = travelRuleUpdateVASPDetails;
+    // Extract and set Idempotency-Key header
+    Optional.ofNullable(requestOptions.getIdempotencyKey()).map(Object::toString).ifPresent(idempotencyKey -> localVarHeaderParams.put("Idempotency-Key", idempotencyKey));
+
+    // Extract and set X-End-User-Wallet-Id header
+    Optional.ofNullable(requestOptions.getNcw()).map(ncw -> ncw.getWalletId()).map(Object::toString).ifPresent(ncwWalletId -> localVarHeaderParams.put("X-End-User-Wallet-Id", ncwWalletId));
+
     String localVarAccept = apiClient.selectHeaderAccept("application/json");
     String localVarContentType = apiClient.selectHeaderContentType("application/json");
     GenericType<TravelRuleUpdateVASPDetails> localVarReturnType = new GenericType<TravelRuleUpdateVASPDetails>() {};
     return apiClient.invokeAPI("TravelRuleBetaApi.travelRuleApiControllerUpdateVasp", "/screeening/travel_rule/vasp/update", "PUT", new ArrayList<>(), travelRuleUpdateVASPDetails,
-                               new LinkedHashMap<>(), new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
+                                localVarHeaderParams, new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
                                null, localVarReturnType, false);
   }
   /**
@@ -199,8 +235,12 @@ public class TravelRuleBetaApi {
        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
      </table>
    */
+  public TravelRuleValidateTransactionResponse validateFullTravelRuleTransaction(TravelRuleValidateFullTransactionRequest travelRuleValidateFullTransactionRequest,  RequestOptions requestOptions) throws ApiException {
+     return validateFullTravelRuleTransactionWithHttpInfo(travelRuleValidateFullTransactionRequest, requestOptions).getData();
+  }
+
   public TravelRuleValidateTransactionResponse validateFullTravelRuleTransaction(TravelRuleValidateFullTransactionRequest travelRuleValidateFullTransactionRequest) throws ApiException {
-    return validateFullTravelRuleTransactionWithHttpInfo(travelRuleValidateFullTransactionRequest).getData();
+   return validateFullTravelRuleTransactionWithHttpInfo(travelRuleValidateFullTransactionRequest, null).getData();
   }
 
   /**
@@ -217,17 +257,25 @@ public class TravelRuleBetaApi {
        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<TravelRuleValidateTransactionResponse> validateFullTravelRuleTransactionWithHttpInfo(TravelRuleValidateFullTransactionRequest travelRuleValidateFullTransactionRequest) throws ApiException {
+  public ApiResponse<TravelRuleValidateTransactionResponse> validateFullTravelRuleTransactionWithHttpInfo(TravelRuleValidateFullTransactionRequest travelRuleValidateFullTransactionRequest, RequestOptions requestOptions) throws ApiException {
     // Check required parameters
     if (travelRuleValidateFullTransactionRequest == null) {
       throw new ApiException(400, "Missing the required parameter 'travelRuleValidateFullTransactionRequest' when calling validateFullTravelRuleTransaction");
     }
 
+    Map<String, String> localVarHeaderParams = new LinkedHashMap<>();
+    Object _body = travelRuleValidateFullTransactionRequest;
+    // Extract and set Idempotency-Key header
+    Optional.ofNullable(requestOptions.getIdempotencyKey()).map(Object::toString).ifPresent(idempotencyKey -> localVarHeaderParams.put("Idempotency-Key", idempotencyKey));
+
+    // Extract and set X-End-User-Wallet-Id header
+    Optional.ofNullable(requestOptions.getNcw()).map(ncw -> ncw.getWalletId()).map(Object::toString).ifPresent(ncwWalletId -> localVarHeaderParams.put("X-End-User-Wallet-Id", ncwWalletId));
+
     String localVarAccept = apiClient.selectHeaderAccept("application/json");
     String localVarContentType = apiClient.selectHeaderContentType("application/json");
     GenericType<TravelRuleValidateTransactionResponse> localVarReturnType = new GenericType<TravelRuleValidateTransactionResponse>() {};
     return apiClient.invokeAPI("TravelRuleBetaApi.validateFullTravelRuleTransaction", "/screening/travel_rule/transaction/validate/full", "POST", new ArrayList<>(), travelRuleValidateFullTransactionRequest,
-                               new LinkedHashMap<>(), new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
+                                localVarHeaderParams, new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
                                null, localVarReturnType, false);
   }
   /**
@@ -244,8 +292,12 @@ public class TravelRuleBetaApi {
        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
      </table>
    */
+  public TravelRuleValidateTransactionResponse validateTravelRuleTransaction(TravelRuleValidateTransactionRequest travelRuleValidateTransactionRequest,  RequestOptions requestOptions) throws ApiException {
+     return validateTravelRuleTransactionWithHttpInfo(travelRuleValidateTransactionRequest, requestOptions).getData();
+  }
+
   public TravelRuleValidateTransactionResponse validateTravelRuleTransaction(TravelRuleValidateTransactionRequest travelRuleValidateTransactionRequest) throws ApiException {
-    return validateTravelRuleTransactionWithHttpInfo(travelRuleValidateTransactionRequest).getData();
+   return validateTravelRuleTransactionWithHttpInfo(travelRuleValidateTransactionRequest, null).getData();
   }
 
   /**
@@ -262,17 +314,25 @@ public class TravelRuleBetaApi {
        <tr><td> 500 </td><td> Internal server error </td><td>  -  </td></tr>
      </table>
    */
-  public ApiResponse<TravelRuleValidateTransactionResponse> validateTravelRuleTransactionWithHttpInfo(TravelRuleValidateTransactionRequest travelRuleValidateTransactionRequest) throws ApiException {
+  public ApiResponse<TravelRuleValidateTransactionResponse> validateTravelRuleTransactionWithHttpInfo(TravelRuleValidateTransactionRequest travelRuleValidateTransactionRequest, RequestOptions requestOptions) throws ApiException {
     // Check required parameters
     if (travelRuleValidateTransactionRequest == null) {
       throw new ApiException(400, "Missing the required parameter 'travelRuleValidateTransactionRequest' when calling validateTravelRuleTransaction");
     }
 
+    Map<String, String> localVarHeaderParams = new LinkedHashMap<>();
+    Object _body = travelRuleValidateTransactionRequest;
+    // Extract and set Idempotency-Key header
+    Optional.ofNullable(requestOptions.getIdempotencyKey()).map(Object::toString).ifPresent(idempotencyKey -> localVarHeaderParams.put("Idempotency-Key", idempotencyKey));
+
+    // Extract and set X-End-User-Wallet-Id header
+    Optional.ofNullable(requestOptions.getNcw()).map(ncw -> ncw.getWalletId()).map(Object::toString).ifPresent(ncwWalletId -> localVarHeaderParams.put("X-End-User-Wallet-Id", ncwWalletId));
+
     String localVarAccept = apiClient.selectHeaderAccept("application/json");
     String localVarContentType = apiClient.selectHeaderContentType("application/json");
     GenericType<TravelRuleValidateTransactionResponse> localVarReturnType = new GenericType<TravelRuleValidateTransactionResponse>() {};
     return apiClient.invokeAPI("TravelRuleBetaApi.validateTravelRuleTransaction", "/screening/travel_rule/transaction/validate", "POST", new ArrayList<>(), travelRuleValidateTransactionRequest,
-                               new LinkedHashMap<>(), new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
+                                localVarHeaderParams, new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
                                null, localVarReturnType, false);
   }
 }

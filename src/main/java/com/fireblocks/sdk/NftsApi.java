@@ -4,10 +4,12 @@ import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.Configuration;
+import com.fireblocks.sdk.model.Ncw;
+import com.fireblocks.sdk.model.RequestOptions;
 import com.fireblocks.sdk.Pair;
-
+import java.util.Optional;
 import javax.ws.rs.core.GenericType;
-
+import java.util.UUID;
 import java.math.BigDecimal;
 import com.fireblocks.sdk.model.GetNFTs200Response;
 import com.fireblocks.sdk.model.GetOwnershipTokens200Response;
@@ -45,8 +47,12 @@ public class NftsApi {
        <tr><td> 200 </td><td>  </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
+  public TokenResponse getNFT(String id,  RequestOptions requestOptions) throws ApiException {
+     return getNFTWithHttpInfo(id, requestOptions).getData();
+  }
+
   public TokenResponse getNFT(String id) throws ApiException {
-    return getNFTWithHttpInfo(id).getData();
+   return getNFTWithHttpInfo(id, null).getData();
   }
 
   /**
@@ -61,7 +67,7 @@ public class NftsApi {
        <tr><td> 200 </td><td>  </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
-  public ApiResponse<TokenResponse> getNFTWithHttpInfo(String id) throws ApiException {
+  public ApiResponse<TokenResponse> getNFTWithHttpInfo(String id, RequestOptions requestOptions) throws ApiException {
     // Check required parameters
     if (id == null) {
       throw new ApiException(400, "Missing the required parameter 'id' when calling getNFT");
@@ -71,11 +77,18 @@ public class NftsApi {
     String localVarPath = "/nfts/tokens/{id}"
             .replaceAll("\\{id}", apiClient.escapeString(id));
 
+    Map<String, String> localVarHeaderParams = new LinkedHashMap<>();
+    // Extract and set Idempotency-Key header
+    Optional.ofNullable(requestOptions.getIdempotencyKey()).map(Object::toString).ifPresent(idempotencyKey -> localVarHeaderParams.put("Idempotency-Key", idempotencyKey));
+
+    // Extract and set X-End-User-Wallet-Id header
+    Optional.ofNullable(requestOptions.getNcw()).map(ncw -> ncw.getWalletId()).map(Object::toString).ifPresent(ncwWalletId -> localVarHeaderParams.put("X-End-User-Wallet-Id", ncwWalletId));
+
     String localVarAccept = apiClient.selectHeaderAccept("application/json");
     String localVarContentType = apiClient.selectHeaderContentType();
     GenericType<TokenResponse> localVarReturnType = new GenericType<TokenResponse>() {};
     return apiClient.invokeAPI("NftsApi.getNFT", localVarPath, "GET", new ArrayList<>(), null,
-                               new LinkedHashMap<>(), new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
+                                localVarHeaderParams, new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
                                null, localVarReturnType, false);
   }
   /**
@@ -94,8 +107,12 @@ public class NftsApi {
        <tr><td> 200 </td><td>  </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
+  public GetNFTs200Response getNFTs(String ids, String pageCursor, BigDecimal pageSize, List<String> sort, String order,  RequestOptions requestOptions) throws ApiException {
+     return getNFTsWithHttpInfo(ids,pageCursor,pageSize,sort,order, requestOptions).getData();
+  }
+
   public GetNFTs200Response getNFTs(String ids, String pageCursor, BigDecimal pageSize, List<String> sort, String order) throws ApiException {
-    return getNFTsWithHttpInfo(ids, pageCursor, pageSize, sort, order).getData();
+   return getNFTsWithHttpInfo(ids,pageCursor,pageSize,sort,order, null).getData();
   }
 
   /**
@@ -114,7 +131,7 @@ public class NftsApi {
        <tr><td> 200 </td><td>  </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
-  public ApiResponse<GetNFTs200Response> getNFTsWithHttpInfo(String ids, String pageCursor, BigDecimal pageSize, List<String> sort, String order) throws ApiException {
+  public ApiResponse<GetNFTs200Response> getNFTsWithHttpInfo(String ids,String pageCursor,BigDecimal pageSize,List<String> sort,String order, RequestOptions requestOptions) throws ApiException {
     // Check required parameters
     if (ids == null) {
       throw new ApiException(400, "Missing the required parameter 'ids' when calling getNFTs");
@@ -129,11 +146,18 @@ public class NftsApi {
     localVarQueryParams.addAll(apiClient.parameterToPairs("multi", "sort", sort));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "order", order));
 
+    Map<String, String> localVarHeaderParams = new LinkedHashMap<>();
+    // Extract and set Idempotency-Key header
+    Optional.ofNullable(requestOptions.getIdempotencyKey()).map(Object::toString).ifPresent(idempotencyKey -> localVarHeaderParams.put("Idempotency-Key", idempotencyKey));
+
+    // Extract and set X-End-User-Wallet-Id header
+    Optional.ofNullable(requestOptions.getNcw()).map(ncw -> ncw.getWalletId()).map(Object::toString).ifPresent(ncwWalletId -> localVarHeaderParams.put("X-End-User-Wallet-Id", ncwWalletId));
+
     String localVarAccept = apiClient.selectHeaderAccept("application/json");
     String localVarContentType = apiClient.selectHeaderContentType();
     GenericType<GetNFTs200Response> localVarReturnType = new GenericType<GetNFTs200Response>() {};
     return apiClient.invokeAPI("NftsApi.getNFTs", "/nfts/tokens", "GET", localVarQueryParams, null,
-                               new LinkedHashMap<>(), new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
+                                localVarHeaderParams, new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
                                null, localVarReturnType, false);
   }
   /**
@@ -157,8 +181,12 @@ public class NftsApi {
        <tr><td> 200 </td><td>  </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
+  public GetOwnershipTokens200Response getOwnershipTokens(String blockchainDescriptor, String vaultAccountIds, String ids, String collectionIds, String pageCursor, BigDecimal pageSize, List<String> sort, String order, String status, String search,  RequestOptions requestOptions) throws ApiException {
+     return getOwnershipTokensWithHttpInfo(blockchainDescriptor,vaultAccountIds,ids,collectionIds,pageCursor,pageSize,sort,order,status,search, requestOptions).getData();
+  }
+
   public GetOwnershipTokens200Response getOwnershipTokens(String blockchainDescriptor, String vaultAccountIds, String ids, String collectionIds, String pageCursor, BigDecimal pageSize, List<String> sort, String order, String status, String search) throws ApiException {
-    return getOwnershipTokensWithHttpInfo(blockchainDescriptor, vaultAccountIds, ids, collectionIds, pageCursor, pageSize, sort, order, status, search).getData();
+   return getOwnershipTokensWithHttpInfo(blockchainDescriptor,vaultAccountIds,ids,collectionIds,pageCursor,pageSize,sort,order,status,search, null).getData();
   }
 
   /**
@@ -182,7 +210,7 @@ public class NftsApi {
        <tr><td> 200 </td><td>  </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
-  public ApiResponse<GetOwnershipTokens200Response> getOwnershipTokensWithHttpInfo(String blockchainDescriptor, String vaultAccountIds, String ids, String collectionIds, String pageCursor, BigDecimal pageSize, List<String> sort, String order, String status, String search) throws ApiException {
+  public ApiResponse<GetOwnershipTokens200Response> getOwnershipTokensWithHttpInfo(String blockchainDescriptor,String vaultAccountIds,String ids,String collectionIds,String pageCursor,BigDecimal pageSize,List<String> sort,String order,String status,String search, RequestOptions requestOptions) throws ApiException {
     // Query parameters
     List<Pair> localVarQueryParams = new ArrayList<>(
             apiClient.parameterToPairs("", "blockchainDescriptor", blockchainDescriptor)
@@ -197,11 +225,18 @@ public class NftsApi {
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "status", status));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "search", search));
 
+    Map<String, String> localVarHeaderParams = new LinkedHashMap<>();
+    // Extract and set Idempotency-Key header
+    Optional.ofNullable(requestOptions.getIdempotencyKey()).map(Object::toString).ifPresent(idempotencyKey -> localVarHeaderParams.put("Idempotency-Key", idempotencyKey));
+
+    // Extract and set X-End-User-Wallet-Id header
+    Optional.ofNullable(requestOptions.getNcw()).map(ncw -> ncw.getWalletId()).map(Object::toString).ifPresent(ncwWalletId -> localVarHeaderParams.put("X-End-User-Wallet-Id", ncwWalletId));
+
     String localVarAccept = apiClient.selectHeaderAccept("application/json");
     String localVarContentType = apiClient.selectHeaderContentType();
     GenericType<GetOwnershipTokens200Response> localVarReturnType = new GenericType<GetOwnershipTokens200Response>() {};
     return apiClient.invokeAPI("NftsApi.getOwnershipTokens", "/nfts/ownership/tokens", "GET", localVarQueryParams, null,
-                               new LinkedHashMap<>(), new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
+                                localVarHeaderParams, new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
                                null, localVarReturnType, false);
   }
   /**
@@ -220,8 +255,12 @@ public class NftsApi {
        <tr><td> 200 </td><td>  </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
+  public ListOwnedCollections200Response listOwnedCollections(String search, String pageCursor, BigDecimal pageSize, List<String> sort, String order,  RequestOptions requestOptions) throws ApiException {
+     return listOwnedCollectionsWithHttpInfo(search,pageCursor,pageSize,sort,order, requestOptions).getData();
+  }
+
   public ListOwnedCollections200Response listOwnedCollections(String search, String pageCursor, BigDecimal pageSize, List<String> sort, String order) throws ApiException {
-    return listOwnedCollectionsWithHttpInfo(search, pageCursor, pageSize, sort, order).getData();
+   return listOwnedCollectionsWithHttpInfo(search,pageCursor,pageSize,sort,order, null).getData();
   }
 
   /**
@@ -240,7 +279,7 @@ public class NftsApi {
        <tr><td> 200 </td><td>  </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
-  public ApiResponse<ListOwnedCollections200Response> listOwnedCollectionsWithHttpInfo(String search, String pageCursor, BigDecimal pageSize, List<String> sort, String order) throws ApiException {
+  public ApiResponse<ListOwnedCollections200Response> listOwnedCollectionsWithHttpInfo(String search,String pageCursor,BigDecimal pageSize,List<String> sort,String order, RequestOptions requestOptions) throws ApiException {
     // Query parameters
     List<Pair> localVarQueryParams = new ArrayList<>(
             apiClient.parameterToPairs("", "search", search)
@@ -250,11 +289,18 @@ public class NftsApi {
     localVarQueryParams.addAll(apiClient.parameterToPairs("multi", "sort", sort));
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "order", order));
 
+    Map<String, String> localVarHeaderParams = new LinkedHashMap<>();
+    // Extract and set Idempotency-Key header
+    Optional.ofNullable(requestOptions.getIdempotencyKey()).map(Object::toString).ifPresent(idempotencyKey -> localVarHeaderParams.put("Idempotency-Key", idempotencyKey));
+
+    // Extract and set X-End-User-Wallet-Id header
+    Optional.ofNullable(requestOptions.getNcw()).map(ncw -> ncw.getWalletId()).map(Object::toString).ifPresent(ncwWalletId -> localVarHeaderParams.put("X-End-User-Wallet-Id", ncwWalletId));
+
     String localVarAccept = apiClient.selectHeaderAccept("application/json");
     String localVarContentType = apiClient.selectHeaderContentType();
     GenericType<ListOwnedCollections200Response> localVarReturnType = new GenericType<ListOwnedCollections200Response>() {};
     return apiClient.invokeAPI("NftsApi.listOwnedCollections", "/nfts/ownership/collections", "GET", localVarQueryParams, null,
-                               new LinkedHashMap<>(), new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
+                                localVarHeaderParams, new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
                                null, localVarReturnType, false);
   }
   /**
@@ -268,8 +314,12 @@ public class NftsApi {
        <tr><td> 202 </td><td>  </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
+  public void refreshNFTMetadata(String id,  RequestOptions requestOptions) throws ApiException {
+    refreshNFTMetadataWithHttpInfo(id, requestOptions);
+  }
+
   public void refreshNFTMetadata(String id) throws ApiException {
-    refreshNFTMetadataWithHttpInfo(id);
+  refreshNFTMetadataWithHttpInfo(id, null);
   }
 
   /**
@@ -284,7 +334,7 @@ public class NftsApi {
        <tr><td> 202 </td><td>  </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
-  public ApiResponse<Void> refreshNFTMetadataWithHttpInfo(String id) throws ApiException {
+  public ApiResponse<Void> refreshNFTMetadataWithHttpInfo(String id, RequestOptions requestOptions) throws ApiException {
     // Check required parameters
     if (id == null) {
       throw new ApiException(400, "Missing the required parameter 'id' when calling refreshNFTMetadata");
@@ -294,10 +344,17 @@ public class NftsApi {
     String localVarPath = "/nfts/tokens/{id}"
             .replaceAll("\\{id}", apiClient.escapeString(id));
 
+    Map<String, String> localVarHeaderParams = new LinkedHashMap<>();
+    // Extract and set Idempotency-Key header
+    Optional.ofNullable(requestOptions.getIdempotencyKey()).map(Object::toString).ifPresent(idempotencyKey -> localVarHeaderParams.put("Idempotency-Key", idempotencyKey));
+
+    // Extract and set X-End-User-Wallet-Id header
+    Optional.ofNullable(requestOptions.getNcw()).map(ncw -> ncw.getWalletId()).map(Object::toString).ifPresent(ncwWalletId -> localVarHeaderParams.put("X-End-User-Wallet-Id", ncwWalletId));
+
     String localVarAccept = apiClient.selectHeaderAccept();
     String localVarContentType = apiClient.selectHeaderContentType();
     return apiClient.invokeAPI("NftsApi.refreshNFTMetadata", localVarPath, "PUT", new ArrayList<>(), null,
-                               new LinkedHashMap<>(), new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
+                                localVarHeaderParams, new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
                                null, null, false);
   }
   /**
@@ -312,8 +369,12 @@ public class NftsApi {
        <tr><td> 202 </td><td>  </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
+  public void updateOwnershipTokens(String blockchainDescriptor, String vaultAccountId,  RequestOptions requestOptions) throws ApiException {
+    updateOwnershipTokensWithHttpInfo(blockchainDescriptor,vaultAccountId, requestOptions);
+  }
+
   public void updateOwnershipTokens(String blockchainDescriptor, String vaultAccountId) throws ApiException {
-    updateOwnershipTokensWithHttpInfo(blockchainDescriptor, vaultAccountId);
+  updateOwnershipTokensWithHttpInfo(blockchainDescriptor,vaultAccountId, null);
   }
 
   /**
@@ -329,7 +390,7 @@ public class NftsApi {
        <tr><td> 202 </td><td>  </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
-  public ApiResponse<Void> updateOwnershipTokensWithHttpInfo(String blockchainDescriptor, String vaultAccountId) throws ApiException {
+  public ApiResponse<Void> updateOwnershipTokensWithHttpInfo(String blockchainDescriptor,String vaultAccountId, RequestOptions requestOptions) throws ApiException {
     // Check required parameters
     if (blockchainDescriptor == null) {
       throw new ApiException(400, "Missing the required parameter 'blockchainDescriptor' when calling updateOwnershipTokens");
@@ -344,10 +405,17 @@ public class NftsApi {
     );
     localVarQueryParams.addAll(apiClient.parameterToPairs("", "vaultAccountId", vaultAccountId));
 
+    Map<String, String> localVarHeaderParams = new LinkedHashMap<>();
+    // Extract and set Idempotency-Key header
+    Optional.ofNullable(requestOptions.getIdempotencyKey()).map(Object::toString).ifPresent(idempotencyKey -> localVarHeaderParams.put("Idempotency-Key", idempotencyKey));
+
+    // Extract and set X-End-User-Wallet-Id header
+    Optional.ofNullable(requestOptions.getNcw()).map(ncw -> ncw.getWalletId()).map(Object::toString).ifPresent(ncwWalletId -> localVarHeaderParams.put("X-End-User-Wallet-Id", ncwWalletId));
+
     String localVarAccept = apiClient.selectHeaderAccept();
     String localVarContentType = apiClient.selectHeaderContentType();
     return apiClient.invokeAPI("NftsApi.updateOwnershipTokens", "/nfts/ownership/tokens", "PUT", localVarQueryParams, null,
-                               new LinkedHashMap<>(), new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
+                                localVarHeaderParams, new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
                                null, null, false);
   }
   /**
@@ -362,8 +430,12 @@ public class NftsApi {
        <tr><td> 200 </td><td>  </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
+  public void updateTokenOwnershipStatus(String id, UpdateTokenOwnershipStatusDto updateTokenOwnershipStatusDto,  RequestOptions requestOptions) throws ApiException {
+    updateTokenOwnershipStatusWithHttpInfo(id,updateTokenOwnershipStatusDto, requestOptions);
+  }
+
   public void updateTokenOwnershipStatus(String id, UpdateTokenOwnershipStatusDto updateTokenOwnershipStatusDto) throws ApiException {
-    updateTokenOwnershipStatusWithHttpInfo(id, updateTokenOwnershipStatusDto);
+  updateTokenOwnershipStatusWithHttpInfo(id,updateTokenOwnershipStatusDto, null);
   }
 
   /**
@@ -379,7 +451,7 @@ public class NftsApi {
        <tr><td> 200 </td><td>  </td><td>  * X-Request-ID -  <br>  </td></tr>
      </table>
    */
-  public ApiResponse<Void> updateTokenOwnershipStatusWithHttpInfo(String id, UpdateTokenOwnershipStatusDto updateTokenOwnershipStatusDto) throws ApiException {
+  public ApiResponse<Void> updateTokenOwnershipStatusWithHttpInfo(String id,UpdateTokenOwnershipStatusDto updateTokenOwnershipStatusDto, RequestOptions requestOptions) throws ApiException {
     // Check required parameters
     if (id == null) {
       throw new ApiException(400, "Missing the required parameter 'id' when calling updateTokenOwnershipStatus");
@@ -392,10 +464,18 @@ public class NftsApi {
     String localVarPath = "/nfts/ownership/tokens/{id}/status"
             .replaceAll("\\{id}", apiClient.escapeString(id));
 
+    Map<String, String> localVarHeaderParams = new LinkedHashMap<>();
+    Object _body = updateTokenOwnershipStatusDto;
+    // Extract and set Idempotency-Key header
+    Optional.ofNullable(requestOptions.getIdempotencyKey()).map(Object::toString).ifPresent(idempotencyKey -> localVarHeaderParams.put("Idempotency-Key", idempotencyKey));
+
+    // Extract and set X-End-User-Wallet-Id header
+    Optional.ofNullable(requestOptions.getNcw()).map(ncw -> ncw.getWalletId()).map(Object::toString).ifPresent(ncwWalletId -> localVarHeaderParams.put("X-End-User-Wallet-Id", ncwWalletId));
+
     String localVarAccept = apiClient.selectHeaderAccept();
     String localVarContentType = apiClient.selectHeaderContentType("application/json");
     return apiClient.invokeAPI("NftsApi.updateTokenOwnershipStatus", localVarPath, "PUT", new ArrayList<>(), updateTokenOwnershipStatusDto,
-                               new LinkedHashMap<>(), new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
+                                localVarHeaderParams, new LinkedHashMap<>(), new LinkedHashMap<>(), localVarAccept, localVarContentType,
                                null, null, false);
   }
 }
