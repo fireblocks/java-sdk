@@ -202,8 +202,6 @@ public class Main {
 
 ## Documentation for API Endpoints
 
-All URIs are relative to *https://api.fireblocks.io/v1*
-
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 *AuditLogsApi* | [**getAudits**](docs/AuditLogsApi.md#getAudits) | **GET** /audits | Get audit logs
