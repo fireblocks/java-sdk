@@ -1,72 +1,77 @@
 # Fireblocks Java SDK (Beta)
 <!--[![Maven version](https://badge.fury.io/java/fireblocks.svg)](https://badge.fury.io/java/fireblocks)-->
-> **Warning**
+> [!WARNING]
 > This package is currently in a beta stage and should be used at your own risk.
-> The provided interfaces might go through backwards-incompatibale changes.
+> The provided interfaces might go through backwards-incompatible changes.
+
+The Fireblocks Java SDK provides a convenient way to interact with the Fireblocks API, allowing for easy integration into your Java applications.
 
 For detailed API documentation please refer to the [Fireblocks API Reference](https://developers.fireblocks.com/reference/).
 
-Building the API client library requires:
+## Prerequisites
 
-1. Java 1.8+
-2. Maven/Gradle
+- Java 8 or higher
+- Maven/Gradle (for dependency management)
+- Fireblocks API credentials, including an API key and secret key
 
 ## Installation
 
-To install the API client library to your local Maven repository, simply execute:
-
-```shell
-mvn clean install
-```
-
-To deploy it to a remote Maven repository instead, configure the settings of the repository and execute:
-
-```shell
-mvn clean deploy
-```
-
-Refer to the [OSSRH Guide](http://central.sonatype.org/pages/ossrh-guide.html) for more information.
+> [!NOTE]
+> See the package [versions page](https://github.com/fireblocks/java-sdk/packages/1998291/versions) for the latest available version.
+> 
+> To authenticate with GitHub Packages, you need to [generate a personal access token (PAT)](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens) with `read:packages` scope.
 
 ### Maven users
 
-Add this dependency to your project's POM:
+1. Add the repository and the dependency to your `pom.xml:`
+    
+    ```xml 
+    <repositories>
+        <repository>
+            <id>github</id>
+            <url>https://maven.pkg.github.com/fireblocks/java-sdk</url>
+        </repository>
+    </repositories>
 
-```xml
-<properties>
-    <fireblocks.sdk.version>last version</fireblocks.sdk.version>
-</properties>
+    <dependencies>
+        <dependency>
+            <groupId>com.fireblocks.sdk</groupId>
+            <artifactId>fireblocks-java-sdk</artifactId>
+            <version>[LATEST_VERSION]</version>
+        </dependency>
+    </dependencies>
+    ```
 
-<dependencies>
-    <dependency>
-        <groupId>com.fireblocks.sdk</groupId>
-        <artifactId>fireblocks-java-sdk</artifactId>
-        <version>${fireblocks.sdk.version}</version>
-        <scope>compile</scope>
-    </dependency>
-    <!-- Other dependencies -->
-</dependencies>
-```
-
-See the [Releases page](https://github.com/fireblocks/fireblocks-api-client-java/releases) for the latest available version.
+2. Configure the credentials in your Maven `.m2/settings.xml`:
+    ```xml
+    <servers>
+        <server>
+            <id>github</id>
+            <username>[GITHUB_USERNAME]</username>
+            <password>[GITHUB_TOKEN]</password>
+        </server>
+    </servers>
+    ```
 
 ### Gradle users
 
-Add this dependency to your project's build file:
+Add the repository and the dependency to your `build.gradle`:
 
-See the [Releases page](https://github.com/fireblocks/fireblocks-api-client-java/releases) for the latest available version.
+```groovy
+repositories {
+    maven {
+        url 'https://maven.pkg.github.com/fireblocks/java-sdk'
+        credentials {
+            username = 'GITHUB_USERNAME'
+            password = 'GITHUB_TOKEN'
+        }
+    }
+}
 
-### Others
-
-At first generate the JAR by executing:
-
-```shell
-mvn clean package
+dependencies {
+    implementation 'com.fireblocks.sdk:fireblocks-java-sdk:[LATEST_VERSION]'
+}
 ```
-
-Then manually install the following JARs:
-
-- `target/fireblocks-java-sdk-<VERSION>.jar`
-    - `target/lib/*.jar`
 
 ## Examples
 <p><strong>Creating a Vault Account</strong><br>
@@ -196,8 +201,6 @@ public class Main {
 ```
 
 ## Documentation for API Endpoints
-
-All URIs are relative to *https://api.fireblocks.io/v1*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
