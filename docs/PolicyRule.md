@@ -27,7 +27,7 @@ Policy rule which is enforced on transactions
 |**dstAddressType** | [**DstAddressTypeEnum**](#DstAddressTypeEnum) | Defines whether the destination to which you are sending funds must be whitelisted, to allow one-time transfers to non-whitelisted external addresses, or both. By default, you can only transfer to an external address after it’s whitelisted.   * WHITELISTED - Can only be sent to whitelisted addresses.   * ONE_TIME - Can only be sent to non-whitelisted external addresses.   * \&quot;*\&quot; - can be sent to whitelisted addresses or non-whitelisted external  |  [optional] |
 |**amountCurrency** | [**AmountCurrencyEnum**](#AmountCurrencyEnum) | * USD - Limits the amount of any asset users can transfer based on the USD equivalent of the asset. * EUR - Limits the amount of any asset users can transfer based on the EURO equivalent of the asset. * NATIVE - Limits the amount of an asset a user can transfer when using a specific asset.  |  |
 |**amountScope** | [**AmountScopeEnum**](#AmountScopeEnum) | * SINGLE_TX - limit applies to a single transaction * TIMEFRAME - limit applies to all transactions within the defined time period  |  |
-|**amount** | **BigDecimal** | Defines the value a transaction must exceed for the rule to apply to it (according to the amountCurrency field) |  |
+|**amount** | [**PolicyRuleAmount**](PolicyRuleAmount.md) |  |  |
 |**periodSec** | **BigDecimal** | Time period in seconds applied by the amountScope field to accumulate transferred amounts in transactions that match the rule, until the total exceeds the value you specify under Minimum. When the specified amount is reached within that period, whether by one or many transactions, further transactions in that period either fail or require more approvals.  |  |
 |**authorizers** | **List&lt;String&gt;** | (deprecated - replaced by \&quot;authorizationGroups\&quot;) Allowed entities which can approves a transaction |  [optional] |
 |**authorizersCount** | **BigDecimal** | (deprecated - replaced by \&quot;authorizationGroups\&quot;) Min amount of entities which are needed to approve a transaction |  [optional] |
@@ -36,7 +36,7 @@ Policy rule which is enforced on transactions
 |**rawMessageSigning** | [**PolicyRuleRawMessageSigning**](PolicyRuleRawMessageSigning.md) |  |  [optional] |
 |**applyForApprove** | **Boolean** | Applying this rule over APPROVE type transactions (can only be enabled when rule&#39;s transaction type is TRANSFER) |  [optional] |
 |**applyForTypedMessage** | **Boolean** | Applying this rule over TYPED_MESSAGE type transactions (can only be enabled when rule&#39;s transaction type is CONTRACT_CALL) |  [optional] |
-|**externalDescriptor** | **String** | A unique id identifying the rule |  |
+|**externalDescriptor** | **String** | A unique id identifying the rule |  [optional] |
 
 
 

@@ -13,8 +13,10 @@
 
 package com.fireblocks.sdk.model;
 
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.StringJoiner;
 import java.util.Objects;
-import java.util.Arrays;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -23,8 +25,8 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.math.BigDecimal;
+import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.fireblocks.sdk.JSON;
 
 
 /**
@@ -39,8 +41,7 @@ import com.fireblocks.sdk.JSON;
   GetFilterParameter.JSON_PROPERTY_APP_URL,
   GetFilterParameter.JSON_PROPERTY_APP_NAME
 })
-@JsonTypeName("get_filter_parameter")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class GetFilterParameter {
   public static final String JSON_PROPERTY_ID = "id";
   private String id;
@@ -75,7 +76,7 @@ public class GetFilterParameter {
    * Get id
    * @return id
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -100,7 +101,7 @@ public class GetFilterParameter {
    * Get userId
    * @return userId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_USER_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -125,7 +126,7 @@ public class GetFilterParameter {
    * Get vaultAccountId
    * @return vaultAccountId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_VAULT_ACCOUNT_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -150,7 +151,7 @@ public class GetFilterParameter {
    * Get connectionMethod
    * @return connectionMethod
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_CONNECTION_METHOD)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -175,7 +176,7 @@ public class GetFilterParameter {
    * Get feeLevel
    * @return feeLevel
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_FEE_LEVEL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -200,7 +201,7 @@ public class GetFilterParameter {
    * Get appUrl
    * @return appUrl
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_APP_URL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -225,7 +226,7 @@ public class GetFilterParameter {
    * Get appName
    * @return appName
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_APP_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -293,5 +294,74 @@ public class GetFilterParameter {
     return o.toString().replace("\n", "\n    ");
   }
 
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @return URL query string
+   */
+  public String toUrlQueryString() {
+    return toUrlQueryString(null);
+  }
+
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @param prefix prefix of the query string
+   * @return URL query string
+   */
+  public String toUrlQueryString(String prefix) {
+    String suffix = "";
+    String containerSuffix = "";
+    String containerPrefix = "";
+    if (prefix == null) {
+      // style=form, explode=true, e.g. /pet?name=cat&type=manx
+      prefix = "";
+    } else {
+      // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
+      prefix = prefix + "[";
+      suffix = "]";
+      containerSuffix = "]";
+      containerPrefix = "[";
+    }
+
+    StringJoiner joiner = new StringJoiner("&");
+
+    // add `id` to the URL query string
+    if (getId() != null) {
+      joiner.add(String.format("%sid%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getId()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `userId` to the URL query string
+    if (getUserId() != null) {
+      joiner.add(String.format("%suserId%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getUserId()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `vaultAccountId` to the URL query string
+    if (getVaultAccountId() != null) {
+      joiner.add(String.format("%svaultAccountId%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getVaultAccountId()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `connectionMethod` to the URL query string
+    if (getConnectionMethod() != null) {
+      joiner.add(String.format("%sconnectionMethod%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getConnectionMethod()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `feeLevel` to the URL query string
+    if (getFeeLevel() != null) {
+      joiner.add(String.format("%sfeeLevel%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getFeeLevel()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `appUrl` to the URL query string
+    if (getAppUrl() != null) {
+      joiner.add(String.format("%sappUrl%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getAppUrl()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `appName` to the URL query string
+    if (getAppName() != null) {
+      joiner.add(String.format("%sappName%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getAppName()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    return joiner.toString();
+  }
 }
 

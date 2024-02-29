@@ -9,7 +9,7 @@
 |------------ | ------------- | ------------- | -------------|
 |**id** | **String** | Id of the connection |  |
 |**userId** | **String** | Id of the user that created the connection |  |
-|**sessionMetadata** | [**SessionDTOSessionMetadata**](SessionDTOSessionMetadata.md) |  |  |
+|**sessionMetadata** | [**SessionMetadata**](SessionMetadata.md) |  |  |
 |**vaultAccountId** | **BigDecimal** | The vault to connect |  |
 |**feeLevel** | [**FeeLevelEnum**](#FeeLevelEnum) | The default fee level |  |
 |**chainIds** | **List&lt;String&gt;** | The chains approved for the connection |  |

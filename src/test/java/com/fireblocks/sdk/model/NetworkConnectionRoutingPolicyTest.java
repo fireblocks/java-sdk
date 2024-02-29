@@ -23,10 +23,10 @@ import com.fireblocks.sdk.model.NetworkConnectionRoutingPolicySen;
 import com.fireblocks.sdk.model.NetworkConnectionRoutingPolicySenTest;
 import com.fireblocks.sdk.model.NetworkConnectionRoutingPolicySignet;
 import com.fireblocks.sdk.model.NetworkConnectionRoutingPolicySignetTest;
-
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.Test;
+import java.util.Arrays;
+import org.junit.Assert;
+import org.junit.Ignore;
+import org.junit.Test;
 
 /**
  * Model tests for NetworkConnectionRoutingPolicy

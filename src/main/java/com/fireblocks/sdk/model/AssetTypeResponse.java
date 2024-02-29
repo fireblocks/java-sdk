@@ -13,8 +13,10 @@
 
 package com.fireblocks.sdk.model;
 
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.StringJoiner;
 import java.util.Objects;
-import java.util.Arrays;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -23,8 +25,8 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.math.BigDecimal;
+import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.fireblocks.sdk.JSON;
 
 
 /**
@@ -38,7 +40,7 @@ import com.fireblocks.sdk.JSON;
   AssetTypeResponse.JSON_PROPERTY_NATIVE_ASSET,
   AssetTypeResponse.JSON_PROPERTY_DECIMALS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class AssetTypeResponse {
   public static final String JSON_PROPERTY_ID = "id";
   private String id;
@@ -121,7 +123,7 @@ public class AssetTypeResponse {
    * Get id
    * @return id
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
@@ -146,7 +148,7 @@ public class AssetTypeResponse {
    * Get name
    * @return name
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_NAME)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
@@ -171,7 +173,7 @@ public class AssetTypeResponse {
    * Get type
    * @return type
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_TYPE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
@@ -196,7 +198,7 @@ public class AssetTypeResponse {
    * Get contractAddress
    * @return contractAddress
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_CONTRACT_ADDRESS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -221,7 +223,7 @@ public class AssetTypeResponse {
    * Get nativeAsset
    * @return nativeAsset
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_NATIVE_ASSET)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -246,7 +248,7 @@ public class AssetTypeResponse {
    * Get decimals
    * @return decimals
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_DECIMALS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -312,5 +314,69 @@ public class AssetTypeResponse {
     return o.toString().replace("\n", "\n    ");
   }
 
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @return URL query string
+   */
+  public String toUrlQueryString() {
+    return toUrlQueryString(null);
+  }
+
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @param prefix prefix of the query string
+   * @return URL query string
+   */
+  public String toUrlQueryString(String prefix) {
+    String suffix = "";
+    String containerSuffix = "";
+    String containerPrefix = "";
+    if (prefix == null) {
+      // style=form, explode=true, e.g. /pet?name=cat&type=manx
+      prefix = "";
+    } else {
+      // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
+      prefix = prefix + "[";
+      suffix = "]";
+      containerSuffix = "]";
+      containerPrefix = "[";
+    }
+
+    StringJoiner joiner = new StringJoiner("&");
+
+    // add `id` to the URL query string
+    if (getId() != null) {
+      joiner.add(String.format("%sid%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getId()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `name` to the URL query string
+    if (getName() != null) {
+      joiner.add(String.format("%sname%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getName()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `type` to the URL query string
+    if (getType() != null) {
+      joiner.add(String.format("%stype%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getType()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `contractAddress` to the URL query string
+    if (getContractAddress() != null) {
+      joiner.add(String.format("%scontractAddress%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getContractAddress()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `nativeAsset` to the URL query string
+    if (getNativeAsset() != null) {
+      joiner.add(String.format("%snativeAsset%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getNativeAsset()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `decimals` to the URL query string
+    if (getDecimals() != null) {
+      joiner.add(String.format("%sdecimals%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getDecimals()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    return joiner.toString();
+  }
 }
 

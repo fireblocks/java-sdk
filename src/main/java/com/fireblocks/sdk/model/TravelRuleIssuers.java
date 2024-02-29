@@ -13,8 +13,10 @@
 
 package com.fireblocks.sdk.model;
 
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.StringJoiner;
 import java.util.Objects;
-import java.util.Arrays;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -23,8 +25,8 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.fireblocks.sdk.model.TravelRuleIssuer;
+import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.fireblocks.sdk.JSON;
 
 
 /**
@@ -46,7 +48,7 @@ import com.fireblocks.sdk.JSON;
   TravelRuleIssuers.JSON_PROPERTY_COUNTRY,
   TravelRuleIssuers.JSON_PROPERTY_DESCRIPTION
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class TravelRuleIssuers {
   public static final String JSON_PROPERTY_YEAR_FOUNDED = "yearFounded";
   private TravelRuleIssuer yearFounded;
@@ -102,7 +104,7 @@ public class TravelRuleIssuers {
    * Get yearFounded
    * @return yearFounded
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_YEAR_FOUNDED)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
@@ -127,7 +129,7 @@ public class TravelRuleIssuers {
    * Get isRegulated
    * @return isRegulated
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_IS_REGULATED)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
@@ -152,7 +154,7 @@ public class TravelRuleIssuers {
    * Get regulatoryAuthorities
    * @return regulatoryAuthorities
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_REGULATORY_AUTHORITIES)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
@@ -177,7 +179,7 @@ public class TravelRuleIssuers {
    * Get name
    * @return name
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_NAME)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
@@ -202,7 +204,7 @@ public class TravelRuleIssuers {
    * Get logo
    * @return logo
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_LOGO)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
@@ -227,7 +229,7 @@ public class TravelRuleIssuers {
    * Get website
    * @return website
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_WEBSITE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
@@ -252,7 +254,7 @@ public class TravelRuleIssuers {
    * Get legalName
    * @return legalName
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_LEGAL_NAME)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
@@ -277,7 +279,7 @@ public class TravelRuleIssuers {
    * Get legalStructure
    * @return legalStructure
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_LEGAL_STRUCTURE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
@@ -302,7 +304,7 @@ public class TravelRuleIssuers {
    * Get incorporationCountry
    * @return incorporationCountry
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_INCORPORATION_COUNTRY)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
@@ -327,7 +329,7 @@ public class TravelRuleIssuers {
    * Get businessNumber
    * @return businessNumber
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_BUSINESS_NUMBER)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
@@ -352,7 +354,7 @@ public class TravelRuleIssuers {
    * Get addressLine1
    * @return addressLine1
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_ADDRESS_LINE1)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
@@ -377,7 +379,7 @@ public class TravelRuleIssuers {
    * Get city
    * @return city
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_CITY)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
@@ -402,7 +404,7 @@ public class TravelRuleIssuers {
    * Get country
    * @return country
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_COUNTRY)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
@@ -427,7 +429,7 @@ public class TravelRuleIssuers {
    * Get description
    * @return description
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_DESCRIPTION)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
@@ -509,5 +511,109 @@ public class TravelRuleIssuers {
     return o.toString().replace("\n", "\n    ");
   }
 
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @return URL query string
+   */
+  public String toUrlQueryString() {
+    return toUrlQueryString(null);
+  }
+
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @param prefix prefix of the query string
+   * @return URL query string
+   */
+  public String toUrlQueryString(String prefix) {
+    String suffix = "";
+    String containerSuffix = "";
+    String containerPrefix = "";
+    if (prefix == null) {
+      // style=form, explode=true, e.g. /pet?name=cat&type=manx
+      prefix = "";
+    } else {
+      // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
+      prefix = prefix + "[";
+      suffix = "]";
+      containerSuffix = "]";
+      containerPrefix = "[";
+    }
+
+    StringJoiner joiner = new StringJoiner("&");
+
+    // add `yearFounded` to the URL query string
+    if (getYearFounded() != null) {
+      joiner.add(getYearFounded().toUrlQueryString(prefix + "yearFounded" + suffix));
+    }
+
+    // add `isRegulated` to the URL query string
+    if (getIsRegulated() != null) {
+      joiner.add(getIsRegulated().toUrlQueryString(prefix + "isRegulated" + suffix));
+    }
+
+    // add `regulatoryAuthorities` to the URL query string
+    if (getRegulatoryAuthorities() != null) {
+      joiner.add(getRegulatoryAuthorities().toUrlQueryString(prefix + "regulatoryAuthorities" + suffix));
+    }
+
+    // add `name` to the URL query string
+    if (getName() != null) {
+      joiner.add(getName().toUrlQueryString(prefix + "name" + suffix));
+    }
+
+    // add `logo` to the URL query string
+    if (getLogo() != null) {
+      joiner.add(getLogo().toUrlQueryString(prefix + "logo" + suffix));
+    }
+
+    // add `website` to the URL query string
+    if (getWebsite() != null) {
+      joiner.add(getWebsite().toUrlQueryString(prefix + "website" + suffix));
+    }
+
+    // add `legalName` to the URL query string
+    if (getLegalName() != null) {
+      joiner.add(getLegalName().toUrlQueryString(prefix + "legalName" + suffix));
+    }
+
+    // add `legalStructure` to the URL query string
+    if (getLegalStructure() != null) {
+      joiner.add(getLegalStructure().toUrlQueryString(prefix + "legalStructure" + suffix));
+    }
+
+    // add `incorporationCountry` to the URL query string
+    if (getIncorporationCountry() != null) {
+      joiner.add(getIncorporationCountry().toUrlQueryString(prefix + "incorporationCountry" + suffix));
+    }
+
+    // add `businessNumber` to the URL query string
+    if (getBusinessNumber() != null) {
+      joiner.add(getBusinessNumber().toUrlQueryString(prefix + "businessNumber" + suffix));
+    }
+
+    // add `addressLine1` to the URL query string
+    if (getAddressLine1() != null) {
+      joiner.add(getAddressLine1().toUrlQueryString(prefix + "addressLine1" + suffix));
+    }
+
+    // add `city` to the URL query string
+    if (getCity() != null) {
+      joiner.add(getCity().toUrlQueryString(prefix + "city" + suffix));
+    }
+
+    // add `country` to the URL query string
+    if (getCountry() != null) {
+      joiner.add(getCountry().toUrlQueryString(prefix + "country" + suffix));
+    }
+
+    // add `description` to the URL query string
+    if (getDescription() != null) {
+      joiner.add(getDescription().toUrlQueryString(prefix + "description" + suffix));
+    }
+
+    return joiner.toString();
+  }
 }
 

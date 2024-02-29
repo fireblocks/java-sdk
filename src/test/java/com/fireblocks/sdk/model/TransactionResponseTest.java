@@ -22,6 +22,7 @@ import com.fireblocks.sdk.model.AmlScreeningResult;
 import com.fireblocks.sdk.model.AmountInfo;
 import com.fireblocks.sdk.model.AuthorizationInfo;
 import com.fireblocks.sdk.model.BlockInfo;
+import com.fireblocks.sdk.model.ComplianceResult;
 import com.fireblocks.sdk.model.DestinationTransferPeerPathResponse;
 import com.fireblocks.sdk.model.FeeInfo;
 import com.fireblocks.sdk.model.GetTransactionOperation;
@@ -34,15 +35,11 @@ import com.fireblocks.sdk.model.TransactionResponseContractCallDecodedData;
 import com.fireblocks.sdk.model.TransactionResponseDestination;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
-import org.openapitools.jackson.nullable.JsonNullable;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.openapitools.jackson.nullable.JsonNullable;
-import java.util.NoSuchElementException;
-
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.Test;
+import org.junit.Assert;
+import org.junit.Ignore;
+import org.junit.Test;
 
 /**
  * Model tests for TransactionResponse
@@ -304,6 +301,14 @@ public class TransactionResponseTest {
     @Test
     public void amlScreeningResultTest() {
         // TODO: test amlScreeningResult
+    }
+
+    /**
+     * Test the property 'complianceResult'
+     */
+    @Test
+    public void complianceResultTest() {
+        // TODO: test complianceResult
     }
 
     /**

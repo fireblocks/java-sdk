@@ -13,8 +13,10 @@
 
 package com.fireblocks.sdk.model;
 
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.StringJoiner;
 import java.util.Objects;
-import java.util.Arrays;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -22,13 +24,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.fireblocks.sdk.model.SessionDTOSessionMetadata;
+import com.fireblocks.sdk.model.SessionMetadata;
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.fireblocks.sdk.JSON;
 
 
 /**
@@ -45,7 +47,7 @@ import com.fireblocks.sdk.JSON;
   SessionDTO.JSON_PROPERTY_CONNECTION_METHOD,
   SessionDTO.JSON_PROPERTY_CREATION_DATE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class SessionDTO {
   public static final String JSON_PROPERTY_ID = "id";
   private String id;
@@ -54,7 +56,7 @@ public class SessionDTO {
   private String userId;
 
   public static final String JSON_PROPERTY_SESSION_METADATA = "sessionMetadata";
-  private SessionDTOSessionMetadata sessionMetadata;
+  private SessionMetadata sessionMetadata;
 
   public static final String JSON_PROPERTY_VAULT_ACCOUNT_ID = "vaultAccountId";
   private BigDecimal vaultAccountId;
@@ -191,7 +193,7 @@ public class SessionDTO {
    * Id of the connection
    * @return id
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
@@ -216,7 +218,7 @@ public class SessionDTO {
    * Id of the user that created the connection
    * @return userId
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_USER_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
@@ -232,7 +234,7 @@ public class SessionDTO {
   }
 
 
-  public SessionDTO sessionMetadata(SessionDTOSessionMetadata sessionMetadata) {
+  public SessionDTO sessionMetadata(SessionMetadata sessionMetadata) {
     this.sessionMetadata = sessionMetadata;
     return this;
   }
@@ -241,18 +243,18 @@ public class SessionDTO {
    * Get sessionMetadata
    * @return sessionMetadata
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_SESSION_METADATA)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
-  public SessionDTOSessionMetadata getSessionMetadata() {
+  public SessionMetadata getSessionMetadata() {
     return sessionMetadata;
   }
 
 
   @JsonProperty(JSON_PROPERTY_SESSION_METADATA)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setSessionMetadata(SessionDTOSessionMetadata sessionMetadata) {
+  public void setSessionMetadata(SessionMetadata sessionMetadata) {
     this.sessionMetadata = sessionMetadata;
   }
 
@@ -266,7 +268,7 @@ public class SessionDTO {
    * The vault to connect
    * @return vaultAccountId
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_VAULT_ACCOUNT_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
@@ -291,7 +293,7 @@ public class SessionDTO {
    * The default fee level
    * @return feeLevel
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_FEE_LEVEL)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
@@ -324,7 +326,7 @@ public class SessionDTO {
    * The chains approved for the connection
    * @return chainIds
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_CHAIN_IDS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
@@ -349,7 +351,7 @@ public class SessionDTO {
    * The connection&#39;s type
    * @return connectionType
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_CONNECTION_TYPE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
@@ -374,7 +376,7 @@ public class SessionDTO {
    * The method through which the connection was established
    * @return connectionMethod
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_CONNECTION_METHOD)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
@@ -399,7 +401,7 @@ public class SessionDTO {
    * Timestamp of the session&#39;s creation
    * @return creationDate
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_CREATION_DATE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
@@ -471,5 +473,88 @@ public class SessionDTO {
     return o.toString().replace("\n", "\n    ");
   }
 
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @return URL query string
+   */
+  public String toUrlQueryString() {
+    return toUrlQueryString(null);
+  }
+
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @param prefix prefix of the query string
+   * @return URL query string
+   */
+  public String toUrlQueryString(String prefix) {
+    String suffix = "";
+    String containerSuffix = "";
+    String containerPrefix = "";
+    if (prefix == null) {
+      // style=form, explode=true, e.g. /pet?name=cat&type=manx
+      prefix = "";
+    } else {
+      // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
+      prefix = prefix + "[";
+      suffix = "]";
+      containerSuffix = "]";
+      containerPrefix = "[";
+    }
+
+    StringJoiner joiner = new StringJoiner("&");
+
+    // add `id` to the URL query string
+    if (getId() != null) {
+      joiner.add(String.format("%sid%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getId()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `userId` to the URL query string
+    if (getUserId() != null) {
+      joiner.add(String.format("%suserId%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getUserId()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `sessionMetadata` to the URL query string
+    if (getSessionMetadata() != null) {
+      joiner.add(getSessionMetadata().toUrlQueryString(prefix + "sessionMetadata" + suffix));
+    }
+
+    // add `vaultAccountId` to the URL query string
+    if (getVaultAccountId() != null) {
+      joiner.add(String.format("%svaultAccountId%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getVaultAccountId()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `feeLevel` to the URL query string
+    if (getFeeLevel() != null) {
+      joiner.add(String.format("%sfeeLevel%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getFeeLevel()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `chainIds` to the URL query string
+    if (getChainIds() != null) {
+      for (int i = 0; i < getChainIds().size(); i++) {
+        joiner.add(String.format("%schainIds%s%s=%s", prefix, suffix,
+            "".equals(suffix) ? "" : String.format("%s%d%s", containerPrefix, i, containerSuffix),
+            URLEncoder.encode(String.valueOf(getChainIds().get(i)), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+      }
+    }
+
+    // add `connectionType` to the URL query string
+    if (getConnectionType() != null) {
+      joiner.add(String.format("%sconnectionType%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getConnectionType()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `connectionMethod` to the URL query string
+    if (getConnectionMethod() != null) {
+      joiner.add(String.format("%sconnectionMethod%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getConnectionMethod()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `creationDate` to the URL query string
+    if (getCreationDate() != null) {
+      joiner.add(String.format("%screationDate%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getCreationDate()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    return joiner.toString();
+  }
 }
 

@@ -13,8 +13,10 @@
 
 package com.fireblocks.sdk.model;
 
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.StringJoiner;
 import java.util.Objects;
-import java.util.Arrays;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -22,8 +24,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.fireblocks.sdk.JSON;
 
 
 /**
@@ -35,7 +37,7 @@ import com.fireblocks.sdk.JSON;
   AmountInfo.JSON_PROPERTY_NET_AMOUNT,
   AmountInfo.JSON_PROPERTY_AMOUNT_U_S_D
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class AmountInfo {
   public static final String JSON_PROPERTY_AMOUNT = "amount";
   private String amount;
@@ -61,7 +63,7 @@ public class AmountInfo {
    * If the transfer is a withdrawal from an exchange, the actual amount that was requested to be transferred. Otherwise, the requested amount.
    * @return amount
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_AMOUNT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -86,7 +88,7 @@ public class AmountInfo {
    * The amount requested by the user.
    * @return requestedAmount
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_REQUESTED_AMOUNT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -111,7 +113,7 @@ public class AmountInfo {
    * The net amount of the transaction, after fee deduction.
    * @return netAmount
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_NET_AMOUNT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -136,7 +138,7 @@ public class AmountInfo {
    * The USD value of the requested amount.
    * @return amountUSD
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_AMOUNT_U_S_D)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -198,5 +200,59 @@ public class AmountInfo {
     return o.toString().replace("\n", "\n    ");
   }
 
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @return URL query string
+   */
+  public String toUrlQueryString() {
+    return toUrlQueryString(null);
+  }
+
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @param prefix prefix of the query string
+   * @return URL query string
+   */
+  public String toUrlQueryString(String prefix) {
+    String suffix = "";
+    String containerSuffix = "";
+    String containerPrefix = "";
+    if (prefix == null) {
+      // style=form, explode=true, e.g. /pet?name=cat&type=manx
+      prefix = "";
+    } else {
+      // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
+      prefix = prefix + "[";
+      suffix = "]";
+      containerSuffix = "]";
+      containerPrefix = "[";
+    }
+
+    StringJoiner joiner = new StringJoiner("&");
+
+    // add `amount` to the URL query string
+    if (getAmount() != null) {
+      joiner.add(String.format("%samount%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getAmount()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `requestedAmount` to the URL query string
+    if (getRequestedAmount() != null) {
+      joiner.add(String.format("%srequestedAmount%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getRequestedAmount()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `netAmount` to the URL query string
+    if (getNetAmount() != null) {
+      joiner.add(String.format("%snetAmount%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getNetAmount()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `amountUSD` to the URL query string
+    if (getAmountUSD() != null) {
+      joiner.add(String.format("%samountUSD%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getAmountUSD()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    return joiner.toString();
+  }
 }
 

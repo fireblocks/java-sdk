@@ -13,8 +13,10 @@
 
 package com.fireblocks.sdk.model;
 
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.StringJoiner;
 import java.util.Objects;
-import java.util.Arrays;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -25,9 +27,9 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import com.fireblocks.sdk.model.PaymentAccount;
 import com.fireblocks.sdk.model.PayoutInstruction;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.fireblocks.sdk.JSON;
 
 
 /**
@@ -37,7 +39,7 @@ import com.fireblocks.sdk.JSON;
   CreatePayoutRequest.JSON_PROPERTY_PAYMENT_ACCOUNT,
   CreatePayoutRequest.JSON_PROPERTY_INSTRUCTION_SET
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class CreatePayoutRequest {
   public static final String JSON_PROPERTY_PAYMENT_ACCOUNT = "paymentAccount";
   private PaymentAccount paymentAccount;
@@ -57,7 +59,7 @@ public class CreatePayoutRequest {
    * Get paymentAccount
    * @return paymentAccount
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_PAYMENT_ACCOUNT)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
@@ -90,7 +92,7 @@ public class CreatePayoutRequest {
    * Get instructionSet
    * @return instructionSet
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_INSTRUCTION_SET)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
@@ -148,5 +150,54 @@ public class CreatePayoutRequest {
     return o.toString().replace("\n", "\n    ");
   }
 
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @return URL query string
+   */
+  public String toUrlQueryString() {
+    return toUrlQueryString(null);
+  }
+
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @param prefix prefix of the query string
+   * @return URL query string
+   */
+  public String toUrlQueryString(String prefix) {
+    String suffix = "";
+    String containerSuffix = "";
+    String containerPrefix = "";
+    if (prefix == null) {
+      // style=form, explode=true, e.g. /pet?name=cat&type=manx
+      prefix = "";
+    } else {
+      // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
+      prefix = prefix + "[";
+      suffix = "]";
+      containerSuffix = "]";
+      containerPrefix = "[";
+    }
+
+    StringJoiner joiner = new StringJoiner("&");
+
+    // add `paymentAccount` to the URL query string
+    if (getPaymentAccount() != null) {
+      joiner.add(getPaymentAccount().toUrlQueryString(prefix + "paymentAccount" + suffix));
+    }
+
+    // add `instructionSet` to the URL query string
+    if (getInstructionSet() != null) {
+      for (int i = 0; i < getInstructionSet().size(); i++) {
+        if (getInstructionSet().get(i) != null) {
+          joiner.add(getInstructionSet().get(i).toUrlQueryString(String.format("%sinstructionSet%s%s", prefix, suffix,
+          "".equals(suffix) ? "" : String.format("%s%d%s", containerPrefix, i, containerSuffix))));
+        }
+      }
+    }
+
+    return joiner.toString();
+  }
 }
 

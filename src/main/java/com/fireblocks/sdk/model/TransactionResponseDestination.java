@@ -13,8 +13,10 @@
 
 package com.fireblocks.sdk.model;
 
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.StringJoiner;
 import java.util.Objects;
-import java.util.Arrays;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -25,12 +27,8 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import com.fireblocks.sdk.model.AmlScreeningResult;
 import com.fireblocks.sdk.model.AuthorizationInfo;
 import com.fireblocks.sdk.model.DestinationTransferPeerPathResponse;
-import org.openapitools.jackson.nullable.JsonNullable;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.openapitools.jackson.nullable.JsonNullable;
-import java.util.NoSuchElementException;
+import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.fireblocks.sdk.JSON;
 
 
 /**
@@ -45,13 +43,13 @@ import com.fireblocks.sdk.JSON;
   TransactionResponseDestination.JSON_PROPERTY_DESTINATION,
   TransactionResponseDestination.JSON_PROPERTY_AUTHORIZATION_INFO
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class TransactionResponseDestination {
   public static final String JSON_PROPERTY_DESTINATION_ADDRESS = "destinationAddress";
-  private JsonNullable<Object> destinationAddress = JsonNullable.<Object>of(null);
+  private Object destinationAddress = null;
 
   public static final String JSON_PROPERTY_DESTINATION_ADDRESS_DESCRIPTION = "destinationAddressDescription";
-  private JsonNullable<Object> destinationAddressDescription = JsonNullable.<Object>of(null);
+  private Object destinationAddressDescription = null;
 
   public static final String JSON_PROPERTY_AMOUNT = "amount";
   private String amount;
@@ -72,7 +70,7 @@ public class TransactionResponseDestination {
   }
 
   public TransactionResponseDestination destinationAddress(Object destinationAddress) {
-    this.destinationAddress = JsonNullable.<Object>of(destinationAddress);
+    this.destinationAddress = destinationAddress;
     return this;
   }
 
@@ -80,32 +78,24 @@ public class TransactionResponseDestination {
    * Address where the asset was transferred.
    * @return destinationAddress
   **/
-  @javax.annotation.Nullable
-  @JsonIgnore
-
-  public Object getDestinationAddress() {
-        return destinationAddress.orElse(null);
-  }
-
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_DESTINATION_ADDRESS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public JsonNullable<Object> getDestinationAddress_JsonNullable() {
+  public Object getDestinationAddress() {
     return destinationAddress;
   }
-  
-  @JsonProperty(JSON_PROPERTY_DESTINATION_ADDRESS)
-  public void setDestinationAddress_JsonNullable(JsonNullable<Object> destinationAddress) {
-    this.destinationAddress = destinationAddress;
-  }
 
+
+  @JsonProperty(JSON_PROPERTY_DESTINATION_ADDRESS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setDestinationAddress(Object destinationAddress) {
-    this.destinationAddress = JsonNullable.<Object>of(destinationAddress);
+    this.destinationAddress = destinationAddress;
   }
 
 
   public TransactionResponseDestination destinationAddressDescription(Object destinationAddressDescription) {
-    this.destinationAddressDescription = JsonNullable.<Object>of(destinationAddressDescription);
+    this.destinationAddressDescription = destinationAddressDescription;
     return this;
   }
 
@@ -113,27 +103,19 @@ public class TransactionResponseDestination {
    * Description of the address.
    * @return destinationAddressDescription
   **/
-  @javax.annotation.Nullable
-  @JsonIgnore
-
-  public Object getDestinationAddressDescription() {
-        return destinationAddressDescription.orElse(null);
-  }
-
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_DESTINATION_ADDRESS_DESCRIPTION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public JsonNullable<Object> getDestinationAddressDescription_JsonNullable() {
+  public Object getDestinationAddressDescription() {
     return destinationAddressDescription;
   }
-  
-  @JsonProperty(JSON_PROPERTY_DESTINATION_ADDRESS_DESCRIPTION)
-  public void setDestinationAddressDescription_JsonNullable(JsonNullable<Object> destinationAddressDescription) {
-    this.destinationAddressDescription = destinationAddressDescription;
-  }
 
+
+  @JsonProperty(JSON_PROPERTY_DESTINATION_ADDRESS_DESCRIPTION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setDestinationAddressDescription(Object destinationAddressDescription) {
-    this.destinationAddressDescription = JsonNullable.<Object>of(destinationAddressDescription);
+    this.destinationAddressDescription = destinationAddressDescription;
   }
 
 
@@ -146,7 +128,7 @@ public class TransactionResponseDestination {
    * The amount to be sent to this destination.
    * @return amount
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_AMOUNT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -171,7 +153,7 @@ public class TransactionResponseDestination {
    * The USD value of the requested amount.
    * @return amountUSD
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_AMOUNT_U_S_D)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -196,7 +178,7 @@ public class TransactionResponseDestination {
    * Get amlScreeningResult
    * @return amlScreeningResult
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_AML_SCREENING_RESULT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -221,7 +203,7 @@ public class TransactionResponseDestination {
    * Get destination
    * @return destination
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_DESTINATION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -246,7 +228,7 @@ public class TransactionResponseDestination {
    * Get authorizationInfo
    * @return authorizationInfo
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_AUTHORIZATION_INFO)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -274,8 +256,8 @@ public class TransactionResponseDestination {
       return false;
     }
     TransactionResponseDestination transactionResponseDestination = (TransactionResponseDestination) o;
-    return equalsNullable(this.destinationAddress, transactionResponseDestination.destinationAddress) &&
-        equalsNullable(this.destinationAddressDescription, transactionResponseDestination.destinationAddressDescription) &&
+    return Objects.equals(this.destinationAddress, transactionResponseDestination.destinationAddress) &&
+        Objects.equals(this.destinationAddressDescription, transactionResponseDestination.destinationAddressDescription) &&
         Objects.equals(this.amount, transactionResponseDestination.amount) &&
         Objects.equals(this.amountUSD, transactionResponseDestination.amountUSD) &&
         Objects.equals(this.amlScreeningResult, transactionResponseDestination.amlScreeningResult) &&
@@ -283,20 +265,9 @@ public class TransactionResponseDestination {
         Objects.equals(this.authorizationInfo, transactionResponseDestination.authorizationInfo);
   }
 
-  private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
-    return a == b || (a != null && b != null && a.isPresent() && b.isPresent() && Objects.deepEquals(a.get(), b.get()));
-  }
-
   @Override
   public int hashCode() {
-    return Objects.hash(hashCodeNullable(destinationAddress), hashCodeNullable(destinationAddressDescription), amount, amountUSD, amlScreeningResult, destination, authorizationInfo);
-  }
-
-  private static <T> int hashCodeNullable(JsonNullable<T> a) {
-    if (a == null) {
-      return 1;
-    }
-    return a.isPresent() ? Arrays.deepHashCode(new Object[]{a.get()}) : 31;
+    return Objects.hash(destinationAddress, destinationAddressDescription, amount, amountUSD, amlScreeningResult, destination, authorizationInfo);
   }
 
   @Override
@@ -325,5 +296,74 @@ public class TransactionResponseDestination {
     return o.toString().replace("\n", "\n    ");
   }
 
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @return URL query string
+   */
+  public String toUrlQueryString() {
+    return toUrlQueryString(null);
+  }
+
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @param prefix prefix of the query string
+   * @return URL query string
+   */
+  public String toUrlQueryString(String prefix) {
+    String suffix = "";
+    String containerSuffix = "";
+    String containerPrefix = "";
+    if (prefix == null) {
+      // style=form, explode=true, e.g. /pet?name=cat&type=manx
+      prefix = "";
+    } else {
+      // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
+      prefix = prefix + "[";
+      suffix = "]";
+      containerSuffix = "]";
+      containerPrefix = "[";
+    }
+
+    StringJoiner joiner = new StringJoiner("&");
+
+    // add `destinationAddress` to the URL query string
+    if (getDestinationAddress() != null) {
+      joiner.add(String.format("%sdestinationAddress%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getDestinationAddress()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `destinationAddressDescription` to the URL query string
+    if (getDestinationAddressDescription() != null) {
+      joiner.add(String.format("%sdestinationAddressDescription%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getDestinationAddressDescription()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `amount` to the URL query string
+    if (getAmount() != null) {
+      joiner.add(String.format("%samount%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getAmount()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `amountUSD` to the URL query string
+    if (getAmountUSD() != null) {
+      joiner.add(String.format("%samountUSD%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getAmountUSD()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `amlScreeningResult` to the URL query string
+    if (getAmlScreeningResult() != null) {
+      joiner.add(getAmlScreeningResult().toUrlQueryString(prefix + "amlScreeningResult" + suffix));
+    }
+
+    // add `destination` to the URL query string
+    if (getDestination() != null) {
+      joiner.add(getDestination().toUrlQueryString(prefix + "destination" + suffix));
+    }
+
+    // add `authorizationInfo` to the URL query string
+    if (getAuthorizationInfo() != null) {
+      joiner.add(getAuthorizationInfo().toUrlQueryString(prefix + "authorizationInfo" + suffix));
+    }
+
+    return joiner.toString();
+  }
 }
 

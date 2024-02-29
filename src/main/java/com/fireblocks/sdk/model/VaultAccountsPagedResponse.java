@@ -13,8 +13,10 @@
 
 package com.fireblocks.sdk.model;
 
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.StringJoiner;
 import java.util.Objects;
-import java.util.Arrays;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -25,9 +27,9 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import com.fireblocks.sdk.model.VaultAccount;
 import com.fireblocks.sdk.model.VaultAccountsPagedResponsePaging;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.fireblocks.sdk.JSON;
 
 
 /**
@@ -39,7 +41,7 @@ import com.fireblocks.sdk.JSON;
   VaultAccountsPagedResponse.JSON_PROPERTY_PREVIOUS_URL,
   VaultAccountsPagedResponse.JSON_PROPERTY_NEXT_URL
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class VaultAccountsPagedResponse {
   public static final String JSON_PROPERTY_ACCOUNTS = "accounts";
   private List<VaultAccount> accounts;
@@ -73,7 +75,7 @@ public class VaultAccountsPagedResponse {
    * Get accounts
    * @return accounts
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_ACCOUNTS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -98,7 +100,7 @@ public class VaultAccountsPagedResponse {
    * Get paging
    * @return paging
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_PAGING)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -123,7 +125,7 @@ public class VaultAccountsPagedResponse {
    * Get previousUrl
    * @return previousUrl
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_PREVIOUS_URL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -148,7 +150,7 @@ public class VaultAccountsPagedResponse {
    * Get nextUrl
    * @return nextUrl
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_NEXT_URL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -210,5 +212,64 @@ public class VaultAccountsPagedResponse {
     return o.toString().replace("\n", "\n    ");
   }
 
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @return URL query string
+   */
+  public String toUrlQueryString() {
+    return toUrlQueryString(null);
+  }
+
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @param prefix prefix of the query string
+   * @return URL query string
+   */
+  public String toUrlQueryString(String prefix) {
+    String suffix = "";
+    String containerSuffix = "";
+    String containerPrefix = "";
+    if (prefix == null) {
+      // style=form, explode=true, e.g. /pet?name=cat&type=manx
+      prefix = "";
+    } else {
+      // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
+      prefix = prefix + "[";
+      suffix = "]";
+      containerSuffix = "]";
+      containerPrefix = "[";
+    }
+
+    StringJoiner joiner = new StringJoiner("&");
+
+    // add `accounts` to the URL query string
+    if (getAccounts() != null) {
+      for (int i = 0; i < getAccounts().size(); i++) {
+        if (getAccounts().get(i) != null) {
+          joiner.add(getAccounts().get(i).toUrlQueryString(String.format("%saccounts%s%s", prefix, suffix,
+          "".equals(suffix) ? "" : String.format("%s%d%s", containerPrefix, i, containerSuffix))));
+        }
+      }
+    }
+
+    // add `paging` to the URL query string
+    if (getPaging() != null) {
+      joiner.add(getPaging().toUrlQueryString(prefix + "paging" + suffix));
+    }
+
+    // add `previousUrl` to the URL query string
+    if (getPreviousUrl() != null) {
+      joiner.add(String.format("%spreviousUrl%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getPreviousUrl()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `nextUrl` to the URL query string
+    if (getNextUrl() != null) {
+      joiner.add(String.format("%snextUrl%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getNextUrl()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    return joiner.toString();
+  }
 }
 

@@ -13,8 +13,10 @@
 
 package com.fireblocks.sdk.model;
 
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.StringJoiner;
 import java.util.Objects;
-import java.util.Arrays;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -27,9 +29,9 @@ import com.fireblocks.sdk.model.PayeeAccountResponse;
 import com.fireblocks.sdk.model.PayoutInstructionState;
 import com.fireblocks.sdk.model.Transaction;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.fireblocks.sdk.JSON;
 
 
 /**
@@ -42,7 +44,7 @@ import com.fireblocks.sdk.JSON;
   PayoutInstructionResponse.JSON_PROPERTY_STATE,
   PayoutInstructionResponse.JSON_PROPERTY_TRANSACTIONS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class PayoutInstructionResponse {
   public static final String JSON_PROPERTY_ID = "id";
   private String id;
@@ -71,7 +73,7 @@ public class PayoutInstructionResponse {
    * Get id
    * @return id
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -96,7 +98,7 @@ public class PayoutInstructionResponse {
    * Get payeeAccount
    * @return payeeAccount
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_PAYEE_ACCOUNT)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
@@ -121,7 +123,7 @@ public class PayoutInstructionResponse {
    * Get amount
    * @return amount
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_AMOUNT)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
@@ -146,7 +148,7 @@ public class PayoutInstructionResponse {
    * Get state
    * @return state
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_STATE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
@@ -179,7 +181,7 @@ public class PayoutInstructionResponse {
    * Get transactions
    * @return transactions
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_TRANSACTIONS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
@@ -243,5 +245,69 @@ public class PayoutInstructionResponse {
     return o.toString().replace("\n", "\n    ");
   }
 
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @return URL query string
+   */
+  public String toUrlQueryString() {
+    return toUrlQueryString(null);
+  }
+
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @param prefix prefix of the query string
+   * @return URL query string
+   */
+  public String toUrlQueryString(String prefix) {
+    String suffix = "";
+    String containerSuffix = "";
+    String containerPrefix = "";
+    if (prefix == null) {
+      // style=form, explode=true, e.g. /pet?name=cat&type=manx
+      prefix = "";
+    } else {
+      // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
+      prefix = prefix + "[";
+      suffix = "]";
+      containerSuffix = "]";
+      containerPrefix = "[";
+    }
+
+    StringJoiner joiner = new StringJoiner("&");
+
+    // add `id` to the URL query string
+    if (getId() != null) {
+      joiner.add(String.format("%sid%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getId()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `payeeAccount` to the URL query string
+    if (getPayeeAccount() != null) {
+      joiner.add(getPayeeAccount().toUrlQueryString(prefix + "payeeAccount" + suffix));
+    }
+
+    // add `amount` to the URL query string
+    if (getAmount() != null) {
+      joiner.add(getAmount().toUrlQueryString(prefix + "amount" + suffix));
+    }
+
+    // add `state` to the URL query string
+    if (getState() != null) {
+      joiner.add(String.format("%sstate%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getState()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `transactions` to the URL query string
+    if (getTransactions() != null) {
+      for (int i = 0; i < getTransactions().size(); i++) {
+        if (getTransactions().get(i) != null) {
+          joiner.add(getTransactions().get(i).toUrlQueryString(String.format("%stransactions%s%s", prefix, suffix,
+          "".equals(suffix) ? "" : String.format("%s%d%s", containerPrefix, i, containerSuffix))));
+        }
+      }
+    }
+
+    return joiner.toString();
+  }
 }
 

@@ -13,8 +13,10 @@
 
 package com.fireblocks.sdk.model;
 
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.StringJoiner;
 import java.util.Objects;
-import java.util.Arrays;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -24,9 +26,9 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.fireblocks.sdk.JSON;
 
 
 /**
@@ -38,7 +40,7 @@ import com.fireblocks.sdk.JSON;
   CreateConnectionRequest.JSON_PROPERTY_URI,
   CreateConnectionRequest.JSON_PROPERTY_CHAIN_IDS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class CreateConnectionRequest {
   public static final String JSON_PROPERTY_VAULT_ACCOUNT_ID = "vaultAccountId";
   private BigDecimal vaultAccountId;
@@ -85,7 +87,7 @@ public class CreateConnectionRequest {
   private String uri;
 
   public static final String JSON_PROPERTY_CHAIN_IDS = "chainIds";
-  private List<String> chainIds = new ArrayList<>();
+  private List<String> chainIds;
 
   public CreateConnectionRequest() { 
   }
@@ -96,10 +98,10 @@ public class CreateConnectionRequest {
   }
 
    /**
-   * The ID of the vault to connect to the Web3 connection.
+   * The ID of the vault to connect to the dApp.
    * @return vaultAccountId
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_VAULT_ACCOUNT_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
@@ -124,7 +126,7 @@ public class CreateConnectionRequest {
    * The default fee level. Valid values are &#x60;MEDIUM&#x60; and &#x60;HIGH&#x60;.
    * @return feeLevel
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_FEE_LEVEL)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
@@ -149,7 +151,7 @@ public class CreateConnectionRequest {
    * The WalletConnect uri provided by the dapp.
    * @return uri
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_URI)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
@@ -179,12 +181,12 @@ public class CreateConnectionRequest {
   }
 
    /**
-   * The ID of the blockchain network used in the Web3 connection.
+   * The IDs of the blockchain networks used in the Web3 connection (Currently required in V1 connections only).
    * @return chainIds
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_CHAIN_IDS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public List<String> getChainIds() {
     return chainIds;
@@ -192,7 +194,7 @@ public class CreateConnectionRequest {
 
 
   @JsonProperty(JSON_PROPERTY_CHAIN_IDS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setChainIds(List<String> chainIds) {
     this.chainIds = chainIds;
   }
@@ -244,5 +246,63 @@ public class CreateConnectionRequest {
     return o.toString().replace("\n", "\n    ");
   }
 
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @return URL query string
+   */
+  public String toUrlQueryString() {
+    return toUrlQueryString(null);
+  }
+
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @param prefix prefix of the query string
+   * @return URL query string
+   */
+  public String toUrlQueryString(String prefix) {
+    String suffix = "";
+    String containerSuffix = "";
+    String containerPrefix = "";
+    if (prefix == null) {
+      // style=form, explode=true, e.g. /pet?name=cat&type=manx
+      prefix = "";
+    } else {
+      // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
+      prefix = prefix + "[";
+      suffix = "]";
+      containerSuffix = "]";
+      containerPrefix = "[";
+    }
+
+    StringJoiner joiner = new StringJoiner("&");
+
+    // add `vaultAccountId` to the URL query string
+    if (getVaultAccountId() != null) {
+      joiner.add(String.format("%svaultAccountId%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getVaultAccountId()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `feeLevel` to the URL query string
+    if (getFeeLevel() != null) {
+      joiner.add(String.format("%sfeeLevel%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getFeeLevel()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `uri` to the URL query string
+    if (getUri() != null) {
+      joiner.add(String.format("%suri%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getUri()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `chainIds` to the URL query string
+    if (getChainIds() != null) {
+      for (int i = 0; i < getChainIds().size(); i++) {
+        joiner.add(String.format("%schainIds%s%s=%s", prefix, suffix,
+            "".equals(suffix) ? "" : String.format("%s%d%s", containerPrefix, i, containerSuffix),
+            URLEncoder.encode(String.valueOf(getChainIds().get(i)), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+      }
+    }
+
+    return joiner.toString();
+  }
 }
 

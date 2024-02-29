@@ -13,8 +13,10 @@
 
 package com.fireblocks.sdk.model;
 
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.StringJoiner;
 import java.util.Objects;
-import java.util.Arrays;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -26,6 +28,7 @@ import com.fireblocks.sdk.model.AmlScreeningResult;
 import com.fireblocks.sdk.model.AmountInfo;
 import com.fireblocks.sdk.model.AuthorizationInfo;
 import com.fireblocks.sdk.model.BlockInfo;
+import com.fireblocks.sdk.model.ComplianceResult;
 import com.fireblocks.sdk.model.DestinationTransferPeerPathResponse;
 import com.fireblocks.sdk.model.FeeInfo;
 import com.fireblocks.sdk.model.GetTransactionOperation;
@@ -38,13 +41,9 @@ import com.fireblocks.sdk.model.TransactionResponseContractCallDecodedData;
 import com.fireblocks.sdk.model.TransactionResponseDestination;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
-import org.openapitools.jackson.nullable.JsonNullable;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.openapitools.jackson.nullable.JsonNullable;
-import java.util.NoSuchElementException;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.fireblocks.sdk.JSON;
 
 
 /**
@@ -82,6 +81,7 @@ import com.fireblocks.sdk.JSON;
   TransactionResponse.JSON_PROPERTY_EXCHANGE_TX_ID,
   TransactionResponse.JSON_PROPERTY_CUSTOMER_REF_ID,
   TransactionResponse.JSON_PROPERTY_AML_SCREENING_RESULT,
+  TransactionResponse.JSON_PROPERTY_COMPLIANCE_RESULT,
   TransactionResponse.JSON_PROPERTY_EXTRA_PARAMETERS,
   TransactionResponse.JSON_PROPERTY_SIGNED_MESSAGES,
   TransactionResponse.JSON_PROPERTY_NUM_OF_CONFIRMATIONS,
@@ -98,7 +98,7 @@ import com.fireblocks.sdk.JSON;
   TransactionResponse.JSON_PROPERTY_FEE,
   TransactionResponse.JSON_PROPERTY_NETWORK_FEE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class TransactionResponse {
   public static final String JSON_PROPERTY_ID = "id";
   private String id;
@@ -193,6 +193,9 @@ public class TransactionResponse {
   public static final String JSON_PROPERTY_AML_SCREENING_RESULT = "amlScreeningResult";
   private AmlScreeningResult amlScreeningResult;
 
+  public static final String JSON_PROPERTY_COMPLIANCE_RESULT = "complianceResult";
+  private ComplianceResult complianceResult;
+
   public static final String JSON_PROPERTY_EXTRA_PARAMETERS = "extraParameters";
   private Object extraParameters;
 
@@ -262,7 +265,7 @@ public class TransactionResponse {
   private BigDecimal netAmount;
 
   public static final String JSON_PROPERTY_AMOUNT_U_S_D = "amountUSD";
-  private JsonNullable<BigDecimal> amountUSD = JsonNullable.<BigDecimal>undefined();
+  private BigDecimal amountUSD;
 
   public static final String JSON_PROPERTY_SERVICE_FEE = "serviceFee";
   private BigDecimal serviceFee;
@@ -285,7 +288,7 @@ public class TransactionResponse {
    * ID of the transaction.
    * @return id
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -310,7 +313,7 @@ public class TransactionResponse {
    * Unique transaction ID provided by the user. Fireblocks highly recommends setting an &#x60;externalTxId&#x60; for every transaction created, to avoid submitting the same transaction twice.
    * @return externalTxId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_EXTERNAL_TX_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -335,7 +338,7 @@ public class TransactionResponse {
    * The primary status of the transaction. For details, see [Primary transaction statuses](https://developers.fireblocks.com/reference/primary-transaction-statuses).
    * @return status
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_STATUS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -360,7 +363,7 @@ public class TransactionResponse {
    * See [Transaction substatuses](https://developers.fireblocks.com/reference/transaction-substatuses) for the list of transaction sub statuses.
    * @return subStatus
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_SUB_STATUS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -385,7 +388,7 @@ public class TransactionResponse {
    * The hash of the transaction on the blockchain.  * This parameter exists if at least one of the following conditions is met:       1. The transaction’s source type is &#x60;UNKNOWN&#x60;, &#x60;WHITELISTED_ADDRESS&#x60;, &#x60;NETWORK_CONNECTION&#x60;, &#x60;ONE_TIME_ADDRESS&#x60;, &#x60;FIAT_ACCOUNT&#x60; or &#x60;GAS_STATION&#x60;.       2. The transaction’s source type is &#x60;VAULT&#x60; and the status is either: &#x60;CONFIRMING&#x60;, &#x60;COMPLETED&#x60;, or was in any of these statuses prior to changing to &#x60;FAILED&#x60; or &#x60;REJECTED&#x60;. In some instances, transactions in status &#x60;BROADCASTING&#x60; will include the txHash as well.       3. The transaction’s source type is &#x60;EXCHANGE_ACCOUNT&#x60; and the transaction’s destination type is &#x60;VAULT&#x60;, and the status is either: &#x60;CONFIRMING&#x60;, &#x60;COMPLETED&#x60;, or was in any of these status prior to changing to &#x60;FAILED&#x60;.   * In addition, the following conditions must be met:      1. The asset is a crypto asset (not fiat).      2. The transaction operation is not RAW or &#x60;TYPED_MESSAGE&#x60;.
    * @return txHash
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_TX_HASH)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -410,7 +413,7 @@ public class TransactionResponse {
    * Get operation
    * @return operation
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_OPERATION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -435,7 +438,7 @@ public class TransactionResponse {
    * Custom note, not sent to the blockchain, that describes the transaction at your Fireblocks workspace.
    * @return note
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_NOTE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -460,7 +463,7 @@ public class TransactionResponse {
    * The ID of the asset to transfer, for &#x60;TRANSFER&#x60;, &#x60;MINT&#x60;, &#x60;BURN&#x60;, &#x60;ENABLE_ASSET&#x60;,&#x60;STAKE&#x60; ,&#x60;UNSTAKE&#x60; or &#x60;WITHDRAW&#x60; operations. [See the list of supported assets and their IDs on Fireblocks.](https://developers.fireblocks.com/reference/get_supported-assets)
    * @return assetId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_ASSET_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -485,7 +488,7 @@ public class TransactionResponse {
    * Get source
    * @return source
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_SOURCE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -510,7 +513,7 @@ public class TransactionResponse {
    * For account based assets only, the source address of the transaction. **Note:** If the status is &#x60;CONFIRMING&#x60;, &#x60;COMPLETED&#x60;, or has been &#x60;CONFIRMING&#x60;; then moved forward to &#x60;FAILED&#x60; or &#x60;REJECTED&#x60;, then this parameter will contain the source address. In any other case, this parameter will be empty.
    * @return sourceAddress
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_SOURCE_ADDRESS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -535,7 +538,7 @@ public class TransactionResponse {
    * Source address tag for XRP, used as memo for EOS/XLM, or Bank Transfer Description for the fiat provider BLINC (by BCB Group).
    * @return tag
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_TAG)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -560,7 +563,7 @@ public class TransactionResponse {
    * Get destination
    * @return destination
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_DESTINATION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -593,7 +596,7 @@ public class TransactionResponse {
    * The transaction’s destinations. **Note:** In case the transaction is sent to a single destination, the &#x60;destination&#x60; parameter is used instead of this.
    * @return destinations
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_DESTINATIONS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -618,7 +621,7 @@ public class TransactionResponse {
    * Address where the asset were transferred. Notes:   - For [Multi destination transactions](https://support.fireblocks.io/hc/en-us/articles/360018447980-Multi-destination-transactions), this parameter will be empty. In this case, you should refer to the destinations field.   - If the status is &#x60;CONFIRMING&#x60;, &#x60;COMPLETED&#x60;, or has been &#x60;CONFIRMING&#x60;; then moved forward to &#x60;FAILED&#x60; or &#x60;REJECTED&#x60;, then this parameter will contain the destination address. In any other case, this parameter will be empty.
    * @return destinationAddress
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_DESTINATION_ADDRESS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -643,7 +646,7 @@ public class TransactionResponse {
    * Description of the address.
    * @return destinationAddressDescription
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_DESTINATION_ADDRESS_DESCRIPTION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -668,7 +671,7 @@ public class TransactionResponse {
    * Destination address tag for XRP, used as memo for EOS/XLM, or Bank Transfer Description for the fiat provider BLINC (by BCB Group).
    * @return destinationTag
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_DESTINATION_TAG)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -693,7 +696,7 @@ public class TransactionResponse {
    * Get contractCallDecodedData
    * @return contractCallDecodedData
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_CONTRACT_CALL_DECODED_DATA)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -718,7 +721,7 @@ public class TransactionResponse {
    * Get amountInfo
    * @return amountInfo
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_AMOUNT_INFO)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -743,7 +746,7 @@ public class TransactionResponse {
    * For transactions initiated via this Fireblocks workspace, when set to &#x60;true&#x60;, the fee is deducted from the requested amount.  **Note**: This parameter can only be considered if a transaction&#39;s asset is a base asset, such as ETH or MATIC. If the asset can&#39;t be used for transaction fees, like USDC, this parameter is ignored and the fee is deducted from the relevant base asset wallet in the source account.
    * @return treatAsGrossAmount
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_TREAT_AS_GROSS_AMOUNT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -768,7 +771,7 @@ public class TransactionResponse {
    * Get feeInfo
    * @return feeInfo
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_FEE_INFO)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -793,7 +796,7 @@ public class TransactionResponse {
    * The asset which was withdrawn to pay the transaction fee, for example ETH for EVM-based blockchains, BTC for Tether Omni.
    * @return feeCurrency
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_FEE_CURRENCY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -826,7 +829,7 @@ public class TransactionResponse {
    * In case a single transaction resulted with multiple transfers, for example a result of a contract call, then this parameter specifies each transfer that took place on the blockchain. In case of a single transfer transaction, this parameter is empty.
    * @return networkRecords
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_NETWORK_RECORDS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -851,7 +854,7 @@ public class TransactionResponse {
    * The transaction’s creation date and time, in unix timestamp.
    * @return createdAt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_CREATED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -876,7 +879,7 @@ public class TransactionResponse {
    * The transaction’s last update date and time, in unix timestamp.
    * @return lastUpdated
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_LAST_UPDATED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -901,7 +904,7 @@ public class TransactionResponse {
    * User ID of the initiator of the transaction.
    * @return createdBy
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_CREATED_BY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -934,7 +937,7 @@ public class TransactionResponse {
    * User ID’s of the signers of the transaction.
    * @return signedBy
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_SIGNED_BY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -959,7 +962,7 @@ public class TransactionResponse {
    * User ID of the user that rejected the transaction (in case it was rejected).
    * @return rejectedBy
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_REJECTED_BY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -984,7 +987,7 @@ public class TransactionResponse {
    * Get authorizationInfo
    * @return authorizationInfo
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_AUTHORIZATION_INFO)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -1009,7 +1012,7 @@ public class TransactionResponse {
    * If the transaction originated from an exchange, this is the ID of this transaction at the exchange.
    * @return exchangeTxId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_EXCHANGE_TX_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -1034,7 +1037,7 @@ public class TransactionResponse {
    * The ID for AML providers to associate the owner of funds with transactions.
    * @return customerRefId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_CUSTOMER_REF_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -1059,7 +1062,7 @@ public class TransactionResponse {
    * Get amlScreeningResult
    * @return amlScreeningResult
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_AML_SCREENING_RESULT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -1075,6 +1078,31 @@ public class TransactionResponse {
   }
 
 
+  public TransactionResponse complianceResult(ComplianceResult complianceResult) {
+    this.complianceResult = complianceResult;
+    return this;
+  }
+
+   /**
+   * Get complianceResult
+   * @return complianceResult
+  **/
+  @jakarta.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_COMPLIANCE_RESULT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public ComplianceResult getComplianceResult() {
+    return complianceResult;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_COMPLIANCE_RESULT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setComplianceResult(ComplianceResult complianceResult) {
+    this.complianceResult = complianceResult;
+  }
+
+
   public TransactionResponse extraParameters(Object extraParameters) {
     this.extraParameters = extraParameters;
     return this;
@@ -1084,7 +1112,7 @@ public class TransactionResponse {
    * Additional protocol / operation specific key-value parameters:  For UTXO-based blockchain input selection, add the key &#x60;inputsSelection&#x60; with the value set the [input selection structure.](https://developers.fireblocks.com/reference/transaction-objects#inputsselection) The inputs can be retrieved from the [Retrieve Unspent Inputs endpoint.](https://developers.fireblocks.com/reference/get_vault-accounts-vaultaccountid-assetid-unspent-inputs)  For &#x60;RAW&#x60; operations, add the key &#x60;rawMessageData&#x60; with the value set to the [raw message data structure.](https://developers.fireblocks.com/reference/raw-signing-objects#rawmessagedata)  For &#x60;CONTRACT_CALL&#x60; operations, add the key &#x60;contractCallData&#x60; with the value set to the Ethereum smart contract Application Binary Interface (ABI) payload. The Fireblocks [development libraries](https://developers.fireblocks.com/docs/ethereum-development#convenience-libraries) are recommended for building contract call transactions. 
    * @return extraParameters
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_EXTRA_PARAMETERS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -1109,7 +1137,7 @@ public class TransactionResponse {
    * Get signedMessages
    * @return signedMessages
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_SIGNED_MESSAGES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -1134,7 +1162,7 @@ public class TransactionResponse {
    * The number of confirmations of the transaction. The number will increase until the transaction will be considered completed according to the confirmation policy.
    * @return numOfConfirmations
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_NUM_OF_CONFIRMATIONS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -1159,7 +1187,7 @@ public class TransactionResponse {
    * Get blockInfo
    * @return blockInfo
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_BLOCK_INFO)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -1184,7 +1212,7 @@ public class TransactionResponse {
    * For UTXO based assets this is the vOut, for Ethereum based, this is the index of the event of the contract call.  **Note:** This field is not returned if a transaction uses the &#x60;destinations&#x60; object with more than one value.
    * @return index
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_INDEX)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -1209,7 +1237,7 @@ public class TransactionResponse {
    * Get rewardInfo
    * @return rewardInfo
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_REWARD_INFO)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -1234,7 +1262,7 @@ public class TransactionResponse {
    * Get systemMessages
    * @return systemMessages
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_SYSTEM_MESSAGES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -1259,7 +1287,7 @@ public class TransactionResponse {
    * Get addressType
    * @return addressType
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_ADDRESS_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -1286,7 +1314,7 @@ public class TransactionResponse {
    * @deprecated
   **/
   @Deprecated
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_REQUESTED_AMOUNT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -1313,7 +1341,7 @@ public class TransactionResponse {
    * @deprecated
   **/
   @Deprecated
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_AMOUNT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -1340,7 +1368,7 @@ public class TransactionResponse {
    * @deprecated
   **/
   @Deprecated
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_NET_AMOUNT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -1357,7 +1385,7 @@ public class TransactionResponse {
 
 
   public TransactionResponse amountUSD(BigDecimal amountUSD) {
-    this.amountUSD = JsonNullable.<BigDecimal>of(amountUSD);
+    this.amountUSD = amountUSD;
     return this;
   }
 
@@ -1367,27 +1395,19 @@ public class TransactionResponse {
    * @deprecated
   **/
   @Deprecated
-  @javax.annotation.Nullable
-  @JsonIgnore
-
-  public BigDecimal getAmountUSD() {
-        return amountUSD.orElse(null);
-  }
-
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_AMOUNT_U_S_D)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public JsonNullable<BigDecimal> getAmountUSD_JsonNullable() {
+  public BigDecimal getAmountUSD() {
     return amountUSD;
   }
-  
-  @JsonProperty(JSON_PROPERTY_AMOUNT_U_S_D)
-  public void setAmountUSD_JsonNullable(JsonNullable<BigDecimal> amountUSD) {
-    this.amountUSD = amountUSD;
-  }
 
+
+  @JsonProperty(JSON_PROPERTY_AMOUNT_U_S_D)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setAmountUSD(BigDecimal amountUSD) {
-    this.amountUSD = JsonNullable.<BigDecimal>of(amountUSD);
+    this.amountUSD = amountUSD;
   }
 
 
@@ -1402,7 +1422,7 @@ public class TransactionResponse {
    * @deprecated
   **/
   @Deprecated
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_SERVICE_FEE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -1429,7 +1449,7 @@ public class TransactionResponse {
    * @deprecated
   **/
   @Deprecated
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_FEE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -1456,7 +1476,7 @@ public class TransactionResponse {
    * @deprecated
   **/
   @Deprecated
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_NETWORK_FEE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -1515,6 +1535,7 @@ public class TransactionResponse {
         Objects.equals(this.exchangeTxId, transactionResponse.exchangeTxId) &&
         Objects.equals(this.customerRefId, transactionResponse.customerRefId) &&
         Objects.equals(this.amlScreeningResult, transactionResponse.amlScreeningResult) &&
+        Objects.equals(this.complianceResult, transactionResponse.complianceResult) &&
         Objects.equals(this.extraParameters, transactionResponse.extraParameters) &&
         Objects.equals(this.signedMessages, transactionResponse.signedMessages) &&
         Objects.equals(this.numOfConfirmations, transactionResponse.numOfConfirmations) &&
@@ -1526,26 +1547,15 @@ public class TransactionResponse {
         Objects.equals(this.requestedAmount, transactionResponse.requestedAmount) &&
         Objects.equals(this.amount, transactionResponse.amount) &&
         Objects.equals(this.netAmount, transactionResponse.netAmount) &&
-        equalsNullable(this.amountUSD, transactionResponse.amountUSD) &&
+        Objects.equals(this.amountUSD, transactionResponse.amountUSD) &&
         Objects.equals(this.serviceFee, transactionResponse.serviceFee) &&
         Objects.equals(this.fee, transactionResponse.fee) &&
         Objects.equals(this.networkFee, transactionResponse.networkFee);
   }
 
-  private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
-    return a == b || (a != null && b != null && a.isPresent() && b.isPresent() && Objects.deepEquals(a.get(), b.get()));
-  }
-
   @Override
   public int hashCode() {
-    return Objects.hash(id, externalTxId, status, subStatus, txHash, operation, note, assetId, source, sourceAddress, tag, destination, destinations, destinationAddress, destinationAddressDescription, destinationTag, contractCallDecodedData, amountInfo, treatAsGrossAmount, feeInfo, feeCurrency, networkRecords, createdAt, lastUpdated, createdBy, signedBy, rejectedBy, authorizationInfo, exchangeTxId, customerRefId, amlScreeningResult, extraParameters, signedMessages, numOfConfirmations, blockInfo, index, rewardInfo, systemMessages, addressType, requestedAmount, amount, netAmount, hashCodeNullable(amountUSD), serviceFee, fee, networkFee);
-  }
-
-  private static <T> int hashCodeNullable(JsonNullable<T> a) {
-    if (a == null) {
-      return 1;
-    }
-    return a.isPresent() ? Arrays.deepHashCode(new Object[]{a.get()}) : 31;
+    return Objects.hash(id, externalTxId, status, subStatus, txHash, operation, note, assetId, source, sourceAddress, tag, destination, destinations, destinationAddress, destinationAddressDescription, destinationTag, contractCallDecodedData, amountInfo, treatAsGrossAmount, feeInfo, feeCurrency, networkRecords, createdAt, lastUpdated, createdBy, signedBy, rejectedBy, authorizationInfo, exchangeTxId, customerRefId, amlScreeningResult, complianceResult, extraParameters, signedMessages, numOfConfirmations, blockInfo, index, rewardInfo, systemMessages, addressType, requestedAmount, amount, netAmount, amountUSD, serviceFee, fee, networkFee);
   }
 
   @Override
@@ -1583,6 +1593,7 @@ public class TransactionResponse {
     sb.append("    exchangeTxId: ").append(toIndentedString(exchangeTxId)).append("\n");
     sb.append("    customerRefId: ").append(toIndentedString(customerRefId)).append("\n");
     sb.append("    amlScreeningResult: ").append(toIndentedString(amlScreeningResult)).append("\n");
+    sb.append("    complianceResult: ").append(toIndentedString(complianceResult)).append("\n");
     sb.append("    extraParameters: ").append(toIndentedString(extraParameters)).append("\n");
     sb.append("    signedMessages: ").append(toIndentedString(signedMessages)).append("\n");
     sb.append("    numOfConfirmations: ").append(toIndentedString(numOfConfirmations)).append("\n");
@@ -1613,5 +1624,288 @@ public class TransactionResponse {
     return o.toString().replace("\n", "\n    ");
   }
 
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @return URL query string
+   */
+  public String toUrlQueryString() {
+    return toUrlQueryString(null);
+  }
+
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @param prefix prefix of the query string
+   * @return URL query string
+   */
+  public String toUrlQueryString(String prefix) {
+    String suffix = "";
+    String containerSuffix = "";
+    String containerPrefix = "";
+    if (prefix == null) {
+      // style=form, explode=true, e.g. /pet?name=cat&type=manx
+      prefix = "";
+    } else {
+      // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
+      prefix = prefix + "[";
+      suffix = "]";
+      containerSuffix = "]";
+      containerPrefix = "[";
+    }
+
+    StringJoiner joiner = new StringJoiner("&");
+
+    // add `id` to the URL query string
+    if (getId() != null) {
+      joiner.add(String.format("%sid%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getId()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `externalTxId` to the URL query string
+    if (getExternalTxId() != null) {
+      joiner.add(String.format("%sexternalTxId%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getExternalTxId()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `status` to the URL query string
+    if (getStatus() != null) {
+      joiner.add(String.format("%sstatus%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getStatus()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `subStatus` to the URL query string
+    if (getSubStatus() != null) {
+      joiner.add(String.format("%ssubStatus%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getSubStatus()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `txHash` to the URL query string
+    if (getTxHash() != null) {
+      joiner.add(String.format("%stxHash%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getTxHash()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `operation` to the URL query string
+    if (getOperation() != null) {
+      joiner.add(String.format("%soperation%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getOperation()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `note` to the URL query string
+    if (getNote() != null) {
+      joiner.add(String.format("%snote%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getNote()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `assetId` to the URL query string
+    if (getAssetId() != null) {
+      joiner.add(String.format("%sassetId%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getAssetId()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `source` to the URL query string
+    if (getSource() != null) {
+      joiner.add(getSource().toUrlQueryString(prefix + "source" + suffix));
+    }
+
+    // add `sourceAddress` to the URL query string
+    if (getSourceAddress() != null) {
+      joiner.add(String.format("%ssourceAddress%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getSourceAddress()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `tag` to the URL query string
+    if (getTag() != null) {
+      joiner.add(String.format("%stag%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getTag()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `destination` to the URL query string
+    if (getDestination() != null) {
+      joiner.add(getDestination().toUrlQueryString(prefix + "destination" + suffix));
+    }
+
+    // add `destinations` to the URL query string
+    if (getDestinations() != null) {
+      for (int i = 0; i < getDestinations().size(); i++) {
+        if (getDestinations().get(i) != null) {
+          joiner.add(getDestinations().get(i).toUrlQueryString(String.format("%sdestinations%s%s", prefix, suffix,
+          "".equals(suffix) ? "" : String.format("%s%d%s", containerPrefix, i, containerSuffix))));
+        }
+      }
+    }
+
+    // add `destinationAddress` to the URL query string
+    if (getDestinationAddress() != null) {
+      joiner.add(String.format("%sdestinationAddress%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getDestinationAddress()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `destinationAddressDescription` to the URL query string
+    if (getDestinationAddressDescription() != null) {
+      joiner.add(String.format("%sdestinationAddressDescription%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getDestinationAddressDescription()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `destinationTag` to the URL query string
+    if (getDestinationTag() != null) {
+      joiner.add(String.format("%sdestinationTag%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getDestinationTag()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `contractCallDecodedData` to the URL query string
+    if (getContractCallDecodedData() != null) {
+      joiner.add(getContractCallDecodedData().toUrlQueryString(prefix + "contractCallDecodedData" + suffix));
+    }
+
+    // add `amountInfo` to the URL query string
+    if (getAmountInfo() != null) {
+      joiner.add(getAmountInfo().toUrlQueryString(prefix + "amountInfo" + suffix));
+    }
+
+    // add `treatAsGrossAmount` to the URL query string
+    if (getTreatAsGrossAmount() != null) {
+      joiner.add(String.format("%streatAsGrossAmount%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getTreatAsGrossAmount()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `feeInfo` to the URL query string
+    if (getFeeInfo() != null) {
+      joiner.add(getFeeInfo().toUrlQueryString(prefix + "feeInfo" + suffix));
+    }
+
+    // add `feeCurrency` to the URL query string
+    if (getFeeCurrency() != null) {
+      joiner.add(String.format("%sfeeCurrency%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getFeeCurrency()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `networkRecords` to the URL query string
+    if (getNetworkRecords() != null) {
+      for (int i = 0; i < getNetworkRecords().size(); i++) {
+        if (getNetworkRecords().get(i) != null) {
+          joiner.add(getNetworkRecords().get(i).toUrlQueryString(String.format("%snetworkRecords%s%s", prefix, suffix,
+          "".equals(suffix) ? "" : String.format("%s%d%s", containerPrefix, i, containerSuffix))));
+        }
+      }
+    }
+
+    // add `createdAt` to the URL query string
+    if (getCreatedAt() != null) {
+      joiner.add(String.format("%screatedAt%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getCreatedAt()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `lastUpdated` to the URL query string
+    if (getLastUpdated() != null) {
+      joiner.add(String.format("%slastUpdated%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getLastUpdated()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `createdBy` to the URL query string
+    if (getCreatedBy() != null) {
+      joiner.add(String.format("%screatedBy%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getCreatedBy()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `signedBy` to the URL query string
+    if (getSignedBy() != null) {
+      for (int i = 0; i < getSignedBy().size(); i++) {
+        joiner.add(String.format("%ssignedBy%s%s=%s", prefix, suffix,
+            "".equals(suffix) ? "" : String.format("%s%d%s", containerPrefix, i, containerSuffix),
+            URLEncoder.encode(String.valueOf(getSignedBy().get(i)), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+      }
+    }
+
+    // add `rejectedBy` to the URL query string
+    if (getRejectedBy() != null) {
+      joiner.add(String.format("%srejectedBy%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getRejectedBy()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `authorizationInfo` to the URL query string
+    if (getAuthorizationInfo() != null) {
+      joiner.add(getAuthorizationInfo().toUrlQueryString(prefix + "authorizationInfo" + suffix));
+    }
+
+    // add `exchangeTxId` to the URL query string
+    if (getExchangeTxId() != null) {
+      joiner.add(String.format("%sexchangeTxId%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getExchangeTxId()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `customerRefId` to the URL query string
+    if (getCustomerRefId() != null) {
+      joiner.add(String.format("%scustomerRefId%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getCustomerRefId()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `amlScreeningResult` to the URL query string
+    if (getAmlScreeningResult() != null) {
+      joiner.add(getAmlScreeningResult().toUrlQueryString(prefix + "amlScreeningResult" + suffix));
+    }
+
+    // add `complianceResult` to the URL query string
+    if (getComplianceResult() != null) {
+      joiner.add(getComplianceResult().toUrlQueryString(prefix + "complianceResult" + suffix));
+    }
+
+    // add `extraParameters` to the URL query string
+    if (getExtraParameters() != null) {
+      joiner.add(String.format("%sextraParameters%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getExtraParameters()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `signedMessages` to the URL query string
+    if (getSignedMessages() != null) {
+      joiner.add(getSignedMessages().toUrlQueryString(prefix + "signedMessages" + suffix));
+    }
+
+    // add `numOfConfirmations` to the URL query string
+    if (getNumOfConfirmations() != null) {
+      joiner.add(String.format("%snumOfConfirmations%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getNumOfConfirmations()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `blockInfo` to the URL query string
+    if (getBlockInfo() != null) {
+      joiner.add(getBlockInfo().toUrlQueryString(prefix + "blockInfo" + suffix));
+    }
+
+    // add `index` to the URL query string
+    if (getIndex() != null) {
+      joiner.add(String.format("%sindex%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getIndex()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `rewardInfo` to the URL query string
+    if (getRewardInfo() != null) {
+      joiner.add(getRewardInfo().toUrlQueryString(prefix + "rewardInfo" + suffix));
+    }
+
+    // add `systemMessages` to the URL query string
+    if (getSystemMessages() != null) {
+      joiner.add(getSystemMessages().toUrlQueryString(prefix + "systemMessages" + suffix));
+    }
+
+    // add `addressType` to the URL query string
+    if (getAddressType() != null) {
+      joiner.add(String.format("%saddressType%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getAddressType()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `requestedAmount` to the URL query string
+    if (getRequestedAmount() != null) {
+      joiner.add(String.format("%srequestedAmount%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getRequestedAmount()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `amount` to the URL query string
+    if (getAmount() != null) {
+      joiner.add(String.format("%samount%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getAmount()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `netAmount` to the URL query string
+    if (getNetAmount() != null) {
+      joiner.add(String.format("%snetAmount%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getNetAmount()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `amountUSD` to the URL query string
+    if (getAmountUSD() != null) {
+      joiner.add(String.format("%samountUSD%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getAmountUSD()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `serviceFee` to the URL query string
+    if (getServiceFee() != null) {
+      joiner.add(String.format("%sserviceFee%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getServiceFee()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `fee` to the URL query string
+    if (getFee() != null) {
+      joiner.add(String.format("%sfee%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getFee()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `networkFee` to the URL query string
+    if (getNetworkFee() != null) {
+      joiner.add(String.format("%snetworkFee%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getNetworkFee()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    return joiner.toString();
+  }
 }
 

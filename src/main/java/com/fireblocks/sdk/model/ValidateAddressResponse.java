@@ -13,8 +13,10 @@
 
 package com.fireblocks.sdk.model;
 
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.StringJoiner;
 import java.util.Objects;
-import java.util.Arrays;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -22,8 +24,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.fireblocks.sdk.JSON;
 
 
 /**
@@ -34,7 +36,7 @@ import com.fireblocks.sdk.JSON;
   ValidateAddressResponse.JSON_PROPERTY_IS_ACTIVE,
   ValidateAddressResponse.JSON_PROPERTY_REQUIRES_TAG
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class ValidateAddressResponse {
   public static final String JSON_PROPERTY_IS_VALID = "isValid";
   private Boolean isValid;
@@ -57,7 +59,7 @@ public class ValidateAddressResponse {
    * Get isValid
    * @return isValid
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_IS_VALID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -82,7 +84,7 @@ public class ValidateAddressResponse {
    * Get isActive
    * @return isActive
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_IS_ACTIVE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -107,7 +109,7 @@ public class ValidateAddressResponse {
    * Get requiresTag
    * @return requiresTag
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_REQUIRES_TAG)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -167,5 +169,54 @@ public class ValidateAddressResponse {
     return o.toString().replace("\n", "\n    ");
   }
 
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @return URL query string
+   */
+  public String toUrlQueryString() {
+    return toUrlQueryString(null);
+  }
+
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @param prefix prefix of the query string
+   * @return URL query string
+   */
+  public String toUrlQueryString(String prefix) {
+    String suffix = "";
+    String containerSuffix = "";
+    String containerPrefix = "";
+    if (prefix == null) {
+      // style=form, explode=true, e.g. /pet?name=cat&type=manx
+      prefix = "";
+    } else {
+      // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
+      prefix = prefix + "[";
+      suffix = "]";
+      containerSuffix = "]";
+      containerPrefix = "[";
+    }
+
+    StringJoiner joiner = new StringJoiner("&");
+
+    // add `isValid` to the URL query string
+    if (getIsValid() != null) {
+      joiner.add(String.format("%sisValid%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getIsValid()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `isActive` to the URL query string
+    if (getIsActive() != null) {
+      joiner.add(String.format("%sisActive%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getIsActive()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `requiresTag` to the URL query string
+    if (getRequiresTag() != null) {
+      joiner.add(String.format("%srequiresTag%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getRequiresTag()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    return joiner.toString();
+  }
 }
 

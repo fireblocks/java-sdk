@@ -13,8 +13,10 @@
 
 package com.fireblocks.sdk.model;
 
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.StringJoiner;
 import java.util.Objects;
-import java.util.Arrays;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -22,8 +24,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.fireblocks.sdk.JSON;
 
 
 /**
@@ -42,7 +44,7 @@ import com.fireblocks.sdk.JSON;
   VaultWalletAddress.JSON_PROPERTY_BIP44_ADDRESS_INDEX,
   VaultWalletAddress.JSON_PROPERTY_USER_DEFINED
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class VaultWalletAddress {
   public static final String JSON_PROPERTY_ASSET_ID = "assetId";
   private String assetId;
@@ -124,7 +126,7 @@ public class VaultWalletAddress {
    * Get assetId
    * @return assetId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_ASSET_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -149,7 +151,7 @@ public class VaultWalletAddress {
    * Get address
    * @return address
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_ADDRESS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -174,7 +176,7 @@ public class VaultWalletAddress {
    * Get description
    * @return description
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_DESCRIPTION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -199,7 +201,7 @@ public class VaultWalletAddress {
    * Get tag
    * @return tag
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_TAG)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -224,7 +226,7 @@ public class VaultWalletAddress {
    * Get type
    * @return type
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -249,7 +251,7 @@ public class VaultWalletAddress {
    * Get customerRefId
    * @return customerRefId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_CUSTOMER_REF_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -274,7 +276,7 @@ public class VaultWalletAddress {
    * Get addressFormat
    * @return addressFormat
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_ADDRESS_FORMAT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -299,7 +301,7 @@ public class VaultWalletAddress {
    * Get legacyAddress
    * @return legacyAddress
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_LEGACY_ADDRESS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -324,7 +326,7 @@ public class VaultWalletAddress {
    * Get enterpriseAddress
    * @return enterpriseAddress
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_ENTERPRISE_ADDRESS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -349,7 +351,7 @@ public class VaultWalletAddress {
    * Get bip44AddressIndex
    * @return bip44AddressIndex
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_BIP44_ADDRESS_INDEX)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -374,7 +376,7 @@ public class VaultWalletAddress {
    * Get userDefined
    * @return userDefined
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_USER_DEFINED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -450,5 +452,94 @@ public class VaultWalletAddress {
     return o.toString().replace("\n", "\n    ");
   }
 
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @return URL query string
+   */
+  public String toUrlQueryString() {
+    return toUrlQueryString(null);
+  }
+
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @param prefix prefix of the query string
+   * @return URL query string
+   */
+  public String toUrlQueryString(String prefix) {
+    String suffix = "";
+    String containerSuffix = "";
+    String containerPrefix = "";
+    if (prefix == null) {
+      // style=form, explode=true, e.g. /pet?name=cat&type=manx
+      prefix = "";
+    } else {
+      // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
+      prefix = prefix + "[";
+      suffix = "]";
+      containerSuffix = "]";
+      containerPrefix = "[";
+    }
+
+    StringJoiner joiner = new StringJoiner("&");
+
+    // add `assetId` to the URL query string
+    if (getAssetId() != null) {
+      joiner.add(String.format("%sassetId%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getAssetId()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `address` to the URL query string
+    if (getAddress() != null) {
+      joiner.add(String.format("%saddress%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getAddress()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `description` to the URL query string
+    if (getDescription() != null) {
+      joiner.add(String.format("%sdescription%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getDescription()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `tag` to the URL query string
+    if (getTag() != null) {
+      joiner.add(String.format("%stag%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getTag()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `type` to the URL query string
+    if (getType() != null) {
+      joiner.add(String.format("%stype%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getType()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `customerRefId` to the URL query string
+    if (getCustomerRefId() != null) {
+      joiner.add(String.format("%scustomerRefId%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getCustomerRefId()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `addressFormat` to the URL query string
+    if (getAddressFormat() != null) {
+      joiner.add(String.format("%saddressFormat%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getAddressFormat()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `legacyAddress` to the URL query string
+    if (getLegacyAddress() != null) {
+      joiner.add(String.format("%slegacyAddress%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getLegacyAddress()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `enterpriseAddress` to the URL query string
+    if (getEnterpriseAddress() != null) {
+      joiner.add(String.format("%senterpriseAddress%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getEnterpriseAddress()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `bip44AddressIndex` to the URL query string
+    if (getBip44AddressIndex() != null) {
+      joiner.add(String.format("%sbip44AddressIndex%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getBip44AddressIndex()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `userDefined` to the URL query string
+    if (getUserDefined() != null) {
+      joiner.add(String.format("%suserDefined%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getUserDefined()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    return joiner.toString();
+  }
 }
 

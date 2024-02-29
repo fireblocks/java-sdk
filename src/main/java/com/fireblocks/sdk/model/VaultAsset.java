@@ -13,8 +13,10 @@
 
 package com.fireblocks.sdk.model;
 
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.StringJoiner;
 import java.util.Objects;
-import java.util.Arrays;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -24,8 +26,8 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.fireblocks.sdk.model.RewardsInfo;
 import java.math.BigDecimal;
+import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.fireblocks.sdk.JSON;
 
 
 /**
@@ -50,7 +52,7 @@ import com.fireblocks.sdk.JSON;
   VaultAsset.JSON_PROPERTY_BLOCK_HASH,
   VaultAsset.JSON_PROPERTY_REWARDS_INFO
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class VaultAsset {
   public static final String JSON_PROPERTY_ID = "id";
   private String id;
@@ -115,7 +117,7 @@ public class VaultAsset {
    * Get id
    * @return id
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -140,7 +142,7 @@ public class VaultAsset {
    * The total wallet balance. In EOS this value includes the network balance, self staking and pending refund. For all other coins it is the balance as it appears on the blockchain.
    * @return total
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_TOTAL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -167,7 +169,7 @@ public class VaultAsset {
    * @deprecated
   **/
   @Deprecated
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_BALANCE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -192,7 +194,7 @@ public class VaultAsset {
    * Funds available for transfer. Equals the blockchain balance minus any locked amounts
    * @return available
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_AVAILABLE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -217,7 +219,7 @@ public class VaultAsset {
    * The cumulative balance of all transactions pending to be cleared
    * @return pending
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_PENDING)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -242,7 +244,7 @@ public class VaultAsset {
    * The cumulative frozen balance
    * @return frozen
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_FROZEN)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -267,7 +269,7 @@ public class VaultAsset {
    * Funds in outgoing transactions that are not yet published to the network
    * @return lockedAmount
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_LOCKED_AMOUNT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -292,7 +294,7 @@ public class VaultAsset {
    * Staked balance
    * @return staked
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_STAKED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -317,7 +319,7 @@ public class VaultAsset {
    * Deprecated
    * @return totalStakedCPU
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_TOTAL_STAKED_C_P_U)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -342,7 +344,7 @@ public class VaultAsset {
    * Deprecated
    * @return totalStakedNetwork
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_TOTAL_STAKED_NETWORK)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -367,7 +369,7 @@ public class VaultAsset {
    * Deprecated
    * @return selfStakedCPU
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_SELF_STAKED_C_P_U)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -392,7 +394,7 @@ public class VaultAsset {
    * Deprecated
    * @return selfStakedNetwork
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_SELF_STAKED_NETWORK)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -417,7 +419,7 @@ public class VaultAsset {
    * Deprecated
    * @return pendingRefundCPU
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_PENDING_REFUND_C_P_U)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -442,7 +444,7 @@ public class VaultAsset {
    * Deprecated
    * @return pendingRefundNetwork
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_PENDING_REFUND_NETWORK)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -467,7 +469,7 @@ public class VaultAsset {
    * Get blockHeight
    * @return blockHeight
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_BLOCK_HEIGHT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -492,7 +494,7 @@ public class VaultAsset {
    * Get blockHash
    * @return blockHash
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_BLOCK_HASH)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -517,7 +519,7 @@ public class VaultAsset {
    * Get rewardsInfo
    * @return rewardsInfo
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_REWARDS_INFO)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -605,5 +607,124 @@ public class VaultAsset {
     return o.toString().replace("\n", "\n    ");
   }
 
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @return URL query string
+   */
+  public String toUrlQueryString() {
+    return toUrlQueryString(null);
+  }
+
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @param prefix prefix of the query string
+   * @return URL query string
+   */
+  public String toUrlQueryString(String prefix) {
+    String suffix = "";
+    String containerSuffix = "";
+    String containerPrefix = "";
+    if (prefix == null) {
+      // style=form, explode=true, e.g. /pet?name=cat&type=manx
+      prefix = "";
+    } else {
+      // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
+      prefix = prefix + "[";
+      suffix = "]";
+      containerSuffix = "]";
+      containerPrefix = "[";
+    }
+
+    StringJoiner joiner = new StringJoiner("&");
+
+    // add `id` to the URL query string
+    if (getId() != null) {
+      joiner.add(String.format("%sid%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getId()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `total` to the URL query string
+    if (getTotal() != null) {
+      joiner.add(String.format("%stotal%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getTotal()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `balance` to the URL query string
+    if (getBalance() != null) {
+      joiner.add(String.format("%sbalance%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getBalance()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `available` to the URL query string
+    if (getAvailable() != null) {
+      joiner.add(String.format("%savailable%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getAvailable()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `pending` to the URL query string
+    if (getPending() != null) {
+      joiner.add(String.format("%spending%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getPending()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `frozen` to the URL query string
+    if (getFrozen() != null) {
+      joiner.add(String.format("%sfrozen%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getFrozen()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `lockedAmount` to the URL query string
+    if (getLockedAmount() != null) {
+      joiner.add(String.format("%slockedAmount%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getLockedAmount()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `staked` to the URL query string
+    if (getStaked() != null) {
+      joiner.add(String.format("%sstaked%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getStaked()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `totalStakedCPU` to the URL query string
+    if (getTotalStakedCPU() != null) {
+      joiner.add(String.format("%stotalStakedCPU%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getTotalStakedCPU()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `totalStakedNetwork` to the URL query string
+    if (getTotalStakedNetwork() != null) {
+      joiner.add(String.format("%stotalStakedNetwork%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getTotalStakedNetwork()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `selfStakedCPU` to the URL query string
+    if (getSelfStakedCPU() != null) {
+      joiner.add(String.format("%sselfStakedCPU%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getSelfStakedCPU()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `selfStakedNetwork` to the URL query string
+    if (getSelfStakedNetwork() != null) {
+      joiner.add(String.format("%sselfStakedNetwork%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getSelfStakedNetwork()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `pendingRefundCPU` to the URL query string
+    if (getPendingRefundCPU() != null) {
+      joiner.add(String.format("%spendingRefundCPU%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getPendingRefundCPU()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `pendingRefundNetwork` to the URL query string
+    if (getPendingRefundNetwork() != null) {
+      joiner.add(String.format("%spendingRefundNetwork%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getPendingRefundNetwork()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `blockHeight` to the URL query string
+    if (getBlockHeight() != null) {
+      joiner.add(String.format("%sblockHeight%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getBlockHeight()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `blockHash` to the URL query string
+    if (getBlockHash() != null) {
+      joiner.add(String.format("%sblockHash%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getBlockHash()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `rewardsInfo` to the URL query string
+    if (getRewardsInfo() != null) {
+      joiner.add(getRewardsInfo().toUrlQueryString(prefix + "rewardsInfo" + suffix));
+    }
+
+    return joiner.toString();
+  }
 }
 

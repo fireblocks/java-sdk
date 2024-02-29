@@ -13,8 +13,10 @@
 
 package com.fireblocks.sdk.model;
 
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.StringJoiner;
 import java.util.Objects;
-import java.util.Arrays;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -29,9 +31,9 @@ import com.fireblocks.sdk.model.PayoutState;
 import com.fireblocks.sdk.model.PayoutStatus;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.fireblocks.sdk.JSON;
 
 
 /**
@@ -48,7 +50,7 @@ import com.fireblocks.sdk.JSON;
   PayoutResponse.JSON_PROPERTY_INSTRUCTION_SET,
   PayoutResponse.JSON_PROPERTY_REPORT_URL
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class PayoutResponse {
   public static final String JSON_PROPERTY_PAYOUT_ID = "payoutId";
   private String payoutId;
@@ -89,7 +91,7 @@ public class PayoutResponse {
    * Get payoutId
    * @return payoutId
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_PAYOUT_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
@@ -114,7 +116,7 @@ public class PayoutResponse {
    * Get paymentAccount
    * @return paymentAccount
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_PAYMENT_ACCOUNT)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
@@ -139,7 +141,7 @@ public class PayoutResponse {
    * Get createdAt
    * @return createdAt
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_CREATED_AT)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
@@ -164,7 +166,7 @@ public class PayoutResponse {
    * Get state
    * @return state
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_STATE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
@@ -189,7 +191,7 @@ public class PayoutResponse {
    * Get status
    * @return status
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_STATUS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
@@ -214,7 +216,7 @@ public class PayoutResponse {
    * &lt;ul&gt;  &lt;li&gt; INSUFFICIENT_BALANCE&lt;/li&gt; &lt;li&gt; SOURCE_TRANSLATION&lt;/li&gt; &lt;li&gt; SOURCE_NOT_UNIQUE&lt;/li&gt; &lt;li&gt; SOURCE_NOT_FOUND&lt;/li&gt; &lt;li&gt; SOURCE_TYPE_NOT_SUPPORTED&lt;/li&gt; &lt;li&gt; EMPTY_SOURCE&lt;/li&gt; &lt;li&gt; DESTINATION_TRANSLATION&lt;/li&gt; &lt;li&gt; DESTINATION_NOT_UNIQUE&lt;/li&gt; &lt;li&gt; DESTINATION_NOT_FOUND&lt;/li&gt; &lt;li&gt; EMPTY_DESTINATION&lt;/li&gt; &lt;li&gt; PARSING &lt;/li&gt; &lt;li&gt; UNKNOWN&lt;/li&gt; &lt;li&gt; FIREBLOCKS_CLIENT&lt;/li&gt; &lt;li&gt; TRANSACTION_SUBMISSION&lt;/li&gt; &lt;/ul&gt; 
    * @return reasonOfFailure
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_REASON_OF_FAILURE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -239,7 +241,7 @@ public class PayoutResponse {
    * Get initMethod
    * @return initMethod
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_INIT_METHOD)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -272,7 +274,7 @@ public class PayoutResponse {
    * Get instructionSet
    * @return instructionSet
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_INSTRUCTION_SET)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
@@ -297,7 +299,7 @@ public class PayoutResponse {
    * Get reportUrl
    * @return reportUrl
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_REPORT_URL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -369,5 +371,89 @@ public class PayoutResponse {
     return o.toString().replace("\n", "\n    ");
   }
 
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @return URL query string
+   */
+  public String toUrlQueryString() {
+    return toUrlQueryString(null);
+  }
+
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @param prefix prefix of the query string
+   * @return URL query string
+   */
+  public String toUrlQueryString(String prefix) {
+    String suffix = "";
+    String containerSuffix = "";
+    String containerPrefix = "";
+    if (prefix == null) {
+      // style=form, explode=true, e.g. /pet?name=cat&type=manx
+      prefix = "";
+    } else {
+      // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
+      prefix = prefix + "[";
+      suffix = "]";
+      containerSuffix = "]";
+      containerPrefix = "[";
+    }
+
+    StringJoiner joiner = new StringJoiner("&");
+
+    // add `payoutId` to the URL query string
+    if (getPayoutId() != null) {
+      joiner.add(String.format("%spayoutId%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getPayoutId()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `paymentAccount` to the URL query string
+    if (getPaymentAccount() != null) {
+      joiner.add(getPaymentAccount().toUrlQueryString(prefix + "paymentAccount" + suffix));
+    }
+
+    // add `createdAt` to the URL query string
+    if (getCreatedAt() != null) {
+      joiner.add(String.format("%screatedAt%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getCreatedAt()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `state` to the URL query string
+    if (getState() != null) {
+      joiner.add(String.format("%sstate%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getState()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `status` to the URL query string
+    if (getStatus() != null) {
+      joiner.add(String.format("%sstatus%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getStatus()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `reasonOfFailure` to the URL query string
+    if (getReasonOfFailure() != null) {
+      joiner.add(String.format("%sreasonOfFailure%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getReasonOfFailure()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `initMethod` to the URL query string
+    if (getInitMethod() != null) {
+      joiner.add(String.format("%sinitMethod%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getInitMethod()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `instructionSet` to the URL query string
+    if (getInstructionSet() != null) {
+      for (int i = 0; i < getInstructionSet().size(); i++) {
+        if (getInstructionSet().get(i) != null) {
+          joiner.add(getInstructionSet().get(i).toUrlQueryString(String.format("%sinstructionSet%s%s", prefix, suffix,
+          "".equals(suffix) ? "" : String.format("%s%d%s", containerPrefix, i, containerSuffix))));
+        }
+      }
+    }
+
+    // add `reportUrl` to the URL query string
+    if (getReportUrl() != null) {
+      joiner.add(String.format("%sreportUrl%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getReportUrl()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    return joiner.toString();
+  }
 }
 

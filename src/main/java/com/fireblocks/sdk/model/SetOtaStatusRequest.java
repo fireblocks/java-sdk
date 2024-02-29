@@ -13,8 +13,10 @@
 
 package com.fireblocks.sdk.model;
 
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.StringJoiner;
 import java.util.Objects;
-import java.util.Arrays;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -22,52 +24,51 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.fireblocks.sdk.JSON;
 
 
 /**
  * SetOtaStatusRequest
  */
 @JsonPropertyOrder({
-  SetOtaStatusRequest.JSON_PROPERTY_ENABLE
+  SetOtaStatusRequest.JSON_PROPERTY_ENABLED
 })
-@JsonTypeName("setOtaStatus_request")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class SetOtaStatusRequest {
-  public static final String JSON_PROPERTY_ENABLE = "enable";
-  private Boolean enable;
+  public static final String JSON_PROPERTY_ENABLED = "enabled";
+  private Boolean enabled;
 
   public SetOtaStatusRequest() { 
   }
 
-  public SetOtaStatusRequest enable(Boolean enable) {
-    this.enable = enable;
+  public SetOtaStatusRequest enabled(Boolean enabled) {
+    this.enabled = enabled;
     return this;
   }
 
    /**
    * Set true or false to enable or disable OTA transactions
-   * @return enable
+   * @return enabled
   **/
-  @javax.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_ENABLE)
+  @jakarta.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_ENABLED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public Boolean getEnable() {
-    return enable;
+  public Boolean getEnabled() {
+    return enabled;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_ENABLE)
+  @JsonProperty(JSON_PROPERTY_ENABLED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setEnable(Boolean enable) {
-    this.enable = enable;
+  public void setEnabled(Boolean enabled) {
+    this.enabled = enabled;
   }
 
 
   /**
-   * Return true if this setOtaStatus_request object is equal to o.
+   * Return true if this SetOtaStatusRequest object is equal to o.
    */
   @Override
   public boolean equals(Object o) {
@@ -78,19 +79,19 @@ public class SetOtaStatusRequest {
       return false;
     }
     SetOtaStatusRequest setOtaStatusRequest = (SetOtaStatusRequest) o;
-    return Objects.equals(this.enable, setOtaStatusRequest.enable);
+    return Objects.equals(this.enabled, setOtaStatusRequest.enabled);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(enable);
+    return Objects.hash(enabled);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class SetOtaStatusRequest {\n");
-    sb.append("    enable: ").append(toIndentedString(enable)).append("\n");
+    sb.append("    enabled: ").append(toIndentedString(enabled)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -106,5 +107,44 @@ public class SetOtaStatusRequest {
     return o.toString().replace("\n", "\n    ");
   }
 
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @return URL query string
+   */
+  public String toUrlQueryString() {
+    return toUrlQueryString(null);
+  }
+
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @param prefix prefix of the query string
+   * @return URL query string
+   */
+  public String toUrlQueryString(String prefix) {
+    String suffix = "";
+    String containerSuffix = "";
+    String containerPrefix = "";
+    if (prefix == null) {
+      // style=form, explode=true, e.g. /pet?name=cat&type=manx
+      prefix = "";
+    } else {
+      // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
+      prefix = prefix + "[";
+      suffix = "]";
+      containerSuffix = "]";
+      containerPrefix = "[";
+    }
+
+    StringJoiner joiner = new StringJoiner("&");
+
+    // add `enabled` to the URL query string
+    if (getEnabled() != null) {
+      joiner.add(String.format("%senabled%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getEnabled()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    return joiner.toString();
+  }
 }
 

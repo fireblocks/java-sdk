@@ -13,8 +13,10 @@
 
 package com.fireblocks.sdk.model;
 
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.StringJoiner;
 import java.util.Objects;
-import java.util.Arrays;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -26,8 +28,8 @@ import com.fireblocks.sdk.model.DestinationTransferPeerPathResponse;
 import com.fireblocks.sdk.model.RewardInfo;
 import com.fireblocks.sdk.model.SourceTransferPeerPathResponse;
 import java.math.BigDecimal;
+import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.fireblocks.sdk.JSON;
 
 
 /**
@@ -48,7 +50,7 @@ import com.fireblocks.sdk.JSON;
   NetworkRecord.JSON_PROPERTY_INDEX,
   NetworkRecord.JSON_PROPERTY_REWARD_INFO
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class NetworkRecord {
   public static final String JSON_PROPERTY_SOURCE = "source";
   private SourceTransferPeerPathResponse source;
@@ -101,7 +103,7 @@ public class NetworkRecord {
    * Get source
    * @return source
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_SOURCE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -126,7 +128,7 @@ public class NetworkRecord {
    * Get destination
    * @return destination
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_DESTINATION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -151,7 +153,7 @@ public class NetworkRecord {
    * Get txHash
    * @return txHash
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_TX_HASH)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -176,7 +178,7 @@ public class NetworkRecord {
    * Get networkFee
    * @return networkFee
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_NETWORK_FEE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -201,7 +203,7 @@ public class NetworkRecord {
    * Get assetId
    * @return assetId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_ASSET_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -226,7 +228,7 @@ public class NetworkRecord {
    * The net amount of the transaction, after fee deduction
    * @return netAmount
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_NET_AMOUNT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -251,7 +253,7 @@ public class NetworkRecord {
    * Get isDropped
    * @return isDropped
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_IS_DROPPED)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -276,7 +278,7 @@ public class NetworkRecord {
    * Get type
    * @return type
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -301,7 +303,7 @@ public class NetworkRecord {
    * Get destinationAddress
    * @return destinationAddress
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_DESTINATION_ADDRESS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -326,7 +328,7 @@ public class NetworkRecord {
    * Get sourceAddress
    * @return sourceAddress
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_SOURCE_ADDRESS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -351,7 +353,7 @@ public class NetworkRecord {
    * Get amountUSD
    * @return amountUSD
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_AMOUNT_U_S_D)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -376,7 +378,7 @@ public class NetworkRecord {
    * Get index
    * @return index
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_INDEX)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -401,7 +403,7 @@ public class NetworkRecord {
    * Get rewardInfo
    * @return rewardInfo
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_REWARD_INFO)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -481,5 +483,104 @@ public class NetworkRecord {
     return o.toString().replace("\n", "\n    ");
   }
 
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @return URL query string
+   */
+  public String toUrlQueryString() {
+    return toUrlQueryString(null);
+  }
+
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @param prefix prefix of the query string
+   * @return URL query string
+   */
+  public String toUrlQueryString(String prefix) {
+    String suffix = "";
+    String containerSuffix = "";
+    String containerPrefix = "";
+    if (prefix == null) {
+      // style=form, explode=true, e.g. /pet?name=cat&type=manx
+      prefix = "";
+    } else {
+      // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
+      prefix = prefix + "[";
+      suffix = "]";
+      containerSuffix = "]";
+      containerPrefix = "[";
+    }
+
+    StringJoiner joiner = new StringJoiner("&");
+
+    // add `source` to the URL query string
+    if (getSource() != null) {
+      joiner.add(getSource().toUrlQueryString(prefix + "source" + suffix));
+    }
+
+    // add `destination` to the URL query string
+    if (getDestination() != null) {
+      joiner.add(getDestination().toUrlQueryString(prefix + "destination" + suffix));
+    }
+
+    // add `txHash` to the URL query string
+    if (getTxHash() != null) {
+      joiner.add(String.format("%stxHash%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getTxHash()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `networkFee` to the URL query string
+    if (getNetworkFee() != null) {
+      joiner.add(String.format("%snetworkFee%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getNetworkFee()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `assetId` to the URL query string
+    if (getAssetId() != null) {
+      joiner.add(String.format("%sassetId%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getAssetId()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `netAmount` to the URL query string
+    if (getNetAmount() != null) {
+      joiner.add(String.format("%snetAmount%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getNetAmount()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `isDropped` to the URL query string
+    if (getIsDropped() != null) {
+      joiner.add(String.format("%sisDropped%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getIsDropped()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `type` to the URL query string
+    if (getType() != null) {
+      joiner.add(String.format("%stype%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getType()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `destinationAddress` to the URL query string
+    if (getDestinationAddress() != null) {
+      joiner.add(String.format("%sdestinationAddress%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getDestinationAddress()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `sourceAddress` to the URL query string
+    if (getSourceAddress() != null) {
+      joiner.add(String.format("%ssourceAddress%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getSourceAddress()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `amountUSD` to the URL query string
+    if (getAmountUSD() != null) {
+      joiner.add(String.format("%samountUSD%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getAmountUSD()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `index` to the URL query string
+    if (getIndex() != null) {
+      joiner.add(String.format("%sindex%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getIndex()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `rewardInfo` to the URL query string
+    if (getRewardInfo() != null) {
+      joiner.add(getRewardInfo().toUrlQueryString(prefix + "rewardInfo" + suffix));
+    }
+
+    return joiner.toString();
+  }
 }
 

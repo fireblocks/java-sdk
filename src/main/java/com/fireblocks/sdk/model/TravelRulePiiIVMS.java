@@ -13,8 +13,10 @@
 
 package com.fireblocks.sdk.model;
 
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.StringJoiner;
 import java.util.Objects;
-import java.util.Arrays;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -22,8 +24,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.fireblocks.sdk.JSON;
 
 
 /**
@@ -40,7 +42,7 @@ import com.fireblocks.sdk.JSON;
   TravelRulePiiIVMS.JSON_PROPERTY_TAX_IDENTIFICATION_NUMBER,
   TravelRulePiiIVMS.JSON_PROPERTY_CUSTOMER_NUMBER
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class TravelRulePiiIVMS {
   public static final String JSON_PROPERTY_FULL_NAME = "fullName";
   private String fullName;
@@ -81,9 +83,9 @@ public class TravelRulePiiIVMS {
    * Get fullName
    * @return fullName
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_FULL_NAME)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getFullName() {
     return fullName;
@@ -91,7 +93,7 @@ public class TravelRulePiiIVMS {
 
 
   @JsonProperty(JSON_PROPERTY_FULL_NAME)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setFullName(String fullName) {
     this.fullName = fullName;
   }
@@ -106,9 +108,9 @@ public class TravelRulePiiIVMS {
    * Get dateOfBirth
    * @return dateOfBirth
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_DATE_OF_BIRTH)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getDateOfBirth() {
     return dateOfBirth;
@@ -116,7 +118,7 @@ public class TravelRulePiiIVMS {
 
 
   @JsonProperty(JSON_PROPERTY_DATE_OF_BIRTH)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setDateOfBirth(String dateOfBirth) {
     this.dateOfBirth = dateOfBirth;
   }
@@ -131,9 +133,9 @@ public class TravelRulePiiIVMS {
    * Get placeOfBirth
    * @return placeOfBirth
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_PLACE_OF_BIRTH)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getPlaceOfBirth() {
     return placeOfBirth;
@@ -141,7 +143,7 @@ public class TravelRulePiiIVMS {
 
 
   @JsonProperty(JSON_PROPERTY_PLACE_OF_BIRTH)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setPlaceOfBirth(String placeOfBirth) {
     this.placeOfBirth = placeOfBirth;
   }
@@ -156,9 +158,9 @@ public class TravelRulePiiIVMS {
    * Get address
    * @return address
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_ADDRESS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getAddress() {
     return address;
@@ -166,7 +168,7 @@ public class TravelRulePiiIVMS {
 
 
   @JsonProperty(JSON_PROPERTY_ADDRESS)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setAddress(String address) {
     this.address = address;
   }
@@ -181,9 +183,9 @@ public class TravelRulePiiIVMS {
    * Get identificationNumber
    * @return identificationNumber
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_IDENTIFICATION_NUMBER)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getIdentificationNumber() {
     return identificationNumber;
@@ -191,7 +193,7 @@ public class TravelRulePiiIVMS {
 
 
   @JsonProperty(JSON_PROPERTY_IDENTIFICATION_NUMBER)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setIdentificationNumber(String identificationNumber) {
     this.identificationNumber = identificationNumber;
   }
@@ -206,9 +208,9 @@ public class TravelRulePiiIVMS {
    * Get nationality
    * @return nationality
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_NATIONALITY)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getNationality() {
     return nationality;
@@ -216,7 +218,7 @@ public class TravelRulePiiIVMS {
 
 
   @JsonProperty(JSON_PROPERTY_NATIONALITY)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setNationality(String nationality) {
     this.nationality = nationality;
   }
@@ -231,9 +233,9 @@ public class TravelRulePiiIVMS {
    * Get countryOfResidence
    * @return countryOfResidence
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_COUNTRY_OF_RESIDENCE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getCountryOfResidence() {
     return countryOfResidence;
@@ -241,7 +243,7 @@ public class TravelRulePiiIVMS {
 
 
   @JsonProperty(JSON_PROPERTY_COUNTRY_OF_RESIDENCE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCountryOfResidence(String countryOfResidence) {
     this.countryOfResidence = countryOfResidence;
   }
@@ -256,9 +258,9 @@ public class TravelRulePiiIVMS {
    * Get taxIdentificationNumber
    * @return taxIdentificationNumber
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_TAX_IDENTIFICATION_NUMBER)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getTaxIdentificationNumber() {
     return taxIdentificationNumber;
@@ -266,7 +268,7 @@ public class TravelRulePiiIVMS {
 
 
   @JsonProperty(JSON_PROPERTY_TAX_IDENTIFICATION_NUMBER)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setTaxIdentificationNumber(String taxIdentificationNumber) {
     this.taxIdentificationNumber = taxIdentificationNumber;
   }
@@ -281,9 +283,9 @@ public class TravelRulePiiIVMS {
    * Get customerNumber
    * @return customerNumber
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_CUSTOMER_NUMBER)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getCustomerNumber() {
     return customerNumber;
@@ -291,7 +293,7 @@ public class TravelRulePiiIVMS {
 
 
   @JsonProperty(JSON_PROPERTY_CUSTOMER_NUMBER)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setCustomerNumber(String customerNumber) {
     this.customerNumber = customerNumber;
   }
@@ -353,5 +355,84 @@ public class TravelRulePiiIVMS {
     return o.toString().replace("\n", "\n    ");
   }
 
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @return URL query string
+   */
+  public String toUrlQueryString() {
+    return toUrlQueryString(null);
+  }
+
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @param prefix prefix of the query string
+   * @return URL query string
+   */
+  public String toUrlQueryString(String prefix) {
+    String suffix = "";
+    String containerSuffix = "";
+    String containerPrefix = "";
+    if (prefix == null) {
+      // style=form, explode=true, e.g. /pet?name=cat&type=manx
+      prefix = "";
+    } else {
+      // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
+      prefix = prefix + "[";
+      suffix = "]";
+      containerSuffix = "]";
+      containerPrefix = "[";
+    }
+
+    StringJoiner joiner = new StringJoiner("&");
+
+    // add `fullName` to the URL query string
+    if (getFullName() != null) {
+      joiner.add(String.format("%sfullName%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getFullName()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `dateOfBirth` to the URL query string
+    if (getDateOfBirth() != null) {
+      joiner.add(String.format("%sdateOfBirth%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getDateOfBirth()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `placeOfBirth` to the URL query string
+    if (getPlaceOfBirth() != null) {
+      joiner.add(String.format("%splaceOfBirth%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getPlaceOfBirth()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `address` to the URL query string
+    if (getAddress() != null) {
+      joiner.add(String.format("%saddress%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getAddress()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `identificationNumber` to the URL query string
+    if (getIdentificationNumber() != null) {
+      joiner.add(String.format("%sidentificationNumber%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getIdentificationNumber()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `nationality` to the URL query string
+    if (getNationality() != null) {
+      joiner.add(String.format("%snationality%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getNationality()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `countryOfResidence` to the URL query string
+    if (getCountryOfResidence() != null) {
+      joiner.add(String.format("%scountryOfResidence%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getCountryOfResidence()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `taxIdentificationNumber` to the URL query string
+    if (getTaxIdentificationNumber() != null) {
+      joiner.add(String.format("%staxIdentificationNumber%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getTaxIdentificationNumber()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `customerNumber` to the URL query string
+    if (getCustomerNumber() != null) {
+      joiner.add(String.format("%scustomerNumber%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getCustomerNumber()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    return joiner.toString();
+  }
 }
 

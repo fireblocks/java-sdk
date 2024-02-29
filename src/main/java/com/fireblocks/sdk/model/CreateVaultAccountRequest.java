@@ -13,8 +13,10 @@
 
 package com.fireblocks.sdk.model;
 
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.StringJoiner;
 import java.util.Objects;
-import java.util.Arrays;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -22,8 +24,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.fireblocks.sdk.JSON;
 
 
 /**
@@ -35,8 +37,7 @@ import com.fireblocks.sdk.JSON;
   CreateVaultAccountRequest.JSON_PROPERTY_CUSTOMER_REF_ID,
   CreateVaultAccountRequest.JSON_PROPERTY_AUTO_FUEL
 })
-@JsonTypeName("createVaultAccount_request")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class CreateVaultAccountRequest {
   public static final String JSON_PROPERTY_NAME = "name";
   private String name;
@@ -62,7 +63,7 @@ public class CreateVaultAccountRequest {
    * Account Name
    * @return name
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -87,7 +88,7 @@ public class CreateVaultAccountRequest {
    * Optional - if true, the created account and all related transactions will not be shown on Fireblocks console
    * @return hiddenOnUI
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_HIDDEN_ON_U_I)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -112,7 +113,7 @@ public class CreateVaultAccountRequest {
    * Optional - Sets a customer reference ID
    * @return customerRefId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_CUSTOMER_REF_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -137,7 +138,7 @@ public class CreateVaultAccountRequest {
    * Optional - Sets the autoFuel property of the vault account
    * @return autoFuel
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_AUTO_FUEL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -154,7 +155,7 @@ public class CreateVaultAccountRequest {
 
 
   /**
-   * Return true if this createVaultAccount_request object is equal to o.
+   * Return true if this CreateVaultAccountRequest object is equal to o.
    */
   @Override
   public boolean equals(Object o) {
@@ -199,5 +200,59 @@ public class CreateVaultAccountRequest {
     return o.toString().replace("\n", "\n    ");
   }
 
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @return URL query string
+   */
+  public String toUrlQueryString() {
+    return toUrlQueryString(null);
+  }
+
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @param prefix prefix of the query string
+   * @return URL query string
+   */
+  public String toUrlQueryString(String prefix) {
+    String suffix = "";
+    String containerSuffix = "";
+    String containerPrefix = "";
+    if (prefix == null) {
+      // style=form, explode=true, e.g. /pet?name=cat&type=manx
+      prefix = "";
+    } else {
+      // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
+      prefix = prefix + "[";
+      suffix = "]";
+      containerSuffix = "]";
+      containerPrefix = "[";
+    }
+
+    StringJoiner joiner = new StringJoiner("&");
+
+    // add `name` to the URL query string
+    if (getName() != null) {
+      joiner.add(String.format("%sname%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getName()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `hiddenOnUI` to the URL query string
+    if (getHiddenOnUI() != null) {
+      joiner.add(String.format("%shiddenOnUI%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getHiddenOnUI()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `customerRefId` to the URL query string
+    if (getCustomerRefId() != null) {
+      joiner.add(String.format("%scustomerRefId%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getCustomerRefId()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `autoFuel` to the URL query string
+    if (getAutoFuel() != null) {
+      joiner.add(String.format("%sautoFuel%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getAutoFuel()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    return joiner.toString();
+  }
 }
 

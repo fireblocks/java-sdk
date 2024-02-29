@@ -13,8 +13,10 @@
 
 package com.fireblocks.sdk.model;
 
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.StringJoiner;
 import java.util.Objects;
-import java.util.Arrays;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -33,10 +35,11 @@ import com.fireblocks.sdk.model.TransactionRequestNetworkFee;
 import com.fireblocks.sdk.model.TransactionRequestNetworkStaking;
 import com.fireblocks.sdk.model.TransactionRequestPriorityFee;
 import com.fireblocks.sdk.model.TransferPeerPath;
+import com.fireblocks.sdk.model.TravelRuleCreateTransactionRequest;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.fireblocks.sdk.JSON;
 
 
 /**
@@ -64,11 +67,12 @@ import com.fireblocks.sdk.JSON;
   TransactionRequest.JSON_PROPERTY_REPLACE_TX_BY_HASH,
   TransactionRequest.JSON_PROPERTY_EXTRA_PARAMETERS,
   TransactionRequest.JSON_PROPERTY_CUSTOMER_REF_ID,
+  TransactionRequest.JSON_PROPERTY_TRAVEL_RULE_MESSAGE,
   TransactionRequest.JSON_PROPERTY_AUTO_STAKING,
   TransactionRequest.JSON_PROPERTY_NETWORK_STAKING,
   TransactionRequest.JSON_PROPERTY_CPU_STAKING
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class TransactionRequest {
   public static final String JSON_PROPERTY_OPERATION = "operation";
   private TransactionOperation operation = TransactionOperation.TRANSFER;
@@ -170,6 +174,9 @@ public class TransactionRequest {
   public static final String JSON_PROPERTY_CUSTOMER_REF_ID = "customerRefId";
   private String customerRefId;
 
+  public static final String JSON_PROPERTY_TRAVEL_RULE_MESSAGE = "travelRuleMessage";
+  private TravelRuleCreateTransactionRequest travelRuleMessage;
+
   public static final String JSON_PROPERTY_AUTO_STAKING = "autoStaking";
   private Boolean autoStaking;
 
@@ -191,7 +198,7 @@ public class TransactionRequest {
    * Get operation
    * @return operation
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_OPERATION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -216,7 +223,7 @@ public class TransactionRequest {
    * Custom note, not sent to the blockchain, to describe the transaction at your Fireblocks workspace.
    * @return note
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_NOTE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -241,7 +248,7 @@ public class TransactionRequest {
    * An optional but highly recommended parameter. Fireblocks will reject future transactions with same ID.  You should set this to a unique ID representing the transaction, to avoid submitting the same transaction twice. This helps with cases where submitting the transaction responds with an error code due to Internet interruptions, but the transaction was actually sent and processed. To validate whether a transaction has been processed, [Find a specific transaction by external transaction ID](https://developers.fireblocks.com/reference/get_transactions-external-tx-id-externaltxid). There is no specific format required for this parameter.
    * @return externalTxId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_EXTERNAL_TX_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -266,7 +273,7 @@ public class TransactionRequest {
    * The ID of the asset to transfer, for &#x60;TRANSFER&#x60;, &#x60;MINT&#x60; or &#x60;BURN&#x60; operations. [See the list of supported assets and their IDs on Fireblocks.](https://developers.fireblocks.com/reference/get_supported-assets)
    * @return assetId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_ASSET_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -291,7 +298,7 @@ public class TransactionRequest {
    * Get source
    * @return source
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_SOURCE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -316,7 +323,7 @@ public class TransactionRequest {
    * Get destination
    * @return destination
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_DESTINATION)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -349,7 +356,7 @@ public class TransactionRequest {
    * For UTXO based blockchains, you can send a single transaction to multiple destinations.
    * @return destinations
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_DESTINATIONS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -374,7 +381,7 @@ public class TransactionRequest {
    * Get amount
    * @return amount
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_AMOUNT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -399,7 +406,7 @@ public class TransactionRequest {
    * \&quot;When set to &#x60;true&#x60;, the fee will be deducted from the requested amount.\&quot;  **Note**: This parameter can only be considered if a transaction’s asset is a base asset, such as ETH or MATIC. If the asset can’t be used for transaction fees, like USDC, this parameter is ignored and the fee is deducted from the relevant base asset wallet in the source account.
    * @return treatAsGrossAmount
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_TREAT_AS_GROSS_AMOUNT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -424,7 +431,7 @@ public class TransactionRequest {
    * For Polkadot, Kusama and Westend transactions only. When set to true, Fireblocks will empty the asset wallet.     **Note:** If set to true when the source account is exactly 1 DOT, the transaction will fail. Any amount more or less than 1 DOT succeeds. This is a Polkadot blockchain limitation.
    * @return forceSweep
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_FORCE_SWEEP)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -449,7 +456,7 @@ public class TransactionRequest {
    * For UTXO or EVM-based blockchains only. Defines the blockchain fee level which will be payed for the transaction. Alternatively, specific fee estimation parameters exist below.
    * @return feeLevel
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_FEE_LEVEL)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -474,7 +481,7 @@ public class TransactionRequest {
    * Get fee
    * @return fee
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_FEE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -499,7 +506,7 @@ public class TransactionRequest {
    * Get priorityFee
    * @return priorityFee
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_PRIORITY_FEE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -524,7 +531,7 @@ public class TransactionRequest {
    * When set to &#x60;true&#x60;, in case the current &#x60;MEDIUM&#x60; fee level is higher than the one specified in the transaction, the transaction will fail to avoid getting stuck with no confirmations.
    * @return failOnLowFee
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_FAIL_ON_LOW_FEE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -549,7 +556,7 @@ public class TransactionRequest {
    * The maximum fee (gas price or fee per byte) that should be payed for the transaction.  In case the current value of the requested &#x60;feeLevel&#x60; is higher than this requested maximum fee.  Represented by a numeric string for accurate precision.
    * @return maxFee
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_MAX_FEE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -574,7 +581,7 @@ public class TransactionRequest {
    * Get gasLimit
    * @return gasLimit
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_GAS_LIMIT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -599,7 +606,7 @@ public class TransactionRequest {
    * Get gasPrice
    * @return gasPrice
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_GAS_PRICE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -624,7 +631,7 @@ public class TransactionRequest {
    * Get networkFee
    * @return networkFee
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_NETWORK_FEE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -649,7 +656,7 @@ public class TransactionRequest {
    * For EVM-based blockchains only. In case a transaction is stuck, specify the hash of the stuck transaction to replace it by this transaction with a higher fee, or to replace it with this transaction with a zero fee and drop it from the blockchain.
    * @return replaceTxByHash
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_REPLACE_TX_BY_HASH)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -674,7 +681,7 @@ public class TransactionRequest {
    * Additional protocol / operation specific key-value parameters:  For UTXO-based blockchain input selection, add the key &#x60;inputsSelection&#x60; with the value set the [input selection structure.](https://developers.fireblocks.com/reference/transaction-objects#inputsselection) The inputs can be retrieved from the [Retrieve Unspent Inputs endpoint.](https://developers.fireblocks.com/reference/get_vault-accounts-vaultaccountid-assetid-unspent-inputs)  For &#x60;RAW&#x60; operations, add the key &#x60;rawMessageData&#x60; with the value set to the [raw message data structure.](https://developers.fireblocks.com/reference/raw-signing-objects#rawmessagedata)  For &#x60;CONTRACT_CALL&#x60; operations, add the key &#x60;contractCallData&#x60; with the value set to the Ethereum smart contract Application Binary Interface (ABI) payload. The Fireblocks [development libraries](https://developers.fireblocks.com/docs/ethereum-development#convenience-libraries) are recommended for building contract call transactions. 
    * @return extraParameters
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_EXTRA_PARAMETERS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -699,7 +706,7 @@ public class TransactionRequest {
    * The ID for AML providers to associate the owner of funds with transactions.
    * @return customerRefId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_CUSTOMER_REF_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -715,6 +722,31 @@ public class TransactionRequest {
   }
 
 
+  public TransactionRequest travelRuleMessage(TravelRuleCreateTransactionRequest travelRuleMessage) {
+    this.travelRuleMessage = travelRuleMessage;
+    return this;
+  }
+
+   /**
+   * Get travelRuleMessage
+   * @return travelRuleMessage
+  **/
+  @jakarta.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_TRAVEL_RULE_MESSAGE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public TravelRuleCreateTransactionRequest getTravelRuleMessage() {
+    return travelRuleMessage;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_TRAVEL_RULE_MESSAGE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setTravelRuleMessage(TravelRuleCreateTransactionRequest travelRuleMessage) {
+    this.travelRuleMessage = travelRuleMessage;
+  }
+
+
   public TransactionRequest autoStaking(Boolean autoStaking) {
     this.autoStaking = autoStaking;
     return this;
@@ -726,7 +758,7 @@ public class TransactionRequest {
    * @deprecated
   **/
   @Deprecated
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_AUTO_STAKING)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -753,7 +785,7 @@ public class TransactionRequest {
    * @deprecated
   **/
   @Deprecated
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_NETWORK_STAKING)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -780,7 +812,7 @@ public class TransactionRequest {
    * @deprecated
   **/
   @Deprecated
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_CPU_STAKING)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -829,6 +861,7 @@ public class TransactionRequest {
         Objects.equals(this.replaceTxByHash, transactionRequest.replaceTxByHash) &&
         Objects.equals(this.extraParameters, transactionRequest.extraParameters) &&
         Objects.equals(this.customerRefId, transactionRequest.customerRefId) &&
+        Objects.equals(this.travelRuleMessage, transactionRequest.travelRuleMessage) &&
         Objects.equals(this.autoStaking, transactionRequest.autoStaking) &&
         Objects.equals(this.networkStaking, transactionRequest.networkStaking) &&
         Objects.equals(this.cpuStaking, transactionRequest.cpuStaking);
@@ -836,7 +869,7 @@ public class TransactionRequest {
 
   @Override
   public int hashCode() {
-    return Objects.hash(operation, note, externalTxId, assetId, source, destination, destinations, amount, treatAsGrossAmount, forceSweep, feeLevel, fee, priorityFee, failOnLowFee, maxFee, gasLimit, gasPrice, networkFee, replaceTxByHash, extraParameters, customerRefId, autoStaking, networkStaking, cpuStaking);
+    return Objects.hash(operation, note, externalTxId, assetId, source, destination, destinations, amount, treatAsGrossAmount, forceSweep, feeLevel, fee, priorityFee, failOnLowFee, maxFee, gasLimit, gasPrice, networkFee, replaceTxByHash, extraParameters, customerRefId, travelRuleMessage, autoStaking, networkStaking, cpuStaking);
   }
 
   @Override
@@ -864,6 +897,7 @@ public class TransactionRequest {
     sb.append("    replaceTxByHash: ").append(toIndentedString(replaceTxByHash)).append("\n");
     sb.append("    extraParameters: ").append(toIndentedString(extraParameters)).append("\n");
     sb.append("    customerRefId: ").append(toIndentedString(customerRefId)).append("\n");
+    sb.append("    travelRuleMessage: ").append(toIndentedString(travelRuleMessage)).append("\n");
     sb.append("    autoStaking: ").append(toIndentedString(autoStaking)).append("\n");
     sb.append("    networkStaking: ").append(toIndentedString(networkStaking)).append("\n");
     sb.append("    cpuStaking: ").append(toIndentedString(cpuStaking)).append("\n");
@@ -882,5 +916,169 @@ public class TransactionRequest {
     return o.toString().replace("\n", "\n    ");
   }
 
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @return URL query string
+   */
+  public String toUrlQueryString() {
+    return toUrlQueryString(null);
+  }
+
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @param prefix prefix of the query string
+   * @return URL query string
+   */
+  public String toUrlQueryString(String prefix) {
+    String suffix = "";
+    String containerSuffix = "";
+    String containerPrefix = "";
+    if (prefix == null) {
+      // style=form, explode=true, e.g. /pet?name=cat&type=manx
+      prefix = "";
+    } else {
+      // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
+      prefix = prefix + "[";
+      suffix = "]";
+      containerSuffix = "]";
+      containerPrefix = "[";
+    }
+
+    StringJoiner joiner = new StringJoiner("&");
+
+    // add `operation` to the URL query string
+    if (getOperation() != null) {
+      joiner.add(String.format("%soperation%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getOperation()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `note` to the URL query string
+    if (getNote() != null) {
+      joiner.add(String.format("%snote%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getNote()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `externalTxId` to the URL query string
+    if (getExternalTxId() != null) {
+      joiner.add(String.format("%sexternalTxId%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getExternalTxId()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `assetId` to the URL query string
+    if (getAssetId() != null) {
+      joiner.add(String.format("%sassetId%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getAssetId()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `source` to the URL query string
+    if (getSource() != null) {
+      joiner.add(getSource().toUrlQueryString(prefix + "source" + suffix));
+    }
+
+    // add `destination` to the URL query string
+    if (getDestination() != null) {
+      joiner.add(getDestination().toUrlQueryString(prefix + "destination" + suffix));
+    }
+
+    // add `destinations` to the URL query string
+    if (getDestinations() != null) {
+      for (int i = 0; i < getDestinations().size(); i++) {
+        if (getDestinations().get(i) != null) {
+          joiner.add(getDestinations().get(i).toUrlQueryString(String.format("%sdestinations%s%s", prefix, suffix,
+          "".equals(suffix) ? "" : String.format("%s%d%s", containerPrefix, i, containerSuffix))));
+        }
+      }
+    }
+
+    // add `amount` to the URL query string
+    if (getAmount() != null) {
+      joiner.add(getAmount().toUrlQueryString(prefix + "amount" + suffix));
+    }
+
+    // add `treatAsGrossAmount` to the URL query string
+    if (getTreatAsGrossAmount() != null) {
+      joiner.add(String.format("%streatAsGrossAmount%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getTreatAsGrossAmount()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `forceSweep` to the URL query string
+    if (getForceSweep() != null) {
+      joiner.add(String.format("%sforceSweep%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getForceSweep()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `feeLevel` to the URL query string
+    if (getFeeLevel() != null) {
+      joiner.add(String.format("%sfeeLevel%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getFeeLevel()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `fee` to the URL query string
+    if (getFee() != null) {
+      joiner.add(getFee().toUrlQueryString(prefix + "fee" + suffix));
+    }
+
+    // add `priorityFee` to the URL query string
+    if (getPriorityFee() != null) {
+      joiner.add(getPriorityFee().toUrlQueryString(prefix + "priorityFee" + suffix));
+    }
+
+    // add `failOnLowFee` to the URL query string
+    if (getFailOnLowFee() != null) {
+      joiner.add(String.format("%sfailOnLowFee%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getFailOnLowFee()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `maxFee` to the URL query string
+    if (getMaxFee() != null) {
+      joiner.add(String.format("%smaxFee%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getMaxFee()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `gasLimit` to the URL query string
+    if (getGasLimit() != null) {
+      joiner.add(getGasLimit().toUrlQueryString(prefix + "gasLimit" + suffix));
+    }
+
+    // add `gasPrice` to the URL query string
+    if (getGasPrice() != null) {
+      joiner.add(getGasPrice().toUrlQueryString(prefix + "gasPrice" + suffix));
+    }
+
+    // add `networkFee` to the URL query string
+    if (getNetworkFee() != null) {
+      joiner.add(getNetworkFee().toUrlQueryString(prefix + "networkFee" + suffix));
+    }
+
+    // add `replaceTxByHash` to the URL query string
+    if (getReplaceTxByHash() != null) {
+      joiner.add(String.format("%sreplaceTxByHash%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getReplaceTxByHash()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `extraParameters` to the URL query string
+    if (getExtraParameters() != null) {
+      joiner.add(String.format("%sextraParameters%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getExtraParameters()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `customerRefId` to the URL query string
+    if (getCustomerRefId() != null) {
+      joiner.add(String.format("%scustomerRefId%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getCustomerRefId()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `travelRuleMessage` to the URL query string
+    if (getTravelRuleMessage() != null) {
+      joiner.add(getTravelRuleMessage().toUrlQueryString(prefix + "travelRuleMessage" + suffix));
+    }
+
+    // add `autoStaking` to the URL query string
+    if (getAutoStaking() != null) {
+      joiner.add(String.format("%sautoStaking%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getAutoStaking()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `networkStaking` to the URL query string
+    if (getNetworkStaking() != null) {
+      joiner.add(getNetworkStaking().toUrlQueryString(prefix + "networkStaking" + suffix));
+    }
+
+    // add `cpuStaking` to the URL query string
+    if (getCpuStaking() != null) {
+      joiner.add(getCpuStaking().toUrlQueryString(prefix + "cpuStaking" + suffix));
+    }
+
+    return joiner.toString();
+  }
 }
 

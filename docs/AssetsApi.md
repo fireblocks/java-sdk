@@ -1,0 +1,159 @@
+# AssetsApi
+
+All URIs are relative to *https://api.fireblocks.io/v1*
+
+| Method | HTTP request | Description |
+|------------- | ------------- | -------------|
+| [**createAssetsBulk**](AssetsApi.md#createAssetsBulk) | **POST** /vault/assets/bulk | Bulk creation of wallets |
+| [**createAssetsBulkWithHttpInfo**](AssetsApi.md#createAssetsBulkWithHttpInfo) | **POST** /vault/assets/bulk | Bulk creation of wallets |
+
+
+
+## createAssetsBulk
+
+> CompletableFuture<JobCreated> createAssetsBulk(createAssetsBulkRequest, idempotencyKey)
+
+Bulk creation of wallets
+
+Create multiple wallets for a given vault account by running an async job. &lt;/br&gt; **Note**: - These endpoints are currently in beta and might be subject to changes. - We limit accounts to 10k per operation and 200k per customer during beta testing. - Currently, we are only supporting EVM wallets. 
+
+### Example
+
+```java
+// Import classes:
+import com.fireblocks.sdk.ApiClient;
+import com.fireblocks.sdk.ApiException;
+import com.fireblocks.sdk.Configuration;
+import com.fireblocks.sdk.models.*;
+import com.fireblocks.sdk.api.AssetsApi;
+import java.util.concurrent.CompletableFuture;
+
+public class Example {
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("https://api.fireblocks.io/v1");
+
+        AssetsApi apiInstance = new AssetsApi(defaultClient);
+        CreateAssetsBulkRequest createAssetsBulkRequest = new CreateAssetsBulkRequest(); // CreateAssetsBulkRequest | 
+        String idempotencyKey = "idempotencyKey_example"; // String | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+        try {
+            CompletableFuture<JobCreated> result = apiInstance.createAssetsBulk(createAssetsBulkRequest, idempotencyKey);
+            System.out.println(result.get());
+        } catch (ApiException e) {
+            System.err.println("Exception when calling AssetsApi#createAssetsBulk");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Reason: " + e.getResponseBody());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **createAssetsBulkRequest** | [**CreateAssetsBulkRequest**](CreateAssetsBulkRequest.md)|  | |
+| **idempotencyKey** | **String**| A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | [optional] |
+
+### Return type
+
+CompletableFuture<[**JobCreated**](JobCreated.md)>
+
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | A JobCreated object |  * X-Request-ID -  <br>  |
+| **0** | Error Response |  * X-Request-ID -  <br>  |
+
+## createAssetsBulkWithHttpInfo
+
+> CompletableFuture<ApiResponse<JobCreated>> createAssetsBulk createAssetsBulkWithHttpInfo(createAssetsBulkRequest, idempotencyKey)
+
+Bulk creation of wallets
+
+Create multiple wallets for a given vault account by running an async job. &lt;/br&gt; **Note**: - These endpoints are currently in beta and might be subject to changes. - We limit accounts to 10k per operation and 200k per customer during beta testing. - Currently, we are only supporting EVM wallets. 
+
+### Example
+
+```java
+// Import classes:
+import com.fireblocks.sdk.ApiClient;
+import com.fireblocks.sdk.ApiException;
+import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.Configuration;
+import com.fireblocks.sdk.models.*;
+import com.fireblocks.sdk.api.AssetsApi;
+import java.util.concurrent.CompletableFuture;
+
+public class Example {
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+        defaultClient.setBasePath("https://api.fireblocks.io/v1");
+
+        AssetsApi apiInstance = new AssetsApi(defaultClient);
+        CreateAssetsBulkRequest createAssetsBulkRequest = new CreateAssetsBulkRequest(); // CreateAssetsBulkRequest | 
+        String idempotencyKey = "idempotencyKey_example"; // String | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+        try {
+            CompletableFuture<ApiResponse<JobCreated>> response = apiInstance.createAssetsBulkWithHttpInfo(createAssetsBulkRequest, idempotencyKey);
+            System.out.println("Status code: " + response.get().getStatusCode());
+            System.out.println("Response headers: " + response.get().getHeaders());
+            System.out.println("Response body: " + response.get().getData());
+        } catch (InterruptedException | ExecutionException e) {
+            ApiException apiException = (ApiException)e.getCause();
+            System.err.println("Exception when calling AssetsApi#createAssetsBulk");
+            System.err.println("Status code: " + apiException.getCode());
+            System.err.println("Response headers: " + apiException.getResponseHeaders());
+            System.err.println("Reason: " + apiException.getResponseBody());
+            e.printStackTrace();
+        } catch (ApiException e) {
+            System.err.println("Exception when calling AssetsApi#createAssetsBulk");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            System.err.println("Reason: " + e.getResponseBody());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **createAssetsBulkRequest** | [**CreateAssetsBulkRequest**](CreateAssetsBulkRequest.md)|  | |
+| **idempotencyKey** | **String**| A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | [optional] |
+
+### Return type
+
+CompletableFuture<ApiResponse<[**JobCreated**](JobCreated.md)>>
+
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | A JobCreated object |  * X-Request-ID -  <br>  |
+| **0** | Error Response |  * X-Request-ID -  <br>  |
+

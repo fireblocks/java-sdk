@@ -13,8 +13,10 @@
 
 package com.fireblocks.sdk.model;
 
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.StringJoiner;
 import java.util.Objects;
-import java.util.Arrays;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -23,8 +25,8 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.fireblocks.sdk.model.TravelRuleIssuers;
+import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.fireblocks.sdk.JSON;
 
 
 /**
@@ -78,7 +80,7 @@ import com.fireblocks.sdk.JSON;
   TravelRuleVASP.JSON_PROPERTY_IS_NOTIFIABLE,
   TravelRuleVASP.JSON_PROPERTY_ISSUERS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class TravelRuleVASP {
   public static final String JSON_PROPERTY_DID = "did";
   private String did;
@@ -230,7 +232,7 @@ public class TravelRuleVASP {
    * Get did
    * @return did
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_DID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
@@ -255,7 +257,7 @@ public class TravelRuleVASP {
    * Get name
    * @return name
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_NAME)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
@@ -280,7 +282,7 @@ public class TravelRuleVASP {
    * Get verificationStatus
    * @return verificationStatus
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_VERIFICATION_STATUS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
@@ -305,7 +307,7 @@ public class TravelRuleVASP {
    * Get addressLine1
    * @return addressLine1
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_ADDRESS_LINE1)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
@@ -330,7 +332,7 @@ public class TravelRuleVASP {
    * Get addressLine2
    * @return addressLine2
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_ADDRESS_LINE2)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
@@ -355,7 +357,7 @@ public class TravelRuleVASP {
    * Get city
    * @return city
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_CITY)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
@@ -380,7 +382,7 @@ public class TravelRuleVASP {
    * Get country
    * @return country
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_COUNTRY)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
@@ -405,7 +407,7 @@ public class TravelRuleVASP {
    * Get emailDomains
    * @return emailDomains
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_EMAIL_DOMAINS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
@@ -430,7 +432,7 @@ public class TravelRuleVASP {
    * Get website
    * @return website
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_WEBSITE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
@@ -455,7 +457,7 @@ public class TravelRuleVASP {
    * Get logo
    * @return logo
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_LOGO)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
@@ -480,7 +482,7 @@ public class TravelRuleVASP {
    * Get legalStructure
    * @return legalStructure
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_LEGAL_STRUCTURE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
@@ -505,7 +507,7 @@ public class TravelRuleVASP {
    * Get legalName
    * @return legalName
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_LEGAL_NAME)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
@@ -530,7 +532,7 @@ public class TravelRuleVASP {
    * Get yearFounded
    * @return yearFounded
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_YEAR_FOUNDED)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
@@ -555,7 +557,7 @@ public class TravelRuleVASP {
    * Get incorporationCountry
    * @return incorporationCountry
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_INCORPORATION_COUNTRY)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
@@ -580,7 +582,7 @@ public class TravelRuleVASP {
    * Get isRegulated
    * @return isRegulated
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_IS_REGULATED)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
@@ -605,7 +607,7 @@ public class TravelRuleVASP {
    * Get otherNames
    * @return otherNames
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_OTHER_NAMES)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
@@ -630,7 +632,7 @@ public class TravelRuleVASP {
    * Get identificationType
    * @return identificationType
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_IDENTIFICATION_TYPE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
@@ -655,7 +657,7 @@ public class TravelRuleVASP {
    * Get identificationCountry
    * @return identificationCountry
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_IDENTIFICATION_COUNTRY)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
@@ -680,7 +682,7 @@ public class TravelRuleVASP {
    * Get businessNumber
    * @return businessNumber
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_BUSINESS_NUMBER)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
@@ -705,7 +707,7 @@ public class TravelRuleVASP {
    * Get regulatoryAuthorities
    * @return regulatoryAuthorities
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_REGULATORY_AUTHORITIES)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
@@ -730,7 +732,7 @@ public class TravelRuleVASP {
    * Get jurisdictions
    * @return jurisdictions
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_JURISDICTIONS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
@@ -755,7 +757,7 @@ public class TravelRuleVASP {
    * Get street
    * @return street
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_STREET)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
@@ -780,7 +782,7 @@ public class TravelRuleVASP {
    * Get number
    * @return number
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_NUMBER)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
@@ -805,7 +807,7 @@ public class TravelRuleVASP {
    * Get unit
    * @return unit
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_UNIT)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
@@ -830,7 +832,7 @@ public class TravelRuleVASP {
    * Get postCode
    * @return postCode
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_POST_CODE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
@@ -855,7 +857,7 @@ public class TravelRuleVASP {
    * Get state
    * @return state
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_STATE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
@@ -880,7 +882,7 @@ public class TravelRuleVASP {
    * Get certificates
    * @return certificates
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_CERTIFICATES)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
@@ -905,7 +907,7 @@ public class TravelRuleVASP {
    * Get description
    * @return description
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_DESCRIPTION)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
@@ -930,7 +932,7 @@ public class TravelRuleVASP {
    * Get travelRuleOPENVASP
    * @return travelRuleOPENVASP
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_TRAVEL_RULE_O_P_E_N_V_A_S_P)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
@@ -955,7 +957,7 @@ public class TravelRuleVASP {
    * Get travelRuleSYGNA
    * @return travelRuleSYGNA
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_TRAVEL_RULE_S_Y_G_N_A)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
@@ -980,7 +982,7 @@ public class TravelRuleVASP {
    * Get travelRuleTRISA
    * @return travelRuleTRISA
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_TRAVEL_RULE_T_R_I_S_A)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
@@ -1005,7 +1007,7 @@ public class TravelRuleVASP {
    * Get travelRuleTRLIGHT
    * @return travelRuleTRLIGHT
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_TRAVEL_RULE_T_R_L_I_G_H_T)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
@@ -1030,7 +1032,7 @@ public class TravelRuleVASP {
    * Get travelRuleEMAIL
    * @return travelRuleEMAIL
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_TRAVEL_RULE_E_M_A_I_L)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
@@ -1055,7 +1057,7 @@ public class TravelRuleVASP {
    * Get travelRuleTRP
    * @return travelRuleTRP
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_TRAVEL_RULE_T_R_P)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
@@ -1080,7 +1082,7 @@ public class TravelRuleVASP {
    * Get travelRuleSHYFT
    * @return travelRuleSHYFT
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_TRAVEL_RULE_S_H_Y_F_T)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
@@ -1105,7 +1107,7 @@ public class TravelRuleVASP {
    * Get travelRuleUSTRAVELRULEWG
    * @return travelRuleUSTRAVELRULEWG
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_TRAVEL_RULE_U_S_T_R_A_V_E_L_R_U_L_E_W_G)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
@@ -1130,7 +1132,7 @@ public class TravelRuleVASP {
    * Get createdAt
    * @return createdAt
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_CREATED_AT)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
@@ -1155,7 +1157,7 @@ public class TravelRuleVASP {
    * Get createdBy
    * @return createdBy
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_CREATED_BY)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
@@ -1180,7 +1182,7 @@ public class TravelRuleVASP {
    * Get updatedAt
    * @return updatedAt
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_UPDATED_AT)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
@@ -1205,7 +1207,7 @@ public class TravelRuleVASP {
    * Get updatedBy
    * @return updatedBy
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_UPDATED_BY)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
@@ -1230,7 +1232,7 @@ public class TravelRuleVASP {
    * Get lastSentDate
    * @return lastSentDate
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_LAST_SENT_DATE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
@@ -1255,7 +1257,7 @@ public class TravelRuleVASP {
    * Get lastReceivedDate
    * @return lastReceivedDate
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_LAST_RECEIVED_DATE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
@@ -1280,7 +1282,7 @@ public class TravelRuleVASP {
    * Get documents
    * @return documents
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_DOCUMENTS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
@@ -1305,7 +1307,7 @@ public class TravelRuleVASP {
    * Get hasAdmin
    * @return hasAdmin
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_HAS_ADMIN)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
@@ -1330,7 +1332,7 @@ public class TravelRuleVASP {
    * Get isNotifiable
    * @return isNotifiable
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_IS_NOTIFIABLE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
@@ -1355,7 +1357,7 @@ public class TravelRuleVASP {
    * Get issuers
    * @return issuers
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_ISSUERS)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
@@ -1501,5 +1503,269 @@ public class TravelRuleVASP {
     return o.toString().replace("\n", "\n    ");
   }
 
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @return URL query string
+   */
+  public String toUrlQueryString() {
+    return toUrlQueryString(null);
+  }
+
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @param prefix prefix of the query string
+   * @return URL query string
+   */
+  public String toUrlQueryString(String prefix) {
+    String suffix = "";
+    String containerSuffix = "";
+    String containerPrefix = "";
+    if (prefix == null) {
+      // style=form, explode=true, e.g. /pet?name=cat&type=manx
+      prefix = "";
+    } else {
+      // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
+      prefix = prefix + "[";
+      suffix = "]";
+      containerSuffix = "]";
+      containerPrefix = "[";
+    }
+
+    StringJoiner joiner = new StringJoiner("&");
+
+    // add `did` to the URL query string
+    if (getDid() != null) {
+      joiner.add(String.format("%sdid%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getDid()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `name` to the URL query string
+    if (getName() != null) {
+      joiner.add(String.format("%sname%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getName()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `verificationStatus` to the URL query string
+    if (getVerificationStatus() != null) {
+      joiner.add(String.format("%sverificationStatus%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getVerificationStatus()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `addressLine1` to the URL query string
+    if (getAddressLine1() != null) {
+      joiner.add(String.format("%saddressLine1%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getAddressLine1()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `addressLine2` to the URL query string
+    if (getAddressLine2() != null) {
+      joiner.add(String.format("%saddressLine2%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getAddressLine2()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `city` to the URL query string
+    if (getCity() != null) {
+      joiner.add(String.format("%scity%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getCity()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `country` to the URL query string
+    if (getCountry() != null) {
+      joiner.add(String.format("%scountry%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getCountry()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `emailDomains` to the URL query string
+    if (getEmailDomains() != null) {
+      joiner.add(String.format("%semailDomains%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getEmailDomains()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `website` to the URL query string
+    if (getWebsite() != null) {
+      joiner.add(String.format("%swebsite%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getWebsite()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `logo` to the URL query string
+    if (getLogo() != null) {
+      joiner.add(String.format("%slogo%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getLogo()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `legalStructure` to the URL query string
+    if (getLegalStructure() != null) {
+      joiner.add(String.format("%slegalStructure%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getLegalStructure()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `legalName` to the URL query string
+    if (getLegalName() != null) {
+      joiner.add(String.format("%slegalName%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getLegalName()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `yearFounded` to the URL query string
+    if (getYearFounded() != null) {
+      joiner.add(String.format("%syearFounded%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getYearFounded()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `incorporationCountry` to the URL query string
+    if (getIncorporationCountry() != null) {
+      joiner.add(String.format("%sincorporationCountry%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getIncorporationCountry()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `isRegulated` to the URL query string
+    if (getIsRegulated() != null) {
+      joiner.add(String.format("%sisRegulated%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getIsRegulated()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `otherNames` to the URL query string
+    if (getOtherNames() != null) {
+      joiner.add(String.format("%sotherNames%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getOtherNames()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `identificationType` to the URL query string
+    if (getIdentificationType() != null) {
+      joiner.add(String.format("%sidentificationType%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getIdentificationType()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `identificationCountry` to the URL query string
+    if (getIdentificationCountry() != null) {
+      joiner.add(String.format("%sidentificationCountry%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getIdentificationCountry()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `businessNumber` to the URL query string
+    if (getBusinessNumber() != null) {
+      joiner.add(String.format("%sbusinessNumber%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getBusinessNumber()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `regulatoryAuthorities` to the URL query string
+    if (getRegulatoryAuthorities() != null) {
+      joiner.add(String.format("%sregulatoryAuthorities%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getRegulatoryAuthorities()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `jurisdictions` to the URL query string
+    if (getJurisdictions() != null) {
+      joiner.add(String.format("%sjurisdictions%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getJurisdictions()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `street` to the URL query string
+    if (getStreet() != null) {
+      joiner.add(String.format("%sstreet%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getStreet()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `number` to the URL query string
+    if (getNumber() != null) {
+      joiner.add(String.format("%snumber%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getNumber()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `unit` to the URL query string
+    if (getUnit() != null) {
+      joiner.add(String.format("%sunit%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getUnit()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `postCode` to the URL query string
+    if (getPostCode() != null) {
+      joiner.add(String.format("%spostCode%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getPostCode()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `state` to the URL query string
+    if (getState() != null) {
+      joiner.add(String.format("%sstate%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getState()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `certificates` to the URL query string
+    if (getCertificates() != null) {
+      joiner.add(String.format("%scertificates%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getCertificates()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `description` to the URL query string
+    if (getDescription() != null) {
+      joiner.add(String.format("%sdescription%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getDescription()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `travelRule_OPENVASP` to the URL query string
+    if (getTravelRuleOPENVASP() != null) {
+      joiner.add(String.format("%stravelRule_OPENVASP%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getTravelRuleOPENVASP()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `travelRule_SYGNA` to the URL query string
+    if (getTravelRuleSYGNA() != null) {
+      joiner.add(String.format("%stravelRule_SYGNA%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getTravelRuleSYGNA()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `travelRule_TRISA` to the URL query string
+    if (getTravelRuleTRISA() != null) {
+      joiner.add(String.format("%stravelRule_TRISA%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getTravelRuleTRISA()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `travelRule_TRLIGHT` to the URL query string
+    if (getTravelRuleTRLIGHT() != null) {
+      joiner.add(String.format("%stravelRule_TRLIGHT%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getTravelRuleTRLIGHT()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `travelRule_EMAIL` to the URL query string
+    if (getTravelRuleEMAIL() != null) {
+      joiner.add(String.format("%stravelRule_EMAIL%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getTravelRuleEMAIL()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `travelRule_TRP` to the URL query string
+    if (getTravelRuleTRP() != null) {
+      joiner.add(String.format("%stravelRule_TRP%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getTravelRuleTRP()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `travelRule_SHYFT` to the URL query string
+    if (getTravelRuleSHYFT() != null) {
+      joiner.add(String.format("%stravelRule_SHYFT%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getTravelRuleSHYFT()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `travelRule_USTRAVELRULEWG` to the URL query string
+    if (getTravelRuleUSTRAVELRULEWG() != null) {
+      joiner.add(String.format("%stravelRule_USTRAVELRULEWG%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getTravelRuleUSTRAVELRULEWG()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `createdAt` to the URL query string
+    if (getCreatedAt() != null) {
+      joiner.add(String.format("%screatedAt%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getCreatedAt()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `createdBy` to the URL query string
+    if (getCreatedBy() != null) {
+      joiner.add(String.format("%screatedBy%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getCreatedBy()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `updatedAt` to the URL query string
+    if (getUpdatedAt() != null) {
+      joiner.add(String.format("%supdatedAt%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getUpdatedAt()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `updatedBy` to the URL query string
+    if (getUpdatedBy() != null) {
+      joiner.add(String.format("%supdatedBy%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getUpdatedBy()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `lastSentDate` to the URL query string
+    if (getLastSentDate() != null) {
+      joiner.add(String.format("%slastSentDate%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getLastSentDate()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `lastReceivedDate` to the URL query string
+    if (getLastReceivedDate() != null) {
+      joiner.add(String.format("%slastReceivedDate%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getLastReceivedDate()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `documents` to the URL query string
+    if (getDocuments() != null) {
+      joiner.add(String.format("%sdocuments%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getDocuments()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `hasAdmin` to the URL query string
+    if (getHasAdmin() != null) {
+      joiner.add(String.format("%shasAdmin%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getHasAdmin()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `isNotifiable` to the URL query string
+    if (getIsNotifiable() != null) {
+      joiner.add(String.format("%sisNotifiable%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getIsNotifiable()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `issuers` to the URL query string
+    if (getIssuers() != null) {
+      joiner.add(getIssuers().toUrlQueryString(prefix + "issuers" + suffix));
+    }
+
+    return joiner.toString();
+  }
 }
 

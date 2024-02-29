@@ -13,8 +13,10 @@
 
 package com.fireblocks.sdk.model;
 
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.StringJoiner;
 import java.util.Objects;
-import java.util.Arrays;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -24,8 +26,8 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.fireblocks.sdk.model.PolicyResponse;
 import com.fireblocks.sdk.model.PolicyValidation;
+import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.fireblocks.sdk.JSON;
 
 
 /**
@@ -35,7 +37,7 @@ import com.fireblocks.sdk.JSON;
   PolicyAndValidationResponse.JSON_PROPERTY_POLICY,
   PolicyAndValidationResponse.JSON_PROPERTY_VALIDATION
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class PolicyAndValidationResponse {
   public static final String JSON_PROPERTY_POLICY = "policy";
   private PolicyResponse policy;
@@ -55,7 +57,7 @@ public class PolicyAndValidationResponse {
    * Get policy
    * @return policy
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_POLICY)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
@@ -80,7 +82,7 @@ public class PolicyAndValidationResponse {
    * Get validation
    * @return validation
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_VALIDATION)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
@@ -138,5 +140,49 @@ public class PolicyAndValidationResponse {
     return o.toString().replace("\n", "\n    ");
   }
 
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @return URL query string
+   */
+  public String toUrlQueryString() {
+    return toUrlQueryString(null);
+  }
+
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @param prefix prefix of the query string
+   * @return URL query string
+   */
+  public String toUrlQueryString(String prefix) {
+    String suffix = "";
+    String containerSuffix = "";
+    String containerPrefix = "";
+    if (prefix == null) {
+      // style=form, explode=true, e.g. /pet?name=cat&type=manx
+      prefix = "";
+    } else {
+      // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
+      prefix = prefix + "[";
+      suffix = "]";
+      containerSuffix = "]";
+      containerPrefix = "[";
+    }
+
+    StringJoiner joiner = new StringJoiner("&");
+
+    // add `policy` to the URL query string
+    if (getPolicy() != null) {
+      joiner.add(getPolicy().toUrlQueryString(prefix + "policy" + suffix));
+    }
+
+    // add `validation` to the URL query string
+    if (getValidation() != null) {
+      joiner.add(getValidation().toUrlQueryString(prefix + "validation" + suffix));
+    }
+
+    return joiner.toString();
+  }
 }
 
