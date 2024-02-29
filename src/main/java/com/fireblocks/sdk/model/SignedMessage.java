@@ -13,8 +13,10 @@
 
 package com.fireblocks.sdk.model;
 
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.StringJoiner;
 import java.util.Objects;
-import java.util.Arrays;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -25,9 +27,9 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import com.fireblocks.sdk.model.SignedMessageSignature;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.fireblocks.sdk.JSON;
 
 
 /**
@@ -40,7 +42,7 @@ import com.fireblocks.sdk.JSON;
   SignedMessage.JSON_PROPERTY_SIGNATURE,
   SignedMessage.JSON_PROPERTY_PUBLIC_KEY
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class SignedMessage {
   public static final String JSON_PROPERTY_CONTENT = "content";
   private String content;
@@ -104,7 +106,7 @@ public class SignedMessage {
    * Get content
    * @return content
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_CONTENT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -129,7 +131,7 @@ public class SignedMessage {
    * Get algorithm
    * @return algorithm
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_ALGORITHM)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -162,7 +164,7 @@ public class SignedMessage {
    * Get derivationPath
    * @return derivationPath
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_DERIVATION_PATH)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -187,7 +189,7 @@ public class SignedMessage {
    * Get signature
    * @return signature
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_SIGNATURE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -212,7 +214,7 @@ public class SignedMessage {
    * Get publicKey
    * @return publicKey
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_PUBLIC_KEY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -276,5 +278,70 @@ public class SignedMessage {
     return o.toString().replace("\n", "\n    ");
   }
 
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @return URL query string
+   */
+  public String toUrlQueryString() {
+    return toUrlQueryString(null);
+  }
+
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @param prefix prefix of the query string
+   * @return URL query string
+   */
+  public String toUrlQueryString(String prefix) {
+    String suffix = "";
+    String containerSuffix = "";
+    String containerPrefix = "";
+    if (prefix == null) {
+      // style=form, explode=true, e.g. /pet?name=cat&type=manx
+      prefix = "";
+    } else {
+      // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
+      prefix = prefix + "[";
+      suffix = "]";
+      containerSuffix = "]";
+      containerPrefix = "[";
+    }
+
+    StringJoiner joiner = new StringJoiner("&");
+
+    // add `content` to the URL query string
+    if (getContent() != null) {
+      joiner.add(String.format("%scontent%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getContent()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `algorithm` to the URL query string
+    if (getAlgorithm() != null) {
+      joiner.add(String.format("%salgorithm%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getAlgorithm()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `derivationPath` to the URL query string
+    if (getDerivationPath() != null) {
+      for (int i = 0; i < getDerivationPath().size(); i++) {
+        if (getDerivationPath().get(i) != null) {
+          joiner.add(String.format("%sderivationPath%s%s=%s", prefix, suffix,
+              "".equals(suffix) ? "" : String.format("%s%d%s", containerPrefix, i, containerSuffix),
+              URLEncoder.encode(String.valueOf(getDerivationPath().get(i)), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+        }
+      }
+    }
+
+    // add `signature` to the URL query string
+    if (getSignature() != null) {
+      joiner.add(getSignature().toUrlQueryString(prefix + "signature" + suffix));
+    }
+
+    // add `publicKey` to the URL query string
+    if (getPublicKey() != null) {
+      joiner.add(String.format("%spublicKey%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getPublicKey()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    return joiner.toString();
+  }
 }
 

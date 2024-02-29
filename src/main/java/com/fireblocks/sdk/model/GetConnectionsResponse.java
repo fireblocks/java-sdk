@@ -13,8 +13,10 @@
 
 package com.fireblocks.sdk.model;
 
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.StringJoiner;
 import java.util.Objects;
-import java.util.Arrays;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -25,9 +27,9 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import com.fireblocks.sdk.model.Paging;
 import com.fireblocks.sdk.model.SessionDTO;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.fireblocks.sdk.JSON;
 
 
 /**
@@ -37,7 +39,7 @@ import com.fireblocks.sdk.JSON;
   GetConnectionsResponse.JSON_PROPERTY_DATA,
   GetConnectionsResponse.JSON_PROPERTY_PAGING
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class GetConnectionsResponse {
   public static final String JSON_PROPERTY_DATA = "data";
   private List<SessionDTO> data = new ArrayList<>();
@@ -65,7 +67,7 @@ public class GetConnectionsResponse {
    * Array with the requested Web3 connection&#39;s data
    * @return data
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_DATA)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
@@ -90,7 +92,7 @@ public class GetConnectionsResponse {
    * Get paging
    * @return paging
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_PAGING)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -148,5 +150,54 @@ public class GetConnectionsResponse {
     return o.toString().replace("\n", "\n    ");
   }
 
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @return URL query string
+   */
+  public String toUrlQueryString() {
+    return toUrlQueryString(null);
+  }
+
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @param prefix prefix of the query string
+   * @return URL query string
+   */
+  public String toUrlQueryString(String prefix) {
+    String suffix = "";
+    String containerSuffix = "";
+    String containerPrefix = "";
+    if (prefix == null) {
+      // style=form, explode=true, e.g. /pet?name=cat&type=manx
+      prefix = "";
+    } else {
+      // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
+      prefix = prefix + "[";
+      suffix = "]";
+      containerSuffix = "]";
+      containerPrefix = "[";
+    }
+
+    StringJoiner joiner = new StringJoiner("&");
+
+    // add `data` to the URL query string
+    if (getData() != null) {
+      for (int i = 0; i < getData().size(); i++) {
+        if (getData().get(i) != null) {
+          joiner.add(getData().get(i).toUrlQueryString(String.format("%sdata%s%s", prefix, suffix,
+          "".equals(suffix) ? "" : String.format("%s%d%s", containerPrefix, i, containerSuffix))));
+        }
+      }
+    }
+
+    // add `paging` to the URL query string
+    if (getPaging() != null) {
+      joiner.add(getPaging().toUrlQueryString(prefix + "paging" + suffix));
+    }
+
+    return joiner.toString();
+  }
 }
 

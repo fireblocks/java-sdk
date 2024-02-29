@@ -22,11 +22,11 @@ import com.fireblocks.sdk.model.ExchangeAsset;
 import com.fireblocks.sdk.model.ExchangeTradingAccount;
 import com.fireblocks.sdk.model.ExchangeType;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
-
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.Test;
+import org.junit.Assert;
+import org.junit.Ignore;
+import org.junit.Test;
 
 /**
  * Model tests for ExchangeAccount
@@ -80,6 +80,14 @@ public class ExchangeAccountTest {
     @Test
     public void assetsTest() {
         // TODO: test assets
+    }
+
+    /**
+     * Test the property 'success'
+     */
+    @Test
+    public void successTest() {
+        // TODO: test success
     }
 
     /**

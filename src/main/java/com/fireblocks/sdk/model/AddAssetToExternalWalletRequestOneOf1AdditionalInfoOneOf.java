@@ -13,8 +13,10 @@
 
 package com.fireblocks.sdk.model;
 
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.StringJoiner;
 import java.util.Objects;
-import java.util.Arrays;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -22,8 +24,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.fireblocks.sdk.JSON;
 
 
 /**
@@ -42,8 +44,7 @@ import com.fireblocks.sdk.JSON;
   AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf.JSON_PROPERTY_IBAN_CITY,
   AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf.JSON_PROPERTY_IBAN_COUNTRY
 })
-@JsonTypeName("addAssetToExternalWallet_request_oneOf_1_additionalInfo_oneOf")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf {
   public static final String JSON_PROPERTY_ACCOUNT_HOLDER_GIVEN_NAME = "accountHolderGivenName";
   private String accountHolderGivenName;
@@ -90,7 +91,7 @@ public class AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf {
    * Get accountHolderGivenName
    * @return accountHolderGivenName
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_ACCOUNT_HOLDER_GIVEN_NAME)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
@@ -115,7 +116,7 @@ public class AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf {
    * Get accountHolderSurname
    * @return accountHolderSurname
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_ACCOUNT_HOLDER_SURNAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -140,7 +141,7 @@ public class AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf {
    * Get accountHolderCity
    * @return accountHolderCity
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_ACCOUNT_HOLDER_CITY)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
@@ -165,7 +166,7 @@ public class AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf {
    * Get accountHolderCountry
    * @return accountHolderCountry
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_ACCOUNT_HOLDER_COUNTRY)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
@@ -190,7 +191,7 @@ public class AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf {
    * Get accountHolderAddress1
    * @return accountHolderAddress1
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_ACCOUNT_HOLDER_ADDRESS1)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
@@ -215,7 +216,7 @@ public class AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf {
    * Get accountHolderAddress2
    * @return accountHolderAddress2
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_ACCOUNT_HOLDER_ADDRESS2)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -240,7 +241,7 @@ public class AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf {
    * Get accountHolderDistrict
    * @return accountHolderDistrict
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_ACCOUNT_HOLDER_DISTRICT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -265,7 +266,7 @@ public class AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf {
    * Get accountHolderPostalCode
    * @return accountHolderPostalCode
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_ACCOUNT_HOLDER_POSTAL_CODE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
@@ -290,7 +291,7 @@ public class AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf {
    * Get iban
    * @return iban
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_IBAN)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
@@ -315,7 +316,7 @@ public class AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf {
    * Get ibanCity
    * @return ibanCity
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_IBAN_CITY)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
@@ -340,7 +341,7 @@ public class AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf {
    * Get ibanCountry
    * @return ibanCountry
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_IBAN_COUNTRY)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
@@ -357,7 +358,7 @@ public class AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf {
 
 
   /**
-   * Return true if this addAssetToExternalWallet_request_oneOf_1_additionalInfo_oneOf object is equal to o.
+   * Return true if this AddAssetToExternalWalletRequest_oneOf_1_additionalInfo_oneOf object is equal to o.
    */
   @Override
   public boolean equals(Object o) {
@@ -416,5 +417,94 @@ public class AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf {
     return o.toString().replace("\n", "\n    ");
   }
 
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @return URL query string
+   */
+  public String toUrlQueryString() {
+    return toUrlQueryString(null);
+  }
+
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @param prefix prefix of the query string
+   * @return URL query string
+   */
+  public String toUrlQueryString(String prefix) {
+    String suffix = "";
+    String containerSuffix = "";
+    String containerPrefix = "";
+    if (prefix == null) {
+      // style=form, explode=true, e.g. /pet?name=cat&type=manx
+      prefix = "";
+    } else {
+      // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
+      prefix = prefix + "[";
+      suffix = "]";
+      containerSuffix = "]";
+      containerPrefix = "[";
+    }
+
+    StringJoiner joiner = new StringJoiner("&");
+
+    // add `accountHolderGivenName` to the URL query string
+    if (getAccountHolderGivenName() != null) {
+      joiner.add(String.format("%saccountHolderGivenName%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getAccountHolderGivenName()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `accountHolderSurname` to the URL query string
+    if (getAccountHolderSurname() != null) {
+      joiner.add(String.format("%saccountHolderSurname%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getAccountHolderSurname()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `accountHolderCity` to the URL query string
+    if (getAccountHolderCity() != null) {
+      joiner.add(String.format("%saccountHolderCity%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getAccountHolderCity()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `accountHolderCountry` to the URL query string
+    if (getAccountHolderCountry() != null) {
+      joiner.add(String.format("%saccountHolderCountry%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getAccountHolderCountry()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `accountHolderAddress1` to the URL query string
+    if (getAccountHolderAddress1() != null) {
+      joiner.add(String.format("%saccountHolderAddress1%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getAccountHolderAddress1()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `accountHolderAddress2` to the URL query string
+    if (getAccountHolderAddress2() != null) {
+      joiner.add(String.format("%saccountHolderAddress2%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getAccountHolderAddress2()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `accountHolderDistrict` to the URL query string
+    if (getAccountHolderDistrict() != null) {
+      joiner.add(String.format("%saccountHolderDistrict%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getAccountHolderDistrict()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `accountHolderPostalCode` to the URL query string
+    if (getAccountHolderPostalCode() != null) {
+      joiner.add(String.format("%saccountHolderPostalCode%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getAccountHolderPostalCode()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `iban` to the URL query string
+    if (getIban() != null) {
+      joiner.add(String.format("%siban%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getIban()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `ibanCity` to the URL query string
+    if (getIbanCity() != null) {
+      joiner.add(String.format("%sibanCity%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getIbanCity()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `ibanCountry` to the URL query string
+    if (getIbanCountry() != null) {
+      joiner.add(String.format("%sibanCountry%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getIbanCountry()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    return joiner.toString();
+  }
 }
 

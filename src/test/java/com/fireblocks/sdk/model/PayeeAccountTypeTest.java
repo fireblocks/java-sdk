@@ -13,10 +13,9 @@
 
 package com.fireblocks.sdk.model;
 
-
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.Test;
+import org.junit.Assert;
+import org.junit.Ignore;
+import org.junit.Test;
 
 /**
  * Model tests for PayeeAccountType

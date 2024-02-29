@@ -13,8 +13,10 @@
 
 package com.fireblocks.sdk.model;
 
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.StringJoiner;
 import java.util.Objects;
-import java.util.Arrays;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -22,11 +24,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.fireblocks.sdk.model.PolicyRuleSrcIdsInnerInner;
+import com.fireblocks.sdk.model.SrcOrDestAttributesInner;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.fireblocks.sdk.JSON;
 
 
 /**
@@ -35,21 +37,20 @@ import com.fireblocks.sdk.JSON;
 @JsonPropertyOrder({
   PolicyRuleSrc.JSON_PROPERTY_IDS
 })
-@JsonTypeName("PolicyRule_src")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class PolicyRuleSrc {
   public static final String JSON_PROPERTY_IDS = "ids";
-  private List<List<PolicyRuleSrcIdsInnerInner>> ids;
+  private List<List<SrcOrDestAttributesInner>> ids;
 
   public PolicyRuleSrc() { 
   }
 
-  public PolicyRuleSrc ids(List<List<PolicyRuleSrcIdsInnerInner>> ids) {
+  public PolicyRuleSrc ids(List<List<SrcOrDestAttributesInner>> ids) {
     this.ids = ids;
     return this;
   }
 
-  public PolicyRuleSrc addIdsItem(List<PolicyRuleSrcIdsInnerInner> idsItem) {
+  public PolicyRuleSrc addIdsItem(List<SrcOrDestAttributesInner> idsItem) {
     if (this.ids == null) {
       this.ids = new ArrayList<>();
     }
@@ -58,21 +59,21 @@ public class PolicyRuleSrc {
   }
 
    /**
-   * A set of ids
+   * A set of ids in a tuple format
    * @return ids
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_IDS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public List<List<PolicyRuleSrcIdsInnerInner>> getIds() {
+  public List<List<SrcOrDestAttributesInner>> getIds() {
     return ids;
   }
 
 
   @JsonProperty(JSON_PROPERTY_IDS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setIds(List<List<PolicyRuleSrcIdsInnerInner>> ids) {
+  public void setIds(List<List<SrcOrDestAttributesInner>> ids) {
     this.ids = ids;
   }
 
@@ -117,5 +118,50 @@ public class PolicyRuleSrc {
     return o.toString().replace("\n", "\n    ");
   }
 
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @return URL query string
+   */
+  public String toUrlQueryString() {
+    return toUrlQueryString(null);
+  }
+
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @param prefix prefix of the query string
+   * @return URL query string
+   */
+  public String toUrlQueryString(String prefix) {
+    String suffix = "";
+    String containerSuffix = "";
+    String containerPrefix = "";
+    if (prefix == null) {
+      // style=form, explode=true, e.g. /pet?name=cat&type=manx
+      prefix = "";
+    } else {
+      // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
+      prefix = prefix + "[";
+      suffix = "]";
+      containerSuffix = "]";
+      containerPrefix = "[";
+    }
+
+    StringJoiner joiner = new StringJoiner("&");
+
+    // add `ids` to the URL query string
+    if (getIds() != null) {
+      for (int i = 0; i < getIds().size(); i++) {
+        if (getIds().get(i) != null) {
+          joiner.add(String.format("%sids%s%s=%s", prefix, suffix,
+              "".equals(suffix) ? "" : String.format("%s%d%s", containerPrefix, i, containerSuffix),
+              URLEncoder.encode(String.valueOf(getIds().get(i)), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+        }
+      }
+    }
+
+    return joiner.toString();
+  }
 }
 

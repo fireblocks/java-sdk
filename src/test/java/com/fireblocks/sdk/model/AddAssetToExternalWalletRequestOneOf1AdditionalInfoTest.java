@@ -21,10 +21,10 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import com.fireblocks.sdk.model.AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf;
 import com.fireblocks.sdk.model.AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf1;
 import com.fireblocks.sdk.model.AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf2;
-
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.Test;
+import java.util.Arrays;
+import org.junit.Assert;
+import org.junit.Ignore;
+import org.junit.Test;
 
 /**
  * Model tests for AddAssetToExternalWalletRequestOneOf1AdditionalInfo

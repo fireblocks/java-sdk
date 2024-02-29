@@ -13,8 +13,10 @@
 
 package com.fireblocks.sdk.model;
 
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.StringJoiner;
 import java.util.Objects;
-import java.util.Arrays;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -23,8 +25,8 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.math.BigDecimal;
+import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.fireblocks.sdk.JSON;
 
 
 /**
@@ -36,7 +38,7 @@ import com.fireblocks.sdk.JSON;
   PolicyRuleError.JSON_PROPERTY_ERROR_CODE_NAME,
   PolicyRuleError.JSON_PROPERTY_ERROR_FIELD
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class PolicyRuleError {
   public static final String JSON_PROPERTY_ERROR_MESSAGE = "errorMessage";
   private String errorMessage;
@@ -111,7 +113,7 @@ public class PolicyRuleError {
    * Error message
    * @return errorMessage
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_ERROR_MESSAGE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
@@ -136,7 +138,7 @@ public class PolicyRuleError {
    * error code
    * @return errorCode
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_ERROR_CODE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
@@ -161,7 +163,7 @@ public class PolicyRuleError {
    * error code name
    * @return errorCodeName
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_ERROR_CODE_NAME)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
@@ -186,7 +188,7 @@ public class PolicyRuleError {
    * The field which the error relates to * operator - transaction initiator * operators - transaction initiators * authorizationGroups - transaction authorizer groups * designatedSigner - transaction signer * designatedSigners - transaction signers * contractMethods - contract methods * amountAggregation - transaction amount aggregation configuration * src - transaction source asset configuration * dst - transaction destination asset configuration 
    * @return errorField
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_ERROR_FIELD)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
@@ -248,5 +250,59 @@ public class PolicyRuleError {
     return o.toString().replace("\n", "\n    ");
   }
 
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @return URL query string
+   */
+  public String toUrlQueryString() {
+    return toUrlQueryString(null);
+  }
+
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @param prefix prefix of the query string
+   * @return URL query string
+   */
+  public String toUrlQueryString(String prefix) {
+    String suffix = "";
+    String containerSuffix = "";
+    String containerPrefix = "";
+    if (prefix == null) {
+      // style=form, explode=true, e.g. /pet?name=cat&type=manx
+      prefix = "";
+    } else {
+      // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
+      prefix = prefix + "[";
+      suffix = "]";
+      containerSuffix = "]";
+      containerPrefix = "[";
+    }
+
+    StringJoiner joiner = new StringJoiner("&");
+
+    // add `errorMessage` to the URL query string
+    if (getErrorMessage() != null) {
+      joiner.add(String.format("%serrorMessage%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getErrorMessage()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `errorCode` to the URL query string
+    if (getErrorCode() != null) {
+      joiner.add(String.format("%serrorCode%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getErrorCode()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `errorCodeName` to the URL query string
+    if (getErrorCodeName() != null) {
+      joiner.add(String.format("%serrorCodeName%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getErrorCodeName()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `errorField` to the URL query string
+    if (getErrorField() != null) {
+      joiner.add(String.format("%serrorField%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getErrorField()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    return joiner.toString();
+  }
 }
 

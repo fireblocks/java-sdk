@@ -13,8 +13,10 @@
 
 package com.fireblocks.sdk.model;
 
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.StringJoiner;
 import java.util.Objects;
-import java.util.Arrays;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -25,8 +27,8 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import com.fireblocks.sdk.model.NetworkIdRoutingPolicyCrypto;
 import com.fireblocks.sdk.model.NetworkIdRoutingPolicySen;
 import com.fireblocks.sdk.model.NetworkIdRoutingPolicySenTest;
+import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.fireblocks.sdk.JSON;
 
 
 /**
@@ -39,7 +41,7 @@ import com.fireblocks.sdk.JSON;
   NetworkIdRoutingPolicy.JSON_PROPERTY_SEN_TEST,
   NetworkIdRoutingPolicy.JSON_PROPERTY_SIGNET_TEST
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class NetworkIdRoutingPolicy {
   public static final String JSON_PROPERTY_CRYPTO = "crypto";
   private NetworkIdRoutingPolicyCrypto crypto;
@@ -68,7 +70,7 @@ public class NetworkIdRoutingPolicy {
    * Get crypto
    * @return crypto
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_CRYPTO)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -93,7 +95,7 @@ public class NetworkIdRoutingPolicy {
    * Get sen
    * @return sen
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_SEN)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -118,7 +120,7 @@ public class NetworkIdRoutingPolicy {
    * Get signet
    * @return signet
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_SIGNET)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -143,7 +145,7 @@ public class NetworkIdRoutingPolicy {
    * Get senTest
    * @return senTest
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_SEN_TEST)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -168,7 +170,7 @@ public class NetworkIdRoutingPolicy {
    * Get signetTest
    * @return signetTest
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_SIGNET_TEST)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -232,5 +234,64 @@ public class NetworkIdRoutingPolicy {
     return o.toString().replace("\n", "\n    ");
   }
 
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @return URL query string
+   */
+  public String toUrlQueryString() {
+    return toUrlQueryString(null);
+  }
+
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @param prefix prefix of the query string
+   * @return URL query string
+   */
+  public String toUrlQueryString(String prefix) {
+    String suffix = "";
+    String containerSuffix = "";
+    String containerPrefix = "";
+    if (prefix == null) {
+      // style=form, explode=true, e.g. /pet?name=cat&type=manx
+      prefix = "";
+    } else {
+      // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
+      prefix = prefix + "[";
+      suffix = "]";
+      containerSuffix = "]";
+      containerPrefix = "[";
+    }
+
+    StringJoiner joiner = new StringJoiner("&");
+
+    // add `crypto` to the URL query string
+    if (getCrypto() != null) {
+      joiner.add(getCrypto().toUrlQueryString(prefix + "crypto" + suffix));
+    }
+
+    // add `sen` to the URL query string
+    if (getSen() != null) {
+      joiner.add(getSen().toUrlQueryString(prefix + "sen" + suffix));
+    }
+
+    // add `signet` to the URL query string
+    if (getSignet() != null) {
+      joiner.add(getSignet().toUrlQueryString(prefix + "signet" + suffix));
+    }
+
+    // add `sen_test` to the URL query string
+    if (getSenTest() != null) {
+      joiner.add(getSenTest().toUrlQueryString(prefix + "sen_test" + suffix));
+    }
+
+    // add `signet_test` to the URL query string
+    if (getSignetTest() != null) {
+      joiner.add(getSignetTest().toUrlQueryString(prefix + "signet_test" + suffix));
+    }
+
+    return joiner.toString();
+  }
 }
 

@@ -7,9 +7,9 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**txHash** | **String** |  |  |
-|**origin** | **String** |  |  |
-|**destination** | **String** |  |  |
+|**txHash** | **String** |  |  [optional] |
+|**origin** | **String** |  |  [optional] |
+|**destination** | **String** |  |  [optional] |
 
 
 

@@ -13,8 +13,10 @@
 
 package com.fireblocks.sdk.model;
 
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.StringJoiner;
 import java.util.Objects;
-import java.util.Arrays;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -23,8 +25,8 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.fireblocks.sdk.model.AddAssetToExternalWalletRequestOneOf1AdditionalInfo;
+import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.fireblocks.sdk.JSON;
 
 
 /**
@@ -33,8 +35,7 @@ import com.fireblocks.sdk.JSON;
 @JsonPropertyOrder({
   AddAssetToExternalWalletRequestOneOf1.JSON_PROPERTY_ADDITIONAL_INFO
 })
-@JsonTypeName("addAssetToExternalWallet_request_oneOf_1")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class AddAssetToExternalWalletRequestOneOf1 {
   public static final String JSON_PROPERTY_ADDITIONAL_INFO = "additionalInfo";
   private AddAssetToExternalWalletRequestOneOf1AdditionalInfo additionalInfo;
@@ -51,7 +52,7 @@ public class AddAssetToExternalWalletRequestOneOf1 {
    * Get additionalInfo
    * @return additionalInfo
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_ADDITIONAL_INFO)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
@@ -68,7 +69,7 @@ public class AddAssetToExternalWalletRequestOneOf1 {
 
 
   /**
-   * Return true if this addAssetToExternalWallet_request_oneOf_1 object is equal to o.
+   * Return true if this AddAssetToExternalWalletRequest_oneOf_1 object is equal to o.
    */
   @Override
   public boolean equals(Object o) {
@@ -107,5 +108,44 @@ public class AddAssetToExternalWalletRequestOneOf1 {
     return o.toString().replace("\n", "\n    ");
   }
 
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @return URL query string
+   */
+  public String toUrlQueryString() {
+    return toUrlQueryString(null);
+  }
+
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @param prefix prefix of the query string
+   * @return URL query string
+   */
+  public String toUrlQueryString(String prefix) {
+    String suffix = "";
+    String containerSuffix = "";
+    String containerPrefix = "";
+    if (prefix == null) {
+      // style=form, explode=true, e.g. /pet?name=cat&type=manx
+      prefix = "";
+    } else {
+      // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
+      prefix = prefix + "[";
+      suffix = "]";
+      containerSuffix = "]";
+      containerPrefix = "[";
+    }
+
+    StringJoiner joiner = new StringJoiner("&");
+
+    // add `additionalInfo` to the URL query string
+    if (getAdditionalInfo() != null) {
+      joiner.add(getAdditionalInfo().toUrlQueryString(prefix + "additionalInfo" + suffix));
+    }
+
+    return joiner.toString();
+  }
 }
 

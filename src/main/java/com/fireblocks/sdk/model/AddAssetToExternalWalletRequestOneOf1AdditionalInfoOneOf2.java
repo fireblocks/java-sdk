@@ -13,8 +13,10 @@
 
 package com.fireblocks.sdk.model;
 
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.StringJoiner;
 import java.util.Objects;
-import java.util.Arrays;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -22,8 +24,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.fireblocks.sdk.JSON;
 
 
 /**
@@ -33,8 +35,7 @@ import com.fireblocks.sdk.JSON;
   AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf2.JSON_PROPERTY_SPEI_CLABE,
   AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf2.JSON_PROPERTY_SPEI_NAME
 })
-@JsonTypeName("addAssetToExternalWallet_request_oneOf_1_additionalInfo_oneOf_2")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf2 {
   public static final String JSON_PROPERTY_SPEI_CLABE = "speiClabe";
   private String speiClabe;
@@ -54,7 +55,7 @@ public class AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf2 {
    * Get speiClabe
    * @return speiClabe
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_SPEI_CLABE)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
@@ -79,7 +80,7 @@ public class AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf2 {
    * Get speiName
    * @return speiName
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_SPEI_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -96,7 +97,7 @@ public class AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf2 {
 
 
   /**
-   * Return true if this addAssetToExternalWallet_request_oneOf_1_additionalInfo_oneOf_2 object is equal to o.
+   * Return true if this AddAssetToExternalWalletRequest_oneOf_1_additionalInfo_oneOf_2 object is equal to o.
    */
   @Override
   public boolean equals(Object o) {
@@ -137,5 +138,49 @@ public class AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf2 {
     return o.toString().replace("\n", "\n    ");
   }
 
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @return URL query string
+   */
+  public String toUrlQueryString() {
+    return toUrlQueryString(null);
+  }
+
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @param prefix prefix of the query string
+   * @return URL query string
+   */
+  public String toUrlQueryString(String prefix) {
+    String suffix = "";
+    String containerSuffix = "";
+    String containerPrefix = "";
+    if (prefix == null) {
+      // style=form, explode=true, e.g. /pet?name=cat&type=manx
+      prefix = "";
+    } else {
+      // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
+      prefix = prefix + "[";
+      suffix = "]";
+      containerSuffix = "]";
+      containerPrefix = "[";
+    }
+
+    StringJoiner joiner = new StringJoiner("&");
+
+    // add `speiClabe` to the URL query string
+    if (getSpeiClabe() != null) {
+      joiner.add(String.format("%sspeiClabe%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getSpeiClabe()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `speiName` to the URL query string
+    if (getSpeiName() != null) {
+      joiner.add(String.format("%sspeiName%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getSpeiName()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    return joiner.toString();
+  }
 }
 

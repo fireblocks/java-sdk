@@ -13,19 +13,18 @@
 
 package com.fireblocks.sdk.model;
 
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.StringJoiner;
 import java.util.Objects;
-import java.util.Arrays;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import java.math.BigDecimal;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.fireblocks.sdk.JSON;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 
-import javax.ws.rs.core.GenericType;
-import javax.ws.rs.core.Response;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -37,7 +36,6 @@ import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.JsonToken;
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -49,7 +47,7 @@ import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 import com.fireblocks.sdk.JSON;
 
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 @JsonDeserialize(using = TransactionRequestAmount.TransactionRequestAmountDeserializer.class)
 @JsonSerialize(using = TransactionRequestAmount.TransactionRequestAmountSerializer.class)
 public class TransactionRequestAmount extends AbstractOpenApiSchema {
@@ -156,7 +154,7 @@ public class TransactionRequestAmount extends AbstractOpenApiSchema {
     }
 
     // store a list of schema names defined in oneOf
-    public static final Map<String, GenericType> schemas = new HashMap<>();
+    public static final Map<String, Class<?>> schemas = new HashMap<>();
 
     public TransactionRequestAmount() {
         super("oneOf", Boolean.FALSE);
@@ -173,15 +171,13 @@ public class TransactionRequestAmount extends AbstractOpenApiSchema {
     }
 
     static {
-        schemas.put("BigDecimal", new GenericType<BigDecimal>() {
-        });
-        schemas.put("String", new GenericType<String>() {
-        });
+        schemas.put("BigDecimal", BigDecimal.class);
+        schemas.put("String", String.class);
         JSON.registerDescendants(TransactionRequestAmount.class, Collections.unmodifiableMap(schemas));
     }
 
     @Override
-    public Map<String, GenericType> getSchemas() {
+    public Map<String, Class<?>> getSchemas() {
         return TransactionRequestAmount.schemas;
     }
 
@@ -195,12 +191,12 @@ public class TransactionRequestAmount extends AbstractOpenApiSchema {
      */
     @Override
     public void setActualInstance(Object instance) {
-        if (JSON.isInstanceOf(BigDecimal.class, instance, new HashSet<>())) {
+        if (JSON.isInstanceOf(BigDecimal.class, instance, new HashSet<Class<?>>())) {
             super.setActualInstance(instance);
             return;
         }
 
-        if (JSON.isInstanceOf(String.class, instance, new HashSet<>())) {
+        if (JSON.isInstanceOf(String.class, instance, new HashSet<Class<?>>())) {
             super.setActualInstance(instance);
             return;
         }
@@ -240,6 +236,55 @@ public class TransactionRequestAmount extends AbstractOpenApiSchema {
     public String getString() throws ClassCastException {
         return (String)super.getActualInstance();
     }
+
+
+
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @return URL query string
+   */
+  public String toUrlQueryString() {
+    return toUrlQueryString(null);
+  }
+
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @param prefix prefix of the query string
+   * @return URL query string
+   */
+  public String toUrlQueryString(String prefix) {
+    String suffix = "";
+    String containerSuffix = "";
+    String containerPrefix = "";
+    if (prefix == null) {
+      // style=form, explode=true, e.g. /pet?name=cat&type=manx
+      prefix = "";
+    } else {
+      // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
+      prefix = prefix + "[";
+      suffix = "]";
+      containerSuffix = "]";
+      containerPrefix = "[";
+    }
+
+    StringJoiner joiner = new StringJoiner("&");
+
+    if (getActualInstance() instanceof String) {
+        if (getActualInstance() != null) {
+          joiner.add(String.format("%sone_of_0%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getActualInstance()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+        }
+        return joiner.toString();
+    }
+    if (getActualInstance() instanceof BigDecimal) {
+        if (getActualInstance() != null) {
+          joiner.add(String.format("%sone_of_1%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getActualInstance()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+        }
+        return joiner.toString();
+    }
+    return null;
+  }
 
 }
 

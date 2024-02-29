@@ -13,8 +13,10 @@
 
 package com.fireblocks.sdk.model;
 
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.StringJoiner;
 import java.util.Objects;
-import java.util.Arrays;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -22,8 +24,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.fireblocks.sdk.JSON;
 
 
 /**
@@ -31,31 +33,15 @@ import com.fireblocks.sdk.JSON;
  */
 @JsonPropertyOrder({
   TravelRuleOwnershipProof.JSON_PROPERTY_TYPE,
-  TravelRuleOwnershipProof.JSON_PROPERTY_ID,
-  TravelRuleOwnershipProof.JSON_PROPERTY_NAME,
-  TravelRuleOwnershipProof.JSON_PROPERTY_COUNTRY,
-  TravelRuleOwnershipProof.JSON_PROPERTY_ISSUE_DATE,
-  TravelRuleOwnershipProof.JSON_PROPERTY_ISSUER
+  TravelRuleOwnershipProof.JSON_PROPERTY_PROOF
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class TravelRuleOwnershipProof {
   public static final String JSON_PROPERTY_TYPE = "type";
   private String type;
 
-  public static final String JSON_PROPERTY_ID = "id";
-  private String id;
-
-  public static final String JSON_PROPERTY_NAME = "name";
-  private String name;
-
-  public static final String JSON_PROPERTY_COUNTRY = "country";
-  private String country;
-
-  public static final String JSON_PROPERTY_ISSUE_DATE = "issueDate";
-  private String issueDate;
-
-  public static final String JSON_PROPERTY_ISSUER = "issuer";
-  private String issuer;
+  public static final String JSON_PROPERTY_PROOF = "proof";
+  private String proof;
 
   public TravelRuleOwnershipProof() { 
   }
@@ -69,9 +55,9 @@ public class TravelRuleOwnershipProof {
    * Type of ownership proof
    * @return type
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_TYPE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getType() {
     return type;
@@ -79,134 +65,34 @@ public class TravelRuleOwnershipProof {
 
 
   @JsonProperty(JSON_PROPERTY_TYPE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setType(String type) {
     this.type = type;
   }
 
 
-  public TravelRuleOwnershipProof id(String id) {
-    this.id = id;
+  public TravelRuleOwnershipProof proof(String proof) {
+    this.proof = proof;
     return this;
   }
 
    /**
    * Identification number
-   * @return id
+   * @return proof
   **/
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_ID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @jakarta.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_PROOF)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public String getId() {
-    return id;
+  public String getProof() {
+    return proof;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_ID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setId(String id) {
-    this.id = id;
-  }
-
-
-  public TravelRuleOwnershipProof name(String name) {
-    this.name = name;
-    return this;
-  }
-
-   /**
-   * Name of owner
-   * @return name
-  **/
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_NAME)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public String getName() {
-    return name;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_NAME)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setName(String name) {
-    this.name = name;
-  }
-
-
-  public TravelRuleOwnershipProof country(String country) {
-    this.country = country;
-    return this;
-  }
-
-   /**
-   * Country of issuance
-   * @return country
-  **/
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_COUNTRY)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public String getCountry() {
-    return country;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_COUNTRY)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setCountry(String country) {
-    this.country = country;
-  }
-
-
-  public TravelRuleOwnershipProof issueDate(String issueDate) {
-    this.issueDate = issueDate;
-    return this;
-  }
-
-   /**
-   * Date of issuance
-   * @return issueDate
-  **/
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_ISSUE_DATE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public String getIssueDate() {
-    return issueDate;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_ISSUE_DATE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setIssueDate(String issueDate) {
-    this.issueDate = issueDate;
-  }
-
-
-  public TravelRuleOwnershipProof issuer(String issuer) {
-    this.issuer = issuer;
-    return this;
-  }
-
-   /**
-   * Name of issuing entity
-   * @return issuer
-  **/
-  @javax.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_ISSUER)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public String getIssuer() {
-    return issuer;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_ISSUER)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setIssuer(String issuer) {
-    this.issuer = issuer;
+  @JsonProperty(JSON_PROPERTY_PROOF)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setProof(String proof) {
+    this.proof = proof;
   }
 
 
@@ -223,16 +109,12 @@ public class TravelRuleOwnershipProof {
     }
     TravelRuleOwnershipProof travelRuleOwnershipProof = (TravelRuleOwnershipProof) o;
     return Objects.equals(this.type, travelRuleOwnershipProof.type) &&
-        Objects.equals(this.id, travelRuleOwnershipProof.id) &&
-        Objects.equals(this.name, travelRuleOwnershipProof.name) &&
-        Objects.equals(this.country, travelRuleOwnershipProof.country) &&
-        Objects.equals(this.issueDate, travelRuleOwnershipProof.issueDate) &&
-        Objects.equals(this.issuer, travelRuleOwnershipProof.issuer);
+        Objects.equals(this.proof, travelRuleOwnershipProof.proof);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(type, id, name, country, issueDate, issuer);
+    return Objects.hash(type, proof);
   }
 
   @Override
@@ -240,11 +122,7 @@ public class TravelRuleOwnershipProof {
     StringBuilder sb = new StringBuilder();
     sb.append("class TravelRuleOwnershipProof {\n");
     sb.append("    type: ").append(toIndentedString(type)).append("\n");
-    sb.append("    id: ").append(toIndentedString(id)).append("\n");
-    sb.append("    name: ").append(toIndentedString(name)).append("\n");
-    sb.append("    country: ").append(toIndentedString(country)).append("\n");
-    sb.append("    issueDate: ").append(toIndentedString(issueDate)).append("\n");
-    sb.append("    issuer: ").append(toIndentedString(issuer)).append("\n");
+    sb.append("    proof: ").append(toIndentedString(proof)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -260,5 +138,49 @@ public class TravelRuleOwnershipProof {
     return o.toString().replace("\n", "\n    ");
   }
 
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @return URL query string
+   */
+  public String toUrlQueryString() {
+    return toUrlQueryString(null);
+  }
+
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @param prefix prefix of the query string
+   * @return URL query string
+   */
+  public String toUrlQueryString(String prefix) {
+    String suffix = "";
+    String containerSuffix = "";
+    String containerPrefix = "";
+    if (prefix == null) {
+      // style=form, explode=true, e.g. /pet?name=cat&type=manx
+      prefix = "";
+    } else {
+      // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
+      prefix = prefix + "[";
+      suffix = "]";
+      containerSuffix = "]";
+      containerPrefix = "[";
+    }
+
+    StringJoiner joiner = new StringJoiner("&");
+
+    // add `type` to the URL query string
+    if (getType() != null) {
+      joiner.add(String.format("%stype%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getType()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `proof` to the URL query string
+    if (getProof() != null) {
+      joiner.add(String.format("%sproof%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getProof()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    return joiner.toString();
+  }
 }
 

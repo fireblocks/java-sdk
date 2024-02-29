@@ -13,8 +13,10 @@
 
 package com.fireblocks.sdk.model;
 
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.StringJoiner;
 import java.util.Objects;
-import java.util.Arrays;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -26,9 +28,9 @@ import com.fireblocks.sdk.model.ExchangeAsset;
 import com.fireblocks.sdk.model.ExchangeTradingAccount;
 import com.fireblocks.sdk.model.ExchangeType;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.fireblocks.sdk.JSON;
 
 
 /**
@@ -40,11 +42,12 @@ import com.fireblocks.sdk.JSON;
   ExchangeAccount.JSON_PROPERTY_NAME,
   ExchangeAccount.JSON_PROPERTY_STATUS,
   ExchangeAccount.JSON_PROPERTY_ASSETS,
+  ExchangeAccount.JSON_PROPERTY_SUCCESS,
   ExchangeAccount.JSON_PROPERTY_TRADING_ACCOUNTS,
   ExchangeAccount.JSON_PROPERTY_IS_SUBACCOUNT,
   ExchangeAccount.JSON_PROPERTY_MAIN_ACCOUNT_ID
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class ExchangeAccount {
   public static final String JSON_PROPERTY_ID = "id";
   private String id;
@@ -60,6 +63,9 @@ public class ExchangeAccount {
 
   public static final String JSON_PROPERTY_ASSETS = "assets";
   private List<ExchangeAsset> assets;
+
+  public static final String JSON_PROPERTY_SUCCESS = "success";
+  private Boolean success;
 
   public static final String JSON_PROPERTY_TRADING_ACCOUNTS = "tradingAccounts";
   private List<ExchangeTradingAccount> tradingAccounts;
@@ -82,7 +88,7 @@ public class ExchangeAccount {
    * Get id
    * @return id
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -107,7 +113,7 @@ public class ExchangeAccount {
    * Get type
    * @return type
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_TYPE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -132,7 +138,7 @@ public class ExchangeAccount {
    * Display name of the exchange account
    * @return name
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_NAME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -157,7 +163,7 @@ public class ExchangeAccount {
    * Get status
    * @return status
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_STATUS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -190,7 +196,7 @@ public class ExchangeAccount {
    * Get assets
    * @return assets
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_ASSETS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -203,6 +209,31 @@ public class ExchangeAccount {
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setAssets(List<ExchangeAsset> assets) {
     this.assets = assets;
+  }
+
+
+  public ExchangeAccount success(Boolean success) {
+    this.success = success;
+    return this;
+  }
+
+   /**
+   * Did succeed in retrieve balance data
+   * @return success
+  **/
+  @jakarta.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_SUCCESS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getSuccess() {
+    return success;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_SUCCESS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setSuccess(Boolean success) {
+    this.success = success;
   }
 
 
@@ -223,7 +254,7 @@ public class ExchangeAccount {
    * Get tradingAccounts
    * @return tradingAccounts
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_TRADING_ACCOUNTS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -248,7 +279,7 @@ public class ExchangeAccount {
    * True if the account is a subaccount in an exchange
    * @return isSubaccount
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_IS_SUBACCOUNT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -273,7 +304,7 @@ public class ExchangeAccount {
    * if the account is a sub-account, the ID of the main account
    * @return mainAccountId
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_MAIN_ACCOUNT_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -306,6 +337,7 @@ public class ExchangeAccount {
         Objects.equals(this.name, exchangeAccount.name) &&
         Objects.equals(this.status, exchangeAccount.status) &&
         Objects.equals(this.assets, exchangeAccount.assets) &&
+        Objects.equals(this.success, exchangeAccount.success) &&
         Objects.equals(this.tradingAccounts, exchangeAccount.tradingAccounts) &&
         Objects.equals(this.isSubaccount, exchangeAccount.isSubaccount) &&
         Objects.equals(this.mainAccountId, exchangeAccount.mainAccountId);
@@ -313,7 +345,7 @@ public class ExchangeAccount {
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, type, name, status, assets, tradingAccounts, isSubaccount, mainAccountId);
+    return Objects.hash(id, type, name, status, assets, success, tradingAccounts, isSubaccount, mainAccountId);
   }
 
   @Override
@@ -325,6 +357,7 @@ public class ExchangeAccount {
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    status: ").append(toIndentedString(status)).append("\n");
     sb.append("    assets: ").append(toIndentedString(assets)).append("\n");
+    sb.append("    success: ").append(toIndentedString(success)).append("\n");
     sb.append("    tradingAccounts: ").append(toIndentedString(tradingAccounts)).append("\n");
     sb.append("    isSubaccount: ").append(toIndentedString(isSubaccount)).append("\n");
     sb.append("    mainAccountId: ").append(toIndentedString(mainAccountId)).append("\n");
@@ -343,5 +376,94 @@ public class ExchangeAccount {
     return o.toString().replace("\n", "\n    ");
   }
 
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @return URL query string
+   */
+  public String toUrlQueryString() {
+    return toUrlQueryString(null);
+  }
+
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @param prefix prefix of the query string
+   * @return URL query string
+   */
+  public String toUrlQueryString(String prefix) {
+    String suffix = "";
+    String containerSuffix = "";
+    String containerPrefix = "";
+    if (prefix == null) {
+      // style=form, explode=true, e.g. /pet?name=cat&type=manx
+      prefix = "";
+    } else {
+      // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
+      prefix = prefix + "[";
+      suffix = "]";
+      containerSuffix = "]";
+      containerPrefix = "[";
+    }
+
+    StringJoiner joiner = new StringJoiner("&");
+
+    // add `id` to the URL query string
+    if (getId() != null) {
+      joiner.add(String.format("%sid%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getId()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `type` to the URL query string
+    if (getType() != null) {
+      joiner.add(String.format("%stype%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getType()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `name` to the URL query string
+    if (getName() != null) {
+      joiner.add(String.format("%sname%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getName()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `status` to the URL query string
+    if (getStatus() != null) {
+      joiner.add(String.format("%sstatus%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getStatus()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `assets` to the URL query string
+    if (getAssets() != null) {
+      for (int i = 0; i < getAssets().size(); i++) {
+        if (getAssets().get(i) != null) {
+          joiner.add(getAssets().get(i).toUrlQueryString(String.format("%sassets%s%s", prefix, suffix,
+          "".equals(suffix) ? "" : String.format("%s%d%s", containerPrefix, i, containerSuffix))));
+        }
+      }
+    }
+
+    // add `success` to the URL query string
+    if (getSuccess() != null) {
+      joiner.add(String.format("%ssuccess%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getSuccess()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `tradingAccounts` to the URL query string
+    if (getTradingAccounts() != null) {
+      for (int i = 0; i < getTradingAccounts().size(); i++) {
+        if (getTradingAccounts().get(i) != null) {
+          joiner.add(getTradingAccounts().get(i).toUrlQueryString(String.format("%stradingAccounts%s%s", prefix, suffix,
+          "".equals(suffix) ? "" : String.format("%s%d%s", containerPrefix, i, containerSuffix))));
+        }
+      }
+    }
+
+    // add `isSubaccount` to the URL query string
+    if (getIsSubaccount() != null) {
+      joiner.add(String.format("%sisSubaccount%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getIsSubaccount()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `mainAccountId` to the URL query string
+    if (getMainAccountId() != null) {
+      joiner.add(String.format("%smainAccountId%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getMainAccountId()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    return joiner.toString();
+  }
 }
 

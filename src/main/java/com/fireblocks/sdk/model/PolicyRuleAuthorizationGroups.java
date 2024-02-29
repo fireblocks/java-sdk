@@ -13,8 +13,10 @@
 
 package com.fireblocks.sdk.model;
 
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.StringJoiner;
 import java.util.Objects;
-import java.util.Arrays;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -24,9 +26,9 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.fireblocks.sdk.model.PolicyRuleAuthorizationGroupsGroupsInner;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.fireblocks.sdk.JSON;
 
 
 /**
@@ -37,8 +39,7 @@ import com.fireblocks.sdk.JSON;
   PolicyRuleAuthorizationGroups.JSON_PROPERTY_ALLOW_OPERATOR_AS_AUTHORIZER,
   PolicyRuleAuthorizationGroups.JSON_PROPERTY_GROUPS
 })
-@JsonTypeName("PolicyRule_authorizationGroups")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class PolicyRuleAuthorizationGroups {
   /**
    * * AND - requires approval of all authorization groups * OR - requires approval of at least one of the authorization groups 
@@ -96,7 +97,7 @@ public class PolicyRuleAuthorizationGroups {
    * * AND - requires approval of all authorization groups * OR - requires approval of at least one of the authorization groups 
    * @return logic
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_LOGIC)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -121,7 +122,7 @@ public class PolicyRuleAuthorizationGroups {
    * Defines whether the user who initiates a transaction can approve their own transaction and count toward the approval threshold for their transaction
    * @return allowOperatorAsAuthorizer
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_ALLOW_OPERATOR_AS_AUTHORIZER)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -154,7 +155,7 @@ public class PolicyRuleAuthorizationGroups {
    * Groups of entities which can approve the transaction
    * @return groups
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_GROUPS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -214,5 +215,59 @@ public class PolicyRuleAuthorizationGroups {
     return o.toString().replace("\n", "\n    ");
   }
 
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @return URL query string
+   */
+  public String toUrlQueryString() {
+    return toUrlQueryString(null);
+  }
+
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @param prefix prefix of the query string
+   * @return URL query string
+   */
+  public String toUrlQueryString(String prefix) {
+    String suffix = "";
+    String containerSuffix = "";
+    String containerPrefix = "";
+    if (prefix == null) {
+      // style=form, explode=true, e.g. /pet?name=cat&type=manx
+      prefix = "";
+    } else {
+      // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
+      prefix = prefix + "[";
+      suffix = "]";
+      containerSuffix = "]";
+      containerPrefix = "[";
+    }
+
+    StringJoiner joiner = new StringJoiner("&");
+
+    // add `logic` to the URL query string
+    if (getLogic() != null) {
+      joiner.add(String.format("%slogic%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getLogic()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `allowOperatorAsAuthorizer` to the URL query string
+    if (getAllowOperatorAsAuthorizer() != null) {
+      joiner.add(String.format("%sallowOperatorAsAuthorizer%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getAllowOperatorAsAuthorizer()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `groups` to the URL query string
+    if (getGroups() != null) {
+      for (int i = 0; i < getGroups().size(); i++) {
+        if (getGroups().get(i) != null) {
+          joiner.add(getGroups().get(i).toUrlQueryString(String.format("%sgroups%s%s", prefix, suffix,
+          "".equals(suffix) ? "" : String.format("%s%d%s", containerPrefix, i, containerSuffix))));
+        }
+      }
+    }
+
+    return joiner.toString();
+  }
 }
 

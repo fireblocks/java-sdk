@@ -29,12 +29,13 @@ import com.fireblocks.sdk.model.TransactionRequestNetworkFee;
 import com.fireblocks.sdk.model.TransactionRequestNetworkStaking;
 import com.fireblocks.sdk.model.TransactionRequestPriorityFee;
 import com.fireblocks.sdk.model.TransferPeerPath;
+import com.fireblocks.sdk.model.TravelRuleCreateTransactionRequest;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
-
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.Test;
+import org.junit.Assert;
+import org.junit.Ignore;
+import org.junit.Test;
 
 /**
  * Model tests for TransactionRequest
@@ -216,6 +217,14 @@ public class TransactionRequestTest {
     @Test
     public void customerRefIdTest() {
         // TODO: test customerRefId
+    }
+
+    /**
+     * Test the property 'travelRuleMessage'
+     */
+    @Test
+    public void travelRuleMessageTest() {
+        // TODO: test travelRuleMessage
     }
 
     /**

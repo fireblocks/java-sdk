@@ -13,8 +13,10 @@
 
 package com.fireblocks.sdk.model;
 
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.StringJoiner;
 import java.util.Objects;
-import java.util.Arrays;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -22,8 +24,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.fireblocks.sdk.JSON;
 
 
 /**
@@ -35,7 +37,7 @@ import com.fireblocks.sdk.JSON;
   PolicyMetadata.JSON_PROPERTY_PUBLISHED_BY,
   PolicyMetadata.JSON_PROPERTY_PUBLISHED_AT
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class PolicyMetadata {
   public static final String JSON_PROPERTY_EDITED_BY = "editedBy";
   private String editedBy;
@@ -61,7 +63,7 @@ public class PolicyMetadata {
    * The user id of the user who last edited the policy
    * @return editedBy
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_EDITED_BY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -86,7 +88,7 @@ public class PolicyMetadata {
    * The timestamp of the last edit of the policy
    * @return editedAt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_EDITED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -111,7 +113,7 @@ public class PolicyMetadata {
    * The user id of the user who last published the policy
    * @return publishedBy
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_PUBLISHED_BY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -136,7 +138,7 @@ public class PolicyMetadata {
    * The timestamp of the last publish of the policy
    * @return publishedAt
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_PUBLISHED_AT)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -198,5 +200,59 @@ public class PolicyMetadata {
     return o.toString().replace("\n", "\n    ");
   }
 
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @return URL query string
+   */
+  public String toUrlQueryString() {
+    return toUrlQueryString(null);
+  }
+
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @param prefix prefix of the query string
+   * @return URL query string
+   */
+  public String toUrlQueryString(String prefix) {
+    String suffix = "";
+    String containerSuffix = "";
+    String containerPrefix = "";
+    if (prefix == null) {
+      // style=form, explode=true, e.g. /pet?name=cat&type=manx
+      prefix = "";
+    } else {
+      // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
+      prefix = prefix + "[";
+      suffix = "]";
+      containerSuffix = "]";
+      containerPrefix = "[";
+    }
+
+    StringJoiner joiner = new StringJoiner("&");
+
+    // add `editedBy` to the URL query string
+    if (getEditedBy() != null) {
+      joiner.add(String.format("%seditedBy%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getEditedBy()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `editedAt` to the URL query string
+    if (getEditedAt() != null) {
+      joiner.add(String.format("%seditedAt%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getEditedAt()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `publishedBy` to the URL query string
+    if (getPublishedBy() != null) {
+      joiner.add(String.format("%spublishedBy%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getPublishedBy()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `publishedAt` to the URL query string
+    if (getPublishedAt() != null) {
+      joiner.add(String.format("%spublishedAt%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getPublishedAt()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    return joiner.toString();
+  }
 }
 

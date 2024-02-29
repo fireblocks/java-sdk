@@ -13,8 +13,10 @@
 
 package com.fireblocks.sdk.model;
 
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.StringJoiner;
 import java.util.Objects;
-import java.util.Arrays;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -23,9 +25,9 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.fireblocks.sdk.JSON;
 
 
 /**
@@ -37,8 +39,7 @@ import com.fireblocks.sdk.JSON;
   PolicyRuleOperators.JSON_PROPERTY_USERS_GROUPS,
   PolicyRuleOperators.JSON_PROPERTY_SERVICES
 })
-@JsonTypeName("PolicyRule_operators")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class PolicyRuleOperators {
   /**
    * If used then this property should appear as the only child property * \&quot;*\&quot; - All users are allowed 
@@ -97,7 +98,7 @@ public class PolicyRuleOperators {
    * If used then this property should appear as the only child property * \&quot;*\&quot; - All users are allowed 
    * @return wildcard
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_WILDCARD)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -130,7 +131,7 @@ public class PolicyRuleOperators {
    * Set of users ids
    * @return users
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_USERS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -163,7 +164,7 @@ public class PolicyRuleOperators {
    * Set of group ids
    * @return usersGroups
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_USERS_GROUPS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -196,7 +197,7 @@ public class PolicyRuleOperators {
    * set of services to initiate transactions
    * @return services
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_SERVICES)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -258,5 +259,71 @@ public class PolicyRuleOperators {
     return o.toString().replace("\n", "\n    ");
   }
 
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @return URL query string
+   */
+  public String toUrlQueryString() {
+    return toUrlQueryString(null);
+  }
+
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @param prefix prefix of the query string
+   * @return URL query string
+   */
+  public String toUrlQueryString(String prefix) {
+    String suffix = "";
+    String containerSuffix = "";
+    String containerPrefix = "";
+    if (prefix == null) {
+      // style=form, explode=true, e.g. /pet?name=cat&type=manx
+      prefix = "";
+    } else {
+      // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
+      prefix = prefix + "[";
+      suffix = "]";
+      containerSuffix = "]";
+      containerPrefix = "[";
+    }
+
+    StringJoiner joiner = new StringJoiner("&");
+
+    // add `wildcard` to the URL query string
+    if (getWildcard() != null) {
+      joiner.add(String.format("%swildcard%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getWildcard()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `users` to the URL query string
+    if (getUsers() != null) {
+      for (int i = 0; i < getUsers().size(); i++) {
+        joiner.add(String.format("%susers%s%s=%s", prefix, suffix,
+            "".equals(suffix) ? "" : String.format("%s%d%s", containerPrefix, i, containerSuffix),
+            URLEncoder.encode(String.valueOf(getUsers().get(i)), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+      }
+    }
+
+    // add `usersGroups` to the URL query string
+    if (getUsersGroups() != null) {
+      for (int i = 0; i < getUsersGroups().size(); i++) {
+        joiner.add(String.format("%susersGroups%s%s=%s", prefix, suffix,
+            "".equals(suffix) ? "" : String.format("%s%d%s", containerPrefix, i, containerSuffix),
+            URLEncoder.encode(String.valueOf(getUsersGroups().get(i)), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+      }
+    }
+
+    // add `services` to the URL query string
+    if (getServices() != null) {
+      for (int i = 0; i < getServices().size(); i++) {
+        joiner.add(String.format("%sservices%s%s=%s", prefix, suffix,
+            "".equals(suffix) ? "" : String.format("%s%d%s", containerPrefix, i, containerSuffix),
+            URLEncoder.encode(String.valueOf(getServices().get(i)), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+      }
+    }
+
+    return joiner.toString();
+  }
 }
 

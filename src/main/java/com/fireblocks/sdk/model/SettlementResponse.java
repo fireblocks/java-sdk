@@ -13,8 +13,10 @@
 
 package com.fireblocks.sdk.model;
 
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.StringJoiner;
 import java.util.Objects;
-import java.util.Arrays;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -22,8 +24,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.fireblocks.sdk.model.ExchangeSettlementTransactionsResponse;
+import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.fireblocks.sdk.JSON;
 
 
 /**
@@ -36,7 +39,7 @@ import com.fireblocks.sdk.JSON;
   SettlementResponse.JSON_PROPERTY_FIREBLOCKS_INITIATED_TRANSACTIONS,
   SettlementResponse.JSON_PROPERTY_EXCHANGE_REQUESTED_TRANSACTIONS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class SettlementResponse {
   public static final String JSON_PROPERTY_ID = "id";
   private String id;
@@ -51,7 +54,7 @@ public class SettlementResponse {
   private Object fireblocksInitiatedTransactions;
 
   public static final String JSON_PROPERTY_EXCHANGE_REQUESTED_TRANSACTIONS = "exchangeRequestedTransactions";
-  private SettlementResponse exchangeRequestedTransactions;
+  private ExchangeSettlementTransactionsResponse exchangeRequestedTransactions;
 
   public SettlementResponse() { 
   }
@@ -65,7 +68,7 @@ public class SettlementResponse {
    * Get id
    * @return id
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -90,7 +93,7 @@ public class SettlementResponse {
    * Get initiator
    * @return initiator
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_INITIATOR)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -115,7 +118,7 @@ public class SettlementResponse {
    * Get exchangeReply
    * @return exchangeReply
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_EXCHANGE_REPLY)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -140,7 +143,7 @@ public class SettlementResponse {
    * Get fireblocksInitiatedTransactions
    * @return fireblocksInitiatedTransactions
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_FIREBLOCKS_INITIATED_TRANSACTIONS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -156,7 +159,7 @@ public class SettlementResponse {
   }
 
 
-  public SettlementResponse exchangeRequestedTransactions(SettlementResponse exchangeRequestedTransactions) {
+  public SettlementResponse exchangeRequestedTransactions(ExchangeSettlementTransactionsResponse exchangeRequestedTransactions) {
     this.exchangeRequestedTransactions = exchangeRequestedTransactions;
     return this;
   }
@@ -165,18 +168,18 @@ public class SettlementResponse {
    * Get exchangeRequestedTransactions
    * @return exchangeRequestedTransactions
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_EXCHANGE_REQUESTED_TRANSACTIONS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public SettlementResponse getExchangeRequestedTransactions() {
+  public ExchangeSettlementTransactionsResponse getExchangeRequestedTransactions() {
     return exchangeRequestedTransactions;
   }
 
 
   @JsonProperty(JSON_PROPERTY_EXCHANGE_REQUESTED_TRANSACTIONS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setExchangeRequestedTransactions(SettlementResponse exchangeRequestedTransactions) {
+  public void setExchangeRequestedTransactions(ExchangeSettlementTransactionsResponse exchangeRequestedTransactions) {
     this.exchangeRequestedTransactions = exchangeRequestedTransactions;
   }
 
@@ -229,5 +232,64 @@ public class SettlementResponse {
     return o.toString().replace("\n", "\n    ");
   }
 
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @return URL query string
+   */
+  public String toUrlQueryString() {
+    return toUrlQueryString(null);
+  }
+
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @param prefix prefix of the query string
+   * @return URL query string
+   */
+  public String toUrlQueryString(String prefix) {
+    String suffix = "";
+    String containerSuffix = "";
+    String containerPrefix = "";
+    if (prefix == null) {
+      // style=form, explode=true, e.g. /pet?name=cat&type=manx
+      prefix = "";
+    } else {
+      // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
+      prefix = prefix + "[";
+      suffix = "]";
+      containerSuffix = "]";
+      containerPrefix = "[";
+    }
+
+    StringJoiner joiner = new StringJoiner("&");
+
+    // add `id` to the URL query string
+    if (getId() != null) {
+      joiner.add(String.format("%sid%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getId()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `initiator` to the URL query string
+    if (getInitiator() != null) {
+      joiner.add(String.format("%sinitiator%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getInitiator()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `exchangeReply` to the URL query string
+    if (getExchangeReply() != null) {
+      joiner.add(String.format("%sexchangeReply%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getExchangeReply()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `fireblocksInitiatedTransactions` to the URL query string
+    if (getFireblocksInitiatedTransactions() != null) {
+      joiner.add(String.format("%sfireblocksInitiatedTransactions%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getFireblocksInitiatedTransactions()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `exchangeRequestedTransactions` to the URL query string
+    if (getExchangeRequestedTransactions() != null) {
+      joiner.add(getExchangeRequestedTransactions().toUrlQueryString(prefix + "exchangeRequestedTransactions" + suffix));
+    }
+
+    return joiner.toString();
+  }
 }
 

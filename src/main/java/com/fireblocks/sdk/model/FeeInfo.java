@@ -13,8 +13,10 @@
 
 package com.fireblocks.sdk.model;
 
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.StringJoiner;
 import java.util.Objects;
-import java.util.Arrays;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -22,8 +24,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.fireblocks.sdk.JSON;
 
 
 /**
@@ -34,7 +36,7 @@ import com.fireblocks.sdk.JSON;
   FeeInfo.JSON_PROPERTY_SERVICE_FEE,
   FeeInfo.JSON_PROPERTY_GAS_PRICE
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class FeeInfo {
   public static final String JSON_PROPERTY_NETWORK_FEE = "networkFee";
   private String networkFee;
@@ -57,7 +59,7 @@ public class FeeInfo {
    * The fee paid to the network
    * @return networkFee
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_NETWORK_FEE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -82,7 +84,7 @@ public class FeeInfo {
    * The total fee deducted by the exchange from the actual requested amount (serviceFee &#x3D; amount - netAmount)
    * @return serviceFee
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_SERVICE_FEE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -107,7 +109,7 @@ public class FeeInfo {
    * Get gasPrice
    * @return gasPrice
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_GAS_PRICE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -167,5 +169,54 @@ public class FeeInfo {
     return o.toString().replace("\n", "\n    ");
   }
 
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @return URL query string
+   */
+  public String toUrlQueryString() {
+    return toUrlQueryString(null);
+  }
+
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @param prefix prefix of the query string
+   * @return URL query string
+   */
+  public String toUrlQueryString(String prefix) {
+    String suffix = "";
+    String containerSuffix = "";
+    String containerPrefix = "";
+    if (prefix == null) {
+      // style=form, explode=true, e.g. /pet?name=cat&type=manx
+      prefix = "";
+    } else {
+      // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
+      prefix = prefix + "[";
+      suffix = "]";
+      containerSuffix = "]";
+      containerPrefix = "[";
+    }
+
+    StringJoiner joiner = new StringJoiner("&");
+
+    // add `networkFee` to the URL query string
+    if (getNetworkFee() != null) {
+      joiner.add(String.format("%snetworkFee%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getNetworkFee()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `serviceFee` to the URL query string
+    if (getServiceFee() != null) {
+      joiner.add(String.format("%sserviceFee%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getServiceFee()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `gasPrice` to the URL query string
+    if (getGasPrice() != null) {
+      joiner.add(String.format("%sgasPrice%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getGasPrice()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    return joiner.toString();
+  }
 }
 

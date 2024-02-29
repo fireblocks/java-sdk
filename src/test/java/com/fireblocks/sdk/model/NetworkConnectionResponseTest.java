@@ -19,14 +19,13 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.fireblocks.sdk.model.ConfigChangeRequestStatus;
-import com.fireblocks.sdk.model.NetworkConnectionResponseLocalChannel;
-import com.fireblocks.sdk.model.NetworkConnectionResponseRemoteChannel;
+import com.fireblocks.sdk.model.NetworkChannel;
 import com.fireblocks.sdk.model.NetworkConnectionRoutingPolicy;
 import com.fireblocks.sdk.model.NetworkId;
-
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.Test;
+import java.util.Arrays;
+import org.junit.Assert;
+import org.junit.Ignore;
+import org.junit.Test;
 
 /**
  * Model tests for NetworkConnectionResponse

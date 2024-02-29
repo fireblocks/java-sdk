@@ -19,14 +19,15 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.fireblocks.sdk.model.MediaEntityResponse;
-import com.fireblocks.sdk.model.TokenResponseCollection;
+import com.fireblocks.sdk.model.SpamOwnershipResponse;
+import com.fireblocks.sdk.model.TokenCollectionResponse;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
-
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.Test;
+import org.junit.Assert;
+import org.junit.Ignore;
+import org.junit.Test;
 
 /**
  * Model tests for TokenOwnershipResponse
@@ -91,6 +92,14 @@ public class TokenOwnershipResponseTest {
     }
 
     /**
+     * Test the property 'spam'
+     */
+    @Test
+    public void spamTest() {
+        // TODO: test spam
+    }
+
+    /**
      * Test the property 'collection'
      */
     @Test
@@ -152,6 +161,30 @@ public class TokenOwnershipResponseTest {
     @Test
     public void nameTest() {
         // TODO: test name
+    }
+
+    /**
+     * Test the property 'ncwId'
+     */
+    @Test
+    public void ncwIdTest() {
+        // TODO: test ncwId
+    }
+
+    /**
+     * Test the property 'ncwAccountId'
+     */
+    @Test
+    public void ncwAccountIdTest() {
+        // TODO: test ncwAccountId
+    }
+
+    /**
+     * Test the property 'status'
+     */
+    @Test
+    public void statusTest() {
+        // TODO: test status
     }
 
 }

@@ -25,11 +25,11 @@ import com.fireblocks.sdk.model.PayoutState;
 import com.fireblocks.sdk.model.PayoutStatus;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
-
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.Test;
+import org.junit.Assert;
+import org.junit.Ignore;
+import org.junit.Test;
 
 /**
  * Model tests for PayoutResponse

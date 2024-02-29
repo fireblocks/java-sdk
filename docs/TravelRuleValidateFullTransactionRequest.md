@@ -7,24 +7,24 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**transactionAsset** | **String** | The asset involved in the transaction |  |
-|**transactionAmount** | **String** | The amount of the transaction |  |
-|**originatorDid** | **String** | The DID of the transaction originator |  |
-|**beneficiaryDid** | **String** | The DID of the transaction beneficiary |  |
-|**originatorVASPdid** | **String** | The VASP ID of the transaction originator |  |
-|**beneficiaryVASPdid** | **String** | The VASP ID of the transaction beneficiary |  |
-|**beneficiaryVASPname** | **String** | The name of the VASP acting as the beneficiary |  |
-|**transactionBlockchainInfo** | [**TravelRuleValidateFullTransactionRequestTransactionBlockchainInfo**](TravelRuleValidateFullTransactionRequestTransactionBlockchainInfo.md) |  |  |
-|**originator** | [**TravelRuleValidateFullTransactionRequestOriginator**](TravelRuleValidateFullTransactionRequestOriginator.md) |  |  |
-|**beneficiary** | [**TravelRuleValidateFullTransactionRequestBeneficiary**](TravelRuleValidateFullTransactionRequestBeneficiary.md) |  |  |
-|**encrypted** | **String** | Encrypted data related to the transaction |  |
-|**protocol** | **String** | The protocol used to perform the travel rule |  |
-|**notificationEmail** | **String** | The email address where a notification should be sent upon completion of the travel rule |  |
-|**skipBeneficiaryDataValidation** | **Boolean** | Whether to skip validation of beneficiary data |  |
-|**travelRuleBehavior** | **Boolean** | Whether to check if the transaction is a TRAVEL_RULE in the beneficiary VASP&#39;s jurisdiction |  |
-|**originatorProof** | [**TravelRuleValidateFullTransactionRequestOriginatorProof**](TravelRuleValidateFullTransactionRequestOriginatorProof.md) |  |  |
-|**beneficiaryProof** | [**TravelRuleValidateFullTransactionRequestBeneficiaryProof**](TravelRuleValidateFullTransactionRequestBeneficiaryProof.md) |  |  |
-|**pii** | [**TravelRuleValidateFullTransactionRequestPii**](TravelRuleValidateFullTransactionRequestPii.md) |  |  |
+|**transactionAsset** | **String** | The asset involved in the transaction |  [optional] |
+|**transactionAmount** | **String** | The amount of the transaction |  [optional] |
+|**originatorDid** | **String** | The DID of the transaction originator |  [optional] |
+|**beneficiaryDid** | **String** | The DID of the transaction beneficiary |  [optional] |
+|**originatorVASPdid** | **String** | The VASP ID of the transaction originator |  [optional] |
+|**beneficiaryVASPdid** | **String** | The VASP ID of the transaction beneficiary |  [optional] |
+|**beneficiaryVASPname** | **String** | The name of the VASP acting as the beneficiary |  [optional] |
+|**transactionBlockchainInfo** | [**TravelRuleTransactionBlockchainInfo**](TravelRuleTransactionBlockchainInfo.md) |  |  [optional] |
+|**originator** | [**TravelRulePiiIVMS**](TravelRulePiiIVMS.md) |  |  |
+|**beneficiary** | [**TravelRulePiiIVMS**](TravelRulePiiIVMS.md) |  |  |
+|**encrypted** | **String** | Encrypted data related to the transaction |  [optional] |
+|**protocol** | **String** | The protocol used to perform the travel rule |  [optional] |
+|**notificationEmail** | **String** | The email address where a notification should be sent upon completion of the travel rule |  [optional] |
+|**skipBeneficiaryDataValidation** | **Boolean** | Whether to skip validation of beneficiary data |  [optional] |
+|**travelRuleBehavior** | **Boolean** | Whether to check if the transaction is a TRAVEL_RULE in the beneficiary VASP&#39;s jurisdiction |  [optional] |
+|**originatorProof** | [**TravelRuleOwnershipProof**](TravelRuleOwnershipProof.md) |  |  [optional] |
+|**beneficiaryProof** | [**TravelRuleOwnershipProof**](TravelRuleOwnershipProof.md) |  |  [optional] |
+|**pii** | [**TravelRulePiiIVMS**](TravelRulePiiIVMS.md) |  |  [optional] |
 
 
 

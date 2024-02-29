@@ -1,0 +1,16 @@
+
+
+# SmartTransferUpdateTicketTerm
+
+
+## Properties
+
+| Name | Type | Description | Notes |
+|------------ | ------------- | ------------- | -------------|
+|**asset** | **String** | Asset name |  |
+|**amount** | **BigDecimal** | Amount |  |
+|**fromNetworkId** | **String** | Identifier of the origination Network Profile |  |
+|**toNetworkId** | **String** | Identifier of the destination Network Profile |  |
+
+
+

@@ -2,40 +2,41 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.fireblocks.sdk</groupId>
-    <artifactId>fireblocks-java-sdk</artifactId>
+    <artifactId>fireblocks-sdk</artifactId>
     <packaging>jar</packaging>
-    <name>Fireblocks Java SDK</name>
-    <version>1.0.0</version>
-    <url>https://github.com/fireblocks/java-sdk</url>
+    <name>fireblocks-sdk</name>
+    <version>1.6.2</version>
+    <url>https://github.com/openapitools/openapi-generator</url>
     <description>The Fireblocks Official SDK is a comprehensive software development kit that enables seamless integration and interaction with the Fireblocks platform. Fireblocks is a cutting-edge blockchain infrastructure platform that provides secure and scalable solutions for managing digital assets and transactions.
+This SDK empowers developers to build robust applications that can interact with the Fireblocks platform&#39;s features, including creating and managing vault accounts, initiating secure transactions, managing assets, and more. It abstracts complex interactions with the Fireblocks API, making it easier for developers to leverage the platform&#39;s capabilities while adhering to best practices in security and efficiency.
+Whether you&#39;re working on a cryptocurrency exchange, wallet application, or any other financial platform involving digital assets, the Fireblocks Official SDK simplifies the integration process and allows you to harness the power of Fireblocks&#39; secure infrastructure. Stay ahead in the world of digital assets with this powerful SDK at your fingertips.&lt;/description&gt;</description>
+    <scm>
+        <connection>scm:git:git@github.com:openapitools/openapi-generator.git</connection>
+        <developerConnection>scm:git:git@github.com:openapitools/openapi-generator.git</developerConnection>
+        <url>https://github.com/openapitools/openapi-generator</url>
+    </scm>
 
-        This SDK empowers developers to build robust applications that can interact with the Fireblocks platform's features, including creating and managing vault accounts, initiating secure transactions, managing assets, and more. It abstracts complex interactions with the Fireblocks API, making it easier for developers to leverage the platform's capabilities while adhering to best practices in security and efficiency.
-
-        Whether you're working on a cryptocurrency exchange, wallet application, or any other financial platform involving digital assets, the Fireblocks Official SDK simplifies the integration process and allows you to harness the power of Fireblocks' secure infrastructure. Stay ahead in the world of digital assets with this powerful SDK at your fingertips.</description>
-
-
-   <distributionManagement>
-    <repository>
-      <id>github</id>
-      <name>GitHub Packages</name>
-      <url>https://maven.pkg.github.com/fireblocks/java-sdk</url>
-    </repository>
-  </distributionManagement>
+    <distributionManagement>
+        <repository>
+            <id>github</id>
+            <name>GitHub Packages</name>
+            <url>https://maven.pkg.github.com/fireblocks/java-sdk</url>
+        </repository>
+    </distributionManagement>
 
     <licenses>
         <license>
-            <name>MIT License</name>
-            <url>https://opensource.org/licenses/MIT</url>
+            <name>Unlicense</name>
+            <url>http://unlicense.org</url>
             <distribution>repo</distribution>
         </license>
     </licenses>
 
-
     <developers>
         <developer>
-            <name>Fireblocks Auto Generate SDK</name>
+            <name>Fireblocks SDK</name>
             <email>support@fireblocks.com</email>
-            <organization>fireblocks.com</organization>
+            <organization>Fireblocks</organization>
             <organizationUrl>https://fireblocks.com</organizationUrl>
         </developer>
     </developers>
@@ -43,9 +44,8 @@
     <build>
         <plugins>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-enforcer-plugin</artifactId>
-                <version>3.0.0</version>
+                <version>3.1.0</version>
                 <executions>
                     <execution>
                         <id>enforce-maven</id>
@@ -55,32 +55,31 @@
                         <configuration>
                             <rules>
                                 <requireMavenVersion>
-                                    <version>2.2.0</version>
+                                    <version>3</version>
                                 </requireMavenVersion>
+                                <requireJavaVersion>
+                                    <version>11</version>
+                                </requireJavaVersion>
                             </rules>
                         </configuration>
                     </execution>
                 </executions>
             </plugin>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>3.0.0-M5</version>
+                <version>3.0.0-M7</version>
                 <configuration>
-                    <systemProperties>
-                        <property>
-                            <name>loggerPath</name>
-                            <value>conf/log4j.properties</value>
-                        </property>
-                    </systemProperties>
+                    <systemPropertyVariables>
+                        <loggerPath>conf/log4j.properties</loggerPath>
+                    </systemPropertyVariables>
                     <argLine>-Xms512m -Xmx1500m</argLine>
                     <parallel>methods</parallel>
                     <threadCount>10</threadCount>
-                    <trimStackTrace>false</trimStackTrace>
                 </configuration>
             </plugin>
             <plugin>
                 <artifactId>maven-dependency-plugin</artifactId>
+                <version>3.3.0</version>
                 <executions>
                     <execution>
                         <phase>package</phase>
@@ -93,11 +92,12 @@
                     </execution>
                 </executions>
             </plugin>
+
             <!-- attach test jar -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
-                <version>3.2.2</version>
+                <version>3.3.0</version>
                 <executions>
                     <execution>
                         <goals>
@@ -109,56 +109,13 @@
                 </configuration>
             </plugin>
             <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>build-helper-maven-plugin</artifactId>
-                <version>3.3.0</version>
-                <executions>
-                    <execution>
-                        <id>add_sources</id>
-                        <phase>generate-sources</phase>
-                        <goals>
-                            <goal>add-source</goal>
-                        </goals>
-                        <configuration>
-                            <sources>
-                                <source>src/main/java</source>
-                            </sources>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>add_test_sources</id>
-                        <phase>generate-test-sources</phase>
-                        <goals>
-                            <goal>add-test-source</goal>
-                        </goals>
-                        <configuration>
-                            <sources>
-                                <source>src/test/java</source>
-                            </sources>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.10.1</version>
-                <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
-                    <fork>true</fork>
-                    <meminitial>128m</meminitial>
-                    <maxmem>512m</maxmem>
-                    <compilerArgs>
-                        <arg>-Xlint:all</arg>
-                        <arg>-J-Xss4m</arg><!-- Compiling the generated JSON.java file may require larger stack size. -->
-                    </compilerArgs>
-                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
-                <version>3.3.2</version>
+                <version>3.4.1</version>
                 <executions>
                     <execution>
                         <id>attach-javadocs</id>
@@ -167,22 +124,10 @@
                         </goals>
                     </execution>
                 </executions>
-                <configuration>
-                    <doclint>none</doclint>
-                    <source>1.8</source>
-                    <tags>
-                        <tag>
-                            <name>http.response.details</name>
-                            <placement>a</placement>
-                            <head>Http Response Details:</head>
-                        </tag>
-                    </tags>
-                </configuration>
             </plugin>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
-                <version>3.2.0</version>
+                <version>3.2.1</version>
                 <executions>
                     <execution>
                         <id>attach-sources</id>
@@ -197,40 +142,32 @@
                  Ref: https://github.com/diffplug/spotless/tree/main/plugin-maven
             -->
             <plugin>
-              <groupId>com.diffplug.spotless</groupId>
-              <artifactId>spotless-maven-plugin</artifactId>
-              <version>${spotless.version}</version>
-              <configuration>
-                <formats>
-                  <!-- you can define as many formats as you want, each is independent -->
-                  <format>
-                    <!-- define the files to apply to -->
-                    <includes>
-                      <include>.gitignore</include>
-                    </includes>
-                    <!-- define the steps to apply to those files -->
-                    <trimTrailingWhitespace/>
-                    <endWithNewline/>
-                    <indent>
-                      <spaces>true</spaces> <!-- or <tabs>true</tabs> -->
-                      <spacesPerTab>4</spacesPerTab> <!-- optional, default is 4 -->
-                    </indent>
-                  </format>
-                </formats>
-                <!-- define a language-specific format -->
-                <java>
-                  <!-- no need to specify files, inferred automatically, but you can if you want -->
-
-                  <!-- apply a specific flavor of google-java-format and reflow long strings -->
-                  <googleJavaFormat>
-                    <version>1.8</version>
-                    <style>AOSP</style>
-                    <reflowLongStrings>true</reflowLongStrings>
-                  </googleJavaFormat>
-                  <removeUnusedImports/>
-                  <importOrder/>
-                </java>
-              </configuration>
+                <groupId>com.diffplug.spotless</groupId>
+                <artifactId>spotless-maven-plugin</artifactId>
+                <version>${spotless.version}</version>
+                <configuration>
+                    <formats>
+                        <format>
+                            <includes>
+                                <include>.gitignore</include>
+                            </includes>
+                            <trimTrailingWhitespace/>
+                            <endWithNewline/>
+                            <indent>
+                                <spaces>true</spaces>
+                            </indent>
+                        </format>
+                    </formats>
+                    <java>
+                        <googleJavaFormat>
+                            <version>1.15.0</version>
+                            <style>AOSP</style>
+                            <reflowLongStrings>true</reflowLongStrings>
+                        </googleJavaFormat>
+                        <removeUnusedImports/>
+                        <importOrder/>
+                    </java>
+                </configuration>
             </plugin>
         </plugins>
     </build>
@@ -241,7 +178,6 @@
             <build>
                 <plugins>
                     <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-gpg-plugin</artifactId>
                         <version>3.0.1</version>
                         <executions>
@@ -261,35 +197,6 @@
 
     <dependencies>
 
-        <!-- @Nullable annotation -->
-        <dependency>
-            <groupId>com.google.code.findbugs</groupId>
-            <artifactId>jsr305</artifactId>
-            <version>3.0.2</version>
-        </dependency>
-
-        <!-- HTTP client: jersey-client -->
-        <dependency>
-            <groupId>org.glassfish.jersey.core</groupId>
-            <artifactId>jersey-client</artifactId>
-            <version>${jersey-version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.glassfish.jersey.inject</groupId>
-            <artifactId>jersey-hk2</artifactId>
-            <version>${jersey-version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.glassfish.jersey.media</groupId>
-            <artifactId>jersey-media-multipart</artifactId>
-            <version>${jersey-version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.glassfish.jersey.media</groupId>
-            <artifactId>jersey-media-json-jackson</artifactId>
-            <version>${jersey-version}</version>
-        </dependency>
-
         <!-- JSON processing: jackson -->
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
@@ -304,12 +211,7 @@
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
-            <version>${jackson-databind-version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.openapitools</groupId>
-            <artifactId>jackson-databind-nullable</artifactId>
-            <version>${jackson-databind-nullable-version}</version>
+            <version>${jackson-version}</version>
         </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.datatype</groupId>
@@ -317,44 +219,47 @@
             <version>${jackson-version}</version>
         </dependency>
         <dependency>
+            <groupId>org.openapitools</groupId>
+            <artifactId>jackson-databind-nullable</artifactId>
+            <version>${jackson-databind-nullable-version}</version>
+        </dependency>
+
+        <!-- @Nullable annotation -->
+        <dependency>
+            <groupId>com.google.code.findbugs</groupId>
+            <artifactId>jsr305</artifactId>
+            <version>3.0.2</version>
+        </dependency>
+        <dependency>
             <groupId>jakarta.annotation</groupId>
             <artifactId>jakarta.annotation-api</artifactId>
             <version>${jakarta-annotation-version}</version>
             <scope>provided</scope>
         </dependency>
-        <dependency>
-            <groupId>org.glassfish.jersey.connectors</groupId>
-            <artifactId>jersey-apache-connector</artifactId>
-            <version>${jersey-version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.google.code.gson</groupId>
-            <artifactId>gson</artifactId>
-            <version>2.8.8</version>
-        </dependency>
+
         <dependency>
             <groupId>com.auth0</groupId>
             <artifactId>java-jwt</artifactId>
-            <version>3.10.2</version>
-            <scope>compile</scope>
+            <version>4.3.0</version>
         </dependency>
+
         <!-- test dependencies -->
         <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-api</artifactId>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
             <version>${junit-version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
+
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <swagger-annotations-version>1.6.6</swagger-annotations-version>
-        <jersey-version>2.35</jersey-version>
-        <jackson-version>2.13.4</jackson-version>
-        <jackson-databind-version>2.13.4.2</jackson-databind-version>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
+        <jackson-version>2.15.2</jackson-version>
         <jackson-databind-nullable-version>0.2.6</jackson-databind-nullable-version>
-        <jakarta-annotation-version>1.3.5</jakarta-annotation-version>
-        <junit-version>5.8.2</junit-version>
-        <spotless.version>2.21.0</spotless.version>
+            <jakarta-annotation-version>2.1.1</jakarta-annotation-version>
+        <junit-version>4.13.2</junit-version>
+        <spotless.version>2.27.2</spotless.version>
     </properties>
 </project>

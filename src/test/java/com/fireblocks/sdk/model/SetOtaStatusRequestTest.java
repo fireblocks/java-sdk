@@ -18,10 +18,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.Test;
+import java.util.Arrays;
+import org.junit.Assert;
+import org.junit.Ignore;
+import org.junit.Test;
 
 /**
  * Model tests for SetOtaStatusRequest
@@ -38,11 +38,11 @@ public class SetOtaStatusRequestTest {
     }
 
     /**
-     * Test the property 'enable'
+     * Test the property 'enabled'
      */
     @Test
-    public void enableTest() {
-        // TODO: test enable
+    public void enabledTest() {
+        // TODO: test enabled
     }
 
 }

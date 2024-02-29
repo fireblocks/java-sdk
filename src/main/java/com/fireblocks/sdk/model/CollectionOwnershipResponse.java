@@ -13,8 +13,10 @@
 
 package com.fireblocks.sdk.model;
 
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.StringJoiner;
 import java.util.Objects;
-import java.util.Arrays;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -22,8 +24,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.fireblocks.sdk.JSON;
 
 
 /**
@@ -37,7 +39,7 @@ import com.fireblocks.sdk.JSON;
   CollectionOwnershipResponse.JSON_PROPERTY_BLOCKCHAIN_DESCRIPTOR,
   CollectionOwnershipResponse.JSON_PROPERTY_CONTRACT_ADDRESS
 })
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class CollectionOwnershipResponse {
   public static final String JSON_PROPERTY_ID = "id";
   private String id;
@@ -59,9 +61,17 @@ public class CollectionOwnershipResponse {
     
     ETH_TEST3("ETH_TEST3"),
     
+    ETH_TEST5("ETH_TEST5"),
+    
     POLYGON("POLYGON"),
     
-    POLYGON_TEST_MUMBAI("POLYGON_TEST_MUMBAI");
+    POLYGON_TEST_MUMBAI("POLYGON_TEST_MUMBAI"),
+    
+    XTZ("XTZ"),
+    
+    XTZ_TEST("XTZ_TEST"),
+    
+    BASECHAIN_ETH("BASECHAIN_ETH");
 
     private String value;
 
@@ -108,7 +118,7 @@ public class CollectionOwnershipResponse {
    * Fireblocks collection id
    * @return id
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_ID)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
@@ -133,9 +143,9 @@ public class CollectionOwnershipResponse {
    * Collection name
    * @return name
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_NAME)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getName() {
     return name;
@@ -143,7 +153,7 @@ public class CollectionOwnershipResponse {
 
 
   @JsonProperty(JSON_PROPERTY_NAME)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setName(String name) {
     this.name = name;
   }
@@ -158,9 +168,9 @@ public class CollectionOwnershipResponse {
    * Collection symbol
    * @return symbol
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_SYMBOL)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
   public String getSymbol() {
     return symbol;
@@ -168,7 +178,7 @@ public class CollectionOwnershipResponse {
 
 
   @JsonProperty(JSON_PROPERTY_SYMBOL)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
   public void setSymbol(String symbol) {
     this.symbol = symbol;
   }
@@ -183,7 +193,7 @@ public class CollectionOwnershipResponse {
    * Collection contract standard
    * @return standard
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_STANDARD)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -208,7 +218,7 @@ public class CollectionOwnershipResponse {
    * Collection&#39;s blockchain
    * @return blockchainDescriptor
   **/
-  @javax.annotation.Nonnull
+  @jakarta.annotation.Nonnull
   @JsonProperty(JSON_PROPERTY_BLOCKCHAIN_DESCRIPTOR)
   @JsonInclude(value = JsonInclude.Include.ALWAYS)
 
@@ -233,7 +243,7 @@ public class CollectionOwnershipResponse {
    * Collection contract standard
    * @return contractAddress
   **/
-  @javax.annotation.Nullable
+  @jakarta.annotation.Nullable
   @JsonProperty(JSON_PROPERTY_CONTRACT_ADDRESS)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -299,5 +309,69 @@ public class CollectionOwnershipResponse {
     return o.toString().replace("\n", "\n    ");
   }
 
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @return URL query string
+   */
+  public String toUrlQueryString() {
+    return toUrlQueryString(null);
+  }
+
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @param prefix prefix of the query string
+   * @return URL query string
+   */
+  public String toUrlQueryString(String prefix) {
+    String suffix = "";
+    String containerSuffix = "";
+    String containerPrefix = "";
+    if (prefix == null) {
+      // style=form, explode=true, e.g. /pet?name=cat&type=manx
+      prefix = "";
+    } else {
+      // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
+      prefix = prefix + "[";
+      suffix = "]";
+      containerSuffix = "]";
+      containerPrefix = "[";
+    }
+
+    StringJoiner joiner = new StringJoiner("&");
+
+    // add `id` to the URL query string
+    if (getId() != null) {
+      joiner.add(String.format("%sid%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getId()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `name` to the URL query string
+    if (getName() != null) {
+      joiner.add(String.format("%sname%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getName()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `symbol` to the URL query string
+    if (getSymbol() != null) {
+      joiner.add(String.format("%ssymbol%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getSymbol()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `standard` to the URL query string
+    if (getStandard() != null) {
+      joiner.add(String.format("%sstandard%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getStandard()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `blockchainDescriptor` to the URL query string
+    if (getBlockchainDescriptor() != null) {
+      joiner.add(String.format("%sblockchainDescriptor%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getBlockchainDescriptor()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `contractAddress` to the URL query string
+    if (getContractAddress() != null) {
+      joiner.add(String.format("%scontractAddress%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getContractAddress()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    return joiner.toString();
+  }
 }
 
