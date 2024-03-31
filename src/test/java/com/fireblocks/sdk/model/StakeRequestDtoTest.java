@@ -10,79 +10,54 @@
  * Do not edit the class manually.
  */
 
-
 package com.fireblocks.sdk.model;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonTypeName;
-import com.fasterxml.jackson.annotation.JsonValue;
-import java.util.Arrays;
-import org.junit.Assert;
-import org.junit.Ignore;
+
 import org.junit.Test;
 
-/**
- * Model tests for StakeRequestDto
- */
+/** Model tests for StakeRequestDto */
 public class StakeRequestDtoTest {
     private final StakeRequestDto model = new StakeRequestDto();
 
-    /**
-     * Model tests for StakeRequestDto
-     */
+    /** Model tests for StakeRequestDto */
     @Test
     public void testStakeRequestDto() {
         // TODO: test StakeRequestDto
     }
 
-    /**
-     * Test the property 'vaultAccountId'
-     */
+    /** Test the property 'vaultAccountId' */
     @Test
     public void vaultAccountIdTest() {
         // TODO: test vaultAccountId
     }
 
-    /**
-     * Test the property 'providerId'
-     */
+    /** Test the property 'providerId' */
     @Test
     public void providerIdTest() {
         // TODO: test providerId
     }
 
-    /**
-     * Test the property 'stakeAmount'
-     */
+    /** Test the property 'stakeAmount' */
     @Test
     public void stakeAmountTest() {
         // TODO: test stakeAmount
     }
 
-    /**
-     * Test the property 'txNote'
-     */
+    /** Test the property 'txNote' */
     @Test
     public void txNoteTest() {
         // TODO: test txNote
     }
 
-    /**
-     * Test the property 'fee'
-     */
+    /** Test the property 'fee' */
     @Test
     public void feeTest() {
         // TODO: test fee
     }
 
-    /**
-     * Test the property 'feeLevel'
-     */
+    /** Test the property 'feeLevel' */
     @Test
     public void feeLevelTest() {
         // TODO: test feeLevel
     }
-
 }

@@ -5,29 +5,32 @@
     <artifactId>fireblocks-sdk</artifactId>
     <packaging>jar</packaging>
     <name>fireblocks-sdk</name>
-    <version>1.6.2</version>
-    <url>https://github.com/openapitools/openapi-generator</url>
+    <version>0.0.1-beta</version>
+    <url>https://github.com/fireblocks/java-sdk</url>
     <description>The Fireblocks Official SDK is a comprehensive software development kit that enables seamless integration and interaction with the Fireblocks platform. Fireblocks is a cutting-edge blockchain infrastructure platform that provides secure and scalable solutions for managing digital assets and transactions.
 This SDK empowers developers to build robust applications that can interact with the Fireblocks platform&#39;s features, including creating and managing vault accounts, initiating secure transactions, managing assets, and more. It abstracts complex interactions with the Fireblocks API, making it easier for developers to leverage the platform&#39;s capabilities while adhering to best practices in security and efficiency.
 Whether you&#39;re working on a cryptocurrency exchange, wallet application, or any other financial platform involving digital assets, the Fireblocks Official SDK simplifies the integration process and allows you to harness the power of Fireblocks&#39; secure infrastructure. Stay ahead in the world of digital assets with this powerful SDK at your fingertips.&lt;/description&gt;</description>
     <scm>
-        <connection>scm:git:git@github.com:openapitools/openapi-generator.git</connection>
-        <developerConnection>scm:git:git@github.com:openapitools/openapi-generator.git</developerConnection>
-        <url>https://github.com/openapitools/openapi-generator</url>
+        <connection>scm:git:git@github.com:fireblocks/java-sdk.git</connection>
+        <developerConnection>scm:git:git@github.com:fireblocks/java-sdk.git</developerConnection>
+        <url>https://github.com/fireblocks/java-sdk</url>
     </scm>
 
     <distributionManagement>
+        <snapshotRepository>
+            <id>ossrh</id>
+            <url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
         <repository>
-            <id>github</id>
-            <name>GitHub Packages</name>
-            <url>https://maven.pkg.github.com/fireblocks/java-sdk</url>
+            <id>ossrh</id>
+            <url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</url>
         </repository>
     </distributionManagement>
 
     <licenses>
         <license>
-            <name>Unlicense</name>
-            <url>http://unlicense.org</url>
+            <name>MIT License</name>
+            <url>https://github.com/fireblocks/java-sdk/blob/master/LICENSE</url>
             <distribution>repo</distribution>
         </license>
     </licenses>
@@ -169,31 +172,32 @@ Whether you&#39;re working on a cryptocurrency exchange, wallet application, or 
                     </java>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.sonatype.plugins</groupId>
+                <artifactId>nexus-staging-maven-plugin</artifactId>
+                <version>1.6.13</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <serverId>ossrh</serverId>
+                    <nexusUrl>https://s01.oss.sonatype.org/</nexusUrl>
+                    <autoReleaseAfterClose>true</autoReleaseAfterClose>
+                </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-gpg-plugin</artifactId>
+                <version>3.0.1</version>
+                <executions>
+                    <execution>
+                        <id>sign-artifacts</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>sign</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
-
-    <profiles>
-        <profile>
-            <id>sign-artifacts</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <artifactId>maven-gpg-plugin</artifactId>
-                        <version>3.0.1</version>
-                        <executions>
-                            <execution>
-                                <id>sign-artifacts</id>
-                                <phase>verify</phase>
-                                <goals>
-                                    <goal>sign</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
 
     <dependencies>
 
@@ -250,6 +254,18 @@ Whether you&#39;re working on a cryptocurrency exchange, wallet application, or 
             <version>${junit-version}</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-inline</artifactId>
+            <version>${mockito-version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-junit-jupiter</artifactId>
+            <version>${mockito-junit-jupiter-version}</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <properties>
@@ -261,5 +277,7 @@ Whether you&#39;re working on a cryptocurrency exchange, wallet application, or 
             <jakarta-annotation-version>2.1.1</jakarta-annotation-version>
         <junit-version>4.13.2</junit-version>
         <spotless.version>2.27.2</spotless.version>
+        <mockito-version>4.1.0</mockito-version>
+        <mockito-junit-jupiter-version>4.1.0</mockito-junit-jupiter-version>
     </properties>
 </project>

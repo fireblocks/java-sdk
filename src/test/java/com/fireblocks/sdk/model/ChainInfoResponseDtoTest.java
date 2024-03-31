@@ -10,73 +10,48 @@
  * Do not edit the class manually.
  */
 
-
 package com.fireblocks.sdk.model;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonTypeName;
-import com.fasterxml.jackson.annotation.JsonValue;
-import com.fireblocks.sdk.model.AdditionalInfoDto;
-import java.math.BigDecimal;
-import java.util.Arrays;
-import org.junit.Assert;
-import org.junit.Ignore;
+
 import org.junit.Test;
 
-/**
- * Model tests for ChainInfoResponseDto
- */
+/** Model tests for ChainInfoResponseDto */
 public class ChainInfoResponseDtoTest {
     private final ChainInfoResponseDto model = new ChainInfoResponseDto();
 
-    /**
-     * Model tests for ChainInfoResponseDto
-     */
+    /** Model tests for ChainInfoResponseDto */
     @Test
     public void testChainInfoResponseDto() {
         // TODO: test ChainInfoResponseDto
     }
 
-    /**
-     * Test the property 'chainDescriptor'
-     */
+    /** Test the property 'chainDescriptor' */
     @Test
     public void chainDescriptorTest() {
         // TODO: test chainDescriptor
     }
 
-    /**
-     * Test the property 'currentEpoch'
-     */
+    /** Test the property 'currentEpoch' */
     @Test
     public void currentEpochTest() {
         // TODO: test currentEpoch
     }
 
-    /**
-     * Test the property 'epochElapsed'
-     */
+    /** Test the property 'epochElapsed' */
     @Test
     public void epochElapsedTest() {
         // TODO: test epochElapsed
     }
 
-    /**
-     * Test the property 'epochDuration'
-     */
+    /** Test the property 'epochDuration' */
     @Test
     public void epochDurationTest() {
         // TODO: test epochDuration
     }
 
-    /**
-     * Test the property 'additionalInfo'
-     */
+    /** Test the property 'additionalInfo' */
     @Test
     public void additionalInfoTest() {
         // TODO: test additionalInfo
     }
-
 }

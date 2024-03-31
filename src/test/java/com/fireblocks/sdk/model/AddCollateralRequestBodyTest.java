@@ -10,48 +10,30 @@
  * Do not edit the class manually.
  */
 
-
 package com.fireblocks.sdk.model;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonTypeName;
-import com.fasterxml.jackson.annotation.JsonValue;
-import com.fireblocks.sdk.model.TransactionRequest;
-import java.util.Arrays;
-import org.junit.Assert;
-import org.junit.Ignore;
+
 import org.junit.Test;
 
-/**
- * Model tests for AddCollateralRequestBody
- */
+/** Model tests for AddCollateralRequestBody */
 public class AddCollateralRequestBodyTest {
     private final AddCollateralRequestBody model = new AddCollateralRequestBody();
 
-    /**
-     * Model tests for AddCollateralRequestBody
-     */
+    /** Model tests for AddCollateralRequestBody */
     @Test
     public void testAddCollateralRequestBody() {
         // TODO: test AddCollateralRequestBody
     }
 
-    /**
-     * Test the property 'transactionRequest'
-     */
+    /** Test the property 'transactionRequest' */
     @Test
     public void transactionRequestTest() {
         // TODO: test transactionRequest
     }
 
-    /**
-     * Test the property 'isSrcCollateral'
-     */
+    /** Test the property 'isSrcCollateral' */
     @Test
     public void isSrcCollateralTest() {
         // TODO: test isSrcCollateral
     }
-
 }

@@ -10,566 +10,612 @@
  * Do not edit the class manually.
  */
 
-
 package com.fireblocks.sdk.model;
 
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
-import java.util.StringJoiner;
-import java.util.Objects;
-import java.util.Map;
-import java.util.HashMap;
+
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonTypeName;
-import com.fasterxml.jackson.annotation.JsonValue;
-import com.fireblocks.sdk.model.MediaEntityResponse;
-import com.fireblocks.sdk.model.SpamTokenResponse;
-import com.fireblocks.sdk.model.TokenCollectionResponse;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonValue;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+import java.util.StringJoiner;
 
-
-/**
- * TokenResponse
- */
+/** TokenResponse */
 @JsonPropertyOrder({
-  TokenResponse.JSON_PROPERTY_ID,
-  TokenResponse.JSON_PROPERTY_TOKEN_ID,
-  TokenResponse.JSON_PROPERTY_STANDARD,
-  TokenResponse.JSON_PROPERTY_METADATA_U_R_I,
-  TokenResponse.JSON_PROPERTY_CACHED_METADATA_U_R_I,
-  TokenResponse.JSON_PROPERTY_MEDIA,
-  TokenResponse.JSON_PROPERTY_SPAM,
-  TokenResponse.JSON_PROPERTY_COLLECTION,
-  TokenResponse.JSON_PROPERTY_BLOCKCHAIN_DESCRIPTOR,
-  TokenResponse.JSON_PROPERTY_DESCRIPTION,
-  TokenResponse.JSON_PROPERTY_NAME
+    TokenResponse.JSON_PROPERTY_ID,
+    TokenResponse.JSON_PROPERTY_TOKEN_ID,
+    TokenResponse.JSON_PROPERTY_STANDARD,
+    TokenResponse.JSON_PROPERTY_METADATA_U_R_I,
+    TokenResponse.JSON_PROPERTY_CACHED_METADATA_U_R_I,
+    TokenResponse.JSON_PROPERTY_MEDIA,
+    TokenResponse.JSON_PROPERTY_SPAM,
+    TokenResponse.JSON_PROPERTY_COLLECTION,
+    TokenResponse.JSON_PROPERTY_BLOCKCHAIN_DESCRIPTOR,
+    TokenResponse.JSON_PROPERTY_DESCRIPTION,
+    TokenResponse.JSON_PROPERTY_NAME
 })
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class TokenResponse {
-  public static final String JSON_PROPERTY_ID = "id";
-  private String id;
+    public static final String JSON_PROPERTY_ID = "id";
+    private String id;
 
-  public static final String JSON_PROPERTY_TOKEN_ID = "tokenId";
-  private String tokenId;
+    public static final String JSON_PROPERTY_TOKEN_ID = "tokenId";
+    private String tokenId;
 
-  public static final String JSON_PROPERTY_STANDARD = "standard";
-  private String standard;
+    public static final String JSON_PROPERTY_STANDARD = "standard";
+    private String standard;
 
-  public static final String JSON_PROPERTY_METADATA_U_R_I = "metadataURI";
-  private String metadataURI;
+    public static final String JSON_PROPERTY_METADATA_U_R_I = "metadataURI";
+    private String metadataURI;
 
-  public static final String JSON_PROPERTY_CACHED_METADATA_U_R_I = "cachedMetadataURI";
-  private String cachedMetadataURI;
+    public static final String JSON_PROPERTY_CACHED_METADATA_U_R_I = "cachedMetadataURI";
+    private String cachedMetadataURI;
 
-  public static final String JSON_PROPERTY_MEDIA = "media";
-  private List<MediaEntityResponse> media;
+    public static final String JSON_PROPERTY_MEDIA = "media";
+    private List<MediaEntityResponse> media;
 
-  public static final String JSON_PROPERTY_SPAM = "spam";
-  private SpamTokenResponse spam;
+    public static final String JSON_PROPERTY_SPAM = "spam";
+    private SpamTokenResponse spam;
 
-  public static final String JSON_PROPERTY_COLLECTION = "collection";
-  private TokenCollectionResponse collection;
+    public static final String JSON_PROPERTY_COLLECTION = "collection";
+    private TokenCollectionResponse collection;
 
-  /**
-   * Gets or Sets blockchainDescriptor
-   */
-  public enum BlockchainDescriptorEnum {
-    ETH("ETH"),
-    
-    ETH_TEST3("ETH_TEST3"),
-    
-    ETH_TEST5("ETH_TEST5"),
-    
-    POLYGON("POLYGON"),
-    
-    POLYGON_TEST_MUMBAI("POLYGON_TEST_MUMBAI"),
-    
-    XTZ("XTZ"),
-    
-    XTZ_TEST("XTZ_TEST"),
-    
-    BASECHAIN_ETH("BASECHAIN_ETH");
+    /** Gets or Sets blockchainDescriptor */
+    public enum BlockchainDescriptorEnum {
+        ETH("ETH"),
 
-    private String value;
+        ETH_TEST3("ETH_TEST3"),
 
-    BlockchainDescriptorEnum(String value) {
-      this.value = value;
+        ETH_TEST5("ETH_TEST5"),
+
+        POLYGON("POLYGON"),
+
+        POLYGON_TEST_MUMBAI("POLYGON_TEST_MUMBAI"),
+
+        XTZ("XTZ"),
+
+        XTZ_TEST("XTZ_TEST"),
+
+        BASECHAIN_ETH("BASECHAIN_ETH");
+
+        private String value;
+
+        BlockchainDescriptorEnum(String value) {
+            this.value = value;
+        }
+
+        @JsonValue
+        public String getValue() {
+            return value;
+        }
+
+        @Override
+        public String toString() {
+            return String.valueOf(value);
+        }
+
+        @JsonCreator
+        public static BlockchainDescriptorEnum fromValue(String value) {
+            for (BlockchainDescriptorEnum b : BlockchainDescriptorEnum.values()) {
+                if (b.value.equals(value)) {
+                    return b;
+                }
+            }
+            throw new IllegalArgumentException("Unexpected value '" + value + "'");
+        }
     }
 
-    @JsonValue
-    public String getValue() {
-      return value;
+    public static final String JSON_PROPERTY_BLOCKCHAIN_DESCRIPTOR = "blockchainDescriptor";
+    private BlockchainDescriptorEnum blockchainDescriptor;
+
+    public static final String JSON_PROPERTY_DESCRIPTION = "description";
+    private String description;
+
+    public static final String JSON_PROPERTY_NAME = "name";
+    private String name;
+
+    public TokenResponse() {}
+
+    public TokenResponse id(String id) {
+        this.id = id;
+        return this;
+    }
+
+    /**
+     * The Fireblocks NFT asset id
+     *
+     * @return id
+     */
+    @jakarta.annotation.Nonnull
+    @JsonProperty(JSON_PROPERTY_ID)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public String getId() {
+        return id;
+    }
+
+    @JsonProperty(JSON_PROPERTY_ID)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public TokenResponse tokenId(String tokenId) {
+        this.tokenId = tokenId;
+        return this;
+    }
+
+    /**
+     * Token id within the contract/collection
+     *
+     * @return tokenId
+     */
+    @jakarta.annotation.Nonnull
+    @JsonProperty(JSON_PROPERTY_TOKEN_ID)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public String getTokenId() {
+        return tokenId;
+    }
+
+    @JsonProperty(JSON_PROPERTY_TOKEN_ID)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setTokenId(String tokenId) {
+        this.tokenId = tokenId;
+    }
+
+    public TokenResponse standard(String standard) {
+        this.standard = standard;
+        return this;
+    }
+
+    /**
+     * ERC721 / ERC1155
+     *
+     * @return standard
+     */
+    @jakarta.annotation.Nonnull
+    @JsonProperty(JSON_PROPERTY_STANDARD)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public String getStandard() {
+        return standard;
+    }
+
+    @JsonProperty(JSON_PROPERTY_STANDARD)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setStandard(String standard) {
+        this.standard = standard;
+    }
+
+    public TokenResponse metadataURI(String metadataURI) {
+        this.metadataURI = metadataURI;
+        return this;
+    }
+
+    /**
+     * URL of the original token JSON metadata
+     *
+     * @return metadataURI
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_METADATA_U_R_I)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getMetadataURI() {
+        return metadataURI;
+    }
+
+    @JsonProperty(JSON_PROPERTY_METADATA_U_R_I)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setMetadataURI(String metadataURI) {
+        this.metadataURI = metadataURI;
+    }
+
+    public TokenResponse cachedMetadataURI(String cachedMetadataURI) {
+        this.cachedMetadataURI = cachedMetadataURI;
+        return this;
+    }
+
+    /**
+     * URL of the cached token JSON metadata
+     *
+     * @return cachedMetadataURI
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_CACHED_METADATA_U_R_I)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getCachedMetadataURI() {
+        return cachedMetadataURI;
+    }
+
+    @JsonProperty(JSON_PROPERTY_CACHED_METADATA_U_R_I)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setCachedMetadataURI(String cachedMetadataURI) {
+        this.cachedMetadataURI = cachedMetadataURI;
+    }
+
+    public TokenResponse media(List<MediaEntityResponse> media) {
+        this.media = media;
+        return this;
+    }
+
+    public TokenResponse addMediaItem(MediaEntityResponse mediaItem) {
+        if (this.media == null) {
+            this.media = new ArrayList<>();
+        }
+        this.media.add(mediaItem);
+        return this;
+    }
+
+    /**
+     * Media items extracted from metadata JSON
+     *
+     * @return media
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_MEDIA)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public List<MediaEntityResponse> getMedia() {
+        return media;
+    }
+
+    @JsonProperty(JSON_PROPERTY_MEDIA)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setMedia(List<MediaEntityResponse> media) {
+        this.media = media;
+    }
+
+    public TokenResponse spam(SpamTokenResponse spam) {
+        this.spam = spam;
+        return this;
+    }
+
+    /**
+     * Token spam status
+     *
+     * @return spam
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_SPAM)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public SpamTokenResponse getSpam() {
+        return spam;
+    }
+
+    @JsonProperty(JSON_PROPERTY_SPAM)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setSpam(SpamTokenResponse spam) {
+        this.spam = spam;
+    }
+
+    public TokenResponse collection(TokenCollectionResponse collection) {
+        this.collection = collection;
+        return this;
+    }
+
+    /**
+     * Parent collection information
+     *
+     * @return collection
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_COLLECTION)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public TokenCollectionResponse getCollection() {
+        return collection;
+    }
+
+    @JsonProperty(JSON_PROPERTY_COLLECTION)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setCollection(TokenCollectionResponse collection) {
+        this.collection = collection;
+    }
+
+    public TokenResponse blockchainDescriptor(BlockchainDescriptorEnum blockchainDescriptor) {
+        this.blockchainDescriptor = blockchainDescriptor;
+        return this;
+    }
+
+    /**
+     * Get blockchainDescriptor
+     *
+     * @return blockchainDescriptor
+     */
+    @jakarta.annotation.Nonnull
+    @JsonProperty(JSON_PROPERTY_BLOCKCHAIN_DESCRIPTOR)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public BlockchainDescriptorEnum getBlockchainDescriptor() {
+        return blockchainDescriptor;
+    }
+
+    @JsonProperty(JSON_PROPERTY_BLOCKCHAIN_DESCRIPTOR)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setBlockchainDescriptor(BlockchainDescriptorEnum blockchainDescriptor) {
+        this.blockchainDescriptor = blockchainDescriptor;
+    }
+
+    public TokenResponse description(String description) {
+        this.description = description;
+        return this;
+    }
+
+    /**
+     * Get description
+     *
+     * @return description
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getDescription() {
+        return description;
+    }
+
+    @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public TokenResponse name(String name) {
+        this.name = name;
+        return this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return name
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_NAME)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getName() {
+        return name;
+    }
+
+    @JsonProperty(JSON_PROPERTY_NAME)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    /** Return true if this TokenResponse object is equal to o. */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        TokenResponse tokenResponse = (TokenResponse) o;
+        return Objects.equals(this.id, tokenResponse.id)
+                && Objects.equals(this.tokenId, tokenResponse.tokenId)
+                && Objects.equals(this.standard, tokenResponse.standard)
+                && Objects.equals(this.metadataURI, tokenResponse.metadataURI)
+                && Objects.equals(this.cachedMetadataURI, tokenResponse.cachedMetadataURI)
+                && Objects.equals(this.media, tokenResponse.media)
+                && Objects.equals(this.spam, tokenResponse.spam)
+                && Objects.equals(this.collection, tokenResponse.collection)
+                && Objects.equals(this.blockchainDescriptor, tokenResponse.blockchainDescriptor)
+                && Objects.equals(this.description, tokenResponse.description)
+                && Objects.equals(this.name, tokenResponse.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(
+                id,
+                tokenId,
+                standard,
+                metadataURI,
+                cachedMetadataURI,
+                media,
+                spam,
+                collection,
+                blockchainDescriptor,
+                description,
+                name);
     }
 
     @Override
     public String toString() {
-      return String.valueOf(value);
+        StringBuilder sb = new StringBuilder();
+        sb.append("class TokenResponse {\n");
+        sb.append("    id: ").append(toIndentedString(id)).append("\n");
+        sb.append("    tokenId: ").append(toIndentedString(tokenId)).append("\n");
+        sb.append("    standard: ").append(toIndentedString(standard)).append("\n");
+        sb.append("    metadataURI: ").append(toIndentedString(metadataURI)).append("\n");
+        sb.append("    cachedMetadataURI: ")
+                .append(toIndentedString(cachedMetadataURI))
+                .append("\n");
+        sb.append("    media: ").append(toIndentedString(media)).append("\n");
+        sb.append("    spam: ").append(toIndentedString(spam)).append("\n");
+        sb.append("    collection: ").append(toIndentedString(collection)).append("\n");
+        sb.append("    blockchainDescriptor: ")
+                .append(toIndentedString(blockchainDescriptor))
+                .append("\n");
+        sb.append("    description: ").append(toIndentedString(description)).append("\n");
+        sb.append("    name: ").append(toIndentedString(name)).append("\n");
+        sb.append("}");
+        return sb.toString();
     }
 
-    @JsonCreator
-    public static BlockchainDescriptorEnum fromValue(String value) {
-      for (BlockchainDescriptorEnum b : BlockchainDescriptorEnum.values()) {
-        if (b.value.equals(value)) {
-          return b;
+    /**
+     * Convert the given object to string with each line indented by 4 spaces (except the first
+     * line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
         }
-      }
-      throw new IllegalArgumentException("Unexpected value '" + value + "'");
-    }
-  }
-
-  public static final String JSON_PROPERTY_BLOCKCHAIN_DESCRIPTOR = "blockchainDescriptor";
-  private BlockchainDescriptorEnum blockchainDescriptor;
-
-  public static final String JSON_PROPERTY_DESCRIPTION = "description";
-  private String description;
-
-  public static final String JSON_PROPERTY_NAME = "name";
-  private String name;
-
-  public TokenResponse() { 
-  }
-
-  public TokenResponse id(String id) {
-    this.id = id;
-    return this;
-  }
-
-   /**
-   * The Fireblocks NFT asset id
-   * @return id
-  **/
-  @jakarta.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_ID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public String getId() {
-    return id;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_ID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setId(String id) {
-    this.id = id;
-  }
-
-
-  public TokenResponse tokenId(String tokenId) {
-    this.tokenId = tokenId;
-    return this;
-  }
-
-   /**
-   * Token id within the contract/collection
-   * @return tokenId
-  **/
-  @jakarta.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_TOKEN_ID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public String getTokenId() {
-    return tokenId;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_TOKEN_ID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setTokenId(String tokenId) {
-    this.tokenId = tokenId;
-  }
-
-
-  public TokenResponse standard(String standard) {
-    this.standard = standard;
-    return this;
-  }
-
-   /**
-   * ERC721 / ERC1155
-   * @return standard
-  **/
-  @jakarta.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_STANDARD)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public String getStandard() {
-    return standard;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_STANDARD)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setStandard(String standard) {
-    this.standard = standard;
-  }
-
-
-  public TokenResponse metadataURI(String metadataURI) {
-    this.metadataURI = metadataURI;
-    return this;
-  }
-
-   /**
-   * URL of the original token JSON metadata
-   * @return metadataURI
-  **/
-  @jakarta.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_METADATA_U_R_I)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getMetadataURI() {
-    return metadataURI;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_METADATA_U_R_I)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setMetadataURI(String metadataURI) {
-    this.metadataURI = metadataURI;
-  }
-
-
-  public TokenResponse cachedMetadataURI(String cachedMetadataURI) {
-    this.cachedMetadataURI = cachedMetadataURI;
-    return this;
-  }
-
-   /**
-   * URL of the cached token JSON metadata
-   * @return cachedMetadataURI
-  **/
-  @jakarta.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_CACHED_METADATA_U_R_I)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getCachedMetadataURI() {
-    return cachedMetadataURI;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_CACHED_METADATA_U_R_I)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setCachedMetadataURI(String cachedMetadataURI) {
-    this.cachedMetadataURI = cachedMetadataURI;
-  }
-
-
-  public TokenResponse media(List<MediaEntityResponse> media) {
-    this.media = media;
-    return this;
-  }
-
-  public TokenResponse addMediaItem(MediaEntityResponse mediaItem) {
-    if (this.media == null) {
-      this.media = new ArrayList<>();
-    }
-    this.media.add(mediaItem);
-    return this;
-  }
-
-   /**
-   * Media items extracted from metadata JSON
-   * @return media
-  **/
-  @jakarta.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_MEDIA)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public List<MediaEntityResponse> getMedia() {
-    return media;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_MEDIA)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setMedia(List<MediaEntityResponse> media) {
-    this.media = media;
-  }
-
-
-  public TokenResponse spam(SpamTokenResponse spam) {
-    this.spam = spam;
-    return this;
-  }
-
-   /**
-   * Get spam
-   * @return spam
-  **/
-  @jakarta.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_SPAM)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public SpamTokenResponse getSpam() {
-    return spam;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_SPAM)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setSpam(SpamTokenResponse spam) {
-    this.spam = spam;
-  }
-
-
-  public TokenResponse collection(TokenCollectionResponse collection) {
-    this.collection = collection;
-    return this;
-  }
-
-   /**
-   * Get collection
-   * @return collection
-  **/
-  @jakarta.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_COLLECTION)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public TokenCollectionResponse getCollection() {
-    return collection;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_COLLECTION)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setCollection(TokenCollectionResponse collection) {
-    this.collection = collection;
-  }
-
-
-  public TokenResponse blockchainDescriptor(BlockchainDescriptorEnum blockchainDescriptor) {
-    this.blockchainDescriptor = blockchainDescriptor;
-    return this;
-  }
-
-   /**
-   * Get blockchainDescriptor
-   * @return blockchainDescriptor
-  **/
-  @jakarta.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_BLOCKCHAIN_DESCRIPTOR)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public BlockchainDescriptorEnum getBlockchainDescriptor() {
-    return blockchainDescriptor;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_BLOCKCHAIN_DESCRIPTOR)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setBlockchainDescriptor(BlockchainDescriptorEnum blockchainDescriptor) {
-    this.blockchainDescriptor = blockchainDescriptor;
-  }
-
-
-  public TokenResponse description(String description) {
-    this.description = description;
-    return this;
-  }
-
-   /**
-   * Get description
-   * @return description
-  **/
-  @jakarta.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getDescription() {
-    return description;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setDescription(String description) {
-    this.description = description;
-  }
-
-
-  public TokenResponse name(String name) {
-    this.name = name;
-    return this;
-  }
-
-   /**
-   * Get name
-   * @return name
-  **/
-  @jakarta.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_NAME)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getName() {
-    return name;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_NAME)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setName(String name) {
-    this.name = name;
-  }
-
-
-  /**
-   * Return true if this TokenResponse object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    TokenResponse tokenResponse = (TokenResponse) o;
-    return Objects.equals(this.id, tokenResponse.id) &&
-        Objects.equals(this.tokenId, tokenResponse.tokenId) &&
-        Objects.equals(this.standard, tokenResponse.standard) &&
-        Objects.equals(this.metadataURI, tokenResponse.metadataURI) &&
-        Objects.equals(this.cachedMetadataURI, tokenResponse.cachedMetadataURI) &&
-        Objects.equals(this.media, tokenResponse.media) &&
-        Objects.equals(this.spam, tokenResponse.spam) &&
-        Objects.equals(this.collection, tokenResponse.collection) &&
-        Objects.equals(this.blockchainDescriptor, tokenResponse.blockchainDescriptor) &&
-        Objects.equals(this.description, tokenResponse.description) &&
-        Objects.equals(this.name, tokenResponse.name);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(id, tokenId, standard, metadataURI, cachedMetadataURI, media, spam, collection, blockchainDescriptor, description, name);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class TokenResponse {\n");
-    sb.append("    id: ").append(toIndentedString(id)).append("\n");
-    sb.append("    tokenId: ").append(toIndentedString(tokenId)).append("\n");
-    sb.append("    standard: ").append(toIndentedString(standard)).append("\n");
-    sb.append("    metadataURI: ").append(toIndentedString(metadataURI)).append("\n");
-    sb.append("    cachedMetadataURI: ").append(toIndentedString(cachedMetadataURI)).append("\n");
-    sb.append("    media: ").append(toIndentedString(media)).append("\n");
-    sb.append("    spam: ").append(toIndentedString(spam)).append("\n");
-    sb.append("    collection: ").append(toIndentedString(collection)).append("\n");
-    sb.append("    blockchainDescriptor: ").append(toIndentedString(blockchainDescriptor)).append("\n");
-    sb.append("    description: ").append(toIndentedString(description)).append("\n");
-    sb.append("    name: ").append(toIndentedString(name)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
-  }
-
-  /**
-   * Convert the instance into URL query string.
-   *
-   * @return URL query string
-   */
-  public String toUrlQueryString() {
-    return toUrlQueryString(null);
-  }
-
-  /**
-   * Convert the instance into URL query string.
-   *
-   * @param prefix prefix of the query string
-   * @return URL query string
-   */
-  public String toUrlQueryString(String prefix) {
-    String suffix = "";
-    String containerSuffix = "";
-    String containerPrefix = "";
-    if (prefix == null) {
-      // style=form, explode=true, e.g. /pet?name=cat&type=manx
-      prefix = "";
-    } else {
-      // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
-      prefix = prefix + "[";
-      suffix = "]";
-      containerSuffix = "]";
-      containerPrefix = "[";
+        return o.toString().replace("\n", "\n    ");
     }
 
-    StringJoiner joiner = new StringJoiner("&");
-
-    // add `id` to the URL query string
-    if (getId() != null) {
-      joiner.add(String.format("%sid%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getId()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    /**
+     * Convert the instance into URL query string.
+     *
+     * @return URL query string
+     */
+    public String toUrlQueryString() {
+        return toUrlQueryString(null);
     }
 
-    // add `tokenId` to the URL query string
-    if (getTokenId() != null) {
-      joiner.add(String.format("%stokenId%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getTokenId()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
-    }
-
-    // add `standard` to the URL query string
-    if (getStandard() != null) {
-      joiner.add(String.format("%sstandard%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getStandard()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
-    }
-
-    // add `metadataURI` to the URL query string
-    if (getMetadataURI() != null) {
-      joiner.add(String.format("%smetadataURI%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getMetadataURI()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
-    }
-
-    // add `cachedMetadataURI` to the URL query string
-    if (getCachedMetadataURI() != null) {
-      joiner.add(String.format("%scachedMetadataURI%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getCachedMetadataURI()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
-    }
-
-    // add `media` to the URL query string
-    if (getMedia() != null) {
-      for (int i = 0; i < getMedia().size(); i++) {
-        if (getMedia().get(i) != null) {
-          joiner.add(getMedia().get(i).toUrlQueryString(String.format("%smedia%s%s", prefix, suffix,
-          "".equals(suffix) ? "" : String.format("%s%d%s", containerPrefix, i, containerSuffix))));
+    /**
+     * Convert the instance into URL query string.
+     *
+     * @param prefix prefix of the query string
+     * @return URL query string
+     */
+    public String toUrlQueryString(String prefix) {
+        String suffix = "";
+        String containerSuffix = "";
+        String containerPrefix = "";
+        if (prefix == null) {
+            // style=form, explode=true, e.g. /pet?name=cat&type=manx
+            prefix = "";
+        } else {
+            // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
+            prefix = prefix + "[";
+            suffix = "]";
+            containerSuffix = "]";
+            containerPrefix = "[";
         }
-      }
-    }
 
-    // add `spam` to the URL query string
-    if (getSpam() != null) {
-      joiner.add(getSpam().toUrlQueryString(prefix + "spam" + suffix));
-    }
+        StringJoiner joiner = new StringJoiner("&");
 
-    // add `collection` to the URL query string
-    if (getCollection() != null) {
-      joiner.add(getCollection().toUrlQueryString(prefix + "collection" + suffix));
-    }
+        // add `id` to the URL query string
+        if (getId() != null) {
+            joiner.add(
+                    String.format(
+                            "%sid%s=%s",
+                            prefix,
+                            suffix,
+                            URLEncoder.encode(String.valueOf(getId()), StandardCharsets.UTF_8)
+                                    .replaceAll("\\+", "%20")));
+        }
 
-    // add `blockchainDescriptor` to the URL query string
-    if (getBlockchainDescriptor() != null) {
-      joiner.add(String.format("%sblockchainDescriptor%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getBlockchainDescriptor()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
-    }
+        // add `tokenId` to the URL query string
+        if (getTokenId() != null) {
+            joiner.add(
+                    String.format(
+                            "%stokenId%s=%s",
+                            prefix,
+                            suffix,
+                            URLEncoder.encode(String.valueOf(getTokenId()), StandardCharsets.UTF_8)
+                                    .replaceAll("\\+", "%20")));
+        }
 
-    // add `description` to the URL query string
-    if (getDescription() != null) {
-      joiner.add(String.format("%sdescription%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getDescription()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
-    }
+        // add `standard` to the URL query string
+        if (getStandard() != null) {
+            joiner.add(
+                    String.format(
+                            "%sstandard%s=%s",
+                            prefix,
+                            suffix,
+                            URLEncoder.encode(String.valueOf(getStandard()), StandardCharsets.UTF_8)
+                                    .replaceAll("\\+", "%20")));
+        }
 
-    // add `name` to the URL query string
-    if (getName() != null) {
-      joiner.add(String.format("%sname%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getName()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
-    }
+        // add `metadataURI` to the URL query string
+        if (getMetadataURI() != null) {
+            joiner.add(
+                    String.format(
+                            "%smetadataURI%s=%s",
+                            prefix,
+                            suffix,
+                            URLEncoder.encode(
+                                            String.valueOf(getMetadataURI()),
+                                            StandardCharsets.UTF_8)
+                                    .replaceAll("\\+", "%20")));
+        }
 
-    return joiner.toString();
-  }
+        // add `cachedMetadataURI` to the URL query string
+        if (getCachedMetadataURI() != null) {
+            joiner.add(
+                    String.format(
+                            "%scachedMetadataURI%s=%s",
+                            prefix,
+                            suffix,
+                            URLEncoder.encode(
+                                            String.valueOf(getCachedMetadataURI()),
+                                            StandardCharsets.UTF_8)
+                                    .replaceAll("\\+", "%20")));
+        }
+
+        // add `media` to the URL query string
+        if (getMedia() != null) {
+            for (int i = 0; i < getMedia().size(); i++) {
+                if (getMedia().get(i) != null) {
+                    joiner.add(
+                            getMedia()
+                                    .get(i)
+                                    .toUrlQueryString(
+                                            String.format(
+                                                    "%smedia%s%s",
+                                                    prefix,
+                                                    suffix,
+                                                    "".equals(suffix)
+                                                            ? ""
+                                                            : String.format(
+                                                                    "%s%d%s",
+                                                                    containerPrefix,
+                                                                    i,
+                                                                    containerSuffix))));
+                }
+            }
+        }
+
+        // add `spam` to the URL query string
+        if (getSpam() != null) {
+            joiner.add(getSpam().toUrlQueryString(prefix + "spam" + suffix));
+        }
+
+        // add `collection` to the URL query string
+        if (getCollection() != null) {
+            joiner.add(getCollection().toUrlQueryString(prefix + "collection" + suffix));
+        }
+
+        // add `blockchainDescriptor` to the URL query string
+        if (getBlockchainDescriptor() != null) {
+            joiner.add(
+                    String.format(
+                            "%sblockchainDescriptor%s=%s",
+                            prefix,
+                            suffix,
+                            URLEncoder.encode(
+                                            String.valueOf(getBlockchainDescriptor()),
+                                            StandardCharsets.UTF_8)
+                                    .replaceAll("\\+", "%20")));
+        }
+
+        // add `description` to the URL query string
+        if (getDescription() != null) {
+            joiner.add(
+                    String.format(
+                            "%sdescription%s=%s",
+                            prefix,
+                            suffix,
+                            URLEncoder.encode(
+                                            String.valueOf(getDescription()),
+                                            StandardCharsets.UTF_8)
+                                    .replaceAll("\\+", "%20")));
+        }
+
+        // add `name` to the URL query string
+        if (getName() != null) {
+            joiner.add(
+                    String.format(
+                            "%sname%s=%s",
+                            prefix,
+                            suffix,
+                            URLEncoder.encode(String.valueOf(getName()), StandardCharsets.UTF_8)
+                                    .replaceAll("\\+", "%20")));
+        }
+
+        return joiner.toString();
+    }
 }
-

@@ -10,138 +10,97 @@
  * Do not edit the class manually.
  */
 
-
 package com.fireblocks.sdk.model;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonTypeName;
-import com.fasterxml.jackson.annotation.JsonValue;
-import com.fireblocks.sdk.model.TravelRuleOwnershipProof;
-import com.fireblocks.sdk.model.TravelRulePiiIVMS;
-import com.fireblocks.sdk.model.TravelRuleTransactionBlockchainInfo;
-import java.util.Arrays;
-import org.junit.Assert;
-import org.junit.Ignore;
+
 import org.junit.Test;
 
-/**
- * Model tests for TravelRuleCreateTransactionRequest
- */
+/** Model tests for TravelRuleCreateTransactionRequest */
 public class TravelRuleCreateTransactionRequestTest {
-    private final TravelRuleCreateTransactionRequest model = new TravelRuleCreateTransactionRequest();
+    private final TravelRuleCreateTransactionRequest model =
+            new TravelRuleCreateTransactionRequest();
 
-    /**
-     * Model tests for TravelRuleCreateTransactionRequest
-     */
+    /** Model tests for TravelRuleCreateTransactionRequest */
     @Test
     public void testTravelRuleCreateTransactionRequest() {
         // TODO: test TravelRuleCreateTransactionRequest
     }
 
-    /**
-     * Test the property 'originatorVASPdid'
-     */
+    /** Test the property 'originatorVASPdid' */
     @Test
     public void originatorVASPdidTest() {
         // TODO: test originatorVASPdid
     }
 
-    /**
-     * Test the property 'beneficiaryVASPdid'
-     */
+    /** Test the property 'beneficiaryVASPdid' */
     @Test
     public void beneficiaryVASPdidTest() {
         // TODO: test beneficiaryVASPdid
     }
 
-    /**
-     * Test the property 'beneficiaryVASPname'
-     */
+    /** Test the property 'beneficiaryVASPname' */
     @Test
     public void beneficiaryVASPnameTest() {
         // TODO: test beneficiaryVASPname
     }
 
-    /**
-     * Test the property 'transactionBlockchainInfo'
-     */
+    /** Test the property 'transactionBlockchainInfo' */
     @Test
     public void transactionBlockchainInfoTest() {
         // TODO: test transactionBlockchainInfo
     }
 
-    /**
-     * Test the property 'originator'
-     */
+    /** Test the property 'originator' */
     @Test
     public void originatorTest() {
         // TODO: test originator
     }
 
-    /**
-     * Test the property 'beneficiary'
-     */
+    /** Test the property 'beneficiary' */
     @Test
     public void beneficiaryTest() {
         // TODO: test beneficiary
     }
 
-    /**
-     * Test the property 'encrypted'
-     */
+    /** Test the property 'encrypted' */
     @Test
     public void encryptedTest() {
         // TODO: test encrypted
     }
 
-    /**
-     * Test the property 'protocol'
-     */
+    /** Test the property 'protocol' */
     @Test
     public void protocolTest() {
         // TODO: test protocol
     }
 
-    /**
-     * Test the property 'skipBeneficiaryDataValidation'
-     */
+    /** Test the property 'skipBeneficiaryDataValidation' */
     @Test
     public void skipBeneficiaryDataValidationTest() {
         // TODO: test skipBeneficiaryDataValidation
     }
 
-    /**
-     * Test the property 'travelRuleBehavior'
-     */
+    /** Test the property 'travelRuleBehavior' */
     @Test
     public void travelRuleBehaviorTest() {
         // TODO: test travelRuleBehavior
     }
 
-    /**
-     * Test the property 'originatorProof'
-     */
+    /** Test the property 'originatorProof' */
     @Test
     public void originatorProofTest() {
         // TODO: test originatorProof
     }
 
-    /**
-     * Test the property 'beneficiaryProof'
-     */
+    /** Test the property 'beneficiaryProof' */
     @Test
     public void beneficiaryProofTest() {
         // TODO: test beneficiaryProof
     }
 
-    /**
-     * Test the property 'pii'
-     */
+    /** Test the property 'pii' */
     @Test
     public void piiTest() {
         // TODO: test pii
     }
-
 }

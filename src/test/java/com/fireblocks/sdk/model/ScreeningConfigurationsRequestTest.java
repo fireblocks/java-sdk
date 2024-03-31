@@ -10,56 +10,36 @@
  * Do not edit the class manually.
  */
 
-
 package com.fireblocks.sdk.model;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonTypeName;
-import com.fasterxml.jackson.annotation.JsonValue;
-import java.math.BigDecimal;
-import java.util.Arrays;
-import org.junit.Assert;
-import org.junit.Ignore;
+
 import org.junit.Test;
 
-/**
- * Model tests for ScreeningConfigurationsRequest
- */
+/** Model tests for ScreeningConfigurationsRequest */
 public class ScreeningConfigurationsRequestTest {
     private final ScreeningConfigurationsRequest model = new ScreeningConfigurationsRequest();
 
-    /**
-     * Model tests for ScreeningConfigurationsRequest
-     */
+    /** Model tests for ScreeningConfigurationsRequest */
     @Test
     public void testScreeningConfigurationsRequest() {
         // TODO: test ScreeningConfigurationsRequest
     }
 
-    /**
-     * Test the property 'bypassScreeningDuringServiceOutages'
-     */
+    /** Test the property 'bypassScreeningDuringServiceOutages' */
     @Test
     public void bypassScreeningDuringServiceOutagesTest() {
         // TODO: test bypassScreeningDuringServiceOutages
     }
 
-    /**
-     * Test the property 'inboundTransactionDelay'
-     */
+    /** Test the property 'inboundTransactionDelay' */
     @Test
     public void inboundTransactionDelayTest() {
         // TODO: test inboundTransactionDelay
     }
 
-    /**
-     * Test the property 'outboundTransactionDelay'
-     */
+    /** Test the property 'outboundTransactionDelay' */
     @Test
     public void outboundTransactionDelayTest() {
         // TODO: test outboundTransactionDelay
     }
-
 }

@@ -10,93 +10,79 @@
  * Do not edit the class manually.
  */
 
-
 package com.fireblocks.sdk.model;
-
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
-import java.util.StringJoiner;
-import java.util.Objects;
-import java.util.Map;
-import java.util.HashMap;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
-/**
- * Gets or Sets TradingAccountType
- */
+/** Gets or Sets TradingAccountType */
 public enum TradingAccountType {
-  
-  COIN_FUTURES("COIN_FUTURES"),
-  
-  COIN_MARGINED_SWAP("COIN_MARGINED_SWAP"),
-  
-  EXCHANGE("EXCHANGE"),
-  
-  FUNDING("FUNDING"),
-  
-  FUNDABLE("FUNDABLE"),
-  
-  FUTURES("FUTURES"),
-  
-  FUTURES_CROSS("FUTURES_CROSS"),
-  
-  MARGIN("MARGIN"),
-  
-  MARGIN_CROSS("MARGIN_CROSS"),
-  
-  OPTIONS("OPTIONS"),
-  
-  SPOT("SPOT"),
-  
-  USDT_MARGINED_SWAP_CROSS("USDT_MARGINED_SWAP_CROSS"),
-  
-  USDT_FUTURES("USDT_FUTURES"),
-  
-  UNIFIED("UNIFIED");
+    COIN_FUTURES("COIN_FUTURES"),
 
-  private String value;
+    COIN_MARGINED_SWAP("COIN_MARGINED_SWAP"),
 
-  TradingAccountType(String value) {
-    this.value = value;
-  }
+    EXCHANGE("EXCHANGE"),
 
-  @JsonValue
-  public String getValue() {
-    return value;
-  }
+    FUNDING("FUNDING"),
 
-  @Override
-  public String toString() {
-    return String.valueOf(value);
-  }
+    FUNDABLE("FUNDABLE"),
 
-  @JsonCreator
-  public static TradingAccountType fromValue(String value) {
-    for (TradingAccountType b : TradingAccountType.values()) {
-      if (b.value.equals(value)) {
-        return b;
-      }
-    }
-    throw new IllegalArgumentException("Unexpected value '" + value + "'");
-  }
+    FUTURES("FUTURES"),
 
-  /**
-   * Convert the instance into URL query string.
-   *
-   * @param prefix prefix of the query string
-   * @return URL query string
-   */
-  public String toUrlQueryString(String prefix) {
-    if (prefix == null) {
-      prefix = "";
+    FUTURES_CROSS("FUTURES_CROSS"),
+
+    MARGIN("MARGIN"),
+
+    MARGIN_CROSS("MARGIN_CROSS"),
+
+    OPTIONS("OPTIONS"),
+
+    SPOT("SPOT"),
+
+    USDT_MARGINED_SWAP_CROSS("USDT_MARGINED_SWAP_CROSS"),
+
+    USDT_FUTURES("USDT_FUTURES"),
+
+    UNIFIED("UNIFIED");
+
+    private String value;
+
+    TradingAccountType(String value) {
+        this.value = value;
     }
 
-    return String.format("%s=%s", prefix, this.toString());
-  }
+    @JsonValue
+    public String getValue() {
+        return value;
+    }
 
+    @Override
+    public String toString() {
+        return String.valueOf(value);
+    }
+
+    @JsonCreator
+    public static TradingAccountType fromValue(String value) {
+        for (TradingAccountType b : TradingAccountType.values()) {
+            if (b.value.equals(value)) {
+                return b;
+            }
+        }
+        throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
+
+    /**
+     * Convert the instance into URL query string.
+     *
+     * @param prefix prefix of the query string
+     * @return URL query string
+     */
+    public String toUrlQueryString(String prefix) {
+        if (prefix == null) {
+            prefix = "";
+        }
+
+        return String.format("%s=%s", prefix, this.toString());
+    }
 }
-

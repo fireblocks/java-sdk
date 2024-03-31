@@ -10,75 +10,48 @@
  * Do not edit the class manually.
  */
 
-
 package com.fireblocks.sdk.model;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonTypeName;
-import com.fasterxml.jackson.annotation.JsonValue;
-import com.fireblocks.sdk.model.FiatAccountType;
-import com.fireblocks.sdk.model.FiatAsset;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import org.junit.Assert;
-import org.junit.Ignore;
+
 import org.junit.Test;
 
-/**
- * Model tests for FiatAccount
- */
+/** Model tests for FiatAccount */
 public class FiatAccountTest {
     private final FiatAccount model = new FiatAccount();
 
-    /**
-     * Model tests for FiatAccount
-     */
+    /** Model tests for FiatAccount */
     @Test
     public void testFiatAccount() {
         // TODO: test FiatAccount
     }
 
-    /**
-     * Test the property 'id'
-     */
+    /** Test the property 'id' */
     @Test
     public void idTest() {
         // TODO: test id
     }
 
-    /**
-     * Test the property 'type'
-     */
+    /** Test the property 'type' */
     @Test
     public void typeTest() {
         // TODO: test type
     }
 
-    /**
-     * Test the property 'name'
-     */
+    /** Test the property 'name' */
     @Test
     public void nameTest() {
         // TODO: test name
     }
 
-    /**
-     * Test the property 'address'
-     */
+    /** Test the property 'address' */
     @Test
     public void addressTest() {
         // TODO: test address
     }
 
-    /**
-     * Test the property 'assets'
-     */
+    /** Test the property 'assets' */
     @Test
     public void assetsTest() {
         // TODO: test assets
     }
-
 }

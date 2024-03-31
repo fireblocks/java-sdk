@@ -17,7 +17,7 @@
 |**beneficiaryVASPname** | **String** | Beneficiary VASP name |  [optional] |
 |**beneficiaryName** | **String** | Beneficiary  name |  [optional] |
 |**beneficiaryAccountNumber** | **String** | Beneficiary  name |  [optional] |
-|**beneficiaryAddress** | [**TravelRuleAddress**](TravelRuleAddress.md) |  |  [optional] |
+|**beneficiaryAddress** | [**TravelRuleAddress**](TravelRuleAddress.md) | Beneficiary  name |  [optional] |
 
 
 

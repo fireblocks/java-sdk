@@ -40,7 +40,7 @@
 |**amlScreeningResult** | [**AmlScreeningResult**](AmlScreeningResult.md) |  |  [optional] |
 |**complianceResult** | [**ComplianceResult**](ComplianceResult.md) |  |  [optional] |
 |**extraParameters** | **Object** | Additional protocol / operation specific key-value parameters:  For UTXO-based blockchain input selection, add the key &#x60;inputsSelection&#x60; with the value set the [input selection structure.](https://developers.fireblocks.com/reference/transaction-objects#inputsselection) The inputs can be retrieved from the [Retrieve Unspent Inputs endpoint.](https://developers.fireblocks.com/reference/get_vault-accounts-vaultaccountid-assetid-unspent-inputs)  For &#x60;RAW&#x60; operations, add the key &#x60;rawMessageData&#x60; with the value set to the [raw message data structure.](https://developers.fireblocks.com/reference/raw-signing-objects#rawmessagedata)  For &#x60;CONTRACT_CALL&#x60; operations, add the key &#x60;contractCallData&#x60; with the value set to the Ethereum smart contract Application Binary Interface (ABI) payload. The Fireblocks [development libraries](https://developers.fireblocks.com/docs/ethereum-development#convenience-libraries) are recommended for building contract call transactions.  |  [optional] |
-|**signedMessages** | [**SignedMessage**](SignedMessage.md) |  |  [optional] |
+|**signedMessages** | [**List&lt;SignedMessage&gt;**](SignedMessage.md) |  |  [optional] |
 |**numOfConfirmations** | **BigDecimal** | The number of confirmations of the transaction. The number will increase until the transaction will be considered completed according to the confirmation policy. |  [optional] |
 |**blockInfo** | [**BlockInfo**](BlockInfo.md) |  |  [optional] |
 |**index** | **BigDecimal** | For UTXO based assets this is the vOut, for Ethereum based, this is the index of the event of the contract call.  **Note:** This field is not returned if a transaction uses the &#x60;destinations&#x60; object with more than one value. |  [optional] |
@@ -54,6 +54,7 @@
 |**serviceFee** | **BigDecimal** | The total fee deducted by the exchange from the actual requested amount (&#x60;serviceFee&#x60; &#x3D; &#x60;amount&#x60; - &#x60;netAmount&#x60;). Deprecated - please use the &#x60;feeInfo&#x60; field for accuracy. |  [optional] |
 |**fee** | **BigDecimal** | Deprecated - please use the &#x60;feeInfo&#x60; field for accuracy. |  [optional] |
 |**networkFee** | **BigDecimal** | The fee paid to the network. Deprecated - please use the &#x60;feeInfo&#x60; field for accuracy. |  [optional] |
+|**errorDescription** | **String** | The transaction&#39;s revert reason. This field will be returned when  &#x60;subStatus&#x60; &#x3D;  &#39;SMART_CONTRACT_EXECUTION_FAILED&#39;. |  [optional] |
 
 
 
@@ -61,6 +62,7 @@
 
 | Name | Value |
 |---- | -----|
+| EMPTY | &quot;&quot; |
 | WHITELISTED | &quot;WHITELISTED&quot; |
 | ONE_TIME | &quot;ONE_TIME&quot; |
 

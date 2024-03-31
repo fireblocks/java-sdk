@@ -10,63 +10,42 @@
  * Do not edit the class manually.
  */
 
-
 package com.fireblocks.sdk.model;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonTypeName;
-import com.fasterxml.jackson.annotation.JsonValue;
-import java.util.Arrays;
-import org.junit.Assert;
-import org.junit.Ignore;
+
 import org.junit.Test;
 
-/**
- * Model tests for CreateConsoleUser
- */
+/** Model tests for CreateConsoleUser */
 public class CreateConsoleUserTest {
     private final CreateConsoleUser model = new CreateConsoleUser();
 
-    /**
-     * Model tests for CreateConsoleUser
-     */
+    /** Model tests for CreateConsoleUser */
     @Test
     public void testCreateConsoleUser() {
         // TODO: test CreateConsoleUser
     }
 
-    /**
-     * Test the property 'firstName'
-     */
+    /** Test the property 'firstName' */
     @Test
     public void firstNameTest() {
         // TODO: test firstName
     }
 
-    /**
-     * Test the property 'lastName'
-     */
+    /** Test the property 'lastName' */
     @Test
     public void lastNameTest() {
         // TODO: test lastName
     }
 
-    /**
-     * Test the property 'role'
-     */
+    /** Test the property 'role' */
     @Test
     public void roleTest() {
         // TODO: test role
     }
 
-    /**
-     * Test the property 'email'
-     */
+    /** Test the property 'email' */
     @Test
     public void emailTest() {
         // TODO: test email
     }
-
 }

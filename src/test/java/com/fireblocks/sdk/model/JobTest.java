@@ -10,99 +10,66 @@
  * Do not edit the class manually.
  */
 
-
 package com.fireblocks.sdk.model;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonTypeName;
-import com.fasterxml.jackson.annotation.JsonValue;
-import com.fireblocks.sdk.model.Task;
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import org.junit.Assert;
-import org.junit.Ignore;
+
 import org.junit.Test;
 
-/**
- * Model tests for Job
- */
+/** Model tests for Job */
 public class JobTest {
     private final Job model = new Job();
 
-    /**
-     * Model tests for Job
-     */
+    /** Model tests for Job */
     @Test
     public void testJob() {
         // TODO: test Job
     }
 
-    /**
-     * Test the property 'id'
-     */
+    /** Test the property 'id' */
     @Test
     public void idTest() {
         // TODO: test id
     }
 
-    /**
-     * Test the property 'tenantId'
-     */
+    /** Test the property 'tenantId' */
     @Test
     public void tenantIdTest() {
         // TODO: test tenantId
     }
 
-    /**
-     * Test the property 'type'
-     */
+    /** Test the property 'type' */
     @Test
     public void typeTest() {
         // TODO: test type
     }
 
-    /**
-     * Test the property 'userId'
-     */
+    /** Test the property 'userId' */
     @Test
     public void userIdTest() {
         // TODO: test userId
     }
 
-    /**
-     * Test the property 'created'
-     */
+    /** Test the property 'created' */
     @Test
     public void createdTest() {
         // TODO: test created
     }
 
-    /**
-     * Test the property 'updated'
-     */
+    /** Test the property 'updated' */
     @Test
     public void updatedTest() {
         // TODO: test updated
     }
 
-    /**
-     * Test the property 'state'
-     */
+    /** Test the property 'state' */
     @Test
     public void stateTest() {
         // TODO: test state
     }
 
-    /**
-     * Test the property 'tasks'
-     */
+    /** Test the property 'tasks' */
     @Test
     public void tasksTest() {
         // TODO: test tasks
     }
-
 }

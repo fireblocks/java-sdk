@@ -10,40 +10,24 @@
  * Do not edit the class manually.
  */
 
-
 package com.fireblocks.sdk.model;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonTypeName;
-import com.fasterxml.jackson.annotation.JsonValue;
-import java.math.BigDecimal;
-import java.util.Arrays;
-import org.junit.Assert;
-import org.junit.Ignore;
+
 import org.junit.Test;
 
-/**
- * Model tests for SmartTransferSetTicketExpiration
- */
+/** Model tests for SmartTransferSetTicketExpiration */
 public class SmartTransferSetTicketExpirationTest {
     private final SmartTransferSetTicketExpiration model = new SmartTransferSetTicketExpiration();
 
-    /**
-     * Model tests for SmartTransferSetTicketExpiration
-     */
+    /** Model tests for SmartTransferSetTicketExpiration */
     @Test
     public void testSmartTransferSetTicketExpiration() {
         // TODO: test SmartTransferSetTicketExpiration
     }
 
-    /**
-     * Test the property 'expiresIn'
-     */
+    /** Test the property 'expiresIn' */
     @Test
     public void expiresInTest() {
         // TODO: test expiresIn
     }
-
 }

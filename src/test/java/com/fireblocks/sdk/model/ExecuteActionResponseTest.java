@@ -10,40 +10,24 @@
  * Do not edit the class manually.
  */
 
-
 package com.fireblocks.sdk.model;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonTypeName;
-import com.fasterxml.jackson.annotation.JsonValue;
-import com.fireblocks.sdk.model.StakeResponseDto;
-import java.util.Arrays;
-import org.junit.Assert;
-import org.junit.Ignore;
+
 import org.junit.Test;
 
-/**
- * Model tests for ExecuteActionResponse
- */
+/** Model tests for ExecuteActionResponse */
 public class ExecuteActionResponseTest {
     private final ExecuteActionResponse model = new ExecuteActionResponse();
 
-    /**
-     * Model tests for ExecuteActionResponse
-     */
+    /** Model tests for ExecuteActionResponse */
     @Test
     public void testExecuteActionResponse() {
         // TODO: test ExecuteActionResponse
     }
 
-    /**
-     * Test the property 'id'
-     */
+    /** Test the property 'id' */
     @Test
     public void idTest() {
         // TODO: test id
     }
-
 }

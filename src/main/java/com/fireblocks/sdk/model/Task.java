@@ -10,358 +10,373 @@
  * Do not edit the class manually.
  */
 
-
 package com.fireblocks.sdk.model;
 
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
-import java.util.StringJoiner;
-import java.util.Objects;
-import java.util.Map;
-import java.util.HashMap;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonTypeName;
-import com.fasterxml.jackson.annotation.JsonValue;
-import java.math.BigDecimal;
-import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import java.math.BigDecimal;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.Objects;
+import java.util.StringJoiner;
 
-
-/**
- * Task
- */
+/** Task */
 @JsonPropertyOrder({
-  Task.JSON_PROPERTY_ID,
-  Task.JSON_PROPERTY_JOB_ID,
-  Task.JSON_PROPERTY_TYPE,
-  Task.JSON_PROPERTY_TENANT_ID,
-  Task.JSON_PROPERTY_CREATED,
-  Task.JSON_PROPERTY_UPDATED,
-  Task.JSON_PROPERTY_STATE
+    Task.JSON_PROPERTY_ID,
+    Task.JSON_PROPERTY_JOB_ID,
+    Task.JSON_PROPERTY_TYPE,
+    Task.JSON_PROPERTY_TENANT_ID,
+    Task.JSON_PROPERTY_CREATED,
+    Task.JSON_PROPERTY_UPDATED,
+    Task.JSON_PROPERTY_STATE
 })
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class Task {
-  public static final String JSON_PROPERTY_ID = "id";
-  private String id;
+    public static final String JSON_PROPERTY_ID = "id";
+    private String id;
 
-  public static final String JSON_PROPERTY_JOB_ID = "jobId";
-  private String jobId;
+    public static final String JSON_PROPERTY_JOB_ID = "jobId";
+    private String jobId;
 
-  public static final String JSON_PROPERTY_TYPE = "type";
-  private String type;
+    public static final String JSON_PROPERTY_TYPE = "type";
+    private String type;
 
-  public static final String JSON_PROPERTY_TENANT_ID = "tenantId";
-  private String tenantId;
+    public static final String JSON_PROPERTY_TENANT_ID = "tenantId";
+    private String tenantId;
 
-  public static final String JSON_PROPERTY_CREATED = "created";
-  private BigDecimal created;
+    public static final String JSON_PROPERTY_CREATED = "created";
+    private BigDecimal created;
 
-  public static final String JSON_PROPERTY_UPDATED = "updated";
-  private BigDecimal updated;
+    public static final String JSON_PROPERTY_UPDATED = "updated";
+    private BigDecimal updated;
 
-  public static final String JSON_PROPERTY_STATE = "state";
-  private String state;
+    public static final String JSON_PROPERTY_STATE = "state";
+    private String state;
 
-  public Task() { 
-  }
+    public Task() {}
 
-  public Task id(String id) {
-    this.id = id;
-    return this;
-  }
-
-   /**
-   * Get id
-   * @return id
-  **/
-  @jakarta.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getId() {
-    return id;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setId(String id) {
-    this.id = id;
-  }
-
-
-  public Task jobId(String jobId) {
-    this.jobId = jobId;
-    return this;
-  }
-
-   /**
-   * Get jobId
-   * @return jobId
-  **/
-  @jakarta.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_JOB_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getJobId() {
-    return jobId;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_JOB_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setJobId(String jobId) {
-    this.jobId = jobId;
-  }
-
-
-  public Task type(String type) {
-    this.type = type;
-    return this;
-  }
-
-   /**
-   * Get type
-   * @return type
-  **/
-  @jakarta.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_TYPE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getType() {
-    return type;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_TYPE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setType(String type) {
-    this.type = type;
-  }
-
-
-  public Task tenantId(String tenantId) {
-    this.tenantId = tenantId;
-    return this;
-  }
-
-   /**
-   * Get tenantId
-   * @return tenantId
-  **/
-  @jakarta.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_TENANT_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getTenantId() {
-    return tenantId;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_TENANT_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setTenantId(String tenantId) {
-    this.tenantId = tenantId;
-  }
-
-
-  public Task created(BigDecimal created) {
-    this.created = created;
-    return this;
-  }
-
-   /**
-   * Get created
-   * @return created
-  **/
-  @jakarta.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_CREATED)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public BigDecimal getCreated() {
-    return created;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_CREATED)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setCreated(BigDecimal created) {
-    this.created = created;
-  }
-
-
-  public Task updated(BigDecimal updated) {
-    this.updated = updated;
-    return this;
-  }
-
-   /**
-   * Get updated
-   * @return updated
-  **/
-  @jakarta.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_UPDATED)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public BigDecimal getUpdated() {
-    return updated;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_UPDATED)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setUpdated(BigDecimal updated) {
-    this.updated = updated;
-  }
-
-
-  public Task state(String state) {
-    this.state = state;
-    return this;
-  }
-
-   /**
-   * Get state
-   * @return state
-  **/
-  @jakarta.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_STATE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getState() {
-    return state;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_STATE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setState(String state) {
-    this.state = state;
-  }
-
-
-  /**
-   * Return true if this Task object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    Task task = (Task) o;
-    return Objects.equals(this.id, task.id) &&
-        Objects.equals(this.jobId, task.jobId) &&
-        Objects.equals(this.type, task.type) &&
-        Objects.equals(this.tenantId, task.tenantId) &&
-        Objects.equals(this.created, task.created) &&
-        Objects.equals(this.updated, task.updated) &&
-        Objects.equals(this.state, task.state);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(id, jobId, type, tenantId, created, updated, state);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class Task {\n");
-    sb.append("    id: ").append(toIndentedString(id)).append("\n");
-    sb.append("    jobId: ").append(toIndentedString(jobId)).append("\n");
-    sb.append("    type: ").append(toIndentedString(type)).append("\n");
-    sb.append("    tenantId: ").append(toIndentedString(tenantId)).append("\n");
-    sb.append("    created: ").append(toIndentedString(created)).append("\n");
-    sb.append("    updated: ").append(toIndentedString(updated)).append("\n");
-    sb.append("    state: ").append(toIndentedString(state)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
-  }
-
-  /**
-   * Convert the instance into URL query string.
-   *
-   * @return URL query string
-   */
-  public String toUrlQueryString() {
-    return toUrlQueryString(null);
-  }
-
-  /**
-   * Convert the instance into URL query string.
-   *
-   * @param prefix prefix of the query string
-   * @return URL query string
-   */
-  public String toUrlQueryString(String prefix) {
-    String suffix = "";
-    String containerSuffix = "";
-    String containerPrefix = "";
-    if (prefix == null) {
-      // style=form, explode=true, e.g. /pet?name=cat&type=manx
-      prefix = "";
-    } else {
-      // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
-      prefix = prefix + "[";
-      suffix = "]";
-      containerSuffix = "]";
-      containerPrefix = "[";
+    public Task id(String id) {
+        this.id = id;
+        return this;
     }
 
-    StringJoiner joiner = new StringJoiner("&");
-
-    // add `id` to the URL query string
-    if (getId() != null) {
-      joiner.add(String.format("%sid%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getId()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    /**
+     * Get id
+     *
+     * @return id
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getId() {
+        return id;
     }
 
-    // add `jobId` to the URL query string
-    if (getJobId() != null) {
-      joiner.add(String.format("%sjobId%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getJobId()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    @JsonProperty(JSON_PROPERTY_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setId(String id) {
+        this.id = id;
     }
 
-    // add `type` to the URL query string
-    if (getType() != null) {
-      joiner.add(String.format("%stype%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getType()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    public Task jobId(String jobId) {
+        this.jobId = jobId;
+        return this;
     }
 
-    // add `tenantId` to the URL query string
-    if (getTenantId() != null) {
-      joiner.add(String.format("%stenantId%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getTenantId()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    /**
+     * Get jobId
+     *
+     * @return jobId
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_JOB_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getJobId() {
+        return jobId;
     }
 
-    // add `created` to the URL query string
-    if (getCreated() != null) {
-      joiner.add(String.format("%screated%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getCreated()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    @JsonProperty(JSON_PROPERTY_JOB_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setJobId(String jobId) {
+        this.jobId = jobId;
     }
 
-    // add `updated` to the URL query string
-    if (getUpdated() != null) {
-      joiner.add(String.format("%supdated%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getUpdated()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    public Task type(String type) {
+        this.type = type;
+        return this;
     }
 
-    // add `state` to the URL query string
-    if (getState() != null) {
-      joiner.add(String.format("%sstate%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getState()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    /**
+     * Get type
+     *
+     * @return type
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_TYPE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getType() {
+        return type;
     }
 
-    return joiner.toString();
-  }
+    @JsonProperty(JSON_PROPERTY_TYPE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public Task tenantId(String tenantId) {
+        this.tenantId = tenantId;
+        return this;
+    }
+
+    /**
+     * Get tenantId
+     *
+     * @return tenantId
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_TENANT_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getTenantId() {
+        return tenantId;
+    }
+
+    @JsonProperty(JSON_PROPERTY_TENANT_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setTenantId(String tenantId) {
+        this.tenantId = tenantId;
+    }
+
+    public Task created(BigDecimal created) {
+        this.created = created;
+        return this;
+    }
+
+    /**
+     * Get created
+     *
+     * @return created
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_CREATED)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public BigDecimal getCreated() {
+        return created;
+    }
+
+    @JsonProperty(JSON_PROPERTY_CREATED)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setCreated(BigDecimal created) {
+        this.created = created;
+    }
+
+    public Task updated(BigDecimal updated) {
+        this.updated = updated;
+        return this;
+    }
+
+    /**
+     * Get updated
+     *
+     * @return updated
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_UPDATED)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public BigDecimal getUpdated() {
+        return updated;
+    }
+
+    @JsonProperty(JSON_PROPERTY_UPDATED)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setUpdated(BigDecimal updated) {
+        this.updated = updated;
+    }
+
+    public Task state(String state) {
+        this.state = state;
+        return this;
+    }
+
+    /**
+     * Get state
+     *
+     * @return state
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_STATE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getState() {
+        return state;
+    }
+
+    @JsonProperty(JSON_PROPERTY_STATE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    /** Return true if this Task object is equal to o. */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Task task = (Task) o;
+        return Objects.equals(this.id, task.id)
+                && Objects.equals(this.jobId, task.jobId)
+                && Objects.equals(this.type, task.type)
+                && Objects.equals(this.tenantId, task.tenantId)
+                && Objects.equals(this.created, task.created)
+                && Objects.equals(this.updated, task.updated)
+                && Objects.equals(this.state, task.state);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, jobId, type, tenantId, created, updated, state);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class Task {\n");
+        sb.append("    id: ").append(toIndentedString(id)).append("\n");
+        sb.append("    jobId: ").append(toIndentedString(jobId)).append("\n");
+        sb.append("    type: ").append(toIndentedString(type)).append("\n");
+        sb.append("    tenantId: ").append(toIndentedString(tenantId)).append("\n");
+        sb.append("    created: ").append(toIndentedString(created)).append("\n");
+        sb.append("    updated: ").append(toIndentedString(updated)).append("\n");
+        sb.append("    state: ").append(toIndentedString(state)).append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces (except the first
+     * line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
+
+    /**
+     * Convert the instance into URL query string.
+     *
+     * @return URL query string
+     */
+    public String toUrlQueryString() {
+        return toUrlQueryString(null);
+    }
+
+    /**
+     * Convert the instance into URL query string.
+     *
+     * @param prefix prefix of the query string
+     * @return URL query string
+     */
+    public String toUrlQueryString(String prefix) {
+        String suffix = "";
+        String containerSuffix = "";
+        String containerPrefix = "";
+        if (prefix == null) {
+            // style=form, explode=true, e.g. /pet?name=cat&type=manx
+            prefix = "";
+        } else {
+            // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
+            prefix = prefix + "[";
+            suffix = "]";
+            containerSuffix = "]";
+            containerPrefix = "[";
+        }
+
+        StringJoiner joiner = new StringJoiner("&");
+
+        // add `id` to the URL query string
+        if (getId() != null) {
+            joiner.add(
+                    String.format(
+                            "%sid%s=%s",
+                            prefix,
+                            suffix,
+                            URLEncoder.encode(String.valueOf(getId()), StandardCharsets.UTF_8)
+                                    .replaceAll("\\+", "%20")));
+        }
+
+        // add `jobId` to the URL query string
+        if (getJobId() != null) {
+            joiner.add(
+                    String.format(
+                            "%sjobId%s=%s",
+                            prefix,
+                            suffix,
+                            URLEncoder.encode(String.valueOf(getJobId()), StandardCharsets.UTF_8)
+                                    .replaceAll("\\+", "%20")));
+        }
+
+        // add `type` to the URL query string
+        if (getType() != null) {
+            joiner.add(
+                    String.format(
+                            "%stype%s=%s",
+                            prefix,
+                            suffix,
+                            URLEncoder.encode(String.valueOf(getType()), StandardCharsets.UTF_8)
+                                    .replaceAll("\\+", "%20")));
+        }
+
+        // add `tenantId` to the URL query string
+        if (getTenantId() != null) {
+            joiner.add(
+                    String.format(
+                            "%stenantId%s=%s",
+                            prefix,
+                            suffix,
+                            URLEncoder.encode(String.valueOf(getTenantId()), StandardCharsets.UTF_8)
+                                    .replaceAll("\\+", "%20")));
+        }
+
+        // add `created` to the URL query string
+        if (getCreated() != null) {
+            joiner.add(
+                    String.format(
+                            "%screated%s=%s",
+                            prefix,
+                            suffix,
+                            URLEncoder.encode(String.valueOf(getCreated()), StandardCharsets.UTF_8)
+                                    .replaceAll("\\+", "%20")));
+        }
+
+        // add `updated` to the URL query string
+        if (getUpdated() != null) {
+            joiner.add(
+                    String.format(
+                            "%supdated%s=%s",
+                            prefix,
+                            suffix,
+                            URLEncoder.encode(String.valueOf(getUpdated()), StandardCharsets.UTF_8)
+                                    .replaceAll("\\+", "%20")));
+        }
+
+        // add `state` to the URL query string
+        if (getState() != null) {
+            joiner.add(
+                    String.format(
+                            "%sstate%s=%s",
+                            prefix,
+                            suffix,
+                            URLEncoder.encode(String.valueOf(getState()), StandardCharsets.UTF_8)
+                                    .replaceAll("\\+", "%20")));
+        }
+
+        return joiner.toString();
+    }
 }
-

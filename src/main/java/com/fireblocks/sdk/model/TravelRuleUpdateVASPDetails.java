@@ -10,177 +10,173 @@
  * Do not edit the class manually.
  */
 
-
 package com.fireblocks.sdk.model;
 
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
-import java.util.StringJoiner;
-import java.util.Objects;
-import java.util.Map;
-import java.util.HashMap;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonTypeName;
-import com.fasterxml.jackson.annotation.JsonValue;
-import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.Objects;
+import java.util.StringJoiner;
 
-
-/**
- * TravelRuleUpdateVASPDetails
- */
+/** TravelRuleUpdateVASPDetails */
 @JsonPropertyOrder({
-  TravelRuleUpdateVASPDetails.JSON_PROPERTY_DID,
-  TravelRuleUpdateVASPDetails.JSON_PROPERTY_PII_DIDKEY
+    TravelRuleUpdateVASPDetails.JSON_PROPERTY_DID,
+    TravelRuleUpdateVASPDetails.JSON_PROPERTY_PII_DIDKEY
 })
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class TravelRuleUpdateVASPDetails {
-  public static final String JSON_PROPERTY_DID = "did";
-  private String did;
+    public static final String JSON_PROPERTY_DID = "did";
+    private String did;
 
-  public static final String JSON_PROPERTY_PII_DIDKEY = "pii_didkey";
-  private String piiDidkey;
+    public static final String JSON_PROPERTY_PII_DIDKEY = "pii_didkey";
+    private String piiDidkey;
 
-  public TravelRuleUpdateVASPDetails() { 
-  }
+    public TravelRuleUpdateVASPDetails() {}
 
-  public TravelRuleUpdateVASPDetails did(String did) {
-    this.did = did;
-    return this;
-  }
-
-   /**
-   * The decentralized identifier of the VASP
-   * @return did
-  **/
-  @jakarta.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_DID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public String getDid() {
-    return did;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_DID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setDid(String did) {
-    this.did = did;
-  }
-
-
-  public TravelRuleUpdateVASPDetails piiDidkey(String piiDidkey) {
-    this.piiDidkey = piiDidkey;
-    return this;
-  }
-
-   /**
-   * The PII DID key of the VASP
-   * @return piiDidkey
-  **/
-  @jakarta.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_PII_DIDKEY)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public String getPiiDidkey() {
-    return piiDidkey;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_PII_DIDKEY)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setPiiDidkey(String piiDidkey) {
-    this.piiDidkey = piiDidkey;
-  }
-
-
-  /**
-   * Return true if this TravelRuleUpdateVASPDetails object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    TravelRuleUpdateVASPDetails travelRuleUpdateVASPDetails = (TravelRuleUpdateVASPDetails) o;
-    return Objects.equals(this.did, travelRuleUpdateVASPDetails.did) &&
-        Objects.equals(this.piiDidkey, travelRuleUpdateVASPDetails.piiDidkey);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(did, piiDidkey);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class TravelRuleUpdateVASPDetails {\n");
-    sb.append("    did: ").append(toIndentedString(did)).append("\n");
-    sb.append("    piiDidkey: ").append(toIndentedString(piiDidkey)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
-  }
-
-  /**
-   * Convert the instance into URL query string.
-   *
-   * @return URL query string
-   */
-  public String toUrlQueryString() {
-    return toUrlQueryString(null);
-  }
-
-  /**
-   * Convert the instance into URL query string.
-   *
-   * @param prefix prefix of the query string
-   * @return URL query string
-   */
-  public String toUrlQueryString(String prefix) {
-    String suffix = "";
-    String containerSuffix = "";
-    String containerPrefix = "";
-    if (prefix == null) {
-      // style=form, explode=true, e.g. /pet?name=cat&type=manx
-      prefix = "";
-    } else {
-      // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
-      prefix = prefix + "[";
-      suffix = "]";
-      containerSuffix = "]";
-      containerPrefix = "[";
+    public TravelRuleUpdateVASPDetails did(String did) {
+        this.did = did;
+        return this;
     }
 
-    StringJoiner joiner = new StringJoiner("&");
-
-    // add `did` to the URL query string
-    if (getDid() != null) {
-      joiner.add(String.format("%sdid%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getDid()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    /**
+     * The decentralized identifier of the VASP
+     *
+     * @return did
+     */
+    @jakarta.annotation.Nonnull
+    @JsonProperty(JSON_PROPERTY_DID)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public String getDid() {
+        return did;
     }
 
-    // add `pii_didkey` to the URL query string
-    if (getPiiDidkey() != null) {
-      joiner.add(String.format("%spii_didkey%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getPiiDidkey()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    @JsonProperty(JSON_PROPERTY_DID)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setDid(String did) {
+        this.did = did;
     }
 
-    return joiner.toString();
-  }
+    public TravelRuleUpdateVASPDetails piiDidkey(String piiDidkey) {
+        this.piiDidkey = piiDidkey;
+        return this;
+    }
+
+    /**
+     * The PII DID key of the VASP
+     *
+     * @return piiDidkey
+     */
+    @jakarta.annotation.Nonnull
+    @JsonProperty(JSON_PROPERTY_PII_DIDKEY)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public String getPiiDidkey() {
+        return piiDidkey;
+    }
+
+    @JsonProperty(JSON_PROPERTY_PII_DIDKEY)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setPiiDidkey(String piiDidkey) {
+        this.piiDidkey = piiDidkey;
+    }
+
+    /** Return true if this TravelRuleUpdateVASPDetails object is equal to o. */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        TravelRuleUpdateVASPDetails travelRuleUpdateVASPDetails = (TravelRuleUpdateVASPDetails) o;
+        return Objects.equals(this.did, travelRuleUpdateVASPDetails.did)
+                && Objects.equals(this.piiDidkey, travelRuleUpdateVASPDetails.piiDidkey);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(did, piiDidkey);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class TravelRuleUpdateVASPDetails {\n");
+        sb.append("    did: ").append(toIndentedString(did)).append("\n");
+        sb.append("    piiDidkey: ").append(toIndentedString(piiDidkey)).append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces (except the first
+     * line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
+
+    /**
+     * Convert the instance into URL query string.
+     *
+     * @return URL query string
+     */
+    public String toUrlQueryString() {
+        return toUrlQueryString(null);
+    }
+
+    /**
+     * Convert the instance into URL query string.
+     *
+     * @param prefix prefix of the query string
+     * @return URL query string
+     */
+    public String toUrlQueryString(String prefix) {
+        String suffix = "";
+        String containerSuffix = "";
+        String containerPrefix = "";
+        if (prefix == null) {
+            // style=form, explode=true, e.g. /pet?name=cat&type=manx
+            prefix = "";
+        } else {
+            // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
+            prefix = prefix + "[";
+            suffix = "]";
+            containerSuffix = "]";
+            containerPrefix = "[";
+        }
+
+        StringJoiner joiner = new StringJoiner("&");
+
+        // add `did` to the URL query string
+        if (getDid() != null) {
+            joiner.add(
+                    String.format(
+                            "%sdid%s=%s",
+                            prefix,
+                            suffix,
+                            URLEncoder.encode(String.valueOf(getDid()), StandardCharsets.UTF_8)
+                                    .replaceAll("\\+", "%20")));
+        }
+
+        // add `pii_didkey` to the URL query string
+        if (getPiiDidkey() != null) {
+            joiner.add(
+                    String.format(
+                            "%spii_didkey%s=%s",
+                            prefix,
+                            suffix,
+                            URLEncoder.encode(
+                                            String.valueOf(getPiiDidkey()), StandardCharsets.UTF_8)
+                                    .replaceAll("\\+", "%20")));
+        }
+
+        return joiner.toString();
+    }
 }
-

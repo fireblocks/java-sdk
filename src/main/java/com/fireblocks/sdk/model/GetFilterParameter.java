@@ -10,358 +10,378 @@
  * Do not edit the class manually.
  */
 
-
 package com.fireblocks.sdk.model;
 
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
-import java.util.StringJoiner;
-import java.util.Objects;
-import java.util.Map;
-import java.util.HashMap;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonTypeName;
-import com.fasterxml.jackson.annotation.JsonValue;
-import java.math.BigDecimal;
-import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import java.math.BigDecimal;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.Objects;
+import java.util.StringJoiner;
 
-
-/**
- * GetFilterParameter
- */
+/** GetFilterParameter */
 @JsonPropertyOrder({
-  GetFilterParameter.JSON_PROPERTY_ID,
-  GetFilterParameter.JSON_PROPERTY_USER_ID,
-  GetFilterParameter.JSON_PROPERTY_VAULT_ACCOUNT_ID,
-  GetFilterParameter.JSON_PROPERTY_CONNECTION_METHOD,
-  GetFilterParameter.JSON_PROPERTY_FEE_LEVEL,
-  GetFilterParameter.JSON_PROPERTY_APP_URL,
-  GetFilterParameter.JSON_PROPERTY_APP_NAME
+    GetFilterParameter.JSON_PROPERTY_ID,
+    GetFilterParameter.JSON_PROPERTY_USER_ID,
+    GetFilterParameter.JSON_PROPERTY_VAULT_ACCOUNT_ID,
+    GetFilterParameter.JSON_PROPERTY_CONNECTION_METHOD,
+    GetFilterParameter.JSON_PROPERTY_FEE_LEVEL,
+    GetFilterParameter.JSON_PROPERTY_APP_URL,
+    GetFilterParameter.JSON_PROPERTY_APP_NAME
 })
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class GetFilterParameter {
-  public static final String JSON_PROPERTY_ID = "id";
-  private String id;
+    public static final String JSON_PROPERTY_ID = "id";
+    private String id;
 
-  public static final String JSON_PROPERTY_USER_ID = "userId";
-  private String userId;
+    public static final String JSON_PROPERTY_USER_ID = "userId";
+    private String userId;
 
-  public static final String JSON_PROPERTY_VAULT_ACCOUNT_ID = "vaultAccountId";
-  private BigDecimal vaultAccountId;
+    public static final String JSON_PROPERTY_VAULT_ACCOUNT_ID = "vaultAccountId";
+    private BigDecimal vaultAccountId;
 
-  public static final String JSON_PROPERTY_CONNECTION_METHOD = "connectionMethod";
-  private String connectionMethod;
+    public static final String JSON_PROPERTY_CONNECTION_METHOD = "connectionMethod";
+    private String connectionMethod;
 
-  public static final String JSON_PROPERTY_FEE_LEVEL = "feeLevel";
-  private String feeLevel;
+    public static final String JSON_PROPERTY_FEE_LEVEL = "feeLevel";
+    private String feeLevel;
 
-  public static final String JSON_PROPERTY_APP_URL = "appUrl";
-  private String appUrl;
+    public static final String JSON_PROPERTY_APP_URL = "appUrl";
+    private String appUrl;
 
-  public static final String JSON_PROPERTY_APP_NAME = "appName";
-  private String appName;
+    public static final String JSON_PROPERTY_APP_NAME = "appName";
+    private String appName;
 
-  public GetFilterParameter() { 
-  }
+    public GetFilterParameter() {}
 
-  public GetFilterParameter id(String id) {
-    this.id = id;
-    return this;
-  }
-
-   /**
-   * Get id
-   * @return id
-  **/
-  @jakarta.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getId() {
-    return id;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setId(String id) {
-    this.id = id;
-  }
-
-
-  public GetFilterParameter userId(String userId) {
-    this.userId = userId;
-    return this;
-  }
-
-   /**
-   * Get userId
-   * @return userId
-  **/
-  @jakarta.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_USER_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getUserId() {
-    return userId;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_USER_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setUserId(String userId) {
-    this.userId = userId;
-  }
-
-
-  public GetFilterParameter vaultAccountId(BigDecimal vaultAccountId) {
-    this.vaultAccountId = vaultAccountId;
-    return this;
-  }
-
-   /**
-   * Get vaultAccountId
-   * @return vaultAccountId
-  **/
-  @jakarta.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_VAULT_ACCOUNT_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public BigDecimal getVaultAccountId() {
-    return vaultAccountId;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_VAULT_ACCOUNT_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setVaultAccountId(BigDecimal vaultAccountId) {
-    this.vaultAccountId = vaultAccountId;
-  }
-
-
-  public GetFilterParameter connectionMethod(String connectionMethod) {
-    this.connectionMethod = connectionMethod;
-    return this;
-  }
-
-   /**
-   * Get connectionMethod
-   * @return connectionMethod
-  **/
-  @jakarta.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_CONNECTION_METHOD)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getConnectionMethod() {
-    return connectionMethod;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_CONNECTION_METHOD)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setConnectionMethod(String connectionMethod) {
-    this.connectionMethod = connectionMethod;
-  }
-
-
-  public GetFilterParameter feeLevel(String feeLevel) {
-    this.feeLevel = feeLevel;
-    return this;
-  }
-
-   /**
-   * Get feeLevel
-   * @return feeLevel
-  **/
-  @jakarta.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_FEE_LEVEL)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getFeeLevel() {
-    return feeLevel;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_FEE_LEVEL)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setFeeLevel(String feeLevel) {
-    this.feeLevel = feeLevel;
-  }
-
-
-  public GetFilterParameter appUrl(String appUrl) {
-    this.appUrl = appUrl;
-    return this;
-  }
-
-   /**
-   * Get appUrl
-   * @return appUrl
-  **/
-  @jakarta.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_APP_URL)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getAppUrl() {
-    return appUrl;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_APP_URL)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setAppUrl(String appUrl) {
-    this.appUrl = appUrl;
-  }
-
-
-  public GetFilterParameter appName(String appName) {
-    this.appName = appName;
-    return this;
-  }
-
-   /**
-   * Get appName
-   * @return appName
-  **/
-  @jakarta.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_APP_NAME)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getAppName() {
-    return appName;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_APP_NAME)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setAppName(String appName) {
-    this.appName = appName;
-  }
-
-
-  /**
-   * Return true if this get_filter_parameter object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    GetFilterParameter getFilterParameter = (GetFilterParameter) o;
-    return Objects.equals(this.id, getFilterParameter.id) &&
-        Objects.equals(this.userId, getFilterParameter.userId) &&
-        Objects.equals(this.vaultAccountId, getFilterParameter.vaultAccountId) &&
-        Objects.equals(this.connectionMethod, getFilterParameter.connectionMethod) &&
-        Objects.equals(this.feeLevel, getFilterParameter.feeLevel) &&
-        Objects.equals(this.appUrl, getFilterParameter.appUrl) &&
-        Objects.equals(this.appName, getFilterParameter.appName);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(id, userId, vaultAccountId, connectionMethod, feeLevel, appUrl, appName);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class GetFilterParameter {\n");
-    sb.append("    id: ").append(toIndentedString(id)).append("\n");
-    sb.append("    userId: ").append(toIndentedString(userId)).append("\n");
-    sb.append("    vaultAccountId: ").append(toIndentedString(vaultAccountId)).append("\n");
-    sb.append("    connectionMethod: ").append(toIndentedString(connectionMethod)).append("\n");
-    sb.append("    feeLevel: ").append(toIndentedString(feeLevel)).append("\n");
-    sb.append("    appUrl: ").append(toIndentedString(appUrl)).append("\n");
-    sb.append("    appName: ").append(toIndentedString(appName)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
-  }
-
-  /**
-   * Convert the instance into URL query string.
-   *
-   * @return URL query string
-   */
-  public String toUrlQueryString() {
-    return toUrlQueryString(null);
-  }
-
-  /**
-   * Convert the instance into URL query string.
-   *
-   * @param prefix prefix of the query string
-   * @return URL query string
-   */
-  public String toUrlQueryString(String prefix) {
-    String suffix = "";
-    String containerSuffix = "";
-    String containerPrefix = "";
-    if (prefix == null) {
-      // style=form, explode=true, e.g. /pet?name=cat&type=manx
-      prefix = "";
-    } else {
-      // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
-      prefix = prefix + "[";
-      suffix = "]";
-      containerSuffix = "]";
-      containerPrefix = "[";
+    public GetFilterParameter id(String id) {
+        this.id = id;
+        return this;
     }
 
-    StringJoiner joiner = new StringJoiner("&");
-
-    // add `id` to the URL query string
-    if (getId() != null) {
-      joiner.add(String.format("%sid%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getId()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    /**
+     * Get id
+     *
+     * @return id
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getId() {
+        return id;
     }
 
-    // add `userId` to the URL query string
-    if (getUserId() != null) {
-      joiner.add(String.format("%suserId%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getUserId()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    @JsonProperty(JSON_PROPERTY_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setId(String id) {
+        this.id = id;
     }
 
-    // add `vaultAccountId` to the URL query string
-    if (getVaultAccountId() != null) {
-      joiner.add(String.format("%svaultAccountId%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getVaultAccountId()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    public GetFilterParameter userId(String userId) {
+        this.userId = userId;
+        return this;
     }
 
-    // add `connectionMethod` to the URL query string
-    if (getConnectionMethod() != null) {
-      joiner.add(String.format("%sconnectionMethod%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getConnectionMethod()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    /**
+     * Get userId
+     *
+     * @return userId
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_USER_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getUserId() {
+        return userId;
     }
 
-    // add `feeLevel` to the URL query string
-    if (getFeeLevel() != null) {
-      joiner.add(String.format("%sfeeLevel%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getFeeLevel()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    @JsonProperty(JSON_PROPERTY_USER_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
-    // add `appUrl` to the URL query string
-    if (getAppUrl() != null) {
-      joiner.add(String.format("%sappUrl%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getAppUrl()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    public GetFilterParameter vaultAccountId(BigDecimal vaultAccountId) {
+        this.vaultAccountId = vaultAccountId;
+        return this;
     }
 
-    // add `appName` to the URL query string
-    if (getAppName() != null) {
-      joiner.add(String.format("%sappName%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getAppName()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    /**
+     * Get vaultAccountId
+     *
+     * @return vaultAccountId
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_VAULT_ACCOUNT_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public BigDecimal getVaultAccountId() {
+        return vaultAccountId;
     }
 
-    return joiner.toString();
-  }
+    @JsonProperty(JSON_PROPERTY_VAULT_ACCOUNT_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setVaultAccountId(BigDecimal vaultAccountId) {
+        this.vaultAccountId = vaultAccountId;
+    }
+
+    public GetFilterParameter connectionMethod(String connectionMethod) {
+        this.connectionMethod = connectionMethod;
+        return this;
+    }
+
+    /**
+     * Get connectionMethod
+     *
+     * @return connectionMethod
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_CONNECTION_METHOD)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getConnectionMethod() {
+        return connectionMethod;
+    }
+
+    @JsonProperty(JSON_PROPERTY_CONNECTION_METHOD)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setConnectionMethod(String connectionMethod) {
+        this.connectionMethod = connectionMethod;
+    }
+
+    public GetFilterParameter feeLevel(String feeLevel) {
+        this.feeLevel = feeLevel;
+        return this;
+    }
+
+    /**
+     * Get feeLevel
+     *
+     * @return feeLevel
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_FEE_LEVEL)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getFeeLevel() {
+        return feeLevel;
+    }
+
+    @JsonProperty(JSON_PROPERTY_FEE_LEVEL)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setFeeLevel(String feeLevel) {
+        this.feeLevel = feeLevel;
+    }
+
+    public GetFilterParameter appUrl(String appUrl) {
+        this.appUrl = appUrl;
+        return this;
+    }
+
+    /**
+     * Get appUrl
+     *
+     * @return appUrl
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_APP_URL)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getAppUrl() {
+        return appUrl;
+    }
+
+    @JsonProperty(JSON_PROPERTY_APP_URL)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setAppUrl(String appUrl) {
+        this.appUrl = appUrl;
+    }
+
+    public GetFilterParameter appName(String appName) {
+        this.appName = appName;
+        return this;
+    }
+
+    /**
+     * Get appName
+     *
+     * @return appName
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_APP_NAME)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getAppName() {
+        return appName;
+    }
+
+    @JsonProperty(JSON_PROPERTY_APP_NAME)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setAppName(String appName) {
+        this.appName = appName;
+    }
+
+    /** Return true if this get_filter_parameter object is equal to o. */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        GetFilterParameter getFilterParameter = (GetFilterParameter) o;
+        return Objects.equals(this.id, getFilterParameter.id)
+                && Objects.equals(this.userId, getFilterParameter.userId)
+                && Objects.equals(this.vaultAccountId, getFilterParameter.vaultAccountId)
+                && Objects.equals(this.connectionMethod, getFilterParameter.connectionMethod)
+                && Objects.equals(this.feeLevel, getFilterParameter.feeLevel)
+                && Objects.equals(this.appUrl, getFilterParameter.appUrl)
+                && Objects.equals(this.appName, getFilterParameter.appName);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(
+                id, userId, vaultAccountId, connectionMethod, feeLevel, appUrl, appName);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class GetFilterParameter {\n");
+        sb.append("    id: ").append(toIndentedString(id)).append("\n");
+        sb.append("    userId: ").append(toIndentedString(userId)).append("\n");
+        sb.append("    vaultAccountId: ").append(toIndentedString(vaultAccountId)).append("\n");
+        sb.append("    connectionMethod: ").append(toIndentedString(connectionMethod)).append("\n");
+        sb.append("    feeLevel: ").append(toIndentedString(feeLevel)).append("\n");
+        sb.append("    appUrl: ").append(toIndentedString(appUrl)).append("\n");
+        sb.append("    appName: ").append(toIndentedString(appName)).append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces (except the first
+     * line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
+
+    /**
+     * Convert the instance into URL query string.
+     *
+     * @return URL query string
+     */
+    public String toUrlQueryString() {
+        return toUrlQueryString(null);
+    }
+
+    /**
+     * Convert the instance into URL query string.
+     *
+     * @param prefix prefix of the query string
+     * @return URL query string
+     */
+    public String toUrlQueryString(String prefix) {
+        String suffix = "";
+        String containerSuffix = "";
+        String containerPrefix = "";
+        if (prefix == null) {
+            // style=form, explode=true, e.g. /pet?name=cat&type=manx
+            prefix = "";
+        } else {
+            // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
+            prefix = prefix + "[";
+            suffix = "]";
+            containerSuffix = "]";
+            containerPrefix = "[";
+        }
+
+        StringJoiner joiner = new StringJoiner("&");
+
+        // add `id` to the URL query string
+        if (getId() != null) {
+            joiner.add(
+                    String.format(
+                            "%sid%s=%s",
+                            prefix,
+                            suffix,
+                            URLEncoder.encode(String.valueOf(getId()), StandardCharsets.UTF_8)
+                                    .replaceAll("\\+", "%20")));
+        }
+
+        // add `userId` to the URL query string
+        if (getUserId() != null) {
+            joiner.add(
+                    String.format(
+                            "%suserId%s=%s",
+                            prefix,
+                            suffix,
+                            URLEncoder.encode(String.valueOf(getUserId()), StandardCharsets.UTF_8)
+                                    .replaceAll("\\+", "%20")));
+        }
+
+        // add `vaultAccountId` to the URL query string
+        if (getVaultAccountId() != null) {
+            joiner.add(
+                    String.format(
+                            "%svaultAccountId%s=%s",
+                            prefix,
+                            suffix,
+                            URLEncoder.encode(
+                                            String.valueOf(getVaultAccountId()),
+                                            StandardCharsets.UTF_8)
+                                    .replaceAll("\\+", "%20")));
+        }
+
+        // add `connectionMethod` to the URL query string
+        if (getConnectionMethod() != null) {
+            joiner.add(
+                    String.format(
+                            "%sconnectionMethod%s=%s",
+                            prefix,
+                            suffix,
+                            URLEncoder.encode(
+                                            String.valueOf(getConnectionMethod()),
+                                            StandardCharsets.UTF_8)
+                                    .replaceAll("\\+", "%20")));
+        }
+
+        // add `feeLevel` to the URL query string
+        if (getFeeLevel() != null) {
+            joiner.add(
+                    String.format(
+                            "%sfeeLevel%s=%s",
+                            prefix,
+                            suffix,
+                            URLEncoder.encode(String.valueOf(getFeeLevel()), StandardCharsets.UTF_8)
+                                    .replaceAll("\\+", "%20")));
+        }
+
+        // add `appUrl` to the URL query string
+        if (getAppUrl() != null) {
+            joiner.add(
+                    String.format(
+                            "%sappUrl%s=%s",
+                            prefix,
+                            suffix,
+                            URLEncoder.encode(String.valueOf(getAppUrl()), StandardCharsets.UTF_8)
+                                    .replaceAll("\\+", "%20")));
+        }
+
+        // add `appName` to the URL query string
+        if (getAppName() != null) {
+            joiner.add(
+                    String.format(
+                            "%sappName%s=%s",
+                            prefix,
+                            suffix,
+                            URLEncoder.encode(String.valueOf(getAppName()), StandardCharsets.UTF_8)
+                                    .replaceAll("\\+", "%20")));
+        }
+
+        return joiner.toString();
+    }
 }
-

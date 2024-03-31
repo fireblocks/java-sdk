@@ -10,249 +10,253 @@
  * Do not edit the class manually.
  */
 
-
 package com.fireblocks.sdk.model;
 
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
-import java.util.StringJoiner;
-import java.util.Objects;
-import java.util.Map;
-import java.util.HashMap;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonTypeName;
-import com.fasterxml.jackson.annotation.JsonValue;
-import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.Objects;
+import java.util.StringJoiner;
 
-
-/**
- * ToExchangeTransaction
- */
+/** ToExchangeTransaction */
 @JsonPropertyOrder({
-  ToExchangeTransaction.JSON_PROPERTY_ASSET_ID,
-  ToExchangeTransaction.JSON_PROPERTY_AMOUNT,
-  ToExchangeTransaction.JSON_PROPERTY_DST_ADDRESS,
-  ToExchangeTransaction.JSON_PROPERTY_DST_TAG
+    ToExchangeTransaction.JSON_PROPERTY_ASSET_ID,
+    ToExchangeTransaction.JSON_PROPERTY_AMOUNT,
+    ToExchangeTransaction.JSON_PROPERTY_DST_ADDRESS,
+    ToExchangeTransaction.JSON_PROPERTY_DST_TAG
 })
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class ToExchangeTransaction {
-  public static final String JSON_PROPERTY_ASSET_ID = "assetId";
-  private String assetId;
+    public static final String JSON_PROPERTY_ASSET_ID = "assetId";
+    private String assetId;
 
-  public static final String JSON_PROPERTY_AMOUNT = "amount";
-  private String amount;
+    public static final String JSON_PROPERTY_AMOUNT = "amount";
+    private String amount;
 
-  public static final String JSON_PROPERTY_DST_ADDRESS = "dstAddress";
-  private String dstAddress;
+    public static final String JSON_PROPERTY_DST_ADDRESS = "dstAddress";
+    private String dstAddress;
 
-  public static final String JSON_PROPERTY_DST_TAG = "dstTag";
-  private String dstTag;
+    public static final String JSON_PROPERTY_DST_TAG = "dstTag";
+    private String dstTag;
 
-  public ToExchangeTransaction() { 
-  }
+    public ToExchangeTransaction() {}
 
-  public ToExchangeTransaction assetId(String assetId) {
-    this.assetId = assetId;
-    return this;
-  }
-
-   /**
-   * Get assetId
-   * @return assetId
-  **/
-  @jakarta.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_ASSET_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getAssetId() {
-    return assetId;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_ASSET_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setAssetId(String assetId) {
-    this.assetId = assetId;
-  }
-
-
-  public ToExchangeTransaction amount(String amount) {
-    this.amount = amount;
-    return this;
-  }
-
-   /**
-   * Get amount
-   * @return amount
-  **/
-  @jakarta.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_AMOUNT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getAmount() {
-    return amount;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_AMOUNT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setAmount(String amount) {
-    this.amount = amount;
-  }
-
-
-  public ToExchangeTransaction dstAddress(String dstAddress) {
-    this.dstAddress = dstAddress;
-    return this;
-  }
-
-   /**
-   * Get dstAddress
-   * @return dstAddress
-  **/
-  @jakarta.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_DST_ADDRESS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getDstAddress() {
-    return dstAddress;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_DST_ADDRESS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setDstAddress(String dstAddress) {
-    this.dstAddress = dstAddress;
-  }
-
-
-  public ToExchangeTransaction dstTag(String dstTag) {
-    this.dstTag = dstTag;
-    return this;
-  }
-
-   /**
-   * optional
-   * @return dstTag
-  **/
-  @jakarta.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_DST_TAG)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getDstTag() {
-    return dstTag;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_DST_TAG)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setDstTag(String dstTag) {
-    this.dstTag = dstTag;
-  }
-
-
-  /**
-   * Return true if this ToExchangeTransaction object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    ToExchangeTransaction toExchangeTransaction = (ToExchangeTransaction) o;
-    return Objects.equals(this.assetId, toExchangeTransaction.assetId) &&
-        Objects.equals(this.amount, toExchangeTransaction.amount) &&
-        Objects.equals(this.dstAddress, toExchangeTransaction.dstAddress) &&
-        Objects.equals(this.dstTag, toExchangeTransaction.dstTag);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(assetId, amount, dstAddress, dstTag);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class ToExchangeTransaction {\n");
-    sb.append("    assetId: ").append(toIndentedString(assetId)).append("\n");
-    sb.append("    amount: ").append(toIndentedString(amount)).append("\n");
-    sb.append("    dstAddress: ").append(toIndentedString(dstAddress)).append("\n");
-    sb.append("    dstTag: ").append(toIndentedString(dstTag)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
-  }
-
-  /**
-   * Convert the instance into URL query string.
-   *
-   * @return URL query string
-   */
-  public String toUrlQueryString() {
-    return toUrlQueryString(null);
-  }
-
-  /**
-   * Convert the instance into URL query string.
-   *
-   * @param prefix prefix of the query string
-   * @return URL query string
-   */
-  public String toUrlQueryString(String prefix) {
-    String suffix = "";
-    String containerSuffix = "";
-    String containerPrefix = "";
-    if (prefix == null) {
-      // style=form, explode=true, e.g. /pet?name=cat&type=manx
-      prefix = "";
-    } else {
-      // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
-      prefix = prefix + "[";
-      suffix = "]";
-      containerSuffix = "]";
-      containerPrefix = "[";
+    public ToExchangeTransaction assetId(String assetId) {
+        this.assetId = assetId;
+        return this;
     }
 
-    StringJoiner joiner = new StringJoiner("&");
-
-    // add `assetId` to the URL query string
-    if (getAssetId() != null) {
-      joiner.add(String.format("%sassetId%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getAssetId()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    /**
+     * Get assetId
+     *
+     * @return assetId
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_ASSET_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getAssetId() {
+        return assetId;
     }
 
-    // add `amount` to the URL query string
-    if (getAmount() != null) {
-      joiner.add(String.format("%samount%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getAmount()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    @JsonProperty(JSON_PROPERTY_ASSET_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setAssetId(String assetId) {
+        this.assetId = assetId;
     }
 
-    // add `dstAddress` to the URL query string
-    if (getDstAddress() != null) {
-      joiner.add(String.format("%sdstAddress%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getDstAddress()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    public ToExchangeTransaction amount(String amount) {
+        this.amount = amount;
+        return this;
     }
 
-    // add `dstTag` to the URL query string
-    if (getDstTag() != null) {
-      joiner.add(String.format("%sdstTag%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getDstTag()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    /**
+     * Get amount
+     *
+     * @return amount
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_AMOUNT)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getAmount() {
+        return amount;
     }
 
-    return joiner.toString();
-  }
+    @JsonProperty(JSON_PROPERTY_AMOUNT)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setAmount(String amount) {
+        this.amount = amount;
+    }
+
+    public ToExchangeTransaction dstAddress(String dstAddress) {
+        this.dstAddress = dstAddress;
+        return this;
+    }
+
+    /**
+     * Get dstAddress
+     *
+     * @return dstAddress
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_DST_ADDRESS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getDstAddress() {
+        return dstAddress;
+    }
+
+    @JsonProperty(JSON_PROPERTY_DST_ADDRESS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setDstAddress(String dstAddress) {
+        this.dstAddress = dstAddress;
+    }
+
+    public ToExchangeTransaction dstTag(String dstTag) {
+        this.dstTag = dstTag;
+        return this;
+    }
+
+    /**
+     * optional
+     *
+     * @return dstTag
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_DST_TAG)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getDstTag() {
+        return dstTag;
+    }
+
+    @JsonProperty(JSON_PROPERTY_DST_TAG)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setDstTag(String dstTag) {
+        this.dstTag = dstTag;
+    }
+
+    /** Return true if this ToExchangeTransaction object is equal to o. */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        ToExchangeTransaction toExchangeTransaction = (ToExchangeTransaction) o;
+        return Objects.equals(this.assetId, toExchangeTransaction.assetId)
+                && Objects.equals(this.amount, toExchangeTransaction.amount)
+                && Objects.equals(this.dstAddress, toExchangeTransaction.dstAddress)
+                && Objects.equals(this.dstTag, toExchangeTransaction.dstTag);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(assetId, amount, dstAddress, dstTag);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class ToExchangeTransaction {\n");
+        sb.append("    assetId: ").append(toIndentedString(assetId)).append("\n");
+        sb.append("    amount: ").append(toIndentedString(amount)).append("\n");
+        sb.append("    dstAddress: ").append(toIndentedString(dstAddress)).append("\n");
+        sb.append("    dstTag: ").append(toIndentedString(dstTag)).append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces (except the first
+     * line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
+
+    /**
+     * Convert the instance into URL query string.
+     *
+     * @return URL query string
+     */
+    public String toUrlQueryString() {
+        return toUrlQueryString(null);
+    }
+
+    /**
+     * Convert the instance into URL query string.
+     *
+     * @param prefix prefix of the query string
+     * @return URL query string
+     */
+    public String toUrlQueryString(String prefix) {
+        String suffix = "";
+        String containerSuffix = "";
+        String containerPrefix = "";
+        if (prefix == null) {
+            // style=form, explode=true, e.g. /pet?name=cat&type=manx
+            prefix = "";
+        } else {
+            // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
+            prefix = prefix + "[";
+            suffix = "]";
+            containerSuffix = "]";
+            containerPrefix = "[";
+        }
+
+        StringJoiner joiner = new StringJoiner("&");
+
+        // add `assetId` to the URL query string
+        if (getAssetId() != null) {
+            joiner.add(
+                    String.format(
+                            "%sassetId%s=%s",
+                            prefix,
+                            suffix,
+                            URLEncoder.encode(String.valueOf(getAssetId()), StandardCharsets.UTF_8)
+                                    .replaceAll("\\+", "%20")));
+        }
+
+        // add `amount` to the URL query string
+        if (getAmount() != null) {
+            joiner.add(
+                    String.format(
+                            "%samount%s=%s",
+                            prefix,
+                            suffix,
+                            URLEncoder.encode(String.valueOf(getAmount()), StandardCharsets.UTF_8)
+                                    .replaceAll("\\+", "%20")));
+        }
+
+        // add `dstAddress` to the URL query string
+        if (getDstAddress() != null) {
+            joiner.add(
+                    String.format(
+                            "%sdstAddress%s=%s",
+                            prefix,
+                            suffix,
+                            URLEncoder.encode(
+                                            String.valueOf(getDstAddress()), StandardCharsets.UTF_8)
+                                    .replaceAll("\\+", "%20")));
+        }
+
+        // add `dstTag` to the URL query string
+        if (getDstTag() != null) {
+            joiner.add(
+                    String.format(
+                            "%sdstTag%s=%s",
+                            prefix,
+                            suffix,
+                            URLEncoder.encode(String.valueOf(getDstTag()), StandardCharsets.UTF_8)
+                                    .replaceAll("\\+", "%20")));
+        }
+
+        return joiner.toString();
+    }
 }
-

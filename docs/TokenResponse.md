@@ -13,8 +13,8 @@
 |**metadataURI** | **String** | URL of the original token JSON metadata |  [optional] |
 |**cachedMetadataURI** | **String** | URL of the cached token JSON metadata |  [optional] |
 |**media** | [**List&lt;MediaEntityResponse&gt;**](MediaEntityResponse.md) | Media items extracted from metadata JSON |  [optional] |
-|**spam** | [**SpamTokenResponse**](SpamTokenResponse.md) |  |  [optional] |
-|**collection** | [**TokenCollectionResponse**](TokenCollectionResponse.md) |  |  [optional] |
+|**spam** | [**SpamTokenResponse**](SpamTokenResponse.md) | Token spam status |  [optional] |
+|**collection** | [**TokenCollectionResponse**](TokenCollectionResponse.md) | Parent collection information |  [optional] |
 |**blockchainDescriptor** | [**BlockchainDescriptorEnum**](#BlockchainDescriptorEnum) |  |  |
 |**description** | **String** |  |  [optional] |
 |**name** | **String** |  |  [optional] |

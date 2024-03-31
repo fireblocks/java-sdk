@@ -10,55 +10,36 @@
  * Do not edit the class manually.
  */
 
-
 package com.fireblocks.sdk.model;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonTypeName;
-import com.fasterxml.jackson.annotation.JsonValue;
-import java.util.Arrays;
-import org.junit.Assert;
-import org.junit.Ignore;
+
 import org.junit.Test;
 
-/**
- * Model tests for TokenCollectionResponse
- */
+/** Model tests for TokenCollectionResponse */
 public class TokenCollectionResponseTest {
     private final TokenCollectionResponse model = new TokenCollectionResponse();
 
-    /**
-     * Model tests for TokenCollectionResponse
-     */
+    /** Model tests for TokenCollectionResponse */
     @Test
     public void testTokenCollectionResponse() {
         // TODO: test TokenCollectionResponse
     }
 
-    /**
-     * Test the property 'id'
-     */
+    /** Test the property 'id' */
     @Test
     public void idTest() {
         // TODO: test id
     }
 
-    /**
-     * Test the property 'name'
-     */
+    /** Test the property 'name' */
     @Test
     public void nameTest() {
         // TODO: test name
     }
 
-    /**
-     * Test the property 'symbol'
-     */
+    /** Test the property 'symbol' */
     @Test
     public void symbolTest() {
         // TODO: test symbol
     }
-
 }

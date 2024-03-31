@@ -10,39 +10,24 @@
  * Do not edit the class manually.
  */
 
-
 package com.fireblocks.sdk.model;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonTypeName;
-import com.fasterxml.jackson.annotation.JsonValue;
-import java.util.Arrays;
-import org.junit.Assert;
-import org.junit.Ignore;
+
 import org.junit.Test;
 
-/**
- * Model tests for GetOtaStatus200Response
- */
+/** Model tests for GetOtaStatus200Response */
 public class GetOtaStatus200ResponseTest {
     private final GetOtaStatus200Response model = new GetOtaStatus200Response();
 
-    /**
-     * Model tests for GetOtaStatus200Response
-     */
+    /** Model tests for GetOtaStatus200Response */
     @Test
     public void testGetOtaStatus200Response() {
         // TODO: test GetOtaStatus200Response
     }
 
-    /**
-     * Test the property 'enabled'
-     */
+    /** Test the property 'enabled' */
     @Test
     public void enabledTest() {
         // TODO: test enabled
     }
-
 }

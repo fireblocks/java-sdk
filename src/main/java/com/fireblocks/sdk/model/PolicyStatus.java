@@ -10,79 +10,69 @@
  * Do not edit the class manually.
  */
 
-
 package com.fireblocks.sdk.model;
-
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
-import java.util.StringJoiner;
-import java.util.Objects;
-import java.util.Map;
-import java.util.HashMap;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 /**
- * * SUCCESS - success * UNVALIDATED - not validated yet * INVALID_CONFIGURATION - at least one rule is invalid * PENDING - pending approval * PENDING_CONSOLE_APPROVAL - pending approval from the console app * AWAITING_QUORUM - pending quorum approval * UNHANDLED_ERROR - unhandled error 
+ * * SUCCESS - success * UNVALIDATED - not validated yet * INVALID_CONFIGURATION - at least one rule
+ * is invalid * PENDING - pending approval * PENDING_CONSOLE_APPROVAL - pending approval from the
+ * console app * AWAITING_QUORUM - pending quorum approval * UNHANDLED_ERROR - unhandled error
  */
 public enum PolicyStatus {
-  
-  SUCCESS("SUCCESS"),
-  
-  UNVALIDATED("UNVALIDATED"),
-  
-  INVALID_CONFIGURATION("INVALID_CONFIGURATION"),
-  
-  PENDING("PENDING"),
-  
-  PENDING_CONSOLE_APPROVAL("PENDING_CONSOLE_APPROVAL"),
-  
-  AWAITING_QUORUM("AWAITING_QUORUM"),
-  
-  UNHANDLED_ERROR("UNHANDLED_ERROR");
+    SUCCESS("SUCCESS"),
 
-  private String value;
+    UNVALIDATED("UNVALIDATED"),
 
-  PolicyStatus(String value) {
-    this.value = value;
-  }
+    INVALID_CONFIGURATION("INVALID_CONFIGURATION"),
 
-  @JsonValue
-  public String getValue() {
-    return value;
-  }
+    PENDING("PENDING"),
 
-  @Override
-  public String toString() {
-    return String.valueOf(value);
-  }
+    PENDING_CONSOLE_APPROVAL("PENDING_CONSOLE_APPROVAL"),
 
-  @JsonCreator
-  public static PolicyStatus fromValue(String value) {
-    for (PolicyStatus b : PolicyStatus.values()) {
-      if (b.value.equals(value)) {
-        return b;
-      }
-    }
-    throw new IllegalArgumentException("Unexpected value '" + value + "'");
-  }
+    AWAITING_QUORUM("AWAITING_QUORUM"),
 
-  /**
-   * Convert the instance into URL query string.
-   *
-   * @param prefix prefix of the query string
-   * @return URL query string
-   */
-  public String toUrlQueryString(String prefix) {
-    if (prefix == null) {
-      prefix = "";
+    UNHANDLED_ERROR("UNHANDLED_ERROR");
+
+    private String value;
+
+    PolicyStatus(String value) {
+        this.value = value;
     }
 
-    return String.format("%s=%s", prefix, this.toString());
-  }
+    @JsonValue
+    public String getValue() {
+        return value;
+    }
 
+    @Override
+    public String toString() {
+        return String.valueOf(value);
+    }
+
+    @JsonCreator
+    public static PolicyStatus fromValue(String value) {
+        for (PolicyStatus b : PolicyStatus.values()) {
+            if (b.value.equals(value)) {
+                return b;
+            }
+        }
+        throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
+
+    /**
+     * Convert the instance into URL query string.
+     *
+     * @param prefix prefix of the query string
+     * @return URL query string
+     */
+    public String toUrlQueryString(String prefix) {
+        if (prefix == null) {
+            prefix = "";
+        }
+
+        return String.format("%s=%s", prefix, this.toString());
+    }
 }
-

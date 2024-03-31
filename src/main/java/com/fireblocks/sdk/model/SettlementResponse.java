@@ -10,286 +10,311 @@
  * Do not edit the class manually.
  */
 
-
 package com.fireblocks.sdk.model;
 
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
-import java.util.StringJoiner;
-import java.util.Objects;
-import java.util.Map;
-import java.util.HashMap;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonTypeName;
-import com.fasterxml.jackson.annotation.JsonValue;
-import com.fireblocks.sdk.model.ExchangeSettlementTransactionsResponse;
-import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.Objects;
+import java.util.StringJoiner;
 
-
-/**
- * SettlementResponse
- */
+/** SettlementResponse */
 @JsonPropertyOrder({
-  SettlementResponse.JSON_PROPERTY_ID,
-  SettlementResponse.JSON_PROPERTY_INITIATOR,
-  SettlementResponse.JSON_PROPERTY_EXCHANGE_REPLY,
-  SettlementResponse.JSON_PROPERTY_FIREBLOCKS_INITIATED_TRANSACTIONS,
-  SettlementResponse.JSON_PROPERTY_EXCHANGE_REQUESTED_TRANSACTIONS
+    SettlementResponse.JSON_PROPERTY_ID,
+    SettlementResponse.JSON_PROPERTY_INITIATOR,
+    SettlementResponse.JSON_PROPERTY_EXCHANGE_REPLY,
+    SettlementResponse.JSON_PROPERTY_FIREBLOCKS_INITIATED_TRANSACTIONS,
+    SettlementResponse.JSON_PROPERTY_EXCHANGE_REQUESTED_TRANSACTIONS
 })
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class SettlementResponse {
-  public static final String JSON_PROPERTY_ID = "id";
-  private String id;
+    public static final String JSON_PROPERTY_ID = "id";
+    private String id;
 
-  public static final String JSON_PROPERTY_INITIATOR = "initiator";
-  private String initiator;
+    public static final String JSON_PROPERTY_INITIATOR = "initiator";
+    private String initiator;
 
-  public static final String JSON_PROPERTY_EXCHANGE_REPLY = "exchangeReply";
-  private String exchangeReply;
+    public static final String JSON_PROPERTY_EXCHANGE_REPLY = "exchangeReply";
+    private String exchangeReply;
 
-  public static final String JSON_PROPERTY_FIREBLOCKS_INITIATED_TRANSACTIONS = "fireblocksInitiatedTransactions";
-  private Object fireblocksInitiatedTransactions;
+    public static final String JSON_PROPERTY_FIREBLOCKS_INITIATED_TRANSACTIONS =
+            "fireblocksInitiatedTransactions";
+    private Object fireblocksInitiatedTransactions;
 
-  public static final String JSON_PROPERTY_EXCHANGE_REQUESTED_TRANSACTIONS = "exchangeRequestedTransactions";
-  private ExchangeSettlementTransactionsResponse exchangeRequestedTransactions;
+    public static final String JSON_PROPERTY_EXCHANGE_REQUESTED_TRANSACTIONS =
+            "exchangeRequestedTransactions";
+    private ExchangeSettlementTransactionsResponse exchangeRequestedTransactions;
 
-  public SettlementResponse() { 
-  }
+    public SettlementResponse() {}
 
-  public SettlementResponse id(String id) {
-    this.id = id;
-    return this;
-  }
-
-   /**
-   * Get id
-   * @return id
-  **/
-  @jakarta.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getId() {
-    return id;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setId(String id) {
-    this.id = id;
-  }
-
-
-  public SettlementResponse initiator(String initiator) {
-    this.initiator = initiator;
-    return this;
-  }
-
-   /**
-   * Get initiator
-   * @return initiator
-  **/
-  @jakarta.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_INITIATOR)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getInitiator() {
-    return initiator;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_INITIATOR)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setInitiator(String initiator) {
-    this.initiator = initiator;
-  }
-
-
-  public SettlementResponse exchangeReply(String exchangeReply) {
-    this.exchangeReply = exchangeReply;
-    return this;
-  }
-
-   /**
-   * Get exchangeReply
-   * @return exchangeReply
-  **/
-  @jakarta.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_EXCHANGE_REPLY)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getExchangeReply() {
-    return exchangeReply;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_EXCHANGE_REPLY)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setExchangeReply(String exchangeReply) {
-    this.exchangeReply = exchangeReply;
-  }
-
-
-  public SettlementResponse fireblocksInitiatedTransactions(Object fireblocksInitiatedTransactions) {
-    this.fireblocksInitiatedTransactions = fireblocksInitiatedTransactions;
-    return this;
-  }
-
-   /**
-   * Get fireblocksInitiatedTransactions
-   * @return fireblocksInitiatedTransactions
-  **/
-  @jakarta.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_FIREBLOCKS_INITIATED_TRANSACTIONS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public Object getFireblocksInitiatedTransactions() {
-    return fireblocksInitiatedTransactions;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_FIREBLOCKS_INITIATED_TRANSACTIONS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setFireblocksInitiatedTransactions(Object fireblocksInitiatedTransactions) {
-    this.fireblocksInitiatedTransactions = fireblocksInitiatedTransactions;
-  }
-
-
-  public SettlementResponse exchangeRequestedTransactions(ExchangeSettlementTransactionsResponse exchangeRequestedTransactions) {
-    this.exchangeRequestedTransactions = exchangeRequestedTransactions;
-    return this;
-  }
-
-   /**
-   * Get exchangeRequestedTransactions
-   * @return exchangeRequestedTransactions
-  **/
-  @jakarta.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_EXCHANGE_REQUESTED_TRANSACTIONS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public ExchangeSettlementTransactionsResponse getExchangeRequestedTransactions() {
-    return exchangeRequestedTransactions;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_EXCHANGE_REQUESTED_TRANSACTIONS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setExchangeRequestedTransactions(ExchangeSettlementTransactionsResponse exchangeRequestedTransactions) {
-    this.exchangeRequestedTransactions = exchangeRequestedTransactions;
-  }
-
-
-  /**
-   * Return true if this SettlementResponse object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    SettlementResponse settlementResponse = (SettlementResponse) o;
-    return Objects.equals(this.id, settlementResponse.id) &&
-        Objects.equals(this.initiator, settlementResponse.initiator) &&
-        Objects.equals(this.exchangeReply, settlementResponse.exchangeReply) &&
-        Objects.equals(this.fireblocksInitiatedTransactions, settlementResponse.fireblocksInitiatedTransactions) &&
-        Objects.equals(this.exchangeRequestedTransactions, settlementResponse.exchangeRequestedTransactions);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(id, initiator, exchangeReply, fireblocksInitiatedTransactions, exchangeRequestedTransactions);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class SettlementResponse {\n");
-    sb.append("    id: ").append(toIndentedString(id)).append("\n");
-    sb.append("    initiator: ").append(toIndentedString(initiator)).append("\n");
-    sb.append("    exchangeReply: ").append(toIndentedString(exchangeReply)).append("\n");
-    sb.append("    fireblocksInitiatedTransactions: ").append(toIndentedString(fireblocksInitiatedTransactions)).append("\n");
-    sb.append("    exchangeRequestedTransactions: ").append(toIndentedString(exchangeRequestedTransactions)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
-  }
-
-  /**
-   * Convert the instance into URL query string.
-   *
-   * @return URL query string
-   */
-  public String toUrlQueryString() {
-    return toUrlQueryString(null);
-  }
-
-  /**
-   * Convert the instance into URL query string.
-   *
-   * @param prefix prefix of the query string
-   * @return URL query string
-   */
-  public String toUrlQueryString(String prefix) {
-    String suffix = "";
-    String containerSuffix = "";
-    String containerPrefix = "";
-    if (prefix == null) {
-      // style=form, explode=true, e.g. /pet?name=cat&type=manx
-      prefix = "";
-    } else {
-      // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
-      prefix = prefix + "[";
-      suffix = "]";
-      containerSuffix = "]";
-      containerPrefix = "[";
+    public SettlementResponse id(String id) {
+        this.id = id;
+        return this;
     }
 
-    StringJoiner joiner = new StringJoiner("&");
-
-    // add `id` to the URL query string
-    if (getId() != null) {
-      joiner.add(String.format("%sid%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getId()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    /**
+     * Get id
+     *
+     * @return id
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getId() {
+        return id;
     }
 
-    // add `initiator` to the URL query string
-    if (getInitiator() != null) {
-      joiner.add(String.format("%sinitiator%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getInitiator()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    @JsonProperty(JSON_PROPERTY_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setId(String id) {
+        this.id = id;
     }
 
-    // add `exchangeReply` to the URL query string
-    if (getExchangeReply() != null) {
-      joiner.add(String.format("%sexchangeReply%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getExchangeReply()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    public SettlementResponse initiator(String initiator) {
+        this.initiator = initiator;
+        return this;
     }
 
-    // add `fireblocksInitiatedTransactions` to the URL query string
-    if (getFireblocksInitiatedTransactions() != null) {
-      joiner.add(String.format("%sfireblocksInitiatedTransactions%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getFireblocksInitiatedTransactions()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    /**
+     * Get initiator
+     *
+     * @return initiator
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_INITIATOR)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getInitiator() {
+        return initiator;
     }
 
-    // add `exchangeRequestedTransactions` to the URL query string
-    if (getExchangeRequestedTransactions() != null) {
-      joiner.add(getExchangeRequestedTransactions().toUrlQueryString(prefix + "exchangeRequestedTransactions" + suffix));
+    @JsonProperty(JSON_PROPERTY_INITIATOR)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setInitiator(String initiator) {
+        this.initiator = initiator;
     }
 
-    return joiner.toString();
-  }
+    public SettlementResponse exchangeReply(String exchangeReply) {
+        this.exchangeReply = exchangeReply;
+        return this;
+    }
+
+    /**
+     * Get exchangeReply
+     *
+     * @return exchangeReply
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_EXCHANGE_REPLY)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getExchangeReply() {
+        return exchangeReply;
+    }
+
+    @JsonProperty(JSON_PROPERTY_EXCHANGE_REPLY)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setExchangeReply(String exchangeReply) {
+        this.exchangeReply = exchangeReply;
+    }
+
+    public SettlementResponse fireblocksInitiatedTransactions(
+            Object fireblocksInitiatedTransactions) {
+        this.fireblocksInitiatedTransactions = fireblocksInitiatedTransactions;
+        return this;
+    }
+
+    /**
+     * Get fireblocksInitiatedTransactions
+     *
+     * @return fireblocksInitiatedTransactions
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_FIREBLOCKS_INITIATED_TRANSACTIONS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public Object getFireblocksInitiatedTransactions() {
+        return fireblocksInitiatedTransactions;
+    }
+
+    @JsonProperty(JSON_PROPERTY_FIREBLOCKS_INITIATED_TRANSACTIONS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setFireblocksInitiatedTransactions(Object fireblocksInitiatedTransactions) {
+        this.fireblocksInitiatedTransactions = fireblocksInitiatedTransactions;
+    }
+
+    public SettlementResponse exchangeRequestedTransactions(
+            ExchangeSettlementTransactionsResponse exchangeRequestedTransactions) {
+        this.exchangeRequestedTransactions = exchangeRequestedTransactions;
+        return this;
+    }
+
+    /**
+     * Get exchangeRequestedTransactions
+     *
+     * @return exchangeRequestedTransactions
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_EXCHANGE_REQUESTED_TRANSACTIONS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public ExchangeSettlementTransactionsResponse getExchangeRequestedTransactions() {
+        return exchangeRequestedTransactions;
+    }
+
+    @JsonProperty(JSON_PROPERTY_EXCHANGE_REQUESTED_TRANSACTIONS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setExchangeRequestedTransactions(
+            ExchangeSettlementTransactionsResponse exchangeRequestedTransactions) {
+        this.exchangeRequestedTransactions = exchangeRequestedTransactions;
+    }
+
+    /** Return true if this SettlementResponse object is equal to o. */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        SettlementResponse settlementResponse = (SettlementResponse) o;
+        return Objects.equals(this.id, settlementResponse.id)
+                && Objects.equals(this.initiator, settlementResponse.initiator)
+                && Objects.equals(this.exchangeReply, settlementResponse.exchangeReply)
+                && Objects.equals(
+                        this.fireblocksInitiatedTransactions,
+                        settlementResponse.fireblocksInitiatedTransactions)
+                && Objects.equals(
+                        this.exchangeRequestedTransactions,
+                        settlementResponse.exchangeRequestedTransactions);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(
+                id,
+                initiator,
+                exchangeReply,
+                fireblocksInitiatedTransactions,
+                exchangeRequestedTransactions);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class SettlementResponse {\n");
+        sb.append("    id: ").append(toIndentedString(id)).append("\n");
+        sb.append("    initiator: ").append(toIndentedString(initiator)).append("\n");
+        sb.append("    exchangeReply: ").append(toIndentedString(exchangeReply)).append("\n");
+        sb.append("    fireblocksInitiatedTransactions: ")
+                .append(toIndentedString(fireblocksInitiatedTransactions))
+                .append("\n");
+        sb.append("    exchangeRequestedTransactions: ")
+                .append(toIndentedString(exchangeRequestedTransactions))
+                .append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces (except the first
+     * line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
+
+    /**
+     * Convert the instance into URL query string.
+     *
+     * @return URL query string
+     */
+    public String toUrlQueryString() {
+        return toUrlQueryString(null);
+    }
+
+    /**
+     * Convert the instance into URL query string.
+     *
+     * @param prefix prefix of the query string
+     * @return URL query string
+     */
+    public String toUrlQueryString(String prefix) {
+        String suffix = "";
+        String containerSuffix = "";
+        String containerPrefix = "";
+        if (prefix == null) {
+            // style=form, explode=true, e.g. /pet?name=cat&type=manx
+            prefix = "";
+        } else {
+            // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
+            prefix = prefix + "[";
+            suffix = "]";
+            containerSuffix = "]";
+            containerPrefix = "[";
+        }
+
+        StringJoiner joiner = new StringJoiner("&");
+
+        // add `id` to the URL query string
+        if (getId() != null) {
+            joiner.add(
+                    String.format(
+                            "%sid%s=%s",
+                            prefix,
+                            suffix,
+                            URLEncoder.encode(String.valueOf(getId()), StandardCharsets.UTF_8)
+                                    .replaceAll("\\+", "%20")));
+        }
+
+        // add `initiator` to the URL query string
+        if (getInitiator() != null) {
+            joiner.add(
+                    String.format(
+                            "%sinitiator%s=%s",
+                            prefix,
+                            suffix,
+                            URLEncoder.encode(
+                                            String.valueOf(getInitiator()), StandardCharsets.UTF_8)
+                                    .replaceAll("\\+", "%20")));
+        }
+
+        // add `exchangeReply` to the URL query string
+        if (getExchangeReply() != null) {
+            joiner.add(
+                    String.format(
+                            "%sexchangeReply%s=%s",
+                            prefix,
+                            suffix,
+                            URLEncoder.encode(
+                                            String.valueOf(getExchangeReply()),
+                                            StandardCharsets.UTF_8)
+                                    .replaceAll("\\+", "%20")));
+        }
+
+        // add `fireblocksInitiatedTransactions` to the URL query string
+        if (getFireblocksInitiatedTransactions() != null) {
+            joiner.add(
+                    String.format(
+                            "%sfireblocksInitiatedTransactions%s=%s",
+                            prefix,
+                            suffix,
+                            URLEncoder.encode(
+                                            String.valueOf(getFireblocksInitiatedTransactions()),
+                                            StandardCharsets.UTF_8)
+                                    .replaceAll("\\+", "%20")));
+        }
+
+        // add `exchangeRequestedTransactions` to the URL query string
+        if (getExchangeRequestedTransactions() != null) {
+            joiner.add(
+                    getExchangeRequestedTransactions()
+                            .toUrlQueryString(prefix + "exchangeRequestedTransactions" + suffix));
+        }
+
+        return joiner.toString();
+    }
 }
-

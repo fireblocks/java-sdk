@@ -10,64 +10,42 @@
  * Do not edit the class manually.
  */
 
-
 package com.fireblocks.sdk.model;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonTypeName;
-import com.fasterxml.jackson.annotation.JsonValue;
-import com.fireblocks.sdk.model.NetworkIdRoutingPolicy;
-import java.util.Arrays;
-import org.junit.Assert;
-import org.junit.Ignore;
+
 import org.junit.Test;
 
-/**
- * Model tests for NetworkIdResponse
- */
+/** Model tests for NetworkIdResponse */
 public class NetworkIdResponseTest {
     private final NetworkIdResponse model = new NetworkIdResponse();
 
-    /**
-     * Model tests for NetworkIdResponse
-     */
+    /** Model tests for NetworkIdResponse */
     @Test
     public void testNetworkIdResponse() {
         // TODO: test NetworkIdResponse
     }
 
-    /**
-     * Test the property 'id'
-     */
+    /** Test the property 'id' */
     @Test
     public void idTest() {
         // TODO: test id
     }
 
-    /**
-     * Test the property 'name'
-     */
+    /** Test the property 'name' */
     @Test
     public void nameTest() {
         // TODO: test name
     }
 
-    /**
-     * Test the property 'routingPolicy'
-     */
+    /** Test the property 'routingPolicy' */
     @Test
     public void routingPolicyTest() {
         // TODO: test routingPolicy
     }
 
-    /**
-     * Test the property 'isDiscoverable'
-     */
+    /** Test the property 'isDiscoverable' */
     @Test
     public void isDiscoverableTest() {
         // TODO: test isDiscoverable
     }
-
 }

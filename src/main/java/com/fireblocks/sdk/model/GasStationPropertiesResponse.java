@@ -10,178 +10,168 @@
  * Do not edit the class manually.
  */
 
-
 package com.fireblocks.sdk.model;
 
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
-import java.util.StringJoiner;
-import java.util.Objects;
-import java.util.Map;
-import java.util.HashMap;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonTypeName;
-import com.fasterxml.jackson.annotation.JsonValue;
-import com.fireblocks.sdk.model.GasStationConfiguration;
-import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.Objects;
+import java.util.StringJoiner;
 
-
-/**
- * GasStationPropertiesResponse
- */
+/** GasStationPropertiesResponse */
 @JsonPropertyOrder({
-  GasStationPropertiesResponse.JSON_PROPERTY_BALANCE,
-  GasStationPropertiesResponse.JSON_PROPERTY_CONFIGURATION
+    GasStationPropertiesResponse.JSON_PROPERTY_BALANCE,
+    GasStationPropertiesResponse.JSON_PROPERTY_CONFIGURATION
 })
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class GasStationPropertiesResponse {
-  public static final String JSON_PROPERTY_BALANCE = "balance";
-  private Object balance;
+    public static final String JSON_PROPERTY_BALANCE = "balance";
+    private Object balance;
 
-  public static final String JSON_PROPERTY_CONFIGURATION = "configuration";
-  private GasStationConfiguration _configuration;
+    public static final String JSON_PROPERTY_CONFIGURATION = "configuration";
+    private GasStationConfigurationResponse _configuration;
 
-  public GasStationPropertiesResponse() { 
-  }
+    public GasStationPropertiesResponse() {}
 
-  public GasStationPropertiesResponse balance(Object balance) {
-    this.balance = balance;
-    return this;
-  }
-
-   /**
-   * Get balance
-   * @return balance
-  **/
-  @jakarta.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_BALANCE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public Object getBalance() {
-    return balance;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_BALANCE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setBalance(Object balance) {
-    this.balance = balance;
-  }
-
-
-  public GasStationPropertiesResponse _configuration(GasStationConfiguration _configuration) {
-    this._configuration = _configuration;
-    return this;
-  }
-
-   /**
-   * Get _configuration
-   * @return _configuration
-  **/
-  @jakarta.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_CONFIGURATION)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public GasStationConfiguration getConfiguration() {
-    return _configuration;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_CONFIGURATION)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setConfiguration(GasStationConfiguration _configuration) {
-    this._configuration = _configuration;
-  }
-
-
-  /**
-   * Return true if this GasStationPropertiesResponse object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    GasStationPropertiesResponse gasStationPropertiesResponse = (GasStationPropertiesResponse) o;
-    return Objects.equals(this.balance, gasStationPropertiesResponse.balance) &&
-        Objects.equals(this._configuration, gasStationPropertiesResponse._configuration);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(balance, _configuration);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class GasStationPropertiesResponse {\n");
-    sb.append("    balance: ").append(toIndentedString(balance)).append("\n");
-    sb.append("    _configuration: ").append(toIndentedString(_configuration)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
-  }
-
-  /**
-   * Convert the instance into URL query string.
-   *
-   * @return URL query string
-   */
-  public String toUrlQueryString() {
-    return toUrlQueryString(null);
-  }
-
-  /**
-   * Convert the instance into URL query string.
-   *
-   * @param prefix prefix of the query string
-   * @return URL query string
-   */
-  public String toUrlQueryString(String prefix) {
-    String suffix = "";
-    String containerSuffix = "";
-    String containerPrefix = "";
-    if (prefix == null) {
-      // style=form, explode=true, e.g. /pet?name=cat&type=manx
-      prefix = "";
-    } else {
-      // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
-      prefix = prefix + "[";
-      suffix = "]";
-      containerSuffix = "]";
-      containerPrefix = "[";
+    public GasStationPropertiesResponse balance(Object balance) {
+        this.balance = balance;
+        return this;
     }
 
-    StringJoiner joiner = new StringJoiner("&");
-
-    // add `balance` to the URL query string
-    if (getBalance() != null) {
-      joiner.add(String.format("%sbalance%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getBalance()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    /**
+     * Get balance
+     *
+     * @return balance
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_BALANCE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public Object getBalance() {
+        return balance;
     }
 
-    // add `configuration` to the URL query string
-    if (getConfiguration() != null) {
-      joiner.add(getConfiguration().toUrlQueryString(prefix + "configuration" + suffix));
+    @JsonProperty(JSON_PROPERTY_BALANCE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setBalance(Object balance) {
+        this.balance = balance;
     }
 
-    return joiner.toString();
-  }
+    public GasStationPropertiesResponse _configuration(
+            GasStationConfigurationResponse _configuration) {
+        this._configuration = _configuration;
+        return this;
+    }
+
+    /**
+     * Get _configuration
+     *
+     * @return _configuration
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_CONFIGURATION)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public GasStationConfigurationResponse getConfiguration() {
+        return _configuration;
+    }
+
+    @JsonProperty(JSON_PROPERTY_CONFIGURATION)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setConfiguration(GasStationConfigurationResponse _configuration) {
+        this._configuration = _configuration;
+    }
+
+    /** Return true if this GasStationPropertiesResponse object is equal to o. */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        GasStationPropertiesResponse gasStationPropertiesResponse =
+                (GasStationPropertiesResponse) o;
+        return Objects.equals(this.balance, gasStationPropertiesResponse.balance)
+                && Objects.equals(this._configuration, gasStationPropertiesResponse._configuration);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(balance, _configuration);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class GasStationPropertiesResponse {\n");
+        sb.append("    balance: ").append(toIndentedString(balance)).append("\n");
+        sb.append("    _configuration: ").append(toIndentedString(_configuration)).append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces (except the first
+     * line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
+
+    /**
+     * Convert the instance into URL query string.
+     *
+     * @return URL query string
+     */
+    public String toUrlQueryString() {
+        return toUrlQueryString(null);
+    }
+
+    /**
+     * Convert the instance into URL query string.
+     *
+     * @param prefix prefix of the query string
+     * @return URL query string
+     */
+    public String toUrlQueryString(String prefix) {
+        String suffix = "";
+        String containerSuffix = "";
+        String containerPrefix = "";
+        if (prefix == null) {
+            // style=form, explode=true, e.g. /pet?name=cat&type=manx
+            prefix = "";
+        } else {
+            // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
+            prefix = prefix + "[";
+            suffix = "]";
+            containerSuffix = "]";
+            containerPrefix = "[";
+        }
+
+        StringJoiner joiner = new StringJoiner("&");
+
+        // add `balance` to the URL query string
+        if (getBalance() != null) {
+            joiner.add(
+                    String.format(
+                            "%sbalance%s=%s",
+                            prefix,
+                            suffix,
+                            URLEncoder.encode(String.valueOf(getBalance()), StandardCharsets.UTF_8)
+                                    .replaceAll("\\+", "%20")));
+        }
+
+        // add `configuration` to the URL query string
+        if (getConfiguration() != null) {
+            joiner.add(getConfiguration().toUrlQueryString(prefix + "configuration" + suffix));
+        }
+
+        return joiner.toString();
+    }
 }
-

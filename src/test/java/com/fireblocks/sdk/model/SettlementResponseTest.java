@@ -10,72 +10,48 @@
  * Do not edit the class manually.
  */
 
-
 package com.fireblocks.sdk.model;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonTypeName;
-import com.fasterxml.jackson.annotation.JsonValue;
-import com.fireblocks.sdk.model.ExchangeSettlementTransactionsResponse;
-import java.util.Arrays;
-import org.junit.Assert;
-import org.junit.Ignore;
+
 import org.junit.Test;
 
-/**
- * Model tests for SettlementResponse
- */
+/** Model tests for SettlementResponse */
 public class SettlementResponseTest {
     private final SettlementResponse model = new SettlementResponse();
 
-    /**
-     * Model tests for SettlementResponse
-     */
+    /** Model tests for SettlementResponse */
     @Test
     public void testSettlementResponse() {
         // TODO: test SettlementResponse
     }
 
-    /**
-     * Test the property 'id'
-     */
+    /** Test the property 'id' */
     @Test
     public void idTest() {
         // TODO: test id
     }
 
-    /**
-     * Test the property 'initiator'
-     */
+    /** Test the property 'initiator' */
     @Test
     public void initiatorTest() {
         // TODO: test initiator
     }
 
-    /**
-     * Test the property 'exchangeReply'
-     */
+    /** Test the property 'exchangeReply' */
     @Test
     public void exchangeReplyTest() {
         // TODO: test exchangeReply
     }
 
-    /**
-     * Test the property 'fireblocksInitiatedTransactions'
-     */
+    /** Test the property 'fireblocksInitiatedTransactions' */
     @Test
     public void fireblocksInitiatedTransactionsTest() {
         // TODO: test fireblocksInitiatedTransactions
     }
 
-    /**
-     * Test the property 'exchangeRequestedTransactions'
-     */
+    /** Test the property 'exchangeRequestedTransactions' */
     @Test
     public void exchangeRequestedTransactionsTest() {
         // TODO: test exchangeRequestedTransactions
     }
-
 }

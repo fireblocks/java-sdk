@@ -10,144 +10,135 @@
  * Do not edit the class manually.
  */
 
-
 package com.fireblocks.sdk.model;
 
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
-import java.util.StringJoiner;
-import java.util.Objects;
-import java.util.Map;
-import java.util.HashMap;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonTypeName;
-import com.fasterxml.jackson.annotation.JsonValue;
-import java.math.BigDecimal;
-import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import java.math.BigDecimal;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.Objects;
+import java.util.StringJoiner;
 
-
-/**
- * SmartTransferSetTicketExpiration
- */
-@JsonPropertyOrder({
-  SmartTransferSetTicketExpiration.JSON_PROPERTY_EXPIRES_IN
-})
+/** SmartTransferSetTicketExpiration */
+@JsonPropertyOrder({SmartTransferSetTicketExpiration.JSON_PROPERTY_EXPIRES_IN})
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class SmartTransferSetTicketExpiration {
-  public static final String JSON_PROPERTY_EXPIRES_IN = "expiresIn";
-  private BigDecimal expiresIn;
+    public static final String JSON_PROPERTY_EXPIRES_IN = "expiresIn";
+    private BigDecimal expiresIn;
 
-  public SmartTransferSetTicketExpiration() { 
-  }
+    public SmartTransferSetTicketExpiration() {}
 
-  public SmartTransferSetTicketExpiration expiresIn(BigDecimal expiresIn) {
-    this.expiresIn = expiresIn;
-    return this;
-  }
-
-   /**
-   * Sets ticket expiration time (in hours) after a ticket is submitted. If no funding source is set to any term, the ticket will automatically expire after given time.
-   * minimum: 1
-   * maximum: 48
-   * @return expiresIn
-  **/
-  @jakarta.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_EXPIRES_IN)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public BigDecimal getExpiresIn() {
-    return expiresIn;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_EXPIRES_IN)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setExpiresIn(BigDecimal expiresIn) {
-    this.expiresIn = expiresIn;
-  }
-
-
-  /**
-   * Return true if this SmartTransferSetTicketExpiration object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    SmartTransferSetTicketExpiration smartTransferSetTicketExpiration = (SmartTransferSetTicketExpiration) o;
-    return Objects.equals(this.expiresIn, smartTransferSetTicketExpiration.expiresIn);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(expiresIn);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class SmartTransferSetTicketExpiration {\n");
-    sb.append("    expiresIn: ").append(toIndentedString(expiresIn)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
-  }
-
-  /**
-   * Convert the instance into URL query string.
-   *
-   * @return URL query string
-   */
-  public String toUrlQueryString() {
-    return toUrlQueryString(null);
-  }
-
-  /**
-   * Convert the instance into URL query string.
-   *
-   * @param prefix prefix of the query string
-   * @return URL query string
-   */
-  public String toUrlQueryString(String prefix) {
-    String suffix = "";
-    String containerSuffix = "";
-    String containerPrefix = "";
-    if (prefix == null) {
-      // style=form, explode=true, e.g. /pet?name=cat&type=manx
-      prefix = "";
-    } else {
-      // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
-      prefix = prefix + "[";
-      suffix = "]";
-      containerSuffix = "]";
-      containerPrefix = "[";
+    public SmartTransferSetTicketExpiration expiresIn(BigDecimal expiresIn) {
+        this.expiresIn = expiresIn;
+        return this;
     }
 
-    StringJoiner joiner = new StringJoiner("&");
-
-    // add `expiresIn` to the URL query string
-    if (getExpiresIn() != null) {
-      joiner.add(String.format("%sexpiresIn%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getExpiresIn()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    /**
+     * Sets ticket expiration time (in hours) after a ticket is submitted. If no funding source is
+     * set to any term, the ticket will automatically expire after given time. minimum: 1 maximum:
+     * 48
+     *
+     * @return expiresIn
+     */
+    @jakarta.annotation.Nonnull
+    @JsonProperty(JSON_PROPERTY_EXPIRES_IN)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public BigDecimal getExpiresIn() {
+        return expiresIn;
     }
 
-    return joiner.toString();
-  }
+    @JsonProperty(JSON_PROPERTY_EXPIRES_IN)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setExpiresIn(BigDecimal expiresIn) {
+        this.expiresIn = expiresIn;
+    }
+
+    /** Return true if this SmartTransferSetTicketExpiration object is equal to o. */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        SmartTransferSetTicketExpiration smartTransferSetTicketExpiration =
+                (SmartTransferSetTicketExpiration) o;
+        return Objects.equals(this.expiresIn, smartTransferSetTicketExpiration.expiresIn);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(expiresIn);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class SmartTransferSetTicketExpiration {\n");
+        sb.append("    expiresIn: ").append(toIndentedString(expiresIn)).append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces (except the first
+     * line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
+
+    /**
+     * Convert the instance into URL query string.
+     *
+     * @return URL query string
+     */
+    public String toUrlQueryString() {
+        return toUrlQueryString(null);
+    }
+
+    /**
+     * Convert the instance into URL query string.
+     *
+     * @param prefix prefix of the query string
+     * @return URL query string
+     */
+    public String toUrlQueryString(String prefix) {
+        String suffix = "";
+        String containerSuffix = "";
+        String containerPrefix = "";
+        if (prefix == null) {
+            // style=form, explode=true, e.g. /pet?name=cat&type=manx
+            prefix = "";
+        } else {
+            // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
+            prefix = prefix + "[";
+            suffix = "]";
+            containerSuffix = "]";
+            containerPrefix = "[";
+        }
+
+        StringJoiner joiner = new StringJoiner("&");
+
+        // add `expiresIn` to the URL query string
+        if (getExpiresIn() != null) {
+            joiner.add(
+                    String.format(
+                            "%sexpiresIn%s=%s",
+                            prefix,
+                            suffix,
+                            URLEncoder.encode(
+                                            String.valueOf(getExpiresIn()), StandardCharsets.UTF_8)
+                                    .replaceAll("\\+", "%20")));
+        }
+
+        return joiner.toString();
+    }
 }
-

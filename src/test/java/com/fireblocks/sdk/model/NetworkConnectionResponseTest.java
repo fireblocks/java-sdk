@@ -10,91 +10,60 @@
  * Do not edit the class manually.
  */
 
-
 package com.fireblocks.sdk.model;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonTypeName;
-import com.fasterxml.jackson.annotation.JsonValue;
-import com.fireblocks.sdk.model.ConfigChangeRequestStatus;
-import com.fireblocks.sdk.model.NetworkChannel;
-import com.fireblocks.sdk.model.NetworkConnectionRoutingPolicy;
-import com.fireblocks.sdk.model.NetworkId;
-import java.util.Arrays;
-import org.junit.Assert;
-import org.junit.Ignore;
+
 import org.junit.Test;
 
-/**
- * Model tests for NetworkConnectionResponse
- */
+/** Model tests for NetworkConnectionResponse */
 public class NetworkConnectionResponseTest {
     private final NetworkConnectionResponse model = new NetworkConnectionResponse();
 
-    /**
-     * Model tests for NetworkConnectionResponse
-     */
+    /** Model tests for NetworkConnectionResponse */
     @Test
     public void testNetworkConnectionResponse() {
         // TODO: test NetworkConnectionResponse
     }
 
-    /**
-     * Test the property 'id'
-     */
+    /** Test the property 'id' */
     @Test
     public void idTest() {
         // TODO: test id
     }
 
-    /**
-     * Test the property 'localChannel'
-     */
+    /** Test the property 'localChannel' */
     @Test
     public void localChannelTest() {
         // TODO: test localChannel
     }
 
-    /**
-     * Test the property 'remoteChannel'
-     */
+    /** Test the property 'remoteChannel' */
     @Test
     public void remoteChannelTest() {
         // TODO: test remoteChannel
     }
 
-    /**
-     * Test the property 'status'
-     */
+    /** Test the property 'status' */
     @Test
     public void statusTest() {
         // TODO: test status
     }
 
-    /**
-     * Test the property 'localNetworkId'
-     */
+    /** Test the property 'localNetworkId' */
     @Test
     public void localNetworkIdTest() {
         // TODO: test localNetworkId
     }
 
-    /**
-     * Test the property 'remoteNetworkId'
-     */
+    /** Test the property 'remoteNetworkId' */
     @Test
     public void remoteNetworkIdTest() {
         // TODO: test remoteNetworkId
     }
 
-    /**
-     * Test the property 'routingPolicy'
-     */
+    /** Test the property 'routingPolicy' */
     @Test
     public void routingPolicyTest() {
         // TODO: test routingPolicy
     }
-
 }

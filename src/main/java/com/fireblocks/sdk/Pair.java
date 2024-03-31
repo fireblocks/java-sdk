@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 
-
 package com.fireblocks.sdk;
 
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
@@ -18,7 +17,7 @@ public class Pair {
     private String name = "";
     private String value = "";
 
-    public Pair (String name, String value) {
+    public Pair(String name, String value) {
         setName(name);
         setValue(value);
     }

@@ -10,47 +10,30 @@
  * Do not edit the class manually.
  */
 
-
 package com.fireblocks.sdk.model;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonTypeName;
-import com.fasterxml.jackson.annotation.JsonValue;
-import java.util.Arrays;
-import org.junit.Assert;
-import org.junit.Ignore;
+
 import org.junit.Test;
 
-/**
- * Model tests for NetworkChannel
- */
+/** Model tests for NetworkChannel */
 public class NetworkChannelTest {
     private final NetworkChannel model = new NetworkChannel();
 
-    /**
-     * Model tests for NetworkChannel
-     */
+    /** Model tests for NetworkChannel */
     @Test
     public void testNetworkChannel() {
         // TODO: test NetworkChannel
     }
 
-    /**
-     * Test the property 'networkId'
-     */
+    /** Test the property 'networkId' */
     @Test
     public void networkIdTest() {
         // TODO: test networkId
     }
 
-    /**
-     * Test the property 'name'
-     */
+    /** Test the property 'name' */
     @Test
     public void nameTest() {
         // TODO: test name
     }
-
 }

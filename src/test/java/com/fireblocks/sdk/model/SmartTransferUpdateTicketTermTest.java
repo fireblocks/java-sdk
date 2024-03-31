@@ -10,64 +10,42 @@
  * Do not edit the class manually.
  */
 
-
 package com.fireblocks.sdk.model;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonTypeName;
-import com.fasterxml.jackson.annotation.JsonValue;
-import java.math.BigDecimal;
-import java.util.Arrays;
-import org.junit.Assert;
-import org.junit.Ignore;
+
 import org.junit.Test;
 
-/**
- * Model tests for SmartTransferUpdateTicketTerm
- */
+/** Model tests for SmartTransferUpdateTicketTerm */
 public class SmartTransferUpdateTicketTermTest {
     private final SmartTransferUpdateTicketTerm model = new SmartTransferUpdateTicketTerm();
 
-    /**
-     * Model tests for SmartTransferUpdateTicketTerm
-     */
+    /** Model tests for SmartTransferUpdateTicketTerm */
     @Test
     public void testSmartTransferUpdateTicketTerm() {
         // TODO: test SmartTransferUpdateTicketTerm
     }
 
-    /**
-     * Test the property 'asset'
-     */
+    /** Test the property 'asset' */
     @Test
     public void assetTest() {
         // TODO: test asset
     }
 
-    /**
-     * Test the property 'amount'
-     */
+    /** Test the property 'amount' */
     @Test
     public void amountTest() {
         // TODO: test amount
     }
 
-    /**
-     * Test the property 'fromNetworkId'
-     */
+    /** Test the property 'fromNetworkId' */
     @Test
     public void fromNetworkIdTest() {
         // TODO: test fromNetworkId
     }
 
-    /**
-     * Test the property 'toNetworkId'
-     */
+    /** Test the property 'toNetworkId' */
     @Test
     public void toNetworkIdTest() {
         // TODO: test toNetworkId
     }
-
 }

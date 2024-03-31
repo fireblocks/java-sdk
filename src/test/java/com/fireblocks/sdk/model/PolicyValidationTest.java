@@ -10,48 +10,30 @@
  * Do not edit the class manually.
  */
 
-
 package com.fireblocks.sdk.model;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonTypeName;
-import com.fasterxml.jackson.annotation.JsonValue;
-import com.fireblocks.sdk.model.PolicyCheckResult;
-import java.util.Arrays;
-import org.junit.Assert;
-import org.junit.Ignore;
+
 import org.junit.Test;
 
-/**
- * Model tests for PolicyValidation
- */
+/** Model tests for PolicyValidation */
 public class PolicyValidationTest {
     private final PolicyValidation model = new PolicyValidation();
 
-    /**
-     * Model tests for PolicyValidation
-     */
+    /** Model tests for PolicyValidation */
     @Test
     public void testPolicyValidation() {
         // TODO: test PolicyValidation
     }
 
-    /**
-     * Test the property 'status'
-     */
+    /** Test the property 'status' */
     @Test
     public void statusTest() {
         // TODO: test status
     }
 
-    /**
-     * Test the property 'checkResult'
-     */
+    /** Test the property 'checkResult' */
     @Test
     public void checkResultTest() {
         // TODO: test checkResult
     }
-
 }

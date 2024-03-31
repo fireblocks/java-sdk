@@ -10,23 +10,16 @@
  * Do not edit the class manually.
  */
 
-
 package com.fireblocks.sdk.model;
 
-import org.junit.Assert;
-import org.junit.Ignore;
+
 import org.junit.Test;
 
-/**
- * Model tests for FiatAccountType
- */
+/** Model tests for FiatAccountType */
 public class FiatAccountTypeTest {
-    /**
-     * Model tests for FiatAccountType
-     */
+    /** Model tests for FiatAccountType */
     @Test
     public void testFiatAccountType() {
         // TODO: test FiatAccountType
     }
-
 }

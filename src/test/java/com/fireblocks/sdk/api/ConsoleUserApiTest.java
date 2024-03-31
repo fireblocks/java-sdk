@@ -10,65 +10,48 @@
  * Do not edit the class manually.
  */
 
-
 package com.fireblocks.sdk.api;
 
+
 import com.fireblocks.sdk.ApiException;
+import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.model.CreateConsoleUser;
-import com.fireblocks.sdk.model.ErrorResponse;
-import com.fireblocks.sdk.model.ErrorSchema;
-import org.junit.Test;
-import org.junit.Ignore;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import java.util.concurrent.CompletableFuture;
+import org.junit.Ignore;
+import org.junit.Test;
 
-/**
- * API tests for ConsoleUserApi
- */
+/** API tests for ConsoleUserApi */
 @Ignore
 public class ConsoleUserApiTest {
 
     private final ConsoleUserApi api = new ConsoleUserApi();
 
-    
     /**
      * create console user
      *
-     * creates fireblocks console user
+     * <p>creates fireblocks console user
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
     public void createConsoleUserTest() throws ApiException {
         CreateConsoleUser createConsoleUser = null;
         String idempotencyKey = null;
-        
-        CompletableFuture<Void> response = api.createConsoleUser(createConsoleUser, idempotencyKey);
-        
-        // TODO: test validations
+
+        CompletableFuture<ApiResponse<Void>> response =
+                api.createConsoleUser(createConsoleUser, idempotencyKey);
     }
-    
+
     /**
      * get console users
      *
-     * get console users from the current tenant
+     * <p>get console users from the current tenant
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
     public void getConsoleUsersTest() throws ApiException {
-        
-        CompletableFuture<Void> response = api.getConsoleUsers();
-        
-        // TODO: test validations
+
+        CompletableFuture<ApiResponse<Void>> response = api.getConsoleUsers();
     }
-    
 }

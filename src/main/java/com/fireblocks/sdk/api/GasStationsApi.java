@@ -12,438 +12,365 @@
 
 package com.fireblocks.sdk.api;
 
-import com.fireblocks.sdk.ApiClient;
-import com.fireblocks.sdk.ApiException;
-import com.fireblocks.sdk.ApiResponse;
-import com.fireblocks.sdk.Pair;
-
-import com.fireblocks.sdk.model.ErrorSchema;
-import com.fireblocks.sdk.model.GasStationConfiguration;
-import com.fireblocks.sdk.model.GasStationPropertiesResponse;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
-import java.io.InputStream;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
+import com.fireblocks.sdk.ApiClient;
+import com.fireblocks.sdk.ApiException;
+import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.model.GasStationConfiguration;
+import com.fireblocks.sdk.model.GasStationPropertiesResponse;
 import java.io.IOException;
-import java.io.OutputStream;
-import java.net.http.HttpRequest;
-import java.nio.channels.Channels;
-import java.nio.channels.Pipe;
+import java.io.InputStream;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.time.Duration;
-
-import java.util.ArrayList;
-import java.util.StringJoiner;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.function.Consumer;
-
 import java.util.concurrent.CompletableFuture;
+import java.util.function.Consumer;
 
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class GasStationsApi {
-  private final HttpClient memberVarHttpClient;
-  private final ObjectMapper memberVarObjectMapper;
-  private final String memberVarBaseUri;
-  private final Consumer<HttpRequest.Builder> memberVarInterceptor;
-  private final Duration memberVarReadTimeout;
-  private final Consumer<HttpResponse<InputStream>> memberVarResponseInterceptor;
-  private final Consumer<HttpResponse<String>> memberVarAsyncResponseInterceptor;
+    private final HttpClient memberVarHttpClient;
+    private final ObjectMapper memberVarObjectMapper;
+    private final String memberVarBaseUri;
+    private final Consumer<HttpRequest.Builder> memberVarInterceptor;
+    private final Duration memberVarReadTimeout;
+    private final Consumer<HttpResponse<InputStream>> memberVarResponseInterceptor;
+    private final Consumer<HttpResponse<String>> memberVarAsyncResponseInterceptor;
 
-  public GasStationsApi() {
-    this(new ApiClient());
-  }
-
-  public GasStationsApi(ApiClient apiClient) {
-    memberVarHttpClient = apiClient.getHttpClient();
-    memberVarObjectMapper = apiClient.getObjectMapper();
-    memberVarBaseUri = apiClient.getBaseUri();
-    memberVarInterceptor = apiClient.getRequestInterceptor();
-    memberVarReadTimeout = apiClient.getReadTimeout();
-    memberVarResponseInterceptor = apiClient.getResponseInterceptor();
-    memberVarAsyncResponseInterceptor = apiClient.getAsyncResponseInterceptor();
-  }
-
-  private ApiException getApiException(String operationId, HttpResponse<String> response) {
-    String message = formatExceptionMessage(operationId, response.statusCode(), response.body());
-    return new ApiException(response.statusCode(), message, response.headers(), response.body());
-  }
-
-  private String formatExceptionMessage(String operationId, int statusCode, String body) {
-    if (body == null || body.isEmpty()) {
-      body = "[no body]";
+    public GasStationsApi() {
+        this(new ApiClient());
     }
-    return operationId + " call failed with: " + statusCode + " - " + body;
-  }
 
-  /**
-   * Get gas station settings by asset
-   * Returns gas station settings and balances for a requested asset.
-   * @param assetId The ID of the asset (required)
-   * @return CompletableFuture&lt;GasStationPropertiesResponse&gt;
-   * @throws ApiException if fails to make API call
-   */
-  public CompletableFuture<GasStationPropertiesResponse> getGasStationByAssetId(String assetId) throws ApiException {
-    try {
-      HttpRequest.Builder localVarRequestBuilder = getGasStationByAssetIdRequestBuilder(assetId);
-      return memberVarHttpClient.sendAsync(
-          localVarRequestBuilder.build(),
-          HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
-            if (localVarResponse.statusCode()/ 100 != 2) {
-              return CompletableFuture.failedFuture(getApiException("getGasStationByAssetId", localVarResponse));
-            }
-            try {
-              String responseBody = localVarResponse.body();
-              return CompletableFuture.completedFuture(
-                  responseBody == null || responseBody.isBlank() ? null : memberVarObjectMapper.readValue(responseBody, new TypeReference<GasStationPropertiesResponse>() {})
-              );
-            } catch (IOException e) {
-              return CompletableFuture.failedFuture(new ApiException(e));
-            }
-      });
+    public GasStationsApi(ApiClient apiClient) {
+        memberVarHttpClient = apiClient.getHttpClient();
+        memberVarObjectMapper = apiClient.getObjectMapper();
+        memberVarBaseUri = apiClient.getBaseUri();
+        memberVarInterceptor = apiClient.getRequestInterceptor();
+        memberVarReadTimeout = apiClient.getReadTimeout();
+        memberVarResponseInterceptor = apiClient.getResponseInterceptor();
+        memberVarAsyncResponseInterceptor = apiClient.getAsyncResponseInterceptor();
     }
-    catch (ApiException e) {
-      return CompletableFuture.failedFuture(e);
-    }
-  }
 
-  /**
-   * Get gas station settings by asset
-   * Returns gas station settings and balances for a requested asset.
-   * @param assetId The ID of the asset (required)
-   * @return CompletableFuture&lt;ApiResponse&lt;GasStationPropertiesResponse&gt;&gt;
-   * @throws ApiException if fails to make API call
-   */
-  public CompletableFuture<ApiResponse<GasStationPropertiesResponse>> getGasStationByAssetIdWithHttpInfo(String assetId) throws ApiException {
-    try {
-      HttpRequest.Builder localVarRequestBuilder = getGasStationByAssetIdRequestBuilder(assetId);
-      return memberVarHttpClient.sendAsync(
-          localVarRequestBuilder.build(),
-          HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
-            if (memberVarAsyncResponseInterceptor != null) {
-              memberVarAsyncResponseInterceptor.accept(localVarResponse);
-            }
-            if (localVarResponse.statusCode()/ 100 != 2) {
-              return CompletableFuture.failedFuture(getApiException("getGasStationByAssetId", localVarResponse));
-            }
-            try {
-              String responseBody = localVarResponse.body();
-              return CompletableFuture.completedFuture(
-                  new ApiResponse<GasStationPropertiesResponse>(
-                      localVarResponse.statusCode(),
-                      localVarResponse.headers().map(),
-                      responseBody == null || responseBody.isBlank() ? null : memberVarObjectMapper.readValue(responseBody, new TypeReference<GasStationPropertiesResponse>() {}))
-              );
-            } catch (IOException e) {
-              return CompletableFuture.failedFuture(new ApiException(e));
-            }
+    private ApiException getApiException(String operationId, HttpResponse<String> response) {
+        String message =
+                formatExceptionMessage(operationId, response.statusCode(), response.body());
+        return new ApiException(
+                response.statusCode(), message, response.headers(), response.body());
+    }
+
+    private String formatExceptionMessage(String operationId, int statusCode, String body) {
+        if (body == null || body.isEmpty()) {
+            body = "[no body]";
         }
-      );
-    }
-    catch (ApiException e) {
-      return CompletableFuture.failedFuture(e);
-    }
-  }
-
-  private HttpRequest.Builder getGasStationByAssetIdRequestBuilder(String assetId) throws ApiException {
-    // verify the required parameter 'assetId' is set
-    if (assetId == null) {
-      throw new ApiException(400, "Missing the required parameter 'assetId' when calling getGasStationByAssetId");
+        return operationId + " call failed with: " + statusCode + " - " + body;
     }
 
-    HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
-
-    String localVarPath = "/gas_station/{assetId}"
-        .replace("{assetId}", ApiClient.urlEncode(assetId.toString()));
-
-    localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
-
-    localVarRequestBuilder.header("Accept", "application/json");
-
-    localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
-    if (memberVarReadTimeout != null) {
-      localVarRequestBuilder.timeout(memberVarReadTimeout);
-    }
-    if (memberVarInterceptor != null) {
-      memberVarInterceptor.accept(localVarRequestBuilder);
-    }
-    return localVarRequestBuilder;
-  }
-  /**
-   * Get gas station settings
-   * Returns gas station settings and ETH balance.
-   * @return CompletableFuture&lt;GasStationPropertiesResponse&gt;
-   * @throws ApiException if fails to make API call
-   */
-  public CompletableFuture<GasStationPropertiesResponse> getGasStationInfo() throws ApiException {
-    try {
-      HttpRequest.Builder localVarRequestBuilder = getGasStationInfoRequestBuilder();
-      return memberVarHttpClient.sendAsync(
-          localVarRequestBuilder.build(),
-          HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
-            if (localVarResponse.statusCode()/ 100 != 2) {
-              return CompletableFuture.failedFuture(getApiException("getGasStationInfo", localVarResponse));
-            }
-            try {
-              String responseBody = localVarResponse.body();
-              return CompletableFuture.completedFuture(
-                  responseBody == null || responseBody.isBlank() ? null : memberVarObjectMapper.readValue(responseBody, new TypeReference<GasStationPropertiesResponse>() {})
-              );
-            } catch (IOException e) {
-              return CompletableFuture.failedFuture(new ApiException(e));
-            }
-      });
-    }
-    catch (ApiException e) {
-      return CompletableFuture.failedFuture(e);
-    }
-  }
-
-  /**
-   * Get gas station settings
-   * Returns gas station settings and ETH balance.
-   * @return CompletableFuture&lt;ApiResponse&lt;GasStationPropertiesResponse&gt;&gt;
-   * @throws ApiException if fails to make API call
-   */
-  public CompletableFuture<ApiResponse<GasStationPropertiesResponse>> getGasStationInfoWithHttpInfo() throws ApiException {
-    try {
-      HttpRequest.Builder localVarRequestBuilder = getGasStationInfoRequestBuilder();
-      return memberVarHttpClient.sendAsync(
-          localVarRequestBuilder.build(),
-          HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
-            if (memberVarAsyncResponseInterceptor != null) {
-              memberVarAsyncResponseInterceptor.accept(localVarResponse);
-            }
-            if (localVarResponse.statusCode()/ 100 != 2) {
-              return CompletableFuture.failedFuture(getApiException("getGasStationInfo", localVarResponse));
-            }
-            try {
-              String responseBody = localVarResponse.body();
-              return CompletableFuture.completedFuture(
-                  new ApiResponse<GasStationPropertiesResponse>(
-                      localVarResponse.statusCode(),
-                      localVarResponse.headers().map(),
-                      responseBody == null || responseBody.isBlank() ? null : memberVarObjectMapper.readValue(responseBody, new TypeReference<GasStationPropertiesResponse>() {}))
-              );
-            } catch (IOException e) {
-              return CompletableFuture.failedFuture(new ApiException(e));
-            }
+    /**
+     * Get gas station settings by asset Returns gas station settings and balances for a requested
+     * asset.
+     *
+     * @param assetId The ID of the asset (required)
+     * @return CompletableFuture&lt;ApiResponse&lt;GasStationPropertiesResponse&gt;&gt;
+     * @throws ApiException if fails to make API call
+     */
+    public CompletableFuture<ApiResponse<GasStationPropertiesResponse>> getGasStationByAssetId(
+            String assetId) throws ApiException {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    getGasStationByAssetIdRequestBuilder(assetId);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException(
+                                                    "getGasStationByAssetId", localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<GasStationPropertiesResponse>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            GasStationPropertiesResponse>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            });
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
         }
-      );
     }
-    catch (ApiException e) {
-      return CompletableFuture.failedFuture(e);
-    }
-  }
 
-  private HttpRequest.Builder getGasStationInfoRequestBuilder() throws ApiException {
-
-    HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
-
-    String localVarPath = "/gas_station";
-
-    localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
-
-    localVarRequestBuilder.header("Accept", "application/json");
-
-    localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
-    if (memberVarReadTimeout != null) {
-      localVarRequestBuilder.timeout(memberVarReadTimeout);
-    }
-    if (memberVarInterceptor != null) {
-      memberVarInterceptor.accept(localVarRequestBuilder);
-    }
-    return localVarRequestBuilder;
-  }
-  /**
-   * Edit gas station settings
-   * Configures gas station settings for ETH.
-   * @param gasStationConfiguration  (required)
-   * @param idempotencyKey A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
-   * @return CompletableFuture&lt;Void&gt;
-   * @throws ApiException if fails to make API call
-   */
-  public CompletableFuture<Void> updateGasStationConfiguration(GasStationConfiguration gasStationConfiguration, String idempotencyKey) throws ApiException {
-    try {
-      HttpRequest.Builder localVarRequestBuilder = updateGasStationConfigurationRequestBuilder(gasStationConfiguration, idempotencyKey);
-      return memberVarHttpClient.sendAsync(
-          localVarRequestBuilder.build(),
-          HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
-            if (localVarResponse.statusCode()/ 100 != 2) {
-              return CompletableFuture.failedFuture(getApiException("updateGasStationConfiguration", localVarResponse));
-            }
-            return CompletableFuture.completedFuture(null);
-      });
-    }
-    catch (ApiException e) {
-      return CompletableFuture.failedFuture(e);
-    }
-  }
-
-  /**
-   * Edit gas station settings
-   * Configures gas station settings for ETH.
-   * @param gasStationConfiguration  (required)
-   * @param idempotencyKey A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
-   * @return CompletableFuture&lt;ApiResponse&lt;Void&gt;&gt;
-   * @throws ApiException if fails to make API call
-   */
-  public CompletableFuture<ApiResponse<Void>> updateGasStationConfigurationWithHttpInfo(GasStationConfiguration gasStationConfiguration, String idempotencyKey) throws ApiException {
-    try {
-      HttpRequest.Builder localVarRequestBuilder = updateGasStationConfigurationRequestBuilder(gasStationConfiguration, idempotencyKey);
-      return memberVarHttpClient.sendAsync(
-          localVarRequestBuilder.build(),
-          HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
-            if (memberVarAsyncResponseInterceptor != null) {
-              memberVarAsyncResponseInterceptor.accept(localVarResponse);
-            }
-            if (localVarResponse.statusCode()/ 100 != 2) {
-              return CompletableFuture.failedFuture(getApiException("updateGasStationConfiguration", localVarResponse));
-            }
-            return CompletableFuture.completedFuture(
-                new ApiResponse<Void>(localVarResponse.statusCode(), localVarResponse.headers().map(), null)
-            );
+    private HttpRequest.Builder getGasStationByAssetIdRequestBuilder(String assetId)
+            throws ApiException {
+        // verify the required parameter 'assetId' is set
+        if (assetId == null) {
+            throw new ApiException(
+                    400,
+                    "Missing the required parameter 'assetId' when calling getGasStationByAssetId");
         }
-      );
-    }
-    catch (ApiException e) {
-      return CompletableFuture.failedFuture(e);
-    }
-  }
 
-  private HttpRequest.Builder updateGasStationConfigurationRequestBuilder(GasStationConfiguration gasStationConfiguration, String idempotencyKey) throws ApiException {
-    // verify the required parameter 'gasStationConfiguration' is set
-    if (gasStationConfiguration == null) {
-      throw new ApiException(400, "Missing the required parameter 'gasStationConfiguration' when calling updateGasStationConfiguration");
-    }
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
-    HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+        String localVarPath =
+                "/gas_station/{assetId}"
+                        .replace("{assetId}", ApiClient.urlEncode(assetId.toString()));
 
-    String localVarPath = "/gas_station/configuration";
+        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
 
-    localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+        localVarRequestBuilder.header("Accept", "application/json");
 
-    if (idempotencyKey != null) {
-      localVarRequestBuilder.header("Idempotency-Key", idempotencyKey.toString());
-    }
-    localVarRequestBuilder.header("Content-Type", "application/json");
-    localVarRequestBuilder.header("Accept", "application/json");
-
-    try {
-      byte[] localVarPostBody = memberVarObjectMapper.writeValueAsBytes(gasStationConfiguration);
-      localVarRequestBuilder.method("PUT", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
-    } catch (IOException e) {
-      throw new ApiException(e);
-    }
-    if (memberVarReadTimeout != null) {
-      localVarRequestBuilder.timeout(memberVarReadTimeout);
-    }
-    if (memberVarInterceptor != null) {
-      memberVarInterceptor.accept(localVarRequestBuilder);
-    }
-    return localVarRequestBuilder;
-  }
-  /**
-   * Edit gas station settings for an asset
-   * Configures gas station settings for a requested asset.
-   * @param gasStationConfiguration  (required)
-   * @param assetId The ID of the asset (required)
-   * @param idempotencyKey A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
-   * @return CompletableFuture&lt;Void&gt;
-   * @throws ApiException if fails to make API call
-   */
-  public CompletableFuture<Void> updateGasStationConfigurationByAssetId(GasStationConfiguration gasStationConfiguration, String assetId, String idempotencyKey) throws ApiException {
-    try {
-      HttpRequest.Builder localVarRequestBuilder = updateGasStationConfigurationByAssetIdRequestBuilder(gasStationConfiguration, assetId, idempotencyKey);
-      return memberVarHttpClient.sendAsync(
-          localVarRequestBuilder.build(),
-          HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
-            if (localVarResponse.statusCode()/ 100 != 2) {
-              return CompletableFuture.failedFuture(getApiException("updateGasStationConfigurationByAssetId", localVarResponse));
-            }
-            return CompletableFuture.completedFuture(null);
-      });
-    }
-    catch (ApiException e) {
-      return CompletableFuture.failedFuture(e);
-    }
-  }
-
-  /**
-   * Edit gas station settings for an asset
-   * Configures gas station settings for a requested asset.
-   * @param gasStationConfiguration  (required)
-   * @param assetId The ID of the asset (required)
-   * @param idempotencyKey A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
-   * @return CompletableFuture&lt;ApiResponse&lt;Void&gt;&gt;
-   * @throws ApiException if fails to make API call
-   */
-  public CompletableFuture<ApiResponse<Void>> updateGasStationConfigurationByAssetIdWithHttpInfo(GasStationConfiguration gasStationConfiguration, String assetId, String idempotencyKey) throws ApiException {
-    try {
-      HttpRequest.Builder localVarRequestBuilder = updateGasStationConfigurationByAssetIdRequestBuilder(gasStationConfiguration, assetId, idempotencyKey);
-      return memberVarHttpClient.sendAsync(
-          localVarRequestBuilder.build(),
-          HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
-            if (memberVarAsyncResponseInterceptor != null) {
-              memberVarAsyncResponseInterceptor.accept(localVarResponse);
-            }
-            if (localVarResponse.statusCode()/ 100 != 2) {
-              return CompletableFuture.failedFuture(getApiException("updateGasStationConfigurationByAssetId", localVarResponse));
-            }
-            return CompletableFuture.completedFuture(
-                new ApiResponse<Void>(localVarResponse.statusCode(), localVarResponse.headers().map(), null)
-            );
+        localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
         }
-      );
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
     }
-    catch (ApiException e) {
-      return CompletableFuture.failedFuture(e);
+    /**
+     * Get gas station settings Returns gas station settings and ETH balance.
+     *
+     * @return CompletableFuture&lt;ApiResponse&lt;GasStationPropertiesResponse&gt;&gt;
+     * @throws ApiException if fails to make API call
+     */
+    public CompletableFuture<ApiResponse<GasStationPropertiesResponse>> getGasStationInfo()
+            throws ApiException {
+        try {
+            HttpRequest.Builder localVarRequestBuilder = getGasStationInfoRequestBuilder();
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException("getGasStationInfo", localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<GasStationPropertiesResponse>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            GasStationPropertiesResponse>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            });
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
     }
-  }
 
-  private HttpRequest.Builder updateGasStationConfigurationByAssetIdRequestBuilder(GasStationConfiguration gasStationConfiguration, String assetId, String idempotencyKey) throws ApiException {
-    // verify the required parameter 'gasStationConfiguration' is set
-    if (gasStationConfiguration == null) {
-      throw new ApiException(400, "Missing the required parameter 'gasStationConfiguration' when calling updateGasStationConfigurationByAssetId");
+    private HttpRequest.Builder getGasStationInfoRequestBuilder() throws ApiException {
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath = "/gas_station";
+
+        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
     }
-    // verify the required parameter 'assetId' is set
-    if (assetId == null) {
-      throw new ApiException(400, "Missing the required parameter 'assetId' when calling updateGasStationConfigurationByAssetId");
+    /**
+     * Edit gas station settings Configures gas station settings for ETH.
+     *
+     * @param gasStationConfiguration (required)
+     * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
+     *     times with the same idempotency key, the server will return the same response as the
+     *     first request. The idempotency key is valid for 24 hours. (optional)
+     * @return CompletableFuture&lt;ApiResponse&lt;Void&gt;&gt;
+     * @throws ApiException if fails to make API call
+     */
+    public CompletableFuture<ApiResponse<Void>> updateGasStationConfiguration(
+            GasStationConfiguration gasStationConfiguration, String idempotencyKey)
+            throws ApiException {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    updateGasStationConfigurationRequestBuilder(
+                            gasStationConfiguration, idempotencyKey);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException(
+                                                    "updateGasStationConfiguration",
+                                                    localVarResponse));
+                                }
+                                return CompletableFuture.completedFuture(
+                                        new ApiResponse<Void>(
+                                                localVarResponse.statusCode(),
+                                                localVarResponse.headers().map(),
+                                                null));
+                            });
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
     }
 
-    HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+    private HttpRequest.Builder updateGasStationConfigurationRequestBuilder(
+            GasStationConfiguration gasStationConfiguration, String idempotencyKey)
+            throws ApiException {
+        // verify the required parameter 'gasStationConfiguration' is set
+        if (gasStationConfiguration == null) {
+            throw new ApiException(
+                    400,
+                    "Missing the required parameter 'gasStationConfiguration' when calling"
+                            + " updateGasStationConfiguration");
+        }
 
-    String localVarPath = "/gas_station/configuration/{assetId}"
-        .replace("{assetId}", ApiClient.urlEncode(assetId.toString()));
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
-    localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+        String localVarPath = "/gas_station/configuration";
 
-    if (idempotencyKey != null) {
-      localVarRequestBuilder.header("Idempotency-Key", idempotencyKey.toString());
-    }
-    localVarRequestBuilder.header("Content-Type", "application/json");
-    localVarRequestBuilder.header("Accept", "application/json");
+        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
 
-    try {
-      byte[] localVarPostBody = memberVarObjectMapper.writeValueAsBytes(gasStationConfiguration);
-      localVarRequestBuilder.method("PUT", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
-    } catch (IOException e) {
-      throw new ApiException(e);
+        if (idempotencyKey != null) {
+            localVarRequestBuilder.header("Idempotency-Key", idempotencyKey.toString());
+        }
+        localVarRequestBuilder.header("Content-Type", "application/json");
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        try {
+            byte[] localVarPostBody =
+                    memberVarObjectMapper.writeValueAsBytes(gasStationConfiguration);
+            localVarRequestBuilder.method(
+                    "PUT", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
+        } catch (IOException e) {
+            throw new ApiException(e);
+        }
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
     }
-    if (memberVarReadTimeout != null) {
-      localVarRequestBuilder.timeout(memberVarReadTimeout);
+    /**
+     * Edit gas station settings for an asset Configures gas station settings for a requested asset.
+     *
+     * @param gasStationConfiguration (required)
+     * @param assetId The ID of the asset (required)
+     * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
+     *     times with the same idempotency key, the server will return the same response as the
+     *     first request. The idempotency key is valid for 24 hours. (optional)
+     * @return CompletableFuture&lt;ApiResponse&lt;Void&gt;&gt;
+     * @throws ApiException if fails to make API call
+     */
+    public CompletableFuture<ApiResponse<Void>> updateGasStationConfigurationByAssetId(
+            GasStationConfiguration gasStationConfiguration, String assetId, String idempotencyKey)
+            throws ApiException {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    updateGasStationConfigurationByAssetIdRequestBuilder(
+                            gasStationConfiguration, assetId, idempotencyKey);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException(
+                                                    "updateGasStationConfigurationByAssetId",
+                                                    localVarResponse));
+                                }
+                                return CompletableFuture.completedFuture(
+                                        new ApiResponse<Void>(
+                                                localVarResponse.statusCode(),
+                                                localVarResponse.headers().map(),
+                                                null));
+                            });
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
     }
-    if (memberVarInterceptor != null) {
-      memberVarInterceptor.accept(localVarRequestBuilder);
+
+    private HttpRequest.Builder updateGasStationConfigurationByAssetIdRequestBuilder(
+            GasStationConfiguration gasStationConfiguration, String assetId, String idempotencyKey)
+            throws ApiException {
+        // verify the required parameter 'gasStationConfiguration' is set
+        if (gasStationConfiguration == null) {
+            throw new ApiException(
+                    400,
+                    "Missing the required parameter 'gasStationConfiguration' when calling"
+                            + " updateGasStationConfigurationByAssetId");
+        }
+        // verify the required parameter 'assetId' is set
+        if (assetId == null) {
+            throw new ApiException(
+                    400,
+                    "Missing the required parameter 'assetId' when calling"
+                            + " updateGasStationConfigurationByAssetId");
+        }
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath =
+                "/gas_station/configuration/{assetId}"
+                        .replace("{assetId}", ApiClient.urlEncode(assetId.toString()));
+
+        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+        if (idempotencyKey != null) {
+            localVarRequestBuilder.header("Idempotency-Key", idempotencyKey.toString());
+        }
+        localVarRequestBuilder.header("Content-Type", "application/json");
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        try {
+            byte[] localVarPostBody =
+                    memberVarObjectMapper.writeValueAsBytes(gasStationConfiguration);
+            localVarRequestBuilder.method(
+                    "PUT", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
+        } catch (IOException e) {
+            throw new ApiException(e);
+        }
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
     }
-    return localVarRequestBuilder;
-  }
 }

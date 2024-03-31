@@ -10,214 +10,193 @@
  * Do not edit the class manually.
  */
 
-
 package com.fireblocks.sdk.model;
 
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
-import java.util.StringJoiner;
-import java.util.Objects;
-import java.util.Map;
-import java.util.HashMap;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonTypeName;
-import com.fasterxml.jackson.annotation.JsonValue;
-import com.fireblocks.sdk.model.TransactionFee;
-import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import java.util.Objects;
+import java.util.StringJoiner;
 
-
-/**
- * EstimatedTransactionFeeResponse
- */
+/** EstimatedTransactionFeeResponse */
 @JsonPropertyOrder({
-  EstimatedTransactionFeeResponse.JSON_PROPERTY_LOW,
-  EstimatedTransactionFeeResponse.JSON_PROPERTY_MEDIUM,
-  EstimatedTransactionFeeResponse.JSON_PROPERTY_HIGH
+    EstimatedTransactionFeeResponse.JSON_PROPERTY_LOW,
+    EstimatedTransactionFeeResponse.JSON_PROPERTY_MEDIUM,
+    EstimatedTransactionFeeResponse.JSON_PROPERTY_HIGH
 })
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class EstimatedTransactionFeeResponse {
-  public static final String JSON_PROPERTY_LOW = "low";
-  private TransactionFee low;
+    public static final String JSON_PROPERTY_LOW = "low";
+    private TransactionFee low;
 
-  public static final String JSON_PROPERTY_MEDIUM = "medium";
-  private TransactionFee medium;
+    public static final String JSON_PROPERTY_MEDIUM = "medium";
+    private TransactionFee medium;
 
-  public static final String JSON_PROPERTY_HIGH = "high";
-  private TransactionFee high;
+    public static final String JSON_PROPERTY_HIGH = "high";
+    private TransactionFee high;
 
-  public EstimatedTransactionFeeResponse() { 
-  }
+    public EstimatedTransactionFeeResponse() {}
 
-  public EstimatedTransactionFeeResponse low(TransactionFee low) {
-    this.low = low;
-    return this;
-  }
-
-   /**
-   * Get low
-   * @return low
-  **/
-  @jakarta.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_LOW)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public TransactionFee getLow() {
-    return low;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_LOW)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setLow(TransactionFee low) {
-    this.low = low;
-  }
-
-
-  public EstimatedTransactionFeeResponse medium(TransactionFee medium) {
-    this.medium = medium;
-    return this;
-  }
-
-   /**
-   * Get medium
-   * @return medium
-  **/
-  @jakarta.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_MEDIUM)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public TransactionFee getMedium() {
-    return medium;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_MEDIUM)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setMedium(TransactionFee medium) {
-    this.medium = medium;
-  }
-
-
-  public EstimatedTransactionFeeResponse high(TransactionFee high) {
-    this.high = high;
-    return this;
-  }
-
-   /**
-   * Get high
-   * @return high
-  **/
-  @jakarta.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_HIGH)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public TransactionFee getHigh() {
-    return high;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_HIGH)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setHigh(TransactionFee high) {
-    this.high = high;
-  }
-
-
-  /**
-   * Return true if this EstimatedTransactionFeeResponse object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    EstimatedTransactionFeeResponse estimatedTransactionFeeResponse = (EstimatedTransactionFeeResponse) o;
-    return Objects.equals(this.low, estimatedTransactionFeeResponse.low) &&
-        Objects.equals(this.medium, estimatedTransactionFeeResponse.medium) &&
-        Objects.equals(this.high, estimatedTransactionFeeResponse.high);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(low, medium, high);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class EstimatedTransactionFeeResponse {\n");
-    sb.append("    low: ").append(toIndentedString(low)).append("\n");
-    sb.append("    medium: ").append(toIndentedString(medium)).append("\n");
-    sb.append("    high: ").append(toIndentedString(high)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
-  }
-
-  /**
-   * Convert the instance into URL query string.
-   *
-   * @return URL query string
-   */
-  public String toUrlQueryString() {
-    return toUrlQueryString(null);
-  }
-
-  /**
-   * Convert the instance into URL query string.
-   *
-   * @param prefix prefix of the query string
-   * @return URL query string
-   */
-  public String toUrlQueryString(String prefix) {
-    String suffix = "";
-    String containerSuffix = "";
-    String containerPrefix = "";
-    if (prefix == null) {
-      // style=form, explode=true, e.g. /pet?name=cat&type=manx
-      prefix = "";
-    } else {
-      // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
-      prefix = prefix + "[";
-      suffix = "]";
-      containerSuffix = "]";
-      containerPrefix = "[";
+    public EstimatedTransactionFeeResponse low(TransactionFee low) {
+        this.low = low;
+        return this;
     }
 
-    StringJoiner joiner = new StringJoiner("&");
-
-    // add `low` to the URL query string
-    if (getLow() != null) {
-      joiner.add(getLow().toUrlQueryString(prefix + "low" + suffix));
+    /**
+     * Get low
+     *
+     * @return low
+     */
+    @jakarta.annotation.Nonnull
+    @JsonProperty(JSON_PROPERTY_LOW)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public TransactionFee getLow() {
+        return low;
     }
 
-    // add `medium` to the URL query string
-    if (getMedium() != null) {
-      joiner.add(getMedium().toUrlQueryString(prefix + "medium" + suffix));
+    @JsonProperty(JSON_PROPERTY_LOW)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setLow(TransactionFee low) {
+        this.low = low;
     }
 
-    // add `high` to the URL query string
-    if (getHigh() != null) {
-      joiner.add(getHigh().toUrlQueryString(prefix + "high" + suffix));
+    public EstimatedTransactionFeeResponse medium(TransactionFee medium) {
+        this.medium = medium;
+        return this;
     }
 
-    return joiner.toString();
-  }
+    /**
+     * Get medium
+     *
+     * @return medium
+     */
+    @jakarta.annotation.Nonnull
+    @JsonProperty(JSON_PROPERTY_MEDIUM)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public TransactionFee getMedium() {
+        return medium;
+    }
+
+    @JsonProperty(JSON_PROPERTY_MEDIUM)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setMedium(TransactionFee medium) {
+        this.medium = medium;
+    }
+
+    public EstimatedTransactionFeeResponse high(TransactionFee high) {
+        this.high = high;
+        return this;
+    }
+
+    /**
+     * Get high
+     *
+     * @return high
+     */
+    @jakarta.annotation.Nonnull
+    @JsonProperty(JSON_PROPERTY_HIGH)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public TransactionFee getHigh() {
+        return high;
+    }
+
+    @JsonProperty(JSON_PROPERTY_HIGH)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setHigh(TransactionFee high) {
+        this.high = high;
+    }
+
+    /** Return true if this EstimatedTransactionFeeResponse object is equal to o. */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        EstimatedTransactionFeeResponse estimatedTransactionFeeResponse =
+                (EstimatedTransactionFeeResponse) o;
+        return Objects.equals(this.low, estimatedTransactionFeeResponse.low)
+                && Objects.equals(this.medium, estimatedTransactionFeeResponse.medium)
+                && Objects.equals(this.high, estimatedTransactionFeeResponse.high);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(low, medium, high);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class EstimatedTransactionFeeResponse {\n");
+        sb.append("    low: ").append(toIndentedString(low)).append("\n");
+        sb.append("    medium: ").append(toIndentedString(medium)).append("\n");
+        sb.append("    high: ").append(toIndentedString(high)).append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces (except the first
+     * line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
+
+    /**
+     * Convert the instance into URL query string.
+     *
+     * @return URL query string
+     */
+    public String toUrlQueryString() {
+        return toUrlQueryString(null);
+    }
+
+    /**
+     * Convert the instance into URL query string.
+     *
+     * @param prefix prefix of the query string
+     * @return URL query string
+     */
+    public String toUrlQueryString(String prefix) {
+        String suffix = "";
+        String containerSuffix = "";
+        String containerPrefix = "";
+        if (prefix == null) {
+            // style=form, explode=true, e.g. /pet?name=cat&type=manx
+            prefix = "";
+        } else {
+            // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
+            prefix = prefix + "[";
+            suffix = "]";
+            containerSuffix = "]";
+            containerPrefix = "[";
+        }
+
+        StringJoiner joiner = new StringJoiner("&");
+
+        // add `low` to the URL query string
+        if (getLow() != null) {
+            joiner.add(getLow().toUrlQueryString(prefix + "low" + suffix));
+        }
+
+        // add `medium` to the URL query string
+        if (getMedium() != null) {
+            joiner.add(getMedium().toUrlQueryString(prefix + "medium" + suffix));
+        }
+
+        // add `high` to the URL query string
+        if (getHigh() != null) {
+            joiner.add(getHigh().toUrlQueryString(prefix + "high" + suffix));
+        }
+
+        return joiner.toString();
+    }
 }
-

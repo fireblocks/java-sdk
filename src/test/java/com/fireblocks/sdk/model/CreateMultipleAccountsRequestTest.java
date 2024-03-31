@@ -10,49 +10,30 @@
  * Do not edit the class manually.
  */
 
-
 package com.fireblocks.sdk.model;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonTypeName;
-import com.fasterxml.jackson.annotation.JsonValue;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import org.junit.Assert;
-import org.junit.Ignore;
+
 import org.junit.Test;
 
-/**
- * Model tests for CreateMultipleAccountsRequest
- */
+/** Model tests for CreateMultipleAccountsRequest */
 public class CreateMultipleAccountsRequestTest {
     private final CreateMultipleAccountsRequest model = new CreateMultipleAccountsRequest();
 
-    /**
-     * Model tests for CreateMultipleAccountsRequest
-     */
+    /** Model tests for CreateMultipleAccountsRequest */
     @Test
     public void testCreateMultipleAccountsRequest() {
         // TODO: test CreateMultipleAccountsRequest
     }
 
-    /**
-     * Test the property 'count'
-     */
+    /** Test the property 'count' */
     @Test
     public void countTest() {
         // TODO: test count
     }
 
-    /**
-     * Test the property 'assetIds'
-     */
+    /** Test the property 'assetIds' */
     @Test
     public void assetIdsTest() {
         // TODO: test assetIds
     }
-
 }

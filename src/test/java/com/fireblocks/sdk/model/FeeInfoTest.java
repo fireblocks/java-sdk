@@ -10,55 +10,36 @@
  * Do not edit the class manually.
  */
 
-
 package com.fireblocks.sdk.model;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonTypeName;
-import com.fasterxml.jackson.annotation.JsonValue;
-import java.util.Arrays;
-import org.junit.Assert;
-import org.junit.Ignore;
+
 import org.junit.Test;
 
-/**
- * Model tests for FeeInfo
- */
+/** Model tests for FeeInfo */
 public class FeeInfoTest {
     private final FeeInfo model = new FeeInfo();
 
-    /**
-     * Model tests for FeeInfo
-     */
+    /** Model tests for FeeInfo */
     @Test
     public void testFeeInfo() {
         // TODO: test FeeInfo
     }
 
-    /**
-     * Test the property 'networkFee'
-     */
+    /** Test the property 'networkFee' */
     @Test
     public void networkFeeTest() {
         // TODO: test networkFee
     }
 
-    /**
-     * Test the property 'serviceFee'
-     */
+    /** Test the property 'serviceFee' */
     @Test
     public void serviceFeeTest() {
         // TODO: test serviceFee
     }
 
-    /**
-     * Test the property 'gasPrice'
-     */
+    /** Test the property 'gasPrice' */
     @Test
     public void gasPriceTest() {
         // TODO: test gasPrice
     }
-
 }

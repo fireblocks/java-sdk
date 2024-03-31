@@ -12,10 +12,10 @@
 
 package com.fireblocks.sdk;
 
+
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.fireblocks.sdk.api.*;
-
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.nio.ByteBuffer;
@@ -31,10 +31,10 @@ import java.util.*;
 import java.util.concurrent.Flow;
 
 public class Fireblocks {
-	private final ApiClient apiClient;
-	private final Algorithm signingAlgorithm;
-	private final String apiKey;
-	private final String userAgent;
+    private final ApiClient apiClient;
+    private final Algorithm signingAlgorithm;
+    private final String apiKey;
+    private final String userAgent;
 
     private AdminQuorumApi adminQuorum;
     private ApiUserApi apiUser;
@@ -45,12 +45,12 @@ public class Fireblocks {
     private ComplianceScreeningConfigurationApi complianceScreeningConfiguration;
     private ConsoleUserApi consoleUser;
     private ContractsApi contracts;
-    private DefaultApi _default;
     private ExchangeAccountsApi exchangeAccounts;
     private ExternalWalletsApi externalWallets;
     private FiatAccountsApi fiatAccounts;
     private GasStationsApi gasStations;
     private InternalWalletsApi internalWallets;
+    private JobManagementApi jobManagement;
     private NetworkConnectionsApi networkConnections;
     private NftsApi nfts;
     private OffExchangesApi offExchanges;
@@ -71,131 +71,143 @@ public class Fireblocks {
     private WorkspaceApi workspace;
     private WorkspaceStatusBetaApi workspaceStatusBeta;
 
-	public Fireblocks(ConfigurationOptions conf) {
-		apiKey = Optional.ofNullable(conf.getApiKey()).orElse(System.getenv("FIREBLOCKS_API_KEY"));
-		if (apiKey.isEmpty()) {
-			throw new IllegalArgumentException("apiKey is required either in the configuration or as environment variable FIREBLOCKS_API_KEY");
-		}
+    public Fireblocks(ConfigurationOptions conf) {
+        apiKey = Optional.ofNullable(conf.getApiKey()).orElse(System.getenv("FIREBLOCKS_API_KEY"));
+        if (apiKey == null || apiKey.isEmpty()) {
+            throw new IllegalArgumentException(
+                    "apiKey is required either in the configuration or as environment variable"
+                            + " FIREBLOCKS_API_KEY");
+        }
 
-		String secretKey = Optional.ofNullable(conf.getSecretKey()).orElse(System.getenv("FIREBLOCKS_SECRET_KEY"));
-		if (secretKey.isEmpty()) {
-			throw new IllegalArgumentException("secretKey is required either in the configuration or as environment variable FIREBLOCKS_SECRET_KEY");
-		} else {
-			try {
-				signingAlgorithm = Algorithm.RSA256(null, getPrivateKey(secretKey));
-			} catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
-				throw new IllegalArgumentException("Invalid secretKey");
-			}
-		}
+        String secretKey =
+                Optional.ofNullable(conf.getSecretKey())
+                        .orElse(System.getenv("FIREBLOCKS_SECRET_KEY"));
+        if (secretKey == null || secretKey.isEmpty()) {
+            throw new IllegalArgumentException(
+                    "secretKey is required either in the configuration or as environment variable"
+                            + " FIREBLOCKS_SECRET_KEY");
+        } else {
+            try {
+                signingAlgorithm = Algorithm.RSA256(null, getPrivateKey(secretKey));
+            } catch (NoSuchAlgorithmException
+                    | InvalidKeySpecException
+                    | IllegalArgumentException e) {
+                e.printStackTrace();
+                throw new IllegalArgumentException("Invalid secretKey");
+            }
+        }
 
-		apiClient = new ApiClient();
+        apiClient = new ApiClient();
 
-		String basePath = Optional.ofNullable(conf.getBasePath()).orElse(System.getenv("FIREBLOCKS_BASE_PATH"));
-		if (!basePath.isEmpty()) {
-			apiClient.updateBaseUri(basePath);
-		}
+        String basePath =
+                Optional.ofNullable(conf.getBasePath())
+                        .orElse(System.getenv("FIREBLOCKS_BASE_PATH"));
+        if (basePath == null || basePath.isEmpty()) {
+            throw new IllegalArgumentException(
+                    "basePath is required either in the configuration or as environment variable"
+                            + " FIREBLOCKS_BASE_PATH");
+        } else {
+            apiClient.updateBaseUri(basePath);
+        }
 
-		userAgent = getUserAgent(conf.getAdditionalOptions());
+        userAgent = UserAgentUtil.getUserAgent(conf.getAdditionalOptions());
 
-		apiClient.setRequestInterceptor(request -> {
-			try {
-				request.header("Authorization", "Bearer " + signJwt(request));
-			} catch (NoSuchAlgorithmException e) {
-				throw new RuntimeException(e);
-			}
-			request.header("Content-Type", "application/json");
-			request.header("User-Agent", userAgent);
-			request.header("X-API-Key", apiKey);
-		});
-	}
+        apiClient.setRequestInterceptor(
+                request -> {
+                    try {
+                        request.header("Authorization", "Bearer " + signJwt(request));
+                    } catch (NoSuchAlgorithmException e) {
+                        throw new RuntimeException(e);
+                    }
+                    request.header("Content-Type", "application/json");
+                    request.header("User-Agent", userAgent);
+                    request.header("X-API-Key", apiKey);
+                });
+    }
 
     public ApiClient getApiClient() {
         return apiClient;
     }
 
-	private String getUserAgent(AdditionalOptions additionalOptions) {
-		String sdkVersion = System.getProperty("sdk.version");
-        String userAgent = "fireblocks-sdk-java/" + sdkVersion;
-        if (!Optional.ofNullable(additionalOptions).map(AdditionalOptions::isAnonymousPlatform).orElse(false)) {
-			String osType = System.getProperty("os.name");
-			String osVersion = System.getProperty("os.version");
-			String osArch = System.getProperty("os.arch");
+    private String bytesToHex(byte[] bytes) {
+        StringBuilder result = new StringBuilder();
+        for (byte b : bytes) {
+            result.append(String.format("%02x", b));
+        }
+        return result.toString();
+    }
 
-			userAgent += " (" + osType + " " + osVersion + "; " + osArch + ")";
-		}
+    private RSAPrivateKey getPrivateKey(String secretKey)
+            throws NoSuchAlgorithmException, InvalidKeySpecException {
+        String keyContent =
+                new String(secretKey.getBytes(), StandardCharsets.UTF_8)
+                        .replaceAll("-----(BEGIN|END) PRIVATE KEY-----", "")
+                        .replaceAll("\\s", "");
+        byte[] contentBytes = Base64.getDecoder().decode(keyContent);
+        return (RSAPrivateKey)
+                KeyFactory.getInstance("RSA")
+                        .generatePrivate(new PKCS8EncodedKeySpec(contentBytes));
+    }
 
-		if (Optional.ofNullable(additionalOptions)
-		            .map(AdditionalOptions::getUserAgent)
-		            .isPresent()) {
-			String customUserAgent = additionalOptions.getUserAgent();
-			userAgent = customUserAgent + " " + userAgent;
-		}
+    private String signJwt(HttpRequest.Builder builder) throws NoSuchAlgorithmException {
+        HttpRequest request = builder.build();
+        String path =
+                request.uri().getPath()
+                        + Optional.ofNullable(request.uri().getQuery())
+                                .map(query -> "?" + query)
+                                .orElse("");
 
-		return userAgent;
-	}
+        byte[] bytes =
+                request.bodyPublisher()
+                        .map(
+                                p -> {
+                                    HttpResponse.BodySubscriber<String> bodySubscriber =
+                                            HttpResponse.BodySubscribers.ofString(
+                                                    StandardCharsets.UTF_8);
+                                    Flow.Subscriber<ByteBuffer> subscriber =
+                                            new Flow.Subscriber<>() {
+                                                @Override
+                                                public void onSubscribe(
+                                                        Flow.Subscription subscription) {
+                                                    bodySubscriber.onSubscribe(subscription);
+                                                }
 
-	private String bytesToHex(byte[] bytes) {
-		StringBuilder result = new StringBuilder();
-		for (byte b : bytes) {
-			result.append(String.format("%02x", b));
-		}
-		return result.toString();
-	}
+                                                @Override
+                                                public void onNext(ByteBuffer item) {
+                                                    bodySubscriber.onNext(List.of(item));
+                                                }
 
-	private RSAPrivateKey getPrivateKey(String secretKey) throws NoSuchAlgorithmException, InvalidKeySpecException {
-		String keyContent = new String(secretKey.getBytes(), StandardCharsets.UTF_8)
-				.replaceAll("-----(BEGIN|END) PRIVATE KEY-----", "")
-				.replaceAll("\\s", "");
-		byte[] contentBytes = Base64.getDecoder().decode(keyContent);
-		return (RSAPrivateKey) KeyFactory.getInstance("RSA").generatePrivate(new PKCS8EncodedKeySpec(contentBytes));
-	}
+                                                @Override
+                                                public void onError(Throwable throwable) {
+                                                    bodySubscriber.onError(throwable);
+                                                }
 
-	private String signJwt(HttpRequest.Builder builder) throws NoSuchAlgorithmException {
-		HttpRequest request = builder.build();
-        String path = request.uri().getPath() + Optional.ofNullable(request.uri().getQuery()).map(query -> "?" + query).orElse("");
-
-        byte[] bytes = request.bodyPublisher().map(p -> {
-        HttpResponse.BodySubscriber<String> bodySubscriber = HttpResponse.BodySubscribers.ofString(StandardCharsets.UTF_8);
-            Flow.Subscriber<ByteBuffer> subscriber = new Flow.Subscriber<>() {
-                @Override
-                public void onSubscribe(Flow.Subscription subscription) {
-                    bodySubscriber.onSubscribe(subscription);
-                }
-
-                @Override
-                public void onNext(ByteBuffer item) {
-                    bodySubscriber.onNext(List.of(item));
-                }
-
-                @Override
-                public void onError(Throwable throwable) {
-                    bodySubscriber.onError(throwable);
-                }
-
-                @Override
-                public void onComplete() {
-                    bodySubscriber.onComplete();
-                }
-            };
-            p.subscribe(subscriber);
-            return bodySubscriber.getBody().toCompletableFuture().join();
-        }).orElse("").getBytes();
+                                                @Override
+                                                public void onComplete() {
+                                                    bodySubscriber.onComplete();
+                                                }
+                                            };
+                                    p.subscribe(subscriber);
+                                    return bodySubscriber.getBody().toCompletableFuture().join();
+                                })
+                        .orElse("")
+                        .getBytes();
         bytes = MessageDigest.getInstance("SHA-256").digest(bytes);
         String bodyHash = bytesToHex(bytes);
 
-		Instant now = Instant.now();
-		Date issuedAt = Date.from(now);
-		Date expiresAt = Date.from(now.plusSeconds(55));
+        Instant now = InstanceTimeWrapper.now();
+        Date issuedAt = Date.from(now);
+        Date expiresAt = Date.from(now.plusSeconds(55));
 
-		return JWT.create()
-		          .withClaim("uri", path)
-		          .withClaim("nonce", UUID.randomUUID().toString())
-		          .withClaim("iat", issuedAt.getTime() / 1000)
-		          .withClaim("exp",  expiresAt.getTime() / 1000)
-		          .withClaim("sub", apiKey)
-		          .withClaim("bodyHash", bodyHash)
-		          .sign(signingAlgorithm);
-	}
+        return JWT.create()
+                .withClaim("uri", path)
+                .withClaim("nonce", UUID.randomUUID().toString())
+                .withClaim("iat", issuedAt.getTime() / 1000)
+                .withClaim("exp", expiresAt.getTime() / 1000)
+                .withClaim("sub", apiKey)
+                .withClaim("bodyHash", bodyHash)
+                .sign(signingAlgorithm);
+    }
 
     public AdminQuorumApi adminQuorum() {
         if (adminQuorum == null) {
@@ -260,13 +272,6 @@ public class Fireblocks {
         return contracts;
     }
 
-    public DefaultApi _default() {
-        if (_default == null) {
-            _default = new DefaultApi(apiClient);
-        }
-        return _default;
-    }
-
     public ExchangeAccountsApi exchangeAccounts() {
         if (exchangeAccounts == null) {
             exchangeAccounts = new ExchangeAccountsApi(apiClient);
@@ -300,6 +305,13 @@ public class Fireblocks {
             internalWallets = new InternalWalletsApi(apiClient);
         }
         return internalWallets;
+    }
+
+    public JobManagementApi jobManagement() {
+        if (jobManagement == null) {
+            jobManagement = new JobManagementApi(apiClient);
+        }
+        return jobManagement;
     }
 
     public NetworkConnectionsApi networkConnections() {

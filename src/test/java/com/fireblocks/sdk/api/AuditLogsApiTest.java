@@ -10,65 +10,48 @@
  * Do not edit the class manually.
  */
 
-
 package com.fireblocks.sdk.api;
 
+
 import com.fireblocks.sdk.ApiException;
-import com.fireblocks.sdk.model.ErrorSchema;
+import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.model.GetAuditLogsResponseDTO;
-import org.junit.Test;
-import org.junit.Ignore;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import java.util.concurrent.CompletableFuture;
+import org.junit.Ignore;
+import org.junit.Test;
 
-/**
- * API tests for AuditLogsApi
- */
+/** API tests for AuditLogsApi */
 @Ignore
 public class AuditLogsApiTest {
 
     private final AuditLogsApi api = new AuditLogsApi();
 
-    
     /**
      * Get audit logs
      *
-     * Get all audits
+     * <p>Get all audits
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
     public void getAuditLogsTest() throws ApiException {
         String timePeriod = null;
         String cursor = null;
-        
-        CompletableFuture<Void> response = api.getAuditLogs(timePeriod, cursor);
-        
-        // TODO: test validations
+
+        CompletableFuture<ApiResponse<Void>> response = api.getAuditLogs(timePeriod, cursor);
     }
-    
+
     /**
      * Get audit logs
      *
-     * Get all audits
+     * <p>Get all audits
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
     public void getAuditsTest() throws ApiException {
         String timePeriod = null;
-        CompletableFuture<GetAuditLogsResponseDTO> response = 
-        api.getAudits(timePeriod);
-        
-        // TODO: test validations
+        CompletableFuture<ApiResponse<GetAuditLogsResponseDTO>> response =
+                api.getAudits(timePeriod);
     }
-    
 }

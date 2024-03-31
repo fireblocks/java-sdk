@@ -10,83 +10,77 @@
  * Do not edit the class manually.
  */
 
-
 package com.fireblocks.sdk.model;
-
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
-import java.util.StringJoiner;
-import java.util.Objects;
-import java.util.Map;
-import java.util.HashMap;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 /**
- * - CREATED - payout instruction set created with all its details - FILE_FOUND - new file found in the FTP - REQUESTED - payout requested with all its details - TRANSLATED - payout instruction account IDs identified and translated - PROCESSING - payout instruction set executed and is processing - SUBMITTED - transactions submitted for payout instructions - FINALIZED - payout finished processing, all transactions processed successfully - INSUFFICIENT_BALANCE - insufficient balance in the payment account (can be a temporary state) - FAILED - one or more of the payout instructions failed 
+ * - CREATED - payout instruction set created with all its details - FILE_FOUND - new file found in
+ * the FTP - REQUESTED - payout requested with all its details - TRANSLATED - payout instruction
+ * account IDs identified and translated - PROCESSING - payout instruction set executed and is
+ * processing - SUBMITTED - transactions submitted for payout instructions - FINALIZED - payout
+ * finished processing, all transactions processed successfully - INSUFFICIENT_BALANCE -
+ * insufficient balance in the payment account (can be a temporary state) - FAILED - one or more of
+ * the payout instructions failed
  */
 public enum PayoutState {
-  
-  CREATED("CREATED"),
-  
-  FILE_FOUND("FILE_FOUND"),
-  
-  REQUESTED("REQUESTED"),
-  
-  TRANSLATED("TRANSLATED"),
-  
-  PROCESSING("PROCESSING"),
-  
-  SUBMITTED("SUBMITTED"),
-  
-  FINALIZED("FINALIZED"),
-  
-  INSUFFICIENT_BALANCE("INSUFFICIENT_BALANCE"),
-  
-  FAILED("FAILED");
+    CREATED("CREATED"),
 
-  private String value;
+    FILE_FOUND("FILE_FOUND"),
 
-  PayoutState(String value) {
-    this.value = value;
-  }
+    REQUESTED("REQUESTED"),
 
-  @JsonValue
-  public String getValue() {
-    return value;
-  }
+    TRANSLATED("TRANSLATED"),
 
-  @Override
-  public String toString() {
-    return String.valueOf(value);
-  }
+    PROCESSING("PROCESSING"),
 
-  @JsonCreator
-  public static PayoutState fromValue(String value) {
-    for (PayoutState b : PayoutState.values()) {
-      if (b.value.equals(value)) {
-        return b;
-      }
-    }
-    throw new IllegalArgumentException("Unexpected value '" + value + "'");
-  }
+    SUBMITTED("SUBMITTED"),
 
-  /**
-   * Convert the instance into URL query string.
-   *
-   * @param prefix prefix of the query string
-   * @return URL query string
-   */
-  public String toUrlQueryString(String prefix) {
-    if (prefix == null) {
-      prefix = "";
+    FINALIZED("FINALIZED"),
+
+    INSUFFICIENT_BALANCE("INSUFFICIENT_BALANCE"),
+
+    FAILED("FAILED");
+
+    private String value;
+
+    PayoutState(String value) {
+        this.value = value;
     }
 
-    return String.format("%s=%s", prefix, this.toString());
-  }
+    @JsonValue
+    public String getValue() {
+        return value;
+    }
 
+    @Override
+    public String toString() {
+        return String.valueOf(value);
+    }
+
+    @JsonCreator
+    public static PayoutState fromValue(String value) {
+        for (PayoutState b : PayoutState.values()) {
+            if (b.value.equals(value)) {
+                return b;
+            }
+        }
+        throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
+
+    /**
+     * Convert the instance into URL query string.
+     *
+     * @param prefix prefix of the query string
+     * @return URL query string
+     */
+    public String toUrlQueryString(String prefix) {
+        if (prefix == null) {
+            prefix = "";
+        }
+
+        return String.format("%s=%s", prefix, this.toString());
+    }
 }
-

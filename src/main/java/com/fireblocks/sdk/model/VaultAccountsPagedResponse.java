@@ -10,266 +10,270 @@
  * Do not edit the class manually.
  */
 
-
 package com.fireblocks.sdk.model;
 
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
-import java.util.StringJoiner;
-import java.util.Objects;
-import java.util.Map;
-import java.util.HashMap;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonTypeName;
-import com.fasterxml.jackson.annotation.JsonValue;
-import com.fireblocks.sdk.model.VaultAccount;
-import com.fireblocks.sdk.model.VaultAccountsPagedResponsePaging;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+import java.util.StringJoiner;
 
-
-/**
- * VaultAccountsPagedResponse
- */
+/** VaultAccountsPagedResponse */
 @JsonPropertyOrder({
-  VaultAccountsPagedResponse.JSON_PROPERTY_ACCOUNTS,
-  VaultAccountsPagedResponse.JSON_PROPERTY_PAGING,
-  VaultAccountsPagedResponse.JSON_PROPERTY_PREVIOUS_URL,
-  VaultAccountsPagedResponse.JSON_PROPERTY_NEXT_URL
+    VaultAccountsPagedResponse.JSON_PROPERTY_ACCOUNTS,
+    VaultAccountsPagedResponse.JSON_PROPERTY_PAGING,
+    VaultAccountsPagedResponse.JSON_PROPERTY_PREVIOUS_URL,
+    VaultAccountsPagedResponse.JSON_PROPERTY_NEXT_URL
 })
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class VaultAccountsPagedResponse {
-  public static final String JSON_PROPERTY_ACCOUNTS = "accounts";
-  private List<VaultAccount> accounts;
+    public static final String JSON_PROPERTY_ACCOUNTS = "accounts";
+    private List<VaultAccount> accounts;
 
-  public static final String JSON_PROPERTY_PAGING = "paging";
-  private VaultAccountsPagedResponsePaging paging;
+    public static final String JSON_PROPERTY_PAGING = "paging";
+    private VaultAccountsPagedResponsePaging paging;
 
-  public static final String JSON_PROPERTY_PREVIOUS_URL = "previousUrl";
-  private String previousUrl;
+    public static final String JSON_PROPERTY_PREVIOUS_URL = "previousUrl";
+    private String previousUrl;
 
-  public static final String JSON_PROPERTY_NEXT_URL = "nextUrl";
-  private String nextUrl;
+    public static final String JSON_PROPERTY_NEXT_URL = "nextUrl";
+    private String nextUrl;
 
-  public VaultAccountsPagedResponse() { 
-  }
+    public VaultAccountsPagedResponse() {}
 
-  public VaultAccountsPagedResponse accounts(List<VaultAccount> accounts) {
-    this.accounts = accounts;
-    return this;
-  }
-
-  public VaultAccountsPagedResponse addAccountsItem(VaultAccount accountsItem) {
-    if (this.accounts == null) {
-      this.accounts = new ArrayList<>();
-    }
-    this.accounts.add(accountsItem);
-    return this;
-  }
-
-   /**
-   * Get accounts
-   * @return accounts
-  **/
-  @jakarta.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_ACCOUNTS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public List<VaultAccount> getAccounts() {
-    return accounts;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_ACCOUNTS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setAccounts(List<VaultAccount> accounts) {
-    this.accounts = accounts;
-  }
-
-
-  public VaultAccountsPagedResponse paging(VaultAccountsPagedResponsePaging paging) {
-    this.paging = paging;
-    return this;
-  }
-
-   /**
-   * Get paging
-   * @return paging
-  **/
-  @jakarta.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_PAGING)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public VaultAccountsPagedResponsePaging getPaging() {
-    return paging;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_PAGING)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setPaging(VaultAccountsPagedResponsePaging paging) {
-    this.paging = paging;
-  }
-
-
-  public VaultAccountsPagedResponse previousUrl(String previousUrl) {
-    this.previousUrl = previousUrl;
-    return this;
-  }
-
-   /**
-   * Get previousUrl
-   * @return previousUrl
-  **/
-  @jakarta.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_PREVIOUS_URL)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getPreviousUrl() {
-    return previousUrl;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_PREVIOUS_URL)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setPreviousUrl(String previousUrl) {
-    this.previousUrl = previousUrl;
-  }
-
-
-  public VaultAccountsPagedResponse nextUrl(String nextUrl) {
-    this.nextUrl = nextUrl;
-    return this;
-  }
-
-   /**
-   * Get nextUrl
-   * @return nextUrl
-  **/
-  @jakarta.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_NEXT_URL)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getNextUrl() {
-    return nextUrl;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_NEXT_URL)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setNextUrl(String nextUrl) {
-    this.nextUrl = nextUrl;
-  }
-
-
-  /**
-   * Return true if this VaultAccountsPagedResponse object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    VaultAccountsPagedResponse vaultAccountsPagedResponse = (VaultAccountsPagedResponse) o;
-    return Objects.equals(this.accounts, vaultAccountsPagedResponse.accounts) &&
-        Objects.equals(this.paging, vaultAccountsPagedResponse.paging) &&
-        Objects.equals(this.previousUrl, vaultAccountsPagedResponse.previousUrl) &&
-        Objects.equals(this.nextUrl, vaultAccountsPagedResponse.nextUrl);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(accounts, paging, previousUrl, nextUrl);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class VaultAccountsPagedResponse {\n");
-    sb.append("    accounts: ").append(toIndentedString(accounts)).append("\n");
-    sb.append("    paging: ").append(toIndentedString(paging)).append("\n");
-    sb.append("    previousUrl: ").append(toIndentedString(previousUrl)).append("\n");
-    sb.append("    nextUrl: ").append(toIndentedString(nextUrl)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
-  }
-
-  /**
-   * Convert the instance into URL query string.
-   *
-   * @return URL query string
-   */
-  public String toUrlQueryString() {
-    return toUrlQueryString(null);
-  }
-
-  /**
-   * Convert the instance into URL query string.
-   *
-   * @param prefix prefix of the query string
-   * @return URL query string
-   */
-  public String toUrlQueryString(String prefix) {
-    String suffix = "";
-    String containerSuffix = "";
-    String containerPrefix = "";
-    if (prefix == null) {
-      // style=form, explode=true, e.g. /pet?name=cat&type=manx
-      prefix = "";
-    } else {
-      // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
-      prefix = prefix + "[";
-      suffix = "]";
-      containerSuffix = "]";
-      containerPrefix = "[";
+    public VaultAccountsPagedResponse accounts(List<VaultAccount> accounts) {
+        this.accounts = accounts;
+        return this;
     }
 
-    StringJoiner joiner = new StringJoiner("&");
-
-    // add `accounts` to the URL query string
-    if (getAccounts() != null) {
-      for (int i = 0; i < getAccounts().size(); i++) {
-        if (getAccounts().get(i) != null) {
-          joiner.add(getAccounts().get(i).toUrlQueryString(String.format("%saccounts%s%s", prefix, suffix,
-          "".equals(suffix) ? "" : String.format("%s%d%s", containerPrefix, i, containerSuffix))));
+    public VaultAccountsPagedResponse addAccountsItem(VaultAccount accountsItem) {
+        if (this.accounts == null) {
+            this.accounts = new ArrayList<>();
         }
-      }
+        this.accounts.add(accountsItem);
+        return this;
     }
 
-    // add `paging` to the URL query string
-    if (getPaging() != null) {
-      joiner.add(getPaging().toUrlQueryString(prefix + "paging" + suffix));
+    /**
+     * Get accounts
+     *
+     * @return accounts
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_ACCOUNTS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public List<VaultAccount> getAccounts() {
+        return accounts;
     }
 
-    // add `previousUrl` to the URL query string
-    if (getPreviousUrl() != null) {
-      joiner.add(String.format("%spreviousUrl%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getPreviousUrl()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    @JsonProperty(JSON_PROPERTY_ACCOUNTS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setAccounts(List<VaultAccount> accounts) {
+        this.accounts = accounts;
     }
 
-    // add `nextUrl` to the URL query string
-    if (getNextUrl() != null) {
-      joiner.add(String.format("%snextUrl%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getNextUrl()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    public VaultAccountsPagedResponse paging(VaultAccountsPagedResponsePaging paging) {
+        this.paging = paging;
+        return this;
     }
 
-    return joiner.toString();
-  }
+    /**
+     * Get paging
+     *
+     * @return paging
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_PAGING)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public VaultAccountsPagedResponsePaging getPaging() {
+        return paging;
+    }
+
+    @JsonProperty(JSON_PROPERTY_PAGING)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setPaging(VaultAccountsPagedResponsePaging paging) {
+        this.paging = paging;
+    }
+
+    public VaultAccountsPagedResponse previousUrl(String previousUrl) {
+        this.previousUrl = previousUrl;
+        return this;
+    }
+
+    /**
+     * Get previousUrl
+     *
+     * @return previousUrl
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_PREVIOUS_URL)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getPreviousUrl() {
+        return previousUrl;
+    }
+
+    @JsonProperty(JSON_PROPERTY_PREVIOUS_URL)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setPreviousUrl(String previousUrl) {
+        this.previousUrl = previousUrl;
+    }
+
+    public VaultAccountsPagedResponse nextUrl(String nextUrl) {
+        this.nextUrl = nextUrl;
+        return this;
+    }
+
+    /**
+     * Get nextUrl
+     *
+     * @return nextUrl
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_NEXT_URL)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getNextUrl() {
+        return nextUrl;
+    }
+
+    @JsonProperty(JSON_PROPERTY_NEXT_URL)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setNextUrl(String nextUrl) {
+        this.nextUrl = nextUrl;
+    }
+
+    /** Return true if this VaultAccountsPagedResponse object is equal to o. */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        VaultAccountsPagedResponse vaultAccountsPagedResponse = (VaultAccountsPagedResponse) o;
+        return Objects.equals(this.accounts, vaultAccountsPagedResponse.accounts)
+                && Objects.equals(this.paging, vaultAccountsPagedResponse.paging)
+                && Objects.equals(this.previousUrl, vaultAccountsPagedResponse.previousUrl)
+                && Objects.equals(this.nextUrl, vaultAccountsPagedResponse.nextUrl);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(accounts, paging, previousUrl, nextUrl);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class VaultAccountsPagedResponse {\n");
+        sb.append("    accounts: ").append(toIndentedString(accounts)).append("\n");
+        sb.append("    paging: ").append(toIndentedString(paging)).append("\n");
+        sb.append("    previousUrl: ").append(toIndentedString(previousUrl)).append("\n");
+        sb.append("    nextUrl: ").append(toIndentedString(nextUrl)).append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces (except the first
+     * line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
+
+    /**
+     * Convert the instance into URL query string.
+     *
+     * @return URL query string
+     */
+    public String toUrlQueryString() {
+        return toUrlQueryString(null);
+    }
+
+    /**
+     * Convert the instance into URL query string.
+     *
+     * @param prefix prefix of the query string
+     * @return URL query string
+     */
+    public String toUrlQueryString(String prefix) {
+        String suffix = "";
+        String containerSuffix = "";
+        String containerPrefix = "";
+        if (prefix == null) {
+            // style=form, explode=true, e.g. /pet?name=cat&type=manx
+            prefix = "";
+        } else {
+            // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
+            prefix = prefix + "[";
+            suffix = "]";
+            containerSuffix = "]";
+            containerPrefix = "[";
+        }
+
+        StringJoiner joiner = new StringJoiner("&");
+
+        // add `accounts` to the URL query string
+        if (getAccounts() != null) {
+            for (int i = 0; i < getAccounts().size(); i++) {
+                if (getAccounts().get(i) != null) {
+                    joiner.add(
+                            getAccounts()
+                                    .get(i)
+                                    .toUrlQueryString(
+                                            String.format(
+                                                    "%saccounts%s%s",
+                                                    prefix,
+                                                    suffix,
+                                                    "".equals(suffix)
+                                                            ? ""
+                                                            : String.format(
+                                                                    "%s%d%s",
+                                                                    containerPrefix,
+                                                                    i,
+                                                                    containerSuffix))));
+                }
+            }
+        }
+
+        // add `paging` to the URL query string
+        if (getPaging() != null) {
+            joiner.add(getPaging().toUrlQueryString(prefix + "paging" + suffix));
+        }
+
+        // add `previousUrl` to the URL query string
+        if (getPreviousUrl() != null) {
+            joiner.add(
+                    String.format(
+                            "%spreviousUrl%s=%s",
+                            prefix,
+                            suffix,
+                            URLEncoder.encode(
+                                            String.valueOf(getPreviousUrl()),
+                                            StandardCharsets.UTF_8)
+                                    .replaceAll("\\+", "%20")));
+        }
+
+        // add `nextUrl` to the URL query string
+        if (getNextUrl() != null) {
+            joiner.add(
+                    String.format(
+                            "%snextUrl%s=%s",
+                            prefix,
+                            suffix,
+                            URLEncoder.encode(String.valueOf(getNextUrl()), StandardCharsets.UTF_8)
+                                    .replaceAll("\\+", "%20")));
+        }
+
+        return joiner.toString();
+    }
 }
-

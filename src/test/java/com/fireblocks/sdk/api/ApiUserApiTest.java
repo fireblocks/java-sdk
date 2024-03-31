@@ -10,65 +10,48 @@
  * Do not edit the class manually.
  */
 
-
 package com.fireblocks.sdk.api;
 
+
 import com.fireblocks.sdk.ApiException;
+import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.model.CreateAPIUser;
-import com.fireblocks.sdk.model.ErrorResponse;
-import com.fireblocks.sdk.model.ErrorSchema;
-import org.junit.Test;
-import org.junit.Ignore;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import java.util.concurrent.CompletableFuture;
+import org.junit.Ignore;
+import org.junit.Test;
 
-/**
- * API tests for ApiUserApi
- */
+/** API tests for ApiUserApi */
 @Ignore
 public class ApiUserApiTest {
 
     private final ApiUserApi api = new ApiUserApi();
 
-    
     /**
      * create api user
      *
-     * creates api user
+     * <p>creates api user
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
     public void createApiUserTest() throws ApiException {
         CreateAPIUser createAPIUser = null;
         String idempotencyKey = null;
-        
-        CompletableFuture<Void> response = api.createApiUser(createAPIUser, idempotencyKey);
-        
-        // TODO: test validations
+
+        CompletableFuture<ApiResponse<Void>> response =
+                api.createApiUser(createAPIUser, idempotencyKey);
     }
-    
+
     /**
      * get api users
      *
-     * get api users from the current tenant
+     * <p>get api users from the current tenant
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
     public void getApiUsersTest() throws ApiException {
-        
-        CompletableFuture<Void> response = api.getApiUsers();
-        
-        // TODO: test validations
+
+        CompletableFuture<ApiResponse<Void>> response = api.getApiUsers();
     }
-    
 }

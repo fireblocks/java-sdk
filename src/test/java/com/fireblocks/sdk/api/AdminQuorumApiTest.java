@@ -10,48 +10,35 @@
  * Do not edit the class manually.
  */
 
-
 package com.fireblocks.sdk.api;
 
+
 import com.fireblocks.sdk.ApiException;
-import com.fireblocks.sdk.model.ErrorSchema;
+import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.model.SetAdminQuorumThresholdRequest;
-import org.junit.Test;
-import org.junit.Ignore;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import java.util.concurrent.CompletableFuture;
+import org.junit.Ignore;
+import org.junit.Test;
 
-/**
- * API tests for AdminQuorumApi
- */
+/** API tests for AdminQuorumApi */
 @Ignore
 public class AdminQuorumApiTest {
 
     private final AdminQuorumApi api = new AdminQuorumApi();
 
-    
     /**
      * Update admin quorum threshold
      *
-     * Update admin quorum threshold
+     * <p>Update admin quorum threshold
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
     public void setAdminQuorumThresholdTest() throws ApiException {
         SetAdminQuorumThresholdRequest setAdminQuorumThresholdRequest = null;
         String idempotencyKey = null;
-        
-        CompletableFuture<Void> response = api.setAdminQuorumThreshold(setAdminQuorumThresholdRequest, idempotencyKey);
-        
-        // TODO: test validations
+
+        CompletableFuture<ApiResponse<Void>> response =
+                api.setAdminQuorumThreshold(setAdminQuorumThresholdRequest, idempotencyKey);
     }
-    
 }

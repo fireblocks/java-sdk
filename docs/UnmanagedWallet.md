@@ -10,7 +10,7 @@
 |**id** | **String** |  |  |
 |**name** | **String** |  |  |
 |**customerRefId** | **String** |  |  [optional] |
-|**assets** | [**List&lt;WalletAsset&gt;**](WalletAsset.md) |  |  [optional] |
+|**assets** | [**List&lt;WalletAsset&gt;**](WalletAsset.md) |  |  |
 
 
 

@@ -10,73 +10,48 @@
  * Do not edit the class manually.
  */
 
-
 package com.fireblocks.sdk.model;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonTypeName;
-import com.fasterxml.jackson.annotation.JsonValue;
-import com.fireblocks.sdk.model.UnspentInput;
-import java.math.BigDecimal;
-import java.util.Arrays;
-import org.junit.Assert;
-import org.junit.Ignore;
+
 import org.junit.Test;
 
-/**
- * Model tests for UnspentInputsResponse
- */
+/** Model tests for UnspentInputsResponse */
 public class UnspentInputsResponseTest {
     private final UnspentInputsResponse model = new UnspentInputsResponse();
 
-    /**
-     * Model tests for UnspentInputsResponse
-     */
+    /** Model tests for UnspentInputsResponse */
     @Test
     public void testUnspentInputsResponse() {
         // TODO: test UnspentInputsResponse
     }
 
-    /**
-     * Test the property 'input'
-     */
+    /** Test the property 'input' */
     @Test
     public void inputTest() {
         // TODO: test input
     }
 
-    /**
-     * Test the property 'address'
-     */
+    /** Test the property 'address' */
     @Test
     public void addressTest() {
         // TODO: test address
     }
 
-    /**
-     * Test the property 'amount'
-     */
+    /** Test the property 'amount' */
     @Test
     public void amountTest() {
         // TODO: test amount
     }
 
-    /**
-     * Test the property 'confirmations'
-     */
+    /** Test the property 'confirmations' */
     @Test
     public void confirmationsTest() {
         // TODO: test confirmations
     }
 
-    /**
-     * Test the property 'status'
-     */
+    /** Test the property 'status' */
     @Test
     public void statusTest() {
         // TODO: test status
     }
-
 }

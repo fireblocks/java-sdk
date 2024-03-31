@@ -10,47 +10,30 @@
  * Do not edit the class manually.
  */
 
-
 package com.fireblocks.sdk.model;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonTypeName;
-import com.fasterxml.jackson.annotation.JsonValue;
-import java.util.Arrays;
-import org.junit.Assert;
-import org.junit.Ignore;
+
 import org.junit.Test;
 
-/**
- * Model tests for FiatAsset
- */
+/** Model tests for FiatAsset */
 public class FiatAssetTest {
     private final FiatAsset model = new FiatAsset();
 
-    /**
-     * Model tests for FiatAsset
-     */
+    /** Model tests for FiatAsset */
     @Test
     public void testFiatAsset() {
         // TODO: test FiatAsset
     }
 
-    /**
-     * Test the property 'id'
-     */
+    /** Test the property 'id' */
     @Test
     public void idTest() {
         // TODO: test id
     }
 
-    /**
-     * Test the property 'balance'
-     */
+    /** Test the property 'balance' */
     @Test
     public void balanceTest() {
         // TODO: test balance
     }
-
 }

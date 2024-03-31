@@ -10,81 +10,54 @@
  * Do not edit the class manually.
  */
 
-
 package com.fireblocks.sdk.model;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonTypeName;
-import com.fasterxml.jackson.annotation.JsonValue;
-import com.fireblocks.sdk.model.OneTimeAddress;
-import java.util.Arrays;
-import java.util.UUID;
-import org.junit.Assert;
-import org.junit.Ignore;
+
 import org.junit.Test;
 
-/**
- * Model tests for DestinationTransferPeerPath
- */
+/** Model tests for DestinationTransferPeerPath */
 public class DestinationTransferPeerPathTest {
     private final DestinationTransferPeerPath model = new DestinationTransferPeerPath();
 
-    /**
-     * Model tests for DestinationTransferPeerPath
-     */
+    /** Model tests for DestinationTransferPeerPath */
     @Test
     public void testDestinationTransferPeerPath() {
         // TODO: test DestinationTransferPeerPath
     }
 
-    /**
-     * Test the property 'type'
-     */
+    /** Test the property 'type' */
     @Test
     public void typeTest() {
         // TODO: test type
     }
 
-    /**
-     * Test the property 'subType'
-     */
+    /** Test the property 'subType' */
     @Test
     public void subTypeTest() {
         // TODO: test subType
     }
 
-    /**
-     * Test the property 'id'
-     */
+    /** Test the property 'id' */
     @Test
     public void idTest() {
         // TODO: test id
     }
 
-    /**
-     * Test the property 'name'
-     */
+    /** Test the property 'name' */
     @Test
     public void nameTest() {
         // TODO: test name
     }
 
-    /**
-     * Test the property 'walletId'
-     */
+    /** Test the property 'walletId' */
     @Test
     public void walletIdTest() {
         // TODO: test walletId
     }
 
-    /**
-     * Test the property 'oneTimeAddress'
-     */
+    /** Test the property 'oneTimeAddress' */
     @Test
     public void oneTimeAddressTest() {
         // TODO: test oneTimeAddress
     }
-
 }

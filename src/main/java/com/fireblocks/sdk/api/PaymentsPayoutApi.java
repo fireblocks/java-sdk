@@ -12,367 +12,316 @@
 
 package com.fireblocks.sdk.api;
 
-import com.fireblocks.sdk.ApiClient;
-import com.fireblocks.sdk.ApiException;
-import com.fireblocks.sdk.ApiResponse;
-import com.fireblocks.sdk.Pair;
-
-import com.fireblocks.sdk.model.CreatePayoutRequest;
-import com.fireblocks.sdk.model.DispatchPayoutResponse;
-import com.fireblocks.sdk.model.ErrorResponse;
-import com.fireblocks.sdk.model.PayoutResponse;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
-import java.io.InputStream;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
+import com.fireblocks.sdk.ApiClient;
+import com.fireblocks.sdk.ApiException;
+import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.model.CreatePayoutRequest;
+import com.fireblocks.sdk.model.DispatchPayoutResponse;
+import com.fireblocks.sdk.model.PayoutResponse;
 import java.io.IOException;
-import java.io.OutputStream;
-import java.net.http.HttpRequest;
-import java.nio.channels.Channels;
-import java.nio.channels.Pipe;
+import java.io.InputStream;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.time.Duration;
-
-import java.util.ArrayList;
-import java.util.StringJoiner;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.function.Consumer;
-
 import java.util.concurrent.CompletableFuture;
+import java.util.function.Consumer;
 
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class PaymentsPayoutApi {
-  private final HttpClient memberVarHttpClient;
-  private final ObjectMapper memberVarObjectMapper;
-  private final String memberVarBaseUri;
-  private final Consumer<HttpRequest.Builder> memberVarInterceptor;
-  private final Duration memberVarReadTimeout;
-  private final Consumer<HttpResponse<InputStream>> memberVarResponseInterceptor;
-  private final Consumer<HttpResponse<String>> memberVarAsyncResponseInterceptor;
+    private final HttpClient memberVarHttpClient;
+    private final ObjectMapper memberVarObjectMapper;
+    private final String memberVarBaseUri;
+    private final Consumer<HttpRequest.Builder> memberVarInterceptor;
+    private final Duration memberVarReadTimeout;
+    private final Consumer<HttpResponse<InputStream>> memberVarResponseInterceptor;
+    private final Consumer<HttpResponse<String>> memberVarAsyncResponseInterceptor;
 
-  public PaymentsPayoutApi() {
-    this(new ApiClient());
-  }
-
-  public PaymentsPayoutApi(ApiClient apiClient) {
-    memberVarHttpClient = apiClient.getHttpClient();
-    memberVarObjectMapper = apiClient.getObjectMapper();
-    memberVarBaseUri = apiClient.getBaseUri();
-    memberVarInterceptor = apiClient.getRequestInterceptor();
-    memberVarReadTimeout = apiClient.getReadTimeout();
-    memberVarResponseInterceptor = apiClient.getResponseInterceptor();
-    memberVarAsyncResponseInterceptor = apiClient.getAsyncResponseInterceptor();
-  }
-
-  private ApiException getApiException(String operationId, HttpResponse<String> response) {
-    String message = formatExceptionMessage(operationId, response.statusCode(), response.body());
-    return new ApiException(response.statusCode(), message, response.headers(), response.body());
-  }
-
-  private String formatExceptionMessage(String operationId, int statusCode, String body) {
-    if (body == null || body.isEmpty()) {
-      body = "[no body]";
+    public PaymentsPayoutApi() {
+        this(new ApiClient());
     }
-    return operationId + " call failed with: " + statusCode + " - " + body;
-  }
 
-  /**
-   * Create a payout instruction set
-   * **Note:** The reference content in this section documents the Payments Engine endpoint. The Payments Engine endpoints include APIs available only for customers with Payments Engine enabled on their accounts. &lt;/br&gt; &lt;/br&gt;These endpoints are currently in beta and might be subject to changes.&lt;/br&gt; &lt;/br&gt;If you want to learn more about Fireblocks Payments Engine, please contact your Fireblocks Customer Success Manager or email CSM@fireblocks.com. &lt;/br&gt; &lt;/br&gt; &lt;b u&gt;Create a payout instruction set.&lt;/b&gt; &lt;/u&gt;&lt;/br&gt; A payout instruction set is a set of instructions for distributing payments from a single payment account to a list of payee accounts. &lt;/br&gt; The instruction set defines: &lt;/br&gt; &lt;ul&gt; &lt;li&gt;the payment account and its account type (vault, exchange, or fiat). &lt;/li&gt; &lt;li&gt;the account type (vault account, exchange account, whitelisted address, network connection, fiat account, or merchant account), the amount, and the asset of payment for each payee account.&lt;/li&gt; &lt;/ul&gt; 
-   * @param createPayoutRequest  (optional)
-   * @param idempotencyKey A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
-   * @return CompletableFuture&lt;PayoutResponse&gt;
-   * @throws ApiException if fails to make API call
-   */
-  public CompletableFuture<PayoutResponse> createPayout(CreatePayoutRequest createPayoutRequest, String idempotencyKey) throws ApiException {
-    try {
-      HttpRequest.Builder localVarRequestBuilder = createPayoutRequestBuilder(createPayoutRequest, idempotencyKey);
-      return memberVarHttpClient.sendAsync(
-          localVarRequestBuilder.build(),
-          HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
-            if (localVarResponse.statusCode()/ 100 != 2) {
-              return CompletableFuture.failedFuture(getApiException("createPayout", localVarResponse));
-            }
-            try {
-              String responseBody = localVarResponse.body();
-              return CompletableFuture.completedFuture(
-                  responseBody == null || responseBody.isBlank() ? null : memberVarObjectMapper.readValue(responseBody, new TypeReference<PayoutResponse>() {})
-              );
-            } catch (IOException e) {
-              return CompletableFuture.failedFuture(new ApiException(e));
-            }
-      });
+    public PaymentsPayoutApi(ApiClient apiClient) {
+        memberVarHttpClient = apiClient.getHttpClient();
+        memberVarObjectMapper = apiClient.getObjectMapper();
+        memberVarBaseUri = apiClient.getBaseUri();
+        memberVarInterceptor = apiClient.getRequestInterceptor();
+        memberVarReadTimeout = apiClient.getReadTimeout();
+        memberVarResponseInterceptor = apiClient.getResponseInterceptor();
+        memberVarAsyncResponseInterceptor = apiClient.getAsyncResponseInterceptor();
     }
-    catch (ApiException e) {
-      return CompletableFuture.failedFuture(e);
-    }
-  }
 
-  /**
-   * Create a payout instruction set
-   * **Note:** The reference content in this section documents the Payments Engine endpoint. The Payments Engine endpoints include APIs available only for customers with Payments Engine enabled on their accounts. &lt;/br&gt; &lt;/br&gt;These endpoints are currently in beta and might be subject to changes.&lt;/br&gt; &lt;/br&gt;If you want to learn more about Fireblocks Payments Engine, please contact your Fireblocks Customer Success Manager or email CSM@fireblocks.com. &lt;/br&gt; &lt;/br&gt; &lt;b u&gt;Create a payout instruction set.&lt;/b&gt; &lt;/u&gt;&lt;/br&gt; A payout instruction set is a set of instructions for distributing payments from a single payment account to a list of payee accounts. &lt;/br&gt; The instruction set defines: &lt;/br&gt; &lt;ul&gt; &lt;li&gt;the payment account and its account type (vault, exchange, or fiat). &lt;/li&gt; &lt;li&gt;the account type (vault account, exchange account, whitelisted address, network connection, fiat account, or merchant account), the amount, and the asset of payment for each payee account.&lt;/li&gt; &lt;/ul&gt; 
-   * @param createPayoutRequest  (optional)
-   * @param idempotencyKey A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
-   * @return CompletableFuture&lt;ApiResponse&lt;PayoutResponse&gt;&gt;
-   * @throws ApiException if fails to make API call
-   */
-  public CompletableFuture<ApiResponse<PayoutResponse>> createPayoutWithHttpInfo(CreatePayoutRequest createPayoutRequest, String idempotencyKey) throws ApiException {
-    try {
-      HttpRequest.Builder localVarRequestBuilder = createPayoutRequestBuilder(createPayoutRequest, idempotencyKey);
-      return memberVarHttpClient.sendAsync(
-          localVarRequestBuilder.build(),
-          HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
-            if (memberVarAsyncResponseInterceptor != null) {
-              memberVarAsyncResponseInterceptor.accept(localVarResponse);
-            }
-            if (localVarResponse.statusCode()/ 100 != 2) {
-              return CompletableFuture.failedFuture(getApiException("createPayout", localVarResponse));
-            }
-            try {
-              String responseBody = localVarResponse.body();
-              return CompletableFuture.completedFuture(
-                  new ApiResponse<PayoutResponse>(
-                      localVarResponse.statusCode(),
-                      localVarResponse.headers().map(),
-                      responseBody == null || responseBody.isBlank() ? null : memberVarObjectMapper.readValue(responseBody, new TypeReference<PayoutResponse>() {}))
-              );
-            } catch (IOException e) {
-              return CompletableFuture.failedFuture(new ApiException(e));
-            }
+    private ApiException getApiException(String operationId, HttpResponse<String> response) {
+        String message =
+                formatExceptionMessage(operationId, response.statusCode(), response.body());
+        return new ApiException(
+                response.statusCode(), message, response.headers(), response.body());
+    }
+
+    private String formatExceptionMessage(String operationId, int statusCode, String body) {
+        if (body == null || body.isEmpty()) {
+            body = "[no body]";
         }
-      );
+        return operationId + " call failed with: " + statusCode + " - " + body;
     }
-    catch (ApiException e) {
-      return CompletableFuture.failedFuture(e);
-    }
-  }
 
-  private HttpRequest.Builder createPayoutRequestBuilder(CreatePayoutRequest createPayoutRequest, String idempotencyKey) throws ApiException {
-
-    HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
-
-    String localVarPath = "/payments/payout";
-
-    localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
-
-    if (idempotencyKey != null) {
-      localVarRequestBuilder.header("Idempotency-Key", idempotencyKey.toString());
-    }
-    localVarRequestBuilder.header("Content-Type", "application/json");
-    localVarRequestBuilder.header("Accept", "application/json");
-
-    try {
-      byte[] localVarPostBody = memberVarObjectMapper.writeValueAsBytes(createPayoutRequest);
-      localVarRequestBuilder.method("POST", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
-    } catch (IOException e) {
-      throw new ApiException(e);
-    }
-    if (memberVarReadTimeout != null) {
-      localVarRequestBuilder.timeout(memberVarReadTimeout);
-    }
-    if (memberVarInterceptor != null) {
-      memberVarInterceptor.accept(localVarRequestBuilder);
-    }
-    return localVarRequestBuilder;
-  }
-  /**
-   * Execute a payout instruction set
-   * **Note:** The reference content in this section documents the Payments Engine endpoint. The Payments Engine endpoints include APIs available only for customers with Payments Engine enabled on their accounts. &lt;/br&gt; &lt;/br&gt;These endpoints are currently in beta and might be subject to changes.&lt;/br&gt; &lt;/br&gt;If you want to learn more about Fireblocks Payments Engine, please contact your Fireblocks Customer Success Manager or email CSM@fireblocks.com. &lt;/br&gt; &lt;/br&gt;&lt;b u&gt;Execute a payout instruction set.&lt;/b&gt; &lt;/u&gt; &lt;/br&gt; &lt;/br&gt;The instruction set will be verified and executed.&lt;/br&gt; &lt;b&gt;&lt;u&gt;Source locking&lt;/br&gt;&lt;/b&gt; &lt;/u&gt; If you are executing a payout instruction set from a payment account with an already active payout the active payout will complete before the new payout instruction set can be executed. &lt;/br&gt; You cannot execute the same payout instruction set more than once. 
-   * @param payoutId the payout id received from the creation of the payout instruction set (required)
-   * @param idempotencyKey A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
-   * @return CompletableFuture&lt;DispatchPayoutResponse&gt;
-   * @throws ApiException if fails to make API call
-   */
-  public CompletableFuture<DispatchPayoutResponse> executePayoutAction(String payoutId, String idempotencyKey) throws ApiException {
-    try {
-      HttpRequest.Builder localVarRequestBuilder = executePayoutActionRequestBuilder(payoutId, idempotencyKey);
-      return memberVarHttpClient.sendAsync(
-          localVarRequestBuilder.build(),
-          HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
-            if (localVarResponse.statusCode()/ 100 != 2) {
-              return CompletableFuture.failedFuture(getApiException("executePayoutAction", localVarResponse));
-            }
-            try {
-              String responseBody = localVarResponse.body();
-              return CompletableFuture.completedFuture(
-                  responseBody == null || responseBody.isBlank() ? null : memberVarObjectMapper.readValue(responseBody, new TypeReference<DispatchPayoutResponse>() {})
-              );
-            } catch (IOException e) {
-              return CompletableFuture.failedFuture(new ApiException(e));
-            }
-      });
-    }
-    catch (ApiException e) {
-      return CompletableFuture.failedFuture(e);
-    }
-  }
-
-  /**
-   * Execute a payout instruction set
-   * **Note:** The reference content in this section documents the Payments Engine endpoint. The Payments Engine endpoints include APIs available only for customers with Payments Engine enabled on their accounts. &lt;/br&gt; &lt;/br&gt;These endpoints are currently in beta and might be subject to changes.&lt;/br&gt; &lt;/br&gt;If you want to learn more about Fireblocks Payments Engine, please contact your Fireblocks Customer Success Manager or email CSM@fireblocks.com. &lt;/br&gt; &lt;/br&gt;&lt;b u&gt;Execute a payout instruction set.&lt;/b&gt; &lt;/u&gt; &lt;/br&gt; &lt;/br&gt;The instruction set will be verified and executed.&lt;/br&gt; &lt;b&gt;&lt;u&gt;Source locking&lt;/br&gt;&lt;/b&gt; &lt;/u&gt; If you are executing a payout instruction set from a payment account with an already active payout the active payout will complete before the new payout instruction set can be executed. &lt;/br&gt; You cannot execute the same payout instruction set more than once. 
-   * @param payoutId the payout id received from the creation of the payout instruction set (required)
-   * @param idempotencyKey A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
-   * @return CompletableFuture&lt;ApiResponse&lt;DispatchPayoutResponse&gt;&gt;
-   * @throws ApiException if fails to make API call
-   */
-  public CompletableFuture<ApiResponse<DispatchPayoutResponse>> executePayoutActionWithHttpInfo(String payoutId, String idempotencyKey) throws ApiException {
-    try {
-      HttpRequest.Builder localVarRequestBuilder = executePayoutActionRequestBuilder(payoutId, idempotencyKey);
-      return memberVarHttpClient.sendAsync(
-          localVarRequestBuilder.build(),
-          HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
-            if (memberVarAsyncResponseInterceptor != null) {
-              memberVarAsyncResponseInterceptor.accept(localVarResponse);
-            }
-            if (localVarResponse.statusCode()/ 100 != 2) {
-              return CompletableFuture.failedFuture(getApiException("executePayoutAction", localVarResponse));
-            }
-            try {
-              String responseBody = localVarResponse.body();
-              return CompletableFuture.completedFuture(
-                  new ApiResponse<DispatchPayoutResponse>(
-                      localVarResponse.statusCode(),
-                      localVarResponse.headers().map(),
-                      responseBody == null || responseBody.isBlank() ? null : memberVarObjectMapper.readValue(responseBody, new TypeReference<DispatchPayoutResponse>() {}))
-              );
-            } catch (IOException e) {
-              return CompletableFuture.failedFuture(new ApiException(e));
-            }
+    /**
+     * Create a payout instruction set **Note:** The reference content in this section documents the
+     * Payments Engine endpoint. The Payments Engine endpoints include APIs available only for
+     * customers with Payments Engine enabled on their accounts. &lt;/br&gt; &lt;/br&gt;These
+     * endpoints are currently in beta and might be subject to changes.&lt;/br&gt; &lt;/br&gt;If you
+     * want to learn more about Fireblocks Payments Engine, please contact your Fireblocks Customer
+     * Success Manager or email CSM@fireblocks.com. &lt;/br&gt; &lt;/br&gt; &lt;b u&gt;Create a
+     * payout instruction set.&lt;/b&gt; &lt;/u&gt;&lt;/br&gt; A payout instruction set is a set of
+     * instructions for distributing payments from a single payment account to a list of payee
+     * accounts. &lt;/br&gt; The instruction set defines: &lt;/br&gt; &lt;ul&gt; &lt;li&gt;the
+     * payment account and its account type (vault, exchange, or fiat). &lt;/li&gt; &lt;li&gt;the
+     * account type (vault account, exchange account, whitelisted address, network connection, fiat
+     * account, or merchant account), the amount, and the asset of payment for each payee
+     * account.&lt;/li&gt; &lt;/ul&gt;
+     *
+     * @param createPayoutRequest (optional)
+     * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
+     *     times with the same idempotency key, the server will return the same response as the
+     *     first request. The idempotency key is valid for 24 hours. (optional)
+     * @return CompletableFuture&lt;ApiResponse&lt;PayoutResponse&gt;&gt;
+     * @throws ApiException if fails to make API call
+     */
+    public CompletableFuture<ApiResponse<PayoutResponse>> createPayout(
+            CreatePayoutRequest createPayoutRequest, String idempotencyKey) throws ApiException {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    createPayoutRequestBuilder(createPayoutRequest, idempotencyKey);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException("createPayout", localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<PayoutResponse>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            PayoutResponse>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            });
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
         }
-      );
-    }
-    catch (ApiException e) {
-      return CompletableFuture.failedFuture(e);
-    }
-  }
-
-  private HttpRequest.Builder executePayoutActionRequestBuilder(String payoutId, String idempotencyKey) throws ApiException {
-    // verify the required parameter 'payoutId' is set
-    if (payoutId == null) {
-      throw new ApiException(400, "Missing the required parameter 'payoutId' when calling executePayoutAction");
     }
 
-    HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+    private HttpRequest.Builder createPayoutRequestBuilder(
+            CreatePayoutRequest createPayoutRequest, String idempotencyKey) throws ApiException {
 
-    String localVarPath = "/payments/payout/{payoutId}/actions/execute"
-        .replace("{payoutId}", ApiClient.urlEncode(payoutId.toString()));
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
-    localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+        String localVarPath = "/payments/payout";
 
-    if (idempotencyKey != null) {
-      localVarRequestBuilder.header("Idempotency-Key", idempotencyKey.toString());
-    }
-    localVarRequestBuilder.header("Accept", "application/json");
+        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
 
-    localVarRequestBuilder.method("POST", HttpRequest.BodyPublishers.noBody());
-    if (memberVarReadTimeout != null) {
-      localVarRequestBuilder.timeout(memberVarReadTimeout);
-    }
-    if (memberVarInterceptor != null) {
-      memberVarInterceptor.accept(localVarRequestBuilder);
-    }
-    return localVarRequestBuilder;
-  }
-  /**
-   * Get the status of a payout instruction set
-   * **Note:** The reference content in this section documents the Payments Engine endpoint. The Payments Engine endpoints include APIs available only for customers with Payments Engine enabled on their accounts. &lt;/br&gt; &lt;/br&gt;These endpoints are currently in beta and might be subject to changes.&lt;/br&gt; &lt;/br&gt;If you want to learn more about Fireblocks Payments Engine, please contact your Fireblocks Customer Success Manager or email CSM@fireblocks.com. &lt;/br&gt; 
-   * @param payoutId the payout id received from the creation of the payout instruction set (required)
-   * @return CompletableFuture&lt;PayoutResponse&gt;
-   * @throws ApiException if fails to make API call
-   */
-  public CompletableFuture<PayoutResponse> getPayout(String payoutId) throws ApiException {
-    try {
-      HttpRequest.Builder localVarRequestBuilder = getPayoutRequestBuilder(payoutId);
-      return memberVarHttpClient.sendAsync(
-          localVarRequestBuilder.build(),
-          HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
-            if (localVarResponse.statusCode()/ 100 != 2) {
-              return CompletableFuture.failedFuture(getApiException("getPayout", localVarResponse));
-            }
-            try {
-              String responseBody = localVarResponse.body();
-              return CompletableFuture.completedFuture(
-                  responseBody == null || responseBody.isBlank() ? null : memberVarObjectMapper.readValue(responseBody, new TypeReference<PayoutResponse>() {})
-              );
-            } catch (IOException e) {
-              return CompletableFuture.failedFuture(new ApiException(e));
-            }
-      });
-    }
-    catch (ApiException e) {
-      return CompletableFuture.failedFuture(e);
-    }
-  }
-
-  /**
-   * Get the status of a payout instruction set
-   * **Note:** The reference content in this section documents the Payments Engine endpoint. The Payments Engine endpoints include APIs available only for customers with Payments Engine enabled on their accounts. &lt;/br&gt; &lt;/br&gt;These endpoints are currently in beta and might be subject to changes.&lt;/br&gt; &lt;/br&gt;If you want to learn more about Fireblocks Payments Engine, please contact your Fireblocks Customer Success Manager or email CSM@fireblocks.com. &lt;/br&gt; 
-   * @param payoutId the payout id received from the creation of the payout instruction set (required)
-   * @return CompletableFuture&lt;ApiResponse&lt;PayoutResponse&gt;&gt;
-   * @throws ApiException if fails to make API call
-   */
-  public CompletableFuture<ApiResponse<PayoutResponse>> getPayoutWithHttpInfo(String payoutId) throws ApiException {
-    try {
-      HttpRequest.Builder localVarRequestBuilder = getPayoutRequestBuilder(payoutId);
-      return memberVarHttpClient.sendAsync(
-          localVarRequestBuilder.build(),
-          HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
-            if (memberVarAsyncResponseInterceptor != null) {
-              memberVarAsyncResponseInterceptor.accept(localVarResponse);
-            }
-            if (localVarResponse.statusCode()/ 100 != 2) {
-              return CompletableFuture.failedFuture(getApiException("getPayout", localVarResponse));
-            }
-            try {
-              String responseBody = localVarResponse.body();
-              return CompletableFuture.completedFuture(
-                  new ApiResponse<PayoutResponse>(
-                      localVarResponse.statusCode(),
-                      localVarResponse.headers().map(),
-                      responseBody == null || responseBody.isBlank() ? null : memberVarObjectMapper.readValue(responseBody, new TypeReference<PayoutResponse>() {}))
-              );
-            } catch (IOException e) {
-              return CompletableFuture.failedFuture(new ApiException(e));
-            }
+        if (idempotencyKey != null) {
+            localVarRequestBuilder.header("Idempotency-Key", idempotencyKey.toString());
         }
-      );
+        localVarRequestBuilder.header("Content-Type", "application/json");
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        try {
+            byte[] localVarPostBody = memberVarObjectMapper.writeValueAsBytes(createPayoutRequest);
+            localVarRequestBuilder.method(
+                    "POST", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
+        } catch (IOException e) {
+            throw new ApiException(e);
+        }
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
     }
-    catch (ApiException e) {
-      return CompletableFuture.failedFuture(e);
+    /**
+     * Execute a payout instruction set **Note:** The reference content in this section documents
+     * the Payments Engine endpoint. The Payments Engine endpoints include APIs available only for
+     * customers with Payments Engine enabled on their accounts. &lt;/br&gt; &lt;/br&gt;These
+     * endpoints are currently in beta and might be subject to changes.&lt;/br&gt; &lt;/br&gt;If you
+     * want to learn more about Fireblocks Payments Engine, please contact your Fireblocks Customer
+     * Success Manager or email CSM@fireblocks.com. &lt;/br&gt; &lt;/br&gt;&lt;b u&gt;Execute a
+     * payout instruction set.&lt;/b&gt; &lt;/u&gt; &lt;/br&gt; &lt;/br&gt;The instruction set will
+     * be verified and executed.&lt;/br&gt; &lt;b&gt;&lt;u&gt;Source locking&lt;/br&gt;&lt;/b&gt;
+     * &lt;/u&gt; If you are executing a payout instruction set from a payment account with an
+     * already active payout the active payout will complete before the new payout instruction set
+     * can be executed. &lt;/br&gt; You cannot execute the same payout instruction set more than
+     * once.
+     *
+     * @param payoutId the payout id received from the creation of the payout instruction set
+     *     (required)
+     * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
+     *     times with the same idempotency key, the server will return the same response as the
+     *     first request. The idempotency key is valid for 24 hours. (optional)
+     * @return CompletableFuture&lt;ApiResponse&lt;DispatchPayoutResponse&gt;&gt;
+     * @throws ApiException if fails to make API call
+     */
+    public CompletableFuture<ApiResponse<DispatchPayoutResponse>> executePayoutAction(
+            String payoutId, String idempotencyKey) throws ApiException {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    executePayoutActionRequestBuilder(payoutId, idempotencyKey);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException(
+                                                    "executePayoutAction", localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<DispatchPayoutResponse>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            DispatchPayoutResponse>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            });
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
     }
-  }
 
-  private HttpRequest.Builder getPayoutRequestBuilder(String payoutId) throws ApiException {
-    // verify the required parameter 'payoutId' is set
-    if (payoutId == null) {
-      throw new ApiException(400, "Missing the required parameter 'payoutId' when calling getPayout");
+    private HttpRequest.Builder executePayoutActionRequestBuilder(
+            String payoutId, String idempotencyKey) throws ApiException {
+        // verify the required parameter 'payoutId' is set
+        if (payoutId == null) {
+            throw new ApiException(
+                    400,
+                    "Missing the required parameter 'payoutId' when calling executePayoutAction");
+        }
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath =
+                "/payments/payout/{payoutId}/actions/execute"
+                        .replace("{payoutId}", ApiClient.urlEncode(payoutId.toString()));
+
+        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+        if (idempotencyKey != null) {
+            localVarRequestBuilder.header("Idempotency-Key", idempotencyKey.toString());
+        }
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        localVarRequestBuilder.method("POST", HttpRequest.BodyPublishers.noBody());
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
+     * Get the status of a payout instruction set **Note:** The reference content in this section
+     * documents the Payments Engine endpoint. The Payments Engine endpoints include APIs available
+     * only for customers with Payments Engine enabled on their accounts. &lt;/br&gt;
+     * &lt;/br&gt;These endpoints are currently in beta and might be subject to changes.&lt;/br&gt;
+     * &lt;/br&gt;If you want to learn more about Fireblocks Payments Engine, please contact your
+     * Fireblocks Customer Success Manager or email CSM@fireblocks.com. &lt;/br&gt;
+     *
+     * @param payoutId the payout id received from the creation of the payout instruction set
+     *     (required)
+     * @return CompletableFuture&lt;ApiResponse&lt;PayoutResponse&gt;&gt;
+     * @throws ApiException if fails to make API call
+     */
+    public CompletableFuture<ApiResponse<PayoutResponse>> getPayout(String payoutId)
+            throws ApiException {
+        try {
+            HttpRequest.Builder localVarRequestBuilder = getPayoutRequestBuilder(payoutId);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException("getPayout", localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<PayoutResponse>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            PayoutResponse>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            });
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
     }
 
-    HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+    private HttpRequest.Builder getPayoutRequestBuilder(String payoutId) throws ApiException {
+        // verify the required parameter 'payoutId' is set
+        if (payoutId == null) {
+            throw new ApiException(
+                    400, "Missing the required parameter 'payoutId' when calling getPayout");
+        }
 
-    String localVarPath = "/payments/payout/{payoutId}"
-        .replace("{payoutId}", ApiClient.urlEncode(payoutId.toString()));
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
-    localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+        String localVarPath =
+                "/payments/payout/{payoutId}"
+                        .replace("{payoutId}", ApiClient.urlEncode(payoutId.toString()));
 
-    localVarRequestBuilder.header("Accept", "application/json");
+        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
 
-    localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
-    if (memberVarReadTimeout != null) {
-      localVarRequestBuilder.timeout(memberVarReadTimeout);
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
     }
-    if (memberVarInterceptor != null) {
-      memberVarInterceptor.accept(localVarRequestBuilder);
-    }
-    return localVarRequestBuilder;
-  }
 }

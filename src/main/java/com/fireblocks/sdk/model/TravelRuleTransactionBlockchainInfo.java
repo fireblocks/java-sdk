@@ -10,213 +10,216 @@
  * Do not edit the class manually.
  */
 
-
 package com.fireblocks.sdk.model;
 
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
-import java.util.StringJoiner;
-import java.util.Objects;
-import java.util.Map;
-import java.util.HashMap;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonTypeName;
-import com.fasterxml.jackson.annotation.JsonValue;
-import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.Objects;
+import java.util.StringJoiner;
 
-
-/**
- * TravelRuleTransactionBlockchainInfo
- */
+/** TravelRuleTransactionBlockchainInfo */
 @JsonPropertyOrder({
-  TravelRuleTransactionBlockchainInfo.JSON_PROPERTY_TX_HASH,
-  TravelRuleTransactionBlockchainInfo.JSON_PROPERTY_ORIGIN,
-  TravelRuleTransactionBlockchainInfo.JSON_PROPERTY_DESTINATION
+    TravelRuleTransactionBlockchainInfo.JSON_PROPERTY_TX_HASH,
+    TravelRuleTransactionBlockchainInfo.JSON_PROPERTY_ORIGIN,
+    TravelRuleTransactionBlockchainInfo.JSON_PROPERTY_DESTINATION
 })
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class TravelRuleTransactionBlockchainInfo {
-  public static final String JSON_PROPERTY_TX_HASH = "txHash";
-  private String txHash;
+    public static final String JSON_PROPERTY_TX_HASH = "txHash";
+    private String txHash;
 
-  public static final String JSON_PROPERTY_ORIGIN = "origin";
-  private String origin;
+    public static final String JSON_PROPERTY_ORIGIN = "origin";
+    private String origin;
 
-  public static final String JSON_PROPERTY_DESTINATION = "destination";
-  private String destination;
+    public static final String JSON_PROPERTY_DESTINATION = "destination";
+    private String destination;
 
-  public TravelRuleTransactionBlockchainInfo() { 
-  }
+    public TravelRuleTransactionBlockchainInfo() {}
 
-  public TravelRuleTransactionBlockchainInfo txHash(String txHash) {
-    this.txHash = txHash;
-    return this;
-  }
-
-   /**
-   * Get txHash
-   * @return txHash
-  **/
-  @jakarta.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_TX_HASH)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getTxHash() {
-    return txHash;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_TX_HASH)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setTxHash(String txHash) {
-    this.txHash = txHash;
-  }
-
-
-  public TravelRuleTransactionBlockchainInfo origin(String origin) {
-    this.origin = origin;
-    return this;
-  }
-
-   /**
-   * Get origin
-   * @return origin
-  **/
-  @jakarta.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_ORIGIN)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getOrigin() {
-    return origin;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_ORIGIN)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setOrigin(String origin) {
-    this.origin = origin;
-  }
-
-
-  public TravelRuleTransactionBlockchainInfo destination(String destination) {
-    this.destination = destination;
-    return this;
-  }
-
-   /**
-   * Get destination
-   * @return destination
-  **/
-  @jakarta.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_DESTINATION)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getDestination() {
-    return destination;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_DESTINATION)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setDestination(String destination) {
-    this.destination = destination;
-  }
-
-
-  /**
-   * Return true if this TravelRuleTransactionBlockchainInfo object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    TravelRuleTransactionBlockchainInfo travelRuleTransactionBlockchainInfo = (TravelRuleTransactionBlockchainInfo) o;
-    return Objects.equals(this.txHash, travelRuleTransactionBlockchainInfo.txHash) &&
-        Objects.equals(this.origin, travelRuleTransactionBlockchainInfo.origin) &&
-        Objects.equals(this.destination, travelRuleTransactionBlockchainInfo.destination);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(txHash, origin, destination);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class TravelRuleTransactionBlockchainInfo {\n");
-    sb.append("    txHash: ").append(toIndentedString(txHash)).append("\n");
-    sb.append("    origin: ").append(toIndentedString(origin)).append("\n");
-    sb.append("    destination: ").append(toIndentedString(destination)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
-  }
-
-  /**
-   * Convert the instance into URL query string.
-   *
-   * @return URL query string
-   */
-  public String toUrlQueryString() {
-    return toUrlQueryString(null);
-  }
-
-  /**
-   * Convert the instance into URL query string.
-   *
-   * @param prefix prefix of the query string
-   * @return URL query string
-   */
-  public String toUrlQueryString(String prefix) {
-    String suffix = "";
-    String containerSuffix = "";
-    String containerPrefix = "";
-    if (prefix == null) {
-      // style=form, explode=true, e.g. /pet?name=cat&type=manx
-      prefix = "";
-    } else {
-      // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
-      prefix = prefix + "[";
-      suffix = "]";
-      containerSuffix = "]";
-      containerPrefix = "[";
+    public TravelRuleTransactionBlockchainInfo txHash(String txHash) {
+        this.txHash = txHash;
+        return this;
     }
 
-    StringJoiner joiner = new StringJoiner("&");
-
-    // add `txHash` to the URL query string
-    if (getTxHash() != null) {
-      joiner.add(String.format("%stxHash%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getTxHash()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    /**
+     * Get txHash
+     *
+     * @return txHash
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_TX_HASH)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getTxHash() {
+        return txHash;
     }
 
-    // add `origin` to the URL query string
-    if (getOrigin() != null) {
-      joiner.add(String.format("%sorigin%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getOrigin()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    @JsonProperty(JSON_PROPERTY_TX_HASH)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setTxHash(String txHash) {
+        this.txHash = txHash;
     }
 
-    // add `destination` to the URL query string
-    if (getDestination() != null) {
-      joiner.add(String.format("%sdestination%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getDestination()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    public TravelRuleTransactionBlockchainInfo origin(String origin) {
+        this.origin = origin;
+        return this;
     }
 
-    return joiner.toString();
-  }
+    /**
+     * Get origin
+     *
+     * @return origin
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_ORIGIN)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getOrigin() {
+        return origin;
+    }
+
+    @JsonProperty(JSON_PROPERTY_ORIGIN)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setOrigin(String origin) {
+        this.origin = origin;
+    }
+
+    public TravelRuleTransactionBlockchainInfo destination(String destination) {
+        this.destination = destination;
+        return this;
+    }
+
+    /**
+     * Get destination
+     *
+     * @return destination
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_DESTINATION)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getDestination() {
+        return destination;
+    }
+
+    @JsonProperty(JSON_PROPERTY_DESTINATION)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setDestination(String destination) {
+        this.destination = destination;
+    }
+
+    /** Return true if this TravelRuleTransactionBlockchainInfo object is equal to o. */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        TravelRuleTransactionBlockchainInfo travelRuleTransactionBlockchainInfo =
+                (TravelRuleTransactionBlockchainInfo) o;
+        return Objects.equals(this.txHash, travelRuleTransactionBlockchainInfo.txHash)
+                && Objects.equals(this.origin, travelRuleTransactionBlockchainInfo.origin)
+                && Objects.equals(
+                        this.destination, travelRuleTransactionBlockchainInfo.destination);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(txHash, origin, destination);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class TravelRuleTransactionBlockchainInfo {\n");
+        sb.append("    txHash: ").append(toIndentedString(txHash)).append("\n");
+        sb.append("    origin: ").append(toIndentedString(origin)).append("\n");
+        sb.append("    destination: ").append(toIndentedString(destination)).append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces (except the first
+     * line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
+
+    /**
+     * Convert the instance into URL query string.
+     *
+     * @return URL query string
+     */
+    public String toUrlQueryString() {
+        return toUrlQueryString(null);
+    }
+
+    /**
+     * Convert the instance into URL query string.
+     *
+     * @param prefix prefix of the query string
+     * @return URL query string
+     */
+    public String toUrlQueryString(String prefix) {
+        String suffix = "";
+        String containerSuffix = "";
+        String containerPrefix = "";
+        if (prefix == null) {
+            // style=form, explode=true, e.g. /pet?name=cat&type=manx
+            prefix = "";
+        } else {
+            // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
+            prefix = prefix + "[";
+            suffix = "]";
+            containerSuffix = "]";
+            containerPrefix = "[";
+        }
+
+        StringJoiner joiner = new StringJoiner("&");
+
+        // add `txHash` to the URL query string
+        if (getTxHash() != null) {
+            joiner.add(
+                    String.format(
+                            "%stxHash%s=%s",
+                            prefix,
+                            suffix,
+                            URLEncoder.encode(String.valueOf(getTxHash()), StandardCharsets.UTF_8)
+                                    .replaceAll("\\+", "%20")));
+        }
+
+        // add `origin` to the URL query string
+        if (getOrigin() != null) {
+            joiner.add(
+                    String.format(
+                            "%sorigin%s=%s",
+                            prefix,
+                            suffix,
+                            URLEncoder.encode(String.valueOf(getOrigin()), StandardCharsets.UTF_8)
+                                    .replaceAll("\\+", "%20")));
+        }
+
+        // add `destination` to the URL query string
+        if (getDestination() != null) {
+            joiner.add(
+                    String.format(
+                            "%sdestination%s=%s",
+                            prefix,
+                            suffix,
+                            URLEncoder.encode(
+                                            String.valueOf(getDestination()),
+                                            StandardCharsets.UTF_8)
+                                    .replaceAll("\\+", "%20")));
+        }
+
+        return joiner.toString();
+    }
 }
-

@@ -10,64 +10,48 @@
  * Do not edit the class manually.
  */
 
-
 package com.fireblocks.sdk.api;
 
+
 import com.fireblocks.sdk.ApiException;
+import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.model.GetOtaStatus200Response;
 import com.fireblocks.sdk.model.SetOtaStatusRequest;
-import org.junit.Test;
-import org.junit.Ignore;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import java.util.concurrent.CompletableFuture;
+import org.junit.Ignore;
+import org.junit.Test;
 
-/**
- * API tests for OtaBetaApi
- */
+/** API tests for OtaBetaApi */
 @Ignore
 public class OtaBetaApiTest {
 
     private final OtaBetaApi api = new OtaBetaApi();
 
-    
     /**
      * Returns current OTA status
      *
-     * Returns current OTA status
+     * <p>Returns current OTA status
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
     public void getOtaStatusTest() throws ApiException {
-        CompletableFuture<GetOtaStatus200Response> response = 
-        api.getOtaStatus();
-        
-        // TODO: test validations
+        CompletableFuture<ApiResponse<GetOtaStatus200Response>> response = api.getOtaStatus();
     }
-    
+
     /**
      * Enable or disable transactions to OTA
      *
-     * Enable or disable transactions to OTA
+     * <p>Enable or disable transactions to OTA
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
     public void setOtaStatusTest() throws ApiException {
         SetOtaStatusRequest setOtaStatusRequest = null;
         String idempotencyKey = null;
-        
-        CompletableFuture<Void> response = api.setOtaStatus(setOtaStatusRequest, idempotencyKey);
-        
-        // TODO: test validations
+
+        CompletableFuture<ApiResponse<Void>> response =
+                api.setOtaStatus(setOtaStatusRequest, idempotencyKey);
     }
-    
 }

@@ -10,56 +10,36 @@
  * Do not edit the class manually.
  */
 
-
 package com.fireblocks.sdk.model;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonTypeName;
-import com.fasterxml.jackson.annotation.JsonValue;
-import java.math.BigDecimal;
-import java.util.Arrays;
-import org.junit.Assert;
-import org.junit.Ignore;
+
 import org.junit.Test;
 
-/**
- * Model tests for ConvertAssetsRequest
- */
+/** Model tests for ConvertAssetsRequest */
 public class ConvertAssetsRequestTest {
     private final ConvertAssetsRequest model = new ConvertAssetsRequest();
 
-    /**
-     * Model tests for ConvertAssetsRequest
-     */
+    /** Model tests for ConvertAssetsRequest */
     @Test
     public void testConvertAssetsRequest() {
         // TODO: test ConvertAssetsRequest
     }
 
-    /**
-     * Test the property 'srcAsset'
-     */
+    /** Test the property 'srcAsset' */
     @Test
     public void srcAssetTest() {
         // TODO: test srcAsset
     }
 
-    /**
-     * Test the property 'destAsset'
-     */
+    /** Test the property 'destAsset' */
     @Test
     public void destAssetTest() {
         // TODO: test destAsset
     }
 
-    /**
-     * Test the property 'amount'
-     */
+    /** Test the property 'amount' */
     @Test
     public void amountTest() {
         // TODO: test amount
     }
-
 }

@@ -10,11 +10,11 @@
  * Do not edit the class manually.
  */
 
-
 package com.fireblocks.sdk.api;
 
+
 import com.fireblocks.sdk.ApiException;
-import java.math.BigDecimal;
+import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.model.GetOwnershipTokens200Response;
 import com.fireblocks.sdk.model.ListOwnedCollections200Response;
 import com.fireblocks.sdk.model.ListOwnedTokens200Response;
@@ -22,50 +22,37 @@ import com.fireblocks.sdk.model.TokenOwnershipSpamUpdatePayload;
 import com.fireblocks.sdk.model.TokenOwnershipStatusUpdatePayload;
 import com.fireblocks.sdk.model.TokenResponse;
 import com.fireblocks.sdk.model.UpdateTokenOwnershipStatusDto;
-import org.junit.Test;
-import org.junit.Ignore;
-
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.math.BigDecimal;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import java.util.concurrent.CompletableFuture;
+import org.junit.Ignore;
+import org.junit.Test;
 
-/**
- * API tests for NftsApi
- */
+/** API tests for NftsApi */
 @Ignore
 public class NftsApiTest {
 
     private final NftsApi api = new NftsApi();
 
-    
     /**
      * List token data by ID
      *
-     * Returns the requested token data. 
+     * <p>Returns the requested token data.
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
     public void getNFTTest() throws ApiException {
         String id = null;
-        CompletableFuture<TokenResponse> response = 
-        api.getNFT(id);
-        
-        // TODO: test validations
+        CompletableFuture<ApiResponse<TokenResponse>> response = api.getNFT(id);
     }
-    
+
     /**
      * List tokens by IDs
      *
-     * Returns the requested tokens data. 
+     * <p>Returns the requested tokens data.
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
     public void getNFTsTest() throws ApiException {
@@ -74,19 +61,16 @@ public class NftsApiTest {
         BigDecimal pageSize = null;
         List<String> sort = null;
         String order = null;
-        CompletableFuture<ListOwnedTokens200Response> response = 
-        api.getNFTs(ids, pageCursor, pageSize, sort, order);
-        
-        // TODO: test validations
+        CompletableFuture<ApiResponse<ListOwnedTokens200Response>> response =
+                api.getNFTs(ids, pageCursor, pageSize, sort, order);
     }
-    
+
     /**
      * List all owned tokens (paginated)
      *
-     * Returns all tokens and their data in your workspace. 
+     * <p>Returns all tokens and their data in your workspace.
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
     public void getOwnershipTokensTest() throws ApiException {
@@ -104,19 +88,30 @@ public class NftsApiTest {
         String status = null;
         String search = null;
         String spam = null;
-        CompletableFuture<GetOwnershipTokens200Response> response = 
-        api.getOwnershipTokens(blockchainDescriptor, vaultAccountIds, ncwId, ncwAccountIds, walletType, ids, collectionIds, pageCursor, pageSize, sort, order, status, search, spam);
-        
-        // TODO: test validations
+        CompletableFuture<ApiResponse<GetOwnershipTokens200Response>> response =
+                api.getOwnershipTokens(
+                        blockchainDescriptor,
+                        vaultAccountIds,
+                        ncwId,
+                        ncwAccountIds,
+                        walletType,
+                        ids,
+                        collectionIds,
+                        pageCursor,
+                        pageSize,
+                        sort,
+                        order,
+                        status,
+                        search,
+                        spam);
     }
-    
+
     /**
      * List owned collections (paginated)
      *
-     * Returns all collections in your workspace 
+     * <p>Returns all collections in your workspace
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
     public void listOwnedCollectionsTest() throws ApiException {
@@ -128,19 +123,17 @@ public class NftsApiTest {
         List<String> sort = null;
         String order = null;
         String status = null;
-        CompletableFuture<ListOwnedCollections200Response> response = 
-        api.listOwnedCollections(ncwId, walletType, search, pageCursor, pageSize, sort, order, status);
-        
-        // TODO: test validations
+        CompletableFuture<ApiResponse<ListOwnedCollections200Response>> response =
+                api.listOwnedCollections(
+                        ncwId, walletType, search, pageCursor, pageSize, sort, order, status);
     }
-    
+
     /**
      * List all distinct owned tokens (paginated)
      *
-     * Returns all owned distinct tokens (for your tenant) and their data in your workspace. 
+     * <p>Returns all owned distinct tokens (for your tenant) and their data in your workspace.
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
     public void listOwnedTokensTest() throws ApiException {
@@ -153,102 +146,89 @@ public class NftsApiTest {
         String status = null;
         String search = null;
         String spam = null;
-        CompletableFuture<ListOwnedTokens200Response> response = 
-        api.listOwnedTokens(ncwId, walletType, pageCursor, pageSize, sort, order, status, search, spam);
-        
-        // TODO: test validations
+        CompletableFuture<ApiResponse<ListOwnedTokens200Response>> response =
+                api.listOwnedTokens(
+                        ncwId, walletType, pageCursor, pageSize, sort, order, status, search, spam);
     }
-    
+
     /**
      * Refresh token metadata
      *
-     * Updates the latest token metadata. 
+     * <p>Updates the latest token metadata.
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
     public void refreshNFTMetadataTest() throws ApiException {
         String id = null;
         String idempotencyKey = null;
-        
-        CompletableFuture<Void> response = api.refreshNFTMetadata(id, idempotencyKey);
-        
-        // TODO: test validations
+
+        CompletableFuture<ApiResponse<Void>> response = api.refreshNFTMetadata(id, idempotencyKey);
     }
-    
+
     /**
      * Refresh vault account tokens
      *
-     * Updates all tokens and balances per blockchain and vault account. 
+     * <p>Updates all tokens and balances per blockchain and vault account.
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
     public void updateOwnershipTokensTest() throws ApiException {
         String blockchainDescriptor = null;
         String vaultAccountId = null;
         String idempotencyKey = null;
-        
-        CompletableFuture<Void> response = api.updateOwnershipTokens(blockchainDescriptor, vaultAccountId, idempotencyKey);
-        
-        // TODO: test validations
+
+        CompletableFuture<ApiResponse<Void>> response =
+                api.updateOwnershipTokens(blockchainDescriptor, vaultAccountId, idempotencyKey);
     }
-    
+
     /**
      * Update token ownership status
      *
-     * Updates token status for a tenant, in all tenant vaults. 
+     * <p>Updates token status for a tenant, in all tenant vaults.
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
     public void updateTokenOwnershipStatusTest() throws ApiException {
         UpdateTokenOwnershipStatusDto updateTokenOwnershipStatusDto = null;
         String id = null;
         String idempotencyKey = null;
-        
-        CompletableFuture<Void> response = api.updateTokenOwnershipStatus(updateTokenOwnershipStatusDto, id, idempotencyKey);
-        
-        // TODO: test validations
+
+        CompletableFuture<ApiResponse<Void>> response =
+                api.updateTokenOwnershipStatus(updateTokenOwnershipStatusDto, id, idempotencyKey);
     }
-    
+
     /**
      * Update tokens ownership spam property
      *
-     * Updates tokens spam property for a tenant&#39;s token ownerships, in all tenant vaults.
+     * <p>Updates tokens spam property for a tenant&#39;s token ownerships, in all tenant vaults.
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
     public void updateTokensOwnershipSpamTest() throws ApiException {
         List<TokenOwnershipSpamUpdatePayload> tokenOwnershipSpamUpdatePayload = null;
         String idempotencyKey = null;
-        
-        CompletableFuture<Void> response = api.updateTokensOwnershipSpam(tokenOwnershipSpamUpdatePayload, idempotencyKey);
-        
-        // TODO: test validations
+
+        CompletableFuture<ApiResponse<Void>> response =
+                api.updateTokensOwnershipSpam(tokenOwnershipSpamUpdatePayload, idempotencyKey);
     }
-    
+
     /**
      * Update tokens ownership status
      *
-     * Updates tokens status for a tenant, in all tenant vaults.
+     * <p>Updates tokens status for a tenant, in all tenant vaults.
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
     public void updateTokensOwnershipStatusTest() throws ApiException {
         List<TokenOwnershipStatusUpdatePayload> tokenOwnershipStatusUpdatePayload = null;
         String idempotencyKey = null;
-        
-        CompletableFuture<Void> response = api.updateTokensOwnershipStatus(tokenOwnershipStatusUpdatePayload, idempotencyKey);
-        
-        // TODO: test validations
+
+        CompletableFuture<ApiResponse<Void>> response =
+                api.updateTokensOwnershipStatus(tokenOwnershipStatusUpdatePayload, idempotencyKey);
     }
-    
 }

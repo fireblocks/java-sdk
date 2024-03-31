@@ -10,191 +10,190 @@
  * Do not edit the class manually.
  */
 
-
 package com.fireblocks.sdk.model;
 
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
-import java.util.StringJoiner;
-import java.util.Objects;
-import java.util.Map;
-import java.util.HashMap;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonTypeName;
-import com.fasterxml.jackson.annotation.JsonValue;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+import java.util.StringJoiner;
 
-
-/**
- * DropTransactionResponse
- */
+/** DropTransactionResponse */
 @JsonPropertyOrder({
-  DropTransactionResponse.JSON_PROPERTY_SUCCESS,
-  DropTransactionResponse.JSON_PROPERTY_TRANSACTIONS
+    DropTransactionResponse.JSON_PROPERTY_SUCCESS,
+    DropTransactionResponse.JSON_PROPERTY_TRANSACTIONS
 })
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class DropTransactionResponse {
-  public static final String JSON_PROPERTY_SUCCESS = "success";
-  private Boolean success;
+    public static final String JSON_PROPERTY_SUCCESS = "success";
+    private Boolean success;
 
-  public static final String JSON_PROPERTY_TRANSACTIONS = "transactions";
-  private List<String> transactions;
+    public static final String JSON_PROPERTY_TRANSACTIONS = "transactions";
+    private List<String> transactions;
 
-  public DropTransactionResponse() { 
-  }
+    public DropTransactionResponse() {}
 
-  public DropTransactionResponse success(Boolean success) {
-    this.success = success;
-    return this;
-  }
-
-   /**
-   * Get success
-   * @return success
-  **/
-  @jakarta.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_SUCCESS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public Boolean getSuccess() {
-    return success;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_SUCCESS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setSuccess(Boolean success) {
-    this.success = success;
-  }
-
-
-  public DropTransactionResponse transactions(List<String> transactions) {
-    this.transactions = transactions;
-    return this;
-  }
-
-  public DropTransactionResponse addTransactionsItem(String transactionsItem) {
-    if (this.transactions == null) {
-      this.transactions = new ArrayList<>();
-    }
-    this.transactions.add(transactionsItem);
-    return this;
-  }
-
-   /**
-   * Get transactions
-   * @return transactions
-  **/
-  @jakarta.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_TRANSACTIONS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public List<String> getTransactions() {
-    return transactions;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_TRANSACTIONS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setTransactions(List<String> transactions) {
-    this.transactions = transactions;
-  }
-
-
-  /**
-   * Return true if this DropTransactionResponse object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    DropTransactionResponse dropTransactionResponse = (DropTransactionResponse) o;
-    return Objects.equals(this.success, dropTransactionResponse.success) &&
-        Objects.equals(this.transactions, dropTransactionResponse.transactions);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(success, transactions);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class DropTransactionResponse {\n");
-    sb.append("    success: ").append(toIndentedString(success)).append("\n");
-    sb.append("    transactions: ").append(toIndentedString(transactions)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
-  }
-
-  /**
-   * Convert the instance into URL query string.
-   *
-   * @return URL query string
-   */
-  public String toUrlQueryString() {
-    return toUrlQueryString(null);
-  }
-
-  /**
-   * Convert the instance into URL query string.
-   *
-   * @param prefix prefix of the query string
-   * @return URL query string
-   */
-  public String toUrlQueryString(String prefix) {
-    String suffix = "";
-    String containerSuffix = "";
-    String containerPrefix = "";
-    if (prefix == null) {
-      // style=form, explode=true, e.g. /pet?name=cat&type=manx
-      prefix = "";
-    } else {
-      // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
-      prefix = prefix + "[";
-      suffix = "]";
-      containerSuffix = "]";
-      containerPrefix = "[";
+    public DropTransactionResponse success(Boolean success) {
+        this.success = success;
+        return this;
     }
 
-    StringJoiner joiner = new StringJoiner("&");
-
-    // add `success` to the URL query string
-    if (getSuccess() != null) {
-      joiner.add(String.format("%ssuccess%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getSuccess()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    /**
+     * Get success
+     *
+     * @return success
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_SUCCESS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public Boolean getSuccess() {
+        return success;
     }
 
-    // add `transactions` to the URL query string
-    if (getTransactions() != null) {
-      for (int i = 0; i < getTransactions().size(); i++) {
-        joiner.add(String.format("%stransactions%s%s=%s", prefix, suffix,
-            "".equals(suffix) ? "" : String.format("%s%d%s", containerPrefix, i, containerSuffix),
-            URLEncoder.encode(String.valueOf(getTransactions().get(i)), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
-      }
+    @JsonProperty(JSON_PROPERTY_SUCCESS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setSuccess(Boolean success) {
+        this.success = success;
     }
 
-    return joiner.toString();
-  }
+    public DropTransactionResponse transactions(List<String> transactions) {
+        this.transactions = transactions;
+        return this;
+    }
+
+    public DropTransactionResponse addTransactionsItem(String transactionsItem) {
+        if (this.transactions == null) {
+            this.transactions = new ArrayList<>();
+        }
+        this.transactions.add(transactionsItem);
+        return this;
+    }
+
+    /**
+     * Get transactions
+     *
+     * @return transactions
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_TRANSACTIONS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public List<String> getTransactions() {
+        return transactions;
+    }
+
+    @JsonProperty(JSON_PROPERTY_TRANSACTIONS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setTransactions(List<String> transactions) {
+        this.transactions = transactions;
+    }
+
+    /** Return true if this DropTransactionResponse object is equal to o. */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        DropTransactionResponse dropTransactionResponse = (DropTransactionResponse) o;
+        return Objects.equals(this.success, dropTransactionResponse.success)
+                && Objects.equals(this.transactions, dropTransactionResponse.transactions);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(success, transactions);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class DropTransactionResponse {\n");
+        sb.append("    success: ").append(toIndentedString(success)).append("\n");
+        sb.append("    transactions: ").append(toIndentedString(transactions)).append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces (except the first
+     * line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
+
+    /**
+     * Convert the instance into URL query string.
+     *
+     * @return URL query string
+     */
+    public String toUrlQueryString() {
+        return toUrlQueryString(null);
+    }
+
+    /**
+     * Convert the instance into URL query string.
+     *
+     * @param prefix prefix of the query string
+     * @return URL query string
+     */
+    public String toUrlQueryString(String prefix) {
+        String suffix = "";
+        String containerSuffix = "";
+        String containerPrefix = "";
+        if (prefix == null) {
+            // style=form, explode=true, e.g. /pet?name=cat&type=manx
+            prefix = "";
+        } else {
+            // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
+            prefix = prefix + "[";
+            suffix = "]";
+            containerSuffix = "]";
+            containerPrefix = "[";
+        }
+
+        StringJoiner joiner = new StringJoiner("&");
+
+        // add `success` to the URL query string
+        if (getSuccess() != null) {
+            joiner.add(
+                    String.format(
+                            "%ssuccess%s=%s",
+                            prefix,
+                            suffix,
+                            URLEncoder.encode(String.valueOf(getSuccess()), StandardCharsets.UTF_8)
+                                    .replaceAll("\\+", "%20")));
+        }
+
+        // add `transactions` to the URL query string
+        if (getTransactions() != null) {
+            for (int i = 0; i < getTransactions().size(); i++) {
+                joiner.add(
+                        String.format(
+                                "%stransactions%s%s=%s",
+                                prefix,
+                                suffix,
+                                "".equals(suffix)
+                                        ? ""
+                                        : String.format(
+                                                "%s%d%s", containerPrefix, i, containerSuffix),
+                                URLEncoder.encode(
+                                                String.valueOf(getTransactions().get(i)),
+                                                StandardCharsets.UTF_8)
+                                        .replaceAll("\\+", "%20")));
+            }
+        }
+
+        return joiner.toString();
+    }
 }
-

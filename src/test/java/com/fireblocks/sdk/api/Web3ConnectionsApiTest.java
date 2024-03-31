@@ -10,61 +10,49 @@
  * Do not edit the class manually.
  */
 
-
 package com.fireblocks.sdk.api;
 
+
 import com.fireblocks.sdk.ApiException;
-import java.math.BigDecimal;
+import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.model.CreateConnectionResponse;
 import com.fireblocks.sdk.model.CreateRequest;
 import com.fireblocks.sdk.model.GetConnectionsResponse;
 import com.fireblocks.sdk.model.GetFilterParameter;
 import com.fireblocks.sdk.model.RespondToConnectionRequest;
-import org.junit.Test;
-import org.junit.Ignore;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
+import java.math.BigDecimal;
 import java.util.concurrent.CompletableFuture;
+import org.junit.Ignore;
+import org.junit.Test;
 
-/**
- * API tests for Web3ConnectionsApi
- */
+/** API tests for Web3ConnectionsApi */
 @Ignore
 public class Web3ConnectionsApiTest {
 
     private final Web3ConnectionsApi api = new Web3ConnectionsApi();
 
-    
     /**
      * Create a new Web3 connection.
      *
-     * Initiate a new Web3 connection.  * Note: After this succeeds, make a request to &#x60;PUT /v1/connections/wc/{id}&#x60; (below) to approve or reject the new Web3 connection.
+     * <p>Initiate a new Web3 connection. * Note: After this succeeds, make a request to &#x60;PUT
+     * /v1/connections/wc/{id}&#x60; (below) to approve or reject the new Web3 connection.
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
     public void createTest() throws ApiException {
         CreateRequest createRequest = null;
         String idempotencyKey = null;
-        CompletableFuture<CreateConnectionResponse> response = 
-        api.create(createRequest, idempotencyKey);
-        
-        // TODO: test validations
+        CompletableFuture<ApiResponse<CreateConnectionResponse>> response =
+                api.create(createRequest, idempotencyKey);
     }
-    
+
     /**
      * List all open Web3 connections.
      *
-     * Get open Web3 connections.
+     * <p>Get open Web3 connections.
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
     public void getTest() throws ApiException {
@@ -73,46 +61,40 @@ public class Web3ConnectionsApiTest {
         String sort = null;
         BigDecimal pageSize = null;
         String next = null;
-        CompletableFuture<GetConnectionsResponse> response = 
-        api.get(order, filter, sort, pageSize, next);
-        
-        // TODO: test validations
+        CompletableFuture<ApiResponse<GetConnectionsResponse>> response =
+                api.get(order, filter, sort, pageSize, next);
     }
-    
+
     /**
      * Remove an existing Web3 connection.
      *
-     * Remove a Web3 connection
+     * <p>Remove a Web3 connection
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
     public void removeTest() throws ApiException {
         String id = null;
-        
-        CompletableFuture<Void> response = api.remove(id);
-        
-        // TODO: test validations
+
+        CompletableFuture<ApiResponse<Void>> response = api.remove(id);
     }
-    
+
     /**
      * Respond to a pending Web3 connection request.
      *
-     * Submit a response to *approve* or *reject* an initiated Web3 connection. * Note: This call is used to complete your &#x60;POST /v1/connections/wc/&#x60; request.  After this succeeds, your new Web3 connection is created and functioning.
+     * <p>Submit a response to *approve* or *reject* an initiated Web3 connection. * Note: This call
+     * is used to complete your &#x60;POST /v1/connections/wc/&#x60; request. After this succeeds,
+     * your new Web3 connection is created and functioning.
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
     public void submitTest() throws ApiException {
         RespondToConnectionRequest respondToConnectionRequest = null;
         String id = null;
         String idempotencyKey = null;
-        
-        CompletableFuture<Void> response = api.submit(respondToConnectionRequest, id, idempotencyKey);
-        
-        // TODO: test validations
+
+        CompletableFuture<ApiResponse<Void>> response =
+                api.submit(respondToConnectionRequest, id, idempotencyKey);
     }
-    
 }

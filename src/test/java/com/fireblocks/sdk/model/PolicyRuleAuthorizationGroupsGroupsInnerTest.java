@@ -10,58 +10,37 @@
  * Do not edit the class manually.
  */
 
-
 package com.fireblocks.sdk.model;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonTypeName;
-import com.fasterxml.jackson.annotation.JsonValue;
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import org.junit.Assert;
-import org.junit.Ignore;
+
 import org.junit.Test;
 
-/**
- * Model tests for PolicyRuleAuthorizationGroupsGroupsInner
- */
+/** Model tests for PolicyRuleAuthorizationGroupsGroupsInner */
 public class PolicyRuleAuthorizationGroupsGroupsInnerTest {
-    private final PolicyRuleAuthorizationGroupsGroupsInner model = new PolicyRuleAuthorizationGroupsGroupsInner();
+    private final PolicyRuleAuthorizationGroupsGroupsInner model =
+            new PolicyRuleAuthorizationGroupsGroupsInner();
 
-    /**
-     * Model tests for PolicyRuleAuthorizationGroupsGroupsInner
-     */
+    /** Model tests for PolicyRuleAuthorizationGroupsGroupsInner */
     @Test
     public void testPolicyRuleAuthorizationGroupsGroupsInner() {
         // TODO: test PolicyRuleAuthorizationGroupsGroupsInner
     }
 
-    /**
-     * Test the property 'users'
-     */
+    /** Test the property 'users' */
     @Test
     public void usersTest() {
         // TODO: test users
     }
 
-    /**
-     * Test the property 'usersGroups'
-     */
+    /** Test the property 'usersGroups' */
     @Test
     public void usersGroupsTest() {
         // TODO: test usersGroups
     }
 
-    /**
-     * Test the property 'th'
-     */
+    /** Test the property 'th' */
     @Test
     public void thTest() {
         // TODO: test th
     }
-
 }

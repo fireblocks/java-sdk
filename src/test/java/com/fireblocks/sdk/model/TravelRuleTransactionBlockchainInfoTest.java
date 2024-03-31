@@ -10,55 +10,37 @@
  * Do not edit the class manually.
  */
 
-
 package com.fireblocks.sdk.model;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonTypeName;
-import com.fasterxml.jackson.annotation.JsonValue;
-import java.util.Arrays;
-import org.junit.Assert;
-import org.junit.Ignore;
+
 import org.junit.Test;
 
-/**
- * Model tests for TravelRuleTransactionBlockchainInfo
- */
+/** Model tests for TravelRuleTransactionBlockchainInfo */
 public class TravelRuleTransactionBlockchainInfoTest {
-    private final TravelRuleTransactionBlockchainInfo model = new TravelRuleTransactionBlockchainInfo();
+    private final TravelRuleTransactionBlockchainInfo model =
+            new TravelRuleTransactionBlockchainInfo();
 
-    /**
-     * Model tests for TravelRuleTransactionBlockchainInfo
-     */
+    /** Model tests for TravelRuleTransactionBlockchainInfo */
     @Test
     public void testTravelRuleTransactionBlockchainInfo() {
         // TODO: test TravelRuleTransactionBlockchainInfo
     }
 
-    /**
-     * Test the property 'txHash'
-     */
+    /** Test the property 'txHash' */
     @Test
     public void txHashTest() {
         // TODO: test txHash
     }
 
-    /**
-     * Test the property 'origin'
-     */
+    /** Test the property 'origin' */
     @Test
     public void originTest() {
         // TODO: test origin
     }
 
-    /**
-     * Test the property 'destination'
-     */
+    /** Test the property 'destination' */
     @Test
     public void destinationTest() {
         // TODO: test destination
     }
-
 }

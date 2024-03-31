@@ -10,71 +10,57 @@
  * Do not edit the class manually.
  */
 
-
 package com.fireblocks.sdk.model;
-
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
-import java.util.StringJoiner;
-import java.util.Objects;
-import java.util.Map;
-import java.util.HashMap;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
-/**
- * Gets or Sets PaymentAccountType
- */
+/** Gets or Sets PaymentAccountType */
 public enum PaymentAccountType {
-  
-  VAULT_ACCOUNT("VAULT_ACCOUNT"),
-  
-  EXCHANGE_ACCOUNT("EXCHANGE_ACCOUNT"),
-  
-  FIAT_ACCOUNT("FIAT_ACCOUNT");
+    VAULT_ACCOUNT("VAULT_ACCOUNT"),
 
-  private String value;
+    EXCHANGE_ACCOUNT("EXCHANGE_ACCOUNT"),
 
-  PaymentAccountType(String value) {
-    this.value = value;
-  }
+    FIAT_ACCOUNT("FIAT_ACCOUNT");
 
-  @JsonValue
-  public String getValue() {
-    return value;
-  }
+    private String value;
 
-  @Override
-  public String toString() {
-    return String.valueOf(value);
-  }
-
-  @JsonCreator
-  public static PaymentAccountType fromValue(String value) {
-    for (PaymentAccountType b : PaymentAccountType.values()) {
-      if (b.value.equals(value)) {
-        return b;
-      }
-    }
-    throw new IllegalArgumentException("Unexpected value '" + value + "'");
-  }
-
-  /**
-   * Convert the instance into URL query string.
-   *
-   * @param prefix prefix of the query string
-   * @return URL query string
-   */
-  public String toUrlQueryString(String prefix) {
-    if (prefix == null) {
-      prefix = "";
+    PaymentAccountType(String value) {
+        this.value = value;
     }
 
-    return String.format("%s=%s", prefix, this.toString());
-  }
+    @JsonValue
+    public String getValue() {
+        return value;
+    }
 
+    @Override
+    public String toString() {
+        return String.valueOf(value);
+    }
+
+    @JsonCreator
+    public static PaymentAccountType fromValue(String value) {
+        for (PaymentAccountType b : PaymentAccountType.values()) {
+            if (b.value.equals(value)) {
+                return b;
+            }
+        }
+        throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
+
+    /**
+     * Convert the instance into URL query string.
+     *
+     * @param prefix prefix of the query string
+     * @return URL query string
+     */
+    public String toUrlQueryString(String prefix) {
+        if (prefix == null) {
+            prefix = "";
+        }
+
+        return String.format("%s=%s", prefix, this.toString());
+    }
 }
-

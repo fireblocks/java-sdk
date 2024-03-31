@@ -10,162 +10,115 @@
  * Do not edit the class manually.
  */
 
-
 package com.fireblocks.sdk.model;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonTypeName;
-import com.fasterxml.jackson.annotation.JsonValue;
-import com.fireblocks.sdk.model.AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf;
-import com.fireblocks.sdk.model.AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf1;
-import com.fireblocks.sdk.model.AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf2;
-import java.util.Arrays;
-import org.junit.Assert;
-import org.junit.Ignore;
+
 import org.junit.Test;
 
-/**
- * Model tests for AddAssetToExternalWalletRequestOneOf1AdditionalInfo
- */
+/** Model tests for AddAssetToExternalWalletRequestOneOf1AdditionalInfo */
 public class AddAssetToExternalWalletRequestOneOf1AdditionalInfoTest {
-    private final AddAssetToExternalWalletRequestOneOf1AdditionalInfo model = new AddAssetToExternalWalletRequestOneOf1AdditionalInfo();
+    private final AddAssetToExternalWalletRequestOneOf1AdditionalInfo model =
+            new AddAssetToExternalWalletRequestOneOf1AdditionalInfo();
 
-    /**
-     * Model tests for AddAssetToExternalWalletRequestOneOf1AdditionalInfo
-     */
+    /** Model tests for AddAssetToExternalWalletRequestOneOf1AdditionalInfo */
     @Test
     public void testAddAssetToExternalWalletRequestOneOf1AdditionalInfo() {
         // TODO: test AddAssetToExternalWalletRequestOneOf1AdditionalInfo
     }
 
-    /**
-     * Test the property 'accountHolderGivenName'
-     */
+    /** Test the property 'accountHolderGivenName' */
     @Test
     public void accountHolderGivenNameTest() {
         // TODO: test accountHolderGivenName
     }
 
-    /**
-     * Test the property 'accountHolderSurname'
-     */
+    /** Test the property 'accountHolderSurname' */
     @Test
     public void accountHolderSurnameTest() {
         // TODO: test accountHolderSurname
     }
 
-    /**
-     * Test the property 'accountHolderCity'
-     */
+    /** Test the property 'accountHolderCity' */
     @Test
     public void accountHolderCityTest() {
         // TODO: test accountHolderCity
     }
 
-    /**
-     * Test the property 'accountHolderCountry'
-     */
+    /** Test the property 'accountHolderCountry' */
     @Test
     public void accountHolderCountryTest() {
         // TODO: test accountHolderCountry
     }
 
-    /**
-     * Test the property 'accountHolderAddress1'
-     */
+    /** Test the property 'accountHolderAddress1' */
     @Test
     public void accountHolderAddress1Test() {
         // TODO: test accountHolderAddress1
     }
 
-    /**
-     * Test the property 'accountHolderAddress2'
-     */
+    /** Test the property 'accountHolderAddress2' */
     @Test
     public void accountHolderAddress2Test() {
         // TODO: test accountHolderAddress2
     }
 
-    /**
-     * Test the property 'accountHolderDistrict'
-     */
+    /** Test the property 'accountHolderDistrict' */
     @Test
     public void accountHolderDistrictTest() {
         // TODO: test accountHolderDistrict
     }
 
-    /**
-     * Test the property 'accountHolderPostalCode'
-     */
+    /** Test the property 'accountHolderPostalCode' */
     @Test
     public void accountHolderPostalCodeTest() {
         // TODO: test accountHolderPostalCode
     }
 
-    /**
-     * Test the property 'iban'
-     */
+    /** Test the property 'iban' */
     @Test
     public void ibanTest() {
         // TODO: test iban
     }
 
-    /**
-     * Test the property 'ibanCity'
-     */
+    /** Test the property 'ibanCity' */
     @Test
     public void ibanCityTest() {
         // TODO: test ibanCity
     }
 
-    /**
-     * Test the property 'ibanCountry'
-     */
+    /** Test the property 'ibanCountry' */
     @Test
     public void ibanCountryTest() {
         // TODO: test ibanCountry
     }
 
-    /**
-     * Test the property 'abaRoutingNumber'
-     */
+    /** Test the property 'abaRoutingNumber' */
     @Test
     public void abaRoutingNumberTest() {
         // TODO: test abaRoutingNumber
     }
 
-    /**
-     * Test the property 'abaAccountNumber'
-     */
+    /** Test the property 'abaAccountNumber' */
     @Test
     public void abaAccountNumberTest() {
         // TODO: test abaAccountNumber
     }
 
-    /**
-     * Test the property 'abaCountry'
-     */
+    /** Test the property 'abaCountry' */
     @Test
     public void abaCountryTest() {
         // TODO: test abaCountry
     }
 
-    /**
-     * Test the property 'speiClabe'
-     */
+    /** Test the property 'speiClabe' */
     @Test
     public void speiClabeTest() {
         // TODO: test speiClabe
     }
 
-    /**
-     * Test the property 'speiName'
-     */
+    /** Test the property 'speiName' */
     @Test
     public void speiNameTest() {
         // TODO: test speiName
     }
-
 }
