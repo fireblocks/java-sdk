@@ -10,203 +10,206 @@
  * Do not edit the class manually.
  */
 
-
 package com.fireblocks.sdk.model;
 
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
-import java.util.StringJoiner;
-import java.util.Objects;
-import java.util.Map;
-import java.util.HashMap;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonTypeName;
-import com.fasterxml.jackson.annotation.JsonValue;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+import java.util.StringJoiner;
 
-
-/**
- * Set of ids representing the users who signs transactions that match a specific rule
- */
+/** Set of ids representing the users who signs transactions that match a specific rule */
 @JsonPropertyOrder({
-  PolicyRuleDesignatedSigners.JSON_PROPERTY_USERS,
-  PolicyRuleDesignatedSigners.JSON_PROPERTY_USERS_GROUPS
+    PolicyRuleDesignatedSigners.JSON_PROPERTY_USERS,
+    PolicyRuleDesignatedSigners.JSON_PROPERTY_USERS_GROUPS
 })
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class PolicyRuleDesignatedSigners {
-  public static final String JSON_PROPERTY_USERS = "users";
-  private List<String> users;
+    public static final String JSON_PROPERTY_USERS = "users";
+    private List<String> users;
 
-  public static final String JSON_PROPERTY_USERS_GROUPS = "usersGroups";
-  private List<String> usersGroups;
+    public static final String JSON_PROPERTY_USERS_GROUPS = "usersGroups";
+    private List<String> usersGroups;
 
-  public PolicyRuleDesignatedSigners() { 
-  }
+    public PolicyRuleDesignatedSigners() {}
 
-  public PolicyRuleDesignatedSigners users(List<String> users) {
-    this.users = users;
-    return this;
-  }
-
-  public PolicyRuleDesignatedSigners addUsersItem(String usersItem) {
-    if (this.users == null) {
-      this.users = new ArrayList<>();
-    }
-    this.users.add(usersItem);
-    return this;
-  }
-
-   /**
-   * Set of users ids
-   * @return users
-  **/
-  @jakarta.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_USERS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public List<String> getUsers() {
-    return users;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_USERS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setUsers(List<String> users) {
-    this.users = users;
-  }
-
-
-  public PolicyRuleDesignatedSigners usersGroups(List<String> usersGroups) {
-    this.usersGroups = usersGroups;
-    return this;
-  }
-
-  public PolicyRuleDesignatedSigners addUsersGroupsItem(String usersGroupsItem) {
-    if (this.usersGroups == null) {
-      this.usersGroups = new ArrayList<>();
-    }
-    this.usersGroups.add(usersGroupsItem);
-    return this;
-  }
-
-   /**
-   * Set of group ids
-   * @return usersGroups
-  **/
-  @jakarta.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_USERS_GROUPS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public List<String> getUsersGroups() {
-    return usersGroups;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_USERS_GROUPS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setUsersGroups(List<String> usersGroups) {
-    this.usersGroups = usersGroups;
-  }
-
-
-  /**
-   * Return true if this PolicyRule_designatedSigners object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    PolicyRuleDesignatedSigners policyRuleDesignatedSigners = (PolicyRuleDesignatedSigners) o;
-    return Objects.equals(this.users, policyRuleDesignatedSigners.users) &&
-        Objects.equals(this.usersGroups, policyRuleDesignatedSigners.usersGroups);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(users, usersGroups);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class PolicyRuleDesignatedSigners {\n");
-    sb.append("    users: ").append(toIndentedString(users)).append("\n");
-    sb.append("    usersGroups: ").append(toIndentedString(usersGroups)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
-  }
-
-  /**
-   * Convert the instance into URL query string.
-   *
-   * @return URL query string
-   */
-  public String toUrlQueryString() {
-    return toUrlQueryString(null);
-  }
-
-  /**
-   * Convert the instance into URL query string.
-   *
-   * @param prefix prefix of the query string
-   * @return URL query string
-   */
-  public String toUrlQueryString(String prefix) {
-    String suffix = "";
-    String containerSuffix = "";
-    String containerPrefix = "";
-    if (prefix == null) {
-      // style=form, explode=true, e.g. /pet?name=cat&type=manx
-      prefix = "";
-    } else {
-      // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
-      prefix = prefix + "[";
-      suffix = "]";
-      containerSuffix = "]";
-      containerPrefix = "[";
+    public PolicyRuleDesignatedSigners users(List<String> users) {
+        this.users = users;
+        return this;
     }
 
-    StringJoiner joiner = new StringJoiner("&");
-
-    // add `users` to the URL query string
-    if (getUsers() != null) {
-      for (int i = 0; i < getUsers().size(); i++) {
-        joiner.add(String.format("%susers%s%s=%s", prefix, suffix,
-            "".equals(suffix) ? "" : String.format("%s%d%s", containerPrefix, i, containerSuffix),
-            URLEncoder.encode(String.valueOf(getUsers().get(i)), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
-      }
+    public PolicyRuleDesignatedSigners addUsersItem(String usersItem) {
+        if (this.users == null) {
+            this.users = new ArrayList<>();
+        }
+        this.users.add(usersItem);
+        return this;
     }
 
-    // add `usersGroups` to the URL query string
-    if (getUsersGroups() != null) {
-      for (int i = 0; i < getUsersGroups().size(); i++) {
-        joiner.add(String.format("%susersGroups%s%s=%s", prefix, suffix,
-            "".equals(suffix) ? "" : String.format("%s%d%s", containerPrefix, i, containerSuffix),
-            URLEncoder.encode(String.valueOf(getUsersGroups().get(i)), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
-      }
+    /**
+     * Set of users ids
+     *
+     * @return users
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_USERS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public List<String> getUsers() {
+        return users;
     }
 
-    return joiner.toString();
-  }
+    @JsonProperty(JSON_PROPERTY_USERS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setUsers(List<String> users) {
+        this.users = users;
+    }
+
+    public PolicyRuleDesignatedSigners usersGroups(List<String> usersGroups) {
+        this.usersGroups = usersGroups;
+        return this;
+    }
+
+    public PolicyRuleDesignatedSigners addUsersGroupsItem(String usersGroupsItem) {
+        if (this.usersGroups == null) {
+            this.usersGroups = new ArrayList<>();
+        }
+        this.usersGroups.add(usersGroupsItem);
+        return this;
+    }
+
+    /**
+     * Set of group ids
+     *
+     * @return usersGroups
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_USERS_GROUPS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public List<String> getUsersGroups() {
+        return usersGroups;
+    }
+
+    @JsonProperty(JSON_PROPERTY_USERS_GROUPS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setUsersGroups(List<String> usersGroups) {
+        this.usersGroups = usersGroups;
+    }
+
+    /** Return true if this PolicyRule_designatedSigners object is equal to o. */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        PolicyRuleDesignatedSigners policyRuleDesignatedSigners = (PolicyRuleDesignatedSigners) o;
+        return Objects.equals(this.users, policyRuleDesignatedSigners.users)
+                && Objects.equals(this.usersGroups, policyRuleDesignatedSigners.usersGroups);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(users, usersGroups);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class PolicyRuleDesignatedSigners {\n");
+        sb.append("    users: ").append(toIndentedString(users)).append("\n");
+        sb.append("    usersGroups: ").append(toIndentedString(usersGroups)).append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces (except the first
+     * line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
+
+    /**
+     * Convert the instance into URL query string.
+     *
+     * @return URL query string
+     */
+    public String toUrlQueryString() {
+        return toUrlQueryString(null);
+    }
+
+    /**
+     * Convert the instance into URL query string.
+     *
+     * @param prefix prefix of the query string
+     * @return URL query string
+     */
+    public String toUrlQueryString(String prefix) {
+        String suffix = "";
+        String containerSuffix = "";
+        String containerPrefix = "";
+        if (prefix == null) {
+            // style=form, explode=true, e.g. /pet?name=cat&type=manx
+            prefix = "";
+        } else {
+            // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
+            prefix = prefix + "[";
+            suffix = "]";
+            containerSuffix = "]";
+            containerPrefix = "[";
+        }
+
+        StringJoiner joiner = new StringJoiner("&");
+
+        // add `users` to the URL query string
+        if (getUsers() != null) {
+            for (int i = 0; i < getUsers().size(); i++) {
+                joiner.add(
+                        String.format(
+                                "%susers%s%s=%s",
+                                prefix,
+                                suffix,
+                                "".equals(suffix)
+                                        ? ""
+                                        : String.format(
+                                                "%s%d%s", containerPrefix, i, containerSuffix),
+                                URLEncoder.encode(
+                                                String.valueOf(getUsers().get(i)),
+                                                StandardCharsets.UTF_8)
+                                        .replaceAll("\\+", "%20")));
+            }
+        }
+
+        // add `usersGroups` to the URL query string
+        if (getUsersGroups() != null) {
+            for (int i = 0; i < getUsersGroups().size(); i++) {
+                joiner.add(
+                        String.format(
+                                "%susersGroups%s%s=%s",
+                                prefix,
+                                suffix,
+                                "".equals(suffix)
+                                        ? ""
+                                        : String.format(
+                                                "%s%d%s", containerPrefix, i, containerSuffix),
+                                URLEncoder.encode(
+                                                String.valueOf(getUsersGroups().get(i)),
+                                                StandardCharsets.UTF_8)
+                                        .replaceAll("\\+", "%20")));
+            }
+        }
+
+        return joiner.toString();
+    }
 }
-

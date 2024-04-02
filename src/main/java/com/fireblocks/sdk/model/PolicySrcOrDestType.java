@@ -10,81 +10,74 @@
  * Do not edit the class manually.
  */
 
-
 package com.fireblocks.sdk.model;
-
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
-import java.util.StringJoiner;
-import java.util.Objects;
-import java.util.Map;
-import java.util.HashMap;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 /**
- * * EXCHANGE - A third-party exchange account connected to your workspace * UNMANAGED - A unmanaged wallet outside of Fireblocks workspace * VAULT - An account in your Fireblocks Vault * NETWORK_CONNECTION - A connection in your Fireblocks network * COMPOUND - (deprecated) An asset retrieved by using the Compound DeFI protocol * FIAT_ACCOUNT - A third-party fiat account connected to your workspace * ONE_TIME_ADDRESS - A non-whitelisted asset from your Fireblocks Workspace * \&quot;*\&quot; - All types 
+ * * EXCHANGE - A third-party exchange account connected to your workspace * UNMANAGED - A unmanaged
+ * wallet outside of Fireblocks workspace * VAULT - An account in your Fireblocks Vault *
+ * NETWORK_CONNECTION - A connection in your Fireblocks network * COMPOUND - (deprecated) An asset
+ * retrieved by using the Compound DeFI protocol * FIAT_ACCOUNT - A third-party fiat account
+ * connected to your workspace * ONE_TIME_ADDRESS - A non-whitelisted asset from your Fireblocks
+ * Workspace * \&quot;*\&quot; - All types
  */
 public enum PolicySrcOrDestType {
-  
-  EXCHANGE("EXCHANGE"),
-  
-  UNMANAGED("UNMANAGED"),
-  
-  VAULT("VAULT"),
-  
-  NETWORK_CONNECTION("NETWORK_CONNECTION"),
-  
-  COMPOUND("COMPOUND"),
-  
-  FIAT_ACCOUNT("FIAT_ACCOUNT"),
-  
-  ONE_TIME_ADDRESS("ONE_TIME_ADDRESS"),
-  
-  STAR("*");
+    EXCHANGE("EXCHANGE"),
 
-  private String value;
+    UNMANAGED("UNMANAGED"),
 
-  PolicySrcOrDestType(String value) {
-    this.value = value;
-  }
+    VAULT("VAULT"),
 
-  @JsonValue
-  public String getValue() {
-    return value;
-  }
+    NETWORK_CONNECTION("NETWORK_CONNECTION"),
 
-  @Override
-  public String toString() {
-    return String.valueOf(value);
-  }
+    COMPOUND("COMPOUND"),
 
-  @JsonCreator
-  public static PolicySrcOrDestType fromValue(String value) {
-    for (PolicySrcOrDestType b : PolicySrcOrDestType.values()) {
-      if (b.value.equals(value)) {
-        return b;
-      }
-    }
-    throw new IllegalArgumentException("Unexpected value '" + value + "'");
-  }
+    FIAT_ACCOUNT("FIAT_ACCOUNT"),
 
-  /**
-   * Convert the instance into URL query string.
-   *
-   * @param prefix prefix of the query string
-   * @return URL query string
-   */
-  public String toUrlQueryString(String prefix) {
-    if (prefix == null) {
-      prefix = "";
+    ONE_TIME_ADDRESS("ONE_TIME_ADDRESS"),
+
+    STAR("*");
+
+    private String value;
+
+    PolicySrcOrDestType(String value) {
+        this.value = value;
     }
 
-    return String.format("%s=%s", prefix, this.toString());
-  }
+    @JsonValue
+    public String getValue() {
+        return value;
+    }
 
+    @Override
+    public String toString() {
+        return String.valueOf(value);
+    }
+
+    @JsonCreator
+    public static PolicySrcOrDestType fromValue(String value) {
+        for (PolicySrcOrDestType b : PolicySrcOrDestType.values()) {
+            if (b.value.equals(value)) {
+                return b;
+            }
+        }
+        throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
+
+    /**
+     * Convert the instance into URL query string.
+     *
+     * @param prefix prefix of the query string
+     * @return URL query string
+     */
+    public String toUrlQueryString(String prefix) {
+        if (prefix == null) {
+            prefix = "";
+        }
+
+        return String.format("%s=%s", prefix, this.toString());
+    }
 }
-

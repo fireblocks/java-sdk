@@ -10,88 +10,60 @@
  * Do not edit the class manually.
  */
 
-
 package com.fireblocks.sdk.model;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonTypeName;
-import com.fasterxml.jackson.annotation.JsonValue;
-import java.math.BigDecimal;
-import java.util.Arrays;
-import org.junit.Assert;
-import org.junit.Ignore;
+
 import org.junit.Test;
 
-/**
- * Model tests for Task
- */
+/** Model tests for Task */
 public class TaskTest {
     private final Task model = new Task();
 
-    /**
-     * Model tests for Task
-     */
+    /** Model tests for Task */
     @Test
     public void testTask() {
         // TODO: test Task
     }
 
-    /**
-     * Test the property 'id'
-     */
+    /** Test the property 'id' */
     @Test
     public void idTest() {
         // TODO: test id
     }
 
-    /**
-     * Test the property 'jobId'
-     */
+    /** Test the property 'jobId' */
     @Test
     public void jobIdTest() {
         // TODO: test jobId
     }
 
-    /**
-     * Test the property 'type'
-     */
+    /** Test the property 'type' */
     @Test
     public void typeTest() {
         // TODO: test type
     }
 
-    /**
-     * Test the property 'tenantId'
-     */
+    /** Test the property 'tenantId' */
     @Test
     public void tenantIdTest() {
         // TODO: test tenantId
     }
 
-    /**
-     * Test the property 'created'
-     */
+    /** Test the property 'created' */
     @Test
     public void createdTest() {
         // TODO: test created
     }
 
-    /**
-     * Test the property 'updated'
-     */
+    /** Test the property 'updated' */
     @Test
     public void updatedTest() {
         // TODO: test updated
     }
 
-    /**
-     * Test the property 'state'
-     */
+    /** Test the property 'state' */
     @Test
     public void stateTest() {
         // TODO: test state
     }
-
 }

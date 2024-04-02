@@ -4,7 +4,7 @@
 
 Defines the value a transaction must exceed for the rule to apply to it (according to the amountCurrency field)
 
-## oneOf schemas
+## anyOf schemas
 * [BigDecimal](BigDecimal.md)
 * [String](String.md)
 

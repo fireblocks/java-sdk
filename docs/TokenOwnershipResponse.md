@@ -13,8 +13,8 @@
 |**metadataURI** | **String** | URL of the original token JSON metadata |  [optional] |
 |**cachedMetadataURI** | **String** | URL of the cached token JSON metadata |  [optional] |
 |**media** | [**List&lt;MediaEntityResponse&gt;**](MediaEntityResponse.md) | Media items extracted from metadata JSON |  [optional] |
-|**spam** | [**SpamOwnershipResponse**](SpamOwnershipResponse.md) |  |  [optional] |
-|**collection** | [**TokenCollectionResponse**](TokenCollectionResponse.md) |  |  [optional] |
+|**spam** | [**SpamOwnershipResponse**](SpamOwnershipResponse.md) | Owned Token&#39;s Spam status |  [optional] |
+|**collection** | [**TokenCollectionResponse**](TokenCollectionResponse.md) | Parent collection information |  [optional] |
 |**balance** | **String** |  |  |
 |**vaultAccountId** | **String** |  |  [optional] |
 |**ownershipStartTime** | **BigDecimal** |  |  |

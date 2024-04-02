@@ -10,39 +10,24 @@
  * Do not edit the class manually.
  */
 
-
 package com.fireblocks.sdk.model;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonTypeName;
-import com.fasterxml.jackson.annotation.JsonValue;
-import java.util.Arrays;
-import org.junit.Assert;
-import org.junit.Ignore;
+
 import org.junit.Test;
 
-/**
- * Model tests for SmartTransferManuallyFundTerm
- */
+/** Model tests for SmartTransferManuallyFundTerm */
 public class SmartTransferManuallyFundTermTest {
     private final SmartTransferManuallyFundTerm model = new SmartTransferManuallyFundTerm();
 
-    /**
-     * Model tests for SmartTransferManuallyFundTerm
-     */
+    /** Model tests for SmartTransferManuallyFundTerm */
     @Test
     public void testSmartTransferManuallyFundTerm() {
         // TODO: test SmartTransferManuallyFundTerm
     }
 
-    /**
-     * Test the property 'txHash'
-     */
+    /** Test the property 'txHash' */
     @Test
     public void txHashTest() {
         // TODO: test txHash
     }
-
 }

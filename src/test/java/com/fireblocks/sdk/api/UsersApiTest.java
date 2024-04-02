@@ -10,46 +10,33 @@
  * Do not edit the class manually.
  */
 
-
 package com.fireblocks.sdk.api;
 
+
 import com.fireblocks.sdk.ApiException;
-import com.fireblocks.sdk.model.ErrorSchema;
-import com.fireblocks.sdk.model.GetUsersResponse;
-import org.junit.Test;
-import org.junit.Ignore;
-
-import java.util.ArrayList;
-import java.util.HashMap;
+import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.model.UserResponse;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import java.util.concurrent.CompletableFuture;
+import org.junit.Ignore;
+import org.junit.Test;
 
-/**
- * API tests for UsersApi
- */
+/** API tests for UsersApi */
 @Ignore
 public class UsersApiTest {
 
     private final UsersApi api = new UsersApi();
 
-    
     /**
      * List users
      *
-     * List all users for the workspace.  Please note that this endpoint is available only for API keys with Admin permissions. 
+     * <p>List all users for the workspace. Please note that this endpoint is available only for API
+     * keys with Admin permissions.
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
     public void getUsersTest() throws ApiException {
-        CompletableFuture<GetUsersResponse> response = 
-        api.getUsers();
-        
-        // TODO: test validations
+        CompletableFuture<ApiResponse<List<UserResponse>>> response = api.getUsers();
     }
-    
 }

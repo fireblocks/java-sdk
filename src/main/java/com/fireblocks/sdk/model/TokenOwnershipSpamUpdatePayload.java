@@ -10,177 +10,173 @@
  * Do not edit the class manually.
  */
 
-
 package com.fireblocks.sdk.model;
 
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
-import java.util.StringJoiner;
-import java.util.Objects;
-import java.util.Map;
-import java.util.HashMap;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonTypeName;
-import com.fasterxml.jackson.annotation.JsonValue;
-import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.Objects;
+import java.util.StringJoiner;
 
-
-/**
- * TokenOwnershipSpamUpdatePayload
- */
+/** TokenOwnershipSpamUpdatePayload */
 @JsonPropertyOrder({
-  TokenOwnershipSpamUpdatePayload.JSON_PROPERTY_ASSET_ID,
-  TokenOwnershipSpamUpdatePayload.JSON_PROPERTY_SPAM
+    TokenOwnershipSpamUpdatePayload.JSON_PROPERTY_ASSET_ID,
+    TokenOwnershipSpamUpdatePayload.JSON_PROPERTY_SPAM
 })
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class TokenOwnershipSpamUpdatePayload {
-  public static final String JSON_PROPERTY_ASSET_ID = "assetId";
-  private String assetId;
+    public static final String JSON_PROPERTY_ASSET_ID = "assetId";
+    private String assetId;
 
-  public static final String JSON_PROPERTY_SPAM = "spam";
-  private Boolean spam;
+    public static final String JSON_PROPERTY_SPAM = "spam";
+    private Boolean spam;
 
-  public TokenOwnershipSpamUpdatePayload() { 
-  }
+    public TokenOwnershipSpamUpdatePayload() {}
 
-  public TokenOwnershipSpamUpdatePayload assetId(String assetId) {
-    this.assetId = assetId;
-    return this;
-  }
-
-   /**
-   * Token&#39;s asset id
-   * @return assetId
-  **/
-  @jakarta.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_ASSET_ID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public String getAssetId() {
-    return assetId;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_ASSET_ID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setAssetId(String assetId) {
-    this.assetId = assetId;
-  }
-
-
-  public TokenOwnershipSpamUpdatePayload spam(Boolean spam) {
-    this.spam = spam;
-    return this;
-  }
-
-   /**
-   * Token&#39;s ownership new spam value
-   * @return spam
-  **/
-  @jakarta.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_SPAM)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public Boolean getSpam() {
-    return spam;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_SPAM)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setSpam(Boolean spam) {
-    this.spam = spam;
-  }
-
-
-  /**
-   * Return true if this TokenOwnershipSpamUpdatePayload object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    TokenOwnershipSpamUpdatePayload tokenOwnershipSpamUpdatePayload = (TokenOwnershipSpamUpdatePayload) o;
-    return Objects.equals(this.assetId, tokenOwnershipSpamUpdatePayload.assetId) &&
-        Objects.equals(this.spam, tokenOwnershipSpamUpdatePayload.spam);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(assetId, spam);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class TokenOwnershipSpamUpdatePayload {\n");
-    sb.append("    assetId: ").append(toIndentedString(assetId)).append("\n");
-    sb.append("    spam: ").append(toIndentedString(spam)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
-  }
-
-  /**
-   * Convert the instance into URL query string.
-   *
-   * @return URL query string
-   */
-  public String toUrlQueryString() {
-    return toUrlQueryString(null);
-  }
-
-  /**
-   * Convert the instance into URL query string.
-   *
-   * @param prefix prefix of the query string
-   * @return URL query string
-   */
-  public String toUrlQueryString(String prefix) {
-    String suffix = "";
-    String containerSuffix = "";
-    String containerPrefix = "";
-    if (prefix == null) {
-      // style=form, explode=true, e.g. /pet?name=cat&type=manx
-      prefix = "";
-    } else {
-      // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
-      prefix = prefix + "[";
-      suffix = "]";
-      containerSuffix = "]";
-      containerPrefix = "[";
+    public TokenOwnershipSpamUpdatePayload assetId(String assetId) {
+        this.assetId = assetId;
+        return this;
     }
 
-    StringJoiner joiner = new StringJoiner("&");
-
-    // add `assetId` to the URL query string
-    if (getAssetId() != null) {
-      joiner.add(String.format("%sassetId%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getAssetId()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    /**
+     * Token&#39;s asset id
+     *
+     * @return assetId
+     */
+    @jakarta.annotation.Nonnull
+    @JsonProperty(JSON_PROPERTY_ASSET_ID)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public String getAssetId() {
+        return assetId;
     }
 
-    // add `spam` to the URL query string
-    if (getSpam() != null) {
-      joiner.add(String.format("%sspam%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getSpam()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    @JsonProperty(JSON_PROPERTY_ASSET_ID)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setAssetId(String assetId) {
+        this.assetId = assetId;
     }
 
-    return joiner.toString();
-  }
+    public TokenOwnershipSpamUpdatePayload spam(Boolean spam) {
+        this.spam = spam;
+        return this;
+    }
+
+    /**
+     * Token&#39;s ownership new spam value
+     *
+     * @return spam
+     */
+    @jakarta.annotation.Nonnull
+    @JsonProperty(JSON_PROPERTY_SPAM)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public Boolean getSpam() {
+        return spam;
+    }
+
+    @JsonProperty(JSON_PROPERTY_SPAM)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setSpam(Boolean spam) {
+        this.spam = spam;
+    }
+
+    /** Return true if this TokenOwnershipSpamUpdatePayload object is equal to o. */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        TokenOwnershipSpamUpdatePayload tokenOwnershipSpamUpdatePayload =
+                (TokenOwnershipSpamUpdatePayload) o;
+        return Objects.equals(this.assetId, tokenOwnershipSpamUpdatePayload.assetId)
+                && Objects.equals(this.spam, tokenOwnershipSpamUpdatePayload.spam);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(assetId, spam);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class TokenOwnershipSpamUpdatePayload {\n");
+        sb.append("    assetId: ").append(toIndentedString(assetId)).append("\n");
+        sb.append("    spam: ").append(toIndentedString(spam)).append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces (except the first
+     * line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
+
+    /**
+     * Convert the instance into URL query string.
+     *
+     * @return URL query string
+     */
+    public String toUrlQueryString() {
+        return toUrlQueryString(null);
+    }
+
+    /**
+     * Convert the instance into URL query string.
+     *
+     * @param prefix prefix of the query string
+     * @return URL query string
+     */
+    public String toUrlQueryString(String prefix) {
+        String suffix = "";
+        String containerSuffix = "";
+        String containerPrefix = "";
+        if (prefix == null) {
+            // style=form, explode=true, e.g. /pet?name=cat&type=manx
+            prefix = "";
+        } else {
+            // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
+            prefix = prefix + "[";
+            suffix = "]";
+            containerSuffix = "]";
+            containerPrefix = "[";
+        }
+
+        StringJoiner joiner = new StringJoiner("&");
+
+        // add `assetId` to the URL query string
+        if (getAssetId() != null) {
+            joiner.add(
+                    String.format(
+                            "%sassetId%s=%s",
+                            prefix,
+                            suffix,
+                            URLEncoder.encode(String.valueOf(getAssetId()), StandardCharsets.UTF_8)
+                                    .replaceAll("\\+", "%20")));
+        }
+
+        // add `spam` to the URL query string
+        if (getSpam() != null) {
+            joiner.add(
+                    String.format(
+                            "%sspam%s=%s",
+                            prefix,
+                            suffix,
+                            URLEncoder.encode(String.valueOf(getSpam()), StandardCharsets.UTF_8)
+                                    .replaceAll("\\+", "%20")));
+        }
+
+        return joiner.toString();
+    }
 }
-

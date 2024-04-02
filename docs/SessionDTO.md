@@ -9,7 +9,7 @@
 |------------ | ------------- | ------------- | -------------|
 |**id** | **String** | Id of the connection |  |
 |**userId** | **String** | Id of the user that created the connection |  |
-|**sessionMetadata** | [**SessionMetadata**](SessionMetadata.md) |  |  |
+|**sessionMetadata** | [**SessionMetadata**](SessionMetadata.md) | Metadata of the connection (provided by the dapp) |  |
 |**vaultAccountId** | **BigDecimal** | The vault to connect |  |
 |**feeLevel** | [**FeeLevelEnum**](#FeeLevelEnum) | The default fee level |  |
 |**chainIds** | **List&lt;String&gt;** | The chains approved for the connection |  |

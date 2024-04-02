@@ -10,299 +10,309 @@
  * Do not edit the class manually.
  */
 
-
 package com.fireblocks.sdk.model;
 
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
-import java.util.StringJoiner;
-import java.util.Objects;
-import java.util.Map;
-import java.util.HashMap;
+
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.math.BigDecimal;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import java.util.Objects;
+import java.util.StringJoiner;
 
-
-/**
- * CreateConnectionRequest
- */
+/** CreateConnectionRequest */
 @JsonPropertyOrder({
-  CreateConnectionRequest.JSON_PROPERTY_VAULT_ACCOUNT_ID,
-  CreateConnectionRequest.JSON_PROPERTY_FEE_LEVEL,
-  CreateConnectionRequest.JSON_PROPERTY_URI,
-  CreateConnectionRequest.JSON_PROPERTY_CHAIN_IDS
+    CreateConnectionRequest.JSON_PROPERTY_VAULT_ACCOUNT_ID,
+    CreateConnectionRequest.JSON_PROPERTY_FEE_LEVEL,
+    CreateConnectionRequest.JSON_PROPERTY_URI,
+    CreateConnectionRequest.JSON_PROPERTY_CHAIN_IDS
 })
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class CreateConnectionRequest {
-  public static final String JSON_PROPERTY_VAULT_ACCOUNT_ID = "vaultAccountId";
-  private BigDecimal vaultAccountId;
+    public static final String JSON_PROPERTY_VAULT_ACCOUNT_ID = "vaultAccountId";
+    private BigDecimal vaultAccountId;
 
-  /**
-   * The default fee level. Valid values are &#x60;MEDIUM&#x60; and &#x60;HIGH&#x60;.
-   */
-  public enum FeeLevelEnum {
-    MEDIUM("MEDIUM"),
-    
-    HIGH("HIGH");
+    /** The default fee level. Valid values are &#x60;MEDIUM&#x60; and &#x60;HIGH&#x60;. */
+    public enum FeeLevelEnum {
+        MEDIUM("MEDIUM"),
 
-    private String value;
+        HIGH("HIGH");
 
-    FeeLevelEnum(String value) {
-      this.value = value;
+        private String value;
+
+        FeeLevelEnum(String value) {
+            this.value = value;
+        }
+
+        @JsonValue
+        public String getValue() {
+            return value;
+        }
+
+        @Override
+        public String toString() {
+            return String.valueOf(value);
+        }
+
+        @JsonCreator
+        public static FeeLevelEnum fromValue(String value) {
+            for (FeeLevelEnum b : FeeLevelEnum.values()) {
+                if (b.value.equals(value)) {
+                    return b;
+                }
+            }
+            throw new IllegalArgumentException("Unexpected value '" + value + "'");
+        }
     }
 
-    @JsonValue
-    public String getValue() {
-      return value;
+    public static final String JSON_PROPERTY_FEE_LEVEL = "feeLevel";
+    private FeeLevelEnum feeLevel;
+
+    public static final String JSON_PROPERTY_URI = "uri";
+    private String uri;
+
+    public static final String JSON_PROPERTY_CHAIN_IDS = "chainIds";
+    private List<String> chainIds;
+
+    public CreateConnectionRequest() {}
+
+    public CreateConnectionRequest vaultAccountId(BigDecimal vaultAccountId) {
+        this.vaultAccountId = vaultAccountId;
+        return this;
+    }
+
+    /**
+     * The ID of the vault to connect to the dApp.
+     *
+     * @return vaultAccountId
+     */
+    @jakarta.annotation.Nonnull
+    @JsonProperty(JSON_PROPERTY_VAULT_ACCOUNT_ID)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public BigDecimal getVaultAccountId() {
+        return vaultAccountId;
+    }
+
+    @JsonProperty(JSON_PROPERTY_VAULT_ACCOUNT_ID)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setVaultAccountId(BigDecimal vaultAccountId) {
+        this.vaultAccountId = vaultAccountId;
+    }
+
+    public CreateConnectionRequest feeLevel(FeeLevelEnum feeLevel) {
+        this.feeLevel = feeLevel;
+        return this;
+    }
+
+    /**
+     * The default fee level. Valid values are &#x60;MEDIUM&#x60; and &#x60;HIGH&#x60;.
+     *
+     * @return feeLevel
+     */
+    @jakarta.annotation.Nonnull
+    @JsonProperty(JSON_PROPERTY_FEE_LEVEL)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public FeeLevelEnum getFeeLevel() {
+        return feeLevel;
+    }
+
+    @JsonProperty(JSON_PROPERTY_FEE_LEVEL)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setFeeLevel(FeeLevelEnum feeLevel) {
+        this.feeLevel = feeLevel;
+    }
+
+    public CreateConnectionRequest uri(String uri) {
+        this.uri = uri;
+        return this;
+    }
+
+    /**
+     * The WalletConnect uri provided by the dapp.
+     *
+     * @return uri
+     */
+    @jakarta.annotation.Nonnull
+    @JsonProperty(JSON_PROPERTY_URI)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public String getUri() {
+        return uri;
+    }
+
+    @JsonProperty(JSON_PROPERTY_URI)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setUri(String uri) {
+        this.uri = uri;
+    }
+
+    public CreateConnectionRequest chainIds(List<String> chainIds) {
+        this.chainIds = chainIds;
+        return this;
+    }
+
+    public CreateConnectionRequest addChainIdsItem(String chainIdsItem) {
+        if (this.chainIds == null) {
+            this.chainIds = new ArrayList<>();
+        }
+        this.chainIds.add(chainIdsItem);
+        return this;
+    }
+
+    /**
+     * The IDs of the blockchain networks used in the Web3 connection (Currently required in V1
+     * connections only).
+     *
+     * @return chainIds
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_CHAIN_IDS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public List<String> getChainIds() {
+        return chainIds;
+    }
+
+    @JsonProperty(JSON_PROPERTY_CHAIN_IDS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setChainIds(List<String> chainIds) {
+        this.chainIds = chainIds;
+    }
+
+    /** Return true if this CreateConnectionRequest object is equal to o. */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        CreateConnectionRequest createConnectionRequest = (CreateConnectionRequest) o;
+        return Objects.equals(this.vaultAccountId, createConnectionRequest.vaultAccountId)
+                && Objects.equals(this.feeLevel, createConnectionRequest.feeLevel)
+                && Objects.equals(this.uri, createConnectionRequest.uri)
+                && Objects.equals(this.chainIds, createConnectionRequest.chainIds);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(vaultAccountId, feeLevel, uri, chainIds);
     }
 
     @Override
     public String toString() {
-      return String.valueOf(value);
+        StringBuilder sb = new StringBuilder();
+        sb.append("class CreateConnectionRequest {\n");
+        sb.append("    vaultAccountId: ").append(toIndentedString(vaultAccountId)).append("\n");
+        sb.append("    feeLevel: ").append(toIndentedString(feeLevel)).append("\n");
+        sb.append("    uri: ").append(toIndentedString(uri)).append("\n");
+        sb.append("    chainIds: ").append(toIndentedString(chainIds)).append("\n");
+        sb.append("}");
+        return sb.toString();
     }
 
-    @JsonCreator
-    public static FeeLevelEnum fromValue(String value) {
-      for (FeeLevelEnum b : FeeLevelEnum.values()) {
-        if (b.value.equals(value)) {
-          return b;
+    /**
+     * Convert the given object to string with each line indented by 4 spaces (except the first
+     * line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
         }
-      }
-      throw new IllegalArgumentException("Unexpected value '" + value + "'");
-    }
-  }
-
-  public static final String JSON_PROPERTY_FEE_LEVEL = "feeLevel";
-  private FeeLevelEnum feeLevel;
-
-  public static final String JSON_PROPERTY_URI = "uri";
-  private String uri;
-
-  public static final String JSON_PROPERTY_CHAIN_IDS = "chainIds";
-  private List<String> chainIds;
-
-  public CreateConnectionRequest() { 
-  }
-
-  public CreateConnectionRequest vaultAccountId(BigDecimal vaultAccountId) {
-    this.vaultAccountId = vaultAccountId;
-    return this;
-  }
-
-   /**
-   * The ID of the vault to connect to the dApp.
-   * @return vaultAccountId
-  **/
-  @jakarta.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_VAULT_ACCOUNT_ID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public BigDecimal getVaultAccountId() {
-    return vaultAccountId;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_VAULT_ACCOUNT_ID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setVaultAccountId(BigDecimal vaultAccountId) {
-    this.vaultAccountId = vaultAccountId;
-  }
-
-
-  public CreateConnectionRequest feeLevel(FeeLevelEnum feeLevel) {
-    this.feeLevel = feeLevel;
-    return this;
-  }
-
-   /**
-   * The default fee level. Valid values are &#x60;MEDIUM&#x60; and &#x60;HIGH&#x60;.
-   * @return feeLevel
-  **/
-  @jakarta.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_FEE_LEVEL)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public FeeLevelEnum getFeeLevel() {
-    return feeLevel;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_FEE_LEVEL)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setFeeLevel(FeeLevelEnum feeLevel) {
-    this.feeLevel = feeLevel;
-  }
-
-
-  public CreateConnectionRequest uri(String uri) {
-    this.uri = uri;
-    return this;
-  }
-
-   /**
-   * The WalletConnect uri provided by the dapp.
-   * @return uri
-  **/
-  @jakarta.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_URI)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public String getUri() {
-    return uri;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_URI)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setUri(String uri) {
-    this.uri = uri;
-  }
-
-
-  public CreateConnectionRequest chainIds(List<String> chainIds) {
-    this.chainIds = chainIds;
-    return this;
-  }
-
-  public CreateConnectionRequest addChainIdsItem(String chainIdsItem) {
-    if (this.chainIds == null) {
-      this.chainIds = new ArrayList<>();
-    }
-    this.chainIds.add(chainIdsItem);
-    return this;
-  }
-
-   /**
-   * The IDs of the blockchain networks used in the Web3 connection (Currently required in V1 connections only).
-   * @return chainIds
-  **/
-  @jakarta.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_CHAIN_IDS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public List<String> getChainIds() {
-    return chainIds;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_CHAIN_IDS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setChainIds(List<String> chainIds) {
-    this.chainIds = chainIds;
-  }
-
-
-  /**
-   * Return true if this CreateConnectionRequest object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    CreateConnectionRequest createConnectionRequest = (CreateConnectionRequest) o;
-    return Objects.equals(this.vaultAccountId, createConnectionRequest.vaultAccountId) &&
-        Objects.equals(this.feeLevel, createConnectionRequest.feeLevel) &&
-        Objects.equals(this.uri, createConnectionRequest.uri) &&
-        Objects.equals(this.chainIds, createConnectionRequest.chainIds);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(vaultAccountId, feeLevel, uri, chainIds);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class CreateConnectionRequest {\n");
-    sb.append("    vaultAccountId: ").append(toIndentedString(vaultAccountId)).append("\n");
-    sb.append("    feeLevel: ").append(toIndentedString(feeLevel)).append("\n");
-    sb.append("    uri: ").append(toIndentedString(uri)).append("\n");
-    sb.append("    chainIds: ").append(toIndentedString(chainIds)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
-  }
-
-  /**
-   * Convert the instance into URL query string.
-   *
-   * @return URL query string
-   */
-  public String toUrlQueryString() {
-    return toUrlQueryString(null);
-  }
-
-  /**
-   * Convert the instance into URL query string.
-   *
-   * @param prefix prefix of the query string
-   * @return URL query string
-   */
-  public String toUrlQueryString(String prefix) {
-    String suffix = "";
-    String containerSuffix = "";
-    String containerPrefix = "";
-    if (prefix == null) {
-      // style=form, explode=true, e.g. /pet?name=cat&type=manx
-      prefix = "";
-    } else {
-      // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
-      prefix = prefix + "[";
-      suffix = "]";
-      containerSuffix = "]";
-      containerPrefix = "[";
+        return o.toString().replace("\n", "\n    ");
     }
 
-    StringJoiner joiner = new StringJoiner("&");
-
-    // add `vaultAccountId` to the URL query string
-    if (getVaultAccountId() != null) {
-      joiner.add(String.format("%svaultAccountId%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getVaultAccountId()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    /**
+     * Convert the instance into URL query string.
+     *
+     * @return URL query string
+     */
+    public String toUrlQueryString() {
+        return toUrlQueryString(null);
     }
 
-    // add `feeLevel` to the URL query string
-    if (getFeeLevel() != null) {
-      joiner.add(String.format("%sfeeLevel%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getFeeLevel()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
-    }
+    /**
+     * Convert the instance into URL query string.
+     *
+     * @param prefix prefix of the query string
+     * @return URL query string
+     */
+    public String toUrlQueryString(String prefix) {
+        String suffix = "";
+        String containerSuffix = "";
+        String containerPrefix = "";
+        if (prefix == null) {
+            // style=form, explode=true, e.g. /pet?name=cat&type=manx
+            prefix = "";
+        } else {
+            // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
+            prefix = prefix + "[";
+            suffix = "]";
+            containerSuffix = "]";
+            containerPrefix = "[";
+        }
 
-    // add `uri` to the URL query string
-    if (getUri() != null) {
-      joiner.add(String.format("%suri%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getUri()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
-    }
+        StringJoiner joiner = new StringJoiner("&");
 
-    // add `chainIds` to the URL query string
-    if (getChainIds() != null) {
-      for (int i = 0; i < getChainIds().size(); i++) {
-        joiner.add(String.format("%schainIds%s%s=%s", prefix, suffix,
-            "".equals(suffix) ? "" : String.format("%s%d%s", containerPrefix, i, containerSuffix),
-            URLEncoder.encode(String.valueOf(getChainIds().get(i)), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
-      }
-    }
+        // add `vaultAccountId` to the URL query string
+        if (getVaultAccountId() != null) {
+            joiner.add(
+                    String.format(
+                            "%svaultAccountId%s=%s",
+                            prefix,
+                            suffix,
+                            URLEncoder.encode(
+                                            String.valueOf(getVaultAccountId()),
+                                            StandardCharsets.UTF_8)
+                                    .replaceAll("\\+", "%20")));
+        }
 
-    return joiner.toString();
-  }
+        // add `feeLevel` to the URL query string
+        if (getFeeLevel() != null) {
+            joiner.add(
+                    String.format(
+                            "%sfeeLevel%s=%s",
+                            prefix,
+                            suffix,
+                            URLEncoder.encode(String.valueOf(getFeeLevel()), StandardCharsets.UTF_8)
+                                    .replaceAll("\\+", "%20")));
+        }
+
+        // add `uri` to the URL query string
+        if (getUri() != null) {
+            joiner.add(
+                    String.format(
+                            "%suri%s=%s",
+                            prefix,
+                            suffix,
+                            URLEncoder.encode(String.valueOf(getUri()), StandardCharsets.UTF_8)
+                                    .replaceAll("\\+", "%20")));
+        }
+
+        // add `chainIds` to the URL query string
+        if (getChainIds() != null) {
+            for (int i = 0; i < getChainIds().size(); i++) {
+                joiner.add(
+                        String.format(
+                                "%schainIds%s%s=%s",
+                                prefix,
+                                suffix,
+                                "".equals(suffix)
+                                        ? ""
+                                        : String.format(
+                                                "%s%d%s", containerPrefix, i, containerSuffix),
+                                URLEncoder.encode(
+                                                String.valueOf(getChainIds().get(i)),
+                                                StandardCharsets.UTF_8)
+                                        .replaceAll("\\+", "%20")));
+            }
+        }
+
+        return joiner.toString();
+    }
 }
-

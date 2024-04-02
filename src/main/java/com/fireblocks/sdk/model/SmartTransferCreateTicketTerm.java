@@ -10,250 +10,258 @@
  * Do not edit the class manually.
  */
 
-
 package com.fireblocks.sdk.model;
 
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
-import java.util.StringJoiner;
-import java.util.Objects;
-import java.util.Map;
-import java.util.HashMap;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonTypeName;
-import com.fasterxml.jackson.annotation.JsonValue;
-import java.math.BigDecimal;
-import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import java.math.BigDecimal;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.Objects;
+import java.util.StringJoiner;
 
-
-/**
- * SmartTransferCreateTicketTerm
- */
+/** SmartTransferCreateTicketTerm */
 @JsonPropertyOrder({
-  SmartTransferCreateTicketTerm.JSON_PROPERTY_ASSET,
-  SmartTransferCreateTicketTerm.JSON_PROPERTY_AMOUNT,
-  SmartTransferCreateTicketTerm.JSON_PROPERTY_FROM_NETWORK_ID,
-  SmartTransferCreateTicketTerm.JSON_PROPERTY_TO_NETWORK_ID
+    SmartTransferCreateTicketTerm.JSON_PROPERTY_ASSET,
+    SmartTransferCreateTicketTerm.JSON_PROPERTY_AMOUNT,
+    SmartTransferCreateTicketTerm.JSON_PROPERTY_FROM_NETWORK_ID,
+    SmartTransferCreateTicketTerm.JSON_PROPERTY_TO_NETWORK_ID
 })
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class SmartTransferCreateTicketTerm {
-  public static final String JSON_PROPERTY_ASSET = "asset";
-  private String asset;
+    public static final String JSON_PROPERTY_ASSET = "asset";
+    private String asset;
 
-  public static final String JSON_PROPERTY_AMOUNT = "amount";
-  private BigDecimal amount;
+    public static final String JSON_PROPERTY_AMOUNT = "amount";
+    private BigDecimal amount;
 
-  public static final String JSON_PROPERTY_FROM_NETWORK_ID = "fromNetworkId";
-  private String fromNetworkId;
+    public static final String JSON_PROPERTY_FROM_NETWORK_ID = "fromNetworkId";
+    private String fromNetworkId;
 
-  public static final String JSON_PROPERTY_TO_NETWORK_ID = "toNetworkId";
-  private String toNetworkId;
+    public static final String JSON_PROPERTY_TO_NETWORK_ID = "toNetworkId";
+    private String toNetworkId;
 
-  public SmartTransferCreateTicketTerm() { 
-  }
+    public SmartTransferCreateTicketTerm() {}
 
-  public SmartTransferCreateTicketTerm asset(String asset) {
-    this.asset = asset;
-    return this;
-  }
-
-   /**
-   * Asset name
-   * @return asset
-  **/
-  @jakarta.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_ASSET)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public String getAsset() {
-    return asset;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_ASSET)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setAsset(String asset) {
-    this.asset = asset;
-  }
-
-
-  public SmartTransferCreateTicketTerm amount(BigDecimal amount) {
-    this.amount = amount;
-    return this;
-  }
-
-   /**
-   * Amount
-   * @return amount
-  **/
-  @jakarta.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_AMOUNT)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public BigDecimal getAmount() {
-    return amount;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_AMOUNT)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setAmount(BigDecimal amount) {
-    this.amount = amount;
-  }
-
-
-  public SmartTransferCreateTicketTerm fromNetworkId(String fromNetworkId) {
-    this.fromNetworkId = fromNetworkId;
-    return this;
-  }
-
-   /**
-   * Identifier of the origination Network Profile
-   * @return fromNetworkId
-  **/
-  @jakarta.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_FROM_NETWORK_ID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public String getFromNetworkId() {
-    return fromNetworkId;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_FROM_NETWORK_ID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setFromNetworkId(String fromNetworkId) {
-    this.fromNetworkId = fromNetworkId;
-  }
-
-
-  public SmartTransferCreateTicketTerm toNetworkId(String toNetworkId) {
-    this.toNetworkId = toNetworkId;
-    return this;
-  }
-
-   /**
-   * Identifier of the destination Network Profile
-   * @return toNetworkId
-  **/
-  @jakarta.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_TO_NETWORK_ID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public String getToNetworkId() {
-    return toNetworkId;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_TO_NETWORK_ID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setToNetworkId(String toNetworkId) {
-    this.toNetworkId = toNetworkId;
-  }
-
-
-  /**
-   * Return true if this SmartTransferCreateTicketTerm object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    SmartTransferCreateTicketTerm smartTransferCreateTicketTerm = (SmartTransferCreateTicketTerm) o;
-    return Objects.equals(this.asset, smartTransferCreateTicketTerm.asset) &&
-        Objects.equals(this.amount, smartTransferCreateTicketTerm.amount) &&
-        Objects.equals(this.fromNetworkId, smartTransferCreateTicketTerm.fromNetworkId) &&
-        Objects.equals(this.toNetworkId, smartTransferCreateTicketTerm.toNetworkId);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(asset, amount, fromNetworkId, toNetworkId);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class SmartTransferCreateTicketTerm {\n");
-    sb.append("    asset: ").append(toIndentedString(asset)).append("\n");
-    sb.append("    amount: ").append(toIndentedString(amount)).append("\n");
-    sb.append("    fromNetworkId: ").append(toIndentedString(fromNetworkId)).append("\n");
-    sb.append("    toNetworkId: ").append(toIndentedString(toNetworkId)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
-  }
-
-  /**
-   * Convert the instance into URL query string.
-   *
-   * @return URL query string
-   */
-  public String toUrlQueryString() {
-    return toUrlQueryString(null);
-  }
-
-  /**
-   * Convert the instance into URL query string.
-   *
-   * @param prefix prefix of the query string
-   * @return URL query string
-   */
-  public String toUrlQueryString(String prefix) {
-    String suffix = "";
-    String containerSuffix = "";
-    String containerPrefix = "";
-    if (prefix == null) {
-      // style=form, explode=true, e.g. /pet?name=cat&type=manx
-      prefix = "";
-    } else {
-      // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
-      prefix = prefix + "[";
-      suffix = "]";
-      containerSuffix = "]";
-      containerPrefix = "[";
+    public SmartTransferCreateTicketTerm asset(String asset) {
+        this.asset = asset;
+        return this;
     }
 
-    StringJoiner joiner = new StringJoiner("&");
-
-    // add `asset` to the URL query string
-    if (getAsset() != null) {
-      joiner.add(String.format("%sasset%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getAsset()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    /**
+     * Asset name
+     *
+     * @return asset
+     */
+    @jakarta.annotation.Nonnull
+    @JsonProperty(JSON_PROPERTY_ASSET)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public String getAsset() {
+        return asset;
     }
 
-    // add `amount` to the URL query string
-    if (getAmount() != null) {
-      joiner.add(String.format("%samount%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getAmount()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    @JsonProperty(JSON_PROPERTY_ASSET)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setAsset(String asset) {
+        this.asset = asset;
     }
 
-    // add `fromNetworkId` to the URL query string
-    if (getFromNetworkId() != null) {
-      joiner.add(String.format("%sfromNetworkId%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getFromNetworkId()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    public SmartTransferCreateTicketTerm amount(BigDecimal amount) {
+        this.amount = amount;
+        return this;
     }
 
-    // add `toNetworkId` to the URL query string
-    if (getToNetworkId() != null) {
-      joiner.add(String.format("%stoNetworkId%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getToNetworkId()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    /**
+     * Amount
+     *
+     * @return amount
+     */
+    @jakarta.annotation.Nonnull
+    @JsonProperty(JSON_PROPERTY_AMOUNT)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public BigDecimal getAmount() {
+        return amount;
     }
 
-    return joiner.toString();
-  }
+    @JsonProperty(JSON_PROPERTY_AMOUNT)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setAmount(BigDecimal amount) {
+        this.amount = amount;
+    }
+
+    public SmartTransferCreateTicketTerm fromNetworkId(String fromNetworkId) {
+        this.fromNetworkId = fromNetworkId;
+        return this;
+    }
+
+    /**
+     * Identifier of the origination Network Profile
+     *
+     * @return fromNetworkId
+     */
+    @jakarta.annotation.Nonnull
+    @JsonProperty(JSON_PROPERTY_FROM_NETWORK_ID)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public String getFromNetworkId() {
+        return fromNetworkId;
+    }
+
+    @JsonProperty(JSON_PROPERTY_FROM_NETWORK_ID)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setFromNetworkId(String fromNetworkId) {
+        this.fromNetworkId = fromNetworkId;
+    }
+
+    public SmartTransferCreateTicketTerm toNetworkId(String toNetworkId) {
+        this.toNetworkId = toNetworkId;
+        return this;
+    }
+
+    /**
+     * Identifier of the destination Network Profile
+     *
+     * @return toNetworkId
+     */
+    @jakarta.annotation.Nonnull
+    @JsonProperty(JSON_PROPERTY_TO_NETWORK_ID)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public String getToNetworkId() {
+        return toNetworkId;
+    }
+
+    @JsonProperty(JSON_PROPERTY_TO_NETWORK_ID)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setToNetworkId(String toNetworkId) {
+        this.toNetworkId = toNetworkId;
+    }
+
+    /** Return true if this SmartTransferCreateTicketTerm object is equal to o. */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        SmartTransferCreateTicketTerm smartTransferCreateTicketTerm =
+                (SmartTransferCreateTicketTerm) o;
+        return Objects.equals(this.asset, smartTransferCreateTicketTerm.asset)
+                && Objects.equals(this.amount, smartTransferCreateTicketTerm.amount)
+                && Objects.equals(this.fromNetworkId, smartTransferCreateTicketTerm.fromNetworkId)
+                && Objects.equals(this.toNetworkId, smartTransferCreateTicketTerm.toNetworkId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(asset, amount, fromNetworkId, toNetworkId);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class SmartTransferCreateTicketTerm {\n");
+        sb.append("    asset: ").append(toIndentedString(asset)).append("\n");
+        sb.append("    amount: ").append(toIndentedString(amount)).append("\n");
+        sb.append("    fromNetworkId: ").append(toIndentedString(fromNetworkId)).append("\n");
+        sb.append("    toNetworkId: ").append(toIndentedString(toNetworkId)).append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces (except the first
+     * line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
+
+    /**
+     * Convert the instance into URL query string.
+     *
+     * @return URL query string
+     */
+    public String toUrlQueryString() {
+        return toUrlQueryString(null);
+    }
+
+    /**
+     * Convert the instance into URL query string.
+     *
+     * @param prefix prefix of the query string
+     * @return URL query string
+     */
+    public String toUrlQueryString(String prefix) {
+        String suffix = "";
+        String containerSuffix = "";
+        String containerPrefix = "";
+        if (prefix == null) {
+            // style=form, explode=true, e.g. /pet?name=cat&type=manx
+            prefix = "";
+        } else {
+            // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
+            prefix = prefix + "[";
+            suffix = "]";
+            containerSuffix = "]";
+            containerPrefix = "[";
+        }
+
+        StringJoiner joiner = new StringJoiner("&");
+
+        // add `asset` to the URL query string
+        if (getAsset() != null) {
+            joiner.add(
+                    String.format(
+                            "%sasset%s=%s",
+                            prefix,
+                            suffix,
+                            URLEncoder.encode(String.valueOf(getAsset()), StandardCharsets.UTF_8)
+                                    .replaceAll("\\+", "%20")));
+        }
+
+        // add `amount` to the URL query string
+        if (getAmount() != null) {
+            joiner.add(
+                    String.format(
+                            "%samount%s=%s",
+                            prefix,
+                            suffix,
+                            URLEncoder.encode(String.valueOf(getAmount()), StandardCharsets.UTF_8)
+                                    .replaceAll("\\+", "%20")));
+        }
+
+        // add `fromNetworkId` to the URL query string
+        if (getFromNetworkId() != null) {
+            joiner.add(
+                    String.format(
+                            "%sfromNetworkId%s=%s",
+                            prefix,
+                            suffix,
+                            URLEncoder.encode(
+                                            String.valueOf(getFromNetworkId()),
+                                            StandardCharsets.UTF_8)
+                                    .replaceAll("\\+", "%20")));
+        }
+
+        // add `toNetworkId` to the URL query string
+        if (getToNetworkId() != null) {
+            joiner.add(
+                    String.format(
+                            "%stoNetworkId%s=%s",
+                            prefix,
+                            suffix,
+                            URLEncoder.encode(
+                                            String.valueOf(getToNetworkId()),
+                                            StandardCharsets.UTF_8)
+                                    .replaceAll("\\+", "%20")));
+        }
+
+        return joiner.toString();
+    }
 }
-

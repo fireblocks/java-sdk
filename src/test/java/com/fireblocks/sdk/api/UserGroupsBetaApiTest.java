@@ -10,121 +10,104 @@
  * Do not edit the class manually.
  */
 
-
 package com.fireblocks.sdk.api;
 
+
 import com.fireblocks.sdk.ApiException;
+import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.model.CreateUserGroupResponse;
-import com.fireblocks.sdk.model.ErrorSchema;
 import com.fireblocks.sdk.model.UserGroupCreateRequest;
 import com.fireblocks.sdk.model.UserGroupCreateResponse;
 import com.fireblocks.sdk.model.UserGroupResponse;
 import com.fireblocks.sdk.model.UserGroupUpdateRequest;
-import org.junit.Test;
-import org.junit.Ignore;
-
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import java.util.concurrent.CompletableFuture;
+import org.junit.Ignore;
+import org.junit.Test;
 
-/**
- * API tests for UserGroupsBetaApi
- */
+/** API tests for UserGroupsBetaApi */
 @Ignore
 public class UserGroupsBetaApiTest {
 
     private final UserGroupsBetaApi api = new UserGroupsBetaApi();
 
-    
     /**
      * Create user group
      *
-     * Create a new user group.&lt;/br&gt;  **Note**: - This endpoint is now in Beta, disabled for general availability at this time. - Please note that this endpoint is available only for API keys with Admin permissions. 
+     * <p>Create a new user group.&lt;/br&gt; **Note**: - This endpoint is now in Beta, disabled for
+     * general availability at this time. - Please note that this endpoint is available only for API
+     * keys with Admin permissions.
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
     public void createUserGroupTest() throws ApiException {
         UserGroupCreateRequest userGroupCreateRequest = null;
         String idempotencyKey = null;
-        CompletableFuture<CreateUserGroupResponse> response = 
-        api.createUserGroup(userGroupCreateRequest, idempotencyKey);
-        
-        // TODO: test validations
+        CompletableFuture<ApiResponse<CreateUserGroupResponse>> response =
+                api.createUserGroup(userGroupCreateRequest, idempotencyKey);
     }
-    
+
     /**
      * Delete user group
      *
-     * Delete a user group by ID.&lt;/br&gt;  **Note**: - This endpoint is now in Beta, disabled for general availability at this time. - Please note that this endpoint is available only for API keys with Admin permissions. 
+     * <p>Delete a user group by ID.&lt;/br&gt; **Note**: - This endpoint is now in Beta, disabled
+     * for general availability at this time. - Please note that this endpoint is available only for
+     * API keys with Admin permissions.
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
     public void deleteUserGroupTest() throws ApiException {
         String groupId = null;
-        
-        CompletableFuture<Void> response = api.deleteUserGroup(groupId);
-        
-        // TODO: test validations
+
+        CompletableFuture<ApiResponse<Void>> response = api.deleteUserGroup(groupId);
     }
-    
+
     /**
      * Get user group
      *
-     * Get a user group by ID.&lt;/br&gt;  **Note**: - This endpoint is now in Beta, disabled for general availability at this time. - Please note that this endpoint is available only for API keys with Admin permissions. 
+     * <p>Get a user group by ID.&lt;/br&gt; **Note**: - This endpoint is now in Beta, disabled for
+     * general availability at this time. - Please note that this endpoint is available only for API
+     * keys with Admin permissions.
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
     public void getUserGroupTest() throws ApiException {
         String groupId = null;
-        CompletableFuture<UserGroupResponse> response = 
-        api.getUserGroup(groupId);
-        
-        // TODO: test validations
+        CompletableFuture<ApiResponse<UserGroupResponse>> response = api.getUserGroup(groupId);
     }
-    
+
     /**
      * List user groups
      *
-     * Get all user groups in your workspace. &lt;/br&gt;  **Note**: - This endpoint is now in Beta, disabled for general availability at this time. - Please note that this endpoint is available only for API keys with Admin permissions. 
+     * <p>Get all user groups in your workspace. &lt;/br&gt; **Note**: - This endpoint is now in
+     * Beta, disabled for general availability at this time. - Please note that this endpoint is
+     * available only for API keys with Admin permissions.
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
     public void getUserGroupsTest() throws ApiException {
-        CompletableFuture<List<UserGroupResponse>> response = 
-        api.getUserGroups();
-        
-        // TODO: test validations
+        CompletableFuture<ApiResponse<List<UserGroupResponse>>> response = api.getUserGroups();
     }
-    
+
     /**
      * Update user group
      *
-     * Update a user group by ID.&lt;/br&gt;  **Note**: - This endpoint is now in Beta, disabled for general availability at this time. - Please note that this endpoint is available only for API keys with Admin permissions. 
+     * <p>Update a user group by ID.&lt;/br&gt; **Note**: - This endpoint is now in Beta, disabled
+     * for general availability at this time. - Please note that this endpoint is available only for
+     * API keys with Admin permissions.
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
     public void updateUserGroupTest() throws ApiException {
         UserGroupUpdateRequest userGroupUpdateRequest = null;
         String groupId = null;
         String idempotencyKey = null;
-        CompletableFuture<UserGroupCreateResponse> response = 
-        api.updateUserGroup(userGroupUpdateRequest, groupId, idempotencyKey);
-        
-        // TODO: test validations
+        CompletableFuture<ApiResponse<UserGroupCreateResponse>> response =
+                api.updateUserGroup(userGroupUpdateRequest, groupId, idempotencyKey);
     }
-    
 }

@@ -10,23 +10,16 @@
  * Do not edit the class manually.
  */
 
-
 package com.fireblocks.sdk.model;
 
-import org.junit.Assert;
-import org.junit.Ignore;
+
 import org.junit.Test;
 
-/**
- * Model tests for PayoutStatus
- */
+/** Model tests for PayoutStatus */
 public class PayoutStatusTest {
-    /**
-     * Model tests for PayoutStatus
-     */
+    /** Model tests for PayoutStatus */
     @Test
     public void testPayoutStatus() {
         // TODO: test PayoutStatus
     }
-
 }

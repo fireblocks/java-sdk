@@ -10,285 +10,302 @@
  * Do not edit the class manually.
  */
 
-
 package com.fireblocks.sdk.model;
 
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
-import java.util.StringJoiner;
-import java.util.Objects;
-import java.util.Map;
-import java.util.HashMap;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonTypeName;
-import com.fasterxml.jackson.annotation.JsonValue;
-import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.Objects;
+import java.util.StringJoiner;
 
-
-/**
- * CreateAPIUser
- */
+/** CreateAPIUser */
 @JsonPropertyOrder({
-  CreateAPIUser.JSON_PROPERTY_ROLE,
-  CreateAPIUser.JSON_PROPERTY_NAME,
-  CreateAPIUser.JSON_PROPERTY_CSR_PEM,
-  CreateAPIUser.JSON_PROPERTY_CO_SIGNER_SETUP_TYPE,
-  CreateAPIUser.JSON_PROPERTY_CO_SIGNER_SETUP_IS_FIRST_USER
+    CreateAPIUser.JSON_PROPERTY_ROLE,
+    CreateAPIUser.JSON_PROPERTY_NAME,
+    CreateAPIUser.JSON_PROPERTY_CSR_PEM,
+    CreateAPIUser.JSON_PROPERTY_CO_SIGNER_SETUP_TYPE,
+    CreateAPIUser.JSON_PROPERTY_CO_SIGNER_SETUP_IS_FIRST_USER
 })
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class CreateAPIUser {
-  public static final String JSON_PROPERTY_ROLE = "role";
-  private String role;
+    public static final String JSON_PROPERTY_ROLE = "role";
+    private String role;
 
-  public static final String JSON_PROPERTY_NAME = "name";
-  private String name;
+    public static final String JSON_PROPERTY_NAME = "name";
+    private String name;
 
-  public static final String JSON_PROPERTY_CSR_PEM = "csrPem";
-  private String csrPem;
+    public static final String JSON_PROPERTY_CSR_PEM = "csrPem";
+    private String csrPem;
 
-  public static final String JSON_PROPERTY_CO_SIGNER_SETUP_TYPE = "coSignerSetupType";
-  private String coSignerSetupType;
+    public static final String JSON_PROPERTY_CO_SIGNER_SETUP_TYPE = "coSignerSetupType";
+    private String coSignerSetupType;
 
-  public static final String JSON_PROPERTY_CO_SIGNER_SETUP_IS_FIRST_USER = "coSignerSetupIsFirstUser";
-  private Boolean coSignerSetupIsFirstUser;
+    public static final String JSON_PROPERTY_CO_SIGNER_SETUP_IS_FIRST_USER =
+            "coSignerSetupIsFirstUser";
+    private Boolean coSignerSetupIsFirstUser;
 
-  public CreateAPIUser() { 
-  }
+    public CreateAPIUser() {}
 
-  public CreateAPIUser role(String role) {
-    this.role = role;
-    return this;
-  }
-
-   /**
-   * User role
-   * @return role
-  **/
-  @jakarta.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_ROLE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public String getRole() {
-    return role;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_ROLE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setRole(String role) {
-    this.role = role;
-  }
-
-
-  public CreateAPIUser name(String name) {
-    this.name = name;
-    return this;
-  }
-
-   /**
-   * users name
-   * @return name
-  **/
-  @jakarta.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_NAME)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public String getName() {
-    return name;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_NAME)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setName(String name) {
-    this.name = name;
-  }
-
-
-  public CreateAPIUser csrPem(String csrPem) {
-    this.csrPem = csrPem;
-    return this;
-  }
-
-   /**
-   * only for user with signing capabilities
-   * @return csrPem
-  **/
-  @jakarta.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_CSR_PEM)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getCsrPem() {
-    return csrPem;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_CSR_PEM)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setCsrPem(String csrPem) {
-    this.csrPem = csrPem;
-  }
-
-
-  public CreateAPIUser coSignerSetupType(String coSignerSetupType) {
-    this.coSignerSetupType = coSignerSetupType;
-    return this;
-  }
-
-   /**
-   * cosigner setup type
-   * @return coSignerSetupType
-  **/
-  @jakarta.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_CO_SIGNER_SETUP_TYPE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getCoSignerSetupType() {
-    return coSignerSetupType;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_CO_SIGNER_SETUP_TYPE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setCoSignerSetupType(String coSignerSetupType) {
-    this.coSignerSetupType = coSignerSetupType;
-  }
-
-
-  public CreateAPIUser coSignerSetupIsFirstUser(Boolean coSignerSetupIsFirstUser) {
-    this.coSignerSetupIsFirstUser = coSignerSetupIsFirstUser;
-    return this;
-  }
-
-   /**
-   * is first?
-   * @return coSignerSetupIsFirstUser
-  **/
-  @jakarta.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_CO_SIGNER_SETUP_IS_FIRST_USER)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public Boolean getCoSignerSetupIsFirstUser() {
-    return coSignerSetupIsFirstUser;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_CO_SIGNER_SETUP_IS_FIRST_USER)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setCoSignerSetupIsFirstUser(Boolean coSignerSetupIsFirstUser) {
-    this.coSignerSetupIsFirstUser = coSignerSetupIsFirstUser;
-  }
-
-
-  /**
-   * Return true if this CreateAPIUser object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    CreateAPIUser createAPIUser = (CreateAPIUser) o;
-    return Objects.equals(this.role, createAPIUser.role) &&
-        Objects.equals(this.name, createAPIUser.name) &&
-        Objects.equals(this.csrPem, createAPIUser.csrPem) &&
-        Objects.equals(this.coSignerSetupType, createAPIUser.coSignerSetupType) &&
-        Objects.equals(this.coSignerSetupIsFirstUser, createAPIUser.coSignerSetupIsFirstUser);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(role, name, csrPem, coSignerSetupType, coSignerSetupIsFirstUser);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class CreateAPIUser {\n");
-    sb.append("    role: ").append(toIndentedString(role)).append("\n");
-    sb.append("    name: ").append(toIndentedString(name)).append("\n");
-    sb.append("    csrPem: ").append(toIndentedString(csrPem)).append("\n");
-    sb.append("    coSignerSetupType: ").append(toIndentedString(coSignerSetupType)).append("\n");
-    sb.append("    coSignerSetupIsFirstUser: ").append(toIndentedString(coSignerSetupIsFirstUser)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
-  }
-
-  /**
-   * Convert the instance into URL query string.
-   *
-   * @return URL query string
-   */
-  public String toUrlQueryString() {
-    return toUrlQueryString(null);
-  }
-
-  /**
-   * Convert the instance into URL query string.
-   *
-   * @param prefix prefix of the query string
-   * @return URL query string
-   */
-  public String toUrlQueryString(String prefix) {
-    String suffix = "";
-    String containerSuffix = "";
-    String containerPrefix = "";
-    if (prefix == null) {
-      // style=form, explode=true, e.g. /pet?name=cat&type=manx
-      prefix = "";
-    } else {
-      // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
-      prefix = prefix + "[";
-      suffix = "]";
-      containerSuffix = "]";
-      containerPrefix = "[";
+    public CreateAPIUser role(String role) {
+        this.role = role;
+        return this;
     }
 
-    StringJoiner joiner = new StringJoiner("&");
-
-    // add `role` to the URL query string
-    if (getRole() != null) {
-      joiner.add(String.format("%srole%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getRole()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    /**
+     * User role
+     *
+     * @return role
+     */
+    @jakarta.annotation.Nonnull
+    @JsonProperty(JSON_PROPERTY_ROLE)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public String getRole() {
+        return role;
     }
 
-    // add `name` to the URL query string
-    if (getName() != null) {
-      joiner.add(String.format("%sname%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getName()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    @JsonProperty(JSON_PROPERTY_ROLE)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setRole(String role) {
+        this.role = role;
     }
 
-    // add `csrPem` to the URL query string
-    if (getCsrPem() != null) {
-      joiner.add(String.format("%scsrPem%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getCsrPem()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    public CreateAPIUser name(String name) {
+        this.name = name;
+        return this;
     }
 
-    // add `coSignerSetupType` to the URL query string
-    if (getCoSignerSetupType() != null) {
-      joiner.add(String.format("%scoSignerSetupType%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getCoSignerSetupType()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    /**
+     * users name
+     *
+     * @return name
+     */
+    @jakarta.annotation.Nonnull
+    @JsonProperty(JSON_PROPERTY_NAME)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public String getName() {
+        return name;
     }
 
-    // add `coSignerSetupIsFirstUser` to the URL query string
-    if (getCoSignerSetupIsFirstUser() != null) {
-      joiner.add(String.format("%scoSignerSetupIsFirstUser%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getCoSignerSetupIsFirstUser()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    @JsonProperty(JSON_PROPERTY_NAME)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setName(String name) {
+        this.name = name;
     }
 
-    return joiner.toString();
-  }
+    public CreateAPIUser csrPem(String csrPem) {
+        this.csrPem = csrPem;
+        return this;
+    }
+
+    /**
+     * only for user with signing capabilities
+     *
+     * @return csrPem
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_CSR_PEM)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getCsrPem() {
+        return csrPem;
+    }
+
+    @JsonProperty(JSON_PROPERTY_CSR_PEM)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setCsrPem(String csrPem) {
+        this.csrPem = csrPem;
+    }
+
+    public CreateAPIUser coSignerSetupType(String coSignerSetupType) {
+        this.coSignerSetupType = coSignerSetupType;
+        return this;
+    }
+
+    /**
+     * cosigner setup type
+     *
+     * @return coSignerSetupType
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_CO_SIGNER_SETUP_TYPE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getCoSignerSetupType() {
+        return coSignerSetupType;
+    }
+
+    @JsonProperty(JSON_PROPERTY_CO_SIGNER_SETUP_TYPE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setCoSignerSetupType(String coSignerSetupType) {
+        this.coSignerSetupType = coSignerSetupType;
+    }
+
+    public CreateAPIUser coSignerSetupIsFirstUser(Boolean coSignerSetupIsFirstUser) {
+        this.coSignerSetupIsFirstUser = coSignerSetupIsFirstUser;
+        return this;
+    }
+
+    /**
+     * is first?
+     *
+     * @return coSignerSetupIsFirstUser
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_CO_SIGNER_SETUP_IS_FIRST_USER)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public Boolean getCoSignerSetupIsFirstUser() {
+        return coSignerSetupIsFirstUser;
+    }
+
+    @JsonProperty(JSON_PROPERTY_CO_SIGNER_SETUP_IS_FIRST_USER)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setCoSignerSetupIsFirstUser(Boolean coSignerSetupIsFirstUser) {
+        this.coSignerSetupIsFirstUser = coSignerSetupIsFirstUser;
+    }
+
+    /** Return true if this CreateAPIUser object is equal to o. */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        CreateAPIUser createAPIUser = (CreateAPIUser) o;
+        return Objects.equals(this.role, createAPIUser.role)
+                && Objects.equals(this.name, createAPIUser.name)
+                && Objects.equals(this.csrPem, createAPIUser.csrPem)
+                && Objects.equals(this.coSignerSetupType, createAPIUser.coSignerSetupType)
+                && Objects.equals(
+                        this.coSignerSetupIsFirstUser, createAPIUser.coSignerSetupIsFirstUser);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(role, name, csrPem, coSignerSetupType, coSignerSetupIsFirstUser);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class CreateAPIUser {\n");
+        sb.append("    role: ").append(toIndentedString(role)).append("\n");
+        sb.append("    name: ").append(toIndentedString(name)).append("\n");
+        sb.append("    csrPem: ").append(toIndentedString(csrPem)).append("\n");
+        sb.append("    coSignerSetupType: ")
+                .append(toIndentedString(coSignerSetupType))
+                .append("\n");
+        sb.append("    coSignerSetupIsFirstUser: ")
+                .append(toIndentedString(coSignerSetupIsFirstUser))
+                .append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces (except the first
+     * line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
+
+    /**
+     * Convert the instance into URL query string.
+     *
+     * @return URL query string
+     */
+    public String toUrlQueryString() {
+        return toUrlQueryString(null);
+    }
+
+    /**
+     * Convert the instance into URL query string.
+     *
+     * @param prefix prefix of the query string
+     * @return URL query string
+     */
+    public String toUrlQueryString(String prefix) {
+        String suffix = "";
+        String containerSuffix = "";
+        String containerPrefix = "";
+        if (prefix == null) {
+            // style=form, explode=true, e.g. /pet?name=cat&type=manx
+            prefix = "";
+        } else {
+            // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
+            prefix = prefix + "[";
+            suffix = "]";
+            containerSuffix = "]";
+            containerPrefix = "[";
+        }
+
+        StringJoiner joiner = new StringJoiner("&");
+
+        // add `role` to the URL query string
+        if (getRole() != null) {
+            joiner.add(
+                    String.format(
+                            "%srole%s=%s",
+                            prefix,
+                            suffix,
+                            URLEncoder.encode(String.valueOf(getRole()), StandardCharsets.UTF_8)
+                                    .replaceAll("\\+", "%20")));
+        }
+
+        // add `name` to the URL query string
+        if (getName() != null) {
+            joiner.add(
+                    String.format(
+                            "%sname%s=%s",
+                            prefix,
+                            suffix,
+                            URLEncoder.encode(String.valueOf(getName()), StandardCharsets.UTF_8)
+                                    .replaceAll("\\+", "%20")));
+        }
+
+        // add `csrPem` to the URL query string
+        if (getCsrPem() != null) {
+            joiner.add(
+                    String.format(
+                            "%scsrPem%s=%s",
+                            prefix,
+                            suffix,
+                            URLEncoder.encode(String.valueOf(getCsrPem()), StandardCharsets.UTF_8)
+                                    .replaceAll("\\+", "%20")));
+        }
+
+        // add `coSignerSetupType` to the URL query string
+        if (getCoSignerSetupType() != null) {
+            joiner.add(
+                    String.format(
+                            "%scoSignerSetupType%s=%s",
+                            prefix,
+                            suffix,
+                            URLEncoder.encode(
+                                            String.valueOf(getCoSignerSetupType()),
+                                            StandardCharsets.UTF_8)
+                                    .replaceAll("\\+", "%20")));
+        }
+
+        // add `coSignerSetupIsFirstUser` to the URL query string
+        if (getCoSignerSetupIsFirstUser() != null) {
+            joiner.add(
+                    String.format(
+                            "%scoSignerSetupIsFirstUser%s=%s",
+                            prefix,
+                            suffix,
+                            URLEncoder.encode(
+                                            String.valueOf(getCoSignerSetupIsFirstUser()),
+                                            StandardCharsets.UTF_8)
+                                    .replaceAll("\\+", "%20")));
+        }
+
+        return joiner.toString();
+    }
 }
-

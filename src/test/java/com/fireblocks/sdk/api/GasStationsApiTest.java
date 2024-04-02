@@ -10,101 +10,81 @@
  * Do not edit the class manually.
  */
 
-
 package com.fireblocks.sdk.api;
 
+
 import com.fireblocks.sdk.ApiException;
-import com.fireblocks.sdk.model.ErrorSchema;
+import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.model.GasStationConfiguration;
 import com.fireblocks.sdk.model.GasStationPropertiesResponse;
-import org.junit.Test;
-import org.junit.Ignore;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import java.util.concurrent.CompletableFuture;
+import org.junit.Ignore;
+import org.junit.Test;
 
-/**
- * API tests for GasStationsApi
- */
+/** API tests for GasStationsApi */
 @Ignore
 public class GasStationsApiTest {
 
     private final GasStationsApi api = new GasStationsApi();
 
-    
     /**
      * Get gas station settings by asset
      *
-     * Returns gas station settings and balances for a requested asset.
+     * <p>Returns gas station settings and balances for a requested asset.
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
     public void getGasStationByAssetIdTest() throws ApiException {
         String assetId = null;
-        CompletableFuture<GasStationPropertiesResponse> response = 
-        api.getGasStationByAssetId(assetId);
-        
-        // TODO: test validations
+        CompletableFuture<ApiResponse<GasStationPropertiesResponse>> response =
+                api.getGasStationByAssetId(assetId);
     }
-    
+
     /**
      * Get gas station settings
      *
-     * Returns gas station settings and ETH balance.
+     * <p>Returns gas station settings and ETH balance.
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
     public void getGasStationInfoTest() throws ApiException {
-        CompletableFuture<GasStationPropertiesResponse> response = 
-        api.getGasStationInfo();
-        
-        // TODO: test validations
+        CompletableFuture<ApiResponse<GasStationPropertiesResponse>> response =
+                api.getGasStationInfo();
     }
-    
+
     /**
      * Edit gas station settings
      *
-     * Configures gas station settings for ETH.
+     * <p>Configures gas station settings for ETH.
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
     public void updateGasStationConfigurationTest() throws ApiException {
         GasStationConfiguration gasStationConfiguration = null;
         String idempotencyKey = null;
-        
-        CompletableFuture<Void> response = api.updateGasStationConfiguration(gasStationConfiguration, idempotencyKey);
-        
-        // TODO: test validations
+
+        CompletableFuture<ApiResponse<Void>> response =
+                api.updateGasStationConfiguration(gasStationConfiguration, idempotencyKey);
     }
-    
+
     /**
      * Edit gas station settings for an asset
      *
-     * Configures gas station settings for a requested asset.
+     * <p>Configures gas station settings for a requested asset.
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
     public void updateGasStationConfigurationByAssetIdTest() throws ApiException {
         GasStationConfiguration gasStationConfiguration = null;
         String assetId = null;
         String idempotencyKey = null;
-        
-        CompletableFuture<Void> response = api.updateGasStationConfigurationByAssetId(gasStationConfiguration, assetId, idempotencyKey);
-        
-        // TODO: test validations
+
+        CompletableFuture<ApiResponse<Void>> response =
+                api.updateGasStationConfigurationByAssetId(
+                        gasStationConfiguration, assetId, idempotencyKey);
     }
-    
 }

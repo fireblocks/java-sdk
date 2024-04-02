@@ -16,13 +16,13 @@ Policy rule which is enforced on transactions
 |**type** | [**TypeEnum**](#TypeEnum) | Policy rule type |  |
 |**action** | [**ActionEnum**](#ActionEnum) | Defines what occurs when a transaction meets the rule&#39;s criteria * ALLOW - The transaction goes through and can be signed without requiring additional approvals * BLOCK - The transaction is automatically blocked * 2-TIER - Only these users or user groups can approve             If any of them reject the transaction before the required approval threshold is met, the transaction doesn&#39;t go through            The list of entities are set is \&quot;authorizationGroups\&quot; field  |  |
 |**asset** | **String** | Defines the type of asset being transacted, options are * \&quot;*\&quot; - All assets * Specific asset  |  |
-|**srcType** | **PolicySrcOrDestType** |  |  [optional] |
-|**srcSubType** | **PolicySrcOrDestSubType** |  |  [optional] |
-|**srcId** | **String** | Defines the account id, options are * \&quot;*\&quot; - All accounts * Specific account id  |  [optional] |
+|**srcType** | **PolicySrcOrDestType** | (deprecated - replaced by &quot;src&quot;) source account type |  [optional] |
+|**srcSubType** | **PolicySrcOrDestSubType** | (deprecated - replaced by &quot;src&quot;) source sub account type |  [optional] |
+|**srcId** | **String** | (deprecated - replaced by &quot;src&quot;) source account id |  [optional] |
 |**src** | [**PolicyRuleSrc**](PolicyRuleSrc.md) |  |  [optional] |
-|**dstType** | **PolicySrcOrDestType** |  |  [optional] |
-|**dstSubType** | **PolicySrcOrDestSubType** |  |  [optional] |
-|**dstId** | **String** | Defines the account id, options are * \&quot;*\&quot; - All accounts * Specific account id  |  [optional] |
+|**dstType** | **PolicySrcOrDestType** | (deprecated - replaced by &quot;dst&quot;) destination account type |  [optional] |
+|**dstSubType** | **PolicySrcOrDestSubType** | (deprecated - replaced by &quot;dst&quot;) destination sub account type |  [optional] |
+|**dstId** | **String** | (deprecated - replaced by &quot;dst&quot;) destination account id |  [optional] |
 |**dst** | [**PolicyRuleDst**](PolicyRuleDst.md) |  |  [optional] |
 |**dstAddressType** | [**DstAddressTypeEnum**](#DstAddressTypeEnum) | Defines whether the destination to which you are sending funds must be whitelisted, to allow one-time transfers to non-whitelisted external addresses, or both. By default, you can only transfer to an external address after it’s whitelisted.   * WHITELISTED - Can only be sent to whitelisted addresses.   * ONE_TIME - Can only be sent to non-whitelisted external addresses.   * \&quot;*\&quot; - can be sent to whitelisted addresses or non-whitelisted external  |  [optional] |
 |**amountCurrency** | [**AmountCurrencyEnum**](#AmountCurrencyEnum) | * USD - Limits the amount of any asset users can transfer based on the USD equivalent of the asset. * EUR - Limits the amount of any asset users can transfer based on the EURO equivalent of the asset. * NATIVE - Limits the amount of an asset a user can transfer when using a specific asset.  |  |

@@ -10,58 +10,36 @@
  * Do not edit the class manually.
  */
 
-
 package com.fireblocks.sdk.model;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonTypeName;
-import com.fasterxml.jackson.annotation.JsonValue;
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import org.junit.Assert;
-import org.junit.Ignore;
+
 import org.junit.Test;
 
-/**
- * Model tests for GetAuditLogsResponseDTO
- */
+/** Model tests for GetAuditLogsResponseDTO */
 public class GetAuditLogsResponseDTOTest {
     private final GetAuditLogsResponseDTO model = new GetAuditLogsResponseDTO();
 
-    /**
-     * Model tests for GetAuditLogsResponseDTO
-     */
+    /** Model tests for GetAuditLogsResponseDTO */
     @Test
     public void testGetAuditLogsResponseDTO() {
         // TODO: test GetAuditLogsResponseDTO
     }
 
-    /**
-     * Test the property 'data'
-     */
+    /** Test the property 'data' */
     @Test
     public void dataTest() {
         // TODO: test data
     }
 
-    /**
-     * Test the property 'total'
-     */
+    /** Test the property 'total' */
     @Test
     public void totalTest() {
         // TODO: test total
     }
 
-    /**
-     * Test the property 'cursor'
-     */
+    /** Test the property 'cursor' */
     @Test
     public void cursorTest() {
         // TODO: test cursor
     }
-
 }

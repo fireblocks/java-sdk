@@ -10,40 +10,25 @@
  * Do not edit the class manually.
  */
 
-
 package com.fireblocks.sdk.model;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonTypeName;
-import com.fasterxml.jackson.annotation.JsonValue;
-import com.fireblocks.sdk.model.AddAssetToExternalWalletRequestOneOf1AdditionalInfo;
-import java.util.Arrays;
-import org.junit.Assert;
-import org.junit.Ignore;
+
 import org.junit.Test;
 
-/**
- * Model tests for AddAssetToExternalWalletRequestOneOf1
- */
+/** Model tests for AddAssetToExternalWalletRequestOneOf1 */
 public class AddAssetToExternalWalletRequestOneOf1Test {
-    private final AddAssetToExternalWalletRequestOneOf1 model = new AddAssetToExternalWalletRequestOneOf1();
+    private final AddAssetToExternalWalletRequestOneOf1 model =
+            new AddAssetToExternalWalletRequestOneOf1();
 
-    /**
-     * Model tests for AddAssetToExternalWalletRequestOneOf1
-     */
+    /** Model tests for AddAssetToExternalWalletRequestOneOf1 */
     @Test
     public void testAddAssetToExternalWalletRequestOneOf1() {
         // TODO: test AddAssetToExternalWalletRequestOneOf1
     }
 
-    /**
-     * Test the property 'additionalInfo'
-     */
+    /** Test the property 'additionalInfo' */
     @Test
     public void additionalInfoTest() {
         // TODO: test additionalInfo
     }
-
 }

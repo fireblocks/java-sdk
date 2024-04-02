@@ -10,47 +10,30 @@
  * Do not edit the class manually.
  */
 
-
 package com.fireblocks.sdk.model;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonTypeName;
-import com.fasterxml.jackson.annotation.JsonValue;
-import java.util.Arrays;
-import org.junit.Assert;
-import org.junit.Ignore;
+
 import org.junit.Test;
 
-/**
- * Model tests for VaultAccountsPagedResponsePaging
- */
+/** Model tests for VaultAccountsPagedResponsePaging */
 public class VaultAccountsPagedResponsePagingTest {
     private final VaultAccountsPagedResponsePaging model = new VaultAccountsPagedResponsePaging();
 
-    /**
-     * Model tests for VaultAccountsPagedResponsePaging
-     */
+    /** Model tests for VaultAccountsPagedResponsePaging */
     @Test
     public void testVaultAccountsPagedResponsePaging() {
         // TODO: test VaultAccountsPagedResponsePaging
     }
 
-    /**
-     * Test the property 'before'
-     */
+    /** Test the property 'before' */
     @Test
     public void beforeTest() {
         // TODO: test before
     }
 
-    /**
-     * Test the property 'after'
-     */
+    /** Test the property 'after' */
     @Test
     public void afterTest() {
         // TODO: test after
     }
-
 }

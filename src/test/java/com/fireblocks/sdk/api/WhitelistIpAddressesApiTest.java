@@ -10,47 +10,32 @@
  * Do not edit the class manually.
  */
 
-
 package com.fireblocks.sdk.api;
 
+
 import com.fireblocks.sdk.ApiException;
-import com.fireblocks.sdk.model.ErrorResponse;
-import com.fireblocks.sdk.model.ErrorSchema;
-import org.junit.Test;
-import org.junit.Ignore;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
+import com.fireblocks.sdk.ApiResponse;
 import java.util.concurrent.CompletableFuture;
+import org.junit.Ignore;
+import org.junit.Test;
 
-/**
- * API tests for WhitelistIpAddressesApi
- */
+/** API tests for WhitelistIpAddressesApi */
 @Ignore
 public class WhitelistIpAddressesApiTest {
 
     private final WhitelistIpAddressesApi api = new WhitelistIpAddressesApi();
 
-    
     /**
      * gets ip addresses
      *
-     * gets ip addresses
+     * <p>gets ip addresses
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
     public void getWhitelistIpAddressesTest() throws ApiException {
         String userId = null;
-        
-        CompletableFuture<Void> response = api.getWhitelistIpAddresses(userId);
-        
-        // TODO: test validations
+
+        CompletableFuture<ApiResponse<Void>> response = api.getWhitelistIpAddresses(userId);
     }
-    
 }

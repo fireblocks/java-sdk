@@ -10,39 +10,24 @@
  * Do not edit the class manually.
  */
 
-
 package com.fireblocks.sdk.model;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonTypeName;
-import com.fasterxml.jackson.annotation.JsonValue;
-import java.util.Arrays;
-import org.junit.Assert;
-import org.junit.Ignore;
+
 import org.junit.Test;
 
-/**
- * Model tests for SetAutoFuelRequest
- */
+/** Model tests for SetAutoFuelRequest */
 public class SetAutoFuelRequestTest {
     private final SetAutoFuelRequest model = new SetAutoFuelRequest();
 
-    /**
-     * Model tests for SetAutoFuelRequest
-     */
+    /** Model tests for SetAutoFuelRequest */
     @Test
     public void testSetAutoFuelRequest() {
         // TODO: test SetAutoFuelRequest
     }
 
-    /**
-     * Test the property 'autoFuel'
-     */
+    /** Test the property 'autoFuel' */
     @Test
     public void autoFuelTest() {
         // TODO: test autoFuel
     }
-
 }

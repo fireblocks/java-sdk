@@ -10,56 +10,36 @@
  * Do not edit the class manually.
  */
 
-
 package com.fireblocks.sdk.model;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonTypeName;
-import com.fasterxml.jackson.annotation.JsonValue;
-import com.fireblocks.sdk.model.AmountAggregationTimePeriodMethod;
-import java.util.Arrays;
-import org.junit.Assert;
-import org.junit.Ignore;
+
 import org.junit.Test;
 
-/**
- * Model tests for PolicyRuleAmountAggregation
- */
+/** Model tests for PolicyRuleAmountAggregation */
 public class PolicyRuleAmountAggregationTest {
     private final PolicyRuleAmountAggregation model = new PolicyRuleAmountAggregation();
 
-    /**
-     * Model tests for PolicyRuleAmountAggregation
-     */
+    /** Model tests for PolicyRuleAmountAggregation */
     @Test
     public void testPolicyRuleAmountAggregation() {
         // TODO: test PolicyRuleAmountAggregation
     }
 
-    /**
-     * Test the property 'operators'
-     */
+    /** Test the property 'operators' */
     @Test
     public void operatorsTest() {
         // TODO: test operators
     }
 
-    /**
-     * Test the property 'srcTransferPeers'
-     */
+    /** Test the property 'srcTransferPeers' */
     @Test
     public void srcTransferPeersTest() {
         // TODO: test srcTransferPeers
     }
 
-    /**
-     * Test the property 'dstTransferPeers'
-     */
+    /** Test the property 'dstTransferPeers' */
     @Test
     public void dstTransferPeersTest() {
         // TODO: test dstTransferPeers
     }
-
 }

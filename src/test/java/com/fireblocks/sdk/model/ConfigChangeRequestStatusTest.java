@@ -10,23 +10,16 @@
  * Do not edit the class manually.
  */
 
-
 package com.fireblocks.sdk.model;
 
-import org.junit.Assert;
-import org.junit.Ignore;
+
 import org.junit.Test;
 
-/**
- * Model tests for ConfigChangeRequestStatus
- */
+/** Model tests for ConfigChangeRequestStatus */
 public class ConfigChangeRequestStatusTest {
-    /**
-     * Model tests for ConfigChangeRequestStatus
-     */
+    /** Model tests for ConfigChangeRequestStatus */
     @Test
     public void testConfigChangeRequestStatus() {
         // TODO: test ConfigChangeRequestStatus
     }
-
 }

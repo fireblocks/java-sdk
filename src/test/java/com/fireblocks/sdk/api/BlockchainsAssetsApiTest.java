@@ -10,46 +10,32 @@
  * Do not edit the class manually.
  */
 
-
 package com.fireblocks.sdk.api;
 
+
 import com.fireblocks.sdk.ApiException;
+import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.model.AssetTypeResponse;
-import com.fireblocks.sdk.model.ErrorSchema;
-import org.junit.Test;
-import org.junit.Ignore;
-
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import java.util.concurrent.CompletableFuture;
+import org.junit.Ignore;
+import org.junit.Test;
 
-/**
- * API tests for BlockchainsAssetsApi
- */
+/** API tests for BlockchainsAssetsApi */
 @Ignore
 public class BlockchainsAssetsApiTest {
 
     private final BlockchainsAssetsApi api = new BlockchainsAssetsApi();
 
-    
     /**
      * List all asset types supported by Fireblocks
      *
-     * Returns all asset types supported by Fireblocks.
+     * <p>Returns all asset types supported by Fireblocks.
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
     public void getSupportedAssetsTest() throws ApiException {
-        CompletableFuture<List<AssetTypeResponse>> response = 
-        api.getSupportedAssets();
-        
-        // TODO: test validations
+        CompletableFuture<ApiResponse<List<AssetTypeResponse>>> response = api.getSupportedAssets();
     }
-    
 }

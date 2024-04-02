@@ -10,338 +10,344 @@
  * Do not edit the class manually.
  */
 
-
 package com.fireblocks.sdk.model;
 
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
-import java.util.StringJoiner;
-import java.util.Objects;
-import java.util.Map;
-import java.util.HashMap;
+
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonTypeName;
-import com.fasterxml.jackson.annotation.JsonValue;
-import com.fireblocks.sdk.model.SignedMessageSignature;
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonValue;
+import java.math.BigDecimal;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+import java.util.StringJoiner;
 
-
-/**
- * A list of signed messages returned for raw signing.
- */
+/** A list of signed messages returned for raw signing. */
 @JsonPropertyOrder({
-  SignedMessage.JSON_PROPERTY_CONTENT,
-  SignedMessage.JSON_PROPERTY_ALGORITHM,
-  SignedMessage.JSON_PROPERTY_DERIVATION_PATH,
-  SignedMessage.JSON_PROPERTY_SIGNATURE,
-  SignedMessage.JSON_PROPERTY_PUBLIC_KEY
+    SignedMessage.JSON_PROPERTY_CONTENT,
+    SignedMessage.JSON_PROPERTY_ALGORITHM,
+    SignedMessage.JSON_PROPERTY_DERIVATION_PATH,
+    SignedMessage.JSON_PROPERTY_SIGNATURE,
+    SignedMessage.JSON_PROPERTY_PUBLIC_KEY
 })
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class SignedMessage {
-  public static final String JSON_PROPERTY_CONTENT = "content";
-  private String content;
+    public static final String JSON_PROPERTY_CONTENT = "content";
+    private String content;
 
-  /**
-   * Gets or Sets algorithm
-   */
-  public enum AlgorithmEnum {
-    ECDSA_SECP256K1("MPC_ECDSA_SECP256K1"),
-    
-    EDDSA_ED25519("MPC_EDDSA_ED25519");
+    /** Gets or Sets algorithm */
+    public enum AlgorithmEnum {
+        ECDSA_SECP256K1("MPC_ECDSA_SECP256K1"),
 
-    private String value;
+        EDDSA_ED25519("MPC_EDDSA_ED25519");
 
-    AlgorithmEnum(String value) {
-      this.value = value;
+        private String value;
+
+        AlgorithmEnum(String value) {
+            this.value = value;
+        }
+
+        @JsonValue
+        public String getValue() {
+            return value;
+        }
+
+        @Override
+        public String toString() {
+            return String.valueOf(value);
+        }
+
+        @JsonCreator
+        public static AlgorithmEnum fromValue(String value) {
+            for (AlgorithmEnum b : AlgorithmEnum.values()) {
+                if (b.value.equals(value)) {
+                    return b;
+                }
+            }
+            throw new IllegalArgumentException("Unexpected value '" + value + "'");
+        }
     }
 
-    @JsonValue
-    public String getValue() {
-      return value;
+    public static final String JSON_PROPERTY_ALGORITHM = "algorithm";
+    private AlgorithmEnum algorithm;
+
+    public static final String JSON_PROPERTY_DERIVATION_PATH = "derivationPath";
+    private List<BigDecimal> derivationPath;
+
+    public static final String JSON_PROPERTY_SIGNATURE = "signature";
+    private SignedMessageSignature signature;
+
+    public static final String JSON_PROPERTY_PUBLIC_KEY = "publicKey";
+    private String publicKey;
+
+    public SignedMessage() {}
+
+    public SignedMessage content(String content) {
+        this.content = content;
+        return this;
+    }
+
+    /**
+     * Get content
+     *
+     * @return content
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_CONTENT)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getContent() {
+        return content;
+    }
+
+    @JsonProperty(JSON_PROPERTY_CONTENT)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public SignedMessage algorithm(AlgorithmEnum algorithm) {
+        this.algorithm = algorithm;
+        return this;
+    }
+
+    /**
+     * Get algorithm
+     *
+     * @return algorithm
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_ALGORITHM)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public AlgorithmEnum getAlgorithm() {
+        return algorithm;
+    }
+
+    @JsonProperty(JSON_PROPERTY_ALGORITHM)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setAlgorithm(AlgorithmEnum algorithm) {
+        this.algorithm = algorithm;
+    }
+
+    public SignedMessage derivationPath(List<BigDecimal> derivationPath) {
+        this.derivationPath = derivationPath;
+        return this;
+    }
+
+    public SignedMessage addDerivationPathItem(BigDecimal derivationPathItem) {
+        if (this.derivationPath == null) {
+            this.derivationPath = new ArrayList<>();
+        }
+        this.derivationPath.add(derivationPathItem);
+        return this;
+    }
+
+    /**
+     * Get derivationPath
+     *
+     * @return derivationPath
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_DERIVATION_PATH)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public List<BigDecimal> getDerivationPath() {
+        return derivationPath;
+    }
+
+    @JsonProperty(JSON_PROPERTY_DERIVATION_PATH)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setDerivationPath(List<BigDecimal> derivationPath) {
+        this.derivationPath = derivationPath;
+    }
+
+    public SignedMessage signature(SignedMessageSignature signature) {
+        this.signature = signature;
+        return this;
+    }
+
+    /**
+     * Get signature
+     *
+     * @return signature
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_SIGNATURE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public SignedMessageSignature getSignature() {
+        return signature;
+    }
+
+    @JsonProperty(JSON_PROPERTY_SIGNATURE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setSignature(SignedMessageSignature signature) {
+        this.signature = signature;
+    }
+
+    public SignedMessage publicKey(String publicKey) {
+        this.publicKey = publicKey;
+        return this;
+    }
+
+    /**
+     * Get publicKey
+     *
+     * @return publicKey
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_PUBLIC_KEY)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getPublicKey() {
+        return publicKey;
+    }
+
+    @JsonProperty(JSON_PROPERTY_PUBLIC_KEY)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setPublicKey(String publicKey) {
+        this.publicKey = publicKey;
+    }
+
+    /** Return true if this SignedMessage object is equal to o. */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        SignedMessage signedMessage = (SignedMessage) o;
+        return Objects.equals(this.content, signedMessage.content)
+                && Objects.equals(this.algorithm, signedMessage.algorithm)
+                && Objects.equals(this.derivationPath, signedMessage.derivationPath)
+                && Objects.equals(this.signature, signedMessage.signature)
+                && Objects.equals(this.publicKey, signedMessage.publicKey);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(content, algorithm, derivationPath, signature, publicKey);
     }
 
     @Override
     public String toString() {
-      return String.valueOf(value);
+        StringBuilder sb = new StringBuilder();
+        sb.append("class SignedMessage {\n");
+        sb.append("    content: ").append(toIndentedString(content)).append("\n");
+        sb.append("    algorithm: ").append(toIndentedString(algorithm)).append("\n");
+        sb.append("    derivationPath: ").append(toIndentedString(derivationPath)).append("\n");
+        sb.append("    signature: ").append(toIndentedString(signature)).append("\n");
+        sb.append("    publicKey: ").append(toIndentedString(publicKey)).append("\n");
+        sb.append("}");
+        return sb.toString();
     }
 
-    @JsonCreator
-    public static AlgorithmEnum fromValue(String value) {
-      for (AlgorithmEnum b : AlgorithmEnum.values()) {
-        if (b.value.equals(value)) {
-          return b;
+    /**
+     * Convert the given object to string with each line indented by 4 spaces (except the first
+     * line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
         }
-      }
-      throw new IllegalArgumentException("Unexpected value '" + value + "'");
-    }
-  }
-
-  public static final String JSON_PROPERTY_ALGORITHM = "algorithm";
-  private AlgorithmEnum algorithm;
-
-  public static final String JSON_PROPERTY_DERIVATION_PATH = "derivationPath";
-  private List<BigDecimal> derivationPath;
-
-  public static final String JSON_PROPERTY_SIGNATURE = "signature";
-  private SignedMessageSignature signature;
-
-  public static final String JSON_PROPERTY_PUBLIC_KEY = "publicKey";
-  private String publicKey;
-
-  public SignedMessage() { 
-  }
-
-  public SignedMessage content(String content) {
-    this.content = content;
-    return this;
-  }
-
-   /**
-   * Get content
-   * @return content
-  **/
-  @jakarta.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_CONTENT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getContent() {
-    return content;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_CONTENT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setContent(String content) {
-    this.content = content;
-  }
-
-
-  public SignedMessage algorithm(AlgorithmEnum algorithm) {
-    this.algorithm = algorithm;
-    return this;
-  }
-
-   /**
-   * Get algorithm
-   * @return algorithm
-  **/
-  @jakarta.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_ALGORITHM)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public AlgorithmEnum getAlgorithm() {
-    return algorithm;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_ALGORITHM)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setAlgorithm(AlgorithmEnum algorithm) {
-    this.algorithm = algorithm;
-  }
-
-
-  public SignedMessage derivationPath(List<BigDecimal> derivationPath) {
-    this.derivationPath = derivationPath;
-    return this;
-  }
-
-  public SignedMessage addDerivationPathItem(BigDecimal derivationPathItem) {
-    if (this.derivationPath == null) {
-      this.derivationPath = new ArrayList<>();
-    }
-    this.derivationPath.add(derivationPathItem);
-    return this;
-  }
-
-   /**
-   * Get derivationPath
-   * @return derivationPath
-  **/
-  @jakarta.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_DERIVATION_PATH)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public List<BigDecimal> getDerivationPath() {
-    return derivationPath;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_DERIVATION_PATH)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setDerivationPath(List<BigDecimal> derivationPath) {
-    this.derivationPath = derivationPath;
-  }
-
-
-  public SignedMessage signature(SignedMessageSignature signature) {
-    this.signature = signature;
-    return this;
-  }
-
-   /**
-   * Get signature
-   * @return signature
-  **/
-  @jakarta.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_SIGNATURE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public SignedMessageSignature getSignature() {
-    return signature;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_SIGNATURE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setSignature(SignedMessageSignature signature) {
-    this.signature = signature;
-  }
-
-
-  public SignedMessage publicKey(String publicKey) {
-    this.publicKey = publicKey;
-    return this;
-  }
-
-   /**
-   * Get publicKey
-   * @return publicKey
-  **/
-  @jakarta.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_PUBLIC_KEY)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getPublicKey() {
-    return publicKey;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_PUBLIC_KEY)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setPublicKey(String publicKey) {
-    this.publicKey = publicKey;
-  }
-
-
-  /**
-   * Return true if this SignedMessage object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    SignedMessage signedMessage = (SignedMessage) o;
-    return Objects.equals(this.content, signedMessage.content) &&
-        Objects.equals(this.algorithm, signedMessage.algorithm) &&
-        Objects.equals(this.derivationPath, signedMessage.derivationPath) &&
-        Objects.equals(this.signature, signedMessage.signature) &&
-        Objects.equals(this.publicKey, signedMessage.publicKey);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(content, algorithm, derivationPath, signature, publicKey);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class SignedMessage {\n");
-    sb.append("    content: ").append(toIndentedString(content)).append("\n");
-    sb.append("    algorithm: ").append(toIndentedString(algorithm)).append("\n");
-    sb.append("    derivationPath: ").append(toIndentedString(derivationPath)).append("\n");
-    sb.append("    signature: ").append(toIndentedString(signature)).append("\n");
-    sb.append("    publicKey: ").append(toIndentedString(publicKey)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
-  }
-
-  /**
-   * Convert the instance into URL query string.
-   *
-   * @return URL query string
-   */
-  public String toUrlQueryString() {
-    return toUrlQueryString(null);
-  }
-
-  /**
-   * Convert the instance into URL query string.
-   *
-   * @param prefix prefix of the query string
-   * @return URL query string
-   */
-  public String toUrlQueryString(String prefix) {
-    String suffix = "";
-    String containerSuffix = "";
-    String containerPrefix = "";
-    if (prefix == null) {
-      // style=form, explode=true, e.g. /pet?name=cat&type=manx
-      prefix = "";
-    } else {
-      // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
-      prefix = prefix + "[";
-      suffix = "]";
-      containerSuffix = "]";
-      containerPrefix = "[";
+        return o.toString().replace("\n", "\n    ");
     }
 
-    StringJoiner joiner = new StringJoiner("&");
-
-    // add `content` to the URL query string
-    if (getContent() != null) {
-      joiner.add(String.format("%scontent%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getContent()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    /**
+     * Convert the instance into URL query string.
+     *
+     * @return URL query string
+     */
+    public String toUrlQueryString() {
+        return toUrlQueryString(null);
     }
 
-    // add `algorithm` to the URL query string
-    if (getAlgorithm() != null) {
-      joiner.add(String.format("%salgorithm%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getAlgorithm()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
-    }
-
-    // add `derivationPath` to the URL query string
-    if (getDerivationPath() != null) {
-      for (int i = 0; i < getDerivationPath().size(); i++) {
-        if (getDerivationPath().get(i) != null) {
-          joiner.add(String.format("%sderivationPath%s%s=%s", prefix, suffix,
-              "".equals(suffix) ? "" : String.format("%s%d%s", containerPrefix, i, containerSuffix),
-              URLEncoder.encode(String.valueOf(getDerivationPath().get(i)), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    /**
+     * Convert the instance into URL query string.
+     *
+     * @param prefix prefix of the query string
+     * @return URL query string
+     */
+    public String toUrlQueryString(String prefix) {
+        String suffix = "";
+        String containerSuffix = "";
+        String containerPrefix = "";
+        if (prefix == null) {
+            // style=form, explode=true, e.g. /pet?name=cat&type=manx
+            prefix = "";
+        } else {
+            // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
+            prefix = prefix + "[";
+            suffix = "]";
+            containerSuffix = "]";
+            containerPrefix = "[";
         }
-      }
-    }
 
-    // add `signature` to the URL query string
-    if (getSignature() != null) {
-      joiner.add(getSignature().toUrlQueryString(prefix + "signature" + suffix));
-    }
+        StringJoiner joiner = new StringJoiner("&");
 
-    // add `publicKey` to the URL query string
-    if (getPublicKey() != null) {
-      joiner.add(String.format("%spublicKey%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getPublicKey()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
-    }
+        // add `content` to the URL query string
+        if (getContent() != null) {
+            joiner.add(
+                    String.format(
+                            "%scontent%s=%s",
+                            prefix,
+                            suffix,
+                            URLEncoder.encode(String.valueOf(getContent()), StandardCharsets.UTF_8)
+                                    .replaceAll("\\+", "%20")));
+        }
 
-    return joiner.toString();
-  }
+        // add `algorithm` to the URL query string
+        if (getAlgorithm() != null) {
+            joiner.add(
+                    String.format(
+                            "%salgorithm%s=%s",
+                            prefix,
+                            suffix,
+                            URLEncoder.encode(
+                                            String.valueOf(getAlgorithm()), StandardCharsets.UTF_8)
+                                    .replaceAll("\\+", "%20")));
+        }
+
+        // add `derivationPath` to the URL query string
+        if (getDerivationPath() != null) {
+            for (int i = 0; i < getDerivationPath().size(); i++) {
+                if (getDerivationPath().get(i) != null) {
+                    joiner.add(
+                            String.format(
+                                    "%sderivationPath%s%s=%s",
+                                    prefix,
+                                    suffix,
+                                    "".equals(suffix)
+                                            ? ""
+                                            : String.format(
+                                                    "%s%d%s", containerPrefix, i, containerSuffix),
+                                    URLEncoder.encode(
+                                                    String.valueOf(getDerivationPath().get(i)),
+                                                    StandardCharsets.UTF_8)
+                                            .replaceAll("\\+", "%20")));
+                }
+            }
+        }
+
+        // add `signature` to the URL query string
+        if (getSignature() != null) {
+            joiner.add(getSignature().toUrlQueryString(prefix + "signature" + suffix));
+        }
+
+        // add `publicKey` to the URL query string
+        if (getPublicKey() != null) {
+            joiner.add(
+                    String.format(
+                            "%spublicKey%s=%s",
+                            prefix,
+                            suffix,
+                            URLEncoder.encode(
+                                            String.valueOf(getPublicKey()), StandardCharsets.UTF_8)
+                                    .replaceAll("\\+", "%20")));
+        }
+
+        return joiner.toString();
+    }
 }
-

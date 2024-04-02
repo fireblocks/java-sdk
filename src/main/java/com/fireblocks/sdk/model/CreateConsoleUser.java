@@ -10,249 +10,253 @@
  * Do not edit the class manually.
  */
 
-
 package com.fireblocks.sdk.model;
 
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
-import java.util.StringJoiner;
-import java.util.Objects;
-import java.util.Map;
-import java.util.HashMap;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonTypeName;
-import com.fasterxml.jackson.annotation.JsonValue;
-import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.Objects;
+import java.util.StringJoiner;
 
-
-/**
- * CreateConsoleUser
- */
+/** CreateConsoleUser */
 @JsonPropertyOrder({
-  CreateConsoleUser.JSON_PROPERTY_FIRST_NAME,
-  CreateConsoleUser.JSON_PROPERTY_LAST_NAME,
-  CreateConsoleUser.JSON_PROPERTY_ROLE,
-  CreateConsoleUser.JSON_PROPERTY_EMAIL
+    CreateConsoleUser.JSON_PROPERTY_FIRST_NAME,
+    CreateConsoleUser.JSON_PROPERTY_LAST_NAME,
+    CreateConsoleUser.JSON_PROPERTY_ROLE,
+    CreateConsoleUser.JSON_PROPERTY_EMAIL
 })
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class CreateConsoleUser {
-  public static final String JSON_PROPERTY_FIRST_NAME = "firstName";
-  private String firstName;
+    public static final String JSON_PROPERTY_FIRST_NAME = "firstName";
+    private String firstName;
 
-  public static final String JSON_PROPERTY_LAST_NAME = "lastName";
-  private String lastName;
+    public static final String JSON_PROPERTY_LAST_NAME = "lastName";
+    private String lastName;
 
-  public static final String JSON_PROPERTY_ROLE = "role";
-  private String role;
+    public static final String JSON_PROPERTY_ROLE = "role";
+    private String role;
 
-  public static final String JSON_PROPERTY_EMAIL = "email";
-  private String email;
+    public static final String JSON_PROPERTY_EMAIL = "email";
+    private String email;
 
-  public CreateConsoleUser() { 
-  }
+    public CreateConsoleUser() {}
 
-  public CreateConsoleUser firstName(String firstName) {
-    this.firstName = firstName;
-    return this;
-  }
-
-   /**
-   * Get firstName
-   * @return firstName
-  **/
-  @jakarta.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_FIRST_NAME)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public String getFirstName() {
-    return firstName;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_FIRST_NAME)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setFirstName(String firstName) {
-    this.firstName = firstName;
-  }
-
-
-  public CreateConsoleUser lastName(String lastName) {
-    this.lastName = lastName;
-    return this;
-  }
-
-   /**
-   * Get lastName
-   * @return lastName
-  **/
-  @jakarta.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_LAST_NAME)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public String getLastName() {
-    return lastName;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_LAST_NAME)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setLastName(String lastName) {
-    this.lastName = lastName;
-  }
-
-
-  public CreateConsoleUser role(String role) {
-    this.role = role;
-    return this;
-  }
-
-   /**
-   * Get role
-   * @return role
-  **/
-  @jakarta.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_ROLE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public String getRole() {
-    return role;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_ROLE)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setRole(String role) {
-    this.role = role;
-  }
-
-
-  public CreateConsoleUser email(String email) {
-    this.email = email;
-    return this;
-  }
-
-   /**
-   * Get email
-   * @return email
-  **/
-  @jakarta.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_EMAIL)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public String getEmail() {
-    return email;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_EMAIL)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setEmail(String email) {
-    this.email = email;
-  }
-
-
-  /**
-   * Return true if this CreateConsoleUser object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    CreateConsoleUser createConsoleUser = (CreateConsoleUser) o;
-    return Objects.equals(this.firstName, createConsoleUser.firstName) &&
-        Objects.equals(this.lastName, createConsoleUser.lastName) &&
-        Objects.equals(this.role, createConsoleUser.role) &&
-        Objects.equals(this.email, createConsoleUser.email);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(firstName, lastName, role, email);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class CreateConsoleUser {\n");
-    sb.append("    firstName: ").append(toIndentedString(firstName)).append("\n");
-    sb.append("    lastName: ").append(toIndentedString(lastName)).append("\n");
-    sb.append("    role: ").append(toIndentedString(role)).append("\n");
-    sb.append("    email: ").append(toIndentedString(email)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
-  }
-
-  /**
-   * Convert the instance into URL query string.
-   *
-   * @return URL query string
-   */
-  public String toUrlQueryString() {
-    return toUrlQueryString(null);
-  }
-
-  /**
-   * Convert the instance into URL query string.
-   *
-   * @param prefix prefix of the query string
-   * @return URL query string
-   */
-  public String toUrlQueryString(String prefix) {
-    String suffix = "";
-    String containerSuffix = "";
-    String containerPrefix = "";
-    if (prefix == null) {
-      // style=form, explode=true, e.g. /pet?name=cat&type=manx
-      prefix = "";
-    } else {
-      // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
-      prefix = prefix + "[";
-      suffix = "]";
-      containerSuffix = "]";
-      containerPrefix = "[";
+    public CreateConsoleUser firstName(String firstName) {
+        this.firstName = firstName;
+        return this;
     }
 
-    StringJoiner joiner = new StringJoiner("&");
-
-    // add `firstName` to the URL query string
-    if (getFirstName() != null) {
-      joiner.add(String.format("%sfirstName%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getFirstName()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    /**
+     * Get firstName
+     *
+     * @return firstName
+     */
+    @jakarta.annotation.Nonnull
+    @JsonProperty(JSON_PROPERTY_FIRST_NAME)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public String getFirstName() {
+        return firstName;
     }
 
-    // add `lastName` to the URL query string
-    if (getLastName() != null) {
-      joiner.add(String.format("%slastName%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getLastName()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    @JsonProperty(JSON_PROPERTY_FIRST_NAME)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    // add `role` to the URL query string
-    if (getRole() != null) {
-      joiner.add(String.format("%srole%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getRole()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    public CreateConsoleUser lastName(String lastName) {
+        this.lastName = lastName;
+        return this;
     }
 
-    // add `email` to the URL query string
-    if (getEmail() != null) {
-      joiner.add(String.format("%semail%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getEmail()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    /**
+     * Get lastName
+     *
+     * @return lastName
+     */
+    @jakarta.annotation.Nonnull
+    @JsonProperty(JSON_PROPERTY_LAST_NAME)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public String getLastName() {
+        return lastName;
     }
 
-    return joiner.toString();
-  }
+    @JsonProperty(JSON_PROPERTY_LAST_NAME)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public CreateConsoleUser role(String role) {
+        this.role = role;
+        return this;
+    }
+
+    /**
+     * Get role
+     *
+     * @return role
+     */
+    @jakarta.annotation.Nonnull
+    @JsonProperty(JSON_PROPERTY_ROLE)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public String getRole() {
+        return role;
+    }
+
+    @JsonProperty(JSON_PROPERTY_ROLE)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public CreateConsoleUser email(String email) {
+        this.email = email;
+        return this;
+    }
+
+    /**
+     * Get email
+     *
+     * @return email
+     */
+    @jakarta.annotation.Nonnull
+    @JsonProperty(JSON_PROPERTY_EMAIL)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public String getEmail() {
+        return email;
+    }
+
+    @JsonProperty(JSON_PROPERTY_EMAIL)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    /** Return true if this CreateConsoleUser object is equal to o. */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        CreateConsoleUser createConsoleUser = (CreateConsoleUser) o;
+        return Objects.equals(this.firstName, createConsoleUser.firstName)
+                && Objects.equals(this.lastName, createConsoleUser.lastName)
+                && Objects.equals(this.role, createConsoleUser.role)
+                && Objects.equals(this.email, createConsoleUser.email);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(firstName, lastName, role, email);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class CreateConsoleUser {\n");
+        sb.append("    firstName: ").append(toIndentedString(firstName)).append("\n");
+        sb.append("    lastName: ").append(toIndentedString(lastName)).append("\n");
+        sb.append("    role: ").append(toIndentedString(role)).append("\n");
+        sb.append("    email: ").append(toIndentedString(email)).append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces (except the first
+     * line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
+
+    /**
+     * Convert the instance into URL query string.
+     *
+     * @return URL query string
+     */
+    public String toUrlQueryString() {
+        return toUrlQueryString(null);
+    }
+
+    /**
+     * Convert the instance into URL query string.
+     *
+     * @param prefix prefix of the query string
+     * @return URL query string
+     */
+    public String toUrlQueryString(String prefix) {
+        String suffix = "";
+        String containerSuffix = "";
+        String containerPrefix = "";
+        if (prefix == null) {
+            // style=form, explode=true, e.g. /pet?name=cat&type=manx
+            prefix = "";
+        } else {
+            // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
+            prefix = prefix + "[";
+            suffix = "]";
+            containerSuffix = "]";
+            containerPrefix = "[";
+        }
+
+        StringJoiner joiner = new StringJoiner("&");
+
+        // add `firstName` to the URL query string
+        if (getFirstName() != null) {
+            joiner.add(
+                    String.format(
+                            "%sfirstName%s=%s",
+                            prefix,
+                            suffix,
+                            URLEncoder.encode(
+                                            String.valueOf(getFirstName()), StandardCharsets.UTF_8)
+                                    .replaceAll("\\+", "%20")));
+        }
+
+        // add `lastName` to the URL query string
+        if (getLastName() != null) {
+            joiner.add(
+                    String.format(
+                            "%slastName%s=%s",
+                            prefix,
+                            suffix,
+                            URLEncoder.encode(String.valueOf(getLastName()), StandardCharsets.UTF_8)
+                                    .replaceAll("\\+", "%20")));
+        }
+
+        // add `role` to the URL query string
+        if (getRole() != null) {
+            joiner.add(
+                    String.format(
+                            "%srole%s=%s",
+                            prefix,
+                            suffix,
+                            URLEncoder.encode(String.valueOf(getRole()), StandardCharsets.UTF_8)
+                                    .replaceAll("\\+", "%20")));
+        }
+
+        // add `email` to the URL query string
+        if (getEmail() != null) {
+            joiner.add(
+                    String.format(
+                            "%semail%s=%s",
+                            prefix,
+                            suffix,
+                            URLEncoder.encode(String.valueOf(getEmail()), StandardCharsets.UTF_8)
+                                    .replaceAll("\\+", "%20")));
+        }
+
+        return joiner.toString();
+    }
 }
-

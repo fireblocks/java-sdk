@@ -10,230 +10,235 @@
  * Do not edit the class manually.
  */
 
-
 package com.fireblocks.sdk.model;
 
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
-import java.util.StringJoiner;
-import java.util.Objects;
-import java.util.Map;
-import java.util.HashMap;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonTypeName;
-import com.fasterxml.jackson.annotation.JsonValue;
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import java.math.BigDecimal;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+import java.util.StringJoiner;
 
-
-/**
- * PublicKeyInformation
- */
+/** PublicKeyInformation */
 @JsonPropertyOrder({
-  PublicKeyInformation.JSON_PROPERTY_ALGORITHM,
-  PublicKeyInformation.JSON_PROPERTY_DERIVATION_PATH,
-  PublicKeyInformation.JSON_PROPERTY_PUBLIC_KEY
+    PublicKeyInformation.JSON_PROPERTY_ALGORITHM,
+    PublicKeyInformation.JSON_PROPERTY_DERIVATION_PATH,
+    PublicKeyInformation.JSON_PROPERTY_PUBLIC_KEY
 })
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class PublicKeyInformation {
-  public static final String JSON_PROPERTY_ALGORITHM = "algorithm";
-  private String algorithm;
+    public static final String JSON_PROPERTY_ALGORITHM = "algorithm";
+    private String algorithm;
 
-  public static final String JSON_PROPERTY_DERIVATION_PATH = "derivationPath";
-  private List<BigDecimal> derivationPath;
+    public static final String JSON_PROPERTY_DERIVATION_PATH = "derivationPath";
+    private List<BigDecimal> derivationPath;
 
-  public static final String JSON_PROPERTY_PUBLIC_KEY = "publicKey";
-  private String publicKey;
+    public static final String JSON_PROPERTY_PUBLIC_KEY = "publicKey";
+    private String publicKey;
 
-  public PublicKeyInformation() { 
-  }
+    public PublicKeyInformation() {}
 
-  public PublicKeyInformation algorithm(String algorithm) {
-    this.algorithm = algorithm;
-    return this;
-  }
-
-   /**
-   * Get algorithm
-   * @return algorithm
-  **/
-  @jakarta.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_ALGORITHM)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getAlgorithm() {
-    return algorithm;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_ALGORITHM)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setAlgorithm(String algorithm) {
-    this.algorithm = algorithm;
-  }
-
-
-  public PublicKeyInformation derivationPath(List<BigDecimal> derivationPath) {
-    this.derivationPath = derivationPath;
-    return this;
-  }
-
-  public PublicKeyInformation addDerivationPathItem(BigDecimal derivationPathItem) {
-    if (this.derivationPath == null) {
-      this.derivationPath = new ArrayList<>();
-    }
-    this.derivationPath.add(derivationPathItem);
-    return this;
-  }
-
-   /**
-   * Get derivationPath
-   * @return derivationPath
-  **/
-  @jakarta.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_DERIVATION_PATH)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public List<BigDecimal> getDerivationPath() {
-    return derivationPath;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_DERIVATION_PATH)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setDerivationPath(List<BigDecimal> derivationPath) {
-    this.derivationPath = derivationPath;
-  }
-
-
-  public PublicKeyInformation publicKey(String publicKey) {
-    this.publicKey = publicKey;
-    return this;
-  }
-
-   /**
-   * Get publicKey
-   * @return publicKey
-  **/
-  @jakarta.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_PUBLIC_KEY)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getPublicKey() {
-    return publicKey;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_PUBLIC_KEY)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setPublicKey(String publicKey) {
-    this.publicKey = publicKey;
-  }
-
-
-  /**
-   * Return true if this PublicKeyInformation object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    PublicKeyInformation publicKeyInformation = (PublicKeyInformation) o;
-    return Objects.equals(this.algorithm, publicKeyInformation.algorithm) &&
-        Objects.equals(this.derivationPath, publicKeyInformation.derivationPath) &&
-        Objects.equals(this.publicKey, publicKeyInformation.publicKey);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(algorithm, derivationPath, publicKey);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class PublicKeyInformation {\n");
-    sb.append("    algorithm: ").append(toIndentedString(algorithm)).append("\n");
-    sb.append("    derivationPath: ").append(toIndentedString(derivationPath)).append("\n");
-    sb.append("    publicKey: ").append(toIndentedString(publicKey)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
-  }
-
-  /**
-   * Convert the instance into URL query string.
-   *
-   * @return URL query string
-   */
-  public String toUrlQueryString() {
-    return toUrlQueryString(null);
-  }
-
-  /**
-   * Convert the instance into URL query string.
-   *
-   * @param prefix prefix of the query string
-   * @return URL query string
-   */
-  public String toUrlQueryString(String prefix) {
-    String suffix = "";
-    String containerSuffix = "";
-    String containerPrefix = "";
-    if (prefix == null) {
-      // style=form, explode=true, e.g. /pet?name=cat&type=manx
-      prefix = "";
-    } else {
-      // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
-      prefix = prefix + "[";
-      suffix = "]";
-      containerSuffix = "]";
-      containerPrefix = "[";
+    public PublicKeyInformation algorithm(String algorithm) {
+        this.algorithm = algorithm;
+        return this;
     }
 
-    StringJoiner joiner = new StringJoiner("&");
-
-    // add `algorithm` to the URL query string
-    if (getAlgorithm() != null) {
-      joiner.add(String.format("%salgorithm%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getAlgorithm()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    /**
+     * Get algorithm
+     *
+     * @return algorithm
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_ALGORITHM)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getAlgorithm() {
+        return algorithm;
     }
 
-    // add `derivationPath` to the URL query string
-    if (getDerivationPath() != null) {
-      for (int i = 0; i < getDerivationPath().size(); i++) {
-        if (getDerivationPath().get(i) != null) {
-          joiner.add(String.format("%sderivationPath%s%s=%s", prefix, suffix,
-              "".equals(suffix) ? "" : String.format("%s%d%s", containerPrefix, i, containerSuffix),
-              URLEncoder.encode(String.valueOf(getDerivationPath().get(i)), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    @JsonProperty(JSON_PROPERTY_ALGORITHM)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setAlgorithm(String algorithm) {
+        this.algorithm = algorithm;
+    }
+
+    public PublicKeyInformation derivationPath(List<BigDecimal> derivationPath) {
+        this.derivationPath = derivationPath;
+        return this;
+    }
+
+    public PublicKeyInformation addDerivationPathItem(BigDecimal derivationPathItem) {
+        if (this.derivationPath == null) {
+            this.derivationPath = new ArrayList<>();
         }
-      }
+        this.derivationPath.add(derivationPathItem);
+        return this;
     }
 
-    // add `publicKey` to the URL query string
-    if (getPublicKey() != null) {
-      joiner.add(String.format("%spublicKey%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getPublicKey()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    /**
+     * Get derivationPath
+     *
+     * @return derivationPath
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_DERIVATION_PATH)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public List<BigDecimal> getDerivationPath() {
+        return derivationPath;
     }
 
-    return joiner.toString();
-  }
+    @JsonProperty(JSON_PROPERTY_DERIVATION_PATH)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setDerivationPath(List<BigDecimal> derivationPath) {
+        this.derivationPath = derivationPath;
+    }
+
+    public PublicKeyInformation publicKey(String publicKey) {
+        this.publicKey = publicKey;
+        return this;
+    }
+
+    /**
+     * Get publicKey
+     *
+     * @return publicKey
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_PUBLIC_KEY)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getPublicKey() {
+        return publicKey;
+    }
+
+    @JsonProperty(JSON_PROPERTY_PUBLIC_KEY)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setPublicKey(String publicKey) {
+        this.publicKey = publicKey;
+    }
+
+    /** Return true if this PublicKeyInformation object is equal to o. */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        PublicKeyInformation publicKeyInformation = (PublicKeyInformation) o;
+        return Objects.equals(this.algorithm, publicKeyInformation.algorithm)
+                && Objects.equals(this.derivationPath, publicKeyInformation.derivationPath)
+                && Objects.equals(this.publicKey, publicKeyInformation.publicKey);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(algorithm, derivationPath, publicKey);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class PublicKeyInformation {\n");
+        sb.append("    algorithm: ").append(toIndentedString(algorithm)).append("\n");
+        sb.append("    derivationPath: ").append(toIndentedString(derivationPath)).append("\n");
+        sb.append("    publicKey: ").append(toIndentedString(publicKey)).append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces (except the first
+     * line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
+
+    /**
+     * Convert the instance into URL query string.
+     *
+     * @return URL query string
+     */
+    public String toUrlQueryString() {
+        return toUrlQueryString(null);
+    }
+
+    /**
+     * Convert the instance into URL query string.
+     *
+     * @param prefix prefix of the query string
+     * @return URL query string
+     */
+    public String toUrlQueryString(String prefix) {
+        String suffix = "";
+        String containerSuffix = "";
+        String containerPrefix = "";
+        if (prefix == null) {
+            // style=form, explode=true, e.g. /pet?name=cat&type=manx
+            prefix = "";
+        } else {
+            // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
+            prefix = prefix + "[";
+            suffix = "]";
+            containerSuffix = "]";
+            containerPrefix = "[";
+        }
+
+        StringJoiner joiner = new StringJoiner("&");
+
+        // add `algorithm` to the URL query string
+        if (getAlgorithm() != null) {
+            joiner.add(
+                    String.format(
+                            "%salgorithm%s=%s",
+                            prefix,
+                            suffix,
+                            URLEncoder.encode(
+                                            String.valueOf(getAlgorithm()), StandardCharsets.UTF_8)
+                                    .replaceAll("\\+", "%20")));
+        }
+
+        // add `derivationPath` to the URL query string
+        if (getDerivationPath() != null) {
+            for (int i = 0; i < getDerivationPath().size(); i++) {
+                if (getDerivationPath().get(i) != null) {
+                    joiner.add(
+                            String.format(
+                                    "%sderivationPath%s%s=%s",
+                                    prefix,
+                                    suffix,
+                                    "".equals(suffix)
+                                            ? ""
+                                            : String.format(
+                                                    "%s%d%s", containerPrefix, i, containerSuffix),
+                                    URLEncoder.encode(
+                                                    String.valueOf(getDerivationPath().get(i)),
+                                                    StandardCharsets.UTF_8)
+                                            .replaceAll("\\+", "%20")));
+                }
+            }
+        }
+
+        // add `publicKey` to the URL query string
+        if (getPublicKey() != null) {
+            joiner.add(
+                    String.format(
+                            "%spublicKey%s=%s",
+                            prefix,
+                            suffix,
+                            URLEncoder.encode(
+                                            String.valueOf(getPublicKey()), StandardCharsets.UTF_8)
+                                    .replaceAll("\\+", "%20")));
+        }
+
+        return joiner.toString();
+    }
 }
-

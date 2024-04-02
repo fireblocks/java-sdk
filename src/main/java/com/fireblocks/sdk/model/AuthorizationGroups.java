@@ -10,231 +10,228 @@
  * Do not edit the class manually.
  */
 
-
 package com.fireblocks.sdk.model;
 
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
-import java.util.StringJoiner;
-import java.util.Objects;
-import java.util.Map;
-import java.util.HashMap;
+
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.math.BigDecimal;
-import java.util.Arrays;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import java.util.Objects;
+import java.util.StringJoiner;
 
-
-/**
- * AuthorizationGroups
- */
-@JsonPropertyOrder({
-  AuthorizationGroups.JSON_PROPERTY_TH,
-  AuthorizationGroups.JSON_PROPERTY_USERS
-})
+/** AuthorizationGroups */
+@JsonPropertyOrder({AuthorizationGroups.JSON_PROPERTY_TH, AuthorizationGroups.JSON_PROPERTY_USERS})
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class AuthorizationGroups {
-  public static final String JSON_PROPERTY_TH = "th";
-  private BigDecimal th;
+    public static final String JSON_PROPERTY_TH = "th";
+    private BigDecimal th;
 
-  /**
-   * Gets or Sets inner
-   */
-  public enum InnerEnum {
-    PENDING_AUTHORIZATION("PENDING_AUTHORIZATION"),
-    
-    APPROVED("APPROVED"),
-    
-    REJECTED("REJECTED"),
-    
-    NA("NA");
+    /** Gets or Sets inner */
+    public enum InnerEnum {
+        PENDING_AUTHORIZATION("PENDING_AUTHORIZATION"),
 
-    private String value;
+        APPROVED("APPROVED"),
 
-    InnerEnum(String value) {
-      this.value = value;
+        REJECTED("REJECTED"),
+
+        NA("NA");
+
+        private String value;
+
+        InnerEnum(String value) {
+            this.value = value;
+        }
+
+        @JsonValue
+        public String getValue() {
+            return value;
+        }
+
+        @Override
+        public String toString() {
+            return String.valueOf(value);
+        }
+
+        @JsonCreator
+        public static InnerEnum fromValue(String value) {
+            for (InnerEnum b : InnerEnum.values()) {
+                if (b.value.equals(value)) {
+                    return b;
+                }
+            }
+            throw new IllegalArgumentException("Unexpected value '" + value + "'");
+        }
     }
 
-    @JsonValue
-    public String getValue() {
-      return value;
+    public static final String JSON_PROPERTY_USERS = "users";
+    private Map<String, InnerEnum> users = new HashMap<>();
+
+    public AuthorizationGroups() {}
+
+    public AuthorizationGroups th(BigDecimal th) {
+        this.th = th;
+        return this;
+    }
+
+    /**
+     * Get th
+     *
+     * @return th
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_TH)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public BigDecimal getTh() {
+        return th;
+    }
+
+    @JsonProperty(JSON_PROPERTY_TH)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setTh(BigDecimal th) {
+        this.th = th;
+    }
+
+    public AuthorizationGroups users(Map<String, InnerEnum> users) {
+        this.users = users;
+        return this;
+    }
+
+    public AuthorizationGroups putUsersItem(String key, InnerEnum usersItem) {
+        if (this.users == null) {
+            this.users = new HashMap<>();
+        }
+        this.users.put(key, usersItem);
+        return this;
+    }
+
+    /**
+     * Get users
+     *
+     * @return users
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_USERS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public Map<String, InnerEnum> getUsers() {
+        return users;
+    }
+
+    @JsonProperty(JSON_PROPERTY_USERS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setUsers(Map<String, InnerEnum> users) {
+        this.users = users;
+    }
+
+    /** Return true if this AuthorizationGroups object is equal to o. */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        AuthorizationGroups authorizationGroups = (AuthorizationGroups) o;
+        return Objects.equals(this.th, authorizationGroups.th)
+                && Objects.equals(this.users, authorizationGroups.users);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(th, users);
     }
 
     @Override
     public String toString() {
-      return String.valueOf(value);
+        StringBuilder sb = new StringBuilder();
+        sb.append("class AuthorizationGroups {\n");
+        sb.append("    th: ").append(toIndentedString(th)).append("\n");
+        sb.append("    users: ").append(toIndentedString(users)).append("\n");
+        sb.append("}");
+        return sb.toString();
     }
 
-    @JsonCreator
-    public static InnerEnum fromValue(String value) {
-      for (InnerEnum b : InnerEnum.values()) {
-        if (b.value.equals(value)) {
-          return b;
+    /**
+     * Convert the given object to string with each line indented by 4 spaces (except the first
+     * line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
         }
-      }
-      throw new IllegalArgumentException("Unexpected value '" + value + "'");
-    }
-  }
-
-  public static final String JSON_PROPERTY_USERS = "users";
-  private Map<String, InnerEnum> users = new HashMap<>();
-
-  public AuthorizationGroups() { 
-  }
-
-  public AuthorizationGroups th(BigDecimal th) {
-    this.th = th;
-    return this;
-  }
-
-   /**
-   * Get th
-   * @return th
-  **/
-  @jakarta.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_TH)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public BigDecimal getTh() {
-    return th;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_TH)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setTh(BigDecimal th) {
-    this.th = th;
-  }
-
-
-  public AuthorizationGroups users(Map<String, InnerEnum> users) {
-    this.users = users;
-    return this;
-  }
-
-  public AuthorizationGroups putUsersItem(String key, InnerEnum usersItem) {
-    if (this.users == null) {
-      this.users = new HashMap<>();
-    }
-    this.users.put(key, usersItem);
-    return this;
-  }
-
-   /**
-   * Get users
-   * @return users
-  **/
-  @jakarta.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_USERS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public Map<String, InnerEnum> getUsers() {
-    return users;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_USERS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setUsers(Map<String, InnerEnum> users) {
-    this.users = users;
-  }
-
-
-  /**
-   * Return true if this AuthorizationGroups object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    AuthorizationGroups authorizationGroups = (AuthorizationGroups) o;
-    return Objects.equals(this.th, authorizationGroups.th) &&
-        Objects.equals(this.users, authorizationGroups.users);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(th, users);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class AuthorizationGroups {\n");
-    sb.append("    th: ").append(toIndentedString(th)).append("\n");
-    sb.append("    users: ").append(toIndentedString(users)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
-  }
-
-  /**
-   * Convert the instance into URL query string.
-   *
-   * @return URL query string
-   */
-  public String toUrlQueryString() {
-    return toUrlQueryString(null);
-  }
-
-  /**
-   * Convert the instance into URL query string.
-   *
-   * @param prefix prefix of the query string
-   * @return URL query string
-   */
-  public String toUrlQueryString(String prefix) {
-    String suffix = "";
-    String containerSuffix = "";
-    String containerPrefix = "";
-    if (prefix == null) {
-      // style=form, explode=true, e.g. /pet?name=cat&type=manx
-      prefix = "";
-    } else {
-      // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
-      prefix = prefix + "[";
-      suffix = "]";
-      containerSuffix = "]";
-      containerPrefix = "[";
+        return o.toString().replace("\n", "\n    ");
     }
 
-    StringJoiner joiner = new StringJoiner("&");
-
-    // add `th` to the URL query string
-    if (getTh() != null) {
-      joiner.add(String.format("%sth%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getTh()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    /**
+     * Convert the instance into URL query string.
+     *
+     * @return URL query string
+     */
+    public String toUrlQueryString() {
+        return toUrlQueryString(null);
     }
 
-    // add `users` to the URL query string
-    if (getUsers() != null) {
-      for (String _key : getUsers().keySet()) {
-        joiner.add(String.format("%susers%s%s=%s", prefix, suffix,
-            "".equals(suffix) ? "" : String.format("%s%d%s", containerPrefix, _key, containerSuffix),
-            getUsers().get(_key), URLEncoder.encode(String.valueOf(getUsers().get(_key)), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
-      }
-    }
+    /**
+     * Convert the instance into URL query string.
+     *
+     * @param prefix prefix of the query string
+     * @return URL query string
+     */
+    public String toUrlQueryString(String prefix) {
+        String suffix = "";
+        String containerSuffix = "";
+        String containerPrefix = "";
+        if (prefix == null) {
+            // style=form, explode=true, e.g. /pet?name=cat&type=manx
+            prefix = "";
+        } else {
+            // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
+            prefix = prefix + "[";
+            suffix = "]";
+            containerSuffix = "]";
+            containerPrefix = "[";
+        }
 
-    return joiner.toString();
-  }
+        StringJoiner joiner = new StringJoiner("&");
+
+        // add `th` to the URL query string
+        if (getTh() != null) {
+            joiner.add(
+                    String.format(
+                            "%sth%s=%s",
+                            prefix,
+                            suffix,
+                            URLEncoder.encode(String.valueOf(getTh()), StandardCharsets.UTF_8)
+                                    .replaceAll("\\+", "%20")));
+        }
+
+        // add `users` to the URL query string
+        if (getUsers() != null) {
+            for (String _key : getUsers().keySet()) {
+                joiner.add(
+                        String.format(
+                                "%susers%s%s=%s",
+                                prefix,
+                                suffix,
+                                "".equals(suffix)
+                                        ? ""
+                                        : String.format(
+                                                "%s%d%s", containerPrefix, _key, containerSuffix),
+                                getUsers().get(_key),
+                                URLEncoder.encode(
+                                                String.valueOf(getUsers().get(_key)),
+                                                StandardCharsets.UTF_8)
+                                        .replaceAll("\\+", "%20")));
+            }
+        }
+
+        return joiner.toString();
+    }
 }
-

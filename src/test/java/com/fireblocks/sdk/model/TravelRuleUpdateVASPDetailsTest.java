@@ -10,47 +10,30 @@
  * Do not edit the class manually.
  */
 
-
 package com.fireblocks.sdk.model;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonTypeName;
-import com.fasterxml.jackson.annotation.JsonValue;
-import java.util.Arrays;
-import org.junit.Assert;
-import org.junit.Ignore;
+
 import org.junit.Test;
 
-/**
- * Model tests for TravelRuleUpdateVASPDetails
- */
+/** Model tests for TravelRuleUpdateVASPDetails */
 public class TravelRuleUpdateVASPDetailsTest {
     private final TravelRuleUpdateVASPDetails model = new TravelRuleUpdateVASPDetails();
 
-    /**
-     * Model tests for TravelRuleUpdateVASPDetails
-     */
+    /** Model tests for TravelRuleUpdateVASPDetails */
     @Test
     public void testTravelRuleUpdateVASPDetails() {
         // TODO: test TravelRuleUpdateVASPDetails
     }
 
-    /**
-     * Test the property 'did'
-     */
+    /** Test the property 'did' */
     @Test
     public void didTest() {
         // TODO: test did
     }
 
-    /**
-     * Test the property 'piiDidkey'
-     */
+    /** Test the property 'piiDidkey' */
     @Test
     public void piiDidkeyTest() {
         // TODO: test piiDidkey
     }
-
 }

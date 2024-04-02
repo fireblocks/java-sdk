@@ -10,91 +10,60 @@
  * Do not edit the class manually.
  */
 
-
 package com.fireblocks.sdk.model;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonTypeName;
-import com.fasterxml.jackson.annotation.JsonValue;
-import com.fireblocks.sdk.model.SmartTransferCreateTicketTerm;
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import org.junit.Assert;
-import org.junit.Ignore;
+
 import org.junit.Test;
 
-/**
- * Model tests for SmartTransferCreateTicket
- */
+/** Model tests for SmartTransferCreateTicket */
 public class SmartTransferCreateTicketTest {
     private final SmartTransferCreateTicket model = new SmartTransferCreateTicket();
 
-    /**
-     * Model tests for SmartTransferCreateTicket
-     */
+    /** Model tests for SmartTransferCreateTicket */
     @Test
     public void testSmartTransferCreateTicket() {
         // TODO: test SmartTransferCreateTicket
     }
 
-    /**
-     * Test the property 'createdByNetworkId'
-     */
+    /** Test the property 'createdByNetworkId' */
     @Test
     public void createdByNetworkIdTest() {
         // TODO: test createdByNetworkId
     }
 
-    /**
-     * Test the property 'type'
-     */
+    /** Test the property 'type' */
     @Test
     public void typeTest() {
         // TODO: test type
     }
 
-    /**
-     * Test the property 'expiresIn'
-     */
+    /** Test the property 'expiresIn' */
     @Test
     public void expiresInTest() {
         // TODO: test expiresIn
     }
 
-    /**
-     * Test the property 'terms'
-     */
+    /** Test the property 'terms' */
     @Test
     public void termsTest() {
         // TODO: test terms
     }
 
-    /**
-     * Test the property 'externalRefId'
-     */
+    /** Test the property 'externalRefId' */
     @Test
     public void externalRefIdTest() {
         // TODO: test externalRefId
     }
 
-    /**
-     * Test the property 'note'
-     */
+    /** Test the property 'note' */
     @Test
     public void noteTest() {
         // TODO: test note
     }
 
-    /**
-     * Test the property 'submit'
-     */
+    /** Test the property 'submit' */
     @Test
     public void submitTest() {
         // TODO: test submit
     }
-
 }

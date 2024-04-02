@@ -10,51 +10,30 @@
  * Do not edit the class manually.
  */
 
-
 package com.fireblocks.sdk.model;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonTypeName;
-import com.fasterxml.jackson.annotation.JsonValue;
-import com.fireblocks.sdk.model.PolicyRuleCheckResult;
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import org.junit.Assert;
-import org.junit.Ignore;
+
 import org.junit.Test;
 
-/**
- * Model tests for PolicyCheckResult
- */
+/** Model tests for PolicyCheckResult */
 public class PolicyCheckResultTest {
     private final PolicyCheckResult model = new PolicyCheckResult();
 
-    /**
-     * Model tests for PolicyCheckResult
-     */
+    /** Model tests for PolicyCheckResult */
     @Test
     public void testPolicyCheckResult() {
         // TODO: test PolicyCheckResult
     }
 
-    /**
-     * Test the property 'errors'
-     */
+    /** Test the property 'errors' */
     @Test
     public void errorsTest() {
         // TODO: test errors
     }
 
-    /**
-     * Test the property 'result'
-     */
+    /** Test the property 'result' */
     @Test
     public void resultTest() {
         // TODO: test result
     }
-
 }

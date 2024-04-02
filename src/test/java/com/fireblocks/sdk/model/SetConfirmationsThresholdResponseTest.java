@@ -10,49 +10,30 @@
  * Do not edit the class manually.
  */
 
-
 package com.fireblocks.sdk.model;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonTypeName;
-import com.fasterxml.jackson.annotation.JsonValue;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import org.junit.Assert;
-import org.junit.Ignore;
+
 import org.junit.Test;
 
-/**
- * Model tests for SetConfirmationsThresholdResponse
- */
+/** Model tests for SetConfirmationsThresholdResponse */
 public class SetConfirmationsThresholdResponseTest {
     private final SetConfirmationsThresholdResponse model = new SetConfirmationsThresholdResponse();
 
-    /**
-     * Model tests for SetConfirmationsThresholdResponse
-     */
+    /** Model tests for SetConfirmationsThresholdResponse */
     @Test
     public void testSetConfirmationsThresholdResponse() {
         // TODO: test SetConfirmationsThresholdResponse
     }
 
-    /**
-     * Test the property 'success'
-     */
+    /** Test the property 'success' */
     @Test
     public void successTest() {
         // TODO: test success
     }
 
-    /**
-     * Test the property 'transactions'
-     */
+    /** Test the property 'transactions' */
     @Test
     public void transactionsTest() {
         // TODO: test transactions
     }
-
 }

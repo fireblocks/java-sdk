@@ -10,15 +10,15 @@
  * Do not edit the class manually.
  */
 
-
 package com.fireblocks.sdk.api;
 
+
 import com.fireblocks.sdk.ApiException;
+import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.model.CancelTransactionResponse;
 import com.fireblocks.sdk.model.CreateTransactionResponse;
 import com.fireblocks.sdk.model.DropTransactionRequest;
 import com.fireblocks.sdk.model.DropTransactionResponse;
-import com.fireblocks.sdk.model.ErrorSchema;
 import com.fireblocks.sdk.model.EstimatedNetworkFeeResponse;
 import com.fireblocks.sdk.model.EstimatedTransactionFeeResponse;
 import com.fireblocks.sdk.model.FreezeTransactionResponse;
@@ -26,74 +26,58 @@ import com.fireblocks.sdk.model.SetConfirmationsThresholdRequest;
 import com.fireblocks.sdk.model.SetConfirmationsThresholdResponse;
 import com.fireblocks.sdk.model.TransactionRequest;
 import com.fireblocks.sdk.model.TransactionResponse;
-import java.util.UUID;
 import com.fireblocks.sdk.model.UnfreezeTransactionResponse;
 import com.fireblocks.sdk.model.ValidateAddressResponse;
-import org.junit.Test;
-import org.junit.Ignore;
-
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
+import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
+import org.junit.Ignore;
+import org.junit.Test;
 
-/**
- * API tests for TransactionsApi
- */
+/** API tests for TransactionsApi */
 @Ignore
 public class TransactionsApiTest {
 
     private final TransactionsApi api = new TransactionsApi();
 
-    
     /**
      * Cancel a transaction
      *
-     * Cancels a transaction by ID.
+     * <p>Cancels a transaction by ID.
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
     public void cancelTransactionTest() throws ApiException {
         String txId = null;
         UUID xEndUserWalletId = null;
         String idempotencyKey = null;
-        CompletableFuture<CancelTransactionResponse> response = 
-        api.cancelTransaction(txId, xEndUserWalletId, idempotencyKey);
-        
-        // TODO: test validations
+        CompletableFuture<ApiResponse<CancelTransactionResponse>> response =
+                api.cancelTransaction(txId, xEndUserWalletId, idempotencyKey);
     }
-    
+
     /**
      * Create a new transaction
      *
-     * Creates a new transaction.
+     * <p>Creates a new transaction.
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
     public void createTransactionTest() throws ApiException {
         TransactionRequest transactionRequest = null;
         UUID xEndUserWalletId = null;
         String idempotencyKey = null;
-        CompletableFuture<CreateTransactionResponse> response = 
-        api.createTransaction(transactionRequest, xEndUserWalletId, idempotencyKey);
-        
-        // TODO: test validations
+        CompletableFuture<ApiResponse<CreateTransactionResponse>> response =
+                api.createTransaction(transactionRequest, xEndUserWalletId, idempotencyKey);
     }
-    
+
     /**
      * Drop ETH transaction by ID
      *
-     * Drops a stuck ETH transaction and creates a replacement transaction.
+     * <p>Drops a stuck ETH transaction and creates a replacement transaction.
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
     public void dropTransactionTest() throws ApiException {
@@ -101,107 +85,91 @@ public class TransactionsApiTest {
         DropTransactionRequest dropTransactionRequest = null;
         UUID xEndUserWalletId = null;
         String idempotencyKey = null;
-        CompletableFuture<DropTransactionResponse> response = 
-        api.dropTransaction(txId, dropTransactionRequest, xEndUserWalletId, idempotencyKey);
-        
-        // TODO: test validations
+        CompletableFuture<ApiResponse<DropTransactionResponse>> response =
+                api.dropTransaction(txId, dropTransactionRequest, xEndUserWalletId, idempotencyKey);
     }
-    
+
     /**
      * Estimate the required fee for an asset
      *
-     * Gets the estimated required fee for an asset. For UTXO based assets, the response will contain the suggested fee per byte, for ETH/ETC based assets, the suggested gas price, and for XRP/XLM, the transaction fee.
+     * <p>Gets the estimated required fee for an asset. For UTXO based assets, the response will
+     * contain the suggested fee per byte, for ETH/ETC based assets, the suggested gas price, and
+     * for XRP/XLM, the transaction fee.
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
     public void estimateNetworkFeeTest() throws ApiException {
         String assetId = null;
-        CompletableFuture<EstimatedNetworkFeeResponse> response = 
-        api.estimateNetworkFee(assetId);
-        
-        // TODO: test validations
+        CompletableFuture<ApiResponse<EstimatedNetworkFeeResponse>> response =
+                api.estimateNetworkFee(assetId);
     }
-    
+
     /**
      * Estimate transaction fee
      *
-     * Estimates the transaction fee for a transaction request. * Note: Supports all Fireblocks assets except ZCash (ZEC).
+     * <p>Estimates the transaction fee for a transaction request. * Note: Supports all Fireblocks
+     * assets except ZCash (ZEC).
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
     public void estimateTransactionFeeTest() throws ApiException {
         TransactionRequest transactionRequest = null;
         String idempotencyKey = null;
-        CompletableFuture<EstimatedTransactionFeeResponse> response = 
-        api.estimateTransactionFee(transactionRequest, idempotencyKey);
-        
-        // TODO: test validations
+        CompletableFuture<ApiResponse<EstimatedTransactionFeeResponse>> response =
+                api.estimateTransactionFee(transactionRequest, idempotencyKey);
     }
-    
+
     /**
      * Freeze a transaction
      *
-     * Freezes a transaction by ID.
+     * <p>Freezes a transaction by ID.
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
     public void freezeTransactionTest() throws ApiException {
         String txId = null;
         UUID xEndUserWalletId = null;
         String idempotencyKey = null;
-        CompletableFuture<FreezeTransactionResponse> response = 
-        api.freezeTransaction(txId, xEndUserWalletId, idempotencyKey);
-        
-        // TODO: test validations
+        CompletableFuture<ApiResponse<FreezeTransactionResponse>> response =
+                api.freezeTransaction(txId, xEndUserWalletId, idempotencyKey);
     }
-    
+
     /**
      * Find a specific transaction by Fireblocks transaction ID
      *
-     * Returns a transaction by ID.
+     * <p>Returns a transaction by ID.
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
     public void getTransactionTest() throws ApiException {
         String txId = null;
-        CompletableFuture<TransactionResponse> response = 
-        api.getTransaction(txId);
-        
-        // TODO: test validations
+        CompletableFuture<ApiResponse<TransactionResponse>> response = api.getTransaction(txId);
     }
-    
+
     /**
      * Find a specific transaction by external transaction ID
      *
-     * Returns transaction by external transaction ID.
+     * <p>Returns transaction by external transaction ID.
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
     public void getTransactionByExternalIdTest() throws ApiException {
         String externalTxId = null;
-        CompletableFuture<TransactionResponse> response = 
-        api.getTransactionByExternalId(externalTxId);
-        
-        // TODO: test validations
+        CompletableFuture<ApiResponse<TransactionResponse>> response =
+                api.getTransactionByExternalId(externalTxId);
     }
-    
+
     /**
      * List transaction history
      *
-     * Lists the transaction history for your workspace.
+     * <p>Lists the transaction history for your workspace.
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
     public void getTransactionsTest() throws ApiException {
@@ -219,85 +187,88 @@ public class TransactionsApiTest {
         String txHash = null;
         String sourceWalletId = null;
         String destWalletId = null;
-        CompletableFuture<List<TransactionResponse>> response = 
-        api.getTransactions(before, after, status, orderBy, sort, limit, sourceType, sourceId, destType, destId, assets, txHash, sourceWalletId, destWalletId);
-        
-        // TODO: test validations
+        CompletableFuture<ApiResponse<List<TransactionResponse>>> response =
+                api.getTransactions(
+                        before,
+                        after,
+                        status,
+                        orderBy,
+                        sort,
+                        limit,
+                        sourceType,
+                        sourceId,
+                        destType,
+                        destId,
+                        assets,
+                        txHash,
+                        sourceWalletId,
+                        destWalletId);
     }
-    
+
     /**
      * Set confirmation threshold by transaction hash
      *
-     * Overrides the required number of confirmations for transaction completion by transaction hash.
+     * <p>Overrides the required number of confirmations for transaction completion by transaction
+     * hash.
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
     public void setConfirmationThresholdByTransactionHashTest() throws ApiException {
         String txHash = null;
         SetConfirmationsThresholdRequest setConfirmationsThresholdRequest = null;
         String idempotencyKey = null;
-        CompletableFuture<SetConfirmationsThresholdResponse> response = 
-        api.setConfirmationThresholdByTransactionHash(txHash, setConfirmationsThresholdRequest, idempotencyKey);
-        
-        // TODO: test validations
+        CompletableFuture<ApiResponse<SetConfirmationsThresholdResponse>> response =
+                api.setConfirmationThresholdByTransactionHash(
+                        txHash, setConfirmationsThresholdRequest, idempotencyKey);
     }
-    
+
     /**
      * Set confirmation threshold by transaction ID
      *
-     * Overrides the required number of confirmations for transaction completion by transaction ID.
+     * <p>Overrides the required number of confirmations for transaction completion by transaction
+     * ID.
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
     public void setTransactionConfirmationThresholdTest() throws ApiException {
         String txId = null;
         SetConfirmationsThresholdRequest setConfirmationsThresholdRequest = null;
         String idempotencyKey = null;
-        CompletableFuture<SetConfirmationsThresholdResponse> response = 
-        api.setTransactionConfirmationThreshold(txId, setConfirmationsThresholdRequest, idempotencyKey);
-        
-        // TODO: test validations
+        CompletableFuture<ApiResponse<SetConfirmationsThresholdResponse>> response =
+                api.setTransactionConfirmationThreshold(
+                        txId, setConfirmationsThresholdRequest, idempotencyKey);
     }
-    
+
     /**
      * Unfreeze a transaction
      *
-     * Unfreezes a transaction by ID and makes the transaction available again.
+     * <p>Unfreezes a transaction by ID and makes the transaction available again.
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
     public void unfreezeTransactionTest() throws ApiException {
         String txId = null;
         UUID xEndUserWalletId = null;
         String idempotencyKey = null;
-        CompletableFuture<UnfreezeTransactionResponse> response = 
-        api.unfreezeTransaction(txId, xEndUserWalletId, idempotencyKey);
-        
-        // TODO: test validations
+        CompletableFuture<ApiResponse<UnfreezeTransactionResponse>> response =
+                api.unfreezeTransaction(txId, xEndUserWalletId, idempotencyKey);
     }
-    
+
     /**
      * Validate destination address
      *
-     * Checks if an address is valid (for XRP, DOT, XLM, and EOS).
+     * <p>Checks if an address is valid (for XRP, DOT, XLM, and EOS).
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
     public void validateAddressTest() throws ApiException {
         String assetId = null;
         String address = null;
-        CompletableFuture<ValidateAddressResponse> response = 
-        api.validateAddress(assetId, address);
-        
-        // TODO: test validations
+        CompletableFuture<ApiResponse<ValidateAddressResponse>> response =
+                api.validateAddress(assetId, address);
     }
-    
 }

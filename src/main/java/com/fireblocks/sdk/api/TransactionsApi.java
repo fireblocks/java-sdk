@@ -12,16 +12,17 @@
 
 package com.fireblocks.sdk.api;
 
+
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.Pair;
-
 import com.fireblocks.sdk.model.CancelTransactionResponse;
 import com.fireblocks.sdk.model.CreateTransactionResponse;
 import com.fireblocks.sdk.model.DropTransactionRequest;
 import com.fireblocks.sdk.model.DropTransactionResponse;
-import com.fireblocks.sdk.model.ErrorSchema;
 import com.fireblocks.sdk.model.EstimatedNetworkFeeResponse;
 import com.fireblocks.sdk.model.EstimatedTransactionFeeResponse;
 import com.fireblocks.sdk.model.FreezeTransactionResponse;
@@ -29,1454 +30,1247 @@ import com.fireblocks.sdk.model.SetConfirmationsThresholdRequest;
 import com.fireblocks.sdk.model.SetConfirmationsThresholdResponse;
 import com.fireblocks.sdk.model.TransactionRequest;
 import com.fireblocks.sdk.model.TransactionResponse;
-import java.util.UUID;
 import com.fireblocks.sdk.model.UnfreezeTransactionResponse;
 import com.fireblocks.sdk.model.ValidateAddressResponse;
-
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-import java.io.InputStream;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.IOException;
-import java.io.OutputStream;
-import java.net.http.HttpRequest;
-import java.nio.channels.Channels;
-import java.nio.channels.Pipe;
+import java.io.InputStream;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.time.Duration;
-
 import java.util.ArrayList;
-import java.util.StringJoiner;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.function.Consumer;
-
+import java.util.StringJoiner;
+import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
+import java.util.function.Consumer;
 
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class TransactionsApi {
-  private final HttpClient memberVarHttpClient;
-  private final ObjectMapper memberVarObjectMapper;
-  private final String memberVarBaseUri;
-  private final Consumer<HttpRequest.Builder> memberVarInterceptor;
-  private final Duration memberVarReadTimeout;
-  private final Consumer<HttpResponse<InputStream>> memberVarResponseInterceptor;
-  private final Consumer<HttpResponse<String>> memberVarAsyncResponseInterceptor;
+    private final HttpClient memberVarHttpClient;
+    private final ObjectMapper memberVarObjectMapper;
+    private final String memberVarBaseUri;
+    private final Consumer<HttpRequest.Builder> memberVarInterceptor;
+    private final Duration memberVarReadTimeout;
+    private final Consumer<HttpResponse<InputStream>> memberVarResponseInterceptor;
+    private final Consumer<HttpResponse<String>> memberVarAsyncResponseInterceptor;
 
-  public TransactionsApi() {
-    this(new ApiClient());
-  }
-
-  public TransactionsApi(ApiClient apiClient) {
-    memberVarHttpClient = apiClient.getHttpClient();
-    memberVarObjectMapper = apiClient.getObjectMapper();
-    memberVarBaseUri = apiClient.getBaseUri();
-    memberVarInterceptor = apiClient.getRequestInterceptor();
-    memberVarReadTimeout = apiClient.getReadTimeout();
-    memberVarResponseInterceptor = apiClient.getResponseInterceptor();
-    memberVarAsyncResponseInterceptor = apiClient.getAsyncResponseInterceptor();
-  }
-
-  private ApiException getApiException(String operationId, HttpResponse<String> response) {
-    String message = formatExceptionMessage(operationId, response.statusCode(), response.body());
-    return new ApiException(response.statusCode(), message, response.headers(), response.body());
-  }
-
-  private String formatExceptionMessage(String operationId, int statusCode, String body) {
-    if (body == null || body.isEmpty()) {
-      body = "[no body]";
+    public TransactionsApi() {
+        this(new ApiClient());
     }
-    return operationId + " call failed with: " + statusCode + " - " + body;
-  }
 
-  /**
-   * Cancel a transaction
-   * Cancels a transaction by ID.
-   * @param txId The ID of the transaction to cancel (required)
-   * @param xEndUserWalletId Unique ID of the End-User wallet to the API request. Required for end-user wallet operations. (optional)
-   * @param idempotencyKey A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
-   * @return CompletableFuture&lt;CancelTransactionResponse&gt;
-   * @throws ApiException if fails to make API call
-   */
-  public CompletableFuture<CancelTransactionResponse> cancelTransaction(String txId, UUID xEndUserWalletId, String idempotencyKey) throws ApiException {
-    try {
-      HttpRequest.Builder localVarRequestBuilder = cancelTransactionRequestBuilder(txId, xEndUserWalletId, idempotencyKey);
-      return memberVarHttpClient.sendAsync(
-          localVarRequestBuilder.build(),
-          HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
-            if (localVarResponse.statusCode()/ 100 != 2) {
-              return CompletableFuture.failedFuture(getApiException("cancelTransaction", localVarResponse));
-            }
-            try {
-              String responseBody = localVarResponse.body();
-              return CompletableFuture.completedFuture(
-                  responseBody == null || responseBody.isBlank() ? null : memberVarObjectMapper.readValue(responseBody, new TypeReference<CancelTransactionResponse>() {})
-              );
-            } catch (IOException e) {
-              return CompletableFuture.failedFuture(new ApiException(e));
-            }
-      });
+    public TransactionsApi(ApiClient apiClient) {
+        memberVarHttpClient = apiClient.getHttpClient();
+        memberVarObjectMapper = apiClient.getObjectMapper();
+        memberVarBaseUri = apiClient.getBaseUri();
+        memberVarInterceptor = apiClient.getRequestInterceptor();
+        memberVarReadTimeout = apiClient.getReadTimeout();
+        memberVarResponseInterceptor = apiClient.getResponseInterceptor();
+        memberVarAsyncResponseInterceptor = apiClient.getAsyncResponseInterceptor();
     }
-    catch (ApiException e) {
-      return CompletableFuture.failedFuture(e);
-    }
-  }
 
-  /**
-   * Cancel a transaction
-   * Cancels a transaction by ID.
-   * @param txId The ID of the transaction to cancel (required)
-   * @param xEndUserWalletId Unique ID of the End-User wallet to the API request. Required for end-user wallet operations. (optional)
-   * @param idempotencyKey A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
-   * @return CompletableFuture&lt;ApiResponse&lt;CancelTransactionResponse&gt;&gt;
-   * @throws ApiException if fails to make API call
-   */
-  public CompletableFuture<ApiResponse<CancelTransactionResponse>> cancelTransactionWithHttpInfo(String txId, UUID xEndUserWalletId, String idempotencyKey) throws ApiException {
-    try {
-      HttpRequest.Builder localVarRequestBuilder = cancelTransactionRequestBuilder(txId, xEndUserWalletId, idempotencyKey);
-      return memberVarHttpClient.sendAsync(
-          localVarRequestBuilder.build(),
-          HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
-            if (memberVarAsyncResponseInterceptor != null) {
-              memberVarAsyncResponseInterceptor.accept(localVarResponse);
-            }
-            if (localVarResponse.statusCode()/ 100 != 2) {
-              return CompletableFuture.failedFuture(getApiException("cancelTransaction", localVarResponse));
-            }
-            try {
-              String responseBody = localVarResponse.body();
-              return CompletableFuture.completedFuture(
-                  new ApiResponse<CancelTransactionResponse>(
-                      localVarResponse.statusCode(),
-                      localVarResponse.headers().map(),
-                      responseBody == null || responseBody.isBlank() ? null : memberVarObjectMapper.readValue(responseBody, new TypeReference<CancelTransactionResponse>() {}))
-              );
-            } catch (IOException e) {
-              return CompletableFuture.failedFuture(new ApiException(e));
-            }
+    private ApiException getApiException(String operationId, HttpResponse<String> response) {
+        String message =
+                formatExceptionMessage(operationId, response.statusCode(), response.body());
+        return new ApiException(
+                response.statusCode(), message, response.headers(), response.body());
+    }
+
+    private String formatExceptionMessage(String operationId, int statusCode, String body) {
+        if (body == null || body.isEmpty()) {
+            body = "[no body]";
         }
-      );
-    }
-    catch (ApiException e) {
-      return CompletableFuture.failedFuture(e);
-    }
-  }
-
-  private HttpRequest.Builder cancelTransactionRequestBuilder(String txId, UUID xEndUserWalletId, String idempotencyKey) throws ApiException {
-    // verify the required parameter 'txId' is set
-    if (txId == null) {
-      throw new ApiException(400, "Missing the required parameter 'txId' when calling cancelTransaction");
+        return operationId + " call failed with: " + statusCode + " - " + body;
     }
 
-    HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
-
-    String localVarPath = "/transactions/{txId}/cancel"
-        .replace("{txId}", ApiClient.urlEncode(txId.toString()));
-
-    localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
-
-    if (xEndUserWalletId != null) {
-      localVarRequestBuilder.header("X-End-User-Wallet-Id", xEndUserWalletId.toString());
-    }
-    if (idempotencyKey != null) {
-      localVarRequestBuilder.header("Idempotency-Key", idempotencyKey.toString());
-    }
-    localVarRequestBuilder.header("Accept", "application/json");
-
-    localVarRequestBuilder.method("POST", HttpRequest.BodyPublishers.noBody());
-    if (memberVarReadTimeout != null) {
-      localVarRequestBuilder.timeout(memberVarReadTimeout);
-    }
-    if (memberVarInterceptor != null) {
-      memberVarInterceptor.accept(localVarRequestBuilder);
-    }
-    return localVarRequestBuilder;
-  }
-  /**
-   * Create a new transaction
-   * Creates a new transaction.
-   * @param transactionRequest  (optional)
-   * @param xEndUserWalletId Unique ID of the End-User wallet to the API request. Required for end-user wallet operations. (optional)
-   * @param idempotencyKey A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
-   * @return CompletableFuture&lt;CreateTransactionResponse&gt;
-   * @throws ApiException if fails to make API call
-   */
-  public CompletableFuture<CreateTransactionResponse> createTransaction(TransactionRequest transactionRequest, UUID xEndUserWalletId, String idempotencyKey) throws ApiException {
-    try {
-      HttpRequest.Builder localVarRequestBuilder = createTransactionRequestBuilder(transactionRequest, xEndUserWalletId, idempotencyKey);
-      return memberVarHttpClient.sendAsync(
-          localVarRequestBuilder.build(),
-          HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
-            if (localVarResponse.statusCode()/ 100 != 2) {
-              return CompletableFuture.failedFuture(getApiException("createTransaction", localVarResponse));
-            }
-            try {
-              String responseBody = localVarResponse.body();
-              return CompletableFuture.completedFuture(
-                  responseBody == null || responseBody.isBlank() ? null : memberVarObjectMapper.readValue(responseBody, new TypeReference<CreateTransactionResponse>() {})
-              );
-            } catch (IOException e) {
-              return CompletableFuture.failedFuture(new ApiException(e));
-            }
-      });
-    }
-    catch (ApiException e) {
-      return CompletableFuture.failedFuture(e);
-    }
-  }
-
-  /**
-   * Create a new transaction
-   * Creates a new transaction.
-   * @param transactionRequest  (optional)
-   * @param xEndUserWalletId Unique ID of the End-User wallet to the API request. Required for end-user wallet operations. (optional)
-   * @param idempotencyKey A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
-   * @return CompletableFuture&lt;ApiResponse&lt;CreateTransactionResponse&gt;&gt;
-   * @throws ApiException if fails to make API call
-   */
-  public CompletableFuture<ApiResponse<CreateTransactionResponse>> createTransactionWithHttpInfo(TransactionRequest transactionRequest, UUID xEndUserWalletId, String idempotencyKey) throws ApiException {
-    try {
-      HttpRequest.Builder localVarRequestBuilder = createTransactionRequestBuilder(transactionRequest, xEndUserWalletId, idempotencyKey);
-      return memberVarHttpClient.sendAsync(
-          localVarRequestBuilder.build(),
-          HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
-            if (memberVarAsyncResponseInterceptor != null) {
-              memberVarAsyncResponseInterceptor.accept(localVarResponse);
-            }
-            if (localVarResponse.statusCode()/ 100 != 2) {
-              return CompletableFuture.failedFuture(getApiException("createTransaction", localVarResponse));
-            }
-            try {
-              String responseBody = localVarResponse.body();
-              return CompletableFuture.completedFuture(
-                  new ApiResponse<CreateTransactionResponse>(
-                      localVarResponse.statusCode(),
-                      localVarResponse.headers().map(),
-                      responseBody == null || responseBody.isBlank() ? null : memberVarObjectMapper.readValue(responseBody, new TypeReference<CreateTransactionResponse>() {}))
-              );
-            } catch (IOException e) {
-              return CompletableFuture.failedFuture(new ApiException(e));
-            }
+    /**
+     * Cancel a transaction Cancels a transaction by ID.
+     *
+     * @param txId The ID of the transaction to cancel (required)
+     * @param xEndUserWalletId Unique ID of the End-User wallet to the API request. Required for
+     *     end-user wallet operations. (optional)
+     * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
+     *     times with the same idempotency key, the server will return the same response as the
+     *     first request. The idempotency key is valid for 24 hours. (optional)
+     * @return CompletableFuture&lt;ApiResponse&lt;CancelTransactionResponse&gt;&gt;
+     * @throws ApiException if fails to make API call
+     */
+    public CompletableFuture<ApiResponse<CancelTransactionResponse>> cancelTransaction(
+            String txId, UUID xEndUserWalletId, String idempotencyKey) throws ApiException {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    cancelTransactionRequestBuilder(txId, xEndUserWalletId, idempotencyKey);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException("cancelTransaction", localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<CancelTransactionResponse>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            CancelTransactionResponse>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            });
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
         }
-      );
     }
-    catch (ApiException e) {
-      return CompletableFuture.failedFuture(e);
-    }
-  }
 
-  private HttpRequest.Builder createTransactionRequestBuilder(TransactionRequest transactionRequest, UUID xEndUserWalletId, String idempotencyKey) throws ApiException {
-
-    HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
-
-    String localVarPath = "/transactions";
-
-    localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
-
-    if (xEndUserWalletId != null) {
-      localVarRequestBuilder.header("X-End-User-Wallet-Id", xEndUserWalletId.toString());
-    }
-    if (idempotencyKey != null) {
-      localVarRequestBuilder.header("Idempotency-Key", idempotencyKey.toString());
-    }
-    localVarRequestBuilder.header("Content-Type", "application/json");
-    localVarRequestBuilder.header("Accept", "application/json");
-
-    try {
-      byte[] localVarPostBody = memberVarObjectMapper.writeValueAsBytes(transactionRequest);
-      localVarRequestBuilder.method("POST", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
-    } catch (IOException e) {
-      throw new ApiException(e);
-    }
-    if (memberVarReadTimeout != null) {
-      localVarRequestBuilder.timeout(memberVarReadTimeout);
-    }
-    if (memberVarInterceptor != null) {
-      memberVarInterceptor.accept(localVarRequestBuilder);
-    }
-    return localVarRequestBuilder;
-  }
-  /**
-   * Drop ETH transaction by ID
-   * Drops a stuck ETH transaction and creates a replacement transaction.
-   * @param txId The ID of the transaction (required)
-   * @param dropTransactionRequest  (optional)
-   * @param xEndUserWalletId Unique ID of the End-User wallet to the API request. Required for end-user wallet operations. (optional)
-   * @param idempotencyKey A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
-   * @return CompletableFuture&lt;DropTransactionResponse&gt;
-   * @throws ApiException if fails to make API call
-   */
-  public CompletableFuture<DropTransactionResponse> dropTransaction(String txId, DropTransactionRequest dropTransactionRequest, UUID xEndUserWalletId, String idempotencyKey) throws ApiException {
-    try {
-      HttpRequest.Builder localVarRequestBuilder = dropTransactionRequestBuilder(txId, dropTransactionRequest, xEndUserWalletId, idempotencyKey);
-      return memberVarHttpClient.sendAsync(
-          localVarRequestBuilder.build(),
-          HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
-            if (localVarResponse.statusCode()/ 100 != 2) {
-              return CompletableFuture.failedFuture(getApiException("dropTransaction", localVarResponse));
-            }
-            try {
-              String responseBody = localVarResponse.body();
-              return CompletableFuture.completedFuture(
-                  responseBody == null || responseBody.isBlank() ? null : memberVarObjectMapper.readValue(responseBody, new TypeReference<DropTransactionResponse>() {})
-              );
-            } catch (IOException e) {
-              return CompletableFuture.failedFuture(new ApiException(e));
-            }
-      });
-    }
-    catch (ApiException e) {
-      return CompletableFuture.failedFuture(e);
-    }
-  }
-
-  /**
-   * Drop ETH transaction by ID
-   * Drops a stuck ETH transaction and creates a replacement transaction.
-   * @param txId The ID of the transaction (required)
-   * @param dropTransactionRequest  (optional)
-   * @param xEndUserWalletId Unique ID of the End-User wallet to the API request. Required for end-user wallet operations. (optional)
-   * @param idempotencyKey A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
-   * @return CompletableFuture&lt;ApiResponse&lt;DropTransactionResponse&gt;&gt;
-   * @throws ApiException if fails to make API call
-   */
-  public CompletableFuture<ApiResponse<DropTransactionResponse>> dropTransactionWithHttpInfo(String txId, DropTransactionRequest dropTransactionRequest, UUID xEndUserWalletId, String idempotencyKey) throws ApiException {
-    try {
-      HttpRequest.Builder localVarRequestBuilder = dropTransactionRequestBuilder(txId, dropTransactionRequest, xEndUserWalletId, idempotencyKey);
-      return memberVarHttpClient.sendAsync(
-          localVarRequestBuilder.build(),
-          HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
-            if (memberVarAsyncResponseInterceptor != null) {
-              memberVarAsyncResponseInterceptor.accept(localVarResponse);
-            }
-            if (localVarResponse.statusCode()/ 100 != 2) {
-              return CompletableFuture.failedFuture(getApiException("dropTransaction", localVarResponse));
-            }
-            try {
-              String responseBody = localVarResponse.body();
-              return CompletableFuture.completedFuture(
-                  new ApiResponse<DropTransactionResponse>(
-                      localVarResponse.statusCode(),
-                      localVarResponse.headers().map(),
-                      responseBody == null || responseBody.isBlank() ? null : memberVarObjectMapper.readValue(responseBody, new TypeReference<DropTransactionResponse>() {}))
-              );
-            } catch (IOException e) {
-              return CompletableFuture.failedFuture(new ApiException(e));
-            }
+    private HttpRequest.Builder cancelTransactionRequestBuilder(
+            String txId, UUID xEndUserWalletId, String idempotencyKey) throws ApiException {
+        // verify the required parameter 'txId' is set
+        if (txId == null) {
+            throw new ApiException(
+                    400, "Missing the required parameter 'txId' when calling cancelTransaction");
         }
-      );
-    }
-    catch (ApiException e) {
-      return CompletableFuture.failedFuture(e);
-    }
-  }
 
-  private HttpRequest.Builder dropTransactionRequestBuilder(String txId, DropTransactionRequest dropTransactionRequest, UUID xEndUserWalletId, String idempotencyKey) throws ApiException {
-    // verify the required parameter 'txId' is set
-    if (txId == null) {
-      throw new ApiException(400, "Missing the required parameter 'txId' when calling dropTransaction");
-    }
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
-    HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+        String localVarPath =
+                "/transactions/{txId}/cancel"
+                        .replace("{txId}", ApiClient.urlEncode(txId.toString()));
 
-    String localVarPath = "/transactions/{txId}/drop"
-        .replace("{txId}", ApiClient.urlEncode(txId.toString()));
+        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
 
-    localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
-
-    if (xEndUserWalletId != null) {
-      localVarRequestBuilder.header("X-End-User-Wallet-Id", xEndUserWalletId.toString());
-    }
-    if (idempotencyKey != null) {
-      localVarRequestBuilder.header("Idempotency-Key", idempotencyKey.toString());
-    }
-    localVarRequestBuilder.header("Content-Type", "application/json");
-    localVarRequestBuilder.header("Accept", "application/json");
-
-    try {
-      byte[] localVarPostBody = memberVarObjectMapper.writeValueAsBytes(dropTransactionRequest);
-      localVarRequestBuilder.method("POST", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
-    } catch (IOException e) {
-      throw new ApiException(e);
-    }
-    if (memberVarReadTimeout != null) {
-      localVarRequestBuilder.timeout(memberVarReadTimeout);
-    }
-    if (memberVarInterceptor != null) {
-      memberVarInterceptor.accept(localVarRequestBuilder);
-    }
-    return localVarRequestBuilder;
-  }
-  /**
-   * Estimate the required fee for an asset
-   * Gets the estimated required fee for an asset. For UTXO based assets, the response will contain the suggested fee per byte, for ETH/ETC based assets, the suggested gas price, and for XRP/XLM, the transaction fee.
-   * @param assetId The asset for which to estimate the fee (required)
-   * @return CompletableFuture&lt;EstimatedNetworkFeeResponse&gt;
-   * @throws ApiException if fails to make API call
-   */
-  public CompletableFuture<EstimatedNetworkFeeResponse> estimateNetworkFee(String assetId) throws ApiException {
-    try {
-      HttpRequest.Builder localVarRequestBuilder = estimateNetworkFeeRequestBuilder(assetId);
-      return memberVarHttpClient.sendAsync(
-          localVarRequestBuilder.build(),
-          HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
-            if (localVarResponse.statusCode()/ 100 != 2) {
-              return CompletableFuture.failedFuture(getApiException("estimateNetworkFee", localVarResponse));
-            }
-            try {
-              String responseBody = localVarResponse.body();
-              return CompletableFuture.completedFuture(
-                  responseBody == null || responseBody.isBlank() ? null : memberVarObjectMapper.readValue(responseBody, new TypeReference<EstimatedNetworkFeeResponse>() {})
-              );
-            } catch (IOException e) {
-              return CompletableFuture.failedFuture(new ApiException(e));
-            }
-      });
-    }
-    catch (ApiException e) {
-      return CompletableFuture.failedFuture(e);
-    }
-  }
-
-  /**
-   * Estimate the required fee for an asset
-   * Gets the estimated required fee for an asset. For UTXO based assets, the response will contain the suggested fee per byte, for ETH/ETC based assets, the suggested gas price, and for XRP/XLM, the transaction fee.
-   * @param assetId The asset for which to estimate the fee (required)
-   * @return CompletableFuture&lt;ApiResponse&lt;EstimatedNetworkFeeResponse&gt;&gt;
-   * @throws ApiException if fails to make API call
-   */
-  public CompletableFuture<ApiResponse<EstimatedNetworkFeeResponse>> estimateNetworkFeeWithHttpInfo(String assetId) throws ApiException {
-    try {
-      HttpRequest.Builder localVarRequestBuilder = estimateNetworkFeeRequestBuilder(assetId);
-      return memberVarHttpClient.sendAsync(
-          localVarRequestBuilder.build(),
-          HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
-            if (memberVarAsyncResponseInterceptor != null) {
-              memberVarAsyncResponseInterceptor.accept(localVarResponse);
-            }
-            if (localVarResponse.statusCode()/ 100 != 2) {
-              return CompletableFuture.failedFuture(getApiException("estimateNetworkFee", localVarResponse));
-            }
-            try {
-              String responseBody = localVarResponse.body();
-              return CompletableFuture.completedFuture(
-                  new ApiResponse<EstimatedNetworkFeeResponse>(
-                      localVarResponse.statusCode(),
-                      localVarResponse.headers().map(),
-                      responseBody == null || responseBody.isBlank() ? null : memberVarObjectMapper.readValue(responseBody, new TypeReference<EstimatedNetworkFeeResponse>() {}))
-              );
-            } catch (IOException e) {
-              return CompletableFuture.failedFuture(new ApiException(e));
-            }
+        if (xEndUserWalletId != null) {
+            localVarRequestBuilder.header("X-End-User-Wallet-Id", xEndUserWalletId.toString());
         }
-      );
-    }
-    catch (ApiException e) {
-      return CompletableFuture.failedFuture(e);
-    }
-  }
-
-  private HttpRequest.Builder estimateNetworkFeeRequestBuilder(String assetId) throws ApiException {
-    // verify the required parameter 'assetId' is set
-    if (assetId == null) {
-      throw new ApiException(400, "Missing the required parameter 'assetId' when calling estimateNetworkFee");
-    }
-
-    HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
-
-    String localVarPath = "/estimate_network_fee";
-
-    List<Pair> localVarQueryParams = new ArrayList<>();
-    StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
-    String localVarQueryParameterBaseName;
-    localVarQueryParameterBaseName = "assetId";
-    localVarQueryParams.addAll(ApiClient.parameterToPairs("assetId", assetId));
-
-    if (!localVarQueryParams.isEmpty() || localVarQueryStringJoiner.length() != 0) {
-      StringJoiner queryJoiner = new StringJoiner("&");
-      localVarQueryParams.forEach(p -> queryJoiner.add(p.getName() + '=' + p.getValue()));
-      if (localVarQueryStringJoiner.length() != 0) {
-        queryJoiner.add(localVarQueryStringJoiner.toString());
-      }
-      localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath + '?' + queryJoiner.toString()));
-    } else {
-      localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
-    }
-
-    localVarRequestBuilder.header("Accept", "application/json");
-
-    localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
-    if (memberVarReadTimeout != null) {
-      localVarRequestBuilder.timeout(memberVarReadTimeout);
-    }
-    if (memberVarInterceptor != null) {
-      memberVarInterceptor.accept(localVarRequestBuilder);
-    }
-    return localVarRequestBuilder;
-  }
-  /**
-   * Estimate transaction fee
-   * Estimates the transaction fee for a transaction request. * Note: Supports all Fireblocks assets except ZCash (ZEC).
-   * @param transactionRequest  (optional)
-   * @param idempotencyKey A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
-   * @return CompletableFuture&lt;EstimatedTransactionFeeResponse&gt;
-   * @throws ApiException if fails to make API call
-   */
-  public CompletableFuture<EstimatedTransactionFeeResponse> estimateTransactionFee(TransactionRequest transactionRequest, String idempotencyKey) throws ApiException {
-    try {
-      HttpRequest.Builder localVarRequestBuilder = estimateTransactionFeeRequestBuilder(transactionRequest, idempotencyKey);
-      return memberVarHttpClient.sendAsync(
-          localVarRequestBuilder.build(),
-          HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
-            if (localVarResponse.statusCode()/ 100 != 2) {
-              return CompletableFuture.failedFuture(getApiException("estimateTransactionFee", localVarResponse));
-            }
-            try {
-              String responseBody = localVarResponse.body();
-              return CompletableFuture.completedFuture(
-                  responseBody == null || responseBody.isBlank() ? null : memberVarObjectMapper.readValue(responseBody, new TypeReference<EstimatedTransactionFeeResponse>() {})
-              );
-            } catch (IOException e) {
-              return CompletableFuture.failedFuture(new ApiException(e));
-            }
-      });
-    }
-    catch (ApiException e) {
-      return CompletableFuture.failedFuture(e);
-    }
-  }
-
-  /**
-   * Estimate transaction fee
-   * Estimates the transaction fee for a transaction request. * Note: Supports all Fireblocks assets except ZCash (ZEC).
-   * @param transactionRequest  (optional)
-   * @param idempotencyKey A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
-   * @return CompletableFuture&lt;ApiResponse&lt;EstimatedTransactionFeeResponse&gt;&gt;
-   * @throws ApiException if fails to make API call
-   */
-  public CompletableFuture<ApiResponse<EstimatedTransactionFeeResponse>> estimateTransactionFeeWithHttpInfo(TransactionRequest transactionRequest, String idempotencyKey) throws ApiException {
-    try {
-      HttpRequest.Builder localVarRequestBuilder = estimateTransactionFeeRequestBuilder(transactionRequest, idempotencyKey);
-      return memberVarHttpClient.sendAsync(
-          localVarRequestBuilder.build(),
-          HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
-            if (memberVarAsyncResponseInterceptor != null) {
-              memberVarAsyncResponseInterceptor.accept(localVarResponse);
-            }
-            if (localVarResponse.statusCode()/ 100 != 2) {
-              return CompletableFuture.failedFuture(getApiException("estimateTransactionFee", localVarResponse));
-            }
-            try {
-              String responseBody = localVarResponse.body();
-              return CompletableFuture.completedFuture(
-                  new ApiResponse<EstimatedTransactionFeeResponse>(
-                      localVarResponse.statusCode(),
-                      localVarResponse.headers().map(),
-                      responseBody == null || responseBody.isBlank() ? null : memberVarObjectMapper.readValue(responseBody, new TypeReference<EstimatedTransactionFeeResponse>() {}))
-              );
-            } catch (IOException e) {
-              return CompletableFuture.failedFuture(new ApiException(e));
-            }
+        if (idempotencyKey != null) {
+            localVarRequestBuilder.header("Idempotency-Key", idempotencyKey.toString());
         }
-      );
-    }
-    catch (ApiException e) {
-      return CompletableFuture.failedFuture(e);
-    }
-  }
+        localVarRequestBuilder.header("Accept", "application/json");
 
-  private HttpRequest.Builder estimateTransactionFeeRequestBuilder(TransactionRequest transactionRequest, String idempotencyKey) throws ApiException {
-
-    HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
-
-    String localVarPath = "/transactions/estimate_fee";
-
-    localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
-
-    if (idempotencyKey != null) {
-      localVarRequestBuilder.header("Idempotency-Key", idempotencyKey.toString());
-    }
-    localVarRequestBuilder.header("Content-Type", "application/json");
-    localVarRequestBuilder.header("Accept", "application/json");
-
-    try {
-      byte[] localVarPostBody = memberVarObjectMapper.writeValueAsBytes(transactionRequest);
-      localVarRequestBuilder.method("POST", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
-    } catch (IOException e) {
-      throw new ApiException(e);
-    }
-    if (memberVarReadTimeout != null) {
-      localVarRequestBuilder.timeout(memberVarReadTimeout);
-    }
-    if (memberVarInterceptor != null) {
-      memberVarInterceptor.accept(localVarRequestBuilder);
-    }
-    return localVarRequestBuilder;
-  }
-  /**
-   * Freeze a transaction
-   * Freezes a transaction by ID.
-   * @param txId The ID of the transaction to freeze (required)
-   * @param xEndUserWalletId Unique ID of the End-User wallet to the API request. Required for end-user wallet operations. (optional)
-   * @param idempotencyKey A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
-   * @return CompletableFuture&lt;FreezeTransactionResponse&gt;
-   * @throws ApiException if fails to make API call
-   */
-  public CompletableFuture<FreezeTransactionResponse> freezeTransaction(String txId, UUID xEndUserWalletId, String idempotencyKey) throws ApiException {
-    try {
-      HttpRequest.Builder localVarRequestBuilder = freezeTransactionRequestBuilder(txId, xEndUserWalletId, idempotencyKey);
-      return memberVarHttpClient.sendAsync(
-          localVarRequestBuilder.build(),
-          HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
-            if (localVarResponse.statusCode()/ 100 != 2) {
-              return CompletableFuture.failedFuture(getApiException("freezeTransaction", localVarResponse));
-            }
-            try {
-              String responseBody = localVarResponse.body();
-              return CompletableFuture.completedFuture(
-                  responseBody == null || responseBody.isBlank() ? null : memberVarObjectMapper.readValue(responseBody, new TypeReference<FreezeTransactionResponse>() {})
-              );
-            } catch (IOException e) {
-              return CompletableFuture.failedFuture(new ApiException(e));
-            }
-      });
-    }
-    catch (ApiException e) {
-      return CompletableFuture.failedFuture(e);
-    }
-  }
-
-  /**
-   * Freeze a transaction
-   * Freezes a transaction by ID.
-   * @param txId The ID of the transaction to freeze (required)
-   * @param xEndUserWalletId Unique ID of the End-User wallet to the API request. Required for end-user wallet operations. (optional)
-   * @param idempotencyKey A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
-   * @return CompletableFuture&lt;ApiResponse&lt;FreezeTransactionResponse&gt;&gt;
-   * @throws ApiException if fails to make API call
-   */
-  public CompletableFuture<ApiResponse<FreezeTransactionResponse>> freezeTransactionWithHttpInfo(String txId, UUID xEndUserWalletId, String idempotencyKey) throws ApiException {
-    try {
-      HttpRequest.Builder localVarRequestBuilder = freezeTransactionRequestBuilder(txId, xEndUserWalletId, idempotencyKey);
-      return memberVarHttpClient.sendAsync(
-          localVarRequestBuilder.build(),
-          HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
-            if (memberVarAsyncResponseInterceptor != null) {
-              memberVarAsyncResponseInterceptor.accept(localVarResponse);
-            }
-            if (localVarResponse.statusCode()/ 100 != 2) {
-              return CompletableFuture.failedFuture(getApiException("freezeTransaction", localVarResponse));
-            }
-            try {
-              String responseBody = localVarResponse.body();
-              return CompletableFuture.completedFuture(
-                  new ApiResponse<FreezeTransactionResponse>(
-                      localVarResponse.statusCode(),
-                      localVarResponse.headers().map(),
-                      responseBody == null || responseBody.isBlank() ? null : memberVarObjectMapper.readValue(responseBody, new TypeReference<FreezeTransactionResponse>() {}))
-              );
-            } catch (IOException e) {
-              return CompletableFuture.failedFuture(new ApiException(e));
-            }
+        localVarRequestBuilder.method("POST", HttpRequest.BodyPublishers.noBody());
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
         }
-      );
-    }
-    catch (ApiException e) {
-      return CompletableFuture.failedFuture(e);
-    }
-  }
-
-  private HttpRequest.Builder freezeTransactionRequestBuilder(String txId, UUID xEndUserWalletId, String idempotencyKey) throws ApiException {
-    // verify the required parameter 'txId' is set
-    if (txId == null) {
-      throw new ApiException(400, "Missing the required parameter 'txId' when calling freezeTransaction");
-    }
-
-    HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
-
-    String localVarPath = "/transactions/{txId}/freeze"
-        .replace("{txId}", ApiClient.urlEncode(txId.toString()));
-
-    localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
-
-    if (xEndUserWalletId != null) {
-      localVarRequestBuilder.header("X-End-User-Wallet-Id", xEndUserWalletId.toString());
-    }
-    if (idempotencyKey != null) {
-      localVarRequestBuilder.header("Idempotency-Key", idempotencyKey.toString());
-    }
-    localVarRequestBuilder.header("Accept", "application/json");
-
-    localVarRequestBuilder.method("POST", HttpRequest.BodyPublishers.noBody());
-    if (memberVarReadTimeout != null) {
-      localVarRequestBuilder.timeout(memberVarReadTimeout);
-    }
-    if (memberVarInterceptor != null) {
-      memberVarInterceptor.accept(localVarRequestBuilder);
-    }
-    return localVarRequestBuilder;
-  }
-  /**
-   * Find a specific transaction by Fireblocks transaction ID
-   * Returns a transaction by ID.
-   * @param txId The ID of the transaction to return (required)
-   * @return CompletableFuture&lt;TransactionResponse&gt;
-   * @throws ApiException if fails to make API call
-   */
-  public CompletableFuture<TransactionResponse> getTransaction(String txId) throws ApiException {
-    try {
-      HttpRequest.Builder localVarRequestBuilder = getTransactionRequestBuilder(txId);
-      return memberVarHttpClient.sendAsync(
-          localVarRequestBuilder.build(),
-          HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
-            if (localVarResponse.statusCode()/ 100 != 2) {
-              return CompletableFuture.failedFuture(getApiException("getTransaction", localVarResponse));
-            }
-            try {
-              String responseBody = localVarResponse.body();
-              return CompletableFuture.completedFuture(
-                  responseBody == null || responseBody.isBlank() ? null : memberVarObjectMapper.readValue(responseBody, new TypeReference<TransactionResponse>() {})
-              );
-            } catch (IOException e) {
-              return CompletableFuture.failedFuture(new ApiException(e));
-            }
-      });
-    }
-    catch (ApiException e) {
-      return CompletableFuture.failedFuture(e);
-    }
-  }
-
-  /**
-   * Find a specific transaction by Fireblocks transaction ID
-   * Returns a transaction by ID.
-   * @param txId The ID of the transaction to return (required)
-   * @return CompletableFuture&lt;ApiResponse&lt;TransactionResponse&gt;&gt;
-   * @throws ApiException if fails to make API call
-   */
-  public CompletableFuture<ApiResponse<TransactionResponse>> getTransactionWithHttpInfo(String txId) throws ApiException {
-    try {
-      HttpRequest.Builder localVarRequestBuilder = getTransactionRequestBuilder(txId);
-      return memberVarHttpClient.sendAsync(
-          localVarRequestBuilder.build(),
-          HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
-            if (memberVarAsyncResponseInterceptor != null) {
-              memberVarAsyncResponseInterceptor.accept(localVarResponse);
-            }
-            if (localVarResponse.statusCode()/ 100 != 2) {
-              return CompletableFuture.failedFuture(getApiException("getTransaction", localVarResponse));
-            }
-            try {
-              String responseBody = localVarResponse.body();
-              return CompletableFuture.completedFuture(
-                  new ApiResponse<TransactionResponse>(
-                      localVarResponse.statusCode(),
-                      localVarResponse.headers().map(),
-                      responseBody == null || responseBody.isBlank() ? null : memberVarObjectMapper.readValue(responseBody, new TypeReference<TransactionResponse>() {}))
-              );
-            } catch (IOException e) {
-              return CompletableFuture.failedFuture(new ApiException(e));
-            }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
         }
-      );
+        return localVarRequestBuilder;
     }
-    catch (ApiException e) {
-      return CompletableFuture.failedFuture(e);
-    }
-  }
-
-  private HttpRequest.Builder getTransactionRequestBuilder(String txId) throws ApiException {
-    // verify the required parameter 'txId' is set
-    if (txId == null) {
-      throw new ApiException(400, "Missing the required parameter 'txId' when calling getTransaction");
-    }
-
-    HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
-
-    String localVarPath = "/transactions/{txId}"
-        .replace("{txId}", ApiClient.urlEncode(txId.toString()));
-
-    localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
-
-    localVarRequestBuilder.header("Accept", "application/json");
-
-    localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
-    if (memberVarReadTimeout != null) {
-      localVarRequestBuilder.timeout(memberVarReadTimeout);
-    }
-    if (memberVarInterceptor != null) {
-      memberVarInterceptor.accept(localVarRequestBuilder);
-    }
-    return localVarRequestBuilder;
-  }
-  /**
-   * Find a specific transaction by external transaction ID
-   * Returns transaction by external transaction ID.
-   * @param externalTxId The external ID of the transaction to return (required)
-   * @return CompletableFuture&lt;TransactionResponse&gt;
-   * @throws ApiException if fails to make API call
-   */
-  public CompletableFuture<TransactionResponse> getTransactionByExternalId(String externalTxId) throws ApiException {
-    try {
-      HttpRequest.Builder localVarRequestBuilder = getTransactionByExternalIdRequestBuilder(externalTxId);
-      return memberVarHttpClient.sendAsync(
-          localVarRequestBuilder.build(),
-          HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
-            if (localVarResponse.statusCode()/ 100 != 2) {
-              return CompletableFuture.failedFuture(getApiException("getTransactionByExternalId", localVarResponse));
-            }
-            try {
-              String responseBody = localVarResponse.body();
-              return CompletableFuture.completedFuture(
-                  responseBody == null || responseBody.isBlank() ? null : memberVarObjectMapper.readValue(responseBody, new TypeReference<TransactionResponse>() {})
-              );
-            } catch (IOException e) {
-              return CompletableFuture.failedFuture(new ApiException(e));
-            }
-      });
-    }
-    catch (ApiException e) {
-      return CompletableFuture.failedFuture(e);
-    }
-  }
-
-  /**
-   * Find a specific transaction by external transaction ID
-   * Returns transaction by external transaction ID.
-   * @param externalTxId The external ID of the transaction to return (required)
-   * @return CompletableFuture&lt;ApiResponse&lt;TransactionResponse&gt;&gt;
-   * @throws ApiException if fails to make API call
-   */
-  public CompletableFuture<ApiResponse<TransactionResponse>> getTransactionByExternalIdWithHttpInfo(String externalTxId) throws ApiException {
-    try {
-      HttpRequest.Builder localVarRequestBuilder = getTransactionByExternalIdRequestBuilder(externalTxId);
-      return memberVarHttpClient.sendAsync(
-          localVarRequestBuilder.build(),
-          HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
-            if (memberVarAsyncResponseInterceptor != null) {
-              memberVarAsyncResponseInterceptor.accept(localVarResponse);
-            }
-            if (localVarResponse.statusCode()/ 100 != 2) {
-              return CompletableFuture.failedFuture(getApiException("getTransactionByExternalId", localVarResponse));
-            }
-            try {
-              String responseBody = localVarResponse.body();
-              return CompletableFuture.completedFuture(
-                  new ApiResponse<TransactionResponse>(
-                      localVarResponse.statusCode(),
-                      localVarResponse.headers().map(),
-                      responseBody == null || responseBody.isBlank() ? null : memberVarObjectMapper.readValue(responseBody, new TypeReference<TransactionResponse>() {}))
-              );
-            } catch (IOException e) {
-              return CompletableFuture.failedFuture(new ApiException(e));
-            }
+    /**
+     * Create a new transaction Creates a new transaction.
+     *
+     * @param transactionRequest (optional)
+     * @param xEndUserWalletId Unique ID of the End-User wallet to the API request. Required for
+     *     end-user wallet operations. (optional)
+     * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
+     *     times with the same idempotency key, the server will return the same response as the
+     *     first request. The idempotency key is valid for 24 hours. (optional)
+     * @return CompletableFuture&lt;ApiResponse&lt;CreateTransactionResponse&gt;&gt;
+     * @throws ApiException if fails to make API call
+     */
+    public CompletableFuture<ApiResponse<CreateTransactionResponse>> createTransaction(
+            TransactionRequest transactionRequest, UUID xEndUserWalletId, String idempotencyKey)
+            throws ApiException {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    createTransactionRequestBuilder(
+                            transactionRequest, xEndUserWalletId, idempotencyKey);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException("createTransaction", localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<CreateTransactionResponse>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            CreateTransactionResponse>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            });
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
         }
-      );
-    }
-    catch (ApiException e) {
-      return CompletableFuture.failedFuture(e);
-    }
-  }
-
-  private HttpRequest.Builder getTransactionByExternalIdRequestBuilder(String externalTxId) throws ApiException {
-    // verify the required parameter 'externalTxId' is set
-    if (externalTxId == null) {
-      throw new ApiException(400, "Missing the required parameter 'externalTxId' when calling getTransactionByExternalId");
     }
 
-    HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+    private HttpRequest.Builder createTransactionRequestBuilder(
+            TransactionRequest transactionRequest, UUID xEndUserWalletId, String idempotencyKey)
+            throws ApiException {
 
-    String localVarPath = "/transactions/external_tx_id/{externalTxId}"
-        .replace("{externalTxId}", ApiClient.urlEncode(externalTxId.toString()));
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
-    localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+        String localVarPath = "/transactions";
 
-    localVarRequestBuilder.header("Accept", "application/json");
+        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
 
-    localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
-    if (memberVarReadTimeout != null) {
-      localVarRequestBuilder.timeout(memberVarReadTimeout);
-    }
-    if (memberVarInterceptor != null) {
-      memberVarInterceptor.accept(localVarRequestBuilder);
-    }
-    return localVarRequestBuilder;
-  }
-  /**
-   * List transaction history
-   * Lists the transaction history for your workspace.
-   * @param before Unix timestamp in milliseconds. Returns only transactions created before the specified date (optional)
-   * @param after Unix timestamp in milliseconds. Returns only transactions created after the specified date (optional)
-   * @param status You can filter by one of the statuses. (optional)
-   * @param orderBy The field to order the results by  **Note**: Ordering by a field that is not createdAt may result with transactions that receive updates as you request the next or previous pages of results, resulting with missing those transactions. (optional)
-   * @param sort The direction to order the results by (optional)
-   * @param limit Limits the number of results. If not provided, a limit of 200 will be used. The maximum allowed limit is 500 (optional, default to 200)
-   * @param sourceType The source type of the transaction (optional)
-   * @param sourceId The source ID of the transaction (optional)
-   * @param destType The destination type of the transaction (optional)
-   * @param destId The destination ID of the transaction (optional)
-   * @param assets A list of assets to filter by, seperated by commas (optional)
-   * @param txHash Returns only results with a specified txHash (optional)
-   * @param sourceWalletId Returns only results where the source is a specific end user wallet (optional)
-   * @param destWalletId Returns only results where the destination is a specific end user wallet (optional)
-   * @return CompletableFuture&lt;List&lt;TransactionResponse&gt;&gt;
-   * @throws ApiException if fails to make API call
-   */
-  public CompletableFuture<List<TransactionResponse>> getTransactions(String before, String after, String status, String orderBy, String sort, Integer limit, String sourceType, String sourceId, String destType, String destId, String assets, String txHash, String sourceWalletId, String destWalletId) throws ApiException {
-    try {
-      HttpRequest.Builder localVarRequestBuilder = getTransactionsRequestBuilder(before, after, status, orderBy, sort, limit, sourceType, sourceId, destType, destId, assets, txHash, sourceWalletId, destWalletId);
-      return memberVarHttpClient.sendAsync(
-          localVarRequestBuilder.build(),
-          HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
-            if (localVarResponse.statusCode()/ 100 != 2) {
-              return CompletableFuture.failedFuture(getApiException("getTransactions", localVarResponse));
-            }
-            try {
-              String responseBody = localVarResponse.body();
-              return CompletableFuture.completedFuture(
-                  responseBody == null || responseBody.isBlank() ? null : memberVarObjectMapper.readValue(responseBody, new TypeReference<List<TransactionResponse>>() {})
-              );
-            } catch (IOException e) {
-              return CompletableFuture.failedFuture(new ApiException(e));
-            }
-      });
-    }
-    catch (ApiException e) {
-      return CompletableFuture.failedFuture(e);
-    }
-  }
-
-  /**
-   * List transaction history
-   * Lists the transaction history for your workspace.
-   * @param before Unix timestamp in milliseconds. Returns only transactions created before the specified date (optional)
-   * @param after Unix timestamp in milliseconds. Returns only transactions created after the specified date (optional)
-   * @param status You can filter by one of the statuses. (optional)
-   * @param orderBy The field to order the results by  **Note**: Ordering by a field that is not createdAt may result with transactions that receive updates as you request the next or previous pages of results, resulting with missing those transactions. (optional)
-   * @param sort The direction to order the results by (optional)
-   * @param limit Limits the number of results. If not provided, a limit of 200 will be used. The maximum allowed limit is 500 (optional, default to 200)
-   * @param sourceType The source type of the transaction (optional)
-   * @param sourceId The source ID of the transaction (optional)
-   * @param destType The destination type of the transaction (optional)
-   * @param destId The destination ID of the transaction (optional)
-   * @param assets A list of assets to filter by, seperated by commas (optional)
-   * @param txHash Returns only results with a specified txHash (optional)
-   * @param sourceWalletId Returns only results where the source is a specific end user wallet (optional)
-   * @param destWalletId Returns only results where the destination is a specific end user wallet (optional)
-   * @return CompletableFuture&lt;ApiResponse&lt;List&lt;TransactionResponse&gt;&gt;&gt;
-   * @throws ApiException if fails to make API call
-   */
-  public CompletableFuture<ApiResponse<List<TransactionResponse>>> getTransactionsWithHttpInfo(String before, String after, String status, String orderBy, String sort, Integer limit, String sourceType, String sourceId, String destType, String destId, String assets, String txHash, String sourceWalletId, String destWalletId) throws ApiException {
-    try {
-      HttpRequest.Builder localVarRequestBuilder = getTransactionsRequestBuilder(before, after, status, orderBy, sort, limit, sourceType, sourceId, destType, destId, assets, txHash, sourceWalletId, destWalletId);
-      return memberVarHttpClient.sendAsync(
-          localVarRequestBuilder.build(),
-          HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
-            if (memberVarAsyncResponseInterceptor != null) {
-              memberVarAsyncResponseInterceptor.accept(localVarResponse);
-            }
-            if (localVarResponse.statusCode()/ 100 != 2) {
-              return CompletableFuture.failedFuture(getApiException("getTransactions", localVarResponse));
-            }
-            try {
-              String responseBody = localVarResponse.body();
-              return CompletableFuture.completedFuture(
-                  new ApiResponse<List<TransactionResponse>>(
-                      localVarResponse.statusCode(),
-                      localVarResponse.headers().map(),
-                      responseBody == null || responseBody.isBlank() ? null : memberVarObjectMapper.readValue(responseBody, new TypeReference<List<TransactionResponse>>() {}))
-              );
-            } catch (IOException e) {
-              return CompletableFuture.failedFuture(new ApiException(e));
-            }
+        if (xEndUserWalletId != null) {
+            localVarRequestBuilder.header("X-End-User-Wallet-Id", xEndUserWalletId.toString());
         }
-      );
-    }
-    catch (ApiException e) {
-      return CompletableFuture.failedFuture(e);
-    }
-  }
-
-  private HttpRequest.Builder getTransactionsRequestBuilder(String before, String after, String status, String orderBy, String sort, Integer limit, String sourceType, String sourceId, String destType, String destId, String assets, String txHash, String sourceWalletId, String destWalletId) throws ApiException {
-
-    HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
-
-    String localVarPath = "/transactions";
-
-    List<Pair> localVarQueryParams = new ArrayList<>();
-    StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
-    String localVarQueryParameterBaseName;
-    localVarQueryParameterBaseName = "before";
-    localVarQueryParams.addAll(ApiClient.parameterToPairs("before", before));
-    localVarQueryParameterBaseName = "after";
-    localVarQueryParams.addAll(ApiClient.parameterToPairs("after", after));
-    localVarQueryParameterBaseName = "status";
-    localVarQueryParams.addAll(ApiClient.parameterToPairs("status", status));
-    localVarQueryParameterBaseName = "orderBy";
-    localVarQueryParams.addAll(ApiClient.parameterToPairs("orderBy", orderBy));
-    localVarQueryParameterBaseName = "sort";
-    localVarQueryParams.addAll(ApiClient.parameterToPairs("sort", sort));
-    localVarQueryParameterBaseName = "limit";
-    localVarQueryParams.addAll(ApiClient.parameterToPairs("limit", limit));
-    localVarQueryParameterBaseName = "sourceType";
-    localVarQueryParams.addAll(ApiClient.parameterToPairs("sourceType", sourceType));
-    localVarQueryParameterBaseName = "sourceId";
-    localVarQueryParams.addAll(ApiClient.parameterToPairs("sourceId", sourceId));
-    localVarQueryParameterBaseName = "destType";
-    localVarQueryParams.addAll(ApiClient.parameterToPairs("destType", destType));
-    localVarQueryParameterBaseName = "destId";
-    localVarQueryParams.addAll(ApiClient.parameterToPairs("destId", destId));
-    localVarQueryParameterBaseName = "assets";
-    localVarQueryParams.addAll(ApiClient.parameterToPairs("assets", assets));
-    localVarQueryParameterBaseName = "txHash";
-    localVarQueryParams.addAll(ApiClient.parameterToPairs("txHash", txHash));
-    localVarQueryParameterBaseName = "sourceWalletId";
-    localVarQueryParams.addAll(ApiClient.parameterToPairs("sourceWalletId", sourceWalletId));
-    localVarQueryParameterBaseName = "destWalletId";
-    localVarQueryParams.addAll(ApiClient.parameterToPairs("destWalletId", destWalletId));
-
-    if (!localVarQueryParams.isEmpty() || localVarQueryStringJoiner.length() != 0) {
-      StringJoiner queryJoiner = new StringJoiner("&");
-      localVarQueryParams.forEach(p -> queryJoiner.add(p.getName() + '=' + p.getValue()));
-      if (localVarQueryStringJoiner.length() != 0) {
-        queryJoiner.add(localVarQueryStringJoiner.toString());
-      }
-      localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath + '?' + queryJoiner.toString()));
-    } else {
-      localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
-    }
-
-    localVarRequestBuilder.header("Accept", "application/json");
-
-    localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
-    if (memberVarReadTimeout != null) {
-      localVarRequestBuilder.timeout(memberVarReadTimeout);
-    }
-    if (memberVarInterceptor != null) {
-      memberVarInterceptor.accept(localVarRequestBuilder);
-    }
-    return localVarRequestBuilder;
-  }
-  /**
-   * Set confirmation threshold by transaction hash
-   * Overrides the required number of confirmations for transaction completion by transaction hash.
-   * @param txHash The TxHash (required)
-   * @param setConfirmationsThresholdRequest  (optional)
-   * @param idempotencyKey A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
-   * @return CompletableFuture&lt;SetConfirmationsThresholdResponse&gt;
-   * @throws ApiException if fails to make API call
-   */
-  public CompletableFuture<SetConfirmationsThresholdResponse> setConfirmationThresholdByTransactionHash(String txHash, SetConfirmationsThresholdRequest setConfirmationsThresholdRequest, String idempotencyKey) throws ApiException {
-    try {
-      HttpRequest.Builder localVarRequestBuilder = setConfirmationThresholdByTransactionHashRequestBuilder(txHash, setConfirmationsThresholdRequest, idempotencyKey);
-      return memberVarHttpClient.sendAsync(
-          localVarRequestBuilder.build(),
-          HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
-            if (localVarResponse.statusCode()/ 100 != 2) {
-              return CompletableFuture.failedFuture(getApiException("setConfirmationThresholdByTransactionHash", localVarResponse));
-            }
-            try {
-              String responseBody = localVarResponse.body();
-              return CompletableFuture.completedFuture(
-                  responseBody == null || responseBody.isBlank() ? null : memberVarObjectMapper.readValue(responseBody, new TypeReference<SetConfirmationsThresholdResponse>() {})
-              );
-            } catch (IOException e) {
-              return CompletableFuture.failedFuture(new ApiException(e));
-            }
-      });
-    }
-    catch (ApiException e) {
-      return CompletableFuture.failedFuture(e);
-    }
-  }
-
-  /**
-   * Set confirmation threshold by transaction hash
-   * Overrides the required number of confirmations for transaction completion by transaction hash.
-   * @param txHash The TxHash (required)
-   * @param setConfirmationsThresholdRequest  (optional)
-   * @param idempotencyKey A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
-   * @return CompletableFuture&lt;ApiResponse&lt;SetConfirmationsThresholdResponse&gt;&gt;
-   * @throws ApiException if fails to make API call
-   */
-  public CompletableFuture<ApiResponse<SetConfirmationsThresholdResponse>> setConfirmationThresholdByTransactionHashWithHttpInfo(String txHash, SetConfirmationsThresholdRequest setConfirmationsThresholdRequest, String idempotencyKey) throws ApiException {
-    try {
-      HttpRequest.Builder localVarRequestBuilder = setConfirmationThresholdByTransactionHashRequestBuilder(txHash, setConfirmationsThresholdRequest, idempotencyKey);
-      return memberVarHttpClient.sendAsync(
-          localVarRequestBuilder.build(),
-          HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
-            if (memberVarAsyncResponseInterceptor != null) {
-              memberVarAsyncResponseInterceptor.accept(localVarResponse);
-            }
-            if (localVarResponse.statusCode()/ 100 != 2) {
-              return CompletableFuture.failedFuture(getApiException("setConfirmationThresholdByTransactionHash", localVarResponse));
-            }
-            try {
-              String responseBody = localVarResponse.body();
-              return CompletableFuture.completedFuture(
-                  new ApiResponse<SetConfirmationsThresholdResponse>(
-                      localVarResponse.statusCode(),
-                      localVarResponse.headers().map(),
-                      responseBody == null || responseBody.isBlank() ? null : memberVarObjectMapper.readValue(responseBody, new TypeReference<SetConfirmationsThresholdResponse>() {}))
-              );
-            } catch (IOException e) {
-              return CompletableFuture.failedFuture(new ApiException(e));
-            }
+        if (idempotencyKey != null) {
+            localVarRequestBuilder.header("Idempotency-Key", idempotencyKey.toString());
         }
-      );
-    }
-    catch (ApiException e) {
-      return CompletableFuture.failedFuture(e);
-    }
-  }
+        localVarRequestBuilder.header("Content-Type", "application/json");
+        localVarRequestBuilder.header("Accept", "application/json");
 
-  private HttpRequest.Builder setConfirmationThresholdByTransactionHashRequestBuilder(String txHash, SetConfirmationsThresholdRequest setConfirmationsThresholdRequest, String idempotencyKey) throws ApiException {
-    // verify the required parameter 'txHash' is set
-    if (txHash == null) {
-      throw new ApiException(400, "Missing the required parameter 'txHash' when calling setConfirmationThresholdByTransactionHash");
-    }
-
-    HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
-
-    String localVarPath = "/txHash/{txHash}/set_confirmation_threshold"
-        .replace("{txHash}", ApiClient.urlEncode(txHash.toString()));
-
-    localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
-
-    if (idempotencyKey != null) {
-      localVarRequestBuilder.header("Idempotency-Key", idempotencyKey.toString());
-    }
-    localVarRequestBuilder.header("Content-Type", "application/json");
-    localVarRequestBuilder.header("Accept", "application/json");
-
-    try {
-      byte[] localVarPostBody = memberVarObjectMapper.writeValueAsBytes(setConfirmationsThresholdRequest);
-      localVarRequestBuilder.method("POST", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
-    } catch (IOException e) {
-      throw new ApiException(e);
-    }
-    if (memberVarReadTimeout != null) {
-      localVarRequestBuilder.timeout(memberVarReadTimeout);
-    }
-    if (memberVarInterceptor != null) {
-      memberVarInterceptor.accept(localVarRequestBuilder);
-    }
-    return localVarRequestBuilder;
-  }
-  /**
-   * Set confirmation threshold by transaction ID
-   * Overrides the required number of confirmations for transaction completion by transaction ID.
-   * @param txId The ID of the transaction (required)
-   * @param setConfirmationsThresholdRequest  (optional)
-   * @param idempotencyKey A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
-   * @return CompletableFuture&lt;SetConfirmationsThresholdResponse&gt;
-   * @throws ApiException if fails to make API call
-   */
-  public CompletableFuture<SetConfirmationsThresholdResponse> setTransactionConfirmationThreshold(String txId, SetConfirmationsThresholdRequest setConfirmationsThresholdRequest, String idempotencyKey) throws ApiException {
-    try {
-      HttpRequest.Builder localVarRequestBuilder = setTransactionConfirmationThresholdRequestBuilder(txId, setConfirmationsThresholdRequest, idempotencyKey);
-      return memberVarHttpClient.sendAsync(
-          localVarRequestBuilder.build(),
-          HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
-            if (localVarResponse.statusCode()/ 100 != 2) {
-              return CompletableFuture.failedFuture(getApiException("setTransactionConfirmationThreshold", localVarResponse));
-            }
-            try {
-              String responseBody = localVarResponse.body();
-              return CompletableFuture.completedFuture(
-                  responseBody == null || responseBody.isBlank() ? null : memberVarObjectMapper.readValue(responseBody, new TypeReference<SetConfirmationsThresholdResponse>() {})
-              );
-            } catch (IOException e) {
-              return CompletableFuture.failedFuture(new ApiException(e));
-            }
-      });
-    }
-    catch (ApiException e) {
-      return CompletableFuture.failedFuture(e);
-    }
-  }
-
-  /**
-   * Set confirmation threshold by transaction ID
-   * Overrides the required number of confirmations for transaction completion by transaction ID.
-   * @param txId The ID of the transaction (required)
-   * @param setConfirmationsThresholdRequest  (optional)
-   * @param idempotencyKey A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
-   * @return CompletableFuture&lt;ApiResponse&lt;SetConfirmationsThresholdResponse&gt;&gt;
-   * @throws ApiException if fails to make API call
-   */
-  public CompletableFuture<ApiResponse<SetConfirmationsThresholdResponse>> setTransactionConfirmationThresholdWithHttpInfo(String txId, SetConfirmationsThresholdRequest setConfirmationsThresholdRequest, String idempotencyKey) throws ApiException {
-    try {
-      HttpRequest.Builder localVarRequestBuilder = setTransactionConfirmationThresholdRequestBuilder(txId, setConfirmationsThresholdRequest, idempotencyKey);
-      return memberVarHttpClient.sendAsync(
-          localVarRequestBuilder.build(),
-          HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
-            if (memberVarAsyncResponseInterceptor != null) {
-              memberVarAsyncResponseInterceptor.accept(localVarResponse);
-            }
-            if (localVarResponse.statusCode()/ 100 != 2) {
-              return CompletableFuture.failedFuture(getApiException("setTransactionConfirmationThreshold", localVarResponse));
-            }
-            try {
-              String responseBody = localVarResponse.body();
-              return CompletableFuture.completedFuture(
-                  new ApiResponse<SetConfirmationsThresholdResponse>(
-                      localVarResponse.statusCode(),
-                      localVarResponse.headers().map(),
-                      responseBody == null || responseBody.isBlank() ? null : memberVarObjectMapper.readValue(responseBody, new TypeReference<SetConfirmationsThresholdResponse>() {}))
-              );
-            } catch (IOException e) {
-              return CompletableFuture.failedFuture(new ApiException(e));
-            }
+        try {
+            byte[] localVarPostBody = memberVarObjectMapper.writeValueAsBytes(transactionRequest);
+            localVarRequestBuilder.method(
+                    "POST", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
+        } catch (IOException e) {
+            throw new ApiException(e);
         }
-      );
-    }
-    catch (ApiException e) {
-      return CompletableFuture.failedFuture(e);
-    }
-  }
-
-  private HttpRequest.Builder setTransactionConfirmationThresholdRequestBuilder(String txId, SetConfirmationsThresholdRequest setConfirmationsThresholdRequest, String idempotencyKey) throws ApiException {
-    // verify the required parameter 'txId' is set
-    if (txId == null) {
-      throw new ApiException(400, "Missing the required parameter 'txId' when calling setTransactionConfirmationThreshold");
-    }
-
-    HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
-
-    String localVarPath = "/transactions/{txId}/set_confirmation_threshold"
-        .replace("{txId}", ApiClient.urlEncode(txId.toString()));
-
-    localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
-
-    if (idempotencyKey != null) {
-      localVarRequestBuilder.header("Idempotency-Key", idempotencyKey.toString());
-    }
-    localVarRequestBuilder.header("Content-Type", "application/json");
-    localVarRequestBuilder.header("Accept", "application/json");
-
-    try {
-      byte[] localVarPostBody = memberVarObjectMapper.writeValueAsBytes(setConfirmationsThresholdRequest);
-      localVarRequestBuilder.method("POST", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
-    } catch (IOException e) {
-      throw new ApiException(e);
-    }
-    if (memberVarReadTimeout != null) {
-      localVarRequestBuilder.timeout(memberVarReadTimeout);
-    }
-    if (memberVarInterceptor != null) {
-      memberVarInterceptor.accept(localVarRequestBuilder);
-    }
-    return localVarRequestBuilder;
-  }
-  /**
-   * Unfreeze a transaction
-   * Unfreezes a transaction by ID and makes the transaction available again.
-   * @param txId The ID of the transaction to unfreeze (required)
-   * @param xEndUserWalletId Unique ID of the End-User wallet to the API request. Required for end-user wallet operations. (optional)
-   * @param idempotencyKey A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
-   * @return CompletableFuture&lt;UnfreezeTransactionResponse&gt;
-   * @throws ApiException if fails to make API call
-   */
-  public CompletableFuture<UnfreezeTransactionResponse> unfreezeTransaction(String txId, UUID xEndUserWalletId, String idempotencyKey) throws ApiException {
-    try {
-      HttpRequest.Builder localVarRequestBuilder = unfreezeTransactionRequestBuilder(txId, xEndUserWalletId, idempotencyKey);
-      return memberVarHttpClient.sendAsync(
-          localVarRequestBuilder.build(),
-          HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
-            if (localVarResponse.statusCode()/ 100 != 2) {
-              return CompletableFuture.failedFuture(getApiException("unfreezeTransaction", localVarResponse));
-            }
-            try {
-              String responseBody = localVarResponse.body();
-              return CompletableFuture.completedFuture(
-                  responseBody == null || responseBody.isBlank() ? null : memberVarObjectMapper.readValue(responseBody, new TypeReference<UnfreezeTransactionResponse>() {})
-              );
-            } catch (IOException e) {
-              return CompletableFuture.failedFuture(new ApiException(e));
-            }
-      });
-    }
-    catch (ApiException e) {
-      return CompletableFuture.failedFuture(e);
-    }
-  }
-
-  /**
-   * Unfreeze a transaction
-   * Unfreezes a transaction by ID and makes the transaction available again.
-   * @param txId The ID of the transaction to unfreeze (required)
-   * @param xEndUserWalletId Unique ID of the End-User wallet to the API request. Required for end-user wallet operations. (optional)
-   * @param idempotencyKey A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
-   * @return CompletableFuture&lt;ApiResponse&lt;UnfreezeTransactionResponse&gt;&gt;
-   * @throws ApiException if fails to make API call
-   */
-  public CompletableFuture<ApiResponse<UnfreezeTransactionResponse>> unfreezeTransactionWithHttpInfo(String txId, UUID xEndUserWalletId, String idempotencyKey) throws ApiException {
-    try {
-      HttpRequest.Builder localVarRequestBuilder = unfreezeTransactionRequestBuilder(txId, xEndUserWalletId, idempotencyKey);
-      return memberVarHttpClient.sendAsync(
-          localVarRequestBuilder.build(),
-          HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
-            if (memberVarAsyncResponseInterceptor != null) {
-              memberVarAsyncResponseInterceptor.accept(localVarResponse);
-            }
-            if (localVarResponse.statusCode()/ 100 != 2) {
-              return CompletableFuture.failedFuture(getApiException("unfreezeTransaction", localVarResponse));
-            }
-            try {
-              String responseBody = localVarResponse.body();
-              return CompletableFuture.completedFuture(
-                  new ApiResponse<UnfreezeTransactionResponse>(
-                      localVarResponse.statusCode(),
-                      localVarResponse.headers().map(),
-                      responseBody == null || responseBody.isBlank() ? null : memberVarObjectMapper.readValue(responseBody, new TypeReference<UnfreezeTransactionResponse>() {}))
-              );
-            } catch (IOException e) {
-              return CompletableFuture.failedFuture(new ApiException(e));
-            }
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
         }
-      );
-    }
-    catch (ApiException e) {
-      return CompletableFuture.failedFuture(e);
-    }
-  }
-
-  private HttpRequest.Builder unfreezeTransactionRequestBuilder(String txId, UUID xEndUserWalletId, String idempotencyKey) throws ApiException {
-    // verify the required parameter 'txId' is set
-    if (txId == null) {
-      throw new ApiException(400, "Missing the required parameter 'txId' when calling unfreezeTransaction");
-    }
-
-    HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
-
-    String localVarPath = "/transactions/{txId}/unfreeze"
-        .replace("{txId}", ApiClient.urlEncode(txId.toString()));
-
-    localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
-
-    if (xEndUserWalletId != null) {
-      localVarRequestBuilder.header("X-End-User-Wallet-Id", xEndUserWalletId.toString());
-    }
-    if (idempotencyKey != null) {
-      localVarRequestBuilder.header("Idempotency-Key", idempotencyKey.toString());
-    }
-    localVarRequestBuilder.header("Accept", "application/json");
-
-    localVarRequestBuilder.method("POST", HttpRequest.BodyPublishers.noBody());
-    if (memberVarReadTimeout != null) {
-      localVarRequestBuilder.timeout(memberVarReadTimeout);
-    }
-    if (memberVarInterceptor != null) {
-      memberVarInterceptor.accept(localVarRequestBuilder);
-    }
-    return localVarRequestBuilder;
-  }
-  /**
-   * Validate destination address
-   * Checks if an address is valid (for XRP, DOT, XLM, and EOS).
-   * @param assetId The asset of the address (required)
-   * @param address The address to validate (required)
-   * @return CompletableFuture&lt;ValidateAddressResponse&gt;
-   * @throws ApiException if fails to make API call
-   */
-  public CompletableFuture<ValidateAddressResponse> validateAddress(String assetId, String address) throws ApiException {
-    try {
-      HttpRequest.Builder localVarRequestBuilder = validateAddressRequestBuilder(assetId, address);
-      return memberVarHttpClient.sendAsync(
-          localVarRequestBuilder.build(),
-          HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
-            if (localVarResponse.statusCode()/ 100 != 2) {
-              return CompletableFuture.failedFuture(getApiException("validateAddress", localVarResponse));
-            }
-            try {
-              String responseBody = localVarResponse.body();
-              return CompletableFuture.completedFuture(
-                  responseBody == null || responseBody.isBlank() ? null : memberVarObjectMapper.readValue(responseBody, new TypeReference<ValidateAddressResponse>() {})
-              );
-            } catch (IOException e) {
-              return CompletableFuture.failedFuture(new ApiException(e));
-            }
-      });
-    }
-    catch (ApiException e) {
-      return CompletableFuture.failedFuture(e);
-    }
-  }
-
-  /**
-   * Validate destination address
-   * Checks if an address is valid (for XRP, DOT, XLM, and EOS).
-   * @param assetId The asset of the address (required)
-   * @param address The address to validate (required)
-   * @return CompletableFuture&lt;ApiResponse&lt;ValidateAddressResponse&gt;&gt;
-   * @throws ApiException if fails to make API call
-   */
-  public CompletableFuture<ApiResponse<ValidateAddressResponse>> validateAddressWithHttpInfo(String assetId, String address) throws ApiException {
-    try {
-      HttpRequest.Builder localVarRequestBuilder = validateAddressRequestBuilder(assetId, address);
-      return memberVarHttpClient.sendAsync(
-          localVarRequestBuilder.build(),
-          HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
-            if (memberVarAsyncResponseInterceptor != null) {
-              memberVarAsyncResponseInterceptor.accept(localVarResponse);
-            }
-            if (localVarResponse.statusCode()/ 100 != 2) {
-              return CompletableFuture.failedFuture(getApiException("validateAddress", localVarResponse));
-            }
-            try {
-              String responseBody = localVarResponse.body();
-              return CompletableFuture.completedFuture(
-                  new ApiResponse<ValidateAddressResponse>(
-                      localVarResponse.statusCode(),
-                      localVarResponse.headers().map(),
-                      responseBody == null || responseBody.isBlank() ? null : memberVarObjectMapper.readValue(responseBody, new TypeReference<ValidateAddressResponse>() {}))
-              );
-            } catch (IOException e) {
-              return CompletableFuture.failedFuture(new ApiException(e));
-            }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
         }
-      );
+        return localVarRequestBuilder;
     }
-    catch (ApiException e) {
-      return CompletableFuture.failedFuture(e);
+    /**
+     * Drop ETH transaction by ID Drops a stuck ETH transaction and creates a replacement
+     * transaction.
+     *
+     * @param txId The ID of the transaction (required)
+     * @param dropTransactionRequest (optional)
+     * @param xEndUserWalletId Unique ID of the End-User wallet to the API request. Required for
+     *     end-user wallet operations. (optional)
+     * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
+     *     times with the same idempotency key, the server will return the same response as the
+     *     first request. The idempotency key is valid for 24 hours. (optional)
+     * @return CompletableFuture&lt;ApiResponse&lt;DropTransactionResponse&gt;&gt;
+     * @throws ApiException if fails to make API call
+     */
+    public CompletableFuture<ApiResponse<DropTransactionResponse>> dropTransaction(
+            String txId,
+            DropTransactionRequest dropTransactionRequest,
+            UUID xEndUserWalletId,
+            String idempotencyKey)
+            throws ApiException {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    dropTransactionRequestBuilder(
+                            txId, dropTransactionRequest, xEndUserWalletId, idempotencyKey);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException("dropTransaction", localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<DropTransactionResponse>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            DropTransactionResponse>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            });
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
     }
-  }
 
-  private HttpRequest.Builder validateAddressRequestBuilder(String assetId, String address) throws ApiException {
-    // verify the required parameter 'assetId' is set
-    if (assetId == null) {
-      throw new ApiException(400, "Missing the required parameter 'assetId' when calling validateAddress");
+    private HttpRequest.Builder dropTransactionRequestBuilder(
+            String txId,
+            DropTransactionRequest dropTransactionRequest,
+            UUID xEndUserWalletId,
+            String idempotencyKey)
+            throws ApiException {
+        // verify the required parameter 'txId' is set
+        if (txId == null) {
+            throw new ApiException(
+                    400, "Missing the required parameter 'txId' when calling dropTransaction");
+        }
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath =
+                "/transactions/{txId}/drop".replace("{txId}", ApiClient.urlEncode(txId.toString()));
+
+        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+        if (xEndUserWalletId != null) {
+            localVarRequestBuilder.header("X-End-User-Wallet-Id", xEndUserWalletId.toString());
+        }
+        if (idempotencyKey != null) {
+            localVarRequestBuilder.header("Idempotency-Key", idempotencyKey.toString());
+        }
+        localVarRequestBuilder.header("Content-Type", "application/json");
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        try {
+            byte[] localVarPostBody =
+                    memberVarObjectMapper.writeValueAsBytes(dropTransactionRequest);
+            localVarRequestBuilder.method(
+                    "POST", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
+        } catch (IOException e) {
+            throw new ApiException(e);
+        }
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
     }
-    // verify the required parameter 'address' is set
-    if (address == null) {
-      throw new ApiException(400, "Missing the required parameter 'address' when calling validateAddress");
+    /**
+     * Estimate the required fee for an asset Gets the estimated required fee for an asset. For UTXO
+     * based assets, the response will contain the suggested fee per byte, for ETH/ETC based assets,
+     * the suggested gas price, and for XRP/XLM, the transaction fee.
+     *
+     * @param assetId The asset for which to estimate the fee (required)
+     * @return CompletableFuture&lt;ApiResponse&lt;EstimatedNetworkFeeResponse&gt;&gt;
+     * @throws ApiException if fails to make API call
+     */
+    public CompletableFuture<ApiResponse<EstimatedNetworkFeeResponse>> estimateNetworkFee(
+            String assetId) throws ApiException {
+        try {
+            HttpRequest.Builder localVarRequestBuilder = estimateNetworkFeeRequestBuilder(assetId);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException(
+                                                    "estimateNetworkFee", localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<EstimatedNetworkFeeResponse>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            EstimatedNetworkFeeResponse>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            });
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
     }
 
-    HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+    private HttpRequest.Builder estimateNetworkFeeRequestBuilder(String assetId)
+            throws ApiException {
+        // verify the required parameter 'assetId' is set
+        if (assetId == null) {
+            throw new ApiException(
+                    400,
+                    "Missing the required parameter 'assetId' when calling estimateNetworkFee");
+        }
 
-    String localVarPath = "/transactions/validate_address/{assetId}/{address}"
-        .replace("{assetId}", ApiClient.urlEncode(assetId.toString()))
-        .replace("{address}", ApiClient.urlEncode(address.toString()));
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
-    localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+        String localVarPath = "/estimate_network_fee";
 
-    localVarRequestBuilder.header("Accept", "application/json");
+        List<Pair> localVarQueryParams = new ArrayList<>();
+        StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
+        String localVarQueryParameterBaseName;
+        localVarQueryParameterBaseName = "assetId";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("assetId", assetId));
 
-    localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
-    if (memberVarReadTimeout != null) {
-      localVarRequestBuilder.timeout(memberVarReadTimeout);
+        if (!localVarQueryParams.isEmpty() || localVarQueryStringJoiner.length() != 0) {
+            StringJoiner queryJoiner = new StringJoiner("&");
+            localVarQueryParams.forEach(p -> queryJoiner.add(p.getName() + '=' + p.getValue()));
+            if (localVarQueryStringJoiner.length() != 0) {
+                queryJoiner.add(localVarQueryStringJoiner.toString());
+            }
+            localVarRequestBuilder.uri(
+                    URI.create(memberVarBaseUri + localVarPath + '?' + queryJoiner.toString()));
+        } else {
+            localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+        }
+
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
     }
-    if (memberVarInterceptor != null) {
-      memberVarInterceptor.accept(localVarRequestBuilder);
+    /**
+     * Estimate transaction fee Estimates the transaction fee for a transaction request. * Note:
+     * Supports all Fireblocks assets except ZCash (ZEC).
+     *
+     * @param transactionRequest (optional)
+     * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
+     *     times with the same idempotency key, the server will return the same response as the
+     *     first request. The idempotency key is valid for 24 hours. (optional)
+     * @return CompletableFuture&lt;ApiResponse&lt;EstimatedTransactionFeeResponse&gt;&gt;
+     * @throws ApiException if fails to make API call
+     */
+    public CompletableFuture<ApiResponse<EstimatedTransactionFeeResponse>> estimateTransactionFee(
+            TransactionRequest transactionRequest, String idempotencyKey) throws ApiException {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    estimateTransactionFeeRequestBuilder(transactionRequest, idempotencyKey);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException(
+                                                    "estimateTransactionFee", localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<EstimatedTransactionFeeResponse>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            EstimatedTransactionFeeResponse>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            });
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
     }
-    return localVarRequestBuilder;
-  }
+
+    private HttpRequest.Builder estimateTransactionFeeRequestBuilder(
+            TransactionRequest transactionRequest, String idempotencyKey) throws ApiException {
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath = "/transactions/estimate_fee";
+
+        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+        if (idempotencyKey != null) {
+            localVarRequestBuilder.header("Idempotency-Key", idempotencyKey.toString());
+        }
+        localVarRequestBuilder.header("Content-Type", "application/json");
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        try {
+            byte[] localVarPostBody = memberVarObjectMapper.writeValueAsBytes(transactionRequest);
+            localVarRequestBuilder.method(
+                    "POST", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
+        } catch (IOException e) {
+            throw new ApiException(e);
+        }
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
+     * Freeze a transaction Freezes a transaction by ID.
+     *
+     * @param txId The ID of the transaction to freeze (required)
+     * @param xEndUserWalletId Unique ID of the End-User wallet to the API request. Required for
+     *     end-user wallet operations. (optional)
+     * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
+     *     times with the same idempotency key, the server will return the same response as the
+     *     first request. The idempotency key is valid for 24 hours. (optional)
+     * @return CompletableFuture&lt;ApiResponse&lt;FreezeTransactionResponse&gt;&gt;
+     * @throws ApiException if fails to make API call
+     */
+    public CompletableFuture<ApiResponse<FreezeTransactionResponse>> freezeTransaction(
+            String txId, UUID xEndUserWalletId, String idempotencyKey) throws ApiException {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    freezeTransactionRequestBuilder(txId, xEndUserWalletId, idempotencyKey);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException("freezeTransaction", localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<FreezeTransactionResponse>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            FreezeTransactionResponse>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            });
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder freezeTransactionRequestBuilder(
+            String txId, UUID xEndUserWalletId, String idempotencyKey) throws ApiException {
+        // verify the required parameter 'txId' is set
+        if (txId == null) {
+            throw new ApiException(
+                    400, "Missing the required parameter 'txId' when calling freezeTransaction");
+        }
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath =
+                "/transactions/{txId}/freeze"
+                        .replace("{txId}", ApiClient.urlEncode(txId.toString()));
+
+        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+        if (xEndUserWalletId != null) {
+            localVarRequestBuilder.header("X-End-User-Wallet-Id", xEndUserWalletId.toString());
+        }
+        if (idempotencyKey != null) {
+            localVarRequestBuilder.header("Idempotency-Key", idempotencyKey.toString());
+        }
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        localVarRequestBuilder.method("POST", HttpRequest.BodyPublishers.noBody());
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
+     * Find a specific transaction by Fireblocks transaction ID Returns a transaction by ID.
+     *
+     * @param txId The ID of the transaction to return (required)
+     * @return CompletableFuture&lt;ApiResponse&lt;TransactionResponse&gt;&gt;
+     * @throws ApiException if fails to make API call
+     */
+    public CompletableFuture<ApiResponse<TransactionResponse>> getTransaction(String txId)
+            throws ApiException {
+        try {
+            HttpRequest.Builder localVarRequestBuilder = getTransactionRequestBuilder(txId);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException("getTransaction", localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<TransactionResponse>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            TransactionResponse>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            });
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder getTransactionRequestBuilder(String txId) throws ApiException {
+        // verify the required parameter 'txId' is set
+        if (txId == null) {
+            throw new ApiException(
+                    400, "Missing the required parameter 'txId' when calling getTransaction");
+        }
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath =
+                "/transactions/{txId}".replace("{txId}", ApiClient.urlEncode(txId.toString()));
+
+        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
+     * Find a specific transaction by external transaction ID Returns transaction by external
+     * transaction ID.
+     *
+     * @param externalTxId The external ID of the transaction to return (required)
+     * @return CompletableFuture&lt;ApiResponse&lt;TransactionResponse&gt;&gt;
+     * @throws ApiException if fails to make API call
+     */
+    public CompletableFuture<ApiResponse<TransactionResponse>> getTransactionByExternalId(
+            String externalTxId) throws ApiException {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    getTransactionByExternalIdRequestBuilder(externalTxId);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException(
+                                                    "getTransactionByExternalId",
+                                                    localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<TransactionResponse>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            TransactionResponse>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            });
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder getTransactionByExternalIdRequestBuilder(String externalTxId)
+            throws ApiException {
+        // verify the required parameter 'externalTxId' is set
+        if (externalTxId == null) {
+            throw new ApiException(
+                    400,
+                    "Missing the required parameter 'externalTxId' when calling"
+                            + " getTransactionByExternalId");
+        }
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath =
+                "/transactions/external_tx_id/{externalTxId}"
+                        .replace("{externalTxId}", ApiClient.urlEncode(externalTxId.toString()));
+
+        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
+     * List transaction history Lists the transaction history for your workspace.
+     *
+     * @param before Unix timestamp in milliseconds. Returns only transactions created before the
+     *     specified date (optional)
+     * @param after Unix timestamp in milliseconds. Returns only transactions created after the
+     *     specified date (optional)
+     * @param status You can filter by one of the statuses. (optional)
+     * @param orderBy The field to order the results by **Note**: Ordering by a field that is not
+     *     createdAt may result with transactions that receive updates as you request the next or
+     *     previous pages of results, resulting with missing those transactions. (optional)
+     * @param sort The direction to order the results by (optional)
+     * @param limit Limits the number of results. If not provided, a limit of 200 will be used. The
+     *     maximum allowed limit is 500 (optional, default to 200)
+     * @param sourceType The source type of the transaction (optional)
+     * @param sourceId The source ID of the transaction (optional)
+     * @param destType The destination type of the transaction (optional)
+     * @param destId The destination ID of the transaction (optional)
+     * @param assets A list of assets to filter by, seperated by commas (optional)
+     * @param txHash Returns only results with a specified txHash (optional)
+     * @param sourceWalletId Returns only results where the source is a specific end user wallet
+     *     (optional)
+     * @param destWalletId Returns only results where the destination is a specific end user wallet
+     *     (optional)
+     * @return CompletableFuture&lt;ApiResponse&lt;List&lt;TransactionResponse&gt;&gt;&gt;
+     * @throws ApiException if fails to make API call
+     */
+    public CompletableFuture<ApiResponse<List<TransactionResponse>>> getTransactions(
+            String before,
+            String after,
+            String status,
+            String orderBy,
+            String sort,
+            Integer limit,
+            String sourceType,
+            String sourceId,
+            String destType,
+            String destId,
+            String assets,
+            String txHash,
+            String sourceWalletId,
+            String destWalletId)
+            throws ApiException {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    getTransactionsRequestBuilder(
+                            before,
+                            after,
+                            status,
+                            orderBy,
+                            sort,
+                            limit,
+                            sourceType,
+                            sourceId,
+                            destType,
+                            destId,
+                            assets,
+                            txHash,
+                            sourceWalletId,
+                            destWalletId);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException("getTransactions", localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<List<TransactionResponse>>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            List<
+                                                                                    TransactionResponse>>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            });
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder getTransactionsRequestBuilder(
+            String before,
+            String after,
+            String status,
+            String orderBy,
+            String sort,
+            Integer limit,
+            String sourceType,
+            String sourceId,
+            String destType,
+            String destId,
+            String assets,
+            String txHash,
+            String sourceWalletId,
+            String destWalletId)
+            throws ApiException {
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath = "/transactions";
+
+        List<Pair> localVarQueryParams = new ArrayList<>();
+        StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
+        String localVarQueryParameterBaseName;
+        localVarQueryParameterBaseName = "before";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("before", before));
+        localVarQueryParameterBaseName = "after";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("after", after));
+        localVarQueryParameterBaseName = "status";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("status", status));
+        localVarQueryParameterBaseName = "orderBy";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("orderBy", orderBy));
+        localVarQueryParameterBaseName = "sort";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("sort", sort));
+        localVarQueryParameterBaseName = "limit";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("limit", limit));
+        localVarQueryParameterBaseName = "sourceType";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("sourceType", sourceType));
+        localVarQueryParameterBaseName = "sourceId";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("sourceId", sourceId));
+        localVarQueryParameterBaseName = "destType";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("destType", destType));
+        localVarQueryParameterBaseName = "destId";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("destId", destId));
+        localVarQueryParameterBaseName = "assets";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("assets", assets));
+        localVarQueryParameterBaseName = "txHash";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("txHash", txHash));
+        localVarQueryParameterBaseName = "sourceWalletId";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("sourceWalletId", sourceWalletId));
+        localVarQueryParameterBaseName = "destWalletId";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("destWalletId", destWalletId));
+
+        if (!localVarQueryParams.isEmpty() || localVarQueryStringJoiner.length() != 0) {
+            StringJoiner queryJoiner = new StringJoiner("&");
+            localVarQueryParams.forEach(p -> queryJoiner.add(p.getName() + '=' + p.getValue()));
+            if (localVarQueryStringJoiner.length() != 0) {
+                queryJoiner.add(localVarQueryStringJoiner.toString());
+            }
+            localVarRequestBuilder.uri(
+                    URI.create(memberVarBaseUri + localVarPath + '?' + queryJoiner.toString()));
+        } else {
+            localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+        }
+
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
+     * Set confirmation threshold by transaction hash Overrides the required number of confirmations
+     * for transaction completion by transaction hash.
+     *
+     * @param txHash The TxHash (required)
+     * @param setConfirmationsThresholdRequest (optional)
+     * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
+     *     times with the same idempotency key, the server will return the same response as the
+     *     first request. The idempotency key is valid for 24 hours. (optional)
+     * @return CompletableFuture&lt;ApiResponse&lt;SetConfirmationsThresholdResponse&gt;&gt;
+     * @throws ApiException if fails to make API call
+     */
+    public CompletableFuture<ApiResponse<SetConfirmationsThresholdResponse>>
+            setConfirmationThresholdByTransactionHash(
+                    String txHash,
+                    SetConfirmationsThresholdRequest setConfirmationsThresholdRequest,
+                    String idempotencyKey)
+                    throws ApiException {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    setConfirmationThresholdByTransactionHashRequestBuilder(
+                            txHash, setConfirmationsThresholdRequest, idempotencyKey);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException(
+                                                    "setConfirmationThresholdByTransactionHash",
+                                                    localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<SetConfirmationsThresholdResponse>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            SetConfirmationsThresholdResponse>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            });
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder setConfirmationThresholdByTransactionHashRequestBuilder(
+            String txHash,
+            SetConfirmationsThresholdRequest setConfirmationsThresholdRequest,
+            String idempotencyKey)
+            throws ApiException {
+        // verify the required parameter 'txHash' is set
+        if (txHash == null) {
+            throw new ApiException(
+                    400,
+                    "Missing the required parameter 'txHash' when calling"
+                            + " setConfirmationThresholdByTransactionHash");
+        }
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath =
+                "/txHash/{txHash}/set_confirmation_threshold"
+                        .replace("{txHash}", ApiClient.urlEncode(txHash.toString()));
+
+        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+        if (idempotencyKey != null) {
+            localVarRequestBuilder.header("Idempotency-Key", idempotencyKey.toString());
+        }
+        localVarRequestBuilder.header("Content-Type", "application/json");
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        try {
+            byte[] localVarPostBody =
+                    memberVarObjectMapper.writeValueAsBytes(setConfirmationsThresholdRequest);
+            localVarRequestBuilder.method(
+                    "POST", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
+        } catch (IOException e) {
+            throw new ApiException(e);
+        }
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
+     * Set confirmation threshold by transaction ID Overrides the required number of confirmations
+     * for transaction completion by transaction ID.
+     *
+     * @param txId The ID of the transaction (required)
+     * @param setConfirmationsThresholdRequest (optional)
+     * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
+     *     times with the same idempotency key, the server will return the same response as the
+     *     first request. The idempotency key is valid for 24 hours. (optional)
+     * @return CompletableFuture&lt;ApiResponse&lt;SetConfirmationsThresholdResponse&gt;&gt;
+     * @throws ApiException if fails to make API call
+     */
+    public CompletableFuture<ApiResponse<SetConfirmationsThresholdResponse>>
+            setTransactionConfirmationThreshold(
+                    String txId,
+                    SetConfirmationsThresholdRequest setConfirmationsThresholdRequest,
+                    String idempotencyKey)
+                    throws ApiException {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    setTransactionConfirmationThresholdRequestBuilder(
+                            txId, setConfirmationsThresholdRequest, idempotencyKey);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException(
+                                                    "setTransactionConfirmationThreshold",
+                                                    localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<SetConfirmationsThresholdResponse>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            SetConfirmationsThresholdResponse>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            });
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder setTransactionConfirmationThresholdRequestBuilder(
+            String txId,
+            SetConfirmationsThresholdRequest setConfirmationsThresholdRequest,
+            String idempotencyKey)
+            throws ApiException {
+        // verify the required parameter 'txId' is set
+        if (txId == null) {
+            throw new ApiException(
+                    400,
+                    "Missing the required parameter 'txId' when calling"
+                            + " setTransactionConfirmationThreshold");
+        }
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath =
+                "/transactions/{txId}/set_confirmation_threshold"
+                        .replace("{txId}", ApiClient.urlEncode(txId.toString()));
+
+        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+        if (idempotencyKey != null) {
+            localVarRequestBuilder.header("Idempotency-Key", idempotencyKey.toString());
+        }
+        localVarRequestBuilder.header("Content-Type", "application/json");
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        try {
+            byte[] localVarPostBody =
+                    memberVarObjectMapper.writeValueAsBytes(setConfirmationsThresholdRequest);
+            localVarRequestBuilder.method(
+                    "POST", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
+        } catch (IOException e) {
+            throw new ApiException(e);
+        }
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
+     * Unfreeze a transaction Unfreezes a transaction by ID and makes the transaction available
+     * again.
+     *
+     * @param txId The ID of the transaction to unfreeze (required)
+     * @param xEndUserWalletId Unique ID of the End-User wallet to the API request. Required for
+     *     end-user wallet operations. (optional)
+     * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
+     *     times with the same idempotency key, the server will return the same response as the
+     *     first request. The idempotency key is valid for 24 hours. (optional)
+     * @return CompletableFuture&lt;ApiResponse&lt;UnfreezeTransactionResponse&gt;&gt;
+     * @throws ApiException if fails to make API call
+     */
+    public CompletableFuture<ApiResponse<UnfreezeTransactionResponse>> unfreezeTransaction(
+            String txId, UUID xEndUserWalletId, String idempotencyKey) throws ApiException {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    unfreezeTransactionRequestBuilder(txId, xEndUserWalletId, idempotencyKey);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException(
+                                                    "unfreezeTransaction", localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<UnfreezeTransactionResponse>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            UnfreezeTransactionResponse>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            });
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder unfreezeTransactionRequestBuilder(
+            String txId, UUID xEndUserWalletId, String idempotencyKey) throws ApiException {
+        // verify the required parameter 'txId' is set
+        if (txId == null) {
+            throw new ApiException(
+                    400, "Missing the required parameter 'txId' when calling unfreezeTransaction");
+        }
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath =
+                "/transactions/{txId}/unfreeze"
+                        .replace("{txId}", ApiClient.urlEncode(txId.toString()));
+
+        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+        if (xEndUserWalletId != null) {
+            localVarRequestBuilder.header("X-End-User-Wallet-Id", xEndUserWalletId.toString());
+        }
+        if (idempotencyKey != null) {
+            localVarRequestBuilder.header("Idempotency-Key", idempotencyKey.toString());
+        }
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        localVarRequestBuilder.method("POST", HttpRequest.BodyPublishers.noBody());
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
+     * Validate destination address Checks if an address is valid (for XRP, DOT, XLM, and EOS).
+     *
+     * @param assetId The asset of the address (required)
+     * @param address The address to validate (required)
+     * @return CompletableFuture&lt;ApiResponse&lt;ValidateAddressResponse&gt;&gt;
+     * @throws ApiException if fails to make API call
+     */
+    public CompletableFuture<ApiResponse<ValidateAddressResponse>> validateAddress(
+            String assetId, String address) throws ApiException {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    validateAddressRequestBuilder(assetId, address);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException("validateAddress", localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<ValidateAddressResponse>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            ValidateAddressResponse>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            });
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder validateAddressRequestBuilder(String assetId, String address)
+            throws ApiException {
+        // verify the required parameter 'assetId' is set
+        if (assetId == null) {
+            throw new ApiException(
+                    400, "Missing the required parameter 'assetId' when calling validateAddress");
+        }
+        // verify the required parameter 'address' is set
+        if (address == null) {
+            throw new ApiException(
+                    400, "Missing the required parameter 'address' when calling validateAddress");
+        }
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath =
+                "/transactions/validate_address/{assetId}/{address}"
+                        .replace("{assetId}", ApiClient.urlEncode(assetId.toString()))
+                        .replace("{address}", ApiClient.urlEncode(address.toString()));
+
+        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
 }

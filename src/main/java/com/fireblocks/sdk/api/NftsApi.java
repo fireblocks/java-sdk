@@ -12,12 +12,13 @@
 
 package com.fireblocks.sdk.api;
 
+
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.Pair;
-
-import java.math.BigDecimal;
 import com.fireblocks.sdk.model.GetOwnershipTokens200Response;
 import com.fireblocks.sdk.model.ListOwnedCollections200Response;
 import com.fireblocks.sdk.model.ListOwnedTokens200Response;
@@ -25,1164 +26,1079 @@ import com.fireblocks.sdk.model.TokenOwnershipSpamUpdatePayload;
 import com.fireblocks.sdk.model.TokenOwnershipStatusUpdatePayload;
 import com.fireblocks.sdk.model.TokenResponse;
 import com.fireblocks.sdk.model.UpdateTokenOwnershipStatusDto;
-
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-import java.io.InputStream;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.IOException;
-import java.io.OutputStream;
-import java.net.http.HttpRequest;
-import java.nio.channels.Channels;
-import java.nio.channels.Pipe;
+import java.io.InputStream;
+import java.math.BigDecimal;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.time.Duration;
-
 import java.util.ArrayList;
-import java.util.StringJoiner;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.function.Consumer;
-
+import java.util.StringJoiner;
 import java.util.concurrent.CompletableFuture;
+import java.util.function.Consumer;
 
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class NftsApi {
-  private final HttpClient memberVarHttpClient;
-  private final ObjectMapper memberVarObjectMapper;
-  private final String memberVarBaseUri;
-  private final Consumer<HttpRequest.Builder> memberVarInterceptor;
-  private final Duration memberVarReadTimeout;
-  private final Consumer<HttpResponse<InputStream>> memberVarResponseInterceptor;
-  private final Consumer<HttpResponse<String>> memberVarAsyncResponseInterceptor;
+    private final HttpClient memberVarHttpClient;
+    private final ObjectMapper memberVarObjectMapper;
+    private final String memberVarBaseUri;
+    private final Consumer<HttpRequest.Builder> memberVarInterceptor;
+    private final Duration memberVarReadTimeout;
+    private final Consumer<HttpResponse<InputStream>> memberVarResponseInterceptor;
+    private final Consumer<HttpResponse<String>> memberVarAsyncResponseInterceptor;
 
-  public NftsApi() {
-    this(new ApiClient());
-  }
-
-  public NftsApi(ApiClient apiClient) {
-    memberVarHttpClient = apiClient.getHttpClient();
-    memberVarObjectMapper = apiClient.getObjectMapper();
-    memberVarBaseUri = apiClient.getBaseUri();
-    memberVarInterceptor = apiClient.getRequestInterceptor();
-    memberVarReadTimeout = apiClient.getReadTimeout();
-    memberVarResponseInterceptor = apiClient.getResponseInterceptor();
-    memberVarAsyncResponseInterceptor = apiClient.getAsyncResponseInterceptor();
-  }
-
-  private ApiException getApiException(String operationId, HttpResponse<String> response) {
-    String message = formatExceptionMessage(operationId, response.statusCode(), response.body());
-    return new ApiException(response.statusCode(), message, response.headers(), response.body());
-  }
-
-  private String formatExceptionMessage(String operationId, int statusCode, String body) {
-    if (body == null || body.isEmpty()) {
-      body = "[no body]";
+    public NftsApi() {
+        this(new ApiClient());
     }
-    return operationId + " call failed with: " + statusCode + " - " + body;
-  }
 
-  /**
-   * List token data by ID
-   * Returns the requested token data. 
-   * @param id NFT ID (required)
-   * @return CompletableFuture&lt;TokenResponse&gt;
-   * @throws ApiException if fails to make API call
-   */
-  public CompletableFuture<TokenResponse> getNFT(String id) throws ApiException {
-    try {
-      HttpRequest.Builder localVarRequestBuilder = getNFTRequestBuilder(id);
-      return memberVarHttpClient.sendAsync(
-          localVarRequestBuilder.build(),
-          HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
-            if (localVarResponse.statusCode()/ 100 != 2) {
-              return CompletableFuture.failedFuture(getApiException("getNFT", localVarResponse));
-            }
-            try {
-              String responseBody = localVarResponse.body();
-              return CompletableFuture.completedFuture(
-                  responseBody == null || responseBody.isBlank() ? null : memberVarObjectMapper.readValue(responseBody, new TypeReference<TokenResponse>() {})
-              );
-            } catch (IOException e) {
-              return CompletableFuture.failedFuture(new ApiException(e));
-            }
-      });
+    public NftsApi(ApiClient apiClient) {
+        memberVarHttpClient = apiClient.getHttpClient();
+        memberVarObjectMapper = apiClient.getObjectMapper();
+        memberVarBaseUri = apiClient.getBaseUri();
+        memberVarInterceptor = apiClient.getRequestInterceptor();
+        memberVarReadTimeout = apiClient.getReadTimeout();
+        memberVarResponseInterceptor = apiClient.getResponseInterceptor();
+        memberVarAsyncResponseInterceptor = apiClient.getAsyncResponseInterceptor();
     }
-    catch (ApiException e) {
-      return CompletableFuture.failedFuture(e);
-    }
-  }
 
-  /**
-   * List token data by ID
-   * Returns the requested token data. 
-   * @param id NFT ID (required)
-   * @return CompletableFuture&lt;ApiResponse&lt;TokenResponse&gt;&gt;
-   * @throws ApiException if fails to make API call
-   */
-  public CompletableFuture<ApiResponse<TokenResponse>> getNFTWithHttpInfo(String id) throws ApiException {
-    try {
-      HttpRequest.Builder localVarRequestBuilder = getNFTRequestBuilder(id);
-      return memberVarHttpClient.sendAsync(
-          localVarRequestBuilder.build(),
-          HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
-            if (memberVarAsyncResponseInterceptor != null) {
-              memberVarAsyncResponseInterceptor.accept(localVarResponse);
-            }
-            if (localVarResponse.statusCode()/ 100 != 2) {
-              return CompletableFuture.failedFuture(getApiException("getNFT", localVarResponse));
-            }
-            try {
-              String responseBody = localVarResponse.body();
-              return CompletableFuture.completedFuture(
-                  new ApiResponse<TokenResponse>(
-                      localVarResponse.statusCode(),
-                      localVarResponse.headers().map(),
-                      responseBody == null || responseBody.isBlank() ? null : memberVarObjectMapper.readValue(responseBody, new TypeReference<TokenResponse>() {}))
-              );
-            } catch (IOException e) {
-              return CompletableFuture.failedFuture(new ApiException(e));
-            }
+    private ApiException getApiException(String operationId, HttpResponse<String> response) {
+        String message =
+                formatExceptionMessage(operationId, response.statusCode(), response.body());
+        return new ApiException(
+                response.statusCode(), message, response.headers(), response.body());
+    }
+
+    private String formatExceptionMessage(String operationId, int statusCode, String body) {
+        if (body == null || body.isEmpty()) {
+            body = "[no body]";
         }
-      );
-    }
-    catch (ApiException e) {
-      return CompletableFuture.failedFuture(e);
-    }
-  }
-
-  private HttpRequest.Builder getNFTRequestBuilder(String id) throws ApiException {
-    // verify the required parameter 'id' is set
-    if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling getNFT");
+        return operationId + " call failed with: " + statusCode + " - " + body;
     }
 
-    HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
-
-    String localVarPath = "/nfts/tokens/{id}"
-        .replace("{id}", ApiClient.urlEncode(id.toString()));
-
-    localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
-
-    localVarRequestBuilder.header("Accept", "application/json");
-
-    localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
-    if (memberVarReadTimeout != null) {
-      localVarRequestBuilder.timeout(memberVarReadTimeout);
-    }
-    if (memberVarInterceptor != null) {
-      memberVarInterceptor.accept(localVarRequestBuilder);
-    }
-    return localVarRequestBuilder;
-  }
-  /**
-   * List tokens by IDs
-   * Returns the requested tokens data. 
-   * @param ids A comma separated list of NFT IDs. Up to 100 are allowed in a single request. (required)
-   * @param pageCursor Page cursor to fetch (optional)
-   * @param pageSize Items per page (max 100) (optional)
-   * @param sort Sort by param, it can be one param or a list of params separated by comma (optional
-   * @param order Order direction, it can be &#x60;ASC&#x60; for ascending or &#x60;DESC&#x60; for descending (optional, default to ASC)
-   * @return CompletableFuture&lt;ListOwnedTokens200Response&gt;
-   * @throws ApiException if fails to make API call
-   */
-  public CompletableFuture<ListOwnedTokens200Response> getNFTs(String ids, String pageCursor, BigDecimal pageSize, List<String> sort, String order) throws ApiException {
-    try {
-      HttpRequest.Builder localVarRequestBuilder = getNFTsRequestBuilder(ids, pageCursor, pageSize, sort, order);
-      return memberVarHttpClient.sendAsync(
-          localVarRequestBuilder.build(),
-          HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
-            if (localVarResponse.statusCode()/ 100 != 2) {
-              return CompletableFuture.failedFuture(getApiException("getNFTs", localVarResponse));
-            }
-            try {
-              String responseBody = localVarResponse.body();
-              return CompletableFuture.completedFuture(
-                  responseBody == null || responseBody.isBlank() ? null : memberVarObjectMapper.readValue(responseBody, new TypeReference<ListOwnedTokens200Response>() {})
-              );
-            } catch (IOException e) {
-              return CompletableFuture.failedFuture(new ApiException(e));
-            }
-      });
-    }
-    catch (ApiException e) {
-      return CompletableFuture.failedFuture(e);
-    }
-  }
-
-  /**
-   * List tokens by IDs
-   * Returns the requested tokens data. 
-   * @param ids A comma separated list of NFT IDs. Up to 100 are allowed in a single request. (required)
-   * @param pageCursor Page cursor to fetch (optional)
-   * @param pageSize Items per page (max 100) (optional)
-   * @param sort Sort by param, it can be one param or a list of params separated by comma (optional
-   * @param order Order direction, it can be &#x60;ASC&#x60; for ascending or &#x60;DESC&#x60; for descending (optional, default to ASC)
-   * @return CompletableFuture&lt;ApiResponse&lt;ListOwnedTokens200Response&gt;&gt;
-   * @throws ApiException if fails to make API call
-   */
-  public CompletableFuture<ApiResponse<ListOwnedTokens200Response>> getNFTsWithHttpInfo(String ids, String pageCursor, BigDecimal pageSize, List<String> sort, String order) throws ApiException {
-    try {
-      HttpRequest.Builder localVarRequestBuilder = getNFTsRequestBuilder(ids, pageCursor, pageSize, sort, order);
-      return memberVarHttpClient.sendAsync(
-          localVarRequestBuilder.build(),
-          HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
-            if (memberVarAsyncResponseInterceptor != null) {
-              memberVarAsyncResponseInterceptor.accept(localVarResponse);
-            }
-            if (localVarResponse.statusCode()/ 100 != 2) {
-              return CompletableFuture.failedFuture(getApiException("getNFTs", localVarResponse));
-            }
-            try {
-              String responseBody = localVarResponse.body();
-              return CompletableFuture.completedFuture(
-                  new ApiResponse<ListOwnedTokens200Response>(
-                      localVarResponse.statusCode(),
-                      localVarResponse.headers().map(),
-                      responseBody == null || responseBody.isBlank() ? null : memberVarObjectMapper.readValue(responseBody, new TypeReference<ListOwnedTokens200Response>() {}))
-              );
-            } catch (IOException e) {
-              return CompletableFuture.failedFuture(new ApiException(e));
-            }
+    /**
+     * List token data by ID Returns the requested token data.
+     *
+     * @param id NFT ID (required)
+     * @return CompletableFuture&lt;ApiResponse&lt;TokenResponse&gt;&gt;
+     * @throws ApiException if fails to make API call
+     */
+    public CompletableFuture<ApiResponse<TokenResponse>> getNFT(String id) throws ApiException {
+        try {
+            HttpRequest.Builder localVarRequestBuilder = getNFTRequestBuilder(id);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException("getNFT", localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<TokenResponse>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            TokenResponse>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            });
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
         }
-      );
-    }
-    catch (ApiException e) {
-      return CompletableFuture.failedFuture(e);
-    }
-  }
-
-  private HttpRequest.Builder getNFTsRequestBuilder(String ids, String pageCursor, BigDecimal pageSize, List<String> sort, String order) throws ApiException {
-    // verify the required parameter 'ids' is set
-    if (ids == null) {
-      throw new ApiException(400, "Missing the required parameter 'ids' when calling getNFTs");
     }
 
-    HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
-
-    String localVarPath = "/nfts/tokens";
-
-    List<Pair> localVarQueryParams = new ArrayList<>();
-    StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
-    String localVarQueryParameterBaseName;
-    localVarQueryParameterBaseName = "ids";
-    localVarQueryParams.addAll(ApiClient.parameterToPairs("ids", ids));
-    localVarQueryParameterBaseName = "pageCursor";
-    localVarQueryParams.addAll(ApiClient.parameterToPairs("pageCursor", pageCursor));
-    localVarQueryParameterBaseName = "pageSize";
-    localVarQueryParams.addAll(ApiClient.parameterToPairs("pageSize", pageSize));
-    localVarQueryParameterBaseName = "sort";
-    localVarQueryParams.addAll(ApiClient.parameterToPairs("multi", "sort", sort));
-    localVarQueryParameterBaseName = "order";
-    localVarQueryParams.addAll(ApiClient.parameterToPairs("order", order));
-
-    if (!localVarQueryParams.isEmpty() || localVarQueryStringJoiner.length() != 0) {
-      StringJoiner queryJoiner = new StringJoiner("&");
-      localVarQueryParams.forEach(p -> queryJoiner.add(p.getName() + '=' + p.getValue()));
-      if (localVarQueryStringJoiner.length() != 0) {
-        queryJoiner.add(localVarQueryStringJoiner.toString());
-      }
-      localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath + '?' + queryJoiner.toString()));
-    } else {
-      localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
-    }
-
-    localVarRequestBuilder.header("Accept", "application/json");
-
-    localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
-    if (memberVarReadTimeout != null) {
-      localVarRequestBuilder.timeout(memberVarReadTimeout);
-    }
-    if (memberVarInterceptor != null) {
-      memberVarInterceptor.accept(localVarRequestBuilder);
-    }
-    return localVarRequestBuilder;
-  }
-  /**
-   * List all owned tokens (paginated)
-   * Returns all tokens and their data in your workspace. 
-   * @param blockchainDescriptor Blockchain descriptor filter (optional)
-   * @param vaultAccountIds A comma separated list of Vault Account IDs. Up to 100 are allowed in a single request.  This field will be ignored when walletType&#x3D;END_USER_WALLET or ncwId is provided. (optional)
-   * @param ncwId Tenant&#39;s Non-Custodial Wallet ID (optional)
-   * @param ncwAccountIds A comma separated list of Non-Custodial account IDs. Up to 100 are allowed in a single request. This field will be ignored when walletType&#x3D;VAULT_ACCOUNT or ncwId is not provided. (optional)
-   * @param walletType Wallet type, it can be &#x60;VAULT_ACCOUNT&#x60; or &#x60;END_USER_WALLET&#x60; (optional, default to VAULT_ACCOUNT)
-   * @param ids A comma separated list of NFT IDs. Up to 100 are allowed in a single request. (optional)
-   * @param collectionIds A comma separated list of collection IDs. Up to 100 are allowed in a single request. (optional)
-   * @param pageCursor Page cursor to fetch (optional)
-   * @param pageSize Items per page (max 100) (optional)
-   * @param sort Sort by param, it can be one param or a list of params separated by comma (optional
-   * @param order Order direction, it can be &#x60;ASC&#x60; for ascending or &#x60;DESC&#x60; for descending (optional, default to ASC)
-   * @param status Token ownership status (optional, default to LISTED)
-   * @param search Search owned tokens and their collections. Possible criteria for search:  token name and id within the contract/collection, collection name, blockchain descriptor and name. (optional)
-   * @param spam Token ownership spam status. (optional)
-   * @return CompletableFuture&lt;GetOwnershipTokens200Response&gt;
-   * @throws ApiException if fails to make API call
-   */
-  public CompletableFuture<GetOwnershipTokens200Response> getOwnershipTokens(String blockchainDescriptor, String vaultAccountIds, String ncwId, String ncwAccountIds, String walletType, String ids, String collectionIds, String pageCursor, BigDecimal pageSize, List<String> sort, String order, String status, String search, String spam) throws ApiException {
-    try {
-      HttpRequest.Builder localVarRequestBuilder = getOwnershipTokensRequestBuilder(blockchainDescriptor, vaultAccountIds, ncwId, ncwAccountIds, walletType, ids, collectionIds, pageCursor, pageSize, sort, order, status, search, spam);
-      return memberVarHttpClient.sendAsync(
-          localVarRequestBuilder.build(),
-          HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
-            if (localVarResponse.statusCode()/ 100 != 2) {
-              return CompletableFuture.failedFuture(getApiException("getOwnershipTokens", localVarResponse));
-            }
-            try {
-              String responseBody = localVarResponse.body();
-              return CompletableFuture.completedFuture(
-                  responseBody == null || responseBody.isBlank() ? null : memberVarObjectMapper.readValue(responseBody, new TypeReference<GetOwnershipTokens200Response>() {})
-              );
-            } catch (IOException e) {
-              return CompletableFuture.failedFuture(new ApiException(e));
-            }
-      });
-    }
-    catch (ApiException e) {
-      return CompletableFuture.failedFuture(e);
-    }
-  }
-
-  /**
-   * List all owned tokens (paginated)
-   * Returns all tokens and their data in your workspace. 
-   * @param blockchainDescriptor Blockchain descriptor filter (optional)
-   * @param vaultAccountIds A comma separated list of Vault Account IDs. Up to 100 are allowed in a single request.  This field will be ignored when walletType&#x3D;END_USER_WALLET or ncwId is provided. (optional)
-   * @param ncwId Tenant&#39;s Non-Custodial Wallet ID (optional)
-   * @param ncwAccountIds A comma separated list of Non-Custodial account IDs. Up to 100 are allowed in a single request. This field will be ignored when walletType&#x3D;VAULT_ACCOUNT or ncwId is not provided. (optional)
-   * @param walletType Wallet type, it can be &#x60;VAULT_ACCOUNT&#x60; or &#x60;END_USER_WALLET&#x60; (optional, default to VAULT_ACCOUNT)
-   * @param ids A comma separated list of NFT IDs. Up to 100 are allowed in a single request. (optional)
-   * @param collectionIds A comma separated list of collection IDs. Up to 100 are allowed in a single request. (optional)
-   * @param pageCursor Page cursor to fetch (optional)
-   * @param pageSize Items per page (max 100) (optional)
-   * @param sort Sort by param, it can be one param or a list of params separated by comma (optional
-   * @param order Order direction, it can be &#x60;ASC&#x60; for ascending or &#x60;DESC&#x60; for descending (optional, default to ASC)
-   * @param status Token ownership status (optional, default to LISTED)
-   * @param search Search owned tokens and their collections. Possible criteria for search:  token name and id within the contract/collection, collection name, blockchain descriptor and name. (optional)
-   * @param spam Token ownership spam status. (optional)
-   * @return CompletableFuture&lt;ApiResponse&lt;GetOwnershipTokens200Response&gt;&gt;
-   * @throws ApiException if fails to make API call
-   */
-  public CompletableFuture<ApiResponse<GetOwnershipTokens200Response>> getOwnershipTokensWithHttpInfo(String blockchainDescriptor, String vaultAccountIds, String ncwId, String ncwAccountIds, String walletType, String ids, String collectionIds, String pageCursor, BigDecimal pageSize, List<String> sort, String order, String status, String search, String spam) throws ApiException {
-    try {
-      HttpRequest.Builder localVarRequestBuilder = getOwnershipTokensRequestBuilder(blockchainDescriptor, vaultAccountIds, ncwId, ncwAccountIds, walletType, ids, collectionIds, pageCursor, pageSize, sort, order, status, search, spam);
-      return memberVarHttpClient.sendAsync(
-          localVarRequestBuilder.build(),
-          HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
-            if (memberVarAsyncResponseInterceptor != null) {
-              memberVarAsyncResponseInterceptor.accept(localVarResponse);
-            }
-            if (localVarResponse.statusCode()/ 100 != 2) {
-              return CompletableFuture.failedFuture(getApiException("getOwnershipTokens", localVarResponse));
-            }
-            try {
-              String responseBody = localVarResponse.body();
-              return CompletableFuture.completedFuture(
-                  new ApiResponse<GetOwnershipTokens200Response>(
-                      localVarResponse.statusCode(),
-                      localVarResponse.headers().map(),
-                      responseBody == null || responseBody.isBlank() ? null : memberVarObjectMapper.readValue(responseBody, new TypeReference<GetOwnershipTokens200Response>() {}))
-              );
-            } catch (IOException e) {
-              return CompletableFuture.failedFuture(new ApiException(e));
-            }
+    private HttpRequest.Builder getNFTRequestBuilder(String id) throws ApiException {
+        // verify the required parameter 'id' is set
+        if (id == null) {
+            throw new ApiException(400, "Missing the required parameter 'id' when calling getNFT");
         }
-      );
-    }
-    catch (ApiException e) {
-      return CompletableFuture.failedFuture(e);
-    }
-  }
 
-  private HttpRequest.Builder getOwnershipTokensRequestBuilder(String blockchainDescriptor, String vaultAccountIds, String ncwId, String ncwAccountIds, String walletType, String ids, String collectionIds, String pageCursor, BigDecimal pageSize, List<String> sort, String order, String status, String search, String spam) throws ApiException {
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
-    HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+        String localVarPath =
+                "/nfts/tokens/{id}".replace("{id}", ApiClient.urlEncode(id.toString()));
 
-    String localVarPath = "/nfts/ownership/tokens";
+        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
 
-    List<Pair> localVarQueryParams = new ArrayList<>();
-    StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
-    String localVarQueryParameterBaseName;
-    localVarQueryParameterBaseName = "blockchainDescriptor";
-    localVarQueryParams.addAll(ApiClient.parameterToPairs("blockchainDescriptor", blockchainDescriptor));
-    localVarQueryParameterBaseName = "vaultAccountIds";
-    localVarQueryParams.addAll(ApiClient.parameterToPairs("vaultAccountIds", vaultAccountIds));
-    localVarQueryParameterBaseName = "ncwId";
-    localVarQueryParams.addAll(ApiClient.parameterToPairs("ncwId", ncwId));
-    localVarQueryParameterBaseName = "ncwAccountIds";
-    localVarQueryParams.addAll(ApiClient.parameterToPairs("ncwAccountIds", ncwAccountIds));
-    localVarQueryParameterBaseName = "walletType";
-    localVarQueryParams.addAll(ApiClient.parameterToPairs("walletType", walletType));
-    localVarQueryParameterBaseName = "ids";
-    localVarQueryParams.addAll(ApiClient.parameterToPairs("ids", ids));
-    localVarQueryParameterBaseName = "collectionIds";
-    localVarQueryParams.addAll(ApiClient.parameterToPairs("collectionIds", collectionIds));
-    localVarQueryParameterBaseName = "pageCursor";
-    localVarQueryParams.addAll(ApiClient.parameterToPairs("pageCursor", pageCursor));
-    localVarQueryParameterBaseName = "pageSize";
-    localVarQueryParams.addAll(ApiClient.parameterToPairs("pageSize", pageSize));
-    localVarQueryParameterBaseName = "sort";
-    localVarQueryParams.addAll(ApiClient.parameterToPairs("multi", "sort", sort));
-    localVarQueryParameterBaseName = "order";
-    localVarQueryParams.addAll(ApiClient.parameterToPairs("order", order));
-    localVarQueryParameterBaseName = "status";
-    localVarQueryParams.addAll(ApiClient.parameterToPairs("status", status));
-    localVarQueryParameterBaseName = "search";
-    localVarQueryParams.addAll(ApiClient.parameterToPairs("search", search));
-    localVarQueryParameterBaseName = "spam";
-    localVarQueryParams.addAll(ApiClient.parameterToPairs("spam", spam));
+        localVarRequestBuilder.header("Accept", "application/json");
 
-    if (!localVarQueryParams.isEmpty() || localVarQueryStringJoiner.length() != 0) {
-      StringJoiner queryJoiner = new StringJoiner("&");
-      localVarQueryParams.forEach(p -> queryJoiner.add(p.getName() + '=' + p.getValue()));
-      if (localVarQueryStringJoiner.length() != 0) {
-        queryJoiner.add(localVarQueryStringJoiner.toString());
-      }
-      localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath + '?' + queryJoiner.toString()));
-    } else {
-      localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
-    }
-
-    localVarRequestBuilder.header("Accept", "application/json");
-
-    localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
-    if (memberVarReadTimeout != null) {
-      localVarRequestBuilder.timeout(memberVarReadTimeout);
-    }
-    if (memberVarInterceptor != null) {
-      memberVarInterceptor.accept(localVarRequestBuilder);
-    }
-    return localVarRequestBuilder;
-  }
-  /**
-   * List owned collections (paginated)
-   * Returns all collections in your workspace 
-   * @param ncwId Tenant&#39;s Non-Custodial Wallet ID (optional)
-   * @param walletType Wallet type, it can be &#x60;VAULT_ACCOUNT&#x60; or &#x60;END_USER_WALLET&#x60; (optional, default to VAULT_ACCOUNT)
-   * @param search Search owned collections. Possible criteria for search: collection name, collection contract address. (optional)
-   * @param pageCursor Page cursor to fetch (optional)
-   * @param pageSize Items per page (max 100) (optional)
-   * @param sort Sort by param, it can be one param or a list of params separated by comma (optional
-   * @param order Order direction, it can be &#x60;ASC&#x60; for ascending or &#x60;DESC&#x60; for descending (optional, default to ASC)
-   * @param status Token ownership status (optional, default to LISTED)
-   * @return CompletableFuture&lt;ListOwnedCollections200Response&gt;
-   * @throws ApiException if fails to make API call
-   */
-  public CompletableFuture<ListOwnedCollections200Response> listOwnedCollections(String ncwId, String walletType, String search, String pageCursor, BigDecimal pageSize, List<String> sort, String order, String status) throws ApiException {
-    try {
-      HttpRequest.Builder localVarRequestBuilder = listOwnedCollectionsRequestBuilder(ncwId, walletType, search, pageCursor, pageSize, sort, order, status);
-      return memberVarHttpClient.sendAsync(
-          localVarRequestBuilder.build(),
-          HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
-            if (localVarResponse.statusCode()/ 100 != 2) {
-              return CompletableFuture.failedFuture(getApiException("listOwnedCollections", localVarResponse));
-            }
-            try {
-              String responseBody = localVarResponse.body();
-              return CompletableFuture.completedFuture(
-                  responseBody == null || responseBody.isBlank() ? null : memberVarObjectMapper.readValue(responseBody, new TypeReference<ListOwnedCollections200Response>() {})
-              );
-            } catch (IOException e) {
-              return CompletableFuture.failedFuture(new ApiException(e));
-            }
-      });
-    }
-    catch (ApiException e) {
-      return CompletableFuture.failedFuture(e);
-    }
-  }
-
-  /**
-   * List owned collections (paginated)
-   * Returns all collections in your workspace 
-   * @param ncwId Tenant&#39;s Non-Custodial Wallet ID (optional)
-   * @param walletType Wallet type, it can be &#x60;VAULT_ACCOUNT&#x60; or &#x60;END_USER_WALLET&#x60; (optional, default to VAULT_ACCOUNT)
-   * @param search Search owned collections. Possible criteria for search: collection name, collection contract address. (optional)
-   * @param pageCursor Page cursor to fetch (optional)
-   * @param pageSize Items per page (max 100) (optional)
-   * @param sort Sort by param, it can be one param or a list of params separated by comma (optional
-   * @param order Order direction, it can be &#x60;ASC&#x60; for ascending or &#x60;DESC&#x60; for descending (optional, default to ASC)
-   * @param status Token ownership status (optional, default to LISTED)
-   * @return CompletableFuture&lt;ApiResponse&lt;ListOwnedCollections200Response&gt;&gt;
-   * @throws ApiException if fails to make API call
-   */
-  public CompletableFuture<ApiResponse<ListOwnedCollections200Response>> listOwnedCollectionsWithHttpInfo(String ncwId, String walletType, String search, String pageCursor, BigDecimal pageSize, List<String> sort, String order, String status) throws ApiException {
-    try {
-      HttpRequest.Builder localVarRequestBuilder = listOwnedCollectionsRequestBuilder(ncwId, walletType, search, pageCursor, pageSize, sort, order, status);
-      return memberVarHttpClient.sendAsync(
-          localVarRequestBuilder.build(),
-          HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
-            if (memberVarAsyncResponseInterceptor != null) {
-              memberVarAsyncResponseInterceptor.accept(localVarResponse);
-            }
-            if (localVarResponse.statusCode()/ 100 != 2) {
-              return CompletableFuture.failedFuture(getApiException("listOwnedCollections", localVarResponse));
-            }
-            try {
-              String responseBody = localVarResponse.body();
-              return CompletableFuture.completedFuture(
-                  new ApiResponse<ListOwnedCollections200Response>(
-                      localVarResponse.statusCode(),
-                      localVarResponse.headers().map(),
-                      responseBody == null || responseBody.isBlank() ? null : memberVarObjectMapper.readValue(responseBody, new TypeReference<ListOwnedCollections200Response>() {}))
-              );
-            } catch (IOException e) {
-              return CompletableFuture.failedFuture(new ApiException(e));
-            }
+        localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
         }
-      );
-    }
-    catch (ApiException e) {
-      return CompletableFuture.failedFuture(e);
-    }
-  }
-
-  private HttpRequest.Builder listOwnedCollectionsRequestBuilder(String ncwId, String walletType, String search, String pageCursor, BigDecimal pageSize, List<String> sort, String order, String status) throws ApiException {
-
-    HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
-
-    String localVarPath = "/nfts/ownership/collections";
-
-    List<Pair> localVarQueryParams = new ArrayList<>();
-    StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
-    String localVarQueryParameterBaseName;
-    localVarQueryParameterBaseName = "ncwId";
-    localVarQueryParams.addAll(ApiClient.parameterToPairs("ncwId", ncwId));
-    localVarQueryParameterBaseName = "walletType";
-    localVarQueryParams.addAll(ApiClient.parameterToPairs("walletType", walletType));
-    localVarQueryParameterBaseName = "search";
-    localVarQueryParams.addAll(ApiClient.parameterToPairs("search", search));
-    localVarQueryParameterBaseName = "pageCursor";
-    localVarQueryParams.addAll(ApiClient.parameterToPairs("pageCursor", pageCursor));
-    localVarQueryParameterBaseName = "pageSize";
-    localVarQueryParams.addAll(ApiClient.parameterToPairs("pageSize", pageSize));
-    localVarQueryParameterBaseName = "sort";
-    localVarQueryParams.addAll(ApiClient.parameterToPairs("multi", "sort", sort));
-    localVarQueryParameterBaseName = "order";
-    localVarQueryParams.addAll(ApiClient.parameterToPairs("order", order));
-    localVarQueryParameterBaseName = "status";
-    localVarQueryParams.addAll(ApiClient.parameterToPairs("status", status));
-
-    if (!localVarQueryParams.isEmpty() || localVarQueryStringJoiner.length() != 0) {
-      StringJoiner queryJoiner = new StringJoiner("&");
-      localVarQueryParams.forEach(p -> queryJoiner.add(p.getName() + '=' + p.getValue()));
-      if (localVarQueryStringJoiner.length() != 0) {
-        queryJoiner.add(localVarQueryStringJoiner.toString());
-      }
-      localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath + '?' + queryJoiner.toString()));
-    } else {
-      localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
-    }
-
-    localVarRequestBuilder.header("Accept", "application/json");
-
-    localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
-    if (memberVarReadTimeout != null) {
-      localVarRequestBuilder.timeout(memberVarReadTimeout);
-    }
-    if (memberVarInterceptor != null) {
-      memberVarInterceptor.accept(localVarRequestBuilder);
-    }
-    return localVarRequestBuilder;
-  }
-  /**
-   * List all distinct owned tokens (paginated)
-   * Returns all owned distinct tokens (for your tenant) and their data in your workspace. 
-   * @param ncwId Tenant&#39;s Non-Custodial Wallet ID (optional)
-   * @param walletType Wallet type, it can be &#x60;VAULT_ACCOUNT&#x60; or &#x60;END_USER_WALLET&#x60; (optional, default to VAULT_ACCOUNT)
-   * @param pageCursor Page cursor to fetch (optional)
-   * @param pageSize Items per page (max 100) (optional)
-   * @param sort Sort by param, it can be one param or a list of params separated by comma (optional
-   * @param order Order direction, it can be &#x60;ASC&#x60; for ascending or &#x60;DESC&#x60; for descending (optional, default to ASC)
-   * @param status Token ownership status (optional, default to LISTED)
-   * @param search Search owned tokens by token name (optional)
-   * @param spam Token ownership spam status. (optional)
-   * @return CompletableFuture&lt;ListOwnedTokens200Response&gt;
-   * @throws ApiException if fails to make API call
-   */
-  public CompletableFuture<ListOwnedTokens200Response> listOwnedTokens(String ncwId, String walletType, String pageCursor, BigDecimal pageSize, List<String> sort, String order, String status, String search, String spam) throws ApiException {
-    try {
-      HttpRequest.Builder localVarRequestBuilder = listOwnedTokensRequestBuilder(ncwId, walletType, pageCursor, pageSize, sort, order, status, search, spam);
-      return memberVarHttpClient.sendAsync(
-          localVarRequestBuilder.build(),
-          HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
-            if (localVarResponse.statusCode()/ 100 != 2) {
-              return CompletableFuture.failedFuture(getApiException("listOwnedTokens", localVarResponse));
-            }
-            try {
-              String responseBody = localVarResponse.body();
-              return CompletableFuture.completedFuture(
-                  responseBody == null || responseBody.isBlank() ? null : memberVarObjectMapper.readValue(responseBody, new TypeReference<ListOwnedTokens200Response>() {})
-              );
-            } catch (IOException e) {
-              return CompletableFuture.failedFuture(new ApiException(e));
-            }
-      });
-    }
-    catch (ApiException e) {
-      return CompletableFuture.failedFuture(e);
-    }
-  }
-
-  /**
-   * List all distinct owned tokens (paginated)
-   * Returns all owned distinct tokens (for your tenant) and their data in your workspace. 
-   * @param ncwId Tenant&#39;s Non-Custodial Wallet ID (optional)
-   * @param walletType Wallet type, it can be &#x60;VAULT_ACCOUNT&#x60; or &#x60;END_USER_WALLET&#x60; (optional, default to VAULT_ACCOUNT)
-   * @param pageCursor Page cursor to fetch (optional)
-   * @param pageSize Items per page (max 100) (optional)
-   * @param sort Sort by param, it can be one param or a list of params separated by comma (optional
-   * @param order Order direction, it can be &#x60;ASC&#x60; for ascending or &#x60;DESC&#x60; for descending (optional, default to ASC)
-   * @param status Token ownership status (optional, default to LISTED)
-   * @param search Search owned tokens by token name (optional)
-   * @param spam Token ownership spam status. (optional)
-   * @return CompletableFuture&lt;ApiResponse&lt;ListOwnedTokens200Response&gt;&gt;
-   * @throws ApiException if fails to make API call
-   */
-  public CompletableFuture<ApiResponse<ListOwnedTokens200Response>> listOwnedTokensWithHttpInfo(String ncwId, String walletType, String pageCursor, BigDecimal pageSize, List<String> sort, String order, String status, String search, String spam) throws ApiException {
-    try {
-      HttpRequest.Builder localVarRequestBuilder = listOwnedTokensRequestBuilder(ncwId, walletType, pageCursor, pageSize, sort, order, status, search, spam);
-      return memberVarHttpClient.sendAsync(
-          localVarRequestBuilder.build(),
-          HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
-            if (memberVarAsyncResponseInterceptor != null) {
-              memberVarAsyncResponseInterceptor.accept(localVarResponse);
-            }
-            if (localVarResponse.statusCode()/ 100 != 2) {
-              return CompletableFuture.failedFuture(getApiException("listOwnedTokens", localVarResponse));
-            }
-            try {
-              String responseBody = localVarResponse.body();
-              return CompletableFuture.completedFuture(
-                  new ApiResponse<ListOwnedTokens200Response>(
-                      localVarResponse.statusCode(),
-                      localVarResponse.headers().map(),
-                      responseBody == null || responseBody.isBlank() ? null : memberVarObjectMapper.readValue(responseBody, new TypeReference<ListOwnedTokens200Response>() {}))
-              );
-            } catch (IOException e) {
-              return CompletableFuture.failedFuture(new ApiException(e));
-            }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
         }
-      );
+        return localVarRequestBuilder;
     }
-    catch (ApiException e) {
-      return CompletableFuture.failedFuture(e);
-    }
-  }
-
-  private HttpRequest.Builder listOwnedTokensRequestBuilder(String ncwId, String walletType, String pageCursor, BigDecimal pageSize, List<String> sort, String order, String status, String search, String spam) throws ApiException {
-
-    HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
-
-    String localVarPath = "/nfts/ownership/assets";
-
-    List<Pair> localVarQueryParams = new ArrayList<>();
-    StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
-    String localVarQueryParameterBaseName;
-    localVarQueryParameterBaseName = "ncwId";
-    localVarQueryParams.addAll(ApiClient.parameterToPairs("ncwId", ncwId));
-    localVarQueryParameterBaseName = "walletType";
-    localVarQueryParams.addAll(ApiClient.parameterToPairs("walletType", walletType));
-    localVarQueryParameterBaseName = "pageCursor";
-    localVarQueryParams.addAll(ApiClient.parameterToPairs("pageCursor", pageCursor));
-    localVarQueryParameterBaseName = "pageSize";
-    localVarQueryParams.addAll(ApiClient.parameterToPairs("pageSize", pageSize));
-    localVarQueryParameterBaseName = "sort";
-    localVarQueryParams.addAll(ApiClient.parameterToPairs("multi", "sort", sort));
-    localVarQueryParameterBaseName = "order";
-    localVarQueryParams.addAll(ApiClient.parameterToPairs("order", order));
-    localVarQueryParameterBaseName = "status";
-    localVarQueryParams.addAll(ApiClient.parameterToPairs("status", status));
-    localVarQueryParameterBaseName = "search";
-    localVarQueryParams.addAll(ApiClient.parameterToPairs("search", search));
-    localVarQueryParameterBaseName = "spam";
-    localVarQueryParams.addAll(ApiClient.parameterToPairs("spam", spam));
-
-    if (!localVarQueryParams.isEmpty() || localVarQueryStringJoiner.length() != 0) {
-      StringJoiner queryJoiner = new StringJoiner("&");
-      localVarQueryParams.forEach(p -> queryJoiner.add(p.getName() + '=' + p.getValue()));
-      if (localVarQueryStringJoiner.length() != 0) {
-        queryJoiner.add(localVarQueryStringJoiner.toString());
-      }
-      localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath + '?' + queryJoiner.toString()));
-    } else {
-      localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
-    }
-
-    localVarRequestBuilder.header("Accept", "application/json");
-
-    localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
-    if (memberVarReadTimeout != null) {
-      localVarRequestBuilder.timeout(memberVarReadTimeout);
-    }
-    if (memberVarInterceptor != null) {
-      memberVarInterceptor.accept(localVarRequestBuilder);
-    }
-    return localVarRequestBuilder;
-  }
-  /**
-   * Refresh token metadata
-   * Updates the latest token metadata. 
-   * @param id NFT ID (required)
-   * @param idempotencyKey A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
-   * @return CompletableFuture&lt;Void&gt;
-   * @throws ApiException if fails to make API call
-   */
-  public CompletableFuture<Void> refreshNFTMetadata(String id, String idempotencyKey) throws ApiException {
-    try {
-      HttpRequest.Builder localVarRequestBuilder = refreshNFTMetadataRequestBuilder(id, idempotencyKey);
-      return memberVarHttpClient.sendAsync(
-          localVarRequestBuilder.build(),
-          HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
-            if (localVarResponse.statusCode()/ 100 != 2) {
-              return CompletableFuture.failedFuture(getApiException("refreshNFTMetadata", localVarResponse));
-            }
-            return CompletableFuture.completedFuture(null);
-      });
-    }
-    catch (ApiException e) {
-      return CompletableFuture.failedFuture(e);
-    }
-  }
-
-  /**
-   * Refresh token metadata
-   * Updates the latest token metadata. 
-   * @param id NFT ID (required)
-   * @param idempotencyKey A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
-   * @return CompletableFuture&lt;ApiResponse&lt;Void&gt;&gt;
-   * @throws ApiException if fails to make API call
-   */
-  public CompletableFuture<ApiResponse<Void>> refreshNFTMetadataWithHttpInfo(String id, String idempotencyKey) throws ApiException {
-    try {
-      HttpRequest.Builder localVarRequestBuilder = refreshNFTMetadataRequestBuilder(id, idempotencyKey);
-      return memberVarHttpClient.sendAsync(
-          localVarRequestBuilder.build(),
-          HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
-            if (memberVarAsyncResponseInterceptor != null) {
-              memberVarAsyncResponseInterceptor.accept(localVarResponse);
-            }
-            if (localVarResponse.statusCode()/ 100 != 2) {
-              return CompletableFuture.failedFuture(getApiException("refreshNFTMetadata", localVarResponse));
-            }
-            return CompletableFuture.completedFuture(
-                new ApiResponse<Void>(localVarResponse.statusCode(), localVarResponse.headers().map(), null)
-            );
+    /**
+     * List tokens by IDs Returns the requested tokens data.
+     *
+     * @param ids A comma separated list of NFT IDs. Up to 100 are allowed in a single request.
+     *     (required)
+     * @param pageCursor Page cursor to fetch (optional)
+     * @param pageSize Items per page (max 100) (optional)
+     * @param sort Sort by param, it can be one param or a list of params separated by comma
+     *     (optional
+     * @param order Order direction, it can be &#x60;ASC&#x60; for ascending or &#x60;DESC&#x60; for
+     *     descending (optional, default to ASC)
+     * @return CompletableFuture&lt;ApiResponse&lt;ListOwnedTokens200Response&gt;&gt;
+     * @throws ApiException if fails to make API call
+     */
+    public CompletableFuture<ApiResponse<ListOwnedTokens200Response>> getNFTs(
+            String ids, String pageCursor, BigDecimal pageSize, List<String> sort, String order)
+            throws ApiException {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    getNFTsRequestBuilder(ids, pageCursor, pageSize, sort, order);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException("getNFTs", localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<ListOwnedTokens200Response>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            ListOwnedTokens200Response>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            });
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
         }
-      );
-    }
-    catch (ApiException e) {
-      return CompletableFuture.failedFuture(e);
-    }
-  }
-
-  private HttpRequest.Builder refreshNFTMetadataRequestBuilder(String id, String idempotencyKey) throws ApiException {
-    // verify the required parameter 'id' is set
-    if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling refreshNFTMetadata");
     }
 
-    HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
-
-    String localVarPath = "/nfts/tokens/{id}"
-        .replace("{id}", ApiClient.urlEncode(id.toString()));
-
-    localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
-
-    if (idempotencyKey != null) {
-      localVarRequestBuilder.header("Idempotency-Key", idempotencyKey.toString());
-    }
-    localVarRequestBuilder.header("Accept", "application/json");
-
-    localVarRequestBuilder.method("PUT", HttpRequest.BodyPublishers.noBody());
-    if (memberVarReadTimeout != null) {
-      localVarRequestBuilder.timeout(memberVarReadTimeout);
-    }
-    if (memberVarInterceptor != null) {
-      memberVarInterceptor.accept(localVarRequestBuilder);
-    }
-    return localVarRequestBuilder;
-  }
-  /**
-   * Refresh vault account tokens
-   * Updates all tokens and balances per blockchain and vault account. 
-   * @param blockchainDescriptor Blockchain descriptor filter (required)
-   * @param vaultAccountId Vault account filter (required)
-   * @param idempotencyKey A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
-   * @return CompletableFuture&lt;Void&gt;
-   * @throws ApiException if fails to make API call
-   */
-  public CompletableFuture<Void> updateOwnershipTokens(String blockchainDescriptor, String vaultAccountId, String idempotencyKey) throws ApiException {
-    try {
-      HttpRequest.Builder localVarRequestBuilder = updateOwnershipTokensRequestBuilder(blockchainDescriptor, vaultAccountId, idempotencyKey);
-      return memberVarHttpClient.sendAsync(
-          localVarRequestBuilder.build(),
-          HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
-            if (localVarResponse.statusCode()/ 100 != 2) {
-              return CompletableFuture.failedFuture(getApiException("updateOwnershipTokens", localVarResponse));
-            }
-            return CompletableFuture.completedFuture(null);
-      });
-    }
-    catch (ApiException e) {
-      return CompletableFuture.failedFuture(e);
-    }
-  }
-
-  /**
-   * Refresh vault account tokens
-   * Updates all tokens and balances per blockchain and vault account. 
-   * @param blockchainDescriptor Blockchain descriptor filter (required)
-   * @param vaultAccountId Vault account filter (required)
-   * @param idempotencyKey A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
-   * @return CompletableFuture&lt;ApiResponse&lt;Void&gt;&gt;
-   * @throws ApiException if fails to make API call
-   */
-  public CompletableFuture<ApiResponse<Void>> updateOwnershipTokensWithHttpInfo(String blockchainDescriptor, String vaultAccountId, String idempotencyKey) throws ApiException {
-    try {
-      HttpRequest.Builder localVarRequestBuilder = updateOwnershipTokensRequestBuilder(blockchainDescriptor, vaultAccountId, idempotencyKey);
-      return memberVarHttpClient.sendAsync(
-          localVarRequestBuilder.build(),
-          HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
-            if (memberVarAsyncResponseInterceptor != null) {
-              memberVarAsyncResponseInterceptor.accept(localVarResponse);
-            }
-            if (localVarResponse.statusCode()/ 100 != 2) {
-              return CompletableFuture.failedFuture(getApiException("updateOwnershipTokens", localVarResponse));
-            }
-            return CompletableFuture.completedFuture(
-                new ApiResponse<Void>(localVarResponse.statusCode(), localVarResponse.headers().map(), null)
-            );
+    private HttpRequest.Builder getNFTsRequestBuilder(
+            String ids, String pageCursor, BigDecimal pageSize, List<String> sort, String order)
+            throws ApiException {
+        // verify the required parameter 'ids' is set
+        if (ids == null) {
+            throw new ApiException(
+                    400, "Missing the required parameter 'ids' when calling getNFTs");
         }
-      );
-    }
-    catch (ApiException e) {
-      return CompletableFuture.failedFuture(e);
-    }
-  }
 
-  private HttpRequest.Builder updateOwnershipTokensRequestBuilder(String blockchainDescriptor, String vaultAccountId, String idempotencyKey) throws ApiException {
-    // verify the required parameter 'blockchainDescriptor' is set
-    if (blockchainDescriptor == null) {
-      throw new ApiException(400, "Missing the required parameter 'blockchainDescriptor' when calling updateOwnershipTokens");
-    }
-    // verify the required parameter 'vaultAccountId' is set
-    if (vaultAccountId == null) {
-      throw new ApiException(400, "Missing the required parameter 'vaultAccountId' when calling updateOwnershipTokens");
-    }
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
-    HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+        String localVarPath = "/nfts/tokens";
 
-    String localVarPath = "/nfts/ownership/tokens";
+        List<Pair> localVarQueryParams = new ArrayList<>();
+        StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
+        String localVarQueryParameterBaseName;
+        localVarQueryParameterBaseName = "ids";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("ids", ids));
+        localVarQueryParameterBaseName = "pageCursor";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("pageCursor", pageCursor));
+        localVarQueryParameterBaseName = "pageSize";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("pageSize", pageSize));
+        localVarQueryParameterBaseName = "sort";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("multi", "sort", sort));
+        localVarQueryParameterBaseName = "order";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("order", order));
 
-    List<Pair> localVarQueryParams = new ArrayList<>();
-    StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
-    String localVarQueryParameterBaseName;
-    localVarQueryParameterBaseName = "blockchainDescriptor";
-    localVarQueryParams.addAll(ApiClient.parameterToPairs("blockchainDescriptor", blockchainDescriptor));
-    localVarQueryParameterBaseName = "vaultAccountId";
-    localVarQueryParams.addAll(ApiClient.parameterToPairs("vaultAccountId", vaultAccountId));
-
-    if (!localVarQueryParams.isEmpty() || localVarQueryStringJoiner.length() != 0) {
-      StringJoiner queryJoiner = new StringJoiner("&");
-      localVarQueryParams.forEach(p -> queryJoiner.add(p.getName() + '=' + p.getValue()));
-      if (localVarQueryStringJoiner.length() != 0) {
-        queryJoiner.add(localVarQueryStringJoiner.toString());
-      }
-      localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath + '?' + queryJoiner.toString()));
-    } else {
-      localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
-    }
-
-    if (idempotencyKey != null) {
-      localVarRequestBuilder.header("Idempotency-Key", idempotencyKey.toString());
-    }
-    localVarRequestBuilder.header("Accept", "application/json");
-
-    localVarRequestBuilder.method("PUT", HttpRequest.BodyPublishers.noBody());
-    if (memberVarReadTimeout != null) {
-      localVarRequestBuilder.timeout(memberVarReadTimeout);
-    }
-    if (memberVarInterceptor != null) {
-      memberVarInterceptor.accept(localVarRequestBuilder);
-    }
-    return localVarRequestBuilder;
-  }
-  /**
-   * Update token ownership status
-   * Updates token status for a tenant, in all tenant vaults. 
-   * @param updateTokenOwnershipStatusDto  (required)
-   * @param id NFT ID (required)
-   * @param idempotencyKey A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
-   * @return CompletableFuture&lt;Void&gt;
-   * @throws ApiException if fails to make API call
-   */
-  public CompletableFuture<Void> updateTokenOwnershipStatus(UpdateTokenOwnershipStatusDto updateTokenOwnershipStatusDto, String id, String idempotencyKey) throws ApiException {
-    try {
-      HttpRequest.Builder localVarRequestBuilder = updateTokenOwnershipStatusRequestBuilder(updateTokenOwnershipStatusDto, id, idempotencyKey);
-      return memberVarHttpClient.sendAsync(
-          localVarRequestBuilder.build(),
-          HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
-            if (localVarResponse.statusCode()/ 100 != 2) {
-              return CompletableFuture.failedFuture(getApiException("updateTokenOwnershipStatus", localVarResponse));
+        if (!localVarQueryParams.isEmpty() || localVarQueryStringJoiner.length() != 0) {
+            StringJoiner queryJoiner = new StringJoiner("&");
+            localVarQueryParams.forEach(p -> queryJoiner.add(p.getName() + '=' + p.getValue()));
+            if (localVarQueryStringJoiner.length() != 0) {
+                queryJoiner.add(localVarQueryStringJoiner.toString());
             }
-            return CompletableFuture.completedFuture(null);
-      });
-    }
-    catch (ApiException e) {
-      return CompletableFuture.failedFuture(e);
-    }
-  }
-
-  /**
-   * Update token ownership status
-   * Updates token status for a tenant, in all tenant vaults. 
-   * @param updateTokenOwnershipStatusDto  (required)
-   * @param id NFT ID (required)
-   * @param idempotencyKey A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
-   * @return CompletableFuture&lt;ApiResponse&lt;Void&gt;&gt;
-   * @throws ApiException if fails to make API call
-   */
-  public CompletableFuture<ApiResponse<Void>> updateTokenOwnershipStatusWithHttpInfo(UpdateTokenOwnershipStatusDto updateTokenOwnershipStatusDto, String id, String idempotencyKey) throws ApiException {
-    try {
-      HttpRequest.Builder localVarRequestBuilder = updateTokenOwnershipStatusRequestBuilder(updateTokenOwnershipStatusDto, id, idempotencyKey);
-      return memberVarHttpClient.sendAsync(
-          localVarRequestBuilder.build(),
-          HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
-            if (memberVarAsyncResponseInterceptor != null) {
-              memberVarAsyncResponseInterceptor.accept(localVarResponse);
-            }
-            if (localVarResponse.statusCode()/ 100 != 2) {
-              return CompletableFuture.failedFuture(getApiException("updateTokenOwnershipStatus", localVarResponse));
-            }
-            return CompletableFuture.completedFuture(
-                new ApiResponse<Void>(localVarResponse.statusCode(), localVarResponse.headers().map(), null)
-            );
+            localVarRequestBuilder.uri(
+                    URI.create(memberVarBaseUri + localVarPath + '?' + queryJoiner.toString()));
+        } else {
+            localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
         }
-      );
-    }
-    catch (ApiException e) {
-      return CompletableFuture.failedFuture(e);
-    }
-  }
 
-  private HttpRequest.Builder updateTokenOwnershipStatusRequestBuilder(UpdateTokenOwnershipStatusDto updateTokenOwnershipStatusDto, String id, String idempotencyKey) throws ApiException {
-    // verify the required parameter 'updateTokenOwnershipStatusDto' is set
-    if (updateTokenOwnershipStatusDto == null) {
-      throw new ApiException(400, "Missing the required parameter 'updateTokenOwnershipStatusDto' when calling updateTokenOwnershipStatus");
-    }
-    // verify the required parameter 'id' is set
-    if (id == null) {
-      throw new ApiException(400, "Missing the required parameter 'id' when calling updateTokenOwnershipStatus");
-    }
+        localVarRequestBuilder.header("Accept", "application/json");
 
-    HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
-
-    String localVarPath = "/nfts/ownership/tokens/{id}/status"
-        .replace("{id}", ApiClient.urlEncode(id.toString()));
-
-    localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
-
-    if (idempotencyKey != null) {
-      localVarRequestBuilder.header("Idempotency-Key", idempotencyKey.toString());
-    }
-    localVarRequestBuilder.header("Content-Type", "application/json");
-    localVarRequestBuilder.header("Accept", "application/json");
-
-    try {
-      byte[] localVarPostBody = memberVarObjectMapper.writeValueAsBytes(updateTokenOwnershipStatusDto);
-      localVarRequestBuilder.method("PUT", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
-    } catch (IOException e) {
-      throw new ApiException(e);
-    }
-    if (memberVarReadTimeout != null) {
-      localVarRequestBuilder.timeout(memberVarReadTimeout);
-    }
-    if (memberVarInterceptor != null) {
-      memberVarInterceptor.accept(localVarRequestBuilder);
-    }
-    return localVarRequestBuilder;
-  }
-  /**
-   * Update tokens ownership spam property
-   * Updates tokens spam property for a tenant&#39;s token ownerships, in all tenant vaults.
-   * @param tokenOwnershipSpamUpdatePayload  (required)
-   * @param idempotencyKey A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
-   * @return CompletableFuture&lt;Void&gt;
-   * @throws ApiException if fails to make API call
-   */
-  public CompletableFuture<Void> updateTokensOwnershipSpam(List<TokenOwnershipSpamUpdatePayload> tokenOwnershipSpamUpdatePayload, String idempotencyKey) throws ApiException {
-    try {
-      HttpRequest.Builder localVarRequestBuilder = updateTokensOwnershipSpamRequestBuilder(tokenOwnershipSpamUpdatePayload, idempotencyKey);
-      return memberVarHttpClient.sendAsync(
-          localVarRequestBuilder.build(),
-          HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
-            if (localVarResponse.statusCode()/ 100 != 2) {
-              return CompletableFuture.failedFuture(getApiException("updateTokensOwnershipSpam", localVarResponse));
-            }
-            return CompletableFuture.completedFuture(null);
-      });
-    }
-    catch (ApiException e) {
-      return CompletableFuture.failedFuture(e);
-    }
-  }
-
-  /**
-   * Update tokens ownership spam property
-   * Updates tokens spam property for a tenant&#39;s token ownerships, in all tenant vaults.
-   * @param tokenOwnershipSpamUpdatePayload  (required)
-   * @param idempotencyKey A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
-   * @return CompletableFuture&lt;ApiResponse&lt;Void&gt;&gt;
-   * @throws ApiException if fails to make API call
-   */
-  public CompletableFuture<ApiResponse<Void>> updateTokensOwnershipSpamWithHttpInfo(List<TokenOwnershipSpamUpdatePayload> tokenOwnershipSpamUpdatePayload, String idempotencyKey) throws ApiException {
-    try {
-      HttpRequest.Builder localVarRequestBuilder = updateTokensOwnershipSpamRequestBuilder(tokenOwnershipSpamUpdatePayload, idempotencyKey);
-      return memberVarHttpClient.sendAsync(
-          localVarRequestBuilder.build(),
-          HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
-            if (memberVarAsyncResponseInterceptor != null) {
-              memberVarAsyncResponseInterceptor.accept(localVarResponse);
-            }
-            if (localVarResponse.statusCode()/ 100 != 2) {
-              return CompletableFuture.failedFuture(getApiException("updateTokensOwnershipSpam", localVarResponse));
-            }
-            return CompletableFuture.completedFuture(
-                new ApiResponse<Void>(localVarResponse.statusCode(), localVarResponse.headers().map(), null)
-            );
+        localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
         }
-      );
-    }
-    catch (ApiException e) {
-      return CompletableFuture.failedFuture(e);
-    }
-  }
-
-  private HttpRequest.Builder updateTokensOwnershipSpamRequestBuilder(List<TokenOwnershipSpamUpdatePayload> tokenOwnershipSpamUpdatePayload, String idempotencyKey) throws ApiException {
-    // verify the required parameter 'tokenOwnershipSpamUpdatePayload' is set
-    if (tokenOwnershipSpamUpdatePayload == null) {
-      throw new ApiException(400, "Missing the required parameter 'tokenOwnershipSpamUpdatePayload' when calling updateTokensOwnershipSpam");
-    }
-
-    HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
-
-    String localVarPath = "/nfts/ownership/tokens/spam";
-
-    localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
-
-    if (idempotencyKey != null) {
-      localVarRequestBuilder.header("Idempotency-Key", idempotencyKey.toString());
-    }
-    localVarRequestBuilder.header("Content-Type", "application/json");
-    localVarRequestBuilder.header("Accept", "application/json");
-
-    try {
-      byte[] localVarPostBody = memberVarObjectMapper.writeValueAsBytes(tokenOwnershipSpamUpdatePayload);
-      localVarRequestBuilder.method("PUT", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
-    } catch (IOException e) {
-      throw new ApiException(e);
-    }
-    if (memberVarReadTimeout != null) {
-      localVarRequestBuilder.timeout(memberVarReadTimeout);
-    }
-    if (memberVarInterceptor != null) {
-      memberVarInterceptor.accept(localVarRequestBuilder);
-    }
-    return localVarRequestBuilder;
-  }
-  /**
-   * Update tokens ownership status
-   * Updates tokens status for a tenant, in all tenant vaults.
-   * @param tokenOwnershipStatusUpdatePayload  (required)
-   * @param idempotencyKey A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
-   * @return CompletableFuture&lt;Void&gt;
-   * @throws ApiException if fails to make API call
-   */
-  public CompletableFuture<Void> updateTokensOwnershipStatus(List<TokenOwnershipStatusUpdatePayload> tokenOwnershipStatusUpdatePayload, String idempotencyKey) throws ApiException {
-    try {
-      HttpRequest.Builder localVarRequestBuilder = updateTokensOwnershipStatusRequestBuilder(tokenOwnershipStatusUpdatePayload, idempotencyKey);
-      return memberVarHttpClient.sendAsync(
-          localVarRequestBuilder.build(),
-          HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
-            if (localVarResponse.statusCode()/ 100 != 2) {
-              return CompletableFuture.failedFuture(getApiException("updateTokensOwnershipStatus", localVarResponse));
-            }
-            return CompletableFuture.completedFuture(null);
-      });
-    }
-    catch (ApiException e) {
-      return CompletableFuture.failedFuture(e);
-    }
-  }
-
-  /**
-   * Update tokens ownership status
-   * Updates tokens status for a tenant, in all tenant vaults.
-   * @param tokenOwnershipStatusUpdatePayload  (required)
-   * @param idempotencyKey A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
-   * @return CompletableFuture&lt;ApiResponse&lt;Void&gt;&gt;
-   * @throws ApiException if fails to make API call
-   */
-  public CompletableFuture<ApiResponse<Void>> updateTokensOwnershipStatusWithHttpInfo(List<TokenOwnershipStatusUpdatePayload> tokenOwnershipStatusUpdatePayload, String idempotencyKey) throws ApiException {
-    try {
-      HttpRequest.Builder localVarRequestBuilder = updateTokensOwnershipStatusRequestBuilder(tokenOwnershipStatusUpdatePayload, idempotencyKey);
-      return memberVarHttpClient.sendAsync(
-          localVarRequestBuilder.build(),
-          HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
-            if (memberVarAsyncResponseInterceptor != null) {
-              memberVarAsyncResponseInterceptor.accept(localVarResponse);
-            }
-            if (localVarResponse.statusCode()/ 100 != 2) {
-              return CompletableFuture.failedFuture(getApiException("updateTokensOwnershipStatus", localVarResponse));
-            }
-            return CompletableFuture.completedFuture(
-                new ApiResponse<Void>(localVarResponse.statusCode(), localVarResponse.headers().map(), null)
-            );
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
         }
-      );
+        return localVarRequestBuilder;
     }
-    catch (ApiException e) {
-      return CompletableFuture.failedFuture(e);
+    /**
+     * List all owned tokens (paginated) Returns all tokens and their data in your workspace.
+     *
+     * @param blockchainDescriptor Blockchain descriptor filter (optional)
+     * @param vaultAccountIds A comma separated list of Vault Account IDs. Up to 100 are allowed in
+     *     a single request. This field will be ignored when walletType&#x3D;END_USER_WALLET or
+     *     ncwId is provided. (optional)
+     * @param ncwId Tenant&#39;s Non-Custodial Wallet ID (optional)
+     * @param ncwAccountIds A comma separated list of Non-Custodial account IDs. Up to 100 are
+     *     allowed in a single request. This field will be ignored when
+     *     walletType&#x3D;VAULT_ACCOUNT or ncwId is not provided. (optional)
+     * @param walletType Wallet type, it can be &#x60;VAULT_ACCOUNT&#x60; or
+     *     &#x60;END_USER_WALLET&#x60; (optional, default to VAULT_ACCOUNT)
+     * @param ids A comma separated list of NFT IDs. Up to 100 are allowed in a single request.
+     *     (optional)
+     * @param collectionIds A comma separated list of collection IDs. Up to 100 are allowed in a
+     *     single request. (optional)
+     * @param pageCursor Page cursor to fetch (optional)
+     * @param pageSize Items per page (max 100) (optional)
+     * @param sort Sort by param, it can be one param or a list of params separated by comma
+     *     (optional
+     * @param order Order direction, it can be &#x60;ASC&#x60; for ascending or &#x60;DESC&#x60; for
+     *     descending (optional, default to ASC)
+     * @param status Token ownership status (optional, default to LISTED)
+     * @param search Search owned tokens and their collections. Possible criteria for search: token
+     *     name and id within the contract/collection, collection name, blockchain descriptor and
+     *     name. (optional)
+     * @param spam Token ownership spam status. (optional)
+     * @return CompletableFuture&lt;ApiResponse&lt;GetOwnershipTokens200Response&gt;&gt;
+     * @throws ApiException if fails to make API call
+     */
+    public CompletableFuture<ApiResponse<GetOwnershipTokens200Response>> getOwnershipTokens(
+            String blockchainDescriptor,
+            String vaultAccountIds,
+            String ncwId,
+            String ncwAccountIds,
+            String walletType,
+            String ids,
+            String collectionIds,
+            String pageCursor,
+            BigDecimal pageSize,
+            List<String> sort,
+            String order,
+            String status,
+            String search,
+            String spam)
+            throws ApiException {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    getOwnershipTokensRequestBuilder(
+                            blockchainDescriptor,
+                            vaultAccountIds,
+                            ncwId,
+                            ncwAccountIds,
+                            walletType,
+                            ids,
+                            collectionIds,
+                            pageCursor,
+                            pageSize,
+                            sort,
+                            order,
+                            status,
+                            search,
+                            spam);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException(
+                                                    "getOwnershipTokens", localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<GetOwnershipTokens200Response>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            GetOwnershipTokens200Response>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            });
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
     }
-  }
 
-  private HttpRequest.Builder updateTokensOwnershipStatusRequestBuilder(List<TokenOwnershipStatusUpdatePayload> tokenOwnershipStatusUpdatePayload, String idempotencyKey) throws ApiException {
-    // verify the required parameter 'tokenOwnershipStatusUpdatePayload' is set
-    if (tokenOwnershipStatusUpdatePayload == null) {
-      throw new ApiException(400, "Missing the required parameter 'tokenOwnershipStatusUpdatePayload' when calling updateTokensOwnershipStatus");
+    private HttpRequest.Builder getOwnershipTokensRequestBuilder(
+            String blockchainDescriptor,
+            String vaultAccountIds,
+            String ncwId,
+            String ncwAccountIds,
+            String walletType,
+            String ids,
+            String collectionIds,
+            String pageCursor,
+            BigDecimal pageSize,
+            List<String> sort,
+            String order,
+            String status,
+            String search,
+            String spam)
+            throws ApiException {
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath = "/nfts/ownership/tokens";
+
+        List<Pair> localVarQueryParams = new ArrayList<>();
+        StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
+        String localVarQueryParameterBaseName;
+        localVarQueryParameterBaseName = "blockchainDescriptor";
+        localVarQueryParams.addAll(
+                ApiClient.parameterToPairs("blockchainDescriptor", blockchainDescriptor));
+        localVarQueryParameterBaseName = "vaultAccountIds";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("vaultAccountIds", vaultAccountIds));
+        localVarQueryParameterBaseName = "ncwId";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("ncwId", ncwId));
+        localVarQueryParameterBaseName = "ncwAccountIds";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("ncwAccountIds", ncwAccountIds));
+        localVarQueryParameterBaseName = "walletType";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("walletType", walletType));
+        localVarQueryParameterBaseName = "ids";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("ids", ids));
+        localVarQueryParameterBaseName = "collectionIds";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("collectionIds", collectionIds));
+        localVarQueryParameterBaseName = "pageCursor";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("pageCursor", pageCursor));
+        localVarQueryParameterBaseName = "pageSize";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("pageSize", pageSize));
+        localVarQueryParameterBaseName = "sort";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("multi", "sort", sort));
+        localVarQueryParameterBaseName = "order";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("order", order));
+        localVarQueryParameterBaseName = "status";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("status", status));
+        localVarQueryParameterBaseName = "search";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("search", search));
+        localVarQueryParameterBaseName = "spam";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("spam", spam));
+
+        if (!localVarQueryParams.isEmpty() || localVarQueryStringJoiner.length() != 0) {
+            StringJoiner queryJoiner = new StringJoiner("&");
+            localVarQueryParams.forEach(p -> queryJoiner.add(p.getName() + '=' + p.getValue()));
+            if (localVarQueryStringJoiner.length() != 0) {
+                queryJoiner.add(localVarQueryStringJoiner.toString());
+            }
+            localVarRequestBuilder.uri(
+                    URI.create(memberVarBaseUri + localVarPath + '?' + queryJoiner.toString()));
+        } else {
+            localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+        }
+
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
+     * List owned collections (paginated) Returns all collections in your workspace
+     *
+     * @param ncwId Tenant&#39;s Non-Custodial Wallet ID (optional)
+     * @param walletType Wallet type, it can be &#x60;VAULT_ACCOUNT&#x60; or
+     *     &#x60;END_USER_WALLET&#x60; (optional, default to VAULT_ACCOUNT)
+     * @param search Search owned collections. Possible criteria for search: collection name,
+     *     collection contract address. (optional)
+     * @param pageCursor Page cursor to fetch (optional)
+     * @param pageSize Items per page (max 100) (optional)
+     * @param sort Sort by param, it can be one param or a list of params separated by comma
+     *     (optional
+     * @param order Order direction, it can be &#x60;ASC&#x60; for ascending or &#x60;DESC&#x60; for
+     *     descending (optional, default to ASC)
+     * @param status Token ownership status (optional, default to LISTED)
+     * @return CompletableFuture&lt;ApiResponse&lt;ListOwnedCollections200Response&gt;&gt;
+     * @throws ApiException if fails to make API call
+     */
+    public CompletableFuture<ApiResponse<ListOwnedCollections200Response>> listOwnedCollections(
+            String ncwId,
+            String walletType,
+            String search,
+            String pageCursor,
+            BigDecimal pageSize,
+            List<String> sort,
+            String order,
+            String status)
+            throws ApiException {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    listOwnedCollectionsRequestBuilder(
+                            ncwId, walletType, search, pageCursor, pageSize, sort, order, status);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException(
+                                                    "listOwnedCollections", localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<ListOwnedCollections200Response>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            ListOwnedCollections200Response>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            });
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
     }
 
-    HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+    private HttpRequest.Builder listOwnedCollectionsRequestBuilder(
+            String ncwId,
+            String walletType,
+            String search,
+            String pageCursor,
+            BigDecimal pageSize,
+            List<String> sort,
+            String order,
+            String status)
+            throws ApiException {
 
-    String localVarPath = "/nfts/ownership/tokens/status";
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
-    localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+        String localVarPath = "/nfts/ownership/collections";
 
-    if (idempotencyKey != null) {
-      localVarRequestBuilder.header("Idempotency-Key", idempotencyKey.toString());
-    }
-    localVarRequestBuilder.header("Content-Type", "application/json");
-    localVarRequestBuilder.header("Accept", "application/json");
+        List<Pair> localVarQueryParams = new ArrayList<>();
+        StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
+        String localVarQueryParameterBaseName;
+        localVarQueryParameterBaseName = "ncwId";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("ncwId", ncwId));
+        localVarQueryParameterBaseName = "walletType";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("walletType", walletType));
+        localVarQueryParameterBaseName = "search";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("search", search));
+        localVarQueryParameterBaseName = "pageCursor";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("pageCursor", pageCursor));
+        localVarQueryParameterBaseName = "pageSize";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("pageSize", pageSize));
+        localVarQueryParameterBaseName = "sort";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("multi", "sort", sort));
+        localVarQueryParameterBaseName = "order";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("order", order));
+        localVarQueryParameterBaseName = "status";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("status", status));
 
-    try {
-      byte[] localVarPostBody = memberVarObjectMapper.writeValueAsBytes(tokenOwnershipStatusUpdatePayload);
-      localVarRequestBuilder.method("PUT", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
-    } catch (IOException e) {
-      throw new ApiException(e);
+        if (!localVarQueryParams.isEmpty() || localVarQueryStringJoiner.length() != 0) {
+            StringJoiner queryJoiner = new StringJoiner("&");
+            localVarQueryParams.forEach(p -> queryJoiner.add(p.getName() + '=' + p.getValue()));
+            if (localVarQueryStringJoiner.length() != 0) {
+                queryJoiner.add(localVarQueryStringJoiner.toString());
+            }
+            localVarRequestBuilder.uri(
+                    URI.create(memberVarBaseUri + localVarPath + '?' + queryJoiner.toString()));
+        } else {
+            localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+        }
+
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
     }
-    if (memberVarReadTimeout != null) {
-      localVarRequestBuilder.timeout(memberVarReadTimeout);
+    /**
+     * List all distinct owned tokens (paginated) Returns all owned distinct tokens (for your
+     * tenant) and their data in your workspace.
+     *
+     * @param ncwId Tenant&#39;s Non-Custodial Wallet ID (optional)
+     * @param walletType Wallet type, it can be &#x60;VAULT_ACCOUNT&#x60; or
+     *     &#x60;END_USER_WALLET&#x60; (optional, default to VAULT_ACCOUNT)
+     * @param pageCursor Page cursor to fetch (optional)
+     * @param pageSize Items per page (max 100) (optional)
+     * @param sort Sort by param, it can be one param or a list of params separated by comma
+     *     (optional
+     * @param order Order direction, it can be &#x60;ASC&#x60; for ascending or &#x60;DESC&#x60; for
+     *     descending (optional, default to ASC)
+     * @param status Token ownership status (optional, default to LISTED)
+     * @param search Search owned tokens by token name (optional)
+     * @param spam Token ownership spam status. (optional)
+     * @return CompletableFuture&lt;ApiResponse&lt;ListOwnedTokens200Response&gt;&gt;
+     * @throws ApiException if fails to make API call
+     */
+    public CompletableFuture<ApiResponse<ListOwnedTokens200Response>> listOwnedTokens(
+            String ncwId,
+            String walletType,
+            String pageCursor,
+            BigDecimal pageSize,
+            List<String> sort,
+            String order,
+            String status,
+            String search,
+            String spam)
+            throws ApiException {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    listOwnedTokensRequestBuilder(
+                            ncwId,
+                            walletType,
+                            pageCursor,
+                            pageSize,
+                            sort,
+                            order,
+                            status,
+                            search,
+                            spam);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException("listOwnedTokens", localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<ListOwnedTokens200Response>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            ListOwnedTokens200Response>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            });
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
     }
-    if (memberVarInterceptor != null) {
-      memberVarInterceptor.accept(localVarRequestBuilder);
+
+    private HttpRequest.Builder listOwnedTokensRequestBuilder(
+            String ncwId,
+            String walletType,
+            String pageCursor,
+            BigDecimal pageSize,
+            List<String> sort,
+            String order,
+            String status,
+            String search,
+            String spam)
+            throws ApiException {
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath = "/nfts/ownership/assets";
+
+        List<Pair> localVarQueryParams = new ArrayList<>();
+        StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
+        String localVarQueryParameterBaseName;
+        localVarQueryParameterBaseName = "ncwId";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("ncwId", ncwId));
+        localVarQueryParameterBaseName = "walletType";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("walletType", walletType));
+        localVarQueryParameterBaseName = "pageCursor";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("pageCursor", pageCursor));
+        localVarQueryParameterBaseName = "pageSize";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("pageSize", pageSize));
+        localVarQueryParameterBaseName = "sort";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("multi", "sort", sort));
+        localVarQueryParameterBaseName = "order";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("order", order));
+        localVarQueryParameterBaseName = "status";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("status", status));
+        localVarQueryParameterBaseName = "search";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("search", search));
+        localVarQueryParameterBaseName = "spam";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("spam", spam));
+
+        if (!localVarQueryParams.isEmpty() || localVarQueryStringJoiner.length() != 0) {
+            StringJoiner queryJoiner = new StringJoiner("&");
+            localVarQueryParams.forEach(p -> queryJoiner.add(p.getName() + '=' + p.getValue()));
+            if (localVarQueryStringJoiner.length() != 0) {
+                queryJoiner.add(localVarQueryStringJoiner.toString());
+            }
+            localVarRequestBuilder.uri(
+                    URI.create(memberVarBaseUri + localVarPath + '?' + queryJoiner.toString()));
+        } else {
+            localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+        }
+
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
     }
-    return localVarRequestBuilder;
-  }
+    /**
+     * Refresh token metadata Updates the latest token metadata.
+     *
+     * @param id NFT ID (required)
+     * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
+     *     times with the same idempotency key, the server will return the same response as the
+     *     first request. The idempotency key is valid for 24 hours. (optional)
+     * @return CompletableFuture&lt;ApiResponse&lt;Void&gt;&gt;
+     * @throws ApiException if fails to make API call
+     */
+    public CompletableFuture<ApiResponse<Void>> refreshNFTMetadata(String id, String idempotencyKey)
+            throws ApiException {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    refreshNFTMetadataRequestBuilder(id, idempotencyKey);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException(
+                                                    "refreshNFTMetadata", localVarResponse));
+                                }
+                                return CompletableFuture.completedFuture(
+                                        new ApiResponse<Void>(
+                                                localVarResponse.statusCode(),
+                                                localVarResponse.headers().map(),
+                                                null));
+                            });
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder refreshNFTMetadataRequestBuilder(String id, String idempotencyKey)
+            throws ApiException {
+        // verify the required parameter 'id' is set
+        if (id == null) {
+            throw new ApiException(
+                    400, "Missing the required parameter 'id' when calling refreshNFTMetadata");
+        }
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath =
+                "/nfts/tokens/{id}".replace("{id}", ApiClient.urlEncode(id.toString()));
+
+        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+        if (idempotencyKey != null) {
+            localVarRequestBuilder.header("Idempotency-Key", idempotencyKey.toString());
+        }
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        localVarRequestBuilder.method("PUT", HttpRequest.BodyPublishers.noBody());
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
+     * Refresh vault account tokens Updates all tokens and balances per blockchain and vault
+     * account.
+     *
+     * @param blockchainDescriptor Blockchain descriptor filter (required)
+     * @param vaultAccountId Vault account filter (required)
+     * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
+     *     times with the same idempotency key, the server will return the same response as the
+     *     first request. The idempotency key is valid for 24 hours. (optional)
+     * @return CompletableFuture&lt;ApiResponse&lt;Void&gt;&gt;
+     * @throws ApiException if fails to make API call
+     */
+    public CompletableFuture<ApiResponse<Void>> updateOwnershipTokens(
+            String blockchainDescriptor, String vaultAccountId, String idempotencyKey)
+            throws ApiException {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    updateOwnershipTokensRequestBuilder(
+                            blockchainDescriptor, vaultAccountId, idempotencyKey);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException(
+                                                    "updateOwnershipTokens", localVarResponse));
+                                }
+                                return CompletableFuture.completedFuture(
+                                        new ApiResponse<Void>(
+                                                localVarResponse.statusCode(),
+                                                localVarResponse.headers().map(),
+                                                null));
+                            });
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder updateOwnershipTokensRequestBuilder(
+            String blockchainDescriptor, String vaultAccountId, String idempotencyKey)
+            throws ApiException {
+        // verify the required parameter 'blockchainDescriptor' is set
+        if (blockchainDescriptor == null) {
+            throw new ApiException(
+                    400,
+                    "Missing the required parameter 'blockchainDescriptor' when calling"
+                            + " updateOwnershipTokens");
+        }
+        // verify the required parameter 'vaultAccountId' is set
+        if (vaultAccountId == null) {
+            throw new ApiException(
+                    400,
+                    "Missing the required parameter 'vaultAccountId' when calling"
+                            + " updateOwnershipTokens");
+        }
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath = "/nfts/ownership/tokens";
+
+        List<Pair> localVarQueryParams = new ArrayList<>();
+        StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
+        String localVarQueryParameterBaseName;
+        localVarQueryParameterBaseName = "blockchainDescriptor";
+        localVarQueryParams.addAll(
+                ApiClient.parameterToPairs("blockchainDescriptor", blockchainDescriptor));
+        localVarQueryParameterBaseName = "vaultAccountId";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("vaultAccountId", vaultAccountId));
+
+        if (!localVarQueryParams.isEmpty() || localVarQueryStringJoiner.length() != 0) {
+            StringJoiner queryJoiner = new StringJoiner("&");
+            localVarQueryParams.forEach(p -> queryJoiner.add(p.getName() + '=' + p.getValue()));
+            if (localVarQueryStringJoiner.length() != 0) {
+                queryJoiner.add(localVarQueryStringJoiner.toString());
+            }
+            localVarRequestBuilder.uri(
+                    URI.create(memberVarBaseUri + localVarPath + '?' + queryJoiner.toString()));
+        } else {
+            localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+        }
+
+        if (idempotencyKey != null) {
+            localVarRequestBuilder.header("Idempotency-Key", idempotencyKey.toString());
+        }
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        localVarRequestBuilder.method("PUT", HttpRequest.BodyPublishers.noBody());
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
+     * Update token ownership status Updates token status for a tenant, in all tenant vaults.
+     *
+     * @param updateTokenOwnershipStatusDto (required)
+     * @param id NFT ID (required)
+     * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
+     *     times with the same idempotency key, the server will return the same response as the
+     *     first request. The idempotency key is valid for 24 hours. (optional)
+     * @return CompletableFuture&lt;ApiResponse&lt;Void&gt;&gt;
+     * @throws ApiException if fails to make API call
+     */
+    public CompletableFuture<ApiResponse<Void>> updateTokenOwnershipStatus(
+            UpdateTokenOwnershipStatusDto updateTokenOwnershipStatusDto,
+            String id,
+            String idempotencyKey)
+            throws ApiException {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    updateTokenOwnershipStatusRequestBuilder(
+                            updateTokenOwnershipStatusDto, id, idempotencyKey);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException(
+                                                    "updateTokenOwnershipStatus",
+                                                    localVarResponse));
+                                }
+                                return CompletableFuture.completedFuture(
+                                        new ApiResponse<Void>(
+                                                localVarResponse.statusCode(),
+                                                localVarResponse.headers().map(),
+                                                null));
+                            });
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder updateTokenOwnershipStatusRequestBuilder(
+            UpdateTokenOwnershipStatusDto updateTokenOwnershipStatusDto,
+            String id,
+            String idempotencyKey)
+            throws ApiException {
+        // verify the required parameter 'updateTokenOwnershipStatusDto' is set
+        if (updateTokenOwnershipStatusDto == null) {
+            throw new ApiException(
+                    400,
+                    "Missing the required parameter 'updateTokenOwnershipStatusDto' when calling"
+                            + " updateTokenOwnershipStatus");
+        }
+        // verify the required parameter 'id' is set
+        if (id == null) {
+            throw new ApiException(
+                    400,
+                    "Missing the required parameter 'id' when calling updateTokenOwnershipStatus");
+        }
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath =
+                "/nfts/ownership/tokens/{id}/status"
+                        .replace("{id}", ApiClient.urlEncode(id.toString()));
+
+        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+        if (idempotencyKey != null) {
+            localVarRequestBuilder.header("Idempotency-Key", idempotencyKey.toString());
+        }
+        localVarRequestBuilder.header("Content-Type", "application/json");
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        try {
+            byte[] localVarPostBody =
+                    memberVarObjectMapper.writeValueAsBytes(updateTokenOwnershipStatusDto);
+            localVarRequestBuilder.method(
+                    "PUT", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
+        } catch (IOException e) {
+            throw new ApiException(e);
+        }
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
+     * Update tokens ownership spam property Updates tokens spam property for a tenant&#39;s token
+     * ownerships, in all tenant vaults.
+     *
+     * @param tokenOwnershipSpamUpdatePayload (required)
+     * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
+     *     times with the same idempotency key, the server will return the same response as the
+     *     first request. The idempotency key is valid for 24 hours. (optional)
+     * @return CompletableFuture&lt;ApiResponse&lt;Void&gt;&gt;
+     * @throws ApiException if fails to make API call
+     */
+    public CompletableFuture<ApiResponse<Void>> updateTokensOwnershipSpam(
+            List<TokenOwnershipSpamUpdatePayload> tokenOwnershipSpamUpdatePayload,
+            String idempotencyKey)
+            throws ApiException {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    updateTokensOwnershipSpamRequestBuilder(
+                            tokenOwnershipSpamUpdatePayload, idempotencyKey);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException(
+                                                    "updateTokensOwnershipSpam", localVarResponse));
+                                }
+                                return CompletableFuture.completedFuture(
+                                        new ApiResponse<Void>(
+                                                localVarResponse.statusCode(),
+                                                localVarResponse.headers().map(),
+                                                null));
+                            });
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder updateTokensOwnershipSpamRequestBuilder(
+            List<TokenOwnershipSpamUpdatePayload> tokenOwnershipSpamUpdatePayload,
+            String idempotencyKey)
+            throws ApiException {
+        // verify the required parameter 'tokenOwnershipSpamUpdatePayload' is set
+        if (tokenOwnershipSpamUpdatePayload == null) {
+            throw new ApiException(
+                    400,
+                    "Missing the required parameter 'tokenOwnershipSpamUpdatePayload' when calling"
+                            + " updateTokensOwnershipSpam");
+        }
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath = "/nfts/ownership/tokens/spam";
+
+        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+        if (idempotencyKey != null) {
+            localVarRequestBuilder.header("Idempotency-Key", idempotencyKey.toString());
+        }
+        localVarRequestBuilder.header("Content-Type", "application/json");
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        try {
+            byte[] localVarPostBody =
+                    memberVarObjectMapper.writeValueAsBytes(tokenOwnershipSpamUpdatePayload);
+            localVarRequestBuilder.method(
+                    "PUT", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
+        } catch (IOException e) {
+            throw new ApiException(e);
+        }
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
+     * Update tokens ownership status Updates tokens status for a tenant, in all tenant vaults.
+     *
+     * @param tokenOwnershipStatusUpdatePayload (required)
+     * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
+     *     times with the same idempotency key, the server will return the same response as the
+     *     first request. The idempotency key is valid for 24 hours. (optional)
+     * @return CompletableFuture&lt;ApiResponse&lt;Void&gt;&gt;
+     * @throws ApiException if fails to make API call
+     */
+    public CompletableFuture<ApiResponse<Void>> updateTokensOwnershipStatus(
+            List<TokenOwnershipStatusUpdatePayload> tokenOwnershipStatusUpdatePayload,
+            String idempotencyKey)
+            throws ApiException {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    updateTokensOwnershipStatusRequestBuilder(
+                            tokenOwnershipStatusUpdatePayload, idempotencyKey);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException(
+                                                    "updateTokensOwnershipStatus",
+                                                    localVarResponse));
+                                }
+                                return CompletableFuture.completedFuture(
+                                        new ApiResponse<Void>(
+                                                localVarResponse.statusCode(),
+                                                localVarResponse.headers().map(),
+                                                null));
+                            });
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder updateTokensOwnershipStatusRequestBuilder(
+            List<TokenOwnershipStatusUpdatePayload> tokenOwnershipStatusUpdatePayload,
+            String idempotencyKey)
+            throws ApiException {
+        // verify the required parameter 'tokenOwnershipStatusUpdatePayload' is set
+        if (tokenOwnershipStatusUpdatePayload == null) {
+            throw new ApiException(
+                    400,
+                    "Missing the required parameter 'tokenOwnershipStatusUpdatePayload' when"
+                            + " calling updateTokensOwnershipStatus");
+        }
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath = "/nfts/ownership/tokens/status";
+
+        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+        if (idempotencyKey != null) {
+            localVarRequestBuilder.header("Idempotency-Key", idempotencyKey.toString());
+        }
+        localVarRequestBuilder.header("Content-Type", "application/json");
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        try {
+            byte[] localVarPostBody =
+                    memberVarObjectMapper.writeValueAsBytes(tokenOwnershipStatusUpdatePayload);
+            localVarRequestBuilder.method(
+                    "PUT", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
+        } catch (IOException e) {
+            throw new ApiException(e);
+        }
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
 }

@@ -10,178 +10,166 @@
  * Do not edit the class manually.
  */
 
-
 package com.fireblocks.sdk.model;
 
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
-import java.util.StringJoiner;
-import java.util.Objects;
-import java.util.Map;
-import java.util.HashMap;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonTypeName;
-import com.fasterxml.jackson.annotation.JsonValue;
-import com.fireblocks.sdk.model.SessionMetadata;
-import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.Objects;
+import java.util.StringJoiner;
 
-
-/**
- * CreateConnectionResponse
- */
+/** CreateConnectionResponse */
 @JsonPropertyOrder({
-  CreateConnectionResponse.JSON_PROPERTY_ID,
-  CreateConnectionResponse.JSON_PROPERTY_SESSION_METADATA
+    CreateConnectionResponse.JSON_PROPERTY_ID,
+    CreateConnectionResponse.JSON_PROPERTY_SESSION_METADATA
 })
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class CreateConnectionResponse {
-  public static final String JSON_PROPERTY_ID = "id";
-  private String id;
+    public static final String JSON_PROPERTY_ID = "id";
+    private String id;
 
-  public static final String JSON_PROPERTY_SESSION_METADATA = "sessionMetadata";
-  private SessionMetadata sessionMetadata;
+    public static final String JSON_PROPERTY_SESSION_METADATA = "sessionMetadata";
+    private SessionMetadata sessionMetadata;
 
-  public CreateConnectionResponse() { 
-  }
+    public CreateConnectionResponse() {}
 
-  public CreateConnectionResponse id(String id) {
-    this.id = id;
-    return this;
-  }
-
-   /**
-   * The ID of the Web3 connection initiated.
-   * @return id
-  **/
-  @jakarta.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_ID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public String getId() {
-    return id;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_ID)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setId(String id) {
-    this.id = id;
-  }
-
-
-  public CreateConnectionResponse sessionMetadata(SessionMetadata sessionMetadata) {
-    this.sessionMetadata = sessionMetadata;
-    return this;
-  }
-
-   /**
-   * Get sessionMetadata
-   * @return sessionMetadata
-  **/
-  @jakarta.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_SESSION_METADATA)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public SessionMetadata getSessionMetadata() {
-    return sessionMetadata;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_SESSION_METADATA)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setSessionMetadata(SessionMetadata sessionMetadata) {
-    this.sessionMetadata = sessionMetadata;
-  }
-
-
-  /**
-   * Return true if this CreateConnectionResponse object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    CreateConnectionResponse createConnectionResponse = (CreateConnectionResponse) o;
-    return Objects.equals(this.id, createConnectionResponse.id) &&
-        Objects.equals(this.sessionMetadata, createConnectionResponse.sessionMetadata);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(id, sessionMetadata);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class CreateConnectionResponse {\n");
-    sb.append("    id: ").append(toIndentedString(id)).append("\n");
-    sb.append("    sessionMetadata: ").append(toIndentedString(sessionMetadata)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
-  }
-
-  /**
-   * Convert the instance into URL query string.
-   *
-   * @return URL query string
-   */
-  public String toUrlQueryString() {
-    return toUrlQueryString(null);
-  }
-
-  /**
-   * Convert the instance into URL query string.
-   *
-   * @param prefix prefix of the query string
-   * @return URL query string
-   */
-  public String toUrlQueryString(String prefix) {
-    String suffix = "";
-    String containerSuffix = "";
-    String containerPrefix = "";
-    if (prefix == null) {
-      // style=form, explode=true, e.g. /pet?name=cat&type=manx
-      prefix = "";
-    } else {
-      // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
-      prefix = prefix + "[";
-      suffix = "]";
-      containerSuffix = "]";
-      containerPrefix = "[";
+    public CreateConnectionResponse id(String id) {
+        this.id = id;
+        return this;
     }
 
-    StringJoiner joiner = new StringJoiner("&");
-
-    // add `id` to the URL query string
-    if (getId() != null) {
-      joiner.add(String.format("%sid%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getId()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    /**
+     * The ID of the Web3 connection initiated.
+     *
+     * @return id
+     */
+    @jakarta.annotation.Nonnull
+    @JsonProperty(JSON_PROPERTY_ID)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public String getId() {
+        return id;
     }
 
-    // add `sessionMetadata` to the URL query string
-    if (getSessionMetadata() != null) {
-      joiner.add(getSessionMetadata().toUrlQueryString(prefix + "sessionMetadata" + suffix));
+    @JsonProperty(JSON_PROPERTY_ID)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setId(String id) {
+        this.id = id;
     }
 
-    return joiner.toString();
-  }
+    public CreateConnectionResponse sessionMetadata(SessionMetadata sessionMetadata) {
+        this.sessionMetadata = sessionMetadata;
+        return this;
+    }
+
+    /**
+     * Metadata of the Web3 connection (provided by the DApp).
+     *
+     * @return sessionMetadata
+     */
+    @jakarta.annotation.Nonnull
+    @JsonProperty(JSON_PROPERTY_SESSION_METADATA)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public SessionMetadata getSessionMetadata() {
+        return sessionMetadata;
+    }
+
+    @JsonProperty(JSON_PROPERTY_SESSION_METADATA)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setSessionMetadata(SessionMetadata sessionMetadata) {
+        this.sessionMetadata = sessionMetadata;
+    }
+
+    /** Return true if this CreateConnectionResponse object is equal to o. */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        CreateConnectionResponse createConnectionResponse = (CreateConnectionResponse) o;
+        return Objects.equals(this.id, createConnectionResponse.id)
+                && Objects.equals(this.sessionMetadata, createConnectionResponse.sessionMetadata);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, sessionMetadata);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class CreateConnectionResponse {\n");
+        sb.append("    id: ").append(toIndentedString(id)).append("\n");
+        sb.append("    sessionMetadata: ").append(toIndentedString(sessionMetadata)).append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces (except the first
+     * line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
+
+    /**
+     * Convert the instance into URL query string.
+     *
+     * @return URL query string
+     */
+    public String toUrlQueryString() {
+        return toUrlQueryString(null);
+    }
+
+    /**
+     * Convert the instance into URL query string.
+     *
+     * @param prefix prefix of the query string
+     * @return URL query string
+     */
+    public String toUrlQueryString(String prefix) {
+        String suffix = "";
+        String containerSuffix = "";
+        String containerPrefix = "";
+        if (prefix == null) {
+            // style=form, explode=true, e.g. /pet?name=cat&type=manx
+            prefix = "";
+        } else {
+            // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
+            prefix = prefix + "[";
+            suffix = "]";
+            containerSuffix = "]";
+            containerPrefix = "[";
+        }
+
+        StringJoiner joiner = new StringJoiner("&");
+
+        // add `id` to the URL query string
+        if (getId() != null) {
+            joiner.add(
+                    String.format(
+                            "%sid%s=%s",
+                            prefix,
+                            suffix,
+                            URLEncoder.encode(String.valueOf(getId()), StandardCharsets.UTF_8)
+                                    .replaceAll("\\+", "%20")));
+        }
+
+        // add `sessionMetadata` to the URL query string
+        if (getSessionMetadata() != null) {
+            joiner.add(getSessionMetadata().toUrlQueryString(prefix + "sessionMetadata" + suffix));
+        }
+
+        return joiner.toString();
+    }
 }
-

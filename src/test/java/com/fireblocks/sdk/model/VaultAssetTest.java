@@ -10,169 +10,120 @@
  * Do not edit the class manually.
  */
 
-
 package com.fireblocks.sdk.model;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonTypeName;
-import com.fasterxml.jackson.annotation.JsonValue;
-import com.fireblocks.sdk.model.RewardsInfo;
-import java.math.BigDecimal;
-import java.util.Arrays;
-import org.junit.Assert;
-import org.junit.Ignore;
+
 import org.junit.Test;
 
-/**
- * Model tests for VaultAsset
- */
+/** Model tests for VaultAsset */
 public class VaultAssetTest {
     private final VaultAsset model = new VaultAsset();
 
-    /**
-     * Model tests for VaultAsset
-     */
+    /** Model tests for VaultAsset */
     @Test
     public void testVaultAsset() {
         // TODO: test VaultAsset
     }
 
-    /**
-     * Test the property 'id'
-     */
+    /** Test the property 'id' */
     @Test
     public void idTest() {
         // TODO: test id
     }
 
-    /**
-     * Test the property 'total'
-     */
+    /** Test the property 'total' */
     @Test
     public void totalTest() {
         // TODO: test total
     }
 
-    /**
-     * Test the property 'balance'
-     */
+    /** Test the property 'balance' */
     @Test
     public void balanceTest() {
         // TODO: test balance
     }
 
-    /**
-     * Test the property 'available'
-     */
+    /** Test the property 'available' */
     @Test
     public void availableTest() {
         // TODO: test available
     }
 
-    /**
-     * Test the property 'pending'
-     */
+    /** Test the property 'pending' */
     @Test
     public void pendingTest() {
         // TODO: test pending
     }
 
-    /**
-     * Test the property 'frozen'
-     */
+    /** Test the property 'frozen' */
     @Test
     public void frozenTest() {
         // TODO: test frozen
     }
 
-    /**
-     * Test the property 'lockedAmount'
-     */
+    /** Test the property 'lockedAmount' */
     @Test
     public void lockedAmountTest() {
         // TODO: test lockedAmount
     }
 
-    /**
-     * Test the property 'staked'
-     */
+    /** Test the property 'staked' */
     @Test
     public void stakedTest() {
         // TODO: test staked
     }
 
-    /**
-     * Test the property 'totalStakedCPU'
-     */
+    /** Test the property 'totalStakedCPU' */
     @Test
     public void totalStakedCPUTest() {
         // TODO: test totalStakedCPU
     }
 
-    /**
-     * Test the property 'totalStakedNetwork'
-     */
+    /** Test the property 'totalStakedNetwork' */
     @Test
     public void totalStakedNetworkTest() {
         // TODO: test totalStakedNetwork
     }
 
-    /**
-     * Test the property 'selfStakedCPU'
-     */
+    /** Test the property 'selfStakedCPU' */
     @Test
     public void selfStakedCPUTest() {
         // TODO: test selfStakedCPU
     }
 
-    /**
-     * Test the property 'selfStakedNetwork'
-     */
+    /** Test the property 'selfStakedNetwork' */
     @Test
     public void selfStakedNetworkTest() {
         // TODO: test selfStakedNetwork
     }
 
-    /**
-     * Test the property 'pendingRefundCPU'
-     */
+    /** Test the property 'pendingRefundCPU' */
     @Test
     public void pendingRefundCPUTest() {
         // TODO: test pendingRefundCPU
     }
 
-    /**
-     * Test the property 'pendingRefundNetwork'
-     */
+    /** Test the property 'pendingRefundNetwork' */
     @Test
     public void pendingRefundNetworkTest() {
         // TODO: test pendingRefundNetwork
     }
 
-    /**
-     * Test the property 'blockHeight'
-     */
+    /** Test the property 'blockHeight' */
     @Test
     public void blockHeightTest() {
         // TODO: test blockHeight
     }
 
-    /**
-     * Test the property 'blockHash'
-     */
+    /** Test the property 'blockHash' */
     @Test
     public void blockHashTest() {
         // TODO: test blockHash
     }
 
-    /**
-     * Test the property 'rewardsInfo'
-     */
+    /** Test the property 'rewardsInfo' */
     @Test
     public void rewardsInfoTest() {
         // TODO: test rewardsInfo
     }
-
 }

@@ -10,80 +10,54 @@
  * Do not edit the class manually.
  */
 
-
 package com.fireblocks.sdk.model;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonTypeName;
-import com.fasterxml.jackson.annotation.JsonValue;
-import java.math.BigDecimal;
-import java.util.Arrays;
-import org.junit.Assert;
-import org.junit.Ignore;
+
 import org.junit.Test;
 
-/**
- * Model tests for AssetTypeResponse
- */
+/** Model tests for AssetTypeResponse */
 public class AssetTypeResponseTest {
     private final AssetTypeResponse model = new AssetTypeResponse();
 
-    /**
-     * Model tests for AssetTypeResponse
-     */
+    /** Model tests for AssetTypeResponse */
     @Test
     public void testAssetTypeResponse() {
         // TODO: test AssetTypeResponse
     }
 
-    /**
-     * Test the property 'id'
-     */
+    /** Test the property 'id' */
     @Test
     public void idTest() {
         // TODO: test id
     }
 
-    /**
-     * Test the property 'name'
-     */
+    /** Test the property 'name' */
     @Test
     public void nameTest() {
         // TODO: test name
     }
 
-    /**
-     * Test the property 'type'
-     */
+    /** Test the property 'type' */
     @Test
     public void typeTest() {
         // TODO: test type
     }
 
-    /**
-     * Test the property 'contractAddress'
-     */
+    /** Test the property 'contractAddress' */
     @Test
     public void contractAddressTest() {
         // TODO: test contractAddress
     }
 
-    /**
-     * Test the property 'nativeAsset'
-     */
+    /** Test the property 'nativeAsset' */
     @Test
     public void nativeAssetTest() {
         // TODO: test nativeAsset
     }
 
-    /**
-     * Test the property 'decimals'
-     */
+    /** Test the property 'decimals' */
     @Test
     public void decimalsTest() {
         // TODO: test decimals
     }
-
 }

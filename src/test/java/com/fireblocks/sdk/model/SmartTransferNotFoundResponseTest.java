@@ -10,47 +10,30 @@
  * Do not edit the class manually.
  */
 
-
 package com.fireblocks.sdk.model;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonTypeName;
-import com.fasterxml.jackson.annotation.JsonValue;
-import java.util.Arrays;
-import org.junit.Assert;
-import org.junit.Ignore;
+
 import org.junit.Test;
 
-/**
- * Model tests for SmartTransferNotFoundResponse
- */
+/** Model tests for SmartTransferNotFoundResponse */
 public class SmartTransferNotFoundResponseTest {
     private final SmartTransferNotFoundResponse model = new SmartTransferNotFoundResponse();
 
-    /**
-     * Model tests for SmartTransferNotFoundResponse
-     */
+    /** Model tests for SmartTransferNotFoundResponse */
     @Test
     public void testSmartTransferNotFoundResponse() {
         // TODO: test SmartTransferNotFoundResponse
     }
 
-    /**
-     * Test the property 'message'
-     */
+    /** Test the property 'message' */
     @Test
     public void messageTest() {
         // TODO: test message
     }
 
-    /**
-     * Test the property 'code'
-     */
+    /** Test the property 'code' */
     @Test
     public void codeTest() {
         // TODO: test code
     }
-
 }

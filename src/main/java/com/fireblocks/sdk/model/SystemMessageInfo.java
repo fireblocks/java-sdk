@@ -10,212 +10,206 @@
  * Do not edit the class manually.
  */
 
-
 package com.fireblocks.sdk.model;
 
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
-import java.util.StringJoiner;
-import java.util.Objects;
-import java.util.Map;
-import java.util.HashMap;
+
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonTypeName;
-import com.fasterxml.jackson.annotation.JsonValue;
-import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonValue;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.Objects;
+import java.util.StringJoiner;
 
-
-/**
- * SystemMessageInfo
- */
-@JsonPropertyOrder({
-  SystemMessageInfo.JSON_PROPERTY_TYPE,
-  SystemMessageInfo.JSON_PROPERTY_MESSAGE
-})
+/** SystemMessageInfo */
+@JsonPropertyOrder({SystemMessageInfo.JSON_PROPERTY_TYPE, SystemMessageInfo.JSON_PROPERTY_MESSAGE})
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class SystemMessageInfo {
-  /**
-   * Gets or Sets type
-   */
-  public enum TypeEnum {
-    WARN("WARN"),
-    
-    BLOCK("BLOCK");
+    /** Gets or Sets type */
+    public enum TypeEnum {
+        WARN("WARN"),
 
-    private String value;
+        BLOCK("BLOCK");
 
-    TypeEnum(String value) {
-      this.value = value;
+        private String value;
+
+        TypeEnum(String value) {
+            this.value = value;
+        }
+
+        @JsonValue
+        public String getValue() {
+            return value;
+        }
+
+        @Override
+        public String toString() {
+            return String.valueOf(value);
+        }
+
+        @JsonCreator
+        public static TypeEnum fromValue(String value) {
+            for (TypeEnum b : TypeEnum.values()) {
+                if (b.value.equals(value)) {
+                    return b;
+                }
+            }
+            throw new IllegalArgumentException("Unexpected value '" + value + "'");
+        }
     }
 
-    @JsonValue
-    public String getValue() {
-      return value;
+    public static final String JSON_PROPERTY_TYPE = "type";
+    private TypeEnum type;
+
+    public static final String JSON_PROPERTY_MESSAGE = "message";
+    private String message;
+
+    public SystemMessageInfo() {}
+
+    public SystemMessageInfo type(TypeEnum type) {
+        this.type = type;
+        return this;
+    }
+
+    /**
+     * Get type
+     *
+     * @return type
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_TYPE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public TypeEnum getType() {
+        return type;
+    }
+
+    @JsonProperty(JSON_PROPERTY_TYPE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setType(TypeEnum type) {
+        this.type = type;
+    }
+
+    public SystemMessageInfo message(String message) {
+        this.message = message;
+        return this;
+    }
+
+    /**
+     * A response from Fireblocks that communicates a message about the health of the process being
+     * performed. If this object is returned with data, you should expect potential delays or
+     * incomplete transaction statuses.
+     *
+     * @return message
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_MESSAGE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getMessage() {
+        return message;
+    }
+
+    @JsonProperty(JSON_PROPERTY_MESSAGE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    /** Return true if this SystemMessageInfo object is equal to o. */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        SystemMessageInfo systemMessageInfo = (SystemMessageInfo) o;
+        return Objects.equals(this.type, systemMessageInfo.type)
+                && Objects.equals(this.message, systemMessageInfo.message);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(type, message);
     }
 
     @Override
     public String toString() {
-      return String.valueOf(value);
+        StringBuilder sb = new StringBuilder();
+        sb.append("class SystemMessageInfo {\n");
+        sb.append("    type: ").append(toIndentedString(type)).append("\n");
+        sb.append("    message: ").append(toIndentedString(message)).append("\n");
+        sb.append("}");
+        return sb.toString();
     }
 
-    @JsonCreator
-    public static TypeEnum fromValue(String value) {
-      for (TypeEnum b : TypeEnum.values()) {
-        if (b.value.equals(value)) {
-          return b;
+    /**
+     * Convert the given object to string with each line indented by 4 spaces (except the first
+     * line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
         }
-      }
-      throw new IllegalArgumentException("Unexpected value '" + value + "'");
-    }
-  }
-
-  public static final String JSON_PROPERTY_TYPE = "type";
-  private TypeEnum type;
-
-  public static final String JSON_PROPERTY_MESSAGE = "message";
-  private String message;
-
-  public SystemMessageInfo() { 
-  }
-
-  public SystemMessageInfo type(TypeEnum type) {
-    this.type = type;
-    return this;
-  }
-
-   /**
-   * Get type
-   * @return type
-  **/
-  @jakarta.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_TYPE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public TypeEnum getType() {
-    return type;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_TYPE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setType(TypeEnum type) {
-    this.type = type;
-  }
-
-
-  public SystemMessageInfo message(String message) {
-    this.message = message;
-    return this;
-  }
-
-   /**
-   * A response from Fireblocks that communicates a message about the health of the process being performed. If this object is returned with data, you should expect potential delays or incomplete transaction statuses.
-   * @return message
-  **/
-  @jakarta.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_MESSAGE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getMessage() {
-    return message;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_MESSAGE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setMessage(String message) {
-    this.message = message;
-  }
-
-
-  /**
-   * Return true if this SystemMessageInfo object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    SystemMessageInfo systemMessageInfo = (SystemMessageInfo) o;
-    return Objects.equals(this.type, systemMessageInfo.type) &&
-        Objects.equals(this.message, systemMessageInfo.message);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(type, message);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class SystemMessageInfo {\n");
-    sb.append("    type: ").append(toIndentedString(type)).append("\n");
-    sb.append("    message: ").append(toIndentedString(message)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
-  }
-
-  /**
-   * Convert the instance into URL query string.
-   *
-   * @return URL query string
-   */
-  public String toUrlQueryString() {
-    return toUrlQueryString(null);
-  }
-
-  /**
-   * Convert the instance into URL query string.
-   *
-   * @param prefix prefix of the query string
-   * @return URL query string
-   */
-  public String toUrlQueryString(String prefix) {
-    String suffix = "";
-    String containerSuffix = "";
-    String containerPrefix = "";
-    if (prefix == null) {
-      // style=form, explode=true, e.g. /pet?name=cat&type=manx
-      prefix = "";
-    } else {
-      // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
-      prefix = prefix + "[";
-      suffix = "]";
-      containerSuffix = "]";
-      containerPrefix = "[";
+        return o.toString().replace("\n", "\n    ");
     }
 
-    StringJoiner joiner = new StringJoiner("&");
-
-    // add `type` to the URL query string
-    if (getType() != null) {
-      joiner.add(String.format("%stype%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getType()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    /**
+     * Convert the instance into URL query string.
+     *
+     * @return URL query string
+     */
+    public String toUrlQueryString() {
+        return toUrlQueryString(null);
     }
 
-    // add `message` to the URL query string
-    if (getMessage() != null) {
-      joiner.add(String.format("%smessage%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getMessage()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
-    }
+    /**
+     * Convert the instance into URL query string.
+     *
+     * @param prefix prefix of the query string
+     * @return URL query string
+     */
+    public String toUrlQueryString(String prefix) {
+        String suffix = "";
+        String containerSuffix = "";
+        String containerPrefix = "";
+        if (prefix == null) {
+            // style=form, explode=true, e.g. /pet?name=cat&type=manx
+            prefix = "";
+        } else {
+            // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
+            prefix = prefix + "[";
+            suffix = "]";
+            containerSuffix = "]";
+            containerPrefix = "[";
+        }
 
-    return joiner.toString();
-  }
+        StringJoiner joiner = new StringJoiner("&");
+
+        // add `type` to the URL query string
+        if (getType() != null) {
+            joiner.add(
+                    String.format(
+                            "%stype%s=%s",
+                            prefix,
+                            suffix,
+                            URLEncoder.encode(String.valueOf(getType()), StandardCharsets.UTF_8)
+                                    .replaceAll("\\+", "%20")));
+        }
+
+        // add `message` to the URL query string
+        if (getMessage() != null) {
+            joiner.add(
+                    String.format(
+                            "%smessage%s=%s",
+                            prefix,
+                            suffix,
+                            URLEncoder.encode(String.valueOf(getMessage()), StandardCharsets.UTF_8)
+                                    .replaceAll("\\+", "%20")));
+        }
+
+        return joiner.toString();
+    }
 }
-

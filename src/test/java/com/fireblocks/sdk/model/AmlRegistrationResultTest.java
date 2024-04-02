@@ -10,56 +10,36 @@
  * Do not edit the class manually.
  */
 
-
 package com.fireblocks.sdk.model;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonTypeName;
-import com.fasterxml.jackson.annotation.JsonValue;
-import java.math.BigDecimal;
-import java.util.Arrays;
-import org.junit.Assert;
-import org.junit.Ignore;
+
 import org.junit.Test;
 
-/**
- * Model tests for AmlRegistrationResult
- */
+/** Model tests for AmlRegistrationResult */
 public class AmlRegistrationResultTest {
     private final AmlRegistrationResult model = new AmlRegistrationResult();
 
-    /**
-     * Model tests for AmlRegistrationResult
-     */
+    /** Model tests for AmlRegistrationResult */
     @Test
     public void testAmlRegistrationResult() {
         // TODO: test AmlRegistrationResult
     }
 
-    /**
-     * Test the property 'provider'
-     */
+    /** Test the property 'provider' */
     @Test
     public void providerTest() {
         // TODO: test provider
     }
 
-    /**
-     * Test the property 'success'
-     */
+    /** Test the property 'success' */
     @Test
     public void successTest() {
         // TODO: test success
     }
 
-    /**
-     * Test the property 'timestamp'
-     */
+    /** Test the property 'timestamp' */
     @Test
     public void timestampTest() {
         // TODO: test timestamp
     }
-
 }

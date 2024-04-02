@@ -65,6 +65,7 @@ paths:
       summary: List vault accounts
       tags:
       - Vaults
+      x-internal: true
       x-readme:
         code-samples:
         - language: python
@@ -496,6 +497,10 @@ paths:
         style: simple
       responses:
         "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VaultActionStatus'
           description: OK
           headers:
             X-Request-ID:
@@ -549,6 +554,10 @@ paths:
         style: simple
       responses:
         "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VaultActionStatus'
           description: OK
           headers:
             X-Request-ID:
@@ -667,6 +676,10 @@ paths:
         required: true
       responses:
         "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VaultActionStatus'
           description: OK
           headers:
             X-Request-ID:
@@ -730,6 +743,10 @@ paths:
         required: true
       responses:
         "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VaultActionStatus'
           description: OK
           headers:
             X-Request-ID:
@@ -998,6 +1015,7 @@ paths:
       summary: Get asset addresses
       tags:
       - Vaults
+      x-internal: true
       x-readme:
         code-samples:
         - language: python
@@ -1282,6 +1300,10 @@ paths:
         required: false
       responses:
         "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VaultActionStatus'
           description: OK
           headers:
             X-Request-ID:
@@ -1362,6 +1384,10 @@ paths:
         required: true
       responses:
         "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VaultActionStatus'
           description: OK
           headers:
             X-Request-ID:
@@ -1868,6 +1894,7 @@ paths:
       summary: List exchange accounts
       tags:
       - Exchange accounts
+      x-internal: true
       x-readme:
         code-samples:
         - language: python
@@ -9570,6 +9597,8 @@ paths:
             X-Request-ID:
               $ref: '#/components/headers/X-Request-ID'
       summary: Return a list of jobs belonging to tenant
+      tags:
+      - Job Management
       x-accepts: application/json
   /batch/{jobId}:
     get:
@@ -9604,6 +9633,8 @@ paths:
             X-Request-ID:
               $ref: '#/components/headers/X-Request-ID'
       summary: Get job details
+      tags:
+      - Job Management
       x-accepts: application/json
   /batch/{jobId}/pause:
     post:
@@ -9643,6 +9674,8 @@ paths:
             X-Request-ID:
               $ref: '#/components/headers/X-Request-ID'
       summary: Pause a job
+      tags:
+      - Job Management
       x-accepts: application/json
   /batch/{jobId}/continue:
     post:
@@ -9681,6 +9714,8 @@ paths:
             X-Request-ID:
               $ref: '#/components/headers/X-Request-ID'
       summary: Continue a paused job
+      tags:
+      - Job Management
       x-accepts: application/json
   /batch/{jobId}/cancel:
     post:
@@ -9721,6 +9756,8 @@ paths:
             X-Request-ID:
               $ref: '#/components/headers/X-Request-ID'
       summary: Cancel a running job
+      tags:
+      - Job Management
       x-accepts: application/json
   /batch/{jobId}/tasks:
     get:
@@ -9755,6 +9792,8 @@ paths:
             X-Request-ID:
               $ref: '#/components/headers/X-Request-ID'
       summary: Return a list of tasks for given job
+      tags:
+      - Job Management
       x-accepts: application/json
 components:
   headers:
@@ -9814,6 +9853,9 @@ components:
           $ref: '#/components/headers/X-Request-ID'
   schemas:
     ErrorSchema:
+      example:
+        code: 6.027456183070403
+        message: message
       properties:
         message:
           type: string
@@ -10208,6 +10250,13 @@ components:
           type: array
         paging:
           $ref: '#/components/schemas/PaginatedAssetWalletResponse_paging'
+      type: object
+    VaultActionStatus:
+      example:
+        success: true
+      properties:
+        success:
+          type: boolean
       type: object
     CreateVaultAssetResponse:
       example:
@@ -10783,6 +10832,7 @@ components:
           description: Display name of the fiat account
           type: string
         address:
+          nullable: true
           type: string
         assets:
           items:
@@ -10805,13 +10855,17 @@ components:
         name:
           type: string
       type: object
-    ConfigChangeRequestStatus:
+    NetworkConnectionStatus:
       enum:
       - WAITING_FOR_APPROVAL
+      - WAITING_FOR_PEER_APPROVAL
       - APPROVED
       - CANCELLED
-      - REJECTED
       - FAILED
+      - REJECTED
+      - REJECTED_BY_PEER
+      - REMOVED
+      - REMOVED_BY_PEER
       type: string
     NetworkId:
       example:
@@ -10827,6 +10881,10 @@ components:
       - name
       type: object
     CustomCryptoRoutingDest:
+      example:
+        scheme: CUSTOM
+        dstId: dstId
+        dstType: VAULT
       properties:
         scheme:
           description: The network routing logic.
@@ -10849,6 +10907,8 @@ components:
       - scheme
       type: object
     DefaultNetworkRoutingDest:
+      example:
+        scheme: DEFAULT
       properties:
         scheme:
           description: The network routing logic.
@@ -10859,6 +10919,8 @@ components:
       - scheme
       type: object
     NoneNetworkRoutingDest:
+      example:
+        scheme: NONE
       properties:
         scheme:
           description: No network routing logic.
@@ -10869,6 +10931,10 @@ components:
       - scheme
       type: object
     CustomFiatRoutingDest:
+      example:
+        scheme: CUSTOM
+        dstId: dstId
+        dstType: FIAT_ACCOUNT
       properties:
         scheme:
           description: The network routing logic.
@@ -10890,11 +10956,20 @@ components:
       type: object
     NetworkConnectionRoutingPolicy:
       example:
-        sen_test: null
-        signet: null
-        signet_test: null
-        sen: null
-        crypto: null
+        sen_test:
+          scheme: DEFAULT
+        signet:
+          scheme: DEFAULT
+        signet_test:
+          scheme: NONE
+        sen:
+          scheme: CUSTOM
+          dstId: dstId
+          dstType: FIAT_ACCOUNT
+        crypto:
+          scheme: CUSTOM
+          dstId: dstId
+          dstType: VAULT
       properties:
         crypto:
           $ref: '#/components/schemas/NetworkConnectionRoutingPolicy_crypto'
@@ -10919,11 +10994,20 @@ components:
         id: id
         localChannel: ""
         routingPolicy:
-          sen_test: null
-          signet: null
-          signet_test: null
-          sen: null
-          crypto: null
+          sen_test:
+            scheme: DEFAULT
+          signet:
+            scheme: DEFAULT
+          signet_test:
+            scheme: NONE
+          sen:
+            scheme: CUSTOM
+            dstId: dstId
+            dstType: FIAT_ACCOUNT
+          crypto:
+            scheme: CUSTOM
+            dstId: dstId
+            dstType: VAULT
         status: null
       properties:
         id:
@@ -10939,7 +11023,7 @@ components:
           deprecated: true
           description: Deprecated - Replaced by `remoteNetworkId`
         status:
-          $ref: '#/components/schemas/ConfigChangeRequestStatus'
+          $ref: '#/components/schemas/NetworkConnectionStatus'
         localNetworkId:
           $ref: '#/components/schemas/NetworkId'
         remoteNetworkId:
@@ -10958,11 +11042,20 @@ components:
         localNetworkId: localNetworkId
         remoteNetworkId: remoteNetworkId
         routingPolicy:
-          sen_test: null
-          signet: null
-          signet_test: null
-          sen: null
-          crypto: null
+          sen_test:
+            scheme: DEFAULT
+          signet:
+            scheme: DEFAULT
+          signet_test:
+            scheme: NONE
+          sen:
+            scheme: CUSTOM
+            dstId: dstId
+            dstType: FIAT_ACCOUNT
+          crypto:
+            scheme: CUSTOM
+            dstId: dstId
+            dstType: VAULT
       properties:
         localNetworkId:
           description: The network ID of the profile trying to create the connection.
@@ -10979,11 +11072,20 @@ components:
     SetRoutingPolicyRequest:
       example:
         routingPolicy:
-          sen_test: null
-          signet: null
-          signet_test: null
-          sen: null
-          crypto: null
+          sen_test:
+            scheme: DEFAULT
+          signet:
+            scheme: DEFAULT
+          signet_test:
+            scheme: NONE
+          sen:
+            scheme: CUSTOM
+            dstId: dstId
+            dstType: FIAT_ACCOUNT
+          crypto:
+            scheme: CUSTOM
+            dstId: dstId
+            dstType: VAULT
       properties:
         routingPolicy:
           $ref: '#/components/schemas/NetworkConnectionRoutingPolicy'
@@ -11002,11 +11104,18 @@ components:
       type: object
     NetworkIdRoutingPolicy:
       example:
-        sen_test: null
+        sen_test:
+          scheme: NONE
         signet: null
         signet_test: null
-        sen: null
-        crypto: null
+        sen:
+          scheme: CUSTOM
+          dstId: dstId
+          dstType: FIAT_ACCOUNT
+        crypto:
+          scheme: CUSTOM
+          dstId: dstId
+          dstType: VAULT
       properties:
         crypto:
           $ref: '#/components/schemas/NetworkIdRoutingPolicy_crypto'
@@ -11029,15 +11138,39 @@ components:
             description: The specific network is discoverable.
             type: boolean
         type: object
+      example:
+        name: name
+        isDiscoverable: true
+        id: id
+        routingPolicy:
+          sen_test:
+            scheme: NONE
+          signet: null
+          signet_test: null
+          sen:
+            scheme: CUSTOM
+            dstId: dstId
+            dstType: FIAT_ACCOUNT
+          crypto:
+            scheme: CUSTOM
+            dstId: dstId
+            dstType: VAULT
     CreateNetworkIdRequest:
       example:
         name: name
         routingPolicy:
-          sen_test: null
+          sen_test:
+            scheme: NONE
           signet: null
           signet_test: null
-          sen: null
-          crypto: null
+          sen:
+            scheme: CUSTOM
+            dstId: dstId
+            dstType: FIAT_ACCOUNT
+          crypto:
+            scheme: CUSTOM
+            dstId: dstId
+            dstType: VAULT
       properties:
         name:
           type: string
@@ -11049,11 +11182,18 @@ components:
     SetNetworkIdRoutingPolicyRequest:
       example:
         routingPolicy:
-          sen_test: null
+          sen_test:
+            scheme: NONE
           signet: null
           signet_test: null
-          sen: null
-          crypto: null
+          sen:
+            scheme: CUSTOM
+            dstId: dstId
+            dstType: FIAT_ACCOUNT
+          crypto:
+            scheme: CUSTOM
+            dstId: dstId
+            dstType: VAULT
       properties:
         routingPolicy:
           $ref: '#/components/schemas/NetworkIdRoutingPolicy'
@@ -11087,6 +11227,14 @@ components:
       required:
       - name
       type: object
+    ConfigChangeRequestStatus:
+      enum:
+      - WAITING_FOR_APPROVAL
+      - APPROVED
+      - CANCELLED
+      - REJECTED
+      - FAILED
+      type: string
     WalletAsset:
       example:
         lockedAmount: lockedAmount
@@ -11144,9 +11292,9 @@ components:
             $ref: '#/components/schemas/WalletAsset'
           type: array
       required:
+      - assets
       - id
       - name
-      - status
       type: object
     CreateWalletRequest:
       example:
@@ -11322,24 +11470,13 @@ components:
         name: name
         contractAddress: contractAddress
         id: id
-        type: ALGO_ASSET
+        type: type
       properties:
         id:
           type: string
         name:
           type: string
         type:
-          enum:
-          - ALGO_ASSET
-          - BASE_ASSET
-          - BEP20
-          - COMPOUND
-          - ERC20
-          - FIAT
-          - SOL_ASSET
-          - TRON_TRC20
-          - XLM_ASSET
-          - XDB_ASSET
           type: string
         contractAddress:
           type: string
@@ -11383,67 +11520,51 @@ components:
       - REDEEM_FROM_COMPOUND
       - SUPPLY_TO_COMPOUND
       type: string
-    TransferPeerPath:
+    TransferPeerPathType:
+      enum:
+      - VAULT_ACCOUNT
+      - EXCHANGE_ACCOUNT
+      - INTERNAL_WALLET
+      - EXTERNAL_WALLET
+      - CONTRACT
+      - NETWORK_CONNECTION
+      - FIAT_ACCOUNT
+      - COMPOUND
+      - GAS_STATION
+      - ONE_TIME_ADDRESS
+      - UNKNOWN
+      - END_USER_WALLET
+      type: string
+    SourceTransferPeerPathResponse:
+      description: Source of the transaction.
       example:
         walletId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
         name: name
-        subType: BINANCE
+        subType: subType
         id: id
-        type: VAULT_ACCOUNT
+        type: null
       properties:
         type:
-          enum:
-          - VAULT_ACCOUNT
-          - EXCHANGE_ACCOUNT
-          - INTERNAL_WALLET
-          - EXTERNAL_WALLET
-          - CONTRACT
-          - NETWORK_CONNECTION
-          - FIAT_ACCOUNT
-          - COMPOUND
-          - GAS_STATION
-          - ONE_TIME_ADDRESS
-          - UNKNOWN
-          - END_USER_WALLET
-          type: string
+          $ref: '#/components/schemas/TransferPeerPathType'
         subType:
-          enum:
-          - BINANCE
-          - BINANCEUS
-          - BITFINEX
-          - BITHUMB
-          - BITMEX
-          - BITSO
-          - BITSTAMP
-          - BITTREX
-          - BLINC
-          - BYBIT
-          - CIRCLE
-          - COINBASEEXCHANGE
-          - COINBASEPRO
-          - COINMETRO
-          - COINSPRO
-          - CRYPTOCOM
-          - DERIBIT
-          - GEMINI
-          - HITBTC
-          - HUOBI
-          - INDEPENDENTRESERVE
-          - KORBIT
-          - KRAKEN
-          - KRAKENINTL
-          - KUCOIN
-          - LIQUID
-          - OKCOIN
-          - OKEX
-          - PAXOS
-          - POLONIEX
-          - External
-          - Internal
+          description: "In case the type is set to `EXCHANGE_ACCOUNT` or `FIAT_ACCOUNT`,\
+            \ the specific exchange vendor name or fiat vendor name. In case the type\
+            \ is set to `INTERNAL_WALLET` or `EXTERNAL_WALLET`, the subType is set\
+            \ to `Internal` or `External`."
           type: string
         id:
+          description: "The ID of the peer. You can retrieve the ID of each venue\
+            \ object using the endpoints for [listing vault accounts](https://developers.fireblocks.com/reference/get_vault-accounts-paged),\
+            \ [listing exchange account](https://developers.fireblocks.com/reference/get_exchange-accounts),\
+            \ [listing fiat accounts](https://developers.fireblocks.com/reference/get_fiat-accounts),\
+            \ [listing internal wallets](https://developers.fireblocks.com/reference/get_internal-wallets),\
+            \ [listing external wallets](https://developers.fireblocks.com/reference/get_external-wallets),\
+            \ [listing network connections](https://developers.fireblocks.com/reference/get_network-connections).\
+            \ For the other types, this parameter is not needed."
+          nullable: true
           type: string
         name:
+          description: The name of the peer.
           type: string
         walletId:
           format: uuid
@@ -11451,63 +11572,46 @@ components:
       required:
       - type
       type: object
-    SourceTransferPeerPathResponse:
-      allOf:
-      - $ref: '#/components/schemas/TransferPeerPath'
-      - description: The transaction’s source.
-        properties:
-          type:
-            type: string
-          subType:
-            description: "In case the type is set to `EXCHANGE_ACCOUNT` or `FIAT_ACCOUNT`,\
-              \ the specific exchange vendor name or fiat vendor name. In case the\
-              \ type is set to `INTERNAL_WALLET` or `EXTERNAL_WALLET`, the subType\
-              \ is set to `Internal` or `External`."
-            type: string
-          id:
-            description: "The ID of the peer. You can retrieve the ID of each venue\
-              \ object using the endpoints for [listing vault accounts](https://developers.fireblocks.com/reference/get_vault-accounts-paged),\
-              \ [listing exchange account](https://developers.fireblocks.com/reference/get_exchange-accounts),\
-              \ [listing fiat accounts](https://developers.fireblocks.com/reference/get_fiat-accounts),\
-              \ [listing internal wallets](https://developers.fireblocks.com/reference/get_internal-wallets),\
-              \ [listing external wallets](https://developers.fireblocks.com/reference/get_external-wallets),\
-              \ [listing network connections](https://developers.fireblocks.com/reference/get_network-connections).\
-              \ For the other types, this parameter is not needed."
-            type: string
-          name:
-            description: The name of the peer.
-            type: string
-        type: object
     DestinationTransferPeerPathResponse:
-      allOf:
-      - $ref: '#/components/schemas/TransferPeerPath'
-      - description: |-
-          Destination of the transaction.
+      description: |-
+        Destination of the transaction.
 
-          **Note:** In case the transaction is sent to multiple destinations, the `destinations` parameter is be used instead of this.
-        properties:
-          type:
-            type: string
-          subType:
-            description: "In case the type is set to `EXCHANGE_ACCOUNT` or `FIAT_ACCOUNT`,\
-              \ the specific exchange vendor name or fiat vendor name.In case the\
-              \ type is set to `INTERNAL_WALLET` or `EXTERNAL_WALLET`, the subType\
-              \ is set to `Internal` or `External`."
-            type: string
-          id:
-            description: "The ID of the peer. You can retrieve the ID of each venue\
-              \ object using the endpoints for [listing vault accounts](https://developers.fireblocks.com/reference/get_vault-accounts-paged),\
-              \ [listing exchange account](https://developers.fireblocks.com/reference/get_exchange-accounts),\
-              \ [listing fiat accounts](https://developers.fireblocks.com/reference/get_fiat-accounts),\
-              \ [listing internal wallets](https://developers.fireblocks.com/reference/get_internal-wallets),\
-              \ [listing external wallets](https://developers.fireblocks.com/reference/get_external-wallets),\
-              \ [listing network connections](https://developers.fireblocks.com/reference/get_network-connections).\
-              \ For the other types, this parameter is not needed."
-            type: string
-          name:
-            description: The name of the peer.
-            type: string
-        type: object
+        **Note:** In case the transaction is sent to multiple destinations, the `destinations` parameter is be used instead of this.
+      example:
+        walletId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        name: name
+        subType: subType
+        id: id
+        type: null
+      properties:
+        type:
+          $ref: '#/components/schemas/TransferPeerPathType'
+        subType:
+          description: "In case the type is set to `EXCHANGE_ACCOUNT` or `FIAT_ACCOUNT`,\
+            \ the specific exchange vendor name or fiat vendor name.In case the type\
+            \ is set to `INTERNAL_WALLET` or `EXTERNAL_WALLET`, the subType is set\
+            \ to `Internal` or `External`."
+          type: string
+        id:
+          description: "The ID of the peer. You can retrieve the ID of each venue\
+            \ object using the endpoints for [listing vault accounts](https://developers.fireblocks.com/reference/get_vault-accounts-paged),\
+            \ [listing exchange account](https://developers.fireblocks.com/reference/get_exchange-accounts),\
+            \ [listing fiat accounts](https://developers.fireblocks.com/reference/get_fiat-accounts),\
+            \ [listing internal wallets](https://developers.fireblocks.com/reference/get_internal-wallets),\
+            \ [listing external wallets](https://developers.fireblocks.com/reference/get_external-wallets),\
+            \ [listing network connections](https://developers.fireblocks.com/reference/get_network-connections).\
+            \ For the other types, this parameter is not needed."
+          nullable: true
+          type: string
+        name:
+          description: The name of the peer.
+          type: string
+        walletId:
+          format: uuid
+          type: string
+      required:
+      - type
+      type: object
     AmlScreeningResult:
       description: The result of the AML screening.
       example:
@@ -11580,7 +11684,12 @@ components:
         amlScreeningResult:
           provider: provider
           payload: "{}"
-        destination: null
+        destination:
+          walletId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          name: name
+          subType: subType
+          id: id
+          type: null
         destinationAddressDescription: ""
       properties:
         destinationAddress:
@@ -11660,9 +11769,19 @@ components:
         sourceAddress: sourceAddress
         netAmount: netAmount
         networkFee: networkFee
-        destination: null
+        destination:
+          walletId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          name: name
+          subType: subType
+          id: id
+          type: null
         index: 6.027456183070403
-        source: null
+        source:
+          walletId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          name: name
+          subType: subType
+          id: id
+          type: null
         type: type
         isDropped: true
         rewardInfo:
@@ -11879,6 +11998,10 @@ components:
         publicKey:
           type: string
       type: object
+    SignedMessages:
+      items:
+        $ref: '#/components/schemas/SignedMessage'
+      type: array
     BlockInfo:
       description: |-
         The block hash and height of the block that this transaction was mined in.
@@ -11890,6 +12013,7 @@ components:
         blockHeight:
           type: string
         blockHash:
+          nullable: true
           type: string
       type: object
     SystemMessageInfo:
@@ -11930,16 +12054,27 @@ components:
           - "{}"
           - "{}"
           contractName: contractName
+        errorDescription: errorDescription
         signedBy:
         - signedBy
         - signedBy
         destinationTag: destinationTag
         networkFee: 7.457744773683766
         fee: 6.84685269835264
-        destination: null
+        destination:
+          walletId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          name: name
+          subType: subType
+          id: id
+          type: null
         feeCurrency: feeCurrency
         extraParameters: "{}"
-        source: null
+        source:
+          walletId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          name: name
+          subType: subType
+          id: id
+          type: null
         externalTxId: externalTxId
         networkRecords:
         - amountUSD: amountUSD
@@ -11947,9 +12082,19 @@ components:
           sourceAddress: sourceAddress
           netAmount: netAmount
           networkFee: networkFee
-          destination: null
+          destination:
+            walletId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+            name: name
+            subType: subType
+            id: id
+            type: null
           index: 6.027456183070403
-          source: null
+          source:
+            walletId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+            name: name
+            subType: subType
+            id: id
+            type: null
           type: type
           isDropped: true
           rewardInfo:
@@ -11962,9 +12107,19 @@ components:
           sourceAddress: sourceAddress
           netAmount: netAmount
           networkFee: networkFee
-          destination: null
+          destination:
+            walletId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+            name: name
+            subType: subType
+            id: id
+            type: null
           index: 6.027456183070403
-          source: null
+          source:
+            walletId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+            name: name
+            subType: subType
+            id: id
+            type: null
           type: type
           isDropped: true
           rewardInfo:
@@ -11989,7 +12144,7 @@ components:
         amount: 7.386281948385884
         sourceAddress: sourceAddress
         netAmount: 1.2315135367772556
-        addressType: WHITELISTED
+        addressType: ""
         destinations:
         - amount: amount
           amountUSD: amountUSD
@@ -12007,7 +12162,12 @@ components:
           amlScreeningResult:
             provider: provider
             payload: "{}"
-          destination: null
+          destination:
+            walletId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+            name: name
+            subType: subType
+            id: id
+            type: null
           destinationAddressDescription: ""
         - amount: amount
           amountUSD: amountUSD
@@ -12025,10 +12185,26 @@ components:
           amlScreeningResult:
             provider: provider
             payload: "{}"
-          destination: null
+          destination:
+            walletId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+            name: name
+            subType: subType
+            id: id
+            type: null
           destinationAddressDescription: ""
         signedMessages:
-          derivationPath:
+        - derivationPath:
+          - 7.061401241503109
+          - 7.061401241503109
+          signature:
+            r: r
+            s: s
+            fullSig: fullSig
+            v: 9.301444243932576
+          publicKey: publicKey
+          content: content
+          algorithm: MPC_ECDSA_SECP256K1
+        - derivationPath:
           - 7.061401241503109
           - 7.061401241503109
           signature:
@@ -12256,7 +12432,9 @@ components:
           properties: {}
           type: object
         signedMessages:
-          $ref: '#/components/schemas/SignedMessage'
+          items:
+            $ref: '#/components/schemas/SignedMessage'
+          type: array
         numOfConfirmations:
           description: The number of confirmations of the transaction. The number
             will increase until the transaction will be considered completed according
@@ -12275,6 +12453,7 @@ components:
           $ref: '#/components/schemas/SystemMessageInfo'
         addressType:
           enum:
+          - ""
           - WHITELISTED
           - ONE_TIME
           type: string
@@ -12315,6 +12494,10 @@ components:
           description: The fee paid to the network. Deprecated - please use the `feeInfo`
             field for accuracy.
           type: number
+        errorDescription:
+          description: The transaction's revert reason. This field will be returned
+            when  `subStatus` =  'SMART_CONTRACT_EXECUTION_FAILED'.
+          type: string
       type: object
     TransactionOperation:
       default: TRANSFER
@@ -12333,7 +12516,68 @@ components:
       - RAW
       - TYPED_MESSAGE
       type: string
+    TransferPeerPathSubType:
+      enum:
+      - BINANCE
+      - BINANCEUS
+      - BITFINEX
+      - BITHUMB
+      - BITMEX
+      - BITSO
+      - BITSTAMP
+      - BITTREX
+      - BLINC
+      - BYBIT
+      - CIRCLE
+      - COINBASEEXCHANGE
+      - COINBASEPRO
+      - COINMETRO
+      - COINSPRO
+      - CRYPTOCOM
+      - DERIBIT
+      - GEMINI
+      - HITBTC
+      - HUOBI
+      - INDEPENDENTRESERVE
+      - KORBIT
+      - KRAKEN
+      - KRAKENINTL
+      - KUCOIN
+      - LIQUID
+      - OKCOIN
+      - OKEX
+      - PAXOS
+      - POLONIEX
+      - External
+      - Internal
+      type: string
+    SourceTransferPeerPath:
+      description: The source of the transaction.
+      example:
+        walletId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        name: name
+        subType: null
+        id: id
+        type: null
+      properties:
+        type:
+          $ref: '#/components/schemas/TransferPeerPathType'
+        subType:
+          $ref: '#/components/schemas/TransferPeerPathSubType'
+        id:
+          type: string
+        name:
+          type: string
+        walletId:
+          format: uuid
+          type: string
+      required:
+      - type
+      type: object
     OneTimeAddress:
+      example:
+        address: address
+        tag: tag
       properties:
         address:
           type: string
@@ -12343,17 +12587,45 @@ components:
       - address
       type: object
     DestinationTransferPeerPath:
-      allOf:
-      - $ref: '#/components/schemas/TransferPeerPath'
-      - type: object
-      - description: The destination of the transaction.
-        properties:
-          oneTimeAddress:
-            $ref: '#/components/schemas/OneTimeAddress'
+      description: The destination of the transaction.
+      example:
+        oneTimeAddress:
+          address: address
+          tag: tag
+        walletId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        name: name
+        subType: null
+        id: id
+        type: null
+      properties:
+        type:
+          $ref: '#/components/schemas/TransferPeerPathType'
+        subType:
+          $ref: '#/components/schemas/TransferPeerPathSubType'
+        id:
+          type: string
+        name:
+          type: string
+        walletId:
+          format: uuid
+          type: string
+        oneTimeAddress:
+          $ref: '#/components/schemas/OneTimeAddress'
+      required:
+      - type
+      type: object
     TransactionRequestDestination:
       example:
         amount: amount
-        destination: null
+        destination:
+          oneTimeAddress:
+            address: address
+            tag: tag
+          walletId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          name: name
+          subType: null
+          id: id
+          type: null
       properties:
         amount:
           type: string
@@ -12470,32 +12742,56 @@ components:
     TransactionRequest:
       example:
         note: Ticket 123
-        priorityFee: null
-        networkFee: null
-        fee: null
-        destination: null
+        priorityFee: "2"
+        networkFee: TransactionRequest_networkFee
+        fee: TransactionRequest_fee
+        destination:
+          oneTimeAddress:
+            address: address
+            tag: tag
+          walletId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          name: name
+          subType: null
+          id: id
+          type: null
         extraParameters: "{}"
         source:
           walletId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
           name: name
-          subType: BINANCE
+          subType: null
           id: id
-          type: VAULT_ACCOUNT
+          type: null
         maxFee: "120"
         externalTxId: 00000000-0000-0000-0000-000000000000
         cpuStaking: null
-        gasLimit: null
+        gasLimit: "21000"
         failOnLowFee: true
         assetId: ETH
         feeLevel: MEDIUM
-        gasPrice: null
+        gasPrice: TransactionRequest_gasPrice
         forceSweep: false
-        amount: null
+        amount: "0.02"
         destinations:
         - amount: amount
-          destination: null
+          destination:
+            oneTimeAddress:
+              address: address
+              tag: tag
+            walletId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+            name: name
+            subType: null
+            id: id
+            type: null
         - amount: amount
-          destination: null
+          destination:
+            oneTimeAddress:
+              address: address
+              tag: tag
+            walletId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+            name: name
+            subType: null
+            id: id
+            type: null
         travelRuleMessage:
           originatorProof: ""
           originator: ""
@@ -12512,7 +12808,7 @@ components:
           beneficiaryVASPdid: beneficiaryVASPdid
         customerRefId: abcdef
         treatAsGrossAmount: false
-        networkStaking: null
+        networkStaking: TransactionRequest_networkStaking
         autoStaking: true
         operation: null
         replaceTxByHash: 00000000-0000-0000-0000-000000000000
@@ -12544,7 +12840,7 @@ components:
           type: string
           x-fb-entity: asset
         source:
-          $ref: '#/components/schemas/TransferPeerPath'
+          $ref: '#/components/schemas/SourceTransferPeerPath'
         destination:
           $ref: '#/components/schemas/DestinationTransferPeerPath'
         destinations:
@@ -12658,24 +12954,24 @@ components:
         gasLimit: gasLimit
         feePerByte: feePerByte
         networkFee: networkFee
-        priorityFee: priorityFee
-        baseFee: baseFee
-        gasPrice: gasPrice
+        priorityFee: 1.4658129805029452
+        baseFee: 6.027456183070403
+        gasPrice: 0.8008281904610115
       properties:
         feePerByte:
           type: string
         gasPrice:
-          type: string
+          type: number
         gasLimit:
           type: string
         networkFee:
           type: string
         baseFee:
           description: (optional) Base Fee according to EIP-1559 (ETH assets)
-          type: string
+          type: number
         priorityFee:
           description: (optional) Priority Fee according to EIP-1559 (ETH assets)
-          type: string
+          type: number
       type: object
     EstimatedTransactionFeeResponse:
       example:
@@ -12683,23 +12979,23 @@ components:
           gasLimit: gasLimit
           feePerByte: feePerByte
           networkFee: networkFee
-          priorityFee: priorityFee
-          baseFee: baseFee
-          gasPrice: gasPrice
+          priorityFee: 1.4658129805029452
+          baseFee: 6.027456183070403
+          gasPrice: 0.8008281904610115
         low:
           gasLimit: gasLimit
           feePerByte: feePerByte
           networkFee: networkFee
-          priorityFee: priorityFee
-          baseFee: baseFee
-          gasPrice: gasPrice
+          priorityFee: 1.4658129805029452
+          baseFee: 6.027456183070403
+          gasPrice: 0.8008281904610115
         medium:
           gasLimit: gasLimit
           feePerByte: feePerByte
           networkFee: networkFee
-          priorityFee: priorityFee
-          baseFee: baseFee
-          gasPrice: gasPrice
+          priorityFee: 1.4658129805029452
+          baseFee: 6.027456183070403
+          gasPrice: 0.8008281904610115
       properties:
         low:
           $ref: '#/components/schemas/TransactionFee'
@@ -13195,6 +13491,10 @@ components:
       - status
       type: object
     ErrorResponse:
+      example:
+        error:
+          type: INTERNAL
+          message: message
       properties:
         error:
           $ref: '#/components/schemas/ErrorResponse_error'
@@ -13210,7 +13510,7 @@ components:
       required:
       - payoutId
       type: object
-    GasStationConfiguration:
+    GasStationConfigurationResponse:
       example:
         gasThreshold: gasThreshold
         maxGasPrice: maxGasPrice
@@ -13221,6 +13521,7 @@ components:
         gasCap:
           type: string
         maxGasPrice:
+          nullable: true
           type: string
       type: object
     GasStationPropertiesResponse:
@@ -13234,11 +13535,20 @@ components:
         balance:
           type: object
         configuration:
-          $ref: '#/components/schemas/GasStationConfiguration'
-      required:
-      - high
-      - low
-      - medium
+          $ref: '#/components/schemas/GasStationConfigurationResponse'
+      type: object
+    GasStationConfiguration:
+      example:
+        gasThreshold: gasThreshold
+        maxGasPrice: maxGasPrice
+        gasCap: gasCap
+      properties:
+        gasThreshold:
+          type: string
+        gasCap:
+          type: string
+        maxGasPrice:
+          type: string
       type: object
     UserGroupResponse:
       example:
@@ -13355,26 +13665,9 @@ components:
           type: boolean
       type: object
     GetUsersResponse:
-      example:
-        users:
-        - firstName: firstName
-          lastName: lastName
-          role: role
-          id: id
-          email: email
-          enabled: true
-        - firstName: firstName
-          lastName: lastName
-          role: role
-          id: id
-          email: email
-          enabled: true
-      properties:
-        users:
-          items:
-            $ref: '#/components/schemas/UserResponse'
-          type: array
-      type: object
+      items:
+        $ref: '#/components/schemas/UserResponse'
+      type: array
     GetAuditLogsResponseDTO:
       example:
         cursor: cursor
@@ -13398,32 +13691,56 @@ components:
         isSrcCollateral: true
         transactionRequest:
           note: Ticket 123
-          priorityFee: null
-          networkFee: null
-          fee: null
-          destination: null
+          priorityFee: "2"
+          networkFee: TransactionRequest_networkFee
+          fee: TransactionRequest_fee
+          destination:
+            oneTimeAddress:
+              address: address
+              tag: tag
+            walletId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+            name: name
+            subType: null
+            id: id
+            type: null
           extraParameters: "{}"
           source:
             walletId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
             name: name
-            subType: BINANCE
+            subType: null
             id: id
-            type: VAULT_ACCOUNT
+            type: null
           maxFee: "120"
           externalTxId: 00000000-0000-0000-0000-000000000000
           cpuStaking: null
-          gasLimit: null
+          gasLimit: "21000"
           failOnLowFee: true
           assetId: ETH
           feeLevel: MEDIUM
-          gasPrice: null
+          gasPrice: TransactionRequest_gasPrice
           forceSweep: false
-          amount: null
+          amount: "0.02"
           destinations:
           - amount: amount
-            destination: null
+            destination:
+              oneTimeAddress:
+                address: address
+                tag: tag
+              walletId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+              name: name
+              subType: null
+              id: id
+              type: null
           - amount: amount
-            destination: null
+            destination:
+              oneTimeAddress:
+                address: address
+                tag: tag
+              walletId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+              name: name
+              subType: null
+              id: id
+              type: null
           travelRuleMessage:
             originatorProof: ""
             originator: ""
@@ -13440,7 +13757,7 @@ components:
             beneficiaryVASPdid: beneficiaryVASPdid
           customerRefId: abcdef
           treatAsGrossAmount: false
-          networkStaking: null
+          networkStaking: TransactionRequest_networkStaking
           autoStaking: true
           operation: null
           replaceTxByHash: 00000000-0000-0000-0000-000000000000
@@ -13455,32 +13772,56 @@ components:
       example:
         transactionRequest:
           note: Ticket 123
-          priorityFee: null
-          networkFee: null
-          fee: null
-          destination: null
+          priorityFee: "2"
+          networkFee: TransactionRequest_networkFee
+          fee: TransactionRequest_fee
+          destination:
+            oneTimeAddress:
+              address: address
+              tag: tag
+            walletId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+            name: name
+            subType: null
+            id: id
+            type: null
           extraParameters: "{}"
           source:
             walletId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
             name: name
-            subType: BINANCE
+            subType: null
             id: id
-            type: VAULT_ACCOUNT
+            type: null
           maxFee: "120"
           externalTxId: 00000000-0000-0000-0000-000000000000
           cpuStaking: null
-          gasLimit: null
+          gasLimit: "21000"
           failOnLowFee: true
           assetId: ETH
           feeLevel: MEDIUM
-          gasPrice: null
+          gasPrice: TransactionRequest_gasPrice
           forceSweep: false
-          amount: null
+          amount: "0.02"
           destinations:
           - amount: amount
-            destination: null
+            destination:
+              oneTimeAddress:
+                address: address
+                tag: tag
+              walletId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+              name: name
+              subType: null
+              id: id
+              type: null
           - amount: amount
-            destination: null
+            destination:
+              oneTimeAddress:
+                address: address
+                tag: tag
+              walletId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+              name: name
+              subType: null
+              id: id
+              type: null
           travelRuleMessage:
             originatorProof: ""
             originator: ""
@@ -13497,7 +13838,7 @@ components:
             beneficiaryVASPdid: beneficiaryVASPdid
           customerRefId: abcdef
           treatAsGrossAmount: false
-          networkStaking: null
+          networkStaking: TransactionRequest_networkStaking
           autoStaking: true
           operation: null
           replaceTxByHash: 00000000-0000-0000-0000-000000000000
@@ -13702,6 +14043,14 @@ components:
       - epochElapsed
       type: object
     StakeRequestDto:
+      example:
+        stakeAmount: "32"
+        txNote: stake request id CcaHc2L43ZWjwCHART3oZoJvHLAe9hzT2DJNUpBzoTN1 of 32ETH
+          created on 02.04.23
+        providerId: kiln
+        fee: "7"
+        vaultAccountId: "22"
+        feeLevel: MEDIUM
       properties:
         vaultAccountId:
           description: The source vault account to stake from
@@ -13787,6 +14136,8 @@ components:
       - $ref: '#/components/schemas/UnstakeRequestDto'
       - $ref: '#/components/schemas/WithdrawRequestDto'
     StakeResponseDto:
+      example:
+        id: b70701f4-d7b1-4795-a8ee-b09cdb5b850d
       properties:
         id:
           description: The unique identifier of the staking position
@@ -15653,7 +16004,7 @@ components:
             - users
           logic: AND
         amountCurrency: USD
-        amount: null
+        amount: PolicyRule_amount
         src:
           ids:
           - null
@@ -15935,7 +16286,7 @@ components:
               - users
             logic: AND
           amountCurrency: USD
-          amount: null
+          amount: PolicyRule_amount
           src:
             ids:
             - null
@@ -16013,7 +16364,7 @@ components:
               - users
             logic: AND
           amountCurrency: USD
-          amount: null
+          amount: PolicyRule_amount
           src:
             ids:
             - null
@@ -16299,7 +16650,7 @@ components:
                 - users
               logic: AND
             amountCurrency: USD
-            amount: null
+            amount: PolicyRule_amount
             src:
               ids:
               - null
@@ -16377,7 +16728,7 @@ components:
                 - users
               logic: AND
             amountCurrency: USD
-            amount: null
+            amount: PolicyRule_amount
             src:
               ids:
               - null
@@ -16474,7 +16825,7 @@ components:
               - users
             logic: AND
           amountCurrency: USD
-          amount: null
+          amount: PolicyRule_amount
           src:
             ids:
             - null
@@ -16552,7 +16903,7 @@ components:
               - users
             logic: AND
           amountCurrency: USD
-          amount: null
+          amount: PolicyRule_amount
           src:
             ids:
             - null
@@ -16662,7 +17013,7 @@ components:
                 - users
               logic: AND
             amountCurrency: USD
-            amount: null
+            amount: PolicyRule_amount
             src:
               ids:
               - null
@@ -16740,7 +17091,7 @@ components:
                 - users
               logic: AND
             amountCurrency: USD
-            amount: null
+            amount: PolicyRule_amount
             src:
               ids:
               - null
@@ -16858,7 +17209,7 @@ components:
               - users
             logic: AND
           amountCurrency: USD
-          amount: null
+          amount: PolicyRule_amount
           src:
             ids:
             - null
@@ -16936,7 +17287,7 @@ components:
               - users
             logic: AND
           amountCurrency: USD
-          amount: null
+          amount: PolicyRule_amount
           src:
             ids:
             - null
@@ -17056,7 +17407,7 @@ components:
               - users
             logic: AND
           amountCurrency: USD
-          amount: null
+          amount: PolicyRule_amount
           src:
             ids:
             - null
@@ -17134,7 +17485,7 @@ components:
               - users
             logic: AND
           amountCurrency: USD
-          amount: null
+          amount: PolicyRule_amount
           src:
             ids:
             - null
@@ -17718,6 +18069,9 @@ components:
       - message
       type: object
     SmartTransferForbiddenResponse:
+      example:
+        code: "3002"
+        message: You do not have permission to execute this action
       properties:
         message:
           description: Forbidden error code
@@ -17877,6 +18231,9 @@ components:
       - message
       type: object
     SmartTransferBadRequestResponse:
+      example:
+        code: 2e7a7a5d-c85c-4ea5-9adf-668cba8b4eb4
+        message: Your request contains invalid data
       properties:
         message:
           description: Bad request error message
@@ -17891,6 +18248,9 @@ components:
       - message
       type: object
     SmartTransferNotFoundResponse:
+      example:
+        code: c943bdb8-ada0-4ba6-8645-74fcf188a10f
+        message: Requested entity not found
       properties:
         message:
           description: Not found error message
@@ -18453,6 +18813,9 @@ components:
       - $ref: '#/components/schemas/NoneNetworkRoutingDest'
       - $ref: '#/components/schemas/CustomFiatRoutingDest'
     AddAssetToExternalWalletRequest_oneOf:
+      example:
+        address: address
+        tag: tag
       properties:
         address:
           description: The wallet's address (or xpub) of the wallet
@@ -18662,6 +19025,9 @@ components:
       - description: Number (deprecated)
         type: number
     ErrorResponse_error:
+      example:
+        type: INTERNAL
+        message: message
       properties:
         type:
           enum:
@@ -18772,13 +19138,13 @@ components:
           type: array
       type: object
     PolicyRule_amount:
-      description: Defines the value a transaction must exceed for the rule to apply
-        to it (according to the amountCurrency field)
-      oneOf:
+      anyOf:
       - description: Numeric string (recommended)
         type: string
       - description: Number (deprecated)
         type: number
+      description: Defines the value a transaction must exceed for the rule to apply
+        to it (according to the amountCurrency field)
     PolicyRule_authorizationGroups_groups_inner:
       example:
         usersGroups:

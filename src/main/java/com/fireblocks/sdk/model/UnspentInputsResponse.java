@@ -10,287 +10,289 @@
  * Do not edit the class manually.
  */
 
-
 package com.fireblocks.sdk.model;
 
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
-import java.util.StringJoiner;
-import java.util.Objects;
-import java.util.Map;
-import java.util.HashMap;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonTypeName;
-import com.fasterxml.jackson.annotation.JsonValue;
-import com.fireblocks.sdk.model.UnspentInput;
-import java.math.BigDecimal;
-import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import java.math.BigDecimal;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.Objects;
+import java.util.StringJoiner;
 
-
-/**
- * UnspentInputsResponse
- */
+/** UnspentInputsResponse */
 @JsonPropertyOrder({
-  UnspentInputsResponse.JSON_PROPERTY_INPUT,
-  UnspentInputsResponse.JSON_PROPERTY_ADDRESS,
-  UnspentInputsResponse.JSON_PROPERTY_AMOUNT,
-  UnspentInputsResponse.JSON_PROPERTY_CONFIRMATIONS,
-  UnspentInputsResponse.JSON_PROPERTY_STATUS
+    UnspentInputsResponse.JSON_PROPERTY_INPUT,
+    UnspentInputsResponse.JSON_PROPERTY_ADDRESS,
+    UnspentInputsResponse.JSON_PROPERTY_AMOUNT,
+    UnspentInputsResponse.JSON_PROPERTY_CONFIRMATIONS,
+    UnspentInputsResponse.JSON_PROPERTY_STATUS
 })
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class UnspentInputsResponse {
-  public static final String JSON_PROPERTY_INPUT = "input";
-  private UnspentInput input;
+    public static final String JSON_PROPERTY_INPUT = "input";
+    private UnspentInput input;
 
-  public static final String JSON_PROPERTY_ADDRESS = "address";
-  private String address;
+    public static final String JSON_PROPERTY_ADDRESS = "address";
+    private String address;
 
-  public static final String JSON_PROPERTY_AMOUNT = "amount";
-  private String amount;
+    public static final String JSON_PROPERTY_AMOUNT = "amount";
+    private String amount;
 
-  public static final String JSON_PROPERTY_CONFIRMATIONS = "confirmations";
-  private BigDecimal confirmations;
+    public static final String JSON_PROPERTY_CONFIRMATIONS = "confirmations";
+    private BigDecimal confirmations;
 
-  public static final String JSON_PROPERTY_STATUS = "status";
-  private String status;
+    public static final String JSON_PROPERTY_STATUS = "status";
+    private String status;
 
-  public UnspentInputsResponse() { 
-  }
+    public UnspentInputsResponse() {}
 
-  public UnspentInputsResponse input(UnspentInput input) {
-    this.input = input;
-    return this;
-  }
-
-   /**
-   * Get input
-   * @return input
-  **/
-  @jakarta.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_INPUT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public UnspentInput getInput() {
-    return input;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_INPUT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setInput(UnspentInput input) {
-    this.input = input;
-  }
-
-
-  public UnspentInputsResponse address(String address) {
-    this.address = address;
-    return this;
-  }
-
-   /**
-   * Get address
-   * @return address
-  **/
-  @jakarta.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_ADDRESS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getAddress() {
-    return address;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_ADDRESS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setAddress(String address) {
-    this.address = address;
-  }
-
-
-  public UnspentInputsResponse amount(String amount) {
-    this.amount = amount;
-    return this;
-  }
-
-   /**
-   * Get amount
-   * @return amount
-  **/
-  @jakarta.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_AMOUNT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getAmount() {
-    return amount;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_AMOUNT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setAmount(String amount) {
-    this.amount = amount;
-  }
-
-
-  public UnspentInputsResponse confirmations(BigDecimal confirmations) {
-    this.confirmations = confirmations;
-    return this;
-  }
-
-   /**
-   * Get confirmations
-   * @return confirmations
-  **/
-  @jakarta.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_CONFIRMATIONS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public BigDecimal getConfirmations() {
-    return confirmations;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_CONFIRMATIONS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setConfirmations(BigDecimal confirmations) {
-    this.confirmations = confirmations;
-  }
-
-
-  public UnspentInputsResponse status(String status) {
-    this.status = status;
-    return this;
-  }
-
-   /**
-   * Get status
-   * @return status
-  **/
-  @jakarta.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_STATUS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getStatus() {
-    return status;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_STATUS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setStatus(String status) {
-    this.status = status;
-  }
-
-
-  /**
-   * Return true if this UnspentInputsResponse object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    UnspentInputsResponse unspentInputsResponse = (UnspentInputsResponse) o;
-    return Objects.equals(this.input, unspentInputsResponse.input) &&
-        Objects.equals(this.address, unspentInputsResponse.address) &&
-        Objects.equals(this.amount, unspentInputsResponse.amount) &&
-        Objects.equals(this.confirmations, unspentInputsResponse.confirmations) &&
-        Objects.equals(this.status, unspentInputsResponse.status);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(input, address, amount, confirmations, status);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class UnspentInputsResponse {\n");
-    sb.append("    input: ").append(toIndentedString(input)).append("\n");
-    sb.append("    address: ").append(toIndentedString(address)).append("\n");
-    sb.append("    amount: ").append(toIndentedString(amount)).append("\n");
-    sb.append("    confirmations: ").append(toIndentedString(confirmations)).append("\n");
-    sb.append("    status: ").append(toIndentedString(status)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
-  }
-
-  /**
-   * Convert the instance into URL query string.
-   *
-   * @return URL query string
-   */
-  public String toUrlQueryString() {
-    return toUrlQueryString(null);
-  }
-
-  /**
-   * Convert the instance into URL query string.
-   *
-   * @param prefix prefix of the query string
-   * @return URL query string
-   */
-  public String toUrlQueryString(String prefix) {
-    String suffix = "";
-    String containerSuffix = "";
-    String containerPrefix = "";
-    if (prefix == null) {
-      // style=form, explode=true, e.g. /pet?name=cat&type=manx
-      prefix = "";
-    } else {
-      // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
-      prefix = prefix + "[";
-      suffix = "]";
-      containerSuffix = "]";
-      containerPrefix = "[";
+    public UnspentInputsResponse input(UnspentInput input) {
+        this.input = input;
+        return this;
     }
 
-    StringJoiner joiner = new StringJoiner("&");
-
-    // add `input` to the URL query string
-    if (getInput() != null) {
-      joiner.add(getInput().toUrlQueryString(prefix + "input" + suffix));
+    /**
+     * Get input
+     *
+     * @return input
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_INPUT)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public UnspentInput getInput() {
+        return input;
     }
 
-    // add `address` to the URL query string
-    if (getAddress() != null) {
-      joiner.add(String.format("%saddress%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getAddress()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    @JsonProperty(JSON_PROPERTY_INPUT)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setInput(UnspentInput input) {
+        this.input = input;
     }
 
-    // add `amount` to the URL query string
-    if (getAmount() != null) {
-      joiner.add(String.format("%samount%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getAmount()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    public UnspentInputsResponse address(String address) {
+        this.address = address;
+        return this;
     }
 
-    // add `confirmations` to the URL query string
-    if (getConfirmations() != null) {
-      joiner.add(String.format("%sconfirmations%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getConfirmations()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    /**
+     * Get address
+     *
+     * @return address
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_ADDRESS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getAddress() {
+        return address;
     }
 
-    // add `status` to the URL query string
-    if (getStatus() != null) {
-      joiner.add(String.format("%sstatus%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getStatus()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    @JsonProperty(JSON_PROPERTY_ADDRESS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setAddress(String address) {
+        this.address = address;
     }
 
-    return joiner.toString();
-  }
+    public UnspentInputsResponse amount(String amount) {
+        this.amount = amount;
+        return this;
+    }
+
+    /**
+     * Get amount
+     *
+     * @return amount
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_AMOUNT)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getAmount() {
+        return amount;
+    }
+
+    @JsonProperty(JSON_PROPERTY_AMOUNT)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setAmount(String amount) {
+        this.amount = amount;
+    }
+
+    public UnspentInputsResponse confirmations(BigDecimal confirmations) {
+        this.confirmations = confirmations;
+        return this;
+    }
+
+    /**
+     * Get confirmations
+     *
+     * @return confirmations
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_CONFIRMATIONS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public BigDecimal getConfirmations() {
+        return confirmations;
+    }
+
+    @JsonProperty(JSON_PROPERTY_CONFIRMATIONS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setConfirmations(BigDecimal confirmations) {
+        this.confirmations = confirmations;
+    }
+
+    public UnspentInputsResponse status(String status) {
+        this.status = status;
+        return this;
+    }
+
+    /**
+     * Get status
+     *
+     * @return status
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_STATUS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getStatus() {
+        return status;
+    }
+
+    @JsonProperty(JSON_PROPERTY_STATUS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    /** Return true if this UnspentInputsResponse object is equal to o. */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        UnspentInputsResponse unspentInputsResponse = (UnspentInputsResponse) o;
+        return Objects.equals(this.input, unspentInputsResponse.input)
+                && Objects.equals(this.address, unspentInputsResponse.address)
+                && Objects.equals(this.amount, unspentInputsResponse.amount)
+                && Objects.equals(this.confirmations, unspentInputsResponse.confirmations)
+                && Objects.equals(this.status, unspentInputsResponse.status);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(input, address, amount, confirmations, status);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class UnspentInputsResponse {\n");
+        sb.append("    input: ").append(toIndentedString(input)).append("\n");
+        sb.append("    address: ").append(toIndentedString(address)).append("\n");
+        sb.append("    amount: ").append(toIndentedString(amount)).append("\n");
+        sb.append("    confirmations: ").append(toIndentedString(confirmations)).append("\n");
+        sb.append("    status: ").append(toIndentedString(status)).append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces (except the first
+     * line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
+
+    /**
+     * Convert the instance into URL query string.
+     *
+     * @return URL query string
+     */
+    public String toUrlQueryString() {
+        return toUrlQueryString(null);
+    }
+
+    /**
+     * Convert the instance into URL query string.
+     *
+     * @param prefix prefix of the query string
+     * @return URL query string
+     */
+    public String toUrlQueryString(String prefix) {
+        String suffix = "";
+        String containerSuffix = "";
+        String containerPrefix = "";
+        if (prefix == null) {
+            // style=form, explode=true, e.g. /pet?name=cat&type=manx
+            prefix = "";
+        } else {
+            // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
+            prefix = prefix + "[";
+            suffix = "]";
+            containerSuffix = "]";
+            containerPrefix = "[";
+        }
+
+        StringJoiner joiner = new StringJoiner("&");
+
+        // add `input` to the URL query string
+        if (getInput() != null) {
+            joiner.add(getInput().toUrlQueryString(prefix + "input" + suffix));
+        }
+
+        // add `address` to the URL query string
+        if (getAddress() != null) {
+            joiner.add(
+                    String.format(
+                            "%saddress%s=%s",
+                            prefix,
+                            suffix,
+                            URLEncoder.encode(String.valueOf(getAddress()), StandardCharsets.UTF_8)
+                                    .replaceAll("\\+", "%20")));
+        }
+
+        // add `amount` to the URL query string
+        if (getAmount() != null) {
+            joiner.add(
+                    String.format(
+                            "%samount%s=%s",
+                            prefix,
+                            suffix,
+                            URLEncoder.encode(String.valueOf(getAmount()), StandardCharsets.UTF_8)
+                                    .replaceAll("\\+", "%20")));
+        }
+
+        // add `confirmations` to the URL query string
+        if (getConfirmations() != null) {
+            joiner.add(
+                    String.format(
+                            "%sconfirmations%s=%s",
+                            prefix,
+                            suffix,
+                            URLEncoder.encode(
+                                            String.valueOf(getConfirmations()),
+                                            StandardCharsets.UTF_8)
+                                    .replaceAll("\\+", "%20")));
+        }
+
+        // add `status` to the URL query string
+        if (getStatus() != null) {
+            joiner.add(
+                    String.format(
+                            "%sstatus%s=%s",
+                            prefix,
+                            suffix,
+                            URLEncoder.encode(String.valueOf(getStatus()), StandardCharsets.UTF_8)
+                                    .replaceAll("\\+", "%20")));
+        }
+
+        return joiner.toString();
+    }
 }
-

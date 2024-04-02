@@ -10,285 +10,293 @@
  * Do not edit the class manually.
  */
 
-
 package com.fireblocks.sdk.model;
 
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
-import java.util.StringJoiner;
-import java.util.Objects;
-import java.util.Map;
-import java.util.HashMap;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonTypeName;
-import com.fasterxml.jackson.annotation.JsonValue;
-import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.Objects;
+import java.util.StringJoiner;
 
-
-/**
- * ToCollateralTransaction
- */
+/** ToCollateralTransaction */
 @JsonPropertyOrder({
-  ToCollateralTransaction.JSON_PROPERTY_ASSET,
-  ToCollateralTransaction.JSON_PROPERTY_AMOUNT,
-  ToCollateralTransaction.JSON_PROPERTY_SRC_ADDRESS,
-  ToCollateralTransaction.JSON_PROPERTY_SRC_TAG,
-  ToCollateralTransaction.JSON_PROPERTY_FEE
+    ToCollateralTransaction.JSON_PROPERTY_ASSET,
+    ToCollateralTransaction.JSON_PROPERTY_AMOUNT,
+    ToCollateralTransaction.JSON_PROPERTY_SRC_ADDRESS,
+    ToCollateralTransaction.JSON_PROPERTY_SRC_TAG,
+    ToCollateralTransaction.JSON_PROPERTY_FEE
 })
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class ToCollateralTransaction {
-  public static final String JSON_PROPERTY_ASSET = "asset";
-  private String asset;
+    public static final String JSON_PROPERTY_ASSET = "asset";
+    private String asset;
 
-  public static final String JSON_PROPERTY_AMOUNT = "amount";
-  private String amount;
+    public static final String JSON_PROPERTY_AMOUNT = "amount";
+    private String amount;
 
-  public static final String JSON_PROPERTY_SRC_ADDRESS = "srcAddress";
-  private String srcAddress;
+    public static final String JSON_PROPERTY_SRC_ADDRESS = "srcAddress";
+    private String srcAddress;
 
-  public static final String JSON_PROPERTY_SRC_TAG = "srcTag";
-  private String srcTag;
+    public static final String JSON_PROPERTY_SRC_TAG = "srcTag";
+    private String srcTag;
 
-  public static final String JSON_PROPERTY_FEE = "fee";
-  private String fee;
+    public static final String JSON_PROPERTY_FEE = "fee";
+    private String fee;
 
-  public ToCollateralTransaction() { 
-  }
+    public ToCollateralTransaction() {}
 
-  public ToCollateralTransaction asset(String asset) {
-    this.asset = asset;
-    return this;
-  }
-
-   /**
-   * Get asset
-   * @return asset
-  **/
-  @jakarta.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_ASSET)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getAsset() {
-    return asset;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_ASSET)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setAsset(String asset) {
-    this.asset = asset;
-  }
-
-
-  public ToCollateralTransaction amount(String amount) {
-    this.amount = amount;
-    return this;
-  }
-
-   /**
-   * Get amount
-   * @return amount
-  **/
-  @jakarta.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_AMOUNT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getAmount() {
-    return amount;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_AMOUNT)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setAmount(String amount) {
-    this.amount = amount;
-  }
-
-
-  public ToCollateralTransaction srcAddress(String srcAddress) {
-    this.srcAddress = srcAddress;
-    return this;
-  }
-
-   /**
-   * Get srcAddress
-   * @return srcAddress
-  **/
-  @jakarta.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_SRC_ADDRESS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getSrcAddress() {
-    return srcAddress;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_SRC_ADDRESS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setSrcAddress(String srcAddress) {
-    this.srcAddress = srcAddress;
-  }
-
-
-  public ToCollateralTransaction srcTag(String srcTag) {
-    this.srcTag = srcTag;
-    return this;
-  }
-
-   /**
-   * optional
-   * @return srcTag
-  **/
-  @jakarta.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_SRC_TAG)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getSrcTag() {
-    return srcTag;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_SRC_TAG)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setSrcTag(String srcTag) {
-    this.srcTag = srcTag;
-  }
-
-
-  public ToCollateralTransaction fee(String fee) {
-    this.fee = fee;
-    return this;
-  }
-
-   /**
-   * optional
-   * @return fee
-  **/
-  @jakarta.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_FEE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getFee() {
-    return fee;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_FEE)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setFee(String fee) {
-    this.fee = fee;
-  }
-
-
-  /**
-   * Return true if this ToCollateralTransaction object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    ToCollateralTransaction toCollateralTransaction = (ToCollateralTransaction) o;
-    return Objects.equals(this.asset, toCollateralTransaction.asset) &&
-        Objects.equals(this.amount, toCollateralTransaction.amount) &&
-        Objects.equals(this.srcAddress, toCollateralTransaction.srcAddress) &&
-        Objects.equals(this.srcTag, toCollateralTransaction.srcTag) &&
-        Objects.equals(this.fee, toCollateralTransaction.fee);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(asset, amount, srcAddress, srcTag, fee);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class ToCollateralTransaction {\n");
-    sb.append("    asset: ").append(toIndentedString(asset)).append("\n");
-    sb.append("    amount: ").append(toIndentedString(amount)).append("\n");
-    sb.append("    srcAddress: ").append(toIndentedString(srcAddress)).append("\n");
-    sb.append("    srcTag: ").append(toIndentedString(srcTag)).append("\n");
-    sb.append("    fee: ").append(toIndentedString(fee)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
-  }
-
-  /**
-   * Convert the instance into URL query string.
-   *
-   * @return URL query string
-   */
-  public String toUrlQueryString() {
-    return toUrlQueryString(null);
-  }
-
-  /**
-   * Convert the instance into URL query string.
-   *
-   * @param prefix prefix of the query string
-   * @return URL query string
-   */
-  public String toUrlQueryString(String prefix) {
-    String suffix = "";
-    String containerSuffix = "";
-    String containerPrefix = "";
-    if (prefix == null) {
-      // style=form, explode=true, e.g. /pet?name=cat&type=manx
-      prefix = "";
-    } else {
-      // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
-      prefix = prefix + "[";
-      suffix = "]";
-      containerSuffix = "]";
-      containerPrefix = "[";
+    public ToCollateralTransaction asset(String asset) {
+        this.asset = asset;
+        return this;
     }
 
-    StringJoiner joiner = new StringJoiner("&");
-
-    // add `asset` to the URL query string
-    if (getAsset() != null) {
-      joiner.add(String.format("%sasset%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getAsset()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    /**
+     * Get asset
+     *
+     * @return asset
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_ASSET)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getAsset() {
+        return asset;
     }
 
-    // add `amount` to the URL query string
-    if (getAmount() != null) {
-      joiner.add(String.format("%samount%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getAmount()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    @JsonProperty(JSON_PROPERTY_ASSET)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setAsset(String asset) {
+        this.asset = asset;
     }
 
-    // add `srcAddress` to the URL query string
-    if (getSrcAddress() != null) {
-      joiner.add(String.format("%ssrcAddress%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getSrcAddress()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    public ToCollateralTransaction amount(String amount) {
+        this.amount = amount;
+        return this;
     }
 
-    // add `srcTag` to the URL query string
-    if (getSrcTag() != null) {
-      joiner.add(String.format("%ssrcTag%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getSrcTag()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    /**
+     * Get amount
+     *
+     * @return amount
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_AMOUNT)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getAmount() {
+        return amount;
     }
 
-    // add `fee` to the URL query string
-    if (getFee() != null) {
-      joiner.add(String.format("%sfee%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getFee()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    @JsonProperty(JSON_PROPERTY_AMOUNT)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setAmount(String amount) {
+        this.amount = amount;
     }
 
-    return joiner.toString();
-  }
+    public ToCollateralTransaction srcAddress(String srcAddress) {
+        this.srcAddress = srcAddress;
+        return this;
+    }
+
+    /**
+     * Get srcAddress
+     *
+     * @return srcAddress
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_SRC_ADDRESS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getSrcAddress() {
+        return srcAddress;
+    }
+
+    @JsonProperty(JSON_PROPERTY_SRC_ADDRESS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setSrcAddress(String srcAddress) {
+        this.srcAddress = srcAddress;
+    }
+
+    public ToCollateralTransaction srcTag(String srcTag) {
+        this.srcTag = srcTag;
+        return this;
+    }
+
+    /**
+     * optional
+     *
+     * @return srcTag
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_SRC_TAG)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getSrcTag() {
+        return srcTag;
+    }
+
+    @JsonProperty(JSON_PROPERTY_SRC_TAG)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setSrcTag(String srcTag) {
+        this.srcTag = srcTag;
+    }
+
+    public ToCollateralTransaction fee(String fee) {
+        this.fee = fee;
+        return this;
+    }
+
+    /**
+     * optional
+     *
+     * @return fee
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_FEE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getFee() {
+        return fee;
+    }
+
+    @JsonProperty(JSON_PROPERTY_FEE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setFee(String fee) {
+        this.fee = fee;
+    }
+
+    /** Return true if this ToCollateralTransaction object is equal to o. */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        ToCollateralTransaction toCollateralTransaction = (ToCollateralTransaction) o;
+        return Objects.equals(this.asset, toCollateralTransaction.asset)
+                && Objects.equals(this.amount, toCollateralTransaction.amount)
+                && Objects.equals(this.srcAddress, toCollateralTransaction.srcAddress)
+                && Objects.equals(this.srcTag, toCollateralTransaction.srcTag)
+                && Objects.equals(this.fee, toCollateralTransaction.fee);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(asset, amount, srcAddress, srcTag, fee);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class ToCollateralTransaction {\n");
+        sb.append("    asset: ").append(toIndentedString(asset)).append("\n");
+        sb.append("    amount: ").append(toIndentedString(amount)).append("\n");
+        sb.append("    srcAddress: ").append(toIndentedString(srcAddress)).append("\n");
+        sb.append("    srcTag: ").append(toIndentedString(srcTag)).append("\n");
+        sb.append("    fee: ").append(toIndentedString(fee)).append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces (except the first
+     * line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
+
+    /**
+     * Convert the instance into URL query string.
+     *
+     * @return URL query string
+     */
+    public String toUrlQueryString() {
+        return toUrlQueryString(null);
+    }
+
+    /**
+     * Convert the instance into URL query string.
+     *
+     * @param prefix prefix of the query string
+     * @return URL query string
+     */
+    public String toUrlQueryString(String prefix) {
+        String suffix = "";
+        String containerSuffix = "";
+        String containerPrefix = "";
+        if (prefix == null) {
+            // style=form, explode=true, e.g. /pet?name=cat&type=manx
+            prefix = "";
+        } else {
+            // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
+            prefix = prefix + "[";
+            suffix = "]";
+            containerSuffix = "]";
+            containerPrefix = "[";
+        }
+
+        StringJoiner joiner = new StringJoiner("&");
+
+        // add `asset` to the URL query string
+        if (getAsset() != null) {
+            joiner.add(
+                    String.format(
+                            "%sasset%s=%s",
+                            prefix,
+                            suffix,
+                            URLEncoder.encode(String.valueOf(getAsset()), StandardCharsets.UTF_8)
+                                    .replaceAll("\\+", "%20")));
+        }
+
+        // add `amount` to the URL query string
+        if (getAmount() != null) {
+            joiner.add(
+                    String.format(
+                            "%samount%s=%s",
+                            prefix,
+                            suffix,
+                            URLEncoder.encode(String.valueOf(getAmount()), StandardCharsets.UTF_8)
+                                    .replaceAll("\\+", "%20")));
+        }
+
+        // add `srcAddress` to the URL query string
+        if (getSrcAddress() != null) {
+            joiner.add(
+                    String.format(
+                            "%ssrcAddress%s=%s",
+                            prefix,
+                            suffix,
+                            URLEncoder.encode(
+                                            String.valueOf(getSrcAddress()), StandardCharsets.UTF_8)
+                                    .replaceAll("\\+", "%20")));
+        }
+
+        // add `srcTag` to the URL query string
+        if (getSrcTag() != null) {
+            joiner.add(
+                    String.format(
+                            "%ssrcTag%s=%s",
+                            prefix,
+                            suffix,
+                            URLEncoder.encode(String.valueOf(getSrcTag()), StandardCharsets.UTF_8)
+                                    .replaceAll("\\+", "%20")));
+        }
+
+        // add `fee` to the URL query string
+        if (getFee() != null) {
+            joiner.add(
+                    String.format(
+                            "%sfee%s=%s",
+                            prefix,
+                            suffix,
+                            URLEncoder.encode(String.valueOf(getFee()), StandardCharsets.UTF_8)
+                                    .replaceAll("\\+", "%20")));
+        }
+
+        return joiner.toString();
+    }
 }
-

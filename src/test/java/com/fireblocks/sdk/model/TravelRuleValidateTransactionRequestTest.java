@@ -10,120 +10,85 @@
  * Do not edit the class manually.
  */
 
-
 package com.fireblocks.sdk.model;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonTypeName;
-import com.fasterxml.jackson.annotation.JsonValue;
-import com.fireblocks.sdk.model.TravelRuleAddress;
-import java.util.Arrays;
-import org.junit.Assert;
-import org.junit.Ignore;
+
 import org.junit.Test;
 
-/**
- * Model tests for TravelRuleValidateTransactionRequest
- */
+/** Model tests for TravelRuleValidateTransactionRequest */
 public class TravelRuleValidateTransactionRequestTest {
-    private final TravelRuleValidateTransactionRequest model = new TravelRuleValidateTransactionRequest();
+    private final TravelRuleValidateTransactionRequest model =
+            new TravelRuleValidateTransactionRequest();
 
-    /**
-     * Model tests for TravelRuleValidateTransactionRequest
-     */
+    /** Model tests for TravelRuleValidateTransactionRequest */
     @Test
     public void testTravelRuleValidateTransactionRequest() {
         // TODO: test TravelRuleValidateTransactionRequest
     }
 
-    /**
-     * Test the property 'transactionAsset'
-     */
+    /** Test the property 'transactionAsset' */
     @Test
     public void transactionAssetTest() {
         // TODO: test transactionAsset
     }
 
-    /**
-     * Test the property 'destination'
-     */
+    /** Test the property 'destination' */
     @Test
     public void destinationTest() {
         // TODO: test destination
     }
 
-    /**
-     * Test the property 'transactionAmount'
-     */
+    /** Test the property 'transactionAmount' */
     @Test
     public void transactionAmountTest() {
         // TODO: test transactionAmount
     }
 
-    /**
-     * Test the property 'originatorVASPdid'
-     */
+    /** Test the property 'originatorVASPdid' */
     @Test
     public void originatorVASPdidTest() {
         // TODO: test originatorVASPdid
     }
 
-    /**
-     * Test the property 'originatorEqualsBeneficiary'
-     */
+    /** Test the property 'originatorEqualsBeneficiary' */
     @Test
     public void originatorEqualsBeneficiaryTest() {
         // TODO: test originatorEqualsBeneficiary
     }
 
-    /**
-     * Test the property 'travelRuleBehavior'
-     */
+    /** Test the property 'travelRuleBehavior' */
     @Test
     public void travelRuleBehaviorTest() {
         // TODO: test travelRuleBehavior
     }
 
-    /**
-     * Test the property 'beneficiaryVASPdid'
-     */
+    /** Test the property 'beneficiaryVASPdid' */
     @Test
     public void beneficiaryVASPdidTest() {
         // TODO: test beneficiaryVASPdid
     }
 
-    /**
-     * Test the property 'beneficiaryVASPname'
-     */
+    /** Test the property 'beneficiaryVASPname' */
     @Test
     public void beneficiaryVASPnameTest() {
         // TODO: test beneficiaryVASPname
     }
 
-    /**
-     * Test the property 'beneficiaryName'
-     */
+    /** Test the property 'beneficiaryName' */
     @Test
     public void beneficiaryNameTest() {
         // TODO: test beneficiaryName
     }
 
-    /**
-     * Test the property 'beneficiaryAccountNumber'
-     */
+    /** Test the property 'beneficiaryAccountNumber' */
     @Test
     public void beneficiaryAccountNumberTest() {
         // TODO: test beneficiaryAccountNumber
     }
 
-    /**
-     * Test the property 'beneficiaryAddress'
-     */
+    /** Test the property 'beneficiaryAddress' */
     @Test
     public void beneficiaryAddressTest() {
         // TODO: test beneficiaryAddress
     }
-
 }

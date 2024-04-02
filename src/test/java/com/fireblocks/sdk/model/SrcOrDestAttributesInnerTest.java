@@ -10,28 +10,18 @@
  * Do not edit the class manually.
  */
 
-
 package com.fireblocks.sdk.model;
 
-import com.fasterxml.jackson.annotation.JsonTypeName;
-import com.fireblocks.sdk.model.PolicySrcOrDestSubType;
-import com.fireblocks.sdk.model.PolicySrcOrDestType;
-import org.junit.Assert;
-import org.junit.Ignore;
+
 import org.junit.Test;
 
-/**
- * Model tests for SrcOrDestAttributesInner
- */
+/** Model tests for SrcOrDestAttributesInner */
 public class SrcOrDestAttributesInnerTest {
     private final SrcOrDestAttributesInner model = new SrcOrDestAttributesInner();
 
-    /**
-     * Model tests for SrcOrDestAttributesInner
-     */
+    /** Model tests for SrcOrDestAttributesInner */
     @Test
     public void testSrcOrDestAttributesInner() {
         // TODO: test SrcOrDestAttributesInner
     }
-
 }

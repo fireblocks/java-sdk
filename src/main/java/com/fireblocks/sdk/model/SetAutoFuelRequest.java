@@ -10,141 +10,130 @@
  * Do not edit the class manually.
  */
 
-
 package com.fireblocks.sdk.model;
 
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
-import java.util.StringJoiner;
-import java.util.Objects;
-import java.util.Map;
-import java.util.HashMap;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonTypeName;
-import com.fasterxml.jackson.annotation.JsonValue;
-import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.Objects;
+import java.util.StringJoiner;
 
-
-/**
- * SetAutoFuelRequest
- */
-@JsonPropertyOrder({
-  SetAutoFuelRequest.JSON_PROPERTY_AUTO_FUEL
-})
+/** SetAutoFuelRequest */
+@JsonPropertyOrder({SetAutoFuelRequest.JSON_PROPERTY_AUTO_FUEL})
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class SetAutoFuelRequest {
-  public static final String JSON_PROPERTY_AUTO_FUEL = "autoFuel";
-  private Boolean autoFuel;
+    public static final String JSON_PROPERTY_AUTO_FUEL = "autoFuel";
+    private Boolean autoFuel;
 
-  public SetAutoFuelRequest() { 
-  }
+    public SetAutoFuelRequest() {}
 
-  public SetAutoFuelRequest autoFuel(Boolean autoFuel) {
-    this.autoFuel = autoFuel;
-    return this;
-  }
-
-   /**
-   * Auto Fuel
-   * @return autoFuel
-  **/
-  @jakarta.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_AUTO_FUEL)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public Boolean getAutoFuel() {
-    return autoFuel;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_AUTO_FUEL)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setAutoFuel(Boolean autoFuel) {
-    this.autoFuel = autoFuel;
-  }
-
-
-  /**
-   * Return true if this SetAutoFuelRequest object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    SetAutoFuelRequest setAutoFuelRequest = (SetAutoFuelRequest) o;
-    return Objects.equals(this.autoFuel, setAutoFuelRequest.autoFuel);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(autoFuel);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class SetAutoFuelRequest {\n");
-    sb.append("    autoFuel: ").append(toIndentedString(autoFuel)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
-  }
-
-  /**
-   * Convert the instance into URL query string.
-   *
-   * @return URL query string
-   */
-  public String toUrlQueryString() {
-    return toUrlQueryString(null);
-  }
-
-  /**
-   * Convert the instance into URL query string.
-   *
-   * @param prefix prefix of the query string
-   * @return URL query string
-   */
-  public String toUrlQueryString(String prefix) {
-    String suffix = "";
-    String containerSuffix = "";
-    String containerPrefix = "";
-    if (prefix == null) {
-      // style=form, explode=true, e.g. /pet?name=cat&type=manx
-      prefix = "";
-    } else {
-      // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
-      prefix = prefix + "[";
-      suffix = "]";
-      containerSuffix = "]";
-      containerPrefix = "[";
+    public SetAutoFuelRequest autoFuel(Boolean autoFuel) {
+        this.autoFuel = autoFuel;
+        return this;
     }
 
-    StringJoiner joiner = new StringJoiner("&");
-
-    // add `autoFuel` to the URL query string
-    if (getAutoFuel() != null) {
-      joiner.add(String.format("%sautoFuel%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getAutoFuel()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    /**
+     * Auto Fuel
+     *
+     * @return autoFuel
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_AUTO_FUEL)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public Boolean getAutoFuel() {
+        return autoFuel;
     }
 
-    return joiner.toString();
-  }
+    @JsonProperty(JSON_PROPERTY_AUTO_FUEL)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setAutoFuel(Boolean autoFuel) {
+        this.autoFuel = autoFuel;
+    }
+
+    /** Return true if this SetAutoFuelRequest object is equal to o. */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        SetAutoFuelRequest setAutoFuelRequest = (SetAutoFuelRequest) o;
+        return Objects.equals(this.autoFuel, setAutoFuelRequest.autoFuel);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(autoFuel);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class SetAutoFuelRequest {\n");
+        sb.append("    autoFuel: ").append(toIndentedString(autoFuel)).append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces (except the first
+     * line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
+
+    /**
+     * Convert the instance into URL query string.
+     *
+     * @return URL query string
+     */
+    public String toUrlQueryString() {
+        return toUrlQueryString(null);
+    }
+
+    /**
+     * Convert the instance into URL query string.
+     *
+     * @param prefix prefix of the query string
+     * @return URL query string
+     */
+    public String toUrlQueryString(String prefix) {
+        String suffix = "";
+        String containerSuffix = "";
+        String containerPrefix = "";
+        if (prefix == null) {
+            // style=form, explode=true, e.g. /pet?name=cat&type=manx
+            prefix = "";
+        } else {
+            // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
+            prefix = prefix + "[";
+            suffix = "]";
+            containerSuffix = "]";
+            containerPrefix = "[";
+        }
+
+        StringJoiner joiner = new StringJoiner("&");
+
+        // add `autoFuel` to the URL query string
+        if (getAutoFuel() != null) {
+            joiner.add(
+                    String.format(
+                            "%sautoFuel%s=%s",
+                            prefix,
+                            suffix,
+                            URLEncoder.encode(String.valueOf(getAutoFuel()), StandardCharsets.UTF_8)
+                                    .replaceAll("\\+", "%20")));
+        }
+
+        return joiner.toString();
+    }
 }
-

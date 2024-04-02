@@ -10,88 +10,60 @@
  * Do not edit the class manually.
  */
 
-
 package com.fireblocks.sdk.model;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonTypeName;
-import com.fasterxml.jackson.annotation.JsonValue;
-import java.math.BigDecimal;
-import java.util.Arrays;
-import org.junit.Assert;
-import org.junit.Ignore;
+
 import org.junit.Test;
 
-/**
- * Model tests for GetFilterParameter
- */
+/** Model tests for GetFilterParameter */
 public class GetFilterParameterTest {
     private final GetFilterParameter model = new GetFilterParameter();
 
-    /**
-     * Model tests for GetFilterParameter
-     */
+    /** Model tests for GetFilterParameter */
     @Test
     public void testGetFilterParameter() {
         // TODO: test GetFilterParameter
     }
 
-    /**
-     * Test the property 'id'
-     */
+    /** Test the property 'id' */
     @Test
     public void idTest() {
         // TODO: test id
     }
 
-    /**
-     * Test the property 'userId'
-     */
+    /** Test the property 'userId' */
     @Test
     public void userIdTest() {
         // TODO: test userId
     }
 
-    /**
-     * Test the property 'vaultAccountId'
-     */
+    /** Test the property 'vaultAccountId' */
     @Test
     public void vaultAccountIdTest() {
         // TODO: test vaultAccountId
     }
 
-    /**
-     * Test the property 'connectionMethod'
-     */
+    /** Test the property 'connectionMethod' */
     @Test
     public void connectionMethodTest() {
         // TODO: test connectionMethod
     }
 
-    /**
-     * Test the property 'feeLevel'
-     */
+    /** Test the property 'feeLevel' */
     @Test
     public void feeLevelTest() {
         // TODO: test feeLevel
     }
 
-    /**
-     * Test the property 'appUrl'
-     */
+    /** Test the property 'appUrl' */
     @Test
     public void appUrlTest() {
         // TODO: test appUrl
     }
 
-    /**
-     * Test the property 'appName'
-     */
+    /** Test the property 'appName' */
     @Test
     public void appNameTest() {
         // TODO: test appName
     }
-
 }

@@ -10,23 +10,16 @@
  * Do not edit the class manually.
  */
 
-
 package com.fireblocks.sdk.model;
 
-import org.junit.Assert;
-import org.junit.Ignore;
+
 import org.junit.Test;
 
-/**
- * Model tests for PolicySrcOrDestType
- */
+/** Model tests for PolicySrcOrDestType */
 public class PolicySrcOrDestTypeTest {
-    /**
-     * Model tests for PolicySrcOrDestType
-     */
+    /** Model tests for PolicySrcOrDestType */
     @Test
     public void testPolicySrcOrDestType() {
         // TODO: test PolicySrcOrDestType
     }
-
 }

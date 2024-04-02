@@ -10,27 +10,8 @@
  * Do not edit the class manually.
  */
 
-
 package com.fireblocks.sdk.model;
 
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
-import java.util.StringJoiner;
-import java.util.Objects;
-import java.util.Map;
-import java.util.HashMap;
-import com.fasterxml.jackson.annotation.JsonTypeName;
-import java.math.BigDecimal;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-
-import com.fasterxml.jackson.core.type.TypeReference;
-
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
@@ -46,6 +27,17 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 import com.fireblocks.sdk.JSON;
+import java.io.IOException;
+import java.math.BigDecimal;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.StringJoiner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 @JsonDeserialize(using = TransactionRequestAmount.TransactionRequestAmountDeserializer.class)
@@ -53,7 +45,8 @@ import com.fireblocks.sdk.JSON;
 public class TransactionRequestAmount extends AbstractOpenApiSchema {
     private static final Logger log = Logger.getLogger(TransactionRequestAmount.class.getName());
 
-    public static class TransactionRequestAmountSerializer extends StdSerializer<TransactionRequestAmount> {
+    public static class TransactionRequestAmountSerializer
+            extends StdSerializer<TransactionRequestAmount> {
         public TransactionRequestAmountSerializer(Class<TransactionRequestAmount> t) {
             super(t);
         }
@@ -63,12 +56,15 @@ public class TransactionRequestAmount extends AbstractOpenApiSchema {
         }
 
         @Override
-        public void serialize(TransactionRequestAmount value, JsonGenerator jgen, SerializerProvider provider) throws IOException, JsonProcessingException {
+        public void serialize(
+                TransactionRequestAmount value, JsonGenerator jgen, SerializerProvider provider)
+                throws IOException, JsonProcessingException {
             jgen.writeObject(value.getActualInstance());
         }
     }
 
-    public static class TransactionRequestAmountDeserializer extends StdDeserializer<TransactionRequestAmount> {
+    public static class TransactionRequestAmountDeserializer
+            extends StdDeserializer<TransactionRequestAmount> {
         public TransactionRequestAmountDeserializer() {
             this(TransactionRequestAmount.class);
         }
@@ -78,7 +74,8 @@ public class TransactionRequestAmount extends AbstractOpenApiSchema {
         }
 
         @Override
-        public TransactionRequestAmount deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException, JsonProcessingException {
+        public TransactionRequestAmount deserialize(JsonParser jp, DeserializationContext ctxt)
+                throws IOException, JsonProcessingException {
             JsonNode tree = jp.readValueAsTree();
             Object deserialized = null;
             boolean typeCoercion = ctxt.isEnabled(MapperFeature.ALLOW_COERCION_OF_SCALARS);
@@ -88,13 +85,29 @@ public class TransactionRequestAmount extends AbstractOpenApiSchema {
             try {
                 boolean attemptParsing = true;
                 // ensure that we respect type coercion as set on the client ObjectMapper
-                if (BigDecimal.class.equals(Integer.class) || BigDecimal.class.equals(Long.class) || BigDecimal.class.equals(Float.class) || BigDecimal.class.equals(Double.class) || BigDecimal.class.equals(Boolean.class) || BigDecimal.class.equals(String.class)) {
+                if (BigDecimal.class.equals(Integer.class)
+                        || BigDecimal.class.equals(Long.class)
+                        || BigDecimal.class.equals(Float.class)
+                        || BigDecimal.class.equals(Double.class)
+                        || BigDecimal.class.equals(Boolean.class)
+                        || BigDecimal.class.equals(String.class)) {
                     attemptParsing = typeCoercion;
                     if (!attemptParsing) {
-                        attemptParsing |= ((BigDecimal.class.equals(Integer.class) || BigDecimal.class.equals(Long.class)) && token == JsonToken.VALUE_NUMBER_INT);
-                        attemptParsing |= ((BigDecimal.class.equals(Float.class) || BigDecimal.class.equals(Double.class)) && token == JsonToken.VALUE_NUMBER_FLOAT);
-                        attemptParsing |= (BigDecimal.class.equals(Boolean.class) && (token == JsonToken.VALUE_FALSE || token == JsonToken.VALUE_TRUE));
-                        attemptParsing |= (BigDecimal.class.equals(String.class) && token == JsonToken.VALUE_STRING);
+                        attemptParsing |=
+                                ((BigDecimal.class.equals(Integer.class)
+                                                || BigDecimal.class.equals(Long.class))
+                                        && token == JsonToken.VALUE_NUMBER_INT);
+                        attemptParsing |=
+                                ((BigDecimal.class.equals(Float.class)
+                                                || BigDecimal.class.equals(Double.class))
+                                        && token == JsonToken.VALUE_NUMBER_FLOAT);
+                        attemptParsing |=
+                                (BigDecimal.class.equals(Boolean.class)
+                                        && (token == JsonToken.VALUE_FALSE
+                                                || token == JsonToken.VALUE_TRUE));
+                        attemptParsing |=
+                                (BigDecimal.class.equals(String.class)
+                                        && token == JsonToken.VALUE_STRING);
                     }
                 }
                 if (attemptParsing) {
@@ -114,13 +127,29 @@ public class TransactionRequestAmount extends AbstractOpenApiSchema {
             try {
                 boolean attemptParsing = true;
                 // ensure that we respect type coercion as set on the client ObjectMapper
-                if (String.class.equals(Integer.class) || String.class.equals(Long.class) || String.class.equals(Float.class) || String.class.equals(Double.class) || String.class.equals(Boolean.class) || String.class.equals(String.class)) {
+                if (String.class.equals(Integer.class)
+                        || String.class.equals(Long.class)
+                        || String.class.equals(Float.class)
+                        || String.class.equals(Double.class)
+                        || String.class.equals(Boolean.class)
+                        || String.class.equals(String.class)) {
                     attemptParsing = typeCoercion;
                     if (!attemptParsing) {
-                        attemptParsing |= ((String.class.equals(Integer.class) || String.class.equals(Long.class)) && token == JsonToken.VALUE_NUMBER_INT);
-                        attemptParsing |= ((String.class.equals(Float.class) || String.class.equals(Double.class)) && token == JsonToken.VALUE_NUMBER_FLOAT);
-                        attemptParsing |= (String.class.equals(Boolean.class) && (token == JsonToken.VALUE_FALSE || token == JsonToken.VALUE_TRUE));
-                        attemptParsing |= (String.class.equals(String.class) && token == JsonToken.VALUE_STRING);
+                        attemptParsing |=
+                                ((String.class.equals(Integer.class)
+                                                || String.class.equals(Long.class))
+                                        && token == JsonToken.VALUE_NUMBER_INT);
+                        attemptParsing |=
+                                ((String.class.equals(Float.class)
+                                                || String.class.equals(Double.class))
+                                        && token == JsonToken.VALUE_NUMBER_FLOAT);
+                        attemptParsing |=
+                                (String.class.equals(Boolean.class)
+                                        && (token == JsonToken.VALUE_FALSE
+                                                || token == JsonToken.VALUE_TRUE));
+                        attemptParsing |=
+                                (String.class.equals(String.class)
+                                        && token == JsonToken.VALUE_STRING);
                     }
                 }
                 if (attemptParsing) {
@@ -141,15 +170,19 @@ public class TransactionRequestAmount extends AbstractOpenApiSchema {
                 ret.setActualInstance(deserialized);
                 return ret;
             }
-            throw new IOException(String.format("Failed deserialization for TransactionRequestAmount: %d classes match result, expected 1", match));
+            throw new IOException(
+                    String.format(
+                            "Failed deserialization for TransactionRequestAmount: %d classes match"
+                                    + " result, expected 1",
+                            match));
         }
 
-        /**
-         * Handle deserialization of the 'null' value.
-         */
+        /** Handle deserialization of the 'null' value. */
         @Override
-        public TransactionRequestAmount getNullValue(DeserializationContext ctxt) throws JsonMappingException {
-            throw new JsonMappingException(ctxt.getParser(), "TransactionRequestAmount cannot be null");
+        public TransactionRequestAmount getNullValue(DeserializationContext ctxt)
+                throws JsonMappingException {
+            throw new JsonMappingException(
+                    ctxt.getParser(), "TransactionRequestAmount cannot be null");
         }
     }
 
@@ -173,7 +206,8 @@ public class TransactionRequestAmount extends AbstractOpenApiSchema {
     static {
         schemas.put("BigDecimal", BigDecimal.class);
         schemas.put("String", String.class);
-        JSON.registerDescendants(TransactionRequestAmount.class, Collections.unmodifiableMap(schemas));
+        JSON.registerDescendants(
+                TransactionRequestAmount.class, Collections.unmodifiableMap(schemas));
     }
 
     @Override
@@ -182,12 +216,11 @@ public class TransactionRequestAmount extends AbstractOpenApiSchema {
     }
 
     /**
-     * Set the instance that matches the oneOf child schema, check
-     * the instance parameter is valid against the oneOf child schemas:
-     * BigDecimal, String
+     * Set the instance that matches the oneOf child schema, check the instance parameter is valid
+     * against the oneOf child schemas: BigDecimal, String
      *
-     * It could be an instance of the 'oneOf' schemas.
-     * The oneOf child schemas may themselves be a composed schema (allOf, anyOf, oneOf).
+     * <p>It could be an instance of the 'oneOf' schemas. The oneOf child schemas may themselves be
+     * a composed schema (allOf, anyOf, oneOf).
      */
     @Override
     public void setActualInstance(Object instance) {
@@ -205,8 +238,7 @@ public class TransactionRequestAmount extends AbstractOpenApiSchema {
     }
 
     /**
-     * Get the actual instance, which can be the following:
-     * BigDecimal, String
+     * Get the actual instance, which can be the following: BigDecimal, String
      *
      * @return The actual instance (BigDecimal, String)
      */
@@ -216,75 +248,87 @@ public class TransactionRequestAmount extends AbstractOpenApiSchema {
     }
 
     /**
-     * Get the actual instance of `BigDecimal`. If the actual instance is not `BigDecimal`,
-     * the ClassCastException will be thrown.
+     * Get the actual instance of `BigDecimal`. If the actual instance is not `BigDecimal`, the
+     * ClassCastException will be thrown.
      *
      * @return The actual instance of `BigDecimal`
      * @throws ClassCastException if the instance is not `BigDecimal`
      */
     public BigDecimal getBigDecimal() throws ClassCastException {
-        return (BigDecimal)super.getActualInstance();
+        return (BigDecimal) super.getActualInstance();
     }
 
     /**
-     * Get the actual instance of `String`. If the actual instance is not `String`,
-     * the ClassCastException will be thrown.
+     * Get the actual instance of `String`. If the actual instance is not `String`, the
+     * ClassCastException will be thrown.
      *
      * @return The actual instance of `String`
      * @throws ClassCastException if the instance is not `String`
      */
     public String getString() throws ClassCastException {
-        return (String)super.getActualInstance();
+        return (String) super.getActualInstance();
     }
 
-
-
-  /**
-   * Convert the instance into URL query string.
-   *
-   * @return URL query string
-   */
-  public String toUrlQueryString() {
-    return toUrlQueryString(null);
-  }
-
-  /**
-   * Convert the instance into URL query string.
-   *
-   * @param prefix prefix of the query string
-   * @return URL query string
-   */
-  public String toUrlQueryString(String prefix) {
-    String suffix = "";
-    String containerSuffix = "";
-    String containerPrefix = "";
-    if (prefix == null) {
-      // style=form, explode=true, e.g. /pet?name=cat&type=manx
-      prefix = "";
-    } else {
-      // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
-      prefix = prefix + "[";
-      suffix = "]";
-      containerSuffix = "]";
-      containerPrefix = "[";
+    /**
+     * Convert the instance into URL query string.
+     *
+     * @return URL query string
+     */
+    public String toUrlQueryString() {
+        return toUrlQueryString(null);
     }
 
-    StringJoiner joiner = new StringJoiner("&");
-
-    if (getActualInstance() instanceof String) {
-        if (getActualInstance() != null) {
-          joiner.add(String.format("%sone_of_0%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getActualInstance()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    /**
+     * Convert the instance into URL query string.
+     *
+     * @param prefix prefix of the query string
+     * @return URL query string
+     */
+    public String toUrlQueryString(String prefix) {
+        String suffix = "";
+        String containerSuffix = "";
+        String containerPrefix = "";
+        if (prefix == null) {
+            // style=form, explode=true, e.g. /pet?name=cat&type=manx
+            prefix = "";
+        } else {
+            // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
+            prefix = prefix + "[";
+            suffix = "]";
+            containerSuffix = "]";
+            containerPrefix = "[";
         }
-        return joiner.toString();
-    }
-    if (getActualInstance() instanceof BigDecimal) {
-        if (getActualInstance() != null) {
-          joiner.add(String.format("%sone_of_1%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getActualInstance()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
-        }
-        return joiner.toString();
-    }
-    return null;
-  }
 
+        StringJoiner joiner = new StringJoiner("&");
+
+        if (getActualInstance() instanceof String) {
+            if (getActualInstance() != null) {
+                joiner.add(
+                        String.format(
+                                "%sone_of_0%s=%s",
+                                prefix,
+                                suffix,
+                                URLEncoder.encode(
+                                                String.valueOf(getActualInstance()),
+                                                StandardCharsets.UTF_8)
+                                        .replaceAll("\\+", "%20")));
+            }
+            return joiner.toString();
+        }
+        if (getActualInstance() instanceof BigDecimal) {
+            if (getActualInstance() != null) {
+                joiner.add(
+                        String.format(
+                                "%sone_of_1%s=%s",
+                                prefix,
+                                suffix,
+                                URLEncoder.encode(
+                                                String.valueOf(getActualInstance()),
+                                                StandardCharsets.UTF_8)
+                                        .replaceAll("\\+", "%20")));
+            }
+            return joiner.toString();
+        }
+        return null;
+    }
 }
-

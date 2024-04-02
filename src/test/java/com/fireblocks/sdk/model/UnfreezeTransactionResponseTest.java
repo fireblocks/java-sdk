@@ -10,39 +10,24 @@
  * Do not edit the class manually.
  */
 
-
 package com.fireblocks.sdk.model;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonTypeName;
-import com.fasterxml.jackson.annotation.JsonValue;
-import java.util.Arrays;
-import org.junit.Assert;
-import org.junit.Ignore;
+
 import org.junit.Test;
 
-/**
- * Model tests for UnfreezeTransactionResponse
- */
+/** Model tests for UnfreezeTransactionResponse */
 public class UnfreezeTransactionResponseTest {
     private final UnfreezeTransactionResponse model = new UnfreezeTransactionResponse();
 
-    /**
-     * Model tests for UnfreezeTransactionResponse
-     */
+    /** Model tests for UnfreezeTransactionResponse */
     @Test
     public void testUnfreezeTransactionResponse() {
         // TODO: test UnfreezeTransactionResponse
     }
 
-    /**
-     * Test the property 'success'
-     */
+    /** Test the property 'success' */
     @Test
     public void successTest() {
         // TODO: test success
     }
-
 }

@@ -10,250 +10,253 @@
  * Do not edit the class manually.
  */
 
-
 package com.fireblocks.sdk.model;
 
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
-import java.util.StringJoiner;
-import java.util.Objects;
-import java.util.Map;
-import java.util.HashMap;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonTypeName;
-import com.fasterxml.jackson.annotation.JsonValue;
-import java.math.BigDecimal;
-import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import java.math.BigDecimal;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.Objects;
+import java.util.StringJoiner;
 
-
-/**
- * SignedMessageSignature
- */
+/** SignedMessageSignature */
 @JsonPropertyOrder({
-  SignedMessageSignature.JSON_PROPERTY_FULL_SIG,
-  SignedMessageSignature.JSON_PROPERTY_R,
-  SignedMessageSignature.JSON_PROPERTY_S,
-  SignedMessageSignature.JSON_PROPERTY_V
+    SignedMessageSignature.JSON_PROPERTY_FULL_SIG,
+    SignedMessageSignature.JSON_PROPERTY_R,
+    SignedMessageSignature.JSON_PROPERTY_S,
+    SignedMessageSignature.JSON_PROPERTY_V
 })
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class SignedMessageSignature {
-  public static final String JSON_PROPERTY_FULL_SIG = "fullSig";
-  private String fullSig;
+    public static final String JSON_PROPERTY_FULL_SIG = "fullSig";
+    private String fullSig;
 
-  public static final String JSON_PROPERTY_R = "r";
-  private String r;
+    public static final String JSON_PROPERTY_R = "r";
+    private String r;
 
-  public static final String JSON_PROPERTY_S = "s";
-  private String s;
+    public static final String JSON_PROPERTY_S = "s";
+    private String s;
 
-  public static final String JSON_PROPERTY_V = "v";
-  private BigDecimal v;
+    public static final String JSON_PROPERTY_V = "v";
+    private BigDecimal v;
 
-  public SignedMessageSignature() { 
-  }
+    public SignedMessageSignature() {}
 
-  public SignedMessageSignature fullSig(String fullSig) {
-    this.fullSig = fullSig;
-    return this;
-  }
-
-   /**
-   * Get fullSig
-   * @return fullSig
-  **/
-  @jakarta.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_FULL_SIG)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getFullSig() {
-    return fullSig;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_FULL_SIG)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setFullSig(String fullSig) {
-    this.fullSig = fullSig;
-  }
-
-
-  public SignedMessageSignature r(String r) {
-    this.r = r;
-    return this;
-  }
-
-   /**
-   * Get r
-   * @return r
-  **/
-  @jakarta.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_R)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getR() {
-    return r;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_R)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setR(String r) {
-    this.r = r;
-  }
-
-
-  public SignedMessageSignature s(String s) {
-    this.s = s;
-    return this;
-  }
-
-   /**
-   * Get s
-   * @return s
-  **/
-  @jakarta.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_S)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getS() {
-    return s;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_S)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setS(String s) {
-    this.s = s;
-  }
-
-
-  public SignedMessageSignature v(BigDecimal v) {
-    this.v = v;
-    return this;
-  }
-
-   /**
-   * Get v
-   * @return v
-  **/
-  @jakarta.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_V)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public BigDecimal getV() {
-    return v;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_V)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setV(BigDecimal v) {
-    this.v = v;
-  }
-
-
-  /**
-   * Return true if this SignedMessage_signature object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    SignedMessageSignature signedMessageSignature = (SignedMessageSignature) o;
-    return Objects.equals(this.fullSig, signedMessageSignature.fullSig) &&
-        Objects.equals(this.r, signedMessageSignature.r) &&
-        Objects.equals(this.s, signedMessageSignature.s) &&
-        Objects.equals(this.v, signedMessageSignature.v);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(fullSig, r, s, v);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class SignedMessageSignature {\n");
-    sb.append("    fullSig: ").append(toIndentedString(fullSig)).append("\n");
-    sb.append("    r: ").append(toIndentedString(r)).append("\n");
-    sb.append("    s: ").append(toIndentedString(s)).append("\n");
-    sb.append("    v: ").append(toIndentedString(v)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
-  }
-
-  /**
-   * Convert the instance into URL query string.
-   *
-   * @return URL query string
-   */
-  public String toUrlQueryString() {
-    return toUrlQueryString(null);
-  }
-
-  /**
-   * Convert the instance into URL query string.
-   *
-   * @param prefix prefix of the query string
-   * @return URL query string
-   */
-  public String toUrlQueryString(String prefix) {
-    String suffix = "";
-    String containerSuffix = "";
-    String containerPrefix = "";
-    if (prefix == null) {
-      // style=form, explode=true, e.g. /pet?name=cat&type=manx
-      prefix = "";
-    } else {
-      // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
-      prefix = prefix + "[";
-      suffix = "]";
-      containerSuffix = "]";
-      containerPrefix = "[";
+    public SignedMessageSignature fullSig(String fullSig) {
+        this.fullSig = fullSig;
+        return this;
     }
 
-    StringJoiner joiner = new StringJoiner("&");
-
-    // add `fullSig` to the URL query string
-    if (getFullSig() != null) {
-      joiner.add(String.format("%sfullSig%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getFullSig()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    /**
+     * Get fullSig
+     *
+     * @return fullSig
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_FULL_SIG)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getFullSig() {
+        return fullSig;
     }
 
-    // add `r` to the URL query string
-    if (getR() != null) {
-      joiner.add(String.format("%sr%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getR()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    @JsonProperty(JSON_PROPERTY_FULL_SIG)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setFullSig(String fullSig) {
+        this.fullSig = fullSig;
     }
 
-    // add `s` to the URL query string
-    if (getS() != null) {
-      joiner.add(String.format("%ss%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getS()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    public SignedMessageSignature r(String r) {
+        this.r = r;
+        return this;
     }
 
-    // add `v` to the URL query string
-    if (getV() != null) {
-      joiner.add(String.format("%sv%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getV()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    /**
+     * Get r
+     *
+     * @return r
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_R)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getR() {
+        return r;
     }
 
-    return joiner.toString();
-  }
+    @JsonProperty(JSON_PROPERTY_R)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setR(String r) {
+        this.r = r;
+    }
+
+    public SignedMessageSignature s(String s) {
+        this.s = s;
+        return this;
+    }
+
+    /**
+     * Get s
+     *
+     * @return s
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_S)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getS() {
+        return s;
+    }
+
+    @JsonProperty(JSON_PROPERTY_S)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setS(String s) {
+        this.s = s;
+    }
+
+    public SignedMessageSignature v(BigDecimal v) {
+        this.v = v;
+        return this;
+    }
+
+    /**
+     * Get v
+     *
+     * @return v
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_V)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public BigDecimal getV() {
+        return v;
+    }
+
+    @JsonProperty(JSON_PROPERTY_V)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setV(BigDecimal v) {
+        this.v = v;
+    }
+
+    /** Return true if this SignedMessage_signature object is equal to o. */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        SignedMessageSignature signedMessageSignature = (SignedMessageSignature) o;
+        return Objects.equals(this.fullSig, signedMessageSignature.fullSig)
+                && Objects.equals(this.r, signedMessageSignature.r)
+                && Objects.equals(this.s, signedMessageSignature.s)
+                && Objects.equals(this.v, signedMessageSignature.v);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(fullSig, r, s, v);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class SignedMessageSignature {\n");
+        sb.append("    fullSig: ").append(toIndentedString(fullSig)).append("\n");
+        sb.append("    r: ").append(toIndentedString(r)).append("\n");
+        sb.append("    s: ").append(toIndentedString(s)).append("\n");
+        sb.append("    v: ").append(toIndentedString(v)).append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces (except the first
+     * line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
+
+    /**
+     * Convert the instance into URL query string.
+     *
+     * @return URL query string
+     */
+    public String toUrlQueryString() {
+        return toUrlQueryString(null);
+    }
+
+    /**
+     * Convert the instance into URL query string.
+     *
+     * @param prefix prefix of the query string
+     * @return URL query string
+     */
+    public String toUrlQueryString(String prefix) {
+        String suffix = "";
+        String containerSuffix = "";
+        String containerPrefix = "";
+        if (prefix == null) {
+            // style=form, explode=true, e.g. /pet?name=cat&type=manx
+            prefix = "";
+        } else {
+            // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
+            prefix = prefix + "[";
+            suffix = "]";
+            containerSuffix = "]";
+            containerPrefix = "[";
+        }
+
+        StringJoiner joiner = new StringJoiner("&");
+
+        // add `fullSig` to the URL query string
+        if (getFullSig() != null) {
+            joiner.add(
+                    String.format(
+                            "%sfullSig%s=%s",
+                            prefix,
+                            suffix,
+                            URLEncoder.encode(String.valueOf(getFullSig()), StandardCharsets.UTF_8)
+                                    .replaceAll("\\+", "%20")));
+        }
+
+        // add `r` to the URL query string
+        if (getR() != null) {
+            joiner.add(
+                    String.format(
+                            "%sr%s=%s",
+                            prefix,
+                            suffix,
+                            URLEncoder.encode(String.valueOf(getR()), StandardCharsets.UTF_8)
+                                    .replaceAll("\\+", "%20")));
+        }
+
+        // add `s` to the URL query string
+        if (getS() != null) {
+            joiner.add(
+                    String.format(
+                            "%ss%s=%s",
+                            prefix,
+                            suffix,
+                            URLEncoder.encode(String.valueOf(getS()), StandardCharsets.UTF_8)
+                                    .replaceAll("\\+", "%20")));
+        }
+
+        // add `v` to the URL query string
+        if (getV() != null) {
+            joiner.add(
+                    String.format(
+                            "%sv%s=%s",
+                            prefix,
+                            suffix,
+                            URLEncoder.encode(String.valueOf(getV()), StandardCharsets.UTF_8)
+                                    .replaceAll("\\+", "%20")));
+        }
+
+        return joiner.toString();
+    }
 }
-

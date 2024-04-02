@@ -10,42 +10,24 @@
  * Do not edit the class manually.
  */
 
-
 package com.fireblocks.sdk.model;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonTypeName;
-import com.fasterxml.jackson.annotation.JsonValue;
-import com.fireblocks.sdk.model.SrcOrDestAttributesInner;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import org.junit.Assert;
-import org.junit.Ignore;
+
 import org.junit.Test;
 
-/**
- * Model tests for PolicyRuleSrc
- */
+/** Model tests for PolicyRuleSrc */
 public class PolicyRuleSrcTest {
     private final PolicyRuleSrc model = new PolicyRuleSrc();
 
-    /**
-     * Model tests for PolicyRuleSrc
-     */
+    /** Model tests for PolicyRuleSrc */
     @Test
     public void testPolicyRuleSrc() {
         // TODO: test PolicyRuleSrc
     }
 
-    /**
-     * Test the property 'ids'
-     */
+    /** Test the property 'ids' */
     @Test
     public void idsTest() {
         // TODO: test ids
     }
-
 }

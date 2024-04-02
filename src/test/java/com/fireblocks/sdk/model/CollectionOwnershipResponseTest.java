@@ -10,79 +10,54 @@
  * Do not edit the class manually.
  */
 
-
 package com.fireblocks.sdk.model;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonTypeName;
-import com.fasterxml.jackson.annotation.JsonValue;
-import java.util.Arrays;
-import org.junit.Assert;
-import org.junit.Ignore;
+
 import org.junit.Test;
 
-/**
- * Model tests for CollectionOwnershipResponse
- */
+/** Model tests for CollectionOwnershipResponse */
 public class CollectionOwnershipResponseTest {
     private final CollectionOwnershipResponse model = new CollectionOwnershipResponse();
 
-    /**
-     * Model tests for CollectionOwnershipResponse
-     */
+    /** Model tests for CollectionOwnershipResponse */
     @Test
     public void testCollectionOwnershipResponse() {
         // TODO: test CollectionOwnershipResponse
     }
 
-    /**
-     * Test the property 'id'
-     */
+    /** Test the property 'id' */
     @Test
     public void idTest() {
         // TODO: test id
     }
 
-    /**
-     * Test the property 'name'
-     */
+    /** Test the property 'name' */
     @Test
     public void nameTest() {
         // TODO: test name
     }
 
-    /**
-     * Test the property 'symbol'
-     */
+    /** Test the property 'symbol' */
     @Test
     public void symbolTest() {
         // TODO: test symbol
     }
 
-    /**
-     * Test the property 'standard'
-     */
+    /** Test the property 'standard' */
     @Test
     public void standardTest() {
         // TODO: test standard
     }
 
-    /**
-     * Test the property 'blockchainDescriptor'
-     */
+    /** Test the property 'blockchainDescriptor' */
     @Test
     public void blockchainDescriptorTest() {
         // TODO: test blockchainDescriptor
     }
 
-    /**
-     * Test the property 'contractAddress'
-     */
+    /** Test the property 'contractAddress' */
     @Test
     public void contractAddressTest() {
         // TODO: test contractAddress
     }
-
 }

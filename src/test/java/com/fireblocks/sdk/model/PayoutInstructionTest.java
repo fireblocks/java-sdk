@@ -10,57 +10,36 @@
  * Do not edit the class manually.
  */
 
-
 package com.fireblocks.sdk.model;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonTypeName;
-import com.fasterxml.jackson.annotation.JsonValue;
-import com.fireblocks.sdk.model.InstructionAmount;
-import com.fireblocks.sdk.model.PayeeAccount;
-import java.util.Arrays;
-import org.junit.Assert;
-import org.junit.Ignore;
+
 import org.junit.Test;
 
-/**
- * Model tests for PayoutInstruction
- */
+/** Model tests for PayoutInstruction */
 public class PayoutInstructionTest {
     private final PayoutInstruction model = new PayoutInstruction();
 
-    /**
-     * Model tests for PayoutInstruction
-     */
+    /** Model tests for PayoutInstruction */
     @Test
     public void testPayoutInstruction() {
         // TODO: test PayoutInstruction
     }
 
-    /**
-     * Test the property 'id'
-     */
+    /** Test the property 'id' */
     @Test
     public void idTest() {
         // TODO: test id
     }
 
-    /**
-     * Test the property 'payeeAccount'
-     */
+    /** Test the property 'payeeAccount' */
     @Test
     public void payeeAccountTest() {
         // TODO: test payeeAccount
     }
 
-    /**
-     * Test the property 'amount'
-     */
+    /** Test the property 'amount' */
     @Test
     public void amountTest() {
         // TODO: test amount
     }
-
 }

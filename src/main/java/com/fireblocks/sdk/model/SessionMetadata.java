@@ -10,249 +10,254 @@
  * Do not edit the class manually.
  */
 
-
 package com.fireblocks.sdk.model;
 
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
-import java.util.StringJoiner;
-import java.util.Objects;
-import java.util.Map;
-import java.util.HashMap;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonTypeName;
-import com.fasterxml.jackson.annotation.JsonValue;
-import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.Objects;
+import java.util.StringJoiner;
 
-
-/**
- * SessionMetadata
- */
+/** SessionMetadata */
 @JsonPropertyOrder({
-  SessionMetadata.JSON_PROPERTY_APP_URL,
-  SessionMetadata.JSON_PROPERTY_APP_NAME,
-  SessionMetadata.JSON_PROPERTY_APP_DESCRIPTION,
-  SessionMetadata.JSON_PROPERTY_APP_ICON
+    SessionMetadata.JSON_PROPERTY_APP_URL,
+    SessionMetadata.JSON_PROPERTY_APP_NAME,
+    SessionMetadata.JSON_PROPERTY_APP_DESCRIPTION,
+    SessionMetadata.JSON_PROPERTY_APP_ICON
 })
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class SessionMetadata {
-  public static final String JSON_PROPERTY_APP_URL = "appUrl";
-  private String appUrl;
+    public static final String JSON_PROPERTY_APP_URL = "appUrl";
+    private String appUrl;
 
-  public static final String JSON_PROPERTY_APP_NAME = "appName";
-  private String appName;
+    public static final String JSON_PROPERTY_APP_NAME = "appName";
+    private String appName;
 
-  public static final String JSON_PROPERTY_APP_DESCRIPTION = "appDescription";
-  private String appDescription;
+    public static final String JSON_PROPERTY_APP_DESCRIPTION = "appDescription";
+    private String appDescription;
 
-  public static final String JSON_PROPERTY_APP_ICON = "appIcon";
-  private String appIcon;
+    public static final String JSON_PROPERTY_APP_ICON = "appIcon";
+    private String appIcon;
 
-  public SessionMetadata() { 
-  }
+    public SessionMetadata() {}
 
-  public SessionMetadata appUrl(String appUrl) {
-    this.appUrl = appUrl;
-    return this;
-  }
-
-   /**
-   * Get appUrl
-   * @return appUrl
-  **/
-  @jakarta.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_APP_URL)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public String getAppUrl() {
-    return appUrl;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_APP_URL)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setAppUrl(String appUrl) {
-    this.appUrl = appUrl;
-  }
-
-
-  public SessionMetadata appName(String appName) {
-    this.appName = appName;
-    return this;
-  }
-
-   /**
-   * Get appName
-   * @return appName
-  **/
-  @jakarta.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_APP_NAME)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getAppName() {
-    return appName;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_APP_NAME)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setAppName(String appName) {
-    this.appName = appName;
-  }
-
-
-  public SessionMetadata appDescription(String appDescription) {
-    this.appDescription = appDescription;
-    return this;
-  }
-
-   /**
-   * Get appDescription
-   * @return appDescription
-  **/
-  @jakarta.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_APP_DESCRIPTION)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getAppDescription() {
-    return appDescription;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_APP_DESCRIPTION)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setAppDescription(String appDescription) {
-    this.appDescription = appDescription;
-  }
-
-
-  public SessionMetadata appIcon(String appIcon) {
-    this.appIcon = appIcon;
-    return this;
-  }
-
-   /**
-   * Get appIcon
-   * @return appIcon
-  **/
-  @jakarta.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_APP_ICON)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getAppIcon() {
-    return appIcon;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_APP_ICON)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setAppIcon(String appIcon) {
-    this.appIcon = appIcon;
-  }
-
-
-  /**
-   * Return true if this SessionMetadata object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    SessionMetadata sessionMetadata = (SessionMetadata) o;
-    return Objects.equals(this.appUrl, sessionMetadata.appUrl) &&
-        Objects.equals(this.appName, sessionMetadata.appName) &&
-        Objects.equals(this.appDescription, sessionMetadata.appDescription) &&
-        Objects.equals(this.appIcon, sessionMetadata.appIcon);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(appUrl, appName, appDescription, appIcon);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class SessionMetadata {\n");
-    sb.append("    appUrl: ").append(toIndentedString(appUrl)).append("\n");
-    sb.append("    appName: ").append(toIndentedString(appName)).append("\n");
-    sb.append("    appDescription: ").append(toIndentedString(appDescription)).append("\n");
-    sb.append("    appIcon: ").append(toIndentedString(appIcon)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
-  }
-
-  /**
-   * Convert the instance into URL query string.
-   *
-   * @return URL query string
-   */
-  public String toUrlQueryString() {
-    return toUrlQueryString(null);
-  }
-
-  /**
-   * Convert the instance into URL query string.
-   *
-   * @param prefix prefix of the query string
-   * @return URL query string
-   */
-  public String toUrlQueryString(String prefix) {
-    String suffix = "";
-    String containerSuffix = "";
-    String containerPrefix = "";
-    if (prefix == null) {
-      // style=form, explode=true, e.g. /pet?name=cat&type=manx
-      prefix = "";
-    } else {
-      // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
-      prefix = prefix + "[";
-      suffix = "]";
-      containerSuffix = "]";
-      containerPrefix = "[";
+    public SessionMetadata appUrl(String appUrl) {
+        this.appUrl = appUrl;
+        return this;
     }
 
-    StringJoiner joiner = new StringJoiner("&");
-
-    // add `appUrl` to the URL query string
-    if (getAppUrl() != null) {
-      joiner.add(String.format("%sappUrl%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getAppUrl()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    /**
+     * Get appUrl
+     *
+     * @return appUrl
+     */
+    @jakarta.annotation.Nonnull
+    @JsonProperty(JSON_PROPERTY_APP_URL)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public String getAppUrl() {
+        return appUrl;
     }
 
-    // add `appName` to the URL query string
-    if (getAppName() != null) {
-      joiner.add(String.format("%sappName%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getAppName()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    @JsonProperty(JSON_PROPERTY_APP_URL)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setAppUrl(String appUrl) {
+        this.appUrl = appUrl;
     }
 
-    // add `appDescription` to the URL query string
-    if (getAppDescription() != null) {
-      joiner.add(String.format("%sappDescription%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getAppDescription()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    public SessionMetadata appName(String appName) {
+        this.appName = appName;
+        return this;
     }
 
-    // add `appIcon` to the URL query string
-    if (getAppIcon() != null) {
-      joiner.add(String.format("%sappIcon%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getAppIcon()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    /**
+     * Get appName
+     *
+     * @return appName
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_APP_NAME)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getAppName() {
+        return appName;
     }
 
-    return joiner.toString();
-  }
+    @JsonProperty(JSON_PROPERTY_APP_NAME)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setAppName(String appName) {
+        this.appName = appName;
+    }
+
+    public SessionMetadata appDescription(String appDescription) {
+        this.appDescription = appDescription;
+        return this;
+    }
+
+    /**
+     * Get appDescription
+     *
+     * @return appDescription
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_APP_DESCRIPTION)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getAppDescription() {
+        return appDescription;
+    }
+
+    @JsonProperty(JSON_PROPERTY_APP_DESCRIPTION)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setAppDescription(String appDescription) {
+        this.appDescription = appDescription;
+    }
+
+    public SessionMetadata appIcon(String appIcon) {
+        this.appIcon = appIcon;
+        return this;
+    }
+
+    /**
+     * Get appIcon
+     *
+     * @return appIcon
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_APP_ICON)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getAppIcon() {
+        return appIcon;
+    }
+
+    @JsonProperty(JSON_PROPERTY_APP_ICON)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setAppIcon(String appIcon) {
+        this.appIcon = appIcon;
+    }
+
+    /** Return true if this SessionMetadata object is equal to o. */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        SessionMetadata sessionMetadata = (SessionMetadata) o;
+        return Objects.equals(this.appUrl, sessionMetadata.appUrl)
+                && Objects.equals(this.appName, sessionMetadata.appName)
+                && Objects.equals(this.appDescription, sessionMetadata.appDescription)
+                && Objects.equals(this.appIcon, sessionMetadata.appIcon);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(appUrl, appName, appDescription, appIcon);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class SessionMetadata {\n");
+        sb.append("    appUrl: ").append(toIndentedString(appUrl)).append("\n");
+        sb.append("    appName: ").append(toIndentedString(appName)).append("\n");
+        sb.append("    appDescription: ").append(toIndentedString(appDescription)).append("\n");
+        sb.append("    appIcon: ").append(toIndentedString(appIcon)).append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces (except the first
+     * line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
+
+    /**
+     * Convert the instance into URL query string.
+     *
+     * @return URL query string
+     */
+    public String toUrlQueryString() {
+        return toUrlQueryString(null);
+    }
+
+    /**
+     * Convert the instance into URL query string.
+     *
+     * @param prefix prefix of the query string
+     * @return URL query string
+     */
+    public String toUrlQueryString(String prefix) {
+        String suffix = "";
+        String containerSuffix = "";
+        String containerPrefix = "";
+        if (prefix == null) {
+            // style=form, explode=true, e.g. /pet?name=cat&type=manx
+            prefix = "";
+        } else {
+            // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
+            prefix = prefix + "[";
+            suffix = "]";
+            containerSuffix = "]";
+            containerPrefix = "[";
+        }
+
+        StringJoiner joiner = new StringJoiner("&");
+
+        // add `appUrl` to the URL query string
+        if (getAppUrl() != null) {
+            joiner.add(
+                    String.format(
+                            "%sappUrl%s=%s",
+                            prefix,
+                            suffix,
+                            URLEncoder.encode(String.valueOf(getAppUrl()), StandardCharsets.UTF_8)
+                                    .replaceAll("\\+", "%20")));
+        }
+
+        // add `appName` to the URL query string
+        if (getAppName() != null) {
+            joiner.add(
+                    String.format(
+                            "%sappName%s=%s",
+                            prefix,
+                            suffix,
+                            URLEncoder.encode(String.valueOf(getAppName()), StandardCharsets.UTF_8)
+                                    .replaceAll("\\+", "%20")));
+        }
+
+        // add `appDescription` to the URL query string
+        if (getAppDescription() != null) {
+            joiner.add(
+                    String.format(
+                            "%sappDescription%s=%s",
+                            prefix,
+                            suffix,
+                            URLEncoder.encode(
+                                            String.valueOf(getAppDescription()),
+                                            StandardCharsets.UTF_8)
+                                    .replaceAll("\\+", "%20")));
+        }
+
+        // add `appIcon` to the URL query string
+        if (getAppIcon() != null) {
+            joiner.add(
+                    String.format(
+                            "%sappIcon%s=%s",
+                            prefix,
+                            suffix,
+                            URLEncoder.encode(String.valueOf(getAppIcon()), StandardCharsets.UTF_8)
+                                    .replaceAll("\\+", "%20")));
+        }
+
+        return joiner.toString();
+    }
 }
-

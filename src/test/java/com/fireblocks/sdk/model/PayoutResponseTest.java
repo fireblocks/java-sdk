@@ -10,111 +10,72 @@
  * Do not edit the class manually.
  */
 
-
 package com.fireblocks.sdk.model;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonTypeName;
-import com.fasterxml.jackson.annotation.JsonValue;
-import com.fireblocks.sdk.model.PaymentAccountResponse;
-import com.fireblocks.sdk.model.PayoutInitMethod;
-import com.fireblocks.sdk.model.PayoutInstructionResponse;
-import com.fireblocks.sdk.model.PayoutState;
-import com.fireblocks.sdk.model.PayoutStatus;
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import org.junit.Assert;
-import org.junit.Ignore;
+
 import org.junit.Test;
 
-/**
- * Model tests for PayoutResponse
- */
+/** Model tests for PayoutResponse */
 public class PayoutResponseTest {
     private final PayoutResponse model = new PayoutResponse();
 
-    /**
-     * Model tests for PayoutResponse
-     */
+    /** Model tests for PayoutResponse */
     @Test
     public void testPayoutResponse() {
         // TODO: test PayoutResponse
     }
 
-    /**
-     * Test the property 'payoutId'
-     */
+    /** Test the property 'payoutId' */
     @Test
     public void payoutIdTest() {
         // TODO: test payoutId
     }
 
-    /**
-     * Test the property 'paymentAccount'
-     */
+    /** Test the property 'paymentAccount' */
     @Test
     public void paymentAccountTest() {
         // TODO: test paymentAccount
     }
 
-    /**
-     * Test the property 'createdAt'
-     */
+    /** Test the property 'createdAt' */
     @Test
     public void createdAtTest() {
         // TODO: test createdAt
     }
 
-    /**
-     * Test the property 'state'
-     */
+    /** Test the property 'state' */
     @Test
     public void stateTest() {
         // TODO: test state
     }
 
-    /**
-     * Test the property 'status'
-     */
+    /** Test the property 'status' */
     @Test
     public void statusTest() {
         // TODO: test status
     }
 
-    /**
-     * Test the property 'reasonOfFailure'
-     */
+    /** Test the property 'reasonOfFailure' */
     @Test
     public void reasonOfFailureTest() {
         // TODO: test reasonOfFailure
     }
 
-    /**
-     * Test the property 'initMethod'
-     */
+    /** Test the property 'initMethod' */
     @Test
     public void initMethodTest() {
         // TODO: test initMethod
     }
 
-    /**
-     * Test the property 'instructionSet'
-     */
+    /** Test the property 'instructionSet' */
     @Test
     public void instructionSetTest() {
         // TODO: test instructionSet
     }
 
-    /**
-     * Test the property 'reportUrl'
-     */
+    /** Test the property 'reportUrl' */
     @Test
     public void reportUrlTest() {
         // TODO: test reportUrl
     }
-
 }

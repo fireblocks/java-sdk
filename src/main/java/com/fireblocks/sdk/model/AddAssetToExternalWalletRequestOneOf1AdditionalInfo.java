@@ -10,34 +10,8 @@
  * Do not edit the class manually.
  */
 
-
 package com.fireblocks.sdk.model;
 
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
-import java.util.StringJoiner;
-import java.util.Objects;
-import java.util.Map;
-import java.util.HashMap;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonTypeName;
-import com.fasterxml.jackson.annotation.JsonValue;
-import com.fireblocks.sdk.model.AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf;
-import com.fireblocks.sdk.model.AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf1;
-import com.fireblocks.sdk.model.AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf2;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-
-import com.fasterxml.jackson.core.type.TypeReference;
-
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
@@ -53,15 +27,32 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 import com.fireblocks.sdk.JSON;
+import java.io.IOException;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.StringJoiner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
-@JsonDeserialize(using = AddAssetToExternalWalletRequestOneOf1AdditionalInfo.AddAssetToExternalWalletRequestOneOf1AdditionalInfoDeserializer.class)
-@JsonSerialize(using = AddAssetToExternalWalletRequestOneOf1AdditionalInfo.AddAssetToExternalWalletRequestOneOf1AdditionalInfoSerializer.class)
+@JsonDeserialize(
+        using =
+                AddAssetToExternalWalletRequestOneOf1AdditionalInfo
+                        .AddAssetToExternalWalletRequestOneOf1AdditionalInfoDeserializer.class)
+@JsonSerialize(
+        using =
+                AddAssetToExternalWalletRequestOneOf1AdditionalInfo
+                        .AddAssetToExternalWalletRequestOneOf1AdditionalInfoSerializer.class)
 public class AddAssetToExternalWalletRequestOneOf1AdditionalInfo extends AbstractOpenApiSchema {
-    private static final Logger log = Logger.getLogger(AddAssetToExternalWalletRequestOneOf1AdditionalInfo.class.getName());
+    private static final Logger log =
+            Logger.getLogger(AddAssetToExternalWalletRequestOneOf1AdditionalInfo.class.getName());
 
-    public static class AddAssetToExternalWalletRequestOneOf1AdditionalInfoSerializer extends StdSerializer<AddAssetToExternalWalletRequestOneOf1AdditionalInfo> {
-        public AddAssetToExternalWalletRequestOneOf1AdditionalInfoSerializer(Class<AddAssetToExternalWalletRequestOneOf1AdditionalInfo> t) {
+    public static class AddAssetToExternalWalletRequestOneOf1AdditionalInfoSerializer
+            extends StdSerializer<AddAssetToExternalWalletRequestOneOf1AdditionalInfo> {
+        public AddAssetToExternalWalletRequestOneOf1AdditionalInfoSerializer(
+                Class<AddAssetToExternalWalletRequestOneOf1AdditionalInfo> t) {
             super(t);
         }
 
@@ -70,12 +61,17 @@ public class AddAssetToExternalWalletRequestOneOf1AdditionalInfo extends Abstrac
         }
 
         @Override
-        public void serialize(AddAssetToExternalWalletRequestOneOf1AdditionalInfo value, JsonGenerator jgen, SerializerProvider provider) throws IOException, JsonProcessingException {
+        public void serialize(
+                AddAssetToExternalWalletRequestOneOf1AdditionalInfo value,
+                JsonGenerator jgen,
+                SerializerProvider provider)
+                throws IOException, JsonProcessingException {
             jgen.writeObject(value.getActualInstance());
         }
     }
 
-    public static class AddAssetToExternalWalletRequestOneOf1AdditionalInfoDeserializer extends StdDeserializer<AddAssetToExternalWalletRequestOneOf1AdditionalInfo> {
+    public static class AddAssetToExternalWalletRequestOneOf1AdditionalInfoDeserializer
+            extends StdDeserializer<AddAssetToExternalWalletRequestOneOf1AdditionalInfo> {
         public AddAssetToExternalWalletRequestOneOf1AdditionalInfoDeserializer() {
             this(AddAssetToExternalWalletRequestOneOf1AdditionalInfo.class);
         }
@@ -85,7 +81,9 @@ public class AddAssetToExternalWalletRequestOneOf1AdditionalInfo extends Abstrac
         }
 
         @Override
-        public AddAssetToExternalWalletRequestOneOf1AdditionalInfo deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException, JsonProcessingException {
+        public AddAssetToExternalWalletRequestOneOf1AdditionalInfo deserialize(
+                JsonParser jp, DeserializationContext ctxt)
+                throws IOException, JsonProcessingException {
             JsonNode tree = jp.readValueAsTree();
             Object deserialized = null;
             boolean typeCoercion = ctxt.isEnabled(MapperFeature.ALLOW_COERCION_OF_SCALARS);
@@ -95,94 +93,224 @@ public class AddAssetToExternalWalletRequestOneOf1AdditionalInfo extends Abstrac
             try {
                 boolean attemptParsing = true;
                 // ensure that we respect type coercion as set on the client ObjectMapper
-                if (AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf.class.equals(Integer.class) || AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf.class.equals(Long.class) || AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf.class.equals(Float.class) || AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf.class.equals(Double.class) || AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf.class.equals(Boolean.class) || AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf.class.equals(String.class)) {
+                if (AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf.class.equals(
+                                Integer.class)
+                        || AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf.class.equals(
+                                Long.class)
+                        || AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf.class.equals(
+                                Float.class)
+                        || AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf.class.equals(
+                                Double.class)
+                        || AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf.class.equals(
+                                Boolean.class)
+                        || AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf.class.equals(
+                                String.class)) {
                     attemptParsing = typeCoercion;
                     if (!attemptParsing) {
-                        attemptParsing |= ((AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf.class.equals(Integer.class) || AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf.class.equals(Long.class)) && token == JsonToken.VALUE_NUMBER_INT);
-                        attemptParsing |= ((AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf.class.equals(Float.class) || AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf.class.equals(Double.class)) && token == JsonToken.VALUE_NUMBER_FLOAT);
-                        attemptParsing |= (AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf.class.equals(Boolean.class) && (token == JsonToken.VALUE_FALSE || token == JsonToken.VALUE_TRUE));
-                        attemptParsing |= (AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf.class.equals(String.class) && token == JsonToken.VALUE_STRING);
+                        attemptParsing |=
+                                ((AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf.class
+                                                        .equals(Integer.class)
+                                                || AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf
+                                                        .class
+                                                        .equals(Long.class))
+                                        && token == JsonToken.VALUE_NUMBER_INT);
+                        attemptParsing |=
+                                ((AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf.class
+                                                        .equals(Float.class)
+                                                || AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf
+                                                        .class
+                                                        .equals(Double.class))
+                                        && token == JsonToken.VALUE_NUMBER_FLOAT);
+                        attemptParsing |=
+                                (AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf.class
+                                                .equals(Boolean.class)
+                                        && (token == JsonToken.VALUE_FALSE
+                                                || token == JsonToken.VALUE_TRUE));
+                        attemptParsing |=
+                                (AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf.class
+                                                .equals(String.class)
+                                        && token == JsonToken.VALUE_STRING);
                     }
                 }
                 if (attemptParsing) {
-                    deserialized = tree.traverse(jp.getCodec()).readValueAs(AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf.class);
+                    deserialized =
+                            tree.traverse(jp.getCodec())
+                                    .readValueAs(
+                                            AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf
+                                                    .class);
                     // TODO: there is no validation against JSON schema constraints
                     // (min, max, enum, pattern...), this does not perform a strict JSON
                     // validation, which means the 'match' count may be higher than it should be.
                     match++;
-                    log.log(Level.FINER, "Input data matches schema 'AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf'");
+                    log.log(
+                            Level.FINER,
+                            "Input data matches schema"
+                                + " 'AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf'");
                 }
             } catch (Exception e) {
                 // deserialization failed, continue
-                log.log(Level.FINER, "Input data does not match schema 'AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf'", e);
+                log.log(
+                        Level.FINER,
+                        "Input data does not match schema"
+                                + " 'AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf'",
+                        e);
             }
 
             // deserialize AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf1
             try {
                 boolean attemptParsing = true;
                 // ensure that we respect type coercion as set on the client ObjectMapper
-                if (AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf1.class.equals(Integer.class) || AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf1.class.equals(Long.class) || AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf1.class.equals(Float.class) || AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf1.class.equals(Double.class) || AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf1.class.equals(Boolean.class) || AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf1.class.equals(String.class)) {
+                if (AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf1.class.equals(
+                                Integer.class)
+                        || AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf1.class.equals(
+                                Long.class)
+                        || AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf1.class.equals(
+                                Float.class)
+                        || AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf1.class.equals(
+                                Double.class)
+                        || AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf1.class.equals(
+                                Boolean.class)
+                        || AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf1.class.equals(
+                                String.class)) {
                     attemptParsing = typeCoercion;
                     if (!attemptParsing) {
-                        attemptParsing |= ((AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf1.class.equals(Integer.class) || AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf1.class.equals(Long.class)) && token == JsonToken.VALUE_NUMBER_INT);
-                        attemptParsing |= ((AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf1.class.equals(Float.class) || AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf1.class.equals(Double.class)) && token == JsonToken.VALUE_NUMBER_FLOAT);
-                        attemptParsing |= (AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf1.class.equals(Boolean.class) && (token == JsonToken.VALUE_FALSE || token == JsonToken.VALUE_TRUE));
-                        attemptParsing |= (AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf1.class.equals(String.class) && token == JsonToken.VALUE_STRING);
+                        attemptParsing |=
+                                ((AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf1.class
+                                                        .equals(Integer.class)
+                                                || AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf1
+                                                        .class
+                                                        .equals(Long.class))
+                                        && token == JsonToken.VALUE_NUMBER_INT);
+                        attemptParsing |=
+                                ((AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf1.class
+                                                        .equals(Float.class)
+                                                || AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf1
+                                                        .class
+                                                        .equals(Double.class))
+                                        && token == JsonToken.VALUE_NUMBER_FLOAT);
+                        attemptParsing |=
+                                (AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf1.class
+                                                .equals(Boolean.class)
+                                        && (token == JsonToken.VALUE_FALSE
+                                                || token == JsonToken.VALUE_TRUE));
+                        attemptParsing |=
+                                (AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf1.class
+                                                .equals(String.class)
+                                        && token == JsonToken.VALUE_STRING);
                     }
                 }
                 if (attemptParsing) {
-                    deserialized = tree.traverse(jp.getCodec()).readValueAs(AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf1.class);
+                    deserialized =
+                            tree.traverse(jp.getCodec())
+                                    .readValueAs(
+                                            AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf1
+                                                    .class);
                     // TODO: there is no validation against JSON schema constraints
                     // (min, max, enum, pattern...), this does not perform a strict JSON
                     // validation, which means the 'match' count may be higher than it should be.
                     match++;
-                    log.log(Level.FINER, "Input data matches schema 'AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf1'");
+                    log.log(
+                            Level.FINER,
+                            "Input data matches schema"
+                                + " 'AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf1'");
                 }
             } catch (Exception e) {
                 // deserialization failed, continue
-                log.log(Level.FINER, "Input data does not match schema 'AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf1'", e);
+                log.log(
+                        Level.FINER,
+                        "Input data does not match schema"
+                                + " 'AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf1'",
+                        e);
             }
 
             // deserialize AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf2
             try {
                 boolean attemptParsing = true;
                 // ensure that we respect type coercion as set on the client ObjectMapper
-                if (AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf2.class.equals(Integer.class) || AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf2.class.equals(Long.class) || AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf2.class.equals(Float.class) || AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf2.class.equals(Double.class) || AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf2.class.equals(Boolean.class) || AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf2.class.equals(String.class)) {
+                if (AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf2.class.equals(
+                                Integer.class)
+                        || AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf2.class.equals(
+                                Long.class)
+                        || AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf2.class.equals(
+                                Float.class)
+                        || AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf2.class.equals(
+                                Double.class)
+                        || AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf2.class.equals(
+                                Boolean.class)
+                        || AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf2.class.equals(
+                                String.class)) {
                     attemptParsing = typeCoercion;
                     if (!attemptParsing) {
-                        attemptParsing |= ((AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf2.class.equals(Integer.class) || AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf2.class.equals(Long.class)) && token == JsonToken.VALUE_NUMBER_INT);
-                        attemptParsing |= ((AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf2.class.equals(Float.class) || AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf2.class.equals(Double.class)) && token == JsonToken.VALUE_NUMBER_FLOAT);
-                        attemptParsing |= (AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf2.class.equals(Boolean.class) && (token == JsonToken.VALUE_FALSE || token == JsonToken.VALUE_TRUE));
-                        attemptParsing |= (AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf2.class.equals(String.class) && token == JsonToken.VALUE_STRING);
+                        attemptParsing |=
+                                ((AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf2.class
+                                                        .equals(Integer.class)
+                                                || AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf2
+                                                        .class
+                                                        .equals(Long.class))
+                                        && token == JsonToken.VALUE_NUMBER_INT);
+                        attemptParsing |=
+                                ((AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf2.class
+                                                        .equals(Float.class)
+                                                || AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf2
+                                                        .class
+                                                        .equals(Double.class))
+                                        && token == JsonToken.VALUE_NUMBER_FLOAT);
+                        attemptParsing |=
+                                (AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf2.class
+                                                .equals(Boolean.class)
+                                        && (token == JsonToken.VALUE_FALSE
+                                                || token == JsonToken.VALUE_TRUE));
+                        attemptParsing |=
+                                (AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf2.class
+                                                .equals(String.class)
+                                        && token == JsonToken.VALUE_STRING);
                     }
                 }
                 if (attemptParsing) {
-                    deserialized = tree.traverse(jp.getCodec()).readValueAs(AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf2.class);
+                    deserialized =
+                            tree.traverse(jp.getCodec())
+                                    .readValueAs(
+                                            AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf2
+                                                    .class);
                     // TODO: there is no validation against JSON schema constraints
                     // (min, max, enum, pattern...), this does not perform a strict JSON
                     // validation, which means the 'match' count may be higher than it should be.
                     match++;
-                    log.log(Level.FINER, "Input data matches schema 'AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf2'");
+                    log.log(
+                            Level.FINER,
+                            "Input data matches schema"
+                                + " 'AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf2'");
                 }
             } catch (Exception e) {
                 // deserialization failed, continue
-                log.log(Level.FINER, "Input data does not match schema 'AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf2'", e);
+                log.log(
+                        Level.FINER,
+                        "Input data does not match schema"
+                                + " 'AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf2'",
+                        e);
             }
 
             if (match == 1) {
-                AddAssetToExternalWalletRequestOneOf1AdditionalInfo ret = new AddAssetToExternalWalletRequestOneOf1AdditionalInfo();
+                AddAssetToExternalWalletRequestOneOf1AdditionalInfo ret =
+                        new AddAssetToExternalWalletRequestOneOf1AdditionalInfo();
                 ret.setActualInstance(deserialized);
                 return ret;
             }
-            throw new IOException(String.format("Failed deserialization for AddAssetToExternalWalletRequestOneOf1AdditionalInfo: %d classes match result, expected 1", match));
+            throw new IOException(
+                    String.format(
+                            "Failed deserialization for"
+                                + " AddAssetToExternalWalletRequestOneOf1AdditionalInfo: %d classes"
+                                + " match result, expected 1",
+                            match));
         }
 
-        /**
-         * Handle deserialization of the 'null' value.
-         */
+        /** Handle deserialization of the 'null' value. */
         @Override
-        public AddAssetToExternalWalletRequestOneOf1AdditionalInfo getNullValue(DeserializationContext ctxt) throws JsonMappingException {
-            throw new JsonMappingException(ctxt.getParser(), "AddAssetToExternalWalletRequestOneOf1AdditionalInfo cannot be null");
+        public AddAssetToExternalWalletRequestOneOf1AdditionalInfo getNullValue(
+                DeserializationContext ctxt) throws JsonMappingException {
+            throw new JsonMappingException(
+                    ctxt.getParser(),
+                    "AddAssetToExternalWalletRequestOneOf1AdditionalInfo cannot be null");
         }
     }
 
@@ -193,26 +321,37 @@ public class AddAssetToExternalWalletRequestOneOf1AdditionalInfo extends Abstrac
         super("oneOf", Boolean.FALSE);
     }
 
-    public AddAssetToExternalWalletRequestOneOf1AdditionalInfo(AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf o) {
+    public AddAssetToExternalWalletRequestOneOf1AdditionalInfo(
+            AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf o) {
         super("oneOf", Boolean.FALSE);
         setActualInstance(o);
     }
 
-    public AddAssetToExternalWalletRequestOneOf1AdditionalInfo(AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf1 o) {
+    public AddAssetToExternalWalletRequestOneOf1AdditionalInfo(
+            AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf1 o) {
         super("oneOf", Boolean.FALSE);
         setActualInstance(o);
     }
 
-    public AddAssetToExternalWalletRequestOneOf1AdditionalInfo(AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf2 o) {
+    public AddAssetToExternalWalletRequestOneOf1AdditionalInfo(
+            AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf2 o) {
         super("oneOf", Boolean.FALSE);
         setActualInstance(o);
     }
 
     static {
-        schemas.put("AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf", AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf.class);
-        schemas.put("AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf1", AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf1.class);
-        schemas.put("AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf2", AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf2.class);
-        JSON.registerDescendants(AddAssetToExternalWalletRequestOneOf1AdditionalInfo.class, Collections.unmodifiableMap(schemas));
+        schemas.put(
+                "AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf",
+                AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf.class);
+        schemas.put(
+                "AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf1",
+                AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf1.class);
+        schemas.put(
+                "AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf2",
+                AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf2.class);
+        JSON.registerDescendants(
+                AddAssetToExternalWalletRequestOneOf1AdditionalInfo.class,
+                Collections.unmodifiableMap(schemas));
     }
 
     @Override
@@ -221,38 +360,56 @@ public class AddAssetToExternalWalletRequestOneOf1AdditionalInfo extends Abstrac
     }
 
     /**
-     * Set the instance that matches the oneOf child schema, check
-     * the instance parameter is valid against the oneOf child schemas:
-     * AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf, AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf1, AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf2
+     * Set the instance that matches the oneOf child schema, check the instance parameter is valid
+     * against the oneOf child schemas: AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf,
+     * AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf1,
+     * AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf2
      *
-     * It could be an instance of the 'oneOf' schemas.
-     * The oneOf child schemas may themselves be a composed schema (allOf, anyOf, oneOf).
+     * <p>It could be an instance of the 'oneOf' schemas. The oneOf child schemas may themselves be
+     * a composed schema (allOf, anyOf, oneOf).
      */
     @Override
     public void setActualInstance(Object instance) {
-        if (JSON.isInstanceOf(AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf.class, instance, new HashSet<Class<?>>())) {
+        if (JSON.isInstanceOf(
+                AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf.class,
+                instance,
+                new HashSet<Class<?>>())) {
             super.setActualInstance(instance);
             return;
         }
 
-        if (JSON.isInstanceOf(AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf1.class, instance, new HashSet<Class<?>>())) {
+        if (JSON.isInstanceOf(
+                AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf1.class,
+                instance,
+                new HashSet<Class<?>>())) {
             super.setActualInstance(instance);
             return;
         }
 
-        if (JSON.isInstanceOf(AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf2.class, instance, new HashSet<Class<?>>())) {
+        if (JSON.isInstanceOf(
+                AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf2.class,
+                instance,
+                new HashSet<Class<?>>())) {
             super.setActualInstance(instance);
             return;
         }
 
-        throw new RuntimeException("Invalid instance type. Must be AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf, AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf1, AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf2");
+        throw new RuntimeException(
+                "Invalid instance type. Must be"
+                        + " AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf,"
+                        + " AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf1,"
+                        + " AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf2");
     }
 
     /**
      * Get the actual instance, which can be the following:
-     * AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf, AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf1, AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf2
+     * AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf,
+     * AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf1,
+     * AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf2
      *
-     * @return The actual instance (AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf, AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf1, AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf2)
+     * @return The actual instance (AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf,
+     *     AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf1,
+     *     AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf2)
      */
     @Override
     public Object getActualInstance() {
@@ -260,92 +417,114 @@ public class AddAssetToExternalWalletRequestOneOf1AdditionalInfo extends Abstrac
     }
 
     /**
-     * Get the actual instance of `AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf`. If the actual instance is not `AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf`,
-     * the ClassCastException will be thrown.
+     * Get the actual instance of `AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf`. If the
+     * actual instance is not `AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf`, the
+     * ClassCastException will be thrown.
      *
      * @return The actual instance of `AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf`
-     * @throws ClassCastException if the instance is not `AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf`
+     * @throws ClassCastException if the instance is not
+     *     `AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf`
      */
-    public AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf getAddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf() throws ClassCastException {
-        return (AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf)super.getActualInstance();
+    public AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf
+            getAddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf()
+                    throws ClassCastException {
+        return (AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf) super.getActualInstance();
     }
 
     /**
-     * Get the actual instance of `AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf1`. If the actual instance is not `AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf1`,
-     * the ClassCastException will be thrown.
+     * Get the actual instance of `AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf1`. If
+     * the actual instance is not `AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf1`, the
+     * ClassCastException will be thrown.
      *
      * @return The actual instance of `AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf1`
-     * @throws ClassCastException if the instance is not `AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf1`
+     * @throws ClassCastException if the instance is not
+     *     `AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf1`
      */
-    public AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf1 getAddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf1() throws ClassCastException {
-        return (AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf1)super.getActualInstance();
+    public AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf1
+            getAddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf1()
+                    throws ClassCastException {
+        return (AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf1)
+                super.getActualInstance();
     }
 
     /**
-     * Get the actual instance of `AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf2`. If the actual instance is not `AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf2`,
-     * the ClassCastException will be thrown.
+     * Get the actual instance of `AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf2`. If
+     * the actual instance is not `AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf2`, the
+     * ClassCastException will be thrown.
      *
      * @return The actual instance of `AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf2`
-     * @throws ClassCastException if the instance is not `AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf2`
+     * @throws ClassCastException if the instance is not
+     *     `AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf2`
      */
-    public AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf2 getAddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf2() throws ClassCastException {
-        return (AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf2)super.getActualInstance();
+    public AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf2
+            getAddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf2()
+                    throws ClassCastException {
+        return (AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf2)
+                super.getActualInstance();
     }
 
-
-
-  /**
-   * Convert the instance into URL query string.
-   *
-   * @return URL query string
-   */
-  public String toUrlQueryString() {
-    return toUrlQueryString(null);
-  }
-
-  /**
-   * Convert the instance into URL query string.
-   *
-   * @param prefix prefix of the query string
-   * @return URL query string
-   */
-  public String toUrlQueryString(String prefix) {
-    String suffix = "";
-    String containerSuffix = "";
-    String containerPrefix = "";
-    if (prefix == null) {
-      // style=form, explode=true, e.g. /pet?name=cat&type=manx
-      prefix = "";
-    } else {
-      // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
-      prefix = prefix + "[";
-      suffix = "]";
-      containerSuffix = "]";
-      containerPrefix = "[";
+    /**
+     * Convert the instance into URL query string.
+     *
+     * @return URL query string
+     */
+    public String toUrlQueryString() {
+        return toUrlQueryString(null);
     }
 
-    StringJoiner joiner = new StringJoiner("&");
-
-    if (getActualInstance() instanceof AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf) {
-        if (getActualInstance() != null) {
-          joiner.add(((AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf)getActualInstance()).toUrlQueryString(prefix + "one_of_0" + suffix));
+    /**
+     * Convert the instance into URL query string.
+     *
+     * @param prefix prefix of the query string
+     * @return URL query string
+     */
+    public String toUrlQueryString(String prefix) {
+        String suffix = "";
+        String containerSuffix = "";
+        String containerPrefix = "";
+        if (prefix == null) {
+            // style=form, explode=true, e.g. /pet?name=cat&type=manx
+            prefix = "";
+        } else {
+            // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
+            prefix = prefix + "[";
+            suffix = "]";
+            containerSuffix = "]";
+            containerPrefix = "[";
         }
-        return joiner.toString();
-    }
-    if (getActualInstance() instanceof AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf1) {
-        if (getActualInstance() != null) {
-          joiner.add(((AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf1)getActualInstance()).toUrlQueryString(prefix + "one_of_1" + suffix));
-        }
-        return joiner.toString();
-    }
-    if (getActualInstance() instanceof AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf2) {
-        if (getActualInstance() != null) {
-          joiner.add(((AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf2)getActualInstance()).toUrlQueryString(prefix + "one_of_2" + suffix));
-        }
-        return joiner.toString();
-    }
-    return null;
-  }
 
+        StringJoiner joiner = new StringJoiner("&");
+
+        if (getActualInstance()
+                instanceof AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf) {
+            if (getActualInstance() != null) {
+                joiner.add(
+                        ((AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf)
+                                        getActualInstance())
+                                .toUrlQueryString(prefix + "one_of_0" + suffix));
+            }
+            return joiner.toString();
+        }
+        if (getActualInstance()
+                instanceof AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf1) {
+            if (getActualInstance() != null) {
+                joiner.add(
+                        ((AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf1)
+                                        getActualInstance())
+                                .toUrlQueryString(prefix + "one_of_1" + suffix));
+            }
+            return joiner.toString();
+        }
+        if (getActualInstance()
+                instanceof AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf2) {
+            if (getActualInstance() != null) {
+                joiner.add(
+                        ((AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf2)
+                                        getActualInstance())
+                                .toUrlQueryString(prefix + "one_of_2" + suffix));
+            }
+            return joiner.toString();
+        }
+        return null;
+    }
 }
-

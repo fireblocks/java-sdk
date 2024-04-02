@@ -10,194 +10,186 @@
  * Do not edit the class manually.
  */
 
-
 package com.fireblocks.sdk.model;
 
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
-import java.util.StringJoiner;
-import java.util.Objects;
-import java.util.Map;
-import java.util.HashMap;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonTypeName;
-import com.fasterxml.jackson.annotation.JsonValue;
-import com.fireblocks.sdk.model.PaginatedAddressResponsePaging;
-import com.fireblocks.sdk.model.VaultWalletAddress;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+import java.util.StringJoiner;
 
-
-/**
- * PaginatedAddressResponse
- */
+/** PaginatedAddressResponse */
 @JsonPropertyOrder({
-  PaginatedAddressResponse.JSON_PROPERTY_ADDRESSES,
-  PaginatedAddressResponse.JSON_PROPERTY_PAGING
+    PaginatedAddressResponse.JSON_PROPERTY_ADDRESSES,
+    PaginatedAddressResponse.JSON_PROPERTY_PAGING
 })
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class PaginatedAddressResponse {
-  public static final String JSON_PROPERTY_ADDRESSES = "addresses";
-  private List<VaultWalletAddress> addresses;
+    public static final String JSON_PROPERTY_ADDRESSES = "addresses";
+    private List<VaultWalletAddress> addresses;
 
-  public static final String JSON_PROPERTY_PAGING = "paging";
-  private PaginatedAddressResponsePaging paging;
+    public static final String JSON_PROPERTY_PAGING = "paging";
+    private PaginatedAddressResponsePaging paging;
 
-  public PaginatedAddressResponse() { 
-  }
+    public PaginatedAddressResponse() {}
 
-  public PaginatedAddressResponse addresses(List<VaultWalletAddress> addresses) {
-    this.addresses = addresses;
-    return this;
-  }
-
-  public PaginatedAddressResponse addAddressesItem(VaultWalletAddress addressesItem) {
-    if (this.addresses == null) {
-      this.addresses = new ArrayList<>();
-    }
-    this.addresses.add(addressesItem);
-    return this;
-  }
-
-   /**
-   * Get addresses
-   * @return addresses
-  **/
-  @jakarta.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_ADDRESSES)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public List<VaultWalletAddress> getAddresses() {
-    return addresses;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_ADDRESSES)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setAddresses(List<VaultWalletAddress> addresses) {
-    this.addresses = addresses;
-  }
-
-
-  public PaginatedAddressResponse paging(PaginatedAddressResponsePaging paging) {
-    this.paging = paging;
-    return this;
-  }
-
-   /**
-   * Get paging
-   * @return paging
-  **/
-  @jakarta.annotation.Nullable
-  @JsonProperty(JSON_PROPERTY_PAGING)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public PaginatedAddressResponsePaging getPaging() {
-    return paging;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_PAGING)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setPaging(PaginatedAddressResponsePaging paging) {
-    this.paging = paging;
-  }
-
-
-  /**
-   * Return true if this PaginatedAddressResponse object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    PaginatedAddressResponse paginatedAddressResponse = (PaginatedAddressResponse) o;
-    return Objects.equals(this.addresses, paginatedAddressResponse.addresses) &&
-        Objects.equals(this.paging, paginatedAddressResponse.paging);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(addresses, paging);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class PaginatedAddressResponse {\n");
-    sb.append("    addresses: ").append(toIndentedString(addresses)).append("\n");
-    sb.append("    paging: ").append(toIndentedString(paging)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
-  }
-
-  /**
-   * Convert the instance into URL query string.
-   *
-   * @return URL query string
-   */
-  public String toUrlQueryString() {
-    return toUrlQueryString(null);
-  }
-
-  /**
-   * Convert the instance into URL query string.
-   *
-   * @param prefix prefix of the query string
-   * @return URL query string
-   */
-  public String toUrlQueryString(String prefix) {
-    String suffix = "";
-    String containerSuffix = "";
-    String containerPrefix = "";
-    if (prefix == null) {
-      // style=form, explode=true, e.g. /pet?name=cat&type=manx
-      prefix = "";
-    } else {
-      // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
-      prefix = prefix + "[";
-      suffix = "]";
-      containerSuffix = "]";
-      containerPrefix = "[";
+    public PaginatedAddressResponse addresses(List<VaultWalletAddress> addresses) {
+        this.addresses = addresses;
+        return this;
     }
 
-    StringJoiner joiner = new StringJoiner("&");
-
-    // add `addresses` to the URL query string
-    if (getAddresses() != null) {
-      for (int i = 0; i < getAddresses().size(); i++) {
-        if (getAddresses().get(i) != null) {
-          joiner.add(getAddresses().get(i).toUrlQueryString(String.format("%saddresses%s%s", prefix, suffix,
-          "".equals(suffix) ? "" : String.format("%s%d%s", containerPrefix, i, containerSuffix))));
+    public PaginatedAddressResponse addAddressesItem(VaultWalletAddress addressesItem) {
+        if (this.addresses == null) {
+            this.addresses = new ArrayList<>();
         }
-      }
+        this.addresses.add(addressesItem);
+        return this;
     }
 
-    // add `paging` to the URL query string
-    if (getPaging() != null) {
-      joiner.add(getPaging().toUrlQueryString(prefix + "paging" + suffix));
+    /**
+     * Get addresses
+     *
+     * @return addresses
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_ADDRESSES)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public List<VaultWalletAddress> getAddresses() {
+        return addresses;
     }
 
-    return joiner.toString();
-  }
+    @JsonProperty(JSON_PROPERTY_ADDRESSES)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setAddresses(List<VaultWalletAddress> addresses) {
+        this.addresses = addresses;
+    }
+
+    public PaginatedAddressResponse paging(PaginatedAddressResponsePaging paging) {
+        this.paging = paging;
+        return this;
+    }
+
+    /**
+     * Get paging
+     *
+     * @return paging
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_PAGING)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public PaginatedAddressResponsePaging getPaging() {
+        return paging;
+    }
+
+    @JsonProperty(JSON_PROPERTY_PAGING)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setPaging(PaginatedAddressResponsePaging paging) {
+        this.paging = paging;
+    }
+
+    /** Return true if this PaginatedAddressResponse object is equal to o. */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        PaginatedAddressResponse paginatedAddressResponse = (PaginatedAddressResponse) o;
+        return Objects.equals(this.addresses, paginatedAddressResponse.addresses)
+                && Objects.equals(this.paging, paginatedAddressResponse.paging);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(addresses, paging);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class PaginatedAddressResponse {\n");
+        sb.append("    addresses: ").append(toIndentedString(addresses)).append("\n");
+        sb.append("    paging: ").append(toIndentedString(paging)).append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces (except the first
+     * line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
+
+    /**
+     * Convert the instance into URL query string.
+     *
+     * @return URL query string
+     */
+    public String toUrlQueryString() {
+        return toUrlQueryString(null);
+    }
+
+    /**
+     * Convert the instance into URL query string.
+     *
+     * @param prefix prefix of the query string
+     * @return URL query string
+     */
+    public String toUrlQueryString(String prefix) {
+        String suffix = "";
+        String containerSuffix = "";
+        String containerPrefix = "";
+        if (prefix == null) {
+            // style=form, explode=true, e.g. /pet?name=cat&type=manx
+            prefix = "";
+        } else {
+            // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
+            prefix = prefix + "[";
+            suffix = "]";
+            containerSuffix = "]";
+            containerPrefix = "[";
+        }
+
+        StringJoiner joiner = new StringJoiner("&");
+
+        // add `addresses` to the URL query string
+        if (getAddresses() != null) {
+            for (int i = 0; i < getAddresses().size(); i++) {
+                if (getAddresses().get(i) != null) {
+                    joiner.add(
+                            getAddresses()
+                                    .get(i)
+                                    .toUrlQueryString(
+                                            String.format(
+                                                    "%saddresses%s%s",
+                                                    prefix,
+                                                    suffix,
+                                                    "".equals(suffix)
+                                                            ? ""
+                                                            : String.format(
+                                                                    "%s%d%s",
+                                                                    containerPrefix,
+                                                                    i,
+                                                                    containerSuffix))));
+                }
+            }
+        }
+
+        // add `paging` to the URL query string
+        if (getPaging() != null) {
+            joiner.add(getPaging().toUrlQueryString(prefix + "paging" + suffix));
+        }
+
+        return joiner.toString();
+    }
 }
-

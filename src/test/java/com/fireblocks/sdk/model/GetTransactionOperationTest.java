@@ -10,23 +10,16 @@
  * Do not edit the class manually.
  */
 
-
 package com.fireblocks.sdk.model;
 
-import org.junit.Assert;
-import org.junit.Ignore;
+
 import org.junit.Test;
 
-/**
- * Model tests for GetTransactionOperation
- */
+/** Model tests for GetTransactionOperation */
 public class GetTransactionOperationTest {
-    /**
-     * Model tests for GetTransactionOperation
-     */
+    /** Model tests for GetTransactionOperation */
     @Test
     public void testGetTransactionOperation() {
         // TODO: test GetTransactionOperation
     }
-
 }

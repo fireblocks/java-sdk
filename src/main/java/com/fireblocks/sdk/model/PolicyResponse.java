@@ -10,194 +10,183 @@
  * Do not edit the class manually.
  */
 
-
 package com.fireblocks.sdk.model;
 
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
-import java.util.StringJoiner;
-import java.util.Objects;
-import java.util.Map;
-import java.util.HashMap;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonTypeName;
-import com.fasterxml.jackson.annotation.JsonValue;
-import com.fireblocks.sdk.model.PolicyMetadata;
-import com.fireblocks.sdk.model.PolicyRule;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+import java.util.StringJoiner;
 
-
-/**
- * Response object for policy operations
- */
-@JsonPropertyOrder({
-  PolicyResponse.JSON_PROPERTY_RULES,
-  PolicyResponse.JSON_PROPERTY_METADATA
-})
+/** Response object for policy operations */
+@JsonPropertyOrder({PolicyResponse.JSON_PROPERTY_RULES, PolicyResponse.JSON_PROPERTY_METADATA})
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class PolicyResponse {
-  public static final String JSON_PROPERTY_RULES = "rules";
-  private List<PolicyRule> rules = new ArrayList<>();
+    public static final String JSON_PROPERTY_RULES = "rules";
+    private List<PolicyRule> rules = new ArrayList<>();
 
-  public static final String JSON_PROPERTY_METADATA = "metadata";
-  private PolicyMetadata metadata;
+    public static final String JSON_PROPERTY_METADATA = "metadata";
+    private PolicyMetadata metadata;
 
-  public PolicyResponse() { 
-  }
+    public PolicyResponse() {}
 
-  public PolicyResponse rules(List<PolicyRule> rules) {
-    this.rules = rules;
-    return this;
-  }
-
-  public PolicyResponse addRulesItem(PolicyRule rulesItem) {
-    if (this.rules == null) {
-      this.rules = new ArrayList<>();
-    }
-    this.rules.add(rulesItem);
-    return this;
-  }
-
-   /**
-   * A set of policy rules
-   * @return rules
-  **/
-  @jakarta.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_RULES)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public List<PolicyRule> getRules() {
-    return rules;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_RULES)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setRules(List<PolicyRule> rules) {
-    this.rules = rules;
-  }
-
-
-  public PolicyResponse metadata(PolicyMetadata metadata) {
-    this.metadata = metadata;
-    return this;
-  }
-
-   /**
-   * Get metadata
-   * @return metadata
-  **/
-  @jakarta.annotation.Nonnull
-  @JsonProperty(JSON_PROPERTY_METADATA)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-
-  public PolicyMetadata getMetadata() {
-    return metadata;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_METADATA)
-  @JsonInclude(value = JsonInclude.Include.ALWAYS)
-  public void setMetadata(PolicyMetadata metadata) {
-    this.metadata = metadata;
-  }
-
-
-  /**
-   * Return true if this PolicyResponse object is equal to o.
-   */
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    PolicyResponse policyResponse = (PolicyResponse) o;
-    return Objects.equals(this.rules, policyResponse.rules) &&
-        Objects.equals(this.metadata, policyResponse.metadata);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(rules, metadata);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class PolicyResponse {\n");
-    sb.append("    rules: ").append(toIndentedString(rules)).append("\n");
-    sb.append("    metadata: ").append(toIndentedString(metadata)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
-  }
-
-  /**
-   * Convert the instance into URL query string.
-   *
-   * @return URL query string
-   */
-  public String toUrlQueryString() {
-    return toUrlQueryString(null);
-  }
-
-  /**
-   * Convert the instance into URL query string.
-   *
-   * @param prefix prefix of the query string
-   * @return URL query string
-   */
-  public String toUrlQueryString(String prefix) {
-    String suffix = "";
-    String containerSuffix = "";
-    String containerPrefix = "";
-    if (prefix == null) {
-      // style=form, explode=true, e.g. /pet?name=cat&type=manx
-      prefix = "";
-    } else {
-      // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
-      prefix = prefix + "[";
-      suffix = "]";
-      containerSuffix = "]";
-      containerPrefix = "[";
+    public PolicyResponse rules(List<PolicyRule> rules) {
+        this.rules = rules;
+        return this;
     }
 
-    StringJoiner joiner = new StringJoiner("&");
-
-    // add `rules` to the URL query string
-    if (getRules() != null) {
-      for (int i = 0; i < getRules().size(); i++) {
-        if (getRules().get(i) != null) {
-          joiner.add(getRules().get(i).toUrlQueryString(String.format("%srules%s%s", prefix, suffix,
-          "".equals(suffix) ? "" : String.format("%s%d%s", containerPrefix, i, containerSuffix))));
+    public PolicyResponse addRulesItem(PolicyRule rulesItem) {
+        if (this.rules == null) {
+            this.rules = new ArrayList<>();
         }
-      }
+        this.rules.add(rulesItem);
+        return this;
     }
 
-    // add `metadata` to the URL query string
-    if (getMetadata() != null) {
-      joiner.add(getMetadata().toUrlQueryString(prefix + "metadata" + suffix));
+    /**
+     * A set of policy rules
+     *
+     * @return rules
+     */
+    @jakarta.annotation.Nonnull
+    @JsonProperty(JSON_PROPERTY_RULES)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public List<PolicyRule> getRules() {
+        return rules;
     }
 
-    return joiner.toString();
-  }
+    @JsonProperty(JSON_PROPERTY_RULES)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setRules(List<PolicyRule> rules) {
+        this.rules = rules;
+    }
+
+    public PolicyResponse metadata(PolicyMetadata metadata) {
+        this.metadata = metadata;
+        return this;
+    }
+
+    /**
+     * Get metadata
+     *
+     * @return metadata
+     */
+    @jakarta.annotation.Nonnull
+    @JsonProperty(JSON_PROPERTY_METADATA)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public PolicyMetadata getMetadata() {
+        return metadata;
+    }
+
+    @JsonProperty(JSON_PROPERTY_METADATA)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setMetadata(PolicyMetadata metadata) {
+        this.metadata = metadata;
+    }
+
+    /** Return true if this PolicyResponse object is equal to o. */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        PolicyResponse policyResponse = (PolicyResponse) o;
+        return Objects.equals(this.rules, policyResponse.rules)
+                && Objects.equals(this.metadata, policyResponse.metadata);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(rules, metadata);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class PolicyResponse {\n");
+        sb.append("    rules: ").append(toIndentedString(rules)).append("\n");
+        sb.append("    metadata: ").append(toIndentedString(metadata)).append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces (except the first
+     * line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
+
+    /**
+     * Convert the instance into URL query string.
+     *
+     * @return URL query string
+     */
+    public String toUrlQueryString() {
+        return toUrlQueryString(null);
+    }
+
+    /**
+     * Convert the instance into URL query string.
+     *
+     * @param prefix prefix of the query string
+     * @return URL query string
+     */
+    public String toUrlQueryString(String prefix) {
+        String suffix = "";
+        String containerSuffix = "";
+        String containerPrefix = "";
+        if (prefix == null) {
+            // style=form, explode=true, e.g. /pet?name=cat&type=manx
+            prefix = "";
+        } else {
+            // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
+            prefix = prefix + "[";
+            suffix = "]";
+            containerSuffix = "]";
+            containerPrefix = "[";
+        }
+
+        StringJoiner joiner = new StringJoiner("&");
+
+        // add `rules` to the URL query string
+        if (getRules() != null) {
+            for (int i = 0; i < getRules().size(); i++) {
+                if (getRules().get(i) != null) {
+                    joiner.add(
+                            getRules()
+                                    .get(i)
+                                    .toUrlQueryString(
+                                            String.format(
+                                                    "%srules%s%s",
+                                                    prefix,
+                                                    suffix,
+                                                    "".equals(suffix)
+                                                            ? ""
+                                                            : String.format(
+                                                                    "%s%d%s",
+                                                                    containerPrefix,
+                                                                    i,
+                                                                    containerSuffix))));
+                }
+            }
+        }
+
+        // add `metadata` to the URL query string
+        if (getMetadata() != null) {
+            joiner.add(getMetadata().toUrlQueryString(prefix + "metadata" + suffix));
+        }
+
+        return joiner.toString();
+    }
 }
-

@@ -10,27 +10,18 @@
  * Do not edit the class manually.
  */
 
-
 package com.fireblocks.sdk.model;
 
-import com.fasterxml.jackson.annotation.JsonTypeName;
-import java.math.BigDecimal;
-import org.junit.Assert;
-import org.junit.Ignore;
+
 import org.junit.Test;
 
-/**
- * Model tests for TransactionRequestNetworkFee
- */
+/** Model tests for TransactionRequestNetworkFee */
 public class TransactionRequestNetworkFeeTest {
     private final TransactionRequestNetworkFee model = new TransactionRequestNetworkFee();
 
-    /**
-     * Model tests for TransactionRequestNetworkFee
-     */
+    /** Model tests for TransactionRequestNetworkFee */
     @Test
     public void testTransactionRequestNetworkFee() {
         // TODO: test TransactionRequestNetworkFee
     }
-
 }

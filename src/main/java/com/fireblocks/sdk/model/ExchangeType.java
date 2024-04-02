@@ -10,117 +10,103 @@
  * Do not edit the class manually.
  */
 
-
 package com.fireblocks.sdk.model;
-
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
-import java.util.StringJoiner;
-import java.util.Objects;
-import java.util.Map;
-import java.util.HashMap;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
-/**
- * Gets or Sets ExchangeType
- */
+/** Gets or Sets ExchangeType */
 public enum ExchangeType {
-  
-  BINANCE("BINANCE"),
-  
-  BINANCEUS("BINANCEUS"),
-  
-  BITFINEX("BITFINEX"),
-  
-  BITHUMB("BITHUMB"),
-  
-  BITMEX("BITMEX"),
-  
-  BITSO("BITSO"),
-  
-  BITSTAMP("BITSTAMP"),
-  
-  BITTREX("BITTREX"),
-  
-  CIRCLE("CIRCLE"),
-  
-  COINBASEPRO("COINBASEPRO"),
-  
-  COINMETRO("COINMETRO"),
-  
-  COINSPRO("COINSPRO"),
-  
-  CRYPTOCOM("CRYPTOCOM"),
-  
-  DERIBIT("DERIBIT"),
-  
-  FTX("FTX"),
-  
-  FIXUS("FIXUS"),
-  
-  GEMINI("GEMINI"),
-  
-  HITBTC("HITBTC"),
-  
-  HUOBI("HUOBI"),
-  
-  KORBIT("KORBIT"),
-  
-  KRAKEN("KRAKEN"),
-  
-  LIQUID("LIQUID"),
-  
-  POLONIEX("POLONIEX"),
-  
-  OKCOIN("OKCOIN"),
-  
-  OKEX("OKEX"),
-  
-  SEEDCX("SEEDCX");
+    BINANCE("BINANCE"),
 
-  private String value;
+    BINANCEUS("BINANCEUS"),
 
-  ExchangeType(String value) {
-    this.value = value;
-  }
+    BITFINEX("BITFINEX"),
 
-  @JsonValue
-  public String getValue() {
-    return value;
-  }
+    BITHUMB("BITHUMB"),
 
-  @Override
-  public String toString() {
-    return String.valueOf(value);
-  }
+    BITMEX("BITMEX"),
 
-  @JsonCreator
-  public static ExchangeType fromValue(String value) {
-    for (ExchangeType b : ExchangeType.values()) {
-      if (b.value.equals(value)) {
-        return b;
-      }
-    }
-    throw new IllegalArgumentException("Unexpected value '" + value + "'");
-  }
+    BITSO("BITSO"),
 
-  /**
-   * Convert the instance into URL query string.
-   *
-   * @param prefix prefix of the query string
-   * @return URL query string
-   */
-  public String toUrlQueryString(String prefix) {
-    if (prefix == null) {
-      prefix = "";
+    BITSTAMP("BITSTAMP"),
+
+    BITTREX("BITTREX"),
+
+    CIRCLE("CIRCLE"),
+
+    COINBASEPRO("COINBASEPRO"),
+
+    COINMETRO("COINMETRO"),
+
+    COINSPRO("COINSPRO"),
+
+    CRYPTOCOM("CRYPTOCOM"),
+
+    DERIBIT("DERIBIT"),
+
+    FTX("FTX"),
+
+    FIXUS("FIXUS"),
+
+    GEMINI("GEMINI"),
+
+    HITBTC("HITBTC"),
+
+    HUOBI("HUOBI"),
+
+    KORBIT("KORBIT"),
+
+    KRAKEN("KRAKEN"),
+
+    LIQUID("LIQUID"),
+
+    POLONIEX("POLONIEX"),
+
+    OKCOIN("OKCOIN"),
+
+    OKEX("OKEX"),
+
+    SEEDCX("SEEDCX");
+
+    private String value;
+
+    ExchangeType(String value) {
+        this.value = value;
     }
 
-    return String.format("%s=%s", prefix, this.toString());
-  }
+    @JsonValue
+    public String getValue() {
+        return value;
+    }
 
+    @Override
+    public String toString() {
+        return String.valueOf(value);
+    }
+
+    @JsonCreator
+    public static ExchangeType fromValue(String value) {
+        for (ExchangeType b : ExchangeType.values()) {
+            if (b.value.equals(value)) {
+                return b;
+            }
+        }
+        throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
+
+    /**
+     * Convert the instance into URL query string.
+     *
+     * @param prefix prefix of the query string
+     * @return URL query string
+     */
+    public String toUrlQueryString(String prefix) {
+        if (prefix == null) {
+            prefix = "";
+        }
+
+        return String.format("%s=%s", prefix, this.toString());
+    }
 }
-

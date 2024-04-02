@@ -10,46 +10,36 @@
  * Do not edit the class manually.
  */
 
-
 package com.fireblocks.sdk.api;
 
+
 import com.fireblocks.sdk.ApiException;
-import com.fireblocks.sdk.model.ErrorSchema;
-import org.junit.Test;
-import org.junit.Ignore;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
+import com.fireblocks.sdk.ApiResponse;
 import java.util.concurrent.CompletableFuture;
+import org.junit.Ignore;
+import org.junit.Test;
 
-/**
- * API tests for WorkspaceApi
- */
+/** API tests for WorkspaceApi */
 @Ignore
 public class WorkspaceApiTest {
 
     private final WorkspaceApi api = new WorkspaceApi();
 
-    
     /**
      * Freeze Workspace
      *
-     * Freezes a Workspace so that ALL operations by ANY user are blocked.  You should only perform this action when the workspace faces imminent risk, such as when you have a security breach.  To unfreeze a workspace, the workspace Owner must submit a request to Fireblocks Support.  **NOTE:**  - This operation can only be performed by the workspace Owner - Your workspace continues to receive incoming transfers during this time. 
+     * <p>Freezes a Workspace so that ALL operations by ANY user are blocked. You should only
+     * perform this action when the workspace faces imminent risk, such as when you have a security
+     * breach. To unfreeze a workspace, the workspace Owner must submit a request to Fireblocks
+     * Support. **NOTE:** - This operation can only be performed by the workspace Owner - Your
+     * workspace continues to receive incoming transfers during this time.
      *
-     * @throws ApiException
-     *          if the Api call fails
+     * @throws ApiException if the Api call fails
      */
     @Test
     public void freezeWorkspaceTest() throws ApiException {
         String idempotencyKey = null;
-        
-        CompletableFuture<Void> response = api.freezeWorkspace(idempotencyKey);
-        
-        // TODO: test validations
+
+        CompletableFuture<ApiResponse<Void>> response = api.freezeWorkspace(idempotencyKey);
     }
-    
 }

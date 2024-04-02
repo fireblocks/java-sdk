@@ -10,67 +10,42 @@
  * Do not edit the class manually.
  */
 
-
 package com.fireblocks.sdk.model;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonTypeName;
-import com.fasterxml.jackson.annotation.JsonValue;
-import com.fireblocks.sdk.model.VaultAccount;
-import com.fireblocks.sdk.model.VaultAccountsPagedResponsePaging;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import org.junit.Assert;
-import org.junit.Ignore;
+
 import org.junit.Test;
 
-/**
- * Model tests for VaultAccountsPagedResponse
- */
+/** Model tests for VaultAccountsPagedResponse */
 public class VaultAccountsPagedResponseTest {
     private final VaultAccountsPagedResponse model = new VaultAccountsPagedResponse();
 
-    /**
-     * Model tests for VaultAccountsPagedResponse
-     */
+    /** Model tests for VaultAccountsPagedResponse */
     @Test
     public void testVaultAccountsPagedResponse() {
         // TODO: test VaultAccountsPagedResponse
     }
 
-    /**
-     * Test the property 'accounts'
-     */
+    /** Test the property 'accounts' */
     @Test
     public void accountsTest() {
         // TODO: test accounts
     }
 
-    /**
-     * Test the property 'paging'
-     */
+    /** Test the property 'paging' */
     @Test
     public void pagingTest() {
         // TODO: test paging
     }
 
-    /**
-     * Test the property 'previousUrl'
-     */
+    /** Test the property 'previousUrl' */
     @Test
     public void previousUrlTest() {
         // TODO: test previousUrl
     }
 
-    /**
-     * Test the property 'nextUrl'
-     */
+    /** Test the property 'nextUrl' */
     @Test
     public void nextUrlTest() {
         // TODO: test nextUrl
     }
-
 }
