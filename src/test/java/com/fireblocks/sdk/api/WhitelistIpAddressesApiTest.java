@@ -15,6 +15,7 @@ package com.fireblocks.sdk.api;
 
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.model.GetWhitelistIpAddressesResponse;
 import java.util.concurrent.CompletableFuture;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -35,7 +36,7 @@ public class WhitelistIpAddressesApiTest {
     @Test
     public void getWhitelistIpAddressesTest() throws ApiException {
         String userId = null;
-
-        CompletableFuture<ApiResponse<Void>> response = api.getWhitelistIpAddresses(userId);
+        CompletableFuture<ApiResponse<GetWhitelistIpAddressesResponse>> response =
+                api.getWhitelistIpAddresses(userId);
     }
 }

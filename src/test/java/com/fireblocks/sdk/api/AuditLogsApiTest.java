@@ -15,6 +15,7 @@ package com.fireblocks.sdk.api;
 
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.model.GetAuditLogsResponse;
 import com.fireblocks.sdk.model.GetAuditLogsResponseDTO;
 import java.util.concurrent.CompletableFuture;
 import org.junit.Ignore;
@@ -37,8 +38,8 @@ public class AuditLogsApiTest {
     public void getAuditLogsTest() throws ApiException {
         String timePeriod = null;
         String cursor = null;
-
-        CompletableFuture<ApiResponse<Void>> response = api.getAuditLogs(timePeriod, cursor);
+        CompletableFuture<ApiResponse<GetAuditLogsResponse>> response =
+                api.getAuditLogs(timePeriod, cursor);
     }
 
     /**

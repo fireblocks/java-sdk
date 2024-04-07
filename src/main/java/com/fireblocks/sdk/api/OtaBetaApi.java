@@ -20,6 +20,7 @@ import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.model.GetOtaStatus200Response;
 import com.fireblocks.sdk.model.SetOtaStatusRequest;
+import com.fireblocks.sdk.model.SetOtaStatusResponse;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
@@ -136,10 +137,10 @@ public class OtaBetaApi {
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;Void&gt;&gt;
+     * @return CompletableFuture&lt;ApiResponse&lt;SetOtaStatusResponse&gt;&gt;
      * @throws ApiException if fails to make API call
      */
-    public CompletableFuture<ApiResponse<Void>> setOtaStatus(
+    public CompletableFuture<ApiResponse<SetOtaStatusResponse>> setOtaStatus(
             SetOtaStatusRequest setOtaStatusRequest, String idempotencyKey) throws ApiException {
         try {
             HttpRequest.Builder localVarRequestBuilder =
@@ -155,11 +156,21 @@ public class OtaBetaApi {
                                     return CompletableFuture.failedFuture(
                                             getApiException("setOtaStatus", localVarResponse));
                                 }
-                                return CompletableFuture.completedFuture(
-                                        new ApiResponse<Void>(
-                                                localVarResponse.statusCode(),
-                                                localVarResponse.headers().map(),
-                                                null));
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<SetOtaStatusResponse>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            SetOtaStatusResponse>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
                             });
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);

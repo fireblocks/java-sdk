@@ -1,6 +1,6 @@
 # VaultsApi
 
-All URIs are relative to *https://api.fireblocks.io/v1*
+All URIs are relative to https://developers.fireblocks.com/reference/
 
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
@@ -47,22 +47,27 @@ Initiates activation for a wallet in a vault account.
 import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
-import com.fireblocks.sdk.Configuration;
-import com.fireblocks.sdk.models.*;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
 import com.fireblocks.sdk.api.VaultsApi;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://api.fireblocks.io/v1");
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
 
-        VaultsApi apiInstance = new VaultsApi(defaultClient);
         String vaultAccountId = "vaultAccountId_example"; // String | The ID of the vault account to return, or 'default' for the default vault account
         String assetId = "assetId_example"; // String | The ID of the asset
         String idempotencyKey = "idempotencyKey_example"; // String | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
         try {
-            CompletableFuture<ApiResponse<CreateVaultAssetResponse>> response = apiInstance.activateAssetForVaultAccount(vaultAccountId, assetId, idempotencyKey);
+            CompletableFuture<ApiResponse<CreateVaultAssetResponse>> response = fireblocks.vaults().activateAssetForVaultAccount(vaultAccountId, assetId, idempotencyKey);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
@@ -129,23 +134,28 @@ Converts an existing segwit address to the legacy format.
 import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
-import com.fireblocks.sdk.Configuration;
-import com.fireblocks.sdk.models.*;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
 import com.fireblocks.sdk.api.VaultsApi;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://api.fireblocks.io/v1");
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
 
-        VaultsApi apiInstance = new VaultsApi(defaultClient);
         String vaultAccountId = "vaultAccountId_example"; // String | The ID of the vault account
         String assetId = "assetId_example"; // String | The ID of the asset
         String addressId = "addressId_example"; // String | The segwit address to translate
         String idempotencyKey = "idempotencyKey_example"; // String | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
         try {
-            CompletableFuture<ApiResponse<CreateAddressResponse>> response = apiInstance.createLegacyAddress(vaultAccountId, assetId, addressId, idempotencyKey);
+            CompletableFuture<ApiResponse<CreateAddressResponse>> response = fireblocks.vaults().createLegacyAddress(vaultAccountId, assetId, addressId, idempotencyKey);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
@@ -213,21 +223,26 @@ Create multiple vault accounts by running an async job. &lt;/br&gt; **Note**: - 
 import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
-import com.fireblocks.sdk.Configuration;
-import com.fireblocks.sdk.models.*;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
 import com.fireblocks.sdk.api.VaultsApi;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://api.fireblocks.io/v1");
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
 
-        VaultsApi apiInstance = new VaultsApi(defaultClient);
         CreateMultipleAccountsRequest createMultipleAccountsRequest = new CreateMultipleAccountsRequest(); // CreateMultipleAccountsRequest | 
         String idempotencyKey = "idempotencyKey_example"; // String | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
         try {
-            CompletableFuture<ApiResponse<JobCreated>> response = apiInstance.createMultipleAccounts(createMultipleAccountsRequest, idempotencyKey);
+            CompletableFuture<ApiResponse<JobCreated>> response = fireblocks.vaults().createMultipleAccounts(createMultipleAccountsRequest, idempotencyKey);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
@@ -293,21 +308,26 @@ Creates a new vault account with the requested name.
 import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
-import com.fireblocks.sdk.Configuration;
-import com.fireblocks.sdk.models.*;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
 import com.fireblocks.sdk.api.VaultsApi;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://api.fireblocks.io/v1");
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
 
-        VaultsApi apiInstance = new VaultsApi(defaultClient);
         CreateVaultAccountRequest createVaultAccountRequest = new CreateVaultAccountRequest(); // CreateVaultAccountRequest | 
         String idempotencyKey = "idempotencyKey_example"; // String | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
         try {
-            CompletableFuture<ApiResponse<VaultAccount>> response = apiInstance.createVaultAccount(createVaultAccountRequest, idempotencyKey);
+            CompletableFuture<ApiResponse<VaultAccount>> response = fireblocks.vaults().createVaultAccount(createVaultAccountRequest, idempotencyKey);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
@@ -373,23 +393,28 @@ Creates a wallet for a specific asset in a vault account.
 import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
-import com.fireblocks.sdk.Configuration;
-import com.fireblocks.sdk.models.*;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
 import com.fireblocks.sdk.api.VaultsApi;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://api.fireblocks.io/v1");
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
 
-        VaultsApi apiInstance = new VaultsApi(defaultClient);
         String vaultAccountId = "vaultAccountId_example"; // String | The ID of the vault account to return, or 'default' for the default vault account
         String assetId = "assetId_example"; // String | The ID of the asset
         CreateAssetsRequest createAssetsRequest = new CreateAssetsRequest(); // CreateAssetsRequest | 
         String idempotencyKey = "idempotencyKey_example"; // String | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
         try {
-            CompletableFuture<ApiResponse<CreateVaultAssetResponse>> response = apiInstance.createVaultAccountAsset(vaultAccountId, assetId, createAssetsRequest, idempotencyKey);
+            CompletableFuture<ApiResponse<CreateVaultAssetResponse>> response = fireblocks.vaults().createVaultAccountAsset(vaultAccountId, assetId, createAssetsRequest, idempotencyKey);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
@@ -457,23 +482,28 @@ Creates a new deposit address for an asset of a vault account.
 import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
-import com.fireblocks.sdk.Configuration;
-import com.fireblocks.sdk.models.*;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
 import com.fireblocks.sdk.api.VaultsApi;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://api.fireblocks.io/v1");
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
 
-        VaultsApi apiInstance = new VaultsApi(defaultClient);
         String vaultAccountId = "vaultAccountId_example"; // String | The ID of the vault account to return
         String assetId = "assetId_example"; // String | The ID of the asset
         CreateAddressRequest createAddressRequest = new CreateAddressRequest(); // CreateAddressRequest | 
         String idempotencyKey = "idempotencyKey_example"; // String | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
         try {
-            CompletableFuture<ApiResponse<CreateAddressResponse>> response = apiInstance.createVaultAccountAssetAddress(vaultAccountId, assetId, createAddressRequest, idempotencyKey);
+            CompletableFuture<ApiResponse<CreateAddressResponse>> response = fireblocks.vaults().createVaultAccountAssetAddress(vaultAccountId, assetId, createAddressRequest, idempotencyKey);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
@@ -541,17 +571,22 @@ Gets all asset wallets at all of the vault accounts in your workspace. An asset 
 import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
-import com.fireblocks.sdk.Configuration;
-import com.fireblocks.sdk.models.*;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
 import com.fireblocks.sdk.api.VaultsApi;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://api.fireblocks.io/v1");
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
 
-        VaultsApi apiInstance = new VaultsApi(defaultClient);
         BigDecimal totalAmountLargerThan = new BigDecimal(78); // BigDecimal | When specified, only asset wallets with total balance larger than this amount are returned.
         String assetId = "assetId_example"; // String | When specified, only asset wallets cross vault accounts that have this asset ID are returned.
         String orderBy = "ASC"; // String | 
@@ -559,7 +594,7 @@ public class Example {
         String after = "after_example"; // String | Fetches the next paginated response after this element. This element is a cursor and is returned at the response of the previous page.
         BigDecimal limit = new BigDecimal("200"); // BigDecimal | The maximum number of asset wallets in a single response. The default is 200 and the maximum is 1000.
         try {
-            CompletableFuture<ApiResponse<PaginatedAssetWalletResponse>> response = apiInstance.getAssetWallets(totalAmountLargerThan, assetId, orderBy, before, after, limit);
+            CompletableFuture<ApiResponse<PaginatedAssetWalletResponse>> response = fireblocks.vaults().getAssetWallets(totalAmountLargerThan, assetId, orderBy, before, after, limit);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
@@ -615,7 +650,7 @@ No authorization required
 
 ## getMaxSpendableAmount
 
-> CompletableFuture<ApiResponse<Void>> getMaxSpendableAmount getMaxSpendableAmount(vaultAccountId, assetId, manualSignging)
+> CompletableFuture<ApiResponse<GetMaxSpendableAmountResponse>> getMaxSpendableAmount getMaxSpendableAmount(vaultAccountId, assetId, manualSignging)
 
 Get the maximum spendable amount in a single transaction.
 
@@ -628,24 +663,30 @@ Get the maximum amount of a particular asset that can be spent in a single trans
 import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
-import com.fireblocks.sdk.Configuration;
-import com.fireblocks.sdk.models.*;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
 import com.fireblocks.sdk.api.VaultsApi;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://api.fireblocks.io/v1");
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
 
-        VaultsApi apiInstance = new VaultsApi(defaultClient);
         String vaultAccountId = "vaultAccountId_example"; // String | The ID of the vault account, or 'default' for the default vault account
         String assetId = "assetId_example"; // String | The ID of the asset
         Boolean manualSignging = true; // Boolean | False by default. The maximum number of inputs depends if the transaction will be signed by an automated co-signer server or on a mobile device.
         try {
-            CompletableFuture<ApiResponse<Void>> response = apiInstance.getMaxSpendableAmount(vaultAccountId, assetId, manualSignging);
+            CompletableFuture<ApiResponse<GetMaxSpendableAmountResponse>> response = fireblocks.vaults().getMaxSpendableAmount(vaultAccountId, assetId, manualSignging);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
+            System.out.println("Response body: " + response.get().getData());
         } catch (InterruptedException | ExecutionException e) {
             ApiException apiException = (ApiException)e.getCause();
             System.err.println("Exception when calling VaultsApi#getMaxSpendableAmount");
@@ -675,8 +716,8 @@ public class Example {
 
 ### Return type
 
+CompletableFuture<ApiResponse<[**GetMaxSpendableAmountResponse**](GetMaxSpendableAmountResponse.md)>>
 
-CompletableFuture<ApiResponse<Void>>
 
 ### Authorization
 
@@ -709,17 +750,22 @@ Gets all vault accounts in your workspace. This endpoint returns a limited amoun
 import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
-import com.fireblocks.sdk.Configuration;
-import com.fireblocks.sdk.models.*;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
 import com.fireblocks.sdk.api.VaultsApi;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://api.fireblocks.io/v1");
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
 
-        VaultsApi apiInstance = new VaultsApi(defaultClient);
         String namePrefix = "namePrefix_example"; // String | 
         String nameSuffix = "nameSuffix_example"; // String | 
         BigDecimal minAmountThreshold = new BigDecimal(78); // BigDecimal | Specifying minAmountThreshold will filter accounts with balances greater than this value, otherwise, it will return all accounts.
@@ -729,7 +775,7 @@ public class Example {
         String after = "after_example"; // String | 
         BigDecimal limit = new BigDecimal("200"); // BigDecimal | 
         try {
-            CompletableFuture<ApiResponse<VaultAccountsPagedResponse>> response = apiInstance.getPagedVaultAccounts(namePrefix, nameSuffix, minAmountThreshold, assetId, orderBy, before, after, limit);
+            CompletableFuture<ApiResponse<VaultAccountsPagedResponse>> response = fireblocks.vaults().getPagedVaultAccounts(namePrefix, nameSuffix, minAmountThreshold, assetId, orderBy, before, after, limit);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
@@ -800,22 +846,27 @@ Gets the public key information based on derivation path and signing algorithm.
 import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
-import com.fireblocks.sdk.Configuration;
-import com.fireblocks.sdk.models.*;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
 import com.fireblocks.sdk.api.VaultsApi;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://api.fireblocks.io/v1");
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
 
-        VaultsApi apiInstance = new VaultsApi(defaultClient);
         String derivationPath = "derivationPath_example"; // String | 
         String algorithm = "algorithm_example"; // String | 
         Boolean compressed = true; // Boolean | 
         try {
-            CompletableFuture<ApiResponse<PublicKeyInformation>> response = apiInstance.getPublicKeyInfo(derivationPath, algorithm, compressed);
+            CompletableFuture<ApiResponse<PublicKeyInformation>> response = fireblocks.vaults().getPublicKeyInfo(derivationPath, algorithm, compressed);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
@@ -882,24 +933,29 @@ Gets the public key information for the vault account.
 import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
-import com.fireblocks.sdk.Configuration;
-import com.fireblocks.sdk.models.*;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
 import com.fireblocks.sdk.api.VaultsApi;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://api.fireblocks.io/v1");
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
 
-        VaultsApi apiInstance = new VaultsApi(defaultClient);
         String vaultAccountId = "vaultAccountId_example"; // String | 
         String assetId = "assetId_example"; // String | 
         BigDecimal change = new BigDecimal(78); // BigDecimal | 
         BigDecimal addressIndex = new BigDecimal(78); // BigDecimal | 
         Boolean compressed = true; // Boolean | 
         try {
-            CompletableFuture<ApiResponse<PublicKeyInformation>> response = apiInstance.getPublicKeyInfoForAddress(vaultAccountId, assetId, change, addressIndex, compressed);
+            CompletableFuture<ApiResponse<PublicKeyInformation>> response = fireblocks.vaults().getPublicKeyInfoForAddress(vaultAccountId, assetId, change, addressIndex, compressed);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
@@ -968,21 +1024,26 @@ Returns unspent inputs information of an asset in a vault account.
 import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
-import com.fireblocks.sdk.Configuration;
-import com.fireblocks.sdk.models.*;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
 import com.fireblocks.sdk.api.VaultsApi;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://api.fireblocks.io/v1");
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
 
-        VaultsApi apiInstance = new VaultsApi(defaultClient);
         String vaultAccountId = "vaultAccountId_example"; // String | The ID of the vault account
         String assetId = "assetId_example"; // String | The ID of the asset
         try {
-            CompletableFuture<ApiResponse<List<UnspentInputsResponse>>> response = apiInstance.getUnspentInputs(vaultAccountId, assetId);
+            CompletableFuture<ApiResponse<List<UnspentInputsResponse>>> response = fireblocks.vaults().getUnspentInputs(vaultAccountId, assetId);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
@@ -1048,20 +1109,25 @@ Returns the requested vault account.
 import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
-import com.fireblocks.sdk.Configuration;
-import com.fireblocks.sdk.models.*;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
 import com.fireblocks.sdk.api.VaultsApi;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://api.fireblocks.io/v1");
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
 
-        VaultsApi apiInstance = new VaultsApi(defaultClient);
         String vaultAccountId = "vaultAccountId_example"; // String | The ID of the vault account to return type: string
         try {
-            CompletableFuture<ApiResponse<VaultAccount>> response = apiInstance.getVaultAccount(vaultAccountId);
+            CompletableFuture<ApiResponse<VaultAccount>> response = fireblocks.vaults().getVaultAccount(vaultAccountId);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
@@ -1126,21 +1192,26 @@ Returns a wallet for a specific asset of a vault account.
 import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
-import com.fireblocks.sdk.Configuration;
-import com.fireblocks.sdk.models.*;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
 import com.fireblocks.sdk.api.VaultsApi;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://api.fireblocks.io/v1");
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
 
-        VaultsApi apiInstance = new VaultsApi(defaultClient);
         String vaultAccountId = "vaultAccountId_example"; // String | The ID of the vault account to return
         String assetId = "assetId_example"; // String | The ID of the asset
         try {
-            CompletableFuture<ApiResponse<VaultAsset>> response = apiInstance.getVaultAccountAsset(vaultAccountId, assetId);
+            CompletableFuture<ApiResponse<VaultAsset>> response = fireblocks.vaults().getVaultAccountAsset(vaultAccountId, assetId);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
@@ -1206,24 +1277,29 @@ Returns a paginated response of the addresses for a given vault account and asse
 import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
-import com.fireblocks.sdk.Configuration;
-import com.fireblocks.sdk.models.*;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
 import com.fireblocks.sdk.api.VaultsApi;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://api.fireblocks.io/v1");
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
 
-        VaultsApi apiInstance = new VaultsApi(defaultClient);
         String vaultAccountId = "vaultAccountId_example"; // String | The ID of the vault account to return
         String assetId = "assetId_example"; // String | The ID of the asset
         BigDecimal limit = new BigDecimal(78); // BigDecimal | 
         String before = "before_example"; // String | 
         String after = "after_example"; // String | 
         try {
-            CompletableFuture<ApiResponse<PaginatedAddressResponse>> response = apiInstance.getVaultAccountAssetAddressesPaginated(vaultAccountId, assetId, limit, before, after);
+            CompletableFuture<ApiResponse<PaginatedAddressResponse>> response = fireblocks.vaults().getVaultAccountAssetAddressesPaginated(vaultAccountId, assetId, limit, before, after);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
@@ -1292,21 +1368,26 @@ Gets the assets amount summary for all accounts or filtered accounts.
 import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
-import com.fireblocks.sdk.Configuration;
-import com.fireblocks.sdk.models.*;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
 import com.fireblocks.sdk.api.VaultsApi;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://api.fireblocks.io/v1");
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
 
-        VaultsApi apiInstance = new VaultsApi(defaultClient);
         String accountNamePrefix = "accountNamePrefix_example"; // String | 
         String accountNameSuffix = "accountNameSuffix_example"; // String | 
         try {
-            CompletableFuture<ApiResponse<List<VaultAsset>>> response = apiInstance.getVaultAssets(accountNamePrefix, accountNameSuffix);
+            CompletableFuture<ApiResponse<List<VaultAsset>>> response = fireblocks.vaults().getVaultAssets(accountNamePrefix, accountNameSuffix);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
@@ -1372,20 +1453,25 @@ Gets the vault balance summary for an asset.
 import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
-import com.fireblocks.sdk.Configuration;
-import com.fireblocks.sdk.models.*;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
 import com.fireblocks.sdk.api.VaultsApi;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://api.fireblocks.io/v1");
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
 
-        VaultsApi apiInstance = new VaultsApi(defaultClient);
         String assetId = "assetId_example"; // String | 
         try {
-            CompletableFuture<ApiResponse<VaultAsset>> response = apiInstance.getVaultBalanceByAsset(assetId);
+            CompletableFuture<ApiResponse<VaultAsset>> response = fireblocks.vaults().getVaultBalanceByAsset(assetId);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
@@ -1450,21 +1536,26 @@ Hides the requested vault account from the web console view.
 import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
-import com.fireblocks.sdk.Configuration;
-import com.fireblocks.sdk.models.*;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
 import com.fireblocks.sdk.api.VaultsApi;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://api.fireblocks.io/v1");
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
 
-        VaultsApi apiInstance = new VaultsApi(defaultClient);
         String vaultAccountId = "vaultAccountId_example"; // String | The vault account to hide
         String idempotencyKey = "idempotencyKey_example"; // String | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
         try {
-            CompletableFuture<ApiResponse<VaultActionStatus>> response = apiInstance.hideVaultAccount(vaultAccountId, idempotencyKey);
+            CompletableFuture<ApiResponse<VaultActionStatus>> response = fireblocks.vaults().hideVaultAccount(vaultAccountId, idempotencyKey);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
@@ -1530,24 +1621,29 @@ Sets an AML/KYT customer reference ID for a specific address.
 import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
-import com.fireblocks.sdk.Configuration;
-import com.fireblocks.sdk.models.*;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
 import com.fireblocks.sdk.api.VaultsApi;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://api.fireblocks.io/v1");
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
 
-        VaultsApi apiInstance = new VaultsApi(defaultClient);
         SetCustomerRefIdForAddressRequest setCustomerRefIdForAddressRequest = new SetCustomerRefIdForAddressRequest(); // SetCustomerRefIdForAddressRequest | 
         String vaultAccountId = "vaultAccountId_example"; // String | The ID of the vault account
         String assetId = "assetId_example"; // String | The ID of the asset
         String addressId = "addressId_example"; // String | The address for which to add a description. For XRP, use <address>:<tag>, for all other assets, use only the address
         String idempotencyKey = "idempotencyKey_example"; // String | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
         try {
-            CompletableFuture<ApiResponse<VaultActionStatus>> response = apiInstance.setCustomerRefIdForAddress(setCustomerRefIdForAddressRequest, vaultAccountId, assetId, addressId, idempotencyKey);
+            CompletableFuture<ApiResponse<VaultActionStatus>> response = fireblocks.vaults().setCustomerRefIdForAddress(setCustomerRefIdForAddressRequest, vaultAccountId, assetId, addressId, idempotencyKey);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
@@ -1616,22 +1712,27 @@ Sets the autofueling property of the vault account to enabled or disabled.
 import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
-import com.fireblocks.sdk.Configuration;
-import com.fireblocks.sdk.models.*;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
 import com.fireblocks.sdk.api.VaultsApi;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://api.fireblocks.io/v1");
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
 
-        VaultsApi apiInstance = new VaultsApi(defaultClient);
         SetAutoFuelRequest setAutoFuelRequest = new SetAutoFuelRequest(); // SetAutoFuelRequest | 
         String vaultAccountId = "vaultAccountId_example"; // String | The vault account ID
         String idempotencyKey = "idempotencyKey_example"; // String | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
         try {
-            CompletableFuture<ApiResponse<VaultActionStatus>> response = apiInstance.setVaultAccountAutoFuel(setAutoFuelRequest, vaultAccountId, idempotencyKey);
+            CompletableFuture<ApiResponse<VaultActionStatus>> response = fireblocks.vaults().setVaultAccountAutoFuel(setAutoFuelRequest, vaultAccountId, idempotencyKey);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
@@ -1698,22 +1799,27 @@ Assigns an AML/KYT customer reference ID for the vault account.
 import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
-import com.fireblocks.sdk.Configuration;
-import com.fireblocks.sdk.models.*;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
 import com.fireblocks.sdk.api.VaultsApi;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://api.fireblocks.io/v1");
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
 
-        VaultsApi apiInstance = new VaultsApi(defaultClient);
         SetCustomerRefIdRequest setCustomerRefIdRequest = new SetCustomerRefIdRequest(); // SetCustomerRefIdRequest | 
         String vaultAccountId = "vaultAccountId_example"; // String | The vault account ID
         String idempotencyKey = "idempotencyKey_example"; // String | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
         try {
-            CompletableFuture<ApiResponse<VaultActionStatus>> response = apiInstance.setVaultAccountCustomerRefId(setCustomerRefIdRequest, vaultAccountId, idempotencyKey);
+            CompletableFuture<ApiResponse<VaultActionStatus>> response = fireblocks.vaults().setVaultAccountCustomerRefId(setCustomerRefIdRequest, vaultAccountId, idempotencyKey);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
@@ -1780,21 +1886,26 @@ Makes a hidden vault account visible in web console view.
 import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
-import com.fireblocks.sdk.Configuration;
-import com.fireblocks.sdk.models.*;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
 import com.fireblocks.sdk.api.VaultsApi;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://api.fireblocks.io/v1");
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
 
-        VaultsApi apiInstance = new VaultsApi(defaultClient);
         String vaultAccountId = "vaultAccountId_example"; // String | The vault account to unhide
         String idempotencyKey = "idempotencyKey_example"; // String | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
         try {
-            CompletableFuture<ApiResponse<VaultActionStatus>> response = apiInstance.unhideVaultAccount(vaultAccountId, idempotencyKey);
+            CompletableFuture<ApiResponse<VaultActionStatus>> response = fireblocks.vaults().unhideVaultAccount(vaultAccountId, idempotencyKey);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
@@ -1847,7 +1958,7 @@ No authorization required
 
 ## updateVaultAccount
 
-> CompletableFuture<ApiResponse<Void>> updateVaultAccount updateVaultAccount(updateVaultAccountRequest, vaultAccountId, idempotencyKey)
+> CompletableFuture<ApiResponse<RenameVaultAccountResponse>> updateVaultAccount updateVaultAccount(updateVaultAccountRequest, vaultAccountId, idempotencyKey)
 
 Rename a vault account
 
@@ -1860,24 +1971,30 @@ Renames the requested vault account.
 import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
-import com.fireblocks.sdk.Configuration;
-import com.fireblocks.sdk.models.*;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
 import com.fireblocks.sdk.api.VaultsApi;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://api.fireblocks.io/v1");
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
 
-        VaultsApi apiInstance = new VaultsApi(defaultClient);
         UpdateVaultAccountRequest updateVaultAccountRequest = new UpdateVaultAccountRequest(); // UpdateVaultAccountRequest | 
         String vaultAccountId = "vaultAccountId_example"; // String | The ID of the vault account to edit
         String idempotencyKey = "idempotencyKey_example"; // String | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
         try {
-            CompletableFuture<ApiResponse<Void>> response = apiInstance.updateVaultAccount(updateVaultAccountRequest, vaultAccountId, idempotencyKey);
+            CompletableFuture<ApiResponse<RenameVaultAccountResponse>> response = fireblocks.vaults().updateVaultAccount(updateVaultAccountRequest, vaultAccountId, idempotencyKey);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
+            System.out.println("Response body: " + response.get().getData());
         } catch (InterruptedException | ExecutionException e) {
             ApiException apiException = (ApiException)e.getCause();
             System.err.println("Exception when calling VaultsApi#updateVaultAccount");
@@ -1907,8 +2024,8 @@ public class Example {
 
 ### Return type
 
+CompletableFuture<ApiResponse<[**RenameVaultAccountResponse**](RenameVaultAccountResponse.md)>>
 
-CompletableFuture<ApiResponse<Void>>
 
 ### Authorization
 
@@ -1941,24 +2058,29 @@ Updates the description of an existing address of an asset in a vault account.
 import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
-import com.fireblocks.sdk.Configuration;
-import com.fireblocks.sdk.models.*;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
 import com.fireblocks.sdk.api.VaultsApi;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://api.fireblocks.io/v1");
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
 
-        VaultsApi apiInstance = new VaultsApi(defaultClient);
         String vaultAccountId = "vaultAccountId_example"; // String | The ID of the vault account
         String assetId = "assetId_example"; // String | The ID of the asset
         String addressId = "addressId_example"; // String | The address for which to add a description. For XRP, use <address>:<tag>, for all other assets, use only the address
         UpdateVaultAccountAssetAddressRequest updateVaultAccountAssetAddressRequest = new UpdateVaultAccountAssetAddressRequest(); // UpdateVaultAccountAssetAddressRequest | 
         String idempotencyKey = "idempotencyKey_example"; // String | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
         try {
-            CompletableFuture<ApiResponse<VaultActionStatus>> response = apiInstance.updateVaultAccountAssetAddress(vaultAccountId, assetId, addressId, updateVaultAccountAssetAddressRequest, idempotencyKey);
+            CompletableFuture<ApiResponse<VaultActionStatus>> response = fireblocks.vaults().updateVaultAccountAssetAddress(vaultAccountId, assetId, addressId, updateVaultAccountAssetAddressRequest, idempotencyKey);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
@@ -2027,22 +2149,27 @@ Updates the balance of a specific asset in a vault account.
 import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
-import com.fireblocks.sdk.Configuration;
-import com.fireblocks.sdk.models.*;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
 import com.fireblocks.sdk.api.VaultsApi;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://api.fireblocks.io/v1");
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
 
-        VaultsApi apiInstance = new VaultsApi(defaultClient);
         String vaultAccountId = "vaultAccountId_example"; // String | The ID of the vault account to return
         String assetId = "assetId_example"; // String | The ID of the asset
         String idempotencyKey = "idempotencyKey_example"; // String | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
         try {
-            CompletableFuture<ApiResponse<VaultAsset>> response = apiInstance.updateVaultAccountAssetBalance(vaultAccountId, assetId, idempotencyKey);
+            CompletableFuture<ApiResponse<VaultAsset>> response = fireblocks.vaults().updateVaultAccountAssetBalance(vaultAccountId, assetId, idempotencyKey);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());

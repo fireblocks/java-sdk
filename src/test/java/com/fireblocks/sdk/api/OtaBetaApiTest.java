@@ -17,6 +17,7 @@ import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.model.GetOtaStatus200Response;
 import com.fireblocks.sdk.model.SetOtaStatusRequest;
+import com.fireblocks.sdk.model.SetOtaStatusResponse;
 import java.util.concurrent.CompletableFuture;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -50,8 +51,7 @@ public class OtaBetaApiTest {
     public void setOtaStatusTest() throws ApiException {
         SetOtaStatusRequest setOtaStatusRequest = null;
         String idempotencyKey = null;
-
-        CompletableFuture<ApiResponse<Void>> response =
+        CompletableFuture<ApiResponse<SetOtaStatusResponse>> response =
                 api.setOtaStatus(setOtaStatusRequest, idempotencyKey);
     }
 }

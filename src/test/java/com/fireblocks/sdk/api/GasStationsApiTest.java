@@ -15,6 +15,7 @@ package com.fireblocks.sdk.api;
 
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.model.EditGasStationConfigurationResponse;
 import com.fireblocks.sdk.model.GasStationConfiguration;
 import com.fireblocks.sdk.model.GasStationPropertiesResponse;
 import java.util.concurrent.CompletableFuture;
@@ -65,8 +66,7 @@ public class GasStationsApiTest {
     public void updateGasStationConfigurationTest() throws ApiException {
         GasStationConfiguration gasStationConfiguration = null;
         String idempotencyKey = null;
-
-        CompletableFuture<ApiResponse<Void>> response =
+        CompletableFuture<ApiResponse<EditGasStationConfigurationResponse>> response =
                 api.updateGasStationConfiguration(gasStationConfiguration, idempotencyKey);
     }
 
@@ -82,8 +82,7 @@ public class GasStationsApiTest {
         GasStationConfiguration gasStationConfiguration = null;
         String assetId = null;
         String idempotencyKey = null;
-
-        CompletableFuture<ApiResponse<Void>> response =
+        CompletableFuture<ApiResponse<EditGasStationConfigurationResponse>> response =
                 api.updateGasStationConfigurationByAssetId(
                         gasStationConfiguration, assetId, idempotencyKey);
     }

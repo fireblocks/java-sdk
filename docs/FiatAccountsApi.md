@@ -1,6 +1,6 @@
 # FiatAccountsApi
 
-All URIs are relative to *https://api.fireblocks.io/v1*
+All URIs are relative to https://developers.fireblocks.com/reference/
 
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
@@ -13,7 +13,7 @@ All URIs are relative to *https://api.fireblocks.io/v1*
 
 ## depositFundsFromLinkedDDA
 
-> CompletableFuture<ApiResponse<Void>> depositFundsFromLinkedDDA depositFundsFromLinkedDDA(accountId, funds, idempotencyKey)
+> CompletableFuture<ApiResponse<DepositFundsFromLinkedDDAResponse>> depositFundsFromLinkedDDA depositFundsFromLinkedDDA(accountId, funds, idempotencyKey)
 
 Deposit funds from DDA
 
@@ -26,24 +26,30 @@ Deposits funds from the linked DDA.
 import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
-import com.fireblocks.sdk.Configuration;
-import com.fireblocks.sdk.models.*;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
 import com.fireblocks.sdk.api.FiatAccountsApi;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://api.fireblocks.io/v1");
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
 
-        FiatAccountsApi apiInstance = new FiatAccountsApi(defaultClient);
         String accountId = "accountId_example"; // String | The ID of the fiat account to use
         Funds funds = new Funds(); // Funds | 
         String idempotencyKey = "idempotencyKey_example"; // String | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
         try {
-            CompletableFuture<ApiResponse<Void>> response = apiInstance.depositFundsFromLinkedDDA(accountId, funds, idempotencyKey);
+            CompletableFuture<ApiResponse<DepositFundsFromLinkedDDAResponse>> response = fireblocks.fiatAccounts().depositFundsFromLinkedDDA(accountId, funds, idempotencyKey);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
+            System.out.println("Response body: " + response.get().getData());
         } catch (InterruptedException | ExecutionException e) {
             ApiException apiException = (ApiException)e.getCause();
             System.err.println("Exception when calling FiatAccountsApi#depositFundsFromLinkedDDA");
@@ -73,8 +79,8 @@ public class Example {
 
 ### Return type
 
+CompletableFuture<ApiResponse<[**DepositFundsFromLinkedDDAResponse**](DepositFundsFromLinkedDDAResponse.md)>>
 
-CompletableFuture<ApiResponse<Void>>
 
 ### Authorization
 
@@ -107,20 +113,25 @@ Returns a fiat account by ID.
 import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
-import com.fireblocks.sdk.Configuration;
-import com.fireblocks.sdk.models.*;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
 import com.fireblocks.sdk.api.FiatAccountsApi;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://api.fireblocks.io/v1");
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
 
-        FiatAccountsApi apiInstance = new FiatAccountsApi(defaultClient);
         String accountId = "accountId_example"; // String | The ID of the fiat account to return
         try {
-            CompletableFuture<ApiResponse<FiatAccount>> response = apiInstance.getFiatAccount(accountId);
+            CompletableFuture<ApiResponse<FiatAccount>> response = fireblocks.fiatAccounts().getFiatAccount(accountId);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
@@ -185,19 +196,24 @@ Returns all fiat accounts.
 import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
-import com.fireblocks.sdk.Configuration;
-import com.fireblocks.sdk.models.*;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
 import com.fireblocks.sdk.api.FiatAccountsApi;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://api.fireblocks.io/v1");
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
 
-        FiatAccountsApi apiInstance = new FiatAccountsApi(defaultClient);
         try {
-            CompletableFuture<ApiResponse<List<FiatAccount>>> response = apiInstance.getFiatAccounts();
+            CompletableFuture<ApiResponse<List<FiatAccount>>> response = fireblocks.fiatAccounts().getFiatAccounts();
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
@@ -246,7 +262,7 @@ No authorization required
 
 ## redeemFundsToLinkedDDA
 
-> CompletableFuture<ApiResponse<Void>> redeemFundsToLinkedDDA redeemFundsToLinkedDDA(accountId, funds, idempotencyKey)
+> CompletableFuture<ApiResponse<RedeemFundsToLinkedDDAResponse>> redeemFundsToLinkedDDA redeemFundsToLinkedDDA(accountId, funds, idempotencyKey)
 
 Redeem funds to DDA
 
@@ -259,24 +275,30 @@ Redeems funds to the linked DDA.
 import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
-import com.fireblocks.sdk.Configuration;
-import com.fireblocks.sdk.models.*;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
 import com.fireblocks.sdk.api.FiatAccountsApi;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://api.fireblocks.io/v1");
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
 
-        FiatAccountsApi apiInstance = new FiatAccountsApi(defaultClient);
         String accountId = "accountId_example"; // String | The ID of the fiat account to use
         Funds funds = new Funds(); // Funds | 
         String idempotencyKey = "idempotencyKey_example"; // String | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
         try {
-            CompletableFuture<ApiResponse<Void>> response = apiInstance.redeemFundsToLinkedDDA(accountId, funds, idempotencyKey);
+            CompletableFuture<ApiResponse<RedeemFundsToLinkedDDAResponse>> response = fireblocks.fiatAccounts().redeemFundsToLinkedDDA(accountId, funds, idempotencyKey);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
+            System.out.println("Response body: " + response.get().getData());
         } catch (InterruptedException | ExecutionException e) {
             ApiException apiException = (ApiException)e.getCause();
             System.err.println("Exception when calling FiatAccountsApi#redeemFundsToLinkedDDA");
@@ -306,8 +328,8 @@ public class Example {
 
 ### Return type
 
+CompletableFuture<ApiResponse<[**RedeemFundsToLinkedDDAResponse**](RedeemFundsToLinkedDDAResponse.md)>>
 
-CompletableFuture<ApiResponse<Void>>
 
 ### Authorization
 

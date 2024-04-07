@@ -1,6 +1,6 @@
 # OtaBetaApi
 
-All URIs are relative to *https://api.fireblocks.io/v1*
+All URIs are relative to https://developers.fireblocks.com/reference/
 
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
@@ -24,19 +24,24 @@ Returns current OTA status
 import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
-import com.fireblocks.sdk.Configuration;
-import com.fireblocks.sdk.models.*;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
 import com.fireblocks.sdk.api.OtaBetaApi;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://api.fireblocks.io/v1");
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
 
-        OtaBetaApi apiInstance = new OtaBetaApi(defaultClient);
         try {
-            CompletableFuture<ApiResponse<GetOtaStatus200Response>> response = apiInstance.getOtaStatus();
+            CompletableFuture<ApiResponse<GetOtaStatus200Response>> response = fireblocks.otaBeta().getOtaStatus();
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
@@ -85,7 +90,7 @@ No authorization required
 
 ## setOtaStatus
 
-> CompletableFuture<ApiResponse<Void>> setOtaStatus setOtaStatus(setOtaStatusRequest, idempotencyKey)
+> CompletableFuture<ApiResponse<SetOtaStatusResponse>> setOtaStatus setOtaStatus(setOtaStatusRequest, idempotencyKey)
 
 Enable or disable transactions to OTA
 
@@ -98,23 +103,29 @@ Enable or disable transactions to OTA
 import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
-import com.fireblocks.sdk.Configuration;
-import com.fireblocks.sdk.models.*;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
 import com.fireblocks.sdk.api.OtaBetaApi;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://api.fireblocks.io/v1");
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
 
-        OtaBetaApi apiInstance = new OtaBetaApi(defaultClient);
         SetOtaStatusRequest setOtaStatusRequest = new SetOtaStatusRequest(); // SetOtaStatusRequest | 
         String idempotencyKey = "idempotencyKey_example"; // String | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
         try {
-            CompletableFuture<ApiResponse<Void>> response = apiInstance.setOtaStatus(setOtaStatusRequest, idempotencyKey);
+            CompletableFuture<ApiResponse<SetOtaStatusResponse>> response = fireblocks.otaBeta().setOtaStatus(setOtaStatusRequest, idempotencyKey);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
+            System.out.println("Response body: " + response.get().getData());
         } catch (InterruptedException | ExecutionException e) {
             ApiException apiException = (ApiException)e.getCause();
             System.err.println("Exception when calling OtaBetaApi#setOtaStatus");
@@ -143,8 +154,8 @@ public class Example {
 
 ### Return type
 
+CompletableFuture<ApiResponse<[**SetOtaStatusResponse**](SetOtaStatusResponse.md)>>
 
-CompletableFuture<ApiResponse<Void>>
 
 ### Authorization
 
@@ -153,12 +164,12 @@ No authorization required
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: Not defined
+- **Accept**: application/json
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **202** | Successfully updated OTA status |  -  |
+| **202** | Successfully updated OTA status |  * X-Request-ID -  <br>  |
 | **400** | Bad request |  -  |
 | **409** | Similar request already pending |  -  |
 | **500** | Internal server error |  -  |

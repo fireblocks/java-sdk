@@ -1,6 +1,6 @@
 # GasStationsApi
 
-All URIs are relative to *https://api.fireblocks.io/v1*
+All URIs are relative to https://developers.fireblocks.com/reference/
 
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
@@ -26,20 +26,25 @@ Returns gas station settings and balances for a requested asset.
 import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
-import com.fireblocks.sdk.Configuration;
-import com.fireblocks.sdk.models.*;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
 import com.fireblocks.sdk.api.GasStationsApi;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://api.fireblocks.io/v1");
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
 
-        GasStationsApi apiInstance = new GasStationsApi(defaultClient);
         String assetId = "assetId_example"; // String | The ID of the asset
         try {
-            CompletableFuture<ApiResponse<GasStationPropertiesResponse>> response = apiInstance.getGasStationByAssetId(assetId);
+            CompletableFuture<ApiResponse<GasStationPropertiesResponse>> response = fireblocks.gasStations().getGasStationByAssetId(assetId);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
@@ -104,19 +109,24 @@ Returns gas station settings and ETH balance.
 import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
-import com.fireblocks.sdk.Configuration;
-import com.fireblocks.sdk.models.*;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
 import com.fireblocks.sdk.api.GasStationsApi;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://api.fireblocks.io/v1");
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
 
-        GasStationsApi apiInstance = new GasStationsApi(defaultClient);
         try {
-            CompletableFuture<ApiResponse<GasStationPropertiesResponse>> response = apiInstance.getGasStationInfo();
+            CompletableFuture<ApiResponse<GasStationPropertiesResponse>> response = fireblocks.gasStations().getGasStationInfo();
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
@@ -165,7 +175,7 @@ No authorization required
 
 ## updateGasStationConfiguration
 
-> CompletableFuture<ApiResponse<Void>> updateGasStationConfiguration updateGasStationConfiguration(gasStationConfiguration, idempotencyKey)
+> CompletableFuture<ApiResponse<EditGasStationConfigurationResponse>> updateGasStationConfiguration updateGasStationConfiguration(gasStationConfiguration, idempotencyKey)
 
 Edit gas station settings
 
@@ -178,23 +188,29 @@ Configures gas station settings for ETH.
 import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
-import com.fireblocks.sdk.Configuration;
-import com.fireblocks.sdk.models.*;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
 import com.fireblocks.sdk.api.GasStationsApi;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://api.fireblocks.io/v1");
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
 
-        GasStationsApi apiInstance = new GasStationsApi(defaultClient);
         GasStationConfiguration gasStationConfiguration = new GasStationConfiguration(); // GasStationConfiguration | 
         String idempotencyKey = "idempotencyKey_example"; // String | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
         try {
-            CompletableFuture<ApiResponse<Void>> response = apiInstance.updateGasStationConfiguration(gasStationConfiguration, idempotencyKey);
+            CompletableFuture<ApiResponse<EditGasStationConfigurationResponse>> response = fireblocks.gasStations().updateGasStationConfiguration(gasStationConfiguration, idempotencyKey);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
+            System.out.println("Response body: " + response.get().getData());
         } catch (InterruptedException | ExecutionException e) {
             ApiException apiException = (ApiException)e.getCause();
             System.err.println("Exception when calling GasStationsApi#updateGasStationConfiguration");
@@ -223,8 +239,8 @@ public class Example {
 
 ### Return type
 
+CompletableFuture<ApiResponse<[**EditGasStationConfigurationResponse**](EditGasStationConfigurationResponse.md)>>
 
-CompletableFuture<ApiResponse<Void>>
 
 ### Authorization
 
@@ -244,7 +260,7 @@ No authorization required
 
 ## updateGasStationConfigurationByAssetId
 
-> CompletableFuture<ApiResponse<Void>> updateGasStationConfigurationByAssetId updateGasStationConfigurationByAssetId(gasStationConfiguration, assetId, idempotencyKey)
+> CompletableFuture<ApiResponse<EditGasStationConfigurationResponse>> updateGasStationConfigurationByAssetId updateGasStationConfigurationByAssetId(gasStationConfiguration, assetId, idempotencyKey)
 
 Edit gas station settings for an asset
 
@@ -257,24 +273,30 @@ Configures gas station settings for a requested asset.
 import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
-import com.fireblocks.sdk.Configuration;
-import com.fireblocks.sdk.models.*;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
 import com.fireblocks.sdk.api.GasStationsApi;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://api.fireblocks.io/v1");
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
 
-        GasStationsApi apiInstance = new GasStationsApi(defaultClient);
         GasStationConfiguration gasStationConfiguration = new GasStationConfiguration(); // GasStationConfiguration | 
         String assetId = "assetId_example"; // String | The ID of the asset
         String idempotencyKey = "idempotencyKey_example"; // String | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
         try {
-            CompletableFuture<ApiResponse<Void>> response = apiInstance.updateGasStationConfigurationByAssetId(gasStationConfiguration, assetId, idempotencyKey);
+            CompletableFuture<ApiResponse<EditGasStationConfigurationResponse>> response = fireblocks.gasStations().updateGasStationConfigurationByAssetId(gasStationConfiguration, assetId, idempotencyKey);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
+            System.out.println("Response body: " + response.get().getData());
         } catch (InterruptedException | ExecutionException e) {
             ApiException apiException = (ApiException)e.getCause();
             System.err.println("Exception when calling GasStationsApi#updateGasStationConfigurationByAssetId");
@@ -304,8 +326,8 @@ public class Example {
 
 ### Return type
 
+CompletableFuture<ApiResponse<[**EditGasStationConfigurationResponse**](EditGasStationConfigurationResponse.md)>>
 
-CompletableFuture<ApiResponse<Void>>
 
 ### Authorization
 

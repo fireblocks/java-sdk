@@ -13,11 +13,13 @@
 package com.fireblocks.sdk.api;
 
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.model.CreateConsoleUser;
+import com.fireblocks.sdk.model.GetConsoleUsersResponse;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
@@ -136,10 +138,11 @@ public class ConsoleUserApi {
     /**
      * get console users get console users from the current tenant
      *
-     * @return CompletableFuture&lt;ApiResponse&lt;Void&gt;&gt;
+     * @return CompletableFuture&lt;ApiResponse&lt;GetConsoleUsersResponse&gt;&gt;
      * @throws ApiException if fails to make API call
      */
-    public CompletableFuture<ApiResponse<Void>> getConsoleUsers() throws ApiException {
+    public CompletableFuture<ApiResponse<GetConsoleUsersResponse>> getConsoleUsers()
+            throws ApiException {
         try {
             HttpRequest.Builder localVarRequestBuilder = getConsoleUsersRequestBuilder();
             return memberVarHttpClient
@@ -153,11 +156,21 @@ public class ConsoleUserApi {
                                     return CompletableFuture.failedFuture(
                                             getApiException("getConsoleUsers", localVarResponse));
                                 }
-                                return CompletableFuture.completedFuture(
-                                        new ApiResponse<Void>(
-                                                localVarResponse.statusCode(),
-                                                localVarResponse.headers().map(),
-                                                null));
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<GetConsoleUsersResponse>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            GetConsoleUsersResponse>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
                             });
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);

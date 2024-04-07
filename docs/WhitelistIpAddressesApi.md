@@ -1,6 +1,6 @@
 # WhitelistIpAddressesApi
 
-All URIs are relative to *https://api.fireblocks.io/v1*
+All URIs are relative to https://developers.fireblocks.com/reference/
 
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
@@ -10,7 +10,7 @@ All URIs are relative to *https://api.fireblocks.io/v1*
 
 ## getWhitelistIpAddresses
 
-> CompletableFuture<ApiResponse<Void>> getWhitelistIpAddresses getWhitelistIpAddresses(userId)
+> CompletableFuture<ApiResponse<GetWhitelistIpAddressesResponse>> getWhitelistIpAddresses getWhitelistIpAddresses(userId)
 
 gets ip addresses
 
@@ -23,22 +23,28 @@ gets ip addresses
 import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
-import com.fireblocks.sdk.Configuration;
-import com.fireblocks.sdk.models.*;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
 import com.fireblocks.sdk.api.WhitelistIpAddressesApi;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://api.fireblocks.io/v1");
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
 
-        WhitelistIpAddressesApi apiInstance = new WhitelistIpAddressesApi(defaultClient);
         String userId = "userId_example"; // String | The ID of the user
         try {
-            CompletableFuture<ApiResponse<Void>> response = apiInstance.getWhitelistIpAddresses(userId);
+            CompletableFuture<ApiResponse<GetWhitelistIpAddressesResponse>> response = fireblocks.whitelistIpAddresses().getWhitelistIpAddresses(userId);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
+            System.out.println("Response body: " + response.get().getData());
         } catch (InterruptedException | ExecutionException e) {
             ApiException apiException = (ApiException)e.getCause();
             System.err.println("Exception when calling WhitelistIpAddressesApi#getWhitelistIpAddresses");
@@ -66,8 +72,8 @@ public class Example {
 
 ### Return type
 
+CompletableFuture<ApiResponse<[**GetWhitelistIpAddressesResponse**](GetWhitelistIpAddressesResponse.md)>>
 
-CompletableFuture<ApiResponse<Void>>
 
 ### Authorization
 

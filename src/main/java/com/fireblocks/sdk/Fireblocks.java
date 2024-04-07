@@ -36,7 +36,6 @@ public class Fireblocks {
     private final String apiKey;
     private final String userAgent;
 
-    private AdminQuorumApi adminQuorum;
     private ApiUserApi apiUser;
     private AssetsApi assets;
     private AuditLogsApi auditLogs;
@@ -68,7 +67,6 @@ public class Fireblocks {
     private Web3ConnectionsApi web3Connections;
     private WebhooksApi webhooks;
     private WhitelistIpAddressesApi whitelistIpAddresses;
-    private WorkspaceApi workspace;
     private WorkspaceStatusBetaApi workspaceStatusBeta;
 
     public Fireblocks(ConfigurationOptions conf) {
@@ -207,13 +205,6 @@ public class Fireblocks {
                 .withClaim("sub", apiKey)
                 .withClaim("bodyHash", bodyHash)
                 .sign(signingAlgorithm);
-    }
-
-    public AdminQuorumApi adminQuorum() {
-        if (adminQuorum == null) {
-            adminQuorum = new AdminQuorumApi(apiClient);
-        }
-        return adminQuorum;
     }
 
     public ApiUserApi apiUser() {
@@ -431,13 +422,6 @@ public class Fireblocks {
             whitelistIpAddresses = new WhitelistIpAddressesApi(apiClient);
         }
         return whitelistIpAddresses;
-    }
-
-    public WorkspaceApi workspace() {
-        if (workspace == null) {
-            workspace = new WorkspaceApi(apiClient);
-        }
-        return workspace;
     }
 
     public WorkspaceStatusBetaApi workspaceStatusBeta() {

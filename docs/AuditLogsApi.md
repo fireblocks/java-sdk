@@ -1,6 +1,6 @@
 # AuditLogsApi
 
-All URIs are relative to *https://api.fireblocks.io/v1*
+All URIs are relative to https://developers.fireblocks.com/reference/
 
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
@@ -11,7 +11,7 @@ All URIs are relative to *https://api.fireblocks.io/v1*
 
 ## getAuditLogs
 
-> CompletableFuture<ApiResponse<Void>> getAuditLogs getAuditLogs(timePeriod, cursor)
+> CompletableFuture<ApiResponse<GetAuditLogsResponse>> getAuditLogs getAuditLogs(timePeriod, cursor)
 
 Get audit logs
 
@@ -24,23 +24,29 @@ Get all audits
 import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
-import com.fireblocks.sdk.Configuration;
-import com.fireblocks.sdk.models.*;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
 import com.fireblocks.sdk.api.AuditLogsApi;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://api.fireblocks.io/v1");
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
 
-        AuditLogsApi apiInstance = new AuditLogsApi(defaultClient);
         String timePeriod = "DAY"; // String | The last time period to fetch audit logs
         String cursor = "cursor_example"; // String | The next id to start fetch audit logs from
         try {
-            CompletableFuture<ApiResponse<Void>> response = apiInstance.getAuditLogs(timePeriod, cursor);
+            CompletableFuture<ApiResponse<GetAuditLogsResponse>> response = fireblocks.auditLogs().getAuditLogs(timePeriod, cursor);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
+            System.out.println("Response body: " + response.get().getData());
         } catch (InterruptedException | ExecutionException e) {
             ApiException apiException = (ApiException)e.getCause();
             System.err.println("Exception when calling AuditLogsApi#getAuditLogs");
@@ -69,8 +75,8 @@ public class Example {
 
 ### Return type
 
+CompletableFuture<ApiResponse<[**GetAuditLogsResponse**](GetAuditLogsResponse.md)>>
 
-CompletableFuture<ApiResponse<Void>>
 
 ### Authorization
 
@@ -103,20 +109,25 @@ Get all audits
 import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
-import com.fireblocks.sdk.Configuration;
-import com.fireblocks.sdk.models.*;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
 import com.fireblocks.sdk.api.AuditLogsApi;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://api.fireblocks.io/v1");
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
 
-        AuditLogsApi apiInstance = new AuditLogsApi(defaultClient);
         String timePeriod = "DAY"; // String | The last time period to fetch audit logs
         try {
-            CompletableFuture<ApiResponse<GetAuditLogsResponseDTO>> response = apiInstance.getAudits(timePeriod);
+            CompletableFuture<ApiResponse<GetAuditLogsResponseDTO>> response = fireblocks.auditLogs().getAudits(timePeriod);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());

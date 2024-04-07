@@ -13,10 +13,13 @@
 package com.fireblocks.sdk.api;
 
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.model.GetWhitelistIpAddressesResponse;
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -68,11 +71,11 @@ public class WhitelistIpAddressesApi {
      * gets ip addresses gets ip addresses
      *
      * @param userId The ID of the user (required)
-     * @return CompletableFuture&lt;ApiResponse&lt;Void&gt;&gt;
+     * @return CompletableFuture&lt;ApiResponse&lt;GetWhitelistIpAddressesResponse&gt;&gt;
      * @throws ApiException if fails to make API call
      */
-    public CompletableFuture<ApiResponse<Void>> getWhitelistIpAddresses(String userId)
-            throws ApiException {
+    public CompletableFuture<ApiResponse<GetWhitelistIpAddressesResponse>> getWhitelistIpAddresses(
+            String userId) throws ApiException {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     getWhitelistIpAddressesRequestBuilder(userId);
@@ -88,11 +91,21 @@ public class WhitelistIpAddressesApi {
                                             getApiException(
                                                     "getWhitelistIpAddresses", localVarResponse));
                                 }
-                                return CompletableFuture.completedFuture(
-                                        new ApiResponse<Void>(
-                                                localVarResponse.statusCode(),
-                                                localVarResponse.headers().map(),
-                                                null));
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<GetWhitelistIpAddressesResponse>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            GetWhitelistIpAddressesResponse>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
                             });
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);

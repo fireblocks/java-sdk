@@ -309,14 +309,6 @@ public class FireblocksTest {
     }
 
     @Test
-    public void testGetAdminQuorumApi() {
-        setupFireblocks(true, null, null);
-        AdminQuorumApi adminQuorum = fireblocks.adminQuorum();
-        Assert.assertNotNull(adminQuorum);
-        Assert.assertSame(adminQuorum, fireblocks.adminQuorum());
-    }
-
-    @Test
     public void testGetApiUserApi() {
         setupFireblocks(true, null, null);
         ApiUserApi apiUser = fireblocks.apiUser();
@@ -564,14 +556,6 @@ public class FireblocksTest {
         WhitelistIpAddressesApi whitelistIpAddresses = fireblocks.whitelistIpAddresses();
         Assert.assertNotNull(whitelistIpAddresses);
         Assert.assertSame(whitelistIpAddresses, fireblocks.whitelistIpAddresses());
-    }
-
-    @Test
-    public void testGetWorkspaceApi() {
-        setupFireblocks(true, null, null);
-        WorkspaceApi workspace = fireblocks.workspace();
-        Assert.assertNotNull(workspace);
-        Assert.assertSame(workspace, fireblocks.workspace());
     }
 
     @Test

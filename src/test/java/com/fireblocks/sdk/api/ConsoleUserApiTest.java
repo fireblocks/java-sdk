@@ -16,6 +16,7 @@ package com.fireblocks.sdk.api;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.model.CreateConsoleUser;
+import com.fireblocks.sdk.model.GetConsoleUsersResponse;
 import java.util.concurrent.CompletableFuture;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -51,7 +52,6 @@ public class ConsoleUserApiTest {
      */
     @Test
     public void getConsoleUsersTest() throws ApiException {
-
-        CompletableFuture<ApiResponse<Void>> response = api.getConsoleUsers();
+        CompletableFuture<ApiResponse<GetConsoleUsersResponse>> response = api.getConsoleUsers();
     }
 }

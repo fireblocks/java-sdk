@@ -19,6 +19,7 @@ import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.model.ResendTransactionWebhooksRequest;
+import com.fireblocks.sdk.model.ResendWebhooksByTransactionIdResponse;
 import com.fireblocks.sdk.model.ResendWebhooksResponse;
 import java.io.IOException;
 import java.io.InputStream;
@@ -77,14 +78,15 @@ public class WebhooksApi {
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;Void&gt;&gt;
+     * @return CompletableFuture&lt;ApiResponse&lt;ResendWebhooksByTransactionIdResponse&gt;&gt;
      * @throws ApiException if fails to make API call
      */
-    public CompletableFuture<ApiResponse<Void>> resendTransactionWebhooks(
-            ResendTransactionWebhooksRequest resendTransactionWebhooksRequest,
-            String txId,
-            String idempotencyKey)
-            throws ApiException {
+    public CompletableFuture<ApiResponse<ResendWebhooksByTransactionIdResponse>>
+            resendTransactionWebhooks(
+                    ResendTransactionWebhooksRequest resendTransactionWebhooksRequest,
+                    String txId,
+                    String idempotencyKey)
+                    throws ApiException {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     resendTransactionWebhooksRequestBuilder(
@@ -101,11 +103,21 @@ public class WebhooksApi {
                                             getApiException(
                                                     "resendTransactionWebhooks", localVarResponse));
                                 }
-                                return CompletableFuture.completedFuture(
-                                        new ApiResponse<Void>(
-                                                localVarResponse.statusCode(),
-                                                localVarResponse.headers().map(),
-                                                null));
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<ResendWebhooksByTransactionIdResponse>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            ResendWebhooksByTransactionIdResponse>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
                             });
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
