@@ -1,8 +1,5 @@
-# Fireblocks Java SDK (Beta)
+# Fireblocks Java SDK
 <!--[![Maven version](https://badge.fury.io/java/fireblocks.svg)](https://badge.fury.io/java/fireblocks)-->
-> **Warning**
-> This package is currently in a beta stage and should be used at your own risk.
-> The provided interfaces might go through backwards-incompatibale changes.
 
 For detailed API documentation please refer to the [Fireblocks API Reference](https://developers.fireblocks.com/reference/).
 
@@ -35,7 +32,7 @@ Add this dependency to your project's POM:
 <dependency>
   <groupId>com.fireblocks.sdk</groupId>
   <artifactId>fireblocks-sdk</artifactId>
-  <version>1.0.0</version>
+  <version>1.0.1</version>
   <scope>compile</scope>
 </dependency>
 ```
@@ -45,7 +42,7 @@ Add this dependency to your project's POM:
 Add this dependency to your project's build file:
 
 ```groovy
-compile "com.fireblocks.sdk:fireblocks-sdk:1.0.0"
+compile "com.fireblocks.sdk:fireblocks-sdk:1.0.1"
 ```
 
 ### Others
@@ -58,7 +55,7 @@ mvn clean package
 
 Then manually install the following JARs:
 
-- `target/fireblocks-sdk-1.0.0.jar`
+- `target/fireblocks-sdk-1.0.1.jar`
 - `target/lib/*.jar`
 
 
