@@ -1,6 +1,6 @@
 # ConsoleUserApi
 
-All URIs are relative to *https://api.fireblocks.io/v1*
+All URIs are relative to https://developers.fireblocks.com/reference/
 
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
@@ -24,21 +24,26 @@ creates fireblocks console user
 import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
-import com.fireblocks.sdk.Configuration;
-import com.fireblocks.sdk.models.*;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
 import com.fireblocks.sdk.api.ConsoleUserApi;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://api.fireblocks.io/v1");
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
 
-        ConsoleUserApi apiInstance = new ConsoleUserApi(defaultClient);
         CreateConsoleUser createConsoleUser = new CreateConsoleUser(); // CreateConsoleUser | 
         String idempotencyKey = "idempotencyKey_example"; // String | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
         try {
-            CompletableFuture<ApiResponse<Void>> response = apiInstance.createConsoleUser(createConsoleUser, idempotencyKey);
+            CompletableFuture<ApiResponse<Void>> response = fireblocks.consoleUser().createConsoleUser(createConsoleUser, idempotencyKey);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
         } catch (InterruptedException | ExecutionException e) {
@@ -84,7 +89,7 @@ No authorization required
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **204** | Users sent for creation |  * X-Request-ID -  <br>  |
+| **200** | Users sent for creation |  * X-Request-ID -  <br>  |
 | **400** | bad request |  * X-Request-ID -  <br>  |
 | **401** | Unauthorized. Missing / invalid JWT token in Authorization header. |  * X-Request-ID -  <br>  |
 | **403** | Lacking permissions. |  * X-Request-ID -  <br>  |
@@ -94,7 +99,7 @@ No authorization required
 
 ## getConsoleUsers
 
-> CompletableFuture<ApiResponse<Void>> getConsoleUsers getConsoleUsers()
+> CompletableFuture<ApiResponse<GetConsoleUsersResponse>> getConsoleUsers getConsoleUsers()
 
 get console users
 
@@ -107,21 +112,27 @@ get console users from the current tenant
 import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
-import com.fireblocks.sdk.Configuration;
-import com.fireblocks.sdk.models.*;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
 import com.fireblocks.sdk.api.ConsoleUserApi;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://api.fireblocks.io/v1");
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
 
-        ConsoleUserApi apiInstance = new ConsoleUserApi(defaultClient);
         try {
-            CompletableFuture<ApiResponse<Void>> response = apiInstance.getConsoleUsers();
+            CompletableFuture<ApiResponse<GetConsoleUsersResponse>> response = fireblocks.consoleUser().getConsoleUsers();
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
+            System.out.println("Response body: " + response.get().getData());
         } catch (InterruptedException | ExecutionException e) {
             ApiException apiException = (ApiException)e.getCause();
             System.err.println("Exception when calling ConsoleUserApi#getConsoleUsers");
@@ -146,8 +157,8 @@ This endpoint does not need any parameter.
 
 ### Return type
 
+CompletableFuture<ApiResponse<[**GetConsoleUsersResponse**](GetConsoleUsersResponse.md)>>
 
-CompletableFuture<ApiResponse<Void>>
 
 ### Authorization
 

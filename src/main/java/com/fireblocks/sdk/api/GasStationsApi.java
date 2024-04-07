@@ -18,6 +18,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.model.EditGasStationConfigurationResponse;
 import com.fireblocks.sdk.model.GasStationConfiguration;
 import com.fireblocks.sdk.model.GasStationPropertiesResponse;
 import java.io.IOException;
@@ -210,12 +211,13 @@ public class GasStationsApi {
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;Void&gt;&gt;
+     * @return CompletableFuture&lt;ApiResponse&lt;EditGasStationConfigurationResponse&gt;&gt;
      * @throws ApiException if fails to make API call
      */
-    public CompletableFuture<ApiResponse<Void>> updateGasStationConfiguration(
-            GasStationConfiguration gasStationConfiguration, String idempotencyKey)
-            throws ApiException {
+    public CompletableFuture<ApiResponse<EditGasStationConfigurationResponse>>
+            updateGasStationConfiguration(
+                    GasStationConfiguration gasStationConfiguration, String idempotencyKey)
+                    throws ApiException {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     updateGasStationConfigurationRequestBuilder(
@@ -233,11 +235,21 @@ public class GasStationsApi {
                                                     "updateGasStationConfiguration",
                                                     localVarResponse));
                                 }
-                                return CompletableFuture.completedFuture(
-                                        new ApiResponse<Void>(
-                                                localVarResponse.statusCode(),
-                                                localVarResponse.headers().map(),
-                                                null));
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<EditGasStationConfigurationResponse>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            EditGasStationConfigurationResponse>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
                             });
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
@@ -291,12 +303,15 @@ public class GasStationsApi {
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;Void&gt;&gt;
+     * @return CompletableFuture&lt;ApiResponse&lt;EditGasStationConfigurationResponse&gt;&gt;
      * @throws ApiException if fails to make API call
      */
-    public CompletableFuture<ApiResponse<Void>> updateGasStationConfigurationByAssetId(
-            GasStationConfiguration gasStationConfiguration, String assetId, String idempotencyKey)
-            throws ApiException {
+    public CompletableFuture<ApiResponse<EditGasStationConfigurationResponse>>
+            updateGasStationConfigurationByAssetId(
+                    GasStationConfiguration gasStationConfiguration,
+                    String assetId,
+                    String idempotencyKey)
+                    throws ApiException {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     updateGasStationConfigurationByAssetIdRequestBuilder(
@@ -314,11 +329,21 @@ public class GasStationsApi {
                                                     "updateGasStationConfigurationByAssetId",
                                                     localVarResponse));
                                 }
-                                return CompletableFuture.completedFuture(
-                                        new ApiResponse<Void>(
-                                                localVarResponse.statusCode(),
-                                                localVarResponse.headers().map(),
-                                                null));
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<EditGasStationConfigurationResponse>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            EditGasStationConfigurationResponse>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
                             });
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);

@@ -21,10 +21,12 @@ import com.fireblocks.sdk.model.CreateAssetsRequest;
 import com.fireblocks.sdk.model.CreateMultipleAccountsRequest;
 import com.fireblocks.sdk.model.CreateVaultAccountRequest;
 import com.fireblocks.sdk.model.CreateVaultAssetResponse;
+import com.fireblocks.sdk.model.GetMaxSpendableAmountResponse;
 import com.fireblocks.sdk.model.JobCreated;
 import com.fireblocks.sdk.model.PaginatedAddressResponse;
 import com.fireblocks.sdk.model.PaginatedAssetWalletResponse;
 import com.fireblocks.sdk.model.PublicKeyInformation;
+import com.fireblocks.sdk.model.RenameVaultAccountResponse;
 import com.fireblocks.sdk.model.SetAutoFuelRequest;
 import com.fireblocks.sdk.model.SetCustomerRefIdForAddressRequest;
 import com.fireblocks.sdk.model.SetCustomerRefIdRequest;
@@ -183,8 +185,7 @@ public class VaultsApiTest {
         String vaultAccountId = null;
         String assetId = null;
         Boolean manualSignging = null;
-
-        CompletableFuture<ApiResponse<Void>> response =
+        CompletableFuture<ApiResponse<GetMaxSpendableAmountResponse>> response =
                 api.getMaxSpendableAmount(vaultAccountId, assetId, manualSignging);
     }
 
@@ -441,8 +442,7 @@ public class VaultsApiTest {
         UpdateVaultAccountRequest updateVaultAccountRequest = null;
         String vaultAccountId = null;
         String idempotencyKey = null;
-
-        CompletableFuture<ApiResponse<Void>> response =
+        CompletableFuture<ApiResponse<RenameVaultAccountResponse>> response =
                 api.updateVaultAccount(updateVaultAccountRequest, vaultAccountId, idempotencyKey);
     }
 

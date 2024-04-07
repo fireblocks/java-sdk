@@ -8,7 +8,7 @@
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
 |**name** | **String** |  |  |
-|**routingPolicy** | [**NetworkIdRoutingPolicy**](NetworkIdRoutingPolicy.md) |  |  [optional] |
+|**routingPolicy** | [**Map&lt;String, NetworkIdRoutingPolicyValue&gt;**](NetworkIdRoutingPolicyValue.md) |  |  [optional] |
 
 
 

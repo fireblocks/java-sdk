@@ -1,6 +1,6 @@
 # ExternalWalletsApi
 
-All URIs are relative to *https://api.fireblocks.io/v1*
+All URIs are relative to https://developers.fireblocks.com/reference/
 
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
@@ -30,23 +30,28 @@ Adds an asset to an existing external wallet.
 import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
-import com.fireblocks.sdk.Configuration;
-import com.fireblocks.sdk.models.*;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
 import com.fireblocks.sdk.api.ExternalWalletsApi;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://api.fireblocks.io/v1");
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
 
-        ExternalWalletsApi apiInstance = new ExternalWalletsApi(defaultClient);
         String walletId = "walletId_example"; // String | The ID of the wallet
         String assetId = "assetId_example"; // String | The ID of the asset to add
         AddAssetToExternalWalletRequest addAssetToExternalWalletRequest = new AddAssetToExternalWalletRequest(); // AddAssetToExternalWalletRequest | 
         String idempotencyKey = "idempotencyKey_example"; // String | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
         try {
-            CompletableFuture<ApiResponse<ExternalWalletAsset>> response = apiInstance.addAssetToExternalWallet(walletId, assetId, addAssetToExternalWalletRequest, idempotencyKey);
+            CompletableFuture<ApiResponse<ExternalWalletAsset>> response = fireblocks.externalWallets().addAssetToExternalWallet(walletId, assetId, addAssetToExternalWalletRequest, idempotencyKey);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
@@ -114,21 +119,26 @@ Creates a new external wallet with the requested name.
 import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
-import com.fireblocks.sdk.Configuration;
-import com.fireblocks.sdk.models.*;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
 import com.fireblocks.sdk.api.ExternalWalletsApi;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://api.fireblocks.io/v1");
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
 
-        ExternalWalletsApi apiInstance = new ExternalWalletsApi(defaultClient);
         CreateWalletRequest createWalletRequest = new CreateWalletRequest(); // CreateWalletRequest | 
         String idempotencyKey = "idempotencyKey_example"; // String | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
         try {
-            CompletableFuture<ApiResponse<UnmanagedWallet>> response = apiInstance.createExternalWallet(createWalletRequest, idempotencyKey);
+            CompletableFuture<ApiResponse<UnmanagedWallet>> response = fireblocks.externalWallets().createExternalWallet(createWalletRequest, idempotencyKey);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
@@ -194,20 +204,25 @@ Deletes an external wallet by ID.
 import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
-import com.fireblocks.sdk.Configuration;
-import com.fireblocks.sdk.models.*;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
 import com.fireblocks.sdk.api.ExternalWalletsApi;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://api.fireblocks.io/v1");
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
 
-        ExternalWalletsApi apiInstance = new ExternalWalletsApi(defaultClient);
         String walletId = "walletId_example"; // String | The ID of the wallet to delete
         try {
-            CompletableFuture<ApiResponse<Void>> response = apiInstance.deleteExternalWallet(walletId);
+            CompletableFuture<ApiResponse<Void>> response = fireblocks.externalWallets().deleteExternalWallet(walletId);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
         } catch (InterruptedException | ExecutionException e) {
@@ -271,20 +286,25 @@ Returns an external wallet by ID.
 import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
-import com.fireblocks.sdk.Configuration;
-import com.fireblocks.sdk.models.*;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
 import com.fireblocks.sdk.api.ExternalWalletsApi;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://api.fireblocks.io/v1");
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
 
-        ExternalWalletsApi apiInstance = new ExternalWalletsApi(defaultClient);
         String walletId = "walletId_example"; // String | The ID of the wallet to return
         try {
-            CompletableFuture<ApiResponse<UnmanagedWallet>> response = apiInstance.getExternalWallet(walletId);
+            CompletableFuture<ApiResponse<UnmanagedWallet>> response = fireblocks.externalWallets().getExternalWallet(walletId);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
@@ -349,21 +369,26 @@ Returns an external wallet by wallet ID and asset ID.
 import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
-import com.fireblocks.sdk.Configuration;
-import com.fireblocks.sdk.models.*;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
 import com.fireblocks.sdk.api.ExternalWalletsApi;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://api.fireblocks.io/v1");
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
 
-        ExternalWalletsApi apiInstance = new ExternalWalletsApi(defaultClient);
         String walletId = "walletId_example"; // String | The ID of the wallet
         String assetId = "assetId_example"; // String | The ID of the asset to return
         try {
-            CompletableFuture<ApiResponse<ExternalWalletAsset>> response = apiInstance.getExternalWalletAsset(walletId, assetId);
+            CompletableFuture<ApiResponse<ExternalWalletAsset>> response = fireblocks.externalWallets().getExternalWalletAsset(walletId, assetId);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
@@ -429,19 +454,24 @@ Gets a list of external wallets under the workspace.
 import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
-import com.fireblocks.sdk.Configuration;
-import com.fireblocks.sdk.models.*;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
 import com.fireblocks.sdk.api.ExternalWalletsApi;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://api.fireblocks.io/v1");
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
 
-        ExternalWalletsApi apiInstance = new ExternalWalletsApi(defaultClient);
         try {
-            CompletableFuture<ApiResponse<List<UnmanagedWallet>>> response = apiInstance.getExternalWallets();
+            CompletableFuture<ApiResponse<List<UnmanagedWallet>>> response = fireblocks.externalWallets().getExternalWallets();
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
@@ -503,21 +533,26 @@ Deletes an external wallet asset by ID.
 import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
-import com.fireblocks.sdk.Configuration;
-import com.fireblocks.sdk.models.*;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
 import com.fireblocks.sdk.api.ExternalWalletsApi;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://api.fireblocks.io/v1");
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
 
-        ExternalWalletsApi apiInstance = new ExternalWalletsApi(defaultClient);
         String walletId = "walletId_example"; // String | The ID of the wallet
         String assetId = "assetId_example"; // String | The ID of the asset to delete
         try {
-            CompletableFuture<ApiResponse<Void>> response = apiInstance.removeAssetFromExternalWallet(walletId, assetId);
+            CompletableFuture<ApiResponse<Void>> response = fireblocks.externalWallets().removeAssetFromExternalWallet(walletId, assetId);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
         } catch (InterruptedException | ExecutionException e) {
@@ -582,22 +617,27 @@ Sets an AML/KYT customer reference ID for the specific external wallet.
 import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
-import com.fireblocks.sdk.Configuration;
-import com.fireblocks.sdk.models.*;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
 import com.fireblocks.sdk.api.ExternalWalletsApi;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://api.fireblocks.io/v1");
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
 
-        ExternalWalletsApi apiInstance = new ExternalWalletsApi(defaultClient);
         SetCustomerRefIdRequest setCustomerRefIdRequest = new SetCustomerRefIdRequest(); // SetCustomerRefIdRequest | 
         String walletId = "walletId_example"; // String | The wallet ID
         String idempotencyKey = "idempotencyKey_example"; // String | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
         try {
-            CompletableFuture<ApiResponse<Void>> response = apiInstance.setExternalWalletCustomerRefId(setCustomerRefIdRequest, walletId, idempotencyKey);
+            CompletableFuture<ApiResponse<Void>> response = fireblocks.externalWallets().setExternalWalletCustomerRefId(setCustomerRefIdRequest, walletId, idempotencyKey);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
         } catch (InterruptedException | ExecutionException e) {

@@ -19,6 +19,7 @@ import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.Pair;
+import com.fireblocks.sdk.model.GetAuditLogsResponse;
 import com.fireblocks.sdk.model.GetAuditLogsResponseDTO;
 import java.io.IOException;
 import java.io.InputStream;
@@ -76,11 +77,11 @@ public class AuditLogsApi {
      *
      * @param timePeriod The last time period to fetch audit logs (optional)
      * @param cursor The next id to start fetch audit logs from (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;Void&gt;&gt;
+     * @return CompletableFuture&lt;ApiResponse&lt;GetAuditLogsResponse&gt;&gt;
      * @throws ApiException if fails to make API call
      */
-    public CompletableFuture<ApiResponse<Void>> getAuditLogs(String timePeriod, String cursor)
-            throws ApiException {
+    public CompletableFuture<ApiResponse<GetAuditLogsResponse>> getAuditLogs(
+            String timePeriod, String cursor) throws ApiException {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     getAuditLogsRequestBuilder(timePeriod, cursor);
@@ -95,11 +96,21 @@ public class AuditLogsApi {
                                     return CompletableFuture.failedFuture(
                                             getApiException("getAuditLogs", localVarResponse));
                                 }
-                                return CompletableFuture.completedFuture(
-                                        new ApiResponse<Void>(
-                                                localVarResponse.statusCode(),
-                                                localVarResponse.headers().map(),
-                                                null));
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<GetAuditLogsResponse>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            GetAuditLogsResponse>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
                             });
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);

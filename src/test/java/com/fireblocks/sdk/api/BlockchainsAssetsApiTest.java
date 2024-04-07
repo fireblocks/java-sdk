@@ -15,7 +15,9 @@ package com.fireblocks.sdk.api;
 
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.model.AssetResponse;
 import com.fireblocks.sdk.model.AssetTypeResponse;
+import com.fireblocks.sdk.model.RegisterNewAssetRequest;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import org.junit.Ignore;
@@ -37,5 +39,21 @@ public class BlockchainsAssetsApiTest {
     @Test
     public void getSupportedAssetsTest() throws ApiException {
         CompletableFuture<ApiResponse<List<AssetTypeResponse>>> response = api.getSupportedAssets();
+    }
+
+    /**
+     * Register an asset
+     *
+     * <p>Register a new asset to a workspace and return the newly created asset&#39;s details.
+     * Currently supported for EVM based chains only.
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void registerNewAssetTest() throws ApiException {
+        RegisterNewAssetRequest registerNewAssetRequest = null;
+        String idempotencyKey = null;
+        CompletableFuture<ApiResponse<AssetResponse>> response =
+                api.registerNewAsset(registerNewAssetRequest, idempotencyKey);
     }
 }

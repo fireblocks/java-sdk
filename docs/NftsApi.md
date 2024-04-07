@@ -1,6 +1,6 @@
 # NftsApi
 
-All URIs are relative to *https://api.fireblocks.io/v1*
+All URIs are relative to https://developers.fireblocks.com/reference/
 
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
@@ -32,20 +32,25 @@ Returns the requested token data.
 import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
-import com.fireblocks.sdk.Configuration;
-import com.fireblocks.sdk.models.*;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
 import com.fireblocks.sdk.api.NftsApi;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://api.fireblocks.io/v1");
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
 
-        NftsApi apiInstance = new NftsApi(defaultClient);
         String id = "NFT-abcdefabcdefabcdefabcdefabcdefabcdefabcd"; // String | NFT ID
         try {
-            CompletableFuture<ApiResponse<TokenResponse>> response = apiInstance.getNFT(id);
+            CompletableFuture<ApiResponse<TokenResponse>> response = fireblocks.nfts().getNFT(id);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
@@ -109,24 +114,29 @@ Returns the requested tokens data.
 import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
-import com.fireblocks.sdk.Configuration;
-import com.fireblocks.sdk.models.*;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
 import com.fireblocks.sdk.api.NftsApi;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://api.fireblocks.io/v1");
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
 
-        NftsApi apiInstance = new NftsApi(defaultClient);
         String ids = "ids_example"; // String | A comma separated list of NFT IDs. Up to 100 are allowed in a single request.
         String pageCursor = "pageCursor_example"; // String | Page cursor to fetch
         BigDecimal pageSize = new BigDecimal(78); // BigDecimal | Items per page (max 100)
         List<String> sort = Arrays.asList(); // List<String> | Sort by param, it can be one param or a list of params separated by comma
         String order = "DESC"; // String | Order direction, it can be `ASC` for ascending or `DESC` for descending
         try {
-            CompletableFuture<ApiResponse<ListOwnedTokens200Response>> response = apiInstance.getNFTs(ids, pageCursor, pageSize, sort, order);
+            CompletableFuture<ApiResponse<ListOwnedTokens200Response>> response = fireblocks.nfts().getNFTs(ids, pageCursor, pageSize, sort, order);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
@@ -194,17 +204,22 @@ Returns all tokens and their data in your workspace.
 import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
-import com.fireblocks.sdk.Configuration;
-import com.fireblocks.sdk.models.*;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
 import com.fireblocks.sdk.api.NftsApi;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://api.fireblocks.io/v1");
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
 
-        NftsApi apiInstance = new NftsApi(defaultClient);
         String blockchainDescriptor = "ETH"; // String | Blockchain descriptor filter
         String vaultAccountIds = "vaultAccountIds_example"; // String | A comma separated list of Vault Account IDs. Up to 100 are allowed in a single request.  This field will be ignored when walletType=END_USER_WALLET or ncwId is provided.
         String ncwId = "ncwId_example"; // String | Tenant's Non-Custodial Wallet ID
@@ -220,7 +235,7 @@ public class Example {
         String search = "search_example"; // String | Search owned tokens and their collections. Possible criteria for search:  token name and id within the contract/collection, collection name, blockchain descriptor and name.
         String spam = "true"; // String | Token ownership spam status.
         try {
-            CompletableFuture<ApiResponse<GetOwnershipTokens200Response>> response = apiInstance.getOwnershipTokens(blockchainDescriptor, vaultAccountIds, ncwId, ncwAccountIds, walletType, ids, collectionIds, pageCursor, pageSize, sort, order, status, search, spam);
+            CompletableFuture<ApiResponse<GetOwnershipTokens200Response>> response = fireblocks.nfts().getOwnershipTokens(blockchainDescriptor, vaultAccountIds, ncwId, ncwAccountIds, walletType, ids, collectionIds, pageCursor, pageSize, sort, order, status, search, spam);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
@@ -297,17 +312,22 @@ Returns all collections in your workspace
 import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
-import com.fireblocks.sdk.Configuration;
-import com.fireblocks.sdk.models.*;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
 import com.fireblocks.sdk.api.NftsApi;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://api.fireblocks.io/v1");
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
 
-        NftsApi apiInstance = new NftsApi(defaultClient);
         String ncwId = "ncwId_example"; // String | Tenant's Non-Custodial Wallet ID
         String walletType = "VAULT_ACCOUNT"; // String | Wallet type, it can be `VAULT_ACCOUNT` or `END_USER_WALLET`
         String search = "search_example"; // String | Search owned collections. Possible criteria for search: collection name, collection contract address.
@@ -317,7 +337,7 @@ public class Example {
         String order = "DESC"; // String | Order direction, it can be `ASC` for ascending or `DESC` for descending
         String status = "LISTED"; // String | Token ownership status
         try {
-            CompletableFuture<ApiResponse<ListOwnedCollections200Response>> response = apiInstance.listOwnedCollections(ncwId, walletType, search, pageCursor, pageSize, sort, order, status);
+            CompletableFuture<ApiResponse<ListOwnedCollections200Response>> response = fireblocks.nfts().listOwnedCollections(ncwId, walletType, search, pageCursor, pageSize, sort, order, status);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
@@ -388,17 +408,22 @@ Returns all owned distinct tokens (for your tenant) and their data in your works
 import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
-import com.fireblocks.sdk.Configuration;
-import com.fireblocks.sdk.models.*;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
 import com.fireblocks.sdk.api.NftsApi;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://api.fireblocks.io/v1");
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
 
-        NftsApi apiInstance = new NftsApi(defaultClient);
         String ncwId = "ncwId_example"; // String | Tenant's Non-Custodial Wallet ID
         String walletType = "VAULT_ACCOUNT"; // String | Wallet type, it can be `VAULT_ACCOUNT` or `END_USER_WALLET`
         String pageCursor = "pageCursor_example"; // String | Page cursor to fetch
@@ -409,7 +434,7 @@ public class Example {
         String search = "search_example"; // String | Search owned tokens by token name
         String spam = "true"; // String | Token ownership spam status.
         try {
-            CompletableFuture<ApiResponse<ListOwnedTokens200Response>> response = apiInstance.listOwnedTokens(ncwId, walletType, pageCursor, pageSize, sort, order, status, search, spam);
+            CompletableFuture<ApiResponse<ListOwnedTokens200Response>> response = fireblocks.nfts().listOwnedTokens(ncwId, walletType, pageCursor, pageSize, sort, order, status, search, spam);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
@@ -481,21 +506,26 @@ Updates the latest token metadata.
 import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
-import com.fireblocks.sdk.Configuration;
-import com.fireblocks.sdk.models.*;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
 import com.fireblocks.sdk.api.NftsApi;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://api.fireblocks.io/v1");
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
 
-        NftsApi apiInstance = new NftsApi(defaultClient);
         String id = "NFT-abcdefabcdefabcdefabcdefabcdefabcdefabcd"; // String | NFT ID
         String idempotencyKey = "idempotencyKey_example"; // String | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
         try {
-            CompletableFuture<ApiResponse<Void>> response = apiInstance.refreshNFTMetadata(id, idempotencyKey);
+            CompletableFuture<ApiResponse<Void>> response = fireblocks.nfts().refreshNFTMetadata(id, idempotencyKey);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
         } catch (InterruptedException | ExecutionException e) {
@@ -559,22 +589,27 @@ Updates all tokens and balances per blockchain and vault account.
 import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
-import com.fireblocks.sdk.Configuration;
-import com.fireblocks.sdk.models.*;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
 import com.fireblocks.sdk.api.NftsApi;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://api.fireblocks.io/v1");
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
 
-        NftsApi apiInstance = new NftsApi(defaultClient);
         String blockchainDescriptor = "ETH"; // String | Blockchain descriptor filter
         String vaultAccountId = "vaultAccountId_example"; // String | Vault account filter
         String idempotencyKey = "idempotencyKey_example"; // String | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
         try {
-            CompletableFuture<ApiResponse<Void>> response = apiInstance.updateOwnershipTokens(blockchainDescriptor, vaultAccountId, idempotencyKey);
+            CompletableFuture<ApiResponse<Void>> response = fireblocks.nfts().updateOwnershipTokens(blockchainDescriptor, vaultAccountId, idempotencyKey);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
         } catch (InterruptedException | ExecutionException e) {
@@ -639,22 +674,27 @@ Updates token status for a tenant, in all tenant vaults.
 import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
-import com.fireblocks.sdk.Configuration;
-import com.fireblocks.sdk.models.*;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
 import com.fireblocks.sdk.api.NftsApi;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://api.fireblocks.io/v1");
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
 
-        NftsApi apiInstance = new NftsApi(defaultClient);
         UpdateTokenOwnershipStatusDto updateTokenOwnershipStatusDto = new UpdateTokenOwnershipStatusDto(); // UpdateTokenOwnershipStatusDto | 
         String id = "NFT-abcdefabcdefabcdefabcdefabcdefabcdefabcd"; // String | NFT ID
         String idempotencyKey = "idempotencyKey_example"; // String | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
         try {
-            CompletableFuture<ApiResponse<Void>> response = apiInstance.updateTokenOwnershipStatus(updateTokenOwnershipStatusDto, id, idempotencyKey);
+            CompletableFuture<ApiResponse<Void>> response = fireblocks.nfts().updateTokenOwnershipStatus(updateTokenOwnershipStatusDto, id, idempotencyKey);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
         } catch (InterruptedException | ExecutionException e) {
@@ -719,21 +759,26 @@ Updates tokens spam property for a tenant&#39;s token ownerships, in all tenant 
 import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
-import com.fireblocks.sdk.Configuration;
-import com.fireblocks.sdk.models.*;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
 import com.fireblocks.sdk.api.NftsApi;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://api.fireblocks.io/v1");
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
 
-        NftsApi apiInstance = new NftsApi(defaultClient);
         List<TokenOwnershipSpamUpdatePayload> tokenOwnershipSpamUpdatePayload = Arrays.asList(); // List<TokenOwnershipSpamUpdatePayload> | 
         String idempotencyKey = "idempotencyKey_example"; // String | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
         try {
-            CompletableFuture<ApiResponse<Void>> response = apiInstance.updateTokensOwnershipSpam(tokenOwnershipSpamUpdatePayload, idempotencyKey);
+            CompletableFuture<ApiResponse<Void>> response = fireblocks.nfts().updateTokensOwnershipSpam(tokenOwnershipSpamUpdatePayload, idempotencyKey);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
         } catch (InterruptedException | ExecutionException e) {
@@ -799,21 +844,26 @@ Updates tokens status for a tenant, in all tenant vaults.
 import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
-import com.fireblocks.sdk.Configuration;
-import com.fireblocks.sdk.models.*;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
 import com.fireblocks.sdk.api.NftsApi;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://api.fireblocks.io/v1");
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
 
-        NftsApi apiInstance = new NftsApi(defaultClient);
         List<TokenOwnershipStatusUpdatePayload> tokenOwnershipStatusUpdatePayload = Arrays.asList(); // List<TokenOwnershipStatusUpdatePayload> | 
         String idempotencyKey = "idempotencyKey_example"; // String | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
         try {
-            CompletableFuture<ApiResponse<Void>> response = apiInstance.updateTokensOwnershipStatus(tokenOwnershipStatusUpdatePayload, idempotencyKey);
+            CompletableFuture<ApiResponse<Void>> response = fireblocks.nfts().updateTokensOwnershipStatus(tokenOwnershipStatusUpdatePayload, idempotencyKey);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
         } catch (InterruptedException | ExecutionException e) {

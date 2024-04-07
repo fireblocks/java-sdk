@@ -16,6 +16,8 @@ package com.fireblocks.sdk.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -24,12 +26,22 @@ import java.util.StringJoiner;
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class SetNetworkIdRoutingPolicyRequest {
     public static final String JSON_PROPERTY_ROUTING_POLICY = "routingPolicy";
-    private NetworkIdRoutingPolicy routingPolicy;
+    private Map<String, NetworkIdRoutingPolicyValue> routingPolicy = new HashMap<>();
 
     public SetNetworkIdRoutingPolicyRequest() {}
 
-    public SetNetworkIdRoutingPolicyRequest routingPolicy(NetworkIdRoutingPolicy routingPolicy) {
+    public SetNetworkIdRoutingPolicyRequest routingPolicy(
+            Map<String, NetworkIdRoutingPolicyValue> routingPolicy) {
         this.routingPolicy = routingPolicy;
+        return this;
+    }
+
+    public SetNetworkIdRoutingPolicyRequest putRoutingPolicyItem(
+            String key, NetworkIdRoutingPolicyValue routingPolicyItem) {
+        if (this.routingPolicy == null) {
+            this.routingPolicy = new HashMap<>();
+        }
+        this.routingPolicy.put(key, routingPolicyItem);
         return this;
     }
 
@@ -41,13 +53,13 @@ public class SetNetworkIdRoutingPolicyRequest {
     @jakarta.annotation.Nonnull
     @JsonProperty(JSON_PROPERTY_ROUTING_POLICY)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public NetworkIdRoutingPolicy getRoutingPolicy() {
+    public Map<String, NetworkIdRoutingPolicyValue> getRoutingPolicy() {
         return routingPolicy;
     }
 
     @JsonProperty(JSON_PROPERTY_ROUTING_POLICY)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setRoutingPolicy(NetworkIdRoutingPolicy routingPolicy) {
+    public void setRoutingPolicy(Map<String, NetworkIdRoutingPolicyValue> routingPolicy) {
         this.routingPolicy = routingPolicy;
     }
 
@@ -124,7 +136,25 @@ public class SetNetworkIdRoutingPolicyRequest {
 
         // add `routingPolicy` to the URL query string
         if (getRoutingPolicy() != null) {
-            joiner.add(getRoutingPolicy().toUrlQueryString(prefix + "routingPolicy" + suffix));
+            for (String _key : getRoutingPolicy().keySet()) {
+                if (getRoutingPolicy().get(_key) != null) {
+                    joiner.add(
+                            getRoutingPolicy()
+                                    .get(_key)
+                                    .toUrlQueryString(
+                                            String.format(
+                                                    "%sroutingPolicy%s%s",
+                                                    prefix,
+                                                    suffix,
+                                                    "".equals(suffix)
+                                                            ? ""
+                                                            : String.format(
+                                                                    "%s%d%s",
+                                                                    containerPrefix,
+                                                                    _key,
+                                                                    containerSuffix))));
+                }
+            }
         }
 
         return joiner.toString();

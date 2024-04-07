@@ -18,8 +18,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.model.DepositFundsFromLinkedDDAResponse;
 import com.fireblocks.sdk.model.FiatAccount;
 import com.fireblocks.sdk.model.Funds;
+import com.fireblocks.sdk.model.RedeemFundsToLinkedDDAResponse;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
@@ -77,11 +79,12 @@ public class FiatAccountsApi {
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;Void&gt;&gt;
+     * @return CompletableFuture&lt;ApiResponse&lt;DepositFundsFromLinkedDDAResponse&gt;&gt;
      * @throws ApiException if fails to make API call
      */
-    public CompletableFuture<ApiResponse<Void>> depositFundsFromLinkedDDA(
-            String accountId, Funds funds, String idempotencyKey) throws ApiException {
+    public CompletableFuture<ApiResponse<DepositFundsFromLinkedDDAResponse>>
+            depositFundsFromLinkedDDA(String accountId, Funds funds, String idempotencyKey)
+                    throws ApiException {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     depositFundsFromLinkedDDARequestBuilder(accountId, funds, idempotencyKey);
@@ -97,11 +100,21 @@ public class FiatAccountsApi {
                                             getApiException(
                                                     "depositFundsFromLinkedDDA", localVarResponse));
                                 }
-                                return CompletableFuture.completedFuture(
-                                        new ApiResponse<Void>(
-                                                localVarResponse.statusCode(),
-                                                localVarResponse.headers().map(),
-                                                null));
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<DepositFundsFromLinkedDDAResponse>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            DepositFundsFromLinkedDDAResponse>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
                             });
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
@@ -285,10 +298,10 @@ public class FiatAccountsApi {
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;Void&gt;&gt;
+     * @return CompletableFuture&lt;ApiResponse&lt;RedeemFundsToLinkedDDAResponse&gt;&gt;
      * @throws ApiException if fails to make API call
      */
-    public CompletableFuture<ApiResponse<Void>> redeemFundsToLinkedDDA(
+    public CompletableFuture<ApiResponse<RedeemFundsToLinkedDDAResponse>> redeemFundsToLinkedDDA(
             String accountId, Funds funds, String idempotencyKey) throws ApiException {
         try {
             HttpRequest.Builder localVarRequestBuilder =
@@ -305,11 +318,21 @@ public class FiatAccountsApi {
                                             getApiException(
                                                     "redeemFundsToLinkedDDA", localVarResponse));
                                 }
-                                return CompletableFuture.completedFuture(
-                                        new ApiResponse<Void>(
-                                                localVarResponse.statusCode(),
-                                                localVarResponse.headers().map(),
-                                                null));
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<RedeemFundsToLinkedDDAResponse>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            RedeemFundsToLinkedDDAResponse>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
                             });
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);

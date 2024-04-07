@@ -16,6 +16,7 @@ package com.fireblocks.sdk.api;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.model.ResendTransactionWebhooksRequest;
+import com.fireblocks.sdk.model.ResendWebhooksByTransactionIdResponse;
 import com.fireblocks.sdk.model.ResendWebhooksResponse;
 import java.util.concurrent.CompletableFuture;
 import org.junit.Ignore;
@@ -39,8 +40,7 @@ public class WebhooksApiTest {
         ResendTransactionWebhooksRequest resendTransactionWebhooksRequest = null;
         String txId = null;
         String idempotencyKey = null;
-
-        CompletableFuture<ApiResponse<Void>> response =
+        CompletableFuture<ApiResponse<ResendWebhooksByTransactionIdResponse>> response =
                 api.resendTransactionWebhooks(
                         resendTransactionWebhooksRequest, txId, idempotencyKey);
     }

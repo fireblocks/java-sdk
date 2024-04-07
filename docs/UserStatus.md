@@ -1,0 +1,17 @@
+
+
+# UserStatus
+
+## Enum
+
+
+* `PENDING_ACTIVATION` (value: `"PENDING_ACTIVATION"`)
+
+* `PENDING_DEVICE_PAIRING` (value: `"PENDING_DEVICE_PAIRING"`)
+
+* `PENDING_DEVICE_SETUP` (value: `"PENDING_DEVICE_SETUP"`)
+
+* `READY` (value: `"READY"`)
+
+
+

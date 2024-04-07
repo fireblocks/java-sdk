@@ -7,7 +7,7 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**routingPolicy** | [**NetworkIdRoutingPolicy**](NetworkIdRoutingPolicy.md) |  |  |
+|**routingPolicy** | [**Map&lt;String, NetworkIdRoutingPolicyValue&gt;**](NetworkIdRoutingPolicyValue.md) |  |  |
 
 
 

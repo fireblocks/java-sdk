@@ -25,10 +25,12 @@ import com.fireblocks.sdk.model.CreateAssetsRequest;
 import com.fireblocks.sdk.model.CreateMultipleAccountsRequest;
 import com.fireblocks.sdk.model.CreateVaultAccountRequest;
 import com.fireblocks.sdk.model.CreateVaultAssetResponse;
+import com.fireblocks.sdk.model.GetMaxSpendableAmountResponse;
 import com.fireblocks.sdk.model.JobCreated;
 import com.fireblocks.sdk.model.PaginatedAddressResponse;
 import com.fireblocks.sdk.model.PaginatedAssetWalletResponse;
 import com.fireblocks.sdk.model.PublicKeyInformation;
+import com.fireblocks.sdk.model.RenameVaultAccountResponse;
 import com.fireblocks.sdk.model.SetAutoFuelRequest;
 import com.fireblocks.sdk.model.SetCustomerRefIdForAddressRequest;
 import com.fireblocks.sdk.model.SetCustomerRefIdRequest;
@@ -805,10 +807,10 @@ public class VaultsApi {
      * @param manualSignging False by default. The maximum number of inputs depends if the
      *     transaction will be signed by an automated co-signer server or on a mobile device.
      *     (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;Void&gt;&gt;
+     * @return CompletableFuture&lt;ApiResponse&lt;GetMaxSpendableAmountResponse&gt;&gt;
      * @throws ApiException if fails to make API call
      */
-    public CompletableFuture<ApiResponse<Void>> getMaxSpendableAmount(
+    public CompletableFuture<ApiResponse<GetMaxSpendableAmountResponse>> getMaxSpendableAmount(
             String vaultAccountId, String assetId, Boolean manualSignging) throws ApiException {
         try {
             HttpRequest.Builder localVarRequestBuilder =
@@ -825,11 +827,21 @@ public class VaultsApi {
                                             getApiException(
                                                     "getMaxSpendableAmount", localVarResponse));
                                 }
-                                return CompletableFuture.completedFuture(
-                                        new ApiResponse<Void>(
-                                                localVarResponse.statusCode(),
-                                                localVarResponse.headers().map(),
-                                                null));
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<GetMaxSpendableAmountResponse>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            GetMaxSpendableAmountResponse>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
                             });
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);
@@ -2270,10 +2282,10 @@ public class VaultsApi {
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;Void&gt;&gt;
+     * @return CompletableFuture&lt;ApiResponse&lt;RenameVaultAccountResponse&gt;&gt;
      * @throws ApiException if fails to make API call
      */
-    public CompletableFuture<ApiResponse<Void>> updateVaultAccount(
+    public CompletableFuture<ApiResponse<RenameVaultAccountResponse>> updateVaultAccount(
             UpdateVaultAccountRequest updateVaultAccountRequest,
             String vaultAccountId,
             String idempotencyKey)
@@ -2294,11 +2306,21 @@ public class VaultsApi {
                                             getApiException(
                                                     "updateVaultAccount", localVarResponse));
                                 }
-                                return CompletableFuture.completedFuture(
-                                        new ApiResponse<Void>(
-                                                localVarResponse.statusCode(),
-                                                localVarResponse.headers().map(),
-                                                null));
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<RenameVaultAccountResponse>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            RenameVaultAccountResponse>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
                             });
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);

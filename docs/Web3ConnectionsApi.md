@@ -1,6 +1,6 @@
 # Web3ConnectionsApi
 
-All URIs are relative to *https://api.fireblocks.io/v1*
+All URIs are relative to https://developers.fireblocks.com/reference/
 
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
@@ -26,21 +26,26 @@ Initiate a new Web3 connection.  * Note: After this succeeds, make a request to 
 import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
-import com.fireblocks.sdk.Configuration;
-import com.fireblocks.sdk.models.*;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
 import com.fireblocks.sdk.api.Web3ConnectionsApi;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://api.fireblocks.io/v1");
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
 
-        Web3ConnectionsApi apiInstance = new Web3ConnectionsApi(defaultClient);
         CreateRequest createRequest = new CreateRequest(); // CreateRequest | 
         String idempotencyKey = "idempotencyKey_example"; // String | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
         try {
-            CompletableFuture<ApiResponse<CreateConnectionResponse>> response = apiInstance.create(createRequest, idempotencyKey);
+            CompletableFuture<ApiResponse<CreateConnectionResponse>> response = fireblocks.web3Connections().create(createRequest, idempotencyKey);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
@@ -107,24 +112,29 @@ Get open Web3 connections.
 import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
-import com.fireblocks.sdk.Configuration;
-import com.fireblocks.sdk.models.*;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
 import com.fireblocks.sdk.api.Web3ConnectionsApi;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://api.fireblocks.io/v1");
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
 
-        Web3ConnectionsApi apiInstance = new Web3ConnectionsApi(defaultClient);
         String order = "ASC"; // String | List order; ascending or descending.
         GetFilterParameter filter = new GetFilterParameter(); // GetFilterParameter | Parsed filter object
         String sort = "id"; // String | Property to sort Web3 connections by.
         BigDecimal pageSize = new BigDecimal("10"); // BigDecimal | Amount of results to return in the next page.
         String next = "next_example"; // String | Cursor to the next page
         try {
-            CompletableFuture<ApiResponse<GetConnectionsResponse>> response = apiInstance.get(order, filter, sort, pageSize, next);
+            CompletableFuture<ApiResponse<GetConnectionsResponse>> response = fireblocks.web3Connections().get(order, filter, sort, pageSize, next);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
@@ -194,20 +204,25 @@ Remove a Web3 connection
 import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
-import com.fireblocks.sdk.Configuration;
-import com.fireblocks.sdk.models.*;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
 import com.fireblocks.sdk.api.Web3ConnectionsApi;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://api.fireblocks.io/v1");
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
 
-        Web3ConnectionsApi apiInstance = new Web3ConnectionsApi(defaultClient);
         String id = "id_example"; // String | The ID of the existing Web3 connection to remove.
         try {
-            CompletableFuture<ApiResponse<Void>> response = apiInstance.remove(id);
+            CompletableFuture<ApiResponse<Void>> response = fireblocks.web3Connections().remove(id);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
         } catch (InterruptedException | ExecutionException e) {
@@ -272,22 +287,27 @@ Submit a response to *approve* or *reject* an initiated Web3 connection. * Note:
 import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
-import com.fireblocks.sdk.Configuration;
-import com.fireblocks.sdk.models.*;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
 import com.fireblocks.sdk.api.Web3ConnectionsApi;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://api.fireblocks.io/v1");
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
 
-        Web3ConnectionsApi apiInstance = new Web3ConnectionsApi(defaultClient);
         RespondToConnectionRequest respondToConnectionRequest = new RespondToConnectionRequest(); // RespondToConnectionRequest | 
         String id = "id_example"; // String | The ID of the initiated Web3 connection to approve.
         String idempotencyKey = "idempotencyKey_example"; // String | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
         try {
-            CompletableFuture<ApiResponse<Void>> response = apiInstance.submit(respondToConnectionRequest, id, idempotencyKey);
+            CompletableFuture<ApiResponse<Void>> response = fireblocks.web3Connections().submit(respondToConnectionRequest, id, idempotencyKey);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
         } catch (InterruptedException | ExecutionException e) {

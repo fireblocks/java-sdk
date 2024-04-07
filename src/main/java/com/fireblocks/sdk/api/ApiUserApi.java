@@ -13,11 +13,13 @@
 package com.fireblocks.sdk.api;
 
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.model.CreateAPIUser;
+import com.fireblocks.sdk.model.GetAPIUsersResponse;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
@@ -136,10 +138,10 @@ public class ApiUserApi {
     /**
      * get api users get api users from the current tenant
      *
-     * @return CompletableFuture&lt;ApiResponse&lt;Void&gt;&gt;
+     * @return CompletableFuture&lt;ApiResponse&lt;GetAPIUsersResponse&gt;&gt;
      * @throws ApiException if fails to make API call
      */
-    public CompletableFuture<ApiResponse<Void>> getApiUsers() throws ApiException {
+    public CompletableFuture<ApiResponse<GetAPIUsersResponse>> getApiUsers() throws ApiException {
         try {
             HttpRequest.Builder localVarRequestBuilder = getApiUsersRequestBuilder();
             return memberVarHttpClient
@@ -153,11 +155,21 @@ public class ApiUserApi {
                                     return CompletableFuture.failedFuture(
                                             getApiException("getApiUsers", localVarResponse));
                                 }
-                                return CompletableFuture.completedFuture(
-                                        new ApiResponse<Void>(
-                                                localVarResponse.statusCode(),
-                                                localVarResponse.headers().map(),
-                                                null));
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<GetAPIUsersResponse>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            GetAPIUsersResponse>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
                             });
         } catch (ApiException e) {
             return CompletableFuture.failedFuture(e);

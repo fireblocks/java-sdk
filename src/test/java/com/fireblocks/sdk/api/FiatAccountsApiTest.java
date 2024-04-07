@@ -15,8 +15,10 @@ package com.fireblocks.sdk.api;
 
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.model.DepositFundsFromLinkedDDAResponse;
 import com.fireblocks.sdk.model.FiatAccount;
 import com.fireblocks.sdk.model.Funds;
+import com.fireblocks.sdk.model.RedeemFundsToLinkedDDAResponse;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import org.junit.Ignore;
@@ -40,8 +42,7 @@ public class FiatAccountsApiTest {
         String accountId = null;
         Funds funds = null;
         String idempotencyKey = null;
-
-        CompletableFuture<ApiResponse<Void>> response =
+        CompletableFuture<ApiResponse<DepositFundsFromLinkedDDAResponse>> response =
                 api.depositFundsFromLinkedDDA(accountId, funds, idempotencyKey);
     }
 
@@ -82,8 +83,7 @@ public class FiatAccountsApiTest {
         String accountId = null;
         Funds funds = null;
         String idempotencyKey = null;
-
-        CompletableFuture<ApiResponse<Void>> response =
+        CompletableFuture<ApiResponse<RedeemFundsToLinkedDDAResponse>> response =
                 api.redeemFundsToLinkedDDA(accountId, funds, idempotencyKey);
     }
 }

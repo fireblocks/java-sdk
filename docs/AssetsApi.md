@@ -1,6 +1,6 @@
 # AssetsApi
 
-All URIs are relative to *https://api.fireblocks.io/v1*
+All URIs are relative to https://developers.fireblocks.com/reference/
 
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
@@ -23,21 +23,26 @@ Create multiple wallets for a given vault account by running an async job. &lt;/
 import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
-import com.fireblocks.sdk.Configuration;
-import com.fireblocks.sdk.models.*;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
 import com.fireblocks.sdk.api.AssetsApi;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://api.fireblocks.io/v1");
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
 
-        AssetsApi apiInstance = new AssetsApi(defaultClient);
         CreateAssetsBulkRequest createAssetsBulkRequest = new CreateAssetsBulkRequest(); // CreateAssetsBulkRequest | 
         String idempotencyKey = "idempotencyKey_example"; // String | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
         try {
-            CompletableFuture<ApiResponse<JobCreated>> response = apiInstance.createAssetsBulk(createAssetsBulkRequest, idempotencyKey);
+            CompletableFuture<ApiResponse<JobCreated>> response = fireblocks.assets().createAssetsBulk(createAssetsBulkRequest, idempotencyKey);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());

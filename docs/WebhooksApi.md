@@ -1,6 +1,6 @@
 # WebhooksApi
 
-All URIs are relative to *https://api.fireblocks.io/v1*
+All URIs are relative to https://developers.fireblocks.com/reference/
 
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
@@ -11,7 +11,7 @@ All URIs are relative to *https://api.fireblocks.io/v1*
 
 ## resendTransactionWebhooks
 
-> CompletableFuture<ApiResponse<Void>> resendTransactionWebhooks resendTransactionWebhooks(resendTransactionWebhooksRequest, txId, idempotencyKey)
+> CompletableFuture<ApiResponse<ResendWebhooksByTransactionIdResponse>> resendTransactionWebhooks resendTransactionWebhooks(resendTransactionWebhooksRequest, txId, idempotencyKey)
 
 Resend failed webhooks for a transaction by ID
 
@@ -24,24 +24,30 @@ Resends failed webhook notifications for a transaction by ID.
 import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
-import com.fireblocks.sdk.Configuration;
-import com.fireblocks.sdk.models.*;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
 import com.fireblocks.sdk.api.WebhooksApi;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://api.fireblocks.io/v1");
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
 
-        WebhooksApi apiInstance = new WebhooksApi(defaultClient);
         ResendTransactionWebhooksRequest resendTransactionWebhooksRequest = new ResendTransactionWebhooksRequest(); // ResendTransactionWebhooksRequest | 
         String txId = "txId_example"; // String | The ID of the transaction for webhooks
         String idempotencyKey = "idempotencyKey_example"; // String | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
         try {
-            CompletableFuture<ApiResponse<Void>> response = apiInstance.resendTransactionWebhooks(resendTransactionWebhooksRequest, txId, idempotencyKey);
+            CompletableFuture<ApiResponse<ResendWebhooksByTransactionIdResponse>> response = fireblocks.webhooks().resendTransactionWebhooks(resendTransactionWebhooksRequest, txId, idempotencyKey);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
+            System.out.println("Response body: " + response.get().getData());
         } catch (InterruptedException | ExecutionException e) {
             ApiException apiException = (ApiException)e.getCause();
             System.err.println("Exception when calling WebhooksApi#resendTransactionWebhooks");
@@ -71,8 +77,8 @@ public class Example {
 
 ### Return type
 
+CompletableFuture<ApiResponse<[**ResendWebhooksByTransactionIdResponse**](ResendWebhooksByTransactionIdResponse.md)>>
 
-CompletableFuture<ApiResponse<Void>>
 
 ### Authorization
 
@@ -105,20 +111,25 @@ Resends all failed webhook notifications.
 import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
-import com.fireblocks.sdk.Configuration;
-import com.fireblocks.sdk.models.*;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
 import com.fireblocks.sdk.api.WebhooksApi;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://api.fireblocks.io/v1");
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
 
-        WebhooksApi apiInstance = new WebhooksApi(defaultClient);
         String idempotencyKey = "idempotencyKey_example"; // String | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
         try {
-            CompletableFuture<ApiResponse<ResendWebhooksResponse>> response = apiInstance.resendWebhooks(idempotencyKey);
+            CompletableFuture<ApiResponse<ResendWebhooksResponse>> response = fireblocks.webhooks().resendWebhooks(idempotencyKey);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());

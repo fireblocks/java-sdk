@@ -16,10 +16,12 @@ package com.fireblocks.sdk.api;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.model.ConvertAssetsRequest;
+import com.fireblocks.sdk.model.ConvertAssetsResponse;
 import com.fireblocks.sdk.model.CreateInternalTransferRequest;
 import com.fireblocks.sdk.model.ExchangeAccount;
 import com.fireblocks.sdk.model.ExchangeAccountsPaged;
 import com.fireblocks.sdk.model.ExchangeAsset;
+import com.fireblocks.sdk.model.InternalTransferResponse;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -45,8 +47,7 @@ public class ExchangeAccountsApiTest {
         String exchangeAccountId = null;
         ConvertAssetsRequest convertAssetsRequest = null;
         String idempotencyKey = null;
-
-        CompletableFuture<ApiResponse<Void>> response =
+        CompletableFuture<ApiResponse<ConvertAssetsResponse>> response =
                 api.convertAssets(exchangeAccountId, convertAssetsRequest, idempotencyKey);
     }
 
@@ -107,8 +108,7 @@ public class ExchangeAccountsApiTest {
         String exchangeAccountId = null;
         CreateInternalTransferRequest createInternalTransferRequest = null;
         String idempotencyKey = null;
-
-        CompletableFuture<ApiResponse<Void>> response =
+        CompletableFuture<ApiResponse<InternalTransferResponse>> response =
                 api.internalTransfer(
                         exchangeAccountId, createInternalTransferRequest, idempotencyKey);
     }

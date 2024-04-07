@@ -1,6 +1,6 @@
 # ExchangeAccountsApi
 
-All URIs are relative to *https://api.fireblocks.io/v1*
+All URIs are relative to https://developers.fireblocks.com/reference/
 
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
@@ -14,7 +14,7 @@ All URIs are relative to *https://api.fireblocks.io/v1*
 
 ## convertAssets
 
-> CompletableFuture<ApiResponse<Void>> convertAssets convertAssets(exchangeAccountId, convertAssetsRequest, idempotencyKey)
+> CompletableFuture<ApiResponse<ConvertAssetsResponse>> convertAssets convertAssets(exchangeAccountId, convertAssetsRequest, idempotencyKey)
 
 Convert exchange account funds from the source asset to the destination asset.
 
@@ -27,24 +27,30 @@ Convert exchange account funds from the source asset to the destination asset. C
 import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
-import com.fireblocks.sdk.Configuration;
-import com.fireblocks.sdk.models.*;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
 import com.fireblocks.sdk.api.ExchangeAccountsApi;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://api.fireblocks.io/v1");
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
 
-        ExchangeAccountsApi apiInstance = new ExchangeAccountsApi(defaultClient);
         String exchangeAccountId = "exchangeAccountId_example"; // String | The ID of the exchange account. Please make sure the exchange supports conversions. To find the ID of your exchange account, use GET/exchange_accounts.
         ConvertAssetsRequest convertAssetsRequest = new ConvertAssetsRequest(); // ConvertAssetsRequest | 
         String idempotencyKey = "idempotencyKey_example"; // String | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
         try {
-            CompletableFuture<ApiResponse<Void>> response = apiInstance.convertAssets(exchangeAccountId, convertAssetsRequest, idempotencyKey);
+            CompletableFuture<ApiResponse<ConvertAssetsResponse>> response = fireblocks.exchangeAccounts().convertAssets(exchangeAccountId, convertAssetsRequest, idempotencyKey);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
+            System.out.println("Response body: " + response.get().getData());
         } catch (InterruptedException | ExecutionException e) {
             ApiException apiException = (ApiException)e.getCause();
             System.err.println("Exception when calling ExchangeAccountsApi#convertAssets");
@@ -74,8 +80,8 @@ public class Example {
 
 ### Return type
 
+CompletableFuture<ApiResponse<[**ConvertAssetsResponse**](ConvertAssetsResponse.md)>>
 
-CompletableFuture<ApiResponse<Void>>
 
 ### Authorization
 
@@ -108,20 +114,25 @@ Returns an exchange account by ID.
 import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
-import com.fireblocks.sdk.Configuration;
-import com.fireblocks.sdk.models.*;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
 import com.fireblocks.sdk.api.ExchangeAccountsApi;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://api.fireblocks.io/v1");
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
 
-        ExchangeAccountsApi apiInstance = new ExchangeAccountsApi(defaultClient);
         String exchangeAccountId = "exchangeAccountId_example"; // String | The ID of the exchange account to return
         try {
-            CompletableFuture<ApiResponse<ExchangeAccount>> response = apiInstance.getExchangeAccount(exchangeAccountId);
+            CompletableFuture<ApiResponse<ExchangeAccount>> response = fireblocks.exchangeAccounts().getExchangeAccount(exchangeAccountId);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
@@ -186,21 +197,26 @@ Returns an asset for an exchange account.
 import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
-import com.fireblocks.sdk.Configuration;
-import com.fireblocks.sdk.models.*;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
 import com.fireblocks.sdk.api.ExchangeAccountsApi;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://api.fireblocks.io/v1");
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
 
-        ExchangeAccountsApi apiInstance = new ExchangeAccountsApi(defaultClient);
         String exchangeAccountId = "exchangeAccountId_example"; // String | The ID of the exchange account to return
         String assetId = "assetId_example"; // String | The ID of the asset to return
         try {
-            CompletableFuture<ApiResponse<ExchangeAsset>> response = apiInstance.getExchangeAccountAsset(exchangeAccountId, assetId);
+            CompletableFuture<ApiResponse<ExchangeAsset>> response = fireblocks.exchangeAccounts().getExchangeAccountAsset(exchangeAccountId, assetId);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
@@ -266,22 +282,27 @@ Returns a page include exchange accounts.
 import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
-import com.fireblocks.sdk.Configuration;
-import com.fireblocks.sdk.models.*;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
 import com.fireblocks.sdk.api.ExchangeAccountsApi;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://api.fireblocks.io/v1");
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
 
-        ExchangeAccountsApi apiInstance = new ExchangeAccountsApi(defaultClient);
         BigDecimal limit = new BigDecimal("3"); // BigDecimal | number of exchanges per page
         String before = "before_example"; // String | 
         String after = "after_example"; // String | 
         try {
-            CompletableFuture<ApiResponse<List<ExchangeAccountsPaged>>> response = apiInstance.getPagedExchangeAccounts(limit, before, after);
+            CompletableFuture<ApiResponse<List<ExchangeAccountsPaged>>> response = fireblocks.exchangeAccounts().getPagedExchangeAccounts(limit, before, after);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
@@ -335,7 +356,7 @@ No authorization required
 
 ## internalTransfer
 
-> CompletableFuture<ApiResponse<Void>> internalTransfer internalTransfer(exchangeAccountId, createInternalTransferRequest, idempotencyKey)
+> CompletableFuture<ApiResponse<InternalTransferResponse>> internalTransfer internalTransfer(exchangeAccountId, createInternalTransferRequest, idempotencyKey)
 
 Internal transfer for exchange accounts
 
@@ -348,24 +369,30 @@ Transfers funds between trading accounts under the same exchange account.
 import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
-import com.fireblocks.sdk.Configuration;
-import com.fireblocks.sdk.models.*;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
 import com.fireblocks.sdk.api.ExchangeAccountsApi;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://api.fireblocks.io/v1");
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
 
-        ExchangeAccountsApi apiInstance = new ExchangeAccountsApi(defaultClient);
         String exchangeAccountId = "exchangeAccountId_example"; // String | The ID of the exchange account to return
         CreateInternalTransferRequest createInternalTransferRequest = new CreateInternalTransferRequest(); // CreateInternalTransferRequest | 
         String idempotencyKey = "idempotencyKey_example"; // String | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
         try {
-            CompletableFuture<ApiResponse<Void>> response = apiInstance.internalTransfer(exchangeAccountId, createInternalTransferRequest, idempotencyKey);
+            CompletableFuture<ApiResponse<InternalTransferResponse>> response = fireblocks.exchangeAccounts().internalTransfer(exchangeAccountId, createInternalTransferRequest, idempotencyKey);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
+            System.out.println("Response body: " + response.get().getData());
         } catch (InterruptedException | ExecutionException e) {
             ApiException apiException = (ApiException)e.getCause();
             System.err.println("Exception when calling ExchangeAccountsApi#internalTransfer");
@@ -395,8 +422,8 @@ public class Example {
 
 ### Return type
 
+CompletableFuture<ApiResponse<[**InternalTransferResponse**](InternalTransferResponse.md)>>
 
-CompletableFuture<ApiResponse<Void>>
 
 ### Authorization
 

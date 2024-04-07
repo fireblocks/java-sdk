@@ -1,6 +1,6 @@
 # NetworkConnectionsApi
 
-All URIs are relative to *https://api.fireblocks.io/v1*
+All URIs are relative to https://developers.fireblocks.com/reference/
 
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
@@ -35,21 +35,26 @@ The Fireblocks Network allows for flexibility around incoming deposits. A receiv
 import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
-import com.fireblocks.sdk.Configuration;
-import com.fireblocks.sdk.models.*;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
 import com.fireblocks.sdk.api.NetworkConnectionsApi;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://api.fireblocks.io/v1");
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
 
-        NetworkConnectionsApi apiInstance = new NetworkConnectionsApi(defaultClient);
         String connectionId = "connectionId_example"; // String | The ID of the network connection
-        String assetType = "CRYPTO"; // String | The destination asset type
+        String assetType = "assetType_example"; // String | The destination asset type
         try {
-            CompletableFuture<ApiResponse<ThirdPartyRouting>> response = apiInstance.checkThirdPartyRouting(connectionId, assetType);
+            CompletableFuture<ApiResponse<ThirdPartyRouting>> response = fireblocks.networkConnections().checkThirdPartyRouting(connectionId, assetType);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
@@ -77,7 +82,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **connectionId** | **String**| The ID of the network connection | |
-| **assetType** | **String**| The destination asset type | [enum: CRYPTO, SIGNET, SEN, SIGNET_TEST, SEN_TEST] |
+| **assetType** | **String**| The destination asset type | |
 
 ### Return type
 
@@ -115,21 +120,26 @@ Initiates a new network connection.  **Note:** This API call is subject to Flexi
 import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
-import com.fireblocks.sdk.Configuration;
-import com.fireblocks.sdk.models.*;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
 import com.fireblocks.sdk.api.NetworkConnectionsApi;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://api.fireblocks.io/v1");
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
 
-        NetworkConnectionsApi apiInstance = new NetworkConnectionsApi(defaultClient);
         NetworkConnection networkConnection = new NetworkConnection(); // NetworkConnection | 
         String idempotencyKey = "idempotencyKey_example"; // String | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
         try {
-            CompletableFuture<ApiResponse<NetworkConnectionResponse>> response = apiInstance.createNetworkConnection(networkConnection, idempotencyKey);
+            CompletableFuture<ApiResponse<NetworkConnectionResponse>> response = fireblocks.networkConnections().createNetworkConnection(networkConnection, idempotencyKey);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
@@ -195,21 +205,26 @@ Creates a new Network ID.  **Note:** This API call is subject to Flexible Routin
 import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
-import com.fireblocks.sdk.Configuration;
-import com.fireblocks.sdk.models.*;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
 import com.fireblocks.sdk.api.NetworkConnectionsApi;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://api.fireblocks.io/v1");
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
 
-        NetworkConnectionsApi apiInstance = new NetworkConnectionsApi(defaultClient);
         CreateNetworkIdRequest createNetworkIdRequest = new CreateNetworkIdRequest(); // CreateNetworkIdRequest | 
         String idempotencyKey = "idempotencyKey_example"; // String | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
         try {
-            CompletableFuture<ApiResponse<NetworkIdResponse>> response = apiInstance.createNetworkId(createNetworkIdRequest, idempotencyKey);
+            CompletableFuture<ApiResponse<NetworkIdResponse>> response = fireblocks.networkConnections().createNetworkId(createNetworkIdRequest, idempotencyKey);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
@@ -275,20 +290,25 @@ Deletes an existing network connection specified by its connection ID.  **Note:*
 import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
-import com.fireblocks.sdk.Configuration;
-import com.fireblocks.sdk.models.*;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
 import com.fireblocks.sdk.api.NetworkConnectionsApi;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://api.fireblocks.io/v1");
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
 
-        NetworkConnectionsApi apiInstance = new NetworkConnectionsApi(defaultClient);
         String connectionId = "connectionId_example"; // String | The ID of the network connection to delete
         try {
-            CompletableFuture<ApiResponse<SetRoutingPolicy200Response>> response = apiInstance.deleteNetworkConnection(connectionId);
+            CompletableFuture<ApiResponse<SetRoutingPolicy200Response>> response = fireblocks.networkConnections().deleteNetworkConnection(connectionId);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
@@ -353,20 +373,25 @@ Deletes a network by its ID.  **Note:** This API call is subject to Flexible Rou
 import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
-import com.fireblocks.sdk.Configuration;
-import com.fireblocks.sdk.models.*;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
 import com.fireblocks.sdk.api.NetworkConnectionsApi;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://api.fireblocks.io/v1");
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
 
-        NetworkConnectionsApi apiInstance = new NetworkConnectionsApi(defaultClient);
         String networkId = "networkId_example"; // String | The ID of the network
         try {
-            CompletableFuture<ApiResponse<SetRoutingPolicy200Response>> response = apiInstance.deleteNetworkId(networkId);
+            CompletableFuture<ApiResponse<SetRoutingPolicy200Response>> response = fireblocks.networkConnections().deleteNetworkId(networkId);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
@@ -431,20 +456,25 @@ Gets a network connection by ID.  **Note:** This API call is subject to Flexible
 import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
-import com.fireblocks.sdk.Configuration;
-import com.fireblocks.sdk.models.*;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
 import com.fireblocks.sdk.api.NetworkConnectionsApi;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://api.fireblocks.io/v1");
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
 
-        NetworkConnectionsApi apiInstance = new NetworkConnectionsApi(defaultClient);
         String connectionId = "connectionId_example"; // String | The ID of the connection
         try {
-            CompletableFuture<ApiResponse<NetworkConnectionResponse>> response = apiInstance.getNetwork(connectionId);
+            CompletableFuture<ApiResponse<NetworkConnectionResponse>> response = fireblocks.networkConnections().getNetwork(connectionId);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
@@ -509,19 +539,24 @@ Returns all network connections.  **Note:** This API call is subject to Flexible
 import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
-import com.fireblocks.sdk.Configuration;
-import com.fireblocks.sdk.models.*;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
 import com.fireblocks.sdk.api.NetworkConnectionsApi;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://api.fireblocks.io/v1");
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
 
-        NetworkConnectionsApi apiInstance = new NetworkConnectionsApi(defaultClient);
         try {
-            CompletableFuture<ApiResponse<List<NetworkConnectionResponse>>> response = apiInstance.getNetworkConnections();
+            CompletableFuture<ApiResponse<List<NetworkConnectionResponse>>> response = fireblocks.networkConnections().getNetworkConnections();
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
@@ -583,20 +618,25 @@ Retrieves a network by its ID.  **Note:** This API call is subject to Flexible R
 import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
-import com.fireblocks.sdk.Configuration;
-import com.fireblocks.sdk.models.*;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
 import com.fireblocks.sdk.api.NetworkConnectionsApi;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://api.fireblocks.io/v1");
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
 
-        NetworkConnectionsApi apiInstance = new NetworkConnectionsApi(defaultClient);
         String networkId = "networkId_example"; // String | The ID of the network
         try {
-            CompletableFuture<ApiResponse<NetworkIdResponse>> response = apiInstance.getNetworkId(networkId);
+            CompletableFuture<ApiResponse<NetworkIdResponse>> response = fireblocks.networkConnections().getNetworkId(networkId);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
@@ -661,19 +701,24 @@ Retrieves a list of all local and discoverable remote network IDs.  **Note:** Th
 import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
-import com.fireblocks.sdk.Configuration;
-import com.fireblocks.sdk.models.*;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
 import com.fireblocks.sdk.api.NetworkConnectionsApi;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://api.fireblocks.io/v1");
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
 
-        NetworkConnectionsApi apiInstance = new NetworkConnectionsApi(defaultClient);
         try {
-            CompletableFuture<ApiResponse<List<NetworkIdResponse>>> response = apiInstance.getNetworkIds();
+            CompletableFuture<ApiResponse<List<NetworkIdResponse>>> response = fireblocks.networkConnections().getNetworkIds();
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
@@ -735,21 +780,26 @@ Update whether or not the network ID is discoverable by others.  **Note:** This 
 import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
-import com.fireblocks.sdk.Configuration;
-import com.fireblocks.sdk.models.*;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
 import com.fireblocks.sdk.api.NetworkConnectionsApi;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://api.fireblocks.io/v1");
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
 
-        NetworkConnectionsApi apiInstance = new NetworkConnectionsApi(defaultClient);
         SetNetworkIdDiscoverabilityRequest setNetworkIdDiscoverabilityRequest = new SetNetworkIdDiscoverabilityRequest(); // SetNetworkIdDiscoverabilityRequest | 
         String networkId = "networkId_example"; // String | The ID of the network
         try {
-            CompletableFuture<ApiResponse<SetNetworkIdResponse>> response = apiInstance.setNetworkIdDiscoverability(setNetworkIdDiscoverabilityRequest, networkId);
+            CompletableFuture<ApiResponse<SetNetworkIdResponse>> response = fireblocks.networkConnections().setNetworkIdDiscoverability(setNetworkIdDiscoverabilityRequest, networkId);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
@@ -815,21 +865,26 @@ Updates name of a specified network ID.  **Note:** This API call is subject to F
 import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
-import com.fireblocks.sdk.Configuration;
-import com.fireblocks.sdk.models.*;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
 import com.fireblocks.sdk.api.NetworkConnectionsApi;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://api.fireblocks.io/v1");
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
 
-        NetworkConnectionsApi apiInstance = new NetworkConnectionsApi(defaultClient);
         SetNetworkIdNameRequest setNetworkIdNameRequest = new SetNetworkIdNameRequest(); // SetNetworkIdNameRequest | 
         String networkId = "networkId_example"; // String | The ID of the network
         try {
-            CompletableFuture<ApiResponse<SetNetworkIdResponse>> response = apiInstance.setNetworkIdName(setNetworkIdNameRequest, networkId);
+            CompletableFuture<ApiResponse<SetNetworkIdResponse>> response = fireblocks.networkConnections().setNetworkIdName(setNetworkIdNameRequest, networkId);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
@@ -895,21 +950,26 @@ Updates the routing policy of a specified network ID.  **Note:** This API call i
 import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
-import com.fireblocks.sdk.Configuration;
-import com.fireblocks.sdk.models.*;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
 import com.fireblocks.sdk.api.NetworkConnectionsApi;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://api.fireblocks.io/v1");
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
 
-        NetworkConnectionsApi apiInstance = new NetworkConnectionsApi(defaultClient);
         String networkId = "networkId_example"; // String | The ID of the network
         SetNetworkIdRoutingPolicyRequest setNetworkIdRoutingPolicyRequest = new SetNetworkIdRoutingPolicyRequest(); // SetNetworkIdRoutingPolicyRequest | 
         try {
-            CompletableFuture<ApiResponse<SetNetworkIdResponse>> response = apiInstance.setNetworkIdRoutingPolicy(networkId, setNetworkIdRoutingPolicyRequest);
+            CompletableFuture<ApiResponse<SetNetworkIdResponse>> response = fireblocks.networkConnections().setNetworkIdRoutingPolicy(networkId, setNetworkIdRoutingPolicyRequest);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
@@ -975,21 +1035,26 @@ Updates an existing network connection&#39;s routing policy.  **Note:** This API
 import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
-import com.fireblocks.sdk.Configuration;
-import com.fireblocks.sdk.models.*;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
 import com.fireblocks.sdk.api.NetworkConnectionsApi;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://api.fireblocks.io/v1");
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
 
-        NetworkConnectionsApi apiInstance = new NetworkConnectionsApi(defaultClient);
         String connectionId = "connectionId_example"; // String | The ID of the network connection
         SetRoutingPolicyRequest setRoutingPolicyRequest = new SetRoutingPolicyRequest(); // SetRoutingPolicyRequest | 
         try {
-            CompletableFuture<ApiResponse<SetRoutingPolicy200Response>> response = apiInstance.setRoutingPolicy(connectionId, setRoutingPolicyRequest);
+            CompletableFuture<ApiResponse<SetRoutingPolicy200Response>> response = fireblocks.networkConnections().setRoutingPolicy(connectionId, setRoutingPolicyRequest);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());

@@ -13,7 +13,7 @@
 |**status** | **NetworkConnectionStatus** |  |  |
 |**localNetworkId** | [**NetworkId**](NetworkId.md) |  |  |
 |**remoteNetworkId** | [**NetworkId**](NetworkId.md) |  |  |
-|**routingPolicy** | [**NetworkConnectionRoutingPolicy**](NetworkConnectionRoutingPolicy.md) |  |  |
+|**routingPolicy** | [**Map&lt;String, NetworkConnectionRoutingPolicyValue&gt;**](NetworkConnectionRoutingPolicyValue.md) |  |  |
 
 
 

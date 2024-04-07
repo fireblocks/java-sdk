@@ -1,6 +1,6 @@
 # TravelRuleBetaApi
 
-All URIs are relative to *https://api.fireblocks.io/v1*
+All URIs are relative to https://developers.fireblocks.com/reference/
 
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
@@ -27,21 +27,26 @@ Get VASP Details.  Returns information about a VASP that has the specified DID. 
 import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
-import com.fireblocks.sdk.Configuration;
-import com.fireblocks.sdk.models.*;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
 import com.fireblocks.sdk.api.TravelRuleBetaApi;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://api.fireblocks.io/v1");
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
 
-        TravelRuleBetaApi apiInstance = new TravelRuleBetaApi(defaultClient);
         String did = "did_example"; // String | 
         String fields = "fields_example"; // String | CSV of fields to return (all, \"blank\" or see list of all field names below)
         try {
-            CompletableFuture<ApiResponse<TravelRuleVASP>> response = apiInstance.getVASPByDID(did, fields);
+            CompletableFuture<ApiResponse<TravelRuleVASP>> response = fireblocks.travelRuleBeta().getVASPByDID(did, fields);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
@@ -108,23 +113,28 @@ Get All VASPs.  Returns a list of VASPs. VASPs can be searched and sorted and re
 import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
-import com.fireblocks.sdk.Configuration;
-import com.fireblocks.sdk.models.*;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
 import com.fireblocks.sdk.api.TravelRuleBetaApi;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://api.fireblocks.io/v1");
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
 
-        TravelRuleBetaApi apiInstance = new TravelRuleBetaApi(defaultClient);
         String order = "order_example"; // String | Field to order by
         BigDecimal perPage = new BigDecimal(78); // BigDecimal | Records per page
         BigDecimal page = new BigDecimal(78); // BigDecimal | Page number
         String fields = "fields_example"; // String | CSV of fields to return (all, \"blank\" or see list of all field names below)
         try {
-            CompletableFuture<ApiResponse<TravelRuleGetAllVASPsResponse>> response = apiInstance.getVASPs(order, perPage, page, fields);
+            CompletableFuture<ApiResponse<TravelRuleGetAllVASPsResponse>> response = fireblocks.travelRuleBeta().getVASPs(order, perPage, page, fields);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
@@ -191,21 +201,26 @@ Update VASP Details.  Updates a VASP with the provided parameters. Use this endp
 import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
-import com.fireblocks.sdk.Configuration;
-import com.fireblocks.sdk.models.*;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
 import com.fireblocks.sdk.api.TravelRuleBetaApi;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://api.fireblocks.io/v1");
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
 
-        TravelRuleBetaApi apiInstance = new TravelRuleBetaApi(defaultClient);
         TravelRuleUpdateVASPDetails travelRuleUpdateVASPDetails = new TravelRuleUpdateVASPDetails(); // TravelRuleUpdateVASPDetails | 
         String idempotencyKey = "idempotencyKey_example"; // String | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
         try {
-            CompletableFuture<ApiResponse<TravelRuleUpdateVASPDetails>> response = apiInstance.updateVasp(travelRuleUpdateVASPDetails, idempotencyKey);
+            CompletableFuture<ApiResponse<TravelRuleUpdateVASPDetails>> response = fireblocks.travelRuleBeta().updateVasp(travelRuleUpdateVASPDetails, idempotencyKey);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
@@ -272,21 +287,26 @@ Validate Full Travel Rule transactions.  Checks for all required information on 
 import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
-import com.fireblocks.sdk.Configuration;
-import com.fireblocks.sdk.models.*;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
 import com.fireblocks.sdk.api.TravelRuleBetaApi;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://api.fireblocks.io/v1");
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
 
-        TravelRuleBetaApi apiInstance = new TravelRuleBetaApi(defaultClient);
         TravelRuleValidateFullTransactionRequest travelRuleValidateFullTransactionRequest = new TravelRuleValidateFullTransactionRequest(); // TravelRuleValidateFullTransactionRequest | 
         String idempotencyKey = "idempotencyKey_example"; // String | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
         try {
-            CompletableFuture<ApiResponse<TravelRuleValidateTransactionResponse>> response = apiInstance.validateFullTravelRuleTransaction(travelRuleValidateFullTransactionRequest, idempotencyKey);
+            CompletableFuture<ApiResponse<TravelRuleValidateTransactionResponse>> response = fireblocks.travelRuleBeta().validateFullTravelRuleTransaction(travelRuleValidateFullTransactionRequest, idempotencyKey);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
@@ -353,21 +373,26 @@ Validate Travel Rule transactions.  Checks what beneficiary VASP details are req
 import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
-import com.fireblocks.sdk.Configuration;
-import com.fireblocks.sdk.models.*;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
 import com.fireblocks.sdk.api.TravelRuleBetaApi;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 public class Example {
     public static void main(String[] args) {
-        ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://api.fireblocks.io/v1");
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
 
-        TravelRuleBetaApi apiInstance = new TravelRuleBetaApi(defaultClient);
         TravelRuleValidateTransactionRequest travelRuleValidateTransactionRequest = new TravelRuleValidateTransactionRequest(); // TravelRuleValidateTransactionRequest | 
         String idempotencyKey = "idempotencyKey_example"; // String | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
         try {
-            CompletableFuture<ApiResponse<TravelRuleValidateTransactionResponse>> response = apiInstance.validateTravelRuleTransaction(travelRuleValidateTransactionRequest, idempotencyKey);
+            CompletableFuture<ApiResponse<TravelRuleValidateTransactionResponse>> response = fireblocks.travelRuleBeta().validateTravelRuleTransaction(travelRuleValidateTransactionRequest, idempotencyKey);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
