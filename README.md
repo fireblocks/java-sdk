@@ -1,4 +1,4 @@
-# Fireblocks Java SDK
+# Official Fireblocks Java SDK
 <!--[![Maven version](https://badge.fury.io/java/fireblocks.svg)](https://badge.fury.io/java/fireblocks)-->
 
 For detailed API documentation please refer to the [Fireblocks API Reference](https://developers.fireblocks.com/reference/).
