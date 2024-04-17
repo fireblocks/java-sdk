@@ -174,9 +174,11 @@ public class NetworkConnectionsApi {
      * choose another one. - **Default**; Use the routing specified by the network profile the
      * connection is connected to. This scheme is also referred to as \&quot;Profile Routing\&quot;
      * Default Workspace Presets: - Network Profile Crypto → **Custom** - Network Profile FIAT →
-     * **None** - Network Connection Crypto → **Default** - Network Connection FIAT → **Default** -
-     * **Note**: By default, Custom routing scheme uses (&#x60;dstId&#x60; &#x3D; &#x60;0&#x60;,
-     * &#x60;dstType&#x60; &#x3D; &#x60;VAULT&#x60;).
+     * **None** - Network Connection Crypto → **Default** - Network Connection FIAT → **Default**
+     * Supported asset groups for routing police can be found at
+     * &#x60;/enabled_routing_policy_asset_groups&#x60; - **Note**: By default, Custom routing
+     * scheme uses (&#x60;dstId&#x60; &#x3D; &#x60;0&#x60;, &#x60;dstType&#x60; &#x3D;
+     * &#x60;VAULT&#x60;).
      *
      * @param networkConnection (optional)
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
@@ -263,9 +265,11 @@ public class NetworkConnectionsApi {
      * one. - **Default**; Use the routing specified by the network profile the connection is
      * connected to. This scheme is also referred to as \&quot;Profile Routing\&quot; Default
      * Workspace Presets: - Network Profile Crypto → **Custom** - Network Profile FIAT → **None** -
-     * Network Connection Crypto → **Default** - Network Connection FIAT → **Default** - **Note**:
-     * By default, Custom routing scheme uses (&#x60;dstId&#x60; &#x3D; &#x60;0&#x60;,
-     * &#x60;dstType&#x60; &#x3D; &#x60;VAULT&#x60;).
+     * Network Connection Crypto → **Default** - Network Connection FIAT → **Default** Supported
+     * asset groups for routing police can be found at
+     * &#x60;/enabled_routing_policy_asset_groups&#x60; - **Note**: By default, Custom routing
+     * scheme uses (&#x60;dstId&#x60; &#x3D; &#x60;0&#x60;, &#x60;dstType&#x60; &#x3D;
+     * &#x60;VAULT&#x60;).
      *
      * @param createNetworkIdRequest (optional)
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
@@ -1035,8 +1039,10 @@ public class NetworkConnectionsApi {
      * by the network profile the connection is connected to. This scheme is also referred to as
      * \&quot;Profile Routing\&quot; Default Workspace Presets: - Network Profile Crypto →
      * **Custom** - Network Profile FIAT → **None** - Network Connection Crypto → **Default** -
-     * Network Connection FIAT → **Default** - **Note**: By default, Custom routing scheme uses
-     * (&#x60;dstId&#x60; &#x3D; &#x60;0&#x60;, &#x60;dstType&#x60; &#x3D; &#x60;VAULT&#x60;).
+     * Network Connection FIAT → **Default** Supported asset groups for routing police can be found
+     * at &#x60;/enabled_routing_policy_asset_groups&#x60; - **Note**: By default, Custom routing
+     * scheme uses (&#x60;dstId&#x60; &#x3D; &#x60;0&#x60;, &#x60;dstType&#x60; &#x3D;
+     * &#x60;VAULT&#x60;).
      *
      * @param networkId The ID of the network (required)
      * @param setNetworkIdRoutingPolicyRequest (optional)
@@ -1132,9 +1138,10 @@ public class NetworkConnectionsApi {
      * the routing specified by the network profile the connection is connected to. This scheme is
      * also referred to as \&quot;Profile Routing\&quot; Default Workspace Presets: - Network
      * Profile Crypto → **Custom** - Network Profile FIAT → **None** - Network Connection Crypto →
-     * **Default** - Network Connection FIAT → **Default** - **Note**: By default, Custom routing
-     * scheme uses (&#x60;dstId&#x60; &#x3D; &#x60;0&#x60;, &#x60;dstType&#x60; &#x3D;
-     * &#x60;VAULT&#x60;).
+     * **Default** - Network Connection FIAT → **Default** Supported asset groups for routing police
+     * can be found at &#x60;/enabled_routing_policy_asset_groups&#x60; - **Note**: By default,
+     * Custom routing scheme uses (&#x60;dstId&#x60; &#x3D; &#x60;0&#x60;, &#x60;dstType&#x60;
+     * &#x3D; &#x60;VAULT&#x60;).
      *
      * @param connectionId The ID of the network connection (required)
      * @param setRoutingPolicyRequest (optional)

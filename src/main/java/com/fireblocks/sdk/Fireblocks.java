@@ -44,6 +44,7 @@ public class Fireblocks {
     private ComplianceScreeningConfigurationApi complianceScreeningConfiguration;
     private ConsoleUserApi consoleUser;
     private ContractsApi contracts;
+    private CosignersBetaApi cosignersBeta;
     private ExchangeAccountsApi exchangeAccounts;
     private ExternalWalletsApi externalWallets;
     private FiatAccountsApi fiatAccounts;
@@ -261,6 +262,13 @@ public class Fireblocks {
             contracts = new ContractsApi(apiClient);
         }
         return contracts;
+    }
+
+    public CosignersBetaApi cosignersBeta() {
+        if (cosignersBeta == null) {
+            cosignersBeta = new CosignersBetaApi(apiClient);
+        }
+        return cosignersBeta;
     }
 
     public ExchangeAccountsApi exchangeAccounts() {

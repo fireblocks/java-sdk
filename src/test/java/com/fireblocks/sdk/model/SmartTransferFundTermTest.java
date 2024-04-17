@@ -66,4 +66,10 @@ public class SmartTransferFundTermTest {
     public void feeLevelTest() {
         // TODO: test feeLevel
     }
+
+    /** Test the property 'note' */
+    @Test
+    public void noteTest() {
+        // TODO: test note
+    }
 }

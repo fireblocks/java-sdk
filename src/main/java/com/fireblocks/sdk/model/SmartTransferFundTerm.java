@@ -29,7 +29,8 @@ import java.util.StringJoiner;
     SmartTransferFundTerm.JSON_PROPERTY_SRC_ID,
     SmartTransferFundTerm.JSON_PROPERTY_SRC_TYPE,
     SmartTransferFundTerm.JSON_PROPERTY_FEE,
-    SmartTransferFundTerm.JSON_PROPERTY_FEE_LEVEL
+    SmartTransferFundTerm.JSON_PROPERTY_FEE_LEVEL,
+    SmartTransferFundTerm.JSON_PROPERTY_NOTE
 })
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class SmartTransferFundTerm {
@@ -53,6 +54,9 @@ public class SmartTransferFundTerm {
 
     public static final String JSON_PROPERTY_FEE_LEVEL = "feeLevel";
     private String feeLevel;
+
+    public static final String JSON_PROPERTY_NOTE = "note";
+    private String note;
 
     public SmartTransferFundTerm() {}
 
@@ -217,6 +221,29 @@ public class SmartTransferFundTerm {
         this.feeLevel = feeLevel;
     }
 
+    public SmartTransferFundTerm note(String note) {
+        this.note = note;
+        return this;
+    }
+
+    /**
+     * Transaction note
+     *
+     * @return note
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_NOTE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getNote() {
+        return note;
+    }
+
+    @JsonProperty(JSON_PROPERTY_NOTE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setNote(String note) {
+        this.note = note;
+    }
+
     /** Return true if this SmartTransferFundTerm object is equal to o. */
     @Override
     public boolean equals(Object o) {
@@ -234,12 +261,14 @@ public class SmartTransferFundTerm {
                 && Objects.equals(this.srcId, smartTransferFundTerm.srcId)
                 && Objects.equals(this.srcType, smartTransferFundTerm.srcType)
                 && Objects.equals(this.fee, smartTransferFundTerm.fee)
-                && Objects.equals(this.feeLevel, smartTransferFundTerm.feeLevel);
+                && Objects.equals(this.feeLevel, smartTransferFundTerm.feeLevel)
+                && Objects.equals(this.note, smartTransferFundTerm.note);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(asset, amount, networkConnectionId, srcId, srcType, fee, feeLevel);
+        return Objects.hash(
+                asset, amount, networkConnectionId, srcId, srcType, fee, feeLevel, note);
     }
 
     @Override
@@ -255,6 +284,7 @@ public class SmartTransferFundTerm {
         sb.append("    srcType: ").append(toIndentedString(srcType)).append("\n");
         sb.append("    fee: ").append(toIndentedString(fee)).append("\n");
         sb.append("    feeLevel: ").append(toIndentedString(feeLevel)).append("\n");
+        sb.append("    note: ").append(toIndentedString(note)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -378,6 +408,17 @@ public class SmartTransferFundTerm {
                             prefix,
                             suffix,
                             URLEncoder.encode(String.valueOf(getFeeLevel()), StandardCharsets.UTF_8)
+                                    .replaceAll("\\+", "%20")));
+        }
+
+        // add `note` to the URL query string
+        if (getNote() != null) {
+            joiner.add(
+                    String.format(
+                            "%snote%s=%s",
+                            prefix,
+                            suffix,
+                            URLEncoder.encode(String.valueOf(getNote()), StandardCharsets.UTF_8)
                                     .replaceAll("\\+", "%20")));
         }
 

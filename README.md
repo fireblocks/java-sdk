@@ -32,7 +32,7 @@ Add this dependency to your project's POM:
 <dependency>
   <groupId>com.fireblocks.sdk</groupId>
   <artifactId>fireblocks-sdk</artifactId>
-  <version>1.0.1</version>
+  <version>1.1.0</version>
   <scope>compile</scope>
 </dependency>
 ```
@@ -42,7 +42,7 @@ Add this dependency to your project's POM:
 Add this dependency to your project's build file:
 
 ```groovy
-compile "com.fireblocks.sdk:fireblocks-sdk:1.0.1"
+compile "com.fireblocks.sdk:fireblocks-sdk:1.1.0"
 ```
 
 ### Others
@@ -55,7 +55,7 @@ mvn clean package
 
 Then manually install the following JARs:
 
-- `target/fireblocks-sdk-1.0.1.jar`
+- `target/fireblocks-sdk-1.1.0.jar`
 - `target/lib/*.jar`
 
 
@@ -166,6 +166,11 @@ Class | Method | HTTP request | Description
 *ContractsApi* | [**getContract**](docs/ContractsApi.md#getContract) | **GET** /contracts/{contractId} | Find a specific contract
 *ContractsApi* | [**getContractAsset**](docs/ContractsApi.md#getContractAsset) | **GET** /contracts/{contractId}/{assetId} | Find a contract asset
 *ContractsApi* | [**getContracts**](docs/ContractsApi.md#getContracts) | **GET** /contracts | List contracts
+*CosignersBetaApi* | [**getApiKey**](docs/CosignersBetaApi.md#getApiKey) | **GET** /cosigners/{cosignerId}/api_keys/{apiKeyId} | Get API key
+*CosignersBetaApi* | [**getApiKeys**](docs/CosignersBetaApi.md#getApiKeys) | **GET** /cosigners/{cosignerId}/api_keys | Get all API keys
+*CosignersBetaApi* | [**getCosigner**](docs/CosignersBetaApi.md#getCosigner) | **GET** /cosigners/{cosignerId} | Get cosigner
+*CosignersBetaApi* | [**getCosigners**](docs/CosignersBetaApi.md#getCosigners) | **GET** /cosigners | Get all cosigners
+*CosignersBetaApi* | [**renameCosigner**](docs/CosignersBetaApi.md#renameCosigner) | **PATCH** /cosigners/{cosignerId} | Rename cosigner
 *ExchangeAccountsApi* | [**convertAssets**](docs/ExchangeAccountsApi.md#convertAssets) | **POST** /exchange_accounts/{exchangeAccountId}/convert | Convert exchange account funds from the source asset to the destination asset.
 *ExchangeAccountsApi* | [**getExchangeAccount**](docs/ExchangeAccountsApi.md#getExchangeAccount) | **GET** /exchange_accounts/{exchangeAccountId} | Find a specific exchange account
 *ExchangeAccountsApi* | [**getExchangeAccountAsset**](docs/ExchangeAccountsApi.md#getExchangeAccountAsset) | **GET** /exchange_accounts/{exchangeAccountId}/{assetId} | Find an asset for an exchange account
@@ -344,6 +349,8 @@ Class | Method | HTTP request | Description
  - [AmountAggregationTimePeriodMethod](docs/AmountAggregationTimePeriodMethod.md)
  - [AmountAndChainDescriptor](docs/AmountAndChainDescriptor.md)
  - [AmountInfo](docs/AmountInfo.md)
+ - [ApiKey](docs/ApiKey.md)
+ - [ApiKeysPaginatedResponse](docs/ApiKeysPaginatedResponse.md)
  - [AssetAmount](docs/AssetAmount.md)
  - [AssetBadRequestErrorResponse](docs/AssetBadRequestErrorResponse.md)
  - [AssetConflictErrorResponse](docs/AssetConflictErrorResponse.md)
@@ -384,6 +391,8 @@ Class | Method | HTTP request | Description
  - [ConversionValidationFailure](docs/ConversionValidationFailure.md)
  - [ConvertAssetsRequest](docs/ConvertAssetsRequest.md)
  - [ConvertAssetsResponse](docs/ConvertAssetsResponse.md)
+ - [Cosigner](docs/Cosigner.md)
+ - [CosignersPaginatedResponse](docs/CosignersPaginatedResponse.md)
  - [CreateAPIUser](docs/CreateAPIUser.md)
  - [CreateAddressRequest](docs/CreateAddressRequest.md)
  - [CreateAddressResponse](docs/CreateAddressResponse.md)
@@ -551,6 +560,7 @@ Class | Method | HTTP request | Description
  - [RegisterNewAssetRequest](docs/RegisterNewAssetRequest.md)
  - [RelatedTransactionDto](docs/RelatedTransactionDto.md)
  - [RemoveCollateralRequestBody](docs/RemoveCollateralRequestBody.md)
+ - [RenameCosigner](docs/RenameCosigner.md)
  - [RenameVaultAccountResponse](docs/RenameVaultAccountResponse.md)
  - [ResendTransactionWebhooksRequest](docs/ResendTransactionWebhooksRequest.md)
  - [ResendWebhooksByTransactionIdResponse](docs/ResendWebhooksByTransactionIdResponse.md)
