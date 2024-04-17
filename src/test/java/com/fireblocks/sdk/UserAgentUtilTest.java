@@ -13,11 +13,8 @@ public class UserAgentUtilTest {
     @Test
     public void testGetUserAgentWithAnonymousPlatform() {
         AdditionalOptions additionalOptions = new AdditionalOptions().isAnonymousPlatform(true);
-        try (MockedStatic<SystemWrapper> mockedSystem = Mockito.mockStatic(SystemWrapper.class)) {
-            mockedSystem.when(() -> SystemWrapper.getProperty(anyString())).thenReturn("testValue");
-            String userAgent = UserAgentUtil.getUserAgent(additionalOptions);
-            Assert.assertEquals("fireblocks-sdk-java/testValue", userAgent);
-        }
+        String userAgent = UserAgentUtil.getUserAgent(additionalOptions);
+        Assert.assertEquals("fireblocks/sdk/java/1.1.0", userAgent);
     }
 
     @Test
@@ -28,9 +25,8 @@ public class UserAgentUtilTest {
             mockedSystem.when(() -> SystemWrapper.getProperty("os.name")).thenReturn("macOS");
             mockedSystem.when(() -> SystemWrapper.getProperty("os.version")).thenReturn("10.15.7");
             mockedSystem.when(() -> SystemWrapper.getProperty("os.arch")).thenReturn("x86_64");
-            mockedSystem.when(() -> SystemWrapper.getProperty("sdk.version")).thenReturn("1.0.0");
             String userAgent = UserAgentUtil.getUserAgent(additionalOptions);
-            Assert.assertEquals("fireblocks-sdk-java/1.0.0 (macOS 10.15.7; x86_64)", userAgent);
+            Assert.assertEquals("fireblocks/sdk/java/1.1.0 (macOS 10.15.7; x86_64)", userAgent);
         }
     }
 
@@ -43,10 +39,9 @@ public class UserAgentUtilTest {
             mockedSystem.when(() -> SystemWrapper.getProperty("os.name")).thenReturn("macOS");
             mockedSystem.when(() -> SystemWrapper.getProperty("os.version")).thenReturn("10.15.7");
             mockedSystem.when(() -> SystemWrapper.getProperty("os.arch")).thenReturn("x86_64");
-            mockedSystem.when(() -> SystemWrapper.getProperty("sdk.version")).thenReturn("1.0.0");
             String userAgent = UserAgentUtil.getUserAgent(additionalOptions);
             Assert.assertEquals(
-                    "customUserAgent fireblocks-sdk-java/1.0.0 (macOS 10.15.7; x86_64)", userAgent);
+                    "customUserAgent fireblocks/sdk/java/1.1.0 (macOS 10.15.7; x86_64)", userAgent);
         }
     }
 }

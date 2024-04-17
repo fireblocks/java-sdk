@@ -16,47 +16,72 @@ package com.fireblocks.sdk.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.math.BigDecimal;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.time.OffsetDateTime;
 import java.util.Objects;
 import java.util.StringJoiner;
+import java.util.UUID;
 
-/** SmartTransferSubmitTicket */
-@JsonPropertyOrder({SmartTransferSubmitTicket.JSON_PROPERTY_EXPIRES_IN})
+/** ApiKey */
+@JsonPropertyOrder({ApiKey.JSON_PROPERTY_ID, ApiKey.JSON_PROPERTY_LAST_SEEN})
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
-public class SmartTransferSubmitTicket {
-    public static final String JSON_PROPERTY_EXPIRES_IN = "expiresIn";
-    private BigDecimal expiresIn;
+public class ApiKey {
+    public static final String JSON_PROPERTY_ID = "id";
+    private UUID id;
 
-    public SmartTransferSubmitTicket() {}
+    public static final String JSON_PROPERTY_LAST_SEEN = "lastSeen";
+    private OffsetDateTime lastSeen;
 
-    public SmartTransferSubmitTicket expiresIn(BigDecimal expiresIn) {
-        this.expiresIn = expiresIn;
+    public ApiKey() {}
+
+    public ApiKey id(UUID id) {
+        this.id = id;
         return this;
     }
 
     /**
-     * Sets the ticket expiration time (in hours) after the ticket is submitted. If no funding
-     * source is set for any term, the ticket will automatically expire after given time. If
-     * expiresIn is not sent ticket will not expire. minimum: 1 maximum: 48
+     * The unique identifier of the API key
      *
-     * @return expiresIn
+     * @return id
      */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_EXPIRES_IN)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public BigDecimal getExpiresIn() {
-        return expiresIn;
+    @jakarta.annotation.Nonnull
+    @JsonProperty(JSON_PROPERTY_ID)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public UUID getId() {
+        return id;
     }
 
-    @JsonProperty(JSON_PROPERTY_EXPIRES_IN)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setExpiresIn(BigDecimal expiresIn) {
-        this.expiresIn = expiresIn;
+    @JsonProperty(JSON_PROPERTY_ID)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setId(UUID id) {
+        this.id = id;
     }
 
-    /** Return true if this SmartTransferSubmitTicket object is equal to o. */
+    public ApiKey lastSeen(OffsetDateTime lastSeen) {
+        this.lastSeen = lastSeen;
+        return this;
+    }
+
+    /**
+     * The date the API key was last seen
+     *
+     * @return lastSeen
+     */
+    @jakarta.annotation.Nonnull
+    @JsonProperty(JSON_PROPERTY_LAST_SEEN)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public OffsetDateTime getLastSeen() {
+        return lastSeen;
+    }
+
+    @JsonProperty(JSON_PROPERTY_LAST_SEEN)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setLastSeen(OffsetDateTime lastSeen) {
+        this.lastSeen = lastSeen;
+    }
+
+    /** Return true if this ApiKey object is equal to o. */
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -65,20 +90,21 @@ public class SmartTransferSubmitTicket {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        SmartTransferSubmitTicket smartTransferSubmitTicket = (SmartTransferSubmitTicket) o;
-        return Objects.equals(this.expiresIn, smartTransferSubmitTicket.expiresIn);
+        ApiKey apiKey = (ApiKey) o;
+        return Objects.equals(this.id, apiKey.id) && Objects.equals(this.lastSeen, apiKey.lastSeen);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(expiresIn);
+        return Objects.hash(id, lastSeen);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("class SmartTransferSubmitTicket {\n");
-        sb.append("    expiresIn: ").append(toIndentedString(expiresIn)).append("\n");
+        sb.append("class ApiKey {\n");
+        sb.append("    id: ").append(toIndentedString(id)).append("\n");
+        sb.append("    lastSeen: ").append(toIndentedString(lastSeen)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -126,15 +152,25 @@ public class SmartTransferSubmitTicket {
 
         StringJoiner joiner = new StringJoiner("&");
 
-        // add `expiresIn` to the URL query string
-        if (getExpiresIn() != null) {
+        // add `id` to the URL query string
+        if (getId() != null) {
             joiner.add(
                     String.format(
-                            "%sexpiresIn%s=%s",
+                            "%sid%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getExpiresIn()), StandardCharsets.UTF_8)
+                            URLEncoder.encode(String.valueOf(getId()), StandardCharsets.UTF_8)
+                                    .replaceAll("\\+", "%20")));
+        }
+
+        // add `lastSeen` to the URL query string
+        if (getLastSeen() != null) {
+            joiner.add(
+                    String.format(
+                            "%slastSeen%s=%s",
+                            prefix,
+                            suffix,
+                            URLEncoder.encode(String.valueOf(getLastSeen()), StandardCharsets.UTF_8)
                                     .replaceAll("\\+", "%20")));
         }
 

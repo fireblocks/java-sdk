@@ -5,7 +5,7 @@
     <artifactId>fireblocks-sdk</artifactId>
     <packaging>jar</packaging>
     <name>fireblocks-sdk</name>
-    <version>1.0.1</version>
+    <version>1.1.0</version>
     <url>https://github.com/fireblocks/java-sdk</url>
     <description>The Fireblocks Official SDK is a comprehensive software development kit that enables seamless integration and interaction with the Fireblocks platform. Fireblocks is a cutting-edge blockchain infrastructure platform that provides secure and scalable solutions for managing digital assets and transactions.
 This SDK empowers developers to build robust applications that can interact with the Fireblocks platform&#39;s features, including creating and managing vault accounts, initiating secure transactions, managing assets, and more. It abstracts complex interactions with the Fireblocks API, making it easier for developers to leverage the platform&#39;s capabilities while adhering to best practices in security and efficiency.

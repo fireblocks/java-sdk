@@ -16,47 +16,44 @@ package com.fireblocks.sdk.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.math.BigDecimal;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 import java.util.StringJoiner;
 
-/** SmartTransferSubmitTicket */
-@JsonPropertyOrder({SmartTransferSubmitTicket.JSON_PROPERTY_EXPIRES_IN})
+/** RenameCosigner */
+@JsonPropertyOrder({RenameCosigner.JSON_PROPERTY_NAME})
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
-public class SmartTransferSubmitTicket {
-    public static final String JSON_PROPERTY_EXPIRES_IN = "expiresIn";
-    private BigDecimal expiresIn;
+public class RenameCosigner {
+    public static final String JSON_PROPERTY_NAME = "name";
+    private String name;
 
-    public SmartTransferSubmitTicket() {}
+    public RenameCosigner() {}
 
-    public SmartTransferSubmitTicket expiresIn(BigDecimal expiresIn) {
-        this.expiresIn = expiresIn;
+    public RenameCosigner name(String name) {
+        this.name = name;
         return this;
     }
 
     /**
-     * Sets the ticket expiration time (in hours) after the ticket is submitted. If no funding
-     * source is set for any term, the ticket will automatically expire after given time. If
-     * expiresIn is not sent ticket will not expire. minimum: 1 maximum: 48
+     * The new name of the cosigner
      *
-     * @return expiresIn
+     * @return name
      */
     @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_EXPIRES_IN)
+    @JsonProperty(JSON_PROPERTY_NAME)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public BigDecimal getExpiresIn() {
-        return expiresIn;
+    public String getName() {
+        return name;
     }
 
-    @JsonProperty(JSON_PROPERTY_EXPIRES_IN)
+    @JsonProperty(JSON_PROPERTY_NAME)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setExpiresIn(BigDecimal expiresIn) {
-        this.expiresIn = expiresIn;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    /** Return true if this SmartTransferSubmitTicket object is equal to o. */
+    /** Return true if this RenameCosigner object is equal to o. */
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -65,20 +62,20 @@ public class SmartTransferSubmitTicket {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        SmartTransferSubmitTicket smartTransferSubmitTicket = (SmartTransferSubmitTicket) o;
-        return Objects.equals(this.expiresIn, smartTransferSubmitTicket.expiresIn);
+        RenameCosigner renameCosigner = (RenameCosigner) o;
+        return Objects.equals(this.name, renameCosigner.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(expiresIn);
+        return Objects.hash(name);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("class SmartTransferSubmitTicket {\n");
-        sb.append("    expiresIn: ").append(toIndentedString(expiresIn)).append("\n");
+        sb.append("class RenameCosigner {\n");
+        sb.append("    name: ").append(toIndentedString(name)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -126,15 +123,14 @@ public class SmartTransferSubmitTicket {
 
         StringJoiner joiner = new StringJoiner("&");
 
-        // add `expiresIn` to the URL query string
-        if (getExpiresIn() != null) {
+        // add `name` to the URL query string
+        if (getName() != null) {
             joiner.add(
                     String.format(
-                            "%sexpiresIn%s=%s",
+                            "%sname%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getExpiresIn()), StandardCharsets.UTF_8)
+                            URLEncoder.encode(String.valueOf(getName()), StandardCharsets.UTF_8)
                                     .replaceAll("\\+", "%20")));
         }
 

@@ -128,6 +128,13 @@ paths:
           code: "const vaultAccount = await fireblocks.createVaultAccount(name, hiddenOnUI,\
             \ customerRefId, autoFueling);"
           name: Fireblocks SDK Javascript example
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<VaultAccount>> = fireblocks.vaults.createVaultAccount(vaultsApiCreateVaultAccountRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<VaultAccount>> response = fireblocks.vaults().createVaultAccount(createVaultAccountRequest,\
+            \ idempotencyKey);"
+          name: Fireblocks SDK Java example
       x-content-type: application/json
       x-accepts: application/json
   /vault/accounts/bulk:
@@ -178,6 +185,15 @@ paths:
       summary: Bulk creation of new vault accounts
       tags:
       - Vaults
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<JobCreated>> = fireblocks.vaults.createMultipleAccounts(vaultsApiCreateMultipleAccountsRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<JobCreated>> response = fireblocks.vaults().createMultipleAccounts(createMultipleAccountsRequest,\
+            \ idempotencyKey);"
+          name: Fireblocks SDK Java example
       x-content-type: application/json
       x-accepts: application/json
   /vault/accounts_paged:
@@ -273,6 +289,15 @@ paths:
         - language: javascript
           code: const vaultAccounts = await fireblocks.getVaultAccountsWithPageInfo(filters);
           name: Fireblocks SDK Javascript example
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<VaultAccountsPagedResponse>>\
+            \ = fireblocks.vaults.getPagedVaultAccounts(vaultsApiGetPagedVaultAccountsRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<VaultAccountsPagedResponse>> response\
+            \ = fireblocks.vaults().getPagedVaultAccounts(namePrefix, nameSuffix,\
+            \ minAmountThreshold, assetId, orderBy, before, after, limit);"
+          name: Fireblocks SDK Java example
       x-accepts: application/json
   /vault/accounts/{vaultAccountId}:
     get:
@@ -319,6 +344,12 @@ paths:
         - language: javascript
           code: const vaultAccount = await fireblocks.getVaultAccount(vault_account_id);
           name: Fireblocks SDK Javascript example
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<VaultAccount>> = fireblocks.vaults.getVaultAccount(vaultsApiGetVaultAccountRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: CompletableFuture<ApiResponse<VaultAccount>> response = fireblocks.vaults().getVaultAccount(vaultAccountId);
+          name: Fireblocks SDK Java example
       x-accepts: application/json
     put:
       description: Renames the requested vault account.
@@ -383,6 +414,15 @@ paths:
           code: "const vaultAccount = await fireblocks.updateVaultAccount(vautlAccountId,\
             \ name);"
           name: Fireblocks SDK Javascript example
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<RenameVaultAccountResponse>>\
+            \ = fireblocks.vaults.updateVaultAccount(vaultsApiUpdateVaultAccountRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<RenameVaultAccountResponse>> response\
+            \ = fireblocks.vaults().updateVaultAccount(updateVaultAccountRequest,\
+            \ vaultAccountId, idempotencyKey);"
+          name: Fireblocks SDK Java example
       x-content-type: application/json
       x-accepts: application/json
   /vault/asset_wallets:
@@ -472,6 +512,15 @@ paths:
         - language: javascript
           code: const vaultAccounts = await fireblocks.getAssetWallets(filters);
           name: Fireblocks SDK Javascript example
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<PaginatedAssetWalletResponse>>\
+            \ = fireblocks.vaults.getAssetWallets(vaultsApiGetAssetWalletsRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<PaginatedAssetWalletResponse>> response\
+            \ = fireblocks.vaults().getAssetWallets(totalAmountLargerThan, assetId,\
+            \ orderBy, before, after, limit);"
+          name: Fireblocks SDK Java example
       x-accepts: application/json
   /vault/accounts/{vaultAccountId}/hide:
     post:
@@ -529,6 +578,14 @@ paths:
         - language: javascript
           code: const vaultAsset = await fireblocks.hideVaultAccount(vaultAccountId);
           name: Fireblocks SDK Javascript example
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<VaultActionStatus>> =\
+            \ fireblocks.vaults.hideVaultAccount(vaultsApiHideVaultAccountRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<VaultActionStatus>> response = fireblocks.vaults().hideVaultAccount(vaultAccountId,\
+            \ idempotencyKey);"
+          name: Fireblocks SDK Java example
       x-accepts: application/json
   /vault/accounts/{vaultAccountId}/unhide:
     post:
@@ -586,6 +643,14 @@ paths:
         - language: javascript
           code: const vaultAsset = await fireblocks.unhideVaultAccount(vaultAccountId);
           name: Fireblocks SDK Javascript example
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<VaultActionStatus>> =\
+            \ fireblocks.vaults.unhideVaultAccount(vaultsApiUnhideVaultAccountRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<VaultActionStatus>> response = fireblocks.vaults().unhideVaultAccount(vaultAccountId,\
+            \ idempotencyKey);"
+          name: Fireblocks SDK Java example
       x-accepts: application/json
   /vault/accounts/{vaultAccountId}/{assetId}/activate:
     post:
@@ -645,6 +710,17 @@ paths:
       summary: Activate a wallet in a vault account
       tags:
       - Vaults
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<CreateVaultAssetResponse>>\
+            \ = fireblocks.vaults.activateAssetForVaultAccount(vaultsApiActivateAssetForVaultAccountRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<CreateVaultAssetResponse>> response\
+            \ = fireblocks.vaults().activateAssetForVaultAccount(vaultAccountId, assetId,\
+            \ idempotencyKey);"
+          name: Fireblocks SDK Java example
       x-accepts: application/json
   /vault/accounts/{vaultAccountId}/set_customer_ref_id:
     post:
@@ -710,6 +786,14 @@ paths:
           code: "const vaultAsset = await fireblocks.setCustomerRefIdForVaultAccount(vaultAccountId,\
             \ customerRefId);"
           name: Fireblocks SDK Javascript example
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<VaultActionStatus>> =\
+            \ fireblocks.vaults.setVaultAccountCustomerRefId(vaultsApiSetVaultAccountCustomerRefIdRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<VaultActionStatus>> response = fireblocks.vaults().setVaultAccountCustomerRefId(setCustomerRefIdRequest,\
+            \ vaultAccountId, idempotencyKey);"
+          name: Fireblocks SDK Java example
       x-content-type: application/json
       x-accepts: application/json
   /vault/accounts/{vaultAccountId}/set_auto_fuel:
@@ -767,6 +851,16 @@ paths:
       summary: Turn autofueling on or off
       tags:
       - Vaults
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<VaultActionStatus>> =\
+            \ fireblocks.vaults.setVaultAccountAutoFuel(vaultsApiSetVaultAccountAutoFuelRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<VaultActionStatus>> response = fireblocks.vaults().setVaultAccountAutoFuel(setAutoFuelRequest,\
+            \ vaultAccountId, idempotencyKey);"
+          name: Fireblocks SDK Java example
       x-content-type: application/json
       x-accepts: application/json
   /vault/accounts/{vaultAccountId}/{assetId}:
@@ -822,6 +916,13 @@ paths:
           code: "const vaultAsset = await fireblocks.getVaultAccountAsset(vaultAccountId,\
             \ assetId);"
           name: Fireblocks SDK Javascript example
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<VaultAsset>> = fireblocks.vaults.getVaultAccountAsset(vaultsApiGetVaultAccountAssetRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<VaultAsset>> response = fireblocks.vaults().getVaultAccountAsset(vaultAccountId,\
+            \ assetId);"
+          name: Fireblocks SDK Java example
       x-accepts: application/json
     post:
       description: Creates a wallet for a specific asset in a vault account.
@@ -895,6 +996,15 @@ paths:
           code: "const vaultAsset = await fireblocks.createVaultAsset(vaultAccountId,\
             \ assetId);"
           name: Fireblocks SDK Javascript example
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<CreateVaultAssetResponse>>\
+            \ = fireblocks.vaults.createVaultAccountAsset(vaultsApiCreateVaultAccountAssetRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<CreateVaultAssetResponse>> response\
+            \ = fireblocks.vaults().createVaultAccountAsset(vaultAccountId, assetId,\
+            \ createAssetsRequest, idempotencyKey);"
+          name: Fireblocks SDK Java example
       x-content-type: application/json
       x-accepts: application/json
   /vault/accounts/{vaultAccountId}/{assetId}/balance:
@@ -964,6 +1074,13 @@ paths:
           code: "const vaultAsset = await fireblocks.refreshVaultAssetBalance(vaultAccountId,\
             \ assetId);"
           name: Fireblocks SDK Javascript example
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<VaultAsset>> = fireblocks.vaults.updateVaultAccountAssetBalance(vaultsApiUpdateVaultAccountAssetBalanceRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<VaultAsset>> response = fireblocks.vaults().updateVaultAccountAssetBalance(vaultAccountId,\
+            \ assetId, idempotencyKey);"
+          name: Fireblocks SDK Java example
       x-accepts: application/json
   /vault/accounts/{vaultAccountId}/{assetId}/addresses:
     get:
@@ -1103,6 +1220,15 @@ paths:
           code: "const address = await fireblocks.generateNewAddress(vaultAccountId,\
             \ assetId, description, customerRefId);"
           name: Fireblocks SDK Javascript example
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<CreateAddressResponse>>\
+            \ = fireblocks.vaults.createVaultAccountAssetAddress(vaultsApiCreateVaultAccountAssetAddressRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<CreateAddressResponse>> response =\
+            \ fireblocks.vaults().createVaultAccountAssetAddress(vaultAccountId, assetId,\
+            \ createAddressRequest, idempotencyKey);"
+          name: Fireblocks SDK Java example
       x-content-type: application/json
       x-accepts: application/json
   /vault/accounts/{vaultAccountId}/{assetId}/addresses_paginated:
@@ -1183,6 +1309,15 @@ paths:
           code: "const addresses = await fireblocks.getPaginatedAddresses(\"0\",\"\
             ETH_TEST3\");"
           name: Fireblocks SDK Javascript example
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<PaginatedAddressResponse>>\
+            \ = fireblocks.vaults.getVaultAccountAssetAddressesPaginated(vaultsApiGetVaultAccountAssetAddressesPaginatedRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<PaginatedAddressResponse>> response\
+            \ = fireblocks.vaults().getVaultAccountAssetAddressesPaginated(vaultAccountId,\
+            \ assetId, limit, before, after);"
+          name: Fireblocks SDK Java example
       x-accepts: application/json
   /vault/accounts/{vaultAccountId}/{assetId}/max_spendable_amount:
     get:
@@ -1254,6 +1389,15 @@ paths:
           code: "const address = await fireblocks.setAddressDescription(vaultAccountId,\
             \ assetId, address, tag, description);"
           name: Fireblocks SDK Javascript example
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<GetMaxSpendableAmountResponse>>\
+            \ = fireblocks.vaults.getMaxSpendableAmount(vaultsApiGetMaxSpendableAmountRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<GetMaxSpendableAmountResponse>> response\
+            \ = fireblocks.vaults().getMaxSpendableAmount(vaultAccountId, assetId,\
+            \ manualSignging);"
+          name: Fireblocks SDK Java example
       x-accepts: application/json
   /vault/accounts/{vaultAccountId}/{assetId}/addresses/{addressId}:
     put:
@@ -1338,6 +1482,14 @@ paths:
           code: "const address = await fireblocks.setAddressDescription(vaultAccountId,\
             \ assetId, address, tag, description);"
           name: Fireblocks SDK Javascript example
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<VaultActionStatus>> =\
+            \ fireblocks.vaults.updateVaultAccountAssetAddress(vaultsApiUpdateVaultAccountAssetAddressRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<VaultActionStatus>> response = fireblocks.vaults().updateVaultAccountAssetAddress(vaultAccountId,\
+            \ assetId, addressId, updateVaultAccountAssetAddressRequest, idempotencyKey);"
+          name: Fireblocks SDK Java example
       x-content-type: application/json
       x-accepts: application/json
   /vault/accounts/{vaultAccountId}/{assetId}/addresses/{addressId}/set_customer_ref_id:
@@ -1422,6 +1574,14 @@ paths:
           code: "const vaultAsset = await fireblocks.setCustomerRefIdForAddress(vaultAccountId,\
             \ assetId, addressId, customerRefId);"
           name: Fireblocks SDK Javascript example
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<VaultActionStatus>> =\
+            \ fireblocks.vaults.setCustomerRefIdForAddress(vaultsApiSetCustomerRefIdForAddressRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<VaultActionStatus>> response = fireblocks.vaults().setCustomerRefIdForAddress(setCustomerRefIdForAddressRequest,\
+            \ vaultAccountId, assetId, addressId, idempotencyKey);"
+          name: Fireblocks SDK Java example
       x-content-type: application/json
       x-accepts: application/json
   /vault/accounts/{vaultAccountId}/{assetId}/addresses/{addressId}/create_legacy:
@@ -1489,6 +1649,17 @@ paths:
       summary: Convert a segwit address to legacy format
       tags:
       - Vaults
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<CreateAddressResponse>>\
+            \ = fireblocks.vaults.createLegacyAddress(vaultsApiCreateLegacyAddressRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<CreateAddressResponse>> response =\
+            \ fireblocks.vaults().createLegacyAddress(vaultAccountId, assetId, addressId,\
+            \ idempotencyKey);"
+          name: Fireblocks SDK Java example
       x-accepts: application/json
   /vault/accounts/{vaultAccountId}/{assetId}/unspent_inputs:
     get:
@@ -1547,6 +1718,13 @@ paths:
           code: "const vaultAsset = await fireblocks.getUnspentInputs(vaultAccountId,\
             \ assetId);"
           name: Fireblocks SDK Javascript example
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<any>> = fireblocks.vaults.getUnspentInputs(vaultsApiGetUnspentInputsRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<Object>> response = fireblocks.vaults().getUnspentInputs(vaultAccountId,\
+            \ assetId);"
+          name: Fireblocks SDK Java example
       x-accepts: application/json
   /vault/public_key_info:
     get:
@@ -1607,6 +1785,14 @@ paths:
           code: |
             const PublicKeyInfoArgs = { algorithm: 'MPC_ECDSA_SECP256K1', derivationPath: '[44,0,0,0,0]' } const pubKey = await fireblocks.getPublicKeyInfo(PublicKeyInfoArgs);
           name: Fireblocks SDK Javascript example
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<PublicKeyInformation>>\
+            \ = fireblocks.vaults.getPublicKeyInfo(vaultsApiGetPublicKeyInfoRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<PublicKeyInformation>> response = fireblocks.vaults().getPublicKeyInfo(derivationPath,\
+            \ algorithm, compressed);"
+          name: Fireblocks SDK Java example
       x-accepts: application/json
   /vault/accounts/{vaultAccountId}/{assetId}/{change}/{addressIndex}/public_key_info:
     get:
@@ -1683,6 +1869,14 @@ paths:
           code: |
             const PublicKeyInfoArgs = { assetId: 'ETH', vaultAccountId: 0, change: 0, addressIndex: 0, compressed: true } const pubKey = await fireblocks.getPublicKeyInfoForVaultAccount(PublicKeyInfoArgs);
           name: Fireblocks SDK Javascript example
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<PublicKeyInformation>>\
+            \ = fireblocks.vaults.getPublicKeyInfoForAddress(vaultsApiGetPublicKeyInfoForAddressRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<PublicKeyInformation>> response = fireblocks.vaults().getPublicKeyInfoForAddress(vaultAccountId,\
+            \ assetId, change, addressIndex, compressed);"
+          name: Fireblocks SDK Java example
       x-accepts: application/json
   /vault/assets:
     get:
@@ -1737,6 +1931,13 @@ paths:
           code: "const assetsBalance = await fireblocks.getVaultAssetsBalance(accountNamePrefix,\
             \ accountNameSuffix);"
           name: Fireblocks SDK Javascript example
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<any>> = fireblocks.vaults.getVaultAssets(vaultsApiGetVaultAssetsRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<Object>> response = fireblocks.vaults().getVaultAssets(accountNamePrefix,\
+            \ accountNameSuffix);"
+          name: Fireblocks SDK Java example
       x-accepts: application/json
   /vault/assets/bulk:
     post:
@@ -1787,6 +1988,15 @@ paths:
       summary: Bulk creation of wallets
       tags:
       - Assets
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<JobCreated>> = fireblocks.assets.createAssetsBulk(assetsApiCreateAssetsBulkRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<JobCreated>> response = fireblocks.assets().createAssetsBulk(createAssetsBulkRequest,\
+            \ idempotencyKey);"
+          name: Fireblocks SDK Java example
       x-content-type: application/json
       x-accepts: application/json
   /vault/assets/{assetId}:
@@ -1832,6 +2042,12 @@ paths:
         - language: javascript
           code: const assetsBalance = await fireblocks.getVaultBalanceByAsset(assetId);
           name: Fireblocks SDK Javascript example
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<VaultAsset>> = fireblocks.vaults.getVaultBalanceByAsset(vaultsApiGetVaultBalanceByAssetRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: CompletableFuture<ApiResponse<VaultAsset>> response = fireblocks.vaults().getVaultBalanceByAsset(assetId);
+          name: Fireblocks SDK Java example
       x-accepts: application/json
   /workspace/freeze:
     post:
@@ -1975,6 +2191,13 @@ paths:
         - language: python
           code: exchangeAccounts = fireblocks.get_exchange_accounts_paged()
           name: Fireblocks SDK Python example
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<any>> = fireblocks.exchangeAccounts.getPagedExchangeAccounts(exchangeAccountsApiGetPagedExchangeAccountsRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<Object>> response = fireblocks.exchangeAccounts().getPagedExchangeAccounts(limit,\
+            \ before, after);"
+          name: Fireblocks SDK Java example
       x-accepts: application/json
   /exchange_accounts/{exchangeAccountId}:
     get:
@@ -2019,6 +2242,12 @@ paths:
         - language: javascript
           code: const exchnageAccount = await fireblocks.get_exchange_account(exchangeAccountId);
           name: Fireblocks SDK Javascript example
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<ExchangeAccount>> = fireblocks.exchangeAccounts.getExchangeAccount(exchangeAccountsApiGetExchangeAccountRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: CompletableFuture<ApiResponse<ExchangeAccount>> response = fireblocks.exchangeAccounts().getExchangeAccount(exchangeAccountId);
+          name: Fireblocks SDK Java example
       x-accepts: application/json
   /exchange_accounts/{exchangeAccountId}/internal_transfer:
     post:
@@ -2072,6 +2301,17 @@ paths:
       summary: Internal transfer for exchange accounts
       tags:
       - Exchange accounts
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<InternalTransferResponse>>\
+            \ = fireblocks.exchangeAccounts.internalTransfer(exchangeAccountsApiInternalTransferRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<InternalTransferResponse>> response\
+            \ = fireblocks.exchangeAccounts().internalTransfer(exchangeAccountId,\
+            \ createInternalTransferRequest, idempotencyKey);"
+          name: Fireblocks SDK Java example
       x-content-type: application/json
       x-accepts: application/json
   /exchange_accounts/{exchangeAccountId}/convert:
@@ -2129,6 +2369,17 @@ paths:
         asset.
       tags:
       - Exchange accounts
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<ConvertAssetsResponse>>\
+            \ = fireblocks.exchangeAccounts.convertAssets(exchangeAccountsApiConvertAssetsRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<ConvertAssetsResponse>> response =\
+            \ fireblocks.exchangeAccounts().convertAssets(exchangeAccountId, convertAssetsRequest,\
+            \ idempotencyKey);"
+          name: Fireblocks SDK Java example
       x-content-type: application/json
       x-accepts: application/json
   /exchange_accounts/{exchangeAccountId}/{assetId}:
@@ -2184,6 +2435,13 @@ paths:
           code: "const exchangeAsset = await fireblocks.getExchangeAsset(exchangeAccountId,\
             \ assetId);"
           name: Fireblocks SDK Javascript example
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<ExchangeAsset>> = fireblocks.exchangeAccounts.getExchangeAccountAsset(exchangeAccountsApiGetExchangeAccountAssetRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<ExchangeAsset>> response = fireblocks.exchangeAccounts().getExchangeAccountAsset(exchangeAccountId,\
+            \ assetId);"
+          name: Fireblocks SDK Java example
       x-accepts: application/json
   /fiat_accounts:
     get:
@@ -2221,6 +2479,12 @@ paths:
         - language: javascript
           code: const transactions = await fireblocks.getFiatAccounts();
           name: Fireblocks SDK Javascript example
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<any>> = fireblocks.fiatAccounts.getFiatAccounts();"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: CompletableFuture<ApiResponse<Object>> response = fireblocks.fiatAccounts().getFiatAccounts();
+          name: Fireblocks SDK Java example
       x-accepts: application/json
   /fiat_accounts/{accountId}:
     get:
@@ -2265,6 +2529,12 @@ paths:
         - language: javascript
           code: const transactions = await fireblocks.getFiatAccountById(accountId);
           name: Fireblocks SDK Javascript example
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<FiatAccount>> = fireblocks.fiatAccounts.getFiatAccount(fiatAccountsApiGetFiatAccountRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: CompletableFuture<ApiResponse<FiatAccount>> response = fireblocks.fiatAccounts().getFiatAccount(accountId);
+          name: Fireblocks SDK Java example
       x-accepts: application/json
   /fiat_accounts/{accountId}/redeem_to_linked_dda:
     post:
@@ -2326,6 +2596,15 @@ paths:
           code: "const transactions = await fireblocks.redeemToLinkedDDA(accountId,\
             \ amount);"
           name: Fireblocks SDK Javascript example
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<RedeemFundsToLinkedDDAResponse>>\
+            \ = fireblocks.fiatAccounts.redeemFundsToLinkedDDA(fiatAccountsApiRedeemFundsToLinkedDDARequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<RedeemFundsToLinkedDDAResponse>> response\
+            \ = fireblocks.fiatAccounts().redeemFundsToLinkedDDA(accountId, funds,\
+            \ idempotencyKey);"
+          name: Fireblocks SDK Java example
       x-content-type: application/json
       x-accepts: application/json
   /fiat_accounts/{accountId}/deposit_from_linked_dda:
@@ -2388,6 +2667,15 @@ paths:
           code: "const transactions = await fireblocks.depositFromLinkedDDA(accountId,\
             \ amount);"
           name: Fireblocks SDK Javascript example
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<DepositFundsFromLinkedDDAResponse>>\
+            \ = fireblocks.fiatAccounts.depositFundsFromLinkedDDA(fiatAccountsApiDepositFundsFromLinkedDDARequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<DepositFundsFromLinkedDDAResponse>>\
+            \ response = fireblocks.fiatAccounts().depositFundsFromLinkedDDA(accountId,\
+            \ funds, idempotencyKey);"
+          name: Fireblocks SDK Java example
       x-content-type: application/json
       x-accepts: application/json
   /network_connections:
@@ -2443,6 +2731,12 @@ paths:
         - language: javascript
           code: const networkConnections = await fireblocks.getNetworkConnections();
           name: Fireblocks SDK Javascript example
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<any>> = fireblocks.networkConnections.getNetworkConnections();"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: CompletableFuture<ApiResponse<Object>> response = fireblocks.networkConnections().getNetworkConnections();
+          name: Fireblocks SDK Java example
       x-accepts: application/json
     post:
       description: |
@@ -2461,6 +2755,8 @@ paths:
           - Network Profile FIAT → **None**
           - Network Connection Crypto → **Default**
           - Network Connection FIAT → **Default**
+
+        Supported asset groups for routing police can be found at `/enabled_routing_policy_asset_groups`
 
             - **Note**: By default, Custom routing scheme uses (`dstId` = `0`, `dstType` = `VAULT`).
       operationId: createNetworkConnection
@@ -2503,6 +2799,17 @@ paths:
       summary: Creates a new network connection
       tags:
       - Network connections
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<NetworkConnectionResponse>>\
+            \ = fireblocks.networkConnections.createNetworkConnection(networkConnectionsApiCreateNetworkConnectionRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<NetworkConnectionResponse>> response\
+            \ = fireblocks.networkConnections().createNetworkConnection(networkConnection,\
+            \ idempotencyKey);"
+          name: Fireblocks SDK Java example
       x-content-type: application/json
       x-accepts: application/json
   /network_connections/{connectionId}/set_routing_policy:
@@ -2523,6 +2830,8 @@ paths:
           - Network Profile FIAT → **None**
           - Network Connection Crypto → **Default**
           - Network Connection FIAT → **Default**
+
+        Supported asset groups for routing police can be found at `/enabled_routing_policy_asset_groups`
 
             - **Note**: By default, Custom routing scheme uses (`dstId` = `0`, `dstType` = `VAULT`).
       operationId: setRoutingPolicy
@@ -2562,6 +2871,15 @@ paths:
       summary: Update network connection routing policy.
       tags:
       - Network connections
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<any>> = fireblocks.networkConnections.setRoutingPolicy(networkConnectionsApiSetRoutingPolicyRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<Object>> response = fireblocks.networkConnections().setRoutingPolicy(connectionId,\
+            \ setRoutingPolicyRequest);"
+          name: Fireblocks SDK Java example
       x-content-type: application/json
       x-accepts: application/json
   /network_connections/{connectionId}/is_third_party_routing/{assetType}:
@@ -2610,6 +2928,16 @@ paths:
       summary: Retrieve third-party network routing validation by asset type.
       tags:
       - Network connections
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<ThirdPartyRouting>> =\
+            \ fireblocks.networkConnections.checkThirdPartyRouting(networkConnectionsApiCheckThirdPartyRoutingRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<ThirdPartyRouting>> response = fireblocks.networkConnections().checkThirdPartyRouting(connectionId,\
+            \ assetType);"
+          name: Fireblocks SDK Java example
       x-accepts: application/json
   /network_connections/{connectionId}:
     delete:
@@ -2663,6 +2991,14 @@ paths:
       summary: Deletes a network connection by ID
       tags:
       - Network connections
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<any>> = fireblocks.networkConnections.deleteNetworkConnection(networkConnectionsApiDeleteNetworkConnectionRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: CompletableFuture<ApiResponse<Object>> response = fireblocks.networkConnections().deleteNetworkConnection(connectionId);
+          name: Fireblocks SDK Java example
       x-accepts: application/json
     get:
       description: |
@@ -2723,6 +3059,14 @@ paths:
         - language: javascript
           code: const network_connection = await fireblocks.getNetworkConnection(connectionId);
           name: Fireblocks SDK Javascript example
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<NetworkConnectionResponse>>\
+            \ = fireblocks.networkConnections.getNetwork(networkConnectionsApiGetNetworkRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: CompletableFuture<ApiResponse<NetworkConnectionResponse>> response
+            = fireblocks.networkConnections().getNetwork(connectionId);
+          name: Fireblocks SDK Java example
       x-accepts: application/json
   /network_ids:
     get:
@@ -2770,6 +3114,14 @@ paths:
       summary: "Returns all network IDs, both local IDs and discoverable remote IDs"
       tags:
       - Network connections
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<any>> = fireblocks.networkConnections.getNetworkIds();"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: CompletableFuture<ApiResponse<Object>> response = fireblocks.networkConnections().getNetworkIds();
+          name: Fireblocks SDK Java example
       x-accepts: application/json
     post:
       description: |
@@ -2788,6 +3140,8 @@ paths:
           - Network Profile FIAT → **None**
           - Network Connection Crypto → **Default**
           - Network Connection FIAT → **Default**
+
+        Supported asset groups for routing police can be found at `/enabled_routing_policy_asset_groups`
 
             - **Note**: By default, Custom routing scheme uses (`dstId` = `0`, `dstType` = `VAULT`).
       operationId: createNetworkId
@@ -2830,7 +3184,48 @@ paths:
       summary: Creates a new Network ID
       tags:
       - Network connections
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<NetworkIdResponse>> =\
+            \ fireblocks.networkConnections.createNetworkId(networkConnectionsApiCreateNetworkIdRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<NetworkIdResponse>> response = fireblocks.networkConnections().createNetworkId(createNetworkIdRequest,\
+            \ idempotencyKey);"
+          name: Fireblocks SDK Java example
       x-content-type: application/json
+      x-accepts: application/json
+  /enabled_routing_policy_asset_groups:
+    get:
+      description: |
+        Retrieves a list of all enabled routing policy asset groups.
+        Your routing policy defines how your transactions are routed.
+        You can use one or more enabled routing policy asset groups to describe connection or network id routing policy.
+      operationId: getEnabledRoutingPolicyAssetGroups
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetEnabledRoutingPolicyAssetGroupsResponse'
+          description: A list of enabled routing policy asset groups
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorSchema'
+          description: Error Response
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+      summary: Returns all enabled routing policy asset groups
+      tags:
+      - Network connections
+      x-internal: true
       x-accepts: application/json
   /network_ids/{networkId}:
     delete:
@@ -2881,6 +3276,14 @@ paths:
       summary: Deletes specific network ID.
       tags:
       - Network connections
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<any>> = fireblocks.networkConnections.deleteNetworkId(networkConnectionsApiDeleteNetworkIdRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: CompletableFuture<ApiResponse<Object>> response = fireblocks.networkConnections().deleteNetworkId(networkId);
+          name: Fireblocks SDK Java example
       x-accepts: application/json
     get:
       description: |
@@ -2933,6 +3336,15 @@ paths:
       summary: Returns specific network ID.
       tags:
       - Network connections
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<NetworkIdResponse>> =\
+            \ fireblocks.networkConnections.getNetworkId(networkConnectionsApiGetNetworkIdRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: CompletableFuture<ApiResponse<NetworkIdResponse>> response = fireblocks.networkConnections().getNetworkId(networkId);
+          name: Fireblocks SDK Java example
       x-accepts: application/json
   /network_ids/{networkId}/set_routing_policy:
     patch:
@@ -2952,6 +3364,8 @@ paths:
           - Network Profile FIAT → **None**
           - Network Connection Crypto → **Default**
           - Network Connection FIAT → **Default**
+
+        Supported asset groups for routing police can be found at `/enabled_routing_policy_asset_groups`
 
             - **Note**: By default, Custom routing scheme uses (`dstId` = `0`, `dstType` = `VAULT`).
       operationId: setNetworkIdRoutingPolicy
@@ -2991,6 +3405,16 @@ paths:
       summary: Update network id routing policy.
       tags:
       - Network connections
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<SetNetworkIdResponse>>\
+            \ = fireblocks.networkConnections.setNetworkIdRoutingPolicy(networkConnectionsApiSetNetworkIdRoutingPolicyRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<SetNetworkIdResponse>> response = fireblocks.networkConnections().setNetworkIdRoutingPolicy(networkId,\
+            \ setNetworkIdRoutingPolicyRequest);"
+          name: Fireblocks SDK Java example
       x-content-type: application/json
       x-accepts: application/json
   /network_ids/{networkId}/set_discoverability:
@@ -3051,6 +3475,16 @@ paths:
       summary: Update network ID's discoverability.
       tags:
       - Network connections
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<SetNetworkIdResponse>>\
+            \ = fireblocks.networkConnections.setNetworkIdDiscoverability(networkConnectionsApiSetNetworkIdDiscoverabilityRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<SetNetworkIdResponse>> response = fireblocks.networkConnections().setNetworkIdDiscoverability(setNetworkIdDiscoverabilityRequest,\
+            \ networkId);"
+          name: Fireblocks SDK Java example
       x-content-type: application/json
       x-accepts: application/json
   /network_ids/{networkId}/set_name:
@@ -3111,6 +3545,16 @@ paths:
       summary: Update network ID's name.
       tags:
       - Network connections
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<SetNetworkIdResponse>>\
+            \ = fireblocks.networkConnections.setNetworkIdName(networkConnectionsApiSetNetworkIdNameRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<SetNetworkIdResponse>> response = fireblocks.networkConnections().setNetworkIdName(setNetworkIdNameRequest,\
+            \ networkId);"
+          name: Fireblocks SDK Java example
       x-content-type: application/json
       x-accepts: application/json
   /internal_wallets:
@@ -3144,6 +3588,14 @@ paths:
       summary: List internal wallets
       tags:
       - Internal wallets
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<any>> = fireblocks.internalWallets.getInternalWallets();"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: CompletableFuture<ApiResponse<Object>> response = fireblocks.internalWallets().getInternalWallets();
+          name: Fireblocks SDK Java example
       x-accepts: application/json
     post:
       description: Creates a new internal wallet with the requested name.
@@ -3196,6 +3648,13 @@ paths:
           code: "const internalWallet = await fireblocks.createInternalWallet(name,\
             \ customerRefId);"
           name: Fireblocks SDK Javascript example
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<UnmanagedWallet>> = fireblocks.internalWallets.createInternalWallet(internalWalletsApiCreateInternalWalletRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<UnmanagedWallet>> response = fireblocks.internalWallets().createInternalWallet(createWalletRequest,\
+            \ idempotencyKey);"
+          name: Fireblocks SDK Java example
       x-content-type: application/json
       x-accepts: application/json
   /internal_wallets/{walletId}:
@@ -3237,6 +3696,12 @@ paths:
         - language: javascript
           code: const result = await fireblocks.deleteInternalWallet(walletId);
           name: Fireblocks SDK Javascript example
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<void>> = fireblocks.internalWallets.deleteInternalWallet(internalWalletsApiDeleteInternalWalletRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: CompletableFuture<ApiResponse<Void>> response = fireblocks.internalWallets().deleteInternalWallet(walletId);
+          name: Fireblocks SDK Java example
       x-accepts: application/json
     get:
       description: Returns all assets in an internal wallet by ID.
@@ -3280,6 +3745,12 @@ paths:
         - language: javascript
           code: const result = await fireblocks.getInternalWallet(walletId);
           name: Fireblocks SDK Javascript example
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<UnmanagedWallet>> = fireblocks.internalWallets.getInternalWallet(internalWalletsApiGetInternalWalletRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: CompletableFuture<ApiResponse<UnmanagedWallet>> response = fireblocks.internalWallets().getInternalWallet(walletId);
+          name: Fireblocks SDK Java example
       x-accepts: application/json
   /internal_wallets/{walletId}/set_customer_ref_id:
     post:
@@ -3340,6 +3811,13 @@ paths:
           code: "const result = await fireblocks.setCustomerRefIdForInternalWallet(walletId,\
             \ customerRefId);"
           name: Fireblocks SDK Javascript example
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<void>> = fireblocks.internalWallets.setCustomerRefIdForInternalWallet(internalWalletsApiSetCustomerRefIdForInternalWalletRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<Void>> response = fireblocks.internalWallets().setCustomerRefIdForInternalWallet(setCustomerRefIdRequest,\
+            \ walletId, idempotencyKey);"
+          name: Fireblocks SDK Java example
       x-content-type: application/json
       x-accepts: application/json
   /internal_wallets/{walletId}/{assetId}:
@@ -3391,6 +3869,13 @@ paths:
           code: "const result = await fireblocks.deleteInternalWalletAsset(walletId,\
             \ assetId);"
           name: Fireblocks SDK Javascript example
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<void>> = fireblocks.internalWallets.deleteInternalWalletAsset(internalWalletsApiDeleteInternalWalletAssetRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<Void>> response = fireblocks.internalWallets().deleteInternalWalletAsset(walletId,\
+            \ assetId);"
+          name: Fireblocks SDK Java example
       x-accepts: application/json
     get:
       description: Returns information for an asset in an internal wallet.
@@ -3445,6 +3930,13 @@ paths:
           code: "const internalWalletAsset = fireblocks.getInternalWalletAsset(walletId,\
             \ assetId);"
           name: Fireblocks SDK Javascript example
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<WalletAsset>> = fireblocks.internalWallets.getInternalWalletAsset(internalWalletsApiGetInternalWalletAssetRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<WalletAsset>> response = fireblocks.internalWallets().getInternalWalletAsset(walletId,\
+            \ assetId);"
+          name: Fireblocks SDK Java example
       x-accepts: application/json
     post:
       description: Adds an asset to an existing internal wallet.
@@ -3515,6 +4007,13 @@ paths:
           code: "const internalWalletAsset = await fireblocks.createInternalWalletAsset(walletContainerId,\
             \ assetId, address, tag);"
           name: Fireblocks SDK Javascript example
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<WalletAsset>> = fireblocks.internalWallets.createInternalWalletAsset(internalWalletsApiCreateInternalWalletAssetRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<WalletAsset>> response = fireblocks.internalWallets().createInternalWalletAsset(walletId,\
+            \ assetId, createInternalWalletAssetRequest, idempotencyKey);"
+          name: Fireblocks SDK Java example
       x-content-type: application/json
       x-accepts: application/json
   /external_wallets:
@@ -3553,6 +4052,12 @@ paths:
         - language: javascript
           code: const externalWallets = await fireblocks.getExternalWallets();
           name: Fireblocks SDK Javascript example
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<any>> = fireblocks.externalWallets.getExternalWallets();"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: CompletableFuture<ApiResponse<Object>> response = fireblocks.externalWallets().getExternalWallets();
+          name: Fireblocks SDK Java example
       x-accepts: application/json
     post:
       description: Creates a new external wallet with the requested name.
@@ -3605,6 +4110,13 @@ paths:
           code: "const externalWallet = await fireblocks.createExternalWallet(name,\
             \ customerRefId);"
           name: Fireblocks SDK Javascript example
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<UnmanagedWallet>> = fireblocks.externalWallets.createExternalWallet(externalWalletsApiCreateExternalWalletRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<UnmanagedWallet>> response = fireblocks.externalWallets().createExternalWallet(createWalletRequest,\
+            \ idempotencyKey);"
+          name: Fireblocks SDK Java example
       x-content-type: application/json
       x-accepts: application/json
   /external_wallets/{walletId}:
@@ -3646,6 +4158,12 @@ paths:
         - language: javascript
           code: const result = await fireblocks.deleteExternalWallet(walletId);
           name: Fireblocks SDK Javascript example
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<void>> = fireblocks.externalWallets.deleteExternalWallet(externalWalletsApiDeleteExternalWalletRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: CompletableFuture<ApiResponse<Void>> response = fireblocks.externalWallets().deleteExternalWallet(walletId);
+          name: Fireblocks SDK Java example
       x-accepts: application/json
     get:
       description: Returns an external wallet by ID.
@@ -3689,6 +4207,12 @@ paths:
         - language: javascript
           code: const externalWallet = await fireblocks.getExternalWallet(walletId);
           name: Fireblocks SDK Javascript example
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<UnmanagedWallet>> = fireblocks.externalWallets.getExternalWallet(externalWalletsApiGetExternalWalletRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: CompletableFuture<ApiResponse<UnmanagedWallet>> response = fireblocks.externalWallets().getExternalWallet(walletId);
+          name: Fireblocks SDK Java example
       x-accepts: application/json
   /external_wallets/{walletId}/set_customer_ref_id:
     post:
@@ -3749,6 +4273,13 @@ paths:
           code: "const result = await fireblocks.setCustomerRefIdForExternalWallet(walletId,\
             \ customerRefId);"
           name: Fireblocks SDK Javascript example
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<void>> = fireblocks.externalWallets.setExternalWalletCustomerRefId(externalWalletsApiSetExternalWalletCustomerRefIdRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<Void>> response = fireblocks.externalWallets().setExternalWalletCustomerRefId(setCustomerRefIdRequest,\
+            \ walletId, idempotencyKey);"
+          name: Fireblocks SDK Java example
       x-content-type: application/json
       x-accepts: application/json
   /external_wallets/{walletId}/{assetId}:
@@ -3800,6 +4331,13 @@ paths:
           code: "const result = await fireblocks.deleteExternalWalletAsset(walletId,\
             \ assetId);"
           name: Fireblocks SDK Javascript example
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<void>> = fireblocks.externalWallets.removeAssetFromExternalWallet(externalWalletsApiRemoveAssetFromExternalWalletRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<Void>> response = fireblocks.externalWallets().removeAssetFromExternalWallet(walletId,\
+            \ assetId);"
+          name: Fireblocks SDK Java example
       x-accepts: application/json
     get:
       description: Returns an external wallet by wallet ID and asset ID.
@@ -3854,6 +4392,14 @@ paths:
           code: "const externalWalletAsset = fireblocks.getExternalWalletAsset(walletId,\
             \ assetId)"
           name: Fireblocks SDK Javascript example
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<ExternalWalletAsset>>\
+            \ = fireblocks.externalWallets.getExternalWalletAsset(externalWalletsApiGetExternalWalletAssetRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<ExternalWalletAsset>> response = fireblocks.externalWallets().getExternalWalletAsset(walletId,\
+            \ assetId);"
+          name: Fireblocks SDK Java example
       x-accepts: application/json
     post:
       description: Adds an asset to an existing external wallet.
@@ -3924,6 +4470,14 @@ paths:
           code: "const externalWalletAsset = await fireblocks.createExternalWalletAsset(walletContainerId,\
             \ assetId, address, tag);"
           name: Fireblocks SDK Javascript example
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<ExternalWalletAsset>>\
+            \ = fireblocks.externalWallets.addAssetToExternalWallet(externalWalletsApiAddAssetToExternalWalletRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<ExternalWalletAsset>> response = fireblocks.externalWallets().addAssetToExternalWallet(walletId,\
+            \ assetId, addAssetToExternalWalletRequest, idempotencyKey);"
+          name: Fireblocks SDK Java example
       x-content-type: application/json
       x-accepts: application/json
   /contracts:
@@ -3954,6 +4508,14 @@ paths:
       summary: List contracts
       tags:
       - Contracts
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<any>> = fireblocks.contracts.getContracts();"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: CompletableFuture<ApiResponse<Object>> response = fireblocks.contracts().getContracts();
+          name: Fireblocks SDK Java example
       x-accepts: application/json
     post:
       description: Creates a new contract.
@@ -3997,6 +4559,15 @@ paths:
       summary: Create a contract
       tags:
       - Contracts
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<UnmanagedWallet>> = fireblocks.contracts.createContract(contractsApiCreateContractRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<UnmanagedWallet>> response = fireblocks.contracts().createContract(createContractRequest,\
+            \ idempotencyKey);"
+          name: Fireblocks SDK Java example
       x-content-type: application/json
       x-accepts: application/json
   /contracts/{contractId}:
@@ -4030,6 +4601,14 @@ paths:
       summary: Delete a contract
       tags:
       - Contracts
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<void>> = fireblocks.contracts.deleteContract(contractsApiDeleteContractRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: CompletableFuture<ApiResponse<Void>> response = fireblocks.contracts().deleteContract(contractId);
+          name: Fireblocks SDK Java example
       x-accepts: application/json
     get:
       description: Returns a contract by ID.
@@ -4065,6 +4644,14 @@ paths:
       summary: Find a specific contract
       tags:
       - Contracts
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<UnmanagedWallet>> = fireblocks.contracts.getContract(contractsApiGetContractRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: CompletableFuture<ApiResponse<UnmanagedWallet>> response = fireblocks.contracts().getContract(contractId);
+          name: Fireblocks SDK Java example
       x-accepts: application/json
   /contracts/{contractId}/{assetId}:
     delete:
@@ -4106,6 +4693,15 @@ paths:
       summary: Delete a contract asset
       tags:
       - Contracts
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<void>> = fireblocks.contracts.deleteContractAsset(contractsApiDeleteContractAssetRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<Void>> response = fireblocks.contracts().deleteContractAsset(contractId,\
+            \ assetId);"
+          name: Fireblocks SDK Java example
       x-accepts: application/json
     get:
       description: Returns a contract asset by ID.
@@ -4150,6 +4746,16 @@ paths:
       summary: Find a contract asset
       tags:
       - Contracts
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<ExternalWalletAsset>>\
+            \ = fireblocks.contracts.getContractAsset(contractsApiGetContractAssetRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<ExternalWalletAsset>> response = fireblocks.contracts().getContractAsset(contractId,\
+            \ assetId);"
+          name: Fireblocks SDK Java example
       x-accepts: application/json
     post:
       description: Adds an asset to an existing contract.
@@ -4210,6 +4816,16 @@ paths:
       summary: Add an asset to a contract
       tags:
       - Contracts
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<ExternalWalletAsset>>\
+            \ = fireblocks.contracts.addContractAsset(contractsApiAddContractAssetRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<ExternalWalletAsset>> response = fireblocks.contracts().addContractAsset(contractId,\
+            \ assetId, addContractAssetRequest, idempotencyKey);"
+          name: Fireblocks SDK Java example
       x-content-type: application/json
       x-accepts: application/json
   /supported_assets:
@@ -4248,6 +4864,12 @@ paths:
         - language: javascript
           code: const supportedAssets = await fireblocks.getSupportedAssets();
           name: Fireblocks SDK Javascript example
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<any>> = fireblocks.blockchainsAssets.getSupportedAssets();"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: CompletableFuture<ApiResponse<Object>> response = fireblocks.blockchainsAssets().getSupportedAssets();
+          name: Fireblocks SDK Java example
       x-accepts: application/json
   /assets:
     post:
@@ -4322,6 +4944,13 @@ paths:
           code: "const supportedAssets = await fireblocks.registerNewAsset(blockchainId,\
             \ address, symbol);"
           name: Fireblocks SDK Javascript example
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<AssetResponse>> = fireblocks.blockchainsAssets.registerNewAsset(blockchainsAssetsApiRegisterNewAssetRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<AssetResponse>> response = fireblocks.blockchainsAssets().registerNewAsset(registerNewAssetRequest,\
+            \ idempotencyKey);"
+          name: Fireblocks SDK Java example
       x-content-type: application/json
       x-accepts: application/json
   /transactions:
@@ -4519,6 +5148,14 @@ paths:
              status: args.status,
             after: from });
           name: Fireblocks SDK Javascript example
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<any>> = fireblocks.transactions.getTransactions(transactionsApiGetTransactionsRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<Object>> response = fireblocks.transactions().getTransactions(before,\
+            \ after, status, orderBy, sort, limit, sourceType, sourceId, destType,\
+            \ destId, assets, txHash, sourceWalletId, destWalletId);"
+          name: Fireblocks SDK Java example
       x-accepts: application/json
     post:
       description: Creates a new transaction.
@@ -4582,6 +5219,15 @@ paths:
           code: |
             const payload: TransactionArguments = { assetId: asset, source: { type: sourceType, id: sourceId || 0 }, destination: { type: destinationType, id: String(destinationId) }, amount: String(amount), fee: String(fee), note: "Created by fireblocks SDK" }; const result = await fireblocks.createTransaction(payload);
           name: Fireblocks SDK Javascript example
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<CreateTransactionResponse>>\
+            \ = fireblocks.transactions.createTransaction(transactionsApiCreateTransactionRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<CreateTransactionResponse>> response\
+            \ = fireblocks.transactions().createTransaction(transactionRequest, xEndUserWalletId,\
+            \ idempotencyKey);"
+          name: Fireblocks SDK Java example
       x-content-type: application/json
       x-accepts: application/json
   /transactions/estimate_fee:
@@ -4639,6 +5285,15 @@ paths:
           code: |
             const payload: TransactionArguments = { assetId: asset, source: { type: sourceType, id: sourceId || 0 }, destination: { type: destinationType, id: String(destinationId) }, amount: Number(amount) }; const estimatedFee = await fireblocks.estimateFeeForTransaction(payload);
           name: Fireblocks SDK Javascript example
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<EstimatedTransactionFeeResponse>>\
+            \ = fireblocks.transactions.estimateTransactionFee(transactionsApiEstimateTransactionFeeRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<EstimatedTransactionFeeResponse>> response\
+            \ = fireblocks.transactions().estimateTransactionFee(transactionRequest,\
+            \ idempotencyKey);"
+          name: Fireblocks SDK Java example
       x-content-type: application/json
       x-accepts: application/json
   /transactions/{txId}:
@@ -4694,6 +5349,13 @@ paths:
         - language: javascript
           code: const tx = await fireblocks.getTransactionById(txId);
           name: Fireblocks SDK Javascript example
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<TransactionResponse>>\
+            \ = fireblocks.transactions.getTransaction(transactionsApiGetTransactionRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: CompletableFuture<ApiResponse<TransactionResponse>> response = fireblocks.transactions().getTransaction(txId);
+          name: Fireblocks SDK Java example
       x-accepts: application/json
   /transactions/external_tx_id/{externalTxId}:
     get:
@@ -4739,6 +5401,13 @@ paths:
         - language: javascript
           code: const tx = await fireblocks.getTransactionByExternalTxId(externalTxId);
           name: Fireblocks SDK Javascript example
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<TransactionResponse>>\
+            \ = fireblocks.transactions.getTransactionByExternalId(transactionsApiGetTransactionByExternalIdRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: CompletableFuture<ApiResponse<TransactionResponse>> response = fireblocks.transactions().getTransactionByExternalId(externalTxId);
+          name: Fireblocks SDK Java example
       x-accepts: application/json
   /transactions/{txId}/set_confirmation_threshold:
     post:
@@ -4800,6 +5469,15 @@ paths:
         - language: javascript
           code: const setConfThreshold = await fireblocks.setConfirmationThresholdByTxId(body);
           name: Fireblocks SDK Javascript example
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<SetConfirmationsThresholdResponse>>\
+            \ = fireblocks.transactions.setTransactionConfirmationThreshold(transactionsApiSetTransactionConfirmationThresholdRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<SetConfirmationsThresholdResponse>>\
+            \ response = fireblocks.transactions().setTransactionConfirmationThreshold(txId,\
+            \ setConfirmationsThresholdRequest, idempotencyKey);"
+          name: Fireblocks SDK Java example
       x-content-type: application/json
       x-accepts: application/json
   /transactions/{txId}/drop:
@@ -4871,6 +5549,15 @@ paths:
         - language: javascript
           code: "const result = await fireblocks.dropTransaction(txId, feeLevel);"
           name: Fireblocks SDK Javascript example
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<DropTransactionResponse>>\
+            \ = fireblocks.transactions.dropTransaction(transactionsApiDropTransactionRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<DropTransactionResponse>> response\
+            \ = fireblocks.transactions().dropTransaction(txId, dropTransactionRequest,\
+            \ xEndUserWalletId, idempotencyKey);"
+          name: Fireblocks SDK Java example
       x-content-type: application/json
       x-accepts: application/json
   /transactions/{txId}/cancel:
@@ -4937,6 +5624,15 @@ paths:
         - language: javascript
           code: const result = await fireblocks.cancelTransactionById(txId);
           name: Fireblocks SDK Javascript example
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<CancelTransactionResponse>>\
+            \ = fireblocks.transactions.cancelTransaction(transactionsApiCancelTransactionRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<CancelTransactionResponse>> response\
+            \ = fireblocks.transactions().cancelTransaction(txId, xEndUserWalletId,\
+            \ idempotencyKey);"
+          name: Fireblocks SDK Java example
       x-accepts: application/json
   /transactions/{txId}/freeze:
     post:
@@ -4993,6 +5689,15 @@ paths:
         - language: javascript
           code: const result = await fireblocks.freezeTransactionById(txId);
           name: Fireblocks SDK Javascript example
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<FreezeTransactionResponse>>\
+            \ = fireblocks.transactions.freezeTransaction(transactionsApiFreezeTransactionRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<FreezeTransactionResponse>> response\
+            \ = fireblocks.transactions().freezeTransaction(txId, xEndUserWalletId,\
+            \ idempotencyKey);"
+          name: Fireblocks SDK Java example
       x-accepts: application/json
   /transactions/{txId}/unfreeze:
     post:
@@ -5050,6 +5755,15 @@ paths:
         - language: javascript
           code: const result = await fireblocks.unfreezeTransactionById(txId);
           name: Fireblocks SDK Javascript example
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<UnfreezeTransactionResponse>>\
+            \ = fireblocks.transactions.unfreezeTransaction(transactionsApiUnfreezeTransactionRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<UnfreezeTransactionResponse>> response\
+            \ = fireblocks.transactions().unfreezeTransaction(txId, xEndUserWalletId,\
+            \ idempotencyKey);"
+          name: Fireblocks SDK Java example
       x-accepts: application/json
   /transactions/validate_address/{assetId}/{address}:
     get:
@@ -5103,6 +5817,14 @@ paths:
         - language: javascript
           code: "const result = await fireblocks.(assetId, address);"
           name: Fireblocks SDK Javascript example
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<ValidateAddressResponse>>\
+            \ = fireblocks.transactions.validateAddress(transactionsApiValidateAddressRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<ValidateAddressResponse>> response\
+            \ = fireblocks.transactions().validateAddress(assetId, address);"
+          name: Fireblocks SDK Java example
       x-accepts: application/json
   /txHash/{txHash}/set_confirmation_threshold:
     post:
@@ -5164,6 +5886,15 @@ paths:
         - language: javascript
           code: const setConfThreshold = await fireblocks.setConfirmationThresholdByTxHash(body);
           name: Fireblocks SDK Javascript example
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<SetConfirmationsThresholdResponse>>\
+            \ = fireblocks.transactions.setConfirmationThresholdByTransactionHash(transactionsApiSetConfirmationThresholdByTransactionHashRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<SetConfirmationsThresholdResponse>>\
+            \ response = fireblocks.transactions().setConfirmationThresholdByTransactionHash(txHash,\
+            \ setConfirmationsThresholdRequest, idempotencyKey);"
+          name: Fireblocks SDK Java example
       x-content-type: application/json
       x-accepts: application/json
   /estimate_network_fee:
@@ -5212,6 +5943,14 @@ paths:
         - language: javascript
           code: const feeResult = await fireblocks.getFeeForAsset(assetId);
           name: Fireblocks SDK Javascript example
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<EstimatedNetworkFeeResponse>>\
+            \ = fireblocks.transactions.estimateNetworkFee(transactionsApiEstimateNetworkFeeRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: CompletableFuture<ApiResponse<EstimatedNetworkFeeResponse>> response
+            = fireblocks.transactions().estimateNetworkFee(assetId);
+          name: Fireblocks SDK Java example
       x-accepts: application/json
   /payments/payout:
     post:
@@ -5322,6 +6061,15 @@ paths:
       summary: Create a payout instruction set
       tags:
       - Payments - Payout
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<PayoutResponse>> = fireblocks.paymentsPayout.createPayout(paymentsPayoutApiCreatePayoutRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<PayoutResponse>> response = fireblocks.paymentsPayout().createPayout(createPayoutRequest,\
+            \ idempotencyKey);"
+          name: Fireblocks SDK Java example
       x-content-type: application/json
       x-accepts: application/json
   /payments/payout/{payoutId}/actions/execute:
@@ -5389,6 +6137,16 @@ paths:
       summary: Execute a payout instruction set
       tags:
       - Payments - Payout
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<DispatchPayoutResponse>>\
+            \ = fireblocks.paymentsPayout.executePayoutAction(paymentsPayoutApiExecutePayoutActionRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<DispatchPayoutResponse>> response =\
+            \ fireblocks.paymentsPayout().executePayoutAction(payoutId, idempotencyKey);"
+          name: Fireblocks SDK Java example
       x-accepts: application/json
   /payments/payout/{payoutId}:
     get:
@@ -5476,6 +6234,14 @@ paths:
       summary: Get the status of a payout instruction set
       tags:
       - Payments - Payout
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<PayoutResponse>> = fireblocks.paymentsPayout.getPayout(paymentsPayoutApiGetPayoutRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: CompletableFuture<ApiResponse<PayoutResponse>> response = fireblocks.paymentsPayout().getPayout(payoutId);
+          name: Fireblocks SDK Java example
       x-accepts: application/json
   /payments/workflow_config:
     post:
@@ -5522,8 +6288,6 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
           description: Not found
-      security:
-      - bearerAuth: []
       summary: Create payment flow configuration
       tags:
       - Payments - Flows
@@ -5599,8 +6363,6 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
           description: Not found
-      security:
-      - bearerAuth: []
       summary: Retrieve workflow configuration
       tags:
       - Payments - Flows
@@ -5654,8 +6416,6 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
           description: Not found
-      security:
-      - bearerAuth: []
       summary: Create workflow execution
       tags:
       - Payments - Flows
@@ -5695,8 +6455,6 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
           description: Not found
-      security:
-      - bearerAuth: []
       summary: Get workflow execution details
       tags:
       - Payments - Flows
@@ -5749,8 +6507,6 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
           description: Not found
-      security:
-      - bearerAuth: []
       summary: Execute the payments workflow
       tags:
       - Payments - Flows
@@ -5790,6 +6546,14 @@ paths:
         - language: javascript
           code: const gasStationInfo = await fireblocks.gasStationInfo();
           name: Fireblocks SDK Javascript example
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<GasStationPropertiesResponse>>\
+            \ = fireblocks.gasStations.getGasStationInfo();"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: CompletableFuture<ApiResponse<GasStationPropertiesResponse>> response
+            = fireblocks.gasStations().getGasStationInfo();
+          name: Fireblocks SDK Java example
       x-accepts: application/json
   /gas_station/{assetId}:
     get:
@@ -5835,6 +6599,14 @@ paths:
         - language: javascript
           code: const gasStationInfo = await fireblocks.gasStationInfo(assetId);
           name: Fireblocks SDK Javascript example
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<GasStationPropertiesResponse>>\
+            \ = fireblocks.gasStations.getGasStationByAssetId(gasStationsApiGetGasStationByAssetIdRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: CompletableFuture<ApiResponse<GasStationPropertiesResponse>> response
+            = fireblocks.gasStations().getGasStationByAssetId(assetId);
+          name: Fireblocks SDK Java example
       x-accepts: application/json
   /gas_station/configuration:
     put:
@@ -5890,6 +6662,15 @@ paths:
           code: "const gasStation = await fireblocks.setGasStationConfiguration(gasThreshold,\
             \ gasCap, maxGasPrice)"
           name: Fireblocks SDK Javascript example
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<EditGasStationConfigurationResponse>>\
+            \ = fireblocks.gasStations.updateGasStationConfiguration(gasStationsApiUpdateGasStationConfigurationRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<EditGasStationConfigurationResponse>>\
+            \ response = fireblocks.gasStations().updateGasStationConfiguration(gasStationConfiguration,\
+            \ idempotencyKey);"
+          name: Fireblocks SDK Java example
       x-content-type: application/json
       x-accepts: application/json
   /gas_station/configuration/{assetId}:
@@ -5945,6 +6726,17 @@ paths:
       summary: Edit gas station settings for an asset
       tags:
       - Gas stations
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<EditGasStationConfigurationResponse>>\
+            \ = fireblocks.gasStations.updateGasStationConfigurationByAssetId(gasStationsApiUpdateGasStationConfigurationByAssetIdRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<EditGasStationConfigurationResponse>>\
+            \ response = fireblocks.gasStations().updateGasStationConfigurationByAssetId(gasStationConfiguration,\
+            \ assetId, idempotencyKey);"
+          name: Fireblocks SDK Java example
       x-content-type: application/json
       x-accepts: application/json
   /management/user_groups:
@@ -5978,6 +6770,15 @@ paths:
       summary: List user groups
       tags:
       - User groups (Beta)
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<UserGroupsResponse>> =\
+            \ fireblocks.userGroupsBeta.getUserGroups();"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: CompletableFuture<ApiResponse<UserGroupsResponse>> response = fireblocks.userGroupsBeta().getUserGroups();
+          name: Fireblocks SDK Java example
       x-accepts: application/json
     post:
       description: |
@@ -6027,6 +6828,17 @@ paths:
       summary: Create user group
       tags:
       - User groups (Beta)
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<CreateUserGroupResponse>>\
+            \ = fireblocks.userGroupsBeta.createUserGroup(userGroupsBetaApiCreateUserGroupRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<CreateUserGroupResponse>> response\
+            \ = fireblocks.userGroupsBeta().createUserGroup(userGroupCreateRequest,\
+            \ idempotencyKey);"
+          name: Fireblocks SDK Java example
       x-content-type: application/json
       x-accepts: application/json
   /management/user_groups/{groupId}:
@@ -6065,6 +6877,14 @@ paths:
       summary: Delete user group
       tags:
       - User groups (Beta)
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<void>> = fireblocks.userGroupsBeta.deleteUserGroup(userGroupsBetaApiDeleteUserGroupRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: CompletableFuture<ApiResponse<Void>> response = fireblocks.userGroupsBeta().deleteUserGroup(groupId);
+          name: Fireblocks SDK Java example
       x-accepts: application/json
     get:
       description: |
@@ -6105,6 +6925,15 @@ paths:
       summary: Get user group
       tags:
       - User groups (Beta)
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<UserGroupResponse>> =\
+            \ fireblocks.userGroupsBeta.getUserGroup(userGroupsBetaApiGetUserGroupRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: CompletableFuture<ApiResponse<UserGroupResponse>> response = fireblocks.userGroupsBeta().getUserGroup(groupId);
+          name: Fireblocks SDK Java example
       x-accepts: application/json
     put:
       description: |
@@ -6162,6 +6991,17 @@ paths:
       summary: Update user group
       tags:
       - User groups (Beta)
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<UserGroupCreateResponse>>\
+            \ = fireblocks.userGroupsBeta.updateUserGroup(userGroupsBetaApiUpdateUserGroupRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<UserGroupCreateResponse>> response\
+            \ = fireblocks.userGroupsBeta().updateUserGroup(userGroupUpdateRequest,\
+            \ groupId, idempotencyKey);"
+          name: Fireblocks SDK Java example
       x-content-type: application/json
       x-accepts: application/json
   /users:
@@ -6201,6 +7041,12 @@ paths:
         - language: javascript
           code: const users = await fireblocks.getUsers();
           name: Fireblocks SDK Javascript example
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<GetUsersResponse>> = fireblocks.users.getUsers();"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: CompletableFuture<ApiResponse<GetUsersResponse>> response = fireblocks.users().getUsers();
+          name: Fireblocks SDK Java example
       x-accepts: application/json
   /audits:
     get:
@@ -6240,6 +7086,16 @@ paths:
       summary: Get audit logs
       tags:
       - Audit Logs
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<GetAuditLogsResponseDTO>>\
+            \ = fireblocks.auditLogs.getAudits(auditLogsApiGetAuditsRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: CompletableFuture<ApiResponse<GetAuditLogsResponseDTO>> response =
+            fireblocks.auditLogs().getAudits(timePeriod);
+          name: Fireblocks SDK Java example
       x-accepts: application/json
   /management/audit_logs:
     get:
@@ -6287,6 +7143,16 @@ paths:
       summary: Get audit logs
       tags:
       - Audit Logs
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<GetAuditLogsResponse>>\
+            \ = fireblocks.auditLogs.getAuditLogs(auditLogsApiGetAuditLogsRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<GetAuditLogsResponse>> response = fireblocks.auditLogs().getAuditLogs(timePeriod,\
+            \ cursor);"
+          name: Fireblocks SDK Java example
       x-accepts: application/json
   /off_exchange/add:
     post:
@@ -6328,6 +7194,17 @@ paths:
       summary: add collateral
       tags:
       - Off exchanges
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<CreateTransactionResponse>>\
+            \ = fireblocks.offExchanges.addOffExchange(offExchangesApiAddOffExchangeRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<CreateTransactionResponse>> response\
+            \ = fireblocks.offExchanges().addOffExchange(addCollateralRequestBody,\
+            \ idempotencyKey);"
+          name: Fireblocks SDK Java example
       x-content-type: application/json
       x-accepts: application/json
   /off_exchange/remove:
@@ -6370,6 +7247,17 @@ paths:
       summary: remove collateral
       tags:
       - Off exchanges
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<CreateTransactionResponse>>\
+            \ = fireblocks.offExchanges.removeOffExchange(offExchangesApiRemoveOffExchangeRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<CreateTransactionResponse>> response\
+            \ = fireblocks.offExchanges().removeOffExchange(removeCollateralRequestBody,\
+            \ idempotencyKey);"
+          name: Fireblocks SDK Java example
       x-content-type: application/json
       x-accepts: application/json
   /off_exchange/settlements/trader:
@@ -6412,6 +7300,16 @@ paths:
       summary: create settlement for a trader
       tags:
       - Off exchanges
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<SettlementResponse>> =\
+            \ fireblocks.offExchanges.settleOffExchangeTrades(offExchangesApiSettleOffExchangeTradesRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<SettlementResponse>> response = fireblocks.offExchanges().settleOffExchangeTrades(settlementRequestBody,\
+            \ idempotencyKey);"
+          name: Fireblocks SDK Java example
       x-content-type: application/json
       x-accepts: application/json
   /off_exchange/settlements/transactions:
@@ -6445,6 +7343,15 @@ paths:
       summary: get settlements transactions from exchange
       tags:
       - Off exchanges
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<GetSettlementResponse>>\
+            \ = fireblocks.offExchanges.getOffExchangeSettlementTransactions(offExchangesApiGetOffExchangeSettlementTransactionsRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: CompletableFuture<ApiResponse<GetSettlementResponse>> response = fireblocks.offExchanges().getOffExchangeSettlementTransactions(mainExchangeAccountId);
+          name: Fireblocks SDK Java example
       x-accepts: application/json
   /off_exchange/collateral_accounts/{mainExchangeAccountId}:
     get:
@@ -6482,6 +7389,14 @@ paths:
       summary: Find a specific collateral exchange account
       tags:
       - Off exchanges
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<ExchangeAccount>> = fireblocks.offExchanges.getOffExchangeCollateralAccounts(offExchangesApiGetOffExchangeCollateralAccountsRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: CompletableFuture<ApiResponse<ExchangeAccount>> response = fireblocks.offExchanges().getOffExchangeCollateralAccounts(mainExchangeAccountId);
+          name: Fireblocks SDK Java example
       x-accepts: application/json
   /webhooks/resend:
     post:
@@ -6529,6 +7444,14 @@ paths:
         - language: javascript
           code: const result = await fireblocks.resendWebhooks();
           name: Fireblocks SDK Javascript example
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<ResendWebhooksResponse>>\
+            \ = fireblocks.webhooks.resendWebhooks(webhooksApiResendWebhooksRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: CompletableFuture<ApiResponse<ResendWebhooksResponse>> response =
+            fireblocks.webhooks().resendWebhooks(idempotencyKey);
+          name: Fireblocks SDK Java example
       x-accepts: application/json
   /webhooks/resend/{txId}:
     post:
@@ -6592,6 +7515,15 @@ paths:
           code: "const result = await fireblocks.resendTransactionWebhooksById(txId,\
             \ resendCreated, resendStatusUpdated);"
           name: Fireblocks SDK Javascript example
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<ResendWebhooksByTransactionIdResponse>>\
+            \ = fireblocks.webhooks.resendTransactionWebhooks(webhooksApiResendTransactionWebhooksRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<ResendWebhooksByTransactionIdResponse>>\
+            \ response = fireblocks.webhooks().resendTransactionWebhooks(resendTransactionWebhooksRequest,\
+            \ txId, idempotencyKey);"
+          name: Fireblocks SDK Java example
       x-content-type: application/json
       x-accepts: application/json
   /staking/chains:
@@ -6614,6 +7546,14 @@ paths:
       summary: ""
       tags:
       - Staking (Beta)
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<any>> = fireblocks.stakingBeta.getChains();"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: CompletableFuture<ApiResponse<Object>> response = fireblocks.stakingBeta().getChains();
+          name: Fireblocks SDK Java example
       x-accepts: application/json
   /staking/chains/{chainDescriptor}/chainInfo:
     get:
@@ -6644,6 +7584,15 @@ paths:
       summary: ""
       tags:
       - Staking (Beta)
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<ChainInfoResponseDto>>\
+            \ = fireblocks.stakingBeta.getChainInfo(stakingBetaApiGetChainInfoRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: CompletableFuture<ApiResponse<ChainInfoResponseDto>> response = fireblocks.stakingBeta().getChainInfo(chainDescriptor);
+          name: Fireblocks SDK Java example
       x-accepts: application/json
   /staking/chains/{chainDescriptor}/{actionId}:
     post:
@@ -6734,6 +7683,17 @@ paths:
       summary: ""
       tags:
       - Staking (Beta)
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<ExecuteActionResponse>>\
+            \ = fireblocks.stakingBeta.executeAction(stakingBetaApiExecuteActionRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<ExecuteActionResponse>> response =\
+            \ fireblocks.stakingBeta().executeAction(executeActionRequest, chainDescriptor,\
+            \ actionId, idempotencyKey);"
+          name: Fireblocks SDK Java example
       x-content-type: application/json
       x-accepts: application/json
   /staking/positions:
@@ -6764,6 +7724,14 @@ paths:
       summary: ""
       tags:
       - Staking (Beta)
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<any>> = fireblocks.stakingBeta.getAllDelegations(stakingBetaApiGetAllDelegationsRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: CompletableFuture<ApiResponse<Object>> response = fireblocks.stakingBeta().getAllDelegations(chainDescriptor);
+          name: Fireblocks SDK Java example
       x-accepts: application/json
   /staking/positions/summary:
     get:
@@ -6802,6 +7770,15 @@ paths:
       summary: ""
       tags:
       - Staking (Beta)
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<DelegationSummaryDto>>\
+            \ = fireblocks.stakingBeta.getSummary();"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: CompletableFuture<ApiResponse<DelegationSummaryDto>> response = fireblocks.stakingBeta().getSummary();
+          name: Fireblocks SDK Java example
       x-accepts: application/json
   /staking/positions/summary/vaults:
     get:
@@ -6856,6 +7833,14 @@ paths:
       summary: ""
       tags:
       - Staking (Beta)
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<any>> = fireblocks.stakingBeta.getSummaryByVault();"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: CompletableFuture<ApiResponse<Object>> response = fireblocks.stakingBeta().getSummaryByVault();
+          name: Fireblocks SDK Java example
       x-accepts: application/json
   /staking/positions/{id}:
     get:
@@ -6881,6 +7866,14 @@ paths:
       summary: ""
       tags:
       - Staking (Beta)
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<DelegationDto>> = fireblocks.stakingBeta.getDelegationById(stakingBetaApiGetDelegationByIdRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: CompletableFuture<ApiResponse<DelegationDto>> response = fireblocks.stakingBeta().getDelegationById(id);
+          name: Fireblocks SDK Java example
       x-accepts: application/json
   /staking/providers:
     get:
@@ -6899,6 +7892,14 @@ paths:
       summary: ""
       tags:
       - Staking (Beta)
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<any>> = fireblocks.stakingBeta.getProviders();"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: CompletableFuture<ApiResponse<Object>> response = fireblocks.stakingBeta().getProviders();
+          name: Fireblocks SDK Java example
       x-accepts: application/json
   /staking/providers/{providerId}/approveTermsOfService:
     post:
@@ -6940,6 +7941,16 @@ paths:
       summary: ""
       tags:
       - Staking (Beta)
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<ProvidersResponseDto>>\
+            \ = fireblocks.stakingBeta.approveTermsOfServiceByProviderId(stakingBetaApiApproveTermsOfServiceByProviderIdRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<ProvidersResponseDto>> response = fireblocks.stakingBeta().approveTermsOfServiceByProviderId(providerId,\
+            \ idempotencyKey);"
+          name: Fireblocks SDK Java example
       x-accepts: application/json
   /admin_quorum:
     put:
@@ -7172,6 +8183,16 @@ paths:
       summary: List all owned tokens (paginated)
       tags:
       - NFTs
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<any>> = fireblocks.nFTs.getOwnershipTokens(nFTsApiGetOwnershipTokensRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<Object>> response = fireblocks.nFTs().getOwnershipTokens(blockchainDescriptor,\
+            \ vaultAccountIds, ncwId, ncwAccountIds, walletType, ids, collectionIds,\
+            \ pageCursor, pageSize, sort, order, status, search, spam);"
+          name: Fireblocks SDK Java example
       x-accepts: application/json
     put:
       description: |
@@ -7221,6 +8242,15 @@ paths:
       summary: Refresh vault account tokens
       tags:
       - NFTs
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<void>> = fireblocks.nFTs.updateOwnershipTokens(nFTsApiUpdateOwnershipTokensRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<Void>> response = fireblocks.nFTs().updateOwnershipTokens(blockchainDescriptor,\
+            \ vaultAccountId, idempotencyKey);"
+          name: Fireblocks SDK Java example
       x-accepts: application/json
   /nfts/ownership/assets:
     get:
@@ -7338,6 +8368,15 @@ paths:
       summary: List all distinct owned tokens (paginated)
       tags:
       - NFTs
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<any>> = fireblocks.nFTs.listOwnedTokens(nFTsApiListOwnedTokensRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<Object>> response = fireblocks.nFTs().listOwnedTokens(ncwId,\
+            \ walletType, pageCursor, pageSize, sort, order, status, search, spam);"
+          name: Fireblocks SDK Java example
       x-accepts: application/json
   /nfts/ownership/collections:
     get:
@@ -7444,6 +8483,15 @@ paths:
       summary: List owned collections (paginated)
       tags:
       - NFTs
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<any>> = fireblocks.nFTs.listOwnedCollections(nFTsApiListOwnedCollectionsRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<Object>> response = fireblocks.nFTs().listOwnedCollections(ncwId,\
+            \ walletType, search, pageCursor, pageSize, sort, order, status);"
+          name: Fireblocks SDK Java example
       x-accepts: application/json
   /nfts/tokens/{id}:
     get:
@@ -7473,6 +8521,14 @@ paths:
       summary: List token data by ID
       tags:
       - NFTs
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<TokenResponse>> = fireblocks.nFTs.getNFT(nFTsApiGetNFTRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: CompletableFuture<ApiResponse<TokenResponse>> response = fireblocks.nFTs().getNFT(id);
+          name: Fireblocks SDK Java example
       x-accepts: application/json
     put:
       description: |
@@ -7508,6 +8564,15 @@ paths:
       summary: Refresh token metadata
       tags:
       - NFTs
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<void>> = fireblocks.nFTs.refreshNFTMetadata(nFTsApiRefreshNFTMetadataRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<Void>> response = fireblocks.nFTs().refreshNFTMetadata(id,\
+            \ idempotencyKey);"
+          name: Fireblocks SDK Java example
       x-accepts: application/json
   /nfts/tokens:
     get:
@@ -7583,6 +8648,15 @@ paths:
       summary: List tokens by IDs
       tags:
       - NFTs
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<any>> = fireblocks.nFTs.getNFTs(nFTsApiGetNFTsRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<Object>> response = fireblocks.nFTs().getNFTs(ids,\
+            \ pageCursor, pageSize, sort, order);"
+          name: Fireblocks SDK Java example
       x-accepts: application/json
   /nfts/ownership/tokens/{id}/status:
     put:
@@ -7625,6 +8699,15 @@ paths:
       summary: Update token ownership status
       tags:
       - NFTs
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<void>> = fireblocks.nFTs.updateTokenOwnershipStatus(nFTsApiUpdateTokenOwnershipStatusRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<Void>> response = fireblocks.nFTs().updateTokenOwnershipStatus(updateTokenOwnershipStatusDto,\
+            \ id, idempotencyKey);"
+          name: Fireblocks SDK Java example
       x-content-type: application/json
       x-accepts: application/json
   /nfts/ownership/tokens/status:
@@ -7670,6 +8753,15 @@ paths:
       summary: Update tokens ownership status
       tags:
       - NFTs
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<void>> = fireblocks.nFTs.updateTokensOwnershipStatus(nFTsApiUpdateTokensOwnershipStatusRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<Void>> response = fireblocks.nFTs().updateTokensOwnershipStatus(updateTokensOwnershipStatusRequest,\
+            \ idempotencyKey);"
+          name: Fireblocks SDK Java example
       x-content-type: application/json
       x-accepts: application/json
   /nfts/ownership/tokens/spam:
@@ -7716,6 +8808,15 @@ paths:
       summary: Update tokens ownership spam property
       tags:
       - NFTs
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<void>> = fireblocks.nFTs.updateTokensOwnershipSpam(nFTsApiUpdateTokensOwnershipSpamRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<Void>> response = fireblocks.nFTs().updateTokensOwnershipSpam(updateTokensOwnershipSpamRequest,\
+            \ idempotencyKey);"
+          name: Fireblocks SDK Java example
       x-content-type: application/json
       x-accepts: application/json
   /connections:
@@ -7820,6 +8921,16 @@ paths:
       summary: List all open Web3 connections.
       tags:
       - Web3 connections
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<GetConnectionsResponse>>\
+            \ = fireblocks.web3Connections.get(web3ConnectionsApiGetRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<GetConnectionsResponse>> response =\
+            \ fireblocks.web3Connections().get(order, filter, sort, pageSize, next);"
+          name: Fireblocks SDK Java example
       x-accepts: application/json
   /connections/wc:
     post:
@@ -7869,6 +8980,16 @@ paths:
       summary: Create a new Web3 connection.
       tags:
       - Web3 connections
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<CreateConnectionResponse>>\
+            \ = fireblocks.web3Connections.create(web3ConnectionsApiCreateRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<CreateConnectionResponse>> response\
+            \ = fireblocks.web3Connections().create(createRequest, idempotencyKey);"
+          name: Fireblocks SDK Java example
       x-content-type: application/json
       x-accepts: application/json
   /connections/wc/{id}:
@@ -7903,6 +9024,14 @@ paths:
       summary: Remove an existing Web3 connection.
       tags:
       - Web3 connections
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<void>> = fireblocks.web3Connections.remove(web3ConnectionsApiRemoveRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: CompletableFuture<ApiResponse<Void>> response = fireblocks.web3Connections().remove(id);
+          name: Fireblocks SDK Java example
       x-accepts: application/json
     put:
       description: |-
@@ -7961,6 +9090,15 @@ paths:
       summary: Respond to a pending Web3 connection request.
       tags:
       - Web3 connections
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<void>> = fireblocks.web3Connections.submit(web3ConnectionsApiSubmitRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<Void>> response = fireblocks.web3Connections().submit(respondToConnectionRequest,\
+            \ id, idempotencyKey);"
+          name: Fireblocks SDK Java example
       x-content-type: application/json
       x-accepts: application/json
   /screening/travel_rule/transaction/validate:
@@ -8006,6 +9144,17 @@ paths:
       summary: Validate Travel Rule Transaction
       tags:
       - Travel Rule (Beta)
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<TravelRuleValidateTransactionResponse>>\
+            \ = fireblocks.travelRuleBeta.validateTravelRuleTransaction(travelRuleBetaApiValidateTravelRuleTransactionRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<TravelRuleValidateTransactionResponse>>\
+            \ response = fireblocks.travelRuleBeta().validateTravelRuleTransaction(travelRuleValidateTransactionRequest,\
+            \ idempotencyKey);"
+          name: Fireblocks SDK Java example
       x-content-type: application/json
       x-accepts: application/json
   /screening/travel_rule/transaction/validate/full:
@@ -8051,6 +9200,17 @@ paths:
       summary: Validate Full Travel Rule Transaction
       tags:
       - Travel Rule (Beta)
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<TravelRuleValidateTransactionResponse>>\
+            \ = fireblocks.travelRuleBeta.validateFullTravelRuleTransaction(travelRuleBetaApiValidateFullTravelRuleTransactionRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<TravelRuleValidateTransactionResponse>>\
+            \ response = fireblocks.travelRuleBeta().validateFullTravelRuleTransaction(travelRuleValidateFullTransactionRequest,\
+            \ idempotencyKey);"
+          name: Fireblocks SDK Java example
       x-content-type: application/json
       x-accepts: application/json
   /screening/travel_rule/vasp/{did}:
@@ -8095,6 +9255,15 @@ paths:
       summary: Get VASP details
       tags:
       - Travel Rule (Beta)
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<TravelRuleVASP>> = fireblocks.travelRuleBeta.getVASPByDID(travelRuleBetaApiGetVASPByDIDRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<TravelRuleVASP>> response = fireblocks.travelRuleBeta().getVASPByDID(did,\
+            \ fields);"
+          name: Fireblocks SDK Java example
       x-accepts: application/json
   /screening/travel_rule/vasp:
     get:
@@ -8151,6 +9320,16 @@ paths:
       summary: Get All VASPs
       tags:
       - Travel Rule (Beta)
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<TravelRuleGetAllVASPsResponse>>\
+            \ = fireblocks.travelRuleBeta.getVASPs(travelRuleBetaApiGetVASPsRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<TravelRuleGetAllVASPsResponse>> response\
+            \ = fireblocks.travelRuleBeta().getVASPs(order, perPage, page, fields);"
+          name: Fireblocks SDK Java example
       x-accepts: application/json
   /screening/travel_rule/vasp/update:
     put:
@@ -8195,6 +9374,17 @@ paths:
       summary: Add jsonDidKey to VASP details
       tags:
       - Travel Rule (Beta)
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<TravelRuleUpdateVASPDetails>>\
+            \ = fireblocks.travelRuleBeta.updateVasp(travelRuleBetaApiUpdateVaspRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<TravelRuleUpdateVASPDetails>> response\
+            \ = fireblocks.travelRuleBeta().updateVasp(travelRuleUpdateVASPDetails,\
+            \ idempotencyKey);"
+          name: Fireblocks SDK Java example
       x-content-type: application/json
       x-accepts: application/json
   /screening/travel_rule/post_screening_policy:
@@ -8212,6 +9402,16 @@ paths:
       summary: Travel Rule - View Post-Screening Policy
       tags:
       - Compliance
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<ScreeningPolicyResponse>>\
+            \ = fireblocks.compliance.getPostScreeningPolicy();"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: CompletableFuture<ApiResponse<ScreeningPolicyResponse>> response =
+            fireblocks.compliance().getPostScreeningPolicy();
+          name: Fireblocks SDK Java example
       x-accepts: application/json
   /screening/travel_rule/screening_policy:
     get:
@@ -8228,6 +9428,16 @@ paths:
       summary: Travel Rule - View Screening Policy
       tags:
       - Compliance
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<ScreeningProviderRulesConfigurationResponse>>\
+            \ = fireblocks.compliance.getScreeningPolicy();"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: CompletableFuture<ApiResponse<ScreeningProviderRulesConfigurationResponse>>
+            response = fireblocks.compliance().getScreeningPolicy();
+          name: Fireblocks SDK Java example
       x-accepts: application/json
   /screening/travel_rule/policy_configuration:
     get:
@@ -8244,6 +9454,16 @@ paths:
       summary: Get Travel Rule Screening Policy Configuration
       tags:
       - Compliance Screening Configuration
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<ScreeningConfigurationsRequest>>\
+            \ = fireblocks.complianceScreeningConfiguration.getScreeningConfiguration();"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: CompletableFuture<ApiResponse<ScreeningConfigurationsRequest>> response
+            = fireblocks.complianceScreeningConfiguration().getScreeningConfiguration();
+          name: Fireblocks SDK Java example
       x-accepts: application/json
     put:
       description: "Updates bypass screening, inbound delay, or outbound delay configurations\
@@ -8271,6 +9491,16 @@ paths:
       summary: Update Travel Rule Configuration
       tags:
       - Compliance
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<ScreeningConfigurationsRequest>>\
+            \ = fireblocks.compliance.updateTravelRuleConfig(complianceApiUpdateTravelRuleConfigRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: CompletableFuture<ApiResponse<ScreeningConfigurationsRequest>> response
+            = fireblocks.compliance().updateTravelRuleConfig(idempotencyKey);
+          name: Fireblocks SDK Java example
       x-accepts: application/json
   /screening/aml/policy_configuration:
     get:
@@ -8287,6 +9517,16 @@ paths:
       summary: Get AML Screening Policy Configuration
       tags:
       - Compliance Screening Configuration
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<ScreeningConfigurationsRequest>>\
+            \ = fireblocks.complianceScreeningConfiguration.getAmlScreeningConfiguration();"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: CompletableFuture<ApiResponse<ScreeningConfigurationsRequest>> response
+            = fireblocks.complianceScreeningConfiguration().getAmlScreeningConfiguration();
+          name: Fireblocks SDK Java example
       x-accepts: application/json
     put:
       description: "Updates bypass screening, inbound delay, or outbound delay configurations\
@@ -8314,6 +9554,16 @@ paths:
       summary: Update AML Configuration
       tags:
       - Compliance
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<ScreeningConfigurationsRequest>>\
+            \ = fireblocks.compliance.updateAmlScreeningConfiguration(complianceApiUpdateAmlScreeningConfigurationRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: CompletableFuture<ApiResponse<ScreeningConfigurationsRequest>> response
+            = fireblocks.compliance().updateAmlScreeningConfiguration(idempotencyKey);
+          name: Fireblocks SDK Java example
       x-accepts: application/json
   /screening/aml/screening_policy:
     get:
@@ -8330,6 +9580,16 @@ paths:
       summary: AML - View Screening Policy
       tags:
       - Compliance
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<ScreeningProviderRulesConfigurationResponse>>\
+            \ = fireblocks.compliance.getAmlScreeningPolicy();"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: CompletableFuture<ApiResponse<ScreeningProviderRulesConfigurationResponse>>
+            response = fireblocks.compliance().getAmlScreeningPolicy();
+          name: Fireblocks SDK Java example
       x-accepts: application/json
   /screening/aml/post_screening_policy:
     get:
@@ -8346,6 +9606,16 @@ paths:
       summary: AML - View Post-Screening Policy
       tags:
       - Compliance
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<ScreeningPolicyResponse>>\
+            \ = fireblocks.compliance.getAmlPostScreeningPolicy();"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: CompletableFuture<ApiResponse<ScreeningPolicyResponse>> response =
+            fireblocks.compliance().getAmlPostScreeningPolicy();
+          name: Fireblocks SDK Java example
       x-accepts: application/json
   /screening/configurations:
     put:
@@ -8373,6 +9643,16 @@ paths:
       summary: Tenant - Screening Configuration
       tags:
       - Compliance
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<ScreeningUpdateConfigurationsRequest>>\
+            \ = fireblocks.compliance.updateScreeningConfiguration(complianceApiUpdateScreeningConfigurationRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: CompletableFuture<ApiResponse<ScreeningUpdateConfigurationsRequest>>
+            response = fireblocks.compliance().updateScreeningConfiguration(idempotencyKey);
+          name: Fireblocks SDK Java example
       x-accepts: application/json
   /management/ota:
     get:
@@ -8390,6 +9670,14 @@ paths:
       summary: Returns current OTA status
       tags:
       - OTA (Beta)
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<any>> = fireblocks.oTABeta.getOtaStatus();"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: CompletableFuture<ApiResponse<Object>> response = fireblocks.oTABeta().getOtaStatus();
+          name: Fireblocks SDK Java example
       x-accepts: application/json
     put:
       description: Enable or disable transactions to OTA
@@ -8431,6 +9719,16 @@ paths:
       summary: Enable or disable transactions to OTA
       tags:
       - OTA (Beta)
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<SetOtaStatusResponse>>\
+            \ = fireblocks.oTABeta.setOtaStatus(oTABetaApiSetOtaStatusRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<SetOtaStatusResponse>> response = fireblocks.oTABeta().setOtaStatus(setOtaStatusRequest,\
+            \ idempotencyKey);"
+          name: Fireblocks SDK Java example
       x-content-type: application/json
       x-accepts: application/json
   /management/workspace_status:
@@ -8449,6 +9747,14 @@ paths:
       summary: Returns current workspace status
       tags:
       - Workspace Status (Beta)
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<any>> = fireblocks.workspaceStatusBeta.getWorkspaceStatus();"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: CompletableFuture<ApiResponse<Object>> response = fireblocks.workspaceStatusBeta().getWorkspaceStatus();
+          name: Fireblocks SDK Java example
       x-accepts: application/json
   /tap/active_policy:
     get:
@@ -8487,6 +9793,14 @@ paths:
         - language: javascript
           code: const policy = await fireblocks.getActivePolicy();
           name: Fireblocks SDK Javascript example
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<PolicyAndValidationResponse>>\
+            \ = fireblocks.policyEditorBeta.getActivePolicy();"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: CompletableFuture<ApiResponse<PolicyAndValidationResponse>> response
+            = fireblocks.policyEditorBeta().getActivePolicy();
+          name: Fireblocks SDK Java example
       x-accepts: application/json
   /tap/draft:
     get:
@@ -8525,6 +9839,14 @@ paths:
         - language: javascript
           code: const policy = await fireblocks.getDraft();
           name: Fireblocks SDK Javascript example
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<DraftReviewAndValidationResponse>>\
+            \ = fireblocks.policyEditorBeta.getDraft();"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: CompletableFuture<ApiResponse<DraftReviewAndValidationResponse>> response
+            = fireblocks.policyEditorBeta().getDraft();
+          name: Fireblocks SDK Java example
       x-accepts: application/json
     post:
       description: |
@@ -8580,6 +9902,13 @@ paths:
         - language: javascript
           code: const policy = await fireblocks.publishDraft();
           name: Fireblocks SDK Javascript example
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<PublishResult>> = fireblocks.policyEditorBeta.publishDraft(policyEditorBetaApiPublishDraftRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<PublishResult>> response = fireblocks.policyEditorBeta().publishDraft(publishDraftRequest,\
+            \ idempotencyKey);"
+          name: Fireblocks SDK Java example
       x-content-type: application/json
       x-accepts: application/json
     put:
@@ -8636,6 +9965,14 @@ paths:
         - language: javascript
           code: const policy = await fireblocks.updateDraft();
           name: Fireblocks SDK Javascript example
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<DraftReviewAndValidationResponse>>\
+            \ = fireblocks.policyEditorBeta.updateDraft(policyEditorBetaApiUpdateDraftRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<DraftReviewAndValidationResponse>>\
+            \ response = fireblocks.policyEditorBeta().updateDraft(policyRules, idempotencyKey);"
+          name: Fireblocks SDK Java example
       x-content-type: application/json
       x-accepts: application/json
   /tap/publish:
@@ -8693,6 +10030,13 @@ paths:
         - language: javascript
           code: const policy = await fireblocks.publishRules();
           name: Fireblocks SDK Javascript example
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<PublishResult>> = fireblocks.policyEditorBeta.publishPolicyRules(policyEditorBetaApiPublishPolicyRulesRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<PublishResult>> response = fireblocks.policyEditorBeta().publishPolicyRules(policyRules,\
+            \ idempotencyKey);"
+          name: Fireblocks SDK Java example
       x-content-type: application/json
       x-accepts: application/json
   /management/users:
@@ -8749,6 +10093,16 @@ paths:
       summary: get console users
       tags:
       - Console User
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<GetConsoleUsersResponse>>\
+            \ = fireblocks.consoleUser.getConsoleUsers();"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: CompletableFuture<ApiResponse<GetConsoleUsersResponse>> response =
+            fireblocks.consoleUser().getConsoleUsers();
+          name: Fireblocks SDK Java example
       x-accepts: application/json
     post:
       description: creates fireblocks console user
@@ -8821,6 +10175,15 @@ paths:
       summary: create console user
       tags:
       - Console User
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<void>> = fireblocks.consoleUser.createConsoleUser(consoleUserApiCreateConsoleUserRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<Void>> response = fireblocks.consoleUser().createConsoleUser(createConsoleUser,\
+            \ idempotencyKey);"
+          name: Fireblocks SDK Java example
       x-content-type: application/json
       x-accepts: application/json
   /management/api_users:
@@ -8877,6 +10240,15 @@ paths:
       summary: get api users
       tags:
       - Api User
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<GetAPIUsersResponse>>\
+            \ = fireblocks.apiUser.getApiUsers();"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: CompletableFuture<ApiResponse<GetAPIUsersResponse>> response = fireblocks.apiUser().getApiUsers();
+          name: Fireblocks SDK Java example
       x-accepts: application/json
     post:
       description: creates api user
@@ -8944,6 +10316,15 @@ paths:
       summary: create api user
       tags:
       - Api User
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<void>> = fireblocks.apiUser.createApiUser(apiUserApiCreateApiUserRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<Void>> response = fireblocks.apiUser().createApiUser(createAPIUser,\
+            \ idempotencyKey);"
+          name: Fireblocks SDK Java example
       x-content-type: application/json
       x-accepts: application/json
   /management/users/{id}/reset_device:
@@ -9016,6 +10397,15 @@ paths:
       summary: resets device
       tags:
       - Reset device
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<void>> = fireblocks.resetDevice.resetDevice(resetDeviceApiResetDeviceRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<Void>> response = fireblocks.resetDevice().resetDevice(id,\
+            \ idempotencyKey);"
+          name: Fireblocks SDK Java example
       x-accepts: application/json
   /management/api_users/{userId}/whitelist_ip_addresses:
     get:
@@ -9080,6 +10470,16 @@ paths:
       summary: gets ip addresses
       tags:
       - whitelist ip addresses
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<GetWhitelistIpAddressesResponse>>\
+            \ = fireblocks.whitelistIpAddresses.getWhitelistIpAddresses(whitelistIpAddressesApiGetWhitelistIpAddressesRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: CompletableFuture<ApiResponse<GetWhitelistIpAddressesResponse>> response
+            = fireblocks.whitelistIpAddresses().getWhitelistIpAddresses(userId);
+          name: Fireblocks SDK Java example
       x-accepts: application/json
   /smart-transfers:
     get:
@@ -9206,6 +10606,18 @@ paths:
       summary: Find Ticket
       tags:
       - Smart Transfer
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<SmartTransferTicketFilteredResponse>>\
+            \ = fireblocks.smartTransfer.searchTickets(smartTransferApiSearchTicketsRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<SmartTransferTicketFilteredResponse>>\
+            \ response = fireblocks.smartTransfer().searchTickets(q, statuses, networkId,\
+            \ createdByMe, expiresAfter, expiresBefore, type, externalRefId, after,\
+            \ limit);"
+          name: Fireblocks SDK Java example
       x-accepts: application/json
     post:
       description: Creates new Smart Transfer ticket
@@ -9250,6 +10662,17 @@ paths:
       summary: Create Ticket
       tags:
       - Smart Transfer
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<SmartTransferTicketResponse>>\
+            \ = fireblocks.smartTransfer.createTicket(smartTransferApiCreateTicketRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<SmartTransferTicketResponse>> response\
+            \ = fireblocks.smartTransfer().createTicket(smartTransferCreateTicket,\
+            \ idempotencyKey);"
+          name: Fireblocks SDK Java example
       x-content-type: application/json
       x-accepts: application/json
   /smart-transfers/{ticketId}:
@@ -9286,6 +10709,16 @@ paths:
       summary: Search Tickets by ID
       tags:
       - Smart Transfer
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<SmartTransferTicketResponse>>\
+            \ = fireblocks.smartTransfer.findTicketById(smartTransferApiFindTicketByIdRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: CompletableFuture<ApiResponse<SmartTransferTicketResponse>> response
+            = fireblocks.smartTransfer().findTicketById(ticketId);
+          name: Fireblocks SDK Java example
       x-accepts: application/json
   /smart-transfers/{ticketId}/expires-in:
     put:
@@ -9344,6 +10777,17 @@ paths:
       summary: Set expiration
       tags:
       - Smart Transfer
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<SmartTransferTicketResponse>>\
+            \ = fireblocks.smartTransfer.setTicketExpiration(smartTransferApiSetTicketExpirationRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<SmartTransferTicketResponse>> response\
+            \ = fireblocks.smartTransfer().setTicketExpiration(smartTransferSetTicketExpiration,\
+            \ ticketId, idempotencyKey);"
+          name: Fireblocks SDK Java example
       x-content-type: application/json
       x-accepts: application/json
   /smart-transfers/{ticketId}/external-id:
@@ -9403,6 +10847,17 @@ paths:
       summary: Add external ref. ID
       tags:
       - Smart Transfer
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<SmartTransferTicketResponse>>\
+            \ = fireblocks.smartTransfer.setExternalRefId(smartTransferApiSetExternalRefIdRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<SmartTransferTicketResponse>> response\
+            \ = fireblocks.smartTransfer().setExternalRefId(smartTransferSetTicketExternalId,\
+            \ ticketId, idempotencyKey);"
+          name: Fireblocks SDK Java example
       x-content-type: application/json
       x-accepts: application/json
   /smart-transfers/{ticketId}/submit:
@@ -9463,6 +10918,17 @@ paths:
       summary: Submit ticket
       tags:
       - Smart Transfer
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<SmartTransferTicketResponse>>\
+            \ = fireblocks.smartTransfer.submitTicket(smartTransferApiSubmitTicketRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<SmartTransferTicketResponse>> response\
+            \ = fireblocks.smartTransfer().submitTicket(smartTransferSubmitTicket,\
+            \ ticketId, idempotencyKey);"
+          name: Fireblocks SDK Java example
       x-content-type: application/json
       x-accepts: application/json
   /smart-transfers/{ticketId}/fulfill:
@@ -9517,6 +10983,16 @@ paths:
       summary: Fund ticket manually
       tags:
       - Smart Transfer
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<SmartTransferTicketResponse>>\
+            \ = fireblocks.smartTransfer.fulfillTicket(smartTransferApiFulfillTicketRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<SmartTransferTicketResponse>> response\
+            \ = fireblocks.smartTransfer().fulfillTicket(ticketId, idempotencyKey);"
+          name: Fireblocks SDK Java example
       x-accepts: application/json
   /smart-transfers/{ticketId}/cancel:
     put:
@@ -9569,6 +11045,16 @@ paths:
       summary: Cancel Ticket
       tags:
       - Smart Transfer
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<SmartTransferTicketResponse>>\
+            \ = fireblocks.smartTransfer.cancelTicket(smartTransferApiCancelTicketRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<SmartTransferTicketResponse>> response\
+            \ = fireblocks.smartTransfer().cancelTicket(ticketId, idempotencyKey);"
+          name: Fireblocks SDK Java example
       x-accepts: application/json
   /smart-transfers/{ticketId}/terms:
     post:
@@ -9622,6 +11108,17 @@ paths:
       summary: Create leg (term)
       tags:
       - Smart Transfer
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<SmartTransferTicketTermResponse>>\
+            \ = fireblocks.smartTransfer.createTicketTerm(smartTransferApiCreateTicketTermRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<SmartTransferTicketTermResponse>> response\
+            \ = fireblocks.smartTransfer().createTicketTerm(smartTransferCreateTicketTerm,\
+            \ ticketId, idempotencyKey);"
+          name: Fireblocks SDK Java example
       x-content-type: application/json
       x-accepts: application/json
   /smart-transfers/{ticketId}/terms/{termId}:
@@ -9661,6 +11158,15 @@ paths:
       summary: Delete ticket leg (term)
       tags:
       - Smart Transfer
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<void>> = fireblocks.smartTransfer.removeTicketTerm(smartTransferApiRemoveTicketTermRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<Void>> response = fireblocks.smartTransfer().removeTicketTerm(ticketId,\
+            \ termId);"
+          name: Fireblocks SDK Java example
       x-accepts: application/json
     get:
       description: Find Smart Transfer ticket term by id
@@ -9702,6 +11208,16 @@ paths:
       summary: Search ticket by leg (term) ID
       tags:
       - Smart Transfer
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<SmartTransferTicketTermResponse>>\
+            \ = fireblocks.smartTransfer.findTicketTermById(smartTransferApiFindTicketTermByIdRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<SmartTransferTicketTermResponse>> response\
+            \ = fireblocks.smartTransfer().findTicketTermById(ticketId, termId);"
+          name: Fireblocks SDK Java example
       x-accepts: application/json
     put:
       description: Update ticket term (when ticket status is DRAFT)
@@ -9760,6 +11276,17 @@ paths:
       summary: Update ticket leg (term)
       tags:
       - Smart Transfer
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<SmartTransferTicketTermResponse>>\
+            \ = fireblocks.smartTransfer.updateTicketTerm(smartTransferApiUpdateTicketTermRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<SmartTransferTicketTermResponse>> response\
+            \ = fireblocks.smartTransfer().updateTicketTerm(smartTransferUpdateTicketTerm,\
+            \ ticketId, termId, idempotencyKey);"
+          name: Fireblocks SDK Java example
       x-content-type: application/json
       x-accepts: application/json
   /smart-transfers/{ticketId}/terms/{termId}/fund:
@@ -9827,6 +11354,17 @@ paths:
       summary: Define funding source
       tags:
       - Smart Transfer
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<SmartTransferTicketTermResponse>>\
+            \ = fireblocks.smartTransfer.fundTicketTerm(smartTransferApiFundTicketTermRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<SmartTransferTicketTermResponse>> response\
+            \ = fireblocks.smartTransfer().fundTicketTerm(smartTransferFundTerm, ticketId,\
+            \ termId, idempotencyKey);"
+          name: Fireblocks SDK Java example
       x-content-type: application/json
       x-accepts: application/json
   /smart-transfers/{ticketId}/terms/{termId}/manually-fund:
@@ -9893,6 +11431,17 @@ paths:
       summary: Manually add term transaction
       tags:
       - Smart Transfer
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<SmartTransferTicketTermResponse>>\
+            \ = fireblocks.smartTransfer.manuallyFundTicketTerm(smartTransferApiManuallyFundTicketTermRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<SmartTransferTicketTermResponse>> response\
+            \ = fireblocks.smartTransfer().manuallyFundTicketTerm(smartTransferManuallyFundTerm,\
+            \ ticketId, termId, idempotencyKey);"
+          name: Fireblocks SDK Java example
       x-content-type: application/json
       x-accepts: application/json
   /smart-transfers/settings/user-groups:
@@ -9922,6 +11471,16 @@ paths:
       summary: Get user group
       tags:
       - Smart Transfer
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<SmartTransferUserGroupsResponse>>\
+            \ = fireblocks.smartTransfer.getSmartTransferUserGroups();"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: CompletableFuture<ApiResponse<SmartTransferUserGroupsResponse>> response
+            = fireblocks.smartTransfer().getSmartTransferUserGroups();
+          name: Fireblocks SDK Java example
       x-accepts: application/json
     post:
       description: Set Smart Transfer user group
@@ -9966,6 +11525,17 @@ paths:
       summary: Set user group
       tags:
       - Smart Transfer
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<SmartTransferUserGroupsResponse>>\
+            \ = fireblocks.smartTransfer.setUserGroups(smartTransferApiSetUserGroupsRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<SmartTransferUserGroupsResponse>> response\
+            \ = fireblocks.smartTransfer().setUserGroups(smartTransferSetUserGroups,\
+            \ idempotencyKey);"
+          name: Fireblocks SDK Java example
       x-content-type: application/json
       x-accepts: application/json
   /batch/jobs:
@@ -10012,6 +11582,15 @@ paths:
       summary: Return a list of jobs belonging to tenant
       tags:
       - Job Management
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<Jobs>> = fireblocks.jobManagement.getJobs(jobManagementApiGetJobsRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<Jobs>> response = fireblocks.jobManagement().getJobs(fromTime,\
+            \ toTime);"
+          name: Fireblocks SDK Java example
       x-accepts: application/json
   /batch/{jobId}:
     get:
@@ -10048,6 +11627,14 @@ paths:
       summary: Get job details
       tags:
       - Job Management
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<Job>> = fireblocks.jobManagement.getJob(jobManagementApiGetJobRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: CompletableFuture<ApiResponse<Job>> response = fireblocks.jobManagement().getJob(jobId);
+          name: Fireblocks SDK Java example
       x-accepts: application/json
   /batch/{jobId}/pause:
     post:
@@ -10089,6 +11676,15 @@ paths:
       summary: Pause a job
       tags:
       - Job Management
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<void>> = fireblocks.jobManagement.pauseJob(jobManagementApiPauseJobRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<Void>> response = fireblocks.jobManagement().pauseJob(jobId,\
+            \ idempotencyKey);"
+          name: Fireblocks SDK Java example
       x-accepts: application/json
   /batch/{jobId}/continue:
     post:
@@ -10129,6 +11725,15 @@ paths:
       summary: Continue a paused job
       tags:
       - Job Management
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<void>> = fireblocks.jobManagement.continueJob(jobManagementApiContinueJobRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<Void>> response = fireblocks.jobManagement().continueJob(jobId,\
+            \ idempotencyKey);"
+          name: Fireblocks SDK Java example
       x-accepts: application/json
   /batch/{jobId}/cancel:
     post:
@@ -10171,6 +11776,15 @@ paths:
       summary: Cancel a running job
       tags:
       - Job Management
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<void>> = fireblocks.jobManagement.cancelJob(jobManagementApiCancelJobRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<Void>> response = fireblocks.jobManagement().cancelJob(jobId,\
+            \ idempotencyKey);"
+          name: Fireblocks SDK Java example
       x-accepts: application/json
   /batch/{jobId}/tasks:
     get:
@@ -10207,6 +11821,332 @@ paths:
       summary: Return a list of tasks for given job
       tags:
       - Job Management
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<Tasks>> = fireblocks.jobManagement.getJobTasks(jobManagementApiGetJobTasksRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: CompletableFuture<ApiResponse<Tasks>> response = fireblocks.jobManagement().getJobTasks(jobId);
+          name: Fireblocks SDK Java example
+      x-accepts: application/json
+  /cosigners:
+    get:
+      description: |
+        Get all workspace cosigners (paginated)
+        **Note:** These endpoints are currently in beta and might be subject to changes.
+      operationId: getCosigners
+      parameters:
+      - description: ASC / DESC ordering (default DESC)
+        example: ASC
+        explode: true
+        in: query
+        name: order
+        required: false
+        schema:
+          default: DESC
+          enum:
+          - ASC
+          - DESC
+          type: string
+        style: form
+      - description: Cursor of the required page
+        explode: true
+        in: query
+        name: pageCursor
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: Maximum number of items in the page
+        example: 10
+        explode: true
+        in: query
+        name: pageSize
+        required: false
+        schema:
+          default: 10
+          maximum: 100
+          minimum: 1
+          type: number
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CosignersPaginatedResponse'
+          description: A paginated response containing Cosigner objects
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorSchema'
+          description: Error Response
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+      summary: Get all cosigners
+      tags:
+      - Cosigners (Beta)
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<CosignersPaginatedResponse>>\
+            \ = fireblocks.cosignersBeta.getCosigners(cosignersBetaApiGetCosignersRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<CosignersPaginatedResponse>> response\
+            \ = fireblocks.cosignersBeta().getCosigners(order, pageCursor, pageSize);"
+          name: Fireblocks SDK Java example
+      x-accepts: application/json
+  /cosigners/{cosignerId}:
+    get:
+      description: |
+        Get a cosigner by ID
+        **Note:** These endpoints are currently in beta and might be subject to changes.
+      operationId: getCosigner
+      parameters:
+      - description: The unique identifier of the cosigner
+        example: 44fcead0-7053-4831-a53a-df7fb90d440f
+        explode: false
+        in: path
+        name: cosignerId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cosigner'
+          description: A cosigner object
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorSchema'
+          description: Error Response
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+      summary: Get cosigner
+      tags:
+      - Cosigners (Beta)
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<Cosigner>> = fireblocks.cosignersBeta.getCosigner(cosignersBetaApiGetCosignerRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: CompletableFuture<ApiResponse<Cosigner>> response = fireblocks.cosignersBeta().getCosigner(cosignerId);
+          name: Fireblocks SDK Java example
+      x-accepts: application/json
+    patch:
+      description: |
+        Rename a cosigner by ID
+        **Note:** These endpoints are currently in beta and might be subject to changes.
+      operationId: renameCosigner
+      parameters:
+      - description: The unique identifier of the cosigner
+        example: 44fcead0-7053-4831-a53a-df7fb90d440f
+        explode: false
+        in: path
+        name: cosignerId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RenameCosigner'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cosigner'
+          description: A cosigner object
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorSchema'
+          description: Error Response
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+      summary: Rename cosigner
+      tags:
+      - Cosigners (Beta)
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<Cosigner>> = fireblocks.cosignersBeta.renameCosigner(cosignersBetaApiRenameCosignerRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<Cosigner>> response = fireblocks.cosignersBeta().renameCosigner(renameCosigner,\
+            \ cosignerId);"
+          name: Fireblocks SDK Java example
+      x-content-type: application/json
+      x-accepts: application/json
+  /cosigners/{cosignerId}/api_keys:
+    get:
+      description: |
+        Get all cosigner paired API keys (paginated)
+        **Note:** These endpoints are currently in beta and might be subject to changes.
+      operationId: getApiKeys
+      parameters:
+      - description: The unique identifier of the cosigner
+        example: 44fcead0-7053-4831-a53a-df7fb90d440f
+        explode: false
+        in: path
+        name: cosignerId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: ASC / DESC ordering (default DESC)
+        example: ASC
+        explode: true
+        in: query
+        name: order
+        required: false
+        schema:
+          default: DESC
+          enum:
+          - ASC
+          - DESC
+          type: string
+        style: form
+      - description: Cursor of the required page
+        explode: true
+        in: query
+        name: pageCursor
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: Maximum number of items in the page
+        example: 10
+        explode: true
+        in: query
+        name: pageSize
+        required: false
+        schema:
+          default: 10
+          maximum: 100
+          minimum: 1
+          type: number
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiKeysPaginatedResponse'
+          description: A paginated response containing ApiKey objects
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorSchema'
+          description: Error Response
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+      summary: Get all API keys
+      tags:
+      - Cosigners (Beta)
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<ApiKeysPaginatedResponse>>\
+            \ = fireblocks.cosignersBeta.getApiKeys(cosignersBetaApiGetApiKeysRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<ApiKeysPaginatedResponse>> response\
+            \ = fireblocks.cosignersBeta().getApiKeys(cosignerId, order, pageCursor,\
+            \ pageSize);"
+          name: Fireblocks SDK Java example
+      x-accepts: application/json
+  /cosigners/{cosignerId}/api_keys/{apiKeyId}:
+    get:
+      description: |
+        Get an API key by ID
+        **Note:** These endpoints are currently in beta and might be subject to changes.
+      operationId: getApiKey
+      parameters:
+      - description: The unique identifier of the cosigner
+        example: 44fcead0-7053-4831-a53a-df7fb90d440f
+        explode: false
+        in: path
+        name: cosignerId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: The unique identifier of the API key
+        example: 44fcead0-7053-4831-a53a-df7fb90d440f
+        explode: false
+        in: path
+        name: apiKeyId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiKey'
+          description: An ApiKey object
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorSchema'
+          description: Error Response
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+      summary: Get API key
+      tags:
+      - Cosigners (Beta)
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<ApiKey>> = fireblocks.cosignersBeta.getApiKey(cosignersBetaApiGetApiKeyRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<ApiKey>> response = fireblocks.cosignersBeta().getApiKey(cosignerId,\
+            \ apiKeyId);"
+          name: Fireblocks SDK Java example
       x-accepts: application/json
 components:
   headers:
@@ -11538,6 +13478,10 @@ components:
       required:
       - name
       type: object
+    GetEnabledRoutingPolicyAssetGroupsResponse:
+      items:
+        type: string
+      type: array
     SetNetworkIdRoutingPolicyRequest:
       example:
         routingPolicy:
@@ -19970,12 +21914,11 @@ components:
         expiresIn:
           description: "Sets the ticket expiration time (in hours) after the ticket\
             \ is submitted. If no funding source is set for any term, the ticket will\
-            \ automatically expire after given time."
+            \ automatically expire after given time. If expiresIn is not sent ticket\
+            \ will not expire."
           maximum: 48
           minimum: 1
           type: number
-      required:
-      - expiresIn
       type: object
     SmartTransferTicketTermResponse:
       example:
@@ -20039,6 +21982,7 @@ components:
       type: object
     SmartTransferFundTerm:
       example:
+        note: Transaction note
         amount: "133.789161216184"
         networkConnectionId: 0805153d-e77d-4f9b-8818-e507eeb2d122
         srcId: "2"
@@ -20075,6 +22019,10 @@ components:
         feeLevel:
           description: Transaction fee level.
           example: MEDIUM
+          type: string
+        note:
+          description: Transaction note
+          example: Transaction note
           type: string
       required:
       - amount
@@ -20218,6 +22166,105 @@ components:
       items:
         $ref: '#/components/schemas/Task'
       type: array
+    Cosigner:
+      example:
+        archived: false
+        name: My Cosigner 1
+        id: 44fcead0-7053-4831-a53a-df7fb90d440f
+      properties:
+        archived:
+          description: Whether the cosigner is archived
+          example: false
+          type: boolean
+        id:
+          description: The unique identifier of the cosigner
+          example: 44fcead0-7053-4831-a53a-df7fb90d440f
+          format: uuid
+          type: string
+        name:
+          description: The name of the cosigner
+          example: My Cosigner 1
+          nullable: true
+          type: string
+      required:
+      - archived
+      - id
+      type: object
+    CosignersPaginatedResponse:
+      example:
+        next: eJ0eXAiOiJKV1QiLCJhbGcOiJIUzI1NiJ9
+        data:
+        - archived: false
+          name: My Cosigner 1
+          id: 44fcead0-7053-4831-a53a-df7fb90d440f
+        - archived: false
+          name: My Cosigner 1
+          id: 44fcead0-7053-4831-a53a-df7fb90d440f
+      properties:
+        data:
+          description: The data of the current page
+          items:
+            $ref: '#/components/schemas/Cosigner'
+          type: array
+        next:
+          description: The ID of the next page
+          example: eJ0eXAiOiJKV1QiLCJhbGcOiJIUzI1NiJ9
+          nullable: true
+          type: string
+      required:
+      - data
+      type: object
+    RenameCosigner:
+      example:
+        name: My Cosigner 1
+      properties:
+        name:
+          description: The new name of the cosigner
+          example: My Cosigner 1
+          nullable: true
+          type: string
+      type: object
+    ApiKey:
+      example:
+        lastSeen: 2021-07-01T00:00:00Z
+        id: 44fcead0-7053-4831-a53a-df7fb90d440f
+      properties:
+        id:
+          description: The unique identifier of the API key
+          example: 44fcead0-7053-4831-a53a-df7fb90d440f
+          format: uuid
+          type: string
+        lastSeen:
+          description: The date the API key was last seen
+          example: 2021-07-01T00:00:00Z
+          format: date-time
+          type: string
+      required:
+      - id
+      - lastSeen
+      type: object
+    ApiKeysPaginatedResponse:
+      example:
+        next: eJ0eXAiOiJKV1QiLCJhbGcOiJIUzI1NiJ9
+        data:
+        - lastSeen: 2021-07-01T00:00:00Z
+          id: 44fcead0-7053-4831-a53a-df7fb90d440f
+        - lastSeen: 2021-07-01T00:00:00Z
+          id: 44fcead0-7053-4831-a53a-df7fb90d440f
+      properties:
+        data:
+          description: The data of the current page
+          items:
+            $ref: '#/components/schemas/ApiKey'
+          type: array
+        next:
+          description: The ID of the next page
+          example: eJ0eXAiOiJKV1QiLCJhbGcOiJIUzI1NiJ9
+          nullable: true
+          type: string
+      required:
+      - data
+      type: object
     updateVaultAccountAssetAddress_request:
       properties:
         description:

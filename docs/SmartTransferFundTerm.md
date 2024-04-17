@@ -14,6 +14,7 @@
 |**srcType** | **String** | Source of the asset. |  |
 |**fee** | **String** | Transaction fee |  [optional] |
 |**feeLevel** | **String** | Transaction fee level. |  [optional] |
+|**note** | **String** | Transaction note |  [optional] |
 
 
 
