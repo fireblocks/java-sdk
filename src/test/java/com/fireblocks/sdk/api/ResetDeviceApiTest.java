@@ -26,9 +26,10 @@ public class ResetDeviceApiTest {
     private final ResetDeviceApi api = new ResetDeviceApi();
 
     /**
-     * resets device
+     * Resets device
      *
-     * <p>resets device
+     * <p>Resets mobile device for given console user, that user will need to do mobile onboarding
+     * again.
      *
      * @throws ApiException if the Api call fails
      */

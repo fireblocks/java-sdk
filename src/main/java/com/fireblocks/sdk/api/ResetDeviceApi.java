@@ -65,9 +65,10 @@ public class ResetDeviceApi {
     }
 
     /**
-     * resets device resets device
+     * Resets device Resets mobile device for given console user, that user will need to do mobile
+     * onboarding again.
      *
-     * @param id The ID of the user (required)
+     * @param id The ID of the console user (required)
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)

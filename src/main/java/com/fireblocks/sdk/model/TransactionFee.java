@@ -29,7 +29,9 @@ import java.util.StringJoiner;
     TransactionFee.JSON_PROPERTY_GAS_LIMIT,
     TransactionFee.JSON_PROPERTY_NETWORK_FEE,
     TransactionFee.JSON_PROPERTY_BASE_FEE,
-    TransactionFee.JSON_PROPERTY_PRIORITY_FEE
+    TransactionFee.JSON_PROPERTY_PRIORITY_FEE,
+    TransactionFee.JSON_PROPERTY_MAX_FEE_PER_GAS_DELTA,
+    TransactionFee.JSON_PROPERTY_L1_FEE
 })
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class TransactionFee {
@@ -50,6 +52,12 @@ public class TransactionFee {
 
     public static final String JSON_PROPERTY_PRIORITY_FEE = "priorityFee";
     private BigDecimal priorityFee;
+
+    public static final String JSON_PROPERTY_MAX_FEE_PER_GAS_DELTA = "maxFeePerGasDelta";
+    private String maxFeePerGasDelta;
+
+    public static final String JSON_PROPERTY_L1_FEE = "l1Fee";
+    private String l1Fee;
 
     public TransactionFee() {}
 
@@ -191,6 +199,52 @@ public class TransactionFee {
         this.priorityFee = priorityFee;
     }
 
+    public TransactionFee maxFeePerGasDelta(String maxFeePerGasDelta) {
+        this.maxFeePerGasDelta = maxFeePerGasDelta;
+        return this;
+    }
+
+    /**
+     * Max Fee Per Gas Delta added only for EIP-1559 (ETH assets)
+     *
+     * @return maxFeePerGasDelta
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_MAX_FEE_PER_GAS_DELTA)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getMaxFeePerGasDelta() {
+        return maxFeePerGasDelta;
+    }
+
+    @JsonProperty(JSON_PROPERTY_MAX_FEE_PER_GAS_DELTA)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setMaxFeePerGasDelta(String maxFeePerGasDelta) {
+        this.maxFeePerGasDelta = maxFeePerGasDelta;
+    }
+
+    public TransactionFee l1Fee(String l1Fee) {
+        this.l1Fee = l1Fee;
+        return this;
+    }
+
+    /**
+     * Layer 1 fee for Layer 2 chains
+     *
+     * @return l1Fee
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_L1_FEE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getL1Fee() {
+        return l1Fee;
+    }
+
+    @JsonProperty(JSON_PROPERTY_L1_FEE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setL1Fee(String l1Fee) {
+        this.l1Fee = l1Fee;
+    }
+
     /** Return true if this TransactionFee object is equal to o. */
     @Override
     public boolean equals(Object o) {
@@ -206,12 +260,22 @@ public class TransactionFee {
                 && Objects.equals(this.gasLimit, transactionFee.gasLimit)
                 && Objects.equals(this.networkFee, transactionFee.networkFee)
                 && Objects.equals(this.baseFee, transactionFee.baseFee)
-                && Objects.equals(this.priorityFee, transactionFee.priorityFee);
+                && Objects.equals(this.priorityFee, transactionFee.priorityFee)
+                && Objects.equals(this.maxFeePerGasDelta, transactionFee.maxFeePerGasDelta)
+                && Objects.equals(this.l1Fee, transactionFee.l1Fee);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(feePerByte, gasPrice, gasLimit, networkFee, baseFee, priorityFee);
+        return Objects.hash(
+                feePerByte,
+                gasPrice,
+                gasLimit,
+                networkFee,
+                baseFee,
+                priorityFee,
+                maxFeePerGasDelta,
+                l1Fee);
     }
 
     @Override
@@ -224,6 +288,10 @@ public class TransactionFee {
         sb.append("    networkFee: ").append(toIndentedString(networkFee)).append("\n");
         sb.append("    baseFee: ").append(toIndentedString(baseFee)).append("\n");
         sb.append("    priorityFee: ").append(toIndentedString(priorityFee)).append("\n");
+        sb.append("    maxFeePerGasDelta: ")
+                .append(toIndentedString(maxFeePerGasDelta))
+                .append("\n");
+        sb.append("    l1Fee: ").append(toIndentedString(l1Fee)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -338,6 +406,30 @@ public class TransactionFee {
                             URLEncoder.encode(
                                             String.valueOf(getPriorityFee()),
                                             StandardCharsets.UTF_8)
+                                    .replaceAll("\\+", "%20")));
+        }
+
+        // add `maxFeePerGasDelta` to the URL query string
+        if (getMaxFeePerGasDelta() != null) {
+            joiner.add(
+                    String.format(
+                            "%smaxFeePerGasDelta%s=%s",
+                            prefix,
+                            suffix,
+                            URLEncoder.encode(
+                                            String.valueOf(getMaxFeePerGasDelta()),
+                                            StandardCharsets.UTF_8)
+                                    .replaceAll("\\+", "%20")));
+        }
+
+        // add `l1Fee` to the URL query string
+        if (getL1Fee() != null) {
+            joiner.add(
+                    String.format(
+                            "%sl1Fee%s=%s",
+                            prefix,
+                            suffix,
+                            URLEncoder.encode(String.valueOf(getL1Fee()), StandardCharsets.UTF_8)
                                     .replaceAll("\\+", "%20")));
         }
 

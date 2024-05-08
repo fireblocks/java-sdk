@@ -4,7 +4,7 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
-| [**getWhitelistIpAddresses**](WhitelistIpAddressesApi.md#getWhitelistIpAddresses) | **GET** /management/api_users/{userId}/whitelist_ip_addresses | gets ip addresses |
+| [**getWhitelistIpAddresses**](WhitelistIpAddressesApi.md#getWhitelistIpAddresses) | **GET** /management/api_users/{userId}/whitelist_ip_addresses | Gets whitelisted ip addresses |
 
 
 
@@ -12,9 +12,9 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 
 > CompletableFuture<ApiResponse<GetWhitelistIpAddressesResponse>> getWhitelistIpAddresses getWhitelistIpAddresses(userId)
 
-gets ip addresses
+Gets whitelisted ip addresses
 
-gets ip addresses
+Gets whitelisted ip addresses for given Api user.
 
 ### Example
 
@@ -39,7 +39,7 @@ public class Example {
             .secretKey("my-secret-key");
         Fireblocks fireblocks = new Fireblocks(configurationOptions);
 
-        String userId = "userId_example"; // String | The ID of the user
+        String userId = "userId_example"; // String | The ID of the api user
         try {
             CompletableFuture<ApiResponse<GetWhitelistIpAddressesResponse>> response = fireblocks.whitelistIpAddresses().getWhitelistIpAddresses(userId);
             System.out.println("Status code: " + response.get().getStatusCode());
@@ -68,7 +68,7 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **userId** | **String**| The ID of the user | |
+| **userId** | **String**| The ID of the api user | |
 
 ### Return type
 
@@ -87,7 +87,7 @@ No authorization required
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | successfully whitelisted |  * X-Request-ID -  <br>  |
+| **200** | successfully got whitelisted ip addresses |  * X-Request-ID -  <br>  |
 | **401** | Unauthorized. Missing / invalid JWT token in Authorization header. |  * X-Request-ID -  <br>  |
 | **403** | Lacking permissions. |  * X-Request-ID -  <br>  |
 | **5XX** | Internal error. |  * X-Request-ID -  <br>  |

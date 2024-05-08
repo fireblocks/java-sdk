@@ -1,0 +1,33 @@
+
+
+# ContractUploadRequest
+
+
+## Properties
+
+| Name | Type | Description | Notes |
+|------------ | ------------- | ------------- | -------------|
+|**name** | **String** | The name of the contract template |  |
+|**description** | **String** | A short description of the contract template |  |
+|**longDescription** | **String** | A full description of the contract template. May contain   to break the lines |  [optional] |
+|**bytecode** | **String** | The compiled artifact of this smart contract. Used for deployment of this contract template |  |
+|**sourcecode** | **String** | The source code of the contract. Optional. |  [optional] |
+|**type** | [**TypeEnum**](#TypeEnum) | The type of the contract template |  [optional] |
+|**docs** | [**ContractDoc**](ContractDoc.md) | A &#x60;natspec&#x60; compliant documentation json. Can be retrieved from the output json after compilation |  [optional] |
+|**abi** | **List&lt;List&lt;AbiFunction&gt;&gt;** |  |  |
+|**attributes** | [**ContractAttributes**](ContractAttributes.md) | The attributes related to this contract template. It will be displayed in the tokenization page |  [optional] |
+
+
+
+## Enum: TypeEnum
+
+| Name | Value |
+|---- | -----|
+| FUNGIBLE_TOKEN | &quot;FUNGIBLE_TOKEN&quot; |
+| NON_FUNGIBLE_TOKEN | &quot;NON_FUNGIBLE_TOKEN&quot; |
+| NON_TOKEN | &quot;NON_TOKEN&quot; |
+| TOKEN_EXTENSION | &quot;TOKEN_EXTENSION&quot; |
+| TOKEN_UTILITY | &quot;TOKEN_UTILITY&quot; |
+
+
+

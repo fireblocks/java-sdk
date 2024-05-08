@@ -50,7 +50,7 @@ public class CreateConsoleUser {
     }
 
     /**
-     * Get firstName
+     * users firstName
      *
      * @return firstName
      */
@@ -73,7 +73,7 @@ public class CreateConsoleUser {
     }
 
     /**
-     * Get lastName
+     * users lastName
      *
      * @return lastName
      */
@@ -96,7 +96,7 @@ public class CreateConsoleUser {
     }
 
     /**
-     * Get role
+     * users role
      *
      * @return role
      */
@@ -119,7 +119,7 @@ public class CreateConsoleUser {
     }
 
     /**
-     * Get email
+     * valid email address
      *
      * @return email
      */

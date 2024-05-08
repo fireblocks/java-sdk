@@ -13,218 +13,281 @@
 package com.fireblocks.sdk.model;
 
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.fasterxml.jackson.annotation.JsonValue;
-import java.math.BigDecimal;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.JsonToken;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.MapperFeature;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
+import com.fasterxml.jackson.databind.ser.std.StdSerializer;
+import com.fireblocks.sdk.JSON;
+import java.io.IOException;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
 import java.util.StringJoiner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-/** CreateConnectionRequest */
-@JsonPropertyOrder({
-    CreateConnectionRequest.JSON_PROPERTY_VAULT_ACCOUNT_ID,
-    CreateConnectionRequest.JSON_PROPERTY_FEE_LEVEL,
-    CreateConnectionRequest.JSON_PROPERTY_URI,
-    CreateConnectionRequest.JSON_PROPERTY_CHAIN_IDS
-})
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
-public class CreateConnectionRequest {
-    public static final String JSON_PROPERTY_VAULT_ACCOUNT_ID = "vaultAccountId";
-    private BigDecimal vaultAccountId;
+@JsonDeserialize(using = CreateConnectionRequest.CreateConnectionRequestDeserializer.class)
+@JsonSerialize(using = CreateConnectionRequest.CreateConnectionRequestSerializer.class)
+public class CreateConnectionRequest extends AbstractOpenApiSchema {
+    private static final Logger log = Logger.getLogger(CreateConnectionRequest.class.getName());
 
-    /** The default fee level. Valid values are &#x60;MEDIUM&#x60; and &#x60;HIGH&#x60;. */
-    public enum FeeLevelEnum {
-        MEDIUM("MEDIUM"),
-
-        HIGH("HIGH");
-
-        private String value;
-
-        FeeLevelEnum(String value) {
-            this.value = value;
+    public static class CreateConnectionRequestSerializer
+            extends StdSerializer<CreateConnectionRequest> {
+        public CreateConnectionRequestSerializer(Class<CreateConnectionRequest> t) {
+            super(t);
         }
 
-        @JsonValue
-        public String getValue() {
-            return value;
+        public CreateConnectionRequestSerializer() {
+            this(null);
         }
 
         @Override
-        public String toString() {
-            return String.valueOf(value);
+        public void serialize(
+                CreateConnectionRequest value, JsonGenerator jgen, SerializerProvider provider)
+                throws IOException, JsonProcessingException {
+            jgen.writeObject(value.getActualInstance());
+        }
+    }
+
+    public static class CreateConnectionRequestDeserializer
+            extends StdDeserializer<CreateConnectionRequest> {
+        public CreateConnectionRequestDeserializer() {
+            this(CreateConnectionRequest.class);
         }
 
-        @JsonCreator
-        public static FeeLevelEnum fromValue(String value) {
-            for (FeeLevelEnum b : FeeLevelEnum.values()) {
-                if (b.value.equals(value)) {
-                    return b;
+        public CreateConnectionRequestDeserializer(Class<?> vc) {
+            super(vc);
+        }
+
+        @Override
+        public CreateConnectionRequest deserialize(JsonParser jp, DeserializationContext ctxt)
+                throws IOException, JsonProcessingException {
+            JsonNode tree = jp.readValueAsTree();
+            Object deserialized = null;
+            boolean typeCoercion = ctxt.isEnabled(MapperFeature.ALLOW_COERCION_OF_SCALARS);
+            int match = 0;
+            JsonToken token = tree.traverse(jp.getCodec()).nextToken();
+            // deserialize CreateNcwConnectionRequest
+            try {
+                boolean attemptParsing = true;
+                // ensure that we respect type coercion as set on the client ObjectMapper
+                if (CreateNcwConnectionRequest.class.equals(Integer.class)
+                        || CreateNcwConnectionRequest.class.equals(Long.class)
+                        || CreateNcwConnectionRequest.class.equals(Float.class)
+                        || CreateNcwConnectionRequest.class.equals(Double.class)
+                        || CreateNcwConnectionRequest.class.equals(Boolean.class)
+                        || CreateNcwConnectionRequest.class.equals(String.class)) {
+                    attemptParsing = typeCoercion;
+                    if (!attemptParsing) {
+                        attemptParsing |=
+                                ((CreateNcwConnectionRequest.class.equals(Integer.class)
+                                                || CreateNcwConnectionRequest.class.equals(
+                                                        Long.class))
+                                        && token == JsonToken.VALUE_NUMBER_INT);
+                        attemptParsing |=
+                                ((CreateNcwConnectionRequest.class.equals(Float.class)
+                                                || CreateNcwConnectionRequest.class.equals(
+                                                        Double.class))
+                                        && token == JsonToken.VALUE_NUMBER_FLOAT);
+                        attemptParsing |=
+                                (CreateNcwConnectionRequest.class.equals(Boolean.class)
+                                        && (token == JsonToken.VALUE_FALSE
+                                                || token == JsonToken.VALUE_TRUE));
+                        attemptParsing |=
+                                (CreateNcwConnectionRequest.class.equals(String.class)
+                                        && token == JsonToken.VALUE_STRING);
+                    }
                 }
+                if (attemptParsing) {
+                    deserialized =
+                            tree.traverse(jp.getCodec())
+                                    .readValueAs(CreateNcwConnectionRequest.class);
+                    // TODO: there is no validation against JSON schema constraints
+                    // (min, max, enum, pattern...), this does not perform a strict JSON
+                    // validation, which means the 'match' count may be higher than it should be.
+                    match++;
+                    log.log(Level.FINER, "Input data matches schema 'CreateNcwConnectionRequest'");
+                }
+            } catch (Exception e) {
+                // deserialization failed, continue
+                log.log(
+                        Level.FINER,
+                        "Input data does not match schema 'CreateNcwConnectionRequest'",
+                        e);
             }
-            throw new IllegalArgumentException("Unexpected value '" + value + "'");
+
+            // deserialize CreateVaultAccountConnectionRequest
+            try {
+                boolean attemptParsing = true;
+                // ensure that we respect type coercion as set on the client ObjectMapper
+                if (CreateVaultAccountConnectionRequest.class.equals(Integer.class)
+                        || CreateVaultAccountConnectionRequest.class.equals(Long.class)
+                        || CreateVaultAccountConnectionRequest.class.equals(Float.class)
+                        || CreateVaultAccountConnectionRequest.class.equals(Double.class)
+                        || CreateVaultAccountConnectionRequest.class.equals(Boolean.class)
+                        || CreateVaultAccountConnectionRequest.class.equals(String.class)) {
+                    attemptParsing = typeCoercion;
+                    if (!attemptParsing) {
+                        attemptParsing |=
+                                ((CreateVaultAccountConnectionRequest.class.equals(Integer.class)
+                                                || CreateVaultAccountConnectionRequest.class.equals(
+                                                        Long.class))
+                                        && token == JsonToken.VALUE_NUMBER_INT);
+                        attemptParsing |=
+                                ((CreateVaultAccountConnectionRequest.class.equals(Float.class)
+                                                || CreateVaultAccountConnectionRequest.class.equals(
+                                                        Double.class))
+                                        && token == JsonToken.VALUE_NUMBER_FLOAT);
+                        attemptParsing |=
+                                (CreateVaultAccountConnectionRequest.class.equals(Boolean.class)
+                                        && (token == JsonToken.VALUE_FALSE
+                                                || token == JsonToken.VALUE_TRUE));
+                        attemptParsing |=
+                                (CreateVaultAccountConnectionRequest.class.equals(String.class)
+                                        && token == JsonToken.VALUE_STRING);
+                    }
+                }
+                if (attemptParsing) {
+                    deserialized =
+                            tree.traverse(jp.getCodec())
+                                    .readValueAs(CreateVaultAccountConnectionRequest.class);
+                    // TODO: there is no validation against JSON schema constraints
+                    // (min, max, enum, pattern...), this does not perform a strict JSON
+                    // validation, which means the 'match' count may be higher than it should be.
+                    match++;
+                    log.log(
+                            Level.FINER,
+                            "Input data matches schema 'CreateVaultAccountConnectionRequest'");
+                }
+            } catch (Exception e) {
+                // deserialization failed, continue
+                log.log(
+                        Level.FINER,
+                        "Input data does not match schema 'CreateVaultAccountConnectionRequest'",
+                        e);
+            }
+
+            if (match == 1) {
+                CreateConnectionRequest ret = new CreateConnectionRequest();
+                ret.setActualInstance(deserialized);
+                return ret;
+            }
+            throw new IOException(
+                    String.format(
+                            "Failed deserialization for CreateConnectionRequest: %d classes match"
+                                    + " result, expected 1",
+                            match));
+        }
+
+        /** Handle deserialization of the 'null' value. */
+        @Override
+        public CreateConnectionRequest getNullValue(DeserializationContext ctxt)
+                throws JsonMappingException {
+            throw new JsonMappingException(
+                    ctxt.getParser(), "CreateConnectionRequest cannot be null");
         }
     }
 
-    public static final String JSON_PROPERTY_FEE_LEVEL = "feeLevel";
-    private FeeLevelEnum feeLevel;
+    // store a list of schema names defined in oneOf
+    public static final Map<String, Class<?>> schemas = new HashMap<>();
 
-    public static final String JSON_PROPERTY_URI = "uri";
-    private String uri;
-
-    public static final String JSON_PROPERTY_CHAIN_IDS = "chainIds";
-    private List<String> chainIds;
-
-    public CreateConnectionRequest() {}
-
-    public CreateConnectionRequest vaultAccountId(BigDecimal vaultAccountId) {
-        this.vaultAccountId = vaultAccountId;
-        return this;
+    public CreateConnectionRequest() {
+        super("oneOf", Boolean.FALSE);
     }
 
-    /**
-     * The ID of the vault to connect to the dApp.
-     *
-     * @return vaultAccountId
-     */
-    @jakarta.annotation.Nonnull
-    @JsonProperty(JSON_PROPERTY_VAULT_ACCOUNT_ID)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public BigDecimal getVaultAccountId() {
-        return vaultAccountId;
+    public CreateConnectionRequest(CreateNcwConnectionRequest o) {
+        super("oneOf", Boolean.FALSE);
+        setActualInstance(o);
     }
 
-    @JsonProperty(JSON_PROPERTY_VAULT_ACCOUNT_ID)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setVaultAccountId(BigDecimal vaultAccountId) {
-        this.vaultAccountId = vaultAccountId;
+    public CreateConnectionRequest(CreateVaultAccountConnectionRequest o) {
+        super("oneOf", Boolean.FALSE);
+        setActualInstance(o);
     }
 
-    public CreateConnectionRequest feeLevel(FeeLevelEnum feeLevel) {
-        this.feeLevel = feeLevel;
-        return this;
-    }
-
-    /**
-     * The default fee level. Valid values are &#x60;MEDIUM&#x60; and &#x60;HIGH&#x60;.
-     *
-     * @return feeLevel
-     */
-    @jakarta.annotation.Nonnull
-    @JsonProperty(JSON_PROPERTY_FEE_LEVEL)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public FeeLevelEnum getFeeLevel() {
-        return feeLevel;
-    }
-
-    @JsonProperty(JSON_PROPERTY_FEE_LEVEL)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setFeeLevel(FeeLevelEnum feeLevel) {
-        this.feeLevel = feeLevel;
-    }
-
-    public CreateConnectionRequest uri(String uri) {
-        this.uri = uri;
-        return this;
-    }
-
-    /**
-     * The WalletConnect uri provided by the dapp.
-     *
-     * @return uri
-     */
-    @jakarta.annotation.Nonnull
-    @JsonProperty(JSON_PROPERTY_URI)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public String getUri() {
-        return uri;
-    }
-
-    @JsonProperty(JSON_PROPERTY_URI)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setUri(String uri) {
-        this.uri = uri;
-    }
-
-    public CreateConnectionRequest chainIds(List<String> chainIds) {
-        this.chainIds = chainIds;
-        return this;
-    }
-
-    public CreateConnectionRequest addChainIdsItem(String chainIdsItem) {
-        if (this.chainIds == null) {
-            this.chainIds = new ArrayList<>();
-        }
-        this.chainIds.add(chainIdsItem);
-        return this;
-    }
-
-    /**
-     * The IDs of the blockchain networks used in the Web3 connection (Currently required in V1
-     * connections only).
-     *
-     * @return chainIds
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_CHAIN_IDS)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public List<String> getChainIds() {
-        return chainIds;
-    }
-
-    @JsonProperty(JSON_PROPERTY_CHAIN_IDS)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setChainIds(List<String> chainIds) {
-        this.chainIds = chainIds;
-    }
-
-    /** Return true if this CreateConnectionRequest object is equal to o. */
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        CreateConnectionRequest createConnectionRequest = (CreateConnectionRequest) o;
-        return Objects.equals(this.vaultAccountId, createConnectionRequest.vaultAccountId)
-                && Objects.equals(this.feeLevel, createConnectionRequest.feeLevel)
-                && Objects.equals(this.uri, createConnectionRequest.uri)
-                && Objects.equals(this.chainIds, createConnectionRequest.chainIds);
+    static {
+        schemas.put("CreateNcwConnectionRequest", CreateNcwConnectionRequest.class);
+        schemas.put(
+                "CreateVaultAccountConnectionRequest", CreateVaultAccountConnectionRequest.class);
+        JSON.registerDescendants(
+                CreateConnectionRequest.class, Collections.unmodifiableMap(schemas));
     }
 
     @Override
-    public int hashCode() {
-        return Objects.hash(vaultAccountId, feeLevel, uri, chainIds);
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("class CreateConnectionRequest {\n");
-        sb.append("    vaultAccountId: ").append(toIndentedString(vaultAccountId)).append("\n");
-        sb.append("    feeLevel: ").append(toIndentedString(feeLevel)).append("\n");
-        sb.append("    uri: ").append(toIndentedString(uri)).append("\n");
-        sb.append("    chainIds: ").append(toIndentedString(chainIds)).append("\n");
-        sb.append("}");
-        return sb.toString();
+    public Map<String, Class<?>> getSchemas() {
+        return CreateConnectionRequest.schemas;
     }
 
     /**
-     * Convert the given object to string with each line indented by 4 spaces (except the first
-     * line).
+     * Set the instance that matches the oneOf child schema, check the instance parameter is valid
+     * against the oneOf child schemas: CreateNcwConnectionRequest,
+     * CreateVaultAccountConnectionRequest
+     *
+     * <p>It could be an instance of the 'oneOf' schemas. The oneOf child schemas may themselves be
+     * a composed schema (allOf, anyOf, oneOf).
      */
-    private String toIndentedString(Object o) {
-        if (o == null) {
-            return "null";
+    @Override
+    public void setActualInstance(Object instance) {
+        if (JSON.isInstanceOf(
+                CreateNcwConnectionRequest.class, instance, new HashSet<Class<?>>())) {
+            super.setActualInstance(instance);
+            return;
         }
-        return o.toString().replace("\n", "\n    ");
+
+        if (JSON.isInstanceOf(
+                CreateVaultAccountConnectionRequest.class, instance, new HashSet<Class<?>>())) {
+            super.setActualInstance(instance);
+            return;
+        }
+
+        throw new RuntimeException(
+                "Invalid instance type. Must be CreateNcwConnectionRequest,"
+                        + " CreateVaultAccountConnectionRequest");
+    }
+
+    /**
+     * Get the actual instance, which can be the following: CreateNcwConnectionRequest,
+     * CreateVaultAccountConnectionRequest
+     *
+     * @return The actual instance (CreateNcwConnectionRequest, CreateVaultAccountConnectionRequest)
+     */
+    @Override
+    public Object getActualInstance() {
+        return super.getActualInstance();
+    }
+
+    /**
+     * Get the actual instance of `CreateNcwConnectionRequest`. If the actual instance is not
+     * `CreateNcwConnectionRequest`, the ClassCastException will be thrown.
+     *
+     * @return The actual instance of `CreateNcwConnectionRequest`
+     * @throws ClassCastException if the instance is not `CreateNcwConnectionRequest`
+     */
+    public CreateNcwConnectionRequest getCreateNcwConnectionRequest() throws ClassCastException {
+        return (CreateNcwConnectionRequest) super.getActualInstance();
+    }
+
+    /**
+     * Get the actual instance of `CreateVaultAccountConnectionRequest`. If the actual instance is
+     * not `CreateVaultAccountConnectionRequest`, the ClassCastException will be thrown.
+     *
+     * @return The actual instance of `CreateVaultAccountConnectionRequest`
+     * @throws ClassCastException if the instance is not `CreateVaultAccountConnectionRequest`
+     */
+    public CreateVaultAccountConnectionRequest getCreateVaultAccountConnectionRequest()
+            throws ClassCastException {
+        return (CreateVaultAccountConnectionRequest) super.getActualInstance();
     }
 
     /**
@@ -259,60 +322,22 @@ public class CreateConnectionRequest {
 
         StringJoiner joiner = new StringJoiner("&");
 
-        // add `vaultAccountId` to the URL query string
-        if (getVaultAccountId() != null) {
-            joiner.add(
-                    String.format(
-                            "%svaultAccountId%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getVaultAccountId()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
-        // add `feeLevel` to the URL query string
-        if (getFeeLevel() != null) {
-            joiner.add(
-                    String.format(
-                            "%sfeeLevel%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(String.valueOf(getFeeLevel()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
-        // add `uri` to the URL query string
-        if (getUri() != null) {
-            joiner.add(
-                    String.format(
-                            "%suri%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(String.valueOf(getUri()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
-        // add `chainIds` to the URL query string
-        if (getChainIds() != null) {
-            for (int i = 0; i < getChainIds().size(); i++) {
+        if (getActualInstance() instanceof CreateVaultAccountConnectionRequest) {
+            if (getActualInstance() != null) {
                 joiner.add(
-                        String.format(
-                                "%schainIds%s%s=%s",
-                                prefix,
-                                suffix,
-                                "".equals(suffix)
-                                        ? ""
-                                        : String.format(
-                                                "%s%d%s", containerPrefix, i, containerSuffix),
-                                URLEncoder.encode(
-                                                String.valueOf(getChainIds().get(i)),
-                                                StandardCharsets.UTF_8)
-                                        .replaceAll("\\+", "%20")));
+                        ((CreateVaultAccountConnectionRequest) getActualInstance())
+                                .toUrlQueryString(prefix + "one_of_0" + suffix));
             }
+            return joiner.toString();
         }
-
-        return joiner.toString();
+        if (getActualInstance() instanceof CreateNcwConnectionRequest) {
+            if (getActualInstance() != null) {
+                joiner.add(
+                        ((CreateNcwConnectionRequest) getActualInstance())
+                                .toUrlQueryString(prefix + "one_of_1" + suffix));
+            }
+            return joiner.toString();
+        }
+        return null;
     }
 }

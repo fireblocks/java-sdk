@@ -19,8 +19,8 @@ import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.Pair;
+import com.fireblocks.sdk.model.CreateConnectionRequest;
 import com.fireblocks.sdk.model.CreateConnectionResponse;
-import com.fireblocks.sdk.model.CreateRequest;
 import com.fireblocks.sdk.model.GetConnectionsResponse;
 import com.fireblocks.sdk.model.GetFilterParameter;
 import com.fireblocks.sdk.model.RespondToConnectionRequest;
@@ -81,7 +81,7 @@ public class Web3ConnectionsApi {
      * make a request to &#x60;PUT /v1/connections/wc/{id}&#x60; (below) to approve or reject the
      * new Web3 connection.
      *
-     * @param createRequest (required)
+     * @param createConnectionRequest (required)
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
@@ -89,10 +89,11 @@ public class Web3ConnectionsApi {
      * @throws ApiException if fails to make API call
      */
     public CompletableFuture<ApiResponse<CreateConnectionResponse>> create(
-            CreateRequest createRequest, String idempotencyKey) throws ApiException {
+            CreateConnectionRequest createConnectionRequest, String idempotencyKey)
+            throws ApiException {
         try {
             HttpRequest.Builder localVarRequestBuilder =
-                    createRequestBuilder(createRequest, idempotencyKey);
+                    createRequestBuilder(createConnectionRequest, idempotencyKey);
             return memberVarHttpClient
                     .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
                     .thenComposeAsync(
@@ -126,11 +127,13 @@ public class Web3ConnectionsApi {
     }
 
     private HttpRequest.Builder createRequestBuilder(
-            CreateRequest createRequest, String idempotencyKey) throws ApiException {
-        // verify the required parameter 'createRequest' is set
-        if (createRequest == null) {
+            CreateConnectionRequest createConnectionRequest, String idempotencyKey)
+            throws ApiException {
+        // verify the required parameter 'createConnectionRequest' is set
+        if (createConnectionRequest == null) {
             throw new ApiException(
-                    400, "Missing the required parameter 'createRequest' when calling create");
+                    400,
+                    "Missing the required parameter 'createConnectionRequest' when calling create");
         }
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
@@ -146,7 +149,8 @@ public class Web3ConnectionsApi {
         localVarRequestBuilder.header("Accept", "application/json");
 
         try {
-            byte[] localVarPostBody = memberVarObjectMapper.writeValueAsBytes(createRequest);
+            byte[] localVarPostBody =
+                    memberVarObjectMapper.writeValueAsBytes(createConnectionRequest);
             localVarRequestBuilder.method(
                     "POST", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
         } catch (IOException e) {

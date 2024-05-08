@@ -11,7 +11,7 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 
 ## getOtaStatus
 
-> CompletableFuture<ApiResponse<GetOtaStatus200Response>> getOtaStatus getOtaStatus()
+> CompletableFuture<ApiResponse<GetOtaStatusResponse>> getOtaStatus getOtaStatus()
 
 Returns current OTA status
 
@@ -41,7 +41,7 @@ public class Example {
         Fireblocks fireblocks = new Fireblocks(configurationOptions);
 
         try {
-            CompletableFuture<ApiResponse<GetOtaStatus200Response>> response = fireblocks.otaBeta().getOtaStatus();
+            CompletableFuture<ApiResponse<GetOtaStatusResponse>> response = fireblocks.otaBeta().getOtaStatus();
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
@@ -69,7 +69,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-CompletableFuture<ApiResponse<[**GetOtaStatus200Response**](GetOtaStatus200Response.md)>>
+CompletableFuture<ApiResponse<[**GetOtaStatusResponse**](GetOtaStatusResponse.md)>>
 
 
 ### Authorization

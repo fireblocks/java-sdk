@@ -15,7 +15,7 @@ package com.fireblocks.sdk.api;
 
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
-import com.fireblocks.sdk.model.GetWorkspaceStatus200Response;
+import com.fireblocks.sdk.model.GetWorkspaceStatusResponse;
 import java.util.concurrent.CompletableFuture;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -35,7 +35,7 @@ public class WorkspaceStatusBetaApiTest {
      */
     @Test
     public void getWorkspaceStatusTest() throws ApiException {
-        CompletableFuture<ApiResponse<GetWorkspaceStatus200Response>> response =
+        CompletableFuture<ApiResponse<GetWorkspaceStatusResponse>> response =
                 api.getWorkspaceStatus();
     }
 }

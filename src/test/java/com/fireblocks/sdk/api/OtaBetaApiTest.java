@@ -15,7 +15,7 @@ package com.fireblocks.sdk.api;
 
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
-import com.fireblocks.sdk.model.GetOtaStatus200Response;
+import com.fireblocks.sdk.model.GetOtaStatusResponse;
 import com.fireblocks.sdk.model.SetOtaStatusRequest;
 import com.fireblocks.sdk.model.SetOtaStatusResponse;
 import java.util.concurrent.CompletableFuture;
@@ -37,7 +37,7 @@ public class OtaBetaApiTest {
      */
     @Test
     public void getOtaStatusTest() throws ApiException {
-        CompletableFuture<ApiResponse<GetOtaStatus200Response>> response = api.getOtaStatus();
+        CompletableFuture<ApiResponse<GetOtaStatusResponse>> response = api.getOtaStatus();
     }
 
     /**

@@ -170,8 +170,9 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | A new asset has been created successfully |  -  |
-| **400** | - Listing an asset on the requested blockchain is not supported. Error code: 1000  - The asset address is invalid. Error code: 1004  |  -  |
-| **404** | - Invalid address, could not get asset information. Error code 1004  |  -  |
-| **409** | - The asset is already supported globally. Error code: 1002  - The asset has already been added to this workspace. Error code: 1003  |  -  |
+| **400** | - Listing an asset on the requested blockchain is not supported. Error code: 1000  - The asset address is invalid. Error code: 1003  - Self serve listing an asset on the requested blockchain is currently not supported, please contact support. Error code: 1004  |  -  |
+| **403** | - The asset creation quota reached. Error code: 1005  |  -  |
+| **404** | - Invalid address, could not get asset information. Error code 1003  |  -  |
+| **409** | - The asset is already supported globally. Error code: 1001  - The asset has already been added to this workspace. Error code: 1002  |  -  |
 | **500** | Failed to create asset |  -  |
 

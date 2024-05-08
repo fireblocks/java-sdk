@@ -43,8 +43,11 @@ public class Fireblocks {
     private ComplianceApi compliance;
     private ComplianceScreeningConfigurationApi complianceScreeningConfiguration;
     private ConsoleUserApi consoleUser;
+    private ContractInteractionsApi contractInteractions;
+    private ContractTemplatesApi contractTemplates;
     private ContractsApi contracts;
     private CosignersBetaApi cosignersBeta;
+    private DeployedContractsApi deployedContracts;
     private ExchangeAccountsApi exchangeAccounts;
     private ExternalWalletsApi externalWallets;
     private FiatAccountsApi fiatAccounts;
@@ -60,6 +63,7 @@ public class Fireblocks {
     private ResetDeviceApi resetDevice;
     private SmartTransferApi smartTransfer;
     private StakingBetaApi stakingBeta;
+    private TokenizationApi tokenization;
     private TransactionsApi transactions;
     private TravelRuleBetaApi travelRuleBeta;
     private UserGroupsBetaApi userGroupsBeta;
@@ -257,6 +261,20 @@ public class Fireblocks {
         return consoleUser;
     }
 
+    public ContractInteractionsApi contractInteractions() {
+        if (contractInteractions == null) {
+            contractInteractions = new ContractInteractionsApi(apiClient);
+        }
+        return contractInteractions;
+    }
+
+    public ContractTemplatesApi contractTemplates() {
+        if (contractTemplates == null) {
+            contractTemplates = new ContractTemplatesApi(apiClient);
+        }
+        return contractTemplates;
+    }
+
     public ContractsApi contracts() {
         if (contracts == null) {
             contracts = new ContractsApi(apiClient);
@@ -269,6 +287,13 @@ public class Fireblocks {
             cosignersBeta = new CosignersBetaApi(apiClient);
         }
         return cosignersBeta;
+    }
+
+    public DeployedContractsApi deployedContracts() {
+        if (deployedContracts == null) {
+            deployedContracts = new DeployedContractsApi(apiClient);
+        }
+        return deployedContracts;
     }
 
     public ExchangeAccountsApi exchangeAccounts() {
@@ -374,6 +399,13 @@ public class Fireblocks {
             stakingBeta = new StakingBetaApi(apiClient);
         }
         return stakingBeta;
+    }
+
+    public TokenizationApi tokenization() {
+        if (tokenization == null) {
+            tokenization = new TokenizationApi(apiClient);
+        }
+        return tokenization;
     }
 
     public TransactionsApi transactions() {

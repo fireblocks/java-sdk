@@ -4,8 +4,8 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
-| [**createConsoleUser**](ConsoleUserApi.md#createConsoleUser) | **POST** /management/users | create console user |
-| [**getConsoleUsers**](ConsoleUserApi.md#getConsoleUsers) | **GET** /management/users | get console users |
+| [**createConsoleUser**](ConsoleUserApi.md#createConsoleUser) | **POST** /management/users | Create console user |
+| [**getConsoleUsers**](ConsoleUserApi.md#getConsoleUsers) | **GET** /management/users | Get console users |
 
 
 
@@ -13,9 +13,9 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 
 > CompletableFuture<ApiResponse<Void>> createConsoleUser createConsoleUser(createConsoleUser, idempotencyKey)
 
-create console user
+Create console user
 
-creates fireblocks console user
+Creates console user in your tenant
 
 ### Example
 
@@ -89,7 +89,7 @@ No authorization required
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | Users sent for creation |  * X-Request-ID -  <br>  |
+| **200** | User creation approval request has been sent |  * X-Request-ID -  <br>  |
 | **400** | bad request |  * X-Request-ID -  <br>  |
 | **401** | Unauthorized. Missing / invalid JWT token in Authorization header. |  * X-Request-ID -  <br>  |
 | **403** | Lacking permissions. |  * X-Request-ID -  <br>  |
@@ -101,9 +101,9 @@ No authorization required
 
 > CompletableFuture<ApiResponse<GetConsoleUsersResponse>> getConsoleUsers getConsoleUsers()
 
-get console users
+Get console users
 
-get console users from the current tenant
+Get console users for your tenant
 
 ### Example
 

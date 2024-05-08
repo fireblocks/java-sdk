@@ -18,7 +18,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
-import com.fireblocks.sdk.model.GetOtaStatus200Response;
+import com.fireblocks.sdk.model.GetOtaStatusResponse;
 import com.fireblocks.sdk.model.SetOtaStatusRequest;
 import com.fireblocks.sdk.model.SetOtaStatusResponse;
 import java.io.IOException;
@@ -72,11 +72,10 @@ public class OtaBetaApi {
     /**
      * Returns current OTA status Returns current OTA status
      *
-     * @return CompletableFuture&lt;ApiResponse&lt;GetOtaStatus200Response&gt;&gt;
+     * @return CompletableFuture&lt;ApiResponse&lt;GetOtaStatusResponse&gt;&gt;
      * @throws ApiException if fails to make API call
      */
-    public CompletableFuture<ApiResponse<GetOtaStatus200Response>> getOtaStatus()
-            throws ApiException {
+    public CompletableFuture<ApiResponse<GetOtaStatusResponse>> getOtaStatus() throws ApiException {
         try {
             HttpRequest.Builder localVarRequestBuilder = getOtaStatusRequestBuilder();
             return memberVarHttpClient
@@ -93,7 +92,7 @@ public class OtaBetaApi {
                                 try {
                                     String responseBody = localVarResponse.body();
                                     return CompletableFuture.completedFuture(
-                                            new ApiResponse<GetOtaStatus200Response>(
+                                            new ApiResponse<GetOtaStatusResponse>(
                                                     localVarResponse.statusCode(),
                                                     localVarResponse.headers().map(),
                                                     responseBody == null || responseBody.isBlank()
@@ -101,7 +100,7 @@ public class OtaBetaApi {
                                                             : memberVarObjectMapper.readValue(
                                                                     responseBody,
                                                                     new TypeReference<
-                                                                            GetOtaStatus200Response>() {})));
+                                                                            GetOtaStatusResponse>() {})));
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }

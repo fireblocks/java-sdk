@@ -13,7 +13,7 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 
 ## create
 
-> CompletableFuture<ApiResponse<CreateConnectionResponse>> create create(createRequest, idempotencyKey)
+> CompletableFuture<ApiResponse<CreateConnectionResponse>> create create(createConnectionRequest, idempotencyKey)
 
 Create a new Web3 connection.
 
@@ -42,10 +42,10 @@ public class Example {
             .secretKey("my-secret-key");
         Fireblocks fireblocks = new Fireblocks(configurationOptions);
 
-        CreateRequest createRequest = new CreateRequest(); // CreateRequest | 
+        CreateConnectionRequest createConnectionRequest = new CreateConnectionRequest(); // CreateConnectionRequest | 
         String idempotencyKey = "idempotencyKey_example"; // String | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
         try {
-            CompletableFuture<ApiResponse<CreateConnectionResponse>> response = fireblocks.web3Connections().create(createRequest, idempotencyKey);
+            CompletableFuture<ApiResponse<CreateConnectionResponse>> response = fireblocks.web3Connections().create(createConnectionRequest, idempotencyKey);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
@@ -72,7 +72,7 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **createRequest** | [**CreateRequest**](CreateRequest.md)|  | |
+| **createConnectionRequest** | [**CreateConnectionRequest**](CreateConnectionRequest.md)|  | |
 | **idempotencyKey** | **String**| A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | [optional] |
 
 ### Return type

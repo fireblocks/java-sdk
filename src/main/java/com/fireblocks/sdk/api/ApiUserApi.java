@@ -69,7 +69,7 @@ public class ApiUserApi {
     }
 
     /**
-     * create api user creates api user
+     * Create Api user Creates Api user in your tenant
      *
      * @param createAPIUser (optional)
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
@@ -136,7 +136,7 @@ public class ApiUserApi {
         return localVarRequestBuilder;
     }
     /**
-     * get api users get api users from the current tenant
+     * Get Api users Get Api users of your tenant
      *
      * @return CompletableFuture&lt;ApiResponse&lt;GetAPIUsersResponse&gt;&gt;
      * @throws ApiException if fails to make API call

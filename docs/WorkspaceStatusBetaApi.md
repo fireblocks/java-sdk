@@ -10,7 +10,7 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 
 ## getWorkspaceStatus
 
-> CompletableFuture<ApiResponse<GetWorkspaceStatus200Response>> getWorkspaceStatus getWorkspaceStatus()
+> CompletableFuture<ApiResponse<GetWorkspaceStatusResponse>> getWorkspaceStatus getWorkspaceStatus()
 
 Returns current workspace status
 
@@ -40,7 +40,7 @@ public class Example {
         Fireblocks fireblocks = new Fireblocks(configurationOptions);
 
         try {
-            CompletableFuture<ApiResponse<GetWorkspaceStatus200Response>> response = fireblocks.workspaceStatusBeta().getWorkspaceStatus();
+            CompletableFuture<ApiResponse<GetWorkspaceStatusResponse>> response = fireblocks.workspaceStatusBeta().getWorkspaceStatus();
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
@@ -68,7 +68,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-CompletableFuture<ApiResponse<[**GetWorkspaceStatus200Response**](GetWorkspaceStatus200Response.md)>>
+CompletableFuture<ApiResponse<[**GetWorkspaceStatusResponse**](GetWorkspaceStatusResponse.md)>>
 
 
 ### Authorization

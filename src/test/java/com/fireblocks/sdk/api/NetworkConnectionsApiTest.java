@@ -16,6 +16,8 @@ package com.fireblocks.sdk.api;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.model.CreateNetworkIdRequest;
+import com.fireblocks.sdk.model.DeleteNetworkConnectionResponse;
+import com.fireblocks.sdk.model.DeleteNetworkIdResponse;
 import com.fireblocks.sdk.model.NetworkConnection;
 import com.fireblocks.sdk.model.NetworkConnectionResponse;
 import com.fireblocks.sdk.model.NetworkIdResponse;
@@ -23,8 +25,8 @@ import com.fireblocks.sdk.model.SetNetworkIdDiscoverabilityRequest;
 import com.fireblocks.sdk.model.SetNetworkIdNameRequest;
 import com.fireblocks.sdk.model.SetNetworkIdResponse;
 import com.fireblocks.sdk.model.SetNetworkIdRoutingPolicyRequest;
-import com.fireblocks.sdk.model.SetRoutingPolicy200Response;
 import com.fireblocks.sdk.model.SetRoutingPolicyRequest;
+import com.fireblocks.sdk.model.SetRoutingPolicyResponse;
 import com.fireblocks.sdk.model.ThirdPartyRouting;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -67,7 +69,7 @@ public class NetworkConnectionsApiTest {
      * also referred to as \&quot;Profile Routing\&quot; Default Workspace Presets: - Network
      * Profile Crypto → **Custom** - Network Profile FIAT → **None** - Network Connection Crypto →
      * **Default** - Network Connection FIAT → **Default** Supported asset groups for routing police
-     * can be found at &#x60;/enabled_routing_policy_asset_groups&#x60; - **Note**: By default,
+     * can be found at &#x60;/network_ids/routing_policy_asset_groups&#x60; - **Note**: By default,
      * Custom routing scheme uses (&#x60;dstId&#x60; &#x3D; &#x60;0&#x60;, &#x60;dstType&#x60;
      * &#x3D; &#x60;VAULT&#x60;).
      *
@@ -94,7 +96,7 @@ public class NetworkConnectionsApiTest {
      * also referred to as \&quot;Profile Routing\&quot; Default Workspace Presets: - Network
      * Profile Crypto → **Custom** - Network Profile FIAT → **None** - Network Connection Crypto →
      * **Default** - Network Connection FIAT → **Default** Supported asset groups for routing police
-     * can be found at &#x60;/enabled_routing_policy_asset_groups&#x60; - **Note**: By default,
+     * can be found at &#x60;/network_ids/routing_policy_asset_groups&#x60; - **Note**: By default,
      * Custom routing scheme uses (&#x60;dstId&#x60; &#x3D; &#x60;0&#x60;, &#x60;dstType&#x60;
      * &#x3D; &#x60;VAULT&#x60;).
      *
@@ -129,7 +131,7 @@ public class NetworkConnectionsApiTest {
     @Test
     public void deleteNetworkConnectionTest() throws ApiException {
         String connectionId = null;
-        CompletableFuture<ApiResponse<SetRoutingPolicy200Response>> response =
+        CompletableFuture<ApiResponse<DeleteNetworkConnectionResponse>> response =
                 api.deleteNetworkConnection(connectionId);
     }
 
@@ -154,7 +156,7 @@ public class NetworkConnectionsApiTest {
     @Test
     public void deleteNetworkIdTest() throws ApiException {
         String networkId = null;
-        CompletableFuture<ApiResponse<SetRoutingPolicy200Response>> response =
+        CompletableFuture<ApiResponse<DeleteNetworkIdResponse>> response =
                 api.deleteNetworkId(networkId);
     }
 
@@ -255,6 +257,20 @@ public class NetworkConnectionsApiTest {
     }
 
     /**
+     * Returns all enabled routing policy asset groups
+     *
+     * <p>Retrieves a list of all enabled routing policy asset groups. Your routing policy defines
+     * how your transactions are routed. You can use one or more enabled routing policy asset groups
+     * to describe connection or network id routing policy.
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void getRoutingPolicyAssetGroupsTest() throws ApiException {
+        CompletableFuture<ApiResponse<List<String>>> response = api.getRoutingPolicyAssetGroups();
+    }
+
+    /**
      * Update network ID&#39;s discoverability.
      *
      * <p>Update whether or not the network ID is discoverable by others. **Note:** This API call is
@@ -320,7 +336,7 @@ public class NetworkConnectionsApiTest {
      * Workspace Presets: - Network Profile Crypto → **Custom** - Network Profile FIAT → **None** -
      * Network Connection Crypto → **Default** - Network Connection FIAT → **Default** Supported
      * asset groups for routing police can be found at
-     * &#x60;/enabled_routing_policy_asset_groups&#x60; - **Note**: By default, Custom routing
+     * &#x60;/network_ids/routing_policy_asset_groups&#x60; - **Note**: By default, Custom routing
      * scheme uses (&#x60;dstId&#x60; &#x3D; &#x60;0&#x60;, &#x60;dstType&#x60; &#x3D;
      * &#x60;VAULT&#x60;).
      *
@@ -348,7 +364,7 @@ public class NetworkConnectionsApiTest {
      * Default Workspace Presets: - Network Profile Crypto → **Custom** - Network Profile FIAT →
      * **None** - Network Connection Crypto → **Default** - Network Connection FIAT → **Default**
      * Supported asset groups for routing police can be found at
-     * &#x60;/enabled_routing_policy_asset_groups&#x60; - **Note**: By default, Custom routing
+     * &#x60;/network_ids/routing_policy_asset_groups&#x60; - **Note**: By default, Custom routing
      * scheme uses (&#x60;dstId&#x60; &#x3D; &#x60;0&#x60;, &#x60;dstType&#x60; &#x3D;
      * &#x60;VAULT&#x60;).
      *
@@ -358,7 +374,7 @@ public class NetworkConnectionsApiTest {
     public void setRoutingPolicyTest() throws ApiException {
         String connectionId = null;
         SetRoutingPolicyRequest setRoutingPolicyRequest = null;
-        CompletableFuture<ApiResponse<SetRoutingPolicy200Response>> response =
+        CompletableFuture<ApiResponse<SetRoutingPolicyResponse>> response =
                 api.setRoutingPolicy(connectionId, setRoutingPolicyRequest);
     }
 }

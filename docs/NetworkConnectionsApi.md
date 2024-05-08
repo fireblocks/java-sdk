@@ -13,6 +13,7 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 | [**getNetworkConnections**](NetworkConnectionsApi.md#getNetworkConnections) | **GET** /network_connections | List network connections |
 | [**getNetworkId**](NetworkConnectionsApi.md#getNetworkId) | **GET** /network_ids/{networkId} | Returns specific network ID. |
 | [**getNetworkIds**](NetworkConnectionsApi.md#getNetworkIds) | **GET** /network_ids | Returns all network IDs, both local IDs and discoverable remote IDs |
+| [**getRoutingPolicyAssetGroups**](NetworkConnectionsApi.md#getRoutingPolicyAssetGroups) | **GET** /network_ids/routing_policy_asset_groups | Returns all enabled routing policy asset groups |
 | [**setNetworkIdDiscoverability**](NetworkConnectionsApi.md#setNetworkIdDiscoverability) | **PATCH** /network_ids/{networkId}/set_discoverability | Update network ID&#39;s discoverability. |
 | [**setNetworkIdName**](NetworkConnectionsApi.md#setNetworkIdName) | **PATCH** /network_ids/{networkId}/set_name | Update network ID&#39;s name. |
 | [**setNetworkIdRoutingPolicy**](NetworkConnectionsApi.md#setNetworkIdRoutingPolicy) | **PATCH** /network_ids/{networkId}/set_routing_policy | Update network id routing policy. |
@@ -111,7 +112,7 @@ No authorization required
 
 Creates a new network connection
 
-Initiates a new network connection.  **Note:** This API call is subject to Flexible Routing Schemes.  Your routing policy defines how your transactions are routed. You can choose 1 of the 3 different schemes mentioned below for each asset type:   - **None**; Defines the profile routing to no destination for that asset type. Incoming transactions to asset types routed to &#x60;None&#x60; will fail.   - **Custom**; Route to an account that you choose. If you remove the account, incoming transactions will fail until you choose another one.   - **Default**; Use the routing specified by the network profile the connection is connected to. This scheme is also referred to as \&quot;Profile Routing\&quot;  Default Workspace Presets:   - Network Profile Crypto → **Custom**   - Network Profile FIAT → **None**   - Network Connection Crypto → **Default**   - Network Connection FIAT → **Default**  Supported asset groups for routing police can be found at &#x60;/enabled_routing_policy_asset_groups&#x60;      - **Note**: By default, Custom routing scheme uses (&#x60;dstId&#x60; &#x3D; &#x60;0&#x60;, &#x60;dstType&#x60; &#x3D; &#x60;VAULT&#x60;). 
+Initiates a new network connection.  **Note:** This API call is subject to Flexible Routing Schemes.  Your routing policy defines how your transactions are routed. You can choose 1 of the 3 different schemes mentioned below for each asset type:   - **None**; Defines the profile routing to no destination for that asset type. Incoming transactions to asset types routed to &#x60;None&#x60; will fail.   - **Custom**; Route to an account that you choose. If you remove the account, incoming transactions will fail until you choose another one.   - **Default**; Use the routing specified by the network profile the connection is connected to. This scheme is also referred to as \&quot;Profile Routing\&quot;  Default Workspace Presets:   - Network Profile Crypto → **Custom**   - Network Profile FIAT → **None**   - Network Connection Crypto → **Default**   - Network Connection FIAT → **Default**  Supported asset groups for routing police can be found at &#x60;/network_ids/routing_policy_asset_groups&#x60;      - **Note**: By default, Custom routing scheme uses (&#x60;dstId&#x60; &#x3D; &#x60;0&#x60;, &#x60;dstType&#x60; &#x3D; &#x60;VAULT&#x60;). 
 
 ### Example
 
@@ -196,7 +197,7 @@ No authorization required
 
 Creates a new Network ID
 
-Creates a new Network ID.  **Note:** This API call is subject to Flexible Routing Schemes.  Your routing policy defines how your transactions are routed. You can choose 1 of the 3 different schemes mentioned below for each asset type:   - **None**; Defines the profile routing to no destination for that asset type. Incoming transactions to asset types routed to &#x60;None&#x60; will fail.   - **Custom**; Route to an account that you choose. If you remove the account, incoming transactions will fail until you choose another one.   - **Default**; Use the routing specified by the network profile the connection is connected to. This scheme is also referred to as \&quot;Profile Routing\&quot;  Default Workspace Presets:   - Network Profile Crypto → **Custom**   - Network Profile FIAT → **None**   - Network Connection Crypto → **Default**   - Network Connection FIAT → **Default**  Supported asset groups for routing police can be found at &#x60;/enabled_routing_policy_asset_groups&#x60;      - **Note**: By default, Custom routing scheme uses (&#x60;dstId&#x60; &#x3D; &#x60;0&#x60;, &#x60;dstType&#x60; &#x3D; &#x60;VAULT&#x60;). 
+Creates a new Network ID.  **Note:** This API call is subject to Flexible Routing Schemes.  Your routing policy defines how your transactions are routed. You can choose 1 of the 3 different schemes mentioned below for each asset type:   - **None**; Defines the profile routing to no destination for that asset type. Incoming transactions to asset types routed to &#x60;None&#x60; will fail.   - **Custom**; Route to an account that you choose. If you remove the account, incoming transactions will fail until you choose another one.   - **Default**; Use the routing specified by the network profile the connection is connected to. This scheme is also referred to as \&quot;Profile Routing\&quot;  Default Workspace Presets:   - Network Profile Crypto → **Custom**   - Network Profile FIAT → **None**   - Network Connection Crypto → **Default**   - Network Connection FIAT → **Default**  Supported asset groups for routing police can be found at &#x60;/network_ids/routing_policy_asset_groups&#x60;      - **Note**: By default, Custom routing scheme uses (&#x60;dstId&#x60; &#x3D; &#x60;0&#x60;, &#x60;dstType&#x60; &#x3D; &#x60;VAULT&#x60;). 
 
 ### Example
 
@@ -277,7 +278,7 @@ No authorization required
 
 ## deleteNetworkConnection
 
-> CompletableFuture<ApiResponse<SetRoutingPolicy200Response>> deleteNetworkConnection deleteNetworkConnection(connectionId)
+> CompletableFuture<ApiResponse<DeleteNetworkConnectionResponse>> deleteNetworkConnection deleteNetworkConnection(connectionId)
 
 Deletes a network connection by ID
 
@@ -308,7 +309,7 @@ public class Example {
 
         String connectionId = "connectionId_example"; // String | The ID of the network connection to delete
         try {
-            CompletableFuture<ApiResponse<SetRoutingPolicy200Response>> response = fireblocks.networkConnections().deleteNetworkConnection(connectionId);
+            CompletableFuture<ApiResponse<DeleteNetworkConnectionResponse>> response = fireblocks.networkConnections().deleteNetworkConnection(connectionId);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
@@ -339,7 +340,7 @@ public class Example {
 
 ### Return type
 
-CompletableFuture<ApiResponse<[**SetRoutingPolicy200Response**](SetRoutingPolicy200Response.md)>>
+CompletableFuture<ApiResponse<[**DeleteNetworkConnectionResponse**](DeleteNetworkConnectionResponse.md)>>
 
 
 ### Authorization
@@ -360,7 +361,7 @@ No authorization required
 
 ## deleteNetworkId
 
-> CompletableFuture<ApiResponse<SetRoutingPolicy200Response>> deleteNetworkId deleteNetworkId(networkId)
+> CompletableFuture<ApiResponse<DeleteNetworkIdResponse>> deleteNetworkId deleteNetworkId(networkId)
 
 Deletes specific network ID.
 
@@ -391,7 +392,7 @@ public class Example {
 
         String networkId = "networkId_example"; // String | The ID of the network
         try {
-            CompletableFuture<ApiResponse<SetRoutingPolicy200Response>> response = fireblocks.networkConnections().deleteNetworkId(networkId);
+            CompletableFuture<ApiResponse<DeleteNetworkIdResponse>> response = fireblocks.networkConnections().deleteNetworkId(networkId);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
@@ -422,7 +423,7 @@ public class Example {
 
 ### Return type
 
-CompletableFuture<ApiResponse<[**SetRoutingPolicy200Response**](SetRoutingPolicy200Response.md)>>
+CompletableFuture<ApiResponse<[**DeleteNetworkIdResponse**](DeleteNetworkIdResponse.md)>>
 
 
 ### Authorization
@@ -765,6 +766,85 @@ No authorization required
 | **0** | Error Response |  * X-Request-ID -  <br>  |
 
 
+## getRoutingPolicyAssetGroups
+
+> CompletableFuture<ApiResponse<List<String>>> getRoutingPolicyAssetGroups getRoutingPolicyAssetGroups()
+
+Returns all enabled routing policy asset groups
+
+Retrieves a list of all enabled routing policy asset groups. Your routing policy defines how your transactions are routed. You can use one or more enabled routing policy asset groups to describe connection or network id routing policy. 
+
+### Example
+
+```java
+// Import classes:
+import com.fireblocks.sdk.ApiClient;
+import com.fireblocks.sdk.ApiException;
+import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
+import com.fireblocks.sdk.api.NetworkConnectionsApi;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+
+public class Example {
+    public static void main(String[] args) {
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
+
+        try {
+            CompletableFuture<ApiResponse<List<String>>> response = fireblocks.networkConnections().getRoutingPolicyAssetGroups();
+            System.out.println("Status code: " + response.get().getStatusCode());
+            System.out.println("Response headers: " + response.get().getHeaders());
+            System.out.println("Response body: " + response.get().getData());
+        } catch (InterruptedException | ExecutionException e) {
+            ApiException apiException = (ApiException)e.getCause();
+            System.err.println("Exception when calling NetworkConnectionsApi#getRoutingPolicyAssetGroups");
+            System.err.println("Status code: " + apiException.getCode());
+            System.err.println("Response headers: " + apiException.getResponseHeaders());
+            System.err.println("Reason: " + apiException.getResponseBody());
+            e.printStackTrace();
+        } catch (ApiException e) {
+            System.err.println("Exception when calling NetworkConnectionsApi#getRoutingPolicyAssetGroups");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            System.err.println("Reason: " + e.getResponseBody());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+CompletableFuture<ApiResponse<**List&lt;String&gt;**>>
+
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | A list of enabled routing policy asset groups |  * X-Request-ID -  <br>  |
+| **0** | Error Response |  * X-Request-ID -  <br>  |
+
+
 ## setNetworkIdDiscoverability
 
 > CompletableFuture<ApiResponse<SetNetworkIdResponse>> setNetworkIdDiscoverability setNetworkIdDiscoverability(setNetworkIdDiscoverabilityRequest, networkId)
@@ -941,7 +1021,7 @@ No authorization required
 
 Update network id routing policy.
 
-Updates the routing policy of a specified network ID.  **Note:** This API call is subject to Flexible Routing Schemes.  Your routing policy defines how your transactions are routed. You can choose 1 of the 3 different schemes mentioned below for each asset type:   - **None**; Defines the profile routing to no destination for that asset type. Incoming transactions to asset types routed to &#x60;None&#x60; will fail.   - **Custom**; Route to an account that you choose. If you remove the account, incoming transactions will fail until you choose another one.   - **Default**; Use the routing specified by the network profile the connection is connected to. This scheme is also referred to as \&quot;Profile Routing\&quot;  Default Workspace Presets:   - Network Profile Crypto → **Custom**   - Network Profile FIAT → **None**   - Network Connection Crypto → **Default**   - Network Connection FIAT → **Default**  Supported asset groups for routing police can be found at &#x60;/enabled_routing_policy_asset_groups&#x60;      - **Note**: By default, Custom routing scheme uses (&#x60;dstId&#x60; &#x3D; &#x60;0&#x60;, &#x60;dstType&#x60; &#x3D; &#x60;VAULT&#x60;). 
+Updates the routing policy of a specified network ID.  **Note:** This API call is subject to Flexible Routing Schemes.  Your routing policy defines how your transactions are routed. You can choose 1 of the 3 different schemes mentioned below for each asset type:   - **None**; Defines the profile routing to no destination for that asset type. Incoming transactions to asset types routed to &#x60;None&#x60; will fail.   - **Custom**; Route to an account that you choose. If you remove the account, incoming transactions will fail until you choose another one.   - **Default**; Use the routing specified by the network profile the connection is connected to. This scheme is also referred to as \&quot;Profile Routing\&quot;  Default Workspace Presets:   - Network Profile Crypto → **Custom**   - Network Profile FIAT → **None**   - Network Connection Crypto → **Default**   - Network Connection FIAT → **Default**  Supported asset groups for routing police can be found at &#x60;/network_ids/routing_policy_asset_groups&#x60;      - **Note**: By default, Custom routing scheme uses (&#x60;dstId&#x60; &#x3D; &#x60;0&#x60;, &#x60;dstType&#x60; &#x3D; &#x60;VAULT&#x60;). 
 
 ### Example
 
@@ -1022,11 +1102,11 @@ No authorization required
 
 ## setRoutingPolicy
 
-> CompletableFuture<ApiResponse<SetRoutingPolicy200Response>> setRoutingPolicy setRoutingPolicy(connectionId, setRoutingPolicyRequest)
+> CompletableFuture<ApiResponse<SetRoutingPolicyResponse>> setRoutingPolicy setRoutingPolicy(connectionId, setRoutingPolicyRequest)
 
 Update network connection routing policy.
 
-Updates an existing network connection&#39;s routing policy.  **Note:** This API call is subject to Flexible Routing Schemes.  Your routing policy defines how your transactions are routed. You can choose 1 of the 3 different schemes mentioned below for each asset type:   - **None**; Defines the profile routing to no destination for that asset type. Incoming transactions to asset types routed to &#x60;None&#x60; will fail.   - **Custom**; Route to an account that you choose. If you remove the account, incoming transactions will fail until you choose another one.   - **Default**; Use the routing specified by the network profile the connection is connected to. This scheme is also referred to as \&quot;Profile Routing\&quot;  Default Workspace Presets:   - Network Profile Crypto → **Custom**   - Network Profile FIAT → **None**   - Network Connection Crypto → **Default**   - Network Connection FIAT → **Default**  Supported asset groups for routing police can be found at &#x60;/enabled_routing_policy_asset_groups&#x60;      - **Note**: By default, Custom routing scheme uses (&#x60;dstId&#x60; &#x3D; &#x60;0&#x60;, &#x60;dstType&#x60; &#x3D; &#x60;VAULT&#x60;). 
+Updates an existing network connection&#39;s routing policy.  **Note:** This API call is subject to Flexible Routing Schemes.  Your routing policy defines how your transactions are routed. You can choose 1 of the 3 different schemes mentioned below for each asset type:   - **None**; Defines the profile routing to no destination for that asset type. Incoming transactions to asset types routed to &#x60;None&#x60; will fail.   - **Custom**; Route to an account that you choose. If you remove the account, incoming transactions will fail until you choose another one.   - **Default**; Use the routing specified by the network profile the connection is connected to. This scheme is also referred to as \&quot;Profile Routing\&quot;  Default Workspace Presets:   - Network Profile Crypto → **Custom**   - Network Profile FIAT → **None**   - Network Connection Crypto → **Default**   - Network Connection FIAT → **Default**  Supported asset groups for routing police can be found at &#x60;/network_ids/routing_policy_asset_groups&#x60;      - **Note**: By default, Custom routing scheme uses (&#x60;dstId&#x60; &#x3D; &#x60;0&#x60;, &#x60;dstType&#x60; &#x3D; &#x60;VAULT&#x60;). 
 
 ### Example
 
@@ -1054,7 +1134,7 @@ public class Example {
         String connectionId = "connectionId_example"; // String | The ID of the network connection
         SetRoutingPolicyRequest setRoutingPolicyRequest = new SetRoutingPolicyRequest(); // SetRoutingPolicyRequest | 
         try {
-            CompletableFuture<ApiResponse<SetRoutingPolicy200Response>> response = fireblocks.networkConnections().setRoutingPolicy(connectionId, setRoutingPolicyRequest);
+            CompletableFuture<ApiResponse<SetRoutingPolicyResponse>> response = fireblocks.networkConnections().setRoutingPolicy(connectionId, setRoutingPolicyRequest);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
@@ -1086,7 +1166,7 @@ public class Example {
 
 ### Return type
 
-CompletableFuture<ApiResponse<[**SetRoutingPolicy200Response**](SetRoutingPolicy200Response.md)>>
+CompletableFuture<ApiResponse<[**SetRoutingPolicyResponse**](SetRoutingPolicyResponse.md)>>
 
 
 ### Authorization

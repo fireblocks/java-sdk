@@ -18,7 +18,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
-import com.fireblocks.sdk.model.GetWorkspaceStatus200Response;
+import com.fireblocks.sdk.model.GetWorkspaceStatusResponse;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
@@ -70,10 +70,10 @@ public class WorkspaceStatusBetaApi {
     /**
      * Returns current workspace status Returns current workspace status
      *
-     * @return CompletableFuture&lt;ApiResponse&lt;GetWorkspaceStatus200Response&gt;&gt;
+     * @return CompletableFuture&lt;ApiResponse&lt;GetWorkspaceStatusResponse&gt;&gt;
      * @throws ApiException if fails to make API call
      */
-    public CompletableFuture<ApiResponse<GetWorkspaceStatus200Response>> getWorkspaceStatus()
+    public CompletableFuture<ApiResponse<GetWorkspaceStatusResponse>> getWorkspaceStatus()
             throws ApiException {
         try {
             HttpRequest.Builder localVarRequestBuilder = getWorkspaceStatusRequestBuilder();
@@ -92,7 +92,7 @@ public class WorkspaceStatusBetaApi {
                                 try {
                                     String responseBody = localVarResponse.body();
                                     return CompletableFuture.completedFuture(
-                                            new ApiResponse<GetWorkspaceStatus200Response>(
+                                            new ApiResponse<GetWorkspaceStatusResponse>(
                                                     localVarResponse.statusCode(),
                                                     localVarResponse.headers().map(),
                                                     responseBody == null || responseBody.isBlank()
@@ -100,7 +100,7 @@ public class WorkspaceStatusBetaApi {
                                                             : memberVarObjectMapper.readValue(
                                                                     responseBody,
                                                                     new TypeReference<
-                                                                            GetWorkspaceStatus200Response>() {})));
+                                                                            GetWorkspaceStatusResponse>() {})));
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }

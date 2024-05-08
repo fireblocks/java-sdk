@@ -28,9 +28,9 @@ public class ConsoleUserApiTest {
     private final ConsoleUserApi api = new ConsoleUserApi();
 
     /**
-     * create console user
+     * Create console user
      *
-     * <p>creates fireblocks console user
+     * <p>Creates console user in your tenant
      *
      * @throws ApiException if the Api call fails
      */
@@ -44,9 +44,9 @@ public class ConsoleUserApiTest {
     }
 
     /**
-     * get console users
+     * Get console users
      *
-     * <p>get console users from the current tenant
+     * <p>Get console users for your tenant
      *
      * @throws ApiException if the Api call fails
      */

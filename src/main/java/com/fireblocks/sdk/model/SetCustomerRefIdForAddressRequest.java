@@ -53,7 +53,7 @@ public class SetCustomerRefIdForAddressRequest {
         this.customerRefId = customerRefId;
     }
 
-    /** Return true if this setCustomerRefIdForAddress_request object is equal to o. */
+    /** Return true if this SetCustomerRefIdForAddressRequest object is equal to o. */
     @Override
     public boolean equals(Object o) {
         if (this == o) {

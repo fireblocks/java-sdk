@@ -18,78 +18,95 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 import java.util.StringJoiner;
 
 /** DropTransactionResponse */
 @JsonPropertyOrder({
-    DropTransactionResponse.JSON_PROPERTY_SUCCESS,
-    DropTransactionResponse.JSON_PROPERTY_TRANSACTIONS
+    DropTransactionResponse.JSON_PROPERTY_TX_STATUS,
+    DropTransactionResponse.JSON_PROPERTY_TX_ID,
+    DropTransactionResponse.JSON_PROPERTY_REPLACED_TX_HASH
 })
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class DropTransactionResponse {
-    public static final String JSON_PROPERTY_SUCCESS = "success";
-    private Boolean success;
+    public static final String JSON_PROPERTY_TX_STATUS = "txStatus";
+    private String txStatus;
 
-    public static final String JSON_PROPERTY_TRANSACTIONS = "transactions";
-    private List<String> transactions;
+    public static final String JSON_PROPERTY_TX_ID = "txId";
+    private String txId;
+
+    public static final String JSON_PROPERTY_REPLACED_TX_HASH = "replacedTxHash";
+    private String replacedTxHash;
 
     public DropTransactionResponse() {}
 
-    public DropTransactionResponse success(Boolean success) {
-        this.success = success;
+    public DropTransactionResponse txStatus(String txStatus) {
+        this.txStatus = txStatus;
         return this;
     }
 
     /**
-     * Get success
+     * Get txStatus
      *
-     * @return success
+     * @return txStatus
      */
     @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_SUCCESS)
+    @JsonProperty(JSON_PROPERTY_TX_STATUS)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public Boolean getSuccess() {
-        return success;
+    public String getTxStatus() {
+        return txStatus;
     }
 
-    @JsonProperty(JSON_PROPERTY_SUCCESS)
+    @JsonProperty(JSON_PROPERTY_TX_STATUS)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setSuccess(Boolean success) {
-        this.success = success;
+    public void setTxStatus(String txStatus) {
+        this.txStatus = txStatus;
     }
 
-    public DropTransactionResponse transactions(List<String> transactions) {
-        this.transactions = transactions;
-        return this;
-    }
-
-    public DropTransactionResponse addTransactionsItem(String transactionsItem) {
-        if (this.transactions == null) {
-            this.transactions = new ArrayList<>();
-        }
-        this.transactions.add(transactionsItem);
+    public DropTransactionResponse txId(String txId) {
+        this.txId = txId;
         return this;
     }
 
     /**
-     * Get transactions
+     * Get txId
      *
-     * @return transactions
+     * @return txId
      */
     @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_TRANSACTIONS)
+    @JsonProperty(JSON_PROPERTY_TX_ID)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public List<String> getTransactions() {
-        return transactions;
+    public String getTxId() {
+        return txId;
     }
 
-    @JsonProperty(JSON_PROPERTY_TRANSACTIONS)
+    @JsonProperty(JSON_PROPERTY_TX_ID)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setTransactions(List<String> transactions) {
-        this.transactions = transactions;
+    public void setTxId(String txId) {
+        this.txId = txId;
+    }
+
+    public DropTransactionResponse replacedTxHash(String replacedTxHash) {
+        this.replacedTxHash = replacedTxHash;
+        return this;
+    }
+
+    /**
+     * Get replacedTxHash
+     *
+     * @return replacedTxHash
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_REPLACED_TX_HASH)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getReplacedTxHash() {
+        return replacedTxHash;
+    }
+
+    @JsonProperty(JSON_PROPERTY_REPLACED_TX_HASH)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setReplacedTxHash(String replacedTxHash) {
+        this.replacedTxHash = replacedTxHash;
     }
 
     /** Return true if this DropTransactionResponse object is equal to o. */
@@ -102,21 +119,23 @@ public class DropTransactionResponse {
             return false;
         }
         DropTransactionResponse dropTransactionResponse = (DropTransactionResponse) o;
-        return Objects.equals(this.success, dropTransactionResponse.success)
-                && Objects.equals(this.transactions, dropTransactionResponse.transactions);
+        return Objects.equals(this.txStatus, dropTransactionResponse.txStatus)
+                && Objects.equals(this.txId, dropTransactionResponse.txId)
+                && Objects.equals(this.replacedTxHash, dropTransactionResponse.replacedTxHash);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(success, transactions);
+        return Objects.hash(txStatus, txId, replacedTxHash);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("class DropTransactionResponse {\n");
-        sb.append("    success: ").append(toIndentedString(success)).append("\n");
-        sb.append("    transactions: ").append(toIndentedString(transactions)).append("\n");
+        sb.append("    txStatus: ").append(toIndentedString(txStatus)).append("\n");
+        sb.append("    txId: ").append(toIndentedString(txId)).append("\n");
+        sb.append("    replacedTxHash: ").append(toIndentedString(replacedTxHash)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -164,34 +183,39 @@ public class DropTransactionResponse {
 
         StringJoiner joiner = new StringJoiner("&");
 
-        // add `success` to the URL query string
-        if (getSuccess() != null) {
+        // add `txStatus` to the URL query string
+        if (getTxStatus() != null) {
             joiner.add(
                     String.format(
-                            "%ssuccess%s=%s",
+                            "%stxStatus%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getSuccess()), StandardCharsets.UTF_8)
+                            URLEncoder.encode(String.valueOf(getTxStatus()), StandardCharsets.UTF_8)
                                     .replaceAll("\\+", "%20")));
         }
 
-        // add `transactions` to the URL query string
-        if (getTransactions() != null) {
-            for (int i = 0; i < getTransactions().size(); i++) {
-                joiner.add(
-                        String.format(
-                                "%stransactions%s%s=%s",
-                                prefix,
-                                suffix,
-                                "".equals(suffix)
-                                        ? ""
-                                        : String.format(
-                                                "%s%d%s", containerPrefix, i, containerSuffix),
-                                URLEncoder.encode(
-                                                String.valueOf(getTransactions().get(i)),
-                                                StandardCharsets.UTF_8)
-                                        .replaceAll("\\+", "%20")));
-            }
+        // add `txId` to the URL query string
+        if (getTxId() != null) {
+            joiner.add(
+                    String.format(
+                            "%stxId%s=%s",
+                            prefix,
+                            suffix,
+                            URLEncoder.encode(String.valueOf(getTxId()), StandardCharsets.UTF_8)
+                                    .replaceAll("\\+", "%20")));
+        }
+
+        // add `replacedTxHash` to the URL query string
+        if (getReplacedTxHash() != null) {
+            joiner.add(
+                    String.format(
+                            "%sreplacedTxHash%s=%s",
+                            prefix,
+                            suffix,
+                            URLEncoder.encode(
+                                            String.valueOf(getReplacedTxHash()),
+                                            StandardCharsets.UTF_8)
+                                    .replaceAll("\\+", "%20")));
         }
 
         return joiner.toString();

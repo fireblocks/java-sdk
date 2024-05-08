@@ -4,7 +4,7 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
-| [**resetDevice**](ResetDeviceApi.md#resetDevice) | **POST** /management/users/{id}/reset_device | resets device |
+| [**resetDevice**](ResetDeviceApi.md#resetDevice) | **POST** /management/users/{id}/reset_device | Resets device |
 
 
 
@@ -12,9 +12,9 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 
 > CompletableFuture<ApiResponse<Void>> resetDevice resetDevice(id, idempotencyKey)
 
-resets device
+Resets device
 
-resets device
+Resets mobile device for given console user, that user will need to do mobile onboarding again.
 
 ### Example
 
@@ -39,7 +39,7 @@ public class Example {
             .secretKey("my-secret-key");
         Fireblocks fireblocks = new Fireblocks(configurationOptions);
 
-        String id = "id_example"; // String | The ID of the user
+        String id = "id_example"; // String | The ID of the console user
         String idempotencyKey = "idempotencyKey_example"; // String | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
         try {
             CompletableFuture<ApiResponse<Void>> response = fireblocks.resetDevice().resetDevice(id, idempotencyKey);
@@ -68,7 +68,7 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **id** | **String**| The ID of the user | |
+| **id** | **String**| The ID of the console user | |
 | **idempotencyKey** | **String**| A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | [optional] |
 
 ### Return type
@@ -88,7 +88,7 @@ No authorization required
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **200** | User sent for creation |  * X-Request-ID -  <br>  |
+| **200** | Reset device approval request has been sent |  * X-Request-ID -  <br>  |
 | **401** | Unauthorized. Missing / invalid JWT token in Authorization header. |  * X-Request-ID -  <br>  |
 | **403** | Lacking permissions. |  * X-Request-ID -  <br>  |
 | **5XX** | Internal error. |  * X-Request-ID -  <br>  |

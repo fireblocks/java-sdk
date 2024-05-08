@@ -48,4 +48,16 @@ public class CreateConnectionRequestTest {
     public void chainIdsTest() {
         // TODO: test chainIds
     }
+
+    /** Test the property 'ncwId' */
+    @Test
+    public void ncwIdTest() {
+        // TODO: test ncwId
+    }
+
+    /** Test the property 'ncwAccountId' */
+    @Test
+    public void ncwAccountIdTest() {
+        // TODO: test ncwAccountId
+    }
 }

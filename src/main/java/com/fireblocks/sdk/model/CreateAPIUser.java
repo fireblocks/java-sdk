@@ -55,7 +55,7 @@ public class CreateAPIUser {
     }
 
     /**
-     * User role
+     * Users role
      *
      * @return role
      */
@@ -78,7 +78,7 @@ public class CreateAPIUser {
     }
 
     /**
-     * users name
+     * Users name
      *
      * @return name
      */
@@ -101,19 +101,20 @@ public class CreateAPIUser {
     }
 
     /**
-     * only for user with signing capabilities
+     * CSR file that is used to verify API requests. read more
+     * https://developers.fireblocks.com/docs/quickstart
      *
      * @return csrPem
      */
-    @jakarta.annotation.Nullable
+    @jakarta.annotation.Nonnull
     @JsonProperty(JSON_PROPERTY_CSR_PEM)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
     public String getCsrPem() {
         return csrPem;
     }
 
     @JsonProperty(JSON_PROPERTY_CSR_PEM)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
     public void setCsrPem(String csrPem) {
         this.csrPem = csrPem;
     }
@@ -124,7 +125,8 @@ public class CreateAPIUser {
     }
 
     /**
-     * cosigner setup type
+     * Different environments allow for different setup options, field is required for
+     * management/signer role
      *
      * @return coSignerSetupType
      */
@@ -147,7 +149,7 @@ public class CreateAPIUser {
     }
 
     /**
-     * is first?
+     * pass as true if this is the first user on the coSigner machine
      *
      * @return coSignerSetupIsFirstUser
      */

@@ -19,9 +19,10 @@ import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.Pair;
-import com.fireblocks.sdk.model.GetOwnershipTokens200Response;
-import com.fireblocks.sdk.model.ListOwnedCollections200Response;
-import com.fireblocks.sdk.model.ListOwnedTokens200Response;
+import com.fireblocks.sdk.model.GetNFTsResponse;
+import com.fireblocks.sdk.model.GetOwnershipTokensResponse;
+import com.fireblocks.sdk.model.ListOwnedCollectionsResponse;
+import com.fireblocks.sdk.model.ListOwnedTokensResponse;
 import com.fireblocks.sdk.model.TokenOwnershipSpamUpdatePayload;
 import com.fireblocks.sdk.model.TokenOwnershipStatusUpdatePayload;
 import com.fireblocks.sdk.model.TokenResponse;
@@ -155,10 +156,10 @@ public class NftsApi {
      *     (optional
      * @param order Order direction, it can be &#x60;ASC&#x60; for ascending or &#x60;DESC&#x60; for
      *     descending (optional, default to ASC)
-     * @return CompletableFuture&lt;ApiResponse&lt;ListOwnedTokens200Response&gt;&gt;
+     * @return CompletableFuture&lt;ApiResponse&lt;GetNFTsResponse&gt;&gt;
      * @throws ApiException if fails to make API call
      */
-    public CompletableFuture<ApiResponse<ListOwnedTokens200Response>> getNFTs(
+    public CompletableFuture<ApiResponse<GetNFTsResponse>> getNFTs(
             String ids, String pageCursor, BigDecimal pageSize, List<String> sort, String order)
             throws ApiException {
         try {
@@ -178,7 +179,7 @@ public class NftsApi {
                                 try {
                                     String responseBody = localVarResponse.body();
                                     return CompletableFuture.completedFuture(
-                                            new ApiResponse<ListOwnedTokens200Response>(
+                                            new ApiResponse<GetNFTsResponse>(
                                                     localVarResponse.statusCode(),
                                                     localVarResponse.headers().map(),
                                                     responseBody == null || responseBody.isBlank()
@@ -186,7 +187,7 @@ public class NftsApi {
                                                             : memberVarObjectMapper.readValue(
                                                                     responseBody,
                                                                     new TypeReference<
-                                                                            ListOwnedTokens200Response>() {})));
+                                                                            GetNFTsResponse>() {})));
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
@@ -274,10 +275,10 @@ public class NftsApi {
      *     name and id within the contract/collection, collection name, blockchain descriptor and
      *     name. (optional)
      * @param spam Token ownership spam status. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;GetOwnershipTokens200Response&gt;&gt;
+     * @return CompletableFuture&lt;ApiResponse&lt;GetOwnershipTokensResponse&gt;&gt;
      * @throws ApiException if fails to make API call
      */
-    public CompletableFuture<ApiResponse<GetOwnershipTokens200Response>> getOwnershipTokens(
+    public CompletableFuture<ApiResponse<GetOwnershipTokensResponse>> getOwnershipTokens(
             String blockchainDescriptor,
             String vaultAccountIds,
             String ncwId,
@@ -325,7 +326,7 @@ public class NftsApi {
                                 try {
                                     String responseBody = localVarResponse.body();
                                     return CompletableFuture.completedFuture(
-                                            new ApiResponse<GetOwnershipTokens200Response>(
+                                            new ApiResponse<GetOwnershipTokensResponse>(
                                                     localVarResponse.statusCode(),
                                                     localVarResponse.headers().map(),
                                                     responseBody == null || responseBody.isBlank()
@@ -333,7 +334,7 @@ public class NftsApi {
                                                             : memberVarObjectMapper.readValue(
                                                                     responseBody,
                                                                     new TypeReference<
-                                                                            GetOwnershipTokens200Response>() {})));
+                                                                            GetOwnershipTokensResponse>() {})));
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
@@ -435,10 +436,10 @@ public class NftsApi {
      * @param order Order direction, it can be &#x60;ASC&#x60; for ascending or &#x60;DESC&#x60; for
      *     descending (optional, default to ASC)
      * @param status Token ownership status (optional, default to LISTED)
-     * @return CompletableFuture&lt;ApiResponse&lt;ListOwnedCollections200Response&gt;&gt;
+     * @return CompletableFuture&lt;ApiResponse&lt;ListOwnedCollectionsResponse&gt;&gt;
      * @throws ApiException if fails to make API call
      */
-    public CompletableFuture<ApiResponse<ListOwnedCollections200Response>> listOwnedCollections(
+    public CompletableFuture<ApiResponse<ListOwnedCollectionsResponse>> listOwnedCollections(
             String ncwId,
             String walletType,
             String search,
@@ -467,7 +468,7 @@ public class NftsApi {
                                 try {
                                     String responseBody = localVarResponse.body();
                                     return CompletableFuture.completedFuture(
-                                            new ApiResponse<ListOwnedCollections200Response>(
+                                            new ApiResponse<ListOwnedCollectionsResponse>(
                                                     localVarResponse.statusCode(),
                                                     localVarResponse.headers().map(),
                                                     responseBody == null || responseBody.isBlank()
@@ -475,7 +476,7 @@ public class NftsApi {
                                                             : memberVarObjectMapper.readValue(
                                                                     responseBody,
                                                                     new TypeReference<
-                                                                            ListOwnedCollections200Response>() {})));
+                                                                            ListOwnedCollectionsResponse>() {})));
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
@@ -559,10 +560,10 @@ public class NftsApi {
      * @param status Token ownership status (optional, default to LISTED)
      * @param search Search owned tokens by token name (optional)
      * @param spam Token ownership spam status. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;ListOwnedTokens200Response&gt;&gt;
+     * @return CompletableFuture&lt;ApiResponse&lt;ListOwnedTokensResponse&gt;&gt;
      * @throws ApiException if fails to make API call
      */
-    public CompletableFuture<ApiResponse<ListOwnedTokens200Response>> listOwnedTokens(
+    public CompletableFuture<ApiResponse<ListOwnedTokensResponse>> listOwnedTokens(
             String ncwId,
             String walletType,
             String pageCursor,
@@ -599,7 +600,7 @@ public class NftsApi {
                                 try {
                                     String responseBody = localVarResponse.body();
                                     return CompletableFuture.completedFuture(
-                                            new ApiResponse<ListOwnedTokens200Response>(
+                                            new ApiResponse<ListOwnedTokensResponse>(
                                                     localVarResponse.statusCode(),
                                                     localVarResponse.headers().map(),
                                                     responseBody == null || responseBody.isBlank()
@@ -607,7 +608,7 @@ public class NftsApi {
                                                             : memberVarObjectMapper.readValue(
                                                                     responseBody,
                                                                     new TypeReference<
-                                                                            ListOwnedTokens200Response>() {})));
+                                                                            ListOwnedTokensResponse>() {})));
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
