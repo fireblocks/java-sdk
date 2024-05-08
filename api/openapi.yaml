@@ -46,9 +46,7 @@ paths:
           content:
             application/json:
               schema:
-                items:
-                  $ref: '#/components/schemas/VaultAccount'
-                type: array
+                $ref: '#/components/schemas/GetVaultAccountsResponse'
           description: A list of vault accounts
           headers:
             X-Request-ID:
@@ -1117,9 +1115,7 @@ paths:
           content:
             application/json:
               schema:
-                items:
-                  $ref: '#/components/schemas/VaultWalletAddress'
-                type: array
+                $ref: '#/components/schemas/GetVaultAccountAssetAddressesResponse'
           description: A list of deposit addresses
           headers:
             X-Request-ID:
@@ -1448,7 +1444,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/updateVaultAccountAssetAddress_request'
+              $ref: '#/components/schemas/UpdateVaultAccountAssetAddressRequest'
         required: false
       responses:
         "201":
@@ -1540,7 +1536,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/setCustomerRefIdForAddress_request'
+              $ref: '#/components/schemas/SetCustomerRefIdForAddressRequest'
         required: true
       responses:
         "201":
@@ -1690,9 +1686,7 @@ paths:
           content:
             application/json:
               schema:
-                items:
-                  $ref: '#/components/schemas/UnspentInputsResponse'
-                type: array
+                $ref: '#/components/schemas/GetUnspentInputsResponse'
           description: List of Unspent information per input
           headers:
             X-Request-ID:
@@ -1719,11 +1713,12 @@ paths:
             \ assetId);"
           name: Fireblocks SDK Javascript example
         - language: typescript
-          code: "const response: Promise<FireblocksResponse<any>> = fireblocks.vaults.getUnspentInputs(vaultsApiGetUnspentInputsRequest);"
+          code: "const response: Promise<FireblocksResponse<GetUnspentInputsResponse>>\
+            \ = fireblocks.vaults.getUnspentInputs(vaultsApiGetUnspentInputsRequest);"
           name: Fireblocks SDK TypeScript example
         - language: java
-          code: "CompletableFuture<ApiResponse<Object>> response = fireblocks.vaults().getUnspentInputs(vaultAccountId,\
-            \ assetId);"
+          code: "CompletableFuture<ApiResponse<List<UnspentInputsResponse>>> response\
+            \ = fireblocks.vaults().getUnspentInputs(vaultAccountId, assetId);"
           name: Fireblocks SDK Java example
       x-accepts: application/json
   /vault/public_key_info:
@@ -1902,9 +1897,7 @@ paths:
           content:
             application/json:
               schema:
-                items:
-                  $ref: '#/components/schemas/VaultAsset'
-                type: array
+                $ref: '#/components/schemas/GetVaultAssetsResponse'
           description: Amount by asset
           headers:
             X-Request-ID:
@@ -1932,10 +1925,11 @@ paths:
             \ accountNameSuffix);"
           name: Fireblocks SDK Javascript example
         - language: typescript
-          code: "const response: Promise<FireblocksResponse<any>> = fireblocks.vaults.getVaultAssets(vaultsApiGetVaultAssetsRequest);"
+          code: "const response: Promise<FireblocksResponse<GetVaultAssetsResponse>>\
+            \ = fireblocks.vaults.getVaultAssets(vaultsApiGetVaultAssetsRequest);"
           name: Fireblocks SDK TypeScript example
         - language: java
-          code: "CompletableFuture<ApiResponse<Object>> response = fireblocks.vaults().getVaultAssets(accountNamePrefix,\
+          code: "CompletableFuture<ApiResponse<List<VaultAsset>>> response = fireblocks.vaults().getVaultAssets(accountNamePrefix,\
             \ accountNameSuffix);"
           name: Fireblocks SDK Java example
       x-accepts: application/json
@@ -2100,9 +2094,7 @@ paths:
           content:
             application/json:
               schema:
-                items:
-                  $ref: '#/components/schemas/ExchangeAccount'
-                type: array
+                $ref: '#/components/schemas/GetExchangeAccountsResponse'
           description: An ExchangeAccount object
           headers:
             X-Request-ID:
@@ -2164,9 +2156,7 @@ paths:
           content:
             application/json:
               schema:
-                items:
-                  $ref: '#/components/schemas/ExchangeAccountsPaged'
-                type: array
+                $ref: '#/components/schemas/GetPagedExchangeAccountsResponse'
           description: An ExchangeAccount object
           headers:
             X-Request-ID:
@@ -2192,11 +2182,13 @@ paths:
           code: exchangeAccounts = fireblocks.get_exchange_accounts_paged()
           name: Fireblocks SDK Python example
         - language: typescript
-          code: "const response: Promise<FireblocksResponse<any>> = fireblocks.exchangeAccounts.getPagedExchangeAccounts(exchangeAccountsApiGetPagedExchangeAccountsRequest);"
+          code: "const response: Promise<FireblocksResponse<GetPagedExchangeAccountsResponse>>\
+            \ = fireblocks.exchangeAccounts.getPagedExchangeAccounts(exchangeAccountsApiGetPagedExchangeAccountsRequest);"
           name: Fireblocks SDK TypeScript example
         - language: java
-          code: "CompletableFuture<ApiResponse<Object>> response = fireblocks.exchangeAccounts().getPagedExchangeAccounts(limit,\
-            \ before, after);"
+          code: "CompletableFuture<ApiResponse<List<ExchangeAccountsPaged>>> response\
+            \ = fireblocks.exchangeAccounts().getPagedExchangeAccounts(limit, before,\
+            \ after);"
           name: Fireblocks SDK Java example
       x-accepts: application/json
   /exchange_accounts/{exchangeAccountId}:
@@ -2452,9 +2444,7 @@ paths:
           content:
             application/json:
               schema:
-                items:
-                  $ref: '#/components/schemas/FiatAccount'
-                type: array
+                $ref: '#/components/schemas/GetFiatAccountsResponse'
           description: A fiat account object
           headers:
             X-Request-ID:
@@ -2480,10 +2470,11 @@ paths:
           code: const transactions = await fireblocks.getFiatAccounts();
           name: Fireblocks SDK Javascript example
         - language: typescript
-          code: "const response: Promise<FireblocksResponse<any>> = fireblocks.fiatAccounts.getFiatAccounts();"
+          code: "const response: Promise<FireblocksResponse<GetFiatAccountsResponse>>\
+            \ = fireblocks.fiatAccounts.getFiatAccounts();"
           name: Fireblocks SDK TypeScript example
         - language: java
-          code: CompletableFuture<ApiResponse<Object>> response = fireblocks.fiatAccounts().getFiatAccounts();
+          code: CompletableFuture<ApiResponse<List<FiatAccount>>> response = fireblocks.fiatAccounts().getFiatAccounts();
           name: Fireblocks SDK Java example
       x-accepts: application/json
   /fiat_accounts/{accountId}:
@@ -2704,9 +2695,7 @@ paths:
           content:
             application/json:
               schema:
-                items:
-                  $ref: '#/components/schemas/NetworkConnectionResponse'
-                type: array
+                $ref: '#/components/schemas/GetNetworkConnectionsResponse'
           description: A list of network connections
           headers:
             X-Request-ID:
@@ -2732,10 +2721,12 @@ paths:
           code: const networkConnections = await fireblocks.getNetworkConnections();
           name: Fireblocks SDK Javascript example
         - language: typescript
-          code: "const response: Promise<FireblocksResponse<any>> = fireblocks.networkConnections.getNetworkConnections();"
+          code: "const response: Promise<FireblocksResponse<GetNetworkConnectionsResponse>>\
+            \ = fireblocks.networkConnections.getNetworkConnections();"
           name: Fireblocks SDK TypeScript example
         - language: java
-          code: CompletableFuture<ApiResponse<Object>> response = fireblocks.networkConnections().getNetworkConnections();
+          code: CompletableFuture<ApiResponse<List<NetworkConnectionResponse>>> response
+            = fireblocks.networkConnections().getNetworkConnections();
           name: Fireblocks SDK Java example
       x-accepts: application/json
     post:
@@ -2756,7 +2747,7 @@ paths:
           - Network Connection Crypto → **Default**
           - Network Connection FIAT → **Default**
 
-        Supported asset groups for routing police can be found at `/enabled_routing_policy_asset_groups`
+        Supported asset groups for routing police can be found at `/network_ids/routing_policy_asset_groups`
 
             - **Note**: By default, Custom routing scheme uses (`dstId` = `0`, `dstType` = `VAULT`).
       operationId: createNetworkConnection
@@ -2831,7 +2822,7 @@ paths:
           - Network Connection Crypto → **Default**
           - Network Connection FIAT → **Default**
 
-        Supported asset groups for routing police can be found at `/enabled_routing_policy_asset_groups`
+        Supported asset groups for routing police can be found at `/network_ids/routing_policy_asset_groups`
 
             - **Note**: By default, Custom routing scheme uses (`dstId` = `0`, `dstType` = `VAULT`).
       operationId: setRoutingPolicy
@@ -2854,7 +2845,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/setRoutingPolicy_200_response'
+                $ref: '#/components/schemas/SetRoutingPolicyResponse'
           description: Network ID
           headers:
             X-Request-ID:
@@ -2874,11 +2865,12 @@ paths:
       x-readme:
         code-samples:
         - language: typescript
-          code: "const response: Promise<FireblocksResponse<any>> = fireblocks.networkConnections.setRoutingPolicy(networkConnectionsApiSetRoutingPolicyRequest);"
+          code: "const response: Promise<FireblocksResponse<SetRoutingPolicyResponse>>\
+            \ = fireblocks.networkConnections.setRoutingPolicy(networkConnectionsApiSetRoutingPolicyRequest);"
           name: Fireblocks SDK TypeScript example
         - language: java
-          code: "CompletableFuture<ApiResponse<Object>> response = fireblocks.networkConnections().setRoutingPolicy(connectionId,\
-            \ setRoutingPolicyRequest);"
+          code: "CompletableFuture<ApiResponse<SetRoutingPolicyResponse>> response\
+            \ = fireblocks.networkConnections().setRoutingPolicy(connectionId, setRoutingPolicyRequest);"
           name: Fireblocks SDK Java example
       x-content-type: application/json
       x-accepts: application/json
@@ -2974,7 +2966,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/setRoutingPolicy_200_response'
+                $ref: '#/components/schemas/DeleteNetworkConnectionResponse'
           description: Network ID
           headers:
             X-Request-ID:
@@ -2994,10 +2986,12 @@ paths:
       x-readme:
         code-samples:
         - language: typescript
-          code: "const response: Promise<FireblocksResponse<any>> = fireblocks.networkConnections.deleteNetworkConnection(networkConnectionsApiDeleteNetworkConnectionRequest);"
+          code: "const response: Promise<FireblocksResponse<DeleteNetworkConnectionResponse>>\
+            \ = fireblocks.networkConnections.deleteNetworkConnection(networkConnectionsApiDeleteNetworkConnectionRequest);"
           name: Fireblocks SDK TypeScript example
         - language: java
-          code: CompletableFuture<ApiResponse<Object>> response = fireblocks.networkConnections().deleteNetworkConnection(connectionId);
+          code: CompletableFuture<ApiResponse<DeleteNetworkConnectionResponse>> response
+            = fireblocks.networkConnections().deleteNetworkConnection(connectionId);
           name: Fireblocks SDK Java example
       x-accepts: application/json
     get:
@@ -3094,10 +3088,7 @@ paths:
           content:
             application/json:
               schema:
-                items:
-                  allOf:
-                  - $ref: '#/components/schemas/NetworkIdResponse'
-                type: array
+                $ref: '#/components/schemas/GetNetworkIdsResponse'
           description: A list of network IDs
           headers:
             X-Request-ID:
@@ -3117,10 +3108,11 @@ paths:
       x-readme:
         code-samples:
         - language: typescript
-          code: "const response: Promise<FireblocksResponse<any>> = fireblocks.networkConnections.getNetworkIds();"
+          code: "const response: Promise<FireblocksResponse<GetNetworkIdsResponse>>\
+            \ = fireblocks.networkConnections.getNetworkIds();"
           name: Fireblocks SDK TypeScript example
         - language: java
-          code: CompletableFuture<ApiResponse<Object>> response = fireblocks.networkConnections().getNetworkIds();
+          code: CompletableFuture<ApiResponse<List<Object>>> response = fireblocks.networkConnections().getNetworkIds();
           name: Fireblocks SDK Java example
       x-accepts: application/json
     post:
@@ -3141,7 +3133,7 @@ paths:
           - Network Connection Crypto → **Default**
           - Network Connection FIAT → **Default**
 
-        Supported asset groups for routing police can be found at `/enabled_routing_policy_asset_groups`
+        Supported asset groups for routing police can be found at `/network_ids/routing_policy_asset_groups`
 
             - **Note**: By default, Custom routing scheme uses (`dstId` = `0`, `dstType` = `VAULT`).
       operationId: createNetworkId
@@ -3196,19 +3188,19 @@ paths:
           name: Fireblocks SDK Java example
       x-content-type: application/json
       x-accepts: application/json
-  /enabled_routing_policy_asset_groups:
+  /network_ids/routing_policy_asset_groups:
     get:
       description: |
         Retrieves a list of all enabled routing policy asset groups.
         Your routing policy defines how your transactions are routed.
         You can use one or more enabled routing policy asset groups to describe connection or network id routing policy.
-      operationId: getEnabledRoutingPolicyAssetGroups
+      operationId: getRoutingPolicyAssetGroups
       responses:
         "200":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GetEnabledRoutingPolicyAssetGroupsResponse'
+                $ref: '#/components/schemas/GetRoutingPolicyAssetGroupsResponse'
           description: A list of enabled routing policy asset groups
           headers:
             X-Request-ID:
@@ -3225,7 +3217,15 @@ paths:
       summary: Returns all enabled routing policy asset groups
       tags:
       - Network connections
-      x-internal: true
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<GetRoutingPolicyAssetGroupsResponse>>\
+            \ = fireblocks.networkConnections.getRoutingPolicyAssetGroups();"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: CompletableFuture<ApiResponse<List<String>>> response = fireblocks.networkConnections().getRoutingPolicyAssetGroups();
+          name: Fireblocks SDK Java example
       x-accepts: application/json
   /network_ids/{networkId}:
     delete:
@@ -3262,7 +3262,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/setRoutingPolicy_200_response'
+                $ref: '#/components/schemas/DeleteNetworkIdResponse'
           description: Network ID
         default:
           content:
@@ -3279,10 +3279,12 @@ paths:
       x-readme:
         code-samples:
         - language: typescript
-          code: "const response: Promise<FireblocksResponse<any>> = fireblocks.networkConnections.deleteNetworkId(networkConnectionsApiDeleteNetworkIdRequest);"
+          code: "const response: Promise<FireblocksResponse<DeleteNetworkIdResponse>>\
+            \ = fireblocks.networkConnections.deleteNetworkId(networkConnectionsApiDeleteNetworkIdRequest);"
           name: Fireblocks SDK TypeScript example
         - language: java
-          code: CompletableFuture<ApiResponse<Object>> response = fireblocks.networkConnections().deleteNetworkId(networkId);
+          code: CompletableFuture<ApiResponse<DeleteNetworkIdResponse>> response =
+            fireblocks.networkConnections().deleteNetworkId(networkId);
           name: Fireblocks SDK Java example
       x-accepts: application/json
     get:
@@ -3365,7 +3367,7 @@ paths:
           - Network Connection Crypto → **Default**
           - Network Connection FIAT → **Default**
 
-        Supported asset groups for routing police can be found at `/enabled_routing_policy_asset_groups`
+        Supported asset groups for routing police can be found at `/network_ids/routing_policy_asset_groups`
 
             - **Note**: By default, Custom routing scheme uses (`dstId` = `0`, `dstType` = `VAULT`).
       operationId: setNetworkIdRoutingPolicy
@@ -3569,9 +3571,7 @@ paths:
           content:
             application/json:
               schema:
-                items:
-                  $ref: '#/components/schemas/UnmanagedWallet'
-                type: array
+                $ref: '#/components/schemas/GetInternalWalletsResponse'
           description: A list of internal wallets
           headers:
             X-Request-ID:
@@ -3591,10 +3591,11 @@ paths:
       x-readme:
         code-samples:
         - language: typescript
-          code: "const response: Promise<FireblocksResponse<any>> = fireblocks.internalWallets.getInternalWallets();"
+          code: "const response: Promise<FireblocksResponse<GetInternalWalletsResponse>>\
+            \ = fireblocks.internalWallets.getInternalWallets();"
           name: Fireblocks SDK TypeScript example
         - language: java
-          code: CompletableFuture<ApiResponse<Object>> response = fireblocks.internalWallets().getInternalWallets();
+          code: CompletableFuture<ApiResponse<List<UnmanagedWallet>>> response = fireblocks.internalWallets().getInternalWallets();
           name: Fireblocks SDK Java example
       x-accepts: application/json
     post:
@@ -4025,9 +4026,7 @@ paths:
           content:
             application/json:
               schema:
-                items:
-                  $ref: '#/components/schemas/UnmanagedWallet'
-                type: array
+                $ref: '#/components/schemas/GetExternalWalletsResponse'
           description: A list of external wallets
           headers:
             X-Request-ID:
@@ -4053,10 +4052,11 @@ paths:
           code: const externalWallets = await fireblocks.getExternalWallets();
           name: Fireblocks SDK Javascript example
         - language: typescript
-          code: "const response: Promise<FireblocksResponse<any>> = fireblocks.externalWallets.getExternalWallets();"
+          code: "const response: Promise<FireblocksResponse<GetExternalWalletsResponse>>\
+            \ = fireblocks.externalWallets.getExternalWallets();"
           name: Fireblocks SDK TypeScript example
         - language: java
-          code: CompletableFuture<ApiResponse<Object>> response = fireblocks.externalWallets().getExternalWallets();
+          code: CompletableFuture<ApiResponse<List<UnmanagedWallet>>> response = fireblocks.externalWallets().getExternalWallets();
           name: Fireblocks SDK Java example
       x-accepts: application/json
     post:
@@ -4489,9 +4489,7 @@ paths:
           content:
             application/json:
               schema:
-                items:
-                  $ref: '#/components/schemas/UnmanagedWallet'
-                type: array
+                $ref: '#/components/schemas/GetContractsResponse'
           description: A list of contracts
           headers:
             X-Request-ID:
@@ -4511,10 +4509,11 @@ paths:
       x-readme:
         code-samples:
         - language: typescript
-          code: "const response: Promise<FireblocksResponse<any>> = fireblocks.contracts.getContracts();"
+          code: "const response: Promise<FireblocksResponse<GetContractsResponse>>\
+            \ = fireblocks.contracts.getContracts();"
           name: Fireblocks SDK TypeScript example
         - language: java
-          code: CompletableFuture<ApiResponse<Object>> response = fireblocks.contracts().getContracts();
+          code: CompletableFuture<ApiResponse<List<UnmanagedWallet>>> response = fireblocks.contracts().getContracts();
           name: Fireblocks SDK Java example
       x-accepts: application/json
     post:
@@ -4837,9 +4836,7 @@ paths:
           content:
             application/json:
               schema:
-                items:
-                  $ref: '#/components/schemas/AssetTypeResponse'
-                type: array
+                $ref: '#/components/schemas/GetSupportedAssetsResponse'
           description: A Transaction object
           headers:
             X-Request-ID:
@@ -4865,10 +4862,12 @@ paths:
           code: const supportedAssets = await fireblocks.getSupportedAssets();
           name: Fireblocks SDK Javascript example
         - language: typescript
-          code: "const response: Promise<FireblocksResponse<any>> = fireblocks.blockchainsAssets.getSupportedAssets();"
+          code: "const response: Promise<FireblocksResponse<GetSupportedAssetsResponse>>\
+            \ = fireblocks.blockchainsAssets.getSupportedAssets();"
           name: Fireblocks SDK TypeScript example
         - language: java
-          code: CompletableFuture<ApiResponse<Object>> response = fireblocks.blockchainsAssets().getSupportedAssets();
+          code: CompletableFuture<ApiResponse<List<AssetTypeResponse>>> response =
+            fireblocks.blockchainsAssets().getSupportedAssets();
           name: Fireblocks SDK Java example
       x-accepts: application/json
   /assets:
@@ -4908,23 +4907,32 @@ paths:
           description: |
             - Listing an asset on the requested blockchain is not supported. Error code: 1000
 
-            - The asset address is invalid. Error code: 1004
+            - The asset address is invalid. Error code: 1003
+
+            - Self serve listing an asset on the requested blockchain is currently not supported, please contact support. Error code: 1004
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AssetForbiddenErrorResponse'
+          description: |
+            - The asset creation quota reached. Error code: 1005
         "404":
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/AssetNotFoundErrorResponse'
           description: |
-            - Invalid address, could not get asset information. Error code 1004
+            - Invalid address, could not get asset information. Error code 1003
         "409":
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/AssetConflictErrorResponse'
           description: |
-            - The asset is already supported globally. Error code: 1002
+            - The asset is already supported globally. Error code: 1001
 
-            - The asset has already been added to this workspace. Error code: 1003
+            - The asset has already been added to this workspace. Error code: 1002
         "500":
           content:
             application/json:
@@ -5114,9 +5122,7 @@ paths:
           content:
             application/json:
               schema:
-                items:
-                  $ref: '#/components/schemas/TransactionResponse'
-                type: array
+                $ref: '#/components/schemas/GetTransactionsResponse'
           description: A list of transactions
           headers:
             X-Request-ID:
@@ -5149,12 +5155,14 @@ paths:
             after: from });
           name: Fireblocks SDK Javascript example
         - language: typescript
-          code: "const response: Promise<FireblocksResponse<any>> = fireblocks.transactions.getTransactions(transactionsApiGetTransactionsRequest);"
+          code: "const response: Promise<FireblocksResponse<GetTransactionsResponse>>\
+            \ = fireblocks.transactions.getTransactions(transactionsApiGetTransactionsRequest);"
           name: Fireblocks SDK TypeScript example
         - language: java
-          code: "CompletableFuture<ApiResponse<Object>> response = fireblocks.transactions().getTransactions(before,\
-            \ after, status, orderBy, sort, limit, sourceType, sourceId, destType,\
-            \ destId, assets, txHash, sourceWalletId, destWalletId);"
+          code: "CompletableFuture<ApiResponse<List<TransactionResponse>>> response\
+            \ = fireblocks.transactions().getTransactions(before, after, status, orderBy,\
+            \ sort, limit, sourceType, sourceId, destType, destId, assets, txHash,\
+            \ sourceWalletId, destWalletId);"
           name: Fireblocks SDK Java example
       x-accepts: application/json
     post:
@@ -6777,7 +6785,8 @@ paths:
             \ fireblocks.userGroupsBeta.getUserGroups();"
           name: Fireblocks SDK TypeScript example
         - language: java
-          code: CompletableFuture<ApiResponse<UserGroupsResponse>> response = fireblocks.userGroupsBeta().getUserGroups();
+          code: CompletableFuture<ApiResponse<List<UserGroupResponse>>> response =
+            fireblocks.userGroupsBeta().getUserGroups();
           name: Fireblocks SDK Java example
       x-accepts: application/json
     post:
@@ -7045,7 +7054,7 @@ paths:
           code: "const response: Promise<FireblocksResponse<GetUsersResponse>> = fireblocks.users.getUsers();"
           name: Fireblocks SDK TypeScript example
         - language: java
-          code: CompletableFuture<ApiResponse<GetUsersResponse>> response = fireblocks.users().getUsers();
+          code: CompletableFuture<ApiResponse<List<UserResponse>>> response = fireblocks.users().getUsers();
           name: Fireblocks SDK Java example
       x-accepts: application/json
   /audits:
@@ -7526,6 +7535,1216 @@ paths:
           name: Fireblocks SDK Java example
       x-content-type: application/json
       x-accepts: application/json
+  /tokenization/templates:
+    get:
+      description: Return minimal representation of all the contract templates available
+        for the workspace
+      operationId: getContractTemplates
+      parameters:
+      - description: Items per page (max 100)
+        explode: true
+        in: query
+        name: limit
+        required: false
+        schema:
+          default: 100
+          maximum: 100
+          minimum: 1
+          type: number
+        style: form
+      - description: Paging offset
+        explode: true
+        in: query
+        name: offset
+        required: false
+        schema:
+          default: 0
+          minimum: 0
+          type: number
+        style: form
+      - description: Page cursor to get the next page
+        example: MjAyMy0xMi0xMyAyMDozNjowOC4zMDI=:MTEwMA==
+        explode: true
+        in: query
+        name: pageCursor
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: "Number of items per page, requesting more then max will return\
+          \ max items"
+        example: 10
+        explode: true
+        in: query
+        name: pageSize
+        required: false
+        schema:
+          maximum: 100
+          minimum: 1
+          type: number
+        style: form
+      - description: "The type of the contract templates you wish to retrieve. Can\
+          \ accept one type, more or none"
+        example: FUNGIBLE_TOKEN
+        explode: true
+        in: query
+        name: type
+        required: false
+        schema:
+          enum:
+          - FUNGIBLE_TOKEN
+          - NON_FUNGIBLE_TOKEN
+          - TOKEN_UTILITY
+          type: string
+        style: form
+      - explode: true
+        in: query
+        name: initializationPhase
+        required: false
+        schema:
+          enum:
+          - ON_DEPLOYMENT
+          - POST_DEPLOYMENT
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TemplatesPaginatedResponse'
+          description: List of contract templates was returned successfully
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorSchema'
+          description: Error Response
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+      summary: List all contract templates
+      tags:
+      - Contract Templates
+      x-readme:
+        code-samples:
+        - language: python
+          code: contract_templates = fireblocks.get_contract_templates()
+          name: Fireblocks SDK Python example
+        - language: javascript
+          code: const contractTemplates = await fireblocks.getContractTemplates();
+          name: Fireblocks SDK Javascript example
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<TemplatesPaginatedResponse>>\
+            \ = fireblocks.contractTemplates.getContractTemplates(contractTemplatesApiGetContractTemplatesRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<TemplatesPaginatedResponse>> response\
+            \ = fireblocks.contractTemplates().getContractTemplates(limit, offset,\
+            \ pageCursor, pageSize, type, initializationPhase);"
+          name: Fireblocks SDK Java example
+      x-accepts: application/json
+    post:
+      description: Upload a new contract template. This contract template will be
+        available for the workspace
+      operationId: uploadContractTemplate
+      parameters:
+      - description: "A unique identifier for the request. If the request is sent\
+          \ multiple times with the same idempotency key, the server will return the\
+          \ same response as the first request. The idempotency key is valid for 24\
+          \ hours."
+        explode: false
+        in: header
+        name: Idempotency-Key
+        required: false
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ContractUploadRequest'
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContractTemplateDto'
+          description: Contract was uploaded successfully
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorSchema'
+          description: Error Response
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+      summary: Upload contract template
+      tags:
+      - Contract Templates
+      x-readme:
+        code-samples:
+        - language: python
+          code: template = fireblocks.upload_contract_template(upload_request)
+          name: Fireblocks SDK Python example
+        - language: javascript
+          code: const contractTemplate = await fireblocks.uploadContractTemplate(uploadRequest);
+          name: Fireblocks SDK Javascript example
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<ContractTemplateDto>>\
+            \ = fireblocks.contractTemplates.uploadContractTemplate(contractTemplatesApiUploadContractTemplateRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<ContractTemplateDto>> response = fireblocks.contractTemplates().uploadContractTemplate(contractUploadRequest,\
+            \ idempotencyKey);"
+          name: Fireblocks SDK Java example
+      x-content-type: application/json
+      x-accepts: application/json
+  /tokenization/templates/{contractTemplateId}:
+    delete:
+      description: "Delete a contract by id. allowed only for private contract templates.\
+        \ Notice: it is irreversible!"
+      operationId: deleteContractTemplateById
+      parameters:
+      - description: The Contract Template identifier
+        example: b70701f4-d7b1-4795-a8ee-b09cdb5b850d
+        explode: false
+        in: path
+        name: contractTemplateId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "204":
+          description: Contract was deleted successfully
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HttpContractDoesNotExistError'
+          description: Could not find contract.
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorSchema'
+          description: Error Response
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+      summary: Delete a contract template by id
+      tags:
+      - Contract Templates
+      x-readme:
+        code-samples:
+        - language: python
+          code: fireblocks.deleteContractTemplate(contract_id)
+          name: Fireblocks SDK Python example
+        - language: javascript
+          code: await fireblocks.getContractTemplate(contractId);
+          name: Fireblocks SDK Javascript example
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<void>> = fireblocks.contractTemplates.deleteContractTemplateById(contractTemplatesApiDeleteContractTemplateByIdRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: CompletableFuture<ApiResponse<Void>> response = fireblocks.contractTemplates().deleteContractTemplateById(contractTemplateId);
+          name: Fireblocks SDK Java example
+      x-accepts: application/json
+    get:
+      description: Return detailed information about the contract template
+      operationId: getContractTemplateById
+      parameters:
+      - description: The Contract Template identifier
+        example: b70701f4-d7b1-4795-a8ee-b09cdb5b850d
+        explode: false
+        in: path
+        name: contractTemplateId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContractTemplateDto'
+          description: Contract template was returned successfully
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HttpContractDoesNotExistError'
+          description: Could not find contract.
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorSchema'
+          description: Error Response
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+      summary: Return contract template by id
+      tags:
+      - Contract Templates
+      x-readme:
+        code-samples:
+        - language: python
+          code: contract_template = fireblocks.get_contract_template(contract_id)
+          name: Fireblocks SDK Python example
+        - language: javascript
+          code: const contractTemplate = await fireblocks.getContractTemplate(contractId);
+          name: Fireblocks SDK Javascript example
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<ContractTemplateDto>>\
+            \ = fireblocks.contractTemplates.getContractTemplateById(contractTemplatesApiGetContractTemplateByIdRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: CompletableFuture<ApiResponse<ContractTemplateDto>> response = fireblocks.contractTemplates().getContractTemplateById(contractTemplateId);
+          name: Fireblocks SDK Java example
+      x-accepts: application/json
+  /tokenization/templates/{contractTemplateId}/constructor:
+    get:
+      description: Return contract template's constructor ABI
+      operationId: getConstructorByContractTemplateId
+      parameters:
+      - description: The Contract Template identifier
+        example: b70701f4-d7b1-4795-a8ee-b09cdb5b850d
+        explode: false
+        in: path
+        name: contractTemplateId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: true if you want to get the abi with its docs
+        explode: true
+        in: query
+        name: withDocs
+        required: false
+        schema:
+          default: false
+          type: boolean
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AbiFunction'
+          description: Contract template's constructor ABI was returned successfully
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HttpContractDoesNotExistError'
+          description: Could not find contract.
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorSchema'
+          description: Error Response
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+      summary: Return contract template's constructor
+      tags:
+      - Contract Templates
+      x-readme:
+        code-samples:
+        - language: python
+          code: contract_constructor_abi = fireblocks.get_contract_template_constructor(contract_id)
+          name: Fireblocks SDK Python example
+        - language: javascript
+          code: const contractConstructorAbi = await fireblocks.getContractTemplateConstructor(contractId);
+          name: Fireblocks SDK Javascript example
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<AbiFunction>> = fireblocks.contractTemplates.getConstructorByContractTemplateId(contractTemplatesApiGetConstructorByContractTemplateIdRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<AbiFunction>> response = fireblocks.contractTemplates().getConstructorByContractTemplateId(contractTemplateId,\
+            \ withDocs);"
+          name: Fireblocks SDK Java example
+      x-accepts: application/json
+  /tokenization/templates/{contractTemplateId}/function:
+    get:
+      description: Return contract template`s function ABI by signature
+      operationId: getFunctionAbiByContractTemplateId
+      parameters:
+      - description: The Contract Template identifier
+        example: b70701f4-d7b1-4795-a8ee-b09cdb5b850d
+        explode: false
+        in: path
+        name: contractTemplateId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: true
+        in: query
+        name: functionSignature
+        required: true
+        schema:
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AbiFunction'
+          description: Contract template`s function ABI was returned successfully
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HttpContractDoesNotExistError'
+          description: Could not find contract.
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorSchema'
+          description: Error Response
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+      summary: Return contract template's function
+      tags:
+      - Contract Templates
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<AbiFunction>> = fireblocks.contractTemplates.getFunctionAbiByContractTemplateId(contractTemplatesApiGetFunctionAbiByContractTemplateIdRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<AbiFunction>> response = fireblocks.contractTemplates().getFunctionAbiByContractTemplateId(contractTemplateId,\
+            \ functionSignature);"
+          name: Fireblocks SDK Java example
+      x-accepts: application/json
+  /tokenization/templates/{contractTemplateId}/deploy:
+    post:
+      description: "Deploy a new contract by contract template id. If you wish to\
+        \ deploy a token (ERC20, ERC721 etc), and create asset please use POST /tokenization"
+      operationId: deployContract
+      parameters:
+      - description: The Contract Template identifier
+        example: b70701f4-d7b1-4795-a8ee-b09cdb5b850d
+        explode: false
+        in: path
+        name: contractTemplateId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: "A unique identifier for the request. If the request is sent\
+          \ multiple times with the same idempotency key, the server will return the\
+          \ same response as the first request. The idempotency key is valid for 24\
+          \ hours."
+        explode: false
+        in: header
+        name: Idempotency-Key
+        required: false
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ContractDeployRequest'
+        required: true
+      responses:
+        "202":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContractDeployResponse'
+          description: Contract was deployed successfully
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HttpContractDoesNotExistError'
+          description: Could not find contract.
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorSchema'
+          description: Error Response
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+      summary: Deploy contract
+      tags:
+      - Contract Templates
+      x-readme:
+        code-samples:
+        - language: python
+          code: "response = fireblocks.deploy_contract(contract_id, contract_deploy_request)"
+          name: Fireblocks SDK Python example
+        - language: javascript
+          code: "const { txId } = await fireblocks.deployContract(contractId, contractDeployRequest);"
+          name: Fireblocks SDK Javascript example
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<ContractDeployResponse>>\
+            \ = fireblocks.contractTemplates.deployContract(contractTemplatesApiDeployContractRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<ContractDeployResponse>> response =\
+            \ fireblocks.contractTemplates().deployContract(contractDeployRequest,\
+            \ contractTemplateId, idempotencyKey);"
+          name: Fireblocks SDK Java example
+      x-content-type: application/json
+      x-accepts: application/json
+  /tokenization/contracts:
+    get:
+      description: Return a filtered lean representation of the deployed contracts
+        data on all blockchains (paginated)
+      operationId: getDeployedContracts
+      parameters:
+      - description: Page cursor to get the next page
+        example: MjAyMy0xMi0xMyAyMDozNjowOC4zMDI=:MTEwMA==
+        explode: true
+        in: query
+        name: pageCursor
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: "Number of items per page, requesting more then max will return\
+          \ max items"
+        example: 10
+        explode: true
+        in: query
+        name: pageSize
+        required: false
+        schema:
+          maximum: 100
+          minimum: 1
+          type: number
+        style: form
+      - description: The contract's onchain address
+        example: 0xC2c4e1Db41F0bB97996D0eD0542D2170d146FB66
+        explode: true
+        in: query
+        name: contractAddress
+        required: false
+        schema:
+          type: string
+        style: form
+      - explode: true
+        in: query
+        name: assetId
+        required: false
+        schema:
+          type: string
+        style: form
+      - explode: true
+        in: query
+        name: templateId
+        required: false
+        schema:
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeployedContractsPaginatedResponse'
+          description: Deployed contracts fetched successfully
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorSchema'
+          description: Error Response
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+      summary: List deployed contracts data
+      tags:
+      - Deployed Contracts
+      x-readme:
+        code-samples:
+        - language: python
+          code: deployed_contracts = fireblocks.get_contracts_by_filter(template_id)
+          name: Fireblocks SDK Python example
+        - language: javascript
+          code: const deployedContracts = await fireblocks.getContractsByFilter(templateId);
+          name: Fireblocks SDK Javascript example
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<DeployedContractsPaginatedResponse>>\
+            \ = fireblocks.deployedContracts.getDeployedContracts(deployedContractsApiGetDeployedContractsRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<DeployedContractsPaginatedResponse>>\
+            \ response = fireblocks.deployedContracts().getDeployedContracts(pageCursor,\
+            \ pageSize, contractAddress, assetId, templateId);"
+          name: Fireblocks SDK Java example
+      x-accepts: application/json
+  /tokenization/contracts/{id}:
+    get:
+      description: Return deployed contract data by id
+      operationId: getDeployedContractById
+      parameters:
+      - description: The deployed contract data identifier
+        example: b70701f4-d7b1-4795-a8ee-b09cdb5b850d
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeployedContractResponseDto'
+          description: ""
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorSchema'
+          description: Error Response
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+      summary: Return deployed contract data by id
+      tags:
+      - Deployed Contracts
+      x-readme:
+        code-samples:
+        - language: python
+          code: deployed_contracts = fireblocks.get_contract_by_id(contract_id)
+          name: Fireblocks SDK Python example
+        - language: javascript
+          code: const deployedContracts = await fireblocks.getContractById(contractId);
+          name: Fireblocks SDK Javascript example
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<DeployedContractResponseDto>>\
+            \ = fireblocks.deployedContracts.getDeployedContractById(deployedContractsApiGetDeployedContractByIdRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: CompletableFuture<ApiResponse<DeployedContractResponseDto>> response
+            = fireblocks.deployedContracts().getDeployedContractById(id);
+          name: Fireblocks SDK Java example
+      x-accepts: application/json
+  /tokenization/contracts/{assetId}/{contractAddress}:
+    get:
+      description: Return deployed contract data by blockchain native asset id and
+        contract address
+      operationId: getDeployedContractByAddress
+      parameters:
+      - description: The contract's onchain address
+        example: 0xC2c4e1Db41F0bB97996D0eD0542D2170d146FB66
+        explode: false
+        in: path
+        name: contractAddress
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: assetId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeployedContractResponseDto'
+          description: ""
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorSchema'
+          description: Error Response
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+      summary: Return deployed contract data
+      tags:
+      - Deployed Contracts
+      x-readme:
+        code-samples:
+        - language: python
+          code: "deployed_contract = fireblocks.get_contract_by_address(base_asset_id,\
+            \ contract_address)"
+          name: Fireblocks SDK Python example
+        - language: javascript
+          code: "const deployedContract = await fireblocks.getContractByAddress(baseAssetId,\
+            \ contractAddress);"
+          name: Fireblocks SDK Javascript example
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<DeployedContractResponseDto>>\
+            \ = fireblocks.deployedContracts.getDeployedContractByAddress(deployedContractsApiGetDeployedContractByAddressRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<DeployedContractResponseDto>> response\
+            \ = fireblocks.deployedContracts().getDeployedContractByAddress(contractAddress,\
+            \ assetId);"
+          name: Fireblocks SDK Java example
+      x-accepts: application/json
+  /tokenization/tokens:
+    get:
+      description: Return all linked tokens (paginated)
+      operationId: getLinkedTokens
+      parameters:
+      - description: Page cursor to get the next page
+        example: MjAyMy0xMi0xMyAyMDozNjowOC4zMDI=:MTEwMA==
+        explode: true
+        in: query
+        name: pageCursor
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: "Number of items per page, requesting more then max will return\
+          \ max items"
+        example: 10
+        explode: true
+        in: query
+        name: pageSize
+        required: false
+        schema:
+          maximum: 100
+          minimum: 1
+          type: number
+        style: form
+      - description: A comma separated list of statuses to filter. Default is "COMPLETED"
+        example: COMPLETED
+        explode: true
+        in: query
+        name: status
+        required: false
+        schema: {}
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokensPaginatedResponse'
+          description: ""
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorSchema'
+          description: Error Response
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+      summary: List all linked tokens
+      tags:
+      - Tokenization
+      x-readme:
+        code-samples:
+        - language: python
+          code: linked_tokens = fireblocks.get_linked_tokens(payload)
+          name: Fireblocks SDK Python example
+        - language: javascript
+          code: const linkedTokens = await fireblocks.getLinkedTokens(payload);
+          name: Fireblocks SDK Javascript example
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<TokensPaginatedResponse>>\
+            \ = fireblocks.tokenization.getLinkedTokens(tokenizationApiGetLinkedTokensRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<TokensPaginatedResponse>> response\
+            \ = fireblocks.tokenization().getLinkedTokens(pageCursor, pageSize, status);"
+          name: Fireblocks SDK Java example
+      x-accepts: application/json
+    post:
+      description: "Facilitates the creation of a new token, supporting both EVM-based\
+        \ and Stellar/Ripple platforms. For EVM, it deploys the corresponding contract\
+        \ template to the blockchain and links the token to the workspace. For Stellar/Ripple,\
+        \ it links a newly created token directly to the workspace without deploying\
+        \ a contract. Returns the token link with status \"PENDING\" until the token\
+        \ is deployed or \"SUCCESS\" if no deployment is needed."
+      operationId: issueNewToken
+      parameters:
+      - description: "A unique identifier for the request. If the request is sent\
+          \ multiple times with the same idempotency key, the server will return the\
+          \ same response as the first request. The idempotency key is valid for 24\
+          \ hours."
+        explode: false
+        in: header
+        name: Idempotency-Key
+        required: false
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateTokenRequestDto'
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenLinkDto'
+          description: Token was created successfully
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AssetAlreadyExistHttpError'
+          description: Asset already exists
+      summary: Issue a new token
+      tags:
+      - Tokenization
+      x-readme:
+        code-samples:
+        - language: python
+          code: token = fireblocks.issue_new_token(payload)
+          name: Fireblocks SDK Python example
+        - language: javascript
+          code: const token = await fireblocks.issueNewToken(payload);
+          name: Fireblocks SDK Javascript example
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<TokenLinkDto>> = fireblocks.tokenization.issueNewToken(tokenizationApiIssueNewTokenRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<TokenLinkDto>> response = fireblocks.tokenization().issueNewToken(createTokenRequestDto,\
+            \ idempotencyKey);"
+          name: Fireblocks SDK Java example
+      x-content-type: application/json
+      x-accepts: application/json
+  /tokenization/tokens/link:
+    post:
+      description: "Link an already existing token (by assetId, collectionId or contractId\
+        \ as refId) to a workspace across EVM, Stellar, or Ripple platforms. The token\
+        \ will be linked to the workspace if it does not already exist."
+      operationId: link
+      parameters:
+      - description: "A unique identifier for the request. If the request is sent\
+          \ multiple times with the same idempotency key, the server will return the\
+          \ same response as the first request. The idempotency key is valid for 24\
+          \ hours."
+        explode: false
+        in: header
+        name: Idempotency-Key
+        required: false
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TokenLinkRequestDto'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenLinkDto'
+          description: Token linked successfully
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenLinkDto'
+          description: ""
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AssetDoesNotExistHttpError'
+          description: Could not find the underlying token identifier (refId) to link
+            the token to
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenLinkExistsHttpError'
+          description: "Token link for {refId} already exists"
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorSchema'
+          description: Error Response
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+      summary: Link a token
+      tags:
+      - Tokenization
+      x-readme:
+        code-samples:
+        - language: python
+          code: "token = fireblocks.link_token(\"FUNGIBLE_TOKEN\", ref_id)"
+          name: Fireblocks SDK Python example
+        - language: javascript
+          code: "const token = await fireblocks.linkToken(\"FUNGIBLE_TOKEN\", refId);"
+          name: Fireblocks SDK Javascript example
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<TokenLinkDto>> = fireblocks.tokenization.link(tokenizationApiLinkRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<TokenLinkDto>> response = fireblocks.tokenization().link(tokenLinkRequestDto,\
+            \ idempotencyKey);"
+          name: Fireblocks SDK Java example
+      x-content-type: application/json
+      x-accepts: application/json
+  /tokenization/tokens/{id}:
+    delete:
+      description: "Unlink a token. The token will be unlinked from the workspace.\
+        \ The token will not be deleted on chain nor the refId, only the link to the\
+        \ workspace will be removed."
+      operationId: unlink
+      parameters:
+      - description: The token link id
+        example: fbfbfbfb-fbfb-fbfb-fbfb-fbfbfbfbfbfb
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content: {}
+          description: Token unlinked successfully
+        "204":
+          content: {}
+          description: ""
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundException'
+          description: Link did not exist
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorSchema'
+          description: Error Response
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+      summary: Unlink a token
+      tags:
+      - Tokenization
+      x-readme:
+        code-samples:
+        - language: python
+          code: token = fireblocks.unlink_token(token_id)
+          name: Fireblocks SDK Python example
+        - language: javascript
+          code: const token = await fireblocks.unlinkToken(tokenId);
+          name: Fireblocks SDK Javascript example
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<void>> = fireblocks.tokenization.unlink(tokenizationApiUnlinkRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: CompletableFuture<ApiResponse<Void>> response = fireblocks.tokenization().unlink(id);
+          name: Fireblocks SDK Java example
+      x-accepts: application/json
+    get:
+      description: "Return a linked token, with its status and metadata."
+      operationId: getLinkedToken
+      parameters:
+      - description: The token link id
+        example: fbfbfbfb-fbfb-fbfb-fbfb-fbfbfbfbfbfb
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenLinkDto'
+          description: Token fetched successfully
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorSchema'
+          description: Error Response
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+      summary: Return a linked token
+      tags:
+      - Tokenization
+      x-readme:
+        code-samples:
+        - language: python
+          code: token = fireblocks.get_linked_token(token_id)
+          name: Fireblocks SDK Python example
+        - language: javascript
+          code: const token = await fireblocks.getLinkedToken(tokenId);
+          name: Fireblocks SDK Javascript example
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<TokenLinkDto>> = fireblocks.tokenization.getLinkedToken(tokenizationApiGetLinkedTokenRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: CompletableFuture<ApiResponse<TokenLinkDto>> response = fireblocks.tokenization().getLinkedToken(id);
+          name: Fireblocks SDK Java example
+      x-accepts: application/json
+  /contract_interactions/base_asset_id/{assetId}/contract_address/{contractAddress}/functions:
+    get:
+      description: Return deployed contract's ABI by blockchain native asset id and
+        contract address
+      operationId: getDeployedContractAbi
+      parameters:
+      - description: "A unique identifier for the request. If the request is sent\
+          \ multiple times with the same idempotency key, the server will return the\
+          \ same response as the first request. The idempotency key is valid for 24\
+          \ hours."
+        explode: false
+        in: header
+        name: Idempotency-Key
+        required: false
+        schema:
+          type: string
+        style: simple
+      - description: The contract's onchain address
+        example: 0xC2c4e1Db41F0bB97996D0eD0542D2170d146FB66
+        explode: false
+        in: path
+        name: contractAddress
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: assetId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContractAbiResponseDto'
+          description: ""
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorSchema'
+          description: Error Response
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+      summary: Return deployed contract's ABI
+      tags:
+      - Contract Interactions
+      x-readme:
+        code-samples:
+        - language: python
+          code: "deployed_contract_abi = fireblocks.get_contracts_abi(base_asset_id,\
+            \ contract_address)"
+          name: Fireblocks SDK Python example
+        - language: javascript
+          code: "const deployedContractAbi = await fireblocks.getContractAbi(baseAssetId,\
+            \ contractAddress);"
+          name: Fireblocks SDK Javascript example
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<ContractAbiResponseDto>>\
+            \ = fireblocks.contractInteractions.getDeployedContractAbi(contractInteractionsApiGetDeployedContractAbiRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<ContractAbiResponseDto>> response =\
+            \ fireblocks.contractInteractions().getDeployedContractAbi(contractAddress,\
+            \ assetId, idempotencyKey);"
+          name: Fireblocks SDK Java example
+      x-accepts: application/json
+  /contract_interactions/base_asset_id/{assetId}/contract_address/{contractAddress}/functions/read:
+    post:
+      description: Call a read function on a deployed contract by blockchain native
+        asset id and contract address
+      operationId: readCallFunction
+      parameters:
+      - description: "A unique identifier for the request. If the request is sent\
+          \ multiple times with the same idempotency key, the server will return the\
+          \ same response as the first request. The idempotency key is valid for 24\
+          \ hours."
+        explode: false
+        in: header
+        name: Idempotency-Key
+        required: false
+        schema:
+          type: string
+        style: simple
+      - description: The contract's onchain address
+        example: 0xC2c4e1Db41F0bB97996D0eD0542D2170d146FB66
+        explode: false
+        in: path
+        name: contractAddress
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: assetId
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReadCallFunctionDto'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ParameterWithValueList'
+          description: Read Call Retrieved Successfully
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorSchema'
+          description: Error Response
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+      summary: Call a read function on a deployed contract
+      tags:
+      - Contract Interactions
+      x-readme:
+        code-samples:
+        - language: python
+          code: "read_response = fireblocks.read_contract_call_function(base_asset_id,\
+            \ contract_address, payload)"
+          name: Fireblocks SDK Python example
+        - language: javascript
+          code: "const readResponse= await fireblocks.readContractCallFunction(baseAssetId,\
+            \ contractAddress, payload);"
+          name: Fireblocks SDK Javascript example
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<ParameterWithValueList>>\
+            \ = fireblocks.contractInteractions.readCallFunction(contractInteractionsApiReadCallFunctionRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<List<ParameterWithValue>>> response\
+            \ = fireblocks.contractInteractions().readCallFunction(readCallFunctionDto,\
+            \ contractAddress, assetId, idempotencyKey);"
+          name: Fireblocks SDK Java example
+      x-content-type: application/json
+      x-accepts: application/json
+  /contract_interactions/base_asset_id/{assetId}/contract_address/{contractAddress}/functions/write:
+    post:
+      description: "Call a write function on a deployed contract by blockchain native\
+        \ asset id and contract address. This creates an onchain transaction, thus\
+        \ it is an async operation. It returns a transaction id that can be polled\
+        \ for status check"
+      operationId: writeCallFunction
+      parameters:
+      - description: "A unique identifier for the request. If the request is sent\
+          \ multiple times with the same idempotency key, the server will return the\
+          \ same response as the first request. The idempotency key is valid for 24\
+          \ hours."
+        explode: false
+        in: header
+        name: Idempotency-Key
+        required: false
+        schema:
+          type: string
+        style: simple
+      - description: The contract's onchain address
+        example: 0xC2c4e1Db41F0bB97996D0eD0542D2170d146FB66
+        explode: false
+        in: path
+        name: contractAddress
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: assetId
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WriteCallFunctionDto'
+        required: true
+      responses:
+        "202":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WriteCallFunctionResponseDto'
+          description: ""
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorSchema'
+          description: Error Response
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+      summary: Call a write function on a deployed contract
+      tags:
+      - Contract Interactions
+      x-readme:
+        code-samples:
+        - language: python
+          code: "write_function_response = fireblocks.write_contract_call_function(base_asset_id,\
+            \ contract_address, payload)"
+          name: Fireblocks SDK Python example
+        - language: javascript
+          code: "const writeFunctionResponse = await fireblocks.writeContractCallFunction(baseAssetId,\
+            \ contractAddress, payload);"
+          name: Fireblocks SDK Javascript example
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<WriteCallFunctionResponseDto>>\
+            \ = fireblocks.contractInteractions.writeCallFunction(contractInteractionsApiWriteCallFunctionRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<WriteCallFunctionResponseDto>> response\
+            \ = fireblocks.contractInteractions().writeCallFunction(writeCallFunctionDto,\
+            \ contractAddress, assetId, idempotencyKey);"
+          name: Fireblocks SDK Java example
+      x-content-type: application/json
+      x-accepts: application/json
   /staking/chains:
     get:
       description: Return an alphabetical list of supported chains.
@@ -7539,9 +8758,7 @@ paths:
               - ETH
               - SOL
               schema:
-                items:
-                  type: string
-                type: array
+                $ref: '#/components/schemas/StakingGetChainsResponse'
           description: ""
       summary: ""
       tags:
@@ -7549,10 +8766,11 @@ paths:
       x-readme:
         code-samples:
         - language: typescript
-          code: "const response: Promise<FireblocksResponse<any>> = fireblocks.stakingBeta.getChains();"
+          code: "const response: Promise<FireblocksResponse<StakingGetChainsResponse>>\
+            \ = fireblocks.stakingBeta.getChains();"
           name: Fireblocks SDK TypeScript example
         - language: java
-          code: CompletableFuture<ApiResponse<Object>> response = fireblocks.stakingBeta().getChains();
+          code: CompletableFuture<ApiResponse<List<String>>> response = fireblocks.stakingBeta().getChains();
           name: Fireblocks SDK Java example
       x-accepts: application/json
   /staking/chains/{chainDescriptor}/chainInfo:
@@ -7717,9 +8935,7 @@ paths:
           content:
             application/json:
               schema:
-                items:
-                  $ref: '#/components/schemas/DelegationDto'
-                type: array
+                $ref: '#/components/schemas/StakingGetAllDelegationsResponse'
           description: An array of position data was returned successfully
       summary: ""
       tags:
@@ -7727,10 +8943,11 @@ paths:
       x-readme:
         code-samples:
         - language: typescript
-          code: "const response: Promise<FireblocksResponse<any>> = fireblocks.stakingBeta.getAllDelegations(stakingBetaApiGetAllDelegationsRequest);"
+          code: "const response: Promise<FireblocksResponse<StakingGetAllDelegationsResponse>>\
+            \ = fireblocks.stakingBeta.getAllDelegations(stakingBetaApiGetAllDelegationsRequest);"
           name: Fireblocks SDK TypeScript example
         - language: java
-          code: CompletableFuture<ApiResponse<Object>> response = fireblocks.stakingBeta().getAllDelegations(chainDescriptor);
+          code: CompletableFuture<ApiResponse<List<DelegationDto>>> response = fireblocks.stakingBeta().getAllDelegations(chainDescriptor);
           name: Fireblocks SDK Java example
       x-accepts: application/json
   /staking/positions/summary:
@@ -7826,9 +9043,7 @@ paths:
                   - chainDescriptor: SOL
                     amount: "0.011191566"
               schema:
-                additionalProperties:
-                  $ref: '#/components/schemas/DelegationSummaryDto'
-                type: object
+                $ref: '#/components/schemas/StakingGetSummaryByVaultResponse'
           description: A summary for each vault were returned successfully
       summary: ""
       tags:
@@ -7836,10 +9051,12 @@ paths:
       x-readme:
         code-samples:
         - language: typescript
-          code: "const response: Promise<FireblocksResponse<any>> = fireblocks.stakingBeta.getSummaryByVault();"
+          code: "const response: Promise<FireblocksResponse<StakingGetSummaryByVaultResponse>>\
+            \ = fireblocks.stakingBeta.getSummaryByVault();"
           name: Fireblocks SDK TypeScript example
         - language: java
-          code: CompletableFuture<ApiResponse<Object>> response = fireblocks.stakingBeta().getSummaryByVault();
+          code: CompletableFuture<ApiResponse<StakingGetSummaryByVaultResponse>> response
+            = fireblocks.stakingBeta().getSummaryByVault();
           name: Fireblocks SDK Java example
       x-accepts: application/json
   /staking/positions/{id}:
@@ -7885,9 +9102,7 @@ paths:
           content:
             application/json:
               schema:
-                items:
-                  $ref: '#/components/schemas/ProviderDto'
-                type: array
+                $ref: '#/components/schemas/StakingGetProvidersResponse'
           description: An array of supported providers was returned successfully
       summary: ""
       tags:
@@ -7895,10 +9110,11 @@ paths:
       x-readme:
         code-samples:
         - language: typescript
-          code: "const response: Promise<FireblocksResponse<any>> = fireblocks.stakingBeta.getProviders();"
+          code: "const response: Promise<FireblocksResponse<StakingGetProvidersResponse>>\
+            \ = fireblocks.stakingBeta.getProviders();"
           name: Fireblocks SDK TypeScript example
         - language: java
-          code: CompletableFuture<ApiResponse<Object>> response = fireblocks.stakingBeta().getProviders();
+          code: CompletableFuture<ApiResponse<List<ProviderDto>>> response = fireblocks.stakingBeta().getProviders();
           name: Fireblocks SDK Java example
       x-accepts: application/json
   /staking/providers/{providerId}/approveTermsOfService:
@@ -8023,8 +9239,10 @@ paths:
           - ETH
           - ETH_TEST3
           - ETH_TEST5
+          - ETH_TEST6
           - POLYGON
           - POLYGON_TEST_MUMBAI
+          - AMOY_POLYGON_TEST
           - XTZ
           - XTZ_TEST
           - BASECHAIN_ETH
@@ -8175,7 +9393,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/getOwnershipTokens_200_response'
+                $ref: '#/components/schemas/GetOwnershipTokensResponse'
           description: ""
           headers:
             X-Request-ID:
@@ -8186,12 +9404,14 @@ paths:
       x-readme:
         code-samples:
         - language: typescript
-          code: "const response: Promise<FireblocksResponse<any>> = fireblocks.nFTs.getOwnershipTokens(nFTsApiGetOwnershipTokensRequest);"
+          code: "const response: Promise<FireblocksResponse<GetOwnershipTokensResponse>>\
+            \ = fireblocks.nFTs.getOwnershipTokens(nFTsApiGetOwnershipTokensRequest);"
           name: Fireblocks SDK TypeScript example
         - language: java
-          code: "CompletableFuture<ApiResponse<Object>> response = fireblocks.nFTs().getOwnershipTokens(blockchainDescriptor,\
-            \ vaultAccountIds, ncwId, ncwAccountIds, walletType, ids, collectionIds,\
-            \ pageCursor, pageSize, sort, order, status, search, spam);"
+          code: "CompletableFuture<ApiResponse<GetOwnershipTokensResponse>> response\
+            \ = fireblocks.nFTs().getOwnershipTokens(blockchainDescriptor, vaultAccountIds,\
+            \ ncwId, ncwAccountIds, walletType, ids, collectionIds, pageCursor, pageSize,\
+            \ sort, order, status, search, spam);"
           name: Fireblocks SDK Java example
       x-accepts: application/json
     put:
@@ -8209,8 +9429,10 @@ paths:
           - ETH
           - ETH_TEST3
           - ETH_TEST5
+          - ETH_TEST6
           - POLYGON
           - POLYGON_TEST_MUMBAI
+          - AMOY_POLYGON_TEST
           - BASECHAIN_ETH
           type: string
         style: form
@@ -8360,7 +9582,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/listOwnedTokens_200_response'
+                $ref: '#/components/schemas/ListOwnedTokensResponse'
           description: ""
           headers:
             X-Request-ID:
@@ -8371,11 +9593,13 @@ paths:
       x-readme:
         code-samples:
         - language: typescript
-          code: "const response: Promise<FireblocksResponse<any>> = fireblocks.nFTs.listOwnedTokens(nFTsApiListOwnedTokensRequest);"
+          code: "const response: Promise<FireblocksResponse<ListOwnedTokensResponse>>\
+            \ = fireblocks.nFTs.listOwnedTokens(nFTsApiListOwnedTokensRequest);"
           name: Fireblocks SDK TypeScript example
         - language: java
-          code: "CompletableFuture<ApiResponse<Object>> response = fireblocks.nFTs().listOwnedTokens(ncwId,\
-            \ walletType, pageCursor, pageSize, sort, order, status, search, spam);"
+          code: "CompletableFuture<ApiResponse<ListOwnedTokensResponse>> response\
+            \ = fireblocks.nFTs().listOwnedTokens(ncwId, walletType, pageCursor, pageSize,\
+            \ sort, order, status, search, spam);"
           name: Fireblocks SDK Java example
       x-accepts: application/json
   /nfts/ownership/collections:
@@ -8475,7 +9699,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/listOwnedCollections_200_response'
+                $ref: '#/components/schemas/ListOwnedCollectionsResponse'
           description: ""
           headers:
             X-Request-ID:
@@ -8486,11 +9710,13 @@ paths:
       x-readme:
         code-samples:
         - language: typescript
-          code: "const response: Promise<FireblocksResponse<any>> = fireblocks.nFTs.listOwnedCollections(nFTsApiListOwnedCollectionsRequest);"
+          code: "const response: Promise<FireblocksResponse<ListOwnedCollectionsResponse>>\
+            \ = fireblocks.nFTs.listOwnedCollections(nFTsApiListOwnedCollectionsRequest);"
           name: Fireblocks SDK TypeScript example
         - language: java
-          code: "CompletableFuture<ApiResponse<Object>> response = fireblocks.nFTs().listOwnedCollections(ncwId,\
-            \ walletType, search, pageCursor, pageSize, sort, order, status);"
+          code: "CompletableFuture<ApiResponse<ListOwnedCollectionsResponse>> response\
+            \ = fireblocks.nFTs().listOwnedCollections(ncwId, walletType, search,\
+            \ pageCursor, pageSize, sort, order, status);"
           name: Fireblocks SDK Java example
       x-accepts: application/json
   /nfts/tokens/{id}:
@@ -8640,7 +9866,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/listOwnedTokens_200_response'
+                $ref: '#/components/schemas/GetNFTsResponse'
           description: ""
           headers:
             X-Request-ID:
@@ -8651,10 +9877,10 @@ paths:
       x-readme:
         code-samples:
         - language: typescript
-          code: "const response: Promise<FireblocksResponse<any>> = fireblocks.nFTs.getNFTs(nFTsApiGetNFTsRequest);"
+          code: "const response: Promise<FireblocksResponse<GetNFTsResponse>> = fireblocks.nFTs.getNFTs(nFTsApiGetNFTsRequest);"
           name: Fireblocks SDK TypeScript example
         - language: java
-          code: "CompletableFuture<ApiResponse<Object>> response = fireblocks.nFTs().getNFTs(ids,\
+          code: "CompletableFuture<ApiResponse<GetNFTsResponse>> response = fireblocks.nFTs().getNFTs(ids,\
             \ pageCursor, pageSize, sort, order);"
           name: Fireblocks SDK Java example
       x-accepts: application/json
@@ -8730,9 +9956,7 @@ paths:
         content:
           application/json:
             schema:
-              items:
-                $ref: '#/components/schemas/TokenOwnershipStatusUpdatePayload'
-              type: array
+              $ref: '#/components/schemas/UpdateTokensOwnershipStatusRequest'
         required: true
       responses:
         "200":
@@ -8759,7 +9983,7 @@ paths:
           code: "const response: Promise<FireblocksResponse<void>> = fireblocks.nFTs.updateTokensOwnershipStatus(nFTsApiUpdateTokensOwnershipStatusRequest);"
           name: Fireblocks SDK TypeScript example
         - language: java
-          code: "CompletableFuture<ApiResponse<Void>> response = fireblocks.nFTs().updateTokensOwnershipStatus(updateTokensOwnershipStatusRequest,\
+          code: "CompletableFuture<ApiResponse<Void>> response = fireblocks.nFTs().updateTokensOwnershipStatus(tokenOwnershipStatusUpdatePayload,\
             \ idempotencyKey);"
           name: Fireblocks SDK Java example
       x-content-type: application/json
@@ -8785,9 +10009,7 @@ paths:
         content:
           application/json:
             schema:
-              items:
-                $ref: '#/components/schemas/TokenOwnershipSpamUpdatePayload'
-              type: array
+              $ref: '#/components/schemas/UpdateTokensOwnershipSpamRequest'
         required: true
       responses:
         "200":
@@ -8814,7 +10036,7 @@ paths:
           code: "const response: Promise<FireblocksResponse<void>> = fireblocks.nFTs.updateTokensOwnershipSpam(nFTsApiUpdateTokensOwnershipSpamRequest);"
           name: Fireblocks SDK TypeScript example
         - language: java
-          code: "CompletableFuture<ApiResponse<Void>> response = fireblocks.nFTs().updateTokensOwnershipSpam(updateTokensOwnershipSpamRequest,\
+          code: "CompletableFuture<ApiResponse<Void>> response = fireblocks.nFTs().updateTokensOwnershipSpam(tokenOwnershipSpamUpdatePayload,\
             \ idempotencyKey);"
           name: Fireblocks SDK Java example
       x-content-type: application/json
@@ -8955,7 +10177,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/create_request'
+              $ref: '#/components/schemas/CreateConnectionRequest'
         required: true
       responses:
         "201":
@@ -8988,7 +10210,7 @@ paths:
           name: Fireblocks SDK TypeScript example
         - language: java
           code: "CompletableFuture<ApiResponse<CreateConnectionResponse>> response\
-            \ = fireblocks.web3Connections().create(createRequest, idempotencyKey);"
+            \ = fireblocks.web3Connections().create(createConnectionRequest, idempotencyKey);"
           name: Fireblocks SDK Java example
       x-content-type: application/json
       x-accepts: application/json
@@ -9663,7 +10885,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/getOtaStatus_200_response'
+                $ref: '#/components/schemas/GetOtaStatusResponse'
           description: Current OTA status
         "404":
           description: Configuration not found for tenant
@@ -9673,10 +10895,11 @@ paths:
       x-readme:
         code-samples:
         - language: typescript
-          code: "const response: Promise<FireblocksResponse<any>> = fireblocks.oTABeta.getOtaStatus();"
+          code: "const response: Promise<FireblocksResponse<GetOtaStatusResponse>>\
+            \ = fireblocks.oTABeta.getOtaStatus();"
           name: Fireblocks SDK TypeScript example
         - language: java
-          code: CompletableFuture<ApiResponse<Object>> response = fireblocks.oTABeta().getOtaStatus();
+          code: CompletableFuture<ApiResponse<GetOtaStatusResponse>> response = fireblocks.oTABeta().getOtaStatus();
           name: Fireblocks SDK Java example
       x-accepts: application/json
     put:
@@ -9740,7 +10963,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/getWorkspaceStatus_200_response'
+                $ref: '#/components/schemas/GetWorkspaceStatusResponse'
           description: Current workspace status
         "404":
           description: Workspace not found
@@ -9750,10 +10973,12 @@ paths:
       x-readme:
         code-samples:
         - language: typescript
-          code: "const response: Promise<FireblocksResponse<any>> = fireblocks.workspaceStatusBeta.getWorkspaceStatus();"
+          code: "const response: Promise<FireblocksResponse<GetWorkspaceStatusResponse>>\
+            \ = fireblocks.workspaceStatusBeta.getWorkspaceStatus();"
           name: Fireblocks SDK TypeScript example
         - language: java
-          code: CompletableFuture<ApiResponse<Object>> response = fireblocks.workspaceStatusBeta().getWorkspaceStatus();
+          code: CompletableFuture<ApiResponse<GetWorkspaceStatusResponse>> response
+            = fireblocks.workspaceStatusBeta().getWorkspaceStatus();
           name: Fireblocks SDK Java example
       x-accepts: application/json
   /tap/active_policy:
@@ -10041,7 +11266,7 @@ paths:
       x-accepts: application/json
   /management/users:
     get:
-      description: get console users from the current tenant
+      description: Get console users for your tenant
       operationId: getConsoleUsers
       responses:
         "200":
@@ -10090,11 +11315,17 @@ paths:
           headers:
             X-Request-ID:
               $ref: '#/components/headers/X-Request-ID'
-      summary: get console users
+      summary: Get console users
       tags:
       - Console User
       x-readme:
         code-samples:
+        - language: javascript
+          code: const consoleUsers = await fireblocks.getConsoleUsers();
+          name: Fireblocks SDK Javascript example
+        - language: python
+          code: consoleUsers = fireblocks.get_console_users()
+          name: Fireblocks SDK Python example
         - language: typescript
           code: "const response: Promise<FireblocksResponse<GetConsoleUsersResponse>>\
             \ = fireblocks.consoleUser.getConsoleUsers();"
@@ -10105,7 +11336,7 @@ paths:
           name: Fireblocks SDK Java example
       x-accepts: application/json
     post:
-      description: creates fireblocks console user
+      description: Creates console user in your tenant
       operationId: createConsoleUser
       parameters:
       - description: "A unique identifier for the request. If the request is sent\
@@ -10126,7 +11357,7 @@ paths:
               $ref: '#/components/schemas/CreateConsoleUser'
       responses:
         "200":
-          description: Users sent for creation
+          description: User creation approval request has been sent
           headers:
             X-Request-ID:
               $ref: '#/components/headers/X-Request-ID'
@@ -10172,11 +11403,19 @@ paths:
           headers:
             X-Request-ID:
               $ref: '#/components/headers/X-Request-ID'
-      summary: create console user
+      summary: Create console user
       tags:
       - Console User
       x-readme:
         code-samples:
+        - language: javascript
+          code: "const res = await fireblocks.createConsoleUser(firstName, lastName,\
+            \ email, role);"
+          name: Fireblocks SDK Javascript example
+        - language: python
+          code: "res = fireblocks.create_console_user(first_name, last_name, email,\
+            \ role)"
+          name: Fireblocks SDK Python example
         - language: typescript
           code: "const response: Promise<FireblocksResponse<void>> = fireblocks.consoleUser.createConsoleUser(consoleUserApiCreateConsoleUserRequest);"
           name: Fireblocks SDK TypeScript example
@@ -10188,7 +11427,7 @@ paths:
       x-accepts: application/json
   /management/api_users:
     get:
-      description: get api users from the current tenant
+      description: Get Api users of your tenant
       operationId: getApiUsers
       responses:
         "200":
@@ -10237,11 +11476,17 @@ paths:
           headers:
             X-Request-ID:
               $ref: '#/components/headers/X-Request-ID'
-      summary: get api users
+      summary: Get Api users
       tags:
       - Api User
       x-readme:
         code-samples:
+        - language: javascript
+          code: const apiUsers = await fireblocks.getApiUsers();
+          name: Fireblocks SDK Javascript example
+        - language: python
+          code: apiUsers = fireblocks.get_api_users()
+          name: Fireblocks SDK Python example
         - language: typescript
           code: "const response: Promise<FireblocksResponse<GetAPIUsersResponse>>\
             \ = fireblocks.apiUser.getApiUsers();"
@@ -10251,7 +11496,7 @@ paths:
           name: Fireblocks SDK Java example
       x-accepts: application/json
     post:
-      description: creates api user
+      description: Creates Api user in your tenant
       operationId: createApiUser
       parameters:
       - description: "A unique identifier for the request. If the request is sent\
@@ -10272,7 +11517,12 @@ paths:
               $ref: '#/components/schemas/CreateAPIUser'
       responses:
         "200":
-          description: User sent for creation
+          description: User creation approval request has been sent
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+        "400":
+          description: bad request
           headers:
             X-Request-ID:
               $ref: '#/components/headers/X-Request-ID'
@@ -10313,11 +11563,19 @@ paths:
           headers:
             X-Request-ID:
               $ref: '#/components/headers/X-Request-ID'
-      summary: create api user
+      summary: Create Api user
       tags:
       - Api User
       x-readme:
         code-samples:
+        - language: javascript
+          code: "const res = await fireblocks.createApiUser(name, role, csrForNewUser,\
+            \ coSignerType, isFirstUser);"
+          name: Fireblocks SDK Javascript example
+        - language: python
+          code: "res = fireblocks.create_api_user(name, role, csr_pem, co_signer_setup,\
+            \ co_signer_setup_is_first_user)"
+          name: Fireblocks SDK Python example
         - language: typescript
           code: "const response: Promise<FireblocksResponse<void>> = fireblocks.apiUser.createApiUser(apiUserApiCreateApiUserRequest);"
           name: Fireblocks SDK TypeScript example
@@ -10329,10 +11587,11 @@ paths:
       x-accepts: application/json
   /management/users/{id}/reset_device:
     post:
-      description: resets device
+      description: "Resets mobile device for given console user, that user will need\
+        \ to do mobile onboarding again."
       operationId: resetDevice
       parameters:
-      - description: The ID of the user
+      - description: The ID of the console user
         explode: false
         in: path
         name: id
@@ -10353,7 +11612,7 @@ paths:
         style: simple
       responses:
         "200":
-          description: User sent for creation
+          description: Reset device approval request has been sent
           headers:
             X-Request-ID:
               $ref: '#/components/headers/X-Request-ID'
@@ -10394,11 +11653,17 @@ paths:
           headers:
             X-Request-ID:
               $ref: '#/components/headers/X-Request-ID'
-      summary: resets device
+      summary: Resets device
       tags:
       - Reset device
       x-readme:
         code-samples:
+        - language: javascript
+          code: const res = await fireblocks.resetDeviceRequest(consoleUserId);
+          name: Fireblocks SDK Javascript example
+        - language: python
+          code: res = fireblocks.reset_device_request(console_user_id)
+          name: Fireblocks SDK Python example
         - language: typescript
           code: "const response: Promise<FireblocksResponse<void>> = fireblocks.resetDevice.resetDevice(resetDeviceApiResetDeviceRequest);"
           name: Fireblocks SDK TypeScript example
@@ -10409,10 +11674,10 @@ paths:
       x-accepts: application/json
   /management/api_users/{userId}/whitelist_ip_addresses:
     get:
-      description: gets ip addresses
+      description: Gets whitelisted ip addresses for given Api user.
       operationId: getWhitelistIpAddresses
       parameters:
-      - description: The ID of the user
+      - description: The ID of the api user
         explode: false
         in: path
         name: userId
@@ -10426,7 +11691,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/GetWhitelistIpAddressesResponse'
-          description: successfully whitelisted
+          description: successfully got whitelisted ip addresses
           headers:
             X-Request-ID:
               $ref: '#/components/headers/X-Request-ID'
@@ -10467,11 +11732,17 @@ paths:
           headers:
             X-Request-ID:
               $ref: '#/components/headers/X-Request-ID'
-      summary: gets ip addresses
+      summary: Gets whitelisted ip addresses
       tags:
       - whitelist ip addresses
       x-readme:
         code-samples:
+        - language: javascript
+          code: const whitelistedAddresses = await fireblocks.getWhitelistedAddresses(apiUserId);
+          name: Fireblocks SDK Javascript example
+        - language: python
+          code: whitelisted_addresses = fireblocks.get_whitelisted_ip_addresses(api_user_id)
+          name: Fireblocks SDK Python example
         - language: typescript
           code: "const response: Promise<FireblocksResponse<GetWhitelistIpAddressesResponse>>\
             \ = fireblocks.whitelistIpAddresses.getWhitelistIpAddresses(whitelistIpAddressesApiGetWhitelistIpAddressesRequest);"
@@ -11588,7 +12859,7 @@ paths:
           code: "const response: Promise<FireblocksResponse<Jobs>> = fireblocks.jobManagement.getJobs(jobManagementApiGetJobsRequest);"
           name: Fireblocks SDK TypeScript example
         - language: java
-          code: "CompletableFuture<ApiResponse<Jobs>> response = fireblocks.jobManagement().getJobs(fromTime,\
+          code: "CompletableFuture<ApiResponse<List<Job>>> response = fireblocks.jobManagement().getJobs(fromTime,\
             \ toTime);"
           name: Fireblocks SDK Java example
       x-accepts: application/json
@@ -11827,7 +13098,7 @@ paths:
           code: "const response: Promise<FireblocksResponse<Tasks>> = fireblocks.jobManagement.getJobTasks(jobManagementApiGetJobTasksRequest);"
           name: Fireblocks SDK TypeScript example
         - language: java
-          code: CompletableFuture<ApiResponse<Tasks>> response = fireblocks.jobManagement().getJobTasks(jobId);
+          code: CompletableFuture<ApiResponse<List<Task>>> response = fireblocks.jobManagement().getJobTasks(jobId);
           name: Fireblocks SDK Java example
       x-accepts: application/json
   /cosigners:
@@ -12357,6 +13628,10 @@ components:
         autoFuel:
           type: boolean
       type: object
+    GetVaultAccountsResponse:
+      items:
+        $ref: '#/components/schemas/VaultAccount'
+      type: array
     CreateVaultAccountRequest:
       example:
         hiddenOnUI: true
@@ -12717,6 +13992,10 @@ components:
         userDefined:
           type: boolean
       type: object
+    GetVaultAccountAssetAddressesResponse:
+      items:
+        $ref: '#/components/schemas/VaultWalletAddress'
+      type: array
     CreateAddressRequest:
       example:
         description: description
@@ -12792,6 +14071,22 @@ components:
           description: The maximum amount that can be spent from the vault account
           type: string
       type: object
+    UpdateVaultAccountAssetAddressRequest:
+      example:
+        description: description
+      properties:
+        description:
+          description: The address description
+          type: string
+      type: object
+    SetCustomerRefIdForAddressRequest:
+      example:
+        customerRefId: customerRefId
+      properties:
+        customerRefId:
+          description: Customer reference ID
+          type: string
+      type: object
     UnspentInput:
       example:
         index: 0.8008281904610115
@@ -12823,6 +14118,10 @@ components:
         status:
           type: string
       type: object
+    GetUnspentInputsResponse:
+      items:
+        $ref: '#/components/schemas/UnspentInputsResponse'
+      type: array
     PublicKeyInformation:
       example:
         derivationPath:
@@ -12840,6 +14139,10 @@ components:
         publicKey:
           type: string
       type: object
+    GetVaultAssetsResponse:
+      items:
+        $ref: '#/components/schemas/VaultAsset'
+      type: array
     CreateAssetsBulkRequest:
       example:
         assetId: assetId
@@ -13004,6 +14307,10 @@ components:
           description: "if the account is a sub-account, the ID of the main account"
           type: string
       type: object
+    GetExchangeAccountsResponse:
+      items:
+        $ref: '#/components/schemas/ExchangeAccount'
+      type: array
     ExchangeAccountsPaged:
       example:
         prevUrl: prevUrl
@@ -13114,6 +14421,10 @@ components:
         nextUrl:
           type: string
       type: object
+    GetPagedExchangeAccountsResponse:
+      items:
+        $ref: '#/components/schemas/ExchangeAccountsPaged'
+      type: array
     TradingAccountType:
       enum:
       - COIN_FUTURES
@@ -13232,6 +14543,10 @@ components:
             $ref: '#/components/schemas/FiatAsset'
           type: array
       type: object
+    GetFiatAccountsResponse:
+      items:
+        $ref: '#/components/schemas/FiatAccount'
+      type: array
     Funds:
       example:
         amount: 0.8008281904610115
@@ -13392,6 +14707,10 @@ components:
       - routingPolicy
       - status
       type: object
+    GetNetworkConnectionsResponse:
+      items:
+        $ref: '#/components/schemas/NetworkConnectionResponse'
+      type: array
     NetworkConnection:
       example:
         localNetworkId: localNetworkId
@@ -13431,6 +14750,15 @@ components:
       required:
       - routingPolicy
       type: object
+    SetRoutingPolicyResponse:
+      example:
+        success: true
+      properties:
+        success:
+          type: boolean
+      required:
+      - success
+      type: object
     ThirdPartyRouting:
       example:
         isThirdPartyRouting: true
@@ -13440,6 +14768,15 @@ components:
           type: boolean
         description:
           type: string
+      type: object
+    DeleteNetworkConnectionResponse:
+      example:
+        success: true
+      properties:
+        success:
+          type: boolean
+      required:
+      - success
       type: object
     NetworkIdRoutingPolicy:
       additionalProperties:
@@ -13460,6 +14797,11 @@ components:
         isDiscoverable: true
         id: id
         routingPolicy: null
+    GetNetworkIdsResponse:
+      items:
+        allOf:
+        - $ref: '#/components/schemas/NetworkIdResponse'
+      type: array
     CreateNetworkIdRequest:
       example:
         name: name
@@ -13478,10 +14820,19 @@ components:
       required:
       - name
       type: object
-    GetEnabledRoutingPolicyAssetGroupsResponse:
+    GetRoutingPolicyAssetGroupsResponse:
       items:
         type: string
       type: array
+    DeleteNetworkIdResponse:
+      example:
+        success: true
+      properties:
+        success:
+          type: boolean
+      required:
+      - success
+      type: object
     SetNetworkIdRoutingPolicyRequest:
       example:
         routingPolicy:
@@ -13593,6 +14944,10 @@ components:
       - id
       - name
       type: object
+    GetInternalWalletsResponse:
+      items:
+        $ref: '#/components/schemas/UnmanagedWallet'
+      type: array
     CreateWalletRequest:
       example:
         name: name
@@ -13620,6 +14975,10 @@ components:
       required:
       - address
       type: object
+    GetExternalWalletsResponse:
+      items:
+        $ref: '#/components/schemas/UnmanagedWallet'
+      type: array
     WalletAssetAdditionalInfo:
       example:
         accountHolderCity: accountHolderCity
@@ -13738,6 +15097,10 @@ components:
       oneOf:
       - $ref: '#/components/schemas/AddAssetToExternalWalletRequest_oneOf'
       - $ref: '#/components/schemas/AddAssetToExternalWalletRequest_oneOf_1'
+    GetContractsResponse:
+      items:
+        $ref: '#/components/schemas/UnmanagedWallet'
+      type: array
     CreateContractRequest:
       example:
         name: name
@@ -13786,6 +15149,10 @@ components:
       - name
       - type
       type: object
+    GetSupportedAssetsResponse:
+      items:
+        $ref: '#/components/schemas/AssetTypeResponse'
+      type: array
     RegisterNewAssetRequest:
       example:
         symbol: TST3
@@ -13855,6 +15222,23 @@ components:
         code:
           description: Error code
           example: "3001"
+          type: string
+      required:
+      - code
+      - message
+      type: object
+    AssetForbiddenErrorResponse:
+      example:
+        code: "3006"
+        message: Asset creation quota reached
+      properties:
+        message:
+          description: Forbidden error code
+          example: Asset creation quota reached
+          type: string
+        code:
+          description: Error code
+          example: "3006"
           type: string
       required:
       - code
@@ -14921,6 +16305,10 @@ components:
             when  `subStatus` =  'SMART_CONTRACT_EXECUTION_FAILED'.
           type: string
       type: object
+    GetTransactionsResponse:
+      items:
+        $ref: '#/components/schemas/TransactionResponse'
+      type: array
     TransactionOperation:
       default: TRANSFER
       description: |
@@ -15377,8 +16765,10 @@ components:
         feePerByte: feePerByte
         networkFee: networkFee
         priorityFee: 1.4658129805029452
+        l1Fee: l1Fee
         baseFee: 6.027456183070403
         gasPrice: 0.8008281904610115
+        maxFeePerGasDelta: maxFeePerGasDelta
       properties:
         feePerByte:
           type: string
@@ -15394,6 +16784,12 @@ components:
         priorityFee:
           description: (optional) Priority Fee according to EIP-1559 (ETH assets)
           type: number
+        maxFeePerGasDelta:
+          description: Max Fee Per Gas Delta added only for EIP-1559 (ETH assets)
+          type: string
+        l1Fee:
+          description: Layer 1 fee for Layer 2 chains
+          type: string
       type: object
     EstimatedTransactionFeeResponse:
       example:
@@ -15402,22 +16798,28 @@ components:
           feePerByte: feePerByte
           networkFee: networkFee
           priorityFee: 1.4658129805029452
+          l1Fee: l1Fee
           baseFee: 6.027456183070403
           gasPrice: 0.8008281904610115
+          maxFeePerGasDelta: maxFeePerGasDelta
         low:
           gasLimit: gasLimit
           feePerByte: feePerByte
           networkFee: networkFee
           priorityFee: 1.4658129805029452
+          l1Fee: l1Fee
           baseFee: 6.027456183070403
           gasPrice: 0.8008281904610115
+          maxFeePerGasDelta: maxFeePerGasDelta
         medium:
           gasLimit: gasLimit
           feePerByte: feePerByte
           networkFee: networkFee
           priorityFee: 1.4658129805029452
+          l1Fee: l1Fee
           baseFee: 6.027456183070403
           gasPrice: 0.8008281904610115
+          maxFeePerGasDelta: maxFeePerGasDelta
       properties:
         low:
           $ref: '#/components/schemas/TransactionFee'
@@ -15466,17 +16868,16 @@ components:
       type: object
     DropTransactionResponse:
       example:
-        success: true
-        transactions:
-        - transactions
-        - transactions
+        txStatus: txStatus
+        txId: txId
+        replacedTxHash: replacedTxHash
       properties:
-        success:
-          type: boolean
-        transactions:
-          items:
-            type: string
-          type: array
+        txStatus:
+          type: string
+        txId:
+          type: string
+        replacedTxHash:
+          type: string
       type: object
     CancelTransactionResponse:
       example:
@@ -17417,6 +18818,1652 @@ components:
       required:
       - success
       type: object
+    AuditorData:
+      properties:
+        name:
+          type: string
+        imageURL:
+          type: string
+        link:
+          type: string
+      required:
+      - imageURL
+      - link
+      - name
+      type: object
+    ContractAttributes:
+      properties:
+        useCases:
+          items:
+            type: string
+          type: array
+        standards:
+          items:
+            type: string
+          type: array
+        auditor:
+          $ref: '#/components/schemas/AuditorData'
+      required:
+      - auditor
+      - standards
+      - useCases
+      type: object
+    VendorDto:
+      properties:
+        id:
+          description: The unique identifier of the vendor of this contract template
+          example: b70701f4-d7b1-4795-a8ee-b09cdb5b4453
+          type: string
+        name:
+          description: The name of the vendor of this contract template
+          example: Fireblocks
+          type: string
+      required:
+      - id
+      - name
+      type: object
+    LeanContractDto:
+      example:
+        owner: b70701f4-d7b1-4795-a8ee-b09cdb5b850d
+        canDeploy: true
+        vendor: ""
+        name: My Contract
+        description: an ERC20 implementation
+        isPublic: true
+        attributes:
+          useCases:
+          - Stablecoin
+          - CBDC
+          standards:
+          - ERC-20
+          - ERC-1400
+          auditor:
+            name: MyAuditor
+            imageURL: https://my-images.com/my-image.jpg
+            link: https://my-auditor.com/my-audit-report
+        id: b70701f4-d7b1-4795-a8ee-b09cdb5b850d
+        type: FUNGIBLE_TOKEN
+      properties:
+        id:
+          description: The unique identifier of the contract template
+          example: b70701f4-d7b1-4795-a8ee-b09cdb5b850d
+          type: string
+        name:
+          description: The name of the contract template
+          example: My Contract
+          type: string
+        description:
+          description: A short description of the contract template
+          example: an ERC20 implementation
+          type: string
+        attributes:
+          allOf:
+          - $ref: '#/components/schemas/ContractAttributes'
+          description: The attributes related to this contract template. It will be
+            displayed in the tokenization page
+          example:
+            useCases:
+            - Stablecoin
+            - CBDC
+            standards:
+            - ERC-20
+            - ERC-1400
+            auditor:
+              name: MyAuditor
+              imageURL: https://my-images.com/my-image.jpg
+              link: https://my-auditor.com/my-audit-report
+        isPublic:
+          description: Is this a contract that is viewable by all fireblocks's users
+            or is it visible only for this workspace
+          example: true
+          type: boolean
+        canDeploy:
+          description: "True if the workspace allowed to deploy this contract, false\
+            \ otherwise"
+          example: true
+          type: boolean
+        owner:
+          description: "The workspace id of the owner of this contract template. If\
+            \ it's a private contract, only this workspace will be allowed to deploy\
+            \ it"
+          example: b70701f4-d7b1-4795-a8ee-b09cdb5b850d
+          type: string
+        vendor:
+          allOf:
+          - $ref: '#/components/schemas/VendorDto'
+          description: The details of the vendor of this contract template. Applicable
+            only for public contract templates
+        type:
+          enum:
+          - FUNGIBLE_TOKEN
+          - NON_FUNGIBLE_TOKEN
+          - NON_TOKEN
+          - TOKEN_EXTENSION
+          - TOKEN_UTILITY
+          type: string
+      required:
+      - description
+      - id
+      - isPublic
+      - name
+      type: object
+    TemplatesPaginatedResponse:
+      example:
+        next: eJ0eXAiOiJKV1QiLCJhbGcOiJIUzI1NiJ9
+        data:
+        - owner: b70701f4-d7b1-4795-a8ee-b09cdb5b850d
+          canDeploy: true
+          vendor: ""
+          name: My Contract
+          description: an ERC20 implementation
+          isPublic: true
+          attributes:
+            useCases:
+            - Stablecoin
+            - CBDC
+            standards:
+            - ERC-20
+            - ERC-1400
+            auditor:
+              name: MyAuditor
+              imageURL: https://my-images.com/my-image.jpg
+              link: https://my-auditor.com/my-audit-report
+          id: b70701f4-d7b1-4795-a8ee-b09cdb5b850d
+          type: FUNGIBLE_TOKEN
+        - owner: b70701f4-d7b1-4795-a8ee-b09cdb5b850d
+          canDeploy: true
+          vendor: ""
+          name: My Contract
+          description: an ERC20 implementation
+          isPublic: true
+          attributes:
+            useCases:
+            - Stablecoin
+            - CBDC
+            standards:
+            - ERC-20
+            - ERC-1400
+            auditor:
+              name: MyAuditor
+              imageURL: https://my-images.com/my-image.jpg
+              link: https://my-auditor.com/my-audit-report
+          id: b70701f4-d7b1-4795-a8ee-b09cdb5b850d
+          type: FUNGIBLE_TOKEN
+      properties:
+        data:
+          description: The data of the current page
+          items:
+            $ref: '#/components/schemas/LeanContractDto'
+          type: array
+        next:
+          description: The ID of the next page
+          example: eJ0eXAiOiJKV1QiLCJhbGcOiJIUzI1NiJ9
+          nullable: true
+          type: string
+      required:
+      - data
+      type: object
+    FunctionDoc:
+      properties:
+        details:
+          description: A description of the function
+          type: string
+        params:
+          additionalProperties:
+            type: string
+          description: A description of the function parameters
+          type: object
+        returns:
+          additionalProperties:
+            type: string
+          description: A description of the function return values. only for read
+            functions
+          type: object
+      type: object
+    ContractDoc:
+      properties:
+        details:
+          description: A description of the contract
+          example: A token that can be minted and burned
+          type: string
+        events:
+          description: A description of the contract`s events
+          example: "Upgraded(address): {\"details\": \"Emitted when the implementation\
+            \ is upgraded.\"}"
+          type: string
+        kind:
+          description: Is it devdoc or userdoc
+          example: dev
+          type: string
+        methods:
+          additionalProperties:
+            $ref: '#/components/schemas/FunctionDoc'
+          description: The description of the contract functions
+          example:
+            constructor:
+              details: Initializes the contract
+          type: object
+        version:
+          description: The version of the contract
+          example: "1"
+          type: string
+      required:
+      - kind
+      - methods
+      - version
+      type: object
+    Parameter:
+      example:
+        components:
+        - null
+        - null
+        name: _name
+        description: The name of the token
+        internalType: string
+        type: string
+      properties:
+        name:
+          description: The name of the parameter as it appears in the ABI
+          example: _name
+          type: string
+        description:
+          description: "A description of the parameter, fetched from the devdoc of\
+            \ this contract"
+          example: The name of the token
+          type: string
+        internalType:
+          description: The internal type of the parameter as it appears in the ABI
+          example: string
+          type: string
+        type:
+          description: The type of the parameter as it appears in the ABI
+          example: string
+          type: string
+        components:
+          items:
+            $ref: '#/components/schemas/Parameter'
+          type: array
+      required:
+      - name
+      - type
+      type: object
+    AbiFunction:
+      example:
+        outputs:
+        - components:
+          - null
+          - null
+          name: _name
+          description: The name of the token
+          internalType: string
+          type: string
+        - components:
+          - null
+          - null
+          name: _name
+          description: The name of the token
+          internalType: string
+          type: string
+        inputs:
+        - components:
+          - null
+          - null
+          name: _name
+          description: The name of the token
+          internalType: string
+          type: string
+        - components:
+          - null
+          - null
+          name: _name
+          description: The name of the token
+          internalType: string
+          type: string
+        name: mint
+        stateMutability: pure
+        description: description
+        type: constructor
+      properties:
+        name:
+          description: The name of the contract function as it appears in the ABI
+          example: mint
+          type: string
+        stateMutability:
+          description: The state mutability of the contract function as it appears
+            in the ABI
+          enum:
+          - pure
+          - view
+          - nonpayable
+          - payable
+          example: pure
+          type: string
+        type:
+          description: The type if the function
+          enum:
+          - function
+          - constructor
+          example: constructor
+          type: string
+        inputs:
+          description: The parameters that this function/constructor posses
+          items:
+            $ref: '#/components/schemas/Parameter'
+          type: array
+        outputs:
+          description: The parameters that this 'read' function returns
+          items:
+            $ref: '#/components/schemas/Parameter'
+          type: array
+        description:
+          description: The documentation of this function (if has any)
+          type: string
+      required:
+      - inputs
+      - type
+      type: object
+    ContractUploadRequest:
+      example:
+        longDescription: |
+          a full ERC20 implementation, containing the following:
+
+           - mint
+           - burn
+        bytecode: bytecode
+        docs:
+          details: "This contract implements an upgradeable proxy. It is upgradeable\
+            \ because calls are delegated to an implementation address that can be\
+            \ changed. This address is stored in storage in the location specified\
+            \ by https://eips.ethereum.org/EIPS/eip-1967[EIP1967], so that it doesn't\
+            \ conflict with the storage layout of the implementation behind the proxy."
+          errors:
+            ERC1967NonPayable():
+            - details: An upgrade function sees `msg.value > 0` that may be lost.
+          events:
+            Upgraded(address):
+              details: Emitted when the implementation is upgraded.
+          kind: dev
+          methods:
+            constructor:
+              details: "Initializes the upgradeable proxy with an initial implementation\
+                \ specified by `implementation`. If `_data` is nonempty, it's used\
+                \ as data in a delegate call to `implementation`. This will typically\
+                \ be an encoded function call, and allows initializing the storage\
+                \ of the proxy like a Solidity constructor. Requirements: - If `data`\
+                \ is empty, `msg.value` must be zero."
+          version: 1
+        name: My Contract
+        description: an ERC20 implementation
+        abi:
+        - - inputs:
+            - internalType: address
+              name: implementation
+              type: address
+            - internalType: bytes
+              name: _data
+              type: bytes
+            stateMutability: payable
+            type: constructor
+        - - inputs:
+            - internalType: address
+              name: implementation
+              type: address
+            - internalType: bytes
+              name: _data
+              type: bytes
+            stateMutability: payable
+            type: constructor
+        attributes:
+          useCases:
+          - Stablecoin
+          - CBDC
+          standards:
+          - ERC-20
+          - ERC-1400
+          auditor:
+            name: MyAuditor
+            imageURL: https://my-images.com/my-image.jpg
+            link: https://my-auditor.com/my-audit-report
+        type: FUNGIBLE_TOKEN
+        sourcecode: sourcecode
+      properties:
+        name:
+          description: The name of the contract template
+          example: My Contract
+          type: string
+        description:
+          description: A short description of the contract template
+          example: an ERC20 implementation
+          type: string
+        longDescription:
+          description: "A full description of the contract template. May contain \n\
+            \ to break the lines"
+          example: |
+            a full ERC20 implementation, containing the following:
+
+             - mint
+             - burn
+          type: string
+        bytecode:
+          description: The compiled artifact of this smart contract. Used for deployment
+            of this contract template
+          type: string
+        sourcecode:
+          description: The source code of the contract. Optional.
+          type: string
+        type:
+          description: The type of the contract template
+          enum:
+          - FUNGIBLE_TOKEN
+          - NON_FUNGIBLE_TOKEN
+          - NON_TOKEN
+          - TOKEN_EXTENSION
+          - TOKEN_UTILITY
+          example: FUNGIBLE_TOKEN
+          type: string
+        docs:
+          allOf:
+          - $ref: '#/components/schemas/ContractDoc'
+          description: A `natspec` compliant documentation json. Can be retrieved
+            from the output json after compilation
+          example:
+            details: "This contract implements an upgradeable proxy. It is upgradeable\
+              \ because calls are delegated to an implementation address that can\
+              \ be changed. This address is stored in storage in the location specified\
+              \ by https://eips.ethereum.org/EIPS/eip-1967[EIP1967], so that it doesn't\
+              \ conflict with the storage layout of the implementation behind the\
+              \ proxy."
+            errors:
+              ERC1967NonPayable():
+              - details: An upgrade function sees `msg.value > 0` that may be lost.
+            events:
+              Upgraded(address):
+                details: Emitted when the implementation is upgraded.
+            kind: dev
+            methods:
+              constructor:
+                details: "Initializes the upgradeable proxy with an initial implementation\
+                  \ specified by `implementation`. If `_data` is nonempty, it's used\
+                  \ as data in a delegate call to `implementation`. This will typically\
+                  \ be an encoded function call, and allows initializing the storage\
+                  \ of the proxy like a Solidity constructor. Requirements: - If `data`\
+                  \ is empty, `msg.value` must be zero."
+            version: 1
+        abi:
+          items:
+            description: The abi of the contract template. Necessary for displaying
+              and for after deployment encoding
+            example:
+            - inputs:
+              - internalType: address
+                name: implementation
+                type: address
+              - internalType: bytes
+                name: _data
+                type: bytes
+              stateMutability: payable
+              type: constructor
+            items:
+              $ref: '#/components/schemas/AbiFunction'
+            type: array
+          type: array
+        attributes:
+          allOf:
+          - $ref: '#/components/schemas/ContractAttributes'
+          description: The attributes related to this contract template. It will be
+            displayed in the tokenization page
+          example:
+            useCases:
+            - Stablecoin
+            - CBDC
+            standards:
+            - ERC-20
+            - ERC-1400
+            auditor:
+              name: MyAuditor
+              imageURL: https://my-images.com/my-image.jpg
+              link: https://my-auditor.com/my-audit-report
+      required:
+      - abi
+      - bytecode
+      - description
+      - name
+      type: object
+    ContractTemplateDto:
+      example:
+        longDescription: |
+          a full ERC20 implementation, containing the following:
+
+           - mint
+           - burn
+        owner: b70701f4-d7b1-4795-a8ee-b09cdb5b850d
+        description: an ERC20 implementation
+        abi:
+        - - inputs:
+            - internalType: address
+              name: implementation
+              type: address
+            - internalType: bytes
+              name: _data
+              type: bytes
+            stateMutability: payable
+            type: constructor
+        - - inputs:
+            - internalType: address
+              name: implementation
+              type: address
+            - internalType: bytes
+              name: _data
+              type: bytes
+            stateMutability: payable
+            type: constructor
+        initializationPhase: ON_DEPLOYMENT
+        type: FUNGIBLE_TOKEN
+        docs:
+          details: "This contract implements an upgradeable proxy. It is upgradeable\
+            \ because calls are delegated to an implementation address that can be\
+            \ changed. This address is stored in storage in the location specified\
+            \ by https://eips.ethereum.org/EIPS/eip-1967[EIP1967], so that it doesn't\
+            \ conflict with the storage layout of the implementation behind the proxy."
+          errors:
+            ERC1967NonPayable():
+            - details: An upgrade function sees `msg.value > 0` that may be lost.
+          events:
+            Upgraded(address):
+              details: Emitted when the implementation is upgraded.
+          kind: dev
+          methods:
+            constructor:
+              details: "Initializes the upgradeable proxy with an initial implementation\
+                \ specified by `implementation`. If `_data` is nonempty, it's used\
+                \ as data in a delegate call to `implementation`. This will typically\
+                \ be an encoded function call, and allows initializing the storage\
+                \ of the proxy like a Solidity constructor. Requirements: - If `data`\
+                \ is empty, `msg.value` must be zero."
+          version: 1
+        canDeploy: true
+        vendor: ""
+        name: My Contract
+        implementationContractId: implementationContractId
+        isPublic: true
+        attributes:
+          useCases:
+          - Stablecoin
+          - CBDC
+          standards:
+          - ERC-20
+          - ERC-1400
+          auditor:
+            name: MyAuditor
+            imageURL: https://my-images.com/my-image.jpg
+            link: https://my-auditor.com/my-audit-report
+        id: b70701f4-d7b1-4795-a8ee-b09cdb5b850d
+      properties:
+        id:
+          description: The unique identifier of the contract template
+          example: b70701f4-d7b1-4795-a8ee-b09cdb5b850d
+          type: string
+        name:
+          description: The name of the contract template
+          example: My Contract
+          type: string
+        description:
+          description: A short description of the contract template
+          example: an ERC20 implementation
+          type: string
+        longDescription:
+          description: "A full description of the contract template. May contain \n\
+            \ to break the lines"
+          example: |
+            a full ERC20 implementation, containing the following:
+
+             - mint
+             - burn
+          type: string
+        abi:
+          items:
+            description: The abi of the contract template. Necessary for displaying
+              and for after deployment encoding
+            example:
+            - inputs:
+              - internalType: address
+                name: implementation
+                type: address
+              - internalType: bytes
+                name: _data
+                type: bytes
+              stateMutability: payable
+              type: constructor
+            items:
+              $ref: '#/components/schemas/AbiFunction'
+            type: array
+          type: array
+        attributes:
+          allOf:
+          - $ref: '#/components/schemas/ContractAttributes'
+          description: The attributes related to this contract template. It will be
+            displayed in the tokenization page
+          example:
+            useCases:
+            - Stablecoin
+            - CBDC
+            standards:
+            - ERC-20
+            - ERC-1400
+            auditor:
+              name: MyAuditor
+              imageURL: https://my-images.com/my-image.jpg
+              link: https://my-auditor.com/my-audit-report
+        docs:
+          allOf:
+          - $ref: '#/components/schemas/ContractDoc'
+          description: A `natspec` compliant documentation json. Can be retrieved
+            from the output json after compilation
+          example:
+            details: "This contract implements an upgradeable proxy. It is upgradeable\
+              \ because calls are delegated to an implementation address that can\
+              \ be changed. This address is stored in storage in the location specified\
+              \ by https://eips.ethereum.org/EIPS/eip-1967[EIP1967], so that it doesn't\
+              \ conflict with the storage layout of the implementation behind the\
+              \ proxy."
+            errors:
+              ERC1967NonPayable():
+              - details: An upgrade function sees `msg.value > 0` that may be lost.
+            events:
+              Upgraded(address):
+                details: Emitted when the implementation is upgraded.
+            kind: dev
+            methods:
+              constructor:
+                details: "Initializes the upgradeable proxy with an initial implementation\
+                  \ specified by `implementation`. If `_data` is nonempty, it's used\
+                  \ as data in a delegate call to `implementation`. This will typically\
+                  \ be an encoded function call, and allows initializing the storage\
+                  \ of the proxy like a Solidity constructor. Requirements: - If `data`\
+                  \ is empty, `msg.value` must be zero."
+            version: 1
+        owner:
+          description: "The workspace id of the owner of this contract template. If\
+            \ it's a private contract, only this workspace will be allowed to deploy\
+            \ it"
+          example: b70701f4-d7b1-4795-a8ee-b09cdb5b850d
+          type: string
+        vendor:
+          allOf:
+          - $ref: '#/components/schemas/VendorDto'
+          description: The details of the vendor of this contract template. Applicable
+            only for public contract templates
+        isPublic:
+          description: Is this a contract that is viewable by all fireblocks's users
+            or is it visible only for this workspace
+          example: true
+          type: boolean
+        canDeploy:
+          description: "True if the workspace allowed to deploy this contract, false\
+            \ otherwise"
+          example: true
+          type: boolean
+        type:
+          description: The type of the contract template
+          enum:
+          - FUNGIBLE_TOKEN
+          - NON_FUNGIBLE_TOKEN
+          - NON_TOKEN
+          - TOKEN_EXTENSION
+          - TOKEN_UTILITY
+          example: FUNGIBLE_TOKEN
+          type: string
+        implementationContractId:
+          type: string
+        initializationPhase:
+          enum:
+          - ON_DEPLOYMENT
+          - POST_DEPLOYMENT
+          type: string
+      required:
+      - abi
+      - description
+      - id
+      - initializationPhase
+      - isPublic
+      - name
+      type: object
+    HttpContractDoesNotExistError:
+      example:
+        code: "404"
+        message: Contract does not exist
+      properties:
+        message:
+          description: Not Found error code
+          example: Contract does not exist
+          type: string
+        code:
+          description: Error code
+          example: "404"
+          type: string
+      type: object
+    ParameterWithValue:
+      example:
+        components:
+        - components:
+          - null
+          - null
+          name: _name
+          description: The name of the token
+          internalType: string
+          type: string
+        - components:
+          - null
+          - null
+          name: _name
+          description: The name of the token
+          internalType: string
+          type: string
+        name: _name
+        description: The name of the token
+        functionValue: ""
+        internalType: string
+        type: string
+        value: "true"
+      properties:
+        name:
+          description: The name of the parameter as it appears in the ABI
+          example: _name
+          type: string
+        description:
+          description: "A description of the parameter, fetched from the devdoc of\
+            \ this contract"
+          example: The name of the token
+          type: string
+        internalType:
+          description: The  internal type of the parameter as it appears in the ABI
+          example: string
+          type: string
+        type:
+          description: The type of the parameter as it appears in the ABI
+          example: string
+          type: string
+        components:
+          items:
+            $ref: '#/components/schemas/Parameter'
+          type: array
+        value:
+          description: The value of the parameter. can also be ParameterWithValue
+          example: "true"
+          type: string
+        functionValue:
+          allOf:
+          - $ref: '#/components/schemas/LeanAbiFunction'
+          description: "The function value of this param (if has one). If this is\
+            \ set, the `value` shouldn`t be. Used for proxies"
+      required:
+      - name
+      - type
+      type: object
+    LeanAbiFunction:
+      properties:
+        name:
+          description: The function name
+          example: initialize
+          type: string
+        inputs:
+          description: The function inputs
+          items:
+            $ref: '#/components/schemas/ParameterWithValue'
+          type: array
+      required:
+      - inputs
+      type: object
+    ContractDeployRequest:
+      example:
+        assetId: ETH_TEST5
+        constructorParameters:
+        - internalType: string
+          name: name_
+          type: string
+          value: TokenName
+        - internalType: string
+          name: symbol_
+          type: string
+          value: TokenSymbol
+        vaultAccountId: "0"
+      properties:
+        assetId:
+          description: The base asset identifier of the blockchain you want to deploy
+            to
+          example: ETH_TEST5
+          type: string
+        vaultAccountId:
+          description: The vault account id you wish to deploy from
+          example: "0"
+          type: string
+        constructorParameters:
+          description: The constructor parameters of this contract
+          example:
+          - internalType: string
+            name: name_
+            type: string
+            value: TokenName
+          - internalType: string
+            name: symbol_
+            type: string
+            value: TokenSymbol
+          items:
+            $ref: '#/components/schemas/ParameterWithValue'
+          type: array
+      required:
+      - assetId
+      - vaultAccountId
+      type: object
+    ContractDeployResponse:
+      example:
+        txId: b70701f4-d7b1-4795-a8ee-b09cdb5b850d
+      properties:
+        txId:
+          description: The transaction id of the deployment request
+          example: b70701f4-d7b1-4795-a8ee-b09cdb5b850d
+          type: string
+      required:
+      - txId
+      type: object
+    LeanDeployedContractResponseDto:
+      example:
+        contractTemplateId: b70701f4-d7b1-4795-a8ee-b09cdb5b850d
+        contractAddress: 0xC2c4e1Db41F0bB97996D0eD0542D2170d146FB66
+        id: b70701f4-d7b1-4795-a8ee-b09cdb5b850d
+        blockchainId: blockchainId
+      properties:
+        id:
+          description: The deployed contract data identifier
+          example: b70701f4-d7b1-4795-a8ee-b09cdb5b850d
+          type: string
+        contractAddress:
+          description: The contract's onchain address
+          example: 0xC2c4e1Db41F0bB97996D0eD0542D2170d146FB66
+          type: string
+        contractTemplateId:
+          description: The contract template identifier
+          example: b70701f4-d7b1-4795-a8ee-b09cdb5b850d
+          type: string
+        blockchainId:
+          type: string
+      required:
+      - blockchainId
+      - contractAddress
+      - contractTemplateId
+      - id
+      type: object
+    DeployedContractsPaginatedResponse:
+      example:
+        next: eJ0eXAiOiJKV1QiLCJhbGcOiJIUzI1NiJ9
+        data:
+        - contractTemplateId: b70701f4-d7b1-4795-a8ee-b09cdb5b850d
+          contractAddress: 0xC2c4e1Db41F0bB97996D0eD0542D2170d146FB66
+          id: b70701f4-d7b1-4795-a8ee-b09cdb5b850d
+          blockchainId: blockchainId
+        - contractTemplateId: b70701f4-d7b1-4795-a8ee-b09cdb5b850d
+          contractAddress: 0xC2c4e1Db41F0bB97996D0eD0542D2170d146FB66
+          id: b70701f4-d7b1-4795-a8ee-b09cdb5b850d
+          blockchainId: blockchainId
+      properties:
+        data:
+          description: The data of the current page
+          items:
+            $ref: '#/components/schemas/LeanDeployedContractResponseDto'
+          type: array
+        next:
+          description: The ID of the next page
+          example: eJ0eXAiOiJKV1QiLCJhbGcOiJIUzI1NiJ9
+          nullable: true
+          type: string
+      required:
+      - data
+      type: object
+    DeployedContractResponseDto:
+      example:
+        contractTemplateId: b70701f4-d7b1-4795-a8ee-b09cdb5b850d
+        contractAddress: 0xC2c4e1Db41F0bB97996D0eD0542D2170d146FB66
+        vaultAccountId: "0"
+        id: b70701f4-d7b1-4795-a8ee-b09cdb5b850d
+        blockchainId: blockchainId
+      properties:
+        id:
+          description: The deployed contract data identifier
+          example: b70701f4-d7b1-4795-a8ee-b09cdb5b850d
+          type: string
+        contractAddress:
+          description: The contract's onchain address
+          example: 0xC2c4e1Db41F0bB97996D0eD0542D2170d146FB66
+          type: string
+        contractTemplateId:
+          description: The contract template identifier
+          example: b70701f4-d7b1-4795-a8ee-b09cdb5b850d
+          type: string
+        vaultAccountId:
+          description: The vault account id this contract was deploy from
+          example: "0"
+          type: string
+        blockchainId:
+          type: string
+      required:
+      - blockchainId
+      - contractAddress
+      - contractTemplateId
+      - id
+      type: object
+    AssetMetadataDto:
+      example:
+        symbol: MYT
+        holdersCount: 6
+        totalSupply: "1000000000000000"
+        contractAddress: 0x1234567890abcdef1234567890abcdef12345678
+        vaultAccountId: "0"
+        type: ERC20
+        blockchain: ETH_TEST5
+        assetId: BQ5R_MY_TOKEN
+        issuerAddress: rGyXjc5d7s17vvt3NtKKascvJrnSxV21kQ
+        decimals: 18
+        name: MyToken
+        testnet: true
+        networkProtocol: ETH
+      properties:
+        assetId:
+          description: The Fireblocks` asset id
+          example: BQ5R_MY_TOKEN
+          type: string
+        name:
+          description: The name of the token
+          example: MyToken
+          type: string
+        symbol:
+          description: The symbol of the token
+          example: MYT
+          type: string
+        networkProtocol:
+          description: The network protocol of the token
+          example: ETH
+          type: string
+        totalSupply:
+          description: The total supply of the token
+          example: "1000000000000000"
+          type: string
+        holdersCount:
+          description: The number of holders of the token
+          example: 6
+          type: number
+        type:
+          description: The type of the token
+          example: ERC20
+          type: string
+        contractAddress:
+          description: The address of the token contract
+          example: 0x1234567890abcdef1234567890abcdef12345678
+          type: string
+        issuerAddress:
+          description: "In case of Stellar or Ripple, the address of the issuer of\
+            \ the token"
+          example: rGyXjc5d7s17vvt3NtKKascvJrnSxV21kQ
+          type: string
+        testnet:
+          description: Is it deployed on testnet or to mainnet
+          example: true
+          type: boolean
+        blockchain:
+          description: The blockchain native asset id which the token is deployed
+            on
+          example: ETH_TEST5
+          type: string
+        decimals:
+          description: The number of decimals of the token
+          example: 18
+          type: number
+        vaultAccountId:
+          description: The id of the vault account that initiated the request to issue
+            the token. Will be empty if token was issued outside of Fireblocks.
+          example: "0"
+          type: string
+      required:
+      - assetId
+      type: object
+    CollectionMetadataDto:
+      properties:
+        fbCollectionId:
+          description: Fireblocks collection id
+          example: 911fe739f0d4d123c98fd366c3bed35c6e30c00e
+          type: string
+        name:
+          description: Collection name
+          example: Rarible
+          type: string
+        symbol:
+          description: Collection symbol
+          example: RARI
+          type: string
+        standard:
+          description: Collection contract standard
+          example: ERC721
+          type: string
+        blockchainDescriptor:
+          description: Collection's blockchain
+          example: ETH_TEST5
+          type: string
+        contractAddress:
+          description: Collection contract address
+          example: 0x1723017329a804564bC8d215496C89eaBf1F3211
+          type: string
+      required:
+      - blockchainDescriptor
+      - fbCollectionId
+      type: object
+    ContractMetadataDto:
+      properties:
+        id:
+          description: The deployed contract ID
+          example: fbfbfbfb-fbfb-fbfb-fbfb-fbfbfbfbfbfb
+          type: string
+        blockchainId:
+          description: The blockchain ID
+          example: B7QG017M
+          type: string
+        contractAddress:
+          description: The address of the token contract
+          example: 0x1234567890abcdef1234567890abcdef12345678
+          type: string
+        contractTemplateId:
+          description: The contract template ID
+          example: b70701f4-d7b1-4795-a8ee-b09cdb5b850d
+          type: string
+        vaultAccountId:
+          description: The vault account ID that initiated the request to issue the
+            token
+          example: "0"
+          type: string
+      required:
+      - blockchainId
+      - contractAddress
+      - contractTemplateId
+      - id
+      type: object
+    TokenLinkDto:
+      example:
+        displayName: My Simple ERC20 Token
+        id: fbfbfbfb-fbfb-fbfb-fbfb-fbfbfbfbfbfb
+        refId: BQ5R_MY_TOKEN
+        type: FUNGIBLE_TOKEN
+        tokenMetadata:
+          symbol: MYT
+          holdersCount: 6
+          totalSupply: "1000000000000000"
+          contractAddress: 0x1234567890abcdef1234567890abcdef12345678
+          vaultAccountId: "0"
+          type: ERC20
+          blockchain: ETH_TEST5
+          assetId: BQ5R_MY_TOKEN
+          issuerAddress: rGyXjc5d7s17vvt3NtKKascvJrnSxV21kQ
+          decimals: 18
+          name: MyToken
+          testnet: true
+          networkProtocol: ETH
+        status: COMPLETED
+      properties:
+        id:
+          description: The token link id
+          example: fbfbfbfb-fbfb-fbfb-fbfb-fbfbfbfbfbfb
+          type: string
+        status:
+          description: The token status
+          enum:
+          - PENDING
+          - COMPLETED
+          example: COMPLETED
+          type: string
+        type:
+          description: The type of token
+          enum:
+          - FUNGIBLE_TOKEN
+          - NON_FUNGIBLE_TOKEN
+          - TOKEN_UTILITY
+          - TOKEN_EXTENSION
+          example: FUNGIBLE_TOKEN
+          type: string
+        refId:
+          description: "The Fireblocks' reference id. Can be a Fireblocks' supported\
+            \ asset, collectionId or contractId"
+          example: BQ5R_MY_TOKEN
+          type: string
+        displayName:
+          description: "The token display name. If was not provided, would be taken\
+            \ from the contract template name"
+          example: My Simple ERC20 Token
+          type: string
+        tokenMetadata:
+          $ref: '#/components/schemas/TokenLinkDto_tokenMetadata'
+      required:
+      - id
+      - status
+      type: object
+    TokensPaginatedResponse:
+      example:
+        next: eJ0eXAiOiJKV1QiLCJhbGcOiJIUzI1NiJ9
+        data:
+        - displayName: My Simple ERC20 Token
+          id: fbfbfbfb-fbfb-fbfb-fbfb-fbfbfbfbfbfb
+          refId: BQ5R_MY_TOKEN
+          type: FUNGIBLE_TOKEN
+          tokenMetadata:
+            symbol: MYT
+            holdersCount: 6
+            totalSupply: "1000000000000000"
+            contractAddress: 0x1234567890abcdef1234567890abcdef12345678
+            vaultAccountId: "0"
+            type: ERC20
+            blockchain: ETH_TEST5
+            assetId: BQ5R_MY_TOKEN
+            issuerAddress: rGyXjc5d7s17vvt3NtKKascvJrnSxV21kQ
+            decimals: 18
+            name: MyToken
+            testnet: true
+            networkProtocol: ETH
+          status: COMPLETED
+        - displayName: My Simple ERC20 Token
+          id: fbfbfbfb-fbfb-fbfb-fbfb-fbfbfbfbfbfb
+          refId: BQ5R_MY_TOKEN
+          type: FUNGIBLE_TOKEN
+          tokenMetadata:
+            symbol: MYT
+            holdersCount: 6
+            totalSupply: "1000000000000000"
+            contractAddress: 0x1234567890abcdef1234567890abcdef12345678
+            vaultAccountId: "0"
+            type: ERC20
+            blockchain: ETH_TEST5
+            assetId: BQ5R_MY_TOKEN
+            issuerAddress: rGyXjc5d7s17vvt3NtKKascvJrnSxV21kQ
+            decimals: 18
+            name: MyToken
+            testnet: true
+            networkProtocol: ETH
+          status: COMPLETED
+      properties:
+        data:
+          description: The data of the current page
+          items:
+            $ref: '#/components/schemas/TokenLinkDto'
+          type: array
+        next:
+          description: The ID of the next page
+          example: eJ0eXAiOiJKV1QiLCJhbGcOiJIUzI1NiJ9
+          nullable: true
+          type: string
+      required:
+      - data
+      type: object
+    EVMTokenCreateParamsDto:
+      example:
+        contractId: b70701f4-d7b1-4795-a8ee-b09cdb5b850d
+        constructorParams:
+        - internalType: string
+          name: name
+          type: string
+          value: name
+        - internalType: string
+          name: symbol
+          type: string
+          value: symbol
+        - components:
+          - internalType: bool
+            name: _isMintable
+            type: bool
+          internalType: struct MyStruct
+          name: customConfigProps
+          type: tuple
+          value:
+          - internalType: bool
+            name: _isMintable
+            type: bool
+            value: false
+      properties:
+        contractId:
+          description: The id of the contract template that will be used to create
+            the token
+          example: b70701f4-d7b1-4795-a8ee-b09cdb5b850d
+          type: string
+        constructorParams:
+          description: The constructor parameters and values of the contract template
+          example:
+          - internalType: string
+            name: name
+            type: string
+            value: name
+          - internalType: string
+            name: symbol
+            type: string
+            value: symbol
+          - components:
+            - internalType: bool
+              name: _isMintable
+              type: bool
+            internalType: struct MyStruct
+            name: customConfigProps
+            type: tuple
+            value:
+            - internalType: bool
+              name: _isMintable
+              type: bool
+              value: false
+          items:
+            items:
+              $ref: '#/components/schemas/ParameterWithValue'
+            type: array
+          type: array
+      required:
+      - contractId
+      type: object
+    StellarRippleCreateParamsDto:
+      properties:
+        symbol:
+          description: The symbol of the token
+          example: MyUSDT
+          type: string
+        name:
+          description: The name of the token
+          example: My USD Tether
+          type: string
+        issuerAddress:
+          description: The address of the issuer of this token. Will be part of the
+            identifier of this token on chain.
+          example: rnDV4JiwgRNhudPY2sm65AzECpRXaasL4r
+          type: string
+      required:
+      - issuerAddress
+      - name
+      - symbol
+      type: object
+    CreateTokenRequestDto:
+      example:
+        assetId: ETH_TEST5
+        displayName: displayName
+        vaultAccountId: "0"
+        blockchainId: B7QG017M
+        createParams:
+          contractId: b70701f4-d7b1-4795-a8ee-b09cdb5b850d
+          constructorParams:
+          - internalType: string
+            name: name
+            type: string
+            value: name
+          - internalType: string
+            name: symbol
+            type: string
+            value: symbol
+          - components:
+            - internalType: bool
+              name: _isMintable
+              type: bool
+            internalType: struct MyStruct
+            name: customConfigProps
+            type: tuple
+            value:
+            - internalType: bool
+              name: _isMintable
+              type: bool
+              value: false
+      properties:
+        blockchainId:
+          description: The id of the blockchain the request was initiated on
+          example: B7QG017M
+          type: string
+        assetId:
+          description: The base asset identifier of the blockchain you want to deploy
+            to
+          example: ETH_TEST5
+          type: string
+        vaultAccountId:
+          description: The id of the vault account that initiated the request to issue
+            the token
+          example: "0"
+          type: string
+        createParams:
+          $ref: '#/components/schemas/CreateTokenRequestDto_createParams'
+        displayName:
+          type: string
+      required:
+      - createParams
+      - vaultAccountId
+      type: object
+    AssetAlreadyExistHttpError:
+      example:
+        message: message
+        error: Conflict
+        statusCode: 409
+      properties:
+        statusCode:
+          description: HTTP status code
+          example: 409
+          format: int32
+          type: integer
+        message:
+          description: Error message
+          type: string
+        error:
+          description: Short description of the HTTP error
+          example: Conflict
+          type: string
+      type: object
+    TokenLinkRequestDto:
+      example:
+        displayName: My Simple ERC20 Token
+        refId: USDC_ETH_TEST5_1XF5
+        type: FUNGIBLE_TOKEN
+      properties:
+        type:
+          description: The type of token being linked
+          enum:
+          - FUNGIBLE_TOKEN
+          - NON_FUNGIBLE_TOKEN
+          - TOKEN_UTILITY
+          - TOKEN_EXTENSION
+          type: string
+        refId:
+          description: "The Fireblocks' token link reference id. For example, 'BQ5R_BDESC_ABC'\
+            \ if it's a fungible \n\t\t\t\t\tasset"
+          example: USDC_ETH_TEST5_1XF5
+          type: string
+        displayName:
+          description: The token display name
+          example: My Simple ERC20 Token
+          type: string
+      required:
+      - refId
+      - type
+      type: object
+    AssetDoesNotExistHttpError:
+      example:
+        message: message
+        error: Not Found
+        statusCode: 404
+      properties:
+        statusCode:
+          description: HTTP status code
+          example: 404
+          format: int32
+          type: integer
+        message:
+          description: Error message
+          type: string
+        error:
+          description: Short description of the HTTP error
+          example: Not Found
+          type: string
+      type: object
+    TokenLinkExistsHttpError:
+      example:
+        message: message
+        error: Conflict
+        statusCode: 409
+      properties:
+        statusCode:
+          description: HTTP status code
+          example: 409
+          format: int32
+          type: integer
+        message:
+          description: Error message
+          type: string
+        error:
+          description: Short description of the HTTP error
+          example: Conflict
+          type: string
+      type: object
+    NotFoundException:
+      example:
+        message: message
+        error: Not Found
+        statusCode: 404
+      properties:
+        statusCode:
+          description: HTTP status code
+          example: 404
+          format: int32
+          type: integer
+        message:
+          description: Error message
+          type: string
+        error:
+          description: Short description of the HTTP error
+          example: Not Found
+          type: string
+      type: object
+    ContractAbiResponseDto:
+      example:
+        abi:
+        - inputs:
+          - internalType: address
+            name: implementation
+            type: address
+          - internalType: bytes
+            name: _data
+            type: bytes
+          stateMutability: nonpayable
+          type: constructor
+        implementationAbi:
+        - inputs:
+          - internalType: address
+            name: to
+            type: address
+          - internalType: uint256
+            name: amount
+            type: uint256
+          stateMutability: nonpayable
+          type: function
+          name: mint
+      properties:
+        abi:
+          description: The abi of the contract
+          example:
+          - inputs:
+            - internalType: address
+              name: implementation
+              type: address
+            - internalType: bytes
+              name: _data
+              type: bytes
+            stateMutability: nonpayable
+            type: constructor
+          items:
+            $ref: '#/components/schemas/AbiFunction'
+          type: array
+        implementationAbi:
+          description: The abi of the implementation contract if exists. Relevant
+            only for proxy patterns
+          example:
+          - inputs:
+            - internalType: address
+              name: to
+              type: address
+            - internalType: uint256
+              name: amount
+              type: uint256
+            stateMutability: nonpayable
+            type: function
+            name: mint
+          items:
+            $ref: '#/components/schemas/AbiFunction'
+          type: array
+      required:
+      - abi
+      type: object
+    ReadAbiFunction:
+      properties:
+        stateMutability:
+          enum:
+          - pure
+          - view
+          example: pure
+          type: string
+        outputs:
+          items:
+            $ref: '#/components/schemas/Parameter'
+          type: array
+        name:
+          type: string
+        type:
+          type: string
+        inputs:
+          items:
+            $ref: '#/components/schemas/ParameterWithValue'
+          type: array
+        description:
+          type: string
+      required:
+      - inputs
+      - stateMutability
+      - type
+      type: object
+    ReadCallFunctionDto:
+      example:
+        abiFunction:
+        - inputs: []
+          stateMutability: view
+          type: function
+          name: decimals
+          outputs:
+          - name: ""
+            type: uint8
+            internalType: uint8
+      properties:
+        abiFunction:
+          description: The abi of the read function you wish to call
+          example:
+          - inputs: []
+            stateMutability: view
+            type: function
+            name: decimals
+            outputs:
+            - name: ""
+              type: uint8
+              internalType: uint8
+          items:
+            $ref: '#/components/schemas/ReadAbiFunction'
+          type: array
+      required:
+      - abiFunction
+      type: object
+    ParameterWithValueList:
+      items:
+        $ref: '#/components/schemas/ParameterWithValue'
+      type: array
+    WriteAbiFunction:
+      properties:
+        stateMutability:
+          enum:
+          - payable
+          - nonpayable
+          example: nonpayable
+          type: string
+        outputs:
+          items:
+            $ref: '#/components/schemas/Parameter'
+          type: array
+        type:
+          enum:
+          - function
+          type: string
+        name:
+          type: string
+        inputs:
+          items:
+            $ref: '#/components/schemas/ParameterWithValue'
+          type: array
+        description:
+          type: string
+      required:
+      - inputs
+      - stateMutability
+      - type
+      type: object
+    WriteCallFunctionDto:
+      example:
+        abiFunction:
+        - inputs:
+          - name: to
+            type: address
+            internalType: address
+            value: 0xC2c4e1Db41F0bB97996D0eD0542D2170d146FB66
+          - name: amount
+            type: uint256
+            internalType: uint256
+            value: 1000000
+          stateMutability: nonpayable
+          type: function
+          name: mint
+        note: note
+        amount: "12.345"
+        fee: "2000"
+        vaultAccountId: "0"
+        feeLevel: MEDIUM
+      properties:
+        vaultAccountId:
+          description: The vault account id this contract was deploy from
+          example: "0"
+          type: string
+        abiFunction:
+          description: The abi of the read function you wish to call
+          example:
+          - inputs:
+            - name: to
+              type: address
+              internalType: address
+              value: 0xC2c4e1Db41F0bB97996D0eD0542D2170d146FB66
+            - name: amount
+              type: uint256
+              internalType: uint256
+              value: 1000000
+            stateMutability: nonpayable
+            type: function
+            name: mint
+          items:
+            $ref: '#/components/schemas/WriteAbiFunction'
+          type: array
+        amount:
+          description: Amount in base asset. Being used in payable functions
+          example: "12.345"
+          type: string
+        feeLevel:
+          description: Fee level for the write function transaction. interchangeable
+            with the 'fee' field
+          enum:
+          - LOW
+          - MEDIUM
+          - HIGH
+          example: MEDIUM
+          type: string
+        fee:
+          description: Max fee amount for the write function transaction. interchangeable
+            with the 'feeLevel' field
+          example: "2000"
+          type: string
+        note:
+          description: "Custom note, not sent to the blockchain, that describes the\
+            \ transaction at your Fireblocks workspace"
+          type: string
+      required:
+      - abiFunction
+      - vaultAccountId
+      type: object
+    WriteCallFunctionResponseDto:
+      example:
+        txId: txId
+      properties:
+        txId:
+          type: string
+      required:
+      - txId
+      type: object
+    StakingGetChainsResponse:
+      items:
+        type: string
+      type: array
     AdditionalInfoDto:
       properties:
         estimatedAnnualReward:
@@ -17740,6 +20787,10 @@ components:
       - validatorName
       - vaultAccountId
       type: object
+    StakingGetAllDelegationsResponse:
+      items:
+        $ref: '#/components/schemas/DelegationDto'
+      type: array
     AmountAndChainDescriptor:
       example:
         chainDescriptor: ETH
@@ -17811,6 +20862,10 @@ components:
       - rewardsAmount
       - totalStaked
       type: object
+    StakingGetSummaryByVaultResponse:
+      additionalProperties:
+        $ref: '#/components/schemas/DelegationSummaryDto'
+      type: object
     ValidatorDto:
       properties:
         chainDescriptor:
@@ -17877,6 +20932,10 @@ components:
       - termsOfServiceUrl
       - validators
       type: object
+    StakingGetProvidersResponse:
+      items:
+        $ref: '#/components/schemas/ProviderDto'
+      type: array
     ProvidersResponseDto:
       properties: {}
       type: object
@@ -18022,8 +21081,10 @@ components:
           - ETH
           - ETH_TEST3
           - ETH_TEST5
+          - ETH_TEST6
           - POLYGON
           - POLYGON_TEST_MUMBAI
+          - AMOY_POLYGON_TEST
           - XTZ
           - XTZ_TEST
           - BASECHAIN_ETH
@@ -18053,6 +21114,63 @@ components:
       - standard
       - status
       - tokenId
+      type: object
+    GetOwnershipTokensResponse:
+      example:
+        data:
+        - standard: standard
+          ncwId: ncwId
+          tokenId: tokenId
+          cachedMetadataURI: cachedMetadataURI
+          vaultAccountId: vaultAccountId
+          description: description
+          media:
+          - contentType: IMAGE
+            url: url
+          - contentType: IMAGE
+            url: url
+          collection: ""
+          metadataURI: metadataURI
+          ownershipLastUpdateTime: 6.027456183070403
+          blockchainDescriptor: ETH
+          ncwAccountId: ncwAccountId
+          balance: balance
+          ownershipStartTime: 0.8008281904610115
+          name: name
+          id: id
+          spam: ""
+          status: LISTED
+        - standard: standard
+          ncwId: ncwId
+          tokenId: tokenId
+          cachedMetadataURI: cachedMetadataURI
+          vaultAccountId: vaultAccountId
+          description: description
+          media:
+          - contentType: IMAGE
+            url: url
+          - contentType: IMAGE
+            url: url
+          collection: ""
+          metadataURI: metadataURI
+          ownershipLastUpdateTime: 6.027456183070403
+          blockchainDescriptor: ETH
+          ncwAccountId: ncwAccountId
+          balance: balance
+          ownershipStartTime: 0.8008281904610115
+          name: name
+          id: id
+          spam: ""
+          status: LISTED
+        paging:
+          next: next
+      properties:
+        paging:
+          $ref: '#/components/schemas/Paging'
+        data:
+          items:
+            $ref: '#/components/schemas/TokenOwnershipResponse'
+          type: array
       type: object
     SpamTokenResponse:
       properties:
@@ -18113,8 +21231,10 @@ components:
           - ETH
           - ETH_TEST3
           - ETH_TEST5
+          - ETH_TEST6
           - POLYGON
           - POLYGON_TEST_MUMBAI
+          - AMOY_POLYGON_TEST
           - XTZ
           - XTZ_TEST
           - BASECHAIN_ETH
@@ -18128,6 +21248,49 @@ components:
       - id
       - standard
       - tokenId
+      type: object
+    ListOwnedTokensResponse:
+      example:
+        data:
+        - standard: standard
+          blockchainDescriptor: ETH
+          tokenId: tokenId
+          cachedMetadataURI: cachedMetadataURI
+          name: name
+          description: description
+          id: id
+          media:
+          - contentType: IMAGE
+            url: url
+          - contentType: IMAGE
+            url: url
+          collection: ""
+          spam: ""
+          metadataURI: metadataURI
+        - standard: standard
+          blockchainDescriptor: ETH
+          tokenId: tokenId
+          cachedMetadataURI: cachedMetadataURI
+          name: name
+          description: description
+          id: id
+          media:
+          - contentType: IMAGE
+            url: url
+          - contentType: IMAGE
+            url: url
+          collection: ""
+          spam: ""
+          metadataURI: metadataURI
+        paging:
+          next: next
+      properties:
+        paging:
+          $ref: '#/components/schemas/Paging'
+        data:
+          items:
+            $ref: '#/components/schemas/TokenResponse'
+          type: array
       type: object
     CollectionOwnershipResponse:
       example:
@@ -18156,8 +21319,10 @@ components:
           - ETH
           - ETH_TEST3
           - ETH_TEST5
+          - ETH_TEST6
           - POLYGON
           - POLYGON_TEST_MUMBAI
+          - AMOY_POLYGON_TEST
           - XTZ
           - XTZ_TEST
           - BASECHAIN_ETH
@@ -18168,6 +21333,74 @@ components:
       required:
       - blockchainDescriptor
       - id
+      type: object
+    ListOwnedCollectionsResponse:
+      example:
+        data:
+        - standard: standard
+          symbol: symbol
+          blockchainDescriptor: ETH
+          name: name
+          contractAddress: contractAddress
+          id: id
+        - standard: standard
+          symbol: symbol
+          blockchainDescriptor: ETH
+          name: name
+          contractAddress: contractAddress
+          id: id
+        paging:
+          next: next
+      properties:
+        paging:
+          $ref: '#/components/schemas/Paging'
+        data:
+          items:
+            $ref: '#/components/schemas/CollectionOwnershipResponse'
+          type: array
+      type: object
+    GetNFTsResponse:
+      example:
+        data:
+        - standard: standard
+          blockchainDescriptor: ETH
+          tokenId: tokenId
+          cachedMetadataURI: cachedMetadataURI
+          name: name
+          description: description
+          id: id
+          media:
+          - contentType: IMAGE
+            url: url
+          - contentType: IMAGE
+            url: url
+          collection: ""
+          spam: ""
+          metadataURI: metadataURI
+        - standard: standard
+          blockchainDescriptor: ETH
+          tokenId: tokenId
+          cachedMetadataURI: cachedMetadataURI
+          name: name
+          description: description
+          id: id
+          media:
+          - contentType: IMAGE
+            url: url
+          - contentType: IMAGE
+            url: url
+          collection: ""
+          spam: ""
+          metadataURI: metadataURI
+        paging:
+          next: next
+      properties:
+        paging:
+          $ref: '#/components/schemas/Paging'
+        data:
+          items:
+            $ref: '#/components/schemas/TokenResponse'
+          type: array
       type: object
     UpdateTokenOwnershipStatusDto:
       example:
@@ -18202,6 +21435,10 @@ components:
       - assetId
       - status
       type: object
+    UpdateTokensOwnershipStatusRequest:
+      items:
+        $ref: '#/components/schemas/TokenOwnershipStatusUpdatePayload'
+      type: array
     TokenOwnershipSpamUpdatePayload:
       example:
         assetId: NFT-abcdefabcdefabcdefabcdefabcdefabcdefabcd
@@ -18220,6 +21457,10 @@ components:
       - assetId
       - spam
       type: object
+    UpdateTokensOwnershipSpamRequest:
+      items:
+        $ref: '#/components/schemas/TokenOwnershipSpamUpdatePayload'
+      type: array
     SessionMetadata:
       properties:
         appUrl:
@@ -18348,7 +21589,13 @@ components:
       required:
       - data
       type: object
-    CreateConnectionRequest:
+    CreateVaultAccountConnectionRequest:
+      example:
+        vaultAccountId: 1
+        chainIds:
+        - ETH
+        feeLevel: MEDIUM
+        uri: wc:77752975-906f-48f5-b59f-047826ee947e@1?bridge=https%3A%2F%2F0.bridge.walletconnect.org&key=64be99adc6086b7a729b0ec8c7e1f174927ab92e84f5c6f9527050225344a637
       properties:
         vaultAccountId:
           description: The ID of the vault to connect to the dApp.
@@ -18413,6 +21660,10 @@ components:
       - ncwId
       - uri
       type: object
+    CreateConnectionRequest:
+      oneOf:
+      - $ref: '#/components/schemas/CreateVaultAccountConnectionRequest'
+      - $ref: '#/components/schemas/CreateNcwConnectionRequest'
     CreateConnectionResponse:
       example:
         sessionMetadata: ""
@@ -19325,6 +22576,14 @@ components:
             policy rule on tenant configuration.
           type: boolean
       type: object
+    GetOtaStatusResponse:
+      example:
+        enabled: true
+      properties:
+        enabled:
+          description: Current OTA status
+          type: boolean
+      type: object
     SetOtaStatusRequest:
       example:
         enabled: true
@@ -19340,6 +22599,14 @@ components:
           successfully updated
         example: Accepted
         type: string
+    GetWorkspaceStatusResponse:
+      example:
+        status: status
+      properties:
+        status:
+          description: Current workspace status
+          type: string
+      type: object
     PolicySrcOrDestType:
       description: |
         * EXCHANGE - A third-party exchange account connected to your workspace
@@ -21111,12 +24378,16 @@ components:
         email: email
       properties:
         firstName:
+          description: users firstName
           type: string
         lastName:
+          description: users lastName
           type: string
         role:
+          description: users role
           type: string
         email:
+          description: valid email address
           type: string
       required:
       - email
@@ -21180,26 +24451,30 @@ components:
       example:
         role: role
         name: name
-        coSignerSetupType: coSignerSetupType
-        csrPem: csrPem
+        coSignerSetupType: SGX_MACHINE
+        csrPem: '-----BEGIN CERTIFICATE REQUEST-----aaa-----END CERTIFICATE REQUEST-----'
         coSignerSetupIsFirstUser: true
       properties:
         role:
-          description: User role
+          description: Users role
           type: string
         name:
-          description: users name
+          description: Users name
           type: string
         csrPem:
-          description: only for user with signing capabilities
+          description: CSR file that is used to verify API requests. read more https://developers.fireblocks.com/docs/quickstart
+          example: '-----BEGIN CERTIFICATE REQUEST-----aaa-----END CERTIFICATE REQUEST-----'
           type: string
         coSignerSetupType:
-          description: cosigner setup type
+          description: "Different environments allow for different setup options,\
+            \ field is required for management/signer role"
+          example: SGX_MACHINE
           type: string
         coSignerSetupIsFirstUser:
-          description: is first?
+          description: pass as true if this is the first user on the coSigner machine
           type: boolean
       required:
+      - csrPem
       - name
       - role
       type: object
@@ -22265,146 +25540,6 @@ components:
       required:
       - data
       type: object
-    updateVaultAccountAssetAddress_request:
-      properties:
-        description:
-          description: The address description
-          type: string
-    setCustomerRefIdForAddress_request:
-      properties:
-        customerRefId:
-          description: Customer reference ID
-          type: string
-    setRoutingPolicy_200_response:
-      example:
-        success: true
-      properties:
-        success:
-          type: boolean
-      required:
-      - success
-    getOwnershipTokens_200_response:
-      example:
-        data:
-        - standard: standard
-          ncwId: ncwId
-          tokenId: tokenId
-          cachedMetadataURI: cachedMetadataURI
-          vaultAccountId: vaultAccountId
-          description: description
-          media:
-          - contentType: IMAGE
-            url: url
-          - contentType: IMAGE
-            url: url
-          collection: ""
-          metadataURI: metadataURI
-          ownershipLastUpdateTime: 6.027456183070403
-          blockchainDescriptor: ETH
-          ncwAccountId: ncwAccountId
-          balance: balance
-          ownershipStartTime: 0.8008281904610115
-          name: name
-          id: id
-          spam: ""
-          status: LISTED
-        - standard: standard
-          ncwId: ncwId
-          tokenId: tokenId
-          cachedMetadataURI: cachedMetadataURI
-          vaultAccountId: vaultAccountId
-          description: description
-          media:
-          - contentType: IMAGE
-            url: url
-          - contentType: IMAGE
-            url: url
-          collection: ""
-          metadataURI: metadataURI
-          ownershipLastUpdateTime: 6.027456183070403
-          blockchainDescriptor: ETH
-          ncwAccountId: ncwAccountId
-          balance: balance
-          ownershipStartTime: 0.8008281904610115
-          name: name
-          id: id
-          spam: ""
-          status: LISTED
-        paging:
-          next: next
-      properties:
-        paging:
-          $ref: '#/components/schemas/Paging'
-        data:
-          items:
-            $ref: '#/components/schemas/TokenOwnershipResponse'
-          type: array
-    listOwnedTokens_200_response:
-      example:
-        data:
-        - standard: standard
-          blockchainDescriptor: ETH
-          tokenId: tokenId
-          cachedMetadataURI: cachedMetadataURI
-          name: name
-          description: description
-          id: id
-          media:
-          - contentType: IMAGE
-            url: url
-          - contentType: IMAGE
-            url: url
-          collection: ""
-          spam: ""
-          metadataURI: metadataURI
-        - standard: standard
-          blockchainDescriptor: ETH
-          tokenId: tokenId
-          cachedMetadataURI: cachedMetadataURI
-          name: name
-          description: description
-          id: id
-          media:
-          - contentType: IMAGE
-            url: url
-          - contentType: IMAGE
-            url: url
-          collection: ""
-          spam: ""
-          metadataURI: metadataURI
-        paging:
-          next: next
-      properties:
-        paging:
-          $ref: '#/components/schemas/Paging'
-        data:
-          items:
-            $ref: '#/components/schemas/TokenResponse'
-          type: array
-    listOwnedCollections_200_response:
-      example:
-        data:
-        - standard: standard
-          symbol: symbol
-          blockchainDescriptor: ETH
-          name: name
-          contractAddress: contractAddress
-          id: id
-        - standard: standard
-          symbol: symbol
-          blockchainDescriptor: ETH
-          name: name
-          contractAddress: contractAddress
-          id: id
-        paging:
-          next: next
-      properties:
-        paging:
-          $ref: '#/components/schemas/Paging'
-        data:
-          items:
-            $ref: '#/components/schemas/CollectionOwnershipResponse'
-          type: array
     get_filter_parameter:
       properties:
         id:
@@ -22422,24 +25557,6 @@ components:
         appName:
           type: string
       type: object
-    create_request:
-      oneOf:
-      - $ref: '#/components/schemas/CreateConnectionRequest'
-      - $ref: '#/components/schemas/CreateNcwConnectionRequest'
-    getOtaStatus_200_response:
-      example:
-        enabled: true
-      properties:
-        enabled:
-          description: Current OTA status
-          type: boolean
-    getWorkspaceStatus_200_response:
-      example:
-        status: status
-      properties:
-        status:
-          description: Current workspace status
-          type: string
     VaultAccountsPagedResponse_paging:
       example:
         before: before
@@ -22862,6 +25979,16 @@ components:
         required:
         - timeSeconds
         type: object
+    TokenLinkDto_tokenMetadata:
+      description: The token's metadata
+      oneOf:
+      - $ref: '#/components/schemas/AssetMetadataDto'
+      - $ref: '#/components/schemas/CollectionMetadataDto'
+      - $ref: '#/components/schemas/ContractMetadataDto'
+    CreateTokenRequestDto_createParams:
+      oneOf:
+      - $ref: '#/components/schemas/EVMTokenCreateParamsDto'
+      - $ref: '#/components/schemas/StellarRippleCreateParamsDto'
     SetOtaStatusResponse_oneOf:
       example:
         message: No change needed. The current status is false

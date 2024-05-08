@@ -25,15 +25,21 @@ public class DropTransactionResponseTest {
         // TODO: test DropTransactionResponse
     }
 
-    /** Test the property 'success' */
+    /** Test the property 'txStatus' */
     @Test
-    public void successTest() {
-        // TODO: test success
+    public void txStatusTest() {
+        // TODO: test txStatus
     }
 
-    /** Test the property 'transactions' */
+    /** Test the property 'txId' */
     @Test
-    public void transactionsTest() {
-        // TODO: test transactions
+    public void txIdTest() {
+        // TODO: test txId
+    }
+
+    /** Test the property 'replacedTxHash' */
+    @Test
+    public void replacedTxHashTest() {
+        // TODO: test replacedTxHash
     }
 }

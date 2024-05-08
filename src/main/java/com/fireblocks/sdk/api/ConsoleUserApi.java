@@ -69,7 +69,7 @@ public class ConsoleUserApi {
     }
 
     /**
-     * create console user creates fireblocks console user
+     * Create console user Creates console user in your tenant
      *
      * @param createConsoleUser (optional)
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
@@ -136,7 +136,7 @@ public class ConsoleUserApi {
         return localVarRequestBuilder;
     }
     /**
-     * get console users get console users from the current tenant
+     * Get console users Get console users for your tenant
      *
      * @return CompletableFuture&lt;ApiResponse&lt;GetConsoleUsersResponse&gt;&gt;
      * @throws ApiException if fails to make API call

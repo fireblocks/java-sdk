@@ -23,8 +23,10 @@
 | ETH | &quot;ETH&quot; |
 | ETH_TEST3 | &quot;ETH_TEST3&quot; |
 | ETH_TEST5 | &quot;ETH_TEST5&quot; |
+| ETH_TEST6 | &quot;ETH_TEST6&quot; |
 | POLYGON | &quot;POLYGON&quot; |
 | POLYGON_TEST_MUMBAI | &quot;POLYGON_TEST_MUMBAI&quot; |
+| AMOY_POLYGON_TEST | &quot;AMOY_POLYGON_TEST&quot; |
 | XTZ | &quot;XTZ&quot; |
 | XTZ_TEST | &quot;XTZ_TEST&quot; |
 | BASECHAIN_ETH | &quot;BASECHAIN_ETH&quot; |

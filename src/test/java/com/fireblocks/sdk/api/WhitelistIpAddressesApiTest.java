@@ -27,9 +27,9 @@ public class WhitelistIpAddressesApiTest {
     private final WhitelistIpAddressesApi api = new WhitelistIpAddressesApi();
 
     /**
-     * gets ip addresses
+     * Gets whitelisted ip addresses
      *
-     * <p>gets ip addresses
+     * <p>Gets whitelisted ip addresses for given Api user.
      *
      * @throws ApiException if the Api call fails
      */

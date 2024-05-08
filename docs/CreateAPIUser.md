@@ -7,11 +7,11 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**role** | **String** | User role |  |
-|**name** | **String** | users name |  |
-|**csrPem** | **String** | only for user with signing capabilities |  [optional] |
-|**coSignerSetupType** | **String** | cosigner setup type |  [optional] |
-|**coSignerSetupIsFirstUser** | **Boolean** | is first? |  [optional] |
+|**role** | **String** | Users role |  |
+|**name** | **String** | Users name |  |
+|**csrPem** | **String** | CSR file that is used to verify API requests. read more https://developers.fireblocks.com/docs/quickstart |  |
+|**coSignerSetupType** | **String** | Different environments allow for different setup options, field is required for management/signer role |  [optional] |
+|**coSignerSetupIsFirstUser** | **Boolean** | pass as true if this is the first user on the coSigner machine |  [optional] |
 
 
 

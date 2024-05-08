@@ -19,6 +19,8 @@ import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.model.CreateNetworkIdRequest;
+import com.fireblocks.sdk.model.DeleteNetworkConnectionResponse;
+import com.fireblocks.sdk.model.DeleteNetworkIdResponse;
 import com.fireblocks.sdk.model.NetworkConnection;
 import com.fireblocks.sdk.model.NetworkConnectionResponse;
 import com.fireblocks.sdk.model.NetworkIdResponse;
@@ -26,8 +28,8 @@ import com.fireblocks.sdk.model.SetNetworkIdDiscoverabilityRequest;
 import com.fireblocks.sdk.model.SetNetworkIdNameRequest;
 import com.fireblocks.sdk.model.SetNetworkIdResponse;
 import com.fireblocks.sdk.model.SetNetworkIdRoutingPolicyRequest;
-import com.fireblocks.sdk.model.SetRoutingPolicy200Response;
 import com.fireblocks.sdk.model.SetRoutingPolicyRequest;
+import com.fireblocks.sdk.model.SetRoutingPolicyResponse;
 import com.fireblocks.sdk.model.ThirdPartyRouting;
 import java.io.IOException;
 import java.io.InputStream;
@@ -176,7 +178,7 @@ public class NetworkConnectionsApi {
      * Default Workspace Presets: - Network Profile Crypto → **Custom** - Network Profile FIAT →
      * **None** - Network Connection Crypto → **Default** - Network Connection FIAT → **Default**
      * Supported asset groups for routing police can be found at
-     * &#x60;/enabled_routing_policy_asset_groups&#x60; - **Note**: By default, Custom routing
+     * &#x60;/network_ids/routing_policy_asset_groups&#x60; - **Note**: By default, Custom routing
      * scheme uses (&#x60;dstId&#x60; &#x3D; &#x60;0&#x60;, &#x60;dstType&#x60; &#x3D;
      * &#x60;VAULT&#x60;).
      *
@@ -267,7 +269,7 @@ public class NetworkConnectionsApi {
      * Workspace Presets: - Network Profile Crypto → **Custom** - Network Profile FIAT → **None** -
      * Network Connection Crypto → **Default** - Network Connection FIAT → **Default** Supported
      * asset groups for routing police can be found at
-     * &#x60;/enabled_routing_policy_asset_groups&#x60; - **Note**: By default, Custom routing
+     * &#x60;/network_ids/routing_policy_asset_groups&#x60; - **Note**: By default, Custom routing
      * scheme uses (&#x60;dstId&#x60; &#x3D; &#x60;0&#x60;, &#x60;dstType&#x60; &#x3D;
      * &#x60;VAULT&#x60;).
      *
@@ -364,10 +366,10 @@ public class NetworkConnectionsApi {
      * &#x60;VAULT&#x60;).
      *
      * @param connectionId The ID of the network connection to delete (required)
-     * @return CompletableFuture&lt;ApiResponse&lt;SetRoutingPolicy200Response&gt;&gt;
+     * @return CompletableFuture&lt;ApiResponse&lt;DeleteNetworkConnectionResponse&gt;&gt;
      * @throws ApiException if fails to make API call
      */
-    public CompletableFuture<ApiResponse<SetRoutingPolicy200Response>> deleteNetworkConnection(
+    public CompletableFuture<ApiResponse<DeleteNetworkConnectionResponse>> deleteNetworkConnection(
             String connectionId) throws ApiException {
         try {
             HttpRequest.Builder localVarRequestBuilder =
@@ -387,7 +389,7 @@ public class NetworkConnectionsApi {
                                 try {
                                     String responseBody = localVarResponse.body();
                                     return CompletableFuture.completedFuture(
-                                            new ApiResponse<SetRoutingPolicy200Response>(
+                                            new ApiResponse<DeleteNetworkConnectionResponse>(
                                                     localVarResponse.statusCode(),
                                                     localVarResponse.headers().map(),
                                                     responseBody == null || responseBody.isBlank()
@@ -395,7 +397,7 @@ public class NetworkConnectionsApi {
                                                             : memberVarObjectMapper.readValue(
                                                                     responseBody,
                                                                     new TypeReference<
-                                                                            SetRoutingPolicy200Response>() {})));
+                                                                            DeleteNetworkConnectionResponse>() {})));
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
@@ -449,11 +451,11 @@ public class NetworkConnectionsApi {
      * &#x60;dstType&#x60; &#x3D; &#x60;VAULT&#x60;).
      *
      * @param networkId The ID of the network (required)
-     * @return CompletableFuture&lt;ApiResponse&lt;SetRoutingPolicy200Response&gt;&gt;
+     * @return CompletableFuture&lt;ApiResponse&lt;DeleteNetworkIdResponse&gt;&gt;
      * @throws ApiException if fails to make API call
      */
-    public CompletableFuture<ApiResponse<SetRoutingPolicy200Response>> deleteNetworkId(
-            String networkId) throws ApiException {
+    public CompletableFuture<ApiResponse<DeleteNetworkIdResponse>> deleteNetworkId(String networkId)
+            throws ApiException {
         try {
             HttpRequest.Builder localVarRequestBuilder = deleteNetworkIdRequestBuilder(networkId);
             return memberVarHttpClient
@@ -470,7 +472,7 @@ public class NetworkConnectionsApi {
                                 try {
                                     String responseBody = localVarResponse.body();
                                     return CompletableFuture.completedFuture(
-                                            new ApiResponse<SetRoutingPolicy200Response>(
+                                            new ApiResponse<DeleteNetworkIdResponse>(
                                                     localVarResponse.statusCode(),
                                                     localVarResponse.headers().map(),
                                                     responseBody == null || responseBody.isBlank()
@@ -478,7 +480,7 @@ public class NetworkConnectionsApi {
                                                             : memberVarObjectMapper.readValue(
                                                                     responseBody,
                                                                     new TypeReference<
-                                                                            SetRoutingPolicy200Response>() {})));
+                                                                            DeleteNetworkIdResponse>() {})));
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
@@ -824,6 +826,73 @@ public class NetworkConnectionsApi {
         return localVarRequestBuilder;
     }
     /**
+     * Returns all enabled routing policy asset groups Retrieves a list of all enabled routing
+     * policy asset groups. Your routing policy defines how your transactions are routed. You can
+     * use one or more enabled routing policy asset groups to describe connection or network id
+     * routing policy.
+     *
+     * @return CompletableFuture&lt;ApiResponse&lt;List&lt;String&gt;&gt;&gt;
+     * @throws ApiException if fails to make API call
+     */
+    public CompletableFuture<ApiResponse<List<String>>> getRoutingPolicyAssetGroups()
+            throws ApiException {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    getRoutingPolicyAssetGroupsRequestBuilder();
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException(
+                                                    "getRoutingPolicyAssetGroups",
+                                                    localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<List<String>>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            List<String>>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            });
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder getRoutingPolicyAssetGroupsRequestBuilder() throws ApiException {
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath = "/network_ids/routing_policy_asset_groups";
+
+        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
      * Update network ID&#39;s discoverability. Update whether or not the network ID is discoverable
      * by others. **Note:** This API call is subject to Flexible Routing Schemes. Your routing
      * policy defines how your transactions are routed. You can choose 1 of the 3 different schemes
@@ -1040,8 +1109,8 @@ public class NetworkConnectionsApi {
      * \&quot;Profile Routing\&quot; Default Workspace Presets: - Network Profile Crypto →
      * **Custom** - Network Profile FIAT → **None** - Network Connection Crypto → **Default** -
      * Network Connection FIAT → **Default** Supported asset groups for routing police can be found
-     * at &#x60;/enabled_routing_policy_asset_groups&#x60; - **Note**: By default, Custom routing
-     * scheme uses (&#x60;dstId&#x60; &#x3D; &#x60;0&#x60;, &#x60;dstType&#x60; &#x3D;
+     * at &#x60;/network_ids/routing_policy_asset_groups&#x60; - **Note**: By default, Custom
+     * routing scheme uses (&#x60;dstId&#x60; &#x3D; &#x60;0&#x60;, &#x60;dstType&#x60; &#x3D;
      * &#x60;VAULT&#x60;).
      *
      * @param networkId The ID of the network (required)
@@ -1139,16 +1208,16 @@ public class NetworkConnectionsApi {
      * also referred to as \&quot;Profile Routing\&quot; Default Workspace Presets: - Network
      * Profile Crypto → **Custom** - Network Profile FIAT → **None** - Network Connection Crypto →
      * **Default** - Network Connection FIAT → **Default** Supported asset groups for routing police
-     * can be found at &#x60;/enabled_routing_policy_asset_groups&#x60; - **Note**: By default,
+     * can be found at &#x60;/network_ids/routing_policy_asset_groups&#x60; - **Note**: By default,
      * Custom routing scheme uses (&#x60;dstId&#x60; &#x3D; &#x60;0&#x60;, &#x60;dstType&#x60;
      * &#x3D; &#x60;VAULT&#x60;).
      *
      * @param connectionId The ID of the network connection (required)
      * @param setRoutingPolicyRequest (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;SetRoutingPolicy200Response&gt;&gt;
+     * @return CompletableFuture&lt;ApiResponse&lt;SetRoutingPolicyResponse&gt;&gt;
      * @throws ApiException if fails to make API call
      */
-    public CompletableFuture<ApiResponse<SetRoutingPolicy200Response>> setRoutingPolicy(
+    public CompletableFuture<ApiResponse<SetRoutingPolicyResponse>> setRoutingPolicy(
             String connectionId, SetRoutingPolicyRequest setRoutingPolicyRequest)
             throws ApiException {
         try {
@@ -1168,7 +1237,7 @@ public class NetworkConnectionsApi {
                                 try {
                                     String responseBody = localVarResponse.body();
                                     return CompletableFuture.completedFuture(
-                                            new ApiResponse<SetRoutingPolicy200Response>(
+                                            new ApiResponse<SetRoutingPolicyResponse>(
                                                     localVarResponse.statusCode(),
                                                     localVarResponse.headers().map(),
                                                     responseBody == null || responseBody.isBlank()
@@ -1176,7 +1245,7 @@ public class NetworkConnectionsApi {
                                                             : memberVarObjectMapper.readValue(
                                                                     responseBody,
                                                                     new TypeReference<
-                                                                            SetRoutingPolicy200Response>() {})));
+                                                                            SetRoutingPolicyResponse>() {})));
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }

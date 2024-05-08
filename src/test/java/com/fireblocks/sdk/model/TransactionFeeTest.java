@@ -60,4 +60,16 @@ public class TransactionFeeTest {
     public void priorityFeeTest() {
         // TODO: test priorityFee
     }
+
+    /** Test the property 'maxFeePerGasDelta' */
+    @Test
+    public void maxFeePerGasDeltaTest() {
+        // TODO: test maxFeePerGasDelta
+    }
+
+    /** Test the property 'l1Fee' */
+    @Test
+    public void l1FeeTest() {
+        // TODO: test l1Fee
+    }
 }

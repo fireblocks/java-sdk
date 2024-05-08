@@ -15,8 +15,8 @@ package com.fireblocks.sdk.api;
 
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.model.CreateConnectionRequest;
 import com.fireblocks.sdk.model.CreateConnectionResponse;
-import com.fireblocks.sdk.model.CreateRequest;
 import com.fireblocks.sdk.model.GetConnectionsResponse;
 import com.fireblocks.sdk.model.GetFilterParameter;
 import com.fireblocks.sdk.model.RespondToConnectionRequest;
@@ -41,10 +41,10 @@ public class Web3ConnectionsApiTest {
      */
     @Test
     public void createTest() throws ApiException {
-        CreateRequest createRequest = null;
+        CreateConnectionRequest createConnectionRequest = null;
         String idempotencyKey = null;
         CompletableFuture<ApiResponse<CreateConnectionResponse>> response =
-                api.create(createRequest, idempotencyKey);
+                api.create(createConnectionRequest, idempotencyKey);
     }
 
     /**

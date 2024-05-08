@@ -2,24 +2,36 @@
 
 # CreateConnectionRequest
 
+## oneOf schemas
+* [CreateNcwConnectionRequest](CreateNcwConnectionRequest.md)
+* [CreateVaultAccountConnectionRequest](CreateVaultAccountConnectionRequest.md)
 
-## Properties
+## Example
+```java
+// Import classes:
+import com.fireblocks.sdk.model.CreateConnectionRequest;
+import com.fireblocks.sdk.model.CreateNcwConnectionRequest;
+import com.fireblocks.sdk.model.CreateVaultAccountConnectionRequest;
 
-| Name | Type | Description | Notes |
-|------------ | ------------- | ------------- | -------------|
-|**vaultAccountId** | **BigDecimal** | The ID of the vault to connect to the dApp. |  |
-|**feeLevel** | [**FeeLevelEnum**](#FeeLevelEnum) | The default fee level. Valid values are &#x60;MEDIUM&#x60; and &#x60;HIGH&#x60;. |  |
-|**uri** | **String** | The WalletConnect uri provided by the dapp. |  |
-|**chainIds** | **List&lt;String&gt;** | The IDs of the blockchain networks used in the Web3 connection (Currently required in V1 connections only). |  [optional] |
+public class Example {
+    public static void main(String[] args) {
+        CreateConnectionRequest exampleCreateConnectionRequest = new CreateConnectionRequest();
 
+        // create a new CreateNcwConnectionRequest
+        CreateNcwConnectionRequest exampleCreateNcwConnectionRequest = new CreateNcwConnectionRequest();
+        // set CreateConnectionRequest to CreateNcwConnectionRequest
+        exampleCreateConnectionRequest.setActualInstance(exampleCreateNcwConnectionRequest);
+        // to get back the CreateNcwConnectionRequest set earlier
+        CreateNcwConnectionRequest testCreateNcwConnectionRequest = (CreateNcwConnectionRequest) exampleCreateConnectionRequest.getActualInstance();
 
-
-## Enum: FeeLevelEnum
-
-| Name | Value |
-|---- | -----|
-| MEDIUM | &quot;MEDIUM&quot; |
-| HIGH | &quot;HIGH&quot; |
-
+        // create a new CreateVaultAccountConnectionRequest
+        CreateVaultAccountConnectionRequest exampleCreateVaultAccountConnectionRequest = new CreateVaultAccountConnectionRequest();
+        // set CreateConnectionRequest to CreateVaultAccountConnectionRequest
+        exampleCreateConnectionRequest.setActualInstance(exampleCreateVaultAccountConnectionRequest);
+        // to get back the CreateVaultAccountConnectionRequest set earlier
+        CreateVaultAccountConnectionRequest testCreateVaultAccountConnectionRequest = (CreateVaultAccountConnectionRequest) exampleCreateConnectionRequest.getActualInstance();
+    }
+}
+```
 
 

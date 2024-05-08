@@ -53,7 +53,7 @@ public class UpdateVaultAccountAssetAddressRequest {
         this.description = description;
     }
 
-    /** Return true if this updateVaultAccountAssetAddress_request object is equal to o. */
+    /** Return true if this UpdateVaultAccountAssetAddressRequest object is equal to o. */
     @Override
     public boolean equals(Object o) {
         if (this == o) {

@@ -68,9 +68,9 @@ public class WhitelistIpAddressesApi {
     }
 
     /**
-     * gets ip addresses gets ip addresses
+     * Gets whitelisted ip addresses Gets whitelisted ip addresses for given Api user.
      *
-     * @param userId The ID of the user (required)
+     * @param userId The ID of the api user (required)
      * @return CompletableFuture&lt;ApiResponse&lt;GetWhitelistIpAddressesResponse&gt;&gt;
      * @throws ApiException if fails to make API call
      */

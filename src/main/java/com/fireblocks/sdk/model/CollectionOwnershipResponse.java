@@ -54,9 +54,13 @@ public class CollectionOwnershipResponse {
 
         ETH_TEST5("ETH_TEST5"),
 
+        ETH_TEST6("ETH_TEST6"),
+
         POLYGON("POLYGON"),
 
         POLYGON_TEST_MUMBAI("POLYGON_TEST_MUMBAI"),
+
+        AMOY_POLYGON_TEST("AMOY_POLYGON_TEST"),
 
         XTZ("XTZ"),
 

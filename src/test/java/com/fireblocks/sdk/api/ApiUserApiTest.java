@@ -28,9 +28,9 @@ public class ApiUserApiTest {
     private final ApiUserApi api = new ApiUserApi();
 
     /**
-     * create api user
+     * Create Api user
      *
-     * <p>creates api user
+     * <p>Creates Api user in your tenant
      *
      * @throws ApiException if the Api call fails
      */
@@ -44,9 +44,9 @@ public class ApiUserApiTest {
     }
 
     /**
-     * get api users
+     * Get Api users
      *
-     * <p>get api users from the current tenant
+     * <p>Get Api users of your tenant
      *
      * @throws ApiException if the Api call fails
      */

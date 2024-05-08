@@ -101,7 +101,7 @@ No authorization required
 
 ## getNFTs
 
-> CompletableFuture<ApiResponse<ListOwnedTokens200Response>> getNFTs getNFTs(ids, pageCursor, pageSize, sort, order)
+> CompletableFuture<ApiResponse<GetNFTsResponse>> getNFTs getNFTs(ids, pageCursor, pageSize, sort, order)
 
 List tokens by IDs
 
@@ -136,7 +136,7 @@ public class Example {
         List<String> sort = Arrays.asList(); // List<String> | Sort by param, it can be one param or a list of params separated by comma
         String order = "DESC"; // String | Order direction, it can be `ASC` for ascending or `DESC` for descending
         try {
-            CompletableFuture<ApiResponse<ListOwnedTokens200Response>> response = fireblocks.nfts().getNFTs(ids, pageCursor, pageSize, sort, order);
+            CompletableFuture<ApiResponse<GetNFTsResponse>> response = fireblocks.nfts().getNFTs(ids, pageCursor, pageSize, sort, order);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
@@ -171,7 +171,7 @@ public class Example {
 
 ### Return type
 
-CompletableFuture<ApiResponse<[**ListOwnedTokens200Response**](ListOwnedTokens200Response.md)>>
+CompletableFuture<ApiResponse<[**GetNFTsResponse**](GetNFTsResponse.md)>>
 
 
 ### Authorization
@@ -191,7 +191,7 @@ No authorization required
 
 ## getOwnershipTokens
 
-> CompletableFuture<ApiResponse<GetOwnershipTokens200Response>> getOwnershipTokens getOwnershipTokens(blockchainDescriptor, vaultAccountIds, ncwId, ncwAccountIds, walletType, ids, collectionIds, pageCursor, pageSize, sort, order, status, search, spam)
+> CompletableFuture<ApiResponse<GetOwnershipTokensResponse>> getOwnershipTokens getOwnershipTokens(blockchainDescriptor, vaultAccountIds, ncwId, ncwAccountIds, walletType, ids, collectionIds, pageCursor, pageSize, sort, order, status, search, spam)
 
 List all owned tokens (paginated)
 
@@ -235,7 +235,7 @@ public class Example {
         String search = "search_example"; // String | Search owned tokens and their collections. Possible criteria for search:  token name and id within the contract/collection, collection name, blockchain descriptor and name.
         String spam = "true"; // String | Token ownership spam status.
         try {
-            CompletableFuture<ApiResponse<GetOwnershipTokens200Response>> response = fireblocks.nfts().getOwnershipTokens(blockchainDescriptor, vaultAccountIds, ncwId, ncwAccountIds, walletType, ids, collectionIds, pageCursor, pageSize, sort, order, status, search, spam);
+            CompletableFuture<ApiResponse<GetOwnershipTokensResponse>> response = fireblocks.nfts().getOwnershipTokens(blockchainDescriptor, vaultAccountIds, ncwId, ncwAccountIds, walletType, ids, collectionIds, pageCursor, pageSize, sort, order, status, search, spam);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
@@ -262,7 +262,7 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **blockchainDescriptor** | **String**| Blockchain descriptor filter | [optional] [enum: ETH, ETH_TEST3, ETH_TEST5, POLYGON, POLYGON_TEST_MUMBAI, XTZ, XTZ_TEST, BASECHAIN_ETH] |
+| **blockchainDescriptor** | **String**| Blockchain descriptor filter | [optional] [enum: ETH, ETH_TEST3, ETH_TEST5, ETH_TEST6, POLYGON, POLYGON_TEST_MUMBAI, AMOY_POLYGON_TEST, XTZ, XTZ_TEST, BASECHAIN_ETH] |
 | **vaultAccountIds** | **String**| A comma separated list of Vault Account IDs. Up to 100 are allowed in a single request.  This field will be ignored when walletType&#x3D;END_USER_WALLET or ncwId is provided. | [optional] |
 | **ncwId** | **String**| Tenant&#39;s Non-Custodial Wallet ID | [optional] |
 | **ncwAccountIds** | **String**| A comma separated list of Non-Custodial account IDs. Up to 100 are allowed in a single request. This field will be ignored when walletType&#x3D;VAULT_ACCOUNT or ncwId is not provided. | [optional] |
@@ -279,7 +279,7 @@ public class Example {
 
 ### Return type
 
-CompletableFuture<ApiResponse<[**GetOwnershipTokens200Response**](GetOwnershipTokens200Response.md)>>
+CompletableFuture<ApiResponse<[**GetOwnershipTokensResponse**](GetOwnershipTokensResponse.md)>>
 
 
 ### Authorization
@@ -299,7 +299,7 @@ No authorization required
 
 ## listOwnedCollections
 
-> CompletableFuture<ApiResponse<ListOwnedCollections200Response>> listOwnedCollections listOwnedCollections(ncwId, walletType, search, pageCursor, pageSize, sort, order, status)
+> CompletableFuture<ApiResponse<ListOwnedCollectionsResponse>> listOwnedCollections listOwnedCollections(ncwId, walletType, search, pageCursor, pageSize, sort, order, status)
 
 List owned collections (paginated)
 
@@ -337,7 +337,7 @@ public class Example {
         String order = "DESC"; // String | Order direction, it can be `ASC` for ascending or `DESC` for descending
         String status = "LISTED"; // String | Token ownership status
         try {
-            CompletableFuture<ApiResponse<ListOwnedCollections200Response>> response = fireblocks.nfts().listOwnedCollections(ncwId, walletType, search, pageCursor, pageSize, sort, order, status);
+            CompletableFuture<ApiResponse<ListOwnedCollectionsResponse>> response = fireblocks.nfts().listOwnedCollections(ncwId, walletType, search, pageCursor, pageSize, sort, order, status);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
@@ -375,7 +375,7 @@ public class Example {
 
 ### Return type
 
-CompletableFuture<ApiResponse<[**ListOwnedCollections200Response**](ListOwnedCollections200Response.md)>>
+CompletableFuture<ApiResponse<[**ListOwnedCollectionsResponse**](ListOwnedCollectionsResponse.md)>>
 
 
 ### Authorization
@@ -395,7 +395,7 @@ No authorization required
 
 ## listOwnedTokens
 
-> CompletableFuture<ApiResponse<ListOwnedTokens200Response>> listOwnedTokens listOwnedTokens(ncwId, walletType, pageCursor, pageSize, sort, order, status, search, spam)
+> CompletableFuture<ApiResponse<ListOwnedTokensResponse>> listOwnedTokens listOwnedTokens(ncwId, walletType, pageCursor, pageSize, sort, order, status, search, spam)
 
 List all distinct owned tokens (paginated)
 
@@ -434,7 +434,7 @@ public class Example {
         String search = "search_example"; // String | Search owned tokens by token name
         String spam = "true"; // String | Token ownership spam status.
         try {
-            CompletableFuture<ApiResponse<ListOwnedTokens200Response>> response = fireblocks.nfts().listOwnedTokens(ncwId, walletType, pageCursor, pageSize, sort, order, status, search, spam);
+            CompletableFuture<ApiResponse<ListOwnedTokensResponse>> response = fireblocks.nfts().listOwnedTokens(ncwId, walletType, pageCursor, pageSize, sort, order, status, search, spam);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
@@ -473,7 +473,7 @@ public class Example {
 
 ### Return type
 
-CompletableFuture<ApiResponse<[**ListOwnedTokens200Response**](ListOwnedTokens200Response.md)>>
+CompletableFuture<ApiResponse<[**ListOwnedTokensResponse**](ListOwnedTokensResponse.md)>>
 
 
 ### Authorization
@@ -635,7 +635,7 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **blockchainDescriptor** | **String**| Blockchain descriptor filter | [enum: ETH, ETH_TEST3, ETH_TEST5, POLYGON, POLYGON_TEST_MUMBAI, BASECHAIN_ETH] |
+| **blockchainDescriptor** | **String**| Blockchain descriptor filter | [enum: ETH, ETH_TEST3, ETH_TEST5, ETH_TEST6, POLYGON, POLYGON_TEST_MUMBAI, AMOY_POLYGON_TEST, BASECHAIN_ETH] |
 | **vaultAccountId** | **String**| Vault account filter | |
 | **idempotencyKey** | **String**| A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | [optional] |
 

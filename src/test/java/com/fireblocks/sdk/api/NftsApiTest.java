@@ -15,9 +15,10 @@ package com.fireblocks.sdk.api;
 
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
-import com.fireblocks.sdk.model.GetOwnershipTokens200Response;
-import com.fireblocks.sdk.model.ListOwnedCollections200Response;
-import com.fireblocks.sdk.model.ListOwnedTokens200Response;
+import com.fireblocks.sdk.model.GetNFTsResponse;
+import com.fireblocks.sdk.model.GetOwnershipTokensResponse;
+import com.fireblocks.sdk.model.ListOwnedCollectionsResponse;
+import com.fireblocks.sdk.model.ListOwnedTokensResponse;
 import com.fireblocks.sdk.model.TokenOwnershipSpamUpdatePayload;
 import com.fireblocks.sdk.model.TokenOwnershipStatusUpdatePayload;
 import com.fireblocks.sdk.model.TokenResponse;
@@ -61,7 +62,7 @@ public class NftsApiTest {
         BigDecimal pageSize = null;
         List<String> sort = null;
         String order = null;
-        CompletableFuture<ApiResponse<ListOwnedTokens200Response>> response =
+        CompletableFuture<ApiResponse<GetNFTsResponse>> response =
                 api.getNFTs(ids, pageCursor, pageSize, sort, order);
     }
 
@@ -88,7 +89,7 @@ public class NftsApiTest {
         String status = null;
         String search = null;
         String spam = null;
-        CompletableFuture<ApiResponse<GetOwnershipTokens200Response>> response =
+        CompletableFuture<ApiResponse<GetOwnershipTokensResponse>> response =
                 api.getOwnershipTokens(
                         blockchainDescriptor,
                         vaultAccountIds,
@@ -123,7 +124,7 @@ public class NftsApiTest {
         List<String> sort = null;
         String order = null;
         String status = null;
-        CompletableFuture<ApiResponse<ListOwnedCollections200Response>> response =
+        CompletableFuture<ApiResponse<ListOwnedCollectionsResponse>> response =
                 api.listOwnedCollections(
                         ncwId, walletType, search, pageCursor, pageSize, sort, order, status);
     }
@@ -146,7 +147,7 @@ public class NftsApiTest {
         String status = null;
         String search = null;
         String spam = null;
-        CompletableFuture<ApiResponse<ListOwnedTokens200Response>> response =
+        CompletableFuture<ApiResponse<ListOwnedTokensResponse>> response =
                 api.listOwnedTokens(
                         ncwId, walletType, pageCursor, pageSize, sort, order, status, search, spam);
     }

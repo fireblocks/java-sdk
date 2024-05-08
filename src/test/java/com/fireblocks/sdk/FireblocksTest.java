@@ -122,7 +122,7 @@ public class FireblocksTest {
             Assert.assertEquals(expectedAuthorizationValue, headerMap.get("Authorization").get(0));
             Assert.assertEquals("application/json", headerMap.get("Content-Type").get(0));
             Assert.assertEquals(
-                    "testUserAgent fireblocks/sdk/java/1.1.0", headerMap.get("User-Agent").get(0));
+                    "testUserAgent fireblocks/sdk/java/2.0.0", headerMap.get("User-Agent").get(0));
             Assert.assertEquals("testApiKey", headerMap.get("X-API-Key").get(0));
         }
     }
@@ -255,7 +255,7 @@ public class FireblocksTest {
             Assert.assertEquals("Bearer mockJwt", headerMap.get("Authorization").get(0));
             Assert.assertEquals("application/json", headerMap.get("Content-Type").get(0));
             Assert.assertEquals(
-                    "testUserAgent fireblocks/sdk/java/1.1.0", headerMap.get("User-Agent").get(0));
+                    "testUserAgent fireblocks/sdk/java/2.0.0", headerMap.get("User-Agent").get(0));
             Assert.assertEquals("testApiKey", headerMap.get("X-API-Key").get(0));
         }
     }
@@ -367,6 +367,22 @@ public class FireblocksTest {
     }
 
     @Test
+    public void testGetContractInteractionsApi() {
+        setupFireblocks(true, null, null);
+        ContractInteractionsApi contractInteractions = fireblocks.contractInteractions();
+        Assert.assertNotNull(contractInteractions);
+        Assert.assertSame(contractInteractions, fireblocks.contractInteractions());
+    }
+
+    @Test
+    public void testGetContractTemplatesApi() {
+        setupFireblocks(true, null, null);
+        ContractTemplatesApi contractTemplates = fireblocks.contractTemplates();
+        Assert.assertNotNull(contractTemplates);
+        Assert.assertSame(contractTemplates, fireblocks.contractTemplates());
+    }
+
+    @Test
     public void testGetContractsApi() {
         setupFireblocks(true, null, null);
         ContractsApi contracts = fireblocks.contracts();
@@ -380,6 +396,14 @@ public class FireblocksTest {
         CosignersBetaApi cosignersBeta = fireblocks.cosignersBeta();
         Assert.assertNotNull(cosignersBeta);
         Assert.assertSame(cosignersBeta, fireblocks.cosignersBeta());
+    }
+
+    @Test
+    public void testGetDeployedContractsApi() {
+        setupFireblocks(true, null, null);
+        DeployedContractsApi deployedContracts = fireblocks.deployedContracts();
+        Assert.assertNotNull(deployedContracts);
+        Assert.assertSame(deployedContracts, fireblocks.deployedContracts());
     }
 
     @Test
@@ -500,6 +524,14 @@ public class FireblocksTest {
         StakingBetaApi stakingBeta = fireblocks.stakingBeta();
         Assert.assertNotNull(stakingBeta);
         Assert.assertSame(stakingBeta, fireblocks.stakingBeta());
+    }
+
+    @Test
+    public void testGetTokenizationApi() {
+        setupFireblocks(true, null, null);
+        TokenizationApi tokenization = fireblocks.tokenization();
+        Assert.assertNotNull(tokenization);
+        Assert.assertSame(tokenization, fireblocks.tokenization());
     }
 
     @Test
