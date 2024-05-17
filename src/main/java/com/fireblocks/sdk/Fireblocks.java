@@ -16,6 +16,7 @@ package com.fireblocks.sdk;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.fireblocks.sdk.api.*;
+
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.nio.ByteBuffer;
@@ -93,8 +94,8 @@ public class Fireblocks {
             try {
                 signingAlgorithm = Algorithm.RSA256(null, getPrivateKey(secretKey));
             } catch (NoSuchAlgorithmException
-                    | InvalidKeySpecException
-                    | IllegalArgumentException e) {
+                     | InvalidKeySpecException
+                     | IllegalArgumentException e) {
                 e.printStackTrace();
                 throw new IllegalArgumentException("Invalid secretKey");
             }
@@ -155,10 +156,7 @@ public class Fireblocks {
     private String signJwt(HttpRequest.Builder builder) throws NoSuchAlgorithmException {
         HttpRequest request = builder.build();
         String path =
-                request.uri().getPath()
-                        + Optional.ofNullable(request.uri().getQuery())
-                                .map(query -> "?" + query)
-                                .orElse("");
+                request.uri().toString().substring(request.uri().getHost().length() + 8);
 
         byte[] bytes =
                 request.bodyPublisher()
