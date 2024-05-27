@@ -10,8 +10,8 @@
  * Do not edit the class manually.
  */
 
-package com.fireblocks.sdk;
 
+package com.fireblocks.sdk;
 
 import java.net.http.HttpHeaders;
 
@@ -33,25 +33,18 @@ public class ApiException extends Exception {
         super(message);
     }
 
-    public ApiException(
-            String message,
-            Throwable throwable,
-            int code,
-            HttpHeaders responseHeaders,
-            String responseBody) {
+    public ApiException(String message, Throwable throwable, int code, HttpHeaders responseHeaders, String responseBody) {
         super(message, throwable);
         this.code = code;
         this.responseHeaders = responseHeaders;
         this.responseBody = responseBody;
     }
 
-    public ApiException(
-            String message, int code, HttpHeaders responseHeaders, String responseBody) {
+    public ApiException(String message, int code, HttpHeaders responseHeaders, String responseBody) {
         this(message, (Throwable) null, code, responseHeaders, responseBody);
     }
 
-    public ApiException(
-            String message, Throwable throwable, int code, HttpHeaders responseHeaders) {
+    public ApiException(String message, Throwable throwable, int code, HttpHeaders responseHeaders) {
         this(message, throwable, code, responseHeaders, null);
     }
 
@@ -64,8 +57,7 @@ public class ApiException extends Exception {
         this.code = code;
     }
 
-    public ApiException(
-            int code, String message, HttpHeaders responseHeaders, String responseBody) {
+    public ApiException(int code, String message, HttpHeaders responseHeaders, String responseBody) {
         this(code, message);
         this.responseHeaders = responseHeaders;
         this.responseBody = responseBody;

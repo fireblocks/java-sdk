@@ -12,696 +12,594 @@
 
 package com.fireblocks.sdk.api;
 
-
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.Pair;
+
 import com.fireblocks.sdk.model.CreateInternalWalletAssetRequest;
 import com.fireblocks.sdk.model.CreateWalletRequest;
+import com.fireblocks.sdk.model.ErrorSchema;
 import com.fireblocks.sdk.model.SetCustomerRefIdRequest;
 import com.fireblocks.sdk.model.UnmanagedWallet;
 import com.fireblocks.sdk.model.WalletAsset;
-import java.io.IOException;
+
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import java.io.InputStream;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.net.http.HttpRequest;
+import java.nio.channels.Channels;
+import java.nio.channels.Pipe;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.time.Duration;
+
+import java.util.ArrayList;
+import java.util.StringJoiner;
 import java.util.List;
-import java.util.concurrent.CompletableFuture;
+import java.util.Map;
+import java.util.Set;
 import java.util.function.Consumer;
+
+import java.util.concurrent.CompletableFuture;
 
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class InternalWalletsApi {
-    private final HttpClient memberVarHttpClient;
-    private final ObjectMapper memberVarObjectMapper;
-    private final String memberVarBaseUri;
-    private final Consumer<HttpRequest.Builder> memberVarInterceptor;
-    private final Duration memberVarReadTimeout;
-    private final Consumer<HttpResponse<InputStream>> memberVarResponseInterceptor;
-    private final Consumer<HttpResponse<String>> memberVarAsyncResponseInterceptor;
+  private final HttpClient memberVarHttpClient;
+  private final ObjectMapper memberVarObjectMapper;
+  private final String memberVarBaseUri;
+  private final Consumer<HttpRequest.Builder> memberVarInterceptor;
+  private final Duration memberVarReadTimeout;
+  private final Consumer<HttpResponse<InputStream>> memberVarResponseInterceptor;
+  private final Consumer<HttpResponse<String>> memberVarAsyncResponseInterceptor;
 
-    public InternalWalletsApi() {
-        this(new ApiClient());
+  public InternalWalletsApi() {
+    this(new ApiClient());
+  }
+
+  public InternalWalletsApi(ApiClient apiClient) {
+    memberVarHttpClient = apiClient.getHttpClient();
+    memberVarObjectMapper = apiClient.getObjectMapper();
+    memberVarBaseUri = apiClient.getBaseUri();
+    memberVarInterceptor = apiClient.getRequestInterceptor();
+    memberVarReadTimeout = apiClient.getReadTimeout();
+    memberVarResponseInterceptor = apiClient.getResponseInterceptor();
+    memberVarAsyncResponseInterceptor = apiClient.getAsyncResponseInterceptor();
+  }
+
+  private ApiException getApiException(String operationId, HttpResponse<String> response) {
+    String message = formatExceptionMessage(operationId, response.statusCode(), response.body());
+    return new ApiException(response.statusCode(), message, response.headers(), response.body());
+  }
+
+  private String formatExceptionMessage(String operationId, int statusCode, String body) {
+    if (body == null || body.isEmpty()) {
+      body = "[no body]";
+    }
+    return operationId + " call failed with: " + statusCode + " - " + body;
+  }
+
+  /**
+   * Create an internal wallet
+   * Creates a new internal wallet with the requested name.
+   * @param createWalletRequest  (optional)
+   * @param idempotencyKey A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
+   * @return CompletableFuture&lt;ApiResponse&lt;UnmanagedWallet&gt;&gt;
+   * @throws ApiException if fails to make API call
+   */
+  public CompletableFuture<ApiResponse<UnmanagedWallet>> createInternalWallet(CreateWalletRequest createWalletRequest, String idempotencyKey) throws ApiException {
+    try {
+      HttpRequest.Builder localVarRequestBuilder = createInternalWalletRequestBuilder(createWalletRequest, idempotencyKey);
+      return memberVarHttpClient.sendAsync(
+          localVarRequestBuilder.build(),
+          HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
+            if (memberVarAsyncResponseInterceptor != null) {
+              memberVarAsyncResponseInterceptor.accept(localVarResponse);
+            }
+            if (localVarResponse.statusCode()/ 100 != 2) {
+              return CompletableFuture.failedFuture(getApiException("createInternalWallet", localVarResponse));
+            }
+            try {
+              String responseBody = localVarResponse.body();
+              return CompletableFuture.completedFuture(
+                  new ApiResponse<UnmanagedWallet>(
+                      localVarResponse.statusCode(),
+                      localVarResponse.headers().map(),
+                      responseBody == null || responseBody.isBlank() ? null : memberVarObjectMapper.readValue(responseBody, new TypeReference<UnmanagedWallet>() {}))
+              );
+            } catch (IOException e) {
+              return CompletableFuture.failedFuture(new ApiException(e));
+            }
+        }
+      );
+    }
+    catch (ApiException e) {
+      return CompletableFuture.failedFuture(e);
+    }
+  }
+
+  private HttpRequest.Builder createInternalWalletRequestBuilder(CreateWalletRequest createWalletRequest, String idempotencyKey) throws ApiException {
+
+    HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+    String localVarPath = "/internal_wallets";
+
+    localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+    if (idempotencyKey != null) {
+      localVarRequestBuilder.header("Idempotency-Key", idempotencyKey.toString());
+    }
+    localVarRequestBuilder.header("Content-Type", "application/json");
+    localVarRequestBuilder.header("Accept", "application/json");
+
+    try {
+      byte[] localVarPostBody = memberVarObjectMapper.writeValueAsBytes(createWalletRequest);
+      localVarRequestBuilder.method("POST", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
+    } catch (IOException e) {
+      throw new ApiException(e);
+    }
+    if (memberVarReadTimeout != null) {
+      localVarRequestBuilder.timeout(memberVarReadTimeout);
+    }
+    if (memberVarInterceptor != null) {
+      memberVarInterceptor.accept(localVarRequestBuilder);
+    }
+    return localVarRequestBuilder;
+  }
+  /**
+   * Add an asset to an internal wallet
+   * Adds an asset to an existing internal wallet.
+   * @param walletId The ID of the wallet (required)
+   * @param assetId The ID of the asset to add (required)
+   * @param createInternalWalletAssetRequest  (optional)
+   * @param idempotencyKey A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
+   * @return CompletableFuture&lt;ApiResponse&lt;WalletAsset&gt;&gt;
+   * @throws ApiException if fails to make API call
+   */
+  public CompletableFuture<ApiResponse<WalletAsset>> createInternalWalletAsset(String walletId, String assetId, CreateInternalWalletAssetRequest createInternalWalletAssetRequest, String idempotencyKey) throws ApiException {
+    try {
+      HttpRequest.Builder localVarRequestBuilder = createInternalWalletAssetRequestBuilder(walletId, assetId, createInternalWalletAssetRequest, idempotencyKey);
+      return memberVarHttpClient.sendAsync(
+          localVarRequestBuilder.build(),
+          HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
+            if (memberVarAsyncResponseInterceptor != null) {
+              memberVarAsyncResponseInterceptor.accept(localVarResponse);
+            }
+            if (localVarResponse.statusCode()/ 100 != 2) {
+              return CompletableFuture.failedFuture(getApiException("createInternalWalletAsset", localVarResponse));
+            }
+            try {
+              String responseBody = localVarResponse.body();
+              return CompletableFuture.completedFuture(
+                  new ApiResponse<WalletAsset>(
+                      localVarResponse.statusCode(),
+                      localVarResponse.headers().map(),
+                      responseBody == null || responseBody.isBlank() ? null : memberVarObjectMapper.readValue(responseBody, new TypeReference<WalletAsset>() {}))
+              );
+            } catch (IOException e) {
+              return CompletableFuture.failedFuture(new ApiException(e));
+            }
+        }
+      );
+    }
+    catch (ApiException e) {
+      return CompletableFuture.failedFuture(e);
+    }
+  }
+
+  private HttpRequest.Builder createInternalWalletAssetRequestBuilder(String walletId, String assetId, CreateInternalWalletAssetRequest createInternalWalletAssetRequest, String idempotencyKey) throws ApiException {
+    // verify the required parameter 'walletId' is set
+    if (walletId == null) {
+      throw new ApiException(400, "Missing the required parameter 'walletId' when calling createInternalWalletAsset");
+    }
+    // verify the required parameter 'assetId' is set
+    if (assetId == null) {
+      throw new ApiException(400, "Missing the required parameter 'assetId' when calling createInternalWalletAsset");
     }
 
-    public InternalWalletsApi(ApiClient apiClient) {
-        memberVarHttpClient = apiClient.getHttpClient();
-        memberVarObjectMapper = apiClient.getObjectMapper();
-        memberVarBaseUri = apiClient.getBaseUri();
-        memberVarInterceptor = apiClient.getRequestInterceptor();
-        memberVarReadTimeout = apiClient.getReadTimeout();
-        memberVarResponseInterceptor = apiClient.getResponseInterceptor();
-        memberVarAsyncResponseInterceptor = apiClient.getAsyncResponseInterceptor();
+    HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+    String localVarPath = "/internal_wallets/{walletId}/{assetId}"
+        .replace("{walletId}", ApiClient.urlEncode(walletId.toString()))
+        .replace("{assetId}", ApiClient.urlEncode(assetId.toString()));
+
+    localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+    if (idempotencyKey != null) {
+      localVarRequestBuilder.header("Idempotency-Key", idempotencyKey.toString());
+    }
+    localVarRequestBuilder.header("Content-Type", "application/json");
+    localVarRequestBuilder.header("Accept", "application/json");
+
+    try {
+      byte[] localVarPostBody = memberVarObjectMapper.writeValueAsBytes(createInternalWalletAssetRequest);
+      localVarRequestBuilder.method("POST", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
+    } catch (IOException e) {
+      throw new ApiException(e);
+    }
+    if (memberVarReadTimeout != null) {
+      localVarRequestBuilder.timeout(memberVarReadTimeout);
+    }
+    if (memberVarInterceptor != null) {
+      memberVarInterceptor.accept(localVarRequestBuilder);
+    }
+    return localVarRequestBuilder;
+  }
+  /**
+   * Delete an internal wallet
+   * Deletes an internal wallet by ID.
+   * @param walletId The ID of the wallet to delete (required)
+   * @return CompletableFuture&lt;ApiResponse&lt;Void&gt;&gt;
+   * @throws ApiException if fails to make API call
+   */
+  public CompletableFuture<ApiResponse<Void>> deleteInternalWallet(String walletId) throws ApiException {
+    try {
+      HttpRequest.Builder localVarRequestBuilder = deleteInternalWalletRequestBuilder(walletId);
+      return memberVarHttpClient.sendAsync(
+          localVarRequestBuilder.build(),
+          HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
+            if (memberVarAsyncResponseInterceptor != null) {
+              memberVarAsyncResponseInterceptor.accept(localVarResponse);
+            }
+            if (localVarResponse.statusCode()/ 100 != 2) {
+              return CompletableFuture.failedFuture(getApiException("deleteInternalWallet", localVarResponse));
+            }
+            return CompletableFuture.completedFuture(
+                new ApiResponse<Void>(localVarResponse.statusCode(), localVarResponse.headers().map(), null)
+            );
+        }
+      );
+    }
+    catch (ApiException e) {
+      return CompletableFuture.failedFuture(e);
+    }
+  }
+
+  private HttpRequest.Builder deleteInternalWalletRequestBuilder(String walletId) throws ApiException {
+    // verify the required parameter 'walletId' is set
+    if (walletId == null) {
+      throw new ApiException(400, "Missing the required parameter 'walletId' when calling deleteInternalWallet");
     }
 
-    private ApiException getApiException(String operationId, HttpResponse<String> response) {
-        String message =
-                formatExceptionMessage(operationId, response.statusCode(), response.body());
-        return new ApiException(
-                response.statusCode(), message, response.headers(), response.body());
+    HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+    String localVarPath = "/internal_wallets/{walletId}"
+        .replace("{walletId}", ApiClient.urlEncode(walletId.toString()));
+
+    localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+    localVarRequestBuilder.header("Accept", "application/json");
+
+    localVarRequestBuilder.method("DELETE", HttpRequest.BodyPublishers.noBody());
+    if (memberVarReadTimeout != null) {
+      localVarRequestBuilder.timeout(memberVarReadTimeout);
+    }
+    if (memberVarInterceptor != null) {
+      memberVarInterceptor.accept(localVarRequestBuilder);
+    }
+    return localVarRequestBuilder;
+  }
+  /**
+   * Delete a whitelisted address from an internal wallet
+   * Deletes a whitelisted address (for an asset) from an internal wallet.
+   * @param walletId The ID of the wallet (required)
+   * @param assetId The ID of the asset to delete (required)
+   * @return CompletableFuture&lt;ApiResponse&lt;Void&gt;&gt;
+   * @throws ApiException if fails to make API call
+   */
+  public CompletableFuture<ApiResponse<Void>> deleteInternalWalletAsset(String walletId, String assetId) throws ApiException {
+    try {
+      HttpRequest.Builder localVarRequestBuilder = deleteInternalWalletAssetRequestBuilder(walletId, assetId);
+      return memberVarHttpClient.sendAsync(
+          localVarRequestBuilder.build(),
+          HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
+            if (memberVarAsyncResponseInterceptor != null) {
+              memberVarAsyncResponseInterceptor.accept(localVarResponse);
+            }
+            if (localVarResponse.statusCode()/ 100 != 2) {
+              return CompletableFuture.failedFuture(getApiException("deleteInternalWalletAsset", localVarResponse));
+            }
+            return CompletableFuture.completedFuture(
+                new ApiResponse<Void>(localVarResponse.statusCode(), localVarResponse.headers().map(), null)
+            );
+        }
+      );
+    }
+    catch (ApiException e) {
+      return CompletableFuture.failedFuture(e);
+    }
+  }
+
+  private HttpRequest.Builder deleteInternalWalletAssetRequestBuilder(String walletId, String assetId) throws ApiException {
+    // verify the required parameter 'walletId' is set
+    if (walletId == null) {
+      throw new ApiException(400, "Missing the required parameter 'walletId' when calling deleteInternalWalletAsset");
+    }
+    // verify the required parameter 'assetId' is set
+    if (assetId == null) {
+      throw new ApiException(400, "Missing the required parameter 'assetId' when calling deleteInternalWalletAsset");
     }
 
-    private String formatExceptionMessage(String operationId, int statusCode, String body) {
-        if (body == null || body.isEmpty()) {
-            body = "[no body]";
+    HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+    String localVarPath = "/internal_wallets/{walletId}/{assetId}"
+        .replace("{walletId}", ApiClient.urlEncode(walletId.toString()))
+        .replace("{assetId}", ApiClient.urlEncode(assetId.toString()));
+
+    localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+    localVarRequestBuilder.header("Accept", "application/json");
+
+    localVarRequestBuilder.method("DELETE", HttpRequest.BodyPublishers.noBody());
+    if (memberVarReadTimeout != null) {
+      localVarRequestBuilder.timeout(memberVarReadTimeout);
+    }
+    if (memberVarInterceptor != null) {
+      memberVarInterceptor.accept(localVarRequestBuilder);
+    }
+    return localVarRequestBuilder;
+  }
+  /**
+   * Get assets for internal wallet
+   * Returns all assets in an internal wallet by ID.
+   * @param walletId The ID of the wallet to return (required)
+   * @return CompletableFuture&lt;ApiResponse&lt;UnmanagedWallet&gt;&gt;
+   * @throws ApiException if fails to make API call
+   */
+  public CompletableFuture<ApiResponse<UnmanagedWallet>> getInternalWallet(String walletId) throws ApiException {
+    try {
+      HttpRequest.Builder localVarRequestBuilder = getInternalWalletRequestBuilder(walletId);
+      return memberVarHttpClient.sendAsync(
+          localVarRequestBuilder.build(),
+          HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
+            if (memberVarAsyncResponseInterceptor != null) {
+              memberVarAsyncResponseInterceptor.accept(localVarResponse);
+            }
+            if (localVarResponse.statusCode()/ 100 != 2) {
+              return CompletableFuture.failedFuture(getApiException("getInternalWallet", localVarResponse));
+            }
+            try {
+              String responseBody = localVarResponse.body();
+              return CompletableFuture.completedFuture(
+                  new ApiResponse<UnmanagedWallet>(
+                      localVarResponse.statusCode(),
+                      localVarResponse.headers().map(),
+                      responseBody == null || responseBody.isBlank() ? null : memberVarObjectMapper.readValue(responseBody, new TypeReference<UnmanagedWallet>() {}))
+              );
+            } catch (IOException e) {
+              return CompletableFuture.failedFuture(new ApiException(e));
+            }
         }
-        return operationId + " call failed with: " + statusCode + " - " + body;
+      );
+    }
+    catch (ApiException e) {
+      return CompletableFuture.failedFuture(e);
+    }
+  }
+
+  private HttpRequest.Builder getInternalWalletRequestBuilder(String walletId) throws ApiException {
+    // verify the required parameter 'walletId' is set
+    if (walletId == null) {
+      throw new ApiException(400, "Missing the required parameter 'walletId' when calling getInternalWallet");
     }
 
-    /**
-     * Create an internal wallet Creates a new internal wallet with the requested name.
-     *
-     * @param createWalletRequest (optional)
-     * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
-     *     times with the same idempotency key, the server will return the same response as the
-     *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;UnmanagedWallet&gt;&gt;
-     * @throws ApiException if fails to make API call
-     */
-    public CompletableFuture<ApiResponse<UnmanagedWallet>> createInternalWallet(
-            CreateWalletRequest createWalletRequest, String idempotencyKey) throws ApiException {
-        try {
-            HttpRequest.Builder localVarRequestBuilder =
-                    createInternalWalletRequestBuilder(createWalletRequest, idempotencyKey);
-            return memberVarHttpClient
-                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
-                    .thenComposeAsync(
-                            localVarResponse -> {
-                                if (memberVarAsyncResponseInterceptor != null) {
-                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
-                                }
-                                if (localVarResponse.statusCode() / 100 != 2) {
-                                    return CompletableFuture.failedFuture(
-                                            getApiException(
-                                                    "createInternalWallet", localVarResponse));
-                                }
-                                try {
-                                    String responseBody = localVarResponse.body();
-                                    return CompletableFuture.completedFuture(
-                                            new ApiResponse<UnmanagedWallet>(
-                                                    localVarResponse.statusCode(),
-                                                    localVarResponse.headers().map(),
-                                                    responseBody == null || responseBody.isBlank()
-                                                            ? null
-                                                            : memberVarObjectMapper.readValue(
-                                                                    responseBody,
-                                                                    new TypeReference<
-                                                                            UnmanagedWallet>() {})));
-                                } catch (IOException e) {
-                                    return CompletableFuture.failedFuture(new ApiException(e));
-                                }
-                            });
-        } catch (ApiException e) {
-            return CompletableFuture.failedFuture(e);
+    HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+    String localVarPath = "/internal_wallets/{walletId}"
+        .replace("{walletId}", ApiClient.urlEncode(walletId.toString()));
+
+    localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+    localVarRequestBuilder.header("Accept", "application/json");
+
+    localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
+    if (memberVarReadTimeout != null) {
+      localVarRequestBuilder.timeout(memberVarReadTimeout);
+    }
+    if (memberVarInterceptor != null) {
+      memberVarInterceptor.accept(localVarRequestBuilder);
+    }
+    return localVarRequestBuilder;
+  }
+  /**
+   * Get an asset from an internal wallet
+   * Returns information for an asset in an internal wallet.
+   * @param walletId The ID of the wallet (required)
+   * @param assetId The ID of the asset to return (required)
+   * @return CompletableFuture&lt;ApiResponse&lt;WalletAsset&gt;&gt;
+   * @throws ApiException if fails to make API call
+   */
+  public CompletableFuture<ApiResponse<WalletAsset>> getInternalWalletAsset(String walletId, String assetId) throws ApiException {
+    try {
+      HttpRequest.Builder localVarRequestBuilder = getInternalWalletAssetRequestBuilder(walletId, assetId);
+      return memberVarHttpClient.sendAsync(
+          localVarRequestBuilder.build(),
+          HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
+            if (memberVarAsyncResponseInterceptor != null) {
+              memberVarAsyncResponseInterceptor.accept(localVarResponse);
+            }
+            if (localVarResponse.statusCode()/ 100 != 2) {
+              return CompletableFuture.failedFuture(getApiException("getInternalWalletAsset", localVarResponse));
+            }
+            try {
+              String responseBody = localVarResponse.body();
+              return CompletableFuture.completedFuture(
+                  new ApiResponse<WalletAsset>(
+                      localVarResponse.statusCode(),
+                      localVarResponse.headers().map(),
+                      responseBody == null || responseBody.isBlank() ? null : memberVarObjectMapper.readValue(responseBody, new TypeReference<WalletAsset>() {}))
+              );
+            } catch (IOException e) {
+              return CompletableFuture.failedFuture(new ApiException(e));
+            }
         }
+      );
+    }
+    catch (ApiException e) {
+      return CompletableFuture.failedFuture(e);
+    }
+  }
+
+  private HttpRequest.Builder getInternalWalletAssetRequestBuilder(String walletId, String assetId) throws ApiException {
+    // verify the required parameter 'walletId' is set
+    if (walletId == null) {
+      throw new ApiException(400, "Missing the required parameter 'walletId' when calling getInternalWalletAsset");
+    }
+    // verify the required parameter 'assetId' is set
+    if (assetId == null) {
+      throw new ApiException(400, "Missing the required parameter 'assetId' when calling getInternalWalletAsset");
     }
 
-    private HttpRequest.Builder createInternalWalletRequestBuilder(
-            CreateWalletRequest createWalletRequest, String idempotencyKey) throws ApiException {
+    HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
-        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+    String localVarPath = "/internal_wallets/{walletId}/{assetId}"
+        .replace("{walletId}", ApiClient.urlEncode(walletId.toString()))
+        .replace("{assetId}", ApiClient.urlEncode(assetId.toString()));
 
-        String localVarPath = "/internal_wallets";
+    localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
 
-        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+    localVarRequestBuilder.header("Accept", "application/json");
 
-        if (idempotencyKey != null) {
-            localVarRequestBuilder.header("Idempotency-Key", idempotencyKey.toString());
-        }
-        localVarRequestBuilder.header("Content-Type", "application/json");
-        localVarRequestBuilder.header("Accept", "application/json");
-
-        try {
-            byte[] localVarPostBody = memberVarObjectMapper.writeValueAsBytes(createWalletRequest);
-            localVarRequestBuilder.method(
-                    "POST", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
-        } catch (IOException e) {
-            throw new ApiException(e);
-        }
-        if (memberVarReadTimeout != null) {
-            localVarRequestBuilder.timeout(memberVarReadTimeout);
-        }
-        if (memberVarInterceptor != null) {
-            memberVarInterceptor.accept(localVarRequestBuilder);
-        }
-        return localVarRequestBuilder;
+    localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
+    if (memberVarReadTimeout != null) {
+      localVarRequestBuilder.timeout(memberVarReadTimeout);
     }
-    /**
-     * Add an asset to an internal wallet Adds an asset to an existing internal wallet.
-     *
-     * @param walletId The ID of the wallet (required)
-     * @param assetId The ID of the asset to add (required)
-     * @param createInternalWalletAssetRequest (optional)
-     * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
-     *     times with the same idempotency key, the server will return the same response as the
-     *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;WalletAsset&gt;&gt;
-     * @throws ApiException if fails to make API call
-     */
-    public CompletableFuture<ApiResponse<WalletAsset>> createInternalWalletAsset(
-            String walletId,
-            String assetId,
-            CreateInternalWalletAssetRequest createInternalWalletAssetRequest,
-            String idempotencyKey)
-            throws ApiException {
-        try {
-            HttpRequest.Builder localVarRequestBuilder =
-                    createInternalWalletAssetRequestBuilder(
-                            walletId, assetId, createInternalWalletAssetRequest, idempotencyKey);
-            return memberVarHttpClient
-                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
-                    .thenComposeAsync(
-                            localVarResponse -> {
-                                if (memberVarAsyncResponseInterceptor != null) {
-                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
-                                }
-                                if (localVarResponse.statusCode() / 100 != 2) {
-                                    return CompletableFuture.failedFuture(
-                                            getApiException(
-                                                    "createInternalWalletAsset", localVarResponse));
-                                }
-                                try {
-                                    String responseBody = localVarResponse.body();
-                                    return CompletableFuture.completedFuture(
-                                            new ApiResponse<WalletAsset>(
-                                                    localVarResponse.statusCode(),
-                                                    localVarResponse.headers().map(),
-                                                    responseBody == null || responseBody.isBlank()
-                                                            ? null
-                                                            : memberVarObjectMapper.readValue(
-                                                                    responseBody,
-                                                                    new TypeReference<
-                                                                            WalletAsset>() {})));
-                                } catch (IOException e) {
-                                    return CompletableFuture.failedFuture(new ApiException(e));
-                                }
-                            });
-        } catch (ApiException e) {
-            return CompletableFuture.failedFuture(e);
-        }
+    if (memberVarInterceptor != null) {
+      memberVarInterceptor.accept(localVarRequestBuilder);
     }
-
-    private HttpRequest.Builder createInternalWalletAssetRequestBuilder(
-            String walletId,
-            String assetId,
-            CreateInternalWalletAssetRequest createInternalWalletAssetRequest,
-            String idempotencyKey)
-            throws ApiException {
-        // verify the required parameter 'walletId' is set
-        if (walletId == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'walletId' when calling"
-                            + " createInternalWalletAsset");
+    return localVarRequestBuilder;
+  }
+  /**
+   * List internal wallets
+   * Gets a list of internal wallets.  **Note**: BTC-based assets belonging to whitelisted addresses cannot be retrieved between 00:00 UTC and 00:01 UTC daily due to third-party provider, Blockchair, being unavailable for this 60 second period. Please wait until the next minute to retrieve BTC-based assets. 
+   * @return CompletableFuture&lt;ApiResponse&lt;List&lt;UnmanagedWallet&gt;&gt;&gt;
+   * @throws ApiException if fails to make API call
+   */
+  public CompletableFuture<ApiResponse<List<UnmanagedWallet>>> getInternalWallets() throws ApiException {
+    try {
+      HttpRequest.Builder localVarRequestBuilder = getInternalWalletsRequestBuilder();
+      return memberVarHttpClient.sendAsync(
+          localVarRequestBuilder.build(),
+          HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
+            if (memberVarAsyncResponseInterceptor != null) {
+              memberVarAsyncResponseInterceptor.accept(localVarResponse);
+            }
+            if (localVarResponse.statusCode()/ 100 != 2) {
+              return CompletableFuture.failedFuture(getApiException("getInternalWallets", localVarResponse));
+            }
+            try {
+              String responseBody = localVarResponse.body();
+              return CompletableFuture.completedFuture(
+                  new ApiResponse<List<UnmanagedWallet>>(
+                      localVarResponse.statusCode(),
+                      localVarResponse.headers().map(),
+                      responseBody == null || responseBody.isBlank() ? null : memberVarObjectMapper.readValue(responseBody, new TypeReference<List<UnmanagedWallet>>() {}))
+              );
+            } catch (IOException e) {
+              return CompletableFuture.failedFuture(new ApiException(e));
+            }
         }
-        // verify the required parameter 'assetId' is set
-        if (assetId == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'assetId' when calling"
-                            + " createInternalWalletAsset");
-        }
-
-        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
-
-        String localVarPath =
-                "/internal_wallets/{walletId}/{assetId}"
-                        .replace("{walletId}", ApiClient.urlEncode(walletId.toString()))
-                        .replace("{assetId}", ApiClient.urlEncode(assetId.toString()));
-
-        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
-
-        if (idempotencyKey != null) {
-            localVarRequestBuilder.header("Idempotency-Key", idempotencyKey.toString());
-        }
-        localVarRequestBuilder.header("Content-Type", "application/json");
-        localVarRequestBuilder.header("Accept", "application/json");
-
-        try {
-            byte[] localVarPostBody =
-                    memberVarObjectMapper.writeValueAsBytes(createInternalWalletAssetRequest);
-            localVarRequestBuilder.method(
-                    "POST", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
-        } catch (IOException e) {
-            throw new ApiException(e);
-        }
-        if (memberVarReadTimeout != null) {
-            localVarRequestBuilder.timeout(memberVarReadTimeout);
-        }
-        if (memberVarInterceptor != null) {
-            memberVarInterceptor.accept(localVarRequestBuilder);
-        }
-        return localVarRequestBuilder;
+      );
     }
-    /**
-     * Delete an internal wallet Deletes an internal wallet by ID.
-     *
-     * @param walletId The ID of the wallet to delete (required)
-     * @return CompletableFuture&lt;ApiResponse&lt;Void&gt;&gt;
-     * @throws ApiException if fails to make API call
-     */
-    public CompletableFuture<ApiResponse<Void>> deleteInternalWallet(String walletId)
-            throws ApiException {
-        try {
-            HttpRequest.Builder localVarRequestBuilder =
-                    deleteInternalWalletRequestBuilder(walletId);
-            return memberVarHttpClient
-                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
-                    .thenComposeAsync(
-                            localVarResponse -> {
-                                if (memberVarAsyncResponseInterceptor != null) {
-                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
-                                }
-                                if (localVarResponse.statusCode() / 100 != 2) {
-                                    return CompletableFuture.failedFuture(
-                                            getApiException(
-                                                    "deleteInternalWallet", localVarResponse));
-                                }
-                                return CompletableFuture.completedFuture(
-                                        new ApiResponse<Void>(
-                                                localVarResponse.statusCode(),
-                                                localVarResponse.headers().map(),
-                                                null));
-                            });
-        } catch (ApiException e) {
-            return CompletableFuture.failedFuture(e);
+    catch (ApiException e) {
+      return CompletableFuture.failedFuture(e);
+    }
+  }
+
+  private HttpRequest.Builder getInternalWalletsRequestBuilder() throws ApiException {
+
+    HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+    String localVarPath = "/internal_wallets";
+
+    localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+    localVarRequestBuilder.header("Accept", "application/json");
+
+    localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
+    if (memberVarReadTimeout != null) {
+      localVarRequestBuilder.timeout(memberVarReadTimeout);
+    }
+    if (memberVarInterceptor != null) {
+      memberVarInterceptor.accept(localVarRequestBuilder);
+    }
+    return localVarRequestBuilder;
+  }
+  /**
+   * Set an AML/KYT customer reference ID for an internal wallet
+   * Sets an AML/KYT customer reference ID for the specific internal wallet.
+   * @param setCustomerRefIdRequest  (required)
+   * @param walletId The wallet ID (required)
+   * @param idempotencyKey A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
+   * @return CompletableFuture&lt;ApiResponse&lt;Void&gt;&gt;
+   * @throws ApiException if fails to make API call
+   */
+  public CompletableFuture<ApiResponse<Void>> setCustomerRefIdForInternalWallet(SetCustomerRefIdRequest setCustomerRefIdRequest, String walletId, String idempotencyKey) throws ApiException {
+    try {
+      HttpRequest.Builder localVarRequestBuilder = setCustomerRefIdForInternalWalletRequestBuilder(setCustomerRefIdRequest, walletId, idempotencyKey);
+      return memberVarHttpClient.sendAsync(
+          localVarRequestBuilder.build(),
+          HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
+            if (memberVarAsyncResponseInterceptor != null) {
+              memberVarAsyncResponseInterceptor.accept(localVarResponse);
+            }
+            if (localVarResponse.statusCode()/ 100 != 2) {
+              return CompletableFuture.failedFuture(getApiException("setCustomerRefIdForInternalWallet", localVarResponse));
+            }
+            return CompletableFuture.completedFuture(
+                new ApiResponse<Void>(localVarResponse.statusCode(), localVarResponse.headers().map(), null)
+            );
         }
+      );
+    }
+    catch (ApiException e) {
+      return CompletableFuture.failedFuture(e);
+    }
+  }
+
+  private HttpRequest.Builder setCustomerRefIdForInternalWalletRequestBuilder(SetCustomerRefIdRequest setCustomerRefIdRequest, String walletId, String idempotencyKey) throws ApiException {
+    // verify the required parameter 'setCustomerRefIdRequest' is set
+    if (setCustomerRefIdRequest == null) {
+      throw new ApiException(400, "Missing the required parameter 'setCustomerRefIdRequest' when calling setCustomerRefIdForInternalWallet");
+    }
+    // verify the required parameter 'walletId' is set
+    if (walletId == null) {
+      throw new ApiException(400, "Missing the required parameter 'walletId' when calling setCustomerRefIdForInternalWallet");
     }
 
-    private HttpRequest.Builder deleteInternalWalletRequestBuilder(String walletId)
-            throws ApiException {
-        // verify the required parameter 'walletId' is set
-        if (walletId == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'walletId' when calling deleteInternalWallet");
-        }
+    HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
-        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+    String localVarPath = "/internal_wallets/{walletId}/set_customer_ref_id"
+        .replace("{walletId}", ApiClient.urlEncode(walletId.toString()));
 
-        String localVarPath =
-                "/internal_wallets/{walletId}"
-                        .replace("{walletId}", ApiClient.urlEncode(walletId.toString()));
+    localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
 
-        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
-
-        localVarRequestBuilder.header("Accept", "application/json");
-
-        localVarRequestBuilder.method("DELETE", HttpRequest.BodyPublishers.noBody());
-        if (memberVarReadTimeout != null) {
-            localVarRequestBuilder.timeout(memberVarReadTimeout);
-        }
-        if (memberVarInterceptor != null) {
-            memberVarInterceptor.accept(localVarRequestBuilder);
-        }
-        return localVarRequestBuilder;
+    if (idempotencyKey != null) {
+      localVarRequestBuilder.header("Idempotency-Key", idempotencyKey.toString());
     }
-    /**
-     * Delete a whitelisted address from an internal wallet Deletes a whitelisted address (for an
-     * asset) from an internal wallet.
-     *
-     * @param walletId The ID of the wallet (required)
-     * @param assetId The ID of the asset to delete (required)
-     * @return CompletableFuture&lt;ApiResponse&lt;Void&gt;&gt;
-     * @throws ApiException if fails to make API call
-     */
-    public CompletableFuture<ApiResponse<Void>> deleteInternalWalletAsset(
-            String walletId, String assetId) throws ApiException {
-        try {
-            HttpRequest.Builder localVarRequestBuilder =
-                    deleteInternalWalletAssetRequestBuilder(walletId, assetId);
-            return memberVarHttpClient
-                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
-                    .thenComposeAsync(
-                            localVarResponse -> {
-                                if (memberVarAsyncResponseInterceptor != null) {
-                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
-                                }
-                                if (localVarResponse.statusCode() / 100 != 2) {
-                                    return CompletableFuture.failedFuture(
-                                            getApiException(
-                                                    "deleteInternalWalletAsset", localVarResponse));
-                                }
-                                return CompletableFuture.completedFuture(
-                                        new ApiResponse<Void>(
-                                                localVarResponse.statusCode(),
-                                                localVarResponse.headers().map(),
-                                                null));
-                            });
-        } catch (ApiException e) {
-            return CompletableFuture.failedFuture(e);
-        }
+    localVarRequestBuilder.header("Content-Type", "application/json");
+    localVarRequestBuilder.header("Accept", "application/json");
+
+    try {
+      byte[] localVarPostBody = memberVarObjectMapper.writeValueAsBytes(setCustomerRefIdRequest);
+      localVarRequestBuilder.method("POST", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
+    } catch (IOException e) {
+      throw new ApiException(e);
     }
-
-    private HttpRequest.Builder deleteInternalWalletAssetRequestBuilder(
-            String walletId, String assetId) throws ApiException {
-        // verify the required parameter 'walletId' is set
-        if (walletId == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'walletId' when calling"
-                            + " deleteInternalWalletAsset");
-        }
-        // verify the required parameter 'assetId' is set
-        if (assetId == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'assetId' when calling"
-                            + " deleteInternalWalletAsset");
-        }
-
-        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
-
-        String localVarPath =
-                "/internal_wallets/{walletId}/{assetId}"
-                        .replace("{walletId}", ApiClient.urlEncode(walletId.toString()))
-                        .replace("{assetId}", ApiClient.urlEncode(assetId.toString()));
-
-        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
-
-        localVarRequestBuilder.header("Accept", "application/json");
-
-        localVarRequestBuilder.method("DELETE", HttpRequest.BodyPublishers.noBody());
-        if (memberVarReadTimeout != null) {
-            localVarRequestBuilder.timeout(memberVarReadTimeout);
-        }
-        if (memberVarInterceptor != null) {
-            memberVarInterceptor.accept(localVarRequestBuilder);
-        }
-        return localVarRequestBuilder;
+    if (memberVarReadTimeout != null) {
+      localVarRequestBuilder.timeout(memberVarReadTimeout);
     }
-    /**
-     * Get assets for internal wallet Returns all assets in an internal wallet by ID.
-     *
-     * @param walletId The ID of the wallet to return (required)
-     * @return CompletableFuture&lt;ApiResponse&lt;UnmanagedWallet&gt;&gt;
-     * @throws ApiException if fails to make API call
-     */
-    public CompletableFuture<ApiResponse<UnmanagedWallet>> getInternalWallet(String walletId)
-            throws ApiException {
-        try {
-            HttpRequest.Builder localVarRequestBuilder = getInternalWalletRequestBuilder(walletId);
-            return memberVarHttpClient
-                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
-                    .thenComposeAsync(
-                            localVarResponse -> {
-                                if (memberVarAsyncResponseInterceptor != null) {
-                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
-                                }
-                                if (localVarResponse.statusCode() / 100 != 2) {
-                                    return CompletableFuture.failedFuture(
-                                            getApiException("getInternalWallet", localVarResponse));
-                                }
-                                try {
-                                    String responseBody = localVarResponse.body();
-                                    return CompletableFuture.completedFuture(
-                                            new ApiResponse<UnmanagedWallet>(
-                                                    localVarResponse.statusCode(),
-                                                    localVarResponse.headers().map(),
-                                                    responseBody == null || responseBody.isBlank()
-                                                            ? null
-                                                            : memberVarObjectMapper.readValue(
-                                                                    responseBody,
-                                                                    new TypeReference<
-                                                                            UnmanagedWallet>() {})));
-                                } catch (IOException e) {
-                                    return CompletableFuture.failedFuture(new ApiException(e));
-                                }
-                            });
-        } catch (ApiException e) {
-            return CompletableFuture.failedFuture(e);
-        }
+    if (memberVarInterceptor != null) {
+      memberVarInterceptor.accept(localVarRequestBuilder);
     }
-
-    private HttpRequest.Builder getInternalWalletRequestBuilder(String walletId)
-            throws ApiException {
-        // verify the required parameter 'walletId' is set
-        if (walletId == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'walletId' when calling getInternalWallet");
-        }
-
-        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
-
-        String localVarPath =
-                "/internal_wallets/{walletId}"
-                        .replace("{walletId}", ApiClient.urlEncode(walletId.toString()));
-
-        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
-
-        localVarRequestBuilder.header("Accept", "application/json");
-
-        localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
-        if (memberVarReadTimeout != null) {
-            localVarRequestBuilder.timeout(memberVarReadTimeout);
-        }
-        if (memberVarInterceptor != null) {
-            memberVarInterceptor.accept(localVarRequestBuilder);
-        }
-        return localVarRequestBuilder;
-    }
-    /**
-     * Get an asset from an internal wallet Returns information for an asset in an internal wallet.
-     *
-     * @param walletId The ID of the wallet (required)
-     * @param assetId The ID of the asset to return (required)
-     * @return CompletableFuture&lt;ApiResponse&lt;WalletAsset&gt;&gt;
-     * @throws ApiException if fails to make API call
-     */
-    public CompletableFuture<ApiResponse<WalletAsset>> getInternalWalletAsset(
-            String walletId, String assetId) throws ApiException {
-        try {
-            HttpRequest.Builder localVarRequestBuilder =
-                    getInternalWalletAssetRequestBuilder(walletId, assetId);
-            return memberVarHttpClient
-                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
-                    .thenComposeAsync(
-                            localVarResponse -> {
-                                if (memberVarAsyncResponseInterceptor != null) {
-                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
-                                }
-                                if (localVarResponse.statusCode() / 100 != 2) {
-                                    return CompletableFuture.failedFuture(
-                                            getApiException(
-                                                    "getInternalWalletAsset", localVarResponse));
-                                }
-                                try {
-                                    String responseBody = localVarResponse.body();
-                                    return CompletableFuture.completedFuture(
-                                            new ApiResponse<WalletAsset>(
-                                                    localVarResponse.statusCode(),
-                                                    localVarResponse.headers().map(),
-                                                    responseBody == null || responseBody.isBlank()
-                                                            ? null
-                                                            : memberVarObjectMapper.readValue(
-                                                                    responseBody,
-                                                                    new TypeReference<
-                                                                            WalletAsset>() {})));
-                                } catch (IOException e) {
-                                    return CompletableFuture.failedFuture(new ApiException(e));
-                                }
-                            });
-        } catch (ApiException e) {
-            return CompletableFuture.failedFuture(e);
-        }
-    }
-
-    private HttpRequest.Builder getInternalWalletAssetRequestBuilder(
-            String walletId, String assetId) throws ApiException {
-        // verify the required parameter 'walletId' is set
-        if (walletId == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'walletId' when calling"
-                            + " getInternalWalletAsset");
-        }
-        // verify the required parameter 'assetId' is set
-        if (assetId == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'assetId' when calling getInternalWalletAsset");
-        }
-
-        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
-
-        String localVarPath =
-                "/internal_wallets/{walletId}/{assetId}"
-                        .replace("{walletId}", ApiClient.urlEncode(walletId.toString()))
-                        .replace("{assetId}", ApiClient.urlEncode(assetId.toString()));
-
-        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
-
-        localVarRequestBuilder.header("Accept", "application/json");
-
-        localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
-        if (memberVarReadTimeout != null) {
-            localVarRequestBuilder.timeout(memberVarReadTimeout);
-        }
-        if (memberVarInterceptor != null) {
-            memberVarInterceptor.accept(localVarRequestBuilder);
-        }
-        return localVarRequestBuilder;
-    }
-    /**
-     * List internal wallets Gets a list of internal wallets. **Note**: BTC-based assets belonging
-     * to whitelisted addresses cannot be retrieved between 00:00 UTC and 00:01 UTC daily due to
-     * third-party provider, Blockchair, being unavailable for this 60 second period. Please wait
-     * until the next minute to retrieve BTC-based assets.
-     *
-     * @return CompletableFuture&lt;ApiResponse&lt;List&lt;UnmanagedWallet&gt;&gt;&gt;
-     * @throws ApiException if fails to make API call
-     */
-    public CompletableFuture<ApiResponse<List<UnmanagedWallet>>> getInternalWallets()
-            throws ApiException {
-        try {
-            HttpRequest.Builder localVarRequestBuilder = getInternalWalletsRequestBuilder();
-            return memberVarHttpClient
-                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
-                    .thenComposeAsync(
-                            localVarResponse -> {
-                                if (memberVarAsyncResponseInterceptor != null) {
-                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
-                                }
-                                if (localVarResponse.statusCode() / 100 != 2) {
-                                    return CompletableFuture.failedFuture(
-                                            getApiException(
-                                                    "getInternalWallets", localVarResponse));
-                                }
-                                try {
-                                    String responseBody = localVarResponse.body();
-                                    return CompletableFuture.completedFuture(
-                                            new ApiResponse<List<UnmanagedWallet>>(
-                                                    localVarResponse.statusCode(),
-                                                    localVarResponse.headers().map(),
-                                                    responseBody == null || responseBody.isBlank()
-                                                            ? null
-                                                            : memberVarObjectMapper.readValue(
-                                                                    responseBody,
-                                                                    new TypeReference<
-                                                                            List<
-                                                                                    UnmanagedWallet>>() {})));
-                                } catch (IOException e) {
-                                    return CompletableFuture.failedFuture(new ApiException(e));
-                                }
-                            });
-        } catch (ApiException e) {
-            return CompletableFuture.failedFuture(e);
-        }
-    }
-
-    private HttpRequest.Builder getInternalWalletsRequestBuilder() throws ApiException {
-
-        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
-
-        String localVarPath = "/internal_wallets";
-
-        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
-
-        localVarRequestBuilder.header("Accept", "application/json");
-
-        localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
-        if (memberVarReadTimeout != null) {
-            localVarRequestBuilder.timeout(memberVarReadTimeout);
-        }
-        if (memberVarInterceptor != null) {
-            memberVarInterceptor.accept(localVarRequestBuilder);
-        }
-        return localVarRequestBuilder;
-    }
-    /**
-     * Set an AML/KYT customer reference ID for an internal wallet Sets an AML/KYT customer
-     * reference ID for the specific internal wallet.
-     *
-     * @param setCustomerRefIdRequest (required)
-     * @param walletId The wallet ID (required)
-     * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
-     *     times with the same idempotency key, the server will return the same response as the
-     *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;Void&gt;&gt;
-     * @throws ApiException if fails to make API call
-     */
-    public CompletableFuture<ApiResponse<Void>> setCustomerRefIdForInternalWallet(
-            SetCustomerRefIdRequest setCustomerRefIdRequest, String walletId, String idempotencyKey)
-            throws ApiException {
-        try {
-            HttpRequest.Builder localVarRequestBuilder =
-                    setCustomerRefIdForInternalWalletRequestBuilder(
-                            setCustomerRefIdRequest, walletId, idempotencyKey);
-            return memberVarHttpClient
-                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
-                    .thenComposeAsync(
-                            localVarResponse -> {
-                                if (memberVarAsyncResponseInterceptor != null) {
-                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
-                                }
-                                if (localVarResponse.statusCode() / 100 != 2) {
-                                    return CompletableFuture.failedFuture(
-                                            getApiException(
-                                                    "setCustomerRefIdForInternalWallet",
-                                                    localVarResponse));
-                                }
-                                return CompletableFuture.completedFuture(
-                                        new ApiResponse<Void>(
-                                                localVarResponse.statusCode(),
-                                                localVarResponse.headers().map(),
-                                                null));
-                            });
-        } catch (ApiException e) {
-            return CompletableFuture.failedFuture(e);
-        }
-    }
-
-    private HttpRequest.Builder setCustomerRefIdForInternalWalletRequestBuilder(
-            SetCustomerRefIdRequest setCustomerRefIdRequest, String walletId, String idempotencyKey)
-            throws ApiException {
-        // verify the required parameter 'setCustomerRefIdRequest' is set
-        if (setCustomerRefIdRequest == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'setCustomerRefIdRequest' when calling"
-                            + " setCustomerRefIdForInternalWallet");
-        }
-        // verify the required parameter 'walletId' is set
-        if (walletId == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'walletId' when calling"
-                            + " setCustomerRefIdForInternalWallet");
-        }
-
-        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
-
-        String localVarPath =
-                "/internal_wallets/{walletId}/set_customer_ref_id"
-                        .replace("{walletId}", ApiClient.urlEncode(walletId.toString()));
-
-        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
-
-        if (idempotencyKey != null) {
-            localVarRequestBuilder.header("Idempotency-Key", idempotencyKey.toString());
-        }
-        localVarRequestBuilder.header("Content-Type", "application/json");
-        localVarRequestBuilder.header("Accept", "application/json");
-
-        try {
-            byte[] localVarPostBody =
-                    memberVarObjectMapper.writeValueAsBytes(setCustomerRefIdRequest);
-            localVarRequestBuilder.method(
-                    "POST", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
-        } catch (IOException e) {
-            throw new ApiException(e);
-        }
-        if (memberVarReadTimeout != null) {
-            localVarRequestBuilder.timeout(memberVarReadTimeout);
-        }
-        if (memberVarInterceptor != null) {
-            memberVarInterceptor.accept(localVarRequestBuilder);
-        }
-        return localVarRequestBuilder;
-    }
+    return localVarRequestBuilder;
+  }
 }

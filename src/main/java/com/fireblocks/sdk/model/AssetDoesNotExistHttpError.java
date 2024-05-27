@@ -10,213 +10,213 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
-import java.util.Objects;
 import java.util.StringJoiner;
+import java.util.Objects;
+import java.util.Map;
+import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
-/** AssetDoesNotExistHttpError */
+
+/**
+ * AssetDoesNotExistHttpError
+ */
 @JsonPropertyOrder({
-    AssetDoesNotExistHttpError.JSON_PROPERTY_STATUS_CODE,
-    AssetDoesNotExistHttpError.JSON_PROPERTY_MESSAGE,
-    AssetDoesNotExistHttpError.JSON_PROPERTY_ERROR
+  AssetDoesNotExistHttpError.JSON_PROPERTY_STATUS_CODE,
+  AssetDoesNotExistHttpError.JSON_PROPERTY_MESSAGE,
+  AssetDoesNotExistHttpError.JSON_PROPERTY_ERROR
 })
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class AssetDoesNotExistHttpError {
-    public static final String JSON_PROPERTY_STATUS_CODE = "statusCode";
-    private Integer statusCode;
+  public static final String JSON_PROPERTY_STATUS_CODE = "statusCode";
+  private Integer statusCode;
 
-    public static final String JSON_PROPERTY_MESSAGE = "message";
-    private String message;
+  public static final String JSON_PROPERTY_MESSAGE = "message";
+  private String message;
 
-    public static final String JSON_PROPERTY_ERROR = "error";
-    private String error;
+  public static final String JSON_PROPERTY_ERROR = "error";
+  private String error;
 
-    public AssetDoesNotExistHttpError() {}
+  public AssetDoesNotExistHttpError() { 
+  }
 
-    public AssetDoesNotExistHttpError statusCode(Integer statusCode) {
-        this.statusCode = statusCode;
-        return this;
+  public AssetDoesNotExistHttpError statusCode(Integer statusCode) {
+    this.statusCode = statusCode;
+    return this;
+  }
+
+   /**
+   * HTTP status code
+   * @return statusCode
+  **/
+  @jakarta.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_STATUS_CODE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Integer getStatusCode() {
+    return statusCode;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_STATUS_CODE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setStatusCode(Integer statusCode) {
+    this.statusCode = statusCode;
+  }
+
+
+  public AssetDoesNotExistHttpError message(String message) {
+    this.message = message;
+    return this;
+  }
+
+   /**
+   * Error message
+   * @return message
+  **/
+  @jakarta.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_MESSAGE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getMessage() {
+    return message;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_MESSAGE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setMessage(String message) {
+    this.message = message;
+  }
+
+
+  public AssetDoesNotExistHttpError error(String error) {
+    this.error = error;
+    return this;
+  }
+
+   /**
+   * Short description of the HTTP error
+   * @return error
+  **/
+  @jakarta.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_ERROR)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getError() {
+    return error;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_ERROR)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setError(String error) {
+    this.error = error;
+  }
+
+
+  /**
+   * Return true if this AssetDoesNotExistHttpError object is equal to o.
+   */
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    AssetDoesNotExistHttpError assetDoesNotExistHttpError = (AssetDoesNotExistHttpError) o;
+    return Objects.equals(this.statusCode, assetDoesNotExistHttpError.statusCode) &&
+        Objects.equals(this.message, assetDoesNotExistHttpError.message) &&
+        Objects.equals(this.error, assetDoesNotExistHttpError.error);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(statusCode, message, error);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class AssetDoesNotExistHttpError {\n");
+    sb.append("    statusCode: ").append(toIndentedString(statusCode)).append("\n");
+    sb.append("    message: ").append(toIndentedString(message)).append("\n");
+    sb.append("    error: ").append(toIndentedString(error)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @return URL query string
+   */
+  public String toUrlQueryString() {
+    return toUrlQueryString(null);
+  }
+
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @param prefix prefix of the query string
+   * @return URL query string
+   */
+  public String toUrlQueryString(String prefix) {
+    String suffix = "";
+    String containerSuffix = "";
+    String containerPrefix = "";
+    if (prefix == null) {
+      // style=form, explode=true, e.g. /pet?name=cat&type=manx
+      prefix = "";
+    } else {
+      // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
+      prefix = prefix + "[";
+      suffix = "]";
+      containerSuffix = "]";
+      containerPrefix = "[";
     }
 
-    /**
-     * HTTP status code
-     *
-     * @return statusCode
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_STATUS_CODE)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public Integer getStatusCode() {
-        return statusCode;
+    StringJoiner joiner = new StringJoiner("&");
+
+    // add `statusCode` to the URL query string
+    if (getStatusCode() != null) {
+      joiner.add(String.format("%sstatusCode%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getStatusCode()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
     }
 
-    @JsonProperty(JSON_PROPERTY_STATUS_CODE)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setStatusCode(Integer statusCode) {
-        this.statusCode = statusCode;
+    // add `message` to the URL query string
+    if (getMessage() != null) {
+      joiner.add(String.format("%smessage%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getMessage()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
     }
 
-    public AssetDoesNotExistHttpError message(String message) {
-        this.message = message;
-        return this;
+    // add `error` to the URL query string
+    if (getError() != null) {
+      joiner.add(String.format("%serror%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getError()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
     }
 
-    /**
-     * Error message
-     *
-     * @return message
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_MESSAGE)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public String getMessage() {
-        return message;
-    }
-
-    @JsonProperty(JSON_PROPERTY_MESSAGE)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    public AssetDoesNotExistHttpError error(String error) {
-        this.error = error;
-        return this;
-    }
-
-    /**
-     * Short description of the HTTP error
-     *
-     * @return error
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_ERROR)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public String getError() {
-        return error;
-    }
-
-    @JsonProperty(JSON_PROPERTY_ERROR)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setError(String error) {
-        this.error = error;
-    }
-
-    /** Return true if this AssetDoesNotExistHttpError object is equal to o. */
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        AssetDoesNotExistHttpError assetDoesNotExistHttpError = (AssetDoesNotExistHttpError) o;
-        return Objects.equals(this.statusCode, assetDoesNotExistHttpError.statusCode)
-                && Objects.equals(this.message, assetDoesNotExistHttpError.message)
-                && Objects.equals(this.error, assetDoesNotExistHttpError.error);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(statusCode, message, error);
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("class AssetDoesNotExistHttpError {\n");
-        sb.append("    statusCode: ").append(toIndentedString(statusCode)).append("\n");
-        sb.append("    message: ").append(toIndentedString(message)).append("\n");
-        sb.append("    error: ").append(toIndentedString(error)).append("\n");
-        sb.append("}");
-        return sb.toString();
-    }
-
-    /**
-     * Convert the given object to string with each line indented by 4 spaces (except the first
-     * line).
-     */
-    private String toIndentedString(Object o) {
-        if (o == null) {
-            return "null";
-        }
-        return o.toString().replace("\n", "\n    ");
-    }
-
-    /**
-     * Convert the instance into URL query string.
-     *
-     * @return URL query string
-     */
-    public String toUrlQueryString() {
-        return toUrlQueryString(null);
-    }
-
-    /**
-     * Convert the instance into URL query string.
-     *
-     * @param prefix prefix of the query string
-     * @return URL query string
-     */
-    public String toUrlQueryString(String prefix) {
-        String suffix = "";
-        String containerSuffix = "";
-        String containerPrefix = "";
-        if (prefix == null) {
-            // style=form, explode=true, e.g. /pet?name=cat&type=manx
-            prefix = "";
-        } else {
-            // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
-            prefix = prefix + "[";
-            suffix = "]";
-            containerSuffix = "]";
-            containerPrefix = "[";
-        }
-
-        StringJoiner joiner = new StringJoiner("&");
-
-        // add `statusCode` to the URL query string
-        if (getStatusCode() != null) {
-            joiner.add(
-                    String.format(
-                            "%sstatusCode%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getStatusCode()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
-        // add `message` to the URL query string
-        if (getMessage() != null) {
-            joiner.add(
-                    String.format(
-                            "%smessage%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(String.valueOf(getMessage()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
-        // add `error` to the URL query string
-        if (getError() != null) {
-            joiner.add(
-                    String.format(
-                            "%serror%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(String.valueOf(getError()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
-        return joiner.toString();
-    }
+    return joiner.toString();
+  }
 }
+

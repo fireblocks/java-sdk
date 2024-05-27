@@ -10,30 +10,48 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import java.math.BigDecimal;
+import java.util.Arrays;
+import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
-/** Model tests for UnspentInput */
+/**
+ * Model tests for UnspentInput
+ */
 public class UnspentInputTest {
     private final UnspentInput model = new UnspentInput();
 
-    /** Model tests for UnspentInput */
+    /**
+     * Model tests for UnspentInput
+     */
     @Test
     public void testUnspentInput() {
         // TODO: test UnspentInput
     }
 
-    /** Test the property 'txHash' */
+    /**
+     * Test the property 'txHash'
+     */
     @Test
     public void txHashTest() {
         // TODO: test txHash
     }
 
-    /** Test the property 'index' */
+    /**
+     * Test the property 'index'
+     */
     @Test
     public void indexTest() {
         // TODO: test index
     }
+
 }

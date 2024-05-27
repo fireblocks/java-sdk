@@ -10,50 +10,63 @@
  * Do not edit the class manually.
  */
 
-package com.fireblocks.sdk.api;
 
+package com.fireblocks.sdk.api;
 
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.model.ApiKey;
 import com.fireblocks.sdk.model.ApiKeysPaginatedResponse;
+import java.math.BigDecimal;
 import com.fireblocks.sdk.model.Cosigner;
 import com.fireblocks.sdk.model.CosignersPaginatedResponse;
+import com.fireblocks.sdk.model.ErrorSchema;
 import com.fireblocks.sdk.model.RenameCosigner;
-import java.math.BigDecimal;
 import java.util.UUID;
-import java.util.concurrent.CompletableFuture;
-import org.junit.Ignore;
 import org.junit.Test;
+import org.junit.Ignore;
 
-/** API tests for CosignersBetaApi */
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import java.util.concurrent.CompletableFuture;
+
+/**
+ * API tests for CosignersBetaApi
+ */
 @Ignore
 public class CosignersBetaApiTest {
 
     private final CosignersBetaApi api = new CosignersBetaApi();
 
+    
     /**
      * Get API key
      *
-     * <p>Get an API key by ID **Note:** These endpoints are currently in beta and might be subject
-     * to changes.
+     * Get an API key by ID **Note:** These endpoints are currently in beta and might be subject to changes. 
      *
-     * @throws ApiException if the Api call fails
+     * @throws ApiException
+     *          if the Api call fails
      */
     @Test
     public void getApiKeyTest() throws ApiException {
         UUID cosignerId = null;
         String apiKeyId = null;
-        CompletableFuture<ApiResponse<ApiKey>> response = api.getApiKey(cosignerId, apiKeyId);
+        CompletableFuture<ApiResponse<ApiKey>> response = 
+        api.getApiKey(cosignerId, apiKeyId);
+        
     }
-
+    
     /**
      * Get all API keys
      *
-     * <p>Get all cosigner paired API keys (paginated) **Note:** These endpoints are currently in
-     * beta and might be subject to changes.
+     * Get all cosigner paired API keys (paginated) **Note:** These endpoints are currently in beta and might be subject to changes. 
      *
-     * @throws ApiException if the Api call fails
+     * @throws ApiException
+     *          if the Api call fails
      */
     @Test
     public void getApiKeysTest() throws ApiException {
@@ -61,54 +74,60 @@ public class CosignersBetaApiTest {
         String order = null;
         String pageCursor = null;
         BigDecimal pageSize = null;
-        CompletableFuture<ApiResponse<ApiKeysPaginatedResponse>> response =
-                api.getApiKeys(cosignerId, order, pageCursor, pageSize);
+        CompletableFuture<ApiResponse<ApiKeysPaginatedResponse>> response = 
+        api.getApiKeys(cosignerId, order, pageCursor, pageSize);
+        
     }
-
+    
     /**
      * Get cosigner
      *
-     * <p>Get a cosigner by ID **Note:** These endpoints are currently in beta and might be subject
-     * to changes.
+     * Get a cosigner by ID **Note:** These endpoints are currently in beta and might be subject to changes. 
      *
-     * @throws ApiException if the Api call fails
+     * @throws ApiException
+     *          if the Api call fails
      */
     @Test
     public void getCosignerTest() throws ApiException {
         UUID cosignerId = null;
-        CompletableFuture<ApiResponse<Cosigner>> response = api.getCosigner(cosignerId);
+        CompletableFuture<ApiResponse<Cosigner>> response = 
+        api.getCosigner(cosignerId);
+        
     }
-
+    
     /**
      * Get all cosigners
      *
-     * <p>Get all workspace cosigners (paginated) **Note:** These endpoints are currently in beta
-     * and might be subject to changes.
+     * Get all workspace cosigners (paginated) **Note:** These endpoints are currently in beta and might be subject to changes. 
      *
-     * @throws ApiException if the Api call fails
+     * @throws ApiException
+     *          if the Api call fails
      */
     @Test
     public void getCosignersTest() throws ApiException {
         String order = null;
         String pageCursor = null;
         BigDecimal pageSize = null;
-        CompletableFuture<ApiResponse<CosignersPaginatedResponse>> response =
-                api.getCosigners(order, pageCursor, pageSize);
+        CompletableFuture<ApiResponse<CosignersPaginatedResponse>> response = 
+        api.getCosigners(order, pageCursor, pageSize);
+        
     }
-
+    
     /**
      * Rename cosigner
      *
-     * <p>Rename a cosigner by ID **Note:** These endpoints are currently in beta and might be
-     * subject to changes.
+     * Rename a cosigner by ID **Note:** These endpoints are currently in beta and might be subject to changes. 
      *
-     * @throws ApiException if the Api call fails
+     * @throws ApiException
+     *          if the Api call fails
      */
     @Test
     public void renameCosignerTest() throws ApiException {
         RenameCosigner renameCosigner = null;
         UUID cosignerId = null;
-        CompletableFuture<ApiResponse<Cosigner>> response =
-                api.renameCosigner(renameCosigner, cosignerId);
+        CompletableFuture<ApiResponse<Cosigner>> response = 
+        api.renameCosigner(renameCosigner, cosignerId);
+        
     }
+    
 }

@@ -10,48 +10,71 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.Arrays;
+import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
-/** Model tests for CreateAddressResponse */
+/**
+ * Model tests for CreateAddressResponse
+ */
 public class CreateAddressResponseTest {
     private final CreateAddressResponse model = new CreateAddressResponse();
 
-    /** Model tests for CreateAddressResponse */
+    /**
+     * Model tests for CreateAddressResponse
+     */
     @Test
     public void testCreateAddressResponse() {
         // TODO: test CreateAddressResponse
     }
 
-    /** Test the property 'address' */
+    /**
+     * Test the property 'address'
+     */
     @Test
     public void addressTest() {
         // TODO: test address
     }
 
-    /** Test the property 'legacyAddress' */
+    /**
+     * Test the property 'legacyAddress'
+     */
     @Test
     public void legacyAddressTest() {
         // TODO: test legacyAddress
     }
 
-    /** Test the property 'enterpriseAddress' */
+    /**
+     * Test the property 'enterpriseAddress'
+     */
     @Test
     public void enterpriseAddressTest() {
         // TODO: test enterpriseAddress
     }
 
-    /** Test the property 'tag' */
+    /**
+     * Test the property 'tag'
+     */
     @Test
     public void tagTest() {
         // TODO: test tag
     }
 
-    /** Test the property 'bip44AddressIndex' */
+    /**
+     * Test the property 'bip44AddressIndex'
+     */
     @Test
     public void bip44AddressIndexTest() {
         // TODO: test bip44AddressIndex
     }
+
 }

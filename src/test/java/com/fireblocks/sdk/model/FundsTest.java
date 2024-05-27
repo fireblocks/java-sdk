@@ -10,24 +10,40 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import java.math.BigDecimal;
+import java.util.Arrays;
+import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
-/** Model tests for Funds */
+/**
+ * Model tests for Funds
+ */
 public class FundsTest {
     private final Funds model = new Funds();
 
-    /** Model tests for Funds */
+    /**
+     * Model tests for Funds
+     */
     @Test
     public void testFunds() {
         // TODO: test Funds
     }
 
-    /** Test the property 'amount' */
+    /**
+     * Test the property 'amount'
+     */
     @Test
     public void amountTest() {
         // TODO: test amount
     }
+
 }

@@ -10,42 +10,67 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.fireblocks.sdk.model.ExchangeAccount;
+import com.fireblocks.sdk.model.ExchangeAccountsPagedPaging;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
-/** Model tests for ExchangeAccountsPaged */
+/**
+ * Model tests for ExchangeAccountsPaged
+ */
 public class ExchangeAccountsPagedTest {
     private final ExchangeAccountsPaged model = new ExchangeAccountsPaged();
 
-    /** Model tests for ExchangeAccountsPaged */
+    /**
+     * Model tests for ExchangeAccountsPaged
+     */
     @Test
     public void testExchangeAccountsPaged() {
         // TODO: test ExchangeAccountsPaged
     }
 
-    /** Test the property 'exchangeAccount' */
+    /**
+     * Test the property 'exchangeAccount'
+     */
     @Test
     public void exchangeAccountTest() {
         // TODO: test exchangeAccount
     }
 
-    /** Test the property 'paging' */
+    /**
+     * Test the property 'paging'
+     */
     @Test
     public void pagingTest() {
         // TODO: test paging
     }
 
-    /** Test the property 'prevUrl' */
+    /**
+     * Test the property 'prevUrl'
+     */
     @Test
     public void prevUrlTest() {
         // TODO: test prevUrl
     }
 
-    /** Test the property 'nextUrl' */
+    /**
+     * Test the property 'nextUrl'
+     */
     @Test
     public void nextUrlTest() {
         // TODO: test nextUrl
     }
+
 }

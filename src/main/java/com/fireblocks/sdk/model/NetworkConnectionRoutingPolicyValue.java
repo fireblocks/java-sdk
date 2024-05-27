@@ -10,8 +10,34 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.StringJoiner;
+import java.util.Objects;
+import java.util.Map;
+import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.fireblocks.sdk.model.CustomRoutingDest;
+import com.fireblocks.sdk.model.DefaultNetworkRoutingDest;
+import com.fireblocks.sdk.model.NoneNetworkRoutingDest;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+
+import com.fasterxml.jackson.core.type.TypeReference;
+
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
@@ -27,32 +53,15 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 import com.fireblocks.sdk.JSON;
-import java.io.IOException;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.StringJoiner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
-@JsonDeserialize(
-        using =
-                NetworkConnectionRoutingPolicyValue.NetworkConnectionRoutingPolicyValueDeserializer
-                        .class)
-@JsonSerialize(
-        using =
-                NetworkConnectionRoutingPolicyValue.NetworkConnectionRoutingPolicyValueSerializer
-                        .class)
+@JsonDeserialize(using = NetworkConnectionRoutingPolicyValue.NetworkConnectionRoutingPolicyValueDeserializer.class)
+@JsonSerialize(using = NetworkConnectionRoutingPolicyValue.NetworkConnectionRoutingPolicyValueSerializer.class)
 public class NetworkConnectionRoutingPolicyValue extends AbstractOpenApiSchema {
-    private static final Logger log =
-            Logger.getLogger(NetworkConnectionRoutingPolicyValue.class.getName());
+    private static final Logger log = Logger.getLogger(NetworkConnectionRoutingPolicyValue.class.getName());
 
-    public static class NetworkConnectionRoutingPolicyValueSerializer
-            extends StdSerializer<NetworkConnectionRoutingPolicyValue> {
-        public NetworkConnectionRoutingPolicyValueSerializer(
-                Class<NetworkConnectionRoutingPolicyValue> t) {
+    public static class NetworkConnectionRoutingPolicyValueSerializer extends StdSerializer<NetworkConnectionRoutingPolicyValue> {
+        public NetworkConnectionRoutingPolicyValueSerializer(Class<NetworkConnectionRoutingPolicyValue> t) {
             super(t);
         }
 
@@ -61,17 +70,12 @@ public class NetworkConnectionRoutingPolicyValue extends AbstractOpenApiSchema {
         }
 
         @Override
-        public void serialize(
-                NetworkConnectionRoutingPolicyValue value,
-                JsonGenerator jgen,
-                SerializerProvider provider)
-                throws IOException, JsonProcessingException {
+        public void serialize(NetworkConnectionRoutingPolicyValue value, JsonGenerator jgen, SerializerProvider provider) throws IOException, JsonProcessingException {
             jgen.writeObject(value.getActualInstance());
         }
     }
 
-    public static class NetworkConnectionRoutingPolicyValueDeserializer
-            extends StdDeserializer<NetworkConnectionRoutingPolicyValue> {
+    public static class NetworkConnectionRoutingPolicyValueDeserializer extends StdDeserializer<NetworkConnectionRoutingPolicyValue> {
         public NetworkConnectionRoutingPolicyValueDeserializer() {
             this(NetworkConnectionRoutingPolicyValue.class);
         }
@@ -81,9 +85,7 @@ public class NetworkConnectionRoutingPolicyValue extends AbstractOpenApiSchema {
         }
 
         @Override
-        public NetworkConnectionRoutingPolicyValue deserialize(
-                JsonParser jp, DeserializationContext ctxt)
-                throws IOException, JsonProcessingException {
+        public NetworkConnectionRoutingPolicyValue deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException, JsonProcessingException {
             JsonNode tree = jp.readValueAsTree();
             Object deserialized = null;
             boolean typeCoercion = ctxt.isEnabled(MapperFeature.ALLOW_COERCION_OF_SCALARS);
@@ -93,34 +95,17 @@ public class NetworkConnectionRoutingPolicyValue extends AbstractOpenApiSchema {
             try {
                 boolean attemptParsing = true;
                 // ensure that we respect type coercion as set on the client ObjectMapper
-                if (CustomRoutingDest.class.equals(Integer.class)
-                        || CustomRoutingDest.class.equals(Long.class)
-                        || CustomRoutingDest.class.equals(Float.class)
-                        || CustomRoutingDest.class.equals(Double.class)
-                        || CustomRoutingDest.class.equals(Boolean.class)
-                        || CustomRoutingDest.class.equals(String.class)) {
+                if (CustomRoutingDest.class.equals(Integer.class) || CustomRoutingDest.class.equals(Long.class) || CustomRoutingDest.class.equals(Float.class) || CustomRoutingDest.class.equals(Double.class) || CustomRoutingDest.class.equals(Boolean.class) || CustomRoutingDest.class.equals(String.class)) {
                     attemptParsing = typeCoercion;
                     if (!attemptParsing) {
-                        attemptParsing |=
-                                ((CustomRoutingDest.class.equals(Integer.class)
-                                                || CustomRoutingDest.class.equals(Long.class))
-                                        && token == JsonToken.VALUE_NUMBER_INT);
-                        attemptParsing |=
-                                ((CustomRoutingDest.class.equals(Float.class)
-                                                || CustomRoutingDest.class.equals(Double.class))
-                                        && token == JsonToken.VALUE_NUMBER_FLOAT);
-                        attemptParsing |=
-                                (CustomRoutingDest.class.equals(Boolean.class)
-                                        && (token == JsonToken.VALUE_FALSE
-                                                || token == JsonToken.VALUE_TRUE));
-                        attemptParsing |=
-                                (CustomRoutingDest.class.equals(String.class)
-                                        && token == JsonToken.VALUE_STRING);
+                        attemptParsing |= ((CustomRoutingDest.class.equals(Integer.class) || CustomRoutingDest.class.equals(Long.class)) && token == JsonToken.VALUE_NUMBER_INT);
+                        attemptParsing |= ((CustomRoutingDest.class.equals(Float.class) || CustomRoutingDest.class.equals(Double.class)) && token == JsonToken.VALUE_NUMBER_FLOAT);
+                        attemptParsing |= (CustomRoutingDest.class.equals(Boolean.class) && (token == JsonToken.VALUE_FALSE || token == JsonToken.VALUE_TRUE));
+                        attemptParsing |= (CustomRoutingDest.class.equals(String.class) && token == JsonToken.VALUE_STRING);
                     }
                 }
                 if (attemptParsing) {
-                    deserialized =
-                            tree.traverse(jp.getCodec()).readValueAs(CustomRoutingDest.class);
+                    deserialized = tree.traverse(jp.getCodec()).readValueAs(CustomRoutingDest.class);
                     // TODO: there is no validation against JSON schema constraints
                     // (min, max, enum, pattern...), this does not perform a strict JSON
                     // validation, which means the 'match' count may be higher than it should be.
@@ -136,37 +121,17 @@ public class NetworkConnectionRoutingPolicyValue extends AbstractOpenApiSchema {
             try {
                 boolean attemptParsing = true;
                 // ensure that we respect type coercion as set on the client ObjectMapper
-                if (DefaultNetworkRoutingDest.class.equals(Integer.class)
-                        || DefaultNetworkRoutingDest.class.equals(Long.class)
-                        || DefaultNetworkRoutingDest.class.equals(Float.class)
-                        || DefaultNetworkRoutingDest.class.equals(Double.class)
-                        || DefaultNetworkRoutingDest.class.equals(Boolean.class)
-                        || DefaultNetworkRoutingDest.class.equals(String.class)) {
+                if (DefaultNetworkRoutingDest.class.equals(Integer.class) || DefaultNetworkRoutingDest.class.equals(Long.class) || DefaultNetworkRoutingDest.class.equals(Float.class) || DefaultNetworkRoutingDest.class.equals(Double.class) || DefaultNetworkRoutingDest.class.equals(Boolean.class) || DefaultNetworkRoutingDest.class.equals(String.class)) {
                     attemptParsing = typeCoercion;
                     if (!attemptParsing) {
-                        attemptParsing |=
-                                ((DefaultNetworkRoutingDest.class.equals(Integer.class)
-                                                || DefaultNetworkRoutingDest.class.equals(
-                                                        Long.class))
-                                        && token == JsonToken.VALUE_NUMBER_INT);
-                        attemptParsing |=
-                                ((DefaultNetworkRoutingDest.class.equals(Float.class)
-                                                || DefaultNetworkRoutingDest.class.equals(
-                                                        Double.class))
-                                        && token == JsonToken.VALUE_NUMBER_FLOAT);
-                        attemptParsing |=
-                                (DefaultNetworkRoutingDest.class.equals(Boolean.class)
-                                        && (token == JsonToken.VALUE_FALSE
-                                                || token == JsonToken.VALUE_TRUE));
-                        attemptParsing |=
-                                (DefaultNetworkRoutingDest.class.equals(String.class)
-                                        && token == JsonToken.VALUE_STRING);
+                        attemptParsing |= ((DefaultNetworkRoutingDest.class.equals(Integer.class) || DefaultNetworkRoutingDest.class.equals(Long.class)) && token == JsonToken.VALUE_NUMBER_INT);
+                        attemptParsing |= ((DefaultNetworkRoutingDest.class.equals(Float.class) || DefaultNetworkRoutingDest.class.equals(Double.class)) && token == JsonToken.VALUE_NUMBER_FLOAT);
+                        attemptParsing |= (DefaultNetworkRoutingDest.class.equals(Boolean.class) && (token == JsonToken.VALUE_FALSE || token == JsonToken.VALUE_TRUE));
+                        attemptParsing |= (DefaultNetworkRoutingDest.class.equals(String.class) && token == JsonToken.VALUE_STRING);
                     }
                 }
                 if (attemptParsing) {
-                    deserialized =
-                            tree.traverse(jp.getCodec())
-                                    .readValueAs(DefaultNetworkRoutingDest.class);
+                    deserialized = tree.traverse(jp.getCodec()).readValueAs(DefaultNetworkRoutingDest.class);
                     // TODO: there is no validation against JSON schema constraints
                     // (min, max, enum, pattern...), this does not perform a strict JSON
                     // validation, which means the 'match' count may be higher than it should be.
@@ -175,45 +140,24 @@ public class NetworkConnectionRoutingPolicyValue extends AbstractOpenApiSchema {
                 }
             } catch (Exception e) {
                 // deserialization failed, continue
-                log.log(
-                        Level.FINER,
-                        "Input data does not match schema 'DefaultNetworkRoutingDest'",
-                        e);
+                log.log(Level.FINER, "Input data does not match schema 'DefaultNetworkRoutingDest'", e);
             }
 
             // deserialize NoneNetworkRoutingDest
             try {
                 boolean attemptParsing = true;
                 // ensure that we respect type coercion as set on the client ObjectMapper
-                if (NoneNetworkRoutingDest.class.equals(Integer.class)
-                        || NoneNetworkRoutingDest.class.equals(Long.class)
-                        || NoneNetworkRoutingDest.class.equals(Float.class)
-                        || NoneNetworkRoutingDest.class.equals(Double.class)
-                        || NoneNetworkRoutingDest.class.equals(Boolean.class)
-                        || NoneNetworkRoutingDest.class.equals(String.class)) {
+                if (NoneNetworkRoutingDest.class.equals(Integer.class) || NoneNetworkRoutingDest.class.equals(Long.class) || NoneNetworkRoutingDest.class.equals(Float.class) || NoneNetworkRoutingDest.class.equals(Double.class) || NoneNetworkRoutingDest.class.equals(Boolean.class) || NoneNetworkRoutingDest.class.equals(String.class)) {
                     attemptParsing = typeCoercion;
                     if (!attemptParsing) {
-                        attemptParsing |=
-                                ((NoneNetworkRoutingDest.class.equals(Integer.class)
-                                                || NoneNetworkRoutingDest.class.equals(Long.class))
-                                        && token == JsonToken.VALUE_NUMBER_INT);
-                        attemptParsing |=
-                                ((NoneNetworkRoutingDest.class.equals(Float.class)
-                                                || NoneNetworkRoutingDest.class.equals(
-                                                        Double.class))
-                                        && token == JsonToken.VALUE_NUMBER_FLOAT);
-                        attemptParsing |=
-                                (NoneNetworkRoutingDest.class.equals(Boolean.class)
-                                        && (token == JsonToken.VALUE_FALSE
-                                                || token == JsonToken.VALUE_TRUE));
-                        attemptParsing |=
-                                (NoneNetworkRoutingDest.class.equals(String.class)
-                                        && token == JsonToken.VALUE_STRING);
+                        attemptParsing |= ((NoneNetworkRoutingDest.class.equals(Integer.class) || NoneNetworkRoutingDest.class.equals(Long.class)) && token == JsonToken.VALUE_NUMBER_INT);
+                        attemptParsing |= ((NoneNetworkRoutingDest.class.equals(Float.class) || NoneNetworkRoutingDest.class.equals(Double.class)) && token == JsonToken.VALUE_NUMBER_FLOAT);
+                        attemptParsing |= (NoneNetworkRoutingDest.class.equals(Boolean.class) && (token == JsonToken.VALUE_FALSE || token == JsonToken.VALUE_TRUE));
+                        attemptParsing |= (NoneNetworkRoutingDest.class.equals(String.class) && token == JsonToken.VALUE_STRING);
                     }
                 }
                 if (attemptParsing) {
-                    deserialized =
-                            tree.traverse(jp.getCodec()).readValueAs(NoneNetworkRoutingDest.class);
+                    deserialized = tree.traverse(jp.getCodec()).readValueAs(NoneNetworkRoutingDest.class);
                     // TODO: there is no validation against JSON schema constraints
                     // (min, max, enum, pattern...), this does not perform a strict JSON
                     // validation, which means the 'match' count may be higher than it should be.
@@ -222,10 +166,7 @@ public class NetworkConnectionRoutingPolicyValue extends AbstractOpenApiSchema {
                 }
             } catch (Exception e) {
                 // deserialization failed, continue
-                log.log(
-                        Level.FINER,
-                        "Input data does not match schema 'NoneNetworkRoutingDest'",
-                        e);
+                log.log(Level.FINER, "Input data does not match schema 'NoneNetworkRoutingDest'", e);
             }
 
             if (match == 1) {
@@ -233,19 +174,15 @@ public class NetworkConnectionRoutingPolicyValue extends AbstractOpenApiSchema {
                 ret.setActualInstance(deserialized);
                 return ret;
             }
-            throw new IOException(
-                    String.format(
-                            "Failed deserialization for NetworkConnectionRoutingPolicyValue: %d"
-                                    + " classes match result, expected 1",
-                            match));
+            throw new IOException(String.format("Failed deserialization for NetworkConnectionRoutingPolicyValue: %d classes match result, expected 1", match));
         }
 
-        /** Handle deserialization of the 'null' value. */
+        /**
+         * Handle deserialization of the 'null' value.
+         */
         @Override
-        public NetworkConnectionRoutingPolicyValue getNullValue(DeserializationContext ctxt)
-                throws JsonMappingException {
-            throw new JsonMappingException(
-                    ctxt.getParser(), "NetworkConnectionRoutingPolicyValue cannot be null");
+        public NetworkConnectionRoutingPolicyValue getNullValue(DeserializationContext ctxt) throws JsonMappingException {
+            throw new JsonMappingException(ctxt.getParser(), "NetworkConnectionRoutingPolicyValue cannot be null");
         }
     }
 
@@ -275,8 +212,7 @@ public class NetworkConnectionRoutingPolicyValue extends AbstractOpenApiSchema {
         schemas.put("CustomRoutingDest", CustomRoutingDest.class);
         schemas.put("DefaultNetworkRoutingDest", DefaultNetworkRoutingDest.class);
         schemas.put("NoneNetworkRoutingDest", NoneNetworkRoutingDest.class);
-        JSON.registerDescendants(
-                NetworkConnectionRoutingPolicyValue.class, Collections.unmodifiableMap(schemas));
+        JSON.registerDescendants(NetworkConnectionRoutingPolicyValue.class, Collections.unmodifiableMap(schemas));
     }
 
     @Override
@@ -285,12 +221,12 @@ public class NetworkConnectionRoutingPolicyValue extends AbstractOpenApiSchema {
     }
 
     /**
-     * Set the instance that matches the oneOf child schema, check the instance parameter is valid
-     * against the oneOf child schemas: CustomRoutingDest, DefaultNetworkRoutingDest,
-     * NoneNetworkRoutingDest
+     * Set the instance that matches the oneOf child schema, check
+     * the instance parameter is valid against the oneOf child schemas:
+     * CustomRoutingDest, DefaultNetworkRoutingDest, NoneNetworkRoutingDest
      *
-     * <p>It could be an instance of the 'oneOf' schemas. The oneOf child schemas may themselves be
-     * a composed schema (allOf, anyOf, oneOf).
+     * It could be an instance of the 'oneOf' schemas.
+     * The oneOf child schemas may themselves be a composed schema (allOf, anyOf, oneOf).
      */
     @Override
     public void setActualInstance(Object instance) {
@@ -309,17 +245,14 @@ public class NetworkConnectionRoutingPolicyValue extends AbstractOpenApiSchema {
             return;
         }
 
-        throw new RuntimeException(
-                "Invalid instance type. Must be CustomRoutingDest, DefaultNetworkRoutingDest,"
-                        + " NoneNetworkRoutingDest");
+        throw new RuntimeException("Invalid instance type. Must be CustomRoutingDest, DefaultNetworkRoutingDest, NoneNetworkRoutingDest");
     }
 
     /**
-     * Get the actual instance, which can be the following: CustomRoutingDest,
-     * DefaultNetworkRoutingDest, NoneNetworkRoutingDest
+     * Get the actual instance, which can be the following:
+     * CustomRoutingDest, DefaultNetworkRoutingDest, NoneNetworkRoutingDest
      *
-     * @return The actual instance (CustomRoutingDest, DefaultNetworkRoutingDest,
-     *     NoneNetworkRoutingDest)
+     * @return The actual instance (CustomRoutingDest, DefaultNetworkRoutingDest, NoneNetworkRoutingDest)
      */
     @Override
     public Object getActualInstance() {
@@ -327,94 +260,92 @@ public class NetworkConnectionRoutingPolicyValue extends AbstractOpenApiSchema {
     }
 
     /**
-     * Get the actual instance of `CustomRoutingDest`. If the actual instance is not
-     * `CustomRoutingDest`, the ClassCastException will be thrown.
+     * Get the actual instance of `CustomRoutingDest`. If the actual instance is not `CustomRoutingDest`,
+     * the ClassCastException will be thrown.
      *
      * @return The actual instance of `CustomRoutingDest`
      * @throws ClassCastException if the instance is not `CustomRoutingDest`
      */
     public CustomRoutingDest getCustomRoutingDest() throws ClassCastException {
-        return (CustomRoutingDest) super.getActualInstance();
+        return (CustomRoutingDest)super.getActualInstance();
     }
 
     /**
-     * Get the actual instance of `DefaultNetworkRoutingDest`. If the actual instance is not
-     * `DefaultNetworkRoutingDest`, the ClassCastException will be thrown.
+     * Get the actual instance of `DefaultNetworkRoutingDest`. If the actual instance is not `DefaultNetworkRoutingDest`,
+     * the ClassCastException will be thrown.
      *
      * @return The actual instance of `DefaultNetworkRoutingDest`
      * @throws ClassCastException if the instance is not `DefaultNetworkRoutingDest`
      */
     public DefaultNetworkRoutingDest getDefaultNetworkRoutingDest() throws ClassCastException {
-        return (DefaultNetworkRoutingDest) super.getActualInstance();
+        return (DefaultNetworkRoutingDest)super.getActualInstance();
     }
 
     /**
-     * Get the actual instance of `NoneNetworkRoutingDest`. If the actual instance is not
-     * `NoneNetworkRoutingDest`, the ClassCastException will be thrown.
+     * Get the actual instance of `NoneNetworkRoutingDest`. If the actual instance is not `NoneNetworkRoutingDest`,
+     * the ClassCastException will be thrown.
      *
      * @return The actual instance of `NoneNetworkRoutingDest`
      * @throws ClassCastException if the instance is not `NoneNetworkRoutingDest`
      */
     public NoneNetworkRoutingDest getNoneNetworkRoutingDest() throws ClassCastException {
-        return (NoneNetworkRoutingDest) super.getActualInstance();
+        return (NoneNetworkRoutingDest)super.getActualInstance();
     }
 
-    /**
-     * Convert the instance into URL query string.
-     *
-     * @return URL query string
-     */
-    public String toUrlQueryString() {
-        return toUrlQueryString(null);
+
+
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @return URL query string
+   */
+  public String toUrlQueryString() {
+    return toUrlQueryString(null);
+  }
+
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @param prefix prefix of the query string
+   * @return URL query string
+   */
+  public String toUrlQueryString(String prefix) {
+    String suffix = "";
+    String containerSuffix = "";
+    String containerPrefix = "";
+    if (prefix == null) {
+      // style=form, explode=true, e.g. /pet?name=cat&type=manx
+      prefix = "";
+    } else {
+      // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
+      prefix = prefix + "[";
+      suffix = "]";
+      containerSuffix = "]";
+      containerPrefix = "[";
     }
 
-    /**
-     * Convert the instance into URL query string.
-     *
-     * @param prefix prefix of the query string
-     * @return URL query string
-     */
-    public String toUrlQueryString(String prefix) {
-        String suffix = "";
-        String containerSuffix = "";
-        String containerPrefix = "";
-        if (prefix == null) {
-            // style=form, explode=true, e.g. /pet?name=cat&type=manx
-            prefix = "";
-        } else {
-            // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
-            prefix = prefix + "[";
-            suffix = "]";
-            containerSuffix = "]";
-            containerPrefix = "[";
-        }
+    StringJoiner joiner = new StringJoiner("&");
 
-        StringJoiner joiner = new StringJoiner("&");
-
-        if (getActualInstance() instanceof CustomRoutingDest) {
-            if (getActualInstance() != null) {
-                joiner.add(
-                        ((CustomRoutingDest) getActualInstance())
-                                .toUrlQueryString(prefix + "one_of_0" + suffix));
-            }
-            return joiner.toString();
+    if (getActualInstance() instanceof CustomRoutingDest) {
+        if (getActualInstance() != null) {
+          joiner.add(((CustomRoutingDest)getActualInstance()).toUrlQueryString(prefix + "one_of_0" + suffix));
         }
-        if (getActualInstance() instanceof DefaultNetworkRoutingDest) {
-            if (getActualInstance() != null) {
-                joiner.add(
-                        ((DefaultNetworkRoutingDest) getActualInstance())
-                                .toUrlQueryString(prefix + "one_of_1" + suffix));
-            }
-            return joiner.toString();
-        }
-        if (getActualInstance() instanceof NoneNetworkRoutingDest) {
-            if (getActualInstance() != null) {
-                joiner.add(
-                        ((NoneNetworkRoutingDest) getActualInstance())
-                                .toUrlQueryString(prefix + "one_of_2" + suffix));
-            }
-            return joiner.toString();
-        }
-        return null;
+        return joiner.toString();
     }
+    if (getActualInstance() instanceof DefaultNetworkRoutingDest) {
+        if (getActualInstance() != null) {
+          joiner.add(((DefaultNetworkRoutingDest)getActualInstance()).toUrlQueryString(prefix + "one_of_1" + suffix));
+        }
+        return joiner.toString();
+    }
+    if (getActualInstance() instanceof NoneNetworkRoutingDest) {
+        if (getActualInstance() != null) {
+          joiner.add(((NoneNetworkRoutingDest)getActualInstance()).toUrlQueryString(prefix + "one_of_2" + suffix));
+        }
+        return joiner.toString();
+    }
+    return null;
+  }
+
 }
+

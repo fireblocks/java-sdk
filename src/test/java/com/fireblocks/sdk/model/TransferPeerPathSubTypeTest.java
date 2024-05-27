@@ -10,16 +10,23 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
+import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
-/** Model tests for TransferPeerPathSubType */
+/**
+ * Model tests for TransferPeerPathSubType
+ */
 public class TransferPeerPathSubTypeTest {
-    /** Model tests for TransferPeerPathSubType */
+    /**
+     * Model tests for TransferPeerPathSubType
+     */
     @Test
     public void testTransferPeerPathSubType() {
         // TODO: test TransferPeerPathSubType
     }
+
 }

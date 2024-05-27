@@ -10,54 +10,82 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.fireblocks.sdk.model.WriteAbiFunction;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
-/** Model tests for WriteCallFunctionDto */
+/**
+ * Model tests for WriteCallFunctionDto
+ */
 public class WriteCallFunctionDtoTest {
     private final WriteCallFunctionDto model = new WriteCallFunctionDto();
 
-    /** Model tests for WriteCallFunctionDto */
+    /**
+     * Model tests for WriteCallFunctionDto
+     */
     @Test
     public void testWriteCallFunctionDto() {
         // TODO: test WriteCallFunctionDto
     }
 
-    /** Test the property 'vaultAccountId' */
+    /**
+     * Test the property 'vaultAccountId'
+     */
     @Test
     public void vaultAccountIdTest() {
         // TODO: test vaultAccountId
     }
 
-    /** Test the property 'abiFunction' */
+    /**
+     * Test the property 'abiFunction'
+     */
     @Test
     public void abiFunctionTest() {
         // TODO: test abiFunction
     }
 
-    /** Test the property 'amount' */
+    /**
+     * Test the property 'amount'
+     */
     @Test
     public void amountTest() {
         // TODO: test amount
     }
 
-    /** Test the property 'feeLevel' */
+    /**
+     * Test the property 'feeLevel'
+     */
     @Test
     public void feeLevelTest() {
         // TODO: test feeLevel
     }
 
-    /** Test the property 'fee' */
+    /**
+     * Test the property 'fee'
+     */
     @Test
     public void feeTest() {
         // TODO: test fee
     }
 
-    /** Test the property 'note' */
+    /**
+     * Test the property 'note'
+     */
     @Test
     public void noteTest() {
         // TODO: test note
     }
+
 }

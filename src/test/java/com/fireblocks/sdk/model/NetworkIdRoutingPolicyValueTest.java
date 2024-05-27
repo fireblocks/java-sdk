@@ -10,36 +10,57 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.fireblocks.sdk.model.CustomRoutingDest;
+import com.fireblocks.sdk.model.NoneNetworkRoutingDest;
+import java.util.Arrays;
+import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
-/** Model tests for NetworkIdRoutingPolicyValue */
+/**
+ * Model tests for NetworkIdRoutingPolicyValue
+ */
 public class NetworkIdRoutingPolicyValueTest {
     private final NetworkIdRoutingPolicyValue model = new NetworkIdRoutingPolicyValue();
 
-    /** Model tests for NetworkIdRoutingPolicyValue */
+    /**
+     * Model tests for NetworkIdRoutingPolicyValue
+     */
     @Test
     public void testNetworkIdRoutingPolicyValue() {
         // TODO: test NetworkIdRoutingPolicyValue
     }
 
-    /** Test the property 'scheme' */
+    /**
+     * Test the property 'scheme'
+     */
     @Test
     public void schemeTest() {
         // TODO: test scheme
     }
 
-    /** Test the property 'dstType' */
+    /**
+     * Test the property 'dstType'
+     */
     @Test
     public void dstTypeTest() {
         // TODO: test dstType
     }
 
-    /** Test the property 'dstId' */
+    /**
+     * Test the property 'dstId'
+     */
     @Test
     public void dstIdTest() {
         // TODO: test dstId
     }
+
 }

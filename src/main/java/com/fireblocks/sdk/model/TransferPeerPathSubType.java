@@ -10,115 +10,129 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
+
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.StringJoiner;
+import java.util.Objects;
+import java.util.Map;
+import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
-/** Gets or Sets TransferPeerPathSubType */
+/**
+ * Gets or Sets TransferPeerPathSubType
+ */
 public enum TransferPeerPathSubType {
-    BINANCE("BINANCE"),
+  
+  BINANCE("BINANCE"),
+  
+  BINANCEUS("BINANCEUS"),
+  
+  BITFINEX("BITFINEX"),
+  
+  BITHUMB("BITHUMB"),
+  
+  BITMEX("BITMEX"),
+  
+  BITSO("BITSO"),
+  
+  BITSTAMP("BITSTAMP"),
+  
+  BITTREX("BITTREX"),
+  
+  BLINC("BLINC"),
+  
+  BYBIT("BYBIT"),
+  
+  CIRCLE("CIRCLE"),
+  
+  COINBASEEXCHANGE("COINBASEEXCHANGE"),
+  
+  COINBASEPRO("COINBASEPRO"),
+  
+  COINMETRO("COINMETRO"),
+  
+  COINSPRO("COINSPRO"),
+  
+  CRYPTOCOM("CRYPTOCOM"),
+  
+  DERIBIT("DERIBIT"),
+  
+  GEMINI("GEMINI"),
+  
+  HITBTC("HITBTC"),
+  
+  HUOBI("HUOBI"),
+  
+  INDEPENDENTRESERVE("INDEPENDENTRESERVE"),
+  
+  KORBIT("KORBIT"),
+  
+  KRAKEN("KRAKEN"),
+  
+  KRAKENINTL("KRAKENINTL"),
+  
+  KUCOIN("KUCOIN"),
+  
+  LIQUID("LIQUID"),
+  
+  OKCOIN("OKCOIN"),
+  
+  OKEX("OKEX"),
+  
+  PAXOS("PAXOS"),
+  
+  POLONIEX("POLONIEX"),
+  
+  EXTERNAL("External"),
+  
+  INTERNAL("Internal");
 
-    BINANCEUS("BINANCEUS"),
+  private String value;
 
-    BITFINEX("BITFINEX"),
+  TransferPeerPathSubType(String value) {
+    this.value = value;
+  }
 
-    BITHUMB("BITHUMB"),
+  @JsonValue
+  public String getValue() {
+    return value;
+  }
 
-    BITMEX("BITMEX"),
+  @Override
+  public String toString() {
+    return String.valueOf(value);
+  }
 
-    BITSO("BITSO"),
+  @JsonCreator
+  public static TransferPeerPathSubType fromValue(String value) {
+    for (TransferPeerPathSubType b : TransferPeerPathSubType.values()) {
+      if (b.value.equals(value)) {
+        return b;
+      }
+    }
+    throw new IllegalArgumentException("Unexpected value '" + value + "'");
+  }
 
-    BITSTAMP("BITSTAMP"),
-
-    BITTREX("BITTREX"),
-
-    BLINC("BLINC"),
-
-    BYBIT("BYBIT"),
-
-    CIRCLE("CIRCLE"),
-
-    COINBASEEXCHANGE("COINBASEEXCHANGE"),
-
-    COINBASEPRO("COINBASEPRO"),
-
-    COINMETRO("COINMETRO"),
-
-    COINSPRO("COINSPRO"),
-
-    CRYPTOCOM("CRYPTOCOM"),
-
-    DERIBIT("DERIBIT"),
-
-    GEMINI("GEMINI"),
-
-    HITBTC("HITBTC"),
-
-    HUOBI("HUOBI"),
-
-    INDEPENDENTRESERVE("INDEPENDENTRESERVE"),
-
-    KORBIT("KORBIT"),
-
-    KRAKEN("KRAKEN"),
-
-    KRAKENINTL("KRAKENINTL"),
-
-    KUCOIN("KUCOIN"),
-
-    LIQUID("LIQUID"),
-
-    OKCOIN("OKCOIN"),
-
-    OKEX("OKEX"),
-
-    PAXOS("PAXOS"),
-
-    POLONIEX("POLONIEX"),
-
-    EXTERNAL("External"),
-
-    INTERNAL("Internal");
-
-    private String value;
-
-    TransferPeerPathSubType(String value) {
-        this.value = value;
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @param prefix prefix of the query string
+   * @return URL query string
+   */
+  public String toUrlQueryString(String prefix) {
+    if (prefix == null) {
+      prefix = "";
     }
 
-    @JsonValue
-    public String getValue() {
-        return value;
-    }
+    return String.format("%s=%s", prefix, this.toString());
+  }
 
-    @Override
-    public String toString() {
-        return String.valueOf(value);
-    }
-
-    @JsonCreator
-    public static TransferPeerPathSubType fromValue(String value) {
-        for (TransferPeerPathSubType b : TransferPeerPathSubType.values()) {
-            if (b.value.equals(value)) {
-                return b;
-            }
-        }
-        throw new IllegalArgumentException("Unexpected value '" + value + "'");
-    }
-
-    /**
-     * Convert the instance into URL query string.
-     *
-     * @param prefix prefix of the query string
-     * @return URL query string
-     */
-    public String toUrlQueryString(String prefix) {
-        if (prefix == null) {
-            prefix = "";
-        }
-
-        return String.format("%s=%s", prefix, this.toString());
-    }
 }
+

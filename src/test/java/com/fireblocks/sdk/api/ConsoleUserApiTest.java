@@ -10,48 +10,65 @@
  * Do not edit the class manually.
  */
 
-package com.fireblocks.sdk.api;
 
+package com.fireblocks.sdk.api;
 
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.model.CreateConsoleUser;
+import com.fireblocks.sdk.model.ErrorResponse;
+import com.fireblocks.sdk.model.ErrorSchema;
 import com.fireblocks.sdk.model.GetConsoleUsersResponse;
-import java.util.concurrent.CompletableFuture;
-import org.junit.Ignore;
 import org.junit.Test;
+import org.junit.Ignore;
 
-/** API tests for ConsoleUserApi */
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import java.util.concurrent.CompletableFuture;
+
+/**
+ * API tests for ConsoleUserApi
+ */
 @Ignore
 public class ConsoleUserApiTest {
 
     private final ConsoleUserApi api = new ConsoleUserApi();
 
+    
     /**
      * Create console user
      *
-     * <p>Creates console user in your tenant
+     * Creates console user in your tenant
      *
-     * @throws ApiException if the Api call fails
+     * @throws ApiException
+     *          if the Api call fails
      */
     @Test
     public void createConsoleUserTest() throws ApiException {
         CreateConsoleUser createConsoleUser = null;
         String idempotencyKey = null;
-
-        CompletableFuture<ApiResponse<Void>> response =
-                api.createConsoleUser(createConsoleUser, idempotencyKey);
+        
+        CompletableFuture<ApiResponse<Void>> response = api.createConsoleUser(createConsoleUser, idempotencyKey);
+        
     }
-
+    
     /**
      * Get console users
      *
-     * <p>Get console users for your tenant
+     * Get console users for your tenant
      *
-     * @throws ApiException if the Api call fails
+     * @throws ApiException
+     *          if the Api call fails
      */
     @Test
     public void getConsoleUsersTest() throws ApiException {
-        CompletableFuture<ApiResponse<GetConsoleUsersResponse>> response = api.getConsoleUsers();
+        CompletableFuture<ApiResponse<GetConsoleUsersResponse>> response = 
+        api.getConsoleUsers();
+        
     }
+    
 }

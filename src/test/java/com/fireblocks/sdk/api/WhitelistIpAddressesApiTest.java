@@ -10,33 +10,48 @@
  * Do not edit the class manually.
  */
 
-package com.fireblocks.sdk.api;
 
+package com.fireblocks.sdk.api;
 
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.model.ErrorResponse;
+import com.fireblocks.sdk.model.ErrorSchema;
 import com.fireblocks.sdk.model.GetWhitelistIpAddressesResponse;
-import java.util.concurrent.CompletableFuture;
-import org.junit.Ignore;
 import org.junit.Test;
+import org.junit.Ignore;
 
-/** API tests for WhitelistIpAddressesApi */
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import java.util.concurrent.CompletableFuture;
+
+/**
+ * API tests for WhitelistIpAddressesApi
+ */
 @Ignore
 public class WhitelistIpAddressesApiTest {
 
     private final WhitelistIpAddressesApi api = new WhitelistIpAddressesApi();
 
+    
     /**
      * Gets whitelisted ip addresses
      *
-     * <p>Gets whitelisted ip addresses for given Api user.
+     * Gets whitelisted ip addresses for given Api user.
      *
-     * @throws ApiException if the Api call fails
+     * @throws ApiException
+     *          if the Api call fails
      */
     @Test
     public void getWhitelistIpAddressesTest() throws ApiException {
         String userId = null;
-        CompletableFuture<ApiResponse<GetWhitelistIpAddressesResponse>> response =
-                api.getWhitelistIpAddresses(userId);
+        CompletableFuture<ApiResponse<GetWhitelistIpAddressesResponse>> response = 
+        api.getWhitelistIpAddresses(userId);
+        
     }
+    
 }

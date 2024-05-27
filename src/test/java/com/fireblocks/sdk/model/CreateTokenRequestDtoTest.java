@@ -10,48 +10,72 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.fireblocks.sdk.model.CreateTokenRequestDtoCreateParams;
+import java.util.Arrays;
+import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
-/** Model tests for CreateTokenRequestDto */
+/**
+ * Model tests for CreateTokenRequestDto
+ */
 public class CreateTokenRequestDtoTest {
     private final CreateTokenRequestDto model = new CreateTokenRequestDto();
 
-    /** Model tests for CreateTokenRequestDto */
+    /**
+     * Model tests for CreateTokenRequestDto
+     */
     @Test
     public void testCreateTokenRequestDto() {
         // TODO: test CreateTokenRequestDto
     }
 
-    /** Test the property 'blockchainId' */
+    /**
+     * Test the property 'blockchainId'
+     */
     @Test
     public void blockchainIdTest() {
         // TODO: test blockchainId
     }
 
-    /** Test the property 'assetId' */
+    /**
+     * Test the property 'assetId'
+     */
     @Test
     public void assetIdTest() {
         // TODO: test assetId
     }
 
-    /** Test the property 'vaultAccountId' */
+    /**
+     * Test the property 'vaultAccountId'
+     */
     @Test
     public void vaultAccountIdTest() {
         // TODO: test vaultAccountId
     }
 
-    /** Test the property 'createParams' */
+    /**
+     * Test the property 'createParams'
+     */
     @Test
     public void createParamsTest() {
         // TODO: test createParams
     }
 
-    /** Test the property 'displayName' */
+    /**
+     * Test the property 'displayName'
+     */
     @Test
     public void displayNameTest() {
         // TODO: test displayName
     }
+
 }

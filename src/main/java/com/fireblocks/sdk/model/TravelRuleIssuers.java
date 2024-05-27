@@ -10,589 +10,610 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.StringJoiner;
+import java.util.Objects;
+import java.util.Map;
+import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.fireblocks.sdk.model.TravelRuleIssuer;
+import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.util.Objects;
-import java.util.StringJoiner;
 
-/** TravelRuleIssuers */
+
+/**
+ * TravelRuleIssuers
+ */
 @JsonPropertyOrder({
-    TravelRuleIssuers.JSON_PROPERTY_YEAR_FOUNDED,
-    TravelRuleIssuers.JSON_PROPERTY_IS_REGULATED,
-    TravelRuleIssuers.JSON_PROPERTY_REGULATORY_AUTHORITIES,
-    TravelRuleIssuers.JSON_PROPERTY_NAME,
-    TravelRuleIssuers.JSON_PROPERTY_LOGO,
-    TravelRuleIssuers.JSON_PROPERTY_WEBSITE,
-    TravelRuleIssuers.JSON_PROPERTY_LEGAL_NAME,
-    TravelRuleIssuers.JSON_PROPERTY_LEGAL_STRUCTURE,
-    TravelRuleIssuers.JSON_PROPERTY_INCORPORATION_COUNTRY,
-    TravelRuleIssuers.JSON_PROPERTY_BUSINESS_NUMBER,
-    TravelRuleIssuers.JSON_PROPERTY_ADDRESS_LINE1,
-    TravelRuleIssuers.JSON_PROPERTY_CITY,
-    TravelRuleIssuers.JSON_PROPERTY_COUNTRY,
-    TravelRuleIssuers.JSON_PROPERTY_DESCRIPTION
+  TravelRuleIssuers.JSON_PROPERTY_YEAR_FOUNDED,
+  TravelRuleIssuers.JSON_PROPERTY_IS_REGULATED,
+  TravelRuleIssuers.JSON_PROPERTY_REGULATORY_AUTHORITIES,
+  TravelRuleIssuers.JSON_PROPERTY_NAME,
+  TravelRuleIssuers.JSON_PROPERTY_LOGO,
+  TravelRuleIssuers.JSON_PROPERTY_WEBSITE,
+  TravelRuleIssuers.JSON_PROPERTY_LEGAL_NAME,
+  TravelRuleIssuers.JSON_PROPERTY_LEGAL_STRUCTURE,
+  TravelRuleIssuers.JSON_PROPERTY_INCORPORATION_COUNTRY,
+  TravelRuleIssuers.JSON_PROPERTY_BUSINESS_NUMBER,
+  TravelRuleIssuers.JSON_PROPERTY_ADDRESS_LINE1,
+  TravelRuleIssuers.JSON_PROPERTY_CITY,
+  TravelRuleIssuers.JSON_PROPERTY_COUNTRY,
+  TravelRuleIssuers.JSON_PROPERTY_DESCRIPTION
 })
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class TravelRuleIssuers {
-    public static final String JSON_PROPERTY_YEAR_FOUNDED = "yearFounded";
-    private TravelRuleIssuer yearFounded;
+  public static final String JSON_PROPERTY_YEAR_FOUNDED = "yearFounded";
+  private TravelRuleIssuer yearFounded;
 
-    public static final String JSON_PROPERTY_IS_REGULATED = "isRegulated";
-    private TravelRuleIssuer isRegulated;
+  public static final String JSON_PROPERTY_IS_REGULATED = "isRegulated";
+  private TravelRuleIssuer isRegulated;
 
-    public static final String JSON_PROPERTY_REGULATORY_AUTHORITIES = "regulatoryAuthorities";
-    private TravelRuleIssuer regulatoryAuthorities;
+  public static final String JSON_PROPERTY_REGULATORY_AUTHORITIES = "regulatoryAuthorities";
+  private TravelRuleIssuer regulatoryAuthorities;
 
-    public static final String JSON_PROPERTY_NAME = "name";
-    private TravelRuleIssuer name;
+  public static final String JSON_PROPERTY_NAME = "name";
+  private TravelRuleIssuer name;
 
-    public static final String JSON_PROPERTY_LOGO = "logo";
-    private TravelRuleIssuer logo;
+  public static final String JSON_PROPERTY_LOGO = "logo";
+  private TravelRuleIssuer logo;
 
-    public static final String JSON_PROPERTY_WEBSITE = "website";
-    private TravelRuleIssuer website;
+  public static final String JSON_PROPERTY_WEBSITE = "website";
+  private TravelRuleIssuer website;
 
-    public static final String JSON_PROPERTY_LEGAL_NAME = "legalName";
-    private TravelRuleIssuer legalName;
+  public static final String JSON_PROPERTY_LEGAL_NAME = "legalName";
+  private TravelRuleIssuer legalName;
 
-    public static final String JSON_PROPERTY_LEGAL_STRUCTURE = "legalStructure";
-    private TravelRuleIssuer legalStructure;
+  public static final String JSON_PROPERTY_LEGAL_STRUCTURE = "legalStructure";
+  private TravelRuleIssuer legalStructure;
 
-    public static final String JSON_PROPERTY_INCORPORATION_COUNTRY = "incorporationCountry";
-    private TravelRuleIssuer incorporationCountry;
+  public static final String JSON_PROPERTY_INCORPORATION_COUNTRY = "incorporationCountry";
+  private TravelRuleIssuer incorporationCountry;
 
-    public static final String JSON_PROPERTY_BUSINESS_NUMBER = "businessNumber";
-    private TravelRuleIssuer businessNumber;
+  public static final String JSON_PROPERTY_BUSINESS_NUMBER = "businessNumber";
+  private TravelRuleIssuer businessNumber;
 
-    public static final String JSON_PROPERTY_ADDRESS_LINE1 = "addressLine1";
-    private TravelRuleIssuer addressLine1;
+  public static final String JSON_PROPERTY_ADDRESS_LINE1 = "addressLine1";
+  private TravelRuleIssuer addressLine1;
 
-    public static final String JSON_PROPERTY_CITY = "city";
-    private TravelRuleIssuer city;
+  public static final String JSON_PROPERTY_CITY = "city";
+  private TravelRuleIssuer city;
 
-    public static final String JSON_PROPERTY_COUNTRY = "country";
-    private TravelRuleIssuer country;
+  public static final String JSON_PROPERTY_COUNTRY = "country";
+  private TravelRuleIssuer country;
 
-    public static final String JSON_PROPERTY_DESCRIPTION = "description";
-    private TravelRuleIssuer description;
+  public static final String JSON_PROPERTY_DESCRIPTION = "description";
+  private TravelRuleIssuer description;
 
-    public TravelRuleIssuers() {}
+  public TravelRuleIssuers() { 
+  }
 
-    public TravelRuleIssuers yearFounded(TravelRuleIssuer yearFounded) {
-        this.yearFounded = yearFounded;
-        return this;
+  public TravelRuleIssuers yearFounded(TravelRuleIssuer yearFounded) {
+    this.yearFounded = yearFounded;
+    return this;
+  }
+
+   /**
+   * Get yearFounded
+   * @return yearFounded
+  **/
+  @jakarta.annotation.Nonnull
+  @JsonProperty(JSON_PROPERTY_YEAR_FOUNDED)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public TravelRuleIssuer getYearFounded() {
+    return yearFounded;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_YEAR_FOUNDED)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setYearFounded(TravelRuleIssuer yearFounded) {
+    this.yearFounded = yearFounded;
+  }
+
+
+  public TravelRuleIssuers isRegulated(TravelRuleIssuer isRegulated) {
+    this.isRegulated = isRegulated;
+    return this;
+  }
+
+   /**
+   * Get isRegulated
+   * @return isRegulated
+  **/
+  @jakarta.annotation.Nonnull
+  @JsonProperty(JSON_PROPERTY_IS_REGULATED)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public TravelRuleIssuer getIsRegulated() {
+    return isRegulated;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_IS_REGULATED)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setIsRegulated(TravelRuleIssuer isRegulated) {
+    this.isRegulated = isRegulated;
+  }
+
+
+  public TravelRuleIssuers regulatoryAuthorities(TravelRuleIssuer regulatoryAuthorities) {
+    this.regulatoryAuthorities = regulatoryAuthorities;
+    return this;
+  }
+
+   /**
+   * Get regulatoryAuthorities
+   * @return regulatoryAuthorities
+  **/
+  @jakarta.annotation.Nonnull
+  @JsonProperty(JSON_PROPERTY_REGULATORY_AUTHORITIES)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public TravelRuleIssuer getRegulatoryAuthorities() {
+    return regulatoryAuthorities;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_REGULATORY_AUTHORITIES)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setRegulatoryAuthorities(TravelRuleIssuer regulatoryAuthorities) {
+    this.regulatoryAuthorities = regulatoryAuthorities;
+  }
+
+
+  public TravelRuleIssuers name(TravelRuleIssuer name) {
+    this.name = name;
+    return this;
+  }
+
+   /**
+   * Get name
+   * @return name
+  **/
+  @jakarta.annotation.Nonnull
+  @JsonProperty(JSON_PROPERTY_NAME)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public TravelRuleIssuer getName() {
+    return name;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_NAME)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setName(TravelRuleIssuer name) {
+    this.name = name;
+  }
+
+
+  public TravelRuleIssuers logo(TravelRuleIssuer logo) {
+    this.logo = logo;
+    return this;
+  }
+
+   /**
+   * Get logo
+   * @return logo
+  **/
+  @jakarta.annotation.Nonnull
+  @JsonProperty(JSON_PROPERTY_LOGO)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public TravelRuleIssuer getLogo() {
+    return logo;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_LOGO)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setLogo(TravelRuleIssuer logo) {
+    this.logo = logo;
+  }
+
+
+  public TravelRuleIssuers website(TravelRuleIssuer website) {
+    this.website = website;
+    return this;
+  }
+
+   /**
+   * Get website
+   * @return website
+  **/
+  @jakarta.annotation.Nonnull
+  @JsonProperty(JSON_PROPERTY_WEBSITE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public TravelRuleIssuer getWebsite() {
+    return website;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_WEBSITE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setWebsite(TravelRuleIssuer website) {
+    this.website = website;
+  }
+
+
+  public TravelRuleIssuers legalName(TravelRuleIssuer legalName) {
+    this.legalName = legalName;
+    return this;
+  }
+
+   /**
+   * Get legalName
+   * @return legalName
+  **/
+  @jakarta.annotation.Nonnull
+  @JsonProperty(JSON_PROPERTY_LEGAL_NAME)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public TravelRuleIssuer getLegalName() {
+    return legalName;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_LEGAL_NAME)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setLegalName(TravelRuleIssuer legalName) {
+    this.legalName = legalName;
+  }
+
+
+  public TravelRuleIssuers legalStructure(TravelRuleIssuer legalStructure) {
+    this.legalStructure = legalStructure;
+    return this;
+  }
+
+   /**
+   * Get legalStructure
+   * @return legalStructure
+  **/
+  @jakarta.annotation.Nonnull
+  @JsonProperty(JSON_PROPERTY_LEGAL_STRUCTURE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public TravelRuleIssuer getLegalStructure() {
+    return legalStructure;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_LEGAL_STRUCTURE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setLegalStructure(TravelRuleIssuer legalStructure) {
+    this.legalStructure = legalStructure;
+  }
+
+
+  public TravelRuleIssuers incorporationCountry(TravelRuleIssuer incorporationCountry) {
+    this.incorporationCountry = incorporationCountry;
+    return this;
+  }
+
+   /**
+   * Get incorporationCountry
+   * @return incorporationCountry
+  **/
+  @jakarta.annotation.Nonnull
+  @JsonProperty(JSON_PROPERTY_INCORPORATION_COUNTRY)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public TravelRuleIssuer getIncorporationCountry() {
+    return incorporationCountry;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_INCORPORATION_COUNTRY)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setIncorporationCountry(TravelRuleIssuer incorporationCountry) {
+    this.incorporationCountry = incorporationCountry;
+  }
+
+
+  public TravelRuleIssuers businessNumber(TravelRuleIssuer businessNumber) {
+    this.businessNumber = businessNumber;
+    return this;
+  }
+
+   /**
+   * Get businessNumber
+   * @return businessNumber
+  **/
+  @jakarta.annotation.Nonnull
+  @JsonProperty(JSON_PROPERTY_BUSINESS_NUMBER)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public TravelRuleIssuer getBusinessNumber() {
+    return businessNumber;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_BUSINESS_NUMBER)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setBusinessNumber(TravelRuleIssuer businessNumber) {
+    this.businessNumber = businessNumber;
+  }
+
+
+  public TravelRuleIssuers addressLine1(TravelRuleIssuer addressLine1) {
+    this.addressLine1 = addressLine1;
+    return this;
+  }
+
+   /**
+   * Get addressLine1
+   * @return addressLine1
+  **/
+  @jakarta.annotation.Nonnull
+  @JsonProperty(JSON_PROPERTY_ADDRESS_LINE1)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public TravelRuleIssuer getAddressLine1() {
+    return addressLine1;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_ADDRESS_LINE1)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setAddressLine1(TravelRuleIssuer addressLine1) {
+    this.addressLine1 = addressLine1;
+  }
+
+
+  public TravelRuleIssuers city(TravelRuleIssuer city) {
+    this.city = city;
+    return this;
+  }
+
+   /**
+   * Get city
+   * @return city
+  **/
+  @jakarta.annotation.Nonnull
+  @JsonProperty(JSON_PROPERTY_CITY)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public TravelRuleIssuer getCity() {
+    return city;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_CITY)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setCity(TravelRuleIssuer city) {
+    this.city = city;
+  }
+
+
+  public TravelRuleIssuers country(TravelRuleIssuer country) {
+    this.country = country;
+    return this;
+  }
+
+   /**
+   * Get country
+   * @return country
+  **/
+  @jakarta.annotation.Nonnull
+  @JsonProperty(JSON_PROPERTY_COUNTRY)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public TravelRuleIssuer getCountry() {
+    return country;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_COUNTRY)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setCountry(TravelRuleIssuer country) {
+    this.country = country;
+  }
+
+
+  public TravelRuleIssuers description(TravelRuleIssuer description) {
+    this.description = description;
+    return this;
+  }
+
+   /**
+   * Get description
+   * @return description
+  **/
+  @jakarta.annotation.Nonnull
+  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public TravelRuleIssuer getDescription() {
+    return description;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setDescription(TravelRuleIssuer description) {
+    this.description = description;
+  }
+
+
+  /**
+   * Return true if this TravelRuleIssuers object is equal to o.
+   */
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    TravelRuleIssuers travelRuleIssuers = (TravelRuleIssuers) o;
+    return Objects.equals(this.yearFounded, travelRuleIssuers.yearFounded) &&
+        Objects.equals(this.isRegulated, travelRuleIssuers.isRegulated) &&
+        Objects.equals(this.regulatoryAuthorities, travelRuleIssuers.regulatoryAuthorities) &&
+        Objects.equals(this.name, travelRuleIssuers.name) &&
+        Objects.equals(this.logo, travelRuleIssuers.logo) &&
+        Objects.equals(this.website, travelRuleIssuers.website) &&
+        Objects.equals(this.legalName, travelRuleIssuers.legalName) &&
+        Objects.equals(this.legalStructure, travelRuleIssuers.legalStructure) &&
+        Objects.equals(this.incorporationCountry, travelRuleIssuers.incorporationCountry) &&
+        Objects.equals(this.businessNumber, travelRuleIssuers.businessNumber) &&
+        Objects.equals(this.addressLine1, travelRuleIssuers.addressLine1) &&
+        Objects.equals(this.city, travelRuleIssuers.city) &&
+        Objects.equals(this.country, travelRuleIssuers.country) &&
+        Objects.equals(this.description, travelRuleIssuers.description);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(yearFounded, isRegulated, regulatoryAuthorities, name, logo, website, legalName, legalStructure, incorporationCountry, businessNumber, addressLine1, city, country, description);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class TravelRuleIssuers {\n");
+    sb.append("    yearFounded: ").append(toIndentedString(yearFounded)).append("\n");
+    sb.append("    isRegulated: ").append(toIndentedString(isRegulated)).append("\n");
+    sb.append("    regulatoryAuthorities: ").append(toIndentedString(regulatoryAuthorities)).append("\n");
+    sb.append("    name: ").append(toIndentedString(name)).append("\n");
+    sb.append("    logo: ").append(toIndentedString(logo)).append("\n");
+    sb.append("    website: ").append(toIndentedString(website)).append("\n");
+    sb.append("    legalName: ").append(toIndentedString(legalName)).append("\n");
+    sb.append("    legalStructure: ").append(toIndentedString(legalStructure)).append("\n");
+    sb.append("    incorporationCountry: ").append(toIndentedString(incorporationCountry)).append("\n");
+    sb.append("    businessNumber: ").append(toIndentedString(businessNumber)).append("\n");
+    sb.append("    addressLine1: ").append(toIndentedString(addressLine1)).append("\n");
+    sb.append("    city: ").append(toIndentedString(city)).append("\n");
+    sb.append("    country: ").append(toIndentedString(country)).append("\n");
+    sb.append("    description: ").append(toIndentedString(description)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @return URL query string
+   */
+  public String toUrlQueryString() {
+    return toUrlQueryString(null);
+  }
+
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @param prefix prefix of the query string
+   * @return URL query string
+   */
+  public String toUrlQueryString(String prefix) {
+    String suffix = "";
+    String containerSuffix = "";
+    String containerPrefix = "";
+    if (prefix == null) {
+      // style=form, explode=true, e.g. /pet?name=cat&type=manx
+      prefix = "";
+    } else {
+      // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
+      prefix = prefix + "[";
+      suffix = "]";
+      containerSuffix = "]";
+      containerPrefix = "[";
     }
 
-    /**
-     * Get yearFounded
-     *
-     * @return yearFounded
-     */
-    @jakarta.annotation.Nonnull
-    @JsonProperty(JSON_PROPERTY_YEAR_FOUNDED)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public TravelRuleIssuer getYearFounded() {
-        return yearFounded;
+    StringJoiner joiner = new StringJoiner("&");
+
+    // add `yearFounded` to the URL query string
+    if (getYearFounded() != null) {
+      joiner.add(getYearFounded().toUrlQueryString(prefix + "yearFounded" + suffix));
     }
 
-    @JsonProperty(JSON_PROPERTY_YEAR_FOUNDED)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setYearFounded(TravelRuleIssuer yearFounded) {
-        this.yearFounded = yearFounded;
+    // add `isRegulated` to the URL query string
+    if (getIsRegulated() != null) {
+      joiner.add(getIsRegulated().toUrlQueryString(prefix + "isRegulated" + suffix));
     }
 
-    public TravelRuleIssuers isRegulated(TravelRuleIssuer isRegulated) {
-        this.isRegulated = isRegulated;
-        return this;
+    // add `regulatoryAuthorities` to the URL query string
+    if (getRegulatoryAuthorities() != null) {
+      joiner.add(getRegulatoryAuthorities().toUrlQueryString(prefix + "regulatoryAuthorities" + suffix));
     }
 
-    /**
-     * Get isRegulated
-     *
-     * @return isRegulated
-     */
-    @jakarta.annotation.Nonnull
-    @JsonProperty(JSON_PROPERTY_IS_REGULATED)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public TravelRuleIssuer getIsRegulated() {
-        return isRegulated;
+    // add `name` to the URL query string
+    if (getName() != null) {
+      joiner.add(getName().toUrlQueryString(prefix + "name" + suffix));
     }
 
-    @JsonProperty(JSON_PROPERTY_IS_REGULATED)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setIsRegulated(TravelRuleIssuer isRegulated) {
-        this.isRegulated = isRegulated;
+    // add `logo` to the URL query string
+    if (getLogo() != null) {
+      joiner.add(getLogo().toUrlQueryString(prefix + "logo" + suffix));
     }
 
-    public TravelRuleIssuers regulatoryAuthorities(TravelRuleIssuer regulatoryAuthorities) {
-        this.regulatoryAuthorities = regulatoryAuthorities;
-        return this;
+    // add `website` to the URL query string
+    if (getWebsite() != null) {
+      joiner.add(getWebsite().toUrlQueryString(prefix + "website" + suffix));
     }
 
-    /**
-     * Get regulatoryAuthorities
-     *
-     * @return regulatoryAuthorities
-     */
-    @jakarta.annotation.Nonnull
-    @JsonProperty(JSON_PROPERTY_REGULATORY_AUTHORITIES)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public TravelRuleIssuer getRegulatoryAuthorities() {
-        return regulatoryAuthorities;
+    // add `legalName` to the URL query string
+    if (getLegalName() != null) {
+      joiner.add(getLegalName().toUrlQueryString(prefix + "legalName" + suffix));
     }
 
-    @JsonProperty(JSON_PROPERTY_REGULATORY_AUTHORITIES)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setRegulatoryAuthorities(TravelRuleIssuer regulatoryAuthorities) {
-        this.regulatoryAuthorities = regulatoryAuthorities;
+    // add `legalStructure` to the URL query string
+    if (getLegalStructure() != null) {
+      joiner.add(getLegalStructure().toUrlQueryString(prefix + "legalStructure" + suffix));
     }
 
-    public TravelRuleIssuers name(TravelRuleIssuer name) {
-        this.name = name;
-        return this;
+    // add `incorporationCountry` to the URL query string
+    if (getIncorporationCountry() != null) {
+      joiner.add(getIncorporationCountry().toUrlQueryString(prefix + "incorporationCountry" + suffix));
     }
 
-    /**
-     * Get name
-     *
-     * @return name
-     */
-    @jakarta.annotation.Nonnull
-    @JsonProperty(JSON_PROPERTY_NAME)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public TravelRuleIssuer getName() {
-        return name;
+    // add `businessNumber` to the URL query string
+    if (getBusinessNumber() != null) {
+      joiner.add(getBusinessNumber().toUrlQueryString(prefix + "businessNumber" + suffix));
     }
 
-    @JsonProperty(JSON_PROPERTY_NAME)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setName(TravelRuleIssuer name) {
-        this.name = name;
+    // add `addressLine1` to the URL query string
+    if (getAddressLine1() != null) {
+      joiner.add(getAddressLine1().toUrlQueryString(prefix + "addressLine1" + suffix));
     }
 
-    public TravelRuleIssuers logo(TravelRuleIssuer logo) {
-        this.logo = logo;
-        return this;
+    // add `city` to the URL query string
+    if (getCity() != null) {
+      joiner.add(getCity().toUrlQueryString(prefix + "city" + suffix));
     }
 
-    /**
-     * Get logo
-     *
-     * @return logo
-     */
-    @jakarta.annotation.Nonnull
-    @JsonProperty(JSON_PROPERTY_LOGO)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public TravelRuleIssuer getLogo() {
-        return logo;
+    // add `country` to the URL query string
+    if (getCountry() != null) {
+      joiner.add(getCountry().toUrlQueryString(prefix + "country" + suffix));
     }
 
-    @JsonProperty(JSON_PROPERTY_LOGO)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setLogo(TravelRuleIssuer logo) {
-        this.logo = logo;
+    // add `description` to the URL query string
+    if (getDescription() != null) {
+      joiner.add(getDescription().toUrlQueryString(prefix + "description" + suffix));
     }
 
-    public TravelRuleIssuers website(TravelRuleIssuer website) {
-        this.website = website;
-        return this;
-    }
-
-    /**
-     * Get website
-     *
-     * @return website
-     */
-    @jakarta.annotation.Nonnull
-    @JsonProperty(JSON_PROPERTY_WEBSITE)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public TravelRuleIssuer getWebsite() {
-        return website;
-    }
-
-    @JsonProperty(JSON_PROPERTY_WEBSITE)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setWebsite(TravelRuleIssuer website) {
-        this.website = website;
-    }
-
-    public TravelRuleIssuers legalName(TravelRuleIssuer legalName) {
-        this.legalName = legalName;
-        return this;
-    }
-
-    /**
-     * Get legalName
-     *
-     * @return legalName
-     */
-    @jakarta.annotation.Nonnull
-    @JsonProperty(JSON_PROPERTY_LEGAL_NAME)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public TravelRuleIssuer getLegalName() {
-        return legalName;
-    }
-
-    @JsonProperty(JSON_PROPERTY_LEGAL_NAME)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setLegalName(TravelRuleIssuer legalName) {
-        this.legalName = legalName;
-    }
-
-    public TravelRuleIssuers legalStructure(TravelRuleIssuer legalStructure) {
-        this.legalStructure = legalStructure;
-        return this;
-    }
-
-    /**
-     * Get legalStructure
-     *
-     * @return legalStructure
-     */
-    @jakarta.annotation.Nonnull
-    @JsonProperty(JSON_PROPERTY_LEGAL_STRUCTURE)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public TravelRuleIssuer getLegalStructure() {
-        return legalStructure;
-    }
-
-    @JsonProperty(JSON_PROPERTY_LEGAL_STRUCTURE)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setLegalStructure(TravelRuleIssuer legalStructure) {
-        this.legalStructure = legalStructure;
-    }
-
-    public TravelRuleIssuers incorporationCountry(TravelRuleIssuer incorporationCountry) {
-        this.incorporationCountry = incorporationCountry;
-        return this;
-    }
-
-    /**
-     * Get incorporationCountry
-     *
-     * @return incorporationCountry
-     */
-    @jakarta.annotation.Nonnull
-    @JsonProperty(JSON_PROPERTY_INCORPORATION_COUNTRY)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public TravelRuleIssuer getIncorporationCountry() {
-        return incorporationCountry;
-    }
-
-    @JsonProperty(JSON_PROPERTY_INCORPORATION_COUNTRY)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setIncorporationCountry(TravelRuleIssuer incorporationCountry) {
-        this.incorporationCountry = incorporationCountry;
-    }
-
-    public TravelRuleIssuers businessNumber(TravelRuleIssuer businessNumber) {
-        this.businessNumber = businessNumber;
-        return this;
-    }
-
-    /**
-     * Get businessNumber
-     *
-     * @return businessNumber
-     */
-    @jakarta.annotation.Nonnull
-    @JsonProperty(JSON_PROPERTY_BUSINESS_NUMBER)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public TravelRuleIssuer getBusinessNumber() {
-        return businessNumber;
-    }
-
-    @JsonProperty(JSON_PROPERTY_BUSINESS_NUMBER)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setBusinessNumber(TravelRuleIssuer businessNumber) {
-        this.businessNumber = businessNumber;
-    }
-
-    public TravelRuleIssuers addressLine1(TravelRuleIssuer addressLine1) {
-        this.addressLine1 = addressLine1;
-        return this;
-    }
-
-    /**
-     * Get addressLine1
-     *
-     * @return addressLine1
-     */
-    @jakarta.annotation.Nonnull
-    @JsonProperty(JSON_PROPERTY_ADDRESS_LINE1)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public TravelRuleIssuer getAddressLine1() {
-        return addressLine1;
-    }
-
-    @JsonProperty(JSON_PROPERTY_ADDRESS_LINE1)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setAddressLine1(TravelRuleIssuer addressLine1) {
-        this.addressLine1 = addressLine1;
-    }
-
-    public TravelRuleIssuers city(TravelRuleIssuer city) {
-        this.city = city;
-        return this;
-    }
-
-    /**
-     * Get city
-     *
-     * @return city
-     */
-    @jakarta.annotation.Nonnull
-    @JsonProperty(JSON_PROPERTY_CITY)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public TravelRuleIssuer getCity() {
-        return city;
-    }
-
-    @JsonProperty(JSON_PROPERTY_CITY)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setCity(TravelRuleIssuer city) {
-        this.city = city;
-    }
-
-    public TravelRuleIssuers country(TravelRuleIssuer country) {
-        this.country = country;
-        return this;
-    }
-
-    /**
-     * Get country
-     *
-     * @return country
-     */
-    @jakarta.annotation.Nonnull
-    @JsonProperty(JSON_PROPERTY_COUNTRY)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public TravelRuleIssuer getCountry() {
-        return country;
-    }
-
-    @JsonProperty(JSON_PROPERTY_COUNTRY)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setCountry(TravelRuleIssuer country) {
-        this.country = country;
-    }
-
-    public TravelRuleIssuers description(TravelRuleIssuer description) {
-        this.description = description;
-        return this;
-    }
-
-    /**
-     * Get description
-     *
-     * @return description
-     */
-    @jakarta.annotation.Nonnull
-    @JsonProperty(JSON_PROPERTY_DESCRIPTION)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public TravelRuleIssuer getDescription() {
-        return description;
-    }
-
-    @JsonProperty(JSON_PROPERTY_DESCRIPTION)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setDescription(TravelRuleIssuer description) {
-        this.description = description;
-    }
-
-    /** Return true if this TravelRuleIssuers object is equal to o. */
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        TravelRuleIssuers travelRuleIssuers = (TravelRuleIssuers) o;
-        return Objects.equals(this.yearFounded, travelRuleIssuers.yearFounded)
-                && Objects.equals(this.isRegulated, travelRuleIssuers.isRegulated)
-                && Objects.equals(
-                        this.regulatoryAuthorities, travelRuleIssuers.regulatoryAuthorities)
-                && Objects.equals(this.name, travelRuleIssuers.name)
-                && Objects.equals(this.logo, travelRuleIssuers.logo)
-                && Objects.equals(this.website, travelRuleIssuers.website)
-                && Objects.equals(this.legalName, travelRuleIssuers.legalName)
-                && Objects.equals(this.legalStructure, travelRuleIssuers.legalStructure)
-                && Objects.equals(this.incorporationCountry, travelRuleIssuers.incorporationCountry)
-                && Objects.equals(this.businessNumber, travelRuleIssuers.businessNumber)
-                && Objects.equals(this.addressLine1, travelRuleIssuers.addressLine1)
-                && Objects.equals(this.city, travelRuleIssuers.city)
-                && Objects.equals(this.country, travelRuleIssuers.country)
-                && Objects.equals(this.description, travelRuleIssuers.description);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(
-                yearFounded,
-                isRegulated,
-                regulatoryAuthorities,
-                name,
-                logo,
-                website,
-                legalName,
-                legalStructure,
-                incorporationCountry,
-                businessNumber,
-                addressLine1,
-                city,
-                country,
-                description);
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("class TravelRuleIssuers {\n");
-        sb.append("    yearFounded: ").append(toIndentedString(yearFounded)).append("\n");
-        sb.append("    isRegulated: ").append(toIndentedString(isRegulated)).append("\n");
-        sb.append("    regulatoryAuthorities: ")
-                .append(toIndentedString(regulatoryAuthorities))
-                .append("\n");
-        sb.append("    name: ").append(toIndentedString(name)).append("\n");
-        sb.append("    logo: ").append(toIndentedString(logo)).append("\n");
-        sb.append("    website: ").append(toIndentedString(website)).append("\n");
-        sb.append("    legalName: ").append(toIndentedString(legalName)).append("\n");
-        sb.append("    legalStructure: ").append(toIndentedString(legalStructure)).append("\n");
-        sb.append("    incorporationCountry: ")
-                .append(toIndentedString(incorporationCountry))
-                .append("\n");
-        sb.append("    businessNumber: ").append(toIndentedString(businessNumber)).append("\n");
-        sb.append("    addressLine1: ").append(toIndentedString(addressLine1)).append("\n");
-        sb.append("    city: ").append(toIndentedString(city)).append("\n");
-        sb.append("    country: ").append(toIndentedString(country)).append("\n");
-        sb.append("    description: ").append(toIndentedString(description)).append("\n");
-        sb.append("}");
-        return sb.toString();
-    }
-
-    /**
-     * Convert the given object to string with each line indented by 4 spaces (except the first
-     * line).
-     */
-    private String toIndentedString(Object o) {
-        if (o == null) {
-            return "null";
-        }
-        return o.toString().replace("\n", "\n    ");
-    }
-
-    /**
-     * Convert the instance into URL query string.
-     *
-     * @return URL query string
-     */
-    public String toUrlQueryString() {
-        return toUrlQueryString(null);
-    }
-
-    /**
-     * Convert the instance into URL query string.
-     *
-     * @param prefix prefix of the query string
-     * @return URL query string
-     */
-    public String toUrlQueryString(String prefix) {
-        String suffix = "";
-        String containerSuffix = "";
-        String containerPrefix = "";
-        if (prefix == null) {
-            // style=form, explode=true, e.g. /pet?name=cat&type=manx
-            prefix = "";
-        } else {
-            // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
-            prefix = prefix + "[";
-            suffix = "]";
-            containerSuffix = "]";
-            containerPrefix = "[";
-        }
-
-        StringJoiner joiner = new StringJoiner("&");
-
-        // add `yearFounded` to the URL query string
-        if (getYearFounded() != null) {
-            joiner.add(getYearFounded().toUrlQueryString(prefix + "yearFounded" + suffix));
-        }
-
-        // add `isRegulated` to the URL query string
-        if (getIsRegulated() != null) {
-            joiner.add(getIsRegulated().toUrlQueryString(prefix + "isRegulated" + suffix));
-        }
-
-        // add `regulatoryAuthorities` to the URL query string
-        if (getRegulatoryAuthorities() != null) {
-            joiner.add(
-                    getRegulatoryAuthorities()
-                            .toUrlQueryString(prefix + "regulatoryAuthorities" + suffix));
-        }
-
-        // add `name` to the URL query string
-        if (getName() != null) {
-            joiner.add(getName().toUrlQueryString(prefix + "name" + suffix));
-        }
-
-        // add `logo` to the URL query string
-        if (getLogo() != null) {
-            joiner.add(getLogo().toUrlQueryString(prefix + "logo" + suffix));
-        }
-
-        // add `website` to the URL query string
-        if (getWebsite() != null) {
-            joiner.add(getWebsite().toUrlQueryString(prefix + "website" + suffix));
-        }
-
-        // add `legalName` to the URL query string
-        if (getLegalName() != null) {
-            joiner.add(getLegalName().toUrlQueryString(prefix + "legalName" + suffix));
-        }
-
-        // add `legalStructure` to the URL query string
-        if (getLegalStructure() != null) {
-            joiner.add(getLegalStructure().toUrlQueryString(prefix + "legalStructure" + suffix));
-        }
-
-        // add `incorporationCountry` to the URL query string
-        if (getIncorporationCountry() != null) {
-            joiner.add(
-                    getIncorporationCountry()
-                            .toUrlQueryString(prefix + "incorporationCountry" + suffix));
-        }
-
-        // add `businessNumber` to the URL query string
-        if (getBusinessNumber() != null) {
-            joiner.add(getBusinessNumber().toUrlQueryString(prefix + "businessNumber" + suffix));
-        }
-
-        // add `addressLine1` to the URL query string
-        if (getAddressLine1() != null) {
-            joiner.add(getAddressLine1().toUrlQueryString(prefix + "addressLine1" + suffix));
-        }
-
-        // add `city` to the URL query string
-        if (getCity() != null) {
-            joiner.add(getCity().toUrlQueryString(prefix + "city" + suffix));
-        }
-
-        // add `country` to the URL query string
-        if (getCountry() != null) {
-            joiner.add(getCountry().toUrlQueryString(prefix + "country" + suffix));
-        }
-
-        // add `description` to the URL query string
-        if (getDescription() != null) {
-            joiner.add(getDescription().toUrlQueryString(prefix + "description" + suffix));
-        }
-
-        return joiner.toString();
-    }
+    return joiner.toString();
+  }
 }
+

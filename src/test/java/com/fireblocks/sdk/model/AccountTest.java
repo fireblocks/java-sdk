@@ -10,30 +10,48 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.fireblocks.sdk.model.AccountType;
+import java.util.Arrays;
+import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
-/** Model tests for Account */
+/**
+ * Model tests for Account
+ */
 public class AccountTest {
     private final Account model = new Account();
 
-    /** Model tests for Account */
+    /**
+     * Model tests for Account
+     */
     @Test
     public void testAccount() {
         // TODO: test Account
     }
 
-    /** Test the property 'accountId' */
+    /**
+     * Test the property 'accountId'
+     */
     @Test
     public void accountIdTest() {
         // TODO: test accountId
     }
 
-    /** Test the property 'accountType' */
+    /**
+     * Test the property 'accountType'
+     */
     @Test
     public void accountTypeTest() {
         // TODO: test accountType
     }
+
 }

@@ -10,24 +10,42 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.fireblocks.sdk.model.APIUser;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
-/** Model tests for GetAPIUsersResponse */
+/**
+ * Model tests for GetAPIUsersResponse
+ */
 public class GetAPIUsersResponseTest {
     private final GetAPIUsersResponse model = new GetAPIUsersResponse();
 
-    /** Model tests for GetAPIUsersResponse */
+    /**
+     * Model tests for GetAPIUsersResponse
+     */
     @Test
     public void testGetAPIUsersResponse() {
         // TODO: test GetAPIUsersResponse
     }
 
-    /** Test the property 'users' */
+    /**
+     * Test the property 'users'
+     */
     @Test
     public void usersTest() {
         // TODO: test users
     }
+
 }

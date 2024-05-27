@@ -10,240 +10,229 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.util.StringJoiner;
+import java.util.Objects;
+import java.util.Map;
+import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.fireblocks.sdk.model.NetworkConnectionRoutingPolicyValue;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
-import java.util.StringJoiner;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
-/** NetworkConnection */
+
+/**
+ * NetworkConnection
+ */
 @JsonPropertyOrder({
-    NetworkConnection.JSON_PROPERTY_LOCAL_NETWORK_ID,
-    NetworkConnection.JSON_PROPERTY_REMOTE_NETWORK_ID,
-    NetworkConnection.JSON_PROPERTY_ROUTING_POLICY
+  NetworkConnection.JSON_PROPERTY_LOCAL_NETWORK_ID,
+  NetworkConnection.JSON_PROPERTY_REMOTE_NETWORK_ID,
+  NetworkConnection.JSON_PROPERTY_ROUTING_POLICY
 })
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class NetworkConnection {
-    public static final String JSON_PROPERTY_LOCAL_NETWORK_ID = "localNetworkId";
-    private String localNetworkId;
+  public static final String JSON_PROPERTY_LOCAL_NETWORK_ID = "localNetworkId";
+  private String localNetworkId;
 
-    public static final String JSON_PROPERTY_REMOTE_NETWORK_ID = "remoteNetworkId";
-    private String remoteNetworkId;
+  public static final String JSON_PROPERTY_REMOTE_NETWORK_ID = "remoteNetworkId";
+  private String remoteNetworkId;
 
-    public static final String JSON_PROPERTY_ROUTING_POLICY = "routingPolicy";
-    private Map<String, NetworkConnectionRoutingPolicyValue> routingPolicy = new HashMap<>();
+  public static final String JSON_PROPERTY_ROUTING_POLICY = "routingPolicy";
+  private Map<String, NetworkConnectionRoutingPolicyValue> routingPolicy = new HashMap<>();
 
-    public NetworkConnection() {}
+  public NetworkConnection() { 
+  }
 
-    public NetworkConnection localNetworkId(String localNetworkId) {
-        this.localNetworkId = localNetworkId;
-        return this;
+  public NetworkConnection localNetworkId(String localNetworkId) {
+    this.localNetworkId = localNetworkId;
+    return this;
+  }
+
+   /**
+   * The network ID of the profile trying to create the connection.
+   * @return localNetworkId
+  **/
+  @jakarta.annotation.Nonnull
+  @JsonProperty(JSON_PROPERTY_LOCAL_NETWORK_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getLocalNetworkId() {
+    return localNetworkId;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_LOCAL_NETWORK_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setLocalNetworkId(String localNetworkId) {
+    this.localNetworkId = localNetworkId;
+  }
+
+
+  public NetworkConnection remoteNetworkId(String remoteNetworkId) {
+    this.remoteNetworkId = remoteNetworkId;
+    return this;
+  }
+
+   /**
+   * The network ID the profile is attempting to connect to.
+   * @return remoteNetworkId
+  **/
+  @jakarta.annotation.Nonnull
+  @JsonProperty(JSON_PROPERTY_REMOTE_NETWORK_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getRemoteNetworkId() {
+    return remoteNetworkId;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_REMOTE_NETWORK_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setRemoteNetworkId(String remoteNetworkId) {
+    this.remoteNetworkId = remoteNetworkId;
+  }
+
+
+  public NetworkConnection routingPolicy(Map<String, NetworkConnectionRoutingPolicyValue> routingPolicy) {
+    this.routingPolicy = routingPolicy;
+    return this;
+  }
+
+  public NetworkConnection putRoutingPolicyItem(String key, NetworkConnectionRoutingPolicyValue routingPolicyItem) {
+    if (this.routingPolicy == null) {
+      this.routingPolicy = new HashMap<>();
+    }
+    this.routingPolicy.put(key, routingPolicyItem);
+    return this;
+  }
+
+   /**
+   * Get routingPolicy
+   * @return routingPolicy
+  **/
+  @jakarta.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_ROUTING_POLICY)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Map<String, NetworkConnectionRoutingPolicyValue> getRoutingPolicy() {
+    return routingPolicy;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_ROUTING_POLICY)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setRoutingPolicy(Map<String, NetworkConnectionRoutingPolicyValue> routingPolicy) {
+    this.routingPolicy = routingPolicy;
+  }
+
+
+  /**
+   * Return true if this NetworkConnection object is equal to o.
+   */
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    NetworkConnection networkConnection = (NetworkConnection) o;
+    return Objects.equals(this.localNetworkId, networkConnection.localNetworkId) &&
+        Objects.equals(this.remoteNetworkId, networkConnection.remoteNetworkId) &&
+        Objects.equals(this.routingPolicy, networkConnection.routingPolicy);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(localNetworkId, remoteNetworkId, routingPolicy);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class NetworkConnection {\n");
+    sb.append("    localNetworkId: ").append(toIndentedString(localNetworkId)).append("\n");
+    sb.append("    remoteNetworkId: ").append(toIndentedString(remoteNetworkId)).append("\n");
+    sb.append("    routingPolicy: ").append(toIndentedString(routingPolicy)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @return URL query string
+   */
+  public String toUrlQueryString() {
+    return toUrlQueryString(null);
+  }
+
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @param prefix prefix of the query string
+   * @return URL query string
+   */
+  public String toUrlQueryString(String prefix) {
+    String suffix = "";
+    String containerSuffix = "";
+    String containerPrefix = "";
+    if (prefix == null) {
+      // style=form, explode=true, e.g. /pet?name=cat&type=manx
+      prefix = "";
+    } else {
+      // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
+      prefix = prefix + "[";
+      suffix = "]";
+      containerSuffix = "]";
+      containerPrefix = "[";
     }
 
-    /**
-     * The network ID of the profile trying to create the connection.
-     *
-     * @return localNetworkId
-     */
-    @jakarta.annotation.Nonnull
-    @JsonProperty(JSON_PROPERTY_LOCAL_NETWORK_ID)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public String getLocalNetworkId() {
-        return localNetworkId;
+    StringJoiner joiner = new StringJoiner("&");
+
+    // add `localNetworkId` to the URL query string
+    if (getLocalNetworkId() != null) {
+      joiner.add(String.format("%slocalNetworkId%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getLocalNetworkId()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
     }
 
-    @JsonProperty(JSON_PROPERTY_LOCAL_NETWORK_ID)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setLocalNetworkId(String localNetworkId) {
-        this.localNetworkId = localNetworkId;
+    // add `remoteNetworkId` to the URL query string
+    if (getRemoteNetworkId() != null) {
+      joiner.add(String.format("%sremoteNetworkId%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getRemoteNetworkId()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
     }
 
-    public NetworkConnection remoteNetworkId(String remoteNetworkId) {
-        this.remoteNetworkId = remoteNetworkId;
-        return this;
-    }
-
-    /**
-     * The network ID the profile is attempting to connect to.
-     *
-     * @return remoteNetworkId
-     */
-    @jakarta.annotation.Nonnull
-    @JsonProperty(JSON_PROPERTY_REMOTE_NETWORK_ID)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public String getRemoteNetworkId() {
-        return remoteNetworkId;
-    }
-
-    @JsonProperty(JSON_PROPERTY_REMOTE_NETWORK_ID)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setRemoteNetworkId(String remoteNetworkId) {
-        this.remoteNetworkId = remoteNetworkId;
-    }
-
-    public NetworkConnection routingPolicy(
-            Map<String, NetworkConnectionRoutingPolicyValue> routingPolicy) {
-        this.routingPolicy = routingPolicy;
-        return this;
-    }
-
-    public NetworkConnection putRoutingPolicyItem(
-            String key, NetworkConnectionRoutingPolicyValue routingPolicyItem) {
-        if (this.routingPolicy == null) {
-            this.routingPolicy = new HashMap<>();
+    // add `routingPolicy` to the URL query string
+    if (getRoutingPolicy() != null) {
+      for (String _key : getRoutingPolicy().keySet()) {
+        if (getRoutingPolicy().get(_key) != null) {
+          joiner.add(getRoutingPolicy().get(_key).toUrlQueryString(String.format("%sroutingPolicy%s%s", prefix, suffix,
+              "".equals(suffix) ? "" : String.format("%s%d%s", containerPrefix, _key, containerSuffix))));
         }
-        this.routingPolicy.put(key, routingPolicyItem);
-        return this;
+      }
     }
 
-    /**
-     * Get routingPolicy
-     *
-     * @return routingPolicy
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_ROUTING_POLICY)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public Map<String, NetworkConnectionRoutingPolicyValue> getRoutingPolicy() {
-        return routingPolicy;
-    }
-
-    @JsonProperty(JSON_PROPERTY_ROUTING_POLICY)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setRoutingPolicy(Map<String, NetworkConnectionRoutingPolicyValue> routingPolicy) {
-        this.routingPolicy = routingPolicy;
-    }
-
-    /** Return true if this NetworkConnection object is equal to o. */
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        NetworkConnection networkConnection = (NetworkConnection) o;
-        return Objects.equals(this.localNetworkId, networkConnection.localNetworkId)
-                && Objects.equals(this.remoteNetworkId, networkConnection.remoteNetworkId)
-                && Objects.equals(this.routingPolicy, networkConnection.routingPolicy);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(localNetworkId, remoteNetworkId, routingPolicy);
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("class NetworkConnection {\n");
-        sb.append("    localNetworkId: ").append(toIndentedString(localNetworkId)).append("\n");
-        sb.append("    remoteNetworkId: ").append(toIndentedString(remoteNetworkId)).append("\n");
-        sb.append("    routingPolicy: ").append(toIndentedString(routingPolicy)).append("\n");
-        sb.append("}");
-        return sb.toString();
-    }
-
-    /**
-     * Convert the given object to string with each line indented by 4 spaces (except the first
-     * line).
-     */
-    private String toIndentedString(Object o) {
-        if (o == null) {
-            return "null";
-        }
-        return o.toString().replace("\n", "\n    ");
-    }
-
-    /**
-     * Convert the instance into URL query string.
-     *
-     * @return URL query string
-     */
-    public String toUrlQueryString() {
-        return toUrlQueryString(null);
-    }
-
-    /**
-     * Convert the instance into URL query string.
-     *
-     * @param prefix prefix of the query string
-     * @return URL query string
-     */
-    public String toUrlQueryString(String prefix) {
-        String suffix = "";
-        String containerSuffix = "";
-        String containerPrefix = "";
-        if (prefix == null) {
-            // style=form, explode=true, e.g. /pet?name=cat&type=manx
-            prefix = "";
-        } else {
-            // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
-            prefix = prefix + "[";
-            suffix = "]";
-            containerSuffix = "]";
-            containerPrefix = "[";
-        }
-
-        StringJoiner joiner = new StringJoiner("&");
-
-        // add `localNetworkId` to the URL query string
-        if (getLocalNetworkId() != null) {
-            joiner.add(
-                    String.format(
-                            "%slocalNetworkId%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getLocalNetworkId()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
-        // add `remoteNetworkId` to the URL query string
-        if (getRemoteNetworkId() != null) {
-            joiner.add(
-                    String.format(
-                            "%sremoteNetworkId%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getRemoteNetworkId()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
-        // add `routingPolicy` to the URL query string
-        if (getRoutingPolicy() != null) {
-            for (String _key : getRoutingPolicy().keySet()) {
-                if (getRoutingPolicy().get(_key) != null) {
-                    joiner.add(
-                            getRoutingPolicy()
-                                    .get(_key)
-                                    .toUrlQueryString(
-                                            String.format(
-                                                    "%sroutingPolicy%s%s",
-                                                    prefix,
-                                                    suffix,
-                                                    "".equals(suffix)
-                                                            ? ""
-                                                            : String.format(
-                                                                    "%s%d%s",
-                                                                    containerPrefix,
-                                                                    _key,
-                                                                    containerSuffix))));
-                }
-            }
-        }
-
-        return joiner.toString();
-    }
+    return joiner.toString();
+  }
 }
+

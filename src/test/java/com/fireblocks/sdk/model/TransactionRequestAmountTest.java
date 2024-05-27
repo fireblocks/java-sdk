@@ -10,18 +10,27 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import java.math.BigDecimal;
+import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
-/** Model tests for TransactionRequestAmount */
+/**
+ * Model tests for TransactionRequestAmount
+ */
 public class TransactionRequestAmountTest {
     private final TransactionRequestAmount model = new TransactionRequestAmount();
 
-    /** Model tests for TransactionRequestAmount */
+    /**
+     * Model tests for TransactionRequestAmount
+     */
     @Test
     public void testTransactionRequestAmount() {
         // TODO: test TransactionRequestAmount
     }
+
 }

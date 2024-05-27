@@ -10,36 +10,55 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.Arrays;
+import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
-/** Model tests for TokenLinkRequestDto */
+/**
+ * Model tests for TokenLinkRequestDto
+ */
 public class TokenLinkRequestDtoTest {
     private final TokenLinkRequestDto model = new TokenLinkRequestDto();
 
-    /** Model tests for TokenLinkRequestDto */
+    /**
+     * Model tests for TokenLinkRequestDto
+     */
     @Test
     public void testTokenLinkRequestDto() {
         // TODO: test TokenLinkRequestDto
     }
 
-    /** Test the property 'type' */
+    /**
+     * Test the property 'type'
+     */
     @Test
     public void typeTest() {
         // TODO: test type
     }
 
-    /** Test the property 'refId' */
+    /**
+     * Test the property 'refId'
+     */
     @Test
     public void refIdTest() {
         // TODO: test refId
     }
 
-    /** Test the property 'displayName' */
+    /**
+     * Test the property 'displayName'
+     */
     @Test
     public void displayNameTest() {
         // TODO: test displayName
     }
+
 }

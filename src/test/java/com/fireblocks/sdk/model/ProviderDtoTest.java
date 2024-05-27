@@ -10,54 +10,82 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.fireblocks.sdk.model.ValidatorDto;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
-/** Model tests for ProviderDto */
+/**
+ * Model tests for ProviderDto
+ */
 public class ProviderDtoTest {
     private final ProviderDto model = new ProviderDto();
 
-    /** Model tests for ProviderDto */
+    /**
+     * Model tests for ProviderDto
+     */
     @Test
     public void testProviderDto() {
         // TODO: test ProviderDto
     }
 
-    /** Test the property 'id' */
+    /**
+     * Test the property 'id'
+     */
     @Test
     public void idTest() {
         // TODO: test id
     }
 
-    /** Test the property 'providerName' */
+    /**
+     * Test the property 'providerName'
+     */
     @Test
     public void providerNameTest() {
         // TODO: test providerName
     }
 
-    /** Test the property 'validators' */
+    /**
+     * Test the property 'validators'
+     */
     @Test
     public void validatorsTest() {
         // TODO: test validators
     }
 
-    /** Test the property 'iconUrl' */
+    /**
+     * Test the property 'iconUrl'
+     */
     @Test
     public void iconUrlTest() {
         // TODO: test iconUrl
     }
 
-    /** Test the property 'termsOfServiceUrl' */
+    /**
+     * Test the property 'termsOfServiceUrl'
+     */
     @Test
     public void termsOfServiceUrlTest() {
         // TODO: test termsOfServiceUrl
     }
 
-    /** Test the property 'isTermsOfServiceApproved' */
+    /**
+     * Test the property 'isTermsOfServiceApproved'
+     */
     @Test
     public void isTermsOfServiceApprovedTest() {
         // TODO: test isTermsOfServiceApproved
     }
+
 }

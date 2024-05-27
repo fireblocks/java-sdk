@@ -10,36 +10,55 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.Arrays;
+import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
-/** Model tests for ValidateAddressResponse */
+/**
+ * Model tests for ValidateAddressResponse
+ */
 public class ValidateAddressResponseTest {
     private final ValidateAddressResponse model = new ValidateAddressResponse();
 
-    /** Model tests for ValidateAddressResponse */
+    /**
+     * Model tests for ValidateAddressResponse
+     */
     @Test
     public void testValidateAddressResponse() {
         // TODO: test ValidateAddressResponse
     }
 
-    /** Test the property 'isValid' */
+    /**
+     * Test the property 'isValid'
+     */
     @Test
     public void isValidTest() {
         // TODO: test isValid
     }
 
-    /** Test the property 'isActive' */
+    /**
+     * Test the property 'isActive'
+     */
     @Test
     public void isActiveTest() {
         // TODO: test isActive
     }
 
-    /** Test the property 'requiresTag' */
+    /**
+     * Test the property 'requiresTag'
+     */
     @Test
     public void requiresTagTest() {
         // TODO: test requiresTag
     }
+
 }

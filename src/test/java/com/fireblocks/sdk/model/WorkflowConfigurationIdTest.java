@@ -10,24 +10,39 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.Arrays;
+import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
-/** Model tests for WorkflowConfigurationId */
+/**
+ * Model tests for WorkflowConfigurationId
+ */
 public class WorkflowConfigurationIdTest {
     private final WorkflowConfigurationId model = new WorkflowConfigurationId();
 
-    /** Model tests for WorkflowConfigurationId */
+    /**
+     * Model tests for WorkflowConfigurationId
+     */
     @Test
     public void testWorkflowConfigurationId() {
         // TODO: test WorkflowConfigurationId
     }
 
-    /** Test the property 'configId' */
+    /**
+     * Test the property 'configId'
+     */
     @Test
     public void configIdTest() {
         // TODO: test configId
     }
+
 }

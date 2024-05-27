@@ -10,16 +10,23 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
+import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
-/** Model tests for UserStatus */
+/**
+ * Model tests for UserStatus
+ */
 public class UserStatusTest {
-    /** Model tests for UserStatus */
+    /**
+     * Model tests for UserStatus
+     */
     @Test
     public void testUserStatus() {
         // TODO: test UserStatus
     }
+
 }

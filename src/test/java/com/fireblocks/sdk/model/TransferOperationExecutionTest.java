@@ -10,54 +10,83 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.fireblocks.sdk.model.TransferOperationConfigParams;
+import com.fireblocks.sdk.model.TransferOperationExecutionOutput;
+import com.fireblocks.sdk.model.TransferOperationFailure;
+import java.math.BigDecimal;
+import java.util.Arrays;
+import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
-/** Model tests for TransferOperationExecution */
+/**
+ * Model tests for TransferOperationExecution
+ */
 public class TransferOperationExecutionTest {
     private final TransferOperationExecution model = new TransferOperationExecution();
 
-    /** Model tests for TransferOperationExecution */
+    /**
+     * Model tests for TransferOperationExecution
+     */
     @Test
     public void testTransferOperationExecution() {
         // TODO: test TransferOperationExecution
     }
 
-    /** Test the property 'input' */
+    /**
+     * Test the property 'input'
+     */
     @Test
     public void inputTest() {
         // TODO: test input
     }
 
-    /** Test the property 'output' */
+    /**
+     * Test the property 'output'
+     */
     @Test
     public void outputTest() {
         // TODO: test output
     }
 
-    /** Test the property 'txId' */
+    /**
+     * Test the property 'txId'
+     */
     @Test
     public void txIdTest() {
         // TODO: test txId
     }
 
-    /** Test the property 'startedAt' */
+    /**
+     * Test the property 'startedAt'
+     */
     @Test
     public void startedAtTest() {
         // TODO: test startedAt
     }
 
-    /** Test the property 'finishedAt' */
+    /**
+     * Test the property 'finishedAt'
+     */
     @Test
     public void finishedAtTest() {
         // TODO: test finishedAt
     }
 
-    /** Test the property 'failure' */
+    /**
+     * Test the property 'failure'
+     */
     @Test
     public void failureTest() {
         // TODO: test failure
     }
+
 }

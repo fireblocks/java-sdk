@@ -10,36 +10,56 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import java.math.BigDecimal;
+import java.util.Arrays;
+import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
-/** Model tests for AdditionalInfoDto */
+/**
+ * Model tests for AdditionalInfoDto
+ */
 public class AdditionalInfoDtoTest {
     private final AdditionalInfoDto model = new AdditionalInfoDto();
 
-    /** Model tests for AdditionalInfoDto */
+    /**
+     * Model tests for AdditionalInfoDto
+     */
     @Test
     public void testAdditionalInfoDto() {
         // TODO: test AdditionalInfoDto
     }
 
-    /** Test the property 'estimatedAnnualReward' */
+    /**
+     * Test the property 'estimatedAnnualReward'
+     */
     @Test
     public void estimatedAnnualRewardTest() {
         // TODO: test estimatedAnnualReward
     }
 
-    /** Test the property 'lockupPeriod' */
+    /**
+     * Test the property 'lockupPeriod'
+     */
     @Test
     public void lockupPeriodTest() {
         // TODO: test lockupPeriod
     }
 
-    /** Test the property 'activationPeriod' */
+    /**
+     * Test the property 'activationPeriod'
+     */
     @Test
     public void activationPeriodTest() {
         // TODO: test activationPeriod
     }
+
 }

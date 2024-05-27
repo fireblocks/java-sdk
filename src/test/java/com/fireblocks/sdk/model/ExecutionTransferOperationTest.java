@@ -10,54 +10,84 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.fireblocks.sdk.model.ExecutionOperationStatus;
+import com.fireblocks.sdk.model.TransferOperationExecution;
+import com.fireblocks.sdk.model.TransferOperationPreview;
+import com.fireblocks.sdk.model.TransferOperationType;
+import com.fireblocks.sdk.model.TransferValidationFailure;
+import java.util.Arrays;
+import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
-/** Model tests for ExecutionTransferOperation */
+/**
+ * Model tests for ExecutionTransferOperation
+ */
 public class ExecutionTransferOperationTest {
     private final ExecutionTransferOperation model = new ExecutionTransferOperation();
 
-    /** Model tests for ExecutionTransferOperation */
+    /**
+     * Model tests for ExecutionTransferOperation
+     */
     @Test
     public void testExecutionTransferOperation() {
         // TODO: test ExecutionTransferOperation
     }
 
-    /** Test the property 'operationId' */
+    /**
+     * Test the property 'operationId'
+     */
     @Test
     public void operationIdTest() {
         // TODO: test operationId
     }
 
-    /** Test the property 'status' */
+    /**
+     * Test the property 'status'
+     */
     @Test
     public void statusTest() {
         // TODO: test status
     }
 
-    /** Test the property 'validationFailure' */
+    /**
+     * Test the property 'validationFailure'
+     */
     @Test
     public void validationFailureTest() {
         // TODO: test validationFailure
     }
 
-    /** Test the property 'operationType' */
+    /**
+     * Test the property 'operationType'
+     */
     @Test
     public void operationTypeTest() {
         // TODO: test operationType
     }
 
-    /** Test the property 'preview' */
+    /**
+     * Test the property 'preview'
+     */
     @Test
     public void previewTest() {
         // TODO: test preview
     }
 
-    /** Test the property 'execution' */
+    /**
+     * Test the property 'execution'
+     */
     @Test
     public void executionTest() {
         // TODO: test execution
     }
+
 }

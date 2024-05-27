@@ -10,18 +10,27 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import java.math.BigDecimal;
+import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
-/** Model tests for PolicyRuleAmount */
+/**
+ * Model tests for PolicyRuleAmount
+ */
 public class PolicyRuleAmountTest {
     private final PolicyRuleAmount model = new PolicyRuleAmount();
 
-    /** Model tests for PolicyRuleAmount */
+    /**
+     * Model tests for PolicyRuleAmount
+     */
     @Test
     public void testPolicyRuleAmount() {
         // TODO: test PolicyRuleAmount
     }
+
 }

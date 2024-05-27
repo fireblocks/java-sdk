@@ -10,208 +10,214 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
-import java.util.Objects;
 import java.util.StringJoiner;
+import java.util.Objects;
+import java.util.Map;
+import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.fireblocks.sdk.model.Destination;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
-/** DisbursementPercentageInstruction */
+
+/**
+ * DisbursementPercentageInstruction
+ */
 @JsonPropertyOrder({
-    DisbursementPercentageInstruction.JSON_PROPERTY_PAYEE_ACCOUNT,
-    DisbursementPercentageInstruction.JSON_PROPERTY_ASSET_ID,
-    DisbursementPercentageInstruction.JSON_PROPERTY_PERCENTAGE
+  DisbursementPercentageInstruction.JSON_PROPERTY_PAYEE_ACCOUNT,
+  DisbursementPercentageInstruction.JSON_PROPERTY_ASSET_ID,
+  DisbursementPercentageInstruction.JSON_PROPERTY_PERCENTAGE
 })
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class DisbursementPercentageInstruction {
-    public static final String JSON_PROPERTY_PAYEE_ACCOUNT = "payeeAccount";
-    private Destination payeeAccount;
+  public static final String JSON_PROPERTY_PAYEE_ACCOUNT = "payeeAccount";
+  private Destination payeeAccount;
 
-    public static final String JSON_PROPERTY_ASSET_ID = "assetId";
-    private String assetId;
+  public static final String JSON_PROPERTY_ASSET_ID = "assetId";
+  private String assetId;
 
-    public static final String JSON_PROPERTY_PERCENTAGE = "percentage";
-    private String percentage;
+  public static final String JSON_PROPERTY_PERCENTAGE = "percentage";
+  private String percentage;
 
-    public DisbursementPercentageInstruction() {}
+  public DisbursementPercentageInstruction() { 
+  }
 
-    public DisbursementPercentageInstruction payeeAccount(Destination payeeAccount) {
-        this.payeeAccount = payeeAccount;
-        return this;
+  public DisbursementPercentageInstruction payeeAccount(Destination payeeAccount) {
+    this.payeeAccount = payeeAccount;
+    return this;
+  }
+
+   /**
+   * Get payeeAccount
+   * @return payeeAccount
+  **/
+  @jakarta.annotation.Nonnull
+  @JsonProperty(JSON_PROPERTY_PAYEE_ACCOUNT)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public Destination getPayeeAccount() {
+    return payeeAccount;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_PAYEE_ACCOUNT)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setPayeeAccount(Destination payeeAccount) {
+    this.payeeAccount = payeeAccount;
+  }
+
+
+  public DisbursementPercentageInstruction assetId(String assetId) {
+    this.assetId = assetId;
+    return this;
+  }
+
+   /**
+   * Get assetId
+   * @return assetId
+  **/
+  @jakarta.annotation.Nonnull
+  @JsonProperty(JSON_PROPERTY_ASSET_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getAssetId() {
+    return assetId;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_ASSET_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setAssetId(String assetId) {
+    this.assetId = assetId;
+  }
+
+
+  public DisbursementPercentageInstruction percentage(String percentage) {
+    this.percentage = percentage;
+    return this;
+  }
+
+   /**
+   * Get percentage
+   * @return percentage
+  **/
+  @jakarta.annotation.Nonnull
+  @JsonProperty(JSON_PROPERTY_PERCENTAGE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getPercentage() {
+    return percentage;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_PERCENTAGE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setPercentage(String percentage) {
+    this.percentage = percentage;
+  }
+
+
+  /**
+   * Return true if this DisbursementPercentageInstruction object is equal to o.
+   */
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    DisbursementPercentageInstruction disbursementPercentageInstruction = (DisbursementPercentageInstruction) o;
+    return Objects.equals(this.payeeAccount, disbursementPercentageInstruction.payeeAccount) &&
+        Objects.equals(this.assetId, disbursementPercentageInstruction.assetId) &&
+        Objects.equals(this.percentage, disbursementPercentageInstruction.percentage);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(payeeAccount, assetId, percentage);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class DisbursementPercentageInstruction {\n");
+    sb.append("    payeeAccount: ").append(toIndentedString(payeeAccount)).append("\n");
+    sb.append("    assetId: ").append(toIndentedString(assetId)).append("\n");
+    sb.append("    percentage: ").append(toIndentedString(percentage)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @return URL query string
+   */
+  public String toUrlQueryString() {
+    return toUrlQueryString(null);
+  }
+
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @param prefix prefix of the query string
+   * @return URL query string
+   */
+  public String toUrlQueryString(String prefix) {
+    String suffix = "";
+    String containerSuffix = "";
+    String containerPrefix = "";
+    if (prefix == null) {
+      // style=form, explode=true, e.g. /pet?name=cat&type=manx
+      prefix = "";
+    } else {
+      // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
+      prefix = prefix + "[";
+      suffix = "]";
+      containerSuffix = "]";
+      containerPrefix = "[";
     }
 
-    /**
-     * Get payeeAccount
-     *
-     * @return payeeAccount
-     */
-    @jakarta.annotation.Nonnull
-    @JsonProperty(JSON_PROPERTY_PAYEE_ACCOUNT)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public Destination getPayeeAccount() {
-        return payeeAccount;
+    StringJoiner joiner = new StringJoiner("&");
+
+    // add `payeeAccount` to the URL query string
+    if (getPayeeAccount() != null) {
+      joiner.add(getPayeeAccount().toUrlQueryString(prefix + "payeeAccount" + suffix));
     }
 
-    @JsonProperty(JSON_PROPERTY_PAYEE_ACCOUNT)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setPayeeAccount(Destination payeeAccount) {
-        this.payeeAccount = payeeAccount;
+    // add `assetId` to the URL query string
+    if (getAssetId() != null) {
+      joiner.add(String.format("%sassetId%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getAssetId()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
     }
 
-    public DisbursementPercentageInstruction assetId(String assetId) {
-        this.assetId = assetId;
-        return this;
+    // add `percentage` to the URL query string
+    if (getPercentage() != null) {
+      joiner.add(String.format("%spercentage%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getPercentage()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
     }
 
-    /**
-     * Get assetId
-     *
-     * @return assetId
-     */
-    @jakarta.annotation.Nonnull
-    @JsonProperty(JSON_PROPERTY_ASSET_ID)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public String getAssetId() {
-        return assetId;
-    }
-
-    @JsonProperty(JSON_PROPERTY_ASSET_ID)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setAssetId(String assetId) {
-        this.assetId = assetId;
-    }
-
-    public DisbursementPercentageInstruction percentage(String percentage) {
-        this.percentage = percentage;
-        return this;
-    }
-
-    /**
-     * Get percentage
-     *
-     * @return percentage
-     */
-    @jakarta.annotation.Nonnull
-    @JsonProperty(JSON_PROPERTY_PERCENTAGE)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public String getPercentage() {
-        return percentage;
-    }
-
-    @JsonProperty(JSON_PROPERTY_PERCENTAGE)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setPercentage(String percentage) {
-        this.percentage = percentage;
-    }
-
-    /** Return true if this DisbursementPercentageInstruction object is equal to o. */
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        DisbursementPercentageInstruction disbursementPercentageInstruction =
-                (DisbursementPercentageInstruction) o;
-        return Objects.equals(this.payeeAccount, disbursementPercentageInstruction.payeeAccount)
-                && Objects.equals(this.assetId, disbursementPercentageInstruction.assetId)
-                && Objects.equals(this.percentage, disbursementPercentageInstruction.percentage);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(payeeAccount, assetId, percentage);
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("class DisbursementPercentageInstruction {\n");
-        sb.append("    payeeAccount: ").append(toIndentedString(payeeAccount)).append("\n");
-        sb.append("    assetId: ").append(toIndentedString(assetId)).append("\n");
-        sb.append("    percentage: ").append(toIndentedString(percentage)).append("\n");
-        sb.append("}");
-        return sb.toString();
-    }
-
-    /**
-     * Convert the given object to string with each line indented by 4 spaces (except the first
-     * line).
-     */
-    private String toIndentedString(Object o) {
-        if (o == null) {
-            return "null";
-        }
-        return o.toString().replace("\n", "\n    ");
-    }
-
-    /**
-     * Convert the instance into URL query string.
-     *
-     * @return URL query string
-     */
-    public String toUrlQueryString() {
-        return toUrlQueryString(null);
-    }
-
-    /**
-     * Convert the instance into URL query string.
-     *
-     * @param prefix prefix of the query string
-     * @return URL query string
-     */
-    public String toUrlQueryString(String prefix) {
-        String suffix = "";
-        String containerSuffix = "";
-        String containerPrefix = "";
-        if (prefix == null) {
-            // style=form, explode=true, e.g. /pet?name=cat&type=manx
-            prefix = "";
-        } else {
-            // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
-            prefix = prefix + "[";
-            suffix = "]";
-            containerSuffix = "]";
-            containerPrefix = "[";
-        }
-
-        StringJoiner joiner = new StringJoiner("&");
-
-        // add `payeeAccount` to the URL query string
-        if (getPayeeAccount() != null) {
-            joiner.add(getPayeeAccount().toUrlQueryString(prefix + "payeeAccount" + suffix));
-        }
-
-        // add `assetId` to the URL query string
-        if (getAssetId() != null) {
-            joiner.add(
-                    String.format(
-                            "%sassetId%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(String.valueOf(getAssetId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
-        // add `percentage` to the URL query string
-        if (getPercentage() != null) {
-            joiner.add(
-                    String.format(
-                            "%spercentage%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getPercentage()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
-        return joiner.toString();
-    }
+    return joiner.toString();
+  }
 }
+

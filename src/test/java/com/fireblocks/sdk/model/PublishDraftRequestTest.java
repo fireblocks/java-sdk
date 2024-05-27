@@ -10,24 +10,39 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.Arrays;
+import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
-/** Model tests for PublishDraftRequest */
+/**
+ * Model tests for PublishDraftRequest
+ */
 public class PublishDraftRequestTest {
     private final PublishDraftRequest model = new PublishDraftRequest();
 
-    /** Model tests for PublishDraftRequest */
+    /**
+     * Model tests for PublishDraftRequest
+     */
     @Test
     public void testPublishDraftRequest() {
         // TODO: test PublishDraftRequest
     }
 
-    /** Test the property 'draftId' */
+    /**
+     * Test the property 'draftId'
+     */
     @Test
     public void draftIdTest() {
         // TODO: test draftId
     }
+
 }

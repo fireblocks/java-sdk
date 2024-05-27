@@ -10,24 +10,39 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.Arrays;
+import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
-/** Model tests for SettlementRequestBody */
+/**
+ * Model tests for SettlementRequestBody
+ */
 public class SettlementRequestBodyTest {
     private final SettlementRequestBody model = new SettlementRequestBody();
 
-    /** Model tests for SettlementRequestBody */
+    /**
+     * Model tests for SettlementRequestBody
+     */
     @Test
     public void testSettlementRequestBody() {
         // TODO: test SettlementRequestBody
     }
 
-    /** Test the property 'mainExchangeAccountId' */
+    /**
+     * Test the property 'mainExchangeAccountId'
+     */
     @Test
     public void mainExchangeAccountIdTest() {
         // TODO: test mainExchangeAccountId
     }
+
 }

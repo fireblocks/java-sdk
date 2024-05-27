@@ -10,30 +10,47 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.Arrays;
+import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
-/** Model tests for AmlScreeningResult */
+/**
+ * Model tests for AmlScreeningResult
+ */
 public class AmlScreeningResultTest {
     private final AmlScreeningResult model = new AmlScreeningResult();
 
-    /** Model tests for AmlScreeningResult */
+    /**
+     * Model tests for AmlScreeningResult
+     */
     @Test
     public void testAmlScreeningResult() {
         // TODO: test AmlScreeningResult
     }
 
-    /** Test the property 'provider' */
+    /**
+     * Test the property 'provider'
+     */
     @Test
     public void providerTest() {
         // TODO: test provider
     }
 
-    /** Test the property 'payload' */
+    /**
+     * Test the property 'payload'
+     */
     @Test
     public void payloadTest() {
         // TODO: test payload
     }
+
 }

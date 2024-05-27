@@ -10,42 +10,63 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.Arrays;
+import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
-/** Model tests for SessionMetadata */
+/**
+ * Model tests for SessionMetadata
+ */
 public class SessionMetadataTest {
     private final SessionMetadata model = new SessionMetadata();
 
-    /** Model tests for SessionMetadata */
+    /**
+     * Model tests for SessionMetadata
+     */
     @Test
     public void testSessionMetadata() {
         // TODO: test SessionMetadata
     }
 
-    /** Test the property 'appUrl' */
+    /**
+     * Test the property 'appUrl'
+     */
     @Test
     public void appUrlTest() {
         // TODO: test appUrl
     }
 
-    /** Test the property 'appName' */
+    /**
+     * Test the property 'appName'
+     */
     @Test
     public void appNameTest() {
         // TODO: test appName
     }
 
-    /** Test the property 'appDescription' */
+    /**
+     * Test the property 'appDescription'
+     */
     @Test
     public void appDescriptionTest() {
         // TODO: test appDescription
     }
 
-    /** Test the property 'appIcon' */
+    /**
+     * Test the property 'appIcon'
+     */
     @Test
     public void appIconTest() {
         // TODO: test appIcon
     }
+
 }

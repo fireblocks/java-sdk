@@ -10,217 +10,222 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.fasterxml.jackson.annotation.JsonValue;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
-import java.util.Objects;
 import java.util.StringJoiner;
+import java.util.Objects;
+import java.util.Map;
+import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
-/** ErrorResponseError */
+
+/**
+ * ErrorResponseError
+ */
 @JsonPropertyOrder({
-    ErrorResponseError.JSON_PROPERTY_TYPE,
-    ErrorResponseError.JSON_PROPERTY_MESSAGE
+  ErrorResponseError.JSON_PROPERTY_TYPE,
+  ErrorResponseError.JSON_PROPERTY_MESSAGE
 })
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class ErrorResponseError {
-    /** Gets or Sets type */
-    public enum TypeEnum {
-        INTERNAL("INTERNAL"),
+  /**
+   * Gets or Sets type
+   */
+  public enum TypeEnum {
+    INTERNAL("INTERNAL"),
+    
+    AUTHENTICATION("AUTHENTICATION"),
+    
+    AUTHORIZATION("AUTHORIZATION"),
+    
+    VALIDATION("VALIDATION"),
+    
+    NOT_FOUND("NOT_FOUND"),
+    
+    UNPROCESSABLE_ENTITY("UNPROCESSABLE_ENTITY"),
+    
+    FORBIDDEN("FORBIDDEN");
 
-        AUTHENTICATION("AUTHENTICATION"),
+    private String value;
 
-        AUTHORIZATION("AUTHORIZATION"),
-
-        VALIDATION("VALIDATION"),
-
-        NOT_FOUND("NOT_FOUND"),
-
-        UNPROCESSABLE_ENTITY("UNPROCESSABLE_ENTITY"),
-
-        FORBIDDEN("FORBIDDEN");
-
-        private String value;
-
-        TypeEnum(String value) {
-            this.value = value;
-        }
-
-        @JsonValue
-        public String getValue() {
-            return value;
-        }
-
-        @Override
-        public String toString() {
-            return String.valueOf(value);
-        }
-
-        @JsonCreator
-        public static TypeEnum fromValue(String value) {
-            for (TypeEnum b : TypeEnum.values()) {
-                if (b.value.equals(value)) {
-                    return b;
-                }
-            }
-            throw new IllegalArgumentException("Unexpected value '" + value + "'");
-        }
+    TypeEnum(String value) {
+      this.value = value;
     }
 
-    public static final String JSON_PROPERTY_TYPE = "type";
-    private TypeEnum type;
-
-    public static final String JSON_PROPERTY_MESSAGE = "message";
-    private String message;
-
-    public ErrorResponseError() {}
-
-    public ErrorResponseError type(TypeEnum type) {
-        this.type = type;
-        return this;
-    }
-
-    /**
-     * Get type
-     *
-     * @return type
-     */
-    @jakarta.annotation.Nonnull
-    @JsonProperty(JSON_PROPERTY_TYPE)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public TypeEnum getType() {
-        return type;
-    }
-
-    @JsonProperty(JSON_PROPERTY_TYPE)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setType(TypeEnum type) {
-        this.type = type;
-    }
-
-    public ErrorResponseError message(String message) {
-        this.message = message;
-        return this;
-    }
-
-    /**
-     * Get message
-     *
-     * @return message
-     */
-    @jakarta.annotation.Nonnull
-    @JsonProperty(JSON_PROPERTY_MESSAGE)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public String getMessage() {
-        return message;
-    }
-
-    @JsonProperty(JSON_PROPERTY_MESSAGE)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    /** Return true if this ErrorResponse_error object is equal to o. */
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        ErrorResponseError errorResponseError = (ErrorResponseError) o;
-        return Objects.equals(this.type, errorResponseError.type)
-                && Objects.equals(this.message, errorResponseError.message);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(type, message);
+    @JsonValue
+    public String getValue() {
+      return value;
     }
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("class ErrorResponseError {\n");
-        sb.append("    type: ").append(toIndentedString(type)).append("\n");
-        sb.append("    message: ").append(toIndentedString(message)).append("\n");
-        sb.append("}");
-        return sb.toString();
+      return String.valueOf(value);
     }
 
-    /**
-     * Convert the given object to string with each line indented by 4 spaces (except the first
-     * line).
-     */
-    private String toIndentedString(Object o) {
-        if (o == null) {
-            return "null";
+    @JsonCreator
+    public static TypeEnum fromValue(String value) {
+      for (TypeEnum b : TypeEnum.values()) {
+        if (b.value.equals(value)) {
+          return b;
         }
-        return o.toString().replace("\n", "\n    ");
+      }
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
+  }
+
+  public static final String JSON_PROPERTY_TYPE = "type";
+  private TypeEnum type;
+
+  public static final String JSON_PROPERTY_MESSAGE = "message";
+  private String message;
+
+  public ErrorResponseError() { 
+  }
+
+  public ErrorResponseError type(TypeEnum type) {
+    this.type = type;
+    return this;
+  }
+
+   /**
+   * Get type
+   * @return type
+  **/
+  @jakarta.annotation.Nonnull
+  @JsonProperty(JSON_PROPERTY_TYPE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public TypeEnum getType() {
+    return type;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_TYPE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setType(TypeEnum type) {
+    this.type = type;
+  }
+
+
+  public ErrorResponseError message(String message) {
+    this.message = message;
+    return this;
+  }
+
+   /**
+   * Get message
+   * @return message
+  **/
+  @jakarta.annotation.Nonnull
+  @JsonProperty(JSON_PROPERTY_MESSAGE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getMessage() {
+    return message;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_MESSAGE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setMessage(String message) {
+    this.message = message;
+  }
+
+
+  /**
+   * Return true if this ErrorResponse_error object is equal to o.
+   */
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    ErrorResponseError errorResponseError = (ErrorResponseError) o;
+    return Objects.equals(this.type, errorResponseError.type) &&
+        Objects.equals(this.message, errorResponseError.message);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(type, message);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class ErrorResponseError {\n");
+    sb.append("    type: ").append(toIndentedString(type)).append("\n");
+    sb.append("    message: ").append(toIndentedString(message)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @return URL query string
+   */
+  public String toUrlQueryString() {
+    return toUrlQueryString(null);
+  }
+
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @param prefix prefix of the query string
+   * @return URL query string
+   */
+  public String toUrlQueryString(String prefix) {
+    String suffix = "";
+    String containerSuffix = "";
+    String containerPrefix = "";
+    if (prefix == null) {
+      // style=form, explode=true, e.g. /pet?name=cat&type=manx
+      prefix = "";
+    } else {
+      // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
+      prefix = prefix + "[";
+      suffix = "]";
+      containerSuffix = "]";
+      containerPrefix = "[";
     }
 
-    /**
-     * Convert the instance into URL query string.
-     *
-     * @return URL query string
-     */
-    public String toUrlQueryString() {
-        return toUrlQueryString(null);
+    StringJoiner joiner = new StringJoiner("&");
+
+    // add `type` to the URL query string
+    if (getType() != null) {
+      joiner.add(String.format("%stype%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getType()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
     }
 
-    /**
-     * Convert the instance into URL query string.
-     *
-     * @param prefix prefix of the query string
-     * @return URL query string
-     */
-    public String toUrlQueryString(String prefix) {
-        String suffix = "";
-        String containerSuffix = "";
-        String containerPrefix = "";
-        if (prefix == null) {
-            // style=form, explode=true, e.g. /pet?name=cat&type=manx
-            prefix = "";
-        } else {
-            // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
-            prefix = prefix + "[";
-            suffix = "]";
-            containerSuffix = "]";
-            containerPrefix = "[";
-        }
-
-        StringJoiner joiner = new StringJoiner("&");
-
-        // add `type` to the URL query string
-        if (getType() != null) {
-            joiner.add(
-                    String.format(
-                            "%stype%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(String.valueOf(getType()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
-        // add `message` to the URL query string
-        if (getMessage() != null) {
-            joiner.add(
-                    String.format(
-                            "%smessage%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(String.valueOf(getMessage()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
-        return joiner.toString();
+    // add `message` to the URL query string
+    if (getMessage() != null) {
+      joiner.add(String.format("%smessage%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getMessage()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
     }
+
+    return joiner.toString();
+  }
 }
+

@@ -10,102 +10,149 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.fireblocks.sdk.model.AbiFunction;
+import com.fireblocks.sdk.model.ContractAttributes;
+import com.fireblocks.sdk.model.ContractDoc;
+import com.fireblocks.sdk.model.VendorDto;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
-/** Model tests for ContractTemplateDto */
+/**
+ * Model tests for ContractTemplateDto
+ */
 public class ContractTemplateDtoTest {
     private final ContractTemplateDto model = new ContractTemplateDto();
 
-    /** Model tests for ContractTemplateDto */
+    /**
+     * Model tests for ContractTemplateDto
+     */
     @Test
     public void testContractTemplateDto() {
         // TODO: test ContractTemplateDto
     }
 
-    /** Test the property 'id' */
+    /**
+     * Test the property 'id'
+     */
     @Test
     public void idTest() {
         // TODO: test id
     }
 
-    /** Test the property 'name' */
+    /**
+     * Test the property 'name'
+     */
     @Test
     public void nameTest() {
         // TODO: test name
     }
 
-    /** Test the property 'description' */
+    /**
+     * Test the property 'description'
+     */
     @Test
     public void descriptionTest() {
         // TODO: test description
     }
 
-    /** Test the property 'longDescription' */
+    /**
+     * Test the property 'longDescription'
+     */
     @Test
     public void longDescriptionTest() {
         // TODO: test longDescription
     }
 
-    /** Test the property 'abi' */
+    /**
+     * Test the property 'abi'
+     */
     @Test
     public void abiTest() {
         // TODO: test abi
     }
 
-    /** Test the property 'attributes' */
+    /**
+     * Test the property 'attributes'
+     */
     @Test
     public void attributesTest() {
         // TODO: test attributes
     }
 
-    /** Test the property 'docs' */
+    /**
+     * Test the property 'docs'
+     */
     @Test
     public void docsTest() {
         // TODO: test docs
     }
 
-    /** Test the property 'owner' */
+    /**
+     * Test the property 'owner'
+     */
     @Test
     public void ownerTest() {
         // TODO: test owner
     }
 
-    /** Test the property 'vendor' */
+    /**
+     * Test the property 'vendor'
+     */
     @Test
     public void vendorTest() {
         // TODO: test vendor
     }
 
-    /** Test the property 'isPublic' */
+    /**
+     * Test the property 'isPublic'
+     */
     @Test
     public void isPublicTest() {
         // TODO: test isPublic
     }
 
-    /** Test the property 'canDeploy' */
+    /**
+     * Test the property 'canDeploy'
+     */
     @Test
     public void canDeployTest() {
         // TODO: test canDeploy
     }
 
-    /** Test the property 'type' */
+    /**
+     * Test the property 'type'
+     */
     @Test
     public void typeTest() {
         // TODO: test type
     }
 
-    /** Test the property 'implementationContractId' */
+    /**
+     * Test the property 'implementationContractId'
+     */
     @Test
     public void implementationContractIdTest() {
         // TODO: test implementationContractId
     }
 
-    /** Test the property 'initializationPhase' */
+    /**
+     * Test the property 'initializationPhase'
+     */
     @Test
     public void initializationPhaseTest() {
         // TODO: test initializationPhase
     }
+
 }

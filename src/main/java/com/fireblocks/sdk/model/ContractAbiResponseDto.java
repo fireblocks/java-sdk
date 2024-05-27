@@ -10,213 +10,206 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.StringJoiner;
+import java.util.Objects;
+import java.util.Map;
+import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.fireblocks.sdk.model.AbiFunction;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
-import java.util.StringJoiner;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
-/** ContractAbiResponseDto */
+
+/**
+ * ContractAbiResponseDto
+ */
 @JsonPropertyOrder({
-    ContractAbiResponseDto.JSON_PROPERTY_ABI,
-    ContractAbiResponseDto.JSON_PROPERTY_IMPLEMENTATION_ABI
+  ContractAbiResponseDto.JSON_PROPERTY_ABI,
+  ContractAbiResponseDto.JSON_PROPERTY_IMPLEMENTATION_ABI
 })
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class ContractAbiResponseDto {
-    public static final String JSON_PROPERTY_ABI = "abi";
-    private List<AbiFunction> abi = new ArrayList<>();
+  public static final String JSON_PROPERTY_ABI = "abi";
+  private List<AbiFunction> abi = new ArrayList<>();
 
-    public static final String JSON_PROPERTY_IMPLEMENTATION_ABI = "implementationAbi";
-    private List<AbiFunction> implementationAbi;
+  public static final String JSON_PROPERTY_IMPLEMENTATION_ABI = "implementationAbi";
+  private List<AbiFunction> implementationAbi;
 
-    public ContractAbiResponseDto() {}
+  public ContractAbiResponseDto() { 
+  }
 
-    public ContractAbiResponseDto abi(List<AbiFunction> abi) {
-        this.abi = abi;
-        return this;
+  public ContractAbiResponseDto abi(List<AbiFunction> abi) {
+    this.abi = abi;
+    return this;
+  }
+
+  public ContractAbiResponseDto addAbiItem(AbiFunction abiItem) {
+    if (this.abi == null) {
+      this.abi = new ArrayList<>();
+    }
+    this.abi.add(abiItem);
+    return this;
+  }
+
+   /**
+   * The abi of the contract
+   * @return abi
+  **/
+  @jakarta.annotation.Nonnull
+  @JsonProperty(JSON_PROPERTY_ABI)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public List<AbiFunction> getAbi() {
+    return abi;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_ABI)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setAbi(List<AbiFunction> abi) {
+    this.abi = abi;
+  }
+
+
+  public ContractAbiResponseDto implementationAbi(List<AbiFunction> implementationAbi) {
+    this.implementationAbi = implementationAbi;
+    return this;
+  }
+
+  public ContractAbiResponseDto addImplementationAbiItem(AbiFunction implementationAbiItem) {
+    if (this.implementationAbi == null) {
+      this.implementationAbi = new ArrayList<>();
+    }
+    this.implementationAbi.add(implementationAbiItem);
+    return this;
+  }
+
+   /**
+   * The abi of the implementation contract if exists. Relevant only for proxy patterns
+   * @return implementationAbi
+  **/
+  @jakarta.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_IMPLEMENTATION_ABI)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<AbiFunction> getImplementationAbi() {
+    return implementationAbi;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_IMPLEMENTATION_ABI)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setImplementationAbi(List<AbiFunction> implementationAbi) {
+    this.implementationAbi = implementationAbi;
+  }
+
+
+  /**
+   * Return true if this ContractAbiResponseDto object is equal to o.
+   */
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    ContractAbiResponseDto contractAbiResponseDto = (ContractAbiResponseDto) o;
+    return Objects.equals(this.abi, contractAbiResponseDto.abi) &&
+        Objects.equals(this.implementationAbi, contractAbiResponseDto.implementationAbi);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(abi, implementationAbi);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class ContractAbiResponseDto {\n");
+    sb.append("    abi: ").append(toIndentedString(abi)).append("\n");
+    sb.append("    implementationAbi: ").append(toIndentedString(implementationAbi)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @return URL query string
+   */
+  public String toUrlQueryString() {
+    return toUrlQueryString(null);
+  }
+
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @param prefix prefix of the query string
+   * @return URL query string
+   */
+  public String toUrlQueryString(String prefix) {
+    String suffix = "";
+    String containerSuffix = "";
+    String containerPrefix = "";
+    if (prefix == null) {
+      // style=form, explode=true, e.g. /pet?name=cat&type=manx
+      prefix = "";
+    } else {
+      // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
+      prefix = prefix + "[";
+      suffix = "]";
+      containerSuffix = "]";
+      containerPrefix = "[";
     }
 
-    public ContractAbiResponseDto addAbiItem(AbiFunction abiItem) {
-        if (this.abi == null) {
-            this.abi = new ArrayList<>();
+    StringJoiner joiner = new StringJoiner("&");
+
+    // add `abi` to the URL query string
+    if (getAbi() != null) {
+      for (int i = 0; i < getAbi().size(); i++) {
+        if (getAbi().get(i) != null) {
+          joiner.add(getAbi().get(i).toUrlQueryString(String.format("%sabi%s%s", prefix, suffix,
+          "".equals(suffix) ? "" : String.format("%s%d%s", containerPrefix, i, containerSuffix))));
         }
-        this.abi.add(abiItem);
-        return this;
+      }
     }
 
-    /**
-     * The abi of the contract
-     *
-     * @return abi
-     */
-    @jakarta.annotation.Nonnull
-    @JsonProperty(JSON_PROPERTY_ABI)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public List<AbiFunction> getAbi() {
-        return abi;
-    }
-
-    @JsonProperty(JSON_PROPERTY_ABI)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setAbi(List<AbiFunction> abi) {
-        this.abi = abi;
-    }
-
-    public ContractAbiResponseDto implementationAbi(List<AbiFunction> implementationAbi) {
-        this.implementationAbi = implementationAbi;
-        return this;
-    }
-
-    public ContractAbiResponseDto addImplementationAbiItem(AbiFunction implementationAbiItem) {
-        if (this.implementationAbi == null) {
-            this.implementationAbi = new ArrayList<>();
+    // add `implementationAbi` to the URL query string
+    if (getImplementationAbi() != null) {
+      for (int i = 0; i < getImplementationAbi().size(); i++) {
+        if (getImplementationAbi().get(i) != null) {
+          joiner.add(getImplementationAbi().get(i).toUrlQueryString(String.format("%simplementationAbi%s%s", prefix, suffix,
+          "".equals(suffix) ? "" : String.format("%s%d%s", containerPrefix, i, containerSuffix))));
         }
-        this.implementationAbi.add(implementationAbiItem);
-        return this;
+      }
     }
 
-    /**
-     * The abi of the implementation contract if exists. Relevant only for proxy patterns
-     *
-     * @return implementationAbi
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_IMPLEMENTATION_ABI)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public List<AbiFunction> getImplementationAbi() {
-        return implementationAbi;
-    }
-
-    @JsonProperty(JSON_PROPERTY_IMPLEMENTATION_ABI)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setImplementationAbi(List<AbiFunction> implementationAbi) {
-        this.implementationAbi = implementationAbi;
-    }
-
-    /** Return true if this ContractAbiResponseDto object is equal to o. */
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        ContractAbiResponseDto contractAbiResponseDto = (ContractAbiResponseDto) o;
-        return Objects.equals(this.abi, contractAbiResponseDto.abi)
-                && Objects.equals(this.implementationAbi, contractAbiResponseDto.implementationAbi);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(abi, implementationAbi);
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("class ContractAbiResponseDto {\n");
-        sb.append("    abi: ").append(toIndentedString(abi)).append("\n");
-        sb.append("    implementationAbi: ")
-                .append(toIndentedString(implementationAbi))
-                .append("\n");
-        sb.append("}");
-        return sb.toString();
-    }
-
-    /**
-     * Convert the given object to string with each line indented by 4 spaces (except the first
-     * line).
-     */
-    private String toIndentedString(Object o) {
-        if (o == null) {
-            return "null";
-        }
-        return o.toString().replace("\n", "\n    ");
-    }
-
-    /**
-     * Convert the instance into URL query string.
-     *
-     * @return URL query string
-     */
-    public String toUrlQueryString() {
-        return toUrlQueryString(null);
-    }
-
-    /**
-     * Convert the instance into URL query string.
-     *
-     * @param prefix prefix of the query string
-     * @return URL query string
-     */
-    public String toUrlQueryString(String prefix) {
-        String suffix = "";
-        String containerSuffix = "";
-        String containerPrefix = "";
-        if (prefix == null) {
-            // style=form, explode=true, e.g. /pet?name=cat&type=manx
-            prefix = "";
-        } else {
-            // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
-            prefix = prefix + "[";
-            suffix = "]";
-            containerSuffix = "]";
-            containerPrefix = "[";
-        }
-
-        StringJoiner joiner = new StringJoiner("&");
-
-        // add `abi` to the URL query string
-        if (getAbi() != null) {
-            for (int i = 0; i < getAbi().size(); i++) {
-                if (getAbi().get(i) != null) {
-                    joiner.add(
-                            getAbi().get(i)
-                                    .toUrlQueryString(
-                                            String.format(
-                                                    "%sabi%s%s",
-                                                    prefix,
-                                                    suffix,
-                                                    "".equals(suffix)
-                                                            ? ""
-                                                            : String.format(
-                                                                    "%s%d%s",
-                                                                    containerPrefix,
-                                                                    i,
-                                                                    containerSuffix))));
-                }
-            }
-        }
-
-        // add `implementationAbi` to the URL query string
-        if (getImplementationAbi() != null) {
-            for (int i = 0; i < getImplementationAbi().size(); i++) {
-                if (getImplementationAbi().get(i) != null) {
-                    joiner.add(
-                            getImplementationAbi()
-                                    .get(i)
-                                    .toUrlQueryString(
-                                            String.format(
-                                                    "%simplementationAbi%s%s",
-                                                    prefix,
-                                                    suffix,
-                                                    "".equals(suffix)
-                                                            ? ""
-                                                            : String.format(
-                                                                    "%s%d%s",
-                                                                    containerPrefix,
-                                                                    i,
-                                                                    containerSuffix))));
-                }
-            }
-        }
-
-        return joiner.toString();
-    }
+    return joiner.toString();
+  }
 }
+

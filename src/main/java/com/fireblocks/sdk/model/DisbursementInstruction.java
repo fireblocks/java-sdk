@@ -10,8 +10,34 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.StringJoiner;
+import java.util.Objects;
+import java.util.Map;
+import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.fireblocks.sdk.model.Destination;
+import com.fireblocks.sdk.model.DisbursementAmountInstruction;
+import com.fireblocks.sdk.model.DisbursementPercentageInstruction;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+
+import com.fasterxml.jackson.core.type.TypeReference;
+
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
@@ -27,14 +53,6 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 import com.fireblocks.sdk.JSON;
-import java.io.IOException;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.StringJoiner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 @JsonDeserialize(using = DisbursementInstruction.DisbursementInstructionDeserializer.class)
@@ -42,8 +60,7 @@ import java.util.logging.Logger;
 public class DisbursementInstruction extends AbstractOpenApiSchema {
     private static final Logger log = Logger.getLogger(DisbursementInstruction.class.getName());
 
-    public static class DisbursementInstructionSerializer
-            extends StdSerializer<DisbursementInstruction> {
+    public static class DisbursementInstructionSerializer extends StdSerializer<DisbursementInstruction> {
         public DisbursementInstructionSerializer(Class<DisbursementInstruction> t) {
             super(t);
         }
@@ -53,15 +70,12 @@ public class DisbursementInstruction extends AbstractOpenApiSchema {
         }
 
         @Override
-        public void serialize(
-                DisbursementInstruction value, JsonGenerator jgen, SerializerProvider provider)
-                throws IOException, JsonProcessingException {
+        public void serialize(DisbursementInstruction value, JsonGenerator jgen, SerializerProvider provider) throws IOException, JsonProcessingException {
             jgen.writeObject(value.getActualInstance());
         }
     }
 
-    public static class DisbursementInstructionDeserializer
-            extends StdDeserializer<DisbursementInstruction> {
+    public static class DisbursementInstructionDeserializer extends StdDeserializer<DisbursementInstruction> {
         public DisbursementInstructionDeserializer() {
             this(DisbursementInstruction.class);
         }
@@ -71,8 +85,7 @@ public class DisbursementInstruction extends AbstractOpenApiSchema {
         }
 
         @Override
-        public DisbursementInstruction deserialize(JsonParser jp, DeserializationContext ctxt)
-                throws IOException, JsonProcessingException {
+        public DisbursementInstruction deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException, JsonProcessingException {
             JsonNode tree = jp.readValueAsTree();
             Object deserialized = null;
             boolean typeCoercion = ctxt.isEnabled(MapperFeature.ALLOW_COERCION_OF_SCALARS);
@@ -82,102 +95,52 @@ public class DisbursementInstruction extends AbstractOpenApiSchema {
             try {
                 boolean attemptParsing = true;
                 // ensure that we respect type coercion as set on the client ObjectMapper
-                if (DisbursementAmountInstruction.class.equals(Integer.class)
-                        || DisbursementAmountInstruction.class.equals(Long.class)
-                        || DisbursementAmountInstruction.class.equals(Float.class)
-                        || DisbursementAmountInstruction.class.equals(Double.class)
-                        || DisbursementAmountInstruction.class.equals(Boolean.class)
-                        || DisbursementAmountInstruction.class.equals(String.class)) {
+                if (DisbursementAmountInstruction.class.equals(Integer.class) || DisbursementAmountInstruction.class.equals(Long.class) || DisbursementAmountInstruction.class.equals(Float.class) || DisbursementAmountInstruction.class.equals(Double.class) || DisbursementAmountInstruction.class.equals(Boolean.class) || DisbursementAmountInstruction.class.equals(String.class)) {
                     attemptParsing = typeCoercion;
                     if (!attemptParsing) {
-                        attemptParsing |=
-                                ((DisbursementAmountInstruction.class.equals(Integer.class)
-                                                || DisbursementAmountInstruction.class.equals(
-                                                        Long.class))
-                                        && token == JsonToken.VALUE_NUMBER_INT);
-                        attemptParsing |=
-                                ((DisbursementAmountInstruction.class.equals(Float.class)
-                                                || DisbursementAmountInstruction.class.equals(
-                                                        Double.class))
-                                        && token == JsonToken.VALUE_NUMBER_FLOAT);
-                        attemptParsing |=
-                                (DisbursementAmountInstruction.class.equals(Boolean.class)
-                                        && (token == JsonToken.VALUE_FALSE
-                                                || token == JsonToken.VALUE_TRUE));
-                        attemptParsing |=
-                                (DisbursementAmountInstruction.class.equals(String.class)
-                                        && token == JsonToken.VALUE_STRING);
+                        attemptParsing |= ((DisbursementAmountInstruction.class.equals(Integer.class) || DisbursementAmountInstruction.class.equals(Long.class)) && token == JsonToken.VALUE_NUMBER_INT);
+                        attemptParsing |= ((DisbursementAmountInstruction.class.equals(Float.class) || DisbursementAmountInstruction.class.equals(Double.class)) && token == JsonToken.VALUE_NUMBER_FLOAT);
+                        attemptParsing |= (DisbursementAmountInstruction.class.equals(Boolean.class) && (token == JsonToken.VALUE_FALSE || token == JsonToken.VALUE_TRUE));
+                        attemptParsing |= (DisbursementAmountInstruction.class.equals(String.class) && token == JsonToken.VALUE_STRING);
                     }
                 }
                 if (attemptParsing) {
-                    deserialized =
-                            tree.traverse(jp.getCodec())
-                                    .readValueAs(DisbursementAmountInstruction.class);
+                    deserialized = tree.traverse(jp.getCodec()).readValueAs(DisbursementAmountInstruction.class);
                     // TODO: there is no validation against JSON schema constraints
                     // (min, max, enum, pattern...), this does not perform a strict JSON
                     // validation, which means the 'match' count may be higher than it should be.
                     match++;
-                    log.log(
-                            Level.FINER,
-                            "Input data matches schema 'DisbursementAmountInstruction'");
+                    log.log(Level.FINER, "Input data matches schema 'DisbursementAmountInstruction'");
                 }
             } catch (Exception e) {
                 // deserialization failed, continue
-                log.log(
-                        Level.FINER,
-                        "Input data does not match schema 'DisbursementAmountInstruction'",
-                        e);
+                log.log(Level.FINER, "Input data does not match schema 'DisbursementAmountInstruction'", e);
             }
 
             // deserialize DisbursementPercentageInstruction
             try {
                 boolean attemptParsing = true;
                 // ensure that we respect type coercion as set on the client ObjectMapper
-                if (DisbursementPercentageInstruction.class.equals(Integer.class)
-                        || DisbursementPercentageInstruction.class.equals(Long.class)
-                        || DisbursementPercentageInstruction.class.equals(Float.class)
-                        || DisbursementPercentageInstruction.class.equals(Double.class)
-                        || DisbursementPercentageInstruction.class.equals(Boolean.class)
-                        || DisbursementPercentageInstruction.class.equals(String.class)) {
+                if (DisbursementPercentageInstruction.class.equals(Integer.class) || DisbursementPercentageInstruction.class.equals(Long.class) || DisbursementPercentageInstruction.class.equals(Float.class) || DisbursementPercentageInstruction.class.equals(Double.class) || DisbursementPercentageInstruction.class.equals(Boolean.class) || DisbursementPercentageInstruction.class.equals(String.class)) {
                     attemptParsing = typeCoercion;
                     if (!attemptParsing) {
-                        attemptParsing |=
-                                ((DisbursementPercentageInstruction.class.equals(Integer.class)
-                                                || DisbursementPercentageInstruction.class.equals(
-                                                        Long.class))
-                                        && token == JsonToken.VALUE_NUMBER_INT);
-                        attemptParsing |=
-                                ((DisbursementPercentageInstruction.class.equals(Float.class)
-                                                || DisbursementPercentageInstruction.class.equals(
-                                                        Double.class))
-                                        && token == JsonToken.VALUE_NUMBER_FLOAT);
-                        attemptParsing |=
-                                (DisbursementPercentageInstruction.class.equals(Boolean.class)
-                                        && (token == JsonToken.VALUE_FALSE
-                                                || token == JsonToken.VALUE_TRUE));
-                        attemptParsing |=
-                                (DisbursementPercentageInstruction.class.equals(String.class)
-                                        && token == JsonToken.VALUE_STRING);
+                        attemptParsing |= ((DisbursementPercentageInstruction.class.equals(Integer.class) || DisbursementPercentageInstruction.class.equals(Long.class)) && token == JsonToken.VALUE_NUMBER_INT);
+                        attemptParsing |= ((DisbursementPercentageInstruction.class.equals(Float.class) || DisbursementPercentageInstruction.class.equals(Double.class)) && token == JsonToken.VALUE_NUMBER_FLOAT);
+                        attemptParsing |= (DisbursementPercentageInstruction.class.equals(Boolean.class) && (token == JsonToken.VALUE_FALSE || token == JsonToken.VALUE_TRUE));
+                        attemptParsing |= (DisbursementPercentageInstruction.class.equals(String.class) && token == JsonToken.VALUE_STRING);
                     }
                 }
                 if (attemptParsing) {
-                    deserialized =
-                            tree.traverse(jp.getCodec())
-                                    .readValueAs(DisbursementPercentageInstruction.class);
+                    deserialized = tree.traverse(jp.getCodec()).readValueAs(DisbursementPercentageInstruction.class);
                     // TODO: there is no validation against JSON schema constraints
                     // (min, max, enum, pattern...), this does not perform a strict JSON
                     // validation, which means the 'match' count may be higher than it should be.
                     match++;
-                    log.log(
-                            Level.FINER,
-                            "Input data matches schema 'DisbursementPercentageInstruction'");
+                    log.log(Level.FINER, "Input data matches schema 'DisbursementPercentageInstruction'");
                 }
             } catch (Exception e) {
                 // deserialization failed, continue
-                log.log(
-                        Level.FINER,
-                        "Input data does not match schema 'DisbursementPercentageInstruction'",
-                        e);
+                log.log(Level.FINER, "Input data does not match schema 'DisbursementPercentageInstruction'", e);
             }
 
             if (match == 1) {
@@ -185,19 +148,15 @@ public class DisbursementInstruction extends AbstractOpenApiSchema {
                 ret.setActualInstance(deserialized);
                 return ret;
             }
-            throw new IOException(
-                    String.format(
-                            "Failed deserialization for DisbursementInstruction: %d classes match"
-                                    + " result, expected 1",
-                            match));
+            throw new IOException(String.format("Failed deserialization for DisbursementInstruction: %d classes match result, expected 1", match));
         }
 
-        /** Handle deserialization of the 'null' value. */
+        /**
+         * Handle deserialization of the 'null' value.
+         */
         @Override
-        public DisbursementInstruction getNullValue(DeserializationContext ctxt)
-                throws JsonMappingException {
-            throw new JsonMappingException(
-                    ctxt.getParser(), "DisbursementInstruction cannot be null");
+        public DisbursementInstruction getNullValue(DeserializationContext ctxt) throws JsonMappingException {
+            throw new JsonMappingException(ctxt.getParser(), "DisbursementInstruction cannot be null");
         }
     }
 
@@ -221,8 +180,7 @@ public class DisbursementInstruction extends AbstractOpenApiSchema {
     static {
         schemas.put("DisbursementAmountInstruction", DisbursementAmountInstruction.class);
         schemas.put("DisbursementPercentageInstruction", DisbursementPercentageInstruction.class);
-        JSON.registerDescendants(
-                DisbursementInstruction.class, Collections.unmodifiableMap(schemas));
+        JSON.registerDescendants(DisbursementInstruction.class, Collections.unmodifiableMap(schemas));
     }
 
     @Override
@@ -231,38 +189,33 @@ public class DisbursementInstruction extends AbstractOpenApiSchema {
     }
 
     /**
-     * Set the instance that matches the oneOf child schema, check the instance parameter is valid
-     * against the oneOf child schemas: DisbursementAmountInstruction,
-     * DisbursementPercentageInstruction
+     * Set the instance that matches the oneOf child schema, check
+     * the instance parameter is valid against the oneOf child schemas:
+     * DisbursementAmountInstruction, DisbursementPercentageInstruction
      *
-     * <p>It could be an instance of the 'oneOf' schemas. The oneOf child schemas may themselves be
-     * a composed schema (allOf, anyOf, oneOf).
+     * It could be an instance of the 'oneOf' schemas.
+     * The oneOf child schemas may themselves be a composed schema (allOf, anyOf, oneOf).
      */
     @Override
     public void setActualInstance(Object instance) {
-        if (JSON.isInstanceOf(
-                DisbursementAmountInstruction.class, instance, new HashSet<Class<?>>())) {
+        if (JSON.isInstanceOf(DisbursementAmountInstruction.class, instance, new HashSet<Class<?>>())) {
             super.setActualInstance(instance);
             return;
         }
 
-        if (JSON.isInstanceOf(
-                DisbursementPercentageInstruction.class, instance, new HashSet<Class<?>>())) {
+        if (JSON.isInstanceOf(DisbursementPercentageInstruction.class, instance, new HashSet<Class<?>>())) {
             super.setActualInstance(instance);
             return;
         }
 
-        throw new RuntimeException(
-                "Invalid instance type. Must be DisbursementAmountInstruction,"
-                        + " DisbursementPercentageInstruction");
+        throw new RuntimeException("Invalid instance type. Must be DisbursementAmountInstruction, DisbursementPercentageInstruction");
     }
 
     /**
-     * Get the actual instance, which can be the following: DisbursementAmountInstruction,
-     * DisbursementPercentageInstruction
+     * Get the actual instance, which can be the following:
+     * DisbursementAmountInstruction, DisbursementPercentageInstruction
      *
-     * @return The actual instance (DisbursementAmountInstruction,
-     *     DisbursementPercentageInstruction)
+     * @return The actual instance (DisbursementAmountInstruction, DisbursementPercentageInstruction)
      */
     @Override
     public Object getActualInstance() {
@@ -270,77 +223,75 @@ public class DisbursementInstruction extends AbstractOpenApiSchema {
     }
 
     /**
-     * Get the actual instance of `DisbursementAmountInstruction`. If the actual instance is not
-     * `DisbursementAmountInstruction`, the ClassCastException will be thrown.
+     * Get the actual instance of `DisbursementAmountInstruction`. If the actual instance is not `DisbursementAmountInstruction`,
+     * the ClassCastException will be thrown.
      *
      * @return The actual instance of `DisbursementAmountInstruction`
      * @throws ClassCastException if the instance is not `DisbursementAmountInstruction`
      */
-    public DisbursementAmountInstruction getDisbursementAmountInstruction()
-            throws ClassCastException {
-        return (DisbursementAmountInstruction) super.getActualInstance();
+    public DisbursementAmountInstruction getDisbursementAmountInstruction() throws ClassCastException {
+        return (DisbursementAmountInstruction)super.getActualInstance();
     }
 
     /**
-     * Get the actual instance of `DisbursementPercentageInstruction`. If the actual instance is not
-     * `DisbursementPercentageInstruction`, the ClassCastException will be thrown.
+     * Get the actual instance of `DisbursementPercentageInstruction`. If the actual instance is not `DisbursementPercentageInstruction`,
+     * the ClassCastException will be thrown.
      *
      * @return The actual instance of `DisbursementPercentageInstruction`
      * @throws ClassCastException if the instance is not `DisbursementPercentageInstruction`
      */
-    public DisbursementPercentageInstruction getDisbursementPercentageInstruction()
-            throws ClassCastException {
-        return (DisbursementPercentageInstruction) super.getActualInstance();
+    public DisbursementPercentageInstruction getDisbursementPercentageInstruction() throws ClassCastException {
+        return (DisbursementPercentageInstruction)super.getActualInstance();
     }
 
-    /**
-     * Convert the instance into URL query string.
-     *
-     * @return URL query string
-     */
-    public String toUrlQueryString() {
-        return toUrlQueryString(null);
+
+
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @return URL query string
+   */
+  public String toUrlQueryString() {
+    return toUrlQueryString(null);
+  }
+
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @param prefix prefix of the query string
+   * @return URL query string
+   */
+  public String toUrlQueryString(String prefix) {
+    String suffix = "";
+    String containerSuffix = "";
+    String containerPrefix = "";
+    if (prefix == null) {
+      // style=form, explode=true, e.g. /pet?name=cat&type=manx
+      prefix = "";
+    } else {
+      // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
+      prefix = prefix + "[";
+      suffix = "]";
+      containerSuffix = "]";
+      containerPrefix = "[";
     }
 
-    /**
-     * Convert the instance into URL query string.
-     *
-     * @param prefix prefix of the query string
-     * @return URL query string
-     */
-    public String toUrlQueryString(String prefix) {
-        String suffix = "";
-        String containerSuffix = "";
-        String containerPrefix = "";
-        if (prefix == null) {
-            // style=form, explode=true, e.g. /pet?name=cat&type=manx
-            prefix = "";
-        } else {
-            // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
-            prefix = prefix + "[";
-            suffix = "]";
-            containerSuffix = "]";
-            containerPrefix = "[";
-        }
+    StringJoiner joiner = new StringJoiner("&");
 
-        StringJoiner joiner = new StringJoiner("&");
-
-        if (getActualInstance() instanceof DisbursementAmountInstruction) {
-            if (getActualInstance() != null) {
-                joiner.add(
-                        ((DisbursementAmountInstruction) getActualInstance())
-                                .toUrlQueryString(prefix + "one_of_0" + suffix));
-            }
-            return joiner.toString();
+    if (getActualInstance() instanceof DisbursementAmountInstruction) {
+        if (getActualInstance() != null) {
+          joiner.add(((DisbursementAmountInstruction)getActualInstance()).toUrlQueryString(prefix + "one_of_0" + suffix));
         }
-        if (getActualInstance() instanceof DisbursementPercentageInstruction) {
-            if (getActualInstance() != null) {
-                joiner.add(
-                        ((DisbursementPercentageInstruction) getActualInstance())
-                                .toUrlQueryString(prefix + "one_of_1" + suffix));
-            }
-            return joiner.toString();
-        }
-        return null;
+        return joiner.toString();
     }
+    if (getActualInstance() instanceof DisbursementPercentageInstruction) {
+        if (getActualInstance() != null) {
+          joiner.add(((DisbursementPercentageInstruction)getActualInstance()).toUrlQueryString(prefix + "one_of_1" + suffix));
+        }
+        return joiner.toString();
+    }
+    return null;
+  }
+
 }
+

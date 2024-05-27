@@ -12,7 +12,9 @@
 
 package com.fireblocks.sdk;
 
-/** Interface with which a configuration object can be configured. */
+/**
+* Interface with which a configuration object can be configured.
+*/
 public class ConfigurationOptions {
     private String apiKey;
     private String secretKey;

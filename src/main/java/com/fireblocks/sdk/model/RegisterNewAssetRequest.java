@@ -10,214 +10,213 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
-import java.util.Objects;
 import java.util.StringJoiner;
+import java.util.Objects;
+import java.util.Map;
+import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
-/** RegisterNewAssetRequest */
+
+/**
+ * RegisterNewAssetRequest
+ */
 @JsonPropertyOrder({
-    RegisterNewAssetRequest.JSON_PROPERTY_BLOCKCHAIN_ID,
-    RegisterNewAssetRequest.JSON_PROPERTY_ADDRESS,
-    RegisterNewAssetRequest.JSON_PROPERTY_SYMBOL
+  RegisterNewAssetRequest.JSON_PROPERTY_BLOCKCHAIN_ID,
+  RegisterNewAssetRequest.JSON_PROPERTY_ADDRESS,
+  RegisterNewAssetRequest.JSON_PROPERTY_SYMBOL
 })
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class RegisterNewAssetRequest {
-    public static final String JSON_PROPERTY_BLOCKCHAIN_ID = "blockchainId";
-    private String blockchainId;
+  public static final String JSON_PROPERTY_BLOCKCHAIN_ID = "blockchainId";
+  private String blockchainId;
 
-    public static final String JSON_PROPERTY_ADDRESS = "address";
-    private String address;
+  public static final String JSON_PROPERTY_ADDRESS = "address";
+  private String address;
 
-    public static final String JSON_PROPERTY_SYMBOL = "symbol";
-    private String symbol;
+  public static final String JSON_PROPERTY_SYMBOL = "symbol";
+  private String symbol;
 
-    public RegisterNewAssetRequest() {}
+  public RegisterNewAssetRequest() { 
+  }
 
-    public RegisterNewAssetRequest blockchainId(String blockchainId) {
-        this.blockchainId = blockchainId;
-        return this;
+  public RegisterNewAssetRequest blockchainId(String blockchainId) {
+    this.blockchainId = blockchainId;
+    return this;
+  }
+
+   /**
+   * Native asset of blockchain
+   * @return blockchainId
+  **/
+  @jakarta.annotation.Nonnull
+  @JsonProperty(JSON_PROPERTY_BLOCKCHAIN_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getBlockchainId() {
+    return blockchainId;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_BLOCKCHAIN_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setBlockchainId(String blockchainId) {
+    this.blockchainId = blockchainId;
+  }
+
+
+  public RegisterNewAssetRequest address(String address) {
+    this.address = address;
+    return this;
+  }
+
+   /**
+   * Asset address
+   * @return address
+  **/
+  @jakarta.annotation.Nonnull
+  @JsonProperty(JSON_PROPERTY_ADDRESS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getAddress() {
+    return address;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_ADDRESS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setAddress(String address) {
+    this.address = address;
+  }
+
+
+  public RegisterNewAssetRequest symbol(String symbol) {
+    this.symbol = symbol;
+    return this;
+  }
+
+   /**
+   * Asset symbol
+   * @return symbol
+  **/
+  @jakarta.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_SYMBOL)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getSymbol() {
+    return symbol;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_SYMBOL)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setSymbol(String symbol) {
+    this.symbol = symbol;
+  }
+
+
+  /**
+   * Return true if this RegisterNewAssetRequest object is equal to o.
+   */
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    RegisterNewAssetRequest registerNewAssetRequest = (RegisterNewAssetRequest) o;
+    return Objects.equals(this.blockchainId, registerNewAssetRequest.blockchainId) &&
+        Objects.equals(this.address, registerNewAssetRequest.address) &&
+        Objects.equals(this.symbol, registerNewAssetRequest.symbol);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(blockchainId, address, symbol);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class RegisterNewAssetRequest {\n");
+    sb.append("    blockchainId: ").append(toIndentedString(blockchainId)).append("\n");
+    sb.append("    address: ").append(toIndentedString(address)).append("\n");
+    sb.append("    symbol: ").append(toIndentedString(symbol)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @return URL query string
+   */
+  public String toUrlQueryString() {
+    return toUrlQueryString(null);
+  }
+
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @param prefix prefix of the query string
+   * @return URL query string
+   */
+  public String toUrlQueryString(String prefix) {
+    String suffix = "";
+    String containerSuffix = "";
+    String containerPrefix = "";
+    if (prefix == null) {
+      // style=form, explode=true, e.g. /pet?name=cat&type=manx
+      prefix = "";
+    } else {
+      // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
+      prefix = prefix + "[";
+      suffix = "]";
+      containerSuffix = "]";
+      containerPrefix = "[";
     }
 
-    /**
-     * Native asset of blockchain
-     *
-     * @return blockchainId
-     */
-    @jakarta.annotation.Nonnull
-    @JsonProperty(JSON_PROPERTY_BLOCKCHAIN_ID)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public String getBlockchainId() {
-        return blockchainId;
+    StringJoiner joiner = new StringJoiner("&");
+
+    // add `blockchainId` to the URL query string
+    if (getBlockchainId() != null) {
+      joiner.add(String.format("%sblockchainId%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getBlockchainId()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
     }
 
-    @JsonProperty(JSON_PROPERTY_BLOCKCHAIN_ID)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setBlockchainId(String blockchainId) {
-        this.blockchainId = blockchainId;
+    // add `address` to the URL query string
+    if (getAddress() != null) {
+      joiner.add(String.format("%saddress%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getAddress()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
     }
 
-    public RegisterNewAssetRequest address(String address) {
-        this.address = address;
-        return this;
+    // add `symbol` to the URL query string
+    if (getSymbol() != null) {
+      joiner.add(String.format("%ssymbol%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getSymbol()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
     }
 
-    /**
-     * Asset address
-     *
-     * @return address
-     */
-    @jakarta.annotation.Nonnull
-    @JsonProperty(JSON_PROPERTY_ADDRESS)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public String getAddress() {
-        return address;
-    }
-
-    @JsonProperty(JSON_PROPERTY_ADDRESS)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public RegisterNewAssetRequest symbol(String symbol) {
-        this.symbol = symbol;
-        return this;
-    }
-
-    /**
-     * Asset symbol
-     *
-     * @return symbol
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_SYMBOL)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public String getSymbol() {
-        return symbol;
-    }
-
-    @JsonProperty(JSON_PROPERTY_SYMBOL)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setSymbol(String symbol) {
-        this.symbol = symbol;
-    }
-
-    /** Return true if this RegisterNewAssetRequest object is equal to o. */
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        RegisterNewAssetRequest registerNewAssetRequest = (RegisterNewAssetRequest) o;
-        return Objects.equals(this.blockchainId, registerNewAssetRequest.blockchainId)
-                && Objects.equals(this.address, registerNewAssetRequest.address)
-                && Objects.equals(this.symbol, registerNewAssetRequest.symbol);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(blockchainId, address, symbol);
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("class RegisterNewAssetRequest {\n");
-        sb.append("    blockchainId: ").append(toIndentedString(blockchainId)).append("\n");
-        sb.append("    address: ").append(toIndentedString(address)).append("\n");
-        sb.append("    symbol: ").append(toIndentedString(symbol)).append("\n");
-        sb.append("}");
-        return sb.toString();
-    }
-
-    /**
-     * Convert the given object to string with each line indented by 4 spaces (except the first
-     * line).
-     */
-    private String toIndentedString(Object o) {
-        if (o == null) {
-            return "null";
-        }
-        return o.toString().replace("\n", "\n    ");
-    }
-
-    /**
-     * Convert the instance into URL query string.
-     *
-     * @return URL query string
-     */
-    public String toUrlQueryString() {
-        return toUrlQueryString(null);
-    }
-
-    /**
-     * Convert the instance into URL query string.
-     *
-     * @param prefix prefix of the query string
-     * @return URL query string
-     */
-    public String toUrlQueryString(String prefix) {
-        String suffix = "";
-        String containerSuffix = "";
-        String containerPrefix = "";
-        if (prefix == null) {
-            // style=form, explode=true, e.g. /pet?name=cat&type=manx
-            prefix = "";
-        } else {
-            // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
-            prefix = prefix + "[";
-            suffix = "]";
-            containerSuffix = "]";
-            containerPrefix = "[";
-        }
-
-        StringJoiner joiner = new StringJoiner("&");
-
-        // add `blockchainId` to the URL query string
-        if (getBlockchainId() != null) {
-            joiner.add(
-                    String.format(
-                            "%sblockchainId%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getBlockchainId()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
-        // add `address` to the URL query string
-        if (getAddress() != null) {
-            joiner.add(
-                    String.format(
-                            "%saddress%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(String.valueOf(getAddress()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
-        // add `symbol` to the URL query string
-        if (getSymbol() != null) {
-            joiner.add(
-                    String.format(
-                            "%ssymbol%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(String.valueOf(getSymbol()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
-        return joiner.toString();
-    }
+    return joiner.toString();
+  }
 }
+

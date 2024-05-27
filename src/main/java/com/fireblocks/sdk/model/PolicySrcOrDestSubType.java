@@ -10,67 +10,75 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
+
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.StringJoiner;
+import java.util.Objects;
+import java.util.Map;
+import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 /**
- * * EXTERNAL - A whitelisted wallet assigned as external is typically used for addresses managed by
- * your clients and counterparties * INTERNAL - A whitelisted wallet assigned as internal, is
- * typically used for addresses that you control outside of your Fireblocks workspace * CONTRACT - A
- * whitelisted wallet assigned as contract is for identifying and managing external smart contracts
- * * EXCHANGETEST - Exchanges which operate only on testnet assets * \&quot;*\&quot; - All subtypes
+ * * EXTERNAL - A whitelisted wallet assigned as external is typically used for addresses managed by your clients and counterparties * INTERNAL - A whitelisted wallet assigned as internal, is typically used for addresses that you control outside of your Fireblocks workspace * CONTRACT - A whitelisted wallet assigned as contract is for identifying and managing external smart contracts * EXCHANGETEST - Exchanges which operate only on testnet assets * \&quot;*\&quot; - All subtypes 
  */
 public enum PolicySrcOrDestSubType {
-    EXTERNAL("EXTERNAL"),
+  
+  EXTERNAL("EXTERNAL"),
+  
+  INTERNAL("INTERNAL"),
+  
+  CONTRACT("CONTRACT"),
+  
+  EXCHANGETEST("EXCHANGETEST"),
+  
+  STAR("*");
 
-    INTERNAL("INTERNAL"),
+  private String value;
 
-    CONTRACT("CONTRACT"),
+  PolicySrcOrDestSubType(String value) {
+    this.value = value;
+  }
 
-    EXCHANGETEST("EXCHANGETEST"),
+  @JsonValue
+  public String getValue() {
+    return value;
+  }
 
-    STAR("*");
+  @Override
+  public String toString() {
+    return String.valueOf(value);
+  }
 
-    private String value;
+  @JsonCreator
+  public static PolicySrcOrDestSubType fromValue(String value) {
+    for (PolicySrcOrDestSubType b : PolicySrcOrDestSubType.values()) {
+      if (b.value.equals(value)) {
+        return b;
+      }
+    }
+    throw new IllegalArgumentException("Unexpected value '" + value + "'");
+  }
 
-    PolicySrcOrDestSubType(String value) {
-        this.value = value;
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @param prefix prefix of the query string
+   * @return URL query string
+   */
+  public String toUrlQueryString(String prefix) {
+    if (prefix == null) {
+      prefix = "";
     }
 
-    @JsonValue
-    public String getValue() {
-        return value;
-    }
+    return String.format("%s=%s", prefix, this.toString());
+  }
 
-    @Override
-    public String toString() {
-        return String.valueOf(value);
-    }
-
-    @JsonCreator
-    public static PolicySrcOrDestSubType fromValue(String value) {
-        for (PolicySrcOrDestSubType b : PolicySrcOrDestSubType.values()) {
-            if (b.value.equals(value)) {
-                return b;
-            }
-        }
-        throw new IllegalArgumentException("Unexpected value '" + value + "'");
-    }
-
-    /**
-     * Convert the instance into URL query string.
-     *
-     * @param prefix prefix of the query string
-     * @return URL query string
-     */
-    public String toUrlQueryString(String prefix) {
-        if (prefix == null) {
-            prefix = "";
-        }
-
-        return String.format("%s=%s", prefix, this.toString());
-    }
 }
+

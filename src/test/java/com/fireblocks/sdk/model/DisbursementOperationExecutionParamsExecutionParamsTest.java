@@ -10,37 +10,59 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.fireblocks.sdk.model.Account;
+import com.fireblocks.sdk.model.DisbursementInstruction;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
-/** Model tests for DisbursementOperationExecutionParamsExecutionParams */
+/**
+ * Model tests for DisbursementOperationExecutionParamsExecutionParams
+ */
 public class DisbursementOperationExecutionParamsExecutionParamsTest {
-    private final DisbursementOperationExecutionParamsExecutionParams model =
-            new DisbursementOperationExecutionParamsExecutionParams();
+    private final DisbursementOperationExecutionParamsExecutionParams model = new DisbursementOperationExecutionParamsExecutionParams();
 
-    /** Model tests for DisbursementOperationExecutionParamsExecutionParams */
+    /**
+     * Model tests for DisbursementOperationExecutionParamsExecutionParams
+     */
     @Test
     public void testDisbursementOperationExecutionParamsExecutionParams() {
         // TODO: test DisbursementOperationExecutionParamsExecutionParams
     }
 
-    /** Test the property 'amount' */
+    /**
+     * Test the property 'amount'
+     */
     @Test
     public void amountTest() {
         // TODO: test amount
     }
 
-    /** Test the property 'paymentAccount' */
+    /**
+     * Test the property 'paymentAccount'
+     */
     @Test
     public void paymentAccountTest() {
         // TODO: test paymentAccount
     }
 
-    /** Test the property 'instructionSet' */
+    /**
+     * Test the property 'instructionSet'
+     */
     @Test
     public void instructionSetTest() {
         // TODO: test instructionSet
     }
+
 }

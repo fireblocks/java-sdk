@@ -10,48 +10,76 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.fireblocks.sdk.model.EVMTokenCreateParamsDto;
+import com.fireblocks.sdk.model.ParameterWithValue;
+import com.fireblocks.sdk.model.StellarRippleCreateParamsDto;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
-/** Model tests for CreateTokenRequestDtoCreateParams */
+/**
+ * Model tests for CreateTokenRequestDtoCreateParams
+ */
 public class CreateTokenRequestDtoCreateParamsTest {
     private final CreateTokenRequestDtoCreateParams model = new CreateTokenRequestDtoCreateParams();
 
-    /** Model tests for CreateTokenRequestDtoCreateParams */
+    /**
+     * Model tests for CreateTokenRequestDtoCreateParams
+     */
     @Test
     public void testCreateTokenRequestDtoCreateParams() {
         // TODO: test CreateTokenRequestDtoCreateParams
     }
 
-    /** Test the property 'contractId' */
+    /**
+     * Test the property 'contractId'
+     */
     @Test
     public void contractIdTest() {
         // TODO: test contractId
     }
 
-    /** Test the property 'constructorParams' */
+    /**
+     * Test the property 'constructorParams'
+     */
     @Test
     public void constructorParamsTest() {
         // TODO: test constructorParams
     }
 
-    /** Test the property 'symbol' */
+    /**
+     * Test the property 'symbol'
+     */
     @Test
     public void symbolTest() {
         // TODO: test symbol
     }
 
-    /** Test the property 'name' */
+    /**
+     * Test the property 'name'
+     */
     @Test
     public void nameTest() {
         // TODO: test name
     }
 
-    /** Test the property 'issuerAddress' */
+    /**
+     * Test the property 'issuerAddress'
+     */
     @Test
     public void issuerAddressTest() {
         // TODO: test issuerAddress
     }
+
 }

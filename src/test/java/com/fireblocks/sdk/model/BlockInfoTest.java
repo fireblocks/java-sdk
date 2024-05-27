@@ -10,30 +10,47 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.Arrays;
+import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
-/** Model tests for BlockInfo */
+/**
+ * Model tests for BlockInfo
+ */
 public class BlockInfoTest {
     private final BlockInfo model = new BlockInfo();
 
-    /** Model tests for BlockInfo */
+    /**
+     * Model tests for BlockInfo
+     */
     @Test
     public void testBlockInfo() {
         // TODO: test BlockInfo
     }
 
-    /** Test the property 'blockHeight' */
+    /**
+     * Test the property 'blockHeight'
+     */
     @Test
     public void blockHeightTest() {
         // TODO: test blockHeight
     }
 
-    /** Test the property 'blockHash' */
+    /**
+     * Test the property 'blockHash'
+     */
     @Test
     public void blockHashTest() {
         // TODO: test blockHash
     }
+
 }

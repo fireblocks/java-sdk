@@ -12,482 +12,449 @@
 
 package com.fireblocks.sdk.api;
 
-
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.Pair;
+
+import com.fireblocks.sdk.model.ErrorSchema;
 import com.fireblocks.sdk.model.Job;
 import com.fireblocks.sdk.model.Task;
-import java.io.IOException;
+
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import java.io.InputStream;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.net.http.HttpRequest;
+import java.nio.channels.Channels;
+import java.nio.channels.Pipe;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.time.Duration;
+
 import java.util.ArrayList;
-import java.util.List;
 import java.util.StringJoiner;
-import java.util.concurrent.CompletableFuture;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.function.Consumer;
+
+import java.util.concurrent.CompletableFuture;
 
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class JobManagementApi {
-    private final HttpClient memberVarHttpClient;
-    private final ObjectMapper memberVarObjectMapper;
-    private final String memberVarBaseUri;
-    private final Consumer<HttpRequest.Builder> memberVarInterceptor;
-    private final Duration memberVarReadTimeout;
-    private final Consumer<HttpResponse<InputStream>> memberVarResponseInterceptor;
-    private final Consumer<HttpResponse<String>> memberVarAsyncResponseInterceptor;
+  private final HttpClient memberVarHttpClient;
+  private final ObjectMapper memberVarObjectMapper;
+  private final String memberVarBaseUri;
+  private final Consumer<HttpRequest.Builder> memberVarInterceptor;
+  private final Duration memberVarReadTimeout;
+  private final Consumer<HttpResponse<InputStream>> memberVarResponseInterceptor;
+  private final Consumer<HttpResponse<String>> memberVarAsyncResponseInterceptor;
 
-    public JobManagementApi() {
-        this(new ApiClient());
+  public JobManagementApi() {
+    this(new ApiClient());
+  }
+
+  public JobManagementApi(ApiClient apiClient) {
+    memberVarHttpClient = apiClient.getHttpClient();
+    memberVarObjectMapper = apiClient.getObjectMapper();
+    memberVarBaseUri = apiClient.getBaseUri();
+    memberVarInterceptor = apiClient.getRequestInterceptor();
+    memberVarReadTimeout = apiClient.getReadTimeout();
+    memberVarResponseInterceptor = apiClient.getResponseInterceptor();
+    memberVarAsyncResponseInterceptor = apiClient.getAsyncResponseInterceptor();
+  }
+
+  private ApiException getApiException(String operationId, HttpResponse<String> response) {
+    String message = formatExceptionMessage(operationId, response.statusCode(), response.body());
+    return new ApiException(response.statusCode(), message, response.headers(), response.body());
+  }
+
+  private String formatExceptionMessage(String operationId, int statusCode, String body) {
+    if (body == null || body.isEmpty()) {
+      body = "[no body]";
     }
+    return operationId + " call failed with: " + statusCode + " - " + body;
+  }
 
-    public JobManagementApi(ApiClient apiClient) {
-        memberVarHttpClient = apiClient.getHttpClient();
-        memberVarObjectMapper = apiClient.getObjectMapper();
-        memberVarBaseUri = apiClient.getBaseUri();
-        memberVarInterceptor = apiClient.getRequestInterceptor();
-        memberVarReadTimeout = apiClient.getReadTimeout();
-        memberVarResponseInterceptor = apiClient.getResponseInterceptor();
-        memberVarAsyncResponseInterceptor = apiClient.getAsyncResponseInterceptor();
-    }
-
-    private ApiException getApiException(String operationId, HttpResponse<String> response) {
-        String message =
-                formatExceptionMessage(operationId, response.statusCode(), response.body());
-        return new ApiException(
-                response.statusCode(), message, response.headers(), response.body());
-    }
-
-    private String formatExceptionMessage(String operationId, int statusCode, String body) {
-        if (body == null || body.isEmpty()) {
-            body = "[no body]";
-        }
-        return operationId + " call failed with: " + statusCode + " - " + body;
-    }
-
-    /**
-     * Cancel a running job Stop the given job immediately. If the job is in the ‘Active’ state, the
-     * job will be canceled after completing the current task. Vault accounts and Wallets that are
-     * already created will not be affected.
-     *
-     * @param jobId The requested job id (required)
-     * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
-     *     times with the same idempotency key, the server will return the same response as the
-     *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;Void&gt;&gt;
-     * @throws ApiException if fails to make API call
-     */
-    public CompletableFuture<ApiResponse<Void>> cancelJob(String jobId, String idempotencyKey)
-            throws ApiException {
-        try {
-            HttpRequest.Builder localVarRequestBuilder =
-                    cancelJobRequestBuilder(jobId, idempotencyKey);
-            return memberVarHttpClient
-                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
-                    .thenComposeAsync(
-                            localVarResponse -> {
-                                if (memberVarAsyncResponseInterceptor != null) {
-                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
-                                }
-                                if (localVarResponse.statusCode() / 100 != 2) {
-                                    return CompletableFuture.failedFuture(
-                                            getApiException("cancelJob", localVarResponse));
-                                }
-                                return CompletableFuture.completedFuture(
-                                        new ApiResponse<Void>(
-                                                localVarResponse.statusCode(),
-                                                localVarResponse.headers().map(),
-                                                null));
-                            });
-        } catch (ApiException e) {
-            return CompletableFuture.failedFuture(e);
-        }
-    }
-
-    private HttpRequest.Builder cancelJobRequestBuilder(String jobId, String idempotencyKey)
-            throws ApiException {
-        // verify the required parameter 'jobId' is set
-        if (jobId == null) {
-            throw new ApiException(
-                    400, "Missing the required parameter 'jobId' when calling cancelJob");
-        }
-
-        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
-
-        String localVarPath =
-                "/batch/{jobId}/cancel".replace("{jobId}", ApiClient.urlEncode(jobId.toString()));
-
-        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
-
-        if (idempotencyKey != null) {
-            localVarRequestBuilder.header("Idempotency-Key", idempotencyKey.toString());
-        }
-        localVarRequestBuilder.header("Accept", "application/json");
-
-        localVarRequestBuilder.method("POST", HttpRequest.BodyPublishers.noBody());
-        if (memberVarReadTimeout != null) {
-            localVarRequestBuilder.timeout(memberVarReadTimeout);
-        }
-        if (memberVarInterceptor != null) {
-            memberVarInterceptor.accept(localVarRequestBuilder);
-        }
-        return localVarRequestBuilder;
-    }
-    /**
-     * Continue a paused job Continue the given paused job.
-     *
-     * @param jobId The requested job id (required)
-     * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
-     *     times with the same idempotency key, the server will return the same response as the
-     *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;Void&gt;&gt;
-     * @throws ApiException if fails to make API call
-     */
-    public CompletableFuture<ApiResponse<Void>> continueJob(String jobId, String idempotencyKey)
-            throws ApiException {
-        try {
-            HttpRequest.Builder localVarRequestBuilder =
-                    continueJobRequestBuilder(jobId, idempotencyKey);
-            return memberVarHttpClient
-                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
-                    .thenComposeAsync(
-                            localVarResponse -> {
-                                if (memberVarAsyncResponseInterceptor != null) {
-                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
-                                }
-                                if (localVarResponse.statusCode() / 100 != 2) {
-                                    return CompletableFuture.failedFuture(
-                                            getApiException("continueJob", localVarResponse));
-                                }
-                                return CompletableFuture.completedFuture(
-                                        new ApiResponse<Void>(
-                                                localVarResponse.statusCode(),
-                                                localVarResponse.headers().map(),
-                                                null));
-                            });
-        } catch (ApiException e) {
-            return CompletableFuture.failedFuture(e);
-        }
-    }
-
-    private HttpRequest.Builder continueJobRequestBuilder(String jobId, String idempotencyKey)
-            throws ApiException {
-        // verify the required parameter 'jobId' is set
-        if (jobId == null) {
-            throw new ApiException(
-                    400, "Missing the required parameter 'jobId' when calling continueJob");
-        }
-
-        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
-
-        String localVarPath =
-                "/batch/{jobId}/continue".replace("{jobId}", ApiClient.urlEncode(jobId.toString()));
-
-        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
-
-        if (idempotencyKey != null) {
-            localVarRequestBuilder.header("Idempotency-Key", idempotencyKey.toString());
-        }
-        localVarRequestBuilder.header("Accept", "application/json");
-
-        localVarRequestBuilder.method("POST", HttpRequest.BodyPublishers.noBody());
-        if (memberVarReadTimeout != null) {
-            localVarRequestBuilder.timeout(memberVarReadTimeout);
-        }
-        if (memberVarInterceptor != null) {
-            memberVarInterceptor.accept(localVarRequestBuilder);
-        }
-        return localVarRequestBuilder;
-    }
-    /**
-     * Get job details Get an object describing the given job
-     *
-     * @param jobId The requested job id (required)
-     * @return CompletableFuture&lt;ApiResponse&lt;Job&gt;&gt;
-     * @throws ApiException if fails to make API call
-     */
-    public CompletableFuture<ApiResponse<Job>> getJob(String jobId) throws ApiException {
-        try {
-            HttpRequest.Builder localVarRequestBuilder = getJobRequestBuilder(jobId);
-            return memberVarHttpClient
-                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
-                    .thenComposeAsync(
-                            localVarResponse -> {
-                                if (memberVarAsyncResponseInterceptor != null) {
-                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
-                                }
-                                if (localVarResponse.statusCode() / 100 != 2) {
-                                    return CompletableFuture.failedFuture(
-                                            getApiException("getJob", localVarResponse));
-                                }
-                                try {
-                                    String responseBody = localVarResponse.body();
-                                    return CompletableFuture.completedFuture(
-                                            new ApiResponse<Job>(
-                                                    localVarResponse.statusCode(),
-                                                    localVarResponse.headers().map(),
-                                                    responseBody == null || responseBody.isBlank()
-                                                            ? null
-                                                            : memberVarObjectMapper.readValue(
-                                                                    responseBody,
-                                                                    new TypeReference<Job>() {})));
-                                } catch (IOException e) {
-                                    return CompletableFuture.failedFuture(new ApiException(e));
-                                }
-                            });
-        } catch (ApiException e) {
-            return CompletableFuture.failedFuture(e);
-        }
-    }
-
-    private HttpRequest.Builder getJobRequestBuilder(String jobId) throws ApiException {
-        // verify the required parameter 'jobId' is set
-        if (jobId == null) {
-            throw new ApiException(
-                    400, "Missing the required parameter 'jobId' when calling getJob");
-        }
-
-        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
-
-        String localVarPath =
-                "/batch/{jobId}".replace("{jobId}", ApiClient.urlEncode(jobId.toString()));
-
-        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
-
-        localVarRequestBuilder.header("Accept", "application/json");
-
-        localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
-        if (memberVarReadTimeout != null) {
-            localVarRequestBuilder.timeout(memberVarReadTimeout);
-        }
-        if (memberVarInterceptor != null) {
-            memberVarInterceptor.accept(localVarRequestBuilder);
-        }
-        return localVarRequestBuilder;
-    }
-    /**
-     * Return a list of tasks for given job Return a list of tasks for given job
-     *
-     * @param jobId The requested job id (required)
-     * @return CompletableFuture&lt;ApiResponse&lt;List&lt;Task&gt;&gt;&gt;
-     * @throws ApiException if fails to make API call
-     */
-    public CompletableFuture<ApiResponse<List<Task>>> getJobTasks(String jobId)
-            throws ApiException {
-        try {
-            HttpRequest.Builder localVarRequestBuilder = getJobTasksRequestBuilder(jobId);
-            return memberVarHttpClient
-                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
-                    .thenComposeAsync(
-                            localVarResponse -> {
-                                if (memberVarAsyncResponseInterceptor != null) {
-                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
-                                }
-                                if (localVarResponse.statusCode() / 100 != 2) {
-                                    return CompletableFuture.failedFuture(
-                                            getApiException("getJobTasks", localVarResponse));
-                                }
-                                try {
-                                    String responseBody = localVarResponse.body();
-                                    return CompletableFuture.completedFuture(
-                                            new ApiResponse<List<Task>>(
-                                                    localVarResponse.statusCode(),
-                                                    localVarResponse.headers().map(),
-                                                    responseBody == null || responseBody.isBlank()
-                                                            ? null
-                                                            : memberVarObjectMapper.readValue(
-                                                                    responseBody,
-                                                                    new TypeReference<
-                                                                            List<Task>>() {})));
-                                } catch (IOException e) {
-                                    return CompletableFuture.failedFuture(new ApiException(e));
-                                }
-                            });
-        } catch (ApiException e) {
-            return CompletableFuture.failedFuture(e);
-        }
-    }
-
-    private HttpRequest.Builder getJobTasksRequestBuilder(String jobId) throws ApiException {
-        // verify the required parameter 'jobId' is set
-        if (jobId == null) {
-            throw new ApiException(
-                    400, "Missing the required parameter 'jobId' when calling getJobTasks");
-        }
-
-        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
-
-        String localVarPath =
-                "/batch/{jobId}/tasks".replace("{jobId}", ApiClient.urlEncode(jobId.toString()));
-
-        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
-
-        localVarRequestBuilder.header("Accept", "application/json");
-
-        localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
-        if (memberVarReadTimeout != null) {
-            localVarRequestBuilder.timeout(memberVarReadTimeout);
-        }
-        if (memberVarInterceptor != null) {
-            memberVarInterceptor.accept(localVarRequestBuilder);
-        }
-        return localVarRequestBuilder;
-    }
-    /**
-     * Return a list of jobs belonging to tenant Get an array of objects including all active,
-     * paused, canceled, and complete jobs in a workspace.
-     *
-     * @param fromTime Start of time range in ms since 1970 (optional)
-     * @param toTime End of time range in ms since 1970 (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;List&lt;Job&gt;&gt;&gt;
-     * @throws ApiException if fails to make API call
-     */
-    public CompletableFuture<ApiResponse<List<Job>>> getJobs(Integer fromTime, Integer toTime)
-            throws ApiException {
-        try {
-            HttpRequest.Builder localVarRequestBuilder = getJobsRequestBuilder(fromTime, toTime);
-            return memberVarHttpClient
-                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
-                    .thenComposeAsync(
-                            localVarResponse -> {
-                                if (memberVarAsyncResponseInterceptor != null) {
-                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
-                                }
-                                if (localVarResponse.statusCode() / 100 != 2) {
-                                    return CompletableFuture.failedFuture(
-                                            getApiException("getJobs", localVarResponse));
-                                }
-                                try {
-                                    String responseBody = localVarResponse.body();
-                                    return CompletableFuture.completedFuture(
-                                            new ApiResponse<List<Job>>(
-                                                    localVarResponse.statusCode(),
-                                                    localVarResponse.headers().map(),
-                                                    responseBody == null || responseBody.isBlank()
-                                                            ? null
-                                                            : memberVarObjectMapper.readValue(
-                                                                    responseBody,
-                                                                    new TypeReference<
-                                                                            List<Job>>() {})));
-                                } catch (IOException e) {
-                                    return CompletableFuture.failedFuture(new ApiException(e));
-                                }
-                            });
-        } catch (ApiException e) {
-            return CompletableFuture.failedFuture(e);
-        }
-    }
-
-    private HttpRequest.Builder getJobsRequestBuilder(Integer fromTime, Integer toTime)
-            throws ApiException {
-
-        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
-
-        String localVarPath = "/batch/jobs";
-
-        List<Pair> localVarQueryParams = new ArrayList<>();
-        StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
-        String localVarQueryParameterBaseName;
-        localVarQueryParameterBaseName = "fromTime";
-        localVarQueryParams.addAll(ApiClient.parameterToPairs("fromTime", fromTime));
-        localVarQueryParameterBaseName = "toTime";
-        localVarQueryParams.addAll(ApiClient.parameterToPairs("toTime", toTime));
-
-        if (!localVarQueryParams.isEmpty() || localVarQueryStringJoiner.length() != 0) {
-            StringJoiner queryJoiner = new StringJoiner("&");
-            localVarQueryParams.forEach(p -> queryJoiner.add(p.getName() + '=' + p.getValue()));
-            if (localVarQueryStringJoiner.length() != 0) {
-                queryJoiner.add(localVarQueryStringJoiner.toString());
+  /**
+   * Cancel a running job
+   * Stop the given job immediately. If the job is in the ‘Active’ state, the job will be canceled after completing the current task. Vault accounts and Wallets that are already created will not be affected.
+   * @param jobId The requested job id (required)
+   * @param idempotencyKey A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
+   * @return CompletableFuture&lt;ApiResponse&lt;Void&gt;&gt;
+   * @throws ApiException if fails to make API call
+   */
+  public CompletableFuture<ApiResponse<Void>> cancelJob(String jobId, String idempotencyKey) throws ApiException {
+    try {
+      HttpRequest.Builder localVarRequestBuilder = cancelJobRequestBuilder(jobId, idempotencyKey);
+      return memberVarHttpClient.sendAsync(
+          localVarRequestBuilder.build(),
+          HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
+            if (memberVarAsyncResponseInterceptor != null) {
+              memberVarAsyncResponseInterceptor.accept(localVarResponse);
             }
-            localVarRequestBuilder.uri(
-                    URI.create(memberVarBaseUri + localVarPath + '?' + queryJoiner.toString()));
-        } else {
-            localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+            if (localVarResponse.statusCode()/ 100 != 2) {
+              return CompletableFuture.failedFuture(getApiException("cancelJob", localVarResponse));
+            }
+            return CompletableFuture.completedFuture(
+                new ApiResponse<Void>(localVarResponse.statusCode(), localVarResponse.headers().map(), null)
+            );
         }
-
-        localVarRequestBuilder.header("Accept", "application/json");
-
-        localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
-        if (memberVarReadTimeout != null) {
-            localVarRequestBuilder.timeout(memberVarReadTimeout);
-        }
-        if (memberVarInterceptor != null) {
-            memberVarInterceptor.accept(localVarRequestBuilder);
-        }
-        return localVarRequestBuilder;
+      );
     }
-    /**
-     * Pause a job Pause the given job, after the current task is done. A paused job can later be
-     * resumed by calling ‘continue’, or canceled.
-     *
-     * @param jobId The requested job id (required)
-     * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
-     *     times with the same idempotency key, the server will return the same response as the
-     *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;Void&gt;&gt;
-     * @throws ApiException if fails to make API call
-     */
-    public CompletableFuture<ApiResponse<Void>> pauseJob(String jobId, String idempotencyKey)
-            throws ApiException {
-        try {
-            HttpRequest.Builder localVarRequestBuilder =
-                    pauseJobRequestBuilder(jobId, idempotencyKey);
-            return memberVarHttpClient
-                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
-                    .thenComposeAsync(
-                            localVarResponse -> {
-                                if (memberVarAsyncResponseInterceptor != null) {
-                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
-                                }
-                                if (localVarResponse.statusCode() / 100 != 2) {
-                                    return CompletableFuture.failedFuture(
-                                            getApiException("pauseJob", localVarResponse));
-                                }
-                                return CompletableFuture.completedFuture(
-                                        new ApiResponse<Void>(
-                                                localVarResponse.statusCode(),
-                                                localVarResponse.headers().map(),
-                                                null));
-                            });
-        } catch (ApiException e) {
-            return CompletableFuture.failedFuture(e);
-        }
+    catch (ApiException e) {
+      return CompletableFuture.failedFuture(e);
+    }
+  }
+
+  private HttpRequest.Builder cancelJobRequestBuilder(String jobId, String idempotencyKey) throws ApiException {
+    // verify the required parameter 'jobId' is set
+    if (jobId == null) {
+      throw new ApiException(400, "Missing the required parameter 'jobId' when calling cancelJob");
     }
 
-    private HttpRequest.Builder pauseJobRequestBuilder(String jobId, String idempotencyKey)
-            throws ApiException {
-        // verify the required parameter 'jobId' is set
-        if (jobId == null) {
-            throw new ApiException(
-                    400, "Missing the required parameter 'jobId' when calling pauseJob");
-        }
+    HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
-        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+    String localVarPath = "/batch/{jobId}/cancel"
+        .replace("{jobId}", ApiClient.urlEncode(jobId.toString()));
 
-        String localVarPath =
-                "/batch/{jobId}/pause".replace("{jobId}", ApiClient.urlEncode(jobId.toString()));
+    localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
 
-        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
-
-        if (idempotencyKey != null) {
-            localVarRequestBuilder.header("Idempotency-Key", idempotencyKey.toString());
-        }
-        localVarRequestBuilder.header("Accept", "application/json");
-
-        localVarRequestBuilder.method("POST", HttpRequest.BodyPublishers.noBody());
-        if (memberVarReadTimeout != null) {
-            localVarRequestBuilder.timeout(memberVarReadTimeout);
-        }
-        if (memberVarInterceptor != null) {
-            memberVarInterceptor.accept(localVarRequestBuilder);
-        }
-        return localVarRequestBuilder;
+    if (idempotencyKey != null) {
+      localVarRequestBuilder.header("Idempotency-Key", idempotencyKey.toString());
     }
+    localVarRequestBuilder.header("Accept", "application/json");
+
+    localVarRequestBuilder.method("POST", HttpRequest.BodyPublishers.noBody());
+    if (memberVarReadTimeout != null) {
+      localVarRequestBuilder.timeout(memberVarReadTimeout);
+    }
+    if (memberVarInterceptor != null) {
+      memberVarInterceptor.accept(localVarRequestBuilder);
+    }
+    return localVarRequestBuilder;
+  }
+  /**
+   * Continue a paused job
+   * Continue the given paused job.
+   * @param jobId The requested job id (required)
+   * @param idempotencyKey A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
+   * @return CompletableFuture&lt;ApiResponse&lt;Void&gt;&gt;
+   * @throws ApiException if fails to make API call
+   */
+  public CompletableFuture<ApiResponse<Void>> continueJob(String jobId, String idempotencyKey) throws ApiException {
+    try {
+      HttpRequest.Builder localVarRequestBuilder = continueJobRequestBuilder(jobId, idempotencyKey);
+      return memberVarHttpClient.sendAsync(
+          localVarRequestBuilder.build(),
+          HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
+            if (memberVarAsyncResponseInterceptor != null) {
+              memberVarAsyncResponseInterceptor.accept(localVarResponse);
+            }
+            if (localVarResponse.statusCode()/ 100 != 2) {
+              return CompletableFuture.failedFuture(getApiException("continueJob", localVarResponse));
+            }
+            return CompletableFuture.completedFuture(
+                new ApiResponse<Void>(localVarResponse.statusCode(), localVarResponse.headers().map(), null)
+            );
+        }
+      );
+    }
+    catch (ApiException e) {
+      return CompletableFuture.failedFuture(e);
+    }
+  }
+
+  private HttpRequest.Builder continueJobRequestBuilder(String jobId, String idempotencyKey) throws ApiException {
+    // verify the required parameter 'jobId' is set
+    if (jobId == null) {
+      throw new ApiException(400, "Missing the required parameter 'jobId' when calling continueJob");
+    }
+
+    HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+    String localVarPath = "/batch/{jobId}/continue"
+        .replace("{jobId}", ApiClient.urlEncode(jobId.toString()));
+
+    localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+    if (idempotencyKey != null) {
+      localVarRequestBuilder.header("Idempotency-Key", idempotencyKey.toString());
+    }
+    localVarRequestBuilder.header("Accept", "application/json");
+
+    localVarRequestBuilder.method("POST", HttpRequest.BodyPublishers.noBody());
+    if (memberVarReadTimeout != null) {
+      localVarRequestBuilder.timeout(memberVarReadTimeout);
+    }
+    if (memberVarInterceptor != null) {
+      memberVarInterceptor.accept(localVarRequestBuilder);
+    }
+    return localVarRequestBuilder;
+  }
+  /**
+   * Get job details
+   * Get an object describing the given job
+   * @param jobId The requested job id (required)
+   * @return CompletableFuture&lt;ApiResponse&lt;Job&gt;&gt;
+   * @throws ApiException if fails to make API call
+   */
+  public CompletableFuture<ApiResponse<Job>> getJob(String jobId) throws ApiException {
+    try {
+      HttpRequest.Builder localVarRequestBuilder = getJobRequestBuilder(jobId);
+      return memberVarHttpClient.sendAsync(
+          localVarRequestBuilder.build(),
+          HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
+            if (memberVarAsyncResponseInterceptor != null) {
+              memberVarAsyncResponseInterceptor.accept(localVarResponse);
+            }
+            if (localVarResponse.statusCode()/ 100 != 2) {
+              return CompletableFuture.failedFuture(getApiException("getJob", localVarResponse));
+            }
+            try {
+              String responseBody = localVarResponse.body();
+              return CompletableFuture.completedFuture(
+                  new ApiResponse<Job>(
+                      localVarResponse.statusCode(),
+                      localVarResponse.headers().map(),
+                      responseBody == null || responseBody.isBlank() ? null : memberVarObjectMapper.readValue(responseBody, new TypeReference<Job>() {}))
+              );
+            } catch (IOException e) {
+              return CompletableFuture.failedFuture(new ApiException(e));
+            }
+        }
+      );
+    }
+    catch (ApiException e) {
+      return CompletableFuture.failedFuture(e);
+    }
+  }
+
+  private HttpRequest.Builder getJobRequestBuilder(String jobId) throws ApiException {
+    // verify the required parameter 'jobId' is set
+    if (jobId == null) {
+      throw new ApiException(400, "Missing the required parameter 'jobId' when calling getJob");
+    }
+
+    HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+    String localVarPath = "/batch/{jobId}"
+        .replace("{jobId}", ApiClient.urlEncode(jobId.toString()));
+
+    localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+    localVarRequestBuilder.header("Accept", "application/json");
+
+    localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
+    if (memberVarReadTimeout != null) {
+      localVarRequestBuilder.timeout(memberVarReadTimeout);
+    }
+    if (memberVarInterceptor != null) {
+      memberVarInterceptor.accept(localVarRequestBuilder);
+    }
+    return localVarRequestBuilder;
+  }
+  /**
+   * Return a list of tasks for given job
+   * Return a list of tasks for given job
+   * @param jobId The requested job id (required)
+   * @return CompletableFuture&lt;ApiResponse&lt;List&lt;Task&gt;&gt;&gt;
+   * @throws ApiException if fails to make API call
+   */
+  public CompletableFuture<ApiResponse<List<Task>>> getJobTasks(String jobId) throws ApiException {
+    try {
+      HttpRequest.Builder localVarRequestBuilder = getJobTasksRequestBuilder(jobId);
+      return memberVarHttpClient.sendAsync(
+          localVarRequestBuilder.build(),
+          HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
+            if (memberVarAsyncResponseInterceptor != null) {
+              memberVarAsyncResponseInterceptor.accept(localVarResponse);
+            }
+            if (localVarResponse.statusCode()/ 100 != 2) {
+              return CompletableFuture.failedFuture(getApiException("getJobTasks", localVarResponse));
+            }
+            try {
+              String responseBody = localVarResponse.body();
+              return CompletableFuture.completedFuture(
+                  new ApiResponse<List<Task>>(
+                      localVarResponse.statusCode(),
+                      localVarResponse.headers().map(),
+                      responseBody == null || responseBody.isBlank() ? null : memberVarObjectMapper.readValue(responseBody, new TypeReference<List<Task>>() {}))
+              );
+            } catch (IOException e) {
+              return CompletableFuture.failedFuture(new ApiException(e));
+            }
+        }
+      );
+    }
+    catch (ApiException e) {
+      return CompletableFuture.failedFuture(e);
+    }
+  }
+
+  private HttpRequest.Builder getJobTasksRequestBuilder(String jobId) throws ApiException {
+    // verify the required parameter 'jobId' is set
+    if (jobId == null) {
+      throw new ApiException(400, "Missing the required parameter 'jobId' when calling getJobTasks");
+    }
+
+    HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+    String localVarPath = "/batch/{jobId}/tasks"
+        .replace("{jobId}", ApiClient.urlEncode(jobId.toString()));
+
+    localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+    localVarRequestBuilder.header("Accept", "application/json");
+
+    localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
+    if (memberVarReadTimeout != null) {
+      localVarRequestBuilder.timeout(memberVarReadTimeout);
+    }
+    if (memberVarInterceptor != null) {
+      memberVarInterceptor.accept(localVarRequestBuilder);
+    }
+    return localVarRequestBuilder;
+  }
+  /**
+   * Return a list of jobs belonging to tenant
+   * Get an array of objects including all active, paused, canceled, and complete jobs in a workspace.
+   * @param fromTime Start of time range in ms since 1970 (optional)
+   * @param toTime End of time range in ms since 1970 (optional)
+   * @return CompletableFuture&lt;ApiResponse&lt;List&lt;Job&gt;&gt;&gt;
+   * @throws ApiException if fails to make API call
+   */
+  public CompletableFuture<ApiResponse<List<Job>>> getJobs(Integer fromTime, Integer toTime) throws ApiException {
+    try {
+      HttpRequest.Builder localVarRequestBuilder = getJobsRequestBuilder(fromTime, toTime);
+      return memberVarHttpClient.sendAsync(
+          localVarRequestBuilder.build(),
+          HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
+            if (memberVarAsyncResponseInterceptor != null) {
+              memberVarAsyncResponseInterceptor.accept(localVarResponse);
+            }
+            if (localVarResponse.statusCode()/ 100 != 2) {
+              return CompletableFuture.failedFuture(getApiException("getJobs", localVarResponse));
+            }
+            try {
+              String responseBody = localVarResponse.body();
+              return CompletableFuture.completedFuture(
+                  new ApiResponse<List<Job>>(
+                      localVarResponse.statusCode(),
+                      localVarResponse.headers().map(),
+                      responseBody == null || responseBody.isBlank() ? null : memberVarObjectMapper.readValue(responseBody, new TypeReference<List<Job>>() {}))
+              );
+            } catch (IOException e) {
+              return CompletableFuture.failedFuture(new ApiException(e));
+            }
+        }
+      );
+    }
+    catch (ApiException e) {
+      return CompletableFuture.failedFuture(e);
+    }
+  }
+
+  private HttpRequest.Builder getJobsRequestBuilder(Integer fromTime, Integer toTime) throws ApiException {
+
+    HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+    String localVarPath = "/batch/jobs";
+
+    List<Pair> localVarQueryParams = new ArrayList<>();
+    StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
+    String localVarQueryParameterBaseName;
+    localVarQueryParameterBaseName = "fromTime";
+    localVarQueryParams.addAll(ApiClient.parameterToPairs("fromTime", fromTime));
+    localVarQueryParameterBaseName = "toTime";
+    localVarQueryParams.addAll(ApiClient.parameterToPairs("toTime", toTime));
+
+    if (!localVarQueryParams.isEmpty() || localVarQueryStringJoiner.length() != 0) {
+      StringJoiner queryJoiner = new StringJoiner("&");
+      localVarQueryParams.forEach(p -> queryJoiner.add(p.getName() + '=' + p.getValue()));
+      if (localVarQueryStringJoiner.length() != 0) {
+        queryJoiner.add(localVarQueryStringJoiner.toString());
+      }
+      localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath + '?' + queryJoiner.toString()));
+    } else {
+      localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+    }
+
+    localVarRequestBuilder.header("Accept", "application/json");
+
+    localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
+    if (memberVarReadTimeout != null) {
+      localVarRequestBuilder.timeout(memberVarReadTimeout);
+    }
+    if (memberVarInterceptor != null) {
+      memberVarInterceptor.accept(localVarRequestBuilder);
+    }
+    return localVarRequestBuilder;
+  }
+  /**
+   * Pause a job
+   * Pause the given job, after the current task is done. A paused job can later be resumed by calling ‘continue’, or canceled.
+   * @param jobId The requested job id (required)
+   * @param idempotencyKey A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
+   * @return CompletableFuture&lt;ApiResponse&lt;Void&gt;&gt;
+   * @throws ApiException if fails to make API call
+   */
+  public CompletableFuture<ApiResponse<Void>> pauseJob(String jobId, String idempotencyKey) throws ApiException {
+    try {
+      HttpRequest.Builder localVarRequestBuilder = pauseJobRequestBuilder(jobId, idempotencyKey);
+      return memberVarHttpClient.sendAsync(
+          localVarRequestBuilder.build(),
+          HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
+            if (memberVarAsyncResponseInterceptor != null) {
+              memberVarAsyncResponseInterceptor.accept(localVarResponse);
+            }
+            if (localVarResponse.statusCode()/ 100 != 2) {
+              return CompletableFuture.failedFuture(getApiException("pauseJob", localVarResponse));
+            }
+            return CompletableFuture.completedFuture(
+                new ApiResponse<Void>(localVarResponse.statusCode(), localVarResponse.headers().map(), null)
+            );
+        }
+      );
+    }
+    catch (ApiException e) {
+      return CompletableFuture.failedFuture(e);
+    }
+  }
+
+  private HttpRequest.Builder pauseJobRequestBuilder(String jobId, String idempotencyKey) throws ApiException {
+    // verify the required parameter 'jobId' is set
+    if (jobId == null) {
+      throw new ApiException(400, "Missing the required parameter 'jobId' when calling pauseJob");
+    }
+
+    HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+    String localVarPath = "/batch/{jobId}/pause"
+        .replace("{jobId}", ApiClient.urlEncode(jobId.toString()));
+
+    localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+    if (idempotencyKey != null) {
+      localVarRequestBuilder.header("Idempotency-Key", idempotencyKey.toString());
+    }
+    localVarRequestBuilder.header("Accept", "application/json");
+
+    localVarRequestBuilder.method("POST", HttpRequest.BodyPublishers.noBody());
+    if (memberVarReadTimeout != null) {
+      localVarRequestBuilder.timeout(memberVarReadTimeout);
+    }
+    if (memberVarInterceptor != null) {
+      memberVarInterceptor.accept(localVarRequestBuilder);
+    }
+    return localVarRequestBuilder;
+  }
 }

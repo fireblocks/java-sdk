@@ -10,268 +10,266 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
 import java.util.StringJoiner;
+import java.util.Objects;
+import java.util.Map;
+import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.fireblocks.sdk.model.PolicyMetadata;
+import com.fireblocks.sdk.model.PolicyRule;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
-/** Response object for draft operations */
+
+/**
+ * Response object for draft operations
+ */
 @JsonPropertyOrder({
-    DraftResponse.JSON_PROPERTY_STATUS,
-    DraftResponse.JSON_PROPERTY_RULES,
-    DraftResponse.JSON_PROPERTY_DRAFT_ID,
-    DraftResponse.JSON_PROPERTY_METADATA
+  DraftResponse.JSON_PROPERTY_STATUS,
+  DraftResponse.JSON_PROPERTY_RULES,
+  DraftResponse.JSON_PROPERTY_DRAFT_ID,
+  DraftResponse.JSON_PROPERTY_METADATA
 })
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class DraftResponse {
-    public static final String JSON_PROPERTY_STATUS = "status";
-    private String status;
+  public static final String JSON_PROPERTY_STATUS = "status";
+  private String status;
 
-    public static final String JSON_PROPERTY_RULES = "rules";
-    private List<PolicyRule> rules = new ArrayList<>();
+  public static final String JSON_PROPERTY_RULES = "rules";
+  private List<PolicyRule> rules = new ArrayList<>();
 
-    public static final String JSON_PROPERTY_DRAFT_ID = "draftId";
-    private String draftId;
+  public static final String JSON_PROPERTY_DRAFT_ID = "draftId";
+  private String draftId;
 
-    public static final String JSON_PROPERTY_METADATA = "metadata";
-    private PolicyMetadata metadata;
+  public static final String JSON_PROPERTY_METADATA = "metadata";
+  private PolicyMetadata metadata;
 
-    public DraftResponse() {}
+  public DraftResponse() { 
+  }
 
-    public DraftResponse status(String status) {
-        this.status = status;
-        return this;
+  public DraftResponse status(String status) {
+    this.status = status;
+    return this;
+  }
+
+   /**
+   * Operation status
+   * @return status
+  **/
+  @jakarta.annotation.Nonnull
+  @JsonProperty(JSON_PROPERTY_STATUS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getStatus() {
+    return status;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_STATUS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setStatus(String status) {
+    this.status = status;
+  }
+
+
+  public DraftResponse rules(List<PolicyRule> rules) {
+    this.rules = rules;
+    return this;
+  }
+
+  public DraftResponse addRulesItem(PolicyRule rulesItem) {
+    if (this.rules == null) {
+      this.rules = new ArrayList<>();
+    }
+    this.rules.add(rulesItem);
+    return this;
+  }
+
+   /**
+   * Draft rules
+   * @return rules
+  **/
+  @jakarta.annotation.Nonnull
+  @JsonProperty(JSON_PROPERTY_RULES)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public List<PolicyRule> getRules() {
+    return rules;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_RULES)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setRules(List<PolicyRule> rules) {
+    this.rules = rules;
+  }
+
+
+  public DraftResponse draftId(String draftId) {
+    this.draftId = draftId;
+    return this;
+  }
+
+   /**
+   * Draft unique id
+   * @return draftId
+  **/
+  @jakarta.annotation.Nonnull
+  @JsonProperty(JSON_PROPERTY_DRAFT_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getDraftId() {
+    return draftId;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_DRAFT_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setDraftId(String draftId) {
+    this.draftId = draftId;
+  }
+
+
+  public DraftResponse metadata(PolicyMetadata metadata) {
+    this.metadata = metadata;
+    return this;
+  }
+
+   /**
+   * Get metadata
+   * @return metadata
+  **/
+  @jakarta.annotation.Nonnull
+  @JsonProperty(JSON_PROPERTY_METADATA)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public PolicyMetadata getMetadata() {
+    return metadata;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_METADATA)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setMetadata(PolicyMetadata metadata) {
+    this.metadata = metadata;
+  }
+
+
+  /**
+   * Return true if this DraftResponse object is equal to o.
+   */
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    DraftResponse draftResponse = (DraftResponse) o;
+    return Objects.equals(this.status, draftResponse.status) &&
+        Objects.equals(this.rules, draftResponse.rules) &&
+        Objects.equals(this.draftId, draftResponse.draftId) &&
+        Objects.equals(this.metadata, draftResponse.metadata);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(status, rules, draftId, metadata);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class DraftResponse {\n");
+    sb.append("    status: ").append(toIndentedString(status)).append("\n");
+    sb.append("    rules: ").append(toIndentedString(rules)).append("\n");
+    sb.append("    draftId: ").append(toIndentedString(draftId)).append("\n");
+    sb.append("    metadata: ").append(toIndentedString(metadata)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @return URL query string
+   */
+  public String toUrlQueryString() {
+    return toUrlQueryString(null);
+  }
+
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @param prefix prefix of the query string
+   * @return URL query string
+   */
+  public String toUrlQueryString(String prefix) {
+    String suffix = "";
+    String containerSuffix = "";
+    String containerPrefix = "";
+    if (prefix == null) {
+      // style=form, explode=true, e.g. /pet?name=cat&type=manx
+      prefix = "";
+    } else {
+      // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
+      prefix = prefix + "[";
+      suffix = "]";
+      containerSuffix = "]";
+      containerPrefix = "[";
     }
 
-    /**
-     * Operation status
-     *
-     * @return status
-     */
-    @jakarta.annotation.Nonnull
-    @JsonProperty(JSON_PROPERTY_STATUS)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public String getStatus() {
-        return status;
+    StringJoiner joiner = new StringJoiner("&");
+
+    // add `status` to the URL query string
+    if (getStatus() != null) {
+      joiner.add(String.format("%sstatus%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getStatus()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
     }
 
-    @JsonProperty(JSON_PROPERTY_STATUS)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public DraftResponse rules(List<PolicyRule> rules) {
-        this.rules = rules;
-        return this;
-    }
-
-    public DraftResponse addRulesItem(PolicyRule rulesItem) {
-        if (this.rules == null) {
-            this.rules = new ArrayList<>();
+    // add `rules` to the URL query string
+    if (getRules() != null) {
+      for (int i = 0; i < getRules().size(); i++) {
+        if (getRules().get(i) != null) {
+          joiner.add(getRules().get(i).toUrlQueryString(String.format("%srules%s%s", prefix, suffix,
+          "".equals(suffix) ? "" : String.format("%s%d%s", containerPrefix, i, containerSuffix))));
         }
-        this.rules.add(rulesItem);
-        return this;
+      }
     }
 
-    /**
-     * Draft rules
-     *
-     * @return rules
-     */
-    @jakarta.annotation.Nonnull
-    @JsonProperty(JSON_PROPERTY_RULES)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public List<PolicyRule> getRules() {
-        return rules;
+    // add `draftId` to the URL query string
+    if (getDraftId() != null) {
+      joiner.add(String.format("%sdraftId%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getDraftId()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
     }
 
-    @JsonProperty(JSON_PROPERTY_RULES)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setRules(List<PolicyRule> rules) {
-        this.rules = rules;
+    // add `metadata` to the URL query string
+    if (getMetadata() != null) {
+      joiner.add(getMetadata().toUrlQueryString(prefix + "metadata" + suffix));
     }
 
-    public DraftResponse draftId(String draftId) {
-        this.draftId = draftId;
-        return this;
-    }
-
-    /**
-     * Draft unique id
-     *
-     * @return draftId
-     */
-    @jakarta.annotation.Nonnull
-    @JsonProperty(JSON_PROPERTY_DRAFT_ID)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public String getDraftId() {
-        return draftId;
-    }
-
-    @JsonProperty(JSON_PROPERTY_DRAFT_ID)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setDraftId(String draftId) {
-        this.draftId = draftId;
-    }
-
-    public DraftResponse metadata(PolicyMetadata metadata) {
-        this.metadata = metadata;
-        return this;
-    }
-
-    /**
-     * Get metadata
-     *
-     * @return metadata
-     */
-    @jakarta.annotation.Nonnull
-    @JsonProperty(JSON_PROPERTY_METADATA)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public PolicyMetadata getMetadata() {
-        return metadata;
-    }
-
-    @JsonProperty(JSON_PROPERTY_METADATA)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setMetadata(PolicyMetadata metadata) {
-        this.metadata = metadata;
-    }
-
-    /** Return true if this DraftResponse object is equal to o. */
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        DraftResponse draftResponse = (DraftResponse) o;
-        return Objects.equals(this.status, draftResponse.status)
-                && Objects.equals(this.rules, draftResponse.rules)
-                && Objects.equals(this.draftId, draftResponse.draftId)
-                && Objects.equals(this.metadata, draftResponse.metadata);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(status, rules, draftId, metadata);
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("class DraftResponse {\n");
-        sb.append("    status: ").append(toIndentedString(status)).append("\n");
-        sb.append("    rules: ").append(toIndentedString(rules)).append("\n");
-        sb.append("    draftId: ").append(toIndentedString(draftId)).append("\n");
-        sb.append("    metadata: ").append(toIndentedString(metadata)).append("\n");
-        sb.append("}");
-        return sb.toString();
-    }
-
-    /**
-     * Convert the given object to string with each line indented by 4 spaces (except the first
-     * line).
-     */
-    private String toIndentedString(Object o) {
-        if (o == null) {
-            return "null";
-        }
-        return o.toString().replace("\n", "\n    ");
-    }
-
-    /**
-     * Convert the instance into URL query string.
-     *
-     * @return URL query string
-     */
-    public String toUrlQueryString() {
-        return toUrlQueryString(null);
-    }
-
-    /**
-     * Convert the instance into URL query string.
-     *
-     * @param prefix prefix of the query string
-     * @return URL query string
-     */
-    public String toUrlQueryString(String prefix) {
-        String suffix = "";
-        String containerSuffix = "";
-        String containerPrefix = "";
-        if (prefix == null) {
-            // style=form, explode=true, e.g. /pet?name=cat&type=manx
-            prefix = "";
-        } else {
-            // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
-            prefix = prefix + "[";
-            suffix = "]";
-            containerSuffix = "]";
-            containerPrefix = "[";
-        }
-
-        StringJoiner joiner = new StringJoiner("&");
-
-        // add `status` to the URL query string
-        if (getStatus() != null) {
-            joiner.add(
-                    String.format(
-                            "%sstatus%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(String.valueOf(getStatus()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
-        // add `rules` to the URL query string
-        if (getRules() != null) {
-            for (int i = 0; i < getRules().size(); i++) {
-                if (getRules().get(i) != null) {
-                    joiner.add(
-                            getRules()
-                                    .get(i)
-                                    .toUrlQueryString(
-                                            String.format(
-                                                    "%srules%s%s",
-                                                    prefix,
-                                                    suffix,
-                                                    "".equals(suffix)
-                                                            ? ""
-                                                            : String.format(
-                                                                    "%s%d%s",
-                                                                    containerPrefix,
-                                                                    i,
-                                                                    containerSuffix))));
-                }
-            }
-        }
-
-        // add `draftId` to the URL query string
-        if (getDraftId() != null) {
-            joiner.add(
-                    String.format(
-                            "%sdraftId%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(String.valueOf(getDraftId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
-        // add `metadata` to the URL query string
-        if (getMetadata() != null) {
-            joiner.add(getMetadata().toUrlQueryString(prefix + "metadata" + suffix));
-        }
-
-        return joiner.toString();
-    }
+    return joiner.toString();
+  }
 }
+

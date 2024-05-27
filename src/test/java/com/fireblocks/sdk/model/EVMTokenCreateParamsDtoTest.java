@@ -10,30 +10,50 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.fireblocks.sdk.model.ParameterWithValue;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
-/** Model tests for EVMTokenCreateParamsDto */
+/**
+ * Model tests for EVMTokenCreateParamsDto
+ */
 public class EVMTokenCreateParamsDtoTest {
     private final EVMTokenCreateParamsDto model = new EVMTokenCreateParamsDto();
 
-    /** Model tests for EVMTokenCreateParamsDto */
+    /**
+     * Model tests for EVMTokenCreateParamsDto
+     */
     @Test
     public void testEVMTokenCreateParamsDto() {
         // TODO: test EVMTokenCreateParamsDto
     }
 
-    /** Test the property 'contractId' */
+    /**
+     * Test the property 'contractId'
+     */
     @Test
     public void contractIdTest() {
         // TODO: test contractId
     }
 
-    /** Test the property 'constructorParams' */
+    /**
+     * Test the property 'constructorParams'
+     */
     @Test
     public void constructorParamsTest() {
         // TODO: test constructorParams
     }
+
 }

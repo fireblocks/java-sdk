@@ -10,69 +10,83 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
+
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.StringJoiner;
+import java.util.Objects;
+import java.util.Map;
+import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
-/** Gets or Sets NetworkConnectionStatus */
+/**
+ * Gets or Sets NetworkConnectionStatus
+ */
 public enum NetworkConnectionStatus {
-    WAITING_FOR_APPROVAL("WAITING_FOR_APPROVAL"),
+  
+  WAITING_FOR_APPROVAL("WAITING_FOR_APPROVAL"),
+  
+  WAITING_FOR_PEER_APPROVAL("WAITING_FOR_PEER_APPROVAL"),
+  
+  APPROVED("APPROVED"),
+  
+  CANCELLED("CANCELLED"),
+  
+  FAILED("FAILED"),
+  
+  REJECTED("REJECTED"),
+  
+  REJECTED_BY_PEER("REJECTED_BY_PEER"),
+  
+  REMOVED("REMOVED"),
+  
+  REMOVED_BY_PEER("REMOVED_BY_PEER");
 
-    WAITING_FOR_PEER_APPROVAL("WAITING_FOR_PEER_APPROVAL"),
+  private String value;
 
-    APPROVED("APPROVED"),
+  NetworkConnectionStatus(String value) {
+    this.value = value;
+  }
 
-    CANCELLED("CANCELLED"),
+  @JsonValue
+  public String getValue() {
+    return value;
+  }
 
-    FAILED("FAILED"),
+  @Override
+  public String toString() {
+    return String.valueOf(value);
+  }
 
-    REJECTED("REJECTED"),
+  @JsonCreator
+  public static NetworkConnectionStatus fromValue(String value) {
+    for (NetworkConnectionStatus b : NetworkConnectionStatus.values()) {
+      if (b.value.equals(value)) {
+        return b;
+      }
+    }
+    throw new IllegalArgumentException("Unexpected value '" + value + "'");
+  }
 
-    REJECTED_BY_PEER("REJECTED_BY_PEER"),
-
-    REMOVED("REMOVED"),
-
-    REMOVED_BY_PEER("REMOVED_BY_PEER");
-
-    private String value;
-
-    NetworkConnectionStatus(String value) {
-        this.value = value;
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @param prefix prefix of the query string
+   * @return URL query string
+   */
+  public String toUrlQueryString(String prefix) {
+    if (prefix == null) {
+      prefix = "";
     }
 
-    @JsonValue
-    public String getValue() {
-        return value;
-    }
+    return String.format("%s=%s", prefix, this.toString());
+  }
 
-    @Override
-    public String toString() {
-        return String.valueOf(value);
-    }
-
-    @JsonCreator
-    public static NetworkConnectionStatus fromValue(String value) {
-        for (NetworkConnectionStatus b : NetworkConnectionStatus.values()) {
-            if (b.value.equals(value)) {
-                return b;
-            }
-        }
-        throw new IllegalArgumentException("Unexpected value '" + value + "'");
-    }
-
-    /**
-     * Convert the instance into URL query string.
-     *
-     * @param prefix prefix of the query string
-     * @return URL query string
-     */
-    public String toUrlQueryString(String prefix) {
-        if (prefix == null) {
-            prefix = "";
-        }
-
-        return String.format("%s=%s", prefix, this.toString());
-    }
 }
+

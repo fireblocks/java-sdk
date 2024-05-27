@@ -10,30 +10,48 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.fireblocks.sdk.model.SessionMetadata;
+import java.util.Arrays;
+import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
-/** Model tests for CreateConnectionResponse */
+/**
+ * Model tests for CreateConnectionResponse
+ */
 public class CreateConnectionResponseTest {
     private final CreateConnectionResponse model = new CreateConnectionResponse();
 
-    /** Model tests for CreateConnectionResponse */
+    /**
+     * Model tests for CreateConnectionResponse
+     */
     @Test
     public void testCreateConnectionResponse() {
         // TODO: test CreateConnectionResponse
     }
 
-    /** Test the property 'id' */
+    /**
+     * Test the property 'id'
+     */
     @Test
     public void idTest() {
         // TODO: test id
     }
 
-    /** Test the property 'sessionMetadata' */
+    /**
+     * Test the property 'sessionMetadata'
+     */
     @Test
     public void sessionMetadataTest() {
         // TODO: test sessionMetadata
     }
+
 }

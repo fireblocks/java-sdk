@@ -10,36 +10,55 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.Arrays;
+import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
-/** Model tests for DropTransactionResponse */
+/**
+ * Model tests for DropTransactionResponse
+ */
 public class DropTransactionResponseTest {
     private final DropTransactionResponse model = new DropTransactionResponse();
 
-    /** Model tests for DropTransactionResponse */
+    /**
+     * Model tests for DropTransactionResponse
+     */
     @Test
     public void testDropTransactionResponse() {
         // TODO: test DropTransactionResponse
     }
 
-    /** Test the property 'txStatus' */
+    /**
+     * Test the property 'txStatus'
+     */
     @Test
     public void txStatusTest() {
         // TODO: test txStatus
     }
 
-    /** Test the property 'txId' */
+    /**
+     * Test the property 'txId'
+     */
     @Test
     public void txIdTest() {
         // TODO: test txId
     }
 
-    /** Test the property 'replacedTxHash' */
+    /**
+     * Test the property 'replacedTxHash'
+     */
     @Test
     public void replacedTxHashTest() {
         // TODO: test replacedTxHash
     }
+
 }

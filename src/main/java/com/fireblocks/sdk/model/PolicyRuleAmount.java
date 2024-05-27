@@ -10,8 +10,26 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.StringJoiner;
+import java.util.Objects;
+import java.util.Map;
+import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import java.math.BigDecimal;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+
+
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
@@ -25,18 +43,9 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 import com.fireblocks.sdk.JSON;
-import java.io.IOException;
-import java.math.BigDecimal;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.StringJoiner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
-@JsonDeserialize(using = PolicyRuleAmount.PolicyRuleAmountDeserializer.class)
+@JsonDeserialize(using=PolicyRuleAmount.PolicyRuleAmountDeserializer.class)
 @JsonSerialize(using = PolicyRuleAmount.PolicyRuleAmountSerializer.class)
 public class PolicyRuleAmount extends AbstractOpenApiSchema {
     private static final Logger log = Logger.getLogger(PolicyRuleAmount.class.getName());
@@ -51,9 +60,7 @@ public class PolicyRuleAmount extends AbstractOpenApiSchema {
         }
 
         @Override
-        public void serialize(
-                PolicyRuleAmount value, JsonGenerator jgen, SerializerProvider provider)
-                throws IOException, JsonProcessingException {
+        public void serialize(PolicyRuleAmount value, JsonGenerator jgen, SerializerProvider provider) throws IOException, JsonProcessingException {
             jgen.writeObject(value.getActualInstance());
         }
     }
@@ -68,8 +75,7 @@ public class PolicyRuleAmount extends AbstractOpenApiSchema {
         }
 
         @Override
-        public PolicyRuleAmount deserialize(JsonParser jp, DeserializationContext ctxt)
-                throws IOException, JsonProcessingException {
+        public PolicyRuleAmount deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException, JsonProcessingException {
             JsonNode tree = jp.readValueAsTree();
 
             Object deserialized = null;
@@ -95,14 +101,14 @@ public class PolicyRuleAmount extends AbstractOpenApiSchema {
                 log.log(Level.FINER, "Input data does not match 'PolicyRuleAmount'", e);
             }
 
-            throw new IOException(
-                    String.format("Failed deserialization for PolicyRuleAmount: no match found"));
+            throw new IOException(String.format("Failed deserialization for PolicyRuleAmount: no match found"));
         }
 
-        /** Handle deserialization of the 'null' value. */
+        /**
+         * Handle deserialization of the 'null' value.
+         */
         @Override
-        public PolicyRuleAmount getNullValue(DeserializationContext ctxt)
-                throws JsonMappingException {
+        public PolicyRuleAmount getNullValue(DeserializationContext ctxt) throws JsonMappingException {
             throw new JsonMappingException(ctxt.getParser(), "PolicyRuleAmount cannot be null");
         }
     }
@@ -136,11 +142,12 @@ public class PolicyRuleAmount extends AbstractOpenApiSchema {
     }
 
     /**
-     * Set the instance that matches the anyOf child schema, check the instance parameter is valid
-     * against the anyOf child schemas: BigDecimal, String
+     * Set the instance that matches the anyOf child schema, check
+     * the instance parameter is valid against the anyOf child schemas:
+     * BigDecimal, String
      *
-     * <p>It could be an instance of the 'anyOf' schemas. The anyOf child schemas may themselves be
-     * a composed schema (allOf, anyOf, anyOf).
+     * It could be an instance of the 'anyOf' schemas.
+     * The anyOf child schemas may themselves be a composed schema (allOf, anyOf, anyOf).
      */
     @Override
     public void setActualInstance(Object instance) {
@@ -158,7 +165,8 @@ public class PolicyRuleAmount extends AbstractOpenApiSchema {
     }
 
     /**
-     * Get the actual instance, which can be the following: BigDecimal, String
+     * Get the actual instance, which can be the following:
+     * BigDecimal, String
      *
      * @return The actual instance (BigDecimal, String)
      */
@@ -168,59 +176,63 @@ public class PolicyRuleAmount extends AbstractOpenApiSchema {
     }
 
     /**
-     * Get the actual instance of `BigDecimal`. If the actual instance is not `BigDecimal`, the
-     * ClassCastException will be thrown.
+     * Get the actual instance of `BigDecimal`. If the actual instance is not `BigDecimal`,
+     * the ClassCastException will be thrown.
      *
      * @return The actual instance of `BigDecimal`
      * @throws ClassCastException if the instance is not `BigDecimal`
      */
     public BigDecimal getBigDecimal() throws ClassCastException {
-        return (BigDecimal) super.getActualInstance();
+        return (BigDecimal)super.getActualInstance();
     }
 
     /**
-     * Get the actual instance of `String`. If the actual instance is not `String`, the
-     * ClassCastException will be thrown.
+     * Get the actual instance of `String`. If the actual instance is not `String`,
+     * the ClassCastException will be thrown.
      *
      * @return The actual instance of `String`
      * @throws ClassCastException if the instance is not `String`
      */
     public String getString() throws ClassCastException {
-        return (String) super.getActualInstance();
+        return (String)super.getActualInstance();
     }
 
-    /**
-     * Convert the instance into URL query string.
-     *
-     * @return URL query string
-     */
-    public String toUrlQueryString() {
-        return toUrlQueryString(null);
+
+
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @return URL query string
+   */
+  public String toUrlQueryString() {
+    return toUrlQueryString(null);
+  }
+
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @param prefix prefix of the query string
+   * @return URL query string
+   */
+  public String toUrlQueryString(String prefix) {
+    String suffix = "";
+    String containerSuffix = "";
+    String containerPrefix = "";
+    if (prefix == null) {
+      // style=form, explode=true, e.g. /pet?name=cat&type=manx
+      prefix = "";
+    } else {
+      // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
+      prefix = prefix + "[";
+      suffix = "]";
+      containerSuffix = "]";
+      containerPrefix = "[";
     }
 
-    /**
-     * Convert the instance into URL query string.
-     *
-     * @param prefix prefix of the query string
-     * @return URL query string
-     */
-    public String toUrlQueryString(String prefix) {
-        String suffix = "";
-        String containerSuffix = "";
-        String containerPrefix = "";
-        if (prefix == null) {
-            // style=form, explode=true, e.g. /pet?name=cat&type=manx
-            prefix = "";
-        } else {
-            // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
-            prefix = prefix + "[";
-            suffix = "]";
-            containerSuffix = "]";
-            containerPrefix = "[";
-        }
+    StringJoiner joiner = new StringJoiner("&");
 
-        StringJoiner joiner = new StringJoiner("&");
+    return null;
+  }
 
-        return null;
-    }
 }
+

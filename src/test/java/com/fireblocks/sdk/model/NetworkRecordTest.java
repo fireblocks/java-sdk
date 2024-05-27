@@ -10,96 +10,139 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.fireblocks.sdk.model.DestinationTransferPeerPathResponse;
+import com.fireblocks.sdk.model.RewardInfo;
+import com.fireblocks.sdk.model.SourceTransferPeerPathResponse;
+import java.math.BigDecimal;
+import java.util.Arrays;
+import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
-/** Model tests for NetworkRecord */
+/**
+ * Model tests for NetworkRecord
+ */
 public class NetworkRecordTest {
     private final NetworkRecord model = new NetworkRecord();
 
-    /** Model tests for NetworkRecord */
+    /**
+     * Model tests for NetworkRecord
+     */
     @Test
     public void testNetworkRecord() {
         // TODO: test NetworkRecord
     }
 
-    /** Test the property 'source' */
+    /**
+     * Test the property 'source'
+     */
     @Test
     public void sourceTest() {
         // TODO: test source
     }
 
-    /** Test the property 'destination' */
+    /**
+     * Test the property 'destination'
+     */
     @Test
     public void destinationTest() {
         // TODO: test destination
     }
 
-    /** Test the property 'txHash' */
+    /**
+     * Test the property 'txHash'
+     */
     @Test
     public void txHashTest() {
         // TODO: test txHash
     }
 
-    /** Test the property 'networkFee' */
+    /**
+     * Test the property 'networkFee'
+     */
     @Test
     public void networkFeeTest() {
         // TODO: test networkFee
     }
 
-    /** Test the property 'assetId' */
+    /**
+     * Test the property 'assetId'
+     */
     @Test
     public void assetIdTest() {
         // TODO: test assetId
     }
 
-    /** Test the property 'netAmount' */
+    /**
+     * Test the property 'netAmount'
+     */
     @Test
     public void netAmountTest() {
         // TODO: test netAmount
     }
 
-    /** Test the property 'isDropped' */
+    /**
+     * Test the property 'isDropped'
+     */
     @Test
     public void isDroppedTest() {
         // TODO: test isDropped
     }
 
-    /** Test the property 'type' */
+    /**
+     * Test the property 'type'
+     */
     @Test
     public void typeTest() {
         // TODO: test type
     }
 
-    /** Test the property 'destinationAddress' */
+    /**
+     * Test the property 'destinationAddress'
+     */
     @Test
     public void destinationAddressTest() {
         // TODO: test destinationAddress
     }
 
-    /** Test the property 'sourceAddress' */
+    /**
+     * Test the property 'sourceAddress'
+     */
     @Test
     public void sourceAddressTest() {
         // TODO: test sourceAddress
     }
 
-    /** Test the property 'amountUSD' */
+    /**
+     * Test the property 'amountUSD'
+     */
     @Test
     public void amountUSDTest() {
         // TODO: test amountUSD
     }
 
-    /** Test the property 'index' */
+    /**
+     * Test the property 'index'
+     */
     @Test
     public void indexTest() {
         // TODO: test index
     }
 
-    /** Test the property 'rewardInfo' */
+    /**
+     * Test the property 'rewardInfo'
+     */
     @Test
     public void rewardInfoTest() {
         // TODO: test rewardInfo
     }
+
 }

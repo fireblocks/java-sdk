@@ -10,191 +10,191 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
 import java.util.StringJoiner;
+import java.util.Objects;
+import java.util.Map;
+import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
-/** UserGroupUpdateRequest */
+
+/**
+ * UserGroupUpdateRequest
+ */
 @JsonPropertyOrder({
-    UserGroupUpdateRequest.JSON_PROPERTY_GROUP_NAME,
-    UserGroupUpdateRequest.JSON_PROPERTY_MEMBER_IDS
+  UserGroupUpdateRequest.JSON_PROPERTY_GROUP_NAME,
+  UserGroupUpdateRequest.JSON_PROPERTY_MEMBER_IDS
 })
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class UserGroupUpdateRequest {
-    public static final String JSON_PROPERTY_GROUP_NAME = "groupName";
-    private String groupName;
+  public static final String JSON_PROPERTY_GROUP_NAME = "groupName";
+  private String groupName;
 
-    public static final String JSON_PROPERTY_MEMBER_IDS = "memberIds";
-    private List<String> memberIds;
+  public static final String JSON_PROPERTY_MEMBER_IDS = "memberIds";
+  private List<String> memberIds;
 
-    public UserGroupUpdateRequest() {}
+  public UserGroupUpdateRequest() { 
+  }
 
-    public UserGroupUpdateRequest groupName(String groupName) {
-        this.groupName = groupName;
-        return this;
+  public UserGroupUpdateRequest groupName(String groupName) {
+    this.groupName = groupName;
+    return this;
+  }
+
+   /**
+   * Get groupName
+   * @return groupName
+  **/
+  @jakarta.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_GROUP_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getGroupName() {
+    return groupName;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_GROUP_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setGroupName(String groupName) {
+    this.groupName = groupName;
+  }
+
+
+  public UserGroupUpdateRequest memberIds(List<String> memberIds) {
+    this.memberIds = memberIds;
+    return this;
+  }
+
+  public UserGroupUpdateRequest addMemberIdsItem(String memberIdsItem) {
+    if (this.memberIds == null) {
+      this.memberIds = new ArrayList<>();
+    }
+    this.memberIds.add(memberIdsItem);
+    return this;
+  }
+
+   /**
+   * Get memberIds
+   * @return memberIds
+  **/
+  @jakarta.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_MEMBER_IDS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<String> getMemberIds() {
+    return memberIds;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_MEMBER_IDS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setMemberIds(List<String> memberIds) {
+    this.memberIds = memberIds;
+  }
+
+
+  /**
+   * Return true if this UserGroupUpdateRequest object is equal to o.
+   */
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    UserGroupUpdateRequest userGroupUpdateRequest = (UserGroupUpdateRequest) o;
+    return Objects.equals(this.groupName, userGroupUpdateRequest.groupName) &&
+        Objects.equals(this.memberIds, userGroupUpdateRequest.memberIds);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(groupName, memberIds);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class UserGroupUpdateRequest {\n");
+    sb.append("    groupName: ").append(toIndentedString(groupName)).append("\n");
+    sb.append("    memberIds: ").append(toIndentedString(memberIds)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @return URL query string
+   */
+  public String toUrlQueryString() {
+    return toUrlQueryString(null);
+  }
+
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @param prefix prefix of the query string
+   * @return URL query string
+   */
+  public String toUrlQueryString(String prefix) {
+    String suffix = "";
+    String containerSuffix = "";
+    String containerPrefix = "";
+    if (prefix == null) {
+      // style=form, explode=true, e.g. /pet?name=cat&type=manx
+      prefix = "";
+    } else {
+      // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
+      prefix = prefix + "[";
+      suffix = "]";
+      containerSuffix = "]";
+      containerPrefix = "[";
     }
 
-    /**
-     * Get groupName
-     *
-     * @return groupName
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_GROUP_NAME)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public String getGroupName() {
-        return groupName;
+    StringJoiner joiner = new StringJoiner("&");
+
+    // add `groupName` to the URL query string
+    if (getGroupName() != null) {
+      joiner.add(String.format("%sgroupName%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getGroupName()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
     }
 
-    @JsonProperty(JSON_PROPERTY_GROUP_NAME)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setGroupName(String groupName) {
-        this.groupName = groupName;
+    // add `memberIds` to the URL query string
+    if (getMemberIds() != null) {
+      for (int i = 0; i < getMemberIds().size(); i++) {
+        joiner.add(String.format("%smemberIds%s%s=%s", prefix, suffix,
+            "".equals(suffix) ? "" : String.format("%s%d%s", containerPrefix, i, containerSuffix),
+            URLEncoder.encode(String.valueOf(getMemberIds().get(i)), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+      }
     }
 
-    public UserGroupUpdateRequest memberIds(List<String> memberIds) {
-        this.memberIds = memberIds;
-        return this;
-    }
-
-    public UserGroupUpdateRequest addMemberIdsItem(String memberIdsItem) {
-        if (this.memberIds == null) {
-            this.memberIds = new ArrayList<>();
-        }
-        this.memberIds.add(memberIdsItem);
-        return this;
-    }
-
-    /**
-     * Get memberIds
-     *
-     * @return memberIds
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_MEMBER_IDS)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public List<String> getMemberIds() {
-        return memberIds;
-    }
-
-    @JsonProperty(JSON_PROPERTY_MEMBER_IDS)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setMemberIds(List<String> memberIds) {
-        this.memberIds = memberIds;
-    }
-
-    /** Return true if this UserGroupUpdateRequest object is equal to o. */
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        UserGroupUpdateRequest userGroupUpdateRequest = (UserGroupUpdateRequest) o;
-        return Objects.equals(this.groupName, userGroupUpdateRequest.groupName)
-                && Objects.equals(this.memberIds, userGroupUpdateRequest.memberIds);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(groupName, memberIds);
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("class UserGroupUpdateRequest {\n");
-        sb.append("    groupName: ").append(toIndentedString(groupName)).append("\n");
-        sb.append("    memberIds: ").append(toIndentedString(memberIds)).append("\n");
-        sb.append("}");
-        return sb.toString();
-    }
-
-    /**
-     * Convert the given object to string with each line indented by 4 spaces (except the first
-     * line).
-     */
-    private String toIndentedString(Object o) {
-        if (o == null) {
-            return "null";
-        }
-        return o.toString().replace("\n", "\n    ");
-    }
-
-    /**
-     * Convert the instance into URL query string.
-     *
-     * @return URL query string
-     */
-    public String toUrlQueryString() {
-        return toUrlQueryString(null);
-    }
-
-    /**
-     * Convert the instance into URL query string.
-     *
-     * @param prefix prefix of the query string
-     * @return URL query string
-     */
-    public String toUrlQueryString(String prefix) {
-        String suffix = "";
-        String containerSuffix = "";
-        String containerPrefix = "";
-        if (prefix == null) {
-            // style=form, explode=true, e.g. /pet?name=cat&type=manx
-            prefix = "";
-        } else {
-            // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
-            prefix = prefix + "[";
-            suffix = "]";
-            containerSuffix = "]";
-            containerPrefix = "[";
-        }
-
-        StringJoiner joiner = new StringJoiner("&");
-
-        // add `groupName` to the URL query string
-        if (getGroupName() != null) {
-            joiner.add(
-                    String.format(
-                            "%sgroupName%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getGroupName()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
-        // add `memberIds` to the URL query string
-        if (getMemberIds() != null) {
-            for (int i = 0; i < getMemberIds().size(); i++) {
-                joiner.add(
-                        String.format(
-                                "%smemberIds%s%s=%s",
-                                prefix,
-                                suffix,
-                                "".equals(suffix)
-                                        ? ""
-                                        : String.format(
-                                                "%s%d%s", containerPrefix, i, containerSuffix),
-                                URLEncoder.encode(
-                                                String.valueOf(getMemberIds().get(i)),
-                                                StandardCharsets.UTF_8)
-                                        .replaceAll("\\+", "%20")));
-            }
-        }
-
-        return joiner.toString();
-    }
+    return joiner.toString();
+  }
 }
+

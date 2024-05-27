@@ -10,48 +10,75 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.fireblocks.sdk.model.ConversionOperationConfigParams;
+import com.fireblocks.sdk.model.ConversionOperationExecutionOutput;
+import com.fireblocks.sdk.model.ConversionOperationFailure;
+import java.math.BigDecimal;
+import java.util.Arrays;
+import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
-/** Model tests for ConversionOperationExecution */
+/**
+ * Model tests for ConversionOperationExecution
+ */
 public class ConversionOperationExecutionTest {
     private final ConversionOperationExecution model = new ConversionOperationExecution();
 
-    /** Model tests for ConversionOperationExecution */
+    /**
+     * Model tests for ConversionOperationExecution
+     */
     @Test
     public void testConversionOperationExecution() {
         // TODO: test ConversionOperationExecution
     }
 
-    /** Test the property 'input' */
+    /**
+     * Test the property 'input'
+     */
     @Test
     public void inputTest() {
         // TODO: test input
     }
 
-    /** Test the property 'output' */
+    /**
+     * Test the property 'output'
+     */
     @Test
     public void outputTest() {
         // TODO: test output
     }
 
-    /** Test the property 'startedAt' */
+    /**
+     * Test the property 'startedAt'
+     */
     @Test
     public void startedAtTest() {
         // TODO: test startedAt
     }
 
-    /** Test the property 'finishedAt' */
+    /**
+     * Test the property 'finishedAt'
+     */
     @Test
     public void finishedAtTest() {
         // TODO: test finishedAt
     }
 
-    /** Test the property 'failure' */
+    /**
+     * Test the property 'failure'
+     */
     @Test
     public void failureTest() {
         // TODO: test failure
     }
+
 }

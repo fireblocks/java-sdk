@@ -10,48 +10,73 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
-/** Model tests for Parameter */
+/**
+ * Model tests for Parameter
+ */
 public class ParameterTest {
     private final Parameter model = new Parameter();
 
-    /** Model tests for Parameter */
+    /**
+     * Model tests for Parameter
+     */
     @Test
     public void testParameter() {
         // TODO: test Parameter
     }
 
-    /** Test the property 'name' */
+    /**
+     * Test the property 'name'
+     */
     @Test
     public void nameTest() {
         // TODO: test name
     }
 
-    /** Test the property 'description' */
+    /**
+     * Test the property 'description'
+     */
     @Test
     public void descriptionTest() {
         // TODO: test description
     }
 
-    /** Test the property 'internalType' */
+    /**
+     * Test the property 'internalType'
+     */
     @Test
     public void internalTypeTest() {
         // TODO: test internalType
     }
 
-    /** Test the property 'type' */
+    /**
+     * Test the property 'type'
+     */
     @Test
     public void typeTest() {
         // TODO: test type
     }
 
-    /** Test the property 'components' */
+    /**
+     * Test the property 'components'
+     */
     @Test
     public void componentsTest() {
         // TODO: test components
     }
+
 }

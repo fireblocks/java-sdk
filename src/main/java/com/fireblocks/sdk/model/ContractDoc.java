@@ -10,314 +10,301 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.util.StringJoiner;
+import java.util.Objects;
+import java.util.Map;
+import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.fireblocks.sdk.model.FunctionDoc;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
-import java.util.StringJoiner;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
-/** ContractDoc */
+
+/**
+ * ContractDoc
+ */
 @JsonPropertyOrder({
-    ContractDoc.JSON_PROPERTY_DETAILS,
-    ContractDoc.JSON_PROPERTY_EVENTS,
-    ContractDoc.JSON_PROPERTY_KIND,
-    ContractDoc.JSON_PROPERTY_METHODS,
-    ContractDoc.JSON_PROPERTY_VERSION
+  ContractDoc.JSON_PROPERTY_DETAILS,
+  ContractDoc.JSON_PROPERTY_EVENTS,
+  ContractDoc.JSON_PROPERTY_KIND,
+  ContractDoc.JSON_PROPERTY_METHODS,
+  ContractDoc.JSON_PROPERTY_VERSION
 })
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class ContractDoc {
-    public static final String JSON_PROPERTY_DETAILS = "details";
-    private String details;
+  public static final String JSON_PROPERTY_DETAILS = "details";
+  private String details;
 
-    public static final String JSON_PROPERTY_EVENTS = "events";
-    private String events;
+  public static final String JSON_PROPERTY_EVENTS = "events";
+  private String events;
 
-    public static final String JSON_PROPERTY_KIND = "kind";
-    private String kind;
+  public static final String JSON_PROPERTY_KIND = "kind";
+  private String kind;
 
-    public static final String JSON_PROPERTY_METHODS = "methods";
-    private Map<String, FunctionDoc> methods = new HashMap<>();
+  public static final String JSON_PROPERTY_METHODS = "methods";
+  private Map<String, FunctionDoc> methods = new HashMap<>();
 
-    public static final String JSON_PROPERTY_VERSION = "version";
-    private String version;
+  public static final String JSON_PROPERTY_VERSION = "version";
+  private String version;
 
-    public ContractDoc() {}
+  public ContractDoc() { 
+  }
 
-    public ContractDoc details(String details) {
-        this.details = details;
-        return this;
+  public ContractDoc details(String details) {
+    this.details = details;
+    return this;
+  }
+
+   /**
+   * A description of the contract
+   * @return details
+  **/
+  @jakarta.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_DETAILS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getDetails() {
+    return details;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_DETAILS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setDetails(String details) {
+    this.details = details;
+  }
+
+
+  public ContractDoc events(String events) {
+    this.events = events;
+    return this;
+  }
+
+   /**
+   * A description of the contract&#x60;s events
+   * @return events
+  **/
+  @jakarta.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_EVENTS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getEvents() {
+    return events;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_EVENTS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setEvents(String events) {
+    this.events = events;
+  }
+
+
+  public ContractDoc kind(String kind) {
+    this.kind = kind;
+    return this;
+  }
+
+   /**
+   * Is it devdoc or userdoc
+   * @return kind
+  **/
+  @jakarta.annotation.Nonnull
+  @JsonProperty(JSON_PROPERTY_KIND)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getKind() {
+    return kind;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_KIND)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setKind(String kind) {
+    this.kind = kind;
+  }
+
+
+  public ContractDoc methods(Map<String, FunctionDoc> methods) {
+    this.methods = methods;
+    return this;
+  }
+
+  public ContractDoc putMethodsItem(String key, FunctionDoc methodsItem) {
+    if (this.methods == null) {
+      this.methods = new HashMap<>();
+    }
+    this.methods.put(key, methodsItem);
+    return this;
+  }
+
+   /**
+   * The description of the contract functions
+   * @return methods
+  **/
+  @jakarta.annotation.Nonnull
+  @JsonProperty(JSON_PROPERTY_METHODS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public Map<String, FunctionDoc> getMethods() {
+    return methods;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_METHODS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setMethods(Map<String, FunctionDoc> methods) {
+    this.methods = methods;
+  }
+
+
+  public ContractDoc version(String version) {
+    this.version = version;
+    return this;
+  }
+
+   /**
+   * The version of the contract
+   * @return version
+  **/
+  @jakarta.annotation.Nonnull
+  @JsonProperty(JSON_PROPERTY_VERSION)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getVersion() {
+    return version;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_VERSION)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setVersion(String version) {
+    this.version = version;
+  }
+
+
+  /**
+   * Return true if this ContractDoc object is equal to o.
+   */
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    ContractDoc contractDoc = (ContractDoc) o;
+    return Objects.equals(this.details, contractDoc.details) &&
+        Objects.equals(this.events, contractDoc.events) &&
+        Objects.equals(this.kind, contractDoc.kind) &&
+        Objects.equals(this.methods, contractDoc.methods) &&
+        Objects.equals(this.version, contractDoc.version);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(details, events, kind, methods, version);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class ContractDoc {\n");
+    sb.append("    details: ").append(toIndentedString(details)).append("\n");
+    sb.append("    events: ").append(toIndentedString(events)).append("\n");
+    sb.append("    kind: ").append(toIndentedString(kind)).append("\n");
+    sb.append("    methods: ").append(toIndentedString(methods)).append("\n");
+    sb.append("    version: ").append(toIndentedString(version)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @return URL query string
+   */
+  public String toUrlQueryString() {
+    return toUrlQueryString(null);
+  }
+
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @param prefix prefix of the query string
+   * @return URL query string
+   */
+  public String toUrlQueryString(String prefix) {
+    String suffix = "";
+    String containerSuffix = "";
+    String containerPrefix = "";
+    if (prefix == null) {
+      // style=form, explode=true, e.g. /pet?name=cat&type=manx
+      prefix = "";
+    } else {
+      // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
+      prefix = prefix + "[";
+      suffix = "]";
+      containerSuffix = "]";
+      containerPrefix = "[";
     }
 
-    /**
-     * A description of the contract
-     *
-     * @return details
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_DETAILS)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public String getDetails() {
-        return details;
+    StringJoiner joiner = new StringJoiner("&");
+
+    // add `details` to the URL query string
+    if (getDetails() != null) {
+      joiner.add(String.format("%sdetails%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getDetails()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
     }
 
-    @JsonProperty(JSON_PROPERTY_DETAILS)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setDetails(String details) {
-        this.details = details;
+    // add `events` to the URL query string
+    if (getEvents() != null) {
+      joiner.add(String.format("%sevents%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getEvents()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
     }
 
-    public ContractDoc events(String events) {
-        this.events = events;
-        return this;
+    // add `kind` to the URL query string
+    if (getKind() != null) {
+      joiner.add(String.format("%skind%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getKind()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
     }
 
-    /**
-     * A description of the contract&#x60;s events
-     *
-     * @return events
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_EVENTS)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public String getEvents() {
-        return events;
-    }
-
-    @JsonProperty(JSON_PROPERTY_EVENTS)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setEvents(String events) {
-        this.events = events;
-    }
-
-    public ContractDoc kind(String kind) {
-        this.kind = kind;
-        return this;
-    }
-
-    /**
-     * Is it devdoc or userdoc
-     *
-     * @return kind
-     */
-    @jakarta.annotation.Nonnull
-    @JsonProperty(JSON_PROPERTY_KIND)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public String getKind() {
-        return kind;
-    }
-
-    @JsonProperty(JSON_PROPERTY_KIND)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setKind(String kind) {
-        this.kind = kind;
-    }
-
-    public ContractDoc methods(Map<String, FunctionDoc> methods) {
-        this.methods = methods;
-        return this;
-    }
-
-    public ContractDoc putMethodsItem(String key, FunctionDoc methodsItem) {
-        if (this.methods == null) {
-            this.methods = new HashMap<>();
+    // add `methods` to the URL query string
+    if (getMethods() != null) {
+      for (String _key : getMethods().keySet()) {
+        if (getMethods().get(_key) != null) {
+          joiner.add(getMethods().get(_key).toUrlQueryString(String.format("%smethods%s%s", prefix, suffix,
+              "".equals(suffix) ? "" : String.format("%s%d%s", containerPrefix, _key, containerSuffix))));
         }
-        this.methods.put(key, methodsItem);
-        return this;
+      }
     }
 
-    /**
-     * The description of the contract functions
-     *
-     * @return methods
-     */
-    @jakarta.annotation.Nonnull
-    @JsonProperty(JSON_PROPERTY_METHODS)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public Map<String, FunctionDoc> getMethods() {
-        return methods;
+    // add `version` to the URL query string
+    if (getVersion() != null) {
+      joiner.add(String.format("%sversion%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getVersion()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
     }
 
-    @JsonProperty(JSON_PROPERTY_METHODS)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setMethods(Map<String, FunctionDoc> methods) {
-        this.methods = methods;
-    }
-
-    public ContractDoc version(String version) {
-        this.version = version;
-        return this;
-    }
-
-    /**
-     * The version of the contract
-     *
-     * @return version
-     */
-    @jakarta.annotation.Nonnull
-    @JsonProperty(JSON_PROPERTY_VERSION)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public String getVersion() {
-        return version;
-    }
-
-    @JsonProperty(JSON_PROPERTY_VERSION)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setVersion(String version) {
-        this.version = version;
-    }
-
-    /** Return true if this ContractDoc object is equal to o. */
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        ContractDoc contractDoc = (ContractDoc) o;
-        return Objects.equals(this.details, contractDoc.details)
-                && Objects.equals(this.events, contractDoc.events)
-                && Objects.equals(this.kind, contractDoc.kind)
-                && Objects.equals(this.methods, contractDoc.methods)
-                && Objects.equals(this.version, contractDoc.version);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(details, events, kind, methods, version);
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("class ContractDoc {\n");
-        sb.append("    details: ").append(toIndentedString(details)).append("\n");
-        sb.append("    events: ").append(toIndentedString(events)).append("\n");
-        sb.append("    kind: ").append(toIndentedString(kind)).append("\n");
-        sb.append("    methods: ").append(toIndentedString(methods)).append("\n");
-        sb.append("    version: ").append(toIndentedString(version)).append("\n");
-        sb.append("}");
-        return sb.toString();
-    }
-
-    /**
-     * Convert the given object to string with each line indented by 4 spaces (except the first
-     * line).
-     */
-    private String toIndentedString(Object o) {
-        if (o == null) {
-            return "null";
-        }
-        return o.toString().replace("\n", "\n    ");
-    }
-
-    /**
-     * Convert the instance into URL query string.
-     *
-     * @return URL query string
-     */
-    public String toUrlQueryString() {
-        return toUrlQueryString(null);
-    }
-
-    /**
-     * Convert the instance into URL query string.
-     *
-     * @param prefix prefix of the query string
-     * @return URL query string
-     */
-    public String toUrlQueryString(String prefix) {
-        String suffix = "";
-        String containerSuffix = "";
-        String containerPrefix = "";
-        if (prefix == null) {
-            // style=form, explode=true, e.g. /pet?name=cat&type=manx
-            prefix = "";
-        } else {
-            // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
-            prefix = prefix + "[";
-            suffix = "]";
-            containerSuffix = "]";
-            containerPrefix = "[";
-        }
-
-        StringJoiner joiner = new StringJoiner("&");
-
-        // add `details` to the URL query string
-        if (getDetails() != null) {
-            joiner.add(
-                    String.format(
-                            "%sdetails%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(String.valueOf(getDetails()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
-        // add `events` to the URL query string
-        if (getEvents() != null) {
-            joiner.add(
-                    String.format(
-                            "%sevents%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(String.valueOf(getEvents()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
-        // add `kind` to the URL query string
-        if (getKind() != null) {
-            joiner.add(
-                    String.format(
-                            "%skind%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(String.valueOf(getKind()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
-        // add `methods` to the URL query string
-        if (getMethods() != null) {
-            for (String _key : getMethods().keySet()) {
-                if (getMethods().get(_key) != null) {
-                    joiner.add(
-                            getMethods()
-                                    .get(_key)
-                                    .toUrlQueryString(
-                                            String.format(
-                                                    "%smethods%s%s",
-                                                    prefix,
-                                                    suffix,
-                                                    "".equals(suffix)
-                                                            ? ""
-                                                            : String.format(
-                                                                    "%s%d%s",
-                                                                    containerPrefix,
-                                                                    _key,
-                                                                    containerSuffix))));
-                }
-            }
-        }
-
-        // add `version` to the URL query string
-        if (getVersion() != null) {
-            joiner.add(
-                    String.format(
-                            "%sversion%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(String.valueOf(getVersion()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
-        return joiner.toString();
-    }
+    return joiner.toString();
+  }
 }
+

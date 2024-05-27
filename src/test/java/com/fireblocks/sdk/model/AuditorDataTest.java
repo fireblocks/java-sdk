@@ -10,36 +10,55 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.Arrays;
+import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
-/** Model tests for AuditorData */
+/**
+ * Model tests for AuditorData
+ */
 public class AuditorDataTest {
     private final AuditorData model = new AuditorData();
 
-    /** Model tests for AuditorData */
+    /**
+     * Model tests for AuditorData
+     */
     @Test
     public void testAuditorData() {
         // TODO: test AuditorData
     }
 
-    /** Test the property 'name' */
+    /**
+     * Test the property 'name'
+     */
     @Test
     public void nameTest() {
         // TODO: test name
     }
 
-    /** Test the property 'imageURL' */
+    /**
+     * Test the property 'imageURL'
+     */
     @Test
     public void imageURLTest() {
         // TODO: test imageURL
     }
 
-    /** Test the property 'link' */
+    /**
+     * Test the property 'link'
+     */
     @Test
     public void linkTest() {
         // TODO: test link
     }
+
 }

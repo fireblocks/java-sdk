@@ -10,42 +10,63 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.Arrays;
+import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
-/** Model tests for PolicyMetadata */
+/**
+ * Model tests for PolicyMetadata
+ */
 public class PolicyMetadataTest {
     private final PolicyMetadata model = new PolicyMetadata();
 
-    /** Model tests for PolicyMetadata */
+    /**
+     * Model tests for PolicyMetadata
+     */
     @Test
     public void testPolicyMetadata() {
         // TODO: test PolicyMetadata
     }
 
-    /** Test the property 'editedBy' */
+    /**
+     * Test the property 'editedBy'
+     */
     @Test
     public void editedByTest() {
         // TODO: test editedBy
     }
 
-    /** Test the property 'editedAt' */
+    /**
+     * Test the property 'editedAt'
+     */
     @Test
     public void editedAtTest() {
         // TODO: test editedAt
     }
 
-    /** Test the property 'publishedBy' */
+    /**
+     * Test the property 'publishedBy'
+     */
     @Test
     public void publishedByTest() {
         // TODO: test publishedBy
     }
 
-    /** Test the property 'publishedAt' */
+    /**
+     * Test the property 'publishedAt'
+     */
     @Test
     public void publishedAtTest() {
         // TODO: test publishedAt
     }
+
 }

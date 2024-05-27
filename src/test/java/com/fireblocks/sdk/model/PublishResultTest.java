@@ -10,42 +10,69 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.fireblocks.sdk.model.PolicyCheckResult;
+import com.fireblocks.sdk.model.PolicyMetadata;
+import com.fireblocks.sdk.model.PolicyRule;
+import com.fireblocks.sdk.model.PolicyStatus;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
-/** Model tests for PublishResult */
+/**
+ * Model tests for PublishResult
+ */
 public class PublishResultTest {
     private final PublishResult model = new PublishResult();
 
-    /** Model tests for PublishResult */
+    /**
+     * Model tests for PublishResult
+     */
     @Test
     public void testPublishResult() {
         // TODO: test PublishResult
     }
 
-    /** Test the property 'status' */
+    /**
+     * Test the property 'status'
+     */
     @Test
     public void statusTest() {
         // TODO: test status
     }
 
-    /** Test the property 'rules' */
+    /**
+     * Test the property 'rules'
+     */
     @Test
     public void rulesTest() {
         // TODO: test rules
     }
 
-    /** Test the property 'checkResult' */
+    /**
+     * Test the property 'checkResult'
+     */
     @Test
     public void checkResultTest() {
         // TODO: test checkResult
     }
 
-    /** Test the property 'metadata' */
+    /**
+     * Test the property 'metadata'
+     */
     @Test
     public void metadataTest() {
         // TODO: test metadata
     }
+
 }

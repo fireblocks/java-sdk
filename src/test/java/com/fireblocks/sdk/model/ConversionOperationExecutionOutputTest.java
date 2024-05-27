@@ -10,37 +10,56 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.fireblocks.sdk.model.AssetAmount;
+import java.util.Arrays;
+import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
-/** Model tests for ConversionOperationExecutionOutput */
+/**
+ * Model tests for ConversionOperationExecutionOutput
+ */
 public class ConversionOperationExecutionOutputTest {
-    private final ConversionOperationExecutionOutput model =
-            new ConversionOperationExecutionOutput();
+    private final ConversionOperationExecutionOutput model = new ConversionOperationExecutionOutput();
 
-    /** Model tests for ConversionOperationExecutionOutput */
+    /**
+     * Model tests for ConversionOperationExecutionOutput
+     */
     @Test
     public void testConversionOperationExecutionOutput() {
         // TODO: test ConversionOperationExecutionOutput
     }
 
-    /** Test the property 'amount' */
+    /**
+     * Test the property 'amount'
+     */
     @Test
     public void amountTest() {
         // TODO: test amount
     }
 
-    /** Test the property 'fee' */
+    /**
+     * Test the property 'fee'
+     */
     @Test
     public void feeTest() {
         // TODO: test fee
     }
 
-    /** Test the property 'conversionRate' */
+    /**
+     * Test the property 'conversionRate'
+     */
     @Test
     public void conversionRateTest() {
         // TODO: test conversionRate
     }
+
 }

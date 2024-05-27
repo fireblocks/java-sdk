@@ -10,96 +10,114 @@
  * Do not edit the class manually.
  */
 
-package com.fireblocks.sdk.api;
 
+package com.fireblocks.sdk.api;
 
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.model.AbiFunction;
+import java.math.BigDecimal;
 import com.fireblocks.sdk.model.ContractDeployRequest;
 import com.fireblocks.sdk.model.ContractDeployResponse;
 import com.fireblocks.sdk.model.ContractTemplateDto;
 import com.fireblocks.sdk.model.ContractUploadRequest;
+import com.fireblocks.sdk.model.ErrorSchema;
+import com.fireblocks.sdk.model.HttpContractDoesNotExistError;
 import com.fireblocks.sdk.model.TemplatesPaginatedResponse;
-import java.math.BigDecimal;
-import java.util.concurrent.CompletableFuture;
-import org.junit.Ignore;
 import org.junit.Test;
+import org.junit.Ignore;
 
-/** API tests for ContractTemplatesApi */
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import java.util.concurrent.CompletableFuture;
+
+/**
+ * API tests for ContractTemplatesApi
+ */
 @Ignore
 public class ContractTemplatesApiTest {
 
     private final ContractTemplatesApi api = new ContractTemplatesApi();
 
+    
     /**
      * Delete a contract template by id
      *
-     * <p>Delete a contract by id. allowed only for private contract templates. Notice: it is
-     * irreversible!
+     * Delete a contract by id. allowed only for private contract templates. Notice: it is irreversible!
      *
-     * @throws ApiException if the Api call fails
+     * @throws ApiException
+     *          if the Api call fails
      */
     @Test
     public void deleteContractTemplateByIdTest() throws ApiException {
         String contractTemplateId = null;
-
-        CompletableFuture<ApiResponse<Void>> response =
-                api.deleteContractTemplateById(contractTemplateId);
+        
+        CompletableFuture<ApiResponse<Void>> response = api.deleteContractTemplateById(contractTemplateId);
+        
     }
-
+    
     /**
      * Deploy contract
      *
-     * <p>Deploy a new contract by contract template id. If you wish to deploy a token (ERC20,
-     * ERC721 etc), and create asset please use POST /tokenization
+     * Deploy a new contract by contract template id. If you wish to deploy a token (ERC20, ERC721 etc), and create asset please use POST /tokenization
      *
-     * @throws ApiException if the Api call fails
+     * @throws ApiException
+     *          if the Api call fails
      */
     @Test
     public void deployContractTest() throws ApiException {
         ContractDeployRequest contractDeployRequest = null;
         String contractTemplateId = null;
         String idempotencyKey = null;
-        CompletableFuture<ApiResponse<ContractDeployResponse>> response =
-                api.deployContract(contractDeployRequest, contractTemplateId, idempotencyKey);
+        CompletableFuture<ApiResponse<ContractDeployResponse>> response = 
+        api.deployContract(contractDeployRequest, contractTemplateId, idempotencyKey);
+        
     }
-
+    
     /**
      * Return contract template&#39;s constructor
      *
-     * <p>Return contract template&#39;s constructor ABI
+     * Return contract template&#39;s constructor ABI
      *
-     * @throws ApiException if the Api call fails
+     * @throws ApiException
+     *          if the Api call fails
      */
     @Test
     public void getConstructorByContractTemplateIdTest() throws ApiException {
         String contractTemplateId = null;
         Boolean withDocs = null;
-        CompletableFuture<ApiResponse<AbiFunction>> response =
-                api.getConstructorByContractTemplateId(contractTemplateId, withDocs);
+        CompletableFuture<ApiResponse<AbiFunction>> response = 
+        api.getConstructorByContractTemplateId(contractTemplateId, withDocs);
+        
     }
-
+    
     /**
      * Return contract template by id
      *
-     * <p>Return detailed information about the contract template
+     * Return detailed information about the contract template
      *
-     * @throws ApiException if the Api call fails
+     * @throws ApiException
+     *          if the Api call fails
      */
     @Test
     public void getContractTemplateByIdTest() throws ApiException {
         String contractTemplateId = null;
-        CompletableFuture<ApiResponse<ContractTemplateDto>> response =
-                api.getContractTemplateById(contractTemplateId);
+        CompletableFuture<ApiResponse<ContractTemplateDto>> response = 
+        api.getContractTemplateById(contractTemplateId);
+        
     }
-
+    
     /**
      * List all contract templates
      *
-     * <p>Return minimal representation of all the contract templates available for the workspace
+     * Return minimal representation of all the contract templates available for the workspace
      *
-     * @throws ApiException if the Api call fails
+     * @throws ApiException
+     *          if the Api call fails
      */
     @Test
     public void getContractTemplatesTest() throws ApiException {
@@ -109,38 +127,43 @@ public class ContractTemplatesApiTest {
         BigDecimal pageSize = null;
         String type = null;
         String initializationPhase = null;
-        CompletableFuture<ApiResponse<TemplatesPaginatedResponse>> response =
-                api.getContractTemplates(
-                        limit, offset, pageCursor, pageSize, type, initializationPhase);
+        CompletableFuture<ApiResponse<TemplatesPaginatedResponse>> response = 
+        api.getContractTemplates(limit, offset, pageCursor, pageSize, type, initializationPhase);
+        
     }
-
+    
     /**
      * Return contract template&#39;s function
      *
-     * <p>Return contract template&#x60;s function ABI by signature
+     * Return contract template&#x60;s function ABI by signature
      *
-     * @throws ApiException if the Api call fails
+     * @throws ApiException
+     *          if the Api call fails
      */
     @Test
     public void getFunctionAbiByContractTemplateIdTest() throws ApiException {
         String contractTemplateId = null;
         String functionSignature = null;
-        CompletableFuture<ApiResponse<AbiFunction>> response =
-                api.getFunctionAbiByContractTemplateId(contractTemplateId, functionSignature);
+        CompletableFuture<ApiResponse<AbiFunction>> response = 
+        api.getFunctionAbiByContractTemplateId(contractTemplateId, functionSignature);
+        
     }
-
+    
     /**
      * Upload contract template
      *
-     * <p>Upload a new contract template. This contract template will be available for the workspace
+     * Upload a new contract template. This contract template will be available for the workspace
      *
-     * @throws ApiException if the Api call fails
+     * @throws ApiException
+     *          if the Api call fails
      */
     @Test
     public void uploadContractTemplateTest() throws ApiException {
         ContractUploadRequest contractUploadRequest = null;
         String idempotencyKey = null;
-        CompletableFuture<ApiResponse<ContractTemplateDto>> response =
-                api.uploadContractTemplate(contractUploadRequest, idempotencyKey);
+        CompletableFuture<ApiResponse<ContractTemplateDto>> response = 
+        api.uploadContractTemplate(contractUploadRequest, idempotencyKey);
+        
     }
+    
 }

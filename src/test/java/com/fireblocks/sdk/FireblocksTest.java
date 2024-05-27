@@ -1,26 +1,25 @@
 import static org.mockito.Mockito.*;
-
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTCreator;
 import com.auth0.jwt.algorithms.Algorithm;
-import com.fireblocks.sdk.AdditionalOptions;
-import com.fireblocks.sdk.ApiClient;
+import java.time.Instant;
+import java.util.UUID;
 import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.AdditionalOptions;
 import com.fireblocks.sdk.Fireblocks;
-import com.fireblocks.sdk.InstanceTimeWrapper;
+import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.api.*;
-import java.io.IOException;
+import com.fireblocks.sdk.InstanceTimeWrapper;
 import java.net.URI;
 import java.net.http.HttpHeaders;
 import java.net.http.HttpRequest;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.security.KeyFactory;
-import java.time.Instant;
 import java.util.Base64;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.io.IOException;
 import java.util.function.Consumer;
 import org.junit.Assert;
 import org.junit.Test;
@@ -31,21 +30,16 @@ public class FireblocksTest {
 
     private Fireblocks fireblocks;
 
-    private void setupFireblocks(
-            boolean isMockSecretKey,
-            AdditionalOptions additionalOptions,
-            ConfigurationOptions conf) {
+    private void setupFireblocks(boolean isMockSecretKey, AdditionalOptions additionalOptions, ConfigurationOptions conf) {
         if (additionalOptions == null) {
-            additionalOptions =
-                    new AdditionalOptions().userAgent("testUserAgent").isAnonymousPlatform(true);
+            additionalOptions = new AdditionalOptions().userAgent("testUserAgent").isAnonymousPlatform(true);
         }
         if (conf == null) {
-            conf =
-                    new ConfigurationOptions()
-                            .basePath("https://api.fireblocks.io/v1")
-                            .apiKey("testApiKey")
-                            .secretKey("testSecretKey")
-                            .additionalOptions(additionalOptions);
+            conf = new ConfigurationOptions()
+                    .basePath("https://api.fireblocks.io/v1")
+                    .apiKey("testApiKey")
+                    .secretKey("testSecretKey")
+                    .additionalOptions(additionalOptions);
         }
         if (isMockSecretKey) {
             setupFireblocksWithMockedSecretKey(additionalOptions, conf);
@@ -54,15 +48,10 @@ public class FireblocksTest {
         }
     }
 
-    private void setupFireblocksWithRealSecretKey(
-            AdditionalOptions additionalOptions, ConfigurationOptions conf) {
+    private void setupFireblocksWithRealSecretKey(AdditionalOptions additionalOptions, ConfigurationOptions conf) {
         String secretKey = null;
         try {
-            secretKey =
-                    new String(
-                            Files.readAllBytes(
-                                    Paths.get(
-                                            "src/test/java/com/fireblocks/sdk/DummyTestKey.txt")));
+            secretKey = new String(Files.readAllBytes(Paths.get("src/test/java/com/fireblocks/sdk/DummyTestKey.txt")));
         } catch (IOException e) {
             Assert.fail("Failed to read secret key file: " + e.getMessage());
         }
@@ -71,8 +60,7 @@ public class FireblocksTest {
         fireblocks = new Fireblocks(conf);
     }
 
-    private void setupFireblocksWithMockedSecretKey(
-            AdditionalOptions additionalOptions, ConfigurationOptions conf) {
+    private void setupFireblocksWithMockedSecretKey(AdditionalOptions additionalOptions, ConfigurationOptions conf) {
         try (MockedStatic<Algorithm> mockedAlgorithm = Mockito.mockStatic(Algorithm.class);
                 MockedStatic<KeyFactory> mockedKeyFactory = Mockito.mockStatic(KeyFactory.class);
                 MockedStatic<Base64> mockedBase64 = Mockito.mockStatic(Base64.class)) {
@@ -92,8 +80,7 @@ public class FireblocksTest {
         }
     }
 
-    private void runAndVerifyAuthorizationValue(
-            HttpRequest.Builder requestBuilder, String expectedAuthorizationValue) {
+    private void runAndVerifyAuthorizationValue(HttpRequest.Builder requestBuilder, String expectedAuthorizationValue) {
         setupFireblocks(false, null, null);
         ApiClient apiClient = fireblocks.getApiClient();
         Instant fixedInstant = Instant.parse("2024-03-21T13:16:22.684533Z");
@@ -264,33 +251,28 @@ public class FireblocksTest {
     public void testAuthorizationValueWithoutBody() {
         HttpRequest.Builder requestBuilder =
                 HttpRequest.newBuilder().uri(URI.create("http://localhost"));
-        String expectedAuthorizationValue =
-                "Bearer"
-                    + " eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJ0ZXN0QXBpS2V5IiwiYm9keUhhc2giOiJlM2IwYzQ0Mjk4ZmMxYzE0OWFmYmY0Yzg5OTZmYjkyNDI3YWU0MWU0NjQ5YjkzNGNhNDk1OTkxYjc4NTJiODU1IiwiZXhwIjoxNzExMDI3MDM3LCJ1cmkiOiIiLCJub25jZSI6IjEyM2U0NTY3LWU4OWItMTJkMy1hNDU2LTQyNjYxNDE3NDAwMCIsImlhdCI6MTcxMTAyNjk4Mn0.WGr-S5VVekZKFnx7ThzrdXeUm3YETzkP5oNa7QZUJcPN7Pm7j8ZQWGMlXL6bAQBuMUE7zBzMf_5iEUXOTa4iSseQaFR4ILzY5Rbi8Ps9EMGq--QaWFwWDoiE5qUcuU20gcALOY9L1cZtZPGFH-rcWrg1L99hFC3977pHu524IjBqXBELuxT1t3le4FcAS0mqcgi3XsLzOBCjSKNiWaqX1mRhTQgmvLCSJhcMMnGns-NERPvtQsMukRvYYErhx7RoTBv96Z1djsg2wrhKGqFmJyxWKVLA06k-XwAvXjJbIm1kl0S7KCXQdFpXzYLJH0OLXGMeQhhlz59d6WfivXd5Y7oKVGIke4AtImcUtzAht_bwG22IDY3UBNq1SEwe1-K_iW7Fh5UQy-4m62s5u38R-CDfV7q0oBAxLRB8sbH1zAm8bDU8kIyR8k7N9L_gWTF6hSVMnVP6QrScAhmVKgv1mFI2BySqBeKY6TdDIvBFHqSPL0F1fABz_tT7L3RZt_4GJnWfJXPr9ERlXbVTj2q1dEdgMscPFc6PfRRXzYSQRH10xbSOpvmi1ldx3wnjOeYJsDlLCG8kwSZExrIPXYNXme_2c6GYGoXpTwME2IfQhPtIPQcWBMMnP1z5UAUdx1SYLXafWYAiYKF7G8a91S07hEgmhT4nS2ZlBgGzb0dcsNE";
+        String expectedAuthorizationValue = "Bearer"
+        + " eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJ0ZXN0QXBpS2V5IiwiYm9keUhhc2giOiJlM2IwYzQ0Mjk4ZmMxYzE0OWFmYmY0Yzg5OTZmYjkyNDI3YWU0MWU0NjQ5YjkzNGNhNDk1OTkxYjc4NTJiODU1IiwiZXhwIjoxNzExMDI3MDM3LCJ1cmkiOiIiLCJub25jZSI6IjEyM2U0NTY3LWU4OWItMTJkMy1hNDU2LTQyNjYxNDE3NDAwMCIsImlhdCI6MTcxMTAyNjk4Mn0.WGr-S5VVekZKFnx7ThzrdXeUm3YETzkP5oNa7QZUJcPN7Pm7j8ZQWGMlXL6bAQBuMUE7zBzMf_5iEUXOTa4iSseQaFR4ILzY5Rbi8Ps9EMGq--QaWFwWDoiE5qUcuU20gcALOY9L1cZtZPGFH-rcWrg1L99hFC3977pHu524IjBqXBELuxT1t3le4FcAS0mqcgi3XsLzOBCjSKNiWaqX1mRhTQgmvLCSJhcMMnGns-NERPvtQsMukRvYYErhx7RoTBv96Z1djsg2wrhKGqFmJyxWKVLA06k-XwAvXjJbIm1kl0S7KCXQdFpXzYLJH0OLXGMeQhhlz59d6WfivXd5Y7oKVGIke4AtImcUtzAht_bwG22IDY3UBNq1SEwe1-K_iW7Fh5UQy-4m62s5u38R-CDfV7q0oBAxLRB8sbH1zAm8bDU8kIyR8k7N9L_gWTF6hSVMnVP6QrScAhmVKgv1mFI2BySqBeKY6TdDIvBFHqSPL0F1fABz_tT7L3RZt_4GJnWfJXPr9ERlXbVTj2q1dEdgMscPFc6PfRRXzYSQRH10xbSOpvmi1ldx3wnjOeYJsDlLCG8kwSZExrIPXYNXme_2c6GYGoXpTwME2IfQhPtIPQcWBMMnP1z5UAUdx1SYLXafWYAiYKF7G8a91S07hEgmhT4nS2ZlBgGzb0dcsNE";
         runAndVerifyAuthorizationValue(requestBuilder, expectedAuthorizationValue);
     }
 
     @Test
     public void testAuthorizationValueWithEmptyBody() {
         HttpRequest.Builder requestBuilder =
-                HttpRequest.newBuilder()
-                        .uri(URI.create("http://localhost"))
-                        .POST(HttpRequest.BodyPublishers.noBody());
-        String expectedAuthorizationValue =
-                "Bearer"
-                    + " eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJ0ZXN0QXBpS2V5IiwiYm9keUhhc2giOiJlM2IwYzQ0Mjk4ZmMxYzE0OWFmYmY0Yzg5OTZmYjkyNDI3YWU0MWU0NjQ5YjkzNGNhNDk1OTkxYjc4NTJiODU1IiwiZXhwIjoxNzExMDI3MDM3LCJ1cmkiOiIiLCJub25jZSI6IjEyM2U0NTY3LWU4OWItMTJkMy1hNDU2LTQyNjYxNDE3NDAwMCIsImlhdCI6MTcxMTAyNjk4Mn0.WGr-S5VVekZKFnx7ThzrdXeUm3YETzkP5oNa7QZUJcPN7Pm7j8ZQWGMlXL6bAQBuMUE7zBzMf_5iEUXOTa4iSseQaFR4ILzY5Rbi8Ps9EMGq--QaWFwWDoiE5qUcuU20gcALOY9L1cZtZPGFH-rcWrg1L99hFC3977pHu524IjBqXBELuxT1t3le4FcAS0mqcgi3XsLzOBCjSKNiWaqX1mRhTQgmvLCSJhcMMnGns-NERPvtQsMukRvYYErhx7RoTBv96Z1djsg2wrhKGqFmJyxWKVLA06k-XwAvXjJbIm1kl0S7KCXQdFpXzYLJH0OLXGMeQhhlz59d6WfivXd5Y7oKVGIke4AtImcUtzAht_bwG22IDY3UBNq1SEwe1-K_iW7Fh5UQy-4m62s5u38R-CDfV7q0oBAxLRB8sbH1zAm8bDU8kIyR8k7N9L_gWTF6hSVMnVP6QrScAhmVKgv1mFI2BySqBeKY6TdDIvBFHqSPL0F1fABz_tT7L3RZt_4GJnWfJXPr9ERlXbVTj2q1dEdgMscPFc6PfRRXzYSQRH10xbSOpvmi1ldx3wnjOeYJsDlLCG8kwSZExrIPXYNXme_2c6GYGoXpTwME2IfQhPtIPQcWBMMnP1z5UAUdx1SYLXafWYAiYKF7G8a91S07hEgmhT4nS2ZlBgGzb0dcsNE";
+                HttpRequest.newBuilder().uri(URI.create("http://localhost"))
+                .POST(HttpRequest.BodyPublishers.noBody());
+        String expectedAuthorizationValue = "Bearer"
+        + " eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJ0ZXN0QXBpS2V5IiwiYm9keUhhc2giOiJlM2IwYzQ0Mjk4ZmMxYzE0OWFmYmY0Yzg5OTZmYjkyNDI3YWU0MWU0NjQ5YjkzNGNhNDk1OTkxYjc4NTJiODU1IiwiZXhwIjoxNzExMDI3MDM3LCJ1cmkiOiIiLCJub25jZSI6IjEyM2U0NTY3LWU4OWItMTJkMy1hNDU2LTQyNjYxNDE3NDAwMCIsImlhdCI6MTcxMTAyNjk4Mn0.WGr-S5VVekZKFnx7ThzrdXeUm3YETzkP5oNa7QZUJcPN7Pm7j8ZQWGMlXL6bAQBuMUE7zBzMf_5iEUXOTa4iSseQaFR4ILzY5Rbi8Ps9EMGq--QaWFwWDoiE5qUcuU20gcALOY9L1cZtZPGFH-rcWrg1L99hFC3977pHu524IjBqXBELuxT1t3le4FcAS0mqcgi3XsLzOBCjSKNiWaqX1mRhTQgmvLCSJhcMMnGns-NERPvtQsMukRvYYErhx7RoTBv96Z1djsg2wrhKGqFmJyxWKVLA06k-XwAvXjJbIm1kl0S7KCXQdFpXzYLJH0OLXGMeQhhlz59d6WfivXd5Y7oKVGIke4AtImcUtzAht_bwG22IDY3UBNq1SEwe1-K_iW7Fh5UQy-4m62s5u38R-CDfV7q0oBAxLRB8sbH1zAm8bDU8kIyR8k7N9L_gWTF6hSVMnVP6QrScAhmVKgv1mFI2BySqBeKY6TdDIvBFHqSPL0F1fABz_tT7L3RZt_4GJnWfJXPr9ERlXbVTj2q1dEdgMscPFc6PfRRXzYSQRH10xbSOpvmi1ldx3wnjOeYJsDlLCG8kwSZExrIPXYNXme_2c6GYGoXpTwME2IfQhPtIPQcWBMMnP1z5UAUdx1SYLXafWYAiYKF7G8a91S07hEgmhT4nS2ZlBgGzb0dcsNE";
         runAndVerifyAuthorizationValue(requestBuilder, expectedAuthorizationValue);
     }
 
     @Test
     public void testAuthorizationValueWithBody() {
         HttpRequest.Builder requestBuilder =
-                HttpRequest.newBuilder()
-                        .uri(URI.create("http://localhost"))
-                        .POST(HttpRequest.BodyPublishers.ofString("request body"));
-        String expectedAuthorizationValue =
-                "Bearer"
-                    + " eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJ0ZXN0QXBpS2V5IiwiYm9keUhhc2giOiI3ZjA3YzhiN2VhZGM3M2YyNzU1YzYwZWZiMWQ5ZDdhYzBmMDk0ZGQ3YzFkYmEzMDY5ZDNiZTAyMTRiZTEwZmI2IiwiZXhwIjoxNzExMDI3MDM3LCJ1cmkiOiIiLCJub25jZSI6IjEyM2U0NTY3LWU4OWItMTJkMy1hNDU2LTQyNjYxNDE3NDAwMCIsImlhdCI6MTcxMTAyNjk4Mn0.nW_ce87OPxWC4iqjrSjwaIXNLwrE8EAHYQE5fMM2V1iagmCEoalh0UdfNJOPZqv8-YHxBXOIPusY8l148rpjbfYN4a9Ru-PUWUmPybANyXEVkVutcE04d8SfAN_z2gpHRqfIJiz7NXtpIp5QUVuAh0Akrj4PeYG5Ctw74wh2XW8k5q12kD56mVUEmuDMDBAlckOpCHXpHqhFfDR92SoiqQjD62c1uQi1GExNfeu5WYPfjk8y5WXbhuL2MzYNarc4lt2O5gY-AgK63Z7ge0sPix1CilNwpNI6_hisvpdOjr3CqUANsS7Q_Sn0AoMnlA-1hicDk3gd1M3FEwU_SxNRzFAmyaDEnXGY-AvCKKvgwlDsEcootwVRlLNcNKVo0l_vpJMczDlY0-s4p4v4R-Rlqs-irDOuV1T_kGV3Gv-3d922mgktfpqIwITIIfP9_TsbXK_RhHsGWdE1wniFIpbQRFODpvIPLgn44iCwpN-vDBD_4YwLr4AvNXuPs4Vt_OAwaMJ6TDwg-lGYI_nT3KGBBJT0dRyMYGY9VWsKWDFILt7Wp38siHoVuSgCwKky8654PBcDtiYg2QwnasT2wTymu10TNbfzmopx9WkGjsq1jepORD9mt-tiaxRwZpZnZzSgIerdl3VW72AbD3pzF79jdJP6FrClJJA3ktkyeW_SPz0";
+                HttpRequest.newBuilder().uri(URI.create("http://localhost"))
+                .POST(HttpRequest.BodyPublishers.ofString("request body"));
+        String expectedAuthorizationValue = "Bearer"
+        + " eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJ0ZXN0QXBpS2V5IiwiYm9keUhhc2giOiI3ZjA3YzhiN2VhZGM3M2YyNzU1YzYwZWZiMWQ5ZDdhYzBmMDk0ZGQ3YzFkYmEzMDY5ZDNiZTAyMTRiZTEwZmI2IiwiZXhwIjoxNzExMDI3MDM3LCJ1cmkiOiIiLCJub25jZSI6IjEyM2U0NTY3LWU4OWItMTJkMy1hNDU2LTQyNjYxNDE3NDAwMCIsImlhdCI6MTcxMTAyNjk4Mn0.nW_ce87OPxWC4iqjrSjwaIXNLwrE8EAHYQE5fMM2V1iagmCEoalh0UdfNJOPZqv8-YHxBXOIPusY8l148rpjbfYN4a9Ru-PUWUmPybANyXEVkVutcE04d8SfAN_z2gpHRqfIJiz7NXtpIp5QUVuAh0Akrj4PeYG5Ctw74wh2XW8k5q12kD56mVUEmuDMDBAlckOpCHXpHqhFfDR92SoiqQjD62c1uQi1GExNfeu5WYPfjk8y5WXbhuL2MzYNarc4lt2O5gY-AgK63Z7ge0sPix1CilNwpNI6_hisvpdOjr3CqUANsS7Q_Sn0AoMnlA-1hicDk3gd1M3FEwU_SxNRzFAmyaDEnXGY-AvCKKvgwlDsEcootwVRlLNcNKVo0l_vpJMczDlY0-s4p4v4R-Rlqs-irDOuV1T_kGV3Gv-3d922mgktfpqIwITIIfP9_TsbXK_RhHsGWdE1wniFIpbQRFODpvIPLgn44iCwpN-vDBD_4YwLr4AvNXuPs4Vt_OAwaMJ6TDwg-lGYI_nT3KGBBJT0dRyMYGY9VWsKWDFILt7Wp38siHoVuSgCwKky8654PBcDtiYg2QwnasT2wTymu10TNbfzmopx9WkGjsq1jepORD9mt-tiaxRwZpZnZzSgIerdl3VW72AbD3pzF79jdJP6FrClJJA3ktkyeW_SPz0";
         runAndVerifyAuthorizationValue(requestBuilder, expectedAuthorizationValue);
     }
 
@@ -298,15 +280,13 @@ public class FireblocksTest {
     public void testAuthorizationValueWithBodyAndQueryParams() {
         HttpRequest.Builder requestBuilder =
                 HttpRequest.newBuilder()
-                        .uri(URI.create("http://localhost?queryParam1=value1&queryParam2=value2"))
-                        .POST(
-                                HttpRequest.BodyPublishers.ofString(
-                                        "{\"param1\":\"value1\", \"param2\":\"value2\"}"));
-        String expectedAuthorizationValue =
-                "Bearer"
-                    + " eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJ0ZXN0QXBpS2V5IiwiYm9keUhhc2giOiJjYjU3OWU5ODdmMDNhZjIyMDE5NWNhZDhjNGMxOTVmNWY5NTYzZjE0ZTZlMjgxYTljNTM2M2Q0ZGYzMzhkNzZjIiwiZXhwIjoxNzExMDI3MDM3LCJ1cmkiOiI_cXVlcnlQYXJhbTE9dmFsdWUxJnF1ZXJ5UGFyYW0yPXZhbHVlMiIsIm5vbmNlIjoiMTIzZTQ1NjctZTg5Yi0xMmQzLWE0NTYtNDI2NjE0MTc0MDAwIiwiaWF0IjoxNzExMDI2OTgyfQ.Os2X3BfG2I0FU3jSqKQPxToW1uuZB1bvroCGFIDXolxzZ0tqZ3xN_Vw2jJ26QofWhZKnTR0AzjsEPxjIp_BMJBzbvO24enBZzOvYHeOh-7iUrbZm1VDzLiE2ANzP7HXdFSkwadKIlx0yu9lP3DH8fewQMq7NYev4XHc2m95MTEKYz8NBAYvWq_52HcRgyx9ON1BFXVCKuFpZDuyFvkfgfhVz2sOlhHxMLBQQ_eVdjjn7OnNFNquTs2ydIhLDZ8j8pQd3fH2AuvN-0VqmwZNf-xMkfgciEQWApzeJnpouiA5We5N3rSzCki3QuThp3fkbN6hPbgQz4pKyRX34xxrAEbqOigQ4ii7B14qIwQgrh6mLNgC5jAkI9n7M0uR2uP5oSRQ53Nv0jdvvxZUirxOkTuPv9MuHe15ObOBqbQC6_cjZAnFh4AT3xWfqDqG4Cze8tdJD6tdpXJdorpsgXM72Y4mH71lwB0070s9kQT7RSHjuHSaoZg1bqkUZDmY5LMQtOS9g_4sCl3ZiqqhFz92Q6zHCjO9joi9K8JxVvfjcdZnKn28P6ubAWETnJg4Df8vqCqZYLPGohz2vv4I-IKuV7ISs3-hN8Pkc6IMRdc2guUZwsk1ztnd4M17f7FiyaIAHgZlbbAPniatu3DdMO9S3p5h4EYx1TyGQdoSmmzs0GWk";
+                    .uri(URI.create("http://localhost?queryParam1=value1&queryParam2=value2"))
+                    .POST(HttpRequest.BodyPublishers.ofString("{\"param1\":\"value1\", \"param2\":\"value2\"}"));
+        String expectedAuthorizationValue = "Bearer"
+        + " eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJ0ZXN0QXBpS2V5IiwiYm9keUhhc2giOiJjYjU3OWU5ODdmMDNhZjIyMDE5NWNhZDhjNGMxOTVmNWY5NTYzZjE0ZTZlMjgxYTljNTM2M2Q0ZGYzMzhkNzZjIiwiZXhwIjoxNzExMDI3MDM3LCJ1cmkiOiI_cXVlcnlQYXJhbTE9dmFsdWUxJnF1ZXJ5UGFyYW0yPXZhbHVlMiIsIm5vbmNlIjoiMTIzZTQ1NjctZTg5Yi0xMmQzLWE0NTYtNDI2NjE0MTc0MDAwIiwiaWF0IjoxNzExMDI2OTgyfQ.Os2X3BfG2I0FU3jSqKQPxToW1uuZB1bvroCGFIDXolxzZ0tqZ3xN_Vw2jJ26QofWhZKnTR0AzjsEPxjIp_BMJBzbvO24enBZzOvYHeOh-7iUrbZm1VDzLiE2ANzP7HXdFSkwadKIlx0yu9lP3DH8fewQMq7NYev4XHc2m95MTEKYz8NBAYvWq_52HcRgyx9ON1BFXVCKuFpZDuyFvkfgfhVz2sOlhHxMLBQQ_eVdjjn7OnNFNquTs2ydIhLDZ8j8pQd3fH2AuvN-0VqmwZNf-xMkfgciEQWApzeJnpouiA5We5N3rSzCki3QuThp3fkbN6hPbgQz4pKyRX34xxrAEbqOigQ4ii7B14qIwQgrh6mLNgC5jAkI9n7M0uR2uP5oSRQ53Nv0jdvvxZUirxOkTuPv9MuHe15ObOBqbQC6_cjZAnFh4AT3xWfqDqG4Cze8tdJD6tdpXJdorpsgXM72Y4mH71lwB0070s9kQT7RSHjuHSaoZg1bqkUZDmY5LMQtOS9g_4sCl3ZiqqhFz92Q6zHCjO9joi9K8JxVvfjcdZnKn28P6ubAWETnJg4Df8vqCqZYLPGohz2vv4I-IKuV7ISs3-hN8Pkc6IMRdc2guUZwsk1ztnd4M17f7FiyaIAHgZlbbAPniatu3DdMO9S3p5h4EYx1TyGQdoSmmzs0GWk";
         runAndVerifyAuthorizationValue(requestBuilder, expectedAuthorizationValue);
     }
+
 
     @Test
     public void testGetApiUserApi() {
@@ -351,11 +331,9 @@ public class FireblocksTest {
     @Test
     public void testGetComplianceScreeningConfigurationApi() {
         setupFireblocks(true, null, null);
-        ComplianceScreeningConfigurationApi complianceScreeningConfiguration =
-                fireblocks.complianceScreeningConfiguration();
+        ComplianceScreeningConfigurationApi complianceScreeningConfiguration = fireblocks.complianceScreeningConfiguration();
         Assert.assertNotNull(complianceScreeningConfiguration);
-        Assert.assertSame(
-                complianceScreeningConfiguration, fireblocks.complianceScreeningConfiguration());
+        Assert.assertSame(complianceScreeningConfiguration, fireblocks.complianceScreeningConfiguration());
     }
 
     @Test

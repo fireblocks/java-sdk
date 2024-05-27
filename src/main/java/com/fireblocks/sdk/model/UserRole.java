@@ -10,73 +10,87 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
+
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.StringJoiner;
+import java.util.Objects;
+import java.util.Map;
+import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
-/** The role of the user */
+/**
+ * The role of the user
+ */
 public enum UserRole {
-    OWNER("OWNER"),
+  
+  OWNER("OWNER"),
+  
+  ADMIN("ADMIN"),
+  
+  SIGNER("SIGNER"),
+  
+  COLLATERALS_SIGNER("COLLATERALS_SIGNER"),
+  
+  EDITOR("EDITOR"),
+  
+  APPROVER("APPROVER"),
+  
+  VIEWER("VIEWER"),
+  
+  NON_SIGNING_ADMIN("NON_SIGNING_ADMIN"),
+  
+  AUDITOR("AUDITOR"),
+  
+  NCW_ADMIN("NCW_ADMIN"),
+  
+  NCW_SIGNER("NCW_SIGNER");
 
-    ADMIN("ADMIN"),
+  private String value;
 
-    SIGNER("SIGNER"),
+  UserRole(String value) {
+    this.value = value;
+  }
 
-    COLLATERALS_SIGNER("COLLATERALS_SIGNER"),
+  @JsonValue
+  public String getValue() {
+    return value;
+  }
 
-    EDITOR("EDITOR"),
+  @Override
+  public String toString() {
+    return String.valueOf(value);
+  }
 
-    APPROVER("APPROVER"),
+  @JsonCreator
+  public static UserRole fromValue(String value) {
+    for (UserRole b : UserRole.values()) {
+      if (b.value.equals(value)) {
+        return b;
+      }
+    }
+    throw new IllegalArgumentException("Unexpected value '" + value + "'");
+  }
 
-    VIEWER("VIEWER"),
-
-    NON_SIGNING_ADMIN("NON_SIGNING_ADMIN"),
-
-    AUDITOR("AUDITOR"),
-
-    NCW_ADMIN("NCW_ADMIN"),
-
-    NCW_SIGNER("NCW_SIGNER");
-
-    private String value;
-
-    UserRole(String value) {
-        this.value = value;
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @param prefix prefix of the query string
+   * @return URL query string
+   */
+  public String toUrlQueryString(String prefix) {
+    if (prefix == null) {
+      prefix = "";
     }
 
-    @JsonValue
-    public String getValue() {
-        return value;
-    }
+    return String.format("%s=%s", prefix, this.toString());
+  }
 
-    @Override
-    public String toString() {
-        return String.valueOf(value);
-    }
-
-    @JsonCreator
-    public static UserRole fromValue(String value) {
-        for (UserRole b : UserRole.values()) {
-            if (b.value.equals(value)) {
-                return b;
-            }
-        }
-        throw new IllegalArgumentException("Unexpected value '" + value + "'");
-    }
-
-    /**
-     * Convert the instance into URL query string.
-     *
-     * @param prefix prefix of the query string
-     * @return URL query string
-     */
-    public String toUrlQueryString(String prefix) {
-        if (prefix == null) {
-            prefix = "";
-        }
-
-        return String.format("%s=%s", prefix, this.toString());
-    }
 }
+

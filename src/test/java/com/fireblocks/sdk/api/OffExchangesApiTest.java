@@ -10,98 +10,120 @@
  * Do not edit the class manually.
  */
 
-package com.fireblocks.sdk.api;
 
+package com.fireblocks.sdk.api;
 
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.model.AddCollateralRequestBody;
 import com.fireblocks.sdk.model.CreateTransactionResponse;
+import com.fireblocks.sdk.model.ErrorSchema;
 import com.fireblocks.sdk.model.ExchangeAccount;
 import com.fireblocks.sdk.model.ExchangeSettlementTransactionsResponse;
 import com.fireblocks.sdk.model.RemoveCollateralRequestBody;
 import com.fireblocks.sdk.model.SettlementRequestBody;
 import com.fireblocks.sdk.model.SettlementResponse;
-import java.util.concurrent.CompletableFuture;
-import org.junit.Ignore;
 import org.junit.Test;
+import org.junit.Ignore;
 
-/** API tests for OffExchangesApi */
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import java.util.concurrent.CompletableFuture;
+
+/**
+ * API tests for OffExchangesApi
+ */
 @Ignore
 public class OffExchangesApiTest {
 
     private final OffExchangesApi api = new OffExchangesApi();
 
+    
     /**
      * add collateral
      *
-     * <p>add collateral, create deposit request
+     * add collateral, create deposit request
      *
-     * @throws ApiException if the Api call fails
+     * @throws ApiException
+     *          if the Api call fails
      */
     @Test
     public void addOffExchangeTest() throws ApiException {
         AddCollateralRequestBody addCollateralRequestBody = null;
         String idempotencyKey = null;
-        CompletableFuture<ApiResponse<CreateTransactionResponse>> response =
-                api.addOffExchange(addCollateralRequestBody, idempotencyKey);
+        CompletableFuture<ApiResponse<CreateTransactionResponse>> response = 
+        api.addOffExchange(addCollateralRequestBody, idempotencyKey);
+        
     }
-
+    
     /**
      * Find a specific collateral exchange account
      *
-     * <p>Returns a collateral account by mainExchangeAccountId.
+     * Returns a collateral account by mainExchangeAccountId.
      *
-     * @throws ApiException if the Api call fails
+     * @throws ApiException
+     *          if the Api call fails
      */
     @Test
     public void getOffExchangeCollateralAccountsTest() throws ApiException {
         String mainExchangeAccountId = null;
-        CompletableFuture<ApiResponse<ExchangeAccount>> response =
-                api.getOffExchangeCollateralAccounts(mainExchangeAccountId);
+        CompletableFuture<ApiResponse<ExchangeAccount>> response = 
+        api.getOffExchangeCollateralAccounts(mainExchangeAccountId);
+        
     }
-
+    
     /**
      * get settlements transactions from exchange
      *
-     * <p>get settlements transactions from exchange
+     * get settlements transactions from exchange
      *
-     * @throws ApiException if the Api call fails
+     * @throws ApiException
+     *          if the Api call fails
      */
     @Test
     public void getOffExchangeSettlementTransactionsTest() throws ApiException {
         String mainExchangeAccountId = null;
-        CompletableFuture<ApiResponse<ExchangeSettlementTransactionsResponse>> response =
-                api.getOffExchangeSettlementTransactions(mainExchangeAccountId);
+        CompletableFuture<ApiResponse<ExchangeSettlementTransactionsResponse>> response = 
+        api.getOffExchangeSettlementTransactions(mainExchangeAccountId);
+        
     }
-
+    
     /**
      * remove collateral
      *
-     * <p>remove collateral, create withdraw request
+     * remove collateral, create withdraw request
      *
-     * @throws ApiException if the Api call fails
+     * @throws ApiException
+     *          if the Api call fails
      */
     @Test
     public void removeOffExchangeTest() throws ApiException {
         RemoveCollateralRequestBody removeCollateralRequestBody = null;
         String idempotencyKey = null;
-        CompletableFuture<ApiResponse<CreateTransactionResponse>> response =
-                api.removeOffExchange(removeCollateralRequestBody, idempotencyKey);
+        CompletableFuture<ApiResponse<CreateTransactionResponse>> response = 
+        api.removeOffExchange(removeCollateralRequestBody, idempotencyKey);
+        
     }
-
+    
     /**
      * create settlement for a trader
      *
-     * <p>create settlement for a trader
+     * create settlement for a trader
      *
-     * @throws ApiException if the Api call fails
+     * @throws ApiException
+     *          if the Api call fails
      */
     @Test
     public void settleOffExchangeTradesTest() throws ApiException {
         SettlementRequestBody settlementRequestBody = null;
         String idempotencyKey = null;
-        CompletableFuture<ApiResponse<SettlementResponse>> response =
-                api.settleOffExchangeTrades(settlementRequestBody, idempotencyKey);
+        CompletableFuture<ApiResponse<SettlementResponse>> response = 
+        api.settleOffExchangeTrades(settlementRequestBody, idempotencyKey);
+        
     }
+    
 }

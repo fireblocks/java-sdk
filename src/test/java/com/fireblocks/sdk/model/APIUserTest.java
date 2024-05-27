@@ -10,54 +10,82 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.fireblocks.sdk.model.UserRole;
+import com.fireblocks.sdk.model.UserStatus;
+import com.fireblocks.sdk.model.UserType;
+import java.util.Arrays;
+import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
-/** Model tests for APIUser */
+/**
+ * Model tests for APIUser
+ */
 public class APIUserTest {
     private final APIUser model = new APIUser();
 
-    /** Model tests for APIUser */
+    /**
+     * Model tests for APIUser
+     */
     @Test
     public void testAPIUser() {
         // TODO: test APIUser
     }
 
-    /** Test the property 'id' */
+    /**
+     * Test the property 'id'
+     */
     @Test
     public void idTest() {
         // TODO: test id
     }
 
-    /** Test the property 'name' */
+    /**
+     * Test the property 'name'
+     */
     @Test
     public void nameTest() {
         // TODO: test name
     }
 
-    /** Test the property 'role' */
+    /**
+     * Test the property 'role'
+     */
     @Test
     public void roleTest() {
         // TODO: test role
     }
 
-    /** Test the property 'enabled' */
+    /**
+     * Test the property 'enabled'
+     */
     @Test
     public void enabledTest() {
         // TODO: test enabled
     }
 
-    /** Test the property 'status' */
+    /**
+     * Test the property 'status'
+     */
     @Test
     public void statusTest() {
         // TODO: test status
     }
 
-    /** Test the property 'userType' */
+    /**
+     * Test the property 'userType'
+     */
     @Test
     public void userTypeTest() {
         // TODO: test userType
     }
+
 }

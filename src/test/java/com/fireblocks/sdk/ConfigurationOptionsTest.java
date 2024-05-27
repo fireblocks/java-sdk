@@ -1,8 +1,7 @@
-
-import com.fireblocks.sdk.AdditionalOptions;
-import com.fireblocks.sdk.ConfigurationOptions;
-import org.junit.Assert;
 import org.junit.Test;
+import org.junit.Assert;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.AdditionalOptions;
 
 public class ConfigurationOptionsTest {
 

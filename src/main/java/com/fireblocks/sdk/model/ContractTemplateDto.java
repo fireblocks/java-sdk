@@ -10,763 +10,705 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.fasterxml.jackson.annotation.JsonValue;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
 import java.util.StringJoiner;
+import java.util.Objects;
+import java.util.Map;
+import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.fireblocks.sdk.model.AbiFunction;
+import com.fireblocks.sdk.model.ContractAttributes;
+import com.fireblocks.sdk.model.ContractDoc;
+import com.fireblocks.sdk.model.VendorDto;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
-/** ContractTemplateDto */
+
+/**
+ * ContractTemplateDto
+ */
 @JsonPropertyOrder({
-    ContractTemplateDto.JSON_PROPERTY_ID,
-    ContractTemplateDto.JSON_PROPERTY_NAME,
-    ContractTemplateDto.JSON_PROPERTY_DESCRIPTION,
-    ContractTemplateDto.JSON_PROPERTY_LONG_DESCRIPTION,
-    ContractTemplateDto.JSON_PROPERTY_ABI,
-    ContractTemplateDto.JSON_PROPERTY_ATTRIBUTES,
-    ContractTemplateDto.JSON_PROPERTY_DOCS,
-    ContractTemplateDto.JSON_PROPERTY_OWNER,
-    ContractTemplateDto.JSON_PROPERTY_VENDOR,
-    ContractTemplateDto.JSON_PROPERTY_IS_PUBLIC,
-    ContractTemplateDto.JSON_PROPERTY_CAN_DEPLOY,
-    ContractTemplateDto.JSON_PROPERTY_TYPE,
-    ContractTemplateDto.JSON_PROPERTY_IMPLEMENTATION_CONTRACT_ID,
-    ContractTemplateDto.JSON_PROPERTY_INITIALIZATION_PHASE
+  ContractTemplateDto.JSON_PROPERTY_ID,
+  ContractTemplateDto.JSON_PROPERTY_NAME,
+  ContractTemplateDto.JSON_PROPERTY_DESCRIPTION,
+  ContractTemplateDto.JSON_PROPERTY_LONG_DESCRIPTION,
+  ContractTemplateDto.JSON_PROPERTY_ABI,
+  ContractTemplateDto.JSON_PROPERTY_ATTRIBUTES,
+  ContractTemplateDto.JSON_PROPERTY_DOCS,
+  ContractTemplateDto.JSON_PROPERTY_OWNER,
+  ContractTemplateDto.JSON_PROPERTY_VENDOR,
+  ContractTemplateDto.JSON_PROPERTY_IS_PUBLIC,
+  ContractTemplateDto.JSON_PROPERTY_CAN_DEPLOY,
+  ContractTemplateDto.JSON_PROPERTY_TYPE,
+  ContractTemplateDto.JSON_PROPERTY_IMPLEMENTATION_CONTRACT_ID,
+  ContractTemplateDto.JSON_PROPERTY_INITIALIZATION_PHASE
 })
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class ContractTemplateDto {
-    public static final String JSON_PROPERTY_ID = "id";
-    private String id;
+  public static final String JSON_PROPERTY_ID = "id";
+  private String id;
 
-    public static final String JSON_PROPERTY_NAME = "name";
-    private String name;
+  public static final String JSON_PROPERTY_NAME = "name";
+  private String name;
 
-    public static final String JSON_PROPERTY_DESCRIPTION = "description";
-    private String description;
+  public static final String JSON_PROPERTY_DESCRIPTION = "description";
+  private String description;
 
-    public static final String JSON_PROPERTY_LONG_DESCRIPTION = "longDescription";
-    private String longDescription;
+  public static final String JSON_PROPERTY_LONG_DESCRIPTION = "longDescription";
+  private String longDescription;
 
-    public static final String JSON_PROPERTY_ABI = "abi";
-    private List<List<AbiFunction>> abi = new ArrayList<>();
+  public static final String JSON_PROPERTY_ABI = "abi";
+  private List<List<AbiFunction>> abi = new ArrayList<>();
 
-    public static final String JSON_PROPERTY_ATTRIBUTES = "attributes";
-    private ContractAttributes attributes;
+  public static final String JSON_PROPERTY_ATTRIBUTES = "attributes";
+  private ContractAttributes attributes;
 
-    public static final String JSON_PROPERTY_DOCS = "docs";
-    private ContractDoc docs;
+  public static final String JSON_PROPERTY_DOCS = "docs";
+  private ContractDoc docs;
 
-    public static final String JSON_PROPERTY_OWNER = "owner";
-    private String owner;
+  public static final String JSON_PROPERTY_OWNER = "owner";
+  private String owner;
 
-    public static final String JSON_PROPERTY_VENDOR = "vendor";
-    private VendorDto vendor;
+  public static final String JSON_PROPERTY_VENDOR = "vendor";
+  private VendorDto vendor;
 
-    public static final String JSON_PROPERTY_IS_PUBLIC = "isPublic";
-    private Boolean isPublic;
+  public static final String JSON_PROPERTY_IS_PUBLIC = "isPublic";
+  private Boolean isPublic;
 
-    public static final String JSON_PROPERTY_CAN_DEPLOY = "canDeploy";
-    private Boolean canDeploy;
+  public static final String JSON_PROPERTY_CAN_DEPLOY = "canDeploy";
+  private Boolean canDeploy;
 
-    /** The type of the contract template */
-    public enum TypeEnum {
-        FUNGIBLE_TOKEN("FUNGIBLE_TOKEN"),
+  /**
+   * The type of the contract template
+   */
+  public enum TypeEnum {
+    FUNGIBLE_TOKEN("FUNGIBLE_TOKEN"),
+    
+    NON_FUNGIBLE_TOKEN("NON_FUNGIBLE_TOKEN"),
+    
+    NON_TOKEN("NON_TOKEN"),
+    
+    TOKEN_EXTENSION("TOKEN_EXTENSION"),
+    
+    TOKEN_UTILITY("TOKEN_UTILITY");
 
-        NON_FUNGIBLE_TOKEN("NON_FUNGIBLE_TOKEN"),
+    private String value;
 
-        NON_TOKEN("NON_TOKEN"),
-
-        TOKEN_EXTENSION("TOKEN_EXTENSION"),
-
-        TOKEN_UTILITY("TOKEN_UTILITY");
-
-        private String value;
-
-        TypeEnum(String value) {
-            this.value = value;
-        }
-
-        @JsonValue
-        public String getValue() {
-            return value;
-        }
-
-        @Override
-        public String toString() {
-            return String.valueOf(value);
-        }
-
-        @JsonCreator
-        public static TypeEnum fromValue(String value) {
-            for (TypeEnum b : TypeEnum.values()) {
-                if (b.value.equals(value)) {
-                    return b;
-                }
-            }
-            throw new IllegalArgumentException("Unexpected value '" + value + "'");
-        }
+    TypeEnum(String value) {
+      this.value = value;
     }
 
-    public static final String JSON_PROPERTY_TYPE = "type";
-    private TypeEnum type;
-
-    public static final String JSON_PROPERTY_IMPLEMENTATION_CONTRACT_ID =
-            "implementationContractId";
-    private String implementationContractId;
-
-    /** Gets or Sets initializationPhase */
-    public enum InitializationPhaseEnum {
-        ON_DEPLOYMENT("ON_DEPLOYMENT"),
-
-        POST_DEPLOYMENT("POST_DEPLOYMENT");
-
-        private String value;
-
-        InitializationPhaseEnum(String value) {
-            this.value = value;
-        }
-
-        @JsonValue
-        public String getValue() {
-            return value;
-        }
-
-        @Override
-        public String toString() {
-            return String.valueOf(value);
-        }
-
-        @JsonCreator
-        public static InitializationPhaseEnum fromValue(String value) {
-            for (InitializationPhaseEnum b : InitializationPhaseEnum.values()) {
-                if (b.value.equals(value)) {
-                    return b;
-                }
-            }
-            throw new IllegalArgumentException("Unexpected value '" + value + "'");
-        }
-    }
-
-    public static final String JSON_PROPERTY_INITIALIZATION_PHASE = "initializationPhase";
-    private InitializationPhaseEnum initializationPhase;
-
-    public ContractTemplateDto() {}
-
-    public ContractTemplateDto id(String id) {
-        this.id = id;
-        return this;
-    }
-
-    /**
-     * The unique identifier of the contract template
-     *
-     * @return id
-     */
-    @jakarta.annotation.Nonnull
-    @JsonProperty(JSON_PROPERTY_ID)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public String getId() {
-        return id;
-    }
-
-    @JsonProperty(JSON_PROPERTY_ID)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public ContractTemplateDto name(String name) {
-        this.name = name;
-        return this;
-    }
-
-    /**
-     * The name of the contract template
-     *
-     * @return name
-     */
-    @jakarta.annotation.Nonnull
-    @JsonProperty(JSON_PROPERTY_NAME)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public String getName() {
-        return name;
-    }
-
-    @JsonProperty(JSON_PROPERTY_NAME)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public ContractTemplateDto description(String description) {
-        this.description = description;
-        return this;
-    }
-
-    /**
-     * A short description of the contract template
-     *
-     * @return description
-     */
-    @jakarta.annotation.Nonnull
-    @JsonProperty(JSON_PROPERTY_DESCRIPTION)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public String getDescription() {
-        return description;
-    }
-
-    @JsonProperty(JSON_PROPERTY_DESCRIPTION)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public ContractTemplateDto longDescription(String longDescription) {
-        this.longDescription = longDescription;
-        return this;
-    }
-
-    /**
-     * A full description of the contract template. May contain to break the lines
-     *
-     * @return longDescription
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_LONG_DESCRIPTION)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public String getLongDescription() {
-        return longDescription;
-    }
-
-    @JsonProperty(JSON_PROPERTY_LONG_DESCRIPTION)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setLongDescription(String longDescription) {
-        this.longDescription = longDescription;
-    }
-
-    public ContractTemplateDto abi(List<List<AbiFunction>> abi) {
-        this.abi = abi;
-        return this;
-    }
-
-    public ContractTemplateDto addAbiItem(List<AbiFunction> abiItem) {
-        if (this.abi == null) {
-            this.abi = new ArrayList<>();
-        }
-        this.abi.add(abiItem);
-        return this;
-    }
-
-    /**
-     * Get abi
-     *
-     * @return abi
-     */
-    @jakarta.annotation.Nonnull
-    @JsonProperty(JSON_PROPERTY_ABI)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public List<List<AbiFunction>> getAbi() {
-        return abi;
-    }
-
-    @JsonProperty(JSON_PROPERTY_ABI)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setAbi(List<List<AbiFunction>> abi) {
-        this.abi = abi;
-    }
-
-    public ContractTemplateDto attributes(ContractAttributes attributes) {
-        this.attributes = attributes;
-        return this;
-    }
-
-    /**
-     * The attributes related to this contract template. It will be displayed in the tokenization
-     * page
-     *
-     * @return attributes
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_ATTRIBUTES)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public ContractAttributes getAttributes() {
-        return attributes;
-    }
-
-    @JsonProperty(JSON_PROPERTY_ATTRIBUTES)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAttributes(ContractAttributes attributes) {
-        this.attributes = attributes;
-    }
-
-    public ContractTemplateDto docs(ContractDoc docs) {
-        this.docs = docs;
-        return this;
-    }
-
-    /**
-     * A &#x60;natspec&#x60; compliant documentation json. Can be retrieved from the output json
-     * after compilation
-     *
-     * @return docs
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_DOCS)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public ContractDoc getDocs() {
-        return docs;
-    }
-
-    @JsonProperty(JSON_PROPERTY_DOCS)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setDocs(ContractDoc docs) {
-        this.docs = docs;
-    }
-
-    public ContractTemplateDto owner(String owner) {
-        this.owner = owner;
-        return this;
-    }
-
-    /**
-     * The workspace id of the owner of this contract template. If it&#39;s a private contract, only
-     * this workspace will be allowed to deploy it
-     *
-     * @return owner
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_OWNER)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public String getOwner() {
-        return owner;
-    }
-
-    @JsonProperty(JSON_PROPERTY_OWNER)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setOwner(String owner) {
-        this.owner = owner;
-    }
-
-    public ContractTemplateDto vendor(VendorDto vendor) {
-        this.vendor = vendor;
-        return this;
-    }
-
-    /**
-     * The details of the vendor of this contract template. Applicable only for public contract
-     * templates
-     *
-     * @return vendor
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_VENDOR)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public VendorDto getVendor() {
-        return vendor;
-    }
-
-    @JsonProperty(JSON_PROPERTY_VENDOR)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setVendor(VendorDto vendor) {
-        this.vendor = vendor;
-    }
-
-    public ContractTemplateDto isPublic(Boolean isPublic) {
-        this.isPublic = isPublic;
-        return this;
-    }
-
-    /**
-     * Is this a contract that is viewable by all fireblocks&#39;s users or is it visible only for
-     * this workspace
-     *
-     * @return isPublic
-     */
-    @jakarta.annotation.Nonnull
-    @JsonProperty(JSON_PROPERTY_IS_PUBLIC)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public Boolean getIsPublic() {
-        return isPublic;
-    }
-
-    @JsonProperty(JSON_PROPERTY_IS_PUBLIC)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setIsPublic(Boolean isPublic) {
-        this.isPublic = isPublic;
-    }
-
-    public ContractTemplateDto canDeploy(Boolean canDeploy) {
-        this.canDeploy = canDeploy;
-        return this;
-    }
-
-    /**
-     * True if the workspace allowed to deploy this contract, false otherwise
-     *
-     * @return canDeploy
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_CAN_DEPLOY)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public Boolean getCanDeploy() {
-        return canDeploy;
-    }
-
-    @JsonProperty(JSON_PROPERTY_CAN_DEPLOY)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setCanDeploy(Boolean canDeploy) {
-        this.canDeploy = canDeploy;
-    }
-
-    public ContractTemplateDto type(TypeEnum type) {
-        this.type = type;
-        return this;
-    }
-
-    /**
-     * The type of the contract template
-     *
-     * @return type
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_TYPE)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public TypeEnum getType() {
-        return type;
-    }
-
-    @JsonProperty(JSON_PROPERTY_TYPE)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setType(TypeEnum type) {
-        this.type = type;
-    }
-
-    public ContractTemplateDto implementationContractId(String implementationContractId) {
-        this.implementationContractId = implementationContractId;
-        return this;
-    }
-
-    /**
-     * Get implementationContractId
-     *
-     * @return implementationContractId
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_IMPLEMENTATION_CONTRACT_ID)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public String getImplementationContractId() {
-        return implementationContractId;
-    }
-
-    @JsonProperty(JSON_PROPERTY_IMPLEMENTATION_CONTRACT_ID)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setImplementationContractId(String implementationContractId) {
-        this.implementationContractId = implementationContractId;
-    }
-
-    public ContractTemplateDto initializationPhase(InitializationPhaseEnum initializationPhase) {
-        this.initializationPhase = initializationPhase;
-        return this;
-    }
-
-    /**
-     * Get initializationPhase
-     *
-     * @return initializationPhase
-     */
-    @jakarta.annotation.Nonnull
-    @JsonProperty(JSON_PROPERTY_INITIALIZATION_PHASE)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public InitializationPhaseEnum getInitializationPhase() {
-        return initializationPhase;
-    }
-
-    @JsonProperty(JSON_PROPERTY_INITIALIZATION_PHASE)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setInitializationPhase(InitializationPhaseEnum initializationPhase) {
-        this.initializationPhase = initializationPhase;
-    }
-
-    /** Return true if this ContractTemplateDto object is equal to o. */
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        ContractTemplateDto contractTemplateDto = (ContractTemplateDto) o;
-        return Objects.equals(this.id, contractTemplateDto.id)
-                && Objects.equals(this.name, contractTemplateDto.name)
-                && Objects.equals(this.description, contractTemplateDto.description)
-                && Objects.equals(this.longDescription, contractTemplateDto.longDescription)
-                && Objects.equals(this.abi, contractTemplateDto.abi)
-                && Objects.equals(this.attributes, contractTemplateDto.attributes)
-                && Objects.equals(this.docs, contractTemplateDto.docs)
-                && Objects.equals(this.owner, contractTemplateDto.owner)
-                && Objects.equals(this.vendor, contractTemplateDto.vendor)
-                && Objects.equals(this.isPublic, contractTemplateDto.isPublic)
-                && Objects.equals(this.canDeploy, contractTemplateDto.canDeploy)
-                && Objects.equals(this.type, contractTemplateDto.type)
-                && Objects.equals(
-                        this.implementationContractId, contractTemplateDto.implementationContractId)
-                && Objects.equals(
-                        this.initializationPhase, contractTemplateDto.initializationPhase);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(
-                id,
-                name,
-                description,
-                longDescription,
-                abi,
-                attributes,
-                docs,
-                owner,
-                vendor,
-                isPublic,
-                canDeploy,
-                type,
-                implementationContractId,
-                initializationPhase);
+    @JsonValue
+    public String getValue() {
+      return value;
     }
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("class ContractTemplateDto {\n");
-        sb.append("    id: ").append(toIndentedString(id)).append("\n");
-        sb.append("    name: ").append(toIndentedString(name)).append("\n");
-        sb.append("    description: ").append(toIndentedString(description)).append("\n");
-        sb.append("    longDescription: ").append(toIndentedString(longDescription)).append("\n");
-        sb.append("    abi: ").append(toIndentedString(abi)).append("\n");
-        sb.append("    attributes: ").append(toIndentedString(attributes)).append("\n");
-        sb.append("    docs: ").append(toIndentedString(docs)).append("\n");
-        sb.append("    owner: ").append(toIndentedString(owner)).append("\n");
-        sb.append("    vendor: ").append(toIndentedString(vendor)).append("\n");
-        sb.append("    isPublic: ").append(toIndentedString(isPublic)).append("\n");
-        sb.append("    canDeploy: ").append(toIndentedString(canDeploy)).append("\n");
-        sb.append("    type: ").append(toIndentedString(type)).append("\n");
-        sb.append("    implementationContractId: ")
-                .append(toIndentedString(implementationContractId))
-                .append("\n");
-        sb.append("    initializationPhase: ")
-                .append(toIndentedString(initializationPhase))
-                .append("\n");
-        sb.append("}");
-        return sb.toString();
+      return String.valueOf(value);
     }
 
-    /**
-     * Convert the given object to string with each line indented by 4 spaces (except the first
-     * line).
-     */
-    private String toIndentedString(Object o) {
-        if (o == null) {
-            return "null";
+    @JsonCreator
+    public static TypeEnum fromValue(String value) {
+      for (TypeEnum b : TypeEnum.values()) {
+        if (b.value.equals(value)) {
+          return b;
         }
-        return o.toString().replace("\n", "\n    ");
+      }
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
+  }
+
+  public static final String JSON_PROPERTY_TYPE = "type";
+  private TypeEnum type;
+
+  public static final String JSON_PROPERTY_IMPLEMENTATION_CONTRACT_ID = "implementationContractId";
+  private String implementationContractId;
+
+  /**
+   * Gets or Sets initializationPhase
+   */
+  public enum InitializationPhaseEnum {
+    ON_DEPLOYMENT("ON_DEPLOYMENT"),
+    
+    POST_DEPLOYMENT("POST_DEPLOYMENT");
+
+    private String value;
+
+    InitializationPhaseEnum(String value) {
+      this.value = value;
     }
 
-    /**
-     * Convert the instance into URL query string.
-     *
-     * @return URL query string
-     */
-    public String toUrlQueryString() {
-        return toUrlQueryString(null);
+    @JsonValue
+    public String getValue() {
+      return value;
     }
 
-    /**
-     * Convert the instance into URL query string.
-     *
-     * @param prefix prefix of the query string
-     * @return URL query string
-     */
-    public String toUrlQueryString(String prefix) {
-        String suffix = "";
-        String containerSuffix = "";
-        String containerPrefix = "";
-        if (prefix == null) {
-            // style=form, explode=true, e.g. /pet?name=cat&type=manx
-            prefix = "";
-        } else {
-            // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
-            prefix = prefix + "[";
-            suffix = "]";
-            containerSuffix = "]";
-            containerPrefix = "[";
-        }
-
-        StringJoiner joiner = new StringJoiner("&");
-
-        // add `id` to the URL query string
-        if (getId() != null) {
-            joiner.add(
-                    String.format(
-                            "%sid%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(String.valueOf(getId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
-        // add `name` to the URL query string
-        if (getName() != null) {
-            joiner.add(
-                    String.format(
-                            "%sname%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(String.valueOf(getName()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
-        // add `description` to the URL query string
-        if (getDescription() != null) {
-            joiner.add(
-                    String.format(
-                            "%sdescription%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getDescription()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
-        // add `longDescription` to the URL query string
-        if (getLongDescription() != null) {
-            joiner.add(
-                    String.format(
-                            "%slongDescription%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getLongDescription()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
-        // add `abi` to the URL query string
-        if (getAbi() != null) {
-            for (int i = 0; i < getAbi().size(); i++) {
-                if (getAbi().get(i) != null) {
-                    joiner.add(
-                            String.format(
-                                    "%sabi%s%s=%s",
-                                    prefix,
-                                    suffix,
-                                    "".equals(suffix)
-                                            ? ""
-                                            : String.format(
-                                                    "%s%d%s", containerPrefix, i, containerSuffix),
-                                    URLEncoder.encode(
-                                                    String.valueOf(getAbi().get(i)),
-                                                    StandardCharsets.UTF_8)
-                                            .replaceAll("\\+", "%20")));
-                }
-            }
-        }
-
-        // add `attributes` to the URL query string
-        if (getAttributes() != null) {
-            joiner.add(getAttributes().toUrlQueryString(prefix + "attributes" + suffix));
-        }
-
-        // add `docs` to the URL query string
-        if (getDocs() != null) {
-            joiner.add(getDocs().toUrlQueryString(prefix + "docs" + suffix));
-        }
-
-        // add `owner` to the URL query string
-        if (getOwner() != null) {
-            joiner.add(
-                    String.format(
-                            "%sowner%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(String.valueOf(getOwner()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
-        // add `vendor` to the URL query string
-        if (getVendor() != null) {
-            joiner.add(getVendor().toUrlQueryString(prefix + "vendor" + suffix));
-        }
-
-        // add `isPublic` to the URL query string
-        if (getIsPublic() != null) {
-            joiner.add(
-                    String.format(
-                            "%sisPublic%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(String.valueOf(getIsPublic()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
-        // add `canDeploy` to the URL query string
-        if (getCanDeploy() != null) {
-            joiner.add(
-                    String.format(
-                            "%scanDeploy%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getCanDeploy()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
-        // add `type` to the URL query string
-        if (getType() != null) {
-            joiner.add(
-                    String.format(
-                            "%stype%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(String.valueOf(getType()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
-        // add `implementationContractId` to the URL query string
-        if (getImplementationContractId() != null) {
-            joiner.add(
-                    String.format(
-                            "%simplementationContractId%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getImplementationContractId()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
-        // add `initializationPhase` to the URL query string
-        if (getInitializationPhase() != null) {
-            joiner.add(
-                    String.format(
-                            "%sinitializationPhase%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getInitializationPhase()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
-        return joiner.toString();
+    @Override
+    public String toString() {
+      return String.valueOf(value);
     }
+
+    @JsonCreator
+    public static InitializationPhaseEnum fromValue(String value) {
+      for (InitializationPhaseEnum b : InitializationPhaseEnum.values()) {
+        if (b.value.equals(value)) {
+          return b;
+        }
+      }
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
+  }
+
+  public static final String JSON_PROPERTY_INITIALIZATION_PHASE = "initializationPhase";
+  private InitializationPhaseEnum initializationPhase;
+
+  public ContractTemplateDto() { 
+  }
+
+  public ContractTemplateDto id(String id) {
+    this.id = id;
+    return this;
+  }
+
+   /**
+   * The unique identifier of the contract template
+   * @return id
+  **/
+  @jakarta.annotation.Nonnull
+  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getId() {
+    return id;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setId(String id) {
+    this.id = id;
+  }
+
+
+  public ContractTemplateDto name(String name) {
+    this.name = name;
+    return this;
+  }
+
+   /**
+   * The name of the contract template
+   * @return name
+  **/
+  @jakarta.annotation.Nonnull
+  @JsonProperty(JSON_PROPERTY_NAME)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getName() {
+    return name;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_NAME)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setName(String name) {
+    this.name = name;
+  }
+
+
+  public ContractTemplateDto description(String description) {
+    this.description = description;
+    return this;
+  }
+
+   /**
+   * A short description of the contract template
+   * @return description
+  **/
+  @jakarta.annotation.Nonnull
+  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getDescription() {
+    return description;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setDescription(String description) {
+    this.description = description;
+  }
+
+
+  public ContractTemplateDto longDescription(String longDescription) {
+    this.longDescription = longDescription;
+    return this;
+  }
+
+   /**
+   * A full description of the contract template. May contain   to break the lines
+   * @return longDescription
+  **/
+  @jakarta.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_LONG_DESCRIPTION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getLongDescription() {
+    return longDescription;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_LONG_DESCRIPTION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setLongDescription(String longDescription) {
+    this.longDescription = longDescription;
+  }
+
+
+  public ContractTemplateDto abi(List<List<AbiFunction>> abi) {
+    this.abi = abi;
+    return this;
+  }
+
+  public ContractTemplateDto addAbiItem(List<AbiFunction> abiItem) {
+    if (this.abi == null) {
+      this.abi = new ArrayList<>();
+    }
+    this.abi.add(abiItem);
+    return this;
+  }
+
+   /**
+   * Get abi
+   * @return abi
+  **/
+  @jakarta.annotation.Nonnull
+  @JsonProperty(JSON_PROPERTY_ABI)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public List<List<AbiFunction>> getAbi() {
+    return abi;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_ABI)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setAbi(List<List<AbiFunction>> abi) {
+    this.abi = abi;
+  }
+
+
+  public ContractTemplateDto attributes(ContractAttributes attributes) {
+    this.attributes = attributes;
+    return this;
+  }
+
+   /**
+   * The attributes related to this contract template. It will be displayed in the tokenization page
+   * @return attributes
+  **/
+  @jakarta.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_ATTRIBUTES)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public ContractAttributes getAttributes() {
+    return attributes;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_ATTRIBUTES)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setAttributes(ContractAttributes attributes) {
+    this.attributes = attributes;
+  }
+
+
+  public ContractTemplateDto docs(ContractDoc docs) {
+    this.docs = docs;
+    return this;
+  }
+
+   /**
+   * A &#x60;natspec&#x60; compliant documentation json. Can be retrieved from the output json after compilation
+   * @return docs
+  **/
+  @jakarta.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_DOCS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public ContractDoc getDocs() {
+    return docs;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_DOCS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setDocs(ContractDoc docs) {
+    this.docs = docs;
+  }
+
+
+  public ContractTemplateDto owner(String owner) {
+    this.owner = owner;
+    return this;
+  }
+
+   /**
+   * The workspace id of the owner of this contract template. If it&#39;s a private contract, only this workspace will be allowed to deploy it
+   * @return owner
+  **/
+  @jakarta.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_OWNER)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getOwner() {
+    return owner;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_OWNER)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setOwner(String owner) {
+    this.owner = owner;
+  }
+
+
+  public ContractTemplateDto vendor(VendorDto vendor) {
+    this.vendor = vendor;
+    return this;
+  }
+
+   /**
+   * The details of the vendor of this contract template. Applicable only for public contract templates
+   * @return vendor
+  **/
+  @jakarta.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_VENDOR)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public VendorDto getVendor() {
+    return vendor;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_VENDOR)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setVendor(VendorDto vendor) {
+    this.vendor = vendor;
+  }
+
+
+  public ContractTemplateDto isPublic(Boolean isPublic) {
+    this.isPublic = isPublic;
+    return this;
+  }
+
+   /**
+   * Is this a contract that is viewable by all fireblocks&#39;s users or is it visible only for this workspace
+   * @return isPublic
+  **/
+  @jakarta.annotation.Nonnull
+  @JsonProperty(JSON_PROPERTY_IS_PUBLIC)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public Boolean getIsPublic() {
+    return isPublic;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_IS_PUBLIC)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setIsPublic(Boolean isPublic) {
+    this.isPublic = isPublic;
+  }
+
+
+  public ContractTemplateDto canDeploy(Boolean canDeploy) {
+    this.canDeploy = canDeploy;
+    return this;
+  }
+
+   /**
+   * True if the workspace allowed to deploy this contract, false otherwise
+   * @return canDeploy
+  **/
+  @jakarta.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_CAN_DEPLOY)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getCanDeploy() {
+    return canDeploy;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_CAN_DEPLOY)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setCanDeploy(Boolean canDeploy) {
+    this.canDeploy = canDeploy;
+  }
+
+
+  public ContractTemplateDto type(TypeEnum type) {
+    this.type = type;
+    return this;
+  }
+
+   /**
+   * The type of the contract template
+   * @return type
+  **/
+  @jakarta.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_TYPE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public TypeEnum getType() {
+    return type;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_TYPE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setType(TypeEnum type) {
+    this.type = type;
+  }
+
+
+  public ContractTemplateDto implementationContractId(String implementationContractId) {
+    this.implementationContractId = implementationContractId;
+    return this;
+  }
+
+   /**
+   * Get implementationContractId
+   * @return implementationContractId
+  **/
+  @jakarta.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_IMPLEMENTATION_CONTRACT_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getImplementationContractId() {
+    return implementationContractId;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_IMPLEMENTATION_CONTRACT_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setImplementationContractId(String implementationContractId) {
+    this.implementationContractId = implementationContractId;
+  }
+
+
+  public ContractTemplateDto initializationPhase(InitializationPhaseEnum initializationPhase) {
+    this.initializationPhase = initializationPhase;
+    return this;
+  }
+
+   /**
+   * Get initializationPhase
+   * @return initializationPhase
+  **/
+  @jakarta.annotation.Nonnull
+  @JsonProperty(JSON_PROPERTY_INITIALIZATION_PHASE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public InitializationPhaseEnum getInitializationPhase() {
+    return initializationPhase;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_INITIALIZATION_PHASE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setInitializationPhase(InitializationPhaseEnum initializationPhase) {
+    this.initializationPhase = initializationPhase;
+  }
+
+
+  /**
+   * Return true if this ContractTemplateDto object is equal to o.
+   */
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    ContractTemplateDto contractTemplateDto = (ContractTemplateDto) o;
+    return Objects.equals(this.id, contractTemplateDto.id) &&
+        Objects.equals(this.name, contractTemplateDto.name) &&
+        Objects.equals(this.description, contractTemplateDto.description) &&
+        Objects.equals(this.longDescription, contractTemplateDto.longDescription) &&
+        Objects.equals(this.abi, contractTemplateDto.abi) &&
+        Objects.equals(this.attributes, contractTemplateDto.attributes) &&
+        Objects.equals(this.docs, contractTemplateDto.docs) &&
+        Objects.equals(this.owner, contractTemplateDto.owner) &&
+        Objects.equals(this.vendor, contractTemplateDto.vendor) &&
+        Objects.equals(this.isPublic, contractTemplateDto.isPublic) &&
+        Objects.equals(this.canDeploy, contractTemplateDto.canDeploy) &&
+        Objects.equals(this.type, contractTemplateDto.type) &&
+        Objects.equals(this.implementationContractId, contractTemplateDto.implementationContractId) &&
+        Objects.equals(this.initializationPhase, contractTemplateDto.initializationPhase);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(id, name, description, longDescription, abi, attributes, docs, owner, vendor, isPublic, canDeploy, type, implementationContractId, initializationPhase);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class ContractTemplateDto {\n");
+    sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    name: ").append(toIndentedString(name)).append("\n");
+    sb.append("    description: ").append(toIndentedString(description)).append("\n");
+    sb.append("    longDescription: ").append(toIndentedString(longDescription)).append("\n");
+    sb.append("    abi: ").append(toIndentedString(abi)).append("\n");
+    sb.append("    attributes: ").append(toIndentedString(attributes)).append("\n");
+    sb.append("    docs: ").append(toIndentedString(docs)).append("\n");
+    sb.append("    owner: ").append(toIndentedString(owner)).append("\n");
+    sb.append("    vendor: ").append(toIndentedString(vendor)).append("\n");
+    sb.append("    isPublic: ").append(toIndentedString(isPublic)).append("\n");
+    sb.append("    canDeploy: ").append(toIndentedString(canDeploy)).append("\n");
+    sb.append("    type: ").append(toIndentedString(type)).append("\n");
+    sb.append("    implementationContractId: ").append(toIndentedString(implementationContractId)).append("\n");
+    sb.append("    initializationPhase: ").append(toIndentedString(initializationPhase)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @return URL query string
+   */
+  public String toUrlQueryString() {
+    return toUrlQueryString(null);
+  }
+
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @param prefix prefix of the query string
+   * @return URL query string
+   */
+  public String toUrlQueryString(String prefix) {
+    String suffix = "";
+    String containerSuffix = "";
+    String containerPrefix = "";
+    if (prefix == null) {
+      // style=form, explode=true, e.g. /pet?name=cat&type=manx
+      prefix = "";
+    } else {
+      // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
+      prefix = prefix + "[";
+      suffix = "]";
+      containerSuffix = "]";
+      containerPrefix = "[";
+    }
+
+    StringJoiner joiner = new StringJoiner("&");
+
+    // add `id` to the URL query string
+    if (getId() != null) {
+      joiner.add(String.format("%sid%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getId()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `name` to the URL query string
+    if (getName() != null) {
+      joiner.add(String.format("%sname%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getName()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `description` to the URL query string
+    if (getDescription() != null) {
+      joiner.add(String.format("%sdescription%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getDescription()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `longDescription` to the URL query string
+    if (getLongDescription() != null) {
+      joiner.add(String.format("%slongDescription%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getLongDescription()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `abi` to the URL query string
+    if (getAbi() != null) {
+      for (int i = 0; i < getAbi().size(); i++) {
+        if (getAbi().get(i) != null) {
+          joiner.add(String.format("%sabi%s%s=%s", prefix, suffix,
+              "".equals(suffix) ? "" : String.format("%s%d%s", containerPrefix, i, containerSuffix),
+              URLEncoder.encode(String.valueOf(getAbi().get(i)), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+        }
+      }
+    }
+
+    // add `attributes` to the URL query string
+    if (getAttributes() != null) {
+      joiner.add(getAttributes().toUrlQueryString(prefix + "attributes" + suffix));
+    }
+
+    // add `docs` to the URL query string
+    if (getDocs() != null) {
+      joiner.add(getDocs().toUrlQueryString(prefix + "docs" + suffix));
+    }
+
+    // add `owner` to the URL query string
+    if (getOwner() != null) {
+      joiner.add(String.format("%sowner%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getOwner()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `vendor` to the URL query string
+    if (getVendor() != null) {
+      joiner.add(getVendor().toUrlQueryString(prefix + "vendor" + suffix));
+    }
+
+    // add `isPublic` to the URL query string
+    if (getIsPublic() != null) {
+      joiner.add(String.format("%sisPublic%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getIsPublic()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `canDeploy` to the URL query string
+    if (getCanDeploy() != null) {
+      joiner.add(String.format("%scanDeploy%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getCanDeploy()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `type` to the URL query string
+    if (getType() != null) {
+      joiner.add(String.format("%stype%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getType()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `implementationContractId` to the URL query string
+    if (getImplementationContractId() != null) {
+      joiner.add(String.format("%simplementationContractId%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getImplementationContractId()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `initializationPhase` to the URL query string
+    if (getInitializationPhase() != null) {
+      joiner.add(String.format("%sinitializationPhase%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getInitializationPhase()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    return joiner.toString();
+  }
 }
+

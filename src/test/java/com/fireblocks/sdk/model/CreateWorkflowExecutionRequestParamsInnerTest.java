@@ -10,31 +10,51 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.fireblocks.sdk.model.ConversionOperationExecutionParams;
+import com.fireblocks.sdk.model.DisbursementOperationExecutionParams;
+import com.fireblocks.sdk.model.DisbursementOperationExecutionParamsExecutionParams;
+import com.fireblocks.sdk.model.TransferOperationExecutionParams;
+import java.util.Arrays;
+import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
-/** Model tests for CreateWorkflowExecutionRequestParamsInner */
+/**
+ * Model tests for CreateWorkflowExecutionRequestParamsInner
+ */
 public class CreateWorkflowExecutionRequestParamsInnerTest {
-    private final CreateWorkflowExecutionRequestParamsInner model =
-            new CreateWorkflowExecutionRequestParamsInner();
+    private final CreateWorkflowExecutionRequestParamsInner model = new CreateWorkflowExecutionRequestParamsInner();
 
-    /** Model tests for CreateWorkflowExecutionRequestParamsInner */
+    /**
+     * Model tests for CreateWorkflowExecutionRequestParamsInner
+     */
     @Test
     public void testCreateWorkflowExecutionRequestParamsInner() {
         // TODO: test CreateWorkflowExecutionRequestParamsInner
     }
 
-    /** Test the property 'configOperationId' */
+    /**
+     * Test the property 'configOperationId'
+     */
     @Test
     public void configOperationIdTest() {
         // TODO: test configOperationId
     }
 
-    /** Test the property 'executionParams' */
+    /**
+     * Test the property 'executionParams'
+     */
     @Test
     public void executionParamsTest() {
         // TODO: test executionParams
     }
+
 }

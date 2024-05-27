@@ -10,42 +10,65 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.fireblocks.sdk.model.AssetAmount;
+import java.math.BigDecimal;
+import java.util.Arrays;
+import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
-/** Model tests for TransferOperationPreviewOutput */
+/**
+ * Model tests for TransferOperationPreviewOutput
+ */
 public class TransferOperationPreviewOutputTest {
     private final TransferOperationPreviewOutput model = new TransferOperationPreviewOutput();
 
-    /** Model tests for TransferOperationPreviewOutput */
+    /**
+     * Model tests for TransferOperationPreviewOutput
+     */
     @Test
     public void testTransferOperationPreviewOutput() {
         // TODO: test TransferOperationPreviewOutput
     }
 
-    /** Test the property 'amount' */
+    /**
+     * Test the property 'amount'
+     */
     @Test
     public void amountTest() {
         // TODO: test amount
     }
 
-    /** Test the property 'fee' */
+    /**
+     * Test the property 'fee'
+     */
     @Test
     public void feeTest() {
         // TODO: test fee
     }
 
-    /** Test the property 'isSignRequired' */
+    /**
+     * Test the property 'isSignRequired'
+     */
     @Test
     public void isSignRequiredTest() {
         // TODO: test isSignRequired
     }
 
-    /** Test the property 'timeSeconds' */
+    /**
+     * Test the property 'timeSeconds'
+     */
     @Test
     public void timeSecondsTest() {
         // TODO: test timeSeconds
     }
+
 }

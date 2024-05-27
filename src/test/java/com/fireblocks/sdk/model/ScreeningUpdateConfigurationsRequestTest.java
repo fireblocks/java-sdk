@@ -10,31 +10,47 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.Arrays;
+import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
-/** Model tests for ScreeningUpdateConfigurationsRequest */
+/**
+ * Model tests for ScreeningUpdateConfigurationsRequest
+ */
 public class ScreeningUpdateConfigurationsRequestTest {
-    private final ScreeningUpdateConfigurationsRequest model =
-            new ScreeningUpdateConfigurationsRequest();
+    private final ScreeningUpdateConfigurationsRequest model = new ScreeningUpdateConfigurationsRequest();
 
-    /** Model tests for ScreeningUpdateConfigurationsRequest */
+    /**
+     * Model tests for ScreeningUpdateConfigurationsRequest
+     */
     @Test
     public void testScreeningUpdateConfigurationsRequest() {
         // TODO: test ScreeningUpdateConfigurationsRequest
     }
 
-    /** Test the property 'disableBypass' */
+    /**
+     * Test the property 'disableBypass'
+     */
     @Test
     public void disableBypassTest() {
         // TODO: test disableBypass
     }
 
-    /** Test the property 'disableUnfreeze' */
+    /**
+     * Test the property 'disableUnfreeze'
+     */
     @Test
     public void disableUnfreezeTest() {
         // TODO: test disableUnfreeze
     }
+
 }

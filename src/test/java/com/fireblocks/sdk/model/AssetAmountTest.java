@@ -10,30 +10,47 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.Arrays;
+import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
-/** Model tests for AssetAmount */
+/**
+ * Model tests for AssetAmount
+ */
 public class AssetAmountTest {
     private final AssetAmount model = new AssetAmount();
 
-    /** Model tests for AssetAmount */
+    /**
+     * Model tests for AssetAmount
+     */
     @Test
     public void testAssetAmount() {
         // TODO: test AssetAmount
     }
 
-    /** Test the property 'amount' */
+    /**
+     * Test the property 'amount'
+     */
     @Test
     public void amountTest() {
         // TODO: test amount
     }
 
-    /** Test the property 'assetId' */
+    /**
+     * Test the property 'assetId'
+     */
     @Test
     public void assetIdTest() {
         // TODO: test assetId
     }
+
 }

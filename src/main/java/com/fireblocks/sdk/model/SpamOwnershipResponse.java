@@ -10,207 +10,212 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.fasterxml.jackson.annotation.JsonValue;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
-import java.util.Objects;
 import java.util.StringJoiner;
+import java.util.Objects;
+import java.util.Map;
+import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
-/** SpamOwnershipResponse */
+
+/**
+ * SpamOwnershipResponse
+ */
 @JsonPropertyOrder({
-    SpamOwnershipResponse.JSON_PROPERTY_RESULT,
-    SpamOwnershipResponse.JSON_PROPERTY_SOURCE
+  SpamOwnershipResponse.JSON_PROPERTY_RESULT,
+  SpamOwnershipResponse.JSON_PROPERTY_SOURCE
 })
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class SpamOwnershipResponse {
-    public static final String JSON_PROPERTY_RESULT = "result";
-    private Boolean result;
+  public static final String JSON_PROPERTY_RESULT = "result";
+  private Boolean result;
 
-    /** Source of Token&#39;s Spam status value */
-    public enum SourceEnum {
-        OWNER("OWNER"),
+  /**
+   * Source of Token&#39;s Spam status value
+   */
+  public enum SourceEnum {
+    OWNER("OWNER"),
+    
+    SYSTEM("SYSTEM");
 
-        SYSTEM("SYSTEM");
+    private String value;
 
-        private String value;
-
-        SourceEnum(String value) {
-            this.value = value;
-        }
-
-        @JsonValue
-        public String getValue() {
-            return value;
-        }
-
-        @Override
-        public String toString() {
-            return String.valueOf(value);
-        }
-
-        @JsonCreator
-        public static SourceEnum fromValue(String value) {
-            for (SourceEnum b : SourceEnum.values()) {
-                if (b.value.equals(value)) {
-                    return b;
-                }
-            }
-            throw new IllegalArgumentException("Unexpected value '" + value + "'");
-        }
+    SourceEnum(String value) {
+      this.value = value;
     }
 
-    public static final String JSON_PROPERTY_SOURCE = "source";
-    private SourceEnum source;
-
-    public SpamOwnershipResponse() {}
-
-    public SpamOwnershipResponse result(Boolean result) {
-        this.result = result;
-        return this;
-    }
-
-    /**
-     * Token spam result
-     *
-     * @return result
-     */
-    @jakarta.annotation.Nonnull
-    @JsonProperty(JSON_PROPERTY_RESULT)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public Boolean getResult() {
-        return result;
-    }
-
-    @JsonProperty(JSON_PROPERTY_RESULT)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setResult(Boolean result) {
-        this.result = result;
-    }
-
-    public SpamOwnershipResponse source(SourceEnum source) {
-        this.source = source;
-        return this;
-    }
-
-    /**
-     * Source of Token&#39;s Spam status value
-     *
-     * @return source
-     */
-    @jakarta.annotation.Nonnull
-    @JsonProperty(JSON_PROPERTY_SOURCE)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public SourceEnum getSource() {
-        return source;
-    }
-
-    @JsonProperty(JSON_PROPERTY_SOURCE)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setSource(SourceEnum source) {
-        this.source = source;
-    }
-
-    /** Return true if this SpamOwnershipResponse object is equal to o. */
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        SpamOwnershipResponse spamOwnershipResponse = (SpamOwnershipResponse) o;
-        return Objects.equals(this.result, spamOwnershipResponse.result)
-                && Objects.equals(this.source, spamOwnershipResponse.source);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(result, source);
+    @JsonValue
+    public String getValue() {
+      return value;
     }
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("class SpamOwnershipResponse {\n");
-        sb.append("    result: ").append(toIndentedString(result)).append("\n");
-        sb.append("    source: ").append(toIndentedString(source)).append("\n");
-        sb.append("}");
-        return sb.toString();
+      return String.valueOf(value);
     }
 
-    /**
-     * Convert the given object to string with each line indented by 4 spaces (except the first
-     * line).
-     */
-    private String toIndentedString(Object o) {
-        if (o == null) {
-            return "null";
+    @JsonCreator
+    public static SourceEnum fromValue(String value) {
+      for (SourceEnum b : SourceEnum.values()) {
+        if (b.value.equals(value)) {
+          return b;
         }
-        return o.toString().replace("\n", "\n    ");
+      }
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
+  }
+
+  public static final String JSON_PROPERTY_SOURCE = "source";
+  private SourceEnum source;
+
+  public SpamOwnershipResponse() { 
+  }
+
+  public SpamOwnershipResponse result(Boolean result) {
+    this.result = result;
+    return this;
+  }
+
+   /**
+   * Token spam result
+   * @return result
+  **/
+  @jakarta.annotation.Nonnull
+  @JsonProperty(JSON_PROPERTY_RESULT)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public Boolean getResult() {
+    return result;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_RESULT)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setResult(Boolean result) {
+    this.result = result;
+  }
+
+
+  public SpamOwnershipResponse source(SourceEnum source) {
+    this.source = source;
+    return this;
+  }
+
+   /**
+   * Source of Token&#39;s Spam status value
+   * @return source
+  **/
+  @jakarta.annotation.Nonnull
+  @JsonProperty(JSON_PROPERTY_SOURCE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public SourceEnum getSource() {
+    return source;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_SOURCE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setSource(SourceEnum source) {
+    this.source = source;
+  }
+
+
+  /**
+   * Return true if this SpamOwnershipResponse object is equal to o.
+   */
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    SpamOwnershipResponse spamOwnershipResponse = (SpamOwnershipResponse) o;
+    return Objects.equals(this.result, spamOwnershipResponse.result) &&
+        Objects.equals(this.source, spamOwnershipResponse.source);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(result, source);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class SpamOwnershipResponse {\n");
+    sb.append("    result: ").append(toIndentedString(result)).append("\n");
+    sb.append("    source: ").append(toIndentedString(source)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @return URL query string
+   */
+  public String toUrlQueryString() {
+    return toUrlQueryString(null);
+  }
+
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @param prefix prefix of the query string
+   * @return URL query string
+   */
+  public String toUrlQueryString(String prefix) {
+    String suffix = "";
+    String containerSuffix = "";
+    String containerPrefix = "";
+    if (prefix == null) {
+      // style=form, explode=true, e.g. /pet?name=cat&type=manx
+      prefix = "";
+    } else {
+      // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
+      prefix = prefix + "[";
+      suffix = "]";
+      containerSuffix = "]";
+      containerPrefix = "[";
     }
 
-    /**
-     * Convert the instance into URL query string.
-     *
-     * @return URL query string
-     */
-    public String toUrlQueryString() {
-        return toUrlQueryString(null);
+    StringJoiner joiner = new StringJoiner("&");
+
+    // add `result` to the URL query string
+    if (getResult() != null) {
+      joiner.add(String.format("%sresult%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getResult()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
     }
 
-    /**
-     * Convert the instance into URL query string.
-     *
-     * @param prefix prefix of the query string
-     * @return URL query string
-     */
-    public String toUrlQueryString(String prefix) {
-        String suffix = "";
-        String containerSuffix = "";
-        String containerPrefix = "";
-        if (prefix == null) {
-            // style=form, explode=true, e.g. /pet?name=cat&type=manx
-            prefix = "";
-        } else {
-            // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
-            prefix = prefix + "[";
-            suffix = "]";
-            containerSuffix = "]";
-            containerPrefix = "[";
-        }
-
-        StringJoiner joiner = new StringJoiner("&");
-
-        // add `result` to the URL query string
-        if (getResult() != null) {
-            joiner.add(
-                    String.format(
-                            "%sresult%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(String.valueOf(getResult()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
-        // add `source` to the URL query string
-        if (getSource() != null) {
-            joiner.add(
-                    String.format(
-                            "%ssource%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(String.valueOf(getSource()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
-        return joiner.toString();
+    // add `source` to the URL query string
+    if (getSource() != null) {
+      joiner.add(String.format("%ssource%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getSource()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
     }
+
+    return joiner.toString();
+  }
 }
+

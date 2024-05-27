@@ -11,8 +11,6 @@
  */
 
 package com.fireblocks.sdk;
-
-
 import java.time.Instant;
 
 public class InstanceTimeWrapper {

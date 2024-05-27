@@ -10,30 +10,48 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.fireblocks.sdk.model.ScreeningOperationExecutionOutput;
+import java.util.Arrays;
+import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
-/** Model tests for ScreeningOperationFailure */
+/**
+ * Model tests for ScreeningOperationFailure
+ */
 public class ScreeningOperationFailureTest {
     private final ScreeningOperationFailure model = new ScreeningOperationFailure();
 
-    /** Model tests for ScreeningOperationFailure */
+    /**
+     * Model tests for ScreeningOperationFailure
+     */
     @Test
     public void testScreeningOperationFailure() {
         // TODO: test ScreeningOperationFailure
     }
 
-    /** Test the property 'reason' */
+    /**
+     * Test the property 'reason'
+     */
     @Test
     public void reasonTest() {
         // TODO: test reason
     }
 
-    /** Test the property 'data' */
+    /**
+     * Test the property 'data'
+     */
     @Test
     public void dataTest() {
         // TODO: test data
     }
+
 }

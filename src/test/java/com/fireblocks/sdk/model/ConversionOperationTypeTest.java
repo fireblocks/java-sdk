@@ -10,16 +10,23 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
+import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
-/** Model tests for ConversionOperationType */
+/**
+ * Model tests for ConversionOperationType
+ */
 public class ConversionOperationTypeTest {
-    /** Model tests for ConversionOperationType */
+    /**
+     * Model tests for ConversionOperationType
+     */
     @Test
     public void testConversionOperationType() {
         // TODO: test ConversionOperationType
     }
+
 }

@@ -10,214 +10,213 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
-import java.util.Objects;
 import java.util.StringJoiner;
+import java.util.Objects;
+import java.util.Map;
+import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
-/** ValidateAddressResponse */
+
+/**
+ * ValidateAddressResponse
+ */
 @JsonPropertyOrder({
-    ValidateAddressResponse.JSON_PROPERTY_IS_VALID,
-    ValidateAddressResponse.JSON_PROPERTY_IS_ACTIVE,
-    ValidateAddressResponse.JSON_PROPERTY_REQUIRES_TAG
+  ValidateAddressResponse.JSON_PROPERTY_IS_VALID,
+  ValidateAddressResponse.JSON_PROPERTY_IS_ACTIVE,
+  ValidateAddressResponse.JSON_PROPERTY_REQUIRES_TAG
 })
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class ValidateAddressResponse {
-    public static final String JSON_PROPERTY_IS_VALID = "isValid";
-    private Boolean isValid;
+  public static final String JSON_PROPERTY_IS_VALID = "isValid";
+  private Boolean isValid;
 
-    public static final String JSON_PROPERTY_IS_ACTIVE = "isActive";
-    private Boolean isActive;
+  public static final String JSON_PROPERTY_IS_ACTIVE = "isActive";
+  private Boolean isActive;
 
-    public static final String JSON_PROPERTY_REQUIRES_TAG = "requiresTag";
-    private Boolean requiresTag;
+  public static final String JSON_PROPERTY_REQUIRES_TAG = "requiresTag";
+  private Boolean requiresTag;
 
-    public ValidateAddressResponse() {}
+  public ValidateAddressResponse() { 
+  }
 
-    public ValidateAddressResponse isValid(Boolean isValid) {
-        this.isValid = isValid;
-        return this;
+  public ValidateAddressResponse isValid(Boolean isValid) {
+    this.isValid = isValid;
+    return this;
+  }
+
+   /**
+   * Get isValid
+   * @return isValid
+  **/
+  @jakarta.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_IS_VALID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getIsValid() {
+    return isValid;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_IS_VALID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setIsValid(Boolean isValid) {
+    this.isValid = isValid;
+  }
+
+
+  public ValidateAddressResponse isActive(Boolean isActive) {
+    this.isActive = isActive;
+    return this;
+  }
+
+   /**
+   * Get isActive
+   * @return isActive
+  **/
+  @jakarta.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_IS_ACTIVE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getIsActive() {
+    return isActive;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_IS_ACTIVE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setIsActive(Boolean isActive) {
+    this.isActive = isActive;
+  }
+
+
+  public ValidateAddressResponse requiresTag(Boolean requiresTag) {
+    this.requiresTag = requiresTag;
+    return this;
+  }
+
+   /**
+   * Get requiresTag
+   * @return requiresTag
+  **/
+  @jakarta.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_REQUIRES_TAG)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getRequiresTag() {
+    return requiresTag;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_REQUIRES_TAG)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setRequiresTag(Boolean requiresTag) {
+    this.requiresTag = requiresTag;
+  }
+
+
+  /**
+   * Return true if this ValidateAddressResponse object is equal to o.
+   */
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    ValidateAddressResponse validateAddressResponse = (ValidateAddressResponse) o;
+    return Objects.equals(this.isValid, validateAddressResponse.isValid) &&
+        Objects.equals(this.isActive, validateAddressResponse.isActive) &&
+        Objects.equals(this.requiresTag, validateAddressResponse.requiresTag);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(isValid, isActive, requiresTag);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class ValidateAddressResponse {\n");
+    sb.append("    isValid: ").append(toIndentedString(isValid)).append("\n");
+    sb.append("    isActive: ").append(toIndentedString(isActive)).append("\n");
+    sb.append("    requiresTag: ").append(toIndentedString(requiresTag)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @return URL query string
+   */
+  public String toUrlQueryString() {
+    return toUrlQueryString(null);
+  }
+
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @param prefix prefix of the query string
+   * @return URL query string
+   */
+  public String toUrlQueryString(String prefix) {
+    String suffix = "";
+    String containerSuffix = "";
+    String containerPrefix = "";
+    if (prefix == null) {
+      // style=form, explode=true, e.g. /pet?name=cat&type=manx
+      prefix = "";
+    } else {
+      // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
+      prefix = prefix + "[";
+      suffix = "]";
+      containerSuffix = "]";
+      containerPrefix = "[";
     }
 
-    /**
-     * Get isValid
-     *
-     * @return isValid
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_IS_VALID)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public Boolean getIsValid() {
-        return isValid;
+    StringJoiner joiner = new StringJoiner("&");
+
+    // add `isValid` to the URL query string
+    if (getIsValid() != null) {
+      joiner.add(String.format("%sisValid%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getIsValid()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
     }
 
-    @JsonProperty(JSON_PROPERTY_IS_VALID)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setIsValid(Boolean isValid) {
-        this.isValid = isValid;
+    // add `isActive` to the URL query string
+    if (getIsActive() != null) {
+      joiner.add(String.format("%sisActive%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getIsActive()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
     }
 
-    public ValidateAddressResponse isActive(Boolean isActive) {
-        this.isActive = isActive;
-        return this;
+    // add `requiresTag` to the URL query string
+    if (getRequiresTag() != null) {
+      joiner.add(String.format("%srequiresTag%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getRequiresTag()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
     }
 
-    /**
-     * Get isActive
-     *
-     * @return isActive
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_IS_ACTIVE)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public Boolean getIsActive() {
-        return isActive;
-    }
-
-    @JsonProperty(JSON_PROPERTY_IS_ACTIVE)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setIsActive(Boolean isActive) {
-        this.isActive = isActive;
-    }
-
-    public ValidateAddressResponse requiresTag(Boolean requiresTag) {
-        this.requiresTag = requiresTag;
-        return this;
-    }
-
-    /**
-     * Get requiresTag
-     *
-     * @return requiresTag
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_REQUIRES_TAG)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public Boolean getRequiresTag() {
-        return requiresTag;
-    }
-
-    @JsonProperty(JSON_PROPERTY_REQUIRES_TAG)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setRequiresTag(Boolean requiresTag) {
-        this.requiresTag = requiresTag;
-    }
-
-    /** Return true if this ValidateAddressResponse object is equal to o. */
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        ValidateAddressResponse validateAddressResponse = (ValidateAddressResponse) o;
-        return Objects.equals(this.isValid, validateAddressResponse.isValid)
-                && Objects.equals(this.isActive, validateAddressResponse.isActive)
-                && Objects.equals(this.requiresTag, validateAddressResponse.requiresTag);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(isValid, isActive, requiresTag);
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("class ValidateAddressResponse {\n");
-        sb.append("    isValid: ").append(toIndentedString(isValid)).append("\n");
-        sb.append("    isActive: ").append(toIndentedString(isActive)).append("\n");
-        sb.append("    requiresTag: ").append(toIndentedString(requiresTag)).append("\n");
-        sb.append("}");
-        return sb.toString();
-    }
-
-    /**
-     * Convert the given object to string with each line indented by 4 spaces (except the first
-     * line).
-     */
-    private String toIndentedString(Object o) {
-        if (o == null) {
-            return "null";
-        }
-        return o.toString().replace("\n", "\n    ");
-    }
-
-    /**
-     * Convert the instance into URL query string.
-     *
-     * @return URL query string
-     */
-    public String toUrlQueryString() {
-        return toUrlQueryString(null);
-    }
-
-    /**
-     * Convert the instance into URL query string.
-     *
-     * @param prefix prefix of the query string
-     * @return URL query string
-     */
-    public String toUrlQueryString(String prefix) {
-        String suffix = "";
-        String containerSuffix = "";
-        String containerPrefix = "";
-        if (prefix == null) {
-            // style=form, explode=true, e.g. /pet?name=cat&type=manx
-            prefix = "";
-        } else {
-            // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
-            prefix = prefix + "[";
-            suffix = "]";
-            containerSuffix = "]";
-            containerPrefix = "[";
-        }
-
-        StringJoiner joiner = new StringJoiner("&");
-
-        // add `isValid` to the URL query string
-        if (getIsValid() != null) {
-            joiner.add(
-                    String.format(
-                            "%sisValid%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(String.valueOf(getIsValid()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
-        // add `isActive` to the URL query string
-        if (getIsActive() != null) {
-            joiner.add(
-                    String.format(
-                            "%sisActive%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(String.valueOf(getIsActive()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
-        // add `requiresTag` to the URL query string
-        if (getRequiresTag() != null) {
-            joiner.add(
-                    String.format(
-                            "%srequiresTag%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getRequiresTag()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
-        return joiner.toString();
-    }
+    return joiner.toString();
+  }
 }
+

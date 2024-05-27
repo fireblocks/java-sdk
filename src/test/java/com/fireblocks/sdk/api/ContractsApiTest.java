@@ -10,32 +10,43 @@
  * Do not edit the class manually.
  */
 
-package com.fireblocks.sdk.api;
 
+package com.fireblocks.sdk.api;
 
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.model.AddContractAssetRequest;
 import com.fireblocks.sdk.model.CreateContractRequest;
+import com.fireblocks.sdk.model.ErrorSchema;
 import com.fireblocks.sdk.model.ExternalWalletAsset;
 import com.fireblocks.sdk.model.UnmanagedWallet;
-import java.util.List;
-import java.util.concurrent.CompletableFuture;
-import org.junit.Ignore;
 import org.junit.Test;
+import org.junit.Ignore;
 
-/** API tests for ContractsApi */
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import java.util.concurrent.CompletableFuture;
+
+/**
+ * API tests for ContractsApi
+ */
 @Ignore
 public class ContractsApiTest {
 
     private final ContractsApi api = new ContractsApi();
 
+    
     /**
      * Add an asset to a contract
      *
-     * <p>Adds an asset to an existing contract.
+     * Adds an asset to an existing contract.
      *
-     * @throws ApiException if the Api call fails
+     * @throws ApiException
+     *          if the Api call fails
      */
     @Test
     public void addContractAssetTest() throws ApiException {
@@ -43,92 +54,107 @@ public class ContractsApiTest {
         String assetId = null;
         AddContractAssetRequest addContractAssetRequest = null;
         String idempotencyKey = null;
-        CompletableFuture<ApiResponse<ExternalWalletAsset>> response =
-                api.addContractAsset(contractId, assetId, addContractAssetRequest, idempotencyKey);
+        CompletableFuture<ApiResponse<ExternalWalletAsset>> response = 
+        api.addContractAsset(contractId, assetId, addContractAssetRequest, idempotencyKey);
+        
     }
-
+    
     /**
      * Create a contract
      *
-     * <p>Creates a new contract.
+     * Creates a new contract.
      *
-     * @throws ApiException if the Api call fails
+     * @throws ApiException
+     *          if the Api call fails
      */
     @Test
     public void createContractTest() throws ApiException {
         CreateContractRequest createContractRequest = null;
         String idempotencyKey = null;
-        CompletableFuture<ApiResponse<UnmanagedWallet>> response =
-                api.createContract(createContractRequest, idempotencyKey);
+        CompletableFuture<ApiResponse<UnmanagedWallet>> response = 
+        api.createContract(createContractRequest, idempotencyKey);
+        
     }
-
+    
     /**
      * Delete a contract
      *
-     * <p>Deletes a contract by ID.
+     * Deletes a contract by ID.
      *
-     * @throws ApiException if the Api call fails
+     * @throws ApiException
+     *          if the Api call fails
      */
     @Test
     public void deleteContractTest() throws ApiException {
         String contractId = null;
-
+        
         CompletableFuture<ApiResponse<Void>> response = api.deleteContract(contractId);
+        
     }
-
+    
     /**
      * Delete a contract asset
      *
-     * <p>Deletes a contract asset by ID.
+     * Deletes a contract asset by ID.
      *
-     * @throws ApiException if the Api call fails
+     * @throws ApiException
+     *          if the Api call fails
      */
     @Test
     public void deleteContractAssetTest() throws ApiException {
         String contractId = null;
         String assetId = null;
-
-        CompletableFuture<ApiResponse<Void>> response =
-                api.deleteContractAsset(contractId, assetId);
+        
+        CompletableFuture<ApiResponse<Void>> response = api.deleteContractAsset(contractId, assetId);
+        
     }
-
+    
     /**
      * Find a specific contract
      *
-     * <p>Returns a contract by ID.
+     * Returns a contract by ID.
      *
-     * @throws ApiException if the Api call fails
+     * @throws ApiException
+     *          if the Api call fails
      */
     @Test
     public void getContractTest() throws ApiException {
         String contractId = null;
-        CompletableFuture<ApiResponse<UnmanagedWallet>> response = api.getContract(contractId);
+        CompletableFuture<ApiResponse<UnmanagedWallet>> response = 
+        api.getContract(contractId);
+        
     }
-
+    
     /**
      * Find a contract asset
      *
-     * <p>Returns a contract asset by ID.
+     * Returns a contract asset by ID.
      *
-     * @throws ApiException if the Api call fails
+     * @throws ApiException
+     *          if the Api call fails
      */
     @Test
     public void getContractAssetTest() throws ApiException {
         String contractId = null;
         String assetId = null;
-        CompletableFuture<ApiResponse<ExternalWalletAsset>> response =
-                api.getContractAsset(contractId, assetId);
+        CompletableFuture<ApiResponse<ExternalWalletAsset>> response = 
+        api.getContractAsset(contractId, assetId);
+        
     }
-
+    
     /**
      * List contracts
      *
-     * <p>Gets a list of contracts.
+     * Gets a list of contracts.
      *
-     * @throws ApiException if the Api call fails
+     * @throws ApiException
+     *          if the Api call fails
      */
     @Test
     public void getContractsTest() throws ApiException {
-        CompletableFuture<ApiResponse<List<UnmanagedWallet>>> response = api.getContracts();
+        CompletableFuture<ApiResponse<List<UnmanagedWallet>>> response = 
+        api.getContracts();
+        
     }
+    
 }

@@ -10,25 +10,42 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
-/** Model tests for PolicyRuleRawMessageSigningDerivationPath */
+/**
+ * Model tests for PolicyRuleRawMessageSigningDerivationPath
+ */
 public class PolicyRuleRawMessageSigningDerivationPathTest {
-    private final PolicyRuleRawMessageSigningDerivationPath model =
-            new PolicyRuleRawMessageSigningDerivationPath();
+    private final PolicyRuleRawMessageSigningDerivationPath model = new PolicyRuleRawMessageSigningDerivationPath();
 
-    /** Model tests for PolicyRuleRawMessageSigningDerivationPath */
+    /**
+     * Model tests for PolicyRuleRawMessageSigningDerivationPath
+     */
     @Test
     public void testPolicyRuleRawMessageSigningDerivationPath() {
         // TODO: test PolicyRuleRawMessageSigningDerivationPath
     }
 
-    /** Test the property 'path' */
+    /**
+     * Test the property 'path'
+     */
     @Test
     public void pathTest() {
         // TODO: test path
     }
+
 }

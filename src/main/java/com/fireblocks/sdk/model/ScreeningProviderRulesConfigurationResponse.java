@@ -10,454 +10,443 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.fasterxml.jackson.annotation.JsonValue;
-import java.math.BigDecimal;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
-import java.util.Objects;
 import java.util.StringJoiner;
+import java.util.Objects;
+import java.util.Map;
+import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import java.math.BigDecimal;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
-/** ScreeningProviderRulesConfigurationResponse */
+
+/**
+ * ScreeningProviderRulesConfigurationResponse
+ */
 @JsonPropertyOrder({
-    ScreeningProviderRulesConfigurationResponse.JSON_PROPERTY_DIRECTION,
-    ScreeningProviderRulesConfigurationResponse.JSON_PROPERTY_STATUS,
-    ScreeningProviderRulesConfigurationResponse.JSON_PROPERTY_AMOUNT_U_S_D,
-    ScreeningProviderRulesConfigurationResponse.JSON_PROPERTY_AMOUNT,
-    ScreeningProviderRulesConfigurationResponse.JSON_PROPERTY_ASSET,
-    ScreeningProviderRulesConfigurationResponse.JSON_PROPERTY_ACTION
+  ScreeningProviderRulesConfigurationResponse.JSON_PROPERTY_DIRECTION,
+  ScreeningProviderRulesConfigurationResponse.JSON_PROPERTY_STATUS,
+  ScreeningProviderRulesConfigurationResponse.JSON_PROPERTY_AMOUNT_U_S_D,
+  ScreeningProviderRulesConfigurationResponse.JSON_PROPERTY_AMOUNT,
+  ScreeningProviderRulesConfigurationResponse.JSON_PROPERTY_ASSET,
+  ScreeningProviderRulesConfigurationResponse.JSON_PROPERTY_ACTION
 })
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class ScreeningProviderRulesConfigurationResponse {
-    /** Gets or Sets direction */
-    public enum DirectionEnum {
-        INBOUND("INBOUND"),
+  /**
+   * Gets or Sets direction
+   */
+  public enum DirectionEnum {
+    INBOUND("INBOUND"),
+    
+    OUTBOUND("OUTBOUND");
 
-        OUTBOUND("OUTBOUND");
+    private String value;
 
-        private String value;
-
-        DirectionEnum(String value) {
-            this.value = value;
-        }
-
-        @JsonValue
-        public String getValue() {
-            return value;
-        }
-
-        @Override
-        public String toString() {
-            return String.valueOf(value);
-        }
-
-        @JsonCreator
-        public static DirectionEnum fromValue(String value) {
-            for (DirectionEnum b : DirectionEnum.values()) {
-                if (b.value.equals(value)) {
-                    return b;
-                }
-            }
-            throw new IllegalArgumentException("Unexpected value '" + value + "'");
-        }
+    DirectionEnum(String value) {
+      this.value = value;
     }
 
-    public static final String JSON_PROPERTY_DIRECTION = "direction";
-    private DirectionEnum direction;
-
-    /** Gets or Sets status */
-    public enum StatusEnum {
-        COMPLETED("COMPLETED"),
-
-        PENDING("PENDING"),
-
-        REJECTED("REJECTED"),
-
-        FAILED("FAILED"),
-
-        CANCELED("CANCELED"),
-
-        BLOCKING_TIME_EXPIRED("BLOCKING_TIME_EXPIRED");
-
-        private String value;
-
-        StatusEnum(String value) {
-            this.value = value;
-        }
-
-        @JsonValue
-        public String getValue() {
-            return value;
-        }
-
-        @Override
-        public String toString() {
-            return String.valueOf(value);
-        }
-
-        @JsonCreator
-        public static StatusEnum fromValue(String value) {
-            for (StatusEnum b : StatusEnum.values()) {
-                if (b.value.equals(value)) {
-                    return b;
-                }
-            }
-            throw new IllegalArgumentException("Unexpected value '" + value + "'");
-        }
-    }
-
-    public static final String JSON_PROPERTY_STATUS = "status";
-    private StatusEnum status;
-
-    public static final String JSON_PROPERTY_AMOUNT_U_S_D = "amountUSD";
-    private BigDecimal amountUSD;
-
-    public static final String JSON_PROPERTY_AMOUNT = "amount";
-    private BigDecimal amount;
-
-    public static final String JSON_PROPERTY_ASSET = "asset";
-    private String asset;
-
-    /** Gets or Sets action */
-    public enum ActionEnum {
-        ACCEPT("ACCEPT"),
-
-        REJECT("REJECT"),
-
-        ALERT("ALERT"),
-
-        WAIT("WAIT"),
-
-        FREEZE("FREEZE"),
-
-        CANCEL("CANCEL");
-
-        private String value;
-
-        ActionEnum(String value) {
-            this.value = value;
-        }
-
-        @JsonValue
-        public String getValue() {
-            return value;
-        }
-
-        @Override
-        public String toString() {
-            return String.valueOf(value);
-        }
-
-        @JsonCreator
-        public static ActionEnum fromValue(String value) {
-            for (ActionEnum b : ActionEnum.values()) {
-                if (b.value.equals(value)) {
-                    return b;
-                }
-            }
-            throw new IllegalArgumentException("Unexpected value '" + value + "'");
-        }
-    }
-
-    public static final String JSON_PROPERTY_ACTION = "action";
-    private ActionEnum action;
-
-    public ScreeningProviderRulesConfigurationResponse() {}
-
-    public ScreeningProviderRulesConfigurationResponse direction(DirectionEnum direction) {
-        this.direction = direction;
-        return this;
-    }
-
-    /**
-     * Get direction
-     *
-     * @return direction
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_DIRECTION)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public DirectionEnum getDirection() {
-        return direction;
-    }
-
-    @JsonProperty(JSON_PROPERTY_DIRECTION)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setDirection(DirectionEnum direction) {
-        this.direction = direction;
-    }
-
-    public ScreeningProviderRulesConfigurationResponse status(StatusEnum status) {
-        this.status = status;
-        return this;
-    }
-
-    /**
-     * Get status
-     *
-     * @return status
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_STATUS)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public StatusEnum getStatus() {
-        return status;
-    }
-
-    @JsonProperty(JSON_PROPERTY_STATUS)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setStatus(StatusEnum status) {
-        this.status = status;
-    }
-
-    public ScreeningProviderRulesConfigurationResponse amountUSD(BigDecimal amountUSD) {
-        this.amountUSD = amountUSD;
-        return this;
-    }
-
-    /**
-     * Get amountUSD
-     *
-     * @return amountUSD
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_AMOUNT_U_S_D)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public BigDecimal getAmountUSD() {
-        return amountUSD;
-    }
-
-    @JsonProperty(JSON_PROPERTY_AMOUNT_U_S_D)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAmountUSD(BigDecimal amountUSD) {
-        this.amountUSD = amountUSD;
-    }
-
-    public ScreeningProviderRulesConfigurationResponse amount(BigDecimal amount) {
-        this.amount = amount;
-        return this;
-    }
-
-    /**
-     * Get amount
-     *
-     * @return amount
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_AMOUNT)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public BigDecimal getAmount() {
-        return amount;
-    }
-
-    @JsonProperty(JSON_PROPERTY_AMOUNT)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAmount(BigDecimal amount) {
-        this.amount = amount;
-    }
-
-    public ScreeningProviderRulesConfigurationResponse asset(String asset) {
-        this.asset = asset;
-        return this;
-    }
-
-    /**
-     * Get asset
-     *
-     * @return asset
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_ASSET)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public String getAsset() {
-        return asset;
-    }
-
-    @JsonProperty(JSON_PROPERTY_ASSET)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAsset(String asset) {
-        this.asset = asset;
-    }
-
-    public ScreeningProviderRulesConfigurationResponse action(ActionEnum action) {
-        this.action = action;
-        return this;
-    }
-
-    /**
-     * Get action
-     *
-     * @return action
-     */
-    @jakarta.annotation.Nonnull
-    @JsonProperty(JSON_PROPERTY_ACTION)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public ActionEnum getAction() {
-        return action;
-    }
-
-    @JsonProperty(JSON_PROPERTY_ACTION)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setAction(ActionEnum action) {
-        this.action = action;
-    }
-
-    /** Return true if this ScreeningProviderRulesConfigurationResponse object is equal to o. */
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        ScreeningProviderRulesConfigurationResponse screeningProviderRulesConfigurationResponse =
-                (ScreeningProviderRulesConfigurationResponse) o;
-        return Objects.equals(this.direction, screeningProviderRulesConfigurationResponse.direction)
-                && Objects.equals(this.status, screeningProviderRulesConfigurationResponse.status)
-                && Objects.equals(
-                        this.amountUSD, screeningProviderRulesConfigurationResponse.amountUSD)
-                && Objects.equals(this.amount, screeningProviderRulesConfigurationResponse.amount)
-                && Objects.equals(this.asset, screeningProviderRulesConfigurationResponse.asset)
-                && Objects.equals(this.action, screeningProviderRulesConfigurationResponse.action);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(direction, status, amountUSD, amount, asset, action);
+    @JsonValue
+    public String getValue() {
+      return value;
     }
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("class ScreeningProviderRulesConfigurationResponse {\n");
-        sb.append("    direction: ").append(toIndentedString(direction)).append("\n");
-        sb.append("    status: ").append(toIndentedString(status)).append("\n");
-        sb.append("    amountUSD: ").append(toIndentedString(amountUSD)).append("\n");
-        sb.append("    amount: ").append(toIndentedString(amount)).append("\n");
-        sb.append("    asset: ").append(toIndentedString(asset)).append("\n");
-        sb.append("    action: ").append(toIndentedString(action)).append("\n");
-        sb.append("}");
-        return sb.toString();
+      return String.valueOf(value);
     }
 
-    /**
-     * Convert the given object to string with each line indented by 4 spaces (except the first
-     * line).
-     */
-    private String toIndentedString(Object o) {
-        if (o == null) {
-            return "null";
+    @JsonCreator
+    public static DirectionEnum fromValue(String value) {
+      for (DirectionEnum b : DirectionEnum.values()) {
+        if (b.value.equals(value)) {
+          return b;
         }
-        return o.toString().replace("\n", "\n    ");
+      }
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
+  }
+
+  public static final String JSON_PROPERTY_DIRECTION = "direction";
+  private DirectionEnum direction;
+
+  /**
+   * Gets or Sets status
+   */
+  public enum StatusEnum {
+    COMPLETED("COMPLETED"),
+    
+    PENDING("PENDING"),
+    
+    REJECTED("REJECTED"),
+    
+    FAILED("FAILED"),
+    
+    CANCELED("CANCELED"),
+    
+    BLOCKING_TIME_EXPIRED("BLOCKING_TIME_EXPIRED");
+
+    private String value;
+
+    StatusEnum(String value) {
+      this.value = value;
     }
 
-    /**
-     * Convert the instance into URL query string.
-     *
-     * @return URL query string
-     */
-    public String toUrlQueryString() {
-        return toUrlQueryString(null);
+    @JsonValue
+    public String getValue() {
+      return value;
     }
 
-    /**
-     * Convert the instance into URL query string.
-     *
-     * @param prefix prefix of the query string
-     * @return URL query string
-     */
-    public String toUrlQueryString(String prefix) {
-        String suffix = "";
-        String containerSuffix = "";
-        String containerPrefix = "";
-        if (prefix == null) {
-            // style=form, explode=true, e.g. /pet?name=cat&type=manx
-            prefix = "";
-        } else {
-            // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
-            prefix = prefix + "[";
-            suffix = "]";
-            containerSuffix = "]";
-            containerPrefix = "[";
-        }
-
-        StringJoiner joiner = new StringJoiner("&");
-
-        // add `direction` to the URL query string
-        if (getDirection() != null) {
-            joiner.add(
-                    String.format(
-                            "%sdirection%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getDirection()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
-        // add `status` to the URL query string
-        if (getStatus() != null) {
-            joiner.add(
-                    String.format(
-                            "%sstatus%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(String.valueOf(getStatus()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
-        // add `amountUSD` to the URL query string
-        if (getAmountUSD() != null) {
-            joiner.add(
-                    String.format(
-                            "%samountUSD%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getAmountUSD()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
-        // add `amount` to the URL query string
-        if (getAmount() != null) {
-            joiner.add(
-                    String.format(
-                            "%samount%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(String.valueOf(getAmount()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
-        // add `asset` to the URL query string
-        if (getAsset() != null) {
-            joiner.add(
-                    String.format(
-                            "%sasset%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(String.valueOf(getAsset()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
-        // add `action` to the URL query string
-        if (getAction() != null) {
-            joiner.add(
-                    String.format(
-                            "%saction%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(String.valueOf(getAction()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
-        return joiner.toString();
+    @Override
+    public String toString() {
+      return String.valueOf(value);
     }
+
+    @JsonCreator
+    public static StatusEnum fromValue(String value) {
+      for (StatusEnum b : StatusEnum.values()) {
+        if (b.value.equals(value)) {
+          return b;
+        }
+      }
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
+  }
+
+  public static final String JSON_PROPERTY_STATUS = "status";
+  private StatusEnum status;
+
+  public static final String JSON_PROPERTY_AMOUNT_U_S_D = "amountUSD";
+  private BigDecimal amountUSD;
+
+  public static final String JSON_PROPERTY_AMOUNT = "amount";
+  private BigDecimal amount;
+
+  public static final String JSON_PROPERTY_ASSET = "asset";
+  private String asset;
+
+  /**
+   * Gets or Sets action
+   */
+  public enum ActionEnum {
+    ACCEPT("ACCEPT"),
+    
+    REJECT("REJECT"),
+    
+    ALERT("ALERT"),
+    
+    WAIT("WAIT"),
+    
+    FREEZE("FREEZE"),
+    
+    CANCEL("CANCEL");
+
+    private String value;
+
+    ActionEnum(String value) {
+      this.value = value;
+    }
+
+    @JsonValue
+    public String getValue() {
+      return value;
+    }
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    @JsonCreator
+    public static ActionEnum fromValue(String value) {
+      for (ActionEnum b : ActionEnum.values()) {
+        if (b.value.equals(value)) {
+          return b;
+        }
+      }
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
+  }
+
+  public static final String JSON_PROPERTY_ACTION = "action";
+  private ActionEnum action;
+
+  public ScreeningProviderRulesConfigurationResponse() { 
+  }
+
+  public ScreeningProviderRulesConfigurationResponse direction(DirectionEnum direction) {
+    this.direction = direction;
+    return this;
+  }
+
+   /**
+   * Get direction
+   * @return direction
+  **/
+  @jakarta.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_DIRECTION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public DirectionEnum getDirection() {
+    return direction;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_DIRECTION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setDirection(DirectionEnum direction) {
+    this.direction = direction;
+  }
+
+
+  public ScreeningProviderRulesConfigurationResponse status(StatusEnum status) {
+    this.status = status;
+    return this;
+  }
+
+   /**
+   * Get status
+   * @return status
+  **/
+  @jakarta.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_STATUS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public StatusEnum getStatus() {
+    return status;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_STATUS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setStatus(StatusEnum status) {
+    this.status = status;
+  }
+
+
+  public ScreeningProviderRulesConfigurationResponse amountUSD(BigDecimal amountUSD) {
+    this.amountUSD = amountUSD;
+    return this;
+  }
+
+   /**
+   * Get amountUSD
+   * @return amountUSD
+  **/
+  @jakarta.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_AMOUNT_U_S_D)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public BigDecimal getAmountUSD() {
+    return amountUSD;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_AMOUNT_U_S_D)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setAmountUSD(BigDecimal amountUSD) {
+    this.amountUSD = amountUSD;
+  }
+
+
+  public ScreeningProviderRulesConfigurationResponse amount(BigDecimal amount) {
+    this.amount = amount;
+    return this;
+  }
+
+   /**
+   * Get amount
+   * @return amount
+  **/
+  @jakarta.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_AMOUNT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public BigDecimal getAmount() {
+    return amount;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_AMOUNT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setAmount(BigDecimal amount) {
+    this.amount = amount;
+  }
+
+
+  public ScreeningProviderRulesConfigurationResponse asset(String asset) {
+    this.asset = asset;
+    return this;
+  }
+
+   /**
+   * Get asset
+   * @return asset
+  **/
+  @jakarta.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_ASSET)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getAsset() {
+    return asset;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_ASSET)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setAsset(String asset) {
+    this.asset = asset;
+  }
+
+
+  public ScreeningProviderRulesConfigurationResponse action(ActionEnum action) {
+    this.action = action;
+    return this;
+  }
+
+   /**
+   * Get action
+   * @return action
+  **/
+  @jakarta.annotation.Nonnull
+  @JsonProperty(JSON_PROPERTY_ACTION)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public ActionEnum getAction() {
+    return action;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_ACTION)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setAction(ActionEnum action) {
+    this.action = action;
+  }
+
+
+  /**
+   * Return true if this ScreeningProviderRulesConfigurationResponse object is equal to o.
+   */
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    ScreeningProviderRulesConfigurationResponse screeningProviderRulesConfigurationResponse = (ScreeningProviderRulesConfigurationResponse) o;
+    return Objects.equals(this.direction, screeningProviderRulesConfigurationResponse.direction) &&
+        Objects.equals(this.status, screeningProviderRulesConfigurationResponse.status) &&
+        Objects.equals(this.amountUSD, screeningProviderRulesConfigurationResponse.amountUSD) &&
+        Objects.equals(this.amount, screeningProviderRulesConfigurationResponse.amount) &&
+        Objects.equals(this.asset, screeningProviderRulesConfigurationResponse.asset) &&
+        Objects.equals(this.action, screeningProviderRulesConfigurationResponse.action);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(direction, status, amountUSD, amount, asset, action);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class ScreeningProviderRulesConfigurationResponse {\n");
+    sb.append("    direction: ").append(toIndentedString(direction)).append("\n");
+    sb.append("    status: ").append(toIndentedString(status)).append("\n");
+    sb.append("    amountUSD: ").append(toIndentedString(amountUSD)).append("\n");
+    sb.append("    amount: ").append(toIndentedString(amount)).append("\n");
+    sb.append("    asset: ").append(toIndentedString(asset)).append("\n");
+    sb.append("    action: ").append(toIndentedString(action)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @return URL query string
+   */
+  public String toUrlQueryString() {
+    return toUrlQueryString(null);
+  }
+
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @param prefix prefix of the query string
+   * @return URL query string
+   */
+  public String toUrlQueryString(String prefix) {
+    String suffix = "";
+    String containerSuffix = "";
+    String containerPrefix = "";
+    if (prefix == null) {
+      // style=form, explode=true, e.g. /pet?name=cat&type=manx
+      prefix = "";
+    } else {
+      // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
+      prefix = prefix + "[";
+      suffix = "]";
+      containerSuffix = "]";
+      containerPrefix = "[";
+    }
+
+    StringJoiner joiner = new StringJoiner("&");
+
+    // add `direction` to the URL query string
+    if (getDirection() != null) {
+      joiner.add(String.format("%sdirection%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getDirection()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `status` to the URL query string
+    if (getStatus() != null) {
+      joiner.add(String.format("%sstatus%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getStatus()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `amountUSD` to the URL query string
+    if (getAmountUSD() != null) {
+      joiner.add(String.format("%samountUSD%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getAmountUSD()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `amount` to the URL query string
+    if (getAmount() != null) {
+      joiner.add(String.format("%samount%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getAmount()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `asset` to the URL query string
+    if (getAsset() != null) {
+      joiner.add(String.format("%sasset%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getAsset()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `action` to the URL query string
+    if (getAction() != null) {
+      joiner.add(String.format("%saction%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getAction()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    return joiner.toString();
+  }
 }
+

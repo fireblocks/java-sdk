@@ -10,42 +10,63 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.Arrays;
+import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
-/** Model tests for LeanDeployedContractResponseDto */
+/**
+ * Model tests for LeanDeployedContractResponseDto
+ */
 public class LeanDeployedContractResponseDtoTest {
     private final LeanDeployedContractResponseDto model = new LeanDeployedContractResponseDto();
 
-    /** Model tests for LeanDeployedContractResponseDto */
+    /**
+     * Model tests for LeanDeployedContractResponseDto
+     */
     @Test
     public void testLeanDeployedContractResponseDto() {
         // TODO: test LeanDeployedContractResponseDto
     }
 
-    /** Test the property 'id' */
+    /**
+     * Test the property 'id'
+     */
     @Test
     public void idTest() {
         // TODO: test id
     }
 
-    /** Test the property 'contractAddress' */
+    /**
+     * Test the property 'contractAddress'
+     */
     @Test
     public void contractAddressTest() {
         // TODO: test contractAddress
     }
 
-    /** Test the property 'contractTemplateId' */
+    /**
+     * Test the property 'contractTemplateId'
+     */
     @Test
     public void contractTemplateIdTest() {
         // TODO: test contractTemplateId
     }
 
-    /** Test the property 'blockchainId' */
+    /**
+     * Test the property 'blockchainId'
+     */
     @Test
     public void blockchainIdTest() {
         // TODO: test blockchainId
     }
+
 }

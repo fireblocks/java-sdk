@@ -10,42 +10,63 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.Arrays;
+import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
-/** Model tests for ToExchangeTransaction */
+/**
+ * Model tests for ToExchangeTransaction
+ */
 public class ToExchangeTransactionTest {
     private final ToExchangeTransaction model = new ToExchangeTransaction();
 
-    /** Model tests for ToExchangeTransaction */
+    /**
+     * Model tests for ToExchangeTransaction
+     */
     @Test
     public void testToExchangeTransaction() {
         // TODO: test ToExchangeTransaction
     }
 
-    /** Test the property 'assetId' */
+    /**
+     * Test the property 'assetId'
+     */
     @Test
     public void assetIdTest() {
         // TODO: test assetId
     }
 
-    /** Test the property 'amount' */
+    /**
+     * Test the property 'amount'
+     */
     @Test
     public void amountTest() {
         // TODO: test amount
     }
 
-    /** Test the property 'dstAddress' */
+    /**
+     * Test the property 'dstAddress'
+     */
     @Test
     public void dstAddressTest() {
         // TODO: test dstAddress
     }
 
-    /** Test the property 'dstTag' */
+    /**
+     * Test the property 'dstTag'
+     */
     @Test
     public void dstTagTest() {
         // TODO: test dstTag
     }
+
 }

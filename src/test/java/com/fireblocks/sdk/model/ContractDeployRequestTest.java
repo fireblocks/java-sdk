@@ -10,36 +10,58 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.fireblocks.sdk.model.ParameterWithValue;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
-/** Model tests for ContractDeployRequest */
+/**
+ * Model tests for ContractDeployRequest
+ */
 public class ContractDeployRequestTest {
     private final ContractDeployRequest model = new ContractDeployRequest();
 
-    /** Model tests for ContractDeployRequest */
+    /**
+     * Model tests for ContractDeployRequest
+     */
     @Test
     public void testContractDeployRequest() {
         // TODO: test ContractDeployRequest
     }
 
-    /** Test the property 'assetId' */
+    /**
+     * Test the property 'assetId'
+     */
     @Test
     public void assetIdTest() {
         // TODO: test assetId
     }
 
-    /** Test the property 'vaultAccountId' */
+    /**
+     * Test the property 'vaultAccountId'
+     */
     @Test
     public void vaultAccountIdTest() {
         // TODO: test vaultAccountId
     }
 
-    /** Test the property 'constructorParameters' */
+    /**
+     * Test the property 'constructorParameters'
+     */
     @Test
     public void constructorParametersTest() {
         // TODO: test constructorParameters
     }
+
 }

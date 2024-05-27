@@ -10,8 +10,38 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.StringJoiner;
+import java.util.Objects;
+import java.util.Map;
+import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.fireblocks.sdk.model.ConfigOperationStatus;
+import com.fireblocks.sdk.model.ConversionConfigOperation;
+import com.fireblocks.sdk.model.DisbursementConfigOperation;
+import com.fireblocks.sdk.model.DisbursementOperationConfigParams;
+import com.fireblocks.sdk.model.DisbursementOperationType;
+import com.fireblocks.sdk.model.DisbursementValidationFailure;
+import com.fireblocks.sdk.model.TransferConfigOperation;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+
+import com.fasterxml.jackson.core.type.TypeReference;
+
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
@@ -27,14 +57,6 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 import com.fireblocks.sdk.JSON;
-import java.io.IOException;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.StringJoiner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 @JsonDeserialize(using = ConfigOperation.ConfigOperationDeserializer.class)
@@ -52,9 +74,7 @@ public class ConfigOperation extends AbstractOpenApiSchema {
         }
 
         @Override
-        public void serialize(
-                ConfigOperation value, JsonGenerator jgen, SerializerProvider provider)
-                throws IOException, JsonProcessingException {
+        public void serialize(ConfigOperation value, JsonGenerator jgen, SerializerProvider provider) throws IOException, JsonProcessingException {
             jgen.writeObject(value.getActualInstance());
         }
     }
@@ -69,8 +89,7 @@ public class ConfigOperation extends AbstractOpenApiSchema {
         }
 
         @Override
-        public ConfigOperation deserialize(JsonParser jp, DeserializationContext ctxt)
-                throws IOException, JsonProcessingException {
+        public ConfigOperation deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException, JsonProcessingException {
             JsonNode tree = jp.readValueAsTree();
             Object deserialized = null;
             boolean typeCoercion = ctxt.isEnabled(MapperFeature.ALLOW_COERCION_OF_SCALARS);
@@ -80,37 +99,17 @@ public class ConfigOperation extends AbstractOpenApiSchema {
             try {
                 boolean attemptParsing = true;
                 // ensure that we respect type coercion as set on the client ObjectMapper
-                if (ConversionConfigOperation.class.equals(Integer.class)
-                        || ConversionConfigOperation.class.equals(Long.class)
-                        || ConversionConfigOperation.class.equals(Float.class)
-                        || ConversionConfigOperation.class.equals(Double.class)
-                        || ConversionConfigOperation.class.equals(Boolean.class)
-                        || ConversionConfigOperation.class.equals(String.class)) {
+                if (ConversionConfigOperation.class.equals(Integer.class) || ConversionConfigOperation.class.equals(Long.class) || ConversionConfigOperation.class.equals(Float.class) || ConversionConfigOperation.class.equals(Double.class) || ConversionConfigOperation.class.equals(Boolean.class) || ConversionConfigOperation.class.equals(String.class)) {
                     attemptParsing = typeCoercion;
                     if (!attemptParsing) {
-                        attemptParsing |=
-                                ((ConversionConfigOperation.class.equals(Integer.class)
-                                                || ConversionConfigOperation.class.equals(
-                                                        Long.class))
-                                        && token == JsonToken.VALUE_NUMBER_INT);
-                        attemptParsing |=
-                                ((ConversionConfigOperation.class.equals(Float.class)
-                                                || ConversionConfigOperation.class.equals(
-                                                        Double.class))
-                                        && token == JsonToken.VALUE_NUMBER_FLOAT);
-                        attemptParsing |=
-                                (ConversionConfigOperation.class.equals(Boolean.class)
-                                        && (token == JsonToken.VALUE_FALSE
-                                                || token == JsonToken.VALUE_TRUE));
-                        attemptParsing |=
-                                (ConversionConfigOperation.class.equals(String.class)
-                                        && token == JsonToken.VALUE_STRING);
+                        attemptParsing |= ((ConversionConfigOperation.class.equals(Integer.class) || ConversionConfigOperation.class.equals(Long.class)) && token == JsonToken.VALUE_NUMBER_INT);
+                        attemptParsing |= ((ConversionConfigOperation.class.equals(Float.class) || ConversionConfigOperation.class.equals(Double.class)) && token == JsonToken.VALUE_NUMBER_FLOAT);
+                        attemptParsing |= (ConversionConfigOperation.class.equals(Boolean.class) && (token == JsonToken.VALUE_FALSE || token == JsonToken.VALUE_TRUE));
+                        attemptParsing |= (ConversionConfigOperation.class.equals(String.class) && token == JsonToken.VALUE_STRING);
                     }
                 }
                 if (attemptParsing) {
-                    deserialized =
-                            tree.traverse(jp.getCodec())
-                                    .readValueAs(ConversionConfigOperation.class);
+                    deserialized = tree.traverse(jp.getCodec()).readValueAs(ConversionConfigOperation.class);
                     // TODO: there is no validation against JSON schema constraints
                     // (min, max, enum, pattern...), this does not perform a strict JSON
                     // validation, which means the 'match' count may be higher than it should be.
@@ -119,47 +118,24 @@ public class ConfigOperation extends AbstractOpenApiSchema {
                 }
             } catch (Exception e) {
                 // deserialization failed, continue
-                log.log(
-                        Level.FINER,
-                        "Input data does not match schema 'ConversionConfigOperation'",
-                        e);
+                log.log(Level.FINER, "Input data does not match schema 'ConversionConfigOperation'", e);
             }
 
             // deserialize DisbursementConfigOperation
             try {
                 boolean attemptParsing = true;
                 // ensure that we respect type coercion as set on the client ObjectMapper
-                if (DisbursementConfigOperation.class.equals(Integer.class)
-                        || DisbursementConfigOperation.class.equals(Long.class)
-                        || DisbursementConfigOperation.class.equals(Float.class)
-                        || DisbursementConfigOperation.class.equals(Double.class)
-                        || DisbursementConfigOperation.class.equals(Boolean.class)
-                        || DisbursementConfigOperation.class.equals(String.class)) {
+                if (DisbursementConfigOperation.class.equals(Integer.class) || DisbursementConfigOperation.class.equals(Long.class) || DisbursementConfigOperation.class.equals(Float.class) || DisbursementConfigOperation.class.equals(Double.class) || DisbursementConfigOperation.class.equals(Boolean.class) || DisbursementConfigOperation.class.equals(String.class)) {
                     attemptParsing = typeCoercion;
                     if (!attemptParsing) {
-                        attemptParsing |=
-                                ((DisbursementConfigOperation.class.equals(Integer.class)
-                                                || DisbursementConfigOperation.class.equals(
-                                                        Long.class))
-                                        && token == JsonToken.VALUE_NUMBER_INT);
-                        attemptParsing |=
-                                ((DisbursementConfigOperation.class.equals(Float.class)
-                                                || DisbursementConfigOperation.class.equals(
-                                                        Double.class))
-                                        && token == JsonToken.VALUE_NUMBER_FLOAT);
-                        attemptParsing |=
-                                (DisbursementConfigOperation.class.equals(Boolean.class)
-                                        && (token == JsonToken.VALUE_FALSE
-                                                || token == JsonToken.VALUE_TRUE));
-                        attemptParsing |=
-                                (DisbursementConfigOperation.class.equals(String.class)
-                                        && token == JsonToken.VALUE_STRING);
+                        attemptParsing |= ((DisbursementConfigOperation.class.equals(Integer.class) || DisbursementConfigOperation.class.equals(Long.class)) && token == JsonToken.VALUE_NUMBER_INT);
+                        attemptParsing |= ((DisbursementConfigOperation.class.equals(Float.class) || DisbursementConfigOperation.class.equals(Double.class)) && token == JsonToken.VALUE_NUMBER_FLOAT);
+                        attemptParsing |= (DisbursementConfigOperation.class.equals(Boolean.class) && (token == JsonToken.VALUE_FALSE || token == JsonToken.VALUE_TRUE));
+                        attemptParsing |= (DisbursementConfigOperation.class.equals(String.class) && token == JsonToken.VALUE_STRING);
                     }
                 }
                 if (attemptParsing) {
-                    deserialized =
-                            tree.traverse(jp.getCodec())
-                                    .readValueAs(DisbursementConfigOperation.class);
+                    deserialized = tree.traverse(jp.getCodec()).readValueAs(DisbursementConfigOperation.class);
                     // TODO: there is no validation against JSON schema constraints
                     // (min, max, enum, pattern...), this does not perform a strict JSON
                     // validation, which means the 'match' count may be higher than it should be.
@@ -168,45 +144,24 @@ public class ConfigOperation extends AbstractOpenApiSchema {
                 }
             } catch (Exception e) {
                 // deserialization failed, continue
-                log.log(
-                        Level.FINER,
-                        "Input data does not match schema 'DisbursementConfigOperation'",
-                        e);
+                log.log(Level.FINER, "Input data does not match schema 'DisbursementConfigOperation'", e);
             }
 
             // deserialize TransferConfigOperation
             try {
                 boolean attemptParsing = true;
                 // ensure that we respect type coercion as set on the client ObjectMapper
-                if (TransferConfigOperation.class.equals(Integer.class)
-                        || TransferConfigOperation.class.equals(Long.class)
-                        || TransferConfigOperation.class.equals(Float.class)
-                        || TransferConfigOperation.class.equals(Double.class)
-                        || TransferConfigOperation.class.equals(Boolean.class)
-                        || TransferConfigOperation.class.equals(String.class)) {
+                if (TransferConfigOperation.class.equals(Integer.class) || TransferConfigOperation.class.equals(Long.class) || TransferConfigOperation.class.equals(Float.class) || TransferConfigOperation.class.equals(Double.class) || TransferConfigOperation.class.equals(Boolean.class) || TransferConfigOperation.class.equals(String.class)) {
                     attemptParsing = typeCoercion;
                     if (!attemptParsing) {
-                        attemptParsing |=
-                                ((TransferConfigOperation.class.equals(Integer.class)
-                                                || TransferConfigOperation.class.equals(Long.class))
-                                        && token == JsonToken.VALUE_NUMBER_INT);
-                        attemptParsing |=
-                                ((TransferConfigOperation.class.equals(Float.class)
-                                                || TransferConfigOperation.class.equals(
-                                                        Double.class))
-                                        && token == JsonToken.VALUE_NUMBER_FLOAT);
-                        attemptParsing |=
-                                (TransferConfigOperation.class.equals(Boolean.class)
-                                        && (token == JsonToken.VALUE_FALSE
-                                                || token == JsonToken.VALUE_TRUE));
-                        attemptParsing |=
-                                (TransferConfigOperation.class.equals(String.class)
-                                        && token == JsonToken.VALUE_STRING);
+                        attemptParsing |= ((TransferConfigOperation.class.equals(Integer.class) || TransferConfigOperation.class.equals(Long.class)) && token == JsonToken.VALUE_NUMBER_INT);
+                        attemptParsing |= ((TransferConfigOperation.class.equals(Float.class) || TransferConfigOperation.class.equals(Double.class)) && token == JsonToken.VALUE_NUMBER_FLOAT);
+                        attemptParsing |= (TransferConfigOperation.class.equals(Boolean.class) && (token == JsonToken.VALUE_FALSE || token == JsonToken.VALUE_TRUE));
+                        attemptParsing |= (TransferConfigOperation.class.equals(String.class) && token == JsonToken.VALUE_STRING);
                     }
                 }
                 if (attemptParsing) {
-                    deserialized =
-                            tree.traverse(jp.getCodec()).readValueAs(TransferConfigOperation.class);
+                    deserialized = tree.traverse(jp.getCodec()).readValueAs(TransferConfigOperation.class);
                     // TODO: there is no validation against JSON schema constraints
                     // (min, max, enum, pattern...), this does not perform a strict JSON
                     // validation, which means the 'match' count may be higher than it should be.
@@ -215,10 +170,7 @@ public class ConfigOperation extends AbstractOpenApiSchema {
                 }
             } catch (Exception e) {
                 // deserialization failed, continue
-                log.log(
-                        Level.FINER,
-                        "Input data does not match schema 'TransferConfigOperation'",
-                        e);
+                log.log(Level.FINER, "Input data does not match schema 'TransferConfigOperation'", e);
             }
 
             if (match == 1) {
@@ -226,17 +178,14 @@ public class ConfigOperation extends AbstractOpenApiSchema {
                 ret.setActualInstance(deserialized);
                 return ret;
             }
-            throw new IOException(
-                    String.format(
-                            "Failed deserialization for ConfigOperation: %d classes match result,"
-                                    + " expected 1",
-                            match));
+            throw new IOException(String.format("Failed deserialization for ConfigOperation: %d classes match result, expected 1", match));
         }
 
-        /** Handle deserialization of the 'null' value. */
+        /**
+         * Handle deserialization of the 'null' value.
+         */
         @Override
-        public ConfigOperation getNullValue(DeserializationContext ctxt)
-                throws JsonMappingException {
+        public ConfigOperation getNullValue(DeserializationContext ctxt) throws JsonMappingException {
             throw new JsonMappingException(ctxt.getParser(), "ConfigOperation cannot be null");
         }
     }
@@ -276,12 +225,12 @@ public class ConfigOperation extends AbstractOpenApiSchema {
     }
 
     /**
-     * Set the instance that matches the oneOf child schema, check the instance parameter is valid
-     * against the oneOf child schemas: ConversionConfigOperation, DisbursementConfigOperation,
-     * TransferConfigOperation
+     * Set the instance that matches the oneOf child schema, check
+     * the instance parameter is valid against the oneOf child schemas:
+     * ConversionConfigOperation, DisbursementConfigOperation, TransferConfigOperation
      *
-     * <p>It could be an instance of the 'oneOf' schemas. The oneOf child schemas may themselves be
-     * a composed schema (allOf, anyOf, oneOf).
+     * It could be an instance of the 'oneOf' schemas.
+     * The oneOf child schemas may themselves be a composed schema (allOf, anyOf, oneOf).
      */
     @Override
     public void setActualInstance(Object instance) {
@@ -290,8 +239,7 @@ public class ConfigOperation extends AbstractOpenApiSchema {
             return;
         }
 
-        if (JSON.isInstanceOf(
-                DisbursementConfigOperation.class, instance, new HashSet<Class<?>>())) {
+        if (JSON.isInstanceOf(DisbursementConfigOperation.class, instance, new HashSet<Class<?>>())) {
             super.setActualInstance(instance);
             return;
         }
@@ -301,17 +249,14 @@ public class ConfigOperation extends AbstractOpenApiSchema {
             return;
         }
 
-        throw new RuntimeException(
-                "Invalid instance type. Must be ConversionConfigOperation,"
-                        + " DisbursementConfigOperation, TransferConfigOperation");
+        throw new RuntimeException("Invalid instance type. Must be ConversionConfigOperation, DisbursementConfigOperation, TransferConfigOperation");
     }
 
     /**
-     * Get the actual instance, which can be the following: ConversionConfigOperation,
-     * DisbursementConfigOperation, TransferConfigOperation
+     * Get the actual instance, which can be the following:
+     * ConversionConfigOperation, DisbursementConfigOperation, TransferConfigOperation
      *
-     * @return The actual instance (ConversionConfigOperation, DisbursementConfigOperation,
-     *     TransferConfigOperation)
+     * @return The actual instance (ConversionConfigOperation, DisbursementConfigOperation, TransferConfigOperation)
      */
     @Override
     public Object getActualInstance() {
@@ -319,94 +264,92 @@ public class ConfigOperation extends AbstractOpenApiSchema {
     }
 
     /**
-     * Get the actual instance of `ConversionConfigOperation`. If the actual instance is not
-     * `ConversionConfigOperation`, the ClassCastException will be thrown.
+     * Get the actual instance of `ConversionConfigOperation`. If the actual instance is not `ConversionConfigOperation`,
+     * the ClassCastException will be thrown.
      *
      * @return The actual instance of `ConversionConfigOperation`
      * @throws ClassCastException if the instance is not `ConversionConfigOperation`
      */
     public ConversionConfigOperation getConversionConfigOperation() throws ClassCastException {
-        return (ConversionConfigOperation) super.getActualInstance();
+        return (ConversionConfigOperation)super.getActualInstance();
     }
 
     /**
-     * Get the actual instance of `DisbursementConfigOperation`. If the actual instance is not
-     * `DisbursementConfigOperation`, the ClassCastException will be thrown.
+     * Get the actual instance of `DisbursementConfigOperation`. If the actual instance is not `DisbursementConfigOperation`,
+     * the ClassCastException will be thrown.
      *
      * @return The actual instance of `DisbursementConfigOperation`
      * @throws ClassCastException if the instance is not `DisbursementConfigOperation`
      */
     public DisbursementConfigOperation getDisbursementConfigOperation() throws ClassCastException {
-        return (DisbursementConfigOperation) super.getActualInstance();
+        return (DisbursementConfigOperation)super.getActualInstance();
     }
 
     /**
-     * Get the actual instance of `TransferConfigOperation`. If the actual instance is not
-     * `TransferConfigOperation`, the ClassCastException will be thrown.
+     * Get the actual instance of `TransferConfigOperation`. If the actual instance is not `TransferConfigOperation`,
+     * the ClassCastException will be thrown.
      *
      * @return The actual instance of `TransferConfigOperation`
      * @throws ClassCastException if the instance is not `TransferConfigOperation`
      */
     public TransferConfigOperation getTransferConfigOperation() throws ClassCastException {
-        return (TransferConfigOperation) super.getActualInstance();
+        return (TransferConfigOperation)super.getActualInstance();
     }
 
-    /**
-     * Convert the instance into URL query string.
-     *
-     * @return URL query string
-     */
-    public String toUrlQueryString() {
-        return toUrlQueryString(null);
+
+
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @return URL query string
+   */
+  public String toUrlQueryString() {
+    return toUrlQueryString(null);
+  }
+
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @param prefix prefix of the query string
+   * @return URL query string
+   */
+  public String toUrlQueryString(String prefix) {
+    String suffix = "";
+    String containerSuffix = "";
+    String containerPrefix = "";
+    if (prefix == null) {
+      // style=form, explode=true, e.g. /pet?name=cat&type=manx
+      prefix = "";
+    } else {
+      // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
+      prefix = prefix + "[";
+      suffix = "]";
+      containerSuffix = "]";
+      containerPrefix = "[";
     }
 
-    /**
-     * Convert the instance into URL query string.
-     *
-     * @param prefix prefix of the query string
-     * @return URL query string
-     */
-    public String toUrlQueryString(String prefix) {
-        String suffix = "";
-        String containerSuffix = "";
-        String containerPrefix = "";
-        if (prefix == null) {
-            // style=form, explode=true, e.g. /pet?name=cat&type=manx
-            prefix = "";
-        } else {
-            // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
-            prefix = prefix + "[";
-            suffix = "]";
-            containerSuffix = "]";
-            containerPrefix = "[";
-        }
+    StringJoiner joiner = new StringJoiner("&");
 
-        StringJoiner joiner = new StringJoiner("&");
-
-        if (getActualInstance() instanceof ConversionConfigOperation) {
-            if (getActualInstance() != null) {
-                joiner.add(
-                        ((ConversionConfigOperation) getActualInstance())
-                                .toUrlQueryString(prefix + "one_of_0" + suffix));
-            }
-            return joiner.toString();
+    if (getActualInstance() instanceof ConversionConfigOperation) {
+        if (getActualInstance() != null) {
+          joiner.add(((ConversionConfigOperation)getActualInstance()).toUrlQueryString(prefix + "one_of_0" + suffix));
         }
-        if (getActualInstance() instanceof TransferConfigOperation) {
-            if (getActualInstance() != null) {
-                joiner.add(
-                        ((TransferConfigOperation) getActualInstance())
-                                .toUrlQueryString(prefix + "one_of_1" + suffix));
-            }
-            return joiner.toString();
-        }
-        if (getActualInstance() instanceof DisbursementConfigOperation) {
-            if (getActualInstance() != null) {
-                joiner.add(
-                        ((DisbursementConfigOperation) getActualInstance())
-                                .toUrlQueryString(prefix + "one_of_2" + suffix));
-            }
-            return joiner.toString();
-        }
-        return null;
+        return joiner.toString();
     }
+    if (getActualInstance() instanceof TransferConfigOperation) {
+        if (getActualInstance() != null) {
+          joiner.add(((TransferConfigOperation)getActualInstance()).toUrlQueryString(prefix + "one_of_1" + suffix));
+        }
+        return joiner.toString();
+    }
+    if (getActualInstance() instanceof DisbursementConfigOperation) {
+        if (getActualInstance() != null) {
+          joiner.add(((DisbursementConfigOperation)getActualInstance()).toUrlQueryString(prefix + "one_of_2" + suffix));
+        }
+        return joiner.toString();
+    }
+    return null;
+  }
+
 }
+

@@ -10,14 +10,15 @@
  * Do not edit the class manually.
  */
 
-package com.fireblocks.sdk.api;
 
+package com.fireblocks.sdk.api;
 
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.model.CreateNetworkIdRequest;
 import com.fireblocks.sdk.model.DeleteNetworkConnectionResponse;
 import com.fireblocks.sdk.model.DeleteNetworkIdResponse;
+import com.fireblocks.sdk.model.ErrorSchema;
 import com.fireblocks.sdk.model.NetworkConnection;
 import com.fireblocks.sdk.model.NetworkConnectionResponse;
 import com.fireblocks.sdk.model.NetworkIdResponse;
@@ -28,353 +29,252 @@ import com.fireblocks.sdk.model.SetNetworkIdRoutingPolicyRequest;
 import com.fireblocks.sdk.model.SetRoutingPolicyRequest;
 import com.fireblocks.sdk.model.SetRoutingPolicyResponse;
 import com.fireblocks.sdk.model.ThirdPartyRouting;
-import java.util.List;
-import java.util.concurrent.CompletableFuture;
-import org.junit.Ignore;
 import org.junit.Test;
+import org.junit.Ignore;
 
-/** API tests for NetworkConnectionsApi */
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import java.util.concurrent.CompletableFuture;
+
+/**
+ * API tests for NetworkConnectionsApi
+ */
 @Ignore
 public class NetworkConnectionsApiTest {
 
     private final NetworkConnectionsApi api = new NetworkConnectionsApi();
 
+    
     /**
      * Retrieve third-party network routing validation by asset type.
      *
-     * <p>The Fireblocks Network allows for flexibility around incoming deposits. A receiver can
-     * receive network deposits to locations other than Fireblocks. This endpoint validates whether
-     * future transactions are routed to the displayed recipient or to a 3rd party.
+     * The Fireblocks Network allows for flexibility around incoming deposits. A receiver can receive network deposits to locations other than Fireblocks. This endpoint validates whether future transactions are routed to the displayed recipient or to a 3rd party.
      *
-     * @throws ApiException if the Api call fails
+     * @throws ApiException
+     *          if the Api call fails
      */
     @Test
     public void checkThirdPartyRoutingTest() throws ApiException {
         String connectionId = null;
         String assetType = null;
-        CompletableFuture<ApiResponse<ThirdPartyRouting>> response =
-                api.checkThirdPartyRouting(connectionId, assetType);
+        CompletableFuture<ApiResponse<ThirdPartyRouting>> response = 
+        api.checkThirdPartyRouting(connectionId, assetType);
+        
     }
-
+    
     /**
      * Creates a new network connection
      *
-     * <p>Initiates a new network connection. **Note:** This API call is subject to Flexible Routing
-     * Schemes. Your routing policy defines how your transactions are routed. You can choose 1 of
-     * the 3 different schemes mentioned below for each asset type: - **None**; Defines the profile
-     * routing to no destination for that asset type. Incoming transactions to asset types routed to
-     * &#x60;None&#x60; will fail. - **Custom**; Route to an account that you choose. If you remove
-     * the account, incoming transactions will fail until you choose another one. - **Default**; Use
-     * the routing specified by the network profile the connection is connected to. This scheme is
-     * also referred to as \&quot;Profile Routing\&quot; Default Workspace Presets: - Network
-     * Profile Crypto → **Custom** - Network Profile FIAT → **None** - Network Connection Crypto →
-     * **Default** - Network Connection FIAT → **Default** Supported asset groups for routing police
-     * can be found at &#x60;/network_ids/routing_policy_asset_groups&#x60; - **Note**: By default,
-     * Custom routing scheme uses (&#x60;dstId&#x60; &#x3D; &#x60;0&#x60;, &#x60;dstType&#x60;
-     * &#x3D; &#x60;VAULT&#x60;).
+     * Initiates a new network connection.  **Note:** This API call is subject to Flexible Routing Schemes.  Your routing policy defines how your transactions are routed. You can choose 1 of the 3 different schemes mentioned below for each asset type:   - **None**; Defines the profile routing to no destination for that asset type. Incoming transactions to asset types routed to &#x60;None&#x60; will fail.   - **Custom**; Route to an account that you choose. If you remove the account, incoming transactions will fail until you choose another one.   - **Default**; Use the routing specified by the network profile the connection is connected to. This scheme is also referred to as \&quot;Profile Routing\&quot;  Default Workspace Presets:   - Network Profile Crypto → **Custom**   - Network Profile FIAT → **None**   - Network Connection Crypto → **Default**   - Network Connection FIAT → **Default**  Supported asset groups for routing police can be found at &#x60;/network_ids/routing_policy_asset_groups&#x60;      - **Note**: By default, Custom routing scheme uses (&#x60;dstId&#x60; &#x3D; &#x60;0&#x60;, &#x60;dstType&#x60; &#x3D; &#x60;VAULT&#x60;). 
      *
-     * @throws ApiException if the Api call fails
+     * @throws ApiException
+     *          if the Api call fails
      */
     @Test
     public void createNetworkConnectionTest() throws ApiException {
         NetworkConnection networkConnection = null;
         String idempotencyKey = null;
-        CompletableFuture<ApiResponse<NetworkConnectionResponse>> response =
-                api.createNetworkConnection(networkConnection, idempotencyKey);
+        CompletableFuture<ApiResponse<NetworkConnectionResponse>> response = 
+        api.createNetworkConnection(networkConnection, idempotencyKey);
+        
     }
-
+    
     /**
      * Creates a new Network ID
      *
-     * <p>Creates a new Network ID. **Note:** This API call is subject to Flexible Routing Schemes.
-     * Your routing policy defines how your transactions are routed. You can choose 1 of the 3
-     * different schemes mentioned below for each asset type: - **None**; Defines the profile
-     * routing to no destination for that asset type. Incoming transactions to asset types routed to
-     * &#x60;None&#x60; will fail. - **Custom**; Route to an account that you choose. If you remove
-     * the account, incoming transactions will fail until you choose another one. - **Default**; Use
-     * the routing specified by the network profile the connection is connected to. This scheme is
-     * also referred to as \&quot;Profile Routing\&quot; Default Workspace Presets: - Network
-     * Profile Crypto → **Custom** - Network Profile FIAT → **None** - Network Connection Crypto →
-     * **Default** - Network Connection FIAT → **Default** Supported asset groups for routing police
-     * can be found at &#x60;/network_ids/routing_policy_asset_groups&#x60; - **Note**: By default,
-     * Custom routing scheme uses (&#x60;dstId&#x60; &#x3D; &#x60;0&#x60;, &#x60;dstType&#x60;
-     * &#x3D; &#x60;VAULT&#x60;).
+     * Creates a new Network ID.  **Note:** This API call is subject to Flexible Routing Schemes.  Your routing policy defines how your transactions are routed. You can choose 1 of the 3 different schemes mentioned below for each asset type:   - **None**; Defines the profile routing to no destination for that asset type. Incoming transactions to asset types routed to &#x60;None&#x60; will fail.   - **Custom**; Route to an account that you choose. If you remove the account, incoming transactions will fail until you choose another one.   - **Default**; Use the routing specified by the network profile the connection is connected to. This scheme is also referred to as \&quot;Profile Routing\&quot;  Default Workspace Presets:   - Network Profile Crypto → **Custom**   - Network Profile FIAT → **None**   - Network Connection Crypto → **Default**   - Network Connection FIAT → **Default**  Supported asset groups for routing police can be found at &#x60;/network_ids/routing_policy_asset_groups&#x60;      - **Note**: By default, Custom routing scheme uses (&#x60;dstId&#x60; &#x3D; &#x60;0&#x60;, &#x60;dstType&#x60; &#x3D; &#x60;VAULT&#x60;). 
      *
-     * @throws ApiException if the Api call fails
+     * @throws ApiException
+     *          if the Api call fails
      */
     @Test
     public void createNetworkIdTest() throws ApiException {
         CreateNetworkIdRequest createNetworkIdRequest = null;
         String idempotencyKey = null;
-        CompletableFuture<ApiResponse<NetworkIdResponse>> response =
-                api.createNetworkId(createNetworkIdRequest, idempotencyKey);
+        CompletableFuture<ApiResponse<NetworkIdResponse>> response = 
+        api.createNetworkId(createNetworkIdRequest, idempotencyKey);
+        
     }
-
+    
     /**
      * Deletes a network connection by ID
      *
-     * <p>Deletes an existing network connection specified by its connection ID. **Note:** This API
-     * call is subject to Flexible Routing Schemes. Your routing policy defines how your
-     * transactions are routed. You can choose 1 of the 3 different schemes mentioned below for each
-     * asset type: - **None**; Defines the profile routing to no destination for that asset type.
-     * Incoming transactions to asset types routed to &#x60;None&#x60; will fail. - **Custom**;
-     * Route to an account that you choose. If you remove the account, incoming transactions will
-     * fail until you choose another one. - **Default**; Use the routing specified by the network
-     * profile the connection is connected to. This scheme is also referred to as \&quot;Profile
-     * Routing\&quot; Default Workspace Presets: - Network Profile Crypto → **Custom** - Network
-     * Profile FIAT → **None** - Network Connection Crypto → **Default** - Network Connection FIAT →
-     * **Default** - **Note**: By default, Custom routing scheme uses (&#x60;dstId&#x60; &#x3D;
-     * &#x60;0&#x60;, &#x60;dstType&#x60; &#x3D; &#x60;VAULT&#x60;).
+     * Deletes an existing network connection specified by its connection ID.  **Note:** This API call is subject to Flexible Routing Schemes.  Your routing policy defines how your transactions are routed. You can choose 1 of the 3 different schemes mentioned below for each asset type:   - **None**; Defines the profile routing to no destination for that asset type. Incoming transactions to asset types routed to &#x60;None&#x60; will fail.   - **Custom**; Route to an account that you choose. If you remove the account, incoming transactions will fail until you choose another one.   - **Default**; Use the routing specified by the network profile the connection is connected to. This scheme is also referred to as \&quot;Profile Routing\&quot;  Default Workspace Presets:   - Network Profile Crypto → **Custom**   - Network Profile FIAT → **None**   - Network Connection Crypto → **Default**   - Network Connection FIAT → **Default**      - **Note**: By default, Custom routing scheme uses (&#x60;dstId&#x60; &#x3D; &#x60;0&#x60;, &#x60;dstType&#x60; &#x3D; &#x60;VAULT&#x60;). 
      *
-     * @throws ApiException if the Api call fails
+     * @throws ApiException
+     *          if the Api call fails
      */
     @Test
     public void deleteNetworkConnectionTest() throws ApiException {
         String connectionId = null;
-        CompletableFuture<ApiResponse<DeleteNetworkConnectionResponse>> response =
-                api.deleteNetworkConnection(connectionId);
+        CompletableFuture<ApiResponse<DeleteNetworkConnectionResponse>> response = 
+        api.deleteNetworkConnection(connectionId);
+        
     }
-
+    
     /**
      * Deletes specific network ID.
      *
-     * <p>Deletes a network by its ID. **Note:** This API call is subject to Flexible Routing
-     * Schemes. Your routing policy defines how your transactions are routed. You can choose 1 of
-     * the 3 different schemes mentioned below for each asset type: - **None**; Defines the profile
-     * routing to no destination for that asset type. Incoming transactions to asset types routed to
-     * &#x60;None&#x60; will fail. - **Custom**; Route to an account that you choose. If you remove
-     * the account, incoming transactions will fail until you choose another one. - **Default**; Use
-     * the routing specified by the network profile the connection is connected to. This scheme is
-     * also referred to as \&quot;Profile Routing\&quot; Default Workspace Presets: - Network
-     * Profile Crypto → **Custom** - Network Profile FIAT → **None** - Network Connection Crypto →
-     * **Default** - Network Connection FIAT → **Default** - **Note**: By default, Custom routing
-     * scheme uses (&#x60;dstId&#x60; &#x3D; &#x60;0&#x60;, &#x60;dstType&#x60; &#x3D;
-     * &#x60;VAULT&#x60;).
+     * Deletes a network by its ID.  **Note:** This API call is subject to Flexible Routing Schemes.  Your routing policy defines how your transactions are routed. You can choose 1 of the 3 different schemes mentioned below for each asset type:   - **None**; Defines the profile routing to no destination for that asset type. Incoming transactions to asset types routed to &#x60;None&#x60; will fail.   - **Custom**; Route to an account that you choose. If you remove the account, incoming transactions will fail until you choose another one.   - **Default**; Use the routing specified by the network profile the connection is connected to. This scheme is also referred to as \&quot;Profile Routing\&quot;  Default Workspace Presets:   - Network Profile Crypto → **Custom**   - Network Profile FIAT → **None**   - Network Connection Crypto → **Default**   - Network Connection FIAT → **Default**      - **Note**: By default, Custom routing scheme uses (&#x60;dstId&#x60; &#x3D; &#x60;0&#x60;, &#x60;dstType&#x60; &#x3D; &#x60;VAULT&#x60;). 
      *
-     * @throws ApiException if the Api call fails
+     * @throws ApiException
+     *          if the Api call fails
      */
     @Test
     public void deleteNetworkIdTest() throws ApiException {
         String networkId = null;
-        CompletableFuture<ApiResponse<DeleteNetworkIdResponse>> response =
-                api.deleteNetworkId(networkId);
+        CompletableFuture<ApiResponse<DeleteNetworkIdResponse>> response = 
+        api.deleteNetworkId(networkId);
+        
     }
-
+    
     /**
      * Get a network connection
      *
-     * <p>Gets a network connection by ID. **Note:** This API call is subject to Flexible Routing
-     * Schemes. Your routing policy defines how your transactions are routed. You can choose 1 of
-     * the 3 different schemes mentioned below for each asset type: - **None**; Defines the profile
-     * routing to no destination for that asset type. Incoming transactions to asset types routed to
-     * &#x60;None&#x60; will fail. - **Custom**; Route to an account that you choose. If you remove
-     * the account, incoming transactions will fail until you choose another one. - **Default**; Use
-     * the routing specified by the network profile the connection is connected to. This scheme is
-     * also referred to as \&quot;Profile Routing\&quot; Default Workspace Presets: - Network
-     * Profile Crypto → **Custom** - Network Profile FIAT → **None** - Network Connection Crypto →
-     * **Default** - Network Connection FIAT → **Default** - **Note**: By default, Custom routing
-     * scheme uses (&#x60;dstId&#x60; &#x3D; &#x60;0&#x60;, &#x60;dstType&#x60; &#x3D;
-     * &#x60;VAULT&#x60;).
+     * Gets a network connection by ID.  **Note:** This API call is subject to Flexible Routing Schemes.  Your routing policy defines how your transactions are routed. You can choose 1 of the 3 different schemes mentioned below for each asset type:   - **None**; Defines the profile routing to no destination for that asset type. Incoming transactions to asset types routed to &#x60;None&#x60; will fail.   - **Custom**; Route to an account that you choose. If you remove the account, incoming transactions will fail until you choose another one.   - **Default**; Use the routing specified by the network profile the connection is connected to. This scheme is also referred to as \&quot;Profile Routing\&quot;  Default Workspace Presets:   - Network Profile Crypto → **Custom**   - Network Profile FIAT → **None**   - Network Connection Crypto → **Default**   - Network Connection FIAT → **Default**      - **Note**: By default, Custom routing scheme uses (&#x60;dstId&#x60; &#x3D; &#x60;0&#x60;, &#x60;dstType&#x60; &#x3D; &#x60;VAULT&#x60;). 
      *
-     * @throws ApiException if the Api call fails
+     * @throws ApiException
+     *          if the Api call fails
      */
     @Test
     public void getNetworkTest() throws ApiException {
         String connectionId = null;
-        CompletableFuture<ApiResponse<NetworkConnectionResponse>> response =
-                api.getNetwork(connectionId);
+        CompletableFuture<ApiResponse<NetworkConnectionResponse>> response = 
+        api.getNetwork(connectionId);
+        
     }
-
+    
     /**
      * List network connections
      *
-     * <p>Returns all network connections. **Note:** This API call is subject to Flexible Routing
-     * Schemes. Your routing policy defines how your transactions are routed. You can choose 1 of
-     * the 3 different schemes mentioned below for each asset type: - **None**; Defines the profile
-     * routing to no destination for that asset type. Incoming transactions to asset types routed to
-     * &#x60;None&#x60; will fail. - **Custom**; Route to an account that you choose. If you remove
-     * the account, incoming transactions will fail until you choose another one. - **Default**; Use
-     * the routing specified by the network profile the connection is connected to. This scheme is
-     * also referred to as \&quot;Profile Routing\&quot; Default Workspace Presets: - Network
-     * Profile Crypto → **Custom** - Network Profile FIAT → **None** - Network Connection Crypto →
-     * **Default** - Network Connection FIAT → **Default** - **Note**: By default, Custom routing
-     * scheme uses (&#x60;dstId&#x60; &#x3D; &#x60;0&#x60;, &#x60;dstType&#x60; &#x3D;
-     * &#x60;VAULT&#x60;).
+     * Returns all network connections.  **Note:** This API call is subject to Flexible Routing Schemes.  Your routing policy defines how your transactions are routed. You can choose 1 of the 3 different schemes mentioned below for each asset type:   - **None**; Defines the profile routing to no destination for that asset type. Incoming transactions to asset types routed to &#x60;None&#x60; will fail.   - **Custom**; Route to an account that you choose. If you remove the account, incoming transactions will fail until you choose another one.   - **Default**; Use the routing specified by the network profile the connection is connected to. This scheme is also referred to as \&quot;Profile Routing\&quot;  Default Workspace Presets:   - Network Profile Crypto → **Custom**   - Network Profile FIAT → **None**   - Network Connection Crypto → **Default**   - Network Connection FIAT → **Default**      - **Note**: By default, Custom routing scheme uses (&#x60;dstId&#x60; &#x3D; &#x60;0&#x60;, &#x60;dstType&#x60; &#x3D; &#x60;VAULT&#x60;). 
      *
-     * @throws ApiException if the Api call fails
+     * @throws ApiException
+     *          if the Api call fails
      */
     @Test
     public void getNetworkConnectionsTest() throws ApiException {
-        CompletableFuture<ApiResponse<List<NetworkConnectionResponse>>> response =
-                api.getNetworkConnections();
+        CompletableFuture<ApiResponse<List<NetworkConnectionResponse>>> response = 
+        api.getNetworkConnections();
+        
     }
-
+    
     /**
      * Returns specific network ID.
      *
-     * <p>Retrieves a network by its ID. **Note:** This API call is subject to Flexible Routing
-     * Schemes. Your routing policy defines how your transactions are routed. You can choose 1 of
-     * the 3 different schemes mentioned below for each asset type: - **None**; Defines the profile
-     * routing to no destination for that asset type. Incoming transactions to asset types routed to
-     * &#x60;None&#x60; will fail. - **Custom**; Route to an account that you choose. If you remove
-     * the account, incoming transactions will fail until you choose another one. - **Default**; Use
-     * the routing specified by the network profile the connection is connected to. This scheme is
-     * also referred to as \&quot;Profile Routing\&quot; Default Workspace Presets: - Network
-     * Profile Crypto → **Custom** - Network Profile FIAT → **None** - Network Connection Crypto →
-     * **Default** - Network Connection FIAT → **Default** - **Note**: By default, Custom routing
-     * scheme uses (&#x60;dstId&#x60; &#x3D; &#x60;0&#x60;, &#x60;dstType&#x60; &#x3D;
-     * &#x60;VAULT&#x60;).
+     * Retrieves a network by its ID.  **Note:** This API call is subject to Flexible Routing Schemes.  Your routing policy defines how your transactions are routed. You can choose 1 of the 3 different schemes mentioned below for each asset type:   - **None**; Defines the profile routing to no destination for that asset type. Incoming transactions to asset types routed to &#x60;None&#x60; will fail.   - **Custom**; Route to an account that you choose. If you remove the account, incoming transactions will fail until you choose another one.   - **Default**; Use the routing specified by the network profile the connection is connected to. This scheme is also referred to as \&quot;Profile Routing\&quot;  Default Workspace Presets:   - Network Profile Crypto → **Custom**   - Network Profile FIAT → **None**   - Network Connection Crypto → **Default**   - Network Connection FIAT → **Default**      - **Note**: By default, Custom routing scheme uses (&#x60;dstId&#x60; &#x3D; &#x60;0&#x60;, &#x60;dstType&#x60; &#x3D; &#x60;VAULT&#x60;). 
      *
-     * @throws ApiException if the Api call fails
+     * @throws ApiException
+     *          if the Api call fails
      */
     @Test
     public void getNetworkIdTest() throws ApiException {
         String networkId = null;
-        CompletableFuture<ApiResponse<NetworkIdResponse>> response = api.getNetworkId(networkId);
+        CompletableFuture<ApiResponse<NetworkIdResponse>> response = 
+        api.getNetworkId(networkId);
+        
     }
-
+    
     /**
      * Returns all network IDs, both local IDs and discoverable remote IDs
      *
-     * <p>Retrieves a list of all local and discoverable remote network IDs. **Note:** This API call
-     * is subject to Flexible Routing Schemes. Your routing policy defines how your transactions are
-     * routed. You can choose 1 of the 3 different schemes mentioned below for each asset type: -
-     * **None**; Defines the profile routing to no destination for that asset type. Incoming
-     * transactions to asset types routed to &#x60;None&#x60; will fail. - **Custom**; Route to an
-     * account that you choose. If you remove the account, incoming transactions will fail until you
-     * choose another one. - **Default**; Use the routing specified by the network profile the
-     * connection is connected to. This scheme is also referred to as \&quot;Profile Routing\&quot;
-     * Default Workspace Presets: - Network Profile Crypto → **Custom** - Network Profile FIAT →
-     * **None** - Network Connection Crypto → **Default** - Network Connection FIAT → **Default** -
-     * **Note**: By default, Custom routing scheme uses (&#x60;dstId&#x60; &#x3D; &#x60;0&#x60;,
-     * &#x60;dstType&#x60; &#x3D; &#x60;VAULT&#x60;).
+     * Retrieves a list of all local and discoverable remote network IDs.  **Note:** This API call is subject to Flexible Routing Schemes.  Your routing policy defines how your transactions are routed. You can choose 1 of the 3 different schemes mentioned below for each asset type:   - **None**; Defines the profile routing to no destination for that asset type. Incoming transactions to asset types routed to &#x60;None&#x60; will fail.   - **Custom**; Route to an account that you choose. If you remove the account, incoming transactions will fail until you choose another one.   - **Default**; Use the routing specified by the network profile the connection is connected to. This scheme is also referred to as \&quot;Profile Routing\&quot;  Default Workspace Presets:   - Network Profile Crypto → **Custom**   - Network Profile FIAT → **None**   - Network Connection Crypto → **Default**   - Network Connection FIAT → **Default**      - **Note**: By default, Custom routing scheme uses (&#x60;dstId&#x60; &#x3D; &#x60;0&#x60;, &#x60;dstType&#x60; &#x3D; &#x60;VAULT&#x60;). 
      *
-     * @throws ApiException if the Api call fails
+     * @throws ApiException
+     *          if the Api call fails
      */
     @Test
     public void getNetworkIdsTest() throws ApiException {
-        CompletableFuture<ApiResponse<List<NetworkIdResponse>>> response = api.getNetworkIds();
+        CompletableFuture<ApiResponse<List<NetworkIdResponse>>> response = 
+        api.getNetworkIds();
+        
     }
-
+    
     /**
      * Returns all enabled routing policy asset groups
      *
-     * <p>Retrieves a list of all enabled routing policy asset groups. Your routing policy defines
-     * how your transactions are routed. You can use one or more enabled routing policy asset groups
-     * to describe connection or network id routing policy.
+     * Retrieves a list of all enabled routing policy asset groups. Your routing policy defines how your transactions are routed. You can use one or more enabled routing policy asset groups to describe connection or network id routing policy. 
      *
-     * @throws ApiException if the Api call fails
+     * @throws ApiException
+     *          if the Api call fails
      */
     @Test
     public void getRoutingPolicyAssetGroupsTest() throws ApiException {
-        CompletableFuture<ApiResponse<List<String>>> response = api.getRoutingPolicyAssetGroups();
+        CompletableFuture<ApiResponse<List<String>>> response = 
+        api.getRoutingPolicyAssetGroups();
+        
     }
-
+    
     /**
      * Update network ID&#39;s discoverability.
      *
-     * <p>Update whether or not the network ID is discoverable by others. **Note:** This API call is
-     * subject to Flexible Routing Schemes. Your routing policy defines how your transactions are
-     * routed. You can choose 1 of the 3 different schemes mentioned below for each asset type: -
-     * **None**; Defines the profile routing to no destination for that asset type. Incoming
-     * transactions to asset types routed to &#x60;None&#x60; will fail. - **Custom**; Route to an
-     * account that you choose. If you remove the account, incoming transactions will fail until you
-     * choose another one. - **Default**; Use the routing specified by the network profile the
-     * connection is connected to. This scheme is also referred to as \&quot;Profile Routing\&quot;
-     * Default Workspace Presets: - Network Profile Crypto → **Custom** - Network Profile FIAT →
-     * **None** - Network Connection Crypto → **Default** - Network Connection FIAT → **Default** -
-     * **Note**: By default, Custom routing scheme uses (&#x60;dstId&#x60; &#x3D; &#x60;0&#x60;,
-     * &#x60;dstType&#x60; &#x3D; &#x60;VAULT&#x60;).
+     * Update whether or not the network ID is discoverable by others.  **Note:** This API call is subject to Flexible Routing Schemes.  Your routing policy defines how your transactions are routed. You can choose 1 of the 3 different schemes mentioned below for each asset type:   - **None**; Defines the profile routing to no destination for that asset type. Incoming transactions to asset types routed to &#x60;None&#x60; will fail.   - **Custom**; Route to an account that you choose. If you remove the account, incoming transactions will fail until you choose another one.   - **Default**; Use the routing specified by the network profile the connection is connected to. This scheme is also referred to as \&quot;Profile Routing\&quot;  Default Workspace Presets:   - Network Profile Crypto → **Custom**   - Network Profile FIAT → **None**   - Network Connection Crypto → **Default**   - Network Connection FIAT → **Default**      - **Note**: By default, Custom routing scheme uses (&#x60;dstId&#x60; &#x3D; &#x60;0&#x60;, &#x60;dstType&#x60; &#x3D; &#x60;VAULT&#x60;). 
      *
-     * @throws ApiException if the Api call fails
+     * @throws ApiException
+     *          if the Api call fails
      */
     @Test
     public void setNetworkIdDiscoverabilityTest() throws ApiException {
         SetNetworkIdDiscoverabilityRequest setNetworkIdDiscoverabilityRequest = null;
         String networkId = null;
-        CompletableFuture<ApiResponse<SetNetworkIdResponse>> response =
-                api.setNetworkIdDiscoverability(setNetworkIdDiscoverabilityRequest, networkId);
+        CompletableFuture<ApiResponse<SetNetworkIdResponse>> response = 
+        api.setNetworkIdDiscoverability(setNetworkIdDiscoverabilityRequest, networkId);
+        
     }
-
+    
     /**
      * Update network ID&#39;s name.
      *
-     * <p>Updates name of a specified network ID. **Note:** This API call is subject to Flexible
-     * Routing Schemes. Your routing policy defines how your transactions are routed. You can choose
-     * 1 of the 3 different schemes mentioned below for each asset type: - **None**; Defines the
-     * profile routing to no destination for that asset type. Incoming transactions to asset types
-     * routed to &#x60;None&#x60; will fail. - **Custom**; Route to an account that you choose. If
-     * you remove the account, incoming transactions will fail until you choose another one. -
-     * **Default**; Use the routing specified by the network profile the connection is connected to.
-     * This scheme is also referred to as \&quot;Profile Routing\&quot; Default Workspace Presets: -
-     * Network Profile Crypto → **Custom** - Network Profile FIAT → **None** - Network Connection
-     * Crypto → **Default** - Network Connection FIAT → **Default** - **Note**: By default, Custom
-     * routing scheme uses (&#x60;dstId&#x60; &#x3D; &#x60;0&#x60;, &#x60;dstType&#x60; &#x3D;
-     * &#x60;VAULT&#x60;).
+     * Updates name of a specified network ID.  **Note:** This API call is subject to Flexible Routing Schemes.  Your routing policy defines how your transactions are routed. You can choose 1 of the 3 different schemes mentioned below for each asset type:   - **None**; Defines the profile routing to no destination for that asset type. Incoming transactions to asset types routed to &#x60;None&#x60; will fail.   - **Custom**; Route to an account that you choose. If you remove the account, incoming transactions will fail until you choose another one.   - **Default**; Use the routing specified by the network profile the connection is connected to. This scheme is also referred to as \&quot;Profile Routing\&quot;  Default Workspace Presets:   - Network Profile Crypto → **Custom**   - Network Profile FIAT → **None**   - Network Connection Crypto → **Default**   - Network Connection FIAT → **Default**      - **Note**: By default, Custom routing scheme uses (&#x60;dstId&#x60; &#x3D; &#x60;0&#x60;, &#x60;dstType&#x60; &#x3D; &#x60;VAULT&#x60;). 
      *
-     * @throws ApiException if the Api call fails
+     * @throws ApiException
+     *          if the Api call fails
      */
     @Test
     public void setNetworkIdNameTest() throws ApiException {
         SetNetworkIdNameRequest setNetworkIdNameRequest = null;
         String networkId = null;
-        CompletableFuture<ApiResponse<SetNetworkIdResponse>> response =
-                api.setNetworkIdName(setNetworkIdNameRequest, networkId);
+        CompletableFuture<ApiResponse<SetNetworkIdResponse>> response = 
+        api.setNetworkIdName(setNetworkIdNameRequest, networkId);
+        
     }
-
+    
     /**
      * Update network id routing policy.
      *
-     * <p>Updates the routing policy of a specified network ID. **Note:** This API call is subject
-     * to Flexible Routing Schemes. Your routing policy defines how your transactions are routed.
-     * You can choose 1 of the 3 different schemes mentioned below for each asset type: - **None**;
-     * Defines the profile routing to no destination for that asset type. Incoming transactions to
-     * asset types routed to &#x60;None&#x60; will fail. - **Custom**; Route to an account that you
-     * choose. If you remove the account, incoming transactions will fail until you choose another
-     * one. - **Default**; Use the routing specified by the network profile the connection is
-     * connected to. This scheme is also referred to as \&quot;Profile Routing\&quot; Default
-     * Workspace Presets: - Network Profile Crypto → **Custom** - Network Profile FIAT → **None** -
-     * Network Connection Crypto → **Default** - Network Connection FIAT → **Default** Supported
-     * asset groups for routing police can be found at
-     * &#x60;/network_ids/routing_policy_asset_groups&#x60; - **Note**: By default, Custom routing
-     * scheme uses (&#x60;dstId&#x60; &#x3D; &#x60;0&#x60;, &#x60;dstType&#x60; &#x3D;
-     * &#x60;VAULT&#x60;).
+     * Updates the routing policy of a specified network ID.  **Note:** This API call is subject to Flexible Routing Schemes.  Your routing policy defines how your transactions are routed. You can choose 1 of the 3 different schemes mentioned below for each asset type:   - **None**; Defines the profile routing to no destination for that asset type. Incoming transactions to asset types routed to &#x60;None&#x60; will fail.   - **Custom**; Route to an account that you choose. If you remove the account, incoming transactions will fail until you choose another one.   - **Default**; Use the routing specified by the network profile the connection is connected to. This scheme is also referred to as \&quot;Profile Routing\&quot;  Default Workspace Presets:   - Network Profile Crypto → **Custom**   - Network Profile FIAT → **None**   - Network Connection Crypto → **Default**   - Network Connection FIAT → **Default**  Supported asset groups for routing police can be found at &#x60;/network_ids/routing_policy_asset_groups&#x60;      - **Note**: By default, Custom routing scheme uses (&#x60;dstId&#x60; &#x3D; &#x60;0&#x60;, &#x60;dstType&#x60; &#x3D; &#x60;VAULT&#x60;). 
      *
-     * @throws ApiException if the Api call fails
+     * @throws ApiException
+     *          if the Api call fails
      */
     @Test
     public void setNetworkIdRoutingPolicyTest() throws ApiException {
         String networkId = null;
         SetNetworkIdRoutingPolicyRequest setNetworkIdRoutingPolicyRequest = null;
-        CompletableFuture<ApiResponse<SetNetworkIdResponse>> response =
-                api.setNetworkIdRoutingPolicy(networkId, setNetworkIdRoutingPolicyRequest);
+        CompletableFuture<ApiResponse<SetNetworkIdResponse>> response = 
+        api.setNetworkIdRoutingPolicy(networkId, setNetworkIdRoutingPolicyRequest);
+        
     }
-
+    
     /**
      * Update network connection routing policy.
      *
-     * <p>Updates an existing network connection&#39;s routing policy. **Note:** This API call is
-     * subject to Flexible Routing Schemes. Your routing policy defines how your transactions are
-     * routed. You can choose 1 of the 3 different schemes mentioned below for each asset type: -
-     * **None**; Defines the profile routing to no destination for that asset type. Incoming
-     * transactions to asset types routed to &#x60;None&#x60; will fail. - **Custom**; Route to an
-     * account that you choose. If you remove the account, incoming transactions will fail until you
-     * choose another one. - **Default**; Use the routing specified by the network profile the
-     * connection is connected to. This scheme is also referred to as \&quot;Profile Routing\&quot;
-     * Default Workspace Presets: - Network Profile Crypto → **Custom** - Network Profile FIAT →
-     * **None** - Network Connection Crypto → **Default** - Network Connection FIAT → **Default**
-     * Supported asset groups for routing police can be found at
-     * &#x60;/network_ids/routing_policy_asset_groups&#x60; - **Note**: By default, Custom routing
-     * scheme uses (&#x60;dstId&#x60; &#x3D; &#x60;0&#x60;, &#x60;dstType&#x60; &#x3D;
-     * &#x60;VAULT&#x60;).
+     * Updates an existing network connection&#39;s routing policy.  **Note:** This API call is subject to Flexible Routing Schemes.  Your routing policy defines how your transactions are routed. You can choose 1 of the 3 different schemes mentioned below for each asset type:   - **None**; Defines the profile routing to no destination for that asset type. Incoming transactions to asset types routed to &#x60;None&#x60; will fail.   - **Custom**; Route to an account that you choose. If you remove the account, incoming transactions will fail until you choose another one.   - **Default**; Use the routing specified by the network profile the connection is connected to. This scheme is also referred to as \&quot;Profile Routing\&quot;  Default Workspace Presets:   - Network Profile Crypto → **Custom**   - Network Profile FIAT → **None**   - Network Connection Crypto → **Default**   - Network Connection FIAT → **Default**  Supported asset groups for routing police can be found at &#x60;/network_ids/routing_policy_asset_groups&#x60;      - **Note**: By default, Custom routing scheme uses (&#x60;dstId&#x60; &#x3D; &#x60;0&#x60;, &#x60;dstType&#x60; &#x3D; &#x60;VAULT&#x60;). 
      *
-     * @throws ApiException if the Api call fails
+     * @throws ApiException
+     *          if the Api call fails
      */
     @Test
     public void setRoutingPolicyTest() throws ApiException {
         String connectionId = null;
         SetRoutingPolicyRequest setRoutingPolicyRequest = null;
-        CompletableFuture<ApiResponse<SetRoutingPolicyResponse>> response =
-                api.setRoutingPolicy(connectionId, setRoutingPolicyRequest);
+        CompletableFuture<ApiResponse<SetRoutingPolicyResponse>> response = 
+        api.setRoutingPolicy(connectionId, setRoutingPolicyRequest);
+        
     }
+    
 }

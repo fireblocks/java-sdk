@@ -10,31 +10,49 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
-/** Model tests for TransactionResponseContractCallDecodedData */
+/**
+ * Model tests for TransactionResponseContractCallDecodedData
+ */
 public class TransactionResponseContractCallDecodedDataTest {
-    private final TransactionResponseContractCallDecodedData model =
-            new TransactionResponseContractCallDecodedData();
+    private final TransactionResponseContractCallDecodedData model = new TransactionResponseContractCallDecodedData();
 
-    /** Model tests for TransactionResponseContractCallDecodedData */
+    /**
+     * Model tests for TransactionResponseContractCallDecodedData
+     */
     @Test
     public void testTransactionResponseContractCallDecodedData() {
         // TODO: test TransactionResponseContractCallDecodedData
     }
 
-    /** Test the property 'contractName' */
+    /**
+     * Test the property 'contractName'
+     */
     @Test
     public void contractNameTest() {
         // TODO: test contractName
     }
 
-    /** Test the property 'functionCalls' */
+    /**
+     * Test the property 'functionCalls'
+     */
     @Test
     public void functionCallsTest() {
         // TODO: test functionCalls
     }
+
 }

@@ -10,60 +10,88 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.fireblocks.sdk.model.ConfigChangeRequestStatus;
+import java.util.Arrays;
+import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
-/** Model tests for WalletAsset */
+/**
+ * Model tests for WalletAsset
+ */
 public class WalletAssetTest {
     private final WalletAsset model = new WalletAsset();
 
-    /** Model tests for WalletAsset */
+    /**
+     * Model tests for WalletAsset
+     */
     @Test
     public void testWalletAsset() {
         // TODO: test WalletAsset
     }
 
-    /** Test the property 'id' */
+    /**
+     * Test the property 'id'
+     */
     @Test
     public void idTest() {
         // TODO: test id
     }
 
-    /** Test the property 'balance' */
+    /**
+     * Test the property 'balance'
+     */
     @Test
     public void balanceTest() {
         // TODO: test balance
     }
 
-    /** Test the property 'lockedAmount' */
+    /**
+     * Test the property 'lockedAmount'
+     */
     @Test
     public void lockedAmountTest() {
         // TODO: test lockedAmount
     }
 
-    /** Test the property 'status' */
+    /**
+     * Test the property 'status'
+     */
     @Test
     public void statusTest() {
         // TODO: test status
     }
 
-    /** Test the property 'address' */
+    /**
+     * Test the property 'address'
+     */
     @Test
     public void addressTest() {
         // TODO: test address
     }
 
-    /** Test the property 'tag' */
+    /**
+     * Test the property 'tag'
+     */
     @Test
     public void tagTest() {
         // TODO: test tag
     }
 
-    /** Test the property 'activationTime' */
+    /**
+     * Test the property 'activationTime'
+     */
     @Test
     public void activationTimeTest() {
         // TODO: test activationTime
     }
+
 }

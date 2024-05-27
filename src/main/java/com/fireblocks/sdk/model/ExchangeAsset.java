@@ -10,295 +10,285 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
-import java.util.Objects;
 import java.util.StringJoiner;
+import java.util.Objects;
+import java.util.Map;
+import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
-/** ExchangeAsset */
+
+/**
+ * ExchangeAsset
+ */
 @JsonPropertyOrder({
-    ExchangeAsset.JSON_PROPERTY_ID,
-    ExchangeAsset.JSON_PROPERTY_BALANCE,
-    ExchangeAsset.JSON_PROPERTY_LOCKED_AMOUNT,
-    ExchangeAsset.JSON_PROPERTY_TOTAL,
-    ExchangeAsset.JSON_PROPERTY_AVAILABLE
+  ExchangeAsset.JSON_PROPERTY_ID,
+  ExchangeAsset.JSON_PROPERTY_BALANCE,
+  ExchangeAsset.JSON_PROPERTY_LOCKED_AMOUNT,
+  ExchangeAsset.JSON_PROPERTY_TOTAL,
+  ExchangeAsset.JSON_PROPERTY_AVAILABLE
 })
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class ExchangeAsset {
-    public static final String JSON_PROPERTY_ID = "id";
-    private String id;
+  public static final String JSON_PROPERTY_ID = "id";
+  private String id;
 
-    public static final String JSON_PROPERTY_BALANCE = "balance";
-    private String balance;
+  public static final String JSON_PROPERTY_BALANCE = "balance";
+  private String balance;
 
-    public static final String JSON_PROPERTY_LOCKED_AMOUNT = "lockedAmount";
-    private String lockedAmount;
+  public static final String JSON_PROPERTY_LOCKED_AMOUNT = "lockedAmount";
+  private String lockedAmount;
 
-    public static final String JSON_PROPERTY_TOTAL = "total";
-    private String total;
+  public static final String JSON_PROPERTY_TOTAL = "total";
+  private String total;
 
-    public static final String JSON_PROPERTY_AVAILABLE = "available";
-    private String available;
+  public static final String JSON_PROPERTY_AVAILABLE = "available";
+  private String available;
 
-    public ExchangeAsset() {}
+  public ExchangeAsset() { 
+  }
 
-    public ExchangeAsset id(String id) {
-        this.id = id;
-        return this;
+  public ExchangeAsset id(String id) {
+    this.id = id;
+    return this;
+  }
+
+   /**
+   * Get id
+   * @return id
+  **/
+  @jakarta.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getId() {
+    return id;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setId(String id) {
+    this.id = id;
+  }
+
+
+  public ExchangeAsset balance(String balance) {
+    this.balance = balance;
+    return this;
+  }
+
+   /**
+   * Get balance
+   * @return balance
+  **/
+  @jakarta.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_BALANCE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getBalance() {
+    return balance;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_BALANCE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setBalance(String balance) {
+    this.balance = balance;
+  }
+
+
+  public ExchangeAsset lockedAmount(String lockedAmount) {
+    this.lockedAmount = lockedAmount;
+    return this;
+  }
+
+   /**
+   * Get lockedAmount
+   * @return lockedAmount
+  **/
+  @jakarta.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_LOCKED_AMOUNT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getLockedAmount() {
+    return lockedAmount;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_LOCKED_AMOUNT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setLockedAmount(String lockedAmount) {
+    this.lockedAmount = lockedAmount;
+  }
+
+
+  public ExchangeAsset total(String total) {
+    this.total = total;
+    return this;
+  }
+
+   /**
+   * Get total
+   * @return total
+  **/
+  @jakarta.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_TOTAL)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getTotal() {
+    return total;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_TOTAL)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setTotal(String total) {
+    this.total = total;
+  }
+
+
+  public ExchangeAsset available(String available) {
+    this.available = available;
+    return this;
+  }
+
+   /**
+   * Get available
+   * @return available
+  **/
+  @jakarta.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_AVAILABLE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getAvailable() {
+    return available;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_AVAILABLE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setAvailable(String available) {
+    this.available = available;
+  }
+
+
+  /**
+   * Return true if this ExchangeAsset object is equal to o.
+   */
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    ExchangeAsset exchangeAsset = (ExchangeAsset) o;
+    return Objects.equals(this.id, exchangeAsset.id) &&
+        Objects.equals(this.balance, exchangeAsset.balance) &&
+        Objects.equals(this.lockedAmount, exchangeAsset.lockedAmount) &&
+        Objects.equals(this.total, exchangeAsset.total) &&
+        Objects.equals(this.available, exchangeAsset.available);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(id, balance, lockedAmount, total, available);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class ExchangeAsset {\n");
+    sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    balance: ").append(toIndentedString(balance)).append("\n");
+    sb.append("    lockedAmount: ").append(toIndentedString(lockedAmount)).append("\n");
+    sb.append("    total: ").append(toIndentedString(total)).append("\n");
+    sb.append("    available: ").append(toIndentedString(available)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @return URL query string
+   */
+  public String toUrlQueryString() {
+    return toUrlQueryString(null);
+  }
+
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @param prefix prefix of the query string
+   * @return URL query string
+   */
+  public String toUrlQueryString(String prefix) {
+    String suffix = "";
+    String containerSuffix = "";
+    String containerPrefix = "";
+    if (prefix == null) {
+      // style=form, explode=true, e.g. /pet?name=cat&type=manx
+      prefix = "";
+    } else {
+      // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
+      prefix = prefix + "[";
+      suffix = "]";
+      containerSuffix = "]";
+      containerPrefix = "[";
     }
 
-    /**
-     * Get id
-     *
-     * @return id
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_ID)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public String getId() {
-        return id;
+    StringJoiner joiner = new StringJoiner("&");
+
+    // add `id` to the URL query string
+    if (getId() != null) {
+      joiner.add(String.format("%sid%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getId()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
     }
 
-    @JsonProperty(JSON_PROPERTY_ID)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setId(String id) {
-        this.id = id;
+    // add `balance` to the URL query string
+    if (getBalance() != null) {
+      joiner.add(String.format("%sbalance%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getBalance()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
     }
 
-    public ExchangeAsset balance(String balance) {
-        this.balance = balance;
-        return this;
+    // add `lockedAmount` to the URL query string
+    if (getLockedAmount() != null) {
+      joiner.add(String.format("%slockedAmount%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getLockedAmount()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
     }
 
-    /**
-     * Get balance
-     *
-     * @return balance
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_BALANCE)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public String getBalance() {
-        return balance;
+    // add `total` to the URL query string
+    if (getTotal() != null) {
+      joiner.add(String.format("%stotal%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getTotal()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
     }
 
-    @JsonProperty(JSON_PROPERTY_BALANCE)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setBalance(String balance) {
-        this.balance = balance;
+    // add `available` to the URL query string
+    if (getAvailable() != null) {
+      joiner.add(String.format("%savailable%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getAvailable()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
     }
 
-    public ExchangeAsset lockedAmount(String lockedAmount) {
-        this.lockedAmount = lockedAmount;
-        return this;
-    }
-
-    /**
-     * Get lockedAmount
-     *
-     * @return lockedAmount
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_LOCKED_AMOUNT)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public String getLockedAmount() {
-        return lockedAmount;
-    }
-
-    @JsonProperty(JSON_PROPERTY_LOCKED_AMOUNT)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setLockedAmount(String lockedAmount) {
-        this.lockedAmount = lockedAmount;
-    }
-
-    public ExchangeAsset total(String total) {
-        this.total = total;
-        return this;
-    }
-
-    /**
-     * Get total
-     *
-     * @return total
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_TOTAL)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public String getTotal() {
-        return total;
-    }
-
-    @JsonProperty(JSON_PROPERTY_TOTAL)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setTotal(String total) {
-        this.total = total;
-    }
-
-    public ExchangeAsset available(String available) {
-        this.available = available;
-        return this;
-    }
-
-    /**
-     * Get available
-     *
-     * @return available
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_AVAILABLE)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public String getAvailable() {
-        return available;
-    }
-
-    @JsonProperty(JSON_PROPERTY_AVAILABLE)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAvailable(String available) {
-        this.available = available;
-    }
-
-    /** Return true if this ExchangeAsset object is equal to o. */
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        ExchangeAsset exchangeAsset = (ExchangeAsset) o;
-        return Objects.equals(this.id, exchangeAsset.id)
-                && Objects.equals(this.balance, exchangeAsset.balance)
-                && Objects.equals(this.lockedAmount, exchangeAsset.lockedAmount)
-                && Objects.equals(this.total, exchangeAsset.total)
-                && Objects.equals(this.available, exchangeAsset.available);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, balance, lockedAmount, total, available);
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("class ExchangeAsset {\n");
-        sb.append("    id: ").append(toIndentedString(id)).append("\n");
-        sb.append("    balance: ").append(toIndentedString(balance)).append("\n");
-        sb.append("    lockedAmount: ").append(toIndentedString(lockedAmount)).append("\n");
-        sb.append("    total: ").append(toIndentedString(total)).append("\n");
-        sb.append("    available: ").append(toIndentedString(available)).append("\n");
-        sb.append("}");
-        return sb.toString();
-    }
-
-    /**
-     * Convert the given object to string with each line indented by 4 spaces (except the first
-     * line).
-     */
-    private String toIndentedString(Object o) {
-        if (o == null) {
-            return "null";
-        }
-        return o.toString().replace("\n", "\n    ");
-    }
-
-    /**
-     * Convert the instance into URL query string.
-     *
-     * @return URL query string
-     */
-    public String toUrlQueryString() {
-        return toUrlQueryString(null);
-    }
-
-    /**
-     * Convert the instance into URL query string.
-     *
-     * @param prefix prefix of the query string
-     * @return URL query string
-     */
-    public String toUrlQueryString(String prefix) {
-        String suffix = "";
-        String containerSuffix = "";
-        String containerPrefix = "";
-        if (prefix == null) {
-            // style=form, explode=true, e.g. /pet?name=cat&type=manx
-            prefix = "";
-        } else {
-            // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
-            prefix = prefix + "[";
-            suffix = "]";
-            containerSuffix = "]";
-            containerPrefix = "[";
-        }
-
-        StringJoiner joiner = new StringJoiner("&");
-
-        // add `id` to the URL query string
-        if (getId() != null) {
-            joiner.add(
-                    String.format(
-                            "%sid%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(String.valueOf(getId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
-        // add `balance` to the URL query string
-        if (getBalance() != null) {
-            joiner.add(
-                    String.format(
-                            "%sbalance%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(String.valueOf(getBalance()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
-        // add `lockedAmount` to the URL query string
-        if (getLockedAmount() != null) {
-            joiner.add(
-                    String.format(
-                            "%slockedAmount%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getLockedAmount()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
-        // add `total` to the URL query string
-        if (getTotal() != null) {
-            joiner.add(
-                    String.format(
-                            "%stotal%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(String.valueOf(getTotal()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
-        // add `available` to the URL query string
-        if (getAvailable() != null) {
-            joiner.add(
-                    String.format(
-                            "%savailable%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getAvailable()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
-        return joiner.toString();
-    }
+    return joiner.toString();
+  }
 }
+

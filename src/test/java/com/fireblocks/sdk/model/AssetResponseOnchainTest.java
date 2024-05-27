@@ -10,48 +10,72 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import java.math.BigDecimal;
+import java.util.Arrays;
+import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
-/** Model tests for AssetResponseOnchain */
+/**
+ * Model tests for AssetResponseOnchain
+ */
 public class AssetResponseOnchainTest {
     private final AssetResponseOnchain model = new AssetResponseOnchain();
 
-    /** Model tests for AssetResponseOnchain */
+    /**
+     * Model tests for AssetResponseOnchain
+     */
     @Test
     public void testAssetResponseOnchain() {
         // TODO: test AssetResponseOnchain
     }
 
-    /** Test the property 'symbol' */
+    /**
+     * Test the property 'symbol'
+     */
     @Test
     public void symbolTest() {
         // TODO: test symbol
     }
 
-    /** Test the property 'name' */
+    /**
+     * Test the property 'name'
+     */
     @Test
     public void nameTest() {
         // TODO: test name
     }
 
-    /** Test the property 'address' */
+    /**
+     * Test the property 'address'
+     */
     @Test
     public void addressTest() {
         // TODO: test address
     }
 
-    /** Test the property 'decimals' */
+    /**
+     * Test the property 'decimals'
+     */
     @Test
     public void decimalsTest() {
         // TODO: test decimals
     }
 
-    /** Test the property 'standard' */
+    /**
+     * Test the property 'standard'
+     */
     @Test
     public void standardTest() {
         // TODO: test standard
     }
+
 }

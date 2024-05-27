@@ -10,66 +10,95 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.Arrays;
+import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
-/** Model tests for AuditLogData */
+/**
+ * Model tests for AuditLogData
+ */
 public class AuditLogDataTest {
     private final AuditLogData model = new AuditLogData();
 
-    /** Model tests for AuditLogData */
+    /**
+     * Model tests for AuditLogData
+     */
     @Test
     public void testAuditLogData() {
         // TODO: test AuditLogData
     }
 
-    /** Test the property 'id' */
+    /**
+     * Test the property 'id'
+     */
     @Test
     public void idTest() {
         // TODO: test id
     }
 
-    /** Test the property 'timestamp' */
+    /**
+     * Test the property 'timestamp'
+     */
     @Test
     public void timestampTest() {
         // TODO: test timestamp
     }
 
-    /** Test the property 'createdAt' */
+    /**
+     * Test the property 'createdAt'
+     */
     @Test
     public void createdAtTest() {
         // TODO: test createdAt
     }
 
-    /** Test the property 'user' */
+    /**
+     * Test the property 'user'
+     */
     @Test
     public void userTest() {
         // TODO: test user
     }
 
-    /** Test the property 'subject' */
+    /**
+     * Test the property 'subject'
+     */
     @Test
     public void subjectTest() {
         // TODO: test subject
     }
 
-    /** Test the property 'event' */
+    /**
+     * Test the property 'event'
+     */
     @Test
     public void eventTest() {
         // TODO: test event
     }
 
-    /** Test the property 'tenantId' */
+    /**
+     * Test the property 'tenantId'
+     */
     @Test
     public void tenantIdTest() {
         // TODO: test tenantId
     }
 
-    /** Test the property 'userId' */
+    /**
+     * Test the property 'userId'
+     */
     @Test
     public void userIdTest() {
         // TODO: test userId
     }
+
 }

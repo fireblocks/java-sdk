@@ -10,16 +10,23 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
+import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
-/** Model tests for UserType */
+/**
+ * Model tests for UserType
+ */
 public class UserTypeTest {
-    /** Model tests for UserType */
+    /**
+     * Model tests for UserType
+     */
     @Test
     public void testUserType() {
         // TODO: test UserType
     }
+
 }

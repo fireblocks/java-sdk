@@ -10,201 +10,191 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
 import java.util.StringJoiner;
+import java.util.Objects;
+import java.util.Map;
+import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+
 
 /**
- * Decoded data for &#x60;CONTRACT_CALL&#x60; operations. The Fireblocks [development
- * libraries](https://developers.fireblocks.com/docs/ethereum-development#convenience-libraries) are
- * recommended for setting this parameter&#39;s value.
+ * Decoded data for &#x60;CONTRACT_CALL&#x60; operations. The Fireblocks [development libraries](https://developers.fireblocks.com/docs/ethereum-development#convenience-libraries) are recommended for setting this parameter&#39;s value.
  */
 @JsonPropertyOrder({
-    TransactionResponseContractCallDecodedData.JSON_PROPERTY_CONTRACT_NAME,
-    TransactionResponseContractCallDecodedData.JSON_PROPERTY_FUNCTION_CALLS
+  TransactionResponseContractCallDecodedData.JSON_PROPERTY_CONTRACT_NAME,
+  TransactionResponseContractCallDecodedData.JSON_PROPERTY_FUNCTION_CALLS
 })
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class TransactionResponseContractCallDecodedData {
-    public static final String JSON_PROPERTY_CONTRACT_NAME = "contractName";
-    private String contractName;
+  public static final String JSON_PROPERTY_CONTRACT_NAME = "contractName";
+  private String contractName;
 
-    public static final String JSON_PROPERTY_FUNCTION_CALLS = "functionCalls";
-    private List<Object> functionCalls;
+  public static final String JSON_PROPERTY_FUNCTION_CALLS = "functionCalls";
+  private List<Object> functionCalls;
 
-    public TransactionResponseContractCallDecodedData() {}
+  public TransactionResponseContractCallDecodedData() { 
+  }
 
-    public TransactionResponseContractCallDecodedData contractName(String contractName) {
-        this.contractName = contractName;
-        return this;
+  public TransactionResponseContractCallDecodedData contractName(String contractName) {
+    this.contractName = contractName;
+    return this;
+  }
+
+   /**
+   * Get contractName
+   * @return contractName
+  **/
+  @jakarta.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_CONTRACT_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getContractName() {
+    return contractName;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_CONTRACT_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setContractName(String contractName) {
+    this.contractName = contractName;
+  }
+
+
+  public TransactionResponseContractCallDecodedData functionCalls(List<Object> functionCalls) {
+    this.functionCalls = functionCalls;
+    return this;
+  }
+
+  public TransactionResponseContractCallDecodedData addFunctionCallsItem(Object functionCallsItem) {
+    if (this.functionCalls == null) {
+      this.functionCalls = new ArrayList<>();
+    }
+    this.functionCalls.add(functionCallsItem);
+    return this;
+  }
+
+   /**
+   * Get functionCalls
+   * @return functionCalls
+  **/
+  @jakarta.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_FUNCTION_CALLS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<Object> getFunctionCalls() {
+    return functionCalls;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_FUNCTION_CALLS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setFunctionCalls(List<Object> functionCalls) {
+    this.functionCalls = functionCalls;
+  }
+
+
+  /**
+   * Return true if this TransactionResponse_contractCallDecodedData object is equal to o.
+   */
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    TransactionResponseContractCallDecodedData transactionResponseContractCallDecodedData = (TransactionResponseContractCallDecodedData) o;
+    return Objects.equals(this.contractName, transactionResponseContractCallDecodedData.contractName) &&
+        Objects.equals(this.functionCalls, transactionResponseContractCallDecodedData.functionCalls);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(contractName, functionCalls);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class TransactionResponseContractCallDecodedData {\n");
+    sb.append("    contractName: ").append(toIndentedString(contractName)).append("\n");
+    sb.append("    functionCalls: ").append(toIndentedString(functionCalls)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @return URL query string
+   */
+  public String toUrlQueryString() {
+    return toUrlQueryString(null);
+  }
+
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @param prefix prefix of the query string
+   * @return URL query string
+   */
+  public String toUrlQueryString(String prefix) {
+    String suffix = "";
+    String containerSuffix = "";
+    String containerPrefix = "";
+    if (prefix == null) {
+      // style=form, explode=true, e.g. /pet?name=cat&type=manx
+      prefix = "";
+    } else {
+      // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
+      prefix = prefix + "[";
+      suffix = "]";
+      containerSuffix = "]";
+      containerPrefix = "[";
     }
 
-    /**
-     * Get contractName
-     *
-     * @return contractName
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_CONTRACT_NAME)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public String getContractName() {
-        return contractName;
+    StringJoiner joiner = new StringJoiner("&");
+
+    // add `contractName` to the URL query string
+    if (getContractName() != null) {
+      joiner.add(String.format("%scontractName%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getContractName()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
     }
 
-    @JsonProperty(JSON_PROPERTY_CONTRACT_NAME)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setContractName(String contractName) {
-        this.contractName = contractName;
+    // add `functionCalls` to the URL query string
+    if (getFunctionCalls() != null) {
+      for (int i = 0; i < getFunctionCalls().size(); i++) {
+        joiner.add(String.format("%sfunctionCalls%s%s=%s", prefix, suffix,
+            "".equals(suffix) ? "" : String.format("%s%d%s", containerPrefix, i, containerSuffix),
+            URLEncoder.encode(String.valueOf(getFunctionCalls().get(i)), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+      }
     }
 
-    public TransactionResponseContractCallDecodedData functionCalls(List<Object> functionCalls) {
-        this.functionCalls = functionCalls;
-        return this;
-    }
-
-    public TransactionResponseContractCallDecodedData addFunctionCallsItem(
-            Object functionCallsItem) {
-        if (this.functionCalls == null) {
-            this.functionCalls = new ArrayList<>();
-        }
-        this.functionCalls.add(functionCallsItem);
-        return this;
-    }
-
-    /**
-     * Get functionCalls
-     *
-     * @return functionCalls
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_FUNCTION_CALLS)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public List<Object> getFunctionCalls() {
-        return functionCalls;
-    }
-
-    @JsonProperty(JSON_PROPERTY_FUNCTION_CALLS)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setFunctionCalls(List<Object> functionCalls) {
-        this.functionCalls = functionCalls;
-    }
-
-    /** Return true if this TransactionResponse_contractCallDecodedData object is equal to o. */
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        TransactionResponseContractCallDecodedData transactionResponseContractCallDecodedData =
-                (TransactionResponseContractCallDecodedData) o;
-        return Objects.equals(
-                        this.contractName, transactionResponseContractCallDecodedData.contractName)
-                && Objects.equals(
-                        this.functionCalls,
-                        transactionResponseContractCallDecodedData.functionCalls);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(contractName, functionCalls);
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("class TransactionResponseContractCallDecodedData {\n");
-        sb.append("    contractName: ").append(toIndentedString(contractName)).append("\n");
-        sb.append("    functionCalls: ").append(toIndentedString(functionCalls)).append("\n");
-        sb.append("}");
-        return sb.toString();
-    }
-
-    /**
-     * Convert the given object to string with each line indented by 4 spaces (except the first
-     * line).
-     */
-    private String toIndentedString(Object o) {
-        if (o == null) {
-            return "null";
-        }
-        return o.toString().replace("\n", "\n    ");
-    }
-
-    /**
-     * Convert the instance into URL query string.
-     *
-     * @return URL query string
-     */
-    public String toUrlQueryString() {
-        return toUrlQueryString(null);
-    }
-
-    /**
-     * Convert the instance into URL query string.
-     *
-     * @param prefix prefix of the query string
-     * @return URL query string
-     */
-    public String toUrlQueryString(String prefix) {
-        String suffix = "";
-        String containerSuffix = "";
-        String containerPrefix = "";
-        if (prefix == null) {
-            // style=form, explode=true, e.g. /pet?name=cat&type=manx
-            prefix = "";
-        } else {
-            // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
-            prefix = prefix + "[";
-            suffix = "]";
-            containerSuffix = "]";
-            containerPrefix = "[";
-        }
-
-        StringJoiner joiner = new StringJoiner("&");
-
-        // add `contractName` to the URL query string
-        if (getContractName() != null) {
-            joiner.add(
-                    String.format(
-                            "%scontractName%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getContractName()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
-        // add `functionCalls` to the URL query string
-        if (getFunctionCalls() != null) {
-            for (int i = 0; i < getFunctionCalls().size(); i++) {
-                joiner.add(
-                        String.format(
-                                "%sfunctionCalls%s%s=%s",
-                                prefix,
-                                suffix,
-                                "".equals(suffix)
-                                        ? ""
-                                        : String.format(
-                                                "%s%d%s", containerPrefix, i, containerSuffix),
-                                URLEncoder.encode(
-                                                String.valueOf(getFunctionCalls().get(i)),
-                                                StandardCharsets.UTF_8)
-                                        .replaceAll("\\+", "%20")));
-            }
-        }
-
-        return joiner.toString();
-    }
+    return joiner.toString();
+  }
 }
+

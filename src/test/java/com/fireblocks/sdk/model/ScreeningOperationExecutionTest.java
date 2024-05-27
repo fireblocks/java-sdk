@@ -10,42 +10,66 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.fireblocks.sdk.model.ScreeningOperationExecutionOutput;
+import com.fireblocks.sdk.model.ScreeningOperationFailure;
+import java.math.BigDecimal;
+import java.util.Arrays;
+import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
-/** Model tests for ScreeningOperationExecution */
+/**
+ * Model tests for ScreeningOperationExecution
+ */
 public class ScreeningOperationExecutionTest {
     private final ScreeningOperationExecution model = new ScreeningOperationExecution();
 
-    /** Model tests for ScreeningOperationExecution */
+    /**
+     * Model tests for ScreeningOperationExecution
+     */
     @Test
     public void testScreeningOperationExecution() {
         // TODO: test ScreeningOperationExecution
     }
 
-    /** Test the property 'output' */
+    /**
+     * Test the property 'output'
+     */
     @Test
     public void outputTest() {
         // TODO: test output
     }
 
-    /** Test the property 'startedAt' */
+    /**
+     * Test the property 'startedAt'
+     */
     @Test
     public void startedAtTest() {
         // TODO: test startedAt
     }
 
-    /** Test the property 'finishedAt' */
+    /**
+     * Test the property 'finishedAt'
+     */
     @Test
     public void finishedAtTest() {
         // TODO: test finishedAt
     }
 
-    /** Test the property 'failure' */
+    /**
+     * Test the property 'failure'
+     */
     @Test
     public void failureTest() {
         // TODO: test failure
     }
+
 }

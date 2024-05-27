@@ -10,48 +10,71 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.Arrays;
+import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
-/** Model tests for ConversionOperationConfigParams */
+/**
+ * Model tests for ConversionOperationConfigParams
+ */
 public class ConversionOperationConfigParamsTest {
     private final ConversionOperationConfigParams model = new ConversionOperationConfigParams();
 
-    /** Model tests for ConversionOperationConfigParams */
+    /**
+     * Model tests for ConversionOperationConfigParams
+     */
     @Test
     public void testConversionOperationConfigParams() {
         // TODO: test ConversionOperationConfigParams
     }
 
-    /** Test the property 'amount' */
+    /**
+     * Test the property 'amount'
+     */
     @Test
     public void amountTest() {
         // TODO: test amount
     }
 
-    /** Test the property 'accountId' */
+    /**
+     * Test the property 'accountId'
+     */
     @Test
     public void accountIdTest() {
         // TODO: test accountId
     }
 
-    /** Test the property 'srcAssetId' */
+    /**
+     * Test the property 'srcAssetId'
+     */
     @Test
     public void srcAssetIdTest() {
         // TODO: test srcAssetId
     }
 
-    /** Test the property 'destAssetId' */
+    /**
+     * Test the property 'destAssetId'
+     */
     @Test
     public void destAssetIdTest() {
         // TODO: test destAssetId
     }
 
-    /** Test the property 'slippageBasisPoints' */
+    /**
+     * Test the property 'slippageBasisPoints'
+     */
     @Test
     public void slippageBasisPointsTest() {
         // TODO: test slippageBasisPoints
     }
+
 }

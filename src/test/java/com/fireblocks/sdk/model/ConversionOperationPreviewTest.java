@@ -10,36 +10,58 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.fireblocks.sdk.model.ConversionOperationConfigParams;
+import com.fireblocks.sdk.model.ConversionOperationFailure;
+import com.fireblocks.sdk.model.ConversionOperationPreviewOutput;
+import java.util.Arrays;
+import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
-/** Model tests for ConversionOperationPreview */
+/**
+ * Model tests for ConversionOperationPreview
+ */
 public class ConversionOperationPreviewTest {
     private final ConversionOperationPreview model = new ConversionOperationPreview();
 
-    /** Model tests for ConversionOperationPreview */
+    /**
+     * Model tests for ConversionOperationPreview
+     */
     @Test
     public void testConversionOperationPreview() {
         // TODO: test ConversionOperationPreview
     }
 
-    /** Test the property 'input' */
+    /**
+     * Test the property 'input'
+     */
     @Test
     public void inputTest() {
         // TODO: test input
     }
 
-    /** Test the property 'output' */
+    /**
+     * Test the property 'output'
+     */
     @Test
     public void outputTest() {
         // TODO: test output
     }
 
-    /** Test the property 'failure' */
+    /**
+     * Test the property 'failure'
+     */
     @Test
     public void failureTest() {
         // TODO: test failure
     }
+
 }

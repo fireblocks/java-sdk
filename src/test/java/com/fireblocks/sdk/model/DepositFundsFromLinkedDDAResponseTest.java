@@ -10,24 +10,39 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.Arrays;
+import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
-/** Model tests for DepositFundsFromLinkedDDAResponse */
+/**
+ * Model tests for DepositFundsFromLinkedDDAResponse
+ */
 public class DepositFundsFromLinkedDDAResponseTest {
     private final DepositFundsFromLinkedDDAResponse model = new DepositFundsFromLinkedDDAResponse();
 
-    /** Model tests for DepositFundsFromLinkedDDAResponse */
+    /**
+     * Model tests for DepositFundsFromLinkedDDAResponse
+     */
     @Test
     public void testDepositFundsFromLinkedDDAResponse() {
         // TODO: test DepositFundsFromLinkedDDAResponse
     }
 
-    /** Test the property 'success' */
+    /**
+     * Test the property 'success'
+     */
     @Test
     public void successTest() {
         // TODO: test success
     }
+
 }

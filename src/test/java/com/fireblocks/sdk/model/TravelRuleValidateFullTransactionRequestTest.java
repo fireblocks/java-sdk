@@ -10,127 +10,178 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.fireblocks.sdk.model.TravelRuleOwnershipProof;
+import com.fireblocks.sdk.model.TravelRulePiiIVMS;
+import com.fireblocks.sdk.model.TravelRuleTransactionBlockchainInfo;
+import java.util.Arrays;
+import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
-/** Model tests for TravelRuleValidateFullTransactionRequest */
+/**
+ * Model tests for TravelRuleValidateFullTransactionRequest
+ */
 public class TravelRuleValidateFullTransactionRequestTest {
-    private final TravelRuleValidateFullTransactionRequest model =
-            new TravelRuleValidateFullTransactionRequest();
+    private final TravelRuleValidateFullTransactionRequest model = new TravelRuleValidateFullTransactionRequest();
 
-    /** Model tests for TravelRuleValidateFullTransactionRequest */
+    /**
+     * Model tests for TravelRuleValidateFullTransactionRequest
+     */
     @Test
     public void testTravelRuleValidateFullTransactionRequest() {
         // TODO: test TravelRuleValidateFullTransactionRequest
     }
 
-    /** Test the property 'transactionAsset' */
+    /**
+     * Test the property 'transactionAsset'
+     */
     @Test
     public void transactionAssetTest() {
         // TODO: test transactionAsset
     }
 
-    /** Test the property 'transactionAmount' */
+    /**
+     * Test the property 'transactionAmount'
+     */
     @Test
     public void transactionAmountTest() {
         // TODO: test transactionAmount
     }
 
-    /** Test the property 'originatorDid' */
+    /**
+     * Test the property 'originatorDid'
+     */
     @Test
     public void originatorDidTest() {
         // TODO: test originatorDid
     }
 
-    /** Test the property 'beneficiaryDid' */
+    /**
+     * Test the property 'beneficiaryDid'
+     */
     @Test
     public void beneficiaryDidTest() {
         // TODO: test beneficiaryDid
     }
 
-    /** Test the property 'originatorVASPdid' */
+    /**
+     * Test the property 'originatorVASPdid'
+     */
     @Test
     public void originatorVASPdidTest() {
         // TODO: test originatorVASPdid
     }
 
-    /** Test the property 'beneficiaryVASPdid' */
+    /**
+     * Test the property 'beneficiaryVASPdid'
+     */
     @Test
     public void beneficiaryVASPdidTest() {
         // TODO: test beneficiaryVASPdid
     }
 
-    /** Test the property 'beneficiaryVASPname' */
+    /**
+     * Test the property 'beneficiaryVASPname'
+     */
     @Test
     public void beneficiaryVASPnameTest() {
         // TODO: test beneficiaryVASPname
     }
 
-    /** Test the property 'transactionBlockchainInfo' */
+    /**
+     * Test the property 'transactionBlockchainInfo'
+     */
     @Test
     public void transactionBlockchainInfoTest() {
         // TODO: test transactionBlockchainInfo
     }
 
-    /** Test the property 'originator' */
+    /**
+     * Test the property 'originator'
+     */
     @Test
     public void originatorTest() {
         // TODO: test originator
     }
 
-    /** Test the property 'beneficiary' */
+    /**
+     * Test the property 'beneficiary'
+     */
     @Test
     public void beneficiaryTest() {
         // TODO: test beneficiary
     }
 
-    /** Test the property 'encrypted' */
+    /**
+     * Test the property 'encrypted'
+     */
     @Test
     public void encryptedTest() {
         // TODO: test encrypted
     }
 
-    /** Test the property 'protocol' */
+    /**
+     * Test the property 'protocol'
+     */
     @Test
     public void protocolTest() {
         // TODO: test protocol
     }
 
-    /** Test the property 'notificationEmail' */
+    /**
+     * Test the property 'notificationEmail'
+     */
     @Test
     public void notificationEmailTest() {
         // TODO: test notificationEmail
     }
 
-    /** Test the property 'skipBeneficiaryDataValidation' */
+    /**
+     * Test the property 'skipBeneficiaryDataValidation'
+     */
     @Test
     public void skipBeneficiaryDataValidationTest() {
         // TODO: test skipBeneficiaryDataValidation
     }
 
-    /** Test the property 'travelRuleBehavior' */
+    /**
+     * Test the property 'travelRuleBehavior'
+     */
     @Test
     public void travelRuleBehaviorTest() {
         // TODO: test travelRuleBehavior
     }
 
-    /** Test the property 'originatorProof' */
+    /**
+     * Test the property 'originatorProof'
+     */
     @Test
     public void originatorProofTest() {
         // TODO: test originatorProof
     }
 
-    /** Test the property 'beneficiaryProof' */
+    /**
+     * Test the property 'beneficiaryProof'
+     */
     @Test
     public void beneficiaryProofTest() {
         // TODO: test beneficiaryProof
     }
 
-    /** Test the property 'pii' */
+    /**
+     * Test the property 'pii'
+     */
     @Test
     public void piiTest() {
         // TODO: test pii
     }
+
 }

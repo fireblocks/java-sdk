@@ -10,30 +10,51 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.fireblocks.sdk.model.PolicyMetadata;
+import com.fireblocks.sdk.model.PolicyRule;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
-/** Model tests for PolicyResponse */
+/**
+ * Model tests for PolicyResponse
+ */
 public class PolicyResponseTest {
     private final PolicyResponse model = new PolicyResponse();
 
-    /** Model tests for PolicyResponse */
+    /**
+     * Model tests for PolicyResponse
+     */
     @Test
     public void testPolicyResponse() {
         // TODO: test PolicyResponse
     }
 
-    /** Test the property 'rules' */
+    /**
+     * Test the property 'rules'
+     */
     @Test
     public void rulesTest() {
         // TODO: test rules
     }
 
-    /** Test the property 'metadata' */
+    /**
+     * Test the property 'metadata'
+     */
     @Test
     public void metadataTest() {
         // TODO: test metadata
     }
+
 }

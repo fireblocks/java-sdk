@@ -10,270 +10,265 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.fasterxml.jackson.annotation.JsonValue;
-import java.math.BigDecimal;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
 import java.util.StringJoiner;
+import java.util.Objects;
+import java.util.Map;
+import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.fireblocks.sdk.model.PolicyRuleError;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
-/** The rule validation result */
+
+/**
+ * The rule validation result
+ */
 @JsonPropertyOrder({
-    PolicyRuleCheckResult.JSON_PROPERTY_INDEX,
-    PolicyRuleCheckResult.JSON_PROPERTY_STATUS,
-    PolicyRuleCheckResult.JSON_PROPERTY_ERRORS
+  PolicyRuleCheckResult.JSON_PROPERTY_INDEX,
+  PolicyRuleCheckResult.JSON_PROPERTY_STATUS,
+  PolicyRuleCheckResult.JSON_PROPERTY_ERRORS
 })
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class PolicyRuleCheckResult {
-    public static final String JSON_PROPERTY_INDEX = "index";
-    private BigDecimal index;
+  public static final String JSON_PROPERTY_INDEX = "index";
+  private BigDecimal index;
 
-    /** Validation status */
-    public enum StatusEnum {
-        OK("ok"),
+  /**
+   * Validation status
+   */
+  public enum StatusEnum {
+    OK("ok"),
+    
+    FAILURE("failure");
 
-        FAILURE("failure");
+    private String value;
 
-        private String value;
-
-        StatusEnum(String value) {
-            this.value = value;
-        }
-
-        @JsonValue
-        public String getValue() {
-            return value;
-        }
-
-        @Override
-        public String toString() {
-            return String.valueOf(value);
-        }
-
-        @JsonCreator
-        public static StatusEnum fromValue(String value) {
-            for (StatusEnum b : StatusEnum.values()) {
-                if (b.value.equals(value)) {
-                    return b;
-                }
-            }
-            throw new IllegalArgumentException("Unexpected value '" + value + "'");
-        }
+    StatusEnum(String value) {
+      this.value = value;
     }
 
-    public static final String JSON_PROPERTY_STATUS = "status";
-    private StatusEnum status;
-
-    public static final String JSON_PROPERTY_ERRORS = "errors";
-    private List<PolicyRuleError> errors = new ArrayList<>();
-
-    public PolicyRuleCheckResult() {}
-
-    public PolicyRuleCheckResult index(BigDecimal index) {
-        this.index = index;
-        return this;
-    }
-
-    /**
-     * Rule index number in the policy
-     *
-     * @return index
-     */
-    @jakarta.annotation.Nonnull
-    @JsonProperty(JSON_PROPERTY_INDEX)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public BigDecimal getIndex() {
-        return index;
-    }
-
-    @JsonProperty(JSON_PROPERTY_INDEX)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setIndex(BigDecimal index) {
-        this.index = index;
-    }
-
-    public PolicyRuleCheckResult status(StatusEnum status) {
-        this.status = status;
-        return this;
-    }
-
-    /**
-     * Validation status
-     *
-     * @return status
-     */
-    @jakarta.annotation.Nonnull
-    @JsonProperty(JSON_PROPERTY_STATUS)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public StatusEnum getStatus() {
-        return status;
-    }
-
-    @JsonProperty(JSON_PROPERTY_STATUS)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setStatus(StatusEnum status) {
-        this.status = status;
-    }
-
-    public PolicyRuleCheckResult errors(List<PolicyRuleError> errors) {
-        this.errors = errors;
-        return this;
-    }
-
-    public PolicyRuleCheckResult addErrorsItem(PolicyRuleError errorsItem) {
-        if (this.errors == null) {
-            this.errors = new ArrayList<>();
-        }
-        this.errors.add(errorsItem);
-        return this;
-    }
-
-    /**
-     * A set of rule validation error objects
-     *
-     * @return errors
-     */
-    @jakarta.annotation.Nonnull
-    @JsonProperty(JSON_PROPERTY_ERRORS)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public List<PolicyRuleError> getErrors() {
-        return errors;
-    }
-
-    @JsonProperty(JSON_PROPERTY_ERRORS)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setErrors(List<PolicyRuleError> errors) {
-        this.errors = errors;
-    }
-
-    /** Return true if this PolicyRuleCheckResult object is equal to o. */
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        PolicyRuleCheckResult policyRuleCheckResult = (PolicyRuleCheckResult) o;
-        return Objects.equals(this.index, policyRuleCheckResult.index)
-                && Objects.equals(this.status, policyRuleCheckResult.status)
-                && Objects.equals(this.errors, policyRuleCheckResult.errors);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(index, status, errors);
+    @JsonValue
+    public String getValue() {
+      return value;
     }
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("class PolicyRuleCheckResult {\n");
-        sb.append("    index: ").append(toIndentedString(index)).append("\n");
-        sb.append("    status: ").append(toIndentedString(status)).append("\n");
-        sb.append("    errors: ").append(toIndentedString(errors)).append("\n");
-        sb.append("}");
-        return sb.toString();
+      return String.valueOf(value);
     }
 
-    /**
-     * Convert the given object to string with each line indented by 4 spaces (except the first
-     * line).
-     */
-    private String toIndentedString(Object o) {
-        if (o == null) {
-            return "null";
+    @JsonCreator
+    public static StatusEnum fromValue(String value) {
+      for (StatusEnum b : StatusEnum.values()) {
+        if (b.value.equals(value)) {
+          return b;
         }
-        return o.toString().replace("\n", "\n    ");
+      }
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
+  }
+
+  public static final String JSON_PROPERTY_STATUS = "status";
+  private StatusEnum status;
+
+  public static final String JSON_PROPERTY_ERRORS = "errors";
+  private List<PolicyRuleError> errors = new ArrayList<>();
+
+  public PolicyRuleCheckResult() { 
+  }
+
+  public PolicyRuleCheckResult index(BigDecimal index) {
+    this.index = index;
+    return this;
+  }
+
+   /**
+   * Rule index number in the policy
+   * @return index
+  **/
+  @jakarta.annotation.Nonnull
+  @JsonProperty(JSON_PROPERTY_INDEX)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public BigDecimal getIndex() {
+    return index;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_INDEX)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setIndex(BigDecimal index) {
+    this.index = index;
+  }
+
+
+  public PolicyRuleCheckResult status(StatusEnum status) {
+    this.status = status;
+    return this;
+  }
+
+   /**
+   * Validation status
+   * @return status
+  **/
+  @jakarta.annotation.Nonnull
+  @JsonProperty(JSON_PROPERTY_STATUS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public StatusEnum getStatus() {
+    return status;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_STATUS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setStatus(StatusEnum status) {
+    this.status = status;
+  }
+
+
+  public PolicyRuleCheckResult errors(List<PolicyRuleError> errors) {
+    this.errors = errors;
+    return this;
+  }
+
+  public PolicyRuleCheckResult addErrorsItem(PolicyRuleError errorsItem) {
+    if (this.errors == null) {
+      this.errors = new ArrayList<>();
+    }
+    this.errors.add(errorsItem);
+    return this;
+  }
+
+   /**
+   * A set of rule validation error objects
+   * @return errors
+  **/
+  @jakarta.annotation.Nonnull
+  @JsonProperty(JSON_PROPERTY_ERRORS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public List<PolicyRuleError> getErrors() {
+    return errors;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_ERRORS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setErrors(List<PolicyRuleError> errors) {
+    this.errors = errors;
+  }
+
+
+  /**
+   * Return true if this PolicyRuleCheckResult object is equal to o.
+   */
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    PolicyRuleCheckResult policyRuleCheckResult = (PolicyRuleCheckResult) o;
+    return Objects.equals(this.index, policyRuleCheckResult.index) &&
+        Objects.equals(this.status, policyRuleCheckResult.status) &&
+        Objects.equals(this.errors, policyRuleCheckResult.errors);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(index, status, errors);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class PolicyRuleCheckResult {\n");
+    sb.append("    index: ").append(toIndentedString(index)).append("\n");
+    sb.append("    status: ").append(toIndentedString(status)).append("\n");
+    sb.append("    errors: ").append(toIndentedString(errors)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @return URL query string
+   */
+  public String toUrlQueryString() {
+    return toUrlQueryString(null);
+  }
+
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @param prefix prefix of the query string
+   * @return URL query string
+   */
+  public String toUrlQueryString(String prefix) {
+    String suffix = "";
+    String containerSuffix = "";
+    String containerPrefix = "";
+    if (prefix == null) {
+      // style=form, explode=true, e.g. /pet?name=cat&type=manx
+      prefix = "";
+    } else {
+      // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
+      prefix = prefix + "[";
+      suffix = "]";
+      containerSuffix = "]";
+      containerPrefix = "[";
     }
 
-    /**
-     * Convert the instance into URL query string.
-     *
-     * @return URL query string
-     */
-    public String toUrlQueryString() {
-        return toUrlQueryString(null);
+    StringJoiner joiner = new StringJoiner("&");
+
+    // add `index` to the URL query string
+    if (getIndex() != null) {
+      joiner.add(String.format("%sindex%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getIndex()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
     }
 
-    /**
-     * Convert the instance into URL query string.
-     *
-     * @param prefix prefix of the query string
-     * @return URL query string
-     */
-    public String toUrlQueryString(String prefix) {
-        String suffix = "";
-        String containerSuffix = "";
-        String containerPrefix = "";
-        if (prefix == null) {
-            // style=form, explode=true, e.g. /pet?name=cat&type=manx
-            prefix = "";
-        } else {
-            // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
-            prefix = prefix + "[";
-            suffix = "]";
-            containerSuffix = "]";
-            containerPrefix = "[";
-        }
-
-        StringJoiner joiner = new StringJoiner("&");
-
-        // add `index` to the URL query string
-        if (getIndex() != null) {
-            joiner.add(
-                    String.format(
-                            "%sindex%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(String.valueOf(getIndex()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
-        // add `status` to the URL query string
-        if (getStatus() != null) {
-            joiner.add(
-                    String.format(
-                            "%sstatus%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(String.valueOf(getStatus()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
-        // add `errors` to the URL query string
-        if (getErrors() != null) {
-            for (int i = 0; i < getErrors().size(); i++) {
-                if (getErrors().get(i) != null) {
-                    joiner.add(
-                            getErrors()
-                                    .get(i)
-                                    .toUrlQueryString(
-                                            String.format(
-                                                    "%serrors%s%s",
-                                                    prefix,
-                                                    suffix,
-                                                    "".equals(suffix)
-                                                            ? ""
-                                                            : String.format(
-                                                                    "%s%d%s",
-                                                                    containerPrefix,
-                                                                    i,
-                                                                    containerSuffix))));
-                }
-            }
-        }
-
-        return joiner.toString();
+    // add `status` to the URL query string
+    if (getStatus() != null) {
+      joiner.add(String.format("%sstatus%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getStatus()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
     }
+
+    // add `errors` to the URL query string
+    if (getErrors() != null) {
+      for (int i = 0; i < getErrors().size(); i++) {
+        if (getErrors().get(i) != null) {
+          joiner.add(getErrors().get(i).toUrlQueryString(String.format("%serrors%s%s", prefix, suffix,
+          "".equals(suffix) ? "" : String.format("%s%d%s", containerPrefix, i, containerSuffix))));
+        }
+      }
+    }
+
+    return joiner.toString();
+  }
 }
+

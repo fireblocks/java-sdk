@@ -10,36 +10,55 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.Arrays;
+import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
-/** Model tests for CreateAssetsBulkRequest */
+/**
+ * Model tests for CreateAssetsBulkRequest
+ */
 public class CreateAssetsBulkRequestTest {
     private final CreateAssetsBulkRequest model = new CreateAssetsBulkRequest();
 
-    /** Model tests for CreateAssetsBulkRequest */
+    /**
+     * Model tests for CreateAssetsBulkRequest
+     */
     @Test
     public void testCreateAssetsBulkRequest() {
         // TODO: test CreateAssetsBulkRequest
     }
 
-    /** Test the property 'assetId' */
+    /**
+     * Test the property 'assetId'
+     */
     @Test
     public void assetIdTest() {
         // TODO: test assetId
     }
 
-    /** Test the property 'vaultAccountIdFrom' */
+    /**
+     * Test the property 'vaultAccountIdFrom'
+     */
     @Test
     public void vaultAccountIdFromTest() {
         // TODO: test vaultAccountIdFrom
     }
 
-    /** Test the property 'vaultAccountIdTo' */
+    /**
+     * Test the property 'vaultAccountIdTo'
+     */
     @Test
     public void vaultAccountIdToTest() {
         // TODO: test vaultAccountIdTo
     }
+
 }

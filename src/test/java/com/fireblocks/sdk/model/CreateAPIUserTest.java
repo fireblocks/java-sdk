@@ -10,48 +10,71 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.Arrays;
+import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
-/** Model tests for CreateAPIUser */
+/**
+ * Model tests for CreateAPIUser
+ */
 public class CreateAPIUserTest {
     private final CreateAPIUser model = new CreateAPIUser();
 
-    /** Model tests for CreateAPIUser */
+    /**
+     * Model tests for CreateAPIUser
+     */
     @Test
     public void testCreateAPIUser() {
         // TODO: test CreateAPIUser
     }
 
-    /** Test the property 'role' */
+    /**
+     * Test the property 'role'
+     */
     @Test
     public void roleTest() {
         // TODO: test role
     }
 
-    /** Test the property 'name' */
+    /**
+     * Test the property 'name'
+     */
     @Test
     public void nameTest() {
         // TODO: test name
     }
 
-    /** Test the property 'csrPem' */
+    /**
+     * Test the property 'csrPem'
+     */
     @Test
     public void csrPemTest() {
         // TODO: test csrPem
     }
 
-    /** Test the property 'coSignerSetupType' */
+    /**
+     * Test the property 'coSignerSetupType'
+     */
     @Test
     public void coSignerSetupTypeTest() {
         // TODO: test coSignerSetupType
     }
 
-    /** Test the property 'coSignerSetupIsFirstUser' */
+    /**
+     * Test the property 'coSignerSetupIsFirstUser'
+     */
     @Test
     public void coSignerSetupIsFirstUserTest() {
         // TODO: test coSignerSetupIsFirstUser
     }
+
 }

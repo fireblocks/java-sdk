@@ -10,34 +10,48 @@
  * Do not edit the class manually.
  */
 
-package com.fireblocks.sdk.api;
 
+package com.fireblocks.sdk.api;
 
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
-import java.util.concurrent.CompletableFuture;
-import org.junit.Ignore;
+import com.fireblocks.sdk.model.ErrorResponse;
+import com.fireblocks.sdk.model.ErrorSchema;
 import org.junit.Test;
+import org.junit.Ignore;
 
-/** API tests for ResetDeviceApi */
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import java.util.concurrent.CompletableFuture;
+
+/**
+ * API tests for ResetDeviceApi
+ */
 @Ignore
 public class ResetDeviceApiTest {
 
     private final ResetDeviceApi api = new ResetDeviceApi();
 
+    
     /**
      * Resets device
      *
-     * <p>Resets mobile device for given console user, that user will need to do mobile onboarding
-     * again.
+     * Resets mobile device for given console user, that user will need to do mobile onboarding again.
      *
-     * @throws ApiException if the Api call fails
+     * @throws ApiException
+     *          if the Api call fails
      */
     @Test
     public void resetDeviceTest() throws ApiException {
         String id = null;
         String idempotencyKey = null;
-
+        
         CompletableFuture<ApiResponse<Void>> response = api.resetDevice(id, idempotencyKey);
+        
     }
+    
 }

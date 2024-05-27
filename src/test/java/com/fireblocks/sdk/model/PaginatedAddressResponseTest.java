@@ -10,30 +10,51 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.fireblocks.sdk.model.PaginatedAddressResponsePaging;
+import com.fireblocks.sdk.model.VaultWalletAddress;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
-/** Model tests for PaginatedAddressResponse */
+/**
+ * Model tests for PaginatedAddressResponse
+ */
 public class PaginatedAddressResponseTest {
     private final PaginatedAddressResponse model = new PaginatedAddressResponse();
 
-    /** Model tests for PaginatedAddressResponse */
+    /**
+     * Model tests for PaginatedAddressResponse
+     */
     @Test
     public void testPaginatedAddressResponse() {
         // TODO: test PaginatedAddressResponse
     }
 
-    /** Test the property 'addresses' */
+    /**
+     * Test the property 'addresses'
+     */
     @Test
     public void addressesTest() {
         // TODO: test addresses
     }
 
-    /** Test the property 'paging' */
+    /**
+     * Test the property 'paging'
+     */
     @Test
     public void pagingTest() {
         // TODO: test paging
     }
+
 }

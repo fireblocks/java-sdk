@@ -10,85 +10,119 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.Arrays;
+import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
-/** Model tests for AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf1 */
+/**
+ * Model tests for AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf1
+ */
 public class AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf1Test {
-    private final AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf1 model =
-            new AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf1();
+    private final AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf1 model = new AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf1();
 
-    /** Model tests for AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf1 */
+    /**
+     * Model tests for AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf1
+     */
     @Test
     public void testAddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf1() {
         // TODO: test AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf1
     }
 
-    /** Test the property 'accountHolderGivenName' */
+    /**
+     * Test the property 'accountHolderGivenName'
+     */
     @Test
     public void accountHolderGivenNameTest() {
         // TODO: test accountHolderGivenName
     }
 
-    /** Test the property 'accountHolderSurname' */
+    /**
+     * Test the property 'accountHolderSurname'
+     */
     @Test
     public void accountHolderSurnameTest() {
         // TODO: test accountHolderSurname
     }
 
-    /** Test the property 'accountHolderCity' */
+    /**
+     * Test the property 'accountHolderCity'
+     */
     @Test
     public void accountHolderCityTest() {
         // TODO: test accountHolderCity
     }
 
-    /** Test the property 'accountHolderCountry' */
+    /**
+     * Test the property 'accountHolderCountry'
+     */
     @Test
     public void accountHolderCountryTest() {
         // TODO: test accountHolderCountry
     }
 
-    /** Test the property 'accountHolderAddress1' */
+    /**
+     * Test the property 'accountHolderAddress1'
+     */
     @Test
     public void accountHolderAddress1Test() {
         // TODO: test accountHolderAddress1
     }
 
-    /** Test the property 'accountHolderAddress2' */
+    /**
+     * Test the property 'accountHolderAddress2'
+     */
     @Test
     public void accountHolderAddress2Test() {
         // TODO: test accountHolderAddress2
     }
 
-    /** Test the property 'accountHolderDistrict' */
+    /**
+     * Test the property 'accountHolderDistrict'
+     */
     @Test
     public void accountHolderDistrictTest() {
         // TODO: test accountHolderDistrict
     }
 
-    /** Test the property 'accountHolderPostalCode' */
+    /**
+     * Test the property 'accountHolderPostalCode'
+     */
     @Test
     public void accountHolderPostalCodeTest() {
         // TODO: test accountHolderPostalCode
     }
 
-    /** Test the property 'abaRoutingNumber' */
+    /**
+     * Test the property 'abaRoutingNumber'
+     */
     @Test
     public void abaRoutingNumberTest() {
         // TODO: test abaRoutingNumber
     }
 
-    /** Test the property 'abaAccountNumber' */
+    /**
+     * Test the property 'abaAccountNumber'
+     */
     @Test
     public void abaAccountNumberTest() {
         // TODO: test abaAccountNumber
     }
 
-    /** Test the property 'abaCountry' */
+    /**
+     * Test the property 'abaCountry'
+     */
     @Test
     public void abaCountryTest() {
         // TODO: test abaCountry
     }
+
 }

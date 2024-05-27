@@ -10,42 +10,65 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.fireblocks.sdk.model.AssetResponseMetadata;
+import com.fireblocks.sdk.model.AssetResponseOnchain;
+import java.util.Arrays;
+import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
-/** Model tests for AssetResponse */
+/**
+ * Model tests for AssetResponse
+ */
 public class AssetResponseTest {
     private final AssetResponse model = new AssetResponse();
 
-    /** Model tests for AssetResponse */
+    /**
+     * Model tests for AssetResponse
+     */
     @Test
     public void testAssetResponse() {
         // TODO: test AssetResponse
     }
 
-    /** Test the property 'legacyId' */
+    /**
+     * Test the property 'legacyId'
+     */
     @Test
     public void legacyIdTest() {
         // TODO: test legacyId
     }
 
-    /** Test the property 'assetClass' */
+    /**
+     * Test the property 'assetClass'
+     */
     @Test
     public void assetClassTest() {
         // TODO: test assetClass
     }
 
-    /** Test the property 'onchain' */
+    /**
+     * Test the property 'onchain'
+     */
     @Test
     public void onchainTest() {
         // TODO: test onchain
     }
 
-    /** Test the property 'metadata' */
+    /**
+     * Test the property 'metadata'
+     */
     @Test
     public void metadataTest() {
         // TODO: test metadata
     }
+
 }

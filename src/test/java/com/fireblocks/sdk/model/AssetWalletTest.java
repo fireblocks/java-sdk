@@ -10,84 +10,119 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.Arrays;
+import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
-/** Model tests for AssetWallet */
+/**
+ * Model tests for AssetWallet
+ */
 public class AssetWalletTest {
     private final AssetWallet model = new AssetWallet();
 
-    /** Model tests for AssetWallet */
+    /**
+     * Model tests for AssetWallet
+     */
     @Test
     public void testAssetWallet() {
         // TODO: test AssetWallet
     }
 
-    /** Test the property 'vaultId' */
+    /**
+     * Test the property 'vaultId'
+     */
     @Test
     public void vaultIdTest() {
         // TODO: test vaultId
     }
 
-    /** Test the property 'assetId' */
+    /**
+     * Test the property 'assetId'
+     */
     @Test
     public void assetIdTest() {
         // TODO: test assetId
     }
 
-    /** Test the property 'available' */
+    /**
+     * Test the property 'available'
+     */
     @Test
     public void availableTest() {
         // TODO: test available
     }
 
-    /** Test the property 'total' */
+    /**
+     * Test the property 'total'
+     */
     @Test
     public void totalTest() {
         // TODO: test total
     }
 
-    /** Test the property 'pending' */
+    /**
+     * Test the property 'pending'
+     */
     @Test
     public void pendingTest() {
         // TODO: test pending
     }
 
-    /** Test the property 'staked' */
+    /**
+     * Test the property 'staked'
+     */
     @Test
     public void stakedTest() {
         // TODO: test staked
     }
 
-    /** Test the property 'frozen' */
+    /**
+     * Test the property 'frozen'
+     */
     @Test
     public void frozenTest() {
         // TODO: test frozen
     }
 
-    /** Test the property 'lockedAmount' */
+    /**
+     * Test the property 'lockedAmount'
+     */
     @Test
     public void lockedAmountTest() {
         // TODO: test lockedAmount
     }
 
-    /** Test the property 'blockHeight' */
+    /**
+     * Test the property 'blockHeight'
+     */
     @Test
     public void blockHeightTest() {
         // TODO: test blockHeight
     }
 
-    /** Test the property 'blockHash' */
+    /**
+     * Test the property 'blockHash'
+     */
     @Test
     public void blockHashTest() {
         // TODO: test blockHash
     }
 
-    /** Test the property 'creationTimestamp' */
+    /**
+     * Test the property 'creationTimestamp'
+     */
     @Test
     public void creationTimestampTest() {
         // TODO: test creationTimestamp
     }
+
 }

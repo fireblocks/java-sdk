@@ -10,8 +10,40 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.StringJoiner;
+import java.util.Objects;
+import java.util.Map;
+import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.fireblocks.sdk.model.DisbursementOperationExecution;
+import com.fireblocks.sdk.model.DisbursementOperationPreview;
+import com.fireblocks.sdk.model.DisbursementOperationType;
+import com.fireblocks.sdk.model.DisbursementValidationFailure;
+import com.fireblocks.sdk.model.ExecutionConversionOperation;
+import com.fireblocks.sdk.model.ExecutionDisbursementOperation;
+import com.fireblocks.sdk.model.ExecutionOperationStatus;
+import com.fireblocks.sdk.model.ExecutionScreeningOperation;
+import com.fireblocks.sdk.model.ExecutionTransferOperation;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+
+import com.fasterxml.jackson.core.type.TypeReference;
+
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
@@ -27,14 +59,6 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 import com.fireblocks.sdk.JSON;
-import java.io.IOException;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.StringJoiner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 @JsonDeserialize(using = WorkflowExecutionOperation.WorkflowExecutionOperationDeserializer.class)
@@ -42,8 +66,7 @@ import java.util.logging.Logger;
 public class WorkflowExecutionOperation extends AbstractOpenApiSchema {
     private static final Logger log = Logger.getLogger(WorkflowExecutionOperation.class.getName());
 
-    public static class WorkflowExecutionOperationSerializer
-            extends StdSerializer<WorkflowExecutionOperation> {
+    public static class WorkflowExecutionOperationSerializer extends StdSerializer<WorkflowExecutionOperation> {
         public WorkflowExecutionOperationSerializer(Class<WorkflowExecutionOperation> t) {
             super(t);
         }
@@ -53,15 +76,12 @@ public class WorkflowExecutionOperation extends AbstractOpenApiSchema {
         }
 
         @Override
-        public void serialize(
-                WorkflowExecutionOperation value, JsonGenerator jgen, SerializerProvider provider)
-                throws IOException, JsonProcessingException {
+        public void serialize(WorkflowExecutionOperation value, JsonGenerator jgen, SerializerProvider provider) throws IOException, JsonProcessingException {
             jgen.writeObject(value.getActualInstance());
         }
     }
 
-    public static class WorkflowExecutionOperationDeserializer
-            extends StdDeserializer<WorkflowExecutionOperation> {
+    public static class WorkflowExecutionOperationDeserializer extends StdDeserializer<WorkflowExecutionOperation> {
         public WorkflowExecutionOperationDeserializer() {
             this(WorkflowExecutionOperation.class);
         }
@@ -71,8 +91,7 @@ public class WorkflowExecutionOperation extends AbstractOpenApiSchema {
         }
 
         @Override
-        public WorkflowExecutionOperation deserialize(JsonParser jp, DeserializationContext ctxt)
-                throws IOException, JsonProcessingException {
+        public WorkflowExecutionOperation deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException, JsonProcessingException {
             JsonNode tree = jp.readValueAsTree();
             Object deserialized = null;
             boolean typeCoercion = ctxt.isEnabled(MapperFeature.ALLOW_COERCION_OF_SCALARS);
@@ -82,139 +101,69 @@ public class WorkflowExecutionOperation extends AbstractOpenApiSchema {
             try {
                 boolean attemptParsing = true;
                 // ensure that we respect type coercion as set on the client ObjectMapper
-                if (ExecutionConversionOperation.class.equals(Integer.class)
-                        || ExecutionConversionOperation.class.equals(Long.class)
-                        || ExecutionConversionOperation.class.equals(Float.class)
-                        || ExecutionConversionOperation.class.equals(Double.class)
-                        || ExecutionConversionOperation.class.equals(Boolean.class)
-                        || ExecutionConversionOperation.class.equals(String.class)) {
+                if (ExecutionConversionOperation.class.equals(Integer.class) || ExecutionConversionOperation.class.equals(Long.class) || ExecutionConversionOperation.class.equals(Float.class) || ExecutionConversionOperation.class.equals(Double.class) || ExecutionConversionOperation.class.equals(Boolean.class) || ExecutionConversionOperation.class.equals(String.class)) {
                     attemptParsing = typeCoercion;
                     if (!attemptParsing) {
-                        attemptParsing |=
-                                ((ExecutionConversionOperation.class.equals(Integer.class)
-                                                || ExecutionConversionOperation.class.equals(
-                                                        Long.class))
-                                        && token == JsonToken.VALUE_NUMBER_INT);
-                        attemptParsing |=
-                                ((ExecutionConversionOperation.class.equals(Float.class)
-                                                || ExecutionConversionOperation.class.equals(
-                                                        Double.class))
-                                        && token == JsonToken.VALUE_NUMBER_FLOAT);
-                        attemptParsing |=
-                                (ExecutionConversionOperation.class.equals(Boolean.class)
-                                        && (token == JsonToken.VALUE_FALSE
-                                                || token == JsonToken.VALUE_TRUE));
-                        attemptParsing |=
-                                (ExecutionConversionOperation.class.equals(String.class)
-                                        && token == JsonToken.VALUE_STRING);
+                        attemptParsing |= ((ExecutionConversionOperation.class.equals(Integer.class) || ExecutionConversionOperation.class.equals(Long.class)) && token == JsonToken.VALUE_NUMBER_INT);
+                        attemptParsing |= ((ExecutionConversionOperation.class.equals(Float.class) || ExecutionConversionOperation.class.equals(Double.class)) && token == JsonToken.VALUE_NUMBER_FLOAT);
+                        attemptParsing |= (ExecutionConversionOperation.class.equals(Boolean.class) && (token == JsonToken.VALUE_FALSE || token == JsonToken.VALUE_TRUE));
+                        attemptParsing |= (ExecutionConversionOperation.class.equals(String.class) && token == JsonToken.VALUE_STRING);
                     }
                 }
                 if (attemptParsing) {
-                    deserialized =
-                            tree.traverse(jp.getCodec())
-                                    .readValueAs(ExecutionConversionOperation.class);
+                    deserialized = tree.traverse(jp.getCodec()).readValueAs(ExecutionConversionOperation.class);
                     // TODO: there is no validation against JSON schema constraints
                     // (min, max, enum, pattern...), this does not perform a strict JSON
                     // validation, which means the 'match' count may be higher than it should be.
                     match++;
-                    log.log(
-                            Level.FINER,
-                            "Input data matches schema 'ExecutionConversionOperation'");
+                    log.log(Level.FINER, "Input data matches schema 'ExecutionConversionOperation'");
                 }
             } catch (Exception e) {
                 // deserialization failed, continue
-                log.log(
-                        Level.FINER,
-                        "Input data does not match schema 'ExecutionConversionOperation'",
-                        e);
+                log.log(Level.FINER, "Input data does not match schema 'ExecutionConversionOperation'", e);
             }
 
             // deserialize ExecutionDisbursementOperation
             try {
                 boolean attemptParsing = true;
                 // ensure that we respect type coercion as set on the client ObjectMapper
-                if (ExecutionDisbursementOperation.class.equals(Integer.class)
-                        || ExecutionDisbursementOperation.class.equals(Long.class)
-                        || ExecutionDisbursementOperation.class.equals(Float.class)
-                        || ExecutionDisbursementOperation.class.equals(Double.class)
-                        || ExecutionDisbursementOperation.class.equals(Boolean.class)
-                        || ExecutionDisbursementOperation.class.equals(String.class)) {
+                if (ExecutionDisbursementOperation.class.equals(Integer.class) || ExecutionDisbursementOperation.class.equals(Long.class) || ExecutionDisbursementOperation.class.equals(Float.class) || ExecutionDisbursementOperation.class.equals(Double.class) || ExecutionDisbursementOperation.class.equals(Boolean.class) || ExecutionDisbursementOperation.class.equals(String.class)) {
                     attemptParsing = typeCoercion;
                     if (!attemptParsing) {
-                        attemptParsing |=
-                                ((ExecutionDisbursementOperation.class.equals(Integer.class)
-                                                || ExecutionDisbursementOperation.class.equals(
-                                                        Long.class))
-                                        && token == JsonToken.VALUE_NUMBER_INT);
-                        attemptParsing |=
-                                ((ExecutionDisbursementOperation.class.equals(Float.class)
-                                                || ExecutionDisbursementOperation.class.equals(
-                                                        Double.class))
-                                        && token == JsonToken.VALUE_NUMBER_FLOAT);
-                        attemptParsing |=
-                                (ExecutionDisbursementOperation.class.equals(Boolean.class)
-                                        && (token == JsonToken.VALUE_FALSE
-                                                || token == JsonToken.VALUE_TRUE));
-                        attemptParsing |=
-                                (ExecutionDisbursementOperation.class.equals(String.class)
-                                        && token == JsonToken.VALUE_STRING);
+                        attemptParsing |= ((ExecutionDisbursementOperation.class.equals(Integer.class) || ExecutionDisbursementOperation.class.equals(Long.class)) && token == JsonToken.VALUE_NUMBER_INT);
+                        attemptParsing |= ((ExecutionDisbursementOperation.class.equals(Float.class) || ExecutionDisbursementOperation.class.equals(Double.class)) && token == JsonToken.VALUE_NUMBER_FLOAT);
+                        attemptParsing |= (ExecutionDisbursementOperation.class.equals(Boolean.class) && (token == JsonToken.VALUE_FALSE || token == JsonToken.VALUE_TRUE));
+                        attemptParsing |= (ExecutionDisbursementOperation.class.equals(String.class) && token == JsonToken.VALUE_STRING);
                     }
                 }
                 if (attemptParsing) {
-                    deserialized =
-                            tree.traverse(jp.getCodec())
-                                    .readValueAs(ExecutionDisbursementOperation.class);
+                    deserialized = tree.traverse(jp.getCodec()).readValueAs(ExecutionDisbursementOperation.class);
                     // TODO: there is no validation against JSON schema constraints
                     // (min, max, enum, pattern...), this does not perform a strict JSON
                     // validation, which means the 'match' count may be higher than it should be.
                     match++;
-                    log.log(
-                            Level.FINER,
-                            "Input data matches schema 'ExecutionDisbursementOperation'");
+                    log.log(Level.FINER, "Input data matches schema 'ExecutionDisbursementOperation'");
                 }
             } catch (Exception e) {
                 // deserialization failed, continue
-                log.log(
-                        Level.FINER,
-                        "Input data does not match schema 'ExecutionDisbursementOperation'",
-                        e);
+                log.log(Level.FINER, "Input data does not match schema 'ExecutionDisbursementOperation'", e);
             }
 
             // deserialize ExecutionScreeningOperation
             try {
                 boolean attemptParsing = true;
                 // ensure that we respect type coercion as set on the client ObjectMapper
-                if (ExecutionScreeningOperation.class.equals(Integer.class)
-                        || ExecutionScreeningOperation.class.equals(Long.class)
-                        || ExecutionScreeningOperation.class.equals(Float.class)
-                        || ExecutionScreeningOperation.class.equals(Double.class)
-                        || ExecutionScreeningOperation.class.equals(Boolean.class)
-                        || ExecutionScreeningOperation.class.equals(String.class)) {
+                if (ExecutionScreeningOperation.class.equals(Integer.class) || ExecutionScreeningOperation.class.equals(Long.class) || ExecutionScreeningOperation.class.equals(Float.class) || ExecutionScreeningOperation.class.equals(Double.class) || ExecutionScreeningOperation.class.equals(Boolean.class) || ExecutionScreeningOperation.class.equals(String.class)) {
                     attemptParsing = typeCoercion;
                     if (!attemptParsing) {
-                        attemptParsing |=
-                                ((ExecutionScreeningOperation.class.equals(Integer.class)
-                                                || ExecutionScreeningOperation.class.equals(
-                                                        Long.class))
-                                        && token == JsonToken.VALUE_NUMBER_INT);
-                        attemptParsing |=
-                                ((ExecutionScreeningOperation.class.equals(Float.class)
-                                                || ExecutionScreeningOperation.class.equals(
-                                                        Double.class))
-                                        && token == JsonToken.VALUE_NUMBER_FLOAT);
-                        attemptParsing |=
-                                (ExecutionScreeningOperation.class.equals(Boolean.class)
-                                        && (token == JsonToken.VALUE_FALSE
-                                                || token == JsonToken.VALUE_TRUE));
-                        attemptParsing |=
-                                (ExecutionScreeningOperation.class.equals(String.class)
-                                        && token == JsonToken.VALUE_STRING);
+                        attemptParsing |= ((ExecutionScreeningOperation.class.equals(Integer.class) || ExecutionScreeningOperation.class.equals(Long.class)) && token == JsonToken.VALUE_NUMBER_INT);
+                        attemptParsing |= ((ExecutionScreeningOperation.class.equals(Float.class) || ExecutionScreeningOperation.class.equals(Double.class)) && token == JsonToken.VALUE_NUMBER_FLOAT);
+                        attemptParsing |= (ExecutionScreeningOperation.class.equals(Boolean.class) && (token == JsonToken.VALUE_FALSE || token == JsonToken.VALUE_TRUE));
+                        attemptParsing |= (ExecutionScreeningOperation.class.equals(String.class) && token == JsonToken.VALUE_STRING);
                     }
                 }
                 if (attemptParsing) {
-                    deserialized =
-                            tree.traverse(jp.getCodec())
-                                    .readValueAs(ExecutionScreeningOperation.class);
+                    deserialized = tree.traverse(jp.getCodec()).readValueAs(ExecutionScreeningOperation.class);
                     // TODO: there is no validation against JSON schema constraints
                     // (min, max, enum, pattern...), this does not perform a strict JSON
                     // validation, which means the 'match' count may be higher than it should be.
@@ -223,47 +172,24 @@ public class WorkflowExecutionOperation extends AbstractOpenApiSchema {
                 }
             } catch (Exception e) {
                 // deserialization failed, continue
-                log.log(
-                        Level.FINER,
-                        "Input data does not match schema 'ExecutionScreeningOperation'",
-                        e);
+                log.log(Level.FINER, "Input data does not match schema 'ExecutionScreeningOperation'", e);
             }
 
             // deserialize ExecutionTransferOperation
             try {
                 boolean attemptParsing = true;
                 // ensure that we respect type coercion as set on the client ObjectMapper
-                if (ExecutionTransferOperation.class.equals(Integer.class)
-                        || ExecutionTransferOperation.class.equals(Long.class)
-                        || ExecutionTransferOperation.class.equals(Float.class)
-                        || ExecutionTransferOperation.class.equals(Double.class)
-                        || ExecutionTransferOperation.class.equals(Boolean.class)
-                        || ExecutionTransferOperation.class.equals(String.class)) {
+                if (ExecutionTransferOperation.class.equals(Integer.class) || ExecutionTransferOperation.class.equals(Long.class) || ExecutionTransferOperation.class.equals(Float.class) || ExecutionTransferOperation.class.equals(Double.class) || ExecutionTransferOperation.class.equals(Boolean.class) || ExecutionTransferOperation.class.equals(String.class)) {
                     attemptParsing = typeCoercion;
                     if (!attemptParsing) {
-                        attemptParsing |=
-                                ((ExecutionTransferOperation.class.equals(Integer.class)
-                                                || ExecutionTransferOperation.class.equals(
-                                                        Long.class))
-                                        && token == JsonToken.VALUE_NUMBER_INT);
-                        attemptParsing |=
-                                ((ExecutionTransferOperation.class.equals(Float.class)
-                                                || ExecutionTransferOperation.class.equals(
-                                                        Double.class))
-                                        && token == JsonToken.VALUE_NUMBER_FLOAT);
-                        attemptParsing |=
-                                (ExecutionTransferOperation.class.equals(Boolean.class)
-                                        && (token == JsonToken.VALUE_FALSE
-                                                || token == JsonToken.VALUE_TRUE));
-                        attemptParsing |=
-                                (ExecutionTransferOperation.class.equals(String.class)
-                                        && token == JsonToken.VALUE_STRING);
+                        attemptParsing |= ((ExecutionTransferOperation.class.equals(Integer.class) || ExecutionTransferOperation.class.equals(Long.class)) && token == JsonToken.VALUE_NUMBER_INT);
+                        attemptParsing |= ((ExecutionTransferOperation.class.equals(Float.class) || ExecutionTransferOperation.class.equals(Double.class)) && token == JsonToken.VALUE_NUMBER_FLOAT);
+                        attemptParsing |= (ExecutionTransferOperation.class.equals(Boolean.class) && (token == JsonToken.VALUE_FALSE || token == JsonToken.VALUE_TRUE));
+                        attemptParsing |= (ExecutionTransferOperation.class.equals(String.class) && token == JsonToken.VALUE_STRING);
                     }
                 }
                 if (attemptParsing) {
-                    deserialized =
-                            tree.traverse(jp.getCodec())
-                                    .readValueAs(ExecutionTransferOperation.class);
+                    deserialized = tree.traverse(jp.getCodec()).readValueAs(ExecutionTransferOperation.class);
                     // TODO: there is no validation against JSON schema constraints
                     // (min, max, enum, pattern...), this does not perform a strict JSON
                     // validation, which means the 'match' count may be higher than it should be.
@@ -272,10 +198,7 @@ public class WorkflowExecutionOperation extends AbstractOpenApiSchema {
                 }
             } catch (Exception e) {
                 // deserialization failed, continue
-                log.log(
-                        Level.FINER,
-                        "Input data does not match schema 'ExecutionTransferOperation'",
-                        e);
+                log.log(Level.FINER, "Input data does not match schema 'ExecutionTransferOperation'", e);
             }
 
             if (match == 1) {
@@ -283,19 +206,15 @@ public class WorkflowExecutionOperation extends AbstractOpenApiSchema {
                 ret.setActualInstance(deserialized);
                 return ret;
             }
-            throw new IOException(
-                    String.format(
-                            "Failed deserialization for WorkflowExecutionOperation: %d classes"
-                                    + " match result, expected 1",
-                            match));
+            throw new IOException(String.format("Failed deserialization for WorkflowExecutionOperation: %d classes match result, expected 1", match));
         }
 
-        /** Handle deserialization of the 'null' value. */
+        /**
+         * Handle deserialization of the 'null' value.
+         */
         @Override
-        public WorkflowExecutionOperation getNullValue(DeserializationContext ctxt)
-                throws JsonMappingException {
-            throw new JsonMappingException(
-                    ctxt.getParser(), "WorkflowExecutionOperation cannot be null");
+        public WorkflowExecutionOperation getNullValue(DeserializationContext ctxt) throws JsonMappingException {
+            throw new JsonMappingException(ctxt.getParser(), "WorkflowExecutionOperation cannot be null");
         }
     }
 
@@ -331,8 +250,7 @@ public class WorkflowExecutionOperation extends AbstractOpenApiSchema {
         schemas.put("ExecutionDisbursementOperation", ExecutionDisbursementOperation.class);
         schemas.put("ExecutionScreeningOperation", ExecutionScreeningOperation.class);
         schemas.put("ExecutionTransferOperation", ExecutionTransferOperation.class);
-        JSON.registerDescendants(
-                WorkflowExecutionOperation.class, Collections.unmodifiableMap(schemas));
+        JSON.registerDescendants(WorkflowExecutionOperation.class, Collections.unmodifiableMap(schemas));
     }
 
     @Override
@@ -341,51 +259,43 @@ public class WorkflowExecutionOperation extends AbstractOpenApiSchema {
     }
 
     /**
-     * Set the instance that matches the oneOf child schema, check the instance parameter is valid
-     * against the oneOf child schemas: ExecutionConversionOperation,
-     * ExecutionDisbursementOperation, ExecutionScreeningOperation, ExecutionTransferOperation
+     * Set the instance that matches the oneOf child schema, check
+     * the instance parameter is valid against the oneOf child schemas:
+     * ExecutionConversionOperation, ExecutionDisbursementOperation, ExecutionScreeningOperation, ExecutionTransferOperation
      *
-     * <p>It could be an instance of the 'oneOf' schemas. The oneOf child schemas may themselves be
-     * a composed schema (allOf, anyOf, oneOf).
+     * It could be an instance of the 'oneOf' schemas.
+     * The oneOf child schemas may themselves be a composed schema (allOf, anyOf, oneOf).
      */
     @Override
     public void setActualInstance(Object instance) {
-        if (JSON.isInstanceOf(
-                ExecutionConversionOperation.class, instance, new HashSet<Class<?>>())) {
+        if (JSON.isInstanceOf(ExecutionConversionOperation.class, instance, new HashSet<Class<?>>())) {
             super.setActualInstance(instance);
             return;
         }
 
-        if (JSON.isInstanceOf(
-                ExecutionDisbursementOperation.class, instance, new HashSet<Class<?>>())) {
+        if (JSON.isInstanceOf(ExecutionDisbursementOperation.class, instance, new HashSet<Class<?>>())) {
             super.setActualInstance(instance);
             return;
         }
 
-        if (JSON.isInstanceOf(
-                ExecutionScreeningOperation.class, instance, new HashSet<Class<?>>())) {
+        if (JSON.isInstanceOf(ExecutionScreeningOperation.class, instance, new HashSet<Class<?>>())) {
             super.setActualInstance(instance);
             return;
         }
 
-        if (JSON.isInstanceOf(
-                ExecutionTransferOperation.class, instance, new HashSet<Class<?>>())) {
+        if (JSON.isInstanceOf(ExecutionTransferOperation.class, instance, new HashSet<Class<?>>())) {
             super.setActualInstance(instance);
             return;
         }
 
-        throw new RuntimeException(
-                "Invalid instance type. Must be ExecutionConversionOperation,"
-                        + " ExecutionDisbursementOperation, ExecutionScreeningOperation,"
-                        + " ExecutionTransferOperation");
+        throw new RuntimeException("Invalid instance type. Must be ExecutionConversionOperation, ExecutionDisbursementOperation, ExecutionScreeningOperation, ExecutionTransferOperation");
     }
 
     /**
-     * Get the actual instance, which can be the following: ExecutionConversionOperation,
-     * ExecutionDisbursementOperation, ExecutionScreeningOperation, ExecutionTransferOperation
+     * Get the actual instance, which can be the following:
+     * ExecutionConversionOperation, ExecutionDisbursementOperation, ExecutionScreeningOperation, ExecutionTransferOperation
      *
-     * @return The actual instance (ExecutionConversionOperation, ExecutionDisbursementOperation,
-     *     ExecutionScreeningOperation, ExecutionTransferOperation)
+     * @return The actual instance (ExecutionConversionOperation, ExecutionDisbursementOperation, ExecutionScreeningOperation, ExecutionTransferOperation)
      */
     @Override
     public Object getActualInstance() {
@@ -393,115 +303,109 @@ public class WorkflowExecutionOperation extends AbstractOpenApiSchema {
     }
 
     /**
-     * Get the actual instance of `ExecutionConversionOperation`. If the actual instance is not
-     * `ExecutionConversionOperation`, the ClassCastException will be thrown.
+     * Get the actual instance of `ExecutionConversionOperation`. If the actual instance is not `ExecutionConversionOperation`,
+     * the ClassCastException will be thrown.
      *
      * @return The actual instance of `ExecutionConversionOperation`
      * @throws ClassCastException if the instance is not `ExecutionConversionOperation`
      */
-    public ExecutionConversionOperation getExecutionConversionOperation()
-            throws ClassCastException {
-        return (ExecutionConversionOperation) super.getActualInstance();
+    public ExecutionConversionOperation getExecutionConversionOperation() throws ClassCastException {
+        return (ExecutionConversionOperation)super.getActualInstance();
     }
 
     /**
-     * Get the actual instance of `ExecutionDisbursementOperation`. If the actual instance is not
-     * `ExecutionDisbursementOperation`, the ClassCastException will be thrown.
+     * Get the actual instance of `ExecutionDisbursementOperation`. If the actual instance is not `ExecutionDisbursementOperation`,
+     * the ClassCastException will be thrown.
      *
      * @return The actual instance of `ExecutionDisbursementOperation`
      * @throws ClassCastException if the instance is not `ExecutionDisbursementOperation`
      */
-    public ExecutionDisbursementOperation getExecutionDisbursementOperation()
-            throws ClassCastException {
-        return (ExecutionDisbursementOperation) super.getActualInstance();
+    public ExecutionDisbursementOperation getExecutionDisbursementOperation() throws ClassCastException {
+        return (ExecutionDisbursementOperation)super.getActualInstance();
     }
 
     /**
-     * Get the actual instance of `ExecutionScreeningOperation`. If the actual instance is not
-     * `ExecutionScreeningOperation`, the ClassCastException will be thrown.
+     * Get the actual instance of `ExecutionScreeningOperation`. If the actual instance is not `ExecutionScreeningOperation`,
+     * the ClassCastException will be thrown.
      *
      * @return The actual instance of `ExecutionScreeningOperation`
      * @throws ClassCastException if the instance is not `ExecutionScreeningOperation`
      */
     public ExecutionScreeningOperation getExecutionScreeningOperation() throws ClassCastException {
-        return (ExecutionScreeningOperation) super.getActualInstance();
+        return (ExecutionScreeningOperation)super.getActualInstance();
     }
 
     /**
-     * Get the actual instance of `ExecutionTransferOperation`. If the actual instance is not
-     * `ExecutionTransferOperation`, the ClassCastException will be thrown.
+     * Get the actual instance of `ExecutionTransferOperation`. If the actual instance is not `ExecutionTransferOperation`,
+     * the ClassCastException will be thrown.
      *
      * @return The actual instance of `ExecutionTransferOperation`
      * @throws ClassCastException if the instance is not `ExecutionTransferOperation`
      */
     public ExecutionTransferOperation getExecutionTransferOperation() throws ClassCastException {
-        return (ExecutionTransferOperation) super.getActualInstance();
+        return (ExecutionTransferOperation)super.getActualInstance();
     }
 
-    /**
-     * Convert the instance into URL query string.
-     *
-     * @return URL query string
-     */
-    public String toUrlQueryString() {
-        return toUrlQueryString(null);
+
+
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @return URL query string
+   */
+  public String toUrlQueryString() {
+    return toUrlQueryString(null);
+  }
+
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @param prefix prefix of the query string
+   * @return URL query string
+   */
+  public String toUrlQueryString(String prefix) {
+    String suffix = "";
+    String containerSuffix = "";
+    String containerPrefix = "";
+    if (prefix == null) {
+      // style=form, explode=true, e.g. /pet?name=cat&type=manx
+      prefix = "";
+    } else {
+      // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
+      prefix = prefix + "[";
+      suffix = "]";
+      containerSuffix = "]";
+      containerPrefix = "[";
     }
 
-    /**
-     * Convert the instance into URL query string.
-     *
-     * @param prefix prefix of the query string
-     * @return URL query string
-     */
-    public String toUrlQueryString(String prefix) {
-        String suffix = "";
-        String containerSuffix = "";
-        String containerPrefix = "";
-        if (prefix == null) {
-            // style=form, explode=true, e.g. /pet?name=cat&type=manx
-            prefix = "";
-        } else {
-            // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
-            prefix = prefix + "[";
-            suffix = "]";
-            containerSuffix = "]";
-            containerPrefix = "[";
-        }
+    StringJoiner joiner = new StringJoiner("&");
 
-        StringJoiner joiner = new StringJoiner("&");
-
-        if (getActualInstance() instanceof ExecutionScreeningOperation) {
-            if (getActualInstance() != null) {
-                joiner.add(
-                        ((ExecutionScreeningOperation) getActualInstance())
-                                .toUrlQueryString(prefix + "one_of_0" + suffix));
-            }
-            return joiner.toString();
+    if (getActualInstance() instanceof ExecutionScreeningOperation) {
+        if (getActualInstance() != null) {
+          joiner.add(((ExecutionScreeningOperation)getActualInstance()).toUrlQueryString(prefix + "one_of_0" + suffix));
         }
-        if (getActualInstance() instanceof ExecutionConversionOperation) {
-            if (getActualInstance() != null) {
-                joiner.add(
-                        ((ExecutionConversionOperation) getActualInstance())
-                                .toUrlQueryString(prefix + "one_of_1" + suffix));
-            }
-            return joiner.toString();
-        }
-        if (getActualInstance() instanceof ExecutionTransferOperation) {
-            if (getActualInstance() != null) {
-                joiner.add(
-                        ((ExecutionTransferOperation) getActualInstance())
-                                .toUrlQueryString(prefix + "one_of_2" + suffix));
-            }
-            return joiner.toString();
-        }
-        if (getActualInstance() instanceof ExecutionDisbursementOperation) {
-            if (getActualInstance() != null) {
-                joiner.add(
-                        ((ExecutionDisbursementOperation) getActualInstance())
-                                .toUrlQueryString(prefix + "one_of_3" + suffix));
-            }
-            return joiner.toString();
-        }
-        return null;
+        return joiner.toString();
     }
+    if (getActualInstance() instanceof ExecutionConversionOperation) {
+        if (getActualInstance() != null) {
+          joiner.add(((ExecutionConversionOperation)getActualInstance()).toUrlQueryString(prefix + "one_of_1" + suffix));
+        }
+        return joiner.toString();
+    }
+    if (getActualInstance() instanceof ExecutionTransferOperation) {
+        if (getActualInstance() != null) {
+          joiner.add(((ExecutionTransferOperation)getActualInstance()).toUrlQueryString(prefix + "one_of_2" + suffix));
+        }
+        return joiner.toString();
+    }
+    if (getActualInstance() instanceof ExecutionDisbursementOperation) {
+        if (getActualInstance() != null) {
+          joiner.add(((ExecutionDisbursementOperation)getActualInstance()).toUrlQueryString(prefix + "one_of_3" + suffix));
+        }
+        return joiner.toString();
+    }
+    return null;
+  }
+
 }
+

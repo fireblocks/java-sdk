@@ -10,42 +10,64 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.fireblocks.sdk.model.TradingAccountType;
+import java.util.Arrays;
+import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
-/** Model tests for CreateInternalTransferRequest */
+/**
+ * Model tests for CreateInternalTransferRequest
+ */
 public class CreateInternalTransferRequestTest {
     private final CreateInternalTransferRequest model = new CreateInternalTransferRequest();
 
-    /** Model tests for CreateInternalTransferRequest */
+    /**
+     * Model tests for CreateInternalTransferRequest
+     */
     @Test
     public void testCreateInternalTransferRequest() {
         // TODO: test CreateInternalTransferRequest
     }
 
-    /** Test the property 'asset' */
+    /**
+     * Test the property 'asset'
+     */
     @Test
     public void assetTest() {
         // TODO: test asset
     }
 
-    /** Test the property 'amount' */
+    /**
+     * Test the property 'amount'
+     */
     @Test
     public void amountTest() {
         // TODO: test amount
     }
 
-    /** Test the property 'sourceType' */
+    /**
+     * Test the property 'sourceType'
+     */
     @Test
     public void sourceTypeTest() {
         // TODO: test sourceType
     }
 
-    /** Test the property 'destType' */
+    /**
+     * Test the property 'destType'
+     */
     @Test
     public void destTypeTest() {
         // TODO: test destType
     }
+
 }

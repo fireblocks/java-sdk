@@ -12,456 +12,419 @@
 
 package com.fireblocks.sdk.api;
 
-
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.Pair;
+
+import com.fireblocks.sdk.model.AssetAlreadyExistHttpError;
+import com.fireblocks.sdk.model.AssetDoesNotExistHttpError;
+import java.math.BigDecimal;
 import com.fireblocks.sdk.model.CreateTokenRequestDto;
+import com.fireblocks.sdk.model.ErrorSchema;
+import com.fireblocks.sdk.model.NotFoundException;
 import com.fireblocks.sdk.model.TokenLinkDto;
+import com.fireblocks.sdk.model.TokenLinkExistsHttpError;
 import com.fireblocks.sdk.model.TokenLinkRequestDto;
 import com.fireblocks.sdk.model.TokensPaginatedResponse;
-import java.io.IOException;
+
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import java.io.InputStream;
-import java.math.BigDecimal;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.net.http.HttpRequest;
+import java.nio.channels.Channels;
+import java.nio.channels.Pipe;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.time.Duration;
+
 import java.util.ArrayList;
-import java.util.List;
 import java.util.StringJoiner;
-import java.util.concurrent.CompletableFuture;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.function.Consumer;
+
+import java.util.concurrent.CompletableFuture;
 
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class TokenizationApi {
-    private final HttpClient memberVarHttpClient;
-    private final ObjectMapper memberVarObjectMapper;
-    private final String memberVarBaseUri;
-    private final Consumer<HttpRequest.Builder> memberVarInterceptor;
-    private final Duration memberVarReadTimeout;
-    private final Consumer<HttpResponse<InputStream>> memberVarResponseInterceptor;
-    private final Consumer<HttpResponse<String>> memberVarAsyncResponseInterceptor;
+  private final HttpClient memberVarHttpClient;
+  private final ObjectMapper memberVarObjectMapper;
+  private final String memberVarBaseUri;
+  private final Consumer<HttpRequest.Builder> memberVarInterceptor;
+  private final Duration memberVarReadTimeout;
+  private final Consumer<HttpResponse<InputStream>> memberVarResponseInterceptor;
+  private final Consumer<HttpResponse<String>> memberVarAsyncResponseInterceptor;
 
-    public TokenizationApi() {
-        this(new ApiClient());
+  public TokenizationApi() {
+    this(new ApiClient());
+  }
+
+  public TokenizationApi(ApiClient apiClient) {
+    memberVarHttpClient = apiClient.getHttpClient();
+    memberVarObjectMapper = apiClient.getObjectMapper();
+    memberVarBaseUri = apiClient.getBaseUri();
+    memberVarInterceptor = apiClient.getRequestInterceptor();
+    memberVarReadTimeout = apiClient.getReadTimeout();
+    memberVarResponseInterceptor = apiClient.getResponseInterceptor();
+    memberVarAsyncResponseInterceptor = apiClient.getAsyncResponseInterceptor();
+  }
+
+  private ApiException getApiException(String operationId, HttpResponse<String> response) {
+    String message = formatExceptionMessage(operationId, response.statusCode(), response.body());
+    return new ApiException(response.statusCode(), message, response.headers(), response.body());
+  }
+
+  private String formatExceptionMessage(String operationId, int statusCode, String body) {
+    if (body == null || body.isEmpty()) {
+      body = "[no body]";
     }
+    return operationId + " call failed with: " + statusCode + " - " + body;
+  }
 
-    public TokenizationApi(ApiClient apiClient) {
-        memberVarHttpClient = apiClient.getHttpClient();
-        memberVarObjectMapper = apiClient.getObjectMapper();
-        memberVarBaseUri = apiClient.getBaseUri();
-        memberVarInterceptor = apiClient.getRequestInterceptor();
-        memberVarReadTimeout = apiClient.getReadTimeout();
-        memberVarResponseInterceptor = apiClient.getResponseInterceptor();
-        memberVarAsyncResponseInterceptor = apiClient.getAsyncResponseInterceptor();
-    }
-
-    private ApiException getApiException(String operationId, HttpResponse<String> response) {
-        String message =
-                formatExceptionMessage(operationId, response.statusCode(), response.body());
-        return new ApiException(
-                response.statusCode(), message, response.headers(), response.body());
-    }
-
-    private String formatExceptionMessage(String operationId, int statusCode, String body) {
-        if (body == null || body.isEmpty()) {
-            body = "[no body]";
-        }
-        return operationId + " call failed with: " + statusCode + " - " + body;
-    }
-
-    /**
-     * Return a linked token Return a linked token, with its status and metadata.
-     *
-     * @param id The token link id (required)
-     * @return CompletableFuture&lt;ApiResponse&lt;TokenLinkDto&gt;&gt;
-     * @throws ApiException if fails to make API call
-     */
-    public CompletableFuture<ApiResponse<TokenLinkDto>> getLinkedToken(String id)
-            throws ApiException {
-        try {
-            HttpRequest.Builder localVarRequestBuilder = getLinkedTokenRequestBuilder(id);
-            return memberVarHttpClient
-                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
-                    .thenComposeAsync(
-                            localVarResponse -> {
-                                if (memberVarAsyncResponseInterceptor != null) {
-                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
-                                }
-                                if (localVarResponse.statusCode() / 100 != 2) {
-                                    return CompletableFuture.failedFuture(
-                                            getApiException("getLinkedToken", localVarResponse));
-                                }
-                                try {
-                                    String responseBody = localVarResponse.body();
-                                    return CompletableFuture.completedFuture(
-                                            new ApiResponse<TokenLinkDto>(
-                                                    localVarResponse.statusCode(),
-                                                    localVarResponse.headers().map(),
-                                                    responseBody == null || responseBody.isBlank()
-                                                            ? null
-                                                            : memberVarObjectMapper.readValue(
-                                                                    responseBody,
-                                                                    new TypeReference<
-                                                                            TokenLinkDto>() {})));
-                                } catch (IOException e) {
-                                    return CompletableFuture.failedFuture(new ApiException(e));
-                                }
-                            });
-        } catch (ApiException e) {
-            return CompletableFuture.failedFuture(e);
-        }
-    }
-
-    private HttpRequest.Builder getLinkedTokenRequestBuilder(String id) throws ApiException {
-        // verify the required parameter 'id' is set
-        if (id == null) {
-            throw new ApiException(
-                    400, "Missing the required parameter 'id' when calling getLinkedToken");
-        }
-
-        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
-
-        String localVarPath =
-                "/tokenization/tokens/{id}".replace("{id}", ApiClient.urlEncode(id.toString()));
-
-        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
-
-        localVarRequestBuilder.header("Accept", "application/json");
-
-        localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
-        if (memberVarReadTimeout != null) {
-            localVarRequestBuilder.timeout(memberVarReadTimeout);
-        }
-        if (memberVarInterceptor != null) {
-            memberVarInterceptor.accept(localVarRequestBuilder);
-        }
-        return localVarRequestBuilder;
-    }
-    /**
-     * List all linked tokens Return all linked tokens (paginated)
-     *
-     * @param pageCursor Page cursor to get the next page (optional)
-     * @param pageSize Number of items per page, requesting more then max will return max items
-     *     (optional)
-     * @param status A comma separated list of statuses to filter. Default is
-     *     \&quot;COMPLETED\&quot; (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;TokensPaginatedResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
-     */
-    public CompletableFuture<ApiResponse<TokensPaginatedResponse>> getLinkedTokens(
-            String pageCursor, BigDecimal pageSize, Object status) throws ApiException {
-        try {
-            HttpRequest.Builder localVarRequestBuilder =
-                    getLinkedTokensRequestBuilder(pageCursor, pageSize, status);
-            return memberVarHttpClient
-                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
-                    .thenComposeAsync(
-                            localVarResponse -> {
-                                if (memberVarAsyncResponseInterceptor != null) {
-                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
-                                }
-                                if (localVarResponse.statusCode() / 100 != 2) {
-                                    return CompletableFuture.failedFuture(
-                                            getApiException("getLinkedTokens", localVarResponse));
-                                }
-                                try {
-                                    String responseBody = localVarResponse.body();
-                                    return CompletableFuture.completedFuture(
-                                            new ApiResponse<TokensPaginatedResponse>(
-                                                    localVarResponse.statusCode(),
-                                                    localVarResponse.headers().map(),
-                                                    responseBody == null || responseBody.isBlank()
-                                                            ? null
-                                                            : memberVarObjectMapper.readValue(
-                                                                    responseBody,
-                                                                    new TypeReference<
-                                                                            TokensPaginatedResponse>() {})));
-                                } catch (IOException e) {
-                                    return CompletableFuture.failedFuture(new ApiException(e));
-                                }
-                            });
-        } catch (ApiException e) {
-            return CompletableFuture.failedFuture(e);
-        }
-    }
-
-    private HttpRequest.Builder getLinkedTokensRequestBuilder(
-            String pageCursor, BigDecimal pageSize, Object status) throws ApiException {
-
-        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
-
-        String localVarPath = "/tokenization/tokens";
-
-        List<Pair> localVarQueryParams = new ArrayList<>();
-        StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
-        String localVarQueryParameterBaseName;
-        localVarQueryParameterBaseName = "pageCursor";
-        localVarQueryParams.addAll(ApiClient.parameterToPairs("pageCursor", pageCursor));
-        localVarQueryParameterBaseName = "pageSize";
-        localVarQueryParams.addAll(ApiClient.parameterToPairs("pageSize", pageSize));
-        localVarQueryParameterBaseName = "status";
-        localVarQueryParams.addAll(ApiClient.parameterToPairs("status", status));
-
-        if (!localVarQueryParams.isEmpty() || localVarQueryStringJoiner.length() != 0) {
-            StringJoiner queryJoiner = new StringJoiner("&");
-            localVarQueryParams.forEach(p -> queryJoiner.add(p.getName() + '=' + p.getValue()));
-            if (localVarQueryStringJoiner.length() != 0) {
-                queryJoiner.add(localVarQueryStringJoiner.toString());
+  /**
+   * Return a linked token
+   * Return a linked token, with its status and metadata.
+   * @param id The token link id (required)
+   * @return CompletableFuture&lt;ApiResponse&lt;TokenLinkDto&gt;&gt;
+   * @throws ApiException if fails to make API call
+   */
+  public CompletableFuture<ApiResponse<TokenLinkDto>> getLinkedToken(String id) throws ApiException {
+    try {
+      HttpRequest.Builder localVarRequestBuilder = getLinkedTokenRequestBuilder(id);
+      return memberVarHttpClient.sendAsync(
+          localVarRequestBuilder.build(),
+          HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
+            if (memberVarAsyncResponseInterceptor != null) {
+              memberVarAsyncResponseInterceptor.accept(localVarResponse);
             }
-            localVarRequestBuilder.uri(
-                    URI.create(memberVarBaseUri + localVarPath + '?' + queryJoiner.toString()));
-        } else {
-            localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+            if (localVarResponse.statusCode()/ 100 != 2) {
+              return CompletableFuture.failedFuture(getApiException("getLinkedToken", localVarResponse));
+            }
+            try {
+              String responseBody = localVarResponse.body();
+              return CompletableFuture.completedFuture(
+                  new ApiResponse<TokenLinkDto>(
+                      localVarResponse.statusCode(),
+                      localVarResponse.headers().map(),
+                      responseBody == null || responseBody.isBlank() ? null : memberVarObjectMapper.readValue(responseBody, new TypeReference<TokenLinkDto>() {}))
+              );
+            } catch (IOException e) {
+              return CompletableFuture.failedFuture(new ApiException(e));
+            }
         }
-
-        localVarRequestBuilder.header("Accept", "application/json");
-
-        localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
-        if (memberVarReadTimeout != null) {
-            localVarRequestBuilder.timeout(memberVarReadTimeout);
-        }
-        if (memberVarInterceptor != null) {
-            memberVarInterceptor.accept(localVarRequestBuilder);
-        }
-        return localVarRequestBuilder;
+      );
     }
-    /**
-     * Issue a new token Facilitates the creation of a new token, supporting both EVM-based and
-     * Stellar/Ripple platforms. For EVM, it deploys the corresponding contract template to the
-     * blockchain and links the token to the workspace. For Stellar/Ripple, it links a newly created
-     * token directly to the workspace without deploying a contract. Returns the token link with
-     * status \&quot;PENDING\&quot; until the token is deployed or \&quot;SUCCESS\&quot; if no
-     * deployment is needed.
-     *
-     * @param createTokenRequestDto (required)
-     * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
-     *     times with the same idempotency key, the server will return the same response as the
-     *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;TokenLinkDto&gt;&gt;
-     * @throws ApiException if fails to make API call
-     */
-    public CompletableFuture<ApiResponse<TokenLinkDto>> issueNewToken(
-            CreateTokenRequestDto createTokenRequestDto, String idempotencyKey)
-            throws ApiException {
-        try {
-            HttpRequest.Builder localVarRequestBuilder =
-                    issueNewTokenRequestBuilder(createTokenRequestDto, idempotencyKey);
-            return memberVarHttpClient
-                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
-                    .thenComposeAsync(
-                            localVarResponse -> {
-                                if (memberVarAsyncResponseInterceptor != null) {
-                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
-                                }
-                                if (localVarResponse.statusCode() / 100 != 2) {
-                                    return CompletableFuture.failedFuture(
-                                            getApiException("issueNewToken", localVarResponse));
-                                }
-                                try {
-                                    String responseBody = localVarResponse.body();
-                                    return CompletableFuture.completedFuture(
-                                            new ApiResponse<TokenLinkDto>(
-                                                    localVarResponse.statusCode(),
-                                                    localVarResponse.headers().map(),
-                                                    responseBody == null || responseBody.isBlank()
-                                                            ? null
-                                                            : memberVarObjectMapper.readValue(
-                                                                    responseBody,
-                                                                    new TypeReference<
-                                                                            TokenLinkDto>() {})));
-                                } catch (IOException e) {
-                                    return CompletableFuture.failedFuture(new ApiException(e));
-                                }
-                            });
-        } catch (ApiException e) {
-            return CompletableFuture.failedFuture(e);
-        }
+    catch (ApiException e) {
+      return CompletableFuture.failedFuture(e);
+    }
+  }
+
+  private HttpRequest.Builder getLinkedTokenRequestBuilder(String id) throws ApiException {
+    // verify the required parameter 'id' is set
+    if (id == null) {
+      throw new ApiException(400, "Missing the required parameter 'id' when calling getLinkedToken");
     }
 
-    private HttpRequest.Builder issueNewTokenRequestBuilder(
-            CreateTokenRequestDto createTokenRequestDto, String idempotencyKey)
-            throws ApiException {
-        // verify the required parameter 'createTokenRequestDto' is set
-        if (createTokenRequestDto == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'createTokenRequestDto' when calling"
-                            + " issueNewToken");
-        }
+    HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
-        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+    String localVarPath = "/tokenization/tokens/{id}"
+        .replace("{id}", ApiClient.urlEncode(id.toString()));
 
-        String localVarPath = "/tokenization/tokens";
+    localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
 
-        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+    localVarRequestBuilder.header("Accept", "application/json");
 
-        if (idempotencyKey != null) {
-            localVarRequestBuilder.header("Idempotency-Key", idempotencyKey.toString());
-        }
-        localVarRequestBuilder.header("Content-Type", "application/json");
-        localVarRequestBuilder.header("Accept", "application/json");
-
-        try {
-            byte[] localVarPostBody =
-                    memberVarObjectMapper.writeValueAsBytes(createTokenRequestDto);
-            localVarRequestBuilder.method(
-                    "POST", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
-        } catch (IOException e) {
-            throw new ApiException(e);
-        }
-        if (memberVarReadTimeout != null) {
-            localVarRequestBuilder.timeout(memberVarReadTimeout);
-        }
-        if (memberVarInterceptor != null) {
-            memberVarInterceptor.accept(localVarRequestBuilder);
-        }
-        return localVarRequestBuilder;
+    localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
+    if (memberVarReadTimeout != null) {
+      localVarRequestBuilder.timeout(memberVarReadTimeout);
     }
-    /**
-     * Link a token Link an already existing token (by assetId, collectionId or contractId as refId)
-     * to a workspace across EVM, Stellar, or Ripple platforms. The token will be linked to the
-     * workspace if it does not already exist.
-     *
-     * @param tokenLinkRequestDto (required)
-     * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
-     *     times with the same idempotency key, the server will return the same response as the
-     *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;TokenLinkDto&gt;&gt;
-     * @throws ApiException if fails to make API call
-     */
-    public CompletableFuture<ApiResponse<TokenLinkDto>> link(
-            TokenLinkRequestDto tokenLinkRequestDto, String idempotencyKey) throws ApiException {
-        try {
-            HttpRequest.Builder localVarRequestBuilder =
-                    linkRequestBuilder(tokenLinkRequestDto, idempotencyKey);
-            return memberVarHttpClient
-                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
-                    .thenComposeAsync(
-                            localVarResponse -> {
-                                if (memberVarAsyncResponseInterceptor != null) {
-                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
-                                }
-                                if (localVarResponse.statusCode() / 100 != 2) {
-                                    return CompletableFuture.failedFuture(
-                                            getApiException("link", localVarResponse));
-                                }
-                                try {
-                                    String responseBody = localVarResponse.body();
-                                    return CompletableFuture.completedFuture(
-                                            new ApiResponse<TokenLinkDto>(
-                                                    localVarResponse.statusCode(),
-                                                    localVarResponse.headers().map(),
-                                                    responseBody == null || responseBody.isBlank()
-                                                            ? null
-                                                            : memberVarObjectMapper.readValue(
-                                                                    responseBody,
-                                                                    new TypeReference<
-                                                                            TokenLinkDto>() {})));
-                                } catch (IOException e) {
-                                    return CompletableFuture.failedFuture(new ApiException(e));
-                                }
-                            });
-        } catch (ApiException e) {
-            return CompletableFuture.failedFuture(e);
+    if (memberVarInterceptor != null) {
+      memberVarInterceptor.accept(localVarRequestBuilder);
+    }
+    return localVarRequestBuilder;
+  }
+  /**
+   * List all linked tokens
+   * Return all linked tokens (paginated)
+   * @param pageCursor Page cursor to get the next page (optional)
+   * @param pageSize Number of items per page, requesting more then max will return max items (optional)
+   * @param status A comma separated list of statuses to filter. Default is \&quot;COMPLETED\&quot; (optional)
+   * @return CompletableFuture&lt;ApiResponse&lt;TokensPaginatedResponse&gt;&gt;
+   * @throws ApiException if fails to make API call
+   */
+  public CompletableFuture<ApiResponse<TokensPaginatedResponse>> getLinkedTokens(String pageCursor, BigDecimal pageSize, Object status) throws ApiException {
+    try {
+      HttpRequest.Builder localVarRequestBuilder = getLinkedTokensRequestBuilder(pageCursor, pageSize, status);
+      return memberVarHttpClient.sendAsync(
+          localVarRequestBuilder.build(),
+          HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
+            if (memberVarAsyncResponseInterceptor != null) {
+              memberVarAsyncResponseInterceptor.accept(localVarResponse);
+            }
+            if (localVarResponse.statusCode()/ 100 != 2) {
+              return CompletableFuture.failedFuture(getApiException("getLinkedTokens", localVarResponse));
+            }
+            try {
+              String responseBody = localVarResponse.body();
+              return CompletableFuture.completedFuture(
+                  new ApiResponse<TokensPaginatedResponse>(
+                      localVarResponse.statusCode(),
+                      localVarResponse.headers().map(),
+                      responseBody == null || responseBody.isBlank() ? null : memberVarObjectMapper.readValue(responseBody, new TypeReference<TokensPaginatedResponse>() {}))
+              );
+            } catch (IOException e) {
+              return CompletableFuture.failedFuture(new ApiException(e));
+            }
         }
+      );
+    }
+    catch (ApiException e) {
+      return CompletableFuture.failedFuture(e);
+    }
+  }
+
+  private HttpRequest.Builder getLinkedTokensRequestBuilder(String pageCursor, BigDecimal pageSize, Object status) throws ApiException {
+
+    HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+    String localVarPath = "/tokenization/tokens";
+
+    List<Pair> localVarQueryParams = new ArrayList<>();
+    StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
+    String localVarQueryParameterBaseName;
+    localVarQueryParameterBaseName = "pageCursor";
+    localVarQueryParams.addAll(ApiClient.parameterToPairs("pageCursor", pageCursor));
+    localVarQueryParameterBaseName = "pageSize";
+    localVarQueryParams.addAll(ApiClient.parameterToPairs("pageSize", pageSize));
+    localVarQueryParameterBaseName = "status";
+    localVarQueryParams.addAll(ApiClient.parameterToPairs("status", status));
+
+    if (!localVarQueryParams.isEmpty() || localVarQueryStringJoiner.length() != 0) {
+      StringJoiner queryJoiner = new StringJoiner("&");
+      localVarQueryParams.forEach(p -> queryJoiner.add(p.getName() + '=' + p.getValue()));
+      if (localVarQueryStringJoiner.length() != 0) {
+        queryJoiner.add(localVarQueryStringJoiner.toString());
+      }
+      localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath + '?' + queryJoiner.toString()));
+    } else {
+      localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
     }
 
-    private HttpRequest.Builder linkRequestBuilder(
-            TokenLinkRequestDto tokenLinkRequestDto, String idempotencyKey) throws ApiException {
-        // verify the required parameter 'tokenLinkRequestDto' is set
-        if (tokenLinkRequestDto == null) {
-            throw new ApiException(
-                    400, "Missing the required parameter 'tokenLinkRequestDto' when calling link");
-        }
+    localVarRequestBuilder.header("Accept", "application/json");
 
-        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
-
-        String localVarPath = "/tokenization/tokens/link";
-
-        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
-
-        if (idempotencyKey != null) {
-            localVarRequestBuilder.header("Idempotency-Key", idempotencyKey.toString());
-        }
-        localVarRequestBuilder.header("Content-Type", "application/json");
-        localVarRequestBuilder.header("Accept", "application/json");
-
-        try {
-            byte[] localVarPostBody = memberVarObjectMapper.writeValueAsBytes(tokenLinkRequestDto);
-            localVarRequestBuilder.method(
-                    "POST", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
-        } catch (IOException e) {
-            throw new ApiException(e);
-        }
-        if (memberVarReadTimeout != null) {
-            localVarRequestBuilder.timeout(memberVarReadTimeout);
-        }
-        if (memberVarInterceptor != null) {
-            memberVarInterceptor.accept(localVarRequestBuilder);
-        }
-        return localVarRequestBuilder;
+    localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
+    if (memberVarReadTimeout != null) {
+      localVarRequestBuilder.timeout(memberVarReadTimeout);
     }
-    /**
-     * Unlink a token Unlink a token. The token will be unlinked from the workspace. The token will
-     * not be deleted on chain nor the refId, only the link to the workspace will be removed.
-     *
-     * @param id The token link id (required)
-     * @return CompletableFuture&lt;ApiResponse&lt;Void&gt;&gt;
-     * @throws ApiException if fails to make API call
-     */
-    public CompletableFuture<ApiResponse<Void>> unlink(String id) throws ApiException {
-        try {
-            HttpRequest.Builder localVarRequestBuilder = unlinkRequestBuilder(id);
-            return memberVarHttpClient
-                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
-                    .thenComposeAsync(
-                            localVarResponse -> {
-                                if (memberVarAsyncResponseInterceptor != null) {
-                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
-                                }
-                                if (localVarResponse.statusCode() / 100 != 2) {
-                                    return CompletableFuture.failedFuture(
-                                            getApiException("unlink", localVarResponse));
-                                }
-                                return CompletableFuture.completedFuture(
-                                        new ApiResponse<Void>(
-                                                localVarResponse.statusCode(),
-                                                localVarResponse.headers().map(),
-                                                null));
-                            });
-        } catch (ApiException e) {
-            return CompletableFuture.failedFuture(e);
+    if (memberVarInterceptor != null) {
+      memberVarInterceptor.accept(localVarRequestBuilder);
+    }
+    return localVarRequestBuilder;
+  }
+  /**
+   * Issue a new token
+   * Facilitates the creation of a new token, supporting both EVM-based and Stellar/Ripple platforms. For EVM, it deploys the corresponding contract template to the blockchain and links the token to the workspace. For Stellar/Ripple, it links a newly created token directly to the workspace without deploying a contract. Returns the token link with status \&quot;PENDING\&quot; until the token is deployed or \&quot;SUCCESS\&quot; if no deployment is needed.
+   * @param createTokenRequestDto  (required)
+   * @param idempotencyKey A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
+   * @return CompletableFuture&lt;ApiResponse&lt;TokenLinkDto&gt;&gt;
+   * @throws ApiException if fails to make API call
+   */
+  public CompletableFuture<ApiResponse<TokenLinkDto>> issueNewToken(CreateTokenRequestDto createTokenRequestDto, String idempotencyKey) throws ApiException {
+    try {
+      HttpRequest.Builder localVarRequestBuilder = issueNewTokenRequestBuilder(createTokenRequestDto, idempotencyKey);
+      return memberVarHttpClient.sendAsync(
+          localVarRequestBuilder.build(),
+          HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
+            if (memberVarAsyncResponseInterceptor != null) {
+              memberVarAsyncResponseInterceptor.accept(localVarResponse);
+            }
+            if (localVarResponse.statusCode()/ 100 != 2) {
+              return CompletableFuture.failedFuture(getApiException("issueNewToken", localVarResponse));
+            }
+            try {
+              String responseBody = localVarResponse.body();
+              return CompletableFuture.completedFuture(
+                  new ApiResponse<TokenLinkDto>(
+                      localVarResponse.statusCode(),
+                      localVarResponse.headers().map(),
+                      responseBody == null || responseBody.isBlank() ? null : memberVarObjectMapper.readValue(responseBody, new TypeReference<TokenLinkDto>() {}))
+              );
+            } catch (IOException e) {
+              return CompletableFuture.failedFuture(new ApiException(e));
+            }
         }
+      );
+    }
+    catch (ApiException e) {
+      return CompletableFuture.failedFuture(e);
+    }
+  }
+
+  private HttpRequest.Builder issueNewTokenRequestBuilder(CreateTokenRequestDto createTokenRequestDto, String idempotencyKey) throws ApiException {
+    // verify the required parameter 'createTokenRequestDto' is set
+    if (createTokenRequestDto == null) {
+      throw new ApiException(400, "Missing the required parameter 'createTokenRequestDto' when calling issueNewToken");
     }
 
-    private HttpRequest.Builder unlinkRequestBuilder(String id) throws ApiException {
-        // verify the required parameter 'id' is set
-        if (id == null) {
-            throw new ApiException(400, "Missing the required parameter 'id' when calling unlink");
-        }
+    HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
-        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+    String localVarPath = "/tokenization/tokens";
 
-        String localVarPath =
-                "/tokenization/tokens/{id}".replace("{id}", ApiClient.urlEncode(id.toString()));
+    localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
 
-        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
-
-        localVarRequestBuilder.header("Accept", "application/json");
-
-        localVarRequestBuilder.method("DELETE", HttpRequest.BodyPublishers.noBody());
-        if (memberVarReadTimeout != null) {
-            localVarRequestBuilder.timeout(memberVarReadTimeout);
-        }
-        if (memberVarInterceptor != null) {
-            memberVarInterceptor.accept(localVarRequestBuilder);
-        }
-        return localVarRequestBuilder;
+    if (idempotencyKey != null) {
+      localVarRequestBuilder.header("Idempotency-Key", idempotencyKey.toString());
     }
+    localVarRequestBuilder.header("Content-Type", "application/json");
+    localVarRequestBuilder.header("Accept", "application/json");
+
+    try {
+      byte[] localVarPostBody = memberVarObjectMapper.writeValueAsBytes(createTokenRequestDto);
+      localVarRequestBuilder.method("POST", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
+    } catch (IOException e) {
+      throw new ApiException(e);
+    }
+    if (memberVarReadTimeout != null) {
+      localVarRequestBuilder.timeout(memberVarReadTimeout);
+    }
+    if (memberVarInterceptor != null) {
+      memberVarInterceptor.accept(localVarRequestBuilder);
+    }
+    return localVarRequestBuilder;
+  }
+  /**
+   * Link a token
+   * Link an already existing token (by assetId, collectionId or contractId as refId) to a workspace across EVM, Stellar, or Ripple platforms. The token will be linked to the workspace if it does not already exist.
+   * @param tokenLinkRequestDto  (required)
+   * @param idempotencyKey A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
+   * @return CompletableFuture&lt;ApiResponse&lt;TokenLinkDto&gt;&gt;
+   * @throws ApiException if fails to make API call
+   */
+  public CompletableFuture<ApiResponse<TokenLinkDto>> link(TokenLinkRequestDto tokenLinkRequestDto, String idempotencyKey) throws ApiException {
+    try {
+      HttpRequest.Builder localVarRequestBuilder = linkRequestBuilder(tokenLinkRequestDto, idempotencyKey);
+      return memberVarHttpClient.sendAsync(
+          localVarRequestBuilder.build(),
+          HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
+            if (memberVarAsyncResponseInterceptor != null) {
+              memberVarAsyncResponseInterceptor.accept(localVarResponse);
+            }
+            if (localVarResponse.statusCode()/ 100 != 2) {
+              return CompletableFuture.failedFuture(getApiException("link", localVarResponse));
+            }
+            try {
+              String responseBody = localVarResponse.body();
+              return CompletableFuture.completedFuture(
+                  new ApiResponse<TokenLinkDto>(
+                      localVarResponse.statusCode(),
+                      localVarResponse.headers().map(),
+                      responseBody == null || responseBody.isBlank() ? null : memberVarObjectMapper.readValue(responseBody, new TypeReference<TokenLinkDto>() {}))
+              );
+            } catch (IOException e) {
+              return CompletableFuture.failedFuture(new ApiException(e));
+            }
+        }
+      );
+    }
+    catch (ApiException e) {
+      return CompletableFuture.failedFuture(e);
+    }
+  }
+
+  private HttpRequest.Builder linkRequestBuilder(TokenLinkRequestDto tokenLinkRequestDto, String idempotencyKey) throws ApiException {
+    // verify the required parameter 'tokenLinkRequestDto' is set
+    if (tokenLinkRequestDto == null) {
+      throw new ApiException(400, "Missing the required parameter 'tokenLinkRequestDto' when calling link");
+    }
+
+    HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+    String localVarPath = "/tokenization/tokens/link";
+
+    localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+    if (idempotencyKey != null) {
+      localVarRequestBuilder.header("Idempotency-Key", idempotencyKey.toString());
+    }
+    localVarRequestBuilder.header("Content-Type", "application/json");
+    localVarRequestBuilder.header("Accept", "application/json");
+
+    try {
+      byte[] localVarPostBody = memberVarObjectMapper.writeValueAsBytes(tokenLinkRequestDto);
+      localVarRequestBuilder.method("POST", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
+    } catch (IOException e) {
+      throw new ApiException(e);
+    }
+    if (memberVarReadTimeout != null) {
+      localVarRequestBuilder.timeout(memberVarReadTimeout);
+    }
+    if (memberVarInterceptor != null) {
+      memberVarInterceptor.accept(localVarRequestBuilder);
+    }
+    return localVarRequestBuilder;
+  }
+  /**
+   * Unlink a token
+   * Unlink a token. The token will be unlinked from the workspace. The token will not be deleted on chain nor the refId, only the link to the workspace will be removed.
+   * @param id The token link id (required)
+   * @return CompletableFuture&lt;ApiResponse&lt;Void&gt;&gt;
+   * @throws ApiException if fails to make API call
+   */
+  public CompletableFuture<ApiResponse<Void>> unlink(String id) throws ApiException {
+    try {
+      HttpRequest.Builder localVarRequestBuilder = unlinkRequestBuilder(id);
+      return memberVarHttpClient.sendAsync(
+          localVarRequestBuilder.build(),
+          HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
+            if (memberVarAsyncResponseInterceptor != null) {
+              memberVarAsyncResponseInterceptor.accept(localVarResponse);
+            }
+            if (localVarResponse.statusCode()/ 100 != 2) {
+              return CompletableFuture.failedFuture(getApiException("unlink", localVarResponse));
+            }
+            return CompletableFuture.completedFuture(
+                new ApiResponse<Void>(localVarResponse.statusCode(), localVarResponse.headers().map(), null)
+            );
+        }
+      );
+    }
+    catch (ApiException e) {
+      return CompletableFuture.failedFuture(e);
+    }
+  }
+
+  private HttpRequest.Builder unlinkRequestBuilder(String id) throws ApiException {
+    // verify the required parameter 'id' is set
+    if (id == null) {
+      throw new ApiException(400, "Missing the required parameter 'id' when calling unlink");
+    }
+
+    HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+    String localVarPath = "/tokenization/tokens/{id}"
+        .replace("{id}", ApiClient.urlEncode(id.toString()));
+
+    localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+    localVarRequestBuilder.header("Accept", "application/json");
+
+    localVarRequestBuilder.method("DELETE", HttpRequest.BodyPublishers.noBody());
+    if (memberVarReadTimeout != null) {
+      localVarRequestBuilder.timeout(memberVarReadTimeout);
+    }
+    if (memberVarInterceptor != null) {
+      memberVarInterceptor.accept(localVarRequestBuilder);
+    }
+    return localVarRequestBuilder;
+  }
 }

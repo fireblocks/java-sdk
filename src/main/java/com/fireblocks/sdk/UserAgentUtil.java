@@ -11,8 +11,6 @@
  */
 
 package com.fireblocks.sdk;
-
-
 import java.util.Optional;
 
 public class UserAgentUtil {
@@ -20,9 +18,7 @@ public class UserAgentUtil {
     public static String getUserAgent(AdditionalOptions additionalOptions) {
         String sdkVersion = "2.0.0";
         String userAgent = "fireblocks/sdk/java/" + sdkVersion;
-        if (!Optional.ofNullable(additionalOptions)
-                .map(AdditionalOptions::isAnonymousPlatform)
-                .orElse(false)) {
+        if (!Optional.ofNullable(additionalOptions).map(AdditionalOptions::isAnonymousPlatform).orElse(false)) {
             String osType = SystemWrapper.getProperty("os.name");
             String osVersion = SystemWrapper.getProperty("os.version");
             String osArch = SystemWrapper.getProperty("os.arch");

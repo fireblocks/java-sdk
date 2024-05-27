@@ -10,16 +10,23 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
+import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
-/** Model tests for PayoutInitMethod */
+/**
+ * Model tests for PayoutInitMethod
+ */
 public class PayoutInitMethodTest {
-    /** Model tests for PayoutInitMethod */
+    /**
+     * Model tests for PayoutInitMethod
+     */
     @Test
     public void testPayoutInitMethod() {
         // TODO: test PayoutInitMethod
     }
+
 }

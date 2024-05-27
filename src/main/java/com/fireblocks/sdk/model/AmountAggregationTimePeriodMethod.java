@@ -10,58 +10,69 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
+
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.StringJoiner;
+import java.util.Objects;
+import java.util.Map;
+import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 /**
- * * PER_SINGLE_MATCH - Apply the limit to each listed entity * ACROSS_ALL_MATCHES - Apply the limit
- * to the sum of all listed entities
+ * * PER_SINGLE_MATCH - Apply the limit to each listed entity * ACROSS_ALL_MATCHES - Apply the limit to the sum of all listed entities 
  */
 public enum AmountAggregationTimePeriodMethod {
-    PER_SINGLE_MATCH("PER_SINGLE_MATCH"),
+  
+  PER_SINGLE_MATCH("PER_SINGLE_MATCH"),
+  
+  ACROSS_ALL_MATCHES("ACROSS_ALL_MATCHES");
 
-    ACROSS_ALL_MATCHES("ACROSS_ALL_MATCHES");
+  private String value;
 
-    private String value;
+  AmountAggregationTimePeriodMethod(String value) {
+    this.value = value;
+  }
 
-    AmountAggregationTimePeriodMethod(String value) {
-        this.value = value;
+  @JsonValue
+  public String getValue() {
+    return value;
+  }
+
+  @Override
+  public String toString() {
+    return String.valueOf(value);
+  }
+
+  @JsonCreator
+  public static AmountAggregationTimePeriodMethod fromValue(String value) {
+    for (AmountAggregationTimePeriodMethod b : AmountAggregationTimePeriodMethod.values()) {
+      if (b.value.equals(value)) {
+        return b;
+      }
+    }
+    throw new IllegalArgumentException("Unexpected value '" + value + "'");
+  }
+
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @param prefix prefix of the query string
+   * @return URL query string
+   */
+  public String toUrlQueryString(String prefix) {
+    if (prefix == null) {
+      prefix = "";
     }
 
-    @JsonValue
-    public String getValue() {
-        return value;
-    }
+    return String.format("%s=%s", prefix, this.toString());
+  }
 
-    @Override
-    public String toString() {
-        return String.valueOf(value);
-    }
-
-    @JsonCreator
-    public static AmountAggregationTimePeriodMethod fromValue(String value) {
-        for (AmountAggregationTimePeriodMethod b : AmountAggregationTimePeriodMethod.values()) {
-            if (b.value.equals(value)) {
-                return b;
-            }
-        }
-        throw new IllegalArgumentException("Unexpected value '" + value + "'");
-    }
-
-    /**
-     * Convert the instance into URL query string.
-     *
-     * @param prefix prefix of the query string
-     * @return URL query string
-     */
-    public String toUrlQueryString(String prefix) {
-        if (prefix == null) {
-            prefix = "";
-        }
-
-        return String.format("%s=%s", prefix, this.toString());
-    }
 }
+

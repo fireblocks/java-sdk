@@ -10,387 +10,360 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
-import java.util.Objects;
 import java.util.StringJoiner;
+import java.util.Objects;
+import java.util.Map;
+import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.fireblocks.sdk.model.AmlScreeningResult;
+import com.fireblocks.sdk.model.AuthorizationInfo;
+import com.fireblocks.sdk.model.DestinationTransferPeerPathResponse;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
-/** TransactionResponseDestination */
+
+/**
+ * TransactionResponseDestination
+ */
 @JsonPropertyOrder({
-    TransactionResponseDestination.JSON_PROPERTY_DESTINATION_ADDRESS,
-    TransactionResponseDestination.JSON_PROPERTY_DESTINATION_ADDRESS_DESCRIPTION,
-    TransactionResponseDestination.JSON_PROPERTY_AMOUNT,
-    TransactionResponseDestination.JSON_PROPERTY_AMOUNT_U_S_D,
-    TransactionResponseDestination.JSON_PROPERTY_AML_SCREENING_RESULT,
-    TransactionResponseDestination.JSON_PROPERTY_DESTINATION,
-    TransactionResponseDestination.JSON_PROPERTY_AUTHORIZATION_INFO
+  TransactionResponseDestination.JSON_PROPERTY_DESTINATION_ADDRESS,
+  TransactionResponseDestination.JSON_PROPERTY_DESTINATION_ADDRESS_DESCRIPTION,
+  TransactionResponseDestination.JSON_PROPERTY_AMOUNT,
+  TransactionResponseDestination.JSON_PROPERTY_AMOUNT_U_S_D,
+  TransactionResponseDestination.JSON_PROPERTY_AML_SCREENING_RESULT,
+  TransactionResponseDestination.JSON_PROPERTY_DESTINATION,
+  TransactionResponseDestination.JSON_PROPERTY_AUTHORIZATION_INFO
 })
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class TransactionResponseDestination {
-    public static final String JSON_PROPERTY_DESTINATION_ADDRESS = "destinationAddress";
-    private Object destinationAddress = null;
+  public static final String JSON_PROPERTY_DESTINATION_ADDRESS = "destinationAddress";
+  private Object destinationAddress = null;
 
-    public static final String JSON_PROPERTY_DESTINATION_ADDRESS_DESCRIPTION =
-            "destinationAddressDescription";
-    private Object destinationAddressDescription = null;
+  public static final String JSON_PROPERTY_DESTINATION_ADDRESS_DESCRIPTION = "destinationAddressDescription";
+  private Object destinationAddressDescription = null;
 
-    public static final String JSON_PROPERTY_AMOUNT = "amount";
-    private String amount;
+  public static final String JSON_PROPERTY_AMOUNT = "amount";
+  private String amount;
 
-    public static final String JSON_PROPERTY_AMOUNT_U_S_D = "amountUSD";
-    private String amountUSD;
+  public static final String JSON_PROPERTY_AMOUNT_U_S_D = "amountUSD";
+  private String amountUSD;
 
-    public static final String JSON_PROPERTY_AML_SCREENING_RESULT = "amlScreeningResult";
-    private AmlScreeningResult amlScreeningResult;
+  public static final String JSON_PROPERTY_AML_SCREENING_RESULT = "amlScreeningResult";
+  private AmlScreeningResult amlScreeningResult;
 
-    public static final String JSON_PROPERTY_DESTINATION = "destination";
-    private DestinationTransferPeerPathResponse destination;
+  public static final String JSON_PROPERTY_DESTINATION = "destination";
+  private DestinationTransferPeerPathResponse destination;
 
-    public static final String JSON_PROPERTY_AUTHORIZATION_INFO = "authorizationInfo";
-    private AuthorizationInfo authorizationInfo;
+  public static final String JSON_PROPERTY_AUTHORIZATION_INFO = "authorizationInfo";
+  private AuthorizationInfo authorizationInfo;
 
-    public TransactionResponseDestination() {}
+  public TransactionResponseDestination() { 
+  }
 
-    public TransactionResponseDestination destinationAddress(Object destinationAddress) {
-        this.destinationAddress = destinationAddress;
-        return this;
+  public TransactionResponseDestination destinationAddress(Object destinationAddress) {
+    this.destinationAddress = destinationAddress;
+    return this;
+  }
+
+   /**
+   * Address where the asset was transferred.
+   * @return destinationAddress
+  **/
+  @jakarta.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_DESTINATION_ADDRESS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Object getDestinationAddress() {
+    return destinationAddress;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_DESTINATION_ADDRESS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setDestinationAddress(Object destinationAddress) {
+    this.destinationAddress = destinationAddress;
+  }
+
+
+  public TransactionResponseDestination destinationAddressDescription(Object destinationAddressDescription) {
+    this.destinationAddressDescription = destinationAddressDescription;
+    return this;
+  }
+
+   /**
+   * Description of the address.
+   * @return destinationAddressDescription
+  **/
+  @jakarta.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_DESTINATION_ADDRESS_DESCRIPTION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Object getDestinationAddressDescription() {
+    return destinationAddressDescription;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_DESTINATION_ADDRESS_DESCRIPTION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setDestinationAddressDescription(Object destinationAddressDescription) {
+    this.destinationAddressDescription = destinationAddressDescription;
+  }
+
+
+  public TransactionResponseDestination amount(String amount) {
+    this.amount = amount;
+    return this;
+  }
+
+   /**
+   * The amount to be sent to this destination.
+   * @return amount
+  **/
+  @jakarta.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_AMOUNT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getAmount() {
+    return amount;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_AMOUNT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setAmount(String amount) {
+    this.amount = amount;
+  }
+
+
+  public TransactionResponseDestination amountUSD(String amountUSD) {
+    this.amountUSD = amountUSD;
+    return this;
+  }
+
+   /**
+   * The USD value of the requested amount.
+   * @return amountUSD
+  **/
+  @jakarta.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_AMOUNT_U_S_D)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getAmountUSD() {
+    return amountUSD;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_AMOUNT_U_S_D)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setAmountUSD(String amountUSD) {
+    this.amountUSD = amountUSD;
+  }
+
+
+  public TransactionResponseDestination amlScreeningResult(AmlScreeningResult amlScreeningResult) {
+    this.amlScreeningResult = amlScreeningResult;
+    return this;
+  }
+
+   /**
+   * Get amlScreeningResult
+   * @return amlScreeningResult
+  **/
+  @jakarta.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_AML_SCREENING_RESULT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public AmlScreeningResult getAmlScreeningResult() {
+    return amlScreeningResult;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_AML_SCREENING_RESULT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setAmlScreeningResult(AmlScreeningResult amlScreeningResult) {
+    this.amlScreeningResult = amlScreeningResult;
+  }
+
+
+  public TransactionResponseDestination destination(DestinationTransferPeerPathResponse destination) {
+    this.destination = destination;
+    return this;
+  }
+
+   /**
+   * Get destination
+   * @return destination
+  **/
+  @jakarta.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_DESTINATION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public DestinationTransferPeerPathResponse getDestination() {
+    return destination;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_DESTINATION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setDestination(DestinationTransferPeerPathResponse destination) {
+    this.destination = destination;
+  }
+
+
+  public TransactionResponseDestination authorizationInfo(AuthorizationInfo authorizationInfo) {
+    this.authorizationInfo = authorizationInfo;
+    return this;
+  }
+
+   /**
+   * Get authorizationInfo
+   * @return authorizationInfo
+  **/
+  @jakarta.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_AUTHORIZATION_INFO)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public AuthorizationInfo getAuthorizationInfo() {
+    return authorizationInfo;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_AUTHORIZATION_INFO)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setAuthorizationInfo(AuthorizationInfo authorizationInfo) {
+    this.authorizationInfo = authorizationInfo;
+  }
+
+
+  /**
+   * Return true if this TransactionResponseDestination object is equal to o.
+   */
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    TransactionResponseDestination transactionResponseDestination = (TransactionResponseDestination) o;
+    return Objects.equals(this.destinationAddress, transactionResponseDestination.destinationAddress) &&
+        Objects.equals(this.destinationAddressDescription, transactionResponseDestination.destinationAddressDescription) &&
+        Objects.equals(this.amount, transactionResponseDestination.amount) &&
+        Objects.equals(this.amountUSD, transactionResponseDestination.amountUSD) &&
+        Objects.equals(this.amlScreeningResult, transactionResponseDestination.amlScreeningResult) &&
+        Objects.equals(this.destination, transactionResponseDestination.destination) &&
+        Objects.equals(this.authorizationInfo, transactionResponseDestination.authorizationInfo);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(destinationAddress, destinationAddressDescription, amount, amountUSD, amlScreeningResult, destination, authorizationInfo);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class TransactionResponseDestination {\n");
+    sb.append("    destinationAddress: ").append(toIndentedString(destinationAddress)).append("\n");
+    sb.append("    destinationAddressDescription: ").append(toIndentedString(destinationAddressDescription)).append("\n");
+    sb.append("    amount: ").append(toIndentedString(amount)).append("\n");
+    sb.append("    amountUSD: ").append(toIndentedString(amountUSD)).append("\n");
+    sb.append("    amlScreeningResult: ").append(toIndentedString(amlScreeningResult)).append("\n");
+    sb.append("    destination: ").append(toIndentedString(destination)).append("\n");
+    sb.append("    authorizationInfo: ").append(toIndentedString(authorizationInfo)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @return URL query string
+   */
+  public String toUrlQueryString() {
+    return toUrlQueryString(null);
+  }
+
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @param prefix prefix of the query string
+   * @return URL query string
+   */
+  public String toUrlQueryString(String prefix) {
+    String suffix = "";
+    String containerSuffix = "";
+    String containerPrefix = "";
+    if (prefix == null) {
+      // style=form, explode=true, e.g. /pet?name=cat&type=manx
+      prefix = "";
+    } else {
+      // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
+      prefix = prefix + "[";
+      suffix = "]";
+      containerSuffix = "]";
+      containerPrefix = "[";
     }
 
-    /**
-     * Address where the asset was transferred.
-     *
-     * @return destinationAddress
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_DESTINATION_ADDRESS)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public Object getDestinationAddress() {
-        return destinationAddress;
+    StringJoiner joiner = new StringJoiner("&");
+
+    // add `destinationAddress` to the URL query string
+    if (getDestinationAddress() != null) {
+      joiner.add(String.format("%sdestinationAddress%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getDestinationAddress()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
     }
 
-    @JsonProperty(JSON_PROPERTY_DESTINATION_ADDRESS)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setDestinationAddress(Object destinationAddress) {
-        this.destinationAddress = destinationAddress;
+    // add `destinationAddressDescription` to the URL query string
+    if (getDestinationAddressDescription() != null) {
+      joiner.add(String.format("%sdestinationAddressDescription%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getDestinationAddressDescription()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
     }
 
-    public TransactionResponseDestination destinationAddressDescription(
-            Object destinationAddressDescription) {
-        this.destinationAddressDescription = destinationAddressDescription;
-        return this;
+    // add `amount` to the URL query string
+    if (getAmount() != null) {
+      joiner.add(String.format("%samount%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getAmount()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
     }
 
-    /**
-     * Description of the address.
-     *
-     * @return destinationAddressDescription
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_DESTINATION_ADDRESS_DESCRIPTION)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public Object getDestinationAddressDescription() {
-        return destinationAddressDescription;
+    // add `amountUSD` to the URL query string
+    if (getAmountUSD() != null) {
+      joiner.add(String.format("%samountUSD%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getAmountUSD()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
     }
 
-    @JsonProperty(JSON_PROPERTY_DESTINATION_ADDRESS_DESCRIPTION)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setDestinationAddressDescription(Object destinationAddressDescription) {
-        this.destinationAddressDescription = destinationAddressDescription;
+    // add `amlScreeningResult` to the URL query string
+    if (getAmlScreeningResult() != null) {
+      joiner.add(getAmlScreeningResult().toUrlQueryString(prefix + "amlScreeningResult" + suffix));
     }
 
-    public TransactionResponseDestination amount(String amount) {
-        this.amount = amount;
-        return this;
+    // add `destination` to the URL query string
+    if (getDestination() != null) {
+      joiner.add(getDestination().toUrlQueryString(prefix + "destination" + suffix));
     }
 
-    /**
-     * The amount to be sent to this destination.
-     *
-     * @return amount
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_AMOUNT)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public String getAmount() {
-        return amount;
+    // add `authorizationInfo` to the URL query string
+    if (getAuthorizationInfo() != null) {
+      joiner.add(getAuthorizationInfo().toUrlQueryString(prefix + "authorizationInfo" + suffix));
     }
 
-    @JsonProperty(JSON_PROPERTY_AMOUNT)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAmount(String amount) {
-        this.amount = amount;
-    }
-
-    public TransactionResponseDestination amountUSD(String amountUSD) {
-        this.amountUSD = amountUSD;
-        return this;
-    }
-
-    /**
-     * The USD value of the requested amount.
-     *
-     * @return amountUSD
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_AMOUNT_U_S_D)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public String getAmountUSD() {
-        return amountUSD;
-    }
-
-    @JsonProperty(JSON_PROPERTY_AMOUNT_U_S_D)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAmountUSD(String amountUSD) {
-        this.amountUSD = amountUSD;
-    }
-
-    public TransactionResponseDestination amlScreeningResult(
-            AmlScreeningResult amlScreeningResult) {
-        this.amlScreeningResult = amlScreeningResult;
-        return this;
-    }
-
-    /**
-     * Get amlScreeningResult
-     *
-     * @return amlScreeningResult
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_AML_SCREENING_RESULT)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public AmlScreeningResult getAmlScreeningResult() {
-        return amlScreeningResult;
-    }
-
-    @JsonProperty(JSON_PROPERTY_AML_SCREENING_RESULT)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAmlScreeningResult(AmlScreeningResult amlScreeningResult) {
-        this.amlScreeningResult = amlScreeningResult;
-    }
-
-    public TransactionResponseDestination destination(
-            DestinationTransferPeerPathResponse destination) {
-        this.destination = destination;
-        return this;
-    }
-
-    /**
-     * Get destination
-     *
-     * @return destination
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_DESTINATION)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public DestinationTransferPeerPathResponse getDestination() {
-        return destination;
-    }
-
-    @JsonProperty(JSON_PROPERTY_DESTINATION)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setDestination(DestinationTransferPeerPathResponse destination) {
-        this.destination = destination;
-    }
-
-    public TransactionResponseDestination authorizationInfo(AuthorizationInfo authorizationInfo) {
-        this.authorizationInfo = authorizationInfo;
-        return this;
-    }
-
-    /**
-     * Get authorizationInfo
-     *
-     * @return authorizationInfo
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_AUTHORIZATION_INFO)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public AuthorizationInfo getAuthorizationInfo() {
-        return authorizationInfo;
-    }
-
-    @JsonProperty(JSON_PROPERTY_AUTHORIZATION_INFO)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAuthorizationInfo(AuthorizationInfo authorizationInfo) {
-        this.authorizationInfo = authorizationInfo;
-    }
-
-    /** Return true if this TransactionResponseDestination object is equal to o. */
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        TransactionResponseDestination transactionResponseDestination =
-                (TransactionResponseDestination) o;
-        return Objects.equals(
-                        this.destinationAddress, transactionResponseDestination.destinationAddress)
-                && Objects.equals(
-                        this.destinationAddressDescription,
-                        transactionResponseDestination.destinationAddressDescription)
-                && Objects.equals(this.amount, transactionResponseDestination.amount)
-                && Objects.equals(this.amountUSD, transactionResponseDestination.amountUSD)
-                && Objects.equals(
-                        this.amlScreeningResult, transactionResponseDestination.amlScreeningResult)
-                && Objects.equals(this.destination, transactionResponseDestination.destination)
-                && Objects.equals(
-                        this.authorizationInfo, transactionResponseDestination.authorizationInfo);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(
-                destinationAddress,
-                destinationAddressDescription,
-                amount,
-                amountUSD,
-                amlScreeningResult,
-                destination,
-                authorizationInfo);
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("class TransactionResponseDestination {\n");
-        sb.append("    destinationAddress: ")
-                .append(toIndentedString(destinationAddress))
-                .append("\n");
-        sb.append("    destinationAddressDescription: ")
-                .append(toIndentedString(destinationAddressDescription))
-                .append("\n");
-        sb.append("    amount: ").append(toIndentedString(amount)).append("\n");
-        sb.append("    amountUSD: ").append(toIndentedString(amountUSD)).append("\n");
-        sb.append("    amlScreeningResult: ")
-                .append(toIndentedString(amlScreeningResult))
-                .append("\n");
-        sb.append("    destination: ").append(toIndentedString(destination)).append("\n");
-        sb.append("    authorizationInfo: ")
-                .append(toIndentedString(authorizationInfo))
-                .append("\n");
-        sb.append("}");
-        return sb.toString();
-    }
-
-    /**
-     * Convert the given object to string with each line indented by 4 spaces (except the first
-     * line).
-     */
-    private String toIndentedString(Object o) {
-        if (o == null) {
-            return "null";
-        }
-        return o.toString().replace("\n", "\n    ");
-    }
-
-    /**
-     * Convert the instance into URL query string.
-     *
-     * @return URL query string
-     */
-    public String toUrlQueryString() {
-        return toUrlQueryString(null);
-    }
-
-    /**
-     * Convert the instance into URL query string.
-     *
-     * @param prefix prefix of the query string
-     * @return URL query string
-     */
-    public String toUrlQueryString(String prefix) {
-        String suffix = "";
-        String containerSuffix = "";
-        String containerPrefix = "";
-        if (prefix == null) {
-            // style=form, explode=true, e.g. /pet?name=cat&type=manx
-            prefix = "";
-        } else {
-            // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
-            prefix = prefix + "[";
-            suffix = "]";
-            containerSuffix = "]";
-            containerPrefix = "[";
-        }
-
-        StringJoiner joiner = new StringJoiner("&");
-
-        // add `destinationAddress` to the URL query string
-        if (getDestinationAddress() != null) {
-            joiner.add(
-                    String.format(
-                            "%sdestinationAddress%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getDestinationAddress()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
-        // add `destinationAddressDescription` to the URL query string
-        if (getDestinationAddressDescription() != null) {
-            joiner.add(
-                    String.format(
-                            "%sdestinationAddressDescription%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getDestinationAddressDescription()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
-        // add `amount` to the URL query string
-        if (getAmount() != null) {
-            joiner.add(
-                    String.format(
-                            "%samount%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(String.valueOf(getAmount()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
-        // add `amountUSD` to the URL query string
-        if (getAmountUSD() != null) {
-            joiner.add(
-                    String.format(
-                            "%samountUSD%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getAmountUSD()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
-        // add `amlScreeningResult` to the URL query string
-        if (getAmlScreeningResult() != null) {
-            joiner.add(
-                    getAmlScreeningResult()
-                            .toUrlQueryString(prefix + "amlScreeningResult" + suffix));
-        }
-
-        // add `destination` to the URL query string
-        if (getDestination() != null) {
-            joiner.add(getDestination().toUrlQueryString(prefix + "destination" + suffix));
-        }
-
-        // add `authorizationInfo` to the URL query string
-        if (getAuthorizationInfo() != null) {
-            joiner.add(
-                    getAuthorizationInfo().toUrlQueryString(prefix + "authorizationInfo" + suffix));
-        }
-
-        return joiner.toString();
-    }
+    return joiner.toString();
+  }
 }
+

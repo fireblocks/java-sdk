@@ -10,42 +10,65 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
-/** Model tests for PolicyRuleOperators */
+/**
+ * Model tests for PolicyRuleOperators
+ */
 public class PolicyRuleOperatorsTest {
     private final PolicyRuleOperators model = new PolicyRuleOperators();
 
-    /** Model tests for PolicyRuleOperators */
+    /**
+     * Model tests for PolicyRuleOperators
+     */
     @Test
     public void testPolicyRuleOperators() {
         // TODO: test PolicyRuleOperators
     }
 
-    /** Test the property 'wildcard' */
+    /**
+     * Test the property 'wildcard'
+     */
     @Test
     public void wildcardTest() {
         // TODO: test wildcard
     }
 
-    /** Test the property 'users' */
+    /**
+     * Test the property 'users'
+     */
     @Test
     public void usersTest() {
         // TODO: test users
     }
 
-    /** Test the property 'usersGroups' */
+    /**
+     * Test the property 'usersGroups'
+     */
     @Test
     public void usersGroupsTest() {
         // TODO: test usersGroups
     }
 
-    /** Test the property 'services' */
+    /**
+     * Test the property 'services'
+     */
     @Test
     public void servicesTest() {
         // TODO: test services
     }
+
 }

@@ -10,32 +10,45 @@
  * Do not edit the class manually.
  */
 
-package com.fireblocks.sdk.api;
 
+package com.fireblocks.sdk.api;
 
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.model.GetWorkspaceStatusResponse;
-import java.util.concurrent.CompletableFuture;
-import org.junit.Ignore;
 import org.junit.Test;
+import org.junit.Ignore;
 
-/** API tests for WorkspaceStatusBetaApi */
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import java.util.concurrent.CompletableFuture;
+
+/**
+ * API tests for WorkspaceStatusBetaApi
+ */
 @Ignore
 public class WorkspaceStatusBetaApiTest {
 
     private final WorkspaceStatusBetaApi api = new WorkspaceStatusBetaApi();
 
+    
     /**
      * Returns current workspace status
      *
-     * <p>Returns current workspace status
+     * Returns current workspace status
      *
-     * @throws ApiException if the Api call fails
+     * @throws ApiException
+     *          if the Api call fails
      */
     @Test
     public void getWorkspaceStatusTest() throws ApiException {
-        CompletableFuture<ApiResponse<GetWorkspaceStatusResponse>> response =
-                api.getWorkspaceStatus();
+        CompletableFuture<ApiResponse<GetWorkspaceStatusResponse>> response = 
+        api.getWorkspaceStatus();
+        
     }
+    
 }

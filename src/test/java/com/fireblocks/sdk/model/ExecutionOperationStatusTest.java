@@ -10,16 +10,23 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
+import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
-/** Model tests for ExecutionOperationStatus */
+/**
+ * Model tests for ExecutionOperationStatus
+ */
 public class ExecutionOperationStatusTest {
-    /** Model tests for ExecutionOperationStatus */
+    /**
+     * Model tests for ExecutionOperationStatus
+     */
     @Test
     public void testExecutionOperationStatus() {
         // TODO: test ExecutionOperationStatus
     }
+
 }

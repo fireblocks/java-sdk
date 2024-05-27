@@ -10,325 +10,326 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
-import java.util.Objects;
 import java.util.StringJoiner;
+import java.util.Objects;
+import java.util.Map;
+import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.fireblocks.sdk.model.ConversionOperationExecution;
+import com.fireblocks.sdk.model.ConversionOperationPreview;
+import com.fireblocks.sdk.model.ConversionOperationType;
+import com.fireblocks.sdk.model.ConversionValidationFailure;
+import com.fireblocks.sdk.model.ExecutionOperationStatus;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
-/** ExecutionConversionOperation */
+
+/**
+ * ExecutionConversionOperation
+ */
 @JsonPropertyOrder({
-    ExecutionConversionOperation.JSON_PROPERTY_OPERATION_ID,
-    ExecutionConversionOperation.JSON_PROPERTY_STATUS,
-    ExecutionConversionOperation.JSON_PROPERTY_VALIDATION_FAILURE,
-    ExecutionConversionOperation.JSON_PROPERTY_OPERATION_TYPE,
-    ExecutionConversionOperation.JSON_PROPERTY_PREVIEW,
-    ExecutionConversionOperation.JSON_PROPERTY_EXECUTION
+  ExecutionConversionOperation.JSON_PROPERTY_OPERATION_ID,
+  ExecutionConversionOperation.JSON_PROPERTY_STATUS,
+  ExecutionConversionOperation.JSON_PROPERTY_VALIDATION_FAILURE,
+  ExecutionConversionOperation.JSON_PROPERTY_OPERATION_TYPE,
+  ExecutionConversionOperation.JSON_PROPERTY_PREVIEW,
+  ExecutionConversionOperation.JSON_PROPERTY_EXECUTION
 })
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class ExecutionConversionOperation {
-    public static final String JSON_PROPERTY_OPERATION_ID = "operationId";
-    private String operationId;
+  public static final String JSON_PROPERTY_OPERATION_ID = "operationId";
+  private String operationId;
 
-    public static final String JSON_PROPERTY_STATUS = "status";
-    private ExecutionOperationStatus status;
+  public static final String JSON_PROPERTY_STATUS = "status";
+  private ExecutionOperationStatus status;
 
-    public static final String JSON_PROPERTY_VALIDATION_FAILURE = "validationFailure";
-    private ConversionValidationFailure validationFailure;
+  public static final String JSON_PROPERTY_VALIDATION_FAILURE = "validationFailure";
+  private ConversionValidationFailure validationFailure;
 
-    public static final String JSON_PROPERTY_OPERATION_TYPE = "operationType";
-    private ConversionOperationType operationType;
+  public static final String JSON_PROPERTY_OPERATION_TYPE = "operationType";
+  private ConversionOperationType operationType;
 
-    public static final String JSON_PROPERTY_PREVIEW = "preview";
-    private ConversionOperationPreview preview;
+  public static final String JSON_PROPERTY_PREVIEW = "preview";
+  private ConversionOperationPreview preview;
 
-    public static final String JSON_PROPERTY_EXECUTION = "execution";
-    private ConversionOperationExecution execution;
+  public static final String JSON_PROPERTY_EXECUTION = "execution";
+  private ConversionOperationExecution execution;
 
-    public ExecutionConversionOperation() {}
+  public ExecutionConversionOperation() { 
+  }
 
-    public ExecutionConversionOperation operationId(String operationId) {
-        this.operationId = operationId;
-        return this;
+  public ExecutionConversionOperation operationId(String operationId) {
+    this.operationId = operationId;
+    return this;
+  }
+
+   /**
+   * Get operationId
+   * @return operationId
+  **/
+  @jakarta.annotation.Nonnull
+  @JsonProperty(JSON_PROPERTY_OPERATION_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getOperationId() {
+    return operationId;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_OPERATION_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setOperationId(String operationId) {
+    this.operationId = operationId;
+  }
+
+
+  public ExecutionConversionOperation status(ExecutionOperationStatus status) {
+    this.status = status;
+    return this;
+  }
+
+   /**
+   * Get status
+   * @return status
+  **/
+  @jakarta.annotation.Nonnull
+  @JsonProperty(JSON_PROPERTY_STATUS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public ExecutionOperationStatus getStatus() {
+    return status;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_STATUS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setStatus(ExecutionOperationStatus status) {
+    this.status = status;
+  }
+
+
+  public ExecutionConversionOperation validationFailure(ConversionValidationFailure validationFailure) {
+    this.validationFailure = validationFailure;
+    return this;
+  }
+
+   /**
+   * Get validationFailure
+   * @return validationFailure
+  **/
+  @jakarta.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_VALIDATION_FAILURE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public ConversionValidationFailure getValidationFailure() {
+    return validationFailure;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_VALIDATION_FAILURE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setValidationFailure(ConversionValidationFailure validationFailure) {
+    this.validationFailure = validationFailure;
+  }
+
+
+  public ExecutionConversionOperation operationType(ConversionOperationType operationType) {
+    this.operationType = operationType;
+    return this;
+  }
+
+   /**
+   * Get operationType
+   * @return operationType
+  **/
+  @jakarta.annotation.Nonnull
+  @JsonProperty(JSON_PROPERTY_OPERATION_TYPE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public ConversionOperationType getOperationType() {
+    return operationType;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_OPERATION_TYPE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setOperationType(ConversionOperationType operationType) {
+    this.operationType = operationType;
+  }
+
+
+  public ExecutionConversionOperation preview(ConversionOperationPreview preview) {
+    this.preview = preview;
+    return this;
+  }
+
+   /**
+   * Get preview
+   * @return preview
+  **/
+  @jakarta.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_PREVIEW)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public ConversionOperationPreview getPreview() {
+    return preview;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_PREVIEW)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setPreview(ConversionOperationPreview preview) {
+    this.preview = preview;
+  }
+
+
+  public ExecutionConversionOperation execution(ConversionOperationExecution execution) {
+    this.execution = execution;
+    return this;
+  }
+
+   /**
+   * Get execution
+   * @return execution
+  **/
+  @jakarta.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_EXECUTION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public ConversionOperationExecution getExecution() {
+    return execution;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_EXECUTION)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setExecution(ConversionOperationExecution execution) {
+    this.execution = execution;
+  }
+
+
+  /**
+   * Return true if this ExecutionConversionOperation object is equal to o.
+   */
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    ExecutionConversionOperation executionConversionOperation = (ExecutionConversionOperation) o;
+    return Objects.equals(this.operationId, executionConversionOperation.operationId) &&
+        Objects.equals(this.status, executionConversionOperation.status) &&
+        Objects.equals(this.validationFailure, executionConversionOperation.validationFailure) &&
+        Objects.equals(this.operationType, executionConversionOperation.operationType) &&
+        Objects.equals(this.preview, executionConversionOperation.preview) &&
+        Objects.equals(this.execution, executionConversionOperation.execution);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(operationId, status, validationFailure, operationType, preview, execution);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class ExecutionConversionOperation {\n");
+    sb.append("    operationId: ").append(toIndentedString(operationId)).append("\n");
+    sb.append("    status: ").append(toIndentedString(status)).append("\n");
+    sb.append("    validationFailure: ").append(toIndentedString(validationFailure)).append("\n");
+    sb.append("    operationType: ").append(toIndentedString(operationType)).append("\n");
+    sb.append("    preview: ").append(toIndentedString(preview)).append("\n");
+    sb.append("    execution: ").append(toIndentedString(execution)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @return URL query string
+   */
+  public String toUrlQueryString() {
+    return toUrlQueryString(null);
+  }
+
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @param prefix prefix of the query string
+   * @return URL query string
+   */
+  public String toUrlQueryString(String prefix) {
+    String suffix = "";
+    String containerSuffix = "";
+    String containerPrefix = "";
+    if (prefix == null) {
+      // style=form, explode=true, e.g. /pet?name=cat&type=manx
+      prefix = "";
+    } else {
+      // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
+      prefix = prefix + "[";
+      suffix = "]";
+      containerSuffix = "]";
+      containerPrefix = "[";
     }
 
-    /**
-     * Get operationId
-     *
-     * @return operationId
-     */
-    @jakarta.annotation.Nonnull
-    @JsonProperty(JSON_PROPERTY_OPERATION_ID)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public String getOperationId() {
-        return operationId;
+    StringJoiner joiner = new StringJoiner("&");
+
+    // add `operationId` to the URL query string
+    if (getOperationId() != null) {
+      joiner.add(String.format("%soperationId%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getOperationId()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
     }
 
-    @JsonProperty(JSON_PROPERTY_OPERATION_ID)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setOperationId(String operationId) {
-        this.operationId = operationId;
+    // add `status` to the URL query string
+    if (getStatus() != null) {
+      joiner.add(String.format("%sstatus%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getStatus()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
     }
 
-    public ExecutionConversionOperation status(ExecutionOperationStatus status) {
-        this.status = status;
-        return this;
+    // add `validationFailure` to the URL query string
+    if (getValidationFailure() != null) {
+      joiner.add(getValidationFailure().toUrlQueryString(prefix + "validationFailure" + suffix));
     }
 
-    /**
-     * Get status
-     *
-     * @return status
-     */
-    @jakarta.annotation.Nonnull
-    @JsonProperty(JSON_PROPERTY_STATUS)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public ExecutionOperationStatus getStatus() {
-        return status;
+    // add `operationType` to the URL query string
+    if (getOperationType() != null) {
+      joiner.add(String.format("%soperationType%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getOperationType()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
     }
 
-    @JsonProperty(JSON_PROPERTY_STATUS)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setStatus(ExecutionOperationStatus status) {
-        this.status = status;
+    // add `preview` to the URL query string
+    if (getPreview() != null) {
+      joiner.add(getPreview().toUrlQueryString(prefix + "preview" + suffix));
     }
 
-    public ExecutionConversionOperation validationFailure(
-            ConversionValidationFailure validationFailure) {
-        this.validationFailure = validationFailure;
-        return this;
+    // add `execution` to the URL query string
+    if (getExecution() != null) {
+      joiner.add(getExecution().toUrlQueryString(prefix + "execution" + suffix));
     }
 
-    /**
-     * Get validationFailure
-     *
-     * @return validationFailure
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_VALIDATION_FAILURE)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public ConversionValidationFailure getValidationFailure() {
-        return validationFailure;
-    }
-
-    @JsonProperty(JSON_PROPERTY_VALIDATION_FAILURE)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setValidationFailure(ConversionValidationFailure validationFailure) {
-        this.validationFailure = validationFailure;
-    }
-
-    public ExecutionConversionOperation operationType(ConversionOperationType operationType) {
-        this.operationType = operationType;
-        return this;
-    }
-
-    /**
-     * Get operationType
-     *
-     * @return operationType
-     */
-    @jakarta.annotation.Nonnull
-    @JsonProperty(JSON_PROPERTY_OPERATION_TYPE)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public ConversionOperationType getOperationType() {
-        return operationType;
-    }
-
-    @JsonProperty(JSON_PROPERTY_OPERATION_TYPE)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setOperationType(ConversionOperationType operationType) {
-        this.operationType = operationType;
-    }
-
-    public ExecutionConversionOperation preview(ConversionOperationPreview preview) {
-        this.preview = preview;
-        return this;
-    }
-
-    /**
-     * Get preview
-     *
-     * @return preview
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_PREVIEW)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public ConversionOperationPreview getPreview() {
-        return preview;
-    }
-
-    @JsonProperty(JSON_PROPERTY_PREVIEW)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setPreview(ConversionOperationPreview preview) {
-        this.preview = preview;
-    }
-
-    public ExecutionConversionOperation execution(ConversionOperationExecution execution) {
-        this.execution = execution;
-        return this;
-    }
-
-    /**
-     * Get execution
-     *
-     * @return execution
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_EXECUTION)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public ConversionOperationExecution getExecution() {
-        return execution;
-    }
-
-    @JsonProperty(JSON_PROPERTY_EXECUTION)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setExecution(ConversionOperationExecution execution) {
-        this.execution = execution;
-    }
-
-    /** Return true if this ExecutionConversionOperation object is equal to o. */
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        ExecutionConversionOperation executionConversionOperation =
-                (ExecutionConversionOperation) o;
-        return Objects.equals(this.operationId, executionConversionOperation.operationId)
-                && Objects.equals(this.status, executionConversionOperation.status)
-                && Objects.equals(
-                        this.validationFailure, executionConversionOperation.validationFailure)
-                && Objects.equals(this.operationType, executionConversionOperation.operationType)
-                && Objects.equals(this.preview, executionConversionOperation.preview)
-                && Objects.equals(this.execution, executionConversionOperation.execution);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(
-                operationId, status, validationFailure, operationType, preview, execution);
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("class ExecutionConversionOperation {\n");
-        sb.append("    operationId: ").append(toIndentedString(operationId)).append("\n");
-        sb.append("    status: ").append(toIndentedString(status)).append("\n");
-        sb.append("    validationFailure: ")
-                .append(toIndentedString(validationFailure))
-                .append("\n");
-        sb.append("    operationType: ").append(toIndentedString(operationType)).append("\n");
-        sb.append("    preview: ").append(toIndentedString(preview)).append("\n");
-        sb.append("    execution: ").append(toIndentedString(execution)).append("\n");
-        sb.append("}");
-        return sb.toString();
-    }
-
-    /**
-     * Convert the given object to string with each line indented by 4 spaces (except the first
-     * line).
-     */
-    private String toIndentedString(Object o) {
-        if (o == null) {
-            return "null";
-        }
-        return o.toString().replace("\n", "\n    ");
-    }
-
-    /**
-     * Convert the instance into URL query string.
-     *
-     * @return URL query string
-     */
-    public String toUrlQueryString() {
-        return toUrlQueryString(null);
-    }
-
-    /**
-     * Convert the instance into URL query string.
-     *
-     * @param prefix prefix of the query string
-     * @return URL query string
-     */
-    public String toUrlQueryString(String prefix) {
-        String suffix = "";
-        String containerSuffix = "";
-        String containerPrefix = "";
-        if (prefix == null) {
-            // style=form, explode=true, e.g. /pet?name=cat&type=manx
-            prefix = "";
-        } else {
-            // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
-            prefix = prefix + "[";
-            suffix = "]";
-            containerSuffix = "]";
-            containerPrefix = "[";
-        }
-
-        StringJoiner joiner = new StringJoiner("&");
-
-        // add `operationId` to the URL query string
-        if (getOperationId() != null) {
-            joiner.add(
-                    String.format(
-                            "%soperationId%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getOperationId()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
-        // add `status` to the URL query string
-        if (getStatus() != null) {
-            joiner.add(
-                    String.format(
-                            "%sstatus%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(String.valueOf(getStatus()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
-        // add `validationFailure` to the URL query string
-        if (getValidationFailure() != null) {
-            joiner.add(
-                    getValidationFailure().toUrlQueryString(prefix + "validationFailure" + suffix));
-        }
-
-        // add `operationType` to the URL query string
-        if (getOperationType() != null) {
-            joiner.add(
-                    String.format(
-                            "%soperationType%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getOperationType()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
-        // add `preview` to the URL query string
-        if (getPreview() != null) {
-            joiner.add(getPreview().toUrlQueryString(prefix + "preview" + suffix));
-        }
-
-        // add `execution` to the URL query string
-        if (getExecution() != null) {
-            joiner.add(getExecution().toUrlQueryString(prefix + "execution" + suffix));
-        }
-
-        return joiner.toString();
-    }
+    return joiner.toString();
+  }
 }
+

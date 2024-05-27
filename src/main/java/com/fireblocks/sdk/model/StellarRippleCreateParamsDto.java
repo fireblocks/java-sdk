@@ -10,216 +10,213 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
-import java.util.Objects;
 import java.util.StringJoiner;
+import java.util.Objects;
+import java.util.Map;
+import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
-/** StellarRippleCreateParamsDto */
+
+/**
+ * StellarRippleCreateParamsDto
+ */
 @JsonPropertyOrder({
-    StellarRippleCreateParamsDto.JSON_PROPERTY_SYMBOL,
-    StellarRippleCreateParamsDto.JSON_PROPERTY_NAME,
-    StellarRippleCreateParamsDto.JSON_PROPERTY_ISSUER_ADDRESS
+  StellarRippleCreateParamsDto.JSON_PROPERTY_SYMBOL,
+  StellarRippleCreateParamsDto.JSON_PROPERTY_NAME,
+  StellarRippleCreateParamsDto.JSON_PROPERTY_ISSUER_ADDRESS
 })
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class StellarRippleCreateParamsDto {
-    public static final String JSON_PROPERTY_SYMBOL = "symbol";
-    private String symbol;
+  public static final String JSON_PROPERTY_SYMBOL = "symbol";
+  private String symbol;
 
-    public static final String JSON_PROPERTY_NAME = "name";
-    private String name;
+  public static final String JSON_PROPERTY_NAME = "name";
+  private String name;
 
-    public static final String JSON_PROPERTY_ISSUER_ADDRESS = "issuerAddress";
-    private String issuerAddress;
+  public static final String JSON_PROPERTY_ISSUER_ADDRESS = "issuerAddress";
+  private String issuerAddress;
 
-    public StellarRippleCreateParamsDto() {}
+  public StellarRippleCreateParamsDto() { 
+  }
 
-    public StellarRippleCreateParamsDto symbol(String symbol) {
-        this.symbol = symbol;
-        return this;
+  public StellarRippleCreateParamsDto symbol(String symbol) {
+    this.symbol = symbol;
+    return this;
+  }
+
+   /**
+   * The symbol of the token
+   * @return symbol
+  **/
+  @jakarta.annotation.Nonnull
+  @JsonProperty(JSON_PROPERTY_SYMBOL)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getSymbol() {
+    return symbol;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_SYMBOL)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setSymbol(String symbol) {
+    this.symbol = symbol;
+  }
+
+
+  public StellarRippleCreateParamsDto name(String name) {
+    this.name = name;
+    return this;
+  }
+
+   /**
+   * The name of the token
+   * @return name
+  **/
+  @jakarta.annotation.Nonnull
+  @JsonProperty(JSON_PROPERTY_NAME)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getName() {
+    return name;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_NAME)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setName(String name) {
+    this.name = name;
+  }
+
+
+  public StellarRippleCreateParamsDto issuerAddress(String issuerAddress) {
+    this.issuerAddress = issuerAddress;
+    return this;
+  }
+
+   /**
+   * The address of the issuer of this token. Will be part of the identifier of this token on chain.
+   * @return issuerAddress
+  **/
+  @jakarta.annotation.Nonnull
+  @JsonProperty(JSON_PROPERTY_ISSUER_ADDRESS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getIssuerAddress() {
+    return issuerAddress;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_ISSUER_ADDRESS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setIssuerAddress(String issuerAddress) {
+    this.issuerAddress = issuerAddress;
+  }
+
+
+  /**
+   * Return true if this StellarRippleCreateParamsDto object is equal to o.
+   */
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    StellarRippleCreateParamsDto stellarRippleCreateParamsDto = (StellarRippleCreateParamsDto) o;
+    return Objects.equals(this.symbol, stellarRippleCreateParamsDto.symbol) &&
+        Objects.equals(this.name, stellarRippleCreateParamsDto.name) &&
+        Objects.equals(this.issuerAddress, stellarRippleCreateParamsDto.issuerAddress);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(symbol, name, issuerAddress);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class StellarRippleCreateParamsDto {\n");
+    sb.append("    symbol: ").append(toIndentedString(symbol)).append("\n");
+    sb.append("    name: ").append(toIndentedString(name)).append("\n");
+    sb.append("    issuerAddress: ").append(toIndentedString(issuerAddress)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @return URL query string
+   */
+  public String toUrlQueryString() {
+    return toUrlQueryString(null);
+  }
+
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @param prefix prefix of the query string
+   * @return URL query string
+   */
+  public String toUrlQueryString(String prefix) {
+    String suffix = "";
+    String containerSuffix = "";
+    String containerPrefix = "";
+    if (prefix == null) {
+      // style=form, explode=true, e.g. /pet?name=cat&type=manx
+      prefix = "";
+    } else {
+      // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
+      prefix = prefix + "[";
+      suffix = "]";
+      containerSuffix = "]";
+      containerPrefix = "[";
     }
 
-    /**
-     * The symbol of the token
-     *
-     * @return symbol
-     */
-    @jakarta.annotation.Nonnull
-    @JsonProperty(JSON_PROPERTY_SYMBOL)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public String getSymbol() {
-        return symbol;
+    StringJoiner joiner = new StringJoiner("&");
+
+    // add `symbol` to the URL query string
+    if (getSymbol() != null) {
+      joiner.add(String.format("%ssymbol%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getSymbol()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
     }
 
-    @JsonProperty(JSON_PROPERTY_SYMBOL)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setSymbol(String symbol) {
-        this.symbol = symbol;
+    // add `name` to the URL query string
+    if (getName() != null) {
+      joiner.add(String.format("%sname%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getName()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
     }
 
-    public StellarRippleCreateParamsDto name(String name) {
-        this.name = name;
-        return this;
+    // add `issuerAddress` to the URL query string
+    if (getIssuerAddress() != null) {
+      joiner.add(String.format("%sissuerAddress%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getIssuerAddress()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
     }
 
-    /**
-     * The name of the token
-     *
-     * @return name
-     */
-    @jakarta.annotation.Nonnull
-    @JsonProperty(JSON_PROPERTY_NAME)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public String getName() {
-        return name;
-    }
-
-    @JsonProperty(JSON_PROPERTY_NAME)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public StellarRippleCreateParamsDto issuerAddress(String issuerAddress) {
-        this.issuerAddress = issuerAddress;
-        return this;
-    }
-
-    /**
-     * The address of the issuer of this token. Will be part of the identifier of this token on
-     * chain.
-     *
-     * @return issuerAddress
-     */
-    @jakarta.annotation.Nonnull
-    @JsonProperty(JSON_PROPERTY_ISSUER_ADDRESS)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public String getIssuerAddress() {
-        return issuerAddress;
-    }
-
-    @JsonProperty(JSON_PROPERTY_ISSUER_ADDRESS)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setIssuerAddress(String issuerAddress) {
-        this.issuerAddress = issuerAddress;
-    }
-
-    /** Return true if this StellarRippleCreateParamsDto object is equal to o. */
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        StellarRippleCreateParamsDto stellarRippleCreateParamsDto =
-                (StellarRippleCreateParamsDto) o;
-        return Objects.equals(this.symbol, stellarRippleCreateParamsDto.symbol)
-                && Objects.equals(this.name, stellarRippleCreateParamsDto.name)
-                && Objects.equals(this.issuerAddress, stellarRippleCreateParamsDto.issuerAddress);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(symbol, name, issuerAddress);
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("class StellarRippleCreateParamsDto {\n");
-        sb.append("    symbol: ").append(toIndentedString(symbol)).append("\n");
-        sb.append("    name: ").append(toIndentedString(name)).append("\n");
-        sb.append("    issuerAddress: ").append(toIndentedString(issuerAddress)).append("\n");
-        sb.append("}");
-        return sb.toString();
-    }
-
-    /**
-     * Convert the given object to string with each line indented by 4 spaces (except the first
-     * line).
-     */
-    private String toIndentedString(Object o) {
-        if (o == null) {
-            return "null";
-        }
-        return o.toString().replace("\n", "\n    ");
-    }
-
-    /**
-     * Convert the instance into URL query string.
-     *
-     * @return URL query string
-     */
-    public String toUrlQueryString() {
-        return toUrlQueryString(null);
-    }
-
-    /**
-     * Convert the instance into URL query string.
-     *
-     * @param prefix prefix of the query string
-     * @return URL query string
-     */
-    public String toUrlQueryString(String prefix) {
-        String suffix = "";
-        String containerSuffix = "";
-        String containerPrefix = "";
-        if (prefix == null) {
-            // style=form, explode=true, e.g. /pet?name=cat&type=manx
-            prefix = "";
-        } else {
-            // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
-            prefix = prefix + "[";
-            suffix = "]";
-            containerSuffix = "]";
-            containerPrefix = "[";
-        }
-
-        StringJoiner joiner = new StringJoiner("&");
-
-        // add `symbol` to the URL query string
-        if (getSymbol() != null) {
-            joiner.add(
-                    String.format(
-                            "%ssymbol%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(String.valueOf(getSymbol()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
-        // add `name` to the URL query string
-        if (getName() != null) {
-            joiner.add(
-                    String.format(
-                            "%sname%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(String.valueOf(getName()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
-        // add `issuerAddress` to the URL query string
-        if (getIssuerAddress() != null) {
-            joiner.add(
-                    String.format(
-                            "%sissuerAddress%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getIssuerAddress()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
-        return joiner.toString();
-    }
+    return joiner.toString();
+  }
 }
+

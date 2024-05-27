@@ -10,187 +10,194 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.StringJoiner;
+import java.util.Objects;
+import java.util.Map;
+import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.fireblocks.sdk.model.AssetWallet;
+import com.fireblocks.sdk.model.PaginatedAssetWalletResponsePaging;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
-import java.util.StringJoiner;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
-/** PaginatedAssetWalletResponse */
+
+/**
+ * PaginatedAssetWalletResponse
+ */
 @JsonPropertyOrder({
-    PaginatedAssetWalletResponse.JSON_PROPERTY_ASSET_WALLETS,
-    PaginatedAssetWalletResponse.JSON_PROPERTY_PAGING
+  PaginatedAssetWalletResponse.JSON_PROPERTY_ASSET_WALLETS,
+  PaginatedAssetWalletResponse.JSON_PROPERTY_PAGING
 })
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class PaginatedAssetWalletResponse {
-    public static final String JSON_PROPERTY_ASSET_WALLETS = "assetWallets";
-    private List<AssetWallet> assetWallets;
+  public static final String JSON_PROPERTY_ASSET_WALLETS = "assetWallets";
+  private List<AssetWallet> assetWallets;
 
-    public static final String JSON_PROPERTY_PAGING = "paging";
-    private PaginatedAssetWalletResponsePaging paging;
+  public static final String JSON_PROPERTY_PAGING = "paging";
+  private PaginatedAssetWalletResponsePaging paging;
 
-    public PaginatedAssetWalletResponse() {}
+  public PaginatedAssetWalletResponse() { 
+  }
 
-    public PaginatedAssetWalletResponse assetWallets(List<AssetWallet> assetWallets) {
-        this.assetWallets = assetWallets;
-        return this;
+  public PaginatedAssetWalletResponse assetWallets(List<AssetWallet> assetWallets) {
+    this.assetWallets = assetWallets;
+    return this;
+  }
+
+  public PaginatedAssetWalletResponse addAssetWalletsItem(AssetWallet assetWalletsItem) {
+    if (this.assetWallets == null) {
+      this.assetWallets = new ArrayList<>();
+    }
+    this.assetWallets.add(assetWalletsItem);
+    return this;
+  }
+
+   /**
+   * Get assetWallets
+   * @return assetWallets
+  **/
+  @jakarta.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_ASSET_WALLETS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<AssetWallet> getAssetWallets() {
+    return assetWallets;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_ASSET_WALLETS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setAssetWallets(List<AssetWallet> assetWallets) {
+    this.assetWallets = assetWallets;
+  }
+
+
+  public PaginatedAssetWalletResponse paging(PaginatedAssetWalletResponsePaging paging) {
+    this.paging = paging;
+    return this;
+  }
+
+   /**
+   * Get paging
+   * @return paging
+  **/
+  @jakarta.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_PAGING)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public PaginatedAssetWalletResponsePaging getPaging() {
+    return paging;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_PAGING)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setPaging(PaginatedAssetWalletResponsePaging paging) {
+    this.paging = paging;
+  }
+
+
+  /**
+   * Return true if this PaginatedAssetWalletResponse object is equal to o.
+   */
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    PaginatedAssetWalletResponse paginatedAssetWalletResponse = (PaginatedAssetWalletResponse) o;
+    return Objects.equals(this.assetWallets, paginatedAssetWalletResponse.assetWallets) &&
+        Objects.equals(this.paging, paginatedAssetWalletResponse.paging);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(assetWallets, paging);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class PaginatedAssetWalletResponse {\n");
+    sb.append("    assetWallets: ").append(toIndentedString(assetWallets)).append("\n");
+    sb.append("    paging: ").append(toIndentedString(paging)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @return URL query string
+   */
+  public String toUrlQueryString() {
+    return toUrlQueryString(null);
+  }
+
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @param prefix prefix of the query string
+   * @return URL query string
+   */
+  public String toUrlQueryString(String prefix) {
+    String suffix = "";
+    String containerSuffix = "";
+    String containerPrefix = "";
+    if (prefix == null) {
+      // style=form, explode=true, e.g. /pet?name=cat&type=manx
+      prefix = "";
+    } else {
+      // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
+      prefix = prefix + "[";
+      suffix = "]";
+      containerSuffix = "]";
+      containerPrefix = "[";
     }
 
-    public PaginatedAssetWalletResponse addAssetWalletsItem(AssetWallet assetWalletsItem) {
-        if (this.assetWallets == null) {
-            this.assetWallets = new ArrayList<>();
+    StringJoiner joiner = new StringJoiner("&");
+
+    // add `assetWallets` to the URL query string
+    if (getAssetWallets() != null) {
+      for (int i = 0; i < getAssetWallets().size(); i++) {
+        if (getAssetWallets().get(i) != null) {
+          joiner.add(getAssetWallets().get(i).toUrlQueryString(String.format("%sassetWallets%s%s", prefix, suffix,
+          "".equals(suffix) ? "" : String.format("%s%d%s", containerPrefix, i, containerSuffix))));
         }
-        this.assetWallets.add(assetWalletsItem);
-        return this;
+      }
     }
 
-    /**
-     * Get assetWallets
-     *
-     * @return assetWallets
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_ASSET_WALLETS)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public List<AssetWallet> getAssetWallets() {
-        return assetWallets;
+    // add `paging` to the URL query string
+    if (getPaging() != null) {
+      joiner.add(getPaging().toUrlQueryString(prefix + "paging" + suffix));
     }
 
-    @JsonProperty(JSON_PROPERTY_ASSET_WALLETS)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAssetWallets(List<AssetWallet> assetWallets) {
-        this.assetWallets = assetWallets;
-    }
-
-    public PaginatedAssetWalletResponse paging(PaginatedAssetWalletResponsePaging paging) {
-        this.paging = paging;
-        return this;
-    }
-
-    /**
-     * Get paging
-     *
-     * @return paging
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_PAGING)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public PaginatedAssetWalletResponsePaging getPaging() {
-        return paging;
-    }
-
-    @JsonProperty(JSON_PROPERTY_PAGING)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setPaging(PaginatedAssetWalletResponsePaging paging) {
-        this.paging = paging;
-    }
-
-    /** Return true if this PaginatedAssetWalletResponse object is equal to o. */
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        PaginatedAssetWalletResponse paginatedAssetWalletResponse =
-                (PaginatedAssetWalletResponse) o;
-        return Objects.equals(this.assetWallets, paginatedAssetWalletResponse.assetWallets)
-                && Objects.equals(this.paging, paginatedAssetWalletResponse.paging);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(assetWallets, paging);
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("class PaginatedAssetWalletResponse {\n");
-        sb.append("    assetWallets: ").append(toIndentedString(assetWallets)).append("\n");
-        sb.append("    paging: ").append(toIndentedString(paging)).append("\n");
-        sb.append("}");
-        return sb.toString();
-    }
-
-    /**
-     * Convert the given object to string with each line indented by 4 spaces (except the first
-     * line).
-     */
-    private String toIndentedString(Object o) {
-        if (o == null) {
-            return "null";
-        }
-        return o.toString().replace("\n", "\n    ");
-    }
-
-    /**
-     * Convert the instance into URL query string.
-     *
-     * @return URL query string
-     */
-    public String toUrlQueryString() {
-        return toUrlQueryString(null);
-    }
-
-    /**
-     * Convert the instance into URL query string.
-     *
-     * @param prefix prefix of the query string
-     * @return URL query string
-     */
-    public String toUrlQueryString(String prefix) {
-        String suffix = "";
-        String containerSuffix = "";
-        String containerPrefix = "";
-        if (prefix == null) {
-            // style=form, explode=true, e.g. /pet?name=cat&type=manx
-            prefix = "";
-        } else {
-            // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
-            prefix = prefix + "[";
-            suffix = "]";
-            containerSuffix = "]";
-            containerPrefix = "[";
-        }
-
-        StringJoiner joiner = new StringJoiner("&");
-
-        // add `assetWallets` to the URL query string
-        if (getAssetWallets() != null) {
-            for (int i = 0; i < getAssetWallets().size(); i++) {
-                if (getAssetWallets().get(i) != null) {
-                    joiner.add(
-                            getAssetWallets()
-                                    .get(i)
-                                    .toUrlQueryString(
-                                            String.format(
-                                                    "%sassetWallets%s%s",
-                                                    prefix,
-                                                    suffix,
-                                                    "".equals(suffix)
-                                                            ? ""
-                                                            : String.format(
-                                                                    "%s%d%s",
-                                                                    containerPrefix,
-                                                                    i,
-                                                                    containerSuffix))));
-                }
-            }
-        }
-
-        // add `paging` to the URL query string
-        if (getPaging() != null) {
-            joiner.add(getPaging().toUrlQueryString(prefix + "paging" + suffix));
-        }
-
-        return joiner.toString();
-    }
+    return joiner.toString();
+  }
 }
+

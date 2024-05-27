@@ -10,193 +10,215 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.StringJoiner;
+import java.util.Objects;
+import java.util.Map;
+import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.fireblocks.sdk.model.AssetAmount;
+import com.fireblocks.sdk.model.Destination;
+import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.util.Objects;
-import java.util.StringJoiner;
 
-/** DisbursementInstructionOutput */
+
+/**
+ * DisbursementInstructionOutput
+ */
 @JsonPropertyOrder({
-    DisbursementInstructionOutput.JSON_PROPERTY_AMOUNT,
-    DisbursementInstructionOutput.JSON_PROPERTY_FEE,
-    DisbursementInstructionOutput.JSON_PROPERTY_PAYEE_ACCOUNT
+  DisbursementInstructionOutput.JSON_PROPERTY_AMOUNT,
+  DisbursementInstructionOutput.JSON_PROPERTY_FEE,
+  DisbursementInstructionOutput.JSON_PROPERTY_PAYEE_ACCOUNT
 })
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class DisbursementInstructionOutput {
-    public static final String JSON_PROPERTY_AMOUNT = "amount";
-    private AssetAmount amount;
+  public static final String JSON_PROPERTY_AMOUNT = "amount";
+  private AssetAmount amount;
 
-    public static final String JSON_PROPERTY_FEE = "fee";
-    private AssetAmount fee;
+  public static final String JSON_PROPERTY_FEE = "fee";
+  private AssetAmount fee;
 
-    public static final String JSON_PROPERTY_PAYEE_ACCOUNT = "payeeAccount";
-    private Destination payeeAccount;
+  public static final String JSON_PROPERTY_PAYEE_ACCOUNT = "payeeAccount";
+  private Destination payeeAccount;
 
-    public DisbursementInstructionOutput() {}
+  public DisbursementInstructionOutput() { 
+  }
 
-    public DisbursementInstructionOutput amount(AssetAmount amount) {
-        this.amount = amount;
-        return this;
+  public DisbursementInstructionOutput amount(AssetAmount amount) {
+    this.amount = amount;
+    return this;
+  }
+
+   /**
+   * Get amount
+   * @return amount
+  **/
+  @jakarta.annotation.Nonnull
+  @JsonProperty(JSON_PROPERTY_AMOUNT)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public AssetAmount getAmount() {
+    return amount;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_AMOUNT)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setAmount(AssetAmount amount) {
+    this.amount = amount;
+  }
+
+
+  public DisbursementInstructionOutput fee(AssetAmount fee) {
+    this.fee = fee;
+    return this;
+  }
+
+   /**
+   * Get fee
+   * @return fee
+  **/
+  @jakarta.annotation.Nonnull
+  @JsonProperty(JSON_PROPERTY_FEE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public AssetAmount getFee() {
+    return fee;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_FEE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setFee(AssetAmount fee) {
+    this.fee = fee;
+  }
+
+
+  public DisbursementInstructionOutput payeeAccount(Destination payeeAccount) {
+    this.payeeAccount = payeeAccount;
+    return this;
+  }
+
+   /**
+   * Get payeeAccount
+   * @return payeeAccount
+  **/
+  @jakarta.annotation.Nonnull
+  @JsonProperty(JSON_PROPERTY_PAYEE_ACCOUNT)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public Destination getPayeeAccount() {
+    return payeeAccount;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_PAYEE_ACCOUNT)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setPayeeAccount(Destination payeeAccount) {
+    this.payeeAccount = payeeAccount;
+  }
+
+
+  /**
+   * Return true if this DisbursementInstructionOutput object is equal to o.
+   */
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    DisbursementInstructionOutput disbursementInstructionOutput = (DisbursementInstructionOutput) o;
+    return Objects.equals(this.amount, disbursementInstructionOutput.amount) &&
+        Objects.equals(this.fee, disbursementInstructionOutput.fee) &&
+        Objects.equals(this.payeeAccount, disbursementInstructionOutput.payeeAccount);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(amount, fee, payeeAccount);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class DisbursementInstructionOutput {\n");
+    sb.append("    amount: ").append(toIndentedString(amount)).append("\n");
+    sb.append("    fee: ").append(toIndentedString(fee)).append("\n");
+    sb.append("    payeeAccount: ").append(toIndentedString(payeeAccount)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @return URL query string
+   */
+  public String toUrlQueryString() {
+    return toUrlQueryString(null);
+  }
+
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @param prefix prefix of the query string
+   * @return URL query string
+   */
+  public String toUrlQueryString(String prefix) {
+    String suffix = "";
+    String containerSuffix = "";
+    String containerPrefix = "";
+    if (prefix == null) {
+      // style=form, explode=true, e.g. /pet?name=cat&type=manx
+      prefix = "";
+    } else {
+      // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
+      prefix = prefix + "[";
+      suffix = "]";
+      containerSuffix = "]";
+      containerPrefix = "[";
     }
 
-    /**
-     * Get amount
-     *
-     * @return amount
-     */
-    @jakarta.annotation.Nonnull
-    @JsonProperty(JSON_PROPERTY_AMOUNT)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public AssetAmount getAmount() {
-        return amount;
+    StringJoiner joiner = new StringJoiner("&");
+
+    // add `amount` to the URL query string
+    if (getAmount() != null) {
+      joiner.add(getAmount().toUrlQueryString(prefix + "amount" + suffix));
     }
 
-    @JsonProperty(JSON_PROPERTY_AMOUNT)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setAmount(AssetAmount amount) {
-        this.amount = amount;
+    // add `fee` to the URL query string
+    if (getFee() != null) {
+      joiner.add(getFee().toUrlQueryString(prefix + "fee" + suffix));
     }
 
-    public DisbursementInstructionOutput fee(AssetAmount fee) {
-        this.fee = fee;
-        return this;
+    // add `payeeAccount` to the URL query string
+    if (getPayeeAccount() != null) {
+      joiner.add(getPayeeAccount().toUrlQueryString(prefix + "payeeAccount" + suffix));
     }
 
-    /**
-     * Get fee
-     *
-     * @return fee
-     */
-    @jakarta.annotation.Nonnull
-    @JsonProperty(JSON_PROPERTY_FEE)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public AssetAmount getFee() {
-        return fee;
-    }
-
-    @JsonProperty(JSON_PROPERTY_FEE)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setFee(AssetAmount fee) {
-        this.fee = fee;
-    }
-
-    public DisbursementInstructionOutput payeeAccount(Destination payeeAccount) {
-        this.payeeAccount = payeeAccount;
-        return this;
-    }
-
-    /**
-     * Get payeeAccount
-     *
-     * @return payeeAccount
-     */
-    @jakarta.annotation.Nonnull
-    @JsonProperty(JSON_PROPERTY_PAYEE_ACCOUNT)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public Destination getPayeeAccount() {
-        return payeeAccount;
-    }
-
-    @JsonProperty(JSON_PROPERTY_PAYEE_ACCOUNT)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setPayeeAccount(Destination payeeAccount) {
-        this.payeeAccount = payeeAccount;
-    }
-
-    /** Return true if this DisbursementInstructionOutput object is equal to o. */
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        DisbursementInstructionOutput disbursementInstructionOutput =
-                (DisbursementInstructionOutput) o;
-        return Objects.equals(this.amount, disbursementInstructionOutput.amount)
-                && Objects.equals(this.fee, disbursementInstructionOutput.fee)
-                && Objects.equals(this.payeeAccount, disbursementInstructionOutput.payeeAccount);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(amount, fee, payeeAccount);
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("class DisbursementInstructionOutput {\n");
-        sb.append("    amount: ").append(toIndentedString(amount)).append("\n");
-        sb.append("    fee: ").append(toIndentedString(fee)).append("\n");
-        sb.append("    payeeAccount: ").append(toIndentedString(payeeAccount)).append("\n");
-        sb.append("}");
-        return sb.toString();
-    }
-
-    /**
-     * Convert the given object to string with each line indented by 4 spaces (except the first
-     * line).
-     */
-    private String toIndentedString(Object o) {
-        if (o == null) {
-            return "null";
-        }
-        return o.toString().replace("\n", "\n    ");
-    }
-
-    /**
-     * Convert the instance into URL query string.
-     *
-     * @return URL query string
-     */
-    public String toUrlQueryString() {
-        return toUrlQueryString(null);
-    }
-
-    /**
-     * Convert the instance into URL query string.
-     *
-     * @param prefix prefix of the query string
-     * @return URL query string
-     */
-    public String toUrlQueryString(String prefix) {
-        String suffix = "";
-        String containerSuffix = "";
-        String containerPrefix = "";
-        if (prefix == null) {
-            // style=form, explode=true, e.g. /pet?name=cat&type=manx
-            prefix = "";
-        } else {
-            // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
-            prefix = prefix + "[";
-            suffix = "]";
-            containerSuffix = "]";
-            containerPrefix = "[";
-        }
-
-        StringJoiner joiner = new StringJoiner("&");
-
-        // add `amount` to the URL query string
-        if (getAmount() != null) {
-            joiner.add(getAmount().toUrlQueryString(prefix + "amount" + suffix));
-        }
-
-        // add `fee` to the URL query string
-        if (getFee() != null) {
-            joiner.add(getFee().toUrlQueryString(prefix + "fee" + suffix));
-        }
-
-        // add `payeeAccount` to the URL query string
-        if (getPayeeAccount() != null) {
-            joiner.add(getPayeeAccount().toUrlQueryString(prefix + "payeeAccount" + suffix));
-        }
-
-        return joiner.toString();
-    }
+    return joiner.toString();
+  }
 }
+

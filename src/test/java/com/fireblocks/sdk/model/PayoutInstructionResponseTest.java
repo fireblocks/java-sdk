@@ -10,48 +10,77 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.fireblocks.sdk.model.InstructionAmount;
+import com.fireblocks.sdk.model.PayeeAccountResponse;
+import com.fireblocks.sdk.model.PayoutInstructionState;
+import com.fireblocks.sdk.model.Transaction;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
-/** Model tests for PayoutInstructionResponse */
+/**
+ * Model tests for PayoutInstructionResponse
+ */
 public class PayoutInstructionResponseTest {
     private final PayoutInstructionResponse model = new PayoutInstructionResponse();
 
-    /** Model tests for PayoutInstructionResponse */
+    /**
+     * Model tests for PayoutInstructionResponse
+     */
     @Test
     public void testPayoutInstructionResponse() {
         // TODO: test PayoutInstructionResponse
     }
 
-    /** Test the property 'id' */
+    /**
+     * Test the property 'id'
+     */
     @Test
     public void idTest() {
         // TODO: test id
     }
 
-    /** Test the property 'payeeAccount' */
+    /**
+     * Test the property 'payeeAccount'
+     */
     @Test
     public void payeeAccountTest() {
         // TODO: test payeeAccount
     }
 
-    /** Test the property 'amount' */
+    /**
+     * Test the property 'amount'
+     */
     @Test
     public void amountTest() {
         // TODO: test amount
     }
 
-    /** Test the property 'state' */
+    /**
+     * Test the property 'state'
+     */
     @Test
     public void stateTest() {
         // TODO: test state
     }
 
-    /** Test the property 'transactions' */
+    /**
+     * Test the property 'transactions'
+     */
     @Test
     public void transactionsTest() {
         // TODO: test transactions
     }
+
 }

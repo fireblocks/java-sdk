@@ -10,24 +10,39 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.Arrays;
+import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
-/** Model tests for RewardsInfo */
+/**
+ * Model tests for RewardsInfo
+ */
 public class RewardsInfoTest {
     private final RewardsInfo model = new RewardsInfo();
 
-    /** Model tests for RewardsInfo */
+    /**
+     * Model tests for RewardsInfo
+     */
     @Test
     public void testRewardsInfo() {
         // TODO: test RewardsInfo
     }
 
-    /** Test the property 'pendingRewards' */
+    /**
+     * Test the property 'pendingRewards'
+     */
     @Test
     public void pendingRewardsTest() {
         // TODO: test pendingRewards
     }
+
 }

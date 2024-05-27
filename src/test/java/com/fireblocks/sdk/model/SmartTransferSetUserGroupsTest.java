@@ -10,24 +10,41 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
-/** Model tests for SmartTransferSetUserGroups */
+/**
+ * Model tests for SmartTransferSetUserGroups
+ */
 public class SmartTransferSetUserGroupsTest {
     private final SmartTransferSetUserGroups model = new SmartTransferSetUserGroups();
 
-    /** Model tests for SmartTransferSetUserGroups */
+    /**
+     * Model tests for SmartTransferSetUserGroups
+     */
     @Test
     public void testSmartTransferSetUserGroups() {
         // TODO: test SmartTransferSetUserGroups
     }
 
-    /** Test the property 'userGroupIds' */
+    /**
+     * Test the property 'userGroupIds'
+     */
     @Test
     public void userGroupIdsTest() {
         // TODO: test userGroupIds
     }
+
 }

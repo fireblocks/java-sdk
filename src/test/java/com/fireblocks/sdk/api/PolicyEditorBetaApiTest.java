@@ -10,108 +10,116 @@
  * Do not edit the class manually.
  */
 
-package com.fireblocks.sdk.api;
 
+package com.fireblocks.sdk.api;
 
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.model.DraftReviewAndValidationResponse;
+import com.fireblocks.sdk.model.ErrorSchema;
 import com.fireblocks.sdk.model.PolicyAndValidationResponse;
 import com.fireblocks.sdk.model.PolicyRules;
 import com.fireblocks.sdk.model.PublishDraftRequest;
 import com.fireblocks.sdk.model.PublishResult;
-import java.util.concurrent.CompletableFuture;
-import org.junit.Ignore;
 import org.junit.Test;
+import org.junit.Ignore;
 
-/** API tests for PolicyEditorBetaApi */
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import java.util.concurrent.CompletableFuture;
+
+/**
+ * API tests for PolicyEditorBetaApi
+ */
 @Ignore
 public class PolicyEditorBetaApiTest {
 
     private final PolicyEditorBetaApi api = new PolicyEditorBetaApi();
 
+    
     /**
      * Get the active policy and its validation
      *
-     * <p>Returns the active policy and its validation. &lt;/br&gt; **Note:** These endpoints are
-     * currently in beta and might be subject to changes. If you want to participate and learn more
-     * about the Fireblocks TAP, please contact your Fireblocks Customer Success Manager or send an
-     * email to CSM@fireblocks.com.
+     * Returns the active policy and its validation. &lt;/br&gt; **Note:** These endpoints are currently in beta and might be subject to changes. If you want to participate and learn more about the Fireblocks TAP, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com. 
      *
-     * @throws ApiException if the Api call fails
+     * @throws ApiException
+     *          if the Api call fails
      */
     @Test
     public void getActivePolicyTest() throws ApiException {
-        CompletableFuture<ApiResponse<PolicyAndValidationResponse>> response =
-                api.getActivePolicy();
+        CompletableFuture<ApiResponse<PolicyAndValidationResponse>> response = 
+        api.getActivePolicy();
+        
     }
-
+    
     /**
      * Get the active draft
      *
-     * <p>Returns the active draft and its validation. &lt;/br&gt; **Note:** These endpoints are
-     * currently in beta and might be subject to changes. If you want to participate and learn more
-     * about the Fireblocks TAP, please contact your Fireblocks Customer Success Manager or send an
-     * email to CSM@fireblocks.com.
+     * Returns the active draft and its validation. &lt;/br&gt; **Note:** These endpoints are currently in beta and might be subject to changes. If you want to participate and learn more about the Fireblocks TAP, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com. 
      *
-     * @throws ApiException if the Api call fails
+     * @throws ApiException
+     *          if the Api call fails
      */
     @Test
     public void getDraftTest() throws ApiException {
-        CompletableFuture<ApiResponse<DraftReviewAndValidationResponse>> response = api.getDraft();
+        CompletableFuture<ApiResponse<DraftReviewAndValidationResponse>> response = 
+        api.getDraft();
+        
     }
-
+    
     /**
      * Send publish request for a certain draft id
      *
-     * <p>Send publish request of certain draft id and returns the response. &lt;/br&gt; **Note:**
-     * These endpoints are currently in beta and might be subject to changes. If you want to
-     * participate and learn more about the Fireblocks TAP, please contact your Fireblocks Customer
-     * Success Manager or send an email to CSM@fireblocks.com.
+     * Send publish request of certain draft id and returns the response. &lt;/br&gt; **Note:** These endpoints are currently in beta and might be subject to changes. If you want to participate and learn more about the Fireblocks TAP, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com. 
      *
-     * @throws ApiException if the Api call fails
+     * @throws ApiException
+     *          if the Api call fails
      */
     @Test
     public void publishDraftTest() throws ApiException {
         PublishDraftRequest publishDraftRequest = null;
         String idempotencyKey = null;
-        CompletableFuture<ApiResponse<PublishResult>> response =
-                api.publishDraft(publishDraftRequest, idempotencyKey);
+        CompletableFuture<ApiResponse<PublishResult>> response = 
+        api.publishDraft(publishDraftRequest, idempotencyKey);
+        
     }
-
+    
     /**
      * Send publish request for a set of policy rules
      *
-     * <p>Send publish request of set of policy rules and returns the response. &lt;/br&gt;
-     * **Note:** These endpoints are currently in beta and might be subject to changes. If you want
-     * to participate and learn more about the Fireblocks TAP, please contact your Fireblocks
-     * Customer Success Manager or send an email to CSM@fireblocks.com.
+     * Send publish request of set of policy rules and returns the response. &lt;/br&gt; **Note:** These endpoints are currently in beta and might be subject to changes. If you want to participate and learn more about the Fireblocks TAP, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com. 
      *
-     * @throws ApiException if the Api call fails
+     * @throws ApiException
+     *          if the Api call fails
      */
     @Test
     public void publishPolicyRulesTest() throws ApiException {
         PolicyRules policyRules = null;
         String idempotencyKey = null;
-        CompletableFuture<ApiResponse<PublishResult>> response =
-                api.publishPolicyRules(policyRules, idempotencyKey);
+        CompletableFuture<ApiResponse<PublishResult>> response = 
+        api.publishPolicyRules(policyRules, idempotencyKey);
+        
     }
-
+    
     /**
      * Update the draft with a new set of rules
      *
-     * <p>Update the draft and return its validation. &lt;/br&gt; **Note:** These endpoints are
-     * currently in beta and might be subject to changes. If you want to participate and learn more
-     * about the Fireblocks TAP, please contact your Fireblocks Customer Success Manager or send an
-     * email to CSM@fireblocks.com.
+     * Update the draft and return its validation. &lt;/br&gt; **Note:** These endpoints are currently in beta and might be subject to changes. If you want to participate and learn more about the Fireblocks TAP, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com. 
      *
-     * @throws ApiException if the Api call fails
+     * @throws ApiException
+     *          if the Api call fails
      */
     @Test
     public void updateDraftTest() throws ApiException {
         PolicyRules policyRules = null;
         String idempotencyKey = null;
-        CompletableFuture<ApiResponse<DraftReviewAndValidationResponse>> response =
-                api.updateDraft(policyRules, idempotencyKey);
+        CompletableFuture<ApiResponse<DraftReviewAndValidationResponse>> response = 
+        api.updateDraft(policyRules, idempotencyKey);
+        
     }
+    
 }

@@ -1,7 +1,6 @@
-
-import com.fireblocks.sdk.BasePath;
-import org.junit.Assert;
 import org.junit.Test;
+import org.junit.Assert;
+import com.fireblocks.sdk.BasePath;
 
 public class BasePathTest {
 

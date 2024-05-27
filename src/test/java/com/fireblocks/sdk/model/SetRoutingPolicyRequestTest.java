@@ -10,24 +10,42 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.fireblocks.sdk.model.NetworkConnectionRoutingPolicyValue;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
-/** Model tests for SetRoutingPolicyRequest */
+/**
+ * Model tests for SetRoutingPolicyRequest
+ */
 public class SetRoutingPolicyRequestTest {
     private final SetRoutingPolicyRequest model = new SetRoutingPolicyRequest();
 
-    /** Model tests for SetRoutingPolicyRequest */
+    /**
+     * Model tests for SetRoutingPolicyRequest
+     */
     @Test
     public void testSetRoutingPolicyRequest() {
         // TODO: test SetRoutingPolicyRequest
     }
 
-    /** Test the property 'routingPolicy' */
+    /**
+     * Test the property 'routingPolicy'
+     */
     @Test
     public void routingPolicyTest() {
         // TODO: test routingPolicy
     }
+
 }

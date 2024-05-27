@@ -10,30 +10,49 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import java.time.OffsetDateTime;
+import java.util.Arrays;
+import java.util.UUID;
+import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
-/** Model tests for ApiKey */
+/**
+ * Model tests for ApiKey
+ */
 public class ApiKeyTest {
     private final ApiKey model = new ApiKey();
 
-    /** Model tests for ApiKey */
+    /**
+     * Model tests for ApiKey
+     */
     @Test
     public void testApiKey() {
         // TODO: test ApiKey
     }
 
-    /** Test the property 'id' */
+    /**
+     * Test the property 'id'
+     */
     @Test
     public void idTest() {
         // TODO: test id
     }
 
-    /** Test the property 'lastSeen' */
+    /**
+     * Test the property 'lastSeen'
+     */
     @Test
     public void lastSeenTest() {
         // TODO: test lastSeen
     }
+
 }

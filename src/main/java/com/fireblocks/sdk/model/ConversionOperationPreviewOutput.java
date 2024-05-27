@@ -10,247 +10,251 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.math.BigDecimal;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
-import java.util.Objects;
 import java.util.StringJoiner;
+import java.util.Objects;
+import java.util.Map;
+import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.fireblocks.sdk.model.AssetAmount;
+import java.math.BigDecimal;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
-/** ConversionOperationPreviewOutput */
+
+/**
+ * ConversionOperationPreviewOutput
+ */
 @JsonPropertyOrder({
-    ConversionOperationPreviewOutput.JSON_PROPERTY_AMOUNT,
-    ConversionOperationPreviewOutput.JSON_PROPERTY_FEE,
-    ConversionOperationPreviewOutput.JSON_PROPERTY_CONVERSION_RATE,
-    ConversionOperationPreviewOutput.JSON_PROPERTY_TIME_SECONDS
+  ConversionOperationPreviewOutput.JSON_PROPERTY_AMOUNT,
+  ConversionOperationPreviewOutput.JSON_PROPERTY_FEE,
+  ConversionOperationPreviewOutput.JSON_PROPERTY_CONVERSION_RATE,
+  ConversionOperationPreviewOutput.JSON_PROPERTY_TIME_SECONDS
 })
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class ConversionOperationPreviewOutput {
-    public static final String JSON_PROPERTY_AMOUNT = "amount";
-    private AssetAmount amount;
+  public static final String JSON_PROPERTY_AMOUNT = "amount";
+  private AssetAmount amount;
 
-    public static final String JSON_PROPERTY_FEE = "fee";
-    private AssetAmount fee;
+  public static final String JSON_PROPERTY_FEE = "fee";
+  private AssetAmount fee;
 
-    public static final String JSON_PROPERTY_CONVERSION_RATE = "conversionRate";
-    private String conversionRate;
+  public static final String JSON_PROPERTY_CONVERSION_RATE = "conversionRate";
+  private String conversionRate;
 
-    public static final String JSON_PROPERTY_TIME_SECONDS = "timeSeconds";
-    private BigDecimal timeSeconds;
+  public static final String JSON_PROPERTY_TIME_SECONDS = "timeSeconds";
+  private BigDecimal timeSeconds;
 
-    public ConversionOperationPreviewOutput() {}
+  public ConversionOperationPreviewOutput() { 
+  }
 
-    public ConversionOperationPreviewOutput amount(AssetAmount amount) {
-        this.amount = amount;
-        return this;
+  public ConversionOperationPreviewOutput amount(AssetAmount amount) {
+    this.amount = amount;
+    return this;
+  }
+
+   /**
+   * Get amount
+   * @return amount
+  **/
+  @jakarta.annotation.Nonnull
+  @JsonProperty(JSON_PROPERTY_AMOUNT)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public AssetAmount getAmount() {
+    return amount;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_AMOUNT)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setAmount(AssetAmount amount) {
+    this.amount = amount;
+  }
+
+
+  public ConversionOperationPreviewOutput fee(AssetAmount fee) {
+    this.fee = fee;
+    return this;
+  }
+
+   /**
+   * Get fee
+   * @return fee
+  **/
+  @jakarta.annotation.Nonnull
+  @JsonProperty(JSON_PROPERTY_FEE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public AssetAmount getFee() {
+    return fee;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_FEE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setFee(AssetAmount fee) {
+    this.fee = fee;
+  }
+
+
+  public ConversionOperationPreviewOutput conversionRate(String conversionRate) {
+    this.conversionRate = conversionRate;
+    return this;
+  }
+
+   /**
+   * Get conversionRate
+   * @return conversionRate
+  **/
+  @jakarta.annotation.Nonnull
+  @JsonProperty(JSON_PROPERTY_CONVERSION_RATE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getConversionRate() {
+    return conversionRate;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_CONVERSION_RATE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setConversionRate(String conversionRate) {
+    this.conversionRate = conversionRate;
+  }
+
+
+  public ConversionOperationPreviewOutput timeSeconds(BigDecimal timeSeconds) {
+    this.timeSeconds = timeSeconds;
+    return this;
+  }
+
+   /**
+   * Get timeSeconds
+   * @return timeSeconds
+  **/
+  @jakarta.annotation.Nonnull
+  @JsonProperty(JSON_PROPERTY_TIME_SECONDS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public BigDecimal getTimeSeconds() {
+    return timeSeconds;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_TIME_SECONDS)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setTimeSeconds(BigDecimal timeSeconds) {
+    this.timeSeconds = timeSeconds;
+  }
+
+
+  /**
+   * Return true if this ConversionOperationPreviewOutput object is equal to o.
+   */
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    ConversionOperationPreviewOutput conversionOperationPreviewOutput = (ConversionOperationPreviewOutput) o;
+    return Objects.equals(this.amount, conversionOperationPreviewOutput.amount) &&
+        Objects.equals(this.fee, conversionOperationPreviewOutput.fee) &&
+        Objects.equals(this.conversionRate, conversionOperationPreviewOutput.conversionRate) &&
+        Objects.equals(this.timeSeconds, conversionOperationPreviewOutput.timeSeconds);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(amount, fee, conversionRate, timeSeconds);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class ConversionOperationPreviewOutput {\n");
+    sb.append("    amount: ").append(toIndentedString(amount)).append("\n");
+    sb.append("    fee: ").append(toIndentedString(fee)).append("\n");
+    sb.append("    conversionRate: ").append(toIndentedString(conversionRate)).append("\n");
+    sb.append("    timeSeconds: ").append(toIndentedString(timeSeconds)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @return URL query string
+   */
+  public String toUrlQueryString() {
+    return toUrlQueryString(null);
+  }
+
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @param prefix prefix of the query string
+   * @return URL query string
+   */
+  public String toUrlQueryString(String prefix) {
+    String suffix = "";
+    String containerSuffix = "";
+    String containerPrefix = "";
+    if (prefix == null) {
+      // style=form, explode=true, e.g. /pet?name=cat&type=manx
+      prefix = "";
+    } else {
+      // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
+      prefix = prefix + "[";
+      suffix = "]";
+      containerSuffix = "]";
+      containerPrefix = "[";
     }
 
-    /**
-     * Get amount
-     *
-     * @return amount
-     */
-    @jakarta.annotation.Nonnull
-    @JsonProperty(JSON_PROPERTY_AMOUNT)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public AssetAmount getAmount() {
-        return amount;
+    StringJoiner joiner = new StringJoiner("&");
+
+    // add `amount` to the URL query string
+    if (getAmount() != null) {
+      joiner.add(getAmount().toUrlQueryString(prefix + "amount" + suffix));
     }
 
-    @JsonProperty(JSON_PROPERTY_AMOUNT)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setAmount(AssetAmount amount) {
-        this.amount = amount;
+    // add `fee` to the URL query string
+    if (getFee() != null) {
+      joiner.add(getFee().toUrlQueryString(prefix + "fee" + suffix));
     }
 
-    public ConversionOperationPreviewOutput fee(AssetAmount fee) {
-        this.fee = fee;
-        return this;
+    // add `conversionRate` to the URL query string
+    if (getConversionRate() != null) {
+      joiner.add(String.format("%sconversionRate%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getConversionRate()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
     }
 
-    /**
-     * Get fee
-     *
-     * @return fee
-     */
-    @jakarta.annotation.Nonnull
-    @JsonProperty(JSON_PROPERTY_FEE)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public AssetAmount getFee() {
-        return fee;
+    // add `timeSeconds` to the URL query string
+    if (getTimeSeconds() != null) {
+      joiner.add(String.format("%stimeSeconds%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getTimeSeconds()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
     }
 
-    @JsonProperty(JSON_PROPERTY_FEE)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setFee(AssetAmount fee) {
-        this.fee = fee;
-    }
-
-    public ConversionOperationPreviewOutput conversionRate(String conversionRate) {
-        this.conversionRate = conversionRate;
-        return this;
-    }
-
-    /**
-     * Get conversionRate
-     *
-     * @return conversionRate
-     */
-    @jakarta.annotation.Nonnull
-    @JsonProperty(JSON_PROPERTY_CONVERSION_RATE)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public String getConversionRate() {
-        return conversionRate;
-    }
-
-    @JsonProperty(JSON_PROPERTY_CONVERSION_RATE)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setConversionRate(String conversionRate) {
-        this.conversionRate = conversionRate;
-    }
-
-    public ConversionOperationPreviewOutput timeSeconds(BigDecimal timeSeconds) {
-        this.timeSeconds = timeSeconds;
-        return this;
-    }
-
-    /**
-     * Get timeSeconds
-     *
-     * @return timeSeconds
-     */
-    @jakarta.annotation.Nonnull
-    @JsonProperty(JSON_PROPERTY_TIME_SECONDS)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public BigDecimal getTimeSeconds() {
-        return timeSeconds;
-    }
-
-    @JsonProperty(JSON_PROPERTY_TIME_SECONDS)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setTimeSeconds(BigDecimal timeSeconds) {
-        this.timeSeconds = timeSeconds;
-    }
-
-    /** Return true if this ConversionOperationPreviewOutput object is equal to o. */
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        ConversionOperationPreviewOutput conversionOperationPreviewOutput =
-                (ConversionOperationPreviewOutput) o;
-        return Objects.equals(this.amount, conversionOperationPreviewOutput.amount)
-                && Objects.equals(this.fee, conversionOperationPreviewOutput.fee)
-                && Objects.equals(
-                        this.conversionRate, conversionOperationPreviewOutput.conversionRate)
-                && Objects.equals(this.timeSeconds, conversionOperationPreviewOutput.timeSeconds);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(amount, fee, conversionRate, timeSeconds);
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("class ConversionOperationPreviewOutput {\n");
-        sb.append("    amount: ").append(toIndentedString(amount)).append("\n");
-        sb.append("    fee: ").append(toIndentedString(fee)).append("\n");
-        sb.append("    conversionRate: ").append(toIndentedString(conversionRate)).append("\n");
-        sb.append("    timeSeconds: ").append(toIndentedString(timeSeconds)).append("\n");
-        sb.append("}");
-        return sb.toString();
-    }
-
-    /**
-     * Convert the given object to string with each line indented by 4 spaces (except the first
-     * line).
-     */
-    private String toIndentedString(Object o) {
-        if (o == null) {
-            return "null";
-        }
-        return o.toString().replace("\n", "\n    ");
-    }
-
-    /**
-     * Convert the instance into URL query string.
-     *
-     * @return URL query string
-     */
-    public String toUrlQueryString() {
-        return toUrlQueryString(null);
-    }
-
-    /**
-     * Convert the instance into URL query string.
-     *
-     * @param prefix prefix of the query string
-     * @return URL query string
-     */
-    public String toUrlQueryString(String prefix) {
-        String suffix = "";
-        String containerSuffix = "";
-        String containerPrefix = "";
-        if (prefix == null) {
-            // style=form, explode=true, e.g. /pet?name=cat&type=manx
-            prefix = "";
-        } else {
-            // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
-            prefix = prefix + "[";
-            suffix = "]";
-            containerSuffix = "]";
-            containerPrefix = "[";
-        }
-
-        StringJoiner joiner = new StringJoiner("&");
-
-        // add `amount` to the URL query string
-        if (getAmount() != null) {
-            joiner.add(getAmount().toUrlQueryString(prefix + "amount" + suffix));
-        }
-
-        // add `fee` to the URL query string
-        if (getFee() != null) {
-            joiner.add(getFee().toUrlQueryString(prefix + "fee" + suffix));
-        }
-
-        // add `conversionRate` to the URL query string
-        if (getConversionRate() != null) {
-            joiner.add(
-                    String.format(
-                            "%sconversionRate%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getConversionRate()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
-        // add `timeSeconds` to the URL query string
-        if (getTimeSeconds() != null) {
-            joiner.add(
-                    String.format(
-                            "%stimeSeconds%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getTimeSeconds()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
-        return joiner.toString();
-    }
+    return joiner.toString();
+  }
 }
+

@@ -10,152 +10,157 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.StringJoiner;
+import java.util.Objects;
+import java.util.Map;
+import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.fireblocks.sdk.model.NetworkConnectionRoutingPolicyValue;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
-import java.util.StringJoiner;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
-/** SetRoutingPolicyRequest */
-@JsonPropertyOrder({SetRoutingPolicyRequest.JSON_PROPERTY_ROUTING_POLICY})
+
+/**
+ * SetRoutingPolicyRequest
+ */
+@JsonPropertyOrder({
+  SetRoutingPolicyRequest.JSON_PROPERTY_ROUTING_POLICY
+})
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class SetRoutingPolicyRequest {
-    public static final String JSON_PROPERTY_ROUTING_POLICY = "routingPolicy";
-    private Map<String, NetworkConnectionRoutingPolicyValue> routingPolicy = new HashMap<>();
+  public static final String JSON_PROPERTY_ROUTING_POLICY = "routingPolicy";
+  private Map<String, NetworkConnectionRoutingPolicyValue> routingPolicy = new HashMap<>();
 
-    public SetRoutingPolicyRequest() {}
+  public SetRoutingPolicyRequest() { 
+  }
 
-    public SetRoutingPolicyRequest routingPolicy(
-            Map<String, NetworkConnectionRoutingPolicyValue> routingPolicy) {
-        this.routingPolicy = routingPolicy;
-        return this;
+  public SetRoutingPolicyRequest routingPolicy(Map<String, NetworkConnectionRoutingPolicyValue> routingPolicy) {
+    this.routingPolicy = routingPolicy;
+    return this;
+  }
+
+  public SetRoutingPolicyRequest putRoutingPolicyItem(String key, NetworkConnectionRoutingPolicyValue routingPolicyItem) {
+    if (this.routingPolicy == null) {
+      this.routingPolicy = new HashMap<>();
+    }
+    this.routingPolicy.put(key, routingPolicyItem);
+    return this;
+  }
+
+   /**
+   * Get routingPolicy
+   * @return routingPolicy
+  **/
+  @jakarta.annotation.Nonnull
+  @JsonProperty(JSON_PROPERTY_ROUTING_POLICY)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public Map<String, NetworkConnectionRoutingPolicyValue> getRoutingPolicy() {
+    return routingPolicy;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_ROUTING_POLICY)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setRoutingPolicy(Map<String, NetworkConnectionRoutingPolicyValue> routingPolicy) {
+    this.routingPolicy = routingPolicy;
+  }
+
+
+  /**
+   * Return true if this SetRoutingPolicyRequest object is equal to o.
+   */
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    SetRoutingPolicyRequest setRoutingPolicyRequest = (SetRoutingPolicyRequest) o;
+    return Objects.equals(this.routingPolicy, setRoutingPolicyRequest.routingPolicy);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(routingPolicy);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class SetRoutingPolicyRequest {\n");
+    sb.append("    routingPolicy: ").append(toIndentedString(routingPolicy)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @return URL query string
+   */
+  public String toUrlQueryString() {
+    return toUrlQueryString(null);
+  }
+
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @param prefix prefix of the query string
+   * @return URL query string
+   */
+  public String toUrlQueryString(String prefix) {
+    String suffix = "";
+    String containerSuffix = "";
+    String containerPrefix = "";
+    if (prefix == null) {
+      // style=form, explode=true, e.g. /pet?name=cat&type=manx
+      prefix = "";
+    } else {
+      // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
+      prefix = prefix + "[";
+      suffix = "]";
+      containerSuffix = "]";
+      containerPrefix = "[";
     }
 
-    public SetRoutingPolicyRequest putRoutingPolicyItem(
-            String key, NetworkConnectionRoutingPolicyValue routingPolicyItem) {
-        if (this.routingPolicy == null) {
-            this.routingPolicy = new HashMap<>();
+    StringJoiner joiner = new StringJoiner("&");
+
+    // add `routingPolicy` to the URL query string
+    if (getRoutingPolicy() != null) {
+      for (String _key : getRoutingPolicy().keySet()) {
+        if (getRoutingPolicy().get(_key) != null) {
+          joiner.add(getRoutingPolicy().get(_key).toUrlQueryString(String.format("%sroutingPolicy%s%s", prefix, suffix,
+              "".equals(suffix) ? "" : String.format("%s%d%s", containerPrefix, _key, containerSuffix))));
         }
-        this.routingPolicy.put(key, routingPolicyItem);
-        return this;
+      }
     }
 
-    /**
-     * Get routingPolicy
-     *
-     * @return routingPolicy
-     */
-    @jakarta.annotation.Nonnull
-    @JsonProperty(JSON_PROPERTY_ROUTING_POLICY)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public Map<String, NetworkConnectionRoutingPolicyValue> getRoutingPolicy() {
-        return routingPolicy;
-    }
-
-    @JsonProperty(JSON_PROPERTY_ROUTING_POLICY)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setRoutingPolicy(Map<String, NetworkConnectionRoutingPolicyValue> routingPolicy) {
-        this.routingPolicy = routingPolicy;
-    }
-
-    /** Return true if this SetRoutingPolicyRequest object is equal to o. */
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        SetRoutingPolicyRequest setRoutingPolicyRequest = (SetRoutingPolicyRequest) o;
-        return Objects.equals(this.routingPolicy, setRoutingPolicyRequest.routingPolicy);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(routingPolicy);
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("class SetRoutingPolicyRequest {\n");
-        sb.append("    routingPolicy: ").append(toIndentedString(routingPolicy)).append("\n");
-        sb.append("}");
-        return sb.toString();
-    }
-
-    /**
-     * Convert the given object to string with each line indented by 4 spaces (except the first
-     * line).
-     */
-    private String toIndentedString(Object o) {
-        if (o == null) {
-            return "null";
-        }
-        return o.toString().replace("\n", "\n    ");
-    }
-
-    /**
-     * Convert the instance into URL query string.
-     *
-     * @return URL query string
-     */
-    public String toUrlQueryString() {
-        return toUrlQueryString(null);
-    }
-
-    /**
-     * Convert the instance into URL query string.
-     *
-     * @param prefix prefix of the query string
-     * @return URL query string
-     */
-    public String toUrlQueryString(String prefix) {
-        String suffix = "";
-        String containerSuffix = "";
-        String containerPrefix = "";
-        if (prefix == null) {
-            // style=form, explode=true, e.g. /pet?name=cat&type=manx
-            prefix = "";
-        } else {
-            // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
-            prefix = prefix + "[";
-            suffix = "]";
-            containerSuffix = "]";
-            containerPrefix = "[";
-        }
-
-        StringJoiner joiner = new StringJoiner("&");
-
-        // add `routingPolicy` to the URL query string
-        if (getRoutingPolicy() != null) {
-            for (String _key : getRoutingPolicy().keySet()) {
-                if (getRoutingPolicy().get(_key) != null) {
-                    joiner.add(
-                            getRoutingPolicy()
-                                    .get(_key)
-                                    .toUrlQueryString(
-                                            String.format(
-                                                    "%sroutingPolicy%s%s",
-                                                    prefix,
-                                                    suffix,
-                                                    "".equals(suffix)
-                                                            ? ""
-                                                            : String.format(
-                                                                    "%s%d%s",
-                                                                    containerPrefix,
-                                                                    _key,
-                                                                    containerSuffix))));
-                }
-            }
-        }
-
-        return joiner.toString();
-    }
+    return joiner.toString();
+  }
 }
+

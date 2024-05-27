@@ -10,16 +10,23 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
+import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
-/** Model tests for AccountType */
+/**
+ * Model tests for AccountType
+ */
 public class AccountTypeTest {
-    /** Model tests for AccountType */
+    /**
+     * Model tests for AccountType
+     */
     @Test
     public void testAccountType() {
         // TODO: test AccountType
     }
+
 }

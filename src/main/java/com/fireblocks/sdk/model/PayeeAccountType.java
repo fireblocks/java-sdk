@@ -10,68 +10,77 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
+
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.StringJoiner;
+import java.util.Objects;
+import java.util.Map;
+import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 /**
- * - VAULT_ACCOUNT a native Fireblocks vault account - EXCHANGE_ACCOUNT a third-party exchange
- * account - INTERNAL_WALLET a whitelisted address marked as internal to the workspace/organization
- * - EXTERNAL_WALLET a whitelisted address marked as external - NETWORK_CONNECTION a member of the
- * Fireblocks network - FIAT_ACCOUNT a third-party account of a fiat bank (Signature, BCB, etc)
+ * - VAULT_ACCOUNT   a native Fireblocks vault account - EXCHANGE_ACCOUNT  a third-party exchange account - INTERNAL_WALLET  a whitelisted address marked as internal to the workspace/organization - EXTERNAL_WALLET a whitelisted address marked as external - NETWORK_CONNECTION a member of the Fireblocks network - FIAT_ACCOUNT a third-party account of a fiat bank (Signature, BCB, etc) 
  */
 public enum PayeeAccountType {
-    VAULT_ACCOUNT("VAULT_ACCOUNT"),
+  
+  VAULT_ACCOUNT("VAULT_ACCOUNT"),
+  
+  EXCHANGE_ACCOUNT("EXCHANGE_ACCOUNT"),
+  
+  INTERNAL_WALLET("INTERNAL_WALLET"),
+  
+  EXTERNAL_WALLET("EXTERNAL_WALLET"),
+  
+  NETWORK_CONNECTION("NETWORK_CONNECTION"),
+  
+  FIAT_ACCOUNT("FIAT_ACCOUNT");
 
-    EXCHANGE_ACCOUNT("EXCHANGE_ACCOUNT"),
+  private String value;
 
-    INTERNAL_WALLET("INTERNAL_WALLET"),
+  PayeeAccountType(String value) {
+    this.value = value;
+  }
 
-    EXTERNAL_WALLET("EXTERNAL_WALLET"),
+  @JsonValue
+  public String getValue() {
+    return value;
+  }
 
-    NETWORK_CONNECTION("NETWORK_CONNECTION"),
+  @Override
+  public String toString() {
+    return String.valueOf(value);
+  }
 
-    FIAT_ACCOUNT("FIAT_ACCOUNT");
+  @JsonCreator
+  public static PayeeAccountType fromValue(String value) {
+    for (PayeeAccountType b : PayeeAccountType.values()) {
+      if (b.value.equals(value)) {
+        return b;
+      }
+    }
+    throw new IllegalArgumentException("Unexpected value '" + value + "'");
+  }
 
-    private String value;
-
-    PayeeAccountType(String value) {
-        this.value = value;
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @param prefix prefix of the query string
+   * @return URL query string
+   */
+  public String toUrlQueryString(String prefix) {
+    if (prefix == null) {
+      prefix = "";
     }
 
-    @JsonValue
-    public String getValue() {
-        return value;
-    }
+    return String.format("%s=%s", prefix, this.toString());
+  }
 
-    @Override
-    public String toString() {
-        return String.valueOf(value);
-    }
-
-    @JsonCreator
-    public static PayeeAccountType fromValue(String value) {
-        for (PayeeAccountType b : PayeeAccountType.values()) {
-            if (b.value.equals(value)) {
-                return b;
-            }
-        }
-        throw new IllegalArgumentException("Unexpected value '" + value + "'");
-    }
-
-    /**
-     * Convert the instance into URL query string.
-     *
-     * @param prefix prefix of the query string
-     * @return URL query string
-     */
-    public String toUrlQueryString(String prefix) {
-        if (prefix == null) {
-            prefix = "";
-        }
-
-        return String.format("%s=%s", prefix, this.toString());
-    }
 }
+

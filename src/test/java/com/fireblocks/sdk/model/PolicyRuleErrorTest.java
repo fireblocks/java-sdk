@@ -10,42 +10,64 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import java.math.BigDecimal;
+import java.util.Arrays;
+import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
-/** Model tests for PolicyRuleError */
+/**
+ * Model tests for PolicyRuleError
+ */
 public class PolicyRuleErrorTest {
     private final PolicyRuleError model = new PolicyRuleError();
 
-    /** Model tests for PolicyRuleError */
+    /**
+     * Model tests for PolicyRuleError
+     */
     @Test
     public void testPolicyRuleError() {
         // TODO: test PolicyRuleError
     }
 
-    /** Test the property 'errorMessage' */
+    /**
+     * Test the property 'errorMessage'
+     */
     @Test
     public void errorMessageTest() {
         // TODO: test errorMessage
     }
 
-    /** Test the property 'errorCode' */
+    /**
+     * Test the property 'errorCode'
+     */
     @Test
     public void errorCodeTest() {
         // TODO: test errorCode
     }
 
-    /** Test the property 'errorCodeName' */
+    /**
+     * Test the property 'errorCodeName'
+     */
     @Test
     public void errorCodeNameTest() {
         // TODO: test errorCodeName
     }
 
-    /** Test the property 'errorField' */
+    /**
+     * Test the property 'errorField'
+     */
     @Test
     public void errorFieldTest() {
         // TODO: test errorField
     }
+
 }

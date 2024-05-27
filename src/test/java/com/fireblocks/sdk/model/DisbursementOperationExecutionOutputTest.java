@@ -10,25 +10,42 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.fireblocks.sdk.model.DisbursementInstructionOutput;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
-/** Model tests for DisbursementOperationExecutionOutput */
+/**
+ * Model tests for DisbursementOperationExecutionOutput
+ */
 public class DisbursementOperationExecutionOutputTest {
-    private final DisbursementOperationExecutionOutput model =
-            new DisbursementOperationExecutionOutput();
+    private final DisbursementOperationExecutionOutput model = new DisbursementOperationExecutionOutput();
 
-    /** Model tests for DisbursementOperationExecutionOutput */
+    /**
+     * Model tests for DisbursementOperationExecutionOutput
+     */
     @Test
     public void testDisbursementOperationExecutionOutput() {
         // TODO: test DisbursementOperationExecutionOutput
     }
 
-    /** Test the property 'instructionSet' */
+    /**
+     * Test the property 'instructionSet'
+     */
     @Test
     public void instructionSetTest() {
         // TODO: test instructionSet
     }
+
 }

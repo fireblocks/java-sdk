@@ -10,54 +10,81 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.fireblocks.sdk.model.Destination;
+import com.fireblocks.sdk.model.ScreeningVerdictMatchedRule;
+import java.util.Arrays;
+import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
-/** Model tests for ScreeningVerdict */
+/**
+ * Model tests for ScreeningVerdict
+ */
 public class ScreeningVerdictTest {
     private final ScreeningVerdict model = new ScreeningVerdict();
 
-    /** Model tests for ScreeningVerdict */
+    /**
+     * Model tests for ScreeningVerdict
+     */
     @Test
     public void testScreeningVerdict() {
         // TODO: test ScreeningVerdict
     }
 
-    /** Test the property 'verdict' */
+    /**
+     * Test the property 'verdict'
+     */
     @Test
     public void verdictTest() {
         // TODO: test verdict
     }
 
-    /** Test the property 'executionOperationId' */
+    /**
+     * Test the property 'executionOperationId'
+     */
     @Test
     public void executionOperationIdTest() {
         // TODO: test executionOperationId
     }
 
-    /** Test the property 'account' */
+    /**
+     * Test the property 'account'
+     */
     @Test
     public void accountTest() {
         // TODO: test account
     }
 
-    /** Test the property 'assetId' */
+    /**
+     * Test the property 'assetId'
+     */
     @Test
     public void assetIdTest() {
         // TODO: test assetId
     }
 
-    /** Test the property 'amount' */
+    /**
+     * Test the property 'amount'
+     */
     @Test
     public void amountTest() {
         // TODO: test amount
     }
 
-    /** Test the property 'matchedRule' */
+    /**
+     * Test the property 'matchedRule'
+     */
     @Test
     public void matchedRuleTest() {
         // TODO: test matchedRule
     }
+
 }

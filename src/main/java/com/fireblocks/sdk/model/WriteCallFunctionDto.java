@@ -10,397 +10,374 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.fasterxml.jackson.annotation.JsonValue;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
 import java.util.StringJoiner;
+import java.util.Objects;
+import java.util.Map;
+import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.fireblocks.sdk.model.WriteAbiFunction;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
-/** WriteCallFunctionDto */
+
+/**
+ * WriteCallFunctionDto
+ */
 @JsonPropertyOrder({
-    WriteCallFunctionDto.JSON_PROPERTY_VAULT_ACCOUNT_ID,
-    WriteCallFunctionDto.JSON_PROPERTY_ABI_FUNCTION,
-    WriteCallFunctionDto.JSON_PROPERTY_AMOUNT,
-    WriteCallFunctionDto.JSON_PROPERTY_FEE_LEVEL,
-    WriteCallFunctionDto.JSON_PROPERTY_FEE,
-    WriteCallFunctionDto.JSON_PROPERTY_NOTE
+  WriteCallFunctionDto.JSON_PROPERTY_VAULT_ACCOUNT_ID,
+  WriteCallFunctionDto.JSON_PROPERTY_ABI_FUNCTION,
+  WriteCallFunctionDto.JSON_PROPERTY_AMOUNT,
+  WriteCallFunctionDto.JSON_PROPERTY_FEE_LEVEL,
+  WriteCallFunctionDto.JSON_PROPERTY_FEE,
+  WriteCallFunctionDto.JSON_PROPERTY_NOTE
 })
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class WriteCallFunctionDto {
-    public static final String JSON_PROPERTY_VAULT_ACCOUNT_ID = "vaultAccountId";
-    private String vaultAccountId;
+  public static final String JSON_PROPERTY_VAULT_ACCOUNT_ID = "vaultAccountId";
+  private String vaultAccountId;
 
-    public static final String JSON_PROPERTY_ABI_FUNCTION = "abiFunction";
-    private List<WriteAbiFunction> abiFunction = new ArrayList<>();
+  public static final String JSON_PROPERTY_ABI_FUNCTION = "abiFunction";
+  private List<WriteAbiFunction> abiFunction = new ArrayList<>();
 
-    public static final String JSON_PROPERTY_AMOUNT = "amount";
-    private String amount;
+  public static final String JSON_PROPERTY_AMOUNT = "amount";
+  private String amount;
 
-    /**
-     * Fee level for the write function transaction. interchangeable with the &#39;fee&#39; field
-     */
-    public enum FeeLevelEnum {
-        LOW("LOW"),
+  /**
+   * Fee level for the write function transaction. interchangeable with the &#39;fee&#39; field
+   */
+  public enum FeeLevelEnum {
+    LOW("LOW"),
+    
+    MEDIUM("MEDIUM"),
+    
+    HIGH("HIGH");
 
-        MEDIUM("MEDIUM"),
+    private String value;
 
-        HIGH("HIGH");
-
-        private String value;
-
-        FeeLevelEnum(String value) {
-            this.value = value;
-        }
-
-        @JsonValue
-        public String getValue() {
-            return value;
-        }
-
-        @Override
-        public String toString() {
-            return String.valueOf(value);
-        }
-
-        @JsonCreator
-        public static FeeLevelEnum fromValue(String value) {
-            for (FeeLevelEnum b : FeeLevelEnum.values()) {
-                if (b.value.equals(value)) {
-                    return b;
-                }
-            }
-            throw new IllegalArgumentException("Unexpected value '" + value + "'");
-        }
+    FeeLevelEnum(String value) {
+      this.value = value;
     }
 
-    public static final String JSON_PROPERTY_FEE_LEVEL = "feeLevel";
-    private FeeLevelEnum feeLevel;
-
-    public static final String JSON_PROPERTY_FEE = "fee";
-    private String fee;
-
-    public static final String JSON_PROPERTY_NOTE = "note";
-    private String note;
-
-    public WriteCallFunctionDto() {}
-
-    public WriteCallFunctionDto vaultAccountId(String vaultAccountId) {
-        this.vaultAccountId = vaultAccountId;
-        return this;
-    }
-
-    /**
-     * The vault account id this contract was deploy from
-     *
-     * @return vaultAccountId
-     */
-    @jakarta.annotation.Nonnull
-    @JsonProperty(JSON_PROPERTY_VAULT_ACCOUNT_ID)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public String getVaultAccountId() {
-        return vaultAccountId;
-    }
-
-    @JsonProperty(JSON_PROPERTY_VAULT_ACCOUNT_ID)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setVaultAccountId(String vaultAccountId) {
-        this.vaultAccountId = vaultAccountId;
-    }
-
-    public WriteCallFunctionDto abiFunction(List<WriteAbiFunction> abiFunction) {
-        this.abiFunction = abiFunction;
-        return this;
-    }
-
-    public WriteCallFunctionDto addAbiFunctionItem(WriteAbiFunction abiFunctionItem) {
-        if (this.abiFunction == null) {
-            this.abiFunction = new ArrayList<>();
-        }
-        this.abiFunction.add(abiFunctionItem);
-        return this;
-    }
-
-    /**
-     * The abi of the read function you wish to call
-     *
-     * @return abiFunction
-     */
-    @jakarta.annotation.Nonnull
-    @JsonProperty(JSON_PROPERTY_ABI_FUNCTION)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public List<WriteAbiFunction> getAbiFunction() {
-        return abiFunction;
-    }
-
-    @JsonProperty(JSON_PROPERTY_ABI_FUNCTION)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setAbiFunction(List<WriteAbiFunction> abiFunction) {
-        this.abiFunction = abiFunction;
-    }
-
-    public WriteCallFunctionDto amount(String amount) {
-        this.amount = amount;
-        return this;
-    }
-
-    /**
-     * Amount in base asset. Being used in payable functions
-     *
-     * @return amount
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_AMOUNT)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public String getAmount() {
-        return amount;
-    }
-
-    @JsonProperty(JSON_PROPERTY_AMOUNT)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAmount(String amount) {
-        this.amount = amount;
-    }
-
-    public WriteCallFunctionDto feeLevel(FeeLevelEnum feeLevel) {
-        this.feeLevel = feeLevel;
-        return this;
-    }
-
-    /**
-     * Fee level for the write function transaction. interchangeable with the &#39;fee&#39; field
-     *
-     * @return feeLevel
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_FEE_LEVEL)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public FeeLevelEnum getFeeLevel() {
-        return feeLevel;
-    }
-
-    @JsonProperty(JSON_PROPERTY_FEE_LEVEL)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setFeeLevel(FeeLevelEnum feeLevel) {
-        this.feeLevel = feeLevel;
-    }
-
-    public WriteCallFunctionDto fee(String fee) {
-        this.fee = fee;
-        return this;
-    }
-
-    /**
-     * Max fee amount for the write function transaction. interchangeable with the
-     * &#39;feeLevel&#39; field
-     *
-     * @return fee
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_FEE)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public String getFee() {
-        return fee;
-    }
-
-    @JsonProperty(JSON_PROPERTY_FEE)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setFee(String fee) {
-        this.fee = fee;
-    }
-
-    public WriteCallFunctionDto note(String note) {
-        this.note = note;
-        return this;
-    }
-
-    /**
-     * Custom note, not sent to the blockchain, that describes the transaction at your Fireblocks
-     * workspace
-     *
-     * @return note
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_NOTE)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public String getNote() {
-        return note;
-    }
-
-    @JsonProperty(JSON_PROPERTY_NOTE)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setNote(String note) {
-        this.note = note;
-    }
-
-    /** Return true if this WriteCallFunctionDto object is equal to o. */
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        WriteCallFunctionDto writeCallFunctionDto = (WriteCallFunctionDto) o;
-        return Objects.equals(this.vaultAccountId, writeCallFunctionDto.vaultAccountId)
-                && Objects.equals(this.abiFunction, writeCallFunctionDto.abiFunction)
-                && Objects.equals(this.amount, writeCallFunctionDto.amount)
-                && Objects.equals(this.feeLevel, writeCallFunctionDto.feeLevel)
-                && Objects.equals(this.fee, writeCallFunctionDto.fee)
-                && Objects.equals(this.note, writeCallFunctionDto.note);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(vaultAccountId, abiFunction, amount, feeLevel, fee, note);
+    @JsonValue
+    public String getValue() {
+      return value;
     }
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("class WriteCallFunctionDto {\n");
-        sb.append("    vaultAccountId: ").append(toIndentedString(vaultAccountId)).append("\n");
-        sb.append("    abiFunction: ").append(toIndentedString(abiFunction)).append("\n");
-        sb.append("    amount: ").append(toIndentedString(amount)).append("\n");
-        sb.append("    feeLevel: ").append(toIndentedString(feeLevel)).append("\n");
-        sb.append("    fee: ").append(toIndentedString(fee)).append("\n");
-        sb.append("    note: ").append(toIndentedString(note)).append("\n");
-        sb.append("}");
-        return sb.toString();
+      return String.valueOf(value);
     }
 
-    /**
-     * Convert the given object to string with each line indented by 4 spaces (except the first
-     * line).
-     */
-    private String toIndentedString(Object o) {
-        if (o == null) {
-            return "null";
+    @JsonCreator
+    public static FeeLevelEnum fromValue(String value) {
+      for (FeeLevelEnum b : FeeLevelEnum.values()) {
+        if (b.value.equals(value)) {
+          return b;
         }
-        return o.toString().replace("\n", "\n    ");
+      }
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
+  }
+
+  public static final String JSON_PROPERTY_FEE_LEVEL = "feeLevel";
+  private FeeLevelEnum feeLevel;
+
+  public static final String JSON_PROPERTY_FEE = "fee";
+  private String fee;
+
+  public static final String JSON_PROPERTY_NOTE = "note";
+  private String note;
+
+  public WriteCallFunctionDto() { 
+  }
+
+  public WriteCallFunctionDto vaultAccountId(String vaultAccountId) {
+    this.vaultAccountId = vaultAccountId;
+    return this;
+  }
+
+   /**
+   * The vault account id this contract was deploy from
+   * @return vaultAccountId
+  **/
+  @jakarta.annotation.Nonnull
+  @JsonProperty(JSON_PROPERTY_VAULT_ACCOUNT_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getVaultAccountId() {
+    return vaultAccountId;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_VAULT_ACCOUNT_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setVaultAccountId(String vaultAccountId) {
+    this.vaultAccountId = vaultAccountId;
+  }
+
+
+  public WriteCallFunctionDto abiFunction(List<WriteAbiFunction> abiFunction) {
+    this.abiFunction = abiFunction;
+    return this;
+  }
+
+  public WriteCallFunctionDto addAbiFunctionItem(WriteAbiFunction abiFunctionItem) {
+    if (this.abiFunction == null) {
+      this.abiFunction = new ArrayList<>();
+    }
+    this.abiFunction.add(abiFunctionItem);
+    return this;
+  }
+
+   /**
+   * The abi of the read function you wish to call
+   * @return abiFunction
+  **/
+  @jakarta.annotation.Nonnull
+  @JsonProperty(JSON_PROPERTY_ABI_FUNCTION)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public List<WriteAbiFunction> getAbiFunction() {
+    return abiFunction;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_ABI_FUNCTION)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setAbiFunction(List<WriteAbiFunction> abiFunction) {
+    this.abiFunction = abiFunction;
+  }
+
+
+  public WriteCallFunctionDto amount(String amount) {
+    this.amount = amount;
+    return this;
+  }
+
+   /**
+   * Amount in base asset. Being used in payable functions
+   * @return amount
+  **/
+  @jakarta.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_AMOUNT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getAmount() {
+    return amount;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_AMOUNT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setAmount(String amount) {
+    this.amount = amount;
+  }
+
+
+  public WriteCallFunctionDto feeLevel(FeeLevelEnum feeLevel) {
+    this.feeLevel = feeLevel;
+    return this;
+  }
+
+   /**
+   * Fee level for the write function transaction. interchangeable with the &#39;fee&#39; field
+   * @return feeLevel
+  **/
+  @jakarta.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_FEE_LEVEL)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public FeeLevelEnum getFeeLevel() {
+    return feeLevel;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_FEE_LEVEL)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setFeeLevel(FeeLevelEnum feeLevel) {
+    this.feeLevel = feeLevel;
+  }
+
+
+  public WriteCallFunctionDto fee(String fee) {
+    this.fee = fee;
+    return this;
+  }
+
+   /**
+   * Max fee amount for the write function transaction. interchangeable with the &#39;feeLevel&#39; field
+   * @return fee
+  **/
+  @jakarta.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_FEE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getFee() {
+    return fee;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_FEE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setFee(String fee) {
+    this.fee = fee;
+  }
+
+
+  public WriteCallFunctionDto note(String note) {
+    this.note = note;
+    return this;
+  }
+
+   /**
+   * Custom note, not sent to the blockchain, that describes the transaction at your Fireblocks workspace
+   * @return note
+  **/
+  @jakarta.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_NOTE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getNote() {
+    return note;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_NOTE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setNote(String note) {
+    this.note = note;
+  }
+
+
+  /**
+   * Return true if this WriteCallFunctionDto object is equal to o.
+   */
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    WriteCallFunctionDto writeCallFunctionDto = (WriteCallFunctionDto) o;
+    return Objects.equals(this.vaultAccountId, writeCallFunctionDto.vaultAccountId) &&
+        Objects.equals(this.abiFunction, writeCallFunctionDto.abiFunction) &&
+        Objects.equals(this.amount, writeCallFunctionDto.amount) &&
+        Objects.equals(this.feeLevel, writeCallFunctionDto.feeLevel) &&
+        Objects.equals(this.fee, writeCallFunctionDto.fee) &&
+        Objects.equals(this.note, writeCallFunctionDto.note);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(vaultAccountId, abiFunction, amount, feeLevel, fee, note);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class WriteCallFunctionDto {\n");
+    sb.append("    vaultAccountId: ").append(toIndentedString(vaultAccountId)).append("\n");
+    sb.append("    abiFunction: ").append(toIndentedString(abiFunction)).append("\n");
+    sb.append("    amount: ").append(toIndentedString(amount)).append("\n");
+    sb.append("    feeLevel: ").append(toIndentedString(feeLevel)).append("\n");
+    sb.append("    fee: ").append(toIndentedString(fee)).append("\n");
+    sb.append("    note: ").append(toIndentedString(note)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @return URL query string
+   */
+  public String toUrlQueryString() {
+    return toUrlQueryString(null);
+  }
+
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @param prefix prefix of the query string
+   * @return URL query string
+   */
+  public String toUrlQueryString(String prefix) {
+    String suffix = "";
+    String containerSuffix = "";
+    String containerPrefix = "";
+    if (prefix == null) {
+      // style=form, explode=true, e.g. /pet?name=cat&type=manx
+      prefix = "";
+    } else {
+      // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
+      prefix = prefix + "[";
+      suffix = "]";
+      containerSuffix = "]";
+      containerPrefix = "[";
     }
 
-    /**
-     * Convert the instance into URL query string.
-     *
-     * @return URL query string
-     */
-    public String toUrlQueryString() {
-        return toUrlQueryString(null);
+    StringJoiner joiner = new StringJoiner("&");
+
+    // add `vaultAccountId` to the URL query string
+    if (getVaultAccountId() != null) {
+      joiner.add(String.format("%svaultAccountId%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getVaultAccountId()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
     }
 
-    /**
-     * Convert the instance into URL query string.
-     *
-     * @param prefix prefix of the query string
-     * @return URL query string
-     */
-    public String toUrlQueryString(String prefix) {
-        String suffix = "";
-        String containerSuffix = "";
-        String containerPrefix = "";
-        if (prefix == null) {
-            // style=form, explode=true, e.g. /pet?name=cat&type=manx
-            prefix = "";
-        } else {
-            // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
-            prefix = prefix + "[";
-            suffix = "]";
-            containerSuffix = "]";
-            containerPrefix = "[";
+    // add `abiFunction` to the URL query string
+    if (getAbiFunction() != null) {
+      for (int i = 0; i < getAbiFunction().size(); i++) {
+        if (getAbiFunction().get(i) != null) {
+          joiner.add(getAbiFunction().get(i).toUrlQueryString(String.format("%sabiFunction%s%s", prefix, suffix,
+          "".equals(suffix) ? "" : String.format("%s%d%s", containerPrefix, i, containerSuffix))));
         }
-
-        StringJoiner joiner = new StringJoiner("&");
-
-        // add `vaultAccountId` to the URL query string
-        if (getVaultAccountId() != null) {
-            joiner.add(
-                    String.format(
-                            "%svaultAccountId%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getVaultAccountId()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
-        // add `abiFunction` to the URL query string
-        if (getAbiFunction() != null) {
-            for (int i = 0; i < getAbiFunction().size(); i++) {
-                if (getAbiFunction().get(i) != null) {
-                    joiner.add(
-                            getAbiFunction()
-                                    .get(i)
-                                    .toUrlQueryString(
-                                            String.format(
-                                                    "%sabiFunction%s%s",
-                                                    prefix,
-                                                    suffix,
-                                                    "".equals(suffix)
-                                                            ? ""
-                                                            : String.format(
-                                                                    "%s%d%s",
-                                                                    containerPrefix,
-                                                                    i,
-                                                                    containerSuffix))));
-                }
-            }
-        }
-
-        // add `amount` to the URL query string
-        if (getAmount() != null) {
-            joiner.add(
-                    String.format(
-                            "%samount%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(String.valueOf(getAmount()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
-        // add `feeLevel` to the URL query string
-        if (getFeeLevel() != null) {
-            joiner.add(
-                    String.format(
-                            "%sfeeLevel%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(String.valueOf(getFeeLevel()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
-        // add `fee` to the URL query string
-        if (getFee() != null) {
-            joiner.add(
-                    String.format(
-                            "%sfee%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(String.valueOf(getFee()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
-        // add `note` to the URL query string
-        if (getNote() != null) {
-            joiner.add(
-                    String.format(
-                            "%snote%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(String.valueOf(getNote()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
-        return joiner.toString();
+      }
     }
+
+    // add `amount` to the URL query string
+    if (getAmount() != null) {
+      joiner.add(String.format("%samount%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getAmount()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `feeLevel` to the URL query string
+    if (getFeeLevel() != null) {
+      joiner.add(String.format("%sfeeLevel%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getFeeLevel()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `fee` to the URL query string
+    if (getFee() != null) {
+      joiner.add(String.format("%sfee%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getFee()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `note` to the URL query string
+    if (getNote() != null) {
+      joiner.add(String.format("%snote%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getNote()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    return joiner.toString();
+  }
 }
+

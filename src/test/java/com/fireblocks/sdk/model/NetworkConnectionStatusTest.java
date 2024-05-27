@@ -10,16 +10,23 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
+import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
-/** Model tests for NetworkConnectionStatus */
+/**
+ * Model tests for NetworkConnectionStatus
+ */
 public class NetworkConnectionStatusTest {
-    /** Model tests for NetworkConnectionStatus */
+    /**
+     * Model tests for NetworkConnectionStatus
+     */
     @Test
     public void testNetworkConnectionStatus() {
         // TODO: test NetworkConnectionStatus
     }
+
 }

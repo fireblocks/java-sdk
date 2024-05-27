@@ -10,102 +10,144 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import java.math.BigDecimal;
+import java.util.Arrays;
+import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
-/** Model tests for TravelRulePolicyRuleResponse */
+/**
+ * Model tests for TravelRulePolicyRuleResponse
+ */
 public class TravelRulePolicyRuleResponseTest {
     private final TravelRulePolicyRuleResponse model = new TravelRulePolicyRuleResponse();
 
-    /** Model tests for TravelRulePolicyRuleResponse */
+    /**
+     * Model tests for TravelRulePolicyRuleResponse
+     */
     @Test
     public void testTravelRulePolicyRuleResponse() {
         // TODO: test TravelRulePolicyRuleResponse
     }
 
-    /** Test the property 'sourceType' */
+    /**
+     * Test the property 'sourceType'
+     */
     @Test
     public void sourceTypeTest() {
         // TODO: test sourceType
     }
 
-    /** Test the property 'sourceSubType' */
+    /**
+     * Test the property 'sourceSubType'
+     */
     @Test
     public void sourceSubTypeTest() {
         // TODO: test sourceSubType
     }
 
-    /** Test the property 'destType' */
+    /**
+     * Test the property 'destType'
+     */
     @Test
     public void destTypeTest() {
         // TODO: test destType
     }
 
-    /** Test the property 'destSubType' */
+    /**
+     * Test the property 'destSubType'
+     */
     @Test
     public void destSubTypeTest() {
         // TODO: test destSubType
     }
 
-    /** Test the property 'destAddress' */
+    /**
+     * Test the property 'destAddress'
+     */
     @Test
     public void destAddressTest() {
         // TODO: test destAddress
     }
 
-    /** Test the property 'sourceId' */
+    /**
+     * Test the property 'sourceId'
+     */
     @Test
     public void sourceIdTest() {
         // TODO: test sourceId
     }
 
-    /** Test the property 'destId' */
+    /**
+     * Test the property 'destId'
+     */
     @Test
     public void destIdTest() {
         // TODO: test destId
     }
 
-    /** Test the property 'asset' */
+    /**
+     * Test the property 'asset'
+     */
     @Test
     public void assetTest() {
         // TODO: test asset
     }
 
-    /** Test the property 'baseAsset' */
+    /**
+     * Test the property 'baseAsset'
+     */
     @Test
     public void baseAssetTest() {
         // TODO: test baseAsset
     }
 
-    /** Test the property 'amount' */
+    /**
+     * Test the property 'amount'
+     */
     @Test
     public void amountTest() {
         // TODO: test amount
     }
 
-    /** Test the property 'amountUSD' */
+    /**
+     * Test the property 'amountUSD'
+     */
     @Test
     public void amountUSDTest() {
         // TODO: test amountUSD
     }
 
-    /** Test the property 'networkProtocol' */
+    /**
+     * Test the property 'networkProtocol'
+     */
     @Test
     public void networkProtocolTest() {
         // TODO: test networkProtocol
     }
 
-    /** Test the property 'operation' */
+    /**
+     * Test the property 'operation'
+     */
     @Test
     public void operationTest() {
         // TODO: test operation
     }
 
-    /** Test the property 'action' */
+    /**
+     * Test the property 'action'
+     */
     @Test
     public void actionTest() {
         // TODO: test action
     }
+
 }

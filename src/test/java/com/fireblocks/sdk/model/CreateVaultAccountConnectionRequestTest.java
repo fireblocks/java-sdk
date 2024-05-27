@@ -10,43 +10,66 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
-/** Model tests for CreateVaultAccountConnectionRequest */
+/**
+ * Model tests for CreateVaultAccountConnectionRequest
+ */
 public class CreateVaultAccountConnectionRequestTest {
-    private final CreateVaultAccountConnectionRequest model =
-            new CreateVaultAccountConnectionRequest();
+    private final CreateVaultAccountConnectionRequest model = new CreateVaultAccountConnectionRequest();
 
-    /** Model tests for CreateVaultAccountConnectionRequest */
+    /**
+     * Model tests for CreateVaultAccountConnectionRequest
+     */
     @Test
     public void testCreateVaultAccountConnectionRequest() {
         // TODO: test CreateVaultAccountConnectionRequest
     }
 
-    /** Test the property 'vaultAccountId' */
+    /**
+     * Test the property 'vaultAccountId'
+     */
     @Test
     public void vaultAccountIdTest() {
         // TODO: test vaultAccountId
     }
 
-    /** Test the property 'feeLevel' */
+    /**
+     * Test the property 'feeLevel'
+     */
     @Test
     public void feeLevelTest() {
         // TODO: test feeLevel
     }
 
-    /** Test the property 'uri' */
+    /**
+     * Test the property 'uri'
+     */
     @Test
     public void uriTest() {
         // TODO: test uri
     }
 
-    /** Test the property 'chainIds' */
+    /**
+     * Test the property 'chainIds'
+     */
     @Test
     public void chainIdsTest() {
         // TODO: test chainIds
     }
+
 }

@@ -10,36 +10,58 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
-/** Model tests for PublicKeyInformation */
+/**
+ * Model tests for PublicKeyInformation
+ */
 public class PublicKeyInformationTest {
     private final PublicKeyInformation model = new PublicKeyInformation();
 
-    /** Model tests for PublicKeyInformation */
+    /**
+     * Model tests for PublicKeyInformation
+     */
     @Test
     public void testPublicKeyInformation() {
         // TODO: test PublicKeyInformation
     }
 
-    /** Test the property 'algorithm' */
+    /**
+     * Test the property 'algorithm'
+     */
     @Test
     public void algorithmTest() {
         // TODO: test algorithm
     }
 
-    /** Test the property 'derivationPath' */
+    /**
+     * Test the property 'derivationPath'
+     */
     @Test
     public void derivationPathTest() {
         // TODO: test derivationPath
     }
 
-    /** Test the property 'publicKey' */
+    /**
+     * Test the property 'publicKey'
+     */
     @Test
     public void publicKeyTest() {
         // TODO: test publicKey
     }
+
 }

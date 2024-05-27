@@ -10,36 +10,56 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.Arrays;
+import java.util.UUID;
+import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
-/** Model tests for Cosigner */
+/**
+ * Model tests for Cosigner
+ */
 public class CosignerTest {
     private final Cosigner model = new Cosigner();
 
-    /** Model tests for Cosigner */
+    /**
+     * Model tests for Cosigner
+     */
     @Test
     public void testCosigner() {
         // TODO: test Cosigner
     }
 
-    /** Test the property 'archived' */
+    /**
+     * Test the property 'archived'
+     */
     @Test
     public void archivedTest() {
         // TODO: test archived
     }
 
-    /** Test the property 'id' */
+    /**
+     * Test the property 'id'
+     */
     @Test
     public void idTest() {
         // TODO: test id
     }
 
-    /** Test the property 'name' */
+    /**
+     * Test the property 'name'
+     */
     @Test
     public void nameTest() {
         // TODO: test name
     }
+
 }

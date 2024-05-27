@@ -10,24 +10,42 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.fireblocks.sdk.model.ReadAbiFunction;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
-/** Model tests for ReadCallFunctionDto */
+/**
+ * Model tests for ReadCallFunctionDto
+ */
 public class ReadCallFunctionDtoTest {
     private final ReadCallFunctionDto model = new ReadCallFunctionDto();
 
-    /** Model tests for ReadCallFunctionDto */
+    /**
+     * Model tests for ReadCallFunctionDto
+     */
     @Test
     public void testReadCallFunctionDto() {
         // TODO: test ReadCallFunctionDto
     }
 
-    /** Test the property 'abiFunction' */
+    /**
+     * Test the property 'abiFunction'
+     */
     @Test
     public void abiFunctionTest() {
         // TODO: test abiFunction
     }
+
 }

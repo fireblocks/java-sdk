@@ -10,225 +10,214 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
-import java.util.Objects;
 import java.util.StringJoiner;
+import java.util.Objects;
+import java.util.Map;
+import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.fireblocks.sdk.model.AmountAggregationTimePeriodMethod;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+
 
 /**
- * Defines the method by which the Policy Engine calculates accumulation. It uses the Initiator,
- * Source, and Destination to calculate accumulation toward the value under Minimum, for the time
- * under Time Period.
+ * Defines the method by which the Policy Engine calculates accumulation. It uses the Initiator, Source, and Destination to calculate accumulation toward the value under Minimum, for the time under Time Period. 
  */
 @JsonPropertyOrder({
-    PolicyRuleAmountAggregation.JSON_PROPERTY_OPERATORS,
-    PolicyRuleAmountAggregation.JSON_PROPERTY_SRC_TRANSFER_PEERS,
-    PolicyRuleAmountAggregation.JSON_PROPERTY_DST_TRANSFER_PEERS
+  PolicyRuleAmountAggregation.JSON_PROPERTY_OPERATORS,
+  PolicyRuleAmountAggregation.JSON_PROPERTY_SRC_TRANSFER_PEERS,
+  PolicyRuleAmountAggregation.JSON_PROPERTY_DST_TRANSFER_PEERS
 })
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class PolicyRuleAmountAggregation {
-    public static final String JSON_PROPERTY_OPERATORS = "operators";
-    private AmountAggregationTimePeriodMethod operators;
+  public static final String JSON_PROPERTY_OPERATORS = "operators";
+  private AmountAggregationTimePeriodMethod operators;
 
-    public static final String JSON_PROPERTY_SRC_TRANSFER_PEERS = "srcTransferPeers";
-    private AmountAggregationTimePeriodMethod srcTransferPeers;
+  public static final String JSON_PROPERTY_SRC_TRANSFER_PEERS = "srcTransferPeers";
+  private AmountAggregationTimePeriodMethod srcTransferPeers;
 
-    public static final String JSON_PROPERTY_DST_TRANSFER_PEERS = "dstTransferPeers";
-    private AmountAggregationTimePeriodMethod dstTransferPeers;
+  public static final String JSON_PROPERTY_DST_TRANSFER_PEERS = "dstTransferPeers";
+  private AmountAggregationTimePeriodMethod dstTransferPeers;
 
-    public PolicyRuleAmountAggregation() {}
+  public PolicyRuleAmountAggregation() { 
+  }
 
-    public PolicyRuleAmountAggregation operators(AmountAggregationTimePeriodMethod operators) {
-        this.operators = operators;
-        return this;
+  public PolicyRuleAmountAggregation operators(AmountAggregationTimePeriodMethod operators) {
+    this.operators = operators;
+    return this;
+  }
+
+   /**
+   * Get operators
+   * @return operators
+  **/
+  @jakarta.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_OPERATORS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public AmountAggregationTimePeriodMethod getOperators() {
+    return operators;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_OPERATORS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setOperators(AmountAggregationTimePeriodMethod operators) {
+    this.operators = operators;
+  }
+
+
+  public PolicyRuleAmountAggregation srcTransferPeers(AmountAggregationTimePeriodMethod srcTransferPeers) {
+    this.srcTransferPeers = srcTransferPeers;
+    return this;
+  }
+
+   /**
+   * Get srcTransferPeers
+   * @return srcTransferPeers
+  **/
+  @jakarta.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_SRC_TRANSFER_PEERS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public AmountAggregationTimePeriodMethod getSrcTransferPeers() {
+    return srcTransferPeers;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_SRC_TRANSFER_PEERS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setSrcTransferPeers(AmountAggregationTimePeriodMethod srcTransferPeers) {
+    this.srcTransferPeers = srcTransferPeers;
+  }
+
+
+  public PolicyRuleAmountAggregation dstTransferPeers(AmountAggregationTimePeriodMethod dstTransferPeers) {
+    this.dstTransferPeers = dstTransferPeers;
+    return this;
+  }
+
+   /**
+   * Get dstTransferPeers
+   * @return dstTransferPeers
+  **/
+  @jakarta.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_DST_TRANSFER_PEERS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public AmountAggregationTimePeriodMethod getDstTransferPeers() {
+    return dstTransferPeers;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_DST_TRANSFER_PEERS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setDstTransferPeers(AmountAggregationTimePeriodMethod dstTransferPeers) {
+    this.dstTransferPeers = dstTransferPeers;
+  }
+
+
+  /**
+   * Return true if this PolicyRule_amountAggregation object is equal to o.
+   */
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    PolicyRuleAmountAggregation policyRuleAmountAggregation = (PolicyRuleAmountAggregation) o;
+    return Objects.equals(this.operators, policyRuleAmountAggregation.operators) &&
+        Objects.equals(this.srcTransferPeers, policyRuleAmountAggregation.srcTransferPeers) &&
+        Objects.equals(this.dstTransferPeers, policyRuleAmountAggregation.dstTransferPeers);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(operators, srcTransferPeers, dstTransferPeers);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class PolicyRuleAmountAggregation {\n");
+    sb.append("    operators: ").append(toIndentedString(operators)).append("\n");
+    sb.append("    srcTransferPeers: ").append(toIndentedString(srcTransferPeers)).append("\n");
+    sb.append("    dstTransferPeers: ").append(toIndentedString(dstTransferPeers)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @return URL query string
+   */
+  public String toUrlQueryString() {
+    return toUrlQueryString(null);
+  }
+
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @param prefix prefix of the query string
+   * @return URL query string
+   */
+  public String toUrlQueryString(String prefix) {
+    String suffix = "";
+    String containerSuffix = "";
+    String containerPrefix = "";
+    if (prefix == null) {
+      // style=form, explode=true, e.g. /pet?name=cat&type=manx
+      prefix = "";
+    } else {
+      // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
+      prefix = prefix + "[";
+      suffix = "]";
+      containerSuffix = "]";
+      containerPrefix = "[";
     }
 
-    /**
-     * Get operators
-     *
-     * @return operators
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_OPERATORS)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public AmountAggregationTimePeriodMethod getOperators() {
-        return operators;
+    StringJoiner joiner = new StringJoiner("&");
+
+    // add `operators` to the URL query string
+    if (getOperators() != null) {
+      joiner.add(String.format("%soperators%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getOperators()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
     }
 
-    @JsonProperty(JSON_PROPERTY_OPERATORS)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setOperators(AmountAggregationTimePeriodMethod operators) {
-        this.operators = operators;
+    // add `srcTransferPeers` to the URL query string
+    if (getSrcTransferPeers() != null) {
+      joiner.add(String.format("%ssrcTransferPeers%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getSrcTransferPeers()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
     }
 
-    public PolicyRuleAmountAggregation srcTransferPeers(
-            AmountAggregationTimePeriodMethod srcTransferPeers) {
-        this.srcTransferPeers = srcTransferPeers;
-        return this;
+    // add `dstTransferPeers` to the URL query string
+    if (getDstTransferPeers() != null) {
+      joiner.add(String.format("%sdstTransferPeers%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getDstTransferPeers()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
     }
 
-    /**
-     * Get srcTransferPeers
-     *
-     * @return srcTransferPeers
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_SRC_TRANSFER_PEERS)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public AmountAggregationTimePeriodMethod getSrcTransferPeers() {
-        return srcTransferPeers;
-    }
-
-    @JsonProperty(JSON_PROPERTY_SRC_TRANSFER_PEERS)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setSrcTransferPeers(AmountAggregationTimePeriodMethod srcTransferPeers) {
-        this.srcTransferPeers = srcTransferPeers;
-    }
-
-    public PolicyRuleAmountAggregation dstTransferPeers(
-            AmountAggregationTimePeriodMethod dstTransferPeers) {
-        this.dstTransferPeers = dstTransferPeers;
-        return this;
-    }
-
-    /**
-     * Get dstTransferPeers
-     *
-     * @return dstTransferPeers
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_DST_TRANSFER_PEERS)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public AmountAggregationTimePeriodMethod getDstTransferPeers() {
-        return dstTransferPeers;
-    }
-
-    @JsonProperty(JSON_PROPERTY_DST_TRANSFER_PEERS)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setDstTransferPeers(AmountAggregationTimePeriodMethod dstTransferPeers) {
-        this.dstTransferPeers = dstTransferPeers;
-    }
-
-    /** Return true if this PolicyRule_amountAggregation object is equal to o. */
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        PolicyRuleAmountAggregation policyRuleAmountAggregation = (PolicyRuleAmountAggregation) o;
-        return Objects.equals(this.operators, policyRuleAmountAggregation.operators)
-                && Objects.equals(
-                        this.srcTransferPeers, policyRuleAmountAggregation.srcTransferPeers)
-                && Objects.equals(
-                        this.dstTransferPeers, policyRuleAmountAggregation.dstTransferPeers);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(operators, srcTransferPeers, dstTransferPeers);
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("class PolicyRuleAmountAggregation {\n");
-        sb.append("    operators: ").append(toIndentedString(operators)).append("\n");
-        sb.append("    srcTransferPeers: ").append(toIndentedString(srcTransferPeers)).append("\n");
-        sb.append("    dstTransferPeers: ").append(toIndentedString(dstTransferPeers)).append("\n");
-        sb.append("}");
-        return sb.toString();
-    }
-
-    /**
-     * Convert the given object to string with each line indented by 4 spaces (except the first
-     * line).
-     */
-    private String toIndentedString(Object o) {
-        if (o == null) {
-            return "null";
-        }
-        return o.toString().replace("\n", "\n    ");
-    }
-
-    /**
-     * Convert the instance into URL query string.
-     *
-     * @return URL query string
-     */
-    public String toUrlQueryString() {
-        return toUrlQueryString(null);
-    }
-
-    /**
-     * Convert the instance into URL query string.
-     *
-     * @param prefix prefix of the query string
-     * @return URL query string
-     */
-    public String toUrlQueryString(String prefix) {
-        String suffix = "";
-        String containerSuffix = "";
-        String containerPrefix = "";
-        if (prefix == null) {
-            // style=form, explode=true, e.g. /pet?name=cat&type=manx
-            prefix = "";
-        } else {
-            // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
-            prefix = prefix + "[";
-            suffix = "]";
-            containerSuffix = "]";
-            containerPrefix = "[";
-        }
-
-        StringJoiner joiner = new StringJoiner("&");
-
-        // add `operators` to the URL query string
-        if (getOperators() != null) {
-            joiner.add(
-                    String.format(
-                            "%soperators%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getOperators()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
-        // add `srcTransferPeers` to the URL query string
-        if (getSrcTransferPeers() != null) {
-            joiner.add(
-                    String.format(
-                            "%ssrcTransferPeers%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getSrcTransferPeers()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
-        // add `dstTransferPeers` to the URL query string
-        if (getDstTransferPeers() != null) {
-            joiner.add(
-                    String.format(
-                            "%sdstTransferPeers%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getDstTransferPeers()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
-        return joiner.toString();
-    }
+    return joiner.toString();
+  }
 }
+

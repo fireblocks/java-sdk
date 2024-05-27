@@ -10,176 +10,178 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.math.BigDecimal;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
-import java.util.Objects;
 import java.util.StringJoiner;
+import java.util.Objects;
+import java.util.Map;
+import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import java.math.BigDecimal;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
-/** ValidatorDto */
+
+/**
+ * ValidatorDto
+ */
 @JsonPropertyOrder({
-    ValidatorDto.JSON_PROPERTY_CHAIN_DESCRIPTOR,
-    ValidatorDto.JSON_PROPERTY_FEE_PERCENT
+  ValidatorDto.JSON_PROPERTY_CHAIN_DESCRIPTOR,
+  ValidatorDto.JSON_PROPERTY_FEE_PERCENT
 })
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class ValidatorDto {
-    public static final String JSON_PROPERTY_CHAIN_DESCRIPTOR = "chainDescriptor";
-    private String chainDescriptor;
+  public static final String JSON_PROPERTY_CHAIN_DESCRIPTOR = "chainDescriptor";
+  private String chainDescriptor;
 
-    public static final String JSON_PROPERTY_FEE_PERCENT = "feePercent";
-    private BigDecimal feePercent;
+  public static final String JSON_PROPERTY_FEE_PERCENT = "feePercent";
+  private BigDecimal feePercent;
 
-    public ValidatorDto() {}
+  public ValidatorDto() { 
+  }
 
-    public ValidatorDto chainDescriptor(String chainDescriptor) {
-        this.chainDescriptor = chainDescriptor;
-        return this;
+  public ValidatorDto chainDescriptor(String chainDescriptor) {
+    this.chainDescriptor = chainDescriptor;
+    return this;
+  }
+
+   /**
+   * The protocol identifier (e.g. \&quot;ETH\&quot;/\&quot;SOL\&quot;) of the validator
+   * @return chainDescriptor
+  **/
+  @jakarta.annotation.Nonnull
+  @JsonProperty(JSON_PROPERTY_CHAIN_DESCRIPTOR)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getChainDescriptor() {
+    return chainDescriptor;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_CHAIN_DESCRIPTOR)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setChainDescriptor(String chainDescriptor) {
+    this.chainDescriptor = chainDescriptor;
+  }
+
+
+  public ValidatorDto feePercent(BigDecimal feePercent) {
+    this.feePercent = feePercent;
+    return this;
+  }
+
+   /**
+   * The service fee as a percentage out of the earned rewards
+   * @return feePercent
+  **/
+  @jakarta.annotation.Nonnull
+  @JsonProperty(JSON_PROPERTY_FEE_PERCENT)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public BigDecimal getFeePercent() {
+    return feePercent;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_FEE_PERCENT)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setFeePercent(BigDecimal feePercent) {
+    this.feePercent = feePercent;
+  }
+
+
+  /**
+   * Return true if this ValidatorDto object is equal to o.
+   */
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    ValidatorDto validatorDto = (ValidatorDto) o;
+    return Objects.equals(this.chainDescriptor, validatorDto.chainDescriptor) &&
+        Objects.equals(this.feePercent, validatorDto.feePercent);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(chainDescriptor, feePercent);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class ValidatorDto {\n");
+    sb.append("    chainDescriptor: ").append(toIndentedString(chainDescriptor)).append("\n");
+    sb.append("    feePercent: ").append(toIndentedString(feePercent)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @return URL query string
+   */
+  public String toUrlQueryString() {
+    return toUrlQueryString(null);
+  }
+
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @param prefix prefix of the query string
+   * @return URL query string
+   */
+  public String toUrlQueryString(String prefix) {
+    String suffix = "";
+    String containerSuffix = "";
+    String containerPrefix = "";
+    if (prefix == null) {
+      // style=form, explode=true, e.g. /pet?name=cat&type=manx
+      prefix = "";
+    } else {
+      // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
+      prefix = prefix + "[";
+      suffix = "]";
+      containerSuffix = "]";
+      containerPrefix = "[";
     }
 
-    /**
-     * The protocol identifier (e.g. \&quot;ETH\&quot;/\&quot;SOL\&quot;) of the validator
-     *
-     * @return chainDescriptor
-     */
-    @jakarta.annotation.Nonnull
-    @JsonProperty(JSON_PROPERTY_CHAIN_DESCRIPTOR)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public String getChainDescriptor() {
-        return chainDescriptor;
+    StringJoiner joiner = new StringJoiner("&");
+
+    // add `chainDescriptor` to the URL query string
+    if (getChainDescriptor() != null) {
+      joiner.add(String.format("%schainDescriptor%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getChainDescriptor()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
     }
 
-    @JsonProperty(JSON_PROPERTY_CHAIN_DESCRIPTOR)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setChainDescriptor(String chainDescriptor) {
-        this.chainDescriptor = chainDescriptor;
+    // add `feePercent` to the URL query string
+    if (getFeePercent() != null) {
+      joiner.add(String.format("%sfeePercent%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getFeePercent()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
     }
 
-    public ValidatorDto feePercent(BigDecimal feePercent) {
-        this.feePercent = feePercent;
-        return this;
-    }
-
-    /**
-     * The service fee as a percentage out of the earned rewards
-     *
-     * @return feePercent
-     */
-    @jakarta.annotation.Nonnull
-    @JsonProperty(JSON_PROPERTY_FEE_PERCENT)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public BigDecimal getFeePercent() {
-        return feePercent;
-    }
-
-    @JsonProperty(JSON_PROPERTY_FEE_PERCENT)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setFeePercent(BigDecimal feePercent) {
-        this.feePercent = feePercent;
-    }
-
-    /** Return true if this ValidatorDto object is equal to o. */
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        ValidatorDto validatorDto = (ValidatorDto) o;
-        return Objects.equals(this.chainDescriptor, validatorDto.chainDescriptor)
-                && Objects.equals(this.feePercent, validatorDto.feePercent);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(chainDescriptor, feePercent);
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("class ValidatorDto {\n");
-        sb.append("    chainDescriptor: ").append(toIndentedString(chainDescriptor)).append("\n");
-        sb.append("    feePercent: ").append(toIndentedString(feePercent)).append("\n");
-        sb.append("}");
-        return sb.toString();
-    }
-
-    /**
-     * Convert the given object to string with each line indented by 4 spaces (except the first
-     * line).
-     */
-    private String toIndentedString(Object o) {
-        if (o == null) {
-            return "null";
-        }
-        return o.toString().replace("\n", "\n    ");
-    }
-
-    /**
-     * Convert the instance into URL query string.
-     *
-     * @return URL query string
-     */
-    public String toUrlQueryString() {
-        return toUrlQueryString(null);
-    }
-
-    /**
-     * Convert the instance into URL query string.
-     *
-     * @param prefix prefix of the query string
-     * @return URL query string
-     */
-    public String toUrlQueryString(String prefix) {
-        String suffix = "";
-        String containerSuffix = "";
-        String containerPrefix = "";
-        if (prefix == null) {
-            // style=form, explode=true, e.g. /pet?name=cat&type=manx
-            prefix = "";
-        } else {
-            // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
-            prefix = prefix + "[";
-            suffix = "]";
-            containerSuffix = "]";
-            containerPrefix = "[";
-        }
-
-        StringJoiner joiner = new StringJoiner("&");
-
-        // add `chainDescriptor` to the URL query string
-        if (getChainDescriptor() != null) {
-            joiner.add(
-                    String.format(
-                            "%schainDescriptor%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getChainDescriptor()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
-        // add `feePercent` to the URL query string
-        if (getFeePercent() != null) {
-            joiner.add(
-                    String.format(
-                            "%sfeePercent%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getFeePercent()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
-        return joiner.toString();
-    }
+    return joiner.toString();
+  }
 }
+

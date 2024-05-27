@@ -12,15 +12,15 @@
 
 package com.fireblocks.sdk.api;
 
-
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.Pair;
+
 import com.fireblocks.sdk.model.CreateNetworkIdRequest;
 import com.fireblocks.sdk.model.DeleteNetworkConnectionResponse;
 import com.fireblocks.sdk.model.DeleteNetworkIdResponse;
+import com.fireblocks.sdk.model.ErrorSchema;
 import com.fireblocks.sdk.model.NetworkConnection;
 import com.fireblocks.sdk.model.NetworkConnectionResponse;
 import com.fireblocks.sdk.model.NetworkIdResponse;
@@ -31,1265 +31,970 @@ import com.fireblocks.sdk.model.SetNetworkIdRoutingPolicyRequest;
 import com.fireblocks.sdk.model.SetRoutingPolicyRequest;
 import com.fireblocks.sdk.model.SetRoutingPolicyResponse;
 import com.fireblocks.sdk.model.ThirdPartyRouting;
-import java.io.IOException;
+
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import java.io.InputStream;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.net.http.HttpRequest;
+import java.nio.channels.Channels;
+import java.nio.channels.Pipe;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.time.Duration;
+
+import java.util.ArrayList;
+import java.util.StringJoiner;
 import java.util.List;
-import java.util.concurrent.CompletableFuture;
+import java.util.Map;
+import java.util.Set;
 import java.util.function.Consumer;
+
+import java.util.concurrent.CompletableFuture;
 
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class NetworkConnectionsApi {
-    private final HttpClient memberVarHttpClient;
-    private final ObjectMapper memberVarObjectMapper;
-    private final String memberVarBaseUri;
-    private final Consumer<HttpRequest.Builder> memberVarInterceptor;
-    private final Duration memberVarReadTimeout;
-    private final Consumer<HttpResponse<InputStream>> memberVarResponseInterceptor;
-    private final Consumer<HttpResponse<String>> memberVarAsyncResponseInterceptor;
+  private final HttpClient memberVarHttpClient;
+  private final ObjectMapper memberVarObjectMapper;
+  private final String memberVarBaseUri;
+  private final Consumer<HttpRequest.Builder> memberVarInterceptor;
+  private final Duration memberVarReadTimeout;
+  private final Consumer<HttpResponse<InputStream>> memberVarResponseInterceptor;
+  private final Consumer<HttpResponse<String>> memberVarAsyncResponseInterceptor;
 
-    public NetworkConnectionsApi() {
-        this(new ApiClient());
+  public NetworkConnectionsApi() {
+    this(new ApiClient());
+  }
+
+  public NetworkConnectionsApi(ApiClient apiClient) {
+    memberVarHttpClient = apiClient.getHttpClient();
+    memberVarObjectMapper = apiClient.getObjectMapper();
+    memberVarBaseUri = apiClient.getBaseUri();
+    memberVarInterceptor = apiClient.getRequestInterceptor();
+    memberVarReadTimeout = apiClient.getReadTimeout();
+    memberVarResponseInterceptor = apiClient.getResponseInterceptor();
+    memberVarAsyncResponseInterceptor = apiClient.getAsyncResponseInterceptor();
+  }
+
+  private ApiException getApiException(String operationId, HttpResponse<String> response) {
+    String message = formatExceptionMessage(operationId, response.statusCode(), response.body());
+    return new ApiException(response.statusCode(), message, response.headers(), response.body());
+  }
+
+  private String formatExceptionMessage(String operationId, int statusCode, String body) {
+    if (body == null || body.isEmpty()) {
+      body = "[no body]";
+    }
+    return operationId + " call failed with: " + statusCode + " - " + body;
+  }
+
+  /**
+   * Retrieve third-party network routing validation by asset type.
+   * The Fireblocks Network allows for flexibility around incoming deposits. A receiver can receive network deposits to locations other than Fireblocks. This endpoint validates whether future transactions are routed to the displayed recipient or to a 3rd party.
+   * @param connectionId The ID of the network connection (required)
+   * @param assetType The destination asset type (required)
+   * @return CompletableFuture&lt;ApiResponse&lt;ThirdPartyRouting&gt;&gt;
+   * @throws ApiException if fails to make API call
+   */
+  public CompletableFuture<ApiResponse<ThirdPartyRouting>> checkThirdPartyRouting(String connectionId, String assetType) throws ApiException {
+    try {
+      HttpRequest.Builder localVarRequestBuilder = checkThirdPartyRoutingRequestBuilder(connectionId, assetType);
+      return memberVarHttpClient.sendAsync(
+          localVarRequestBuilder.build(),
+          HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
+            if (memberVarAsyncResponseInterceptor != null) {
+              memberVarAsyncResponseInterceptor.accept(localVarResponse);
+            }
+            if (localVarResponse.statusCode()/ 100 != 2) {
+              return CompletableFuture.failedFuture(getApiException("checkThirdPartyRouting", localVarResponse));
+            }
+            try {
+              String responseBody = localVarResponse.body();
+              return CompletableFuture.completedFuture(
+                  new ApiResponse<ThirdPartyRouting>(
+                      localVarResponse.statusCode(),
+                      localVarResponse.headers().map(),
+                      responseBody == null || responseBody.isBlank() ? null : memberVarObjectMapper.readValue(responseBody, new TypeReference<ThirdPartyRouting>() {}))
+              );
+            } catch (IOException e) {
+              return CompletableFuture.failedFuture(new ApiException(e));
+            }
+        }
+      );
+    }
+    catch (ApiException e) {
+      return CompletableFuture.failedFuture(e);
+    }
+  }
+
+  private HttpRequest.Builder checkThirdPartyRoutingRequestBuilder(String connectionId, String assetType) throws ApiException {
+    // verify the required parameter 'connectionId' is set
+    if (connectionId == null) {
+      throw new ApiException(400, "Missing the required parameter 'connectionId' when calling checkThirdPartyRouting");
+    }
+    // verify the required parameter 'assetType' is set
+    if (assetType == null) {
+      throw new ApiException(400, "Missing the required parameter 'assetType' when calling checkThirdPartyRouting");
     }
 
-    public NetworkConnectionsApi(ApiClient apiClient) {
-        memberVarHttpClient = apiClient.getHttpClient();
-        memberVarObjectMapper = apiClient.getObjectMapper();
-        memberVarBaseUri = apiClient.getBaseUri();
-        memberVarInterceptor = apiClient.getRequestInterceptor();
-        memberVarReadTimeout = apiClient.getReadTimeout();
-        memberVarResponseInterceptor = apiClient.getResponseInterceptor();
-        memberVarAsyncResponseInterceptor = apiClient.getAsyncResponseInterceptor();
+    HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+    String localVarPath = "/network_connections/{connectionId}/is_third_party_routing/{assetType}"
+        .replace("{connectionId}", ApiClient.urlEncode(connectionId.toString()))
+        .replace("{assetType}", ApiClient.urlEncode(assetType.toString()));
+
+    localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+    localVarRequestBuilder.header("Accept", "application/json");
+
+    localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
+    if (memberVarReadTimeout != null) {
+      localVarRequestBuilder.timeout(memberVarReadTimeout);
+    }
+    if (memberVarInterceptor != null) {
+      memberVarInterceptor.accept(localVarRequestBuilder);
+    }
+    return localVarRequestBuilder;
+  }
+  /**
+   * Creates a new network connection
+   * Initiates a new network connection.  **Note:** This API call is subject to Flexible Routing Schemes.  Your routing policy defines how your transactions are routed. You can choose 1 of the 3 different schemes mentioned below for each asset type:   - **None**; Defines the profile routing to no destination for that asset type. Incoming transactions to asset types routed to &#x60;None&#x60; will fail.   - **Custom**; Route to an account that you choose. If you remove the account, incoming transactions will fail until you choose another one.   - **Default**; Use the routing specified by the network profile the connection is connected to. This scheme is also referred to as \&quot;Profile Routing\&quot;  Default Workspace Presets:   - Network Profile Crypto → **Custom**   - Network Profile FIAT → **None**   - Network Connection Crypto → **Default**   - Network Connection FIAT → **Default**  Supported asset groups for routing police can be found at &#x60;/network_ids/routing_policy_asset_groups&#x60;      - **Note**: By default, Custom routing scheme uses (&#x60;dstId&#x60; &#x3D; &#x60;0&#x60;, &#x60;dstType&#x60; &#x3D; &#x60;VAULT&#x60;). 
+   * @param networkConnection  (optional)
+   * @param idempotencyKey A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
+   * @return CompletableFuture&lt;ApiResponse&lt;NetworkConnectionResponse&gt;&gt;
+   * @throws ApiException if fails to make API call
+   */
+  public CompletableFuture<ApiResponse<NetworkConnectionResponse>> createNetworkConnection(NetworkConnection networkConnection, String idempotencyKey) throws ApiException {
+    try {
+      HttpRequest.Builder localVarRequestBuilder = createNetworkConnectionRequestBuilder(networkConnection, idempotencyKey);
+      return memberVarHttpClient.sendAsync(
+          localVarRequestBuilder.build(),
+          HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
+            if (memberVarAsyncResponseInterceptor != null) {
+              memberVarAsyncResponseInterceptor.accept(localVarResponse);
+            }
+            if (localVarResponse.statusCode()/ 100 != 2) {
+              return CompletableFuture.failedFuture(getApiException("createNetworkConnection", localVarResponse));
+            }
+            try {
+              String responseBody = localVarResponse.body();
+              return CompletableFuture.completedFuture(
+                  new ApiResponse<NetworkConnectionResponse>(
+                      localVarResponse.statusCode(),
+                      localVarResponse.headers().map(),
+                      responseBody == null || responseBody.isBlank() ? null : memberVarObjectMapper.readValue(responseBody, new TypeReference<NetworkConnectionResponse>() {}))
+              );
+            } catch (IOException e) {
+              return CompletableFuture.failedFuture(new ApiException(e));
+            }
+        }
+      );
+    }
+    catch (ApiException e) {
+      return CompletableFuture.failedFuture(e);
+    }
+  }
+
+  private HttpRequest.Builder createNetworkConnectionRequestBuilder(NetworkConnection networkConnection, String idempotencyKey) throws ApiException {
+
+    HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+    String localVarPath = "/network_connections";
+
+    localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+    if (idempotencyKey != null) {
+      localVarRequestBuilder.header("Idempotency-Key", idempotencyKey.toString());
+    }
+    localVarRequestBuilder.header("Content-Type", "application/json");
+    localVarRequestBuilder.header("Accept", "application/json");
+
+    try {
+      byte[] localVarPostBody = memberVarObjectMapper.writeValueAsBytes(networkConnection);
+      localVarRequestBuilder.method("POST", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
+    } catch (IOException e) {
+      throw new ApiException(e);
+    }
+    if (memberVarReadTimeout != null) {
+      localVarRequestBuilder.timeout(memberVarReadTimeout);
+    }
+    if (memberVarInterceptor != null) {
+      memberVarInterceptor.accept(localVarRequestBuilder);
+    }
+    return localVarRequestBuilder;
+  }
+  /**
+   * Creates a new Network ID
+   * Creates a new Network ID.  **Note:** This API call is subject to Flexible Routing Schemes.  Your routing policy defines how your transactions are routed. You can choose 1 of the 3 different schemes mentioned below for each asset type:   - **None**; Defines the profile routing to no destination for that asset type. Incoming transactions to asset types routed to &#x60;None&#x60; will fail.   - **Custom**; Route to an account that you choose. If you remove the account, incoming transactions will fail until you choose another one.   - **Default**; Use the routing specified by the network profile the connection is connected to. This scheme is also referred to as \&quot;Profile Routing\&quot;  Default Workspace Presets:   - Network Profile Crypto → **Custom**   - Network Profile FIAT → **None**   - Network Connection Crypto → **Default**   - Network Connection FIAT → **Default**  Supported asset groups for routing police can be found at &#x60;/network_ids/routing_policy_asset_groups&#x60;      - **Note**: By default, Custom routing scheme uses (&#x60;dstId&#x60; &#x3D; &#x60;0&#x60;, &#x60;dstType&#x60; &#x3D; &#x60;VAULT&#x60;). 
+   * @param createNetworkIdRequest  (optional)
+   * @param idempotencyKey A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
+   * @return CompletableFuture&lt;ApiResponse&lt;NetworkIdResponse&gt;&gt;
+   * @throws ApiException if fails to make API call
+   */
+  public CompletableFuture<ApiResponse<NetworkIdResponse>> createNetworkId(CreateNetworkIdRequest createNetworkIdRequest, String idempotencyKey) throws ApiException {
+    try {
+      HttpRequest.Builder localVarRequestBuilder = createNetworkIdRequestBuilder(createNetworkIdRequest, idempotencyKey);
+      return memberVarHttpClient.sendAsync(
+          localVarRequestBuilder.build(),
+          HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
+            if (memberVarAsyncResponseInterceptor != null) {
+              memberVarAsyncResponseInterceptor.accept(localVarResponse);
+            }
+            if (localVarResponse.statusCode()/ 100 != 2) {
+              return CompletableFuture.failedFuture(getApiException("createNetworkId", localVarResponse));
+            }
+            try {
+              String responseBody = localVarResponse.body();
+              return CompletableFuture.completedFuture(
+                  new ApiResponse<NetworkIdResponse>(
+                      localVarResponse.statusCode(),
+                      localVarResponse.headers().map(),
+                      responseBody == null || responseBody.isBlank() ? null : memberVarObjectMapper.readValue(responseBody, new TypeReference<NetworkIdResponse>() {}))
+              );
+            } catch (IOException e) {
+              return CompletableFuture.failedFuture(new ApiException(e));
+            }
+        }
+      );
+    }
+    catch (ApiException e) {
+      return CompletableFuture.failedFuture(e);
+    }
+  }
+
+  private HttpRequest.Builder createNetworkIdRequestBuilder(CreateNetworkIdRequest createNetworkIdRequest, String idempotencyKey) throws ApiException {
+
+    HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+    String localVarPath = "/network_ids";
+
+    localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+    if (idempotencyKey != null) {
+      localVarRequestBuilder.header("Idempotency-Key", idempotencyKey.toString());
+    }
+    localVarRequestBuilder.header("Content-Type", "application/json");
+    localVarRequestBuilder.header("Accept", "application/json");
+
+    try {
+      byte[] localVarPostBody = memberVarObjectMapper.writeValueAsBytes(createNetworkIdRequest);
+      localVarRequestBuilder.method("POST", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
+    } catch (IOException e) {
+      throw new ApiException(e);
+    }
+    if (memberVarReadTimeout != null) {
+      localVarRequestBuilder.timeout(memberVarReadTimeout);
+    }
+    if (memberVarInterceptor != null) {
+      memberVarInterceptor.accept(localVarRequestBuilder);
+    }
+    return localVarRequestBuilder;
+  }
+  /**
+   * Deletes a network connection by ID
+   * Deletes an existing network connection specified by its connection ID.  **Note:** This API call is subject to Flexible Routing Schemes.  Your routing policy defines how your transactions are routed. You can choose 1 of the 3 different schemes mentioned below for each asset type:   - **None**; Defines the profile routing to no destination for that asset type. Incoming transactions to asset types routed to &#x60;None&#x60; will fail.   - **Custom**; Route to an account that you choose. If you remove the account, incoming transactions will fail until you choose another one.   - **Default**; Use the routing specified by the network profile the connection is connected to. This scheme is also referred to as \&quot;Profile Routing\&quot;  Default Workspace Presets:   - Network Profile Crypto → **Custom**   - Network Profile FIAT → **None**   - Network Connection Crypto → **Default**   - Network Connection FIAT → **Default**      - **Note**: By default, Custom routing scheme uses (&#x60;dstId&#x60; &#x3D; &#x60;0&#x60;, &#x60;dstType&#x60; &#x3D; &#x60;VAULT&#x60;). 
+   * @param connectionId The ID of the network connection to delete (required)
+   * @return CompletableFuture&lt;ApiResponse&lt;DeleteNetworkConnectionResponse&gt;&gt;
+   * @throws ApiException if fails to make API call
+   */
+  public CompletableFuture<ApiResponse<DeleteNetworkConnectionResponse>> deleteNetworkConnection(String connectionId) throws ApiException {
+    try {
+      HttpRequest.Builder localVarRequestBuilder = deleteNetworkConnectionRequestBuilder(connectionId);
+      return memberVarHttpClient.sendAsync(
+          localVarRequestBuilder.build(),
+          HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
+            if (memberVarAsyncResponseInterceptor != null) {
+              memberVarAsyncResponseInterceptor.accept(localVarResponse);
+            }
+            if (localVarResponse.statusCode()/ 100 != 2) {
+              return CompletableFuture.failedFuture(getApiException("deleteNetworkConnection", localVarResponse));
+            }
+            try {
+              String responseBody = localVarResponse.body();
+              return CompletableFuture.completedFuture(
+                  new ApiResponse<DeleteNetworkConnectionResponse>(
+                      localVarResponse.statusCode(),
+                      localVarResponse.headers().map(),
+                      responseBody == null || responseBody.isBlank() ? null : memberVarObjectMapper.readValue(responseBody, new TypeReference<DeleteNetworkConnectionResponse>() {}))
+              );
+            } catch (IOException e) {
+              return CompletableFuture.failedFuture(new ApiException(e));
+            }
+        }
+      );
+    }
+    catch (ApiException e) {
+      return CompletableFuture.failedFuture(e);
+    }
+  }
+
+  private HttpRequest.Builder deleteNetworkConnectionRequestBuilder(String connectionId) throws ApiException {
+    // verify the required parameter 'connectionId' is set
+    if (connectionId == null) {
+      throw new ApiException(400, "Missing the required parameter 'connectionId' when calling deleteNetworkConnection");
     }
 
-    private ApiException getApiException(String operationId, HttpResponse<String> response) {
-        String message =
-                formatExceptionMessage(operationId, response.statusCode(), response.body());
-        return new ApiException(
-                response.statusCode(), message, response.headers(), response.body());
+    HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+    String localVarPath = "/network_connections/{connectionId}"
+        .replace("{connectionId}", ApiClient.urlEncode(connectionId.toString()));
+
+    localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+    localVarRequestBuilder.header("Accept", "application/json");
+
+    localVarRequestBuilder.method("DELETE", HttpRequest.BodyPublishers.noBody());
+    if (memberVarReadTimeout != null) {
+      localVarRequestBuilder.timeout(memberVarReadTimeout);
+    }
+    if (memberVarInterceptor != null) {
+      memberVarInterceptor.accept(localVarRequestBuilder);
+    }
+    return localVarRequestBuilder;
+  }
+  /**
+   * Deletes specific network ID.
+   * Deletes a network by its ID.  **Note:** This API call is subject to Flexible Routing Schemes.  Your routing policy defines how your transactions are routed. You can choose 1 of the 3 different schemes mentioned below for each asset type:   - **None**; Defines the profile routing to no destination for that asset type. Incoming transactions to asset types routed to &#x60;None&#x60; will fail.   - **Custom**; Route to an account that you choose. If you remove the account, incoming transactions will fail until you choose another one.   - **Default**; Use the routing specified by the network profile the connection is connected to. This scheme is also referred to as \&quot;Profile Routing\&quot;  Default Workspace Presets:   - Network Profile Crypto → **Custom**   - Network Profile FIAT → **None**   - Network Connection Crypto → **Default**   - Network Connection FIAT → **Default**      - **Note**: By default, Custom routing scheme uses (&#x60;dstId&#x60; &#x3D; &#x60;0&#x60;, &#x60;dstType&#x60; &#x3D; &#x60;VAULT&#x60;). 
+   * @param networkId The ID of the network (required)
+   * @return CompletableFuture&lt;ApiResponse&lt;DeleteNetworkIdResponse&gt;&gt;
+   * @throws ApiException if fails to make API call
+   */
+  public CompletableFuture<ApiResponse<DeleteNetworkIdResponse>> deleteNetworkId(String networkId) throws ApiException {
+    try {
+      HttpRequest.Builder localVarRequestBuilder = deleteNetworkIdRequestBuilder(networkId);
+      return memberVarHttpClient.sendAsync(
+          localVarRequestBuilder.build(),
+          HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
+            if (memberVarAsyncResponseInterceptor != null) {
+              memberVarAsyncResponseInterceptor.accept(localVarResponse);
+            }
+            if (localVarResponse.statusCode()/ 100 != 2) {
+              return CompletableFuture.failedFuture(getApiException("deleteNetworkId", localVarResponse));
+            }
+            try {
+              String responseBody = localVarResponse.body();
+              return CompletableFuture.completedFuture(
+                  new ApiResponse<DeleteNetworkIdResponse>(
+                      localVarResponse.statusCode(),
+                      localVarResponse.headers().map(),
+                      responseBody == null || responseBody.isBlank() ? null : memberVarObjectMapper.readValue(responseBody, new TypeReference<DeleteNetworkIdResponse>() {}))
+              );
+            } catch (IOException e) {
+              return CompletableFuture.failedFuture(new ApiException(e));
+            }
+        }
+      );
+    }
+    catch (ApiException e) {
+      return CompletableFuture.failedFuture(e);
+    }
+  }
+
+  private HttpRequest.Builder deleteNetworkIdRequestBuilder(String networkId) throws ApiException {
+    // verify the required parameter 'networkId' is set
+    if (networkId == null) {
+      throw new ApiException(400, "Missing the required parameter 'networkId' when calling deleteNetworkId");
     }
 
-    private String formatExceptionMessage(String operationId, int statusCode, String body) {
-        if (body == null || body.isEmpty()) {
-            body = "[no body]";
+    HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+    String localVarPath = "/network_ids/{networkId}"
+        .replace("{networkId}", ApiClient.urlEncode(networkId.toString()));
+
+    localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+    localVarRequestBuilder.header("Accept", "application/json");
+
+    localVarRequestBuilder.method("DELETE", HttpRequest.BodyPublishers.noBody());
+    if (memberVarReadTimeout != null) {
+      localVarRequestBuilder.timeout(memberVarReadTimeout);
+    }
+    if (memberVarInterceptor != null) {
+      memberVarInterceptor.accept(localVarRequestBuilder);
+    }
+    return localVarRequestBuilder;
+  }
+  /**
+   * Get a network connection
+   * Gets a network connection by ID.  **Note:** This API call is subject to Flexible Routing Schemes.  Your routing policy defines how your transactions are routed. You can choose 1 of the 3 different schemes mentioned below for each asset type:   - **None**; Defines the profile routing to no destination for that asset type. Incoming transactions to asset types routed to &#x60;None&#x60; will fail.   - **Custom**; Route to an account that you choose. If you remove the account, incoming transactions will fail until you choose another one.   - **Default**; Use the routing specified by the network profile the connection is connected to. This scheme is also referred to as \&quot;Profile Routing\&quot;  Default Workspace Presets:   - Network Profile Crypto → **Custom**   - Network Profile FIAT → **None**   - Network Connection Crypto → **Default**   - Network Connection FIAT → **Default**      - **Note**: By default, Custom routing scheme uses (&#x60;dstId&#x60; &#x3D; &#x60;0&#x60;, &#x60;dstType&#x60; &#x3D; &#x60;VAULT&#x60;). 
+   * @param connectionId The ID of the connection (required)
+   * @return CompletableFuture&lt;ApiResponse&lt;NetworkConnectionResponse&gt;&gt;
+   * @throws ApiException if fails to make API call
+   */
+  public CompletableFuture<ApiResponse<NetworkConnectionResponse>> getNetwork(String connectionId) throws ApiException {
+    try {
+      HttpRequest.Builder localVarRequestBuilder = getNetworkRequestBuilder(connectionId);
+      return memberVarHttpClient.sendAsync(
+          localVarRequestBuilder.build(),
+          HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
+            if (memberVarAsyncResponseInterceptor != null) {
+              memberVarAsyncResponseInterceptor.accept(localVarResponse);
+            }
+            if (localVarResponse.statusCode()/ 100 != 2) {
+              return CompletableFuture.failedFuture(getApiException("getNetwork", localVarResponse));
+            }
+            try {
+              String responseBody = localVarResponse.body();
+              return CompletableFuture.completedFuture(
+                  new ApiResponse<NetworkConnectionResponse>(
+                      localVarResponse.statusCode(),
+                      localVarResponse.headers().map(),
+                      responseBody == null || responseBody.isBlank() ? null : memberVarObjectMapper.readValue(responseBody, new TypeReference<NetworkConnectionResponse>() {}))
+              );
+            } catch (IOException e) {
+              return CompletableFuture.failedFuture(new ApiException(e));
+            }
         }
-        return operationId + " call failed with: " + statusCode + " - " + body;
+      );
+    }
+    catch (ApiException e) {
+      return CompletableFuture.failedFuture(e);
+    }
+  }
+
+  private HttpRequest.Builder getNetworkRequestBuilder(String connectionId) throws ApiException {
+    // verify the required parameter 'connectionId' is set
+    if (connectionId == null) {
+      throw new ApiException(400, "Missing the required parameter 'connectionId' when calling getNetwork");
     }
 
-    /**
-     * Retrieve third-party network routing validation by asset type. The Fireblocks Network allows
-     * for flexibility around incoming deposits. A receiver can receive network deposits to
-     * locations other than Fireblocks. This endpoint validates whether future transactions are
-     * routed to the displayed recipient or to a 3rd party.
-     *
-     * @param connectionId The ID of the network connection (required)
-     * @param assetType The destination asset type (required)
-     * @return CompletableFuture&lt;ApiResponse&lt;ThirdPartyRouting&gt;&gt;
-     * @throws ApiException if fails to make API call
-     */
-    public CompletableFuture<ApiResponse<ThirdPartyRouting>> checkThirdPartyRouting(
-            String connectionId, String assetType) throws ApiException {
-        try {
-            HttpRequest.Builder localVarRequestBuilder =
-                    checkThirdPartyRoutingRequestBuilder(connectionId, assetType);
-            return memberVarHttpClient
-                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
-                    .thenComposeAsync(
-                            localVarResponse -> {
-                                if (memberVarAsyncResponseInterceptor != null) {
-                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
-                                }
-                                if (localVarResponse.statusCode() / 100 != 2) {
-                                    return CompletableFuture.failedFuture(
-                                            getApiException(
-                                                    "checkThirdPartyRouting", localVarResponse));
-                                }
-                                try {
-                                    String responseBody = localVarResponse.body();
-                                    return CompletableFuture.completedFuture(
-                                            new ApiResponse<ThirdPartyRouting>(
-                                                    localVarResponse.statusCode(),
-                                                    localVarResponse.headers().map(),
-                                                    responseBody == null || responseBody.isBlank()
-                                                            ? null
-                                                            : memberVarObjectMapper.readValue(
-                                                                    responseBody,
-                                                                    new TypeReference<
-                                                                            ThirdPartyRouting>() {})));
-                                } catch (IOException e) {
-                                    return CompletableFuture.failedFuture(new ApiException(e));
-                                }
-                            });
-        } catch (ApiException e) {
-            return CompletableFuture.failedFuture(e);
+    HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+    String localVarPath = "/network_connections/{connectionId}"
+        .replace("{connectionId}", ApiClient.urlEncode(connectionId.toString()));
+
+    localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+    localVarRequestBuilder.header("Accept", "application/json");
+
+    localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
+    if (memberVarReadTimeout != null) {
+      localVarRequestBuilder.timeout(memberVarReadTimeout);
+    }
+    if (memberVarInterceptor != null) {
+      memberVarInterceptor.accept(localVarRequestBuilder);
+    }
+    return localVarRequestBuilder;
+  }
+  /**
+   * List network connections
+   * Returns all network connections.  **Note:** This API call is subject to Flexible Routing Schemes.  Your routing policy defines how your transactions are routed. You can choose 1 of the 3 different schemes mentioned below for each asset type:   - **None**; Defines the profile routing to no destination for that asset type. Incoming transactions to asset types routed to &#x60;None&#x60; will fail.   - **Custom**; Route to an account that you choose. If you remove the account, incoming transactions will fail until you choose another one.   - **Default**; Use the routing specified by the network profile the connection is connected to. This scheme is also referred to as \&quot;Profile Routing\&quot;  Default Workspace Presets:   - Network Profile Crypto → **Custom**   - Network Profile FIAT → **None**   - Network Connection Crypto → **Default**   - Network Connection FIAT → **Default**      - **Note**: By default, Custom routing scheme uses (&#x60;dstId&#x60; &#x3D; &#x60;0&#x60;, &#x60;dstType&#x60; &#x3D; &#x60;VAULT&#x60;). 
+   * @return CompletableFuture&lt;ApiResponse&lt;List&lt;NetworkConnectionResponse&gt;&gt;&gt;
+   * @throws ApiException if fails to make API call
+   */
+  public CompletableFuture<ApiResponse<List<NetworkConnectionResponse>>> getNetworkConnections() throws ApiException {
+    try {
+      HttpRequest.Builder localVarRequestBuilder = getNetworkConnectionsRequestBuilder();
+      return memberVarHttpClient.sendAsync(
+          localVarRequestBuilder.build(),
+          HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
+            if (memberVarAsyncResponseInterceptor != null) {
+              memberVarAsyncResponseInterceptor.accept(localVarResponse);
+            }
+            if (localVarResponse.statusCode()/ 100 != 2) {
+              return CompletableFuture.failedFuture(getApiException("getNetworkConnections", localVarResponse));
+            }
+            try {
+              String responseBody = localVarResponse.body();
+              return CompletableFuture.completedFuture(
+                  new ApiResponse<List<NetworkConnectionResponse>>(
+                      localVarResponse.statusCode(),
+                      localVarResponse.headers().map(),
+                      responseBody == null || responseBody.isBlank() ? null : memberVarObjectMapper.readValue(responseBody, new TypeReference<List<NetworkConnectionResponse>>() {}))
+              );
+            } catch (IOException e) {
+              return CompletableFuture.failedFuture(new ApiException(e));
+            }
         }
+      );
+    }
+    catch (ApiException e) {
+      return CompletableFuture.failedFuture(e);
+    }
+  }
+
+  private HttpRequest.Builder getNetworkConnectionsRequestBuilder() throws ApiException {
+
+    HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+    String localVarPath = "/network_connections";
+
+    localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+    localVarRequestBuilder.header("Accept", "application/json");
+
+    localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
+    if (memberVarReadTimeout != null) {
+      localVarRequestBuilder.timeout(memberVarReadTimeout);
+    }
+    if (memberVarInterceptor != null) {
+      memberVarInterceptor.accept(localVarRequestBuilder);
+    }
+    return localVarRequestBuilder;
+  }
+  /**
+   * Returns specific network ID.
+   * Retrieves a network by its ID.  **Note:** This API call is subject to Flexible Routing Schemes.  Your routing policy defines how your transactions are routed. You can choose 1 of the 3 different schemes mentioned below for each asset type:   - **None**; Defines the profile routing to no destination for that asset type. Incoming transactions to asset types routed to &#x60;None&#x60; will fail.   - **Custom**; Route to an account that you choose. If you remove the account, incoming transactions will fail until you choose another one.   - **Default**; Use the routing specified by the network profile the connection is connected to. This scheme is also referred to as \&quot;Profile Routing\&quot;  Default Workspace Presets:   - Network Profile Crypto → **Custom**   - Network Profile FIAT → **None**   - Network Connection Crypto → **Default**   - Network Connection FIAT → **Default**      - **Note**: By default, Custom routing scheme uses (&#x60;dstId&#x60; &#x3D; &#x60;0&#x60;, &#x60;dstType&#x60; &#x3D; &#x60;VAULT&#x60;). 
+   * @param networkId The ID of the network (required)
+   * @return CompletableFuture&lt;ApiResponse&lt;NetworkIdResponse&gt;&gt;
+   * @throws ApiException if fails to make API call
+   */
+  public CompletableFuture<ApiResponse<NetworkIdResponse>> getNetworkId(String networkId) throws ApiException {
+    try {
+      HttpRequest.Builder localVarRequestBuilder = getNetworkIdRequestBuilder(networkId);
+      return memberVarHttpClient.sendAsync(
+          localVarRequestBuilder.build(),
+          HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
+            if (memberVarAsyncResponseInterceptor != null) {
+              memberVarAsyncResponseInterceptor.accept(localVarResponse);
+            }
+            if (localVarResponse.statusCode()/ 100 != 2) {
+              return CompletableFuture.failedFuture(getApiException("getNetworkId", localVarResponse));
+            }
+            try {
+              String responseBody = localVarResponse.body();
+              return CompletableFuture.completedFuture(
+                  new ApiResponse<NetworkIdResponse>(
+                      localVarResponse.statusCode(),
+                      localVarResponse.headers().map(),
+                      responseBody == null || responseBody.isBlank() ? null : memberVarObjectMapper.readValue(responseBody, new TypeReference<NetworkIdResponse>() {}))
+              );
+            } catch (IOException e) {
+              return CompletableFuture.failedFuture(new ApiException(e));
+            }
+        }
+      );
+    }
+    catch (ApiException e) {
+      return CompletableFuture.failedFuture(e);
+    }
+  }
+
+  private HttpRequest.Builder getNetworkIdRequestBuilder(String networkId) throws ApiException {
+    // verify the required parameter 'networkId' is set
+    if (networkId == null) {
+      throw new ApiException(400, "Missing the required parameter 'networkId' when calling getNetworkId");
     }
 
-    private HttpRequest.Builder checkThirdPartyRoutingRequestBuilder(
-            String connectionId, String assetType) throws ApiException {
-        // verify the required parameter 'connectionId' is set
-        if (connectionId == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'connectionId' when calling"
-                            + " checkThirdPartyRouting");
-        }
-        // verify the required parameter 'assetType' is set
-        if (assetType == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'assetType' when calling"
-                            + " checkThirdPartyRouting");
-        }
+    HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
-        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+    String localVarPath = "/network_ids/{networkId}"
+        .replace("{networkId}", ApiClient.urlEncode(networkId.toString()));
 
-        String localVarPath =
-                "/network_connections/{connectionId}/is_third_party_routing/{assetType}"
-                        .replace("{connectionId}", ApiClient.urlEncode(connectionId.toString()))
-                        .replace("{assetType}", ApiClient.urlEncode(assetType.toString()));
+    localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
 
-        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+    localVarRequestBuilder.header("Accept", "application/json");
 
-        localVarRequestBuilder.header("Accept", "application/json");
-
-        localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
-        if (memberVarReadTimeout != null) {
-            localVarRequestBuilder.timeout(memberVarReadTimeout);
-        }
-        if (memberVarInterceptor != null) {
-            memberVarInterceptor.accept(localVarRequestBuilder);
-        }
-        return localVarRequestBuilder;
+    localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
+    if (memberVarReadTimeout != null) {
+      localVarRequestBuilder.timeout(memberVarReadTimeout);
     }
-    /**
-     * Creates a new network connection Initiates a new network connection. **Note:** This API call
-     * is subject to Flexible Routing Schemes. Your routing policy defines how your transactions are
-     * routed. You can choose 1 of the 3 different schemes mentioned below for each asset type: -
-     * **None**; Defines the profile routing to no destination for that asset type. Incoming
-     * transactions to asset types routed to &#x60;None&#x60; will fail. - **Custom**; Route to an
-     * account that you choose. If you remove the account, incoming transactions will fail until you
-     * choose another one. - **Default**; Use the routing specified by the network profile the
-     * connection is connected to. This scheme is also referred to as \&quot;Profile Routing\&quot;
-     * Default Workspace Presets: - Network Profile Crypto → **Custom** - Network Profile FIAT →
-     * **None** - Network Connection Crypto → **Default** - Network Connection FIAT → **Default**
-     * Supported asset groups for routing police can be found at
-     * &#x60;/network_ids/routing_policy_asset_groups&#x60; - **Note**: By default, Custom routing
-     * scheme uses (&#x60;dstId&#x60; &#x3D; &#x60;0&#x60;, &#x60;dstType&#x60; &#x3D;
-     * &#x60;VAULT&#x60;).
-     *
-     * @param networkConnection (optional)
-     * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
-     *     times with the same idempotency key, the server will return the same response as the
-     *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;NetworkConnectionResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
-     */
-    public CompletableFuture<ApiResponse<NetworkConnectionResponse>> createNetworkConnection(
-            NetworkConnection networkConnection, String idempotencyKey) throws ApiException {
-        try {
-            HttpRequest.Builder localVarRequestBuilder =
-                    createNetworkConnectionRequestBuilder(networkConnection, idempotencyKey);
-            return memberVarHttpClient
-                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
-                    .thenComposeAsync(
-                            localVarResponse -> {
-                                if (memberVarAsyncResponseInterceptor != null) {
-                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
-                                }
-                                if (localVarResponse.statusCode() / 100 != 2) {
-                                    return CompletableFuture.failedFuture(
-                                            getApiException(
-                                                    "createNetworkConnection", localVarResponse));
-                                }
-                                try {
-                                    String responseBody = localVarResponse.body();
-                                    return CompletableFuture.completedFuture(
-                                            new ApiResponse<NetworkConnectionResponse>(
-                                                    localVarResponse.statusCode(),
-                                                    localVarResponse.headers().map(),
-                                                    responseBody == null || responseBody.isBlank()
-                                                            ? null
-                                                            : memberVarObjectMapper.readValue(
-                                                                    responseBody,
-                                                                    new TypeReference<
-                                                                            NetworkConnectionResponse>() {})));
-                                } catch (IOException e) {
-                                    return CompletableFuture.failedFuture(new ApiException(e));
-                                }
-                            });
-        } catch (ApiException e) {
-            return CompletableFuture.failedFuture(e);
-        }
+    if (memberVarInterceptor != null) {
+      memberVarInterceptor.accept(localVarRequestBuilder);
     }
-
-    private HttpRequest.Builder createNetworkConnectionRequestBuilder(
-            NetworkConnection networkConnection, String idempotencyKey) throws ApiException {
-
-        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
-
-        String localVarPath = "/network_connections";
-
-        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
-
-        if (idempotencyKey != null) {
-            localVarRequestBuilder.header("Idempotency-Key", idempotencyKey.toString());
+    return localVarRequestBuilder;
+  }
+  /**
+   * Returns all network IDs, both local IDs and discoverable remote IDs
+   * Retrieves a list of all local and discoverable remote network IDs.  **Note:** This API call is subject to Flexible Routing Schemes.  Your routing policy defines how your transactions are routed. You can choose 1 of the 3 different schemes mentioned below for each asset type:   - **None**; Defines the profile routing to no destination for that asset type. Incoming transactions to asset types routed to &#x60;None&#x60; will fail.   - **Custom**; Route to an account that you choose. If you remove the account, incoming transactions will fail until you choose another one.   - **Default**; Use the routing specified by the network profile the connection is connected to. This scheme is also referred to as \&quot;Profile Routing\&quot;  Default Workspace Presets:   - Network Profile Crypto → **Custom**   - Network Profile FIAT → **None**   - Network Connection Crypto → **Default**   - Network Connection FIAT → **Default**      - **Note**: By default, Custom routing scheme uses (&#x60;dstId&#x60; &#x3D; &#x60;0&#x60;, &#x60;dstType&#x60; &#x3D; &#x60;VAULT&#x60;). 
+   * @return CompletableFuture&lt;ApiResponse&lt;List&lt;NetworkIdResponse&gt;&gt;&gt;
+   * @throws ApiException if fails to make API call
+   */
+  public CompletableFuture<ApiResponse<List<NetworkIdResponse>>> getNetworkIds() throws ApiException {
+    try {
+      HttpRequest.Builder localVarRequestBuilder = getNetworkIdsRequestBuilder();
+      return memberVarHttpClient.sendAsync(
+          localVarRequestBuilder.build(),
+          HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
+            if (memberVarAsyncResponseInterceptor != null) {
+              memberVarAsyncResponseInterceptor.accept(localVarResponse);
+            }
+            if (localVarResponse.statusCode()/ 100 != 2) {
+              return CompletableFuture.failedFuture(getApiException("getNetworkIds", localVarResponse));
+            }
+            try {
+              String responseBody = localVarResponse.body();
+              return CompletableFuture.completedFuture(
+                  new ApiResponse<List<NetworkIdResponse>>(
+                      localVarResponse.statusCode(),
+                      localVarResponse.headers().map(),
+                      responseBody == null || responseBody.isBlank() ? null : memberVarObjectMapper.readValue(responseBody, new TypeReference<List<NetworkIdResponse>>() {}))
+              );
+            } catch (IOException e) {
+              return CompletableFuture.failedFuture(new ApiException(e));
+            }
         }
-        localVarRequestBuilder.header("Content-Type", "application/json");
-        localVarRequestBuilder.header("Accept", "application/json");
-
-        try {
-            byte[] localVarPostBody = memberVarObjectMapper.writeValueAsBytes(networkConnection);
-            localVarRequestBuilder.method(
-                    "POST", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
-        } catch (IOException e) {
-            throw new ApiException(e);
-        }
-        if (memberVarReadTimeout != null) {
-            localVarRequestBuilder.timeout(memberVarReadTimeout);
-        }
-        if (memberVarInterceptor != null) {
-            memberVarInterceptor.accept(localVarRequestBuilder);
-        }
-        return localVarRequestBuilder;
+      );
     }
-    /**
-     * Creates a new Network ID Creates a new Network ID. **Note:** This API call is subject to
-     * Flexible Routing Schemes. Your routing policy defines how your transactions are routed. You
-     * can choose 1 of the 3 different schemes mentioned below for each asset type: - **None**;
-     * Defines the profile routing to no destination for that asset type. Incoming transactions to
-     * asset types routed to &#x60;None&#x60; will fail. - **Custom**; Route to an account that you
-     * choose. If you remove the account, incoming transactions will fail until you choose another
-     * one. - **Default**; Use the routing specified by the network profile the connection is
-     * connected to. This scheme is also referred to as \&quot;Profile Routing\&quot; Default
-     * Workspace Presets: - Network Profile Crypto → **Custom** - Network Profile FIAT → **None** -
-     * Network Connection Crypto → **Default** - Network Connection FIAT → **Default** Supported
-     * asset groups for routing police can be found at
-     * &#x60;/network_ids/routing_policy_asset_groups&#x60; - **Note**: By default, Custom routing
-     * scheme uses (&#x60;dstId&#x60; &#x3D; &#x60;0&#x60;, &#x60;dstType&#x60; &#x3D;
-     * &#x60;VAULT&#x60;).
-     *
-     * @param createNetworkIdRequest (optional)
-     * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
-     *     times with the same idempotency key, the server will return the same response as the
-     *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;NetworkIdResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
-     */
-    public CompletableFuture<ApiResponse<NetworkIdResponse>> createNetworkId(
-            CreateNetworkIdRequest createNetworkIdRequest, String idempotencyKey)
-            throws ApiException {
-        try {
-            HttpRequest.Builder localVarRequestBuilder =
-                    createNetworkIdRequestBuilder(createNetworkIdRequest, idempotencyKey);
-            return memberVarHttpClient
-                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
-                    .thenComposeAsync(
-                            localVarResponse -> {
-                                if (memberVarAsyncResponseInterceptor != null) {
-                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
-                                }
-                                if (localVarResponse.statusCode() / 100 != 2) {
-                                    return CompletableFuture.failedFuture(
-                                            getApiException("createNetworkId", localVarResponse));
-                                }
-                                try {
-                                    String responseBody = localVarResponse.body();
-                                    return CompletableFuture.completedFuture(
-                                            new ApiResponse<NetworkIdResponse>(
-                                                    localVarResponse.statusCode(),
-                                                    localVarResponse.headers().map(),
-                                                    responseBody == null || responseBody.isBlank()
-                                                            ? null
-                                                            : memberVarObjectMapper.readValue(
-                                                                    responseBody,
-                                                                    new TypeReference<
-                                                                            NetworkIdResponse>() {})));
-                                } catch (IOException e) {
-                                    return CompletableFuture.failedFuture(new ApiException(e));
-                                }
-                            });
-        } catch (ApiException e) {
-            return CompletableFuture.failedFuture(e);
+    catch (ApiException e) {
+      return CompletableFuture.failedFuture(e);
+    }
+  }
+
+  private HttpRequest.Builder getNetworkIdsRequestBuilder() throws ApiException {
+
+    HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+    String localVarPath = "/network_ids";
+
+    localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+    localVarRequestBuilder.header("Accept", "application/json");
+
+    localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
+    if (memberVarReadTimeout != null) {
+      localVarRequestBuilder.timeout(memberVarReadTimeout);
+    }
+    if (memberVarInterceptor != null) {
+      memberVarInterceptor.accept(localVarRequestBuilder);
+    }
+    return localVarRequestBuilder;
+  }
+  /**
+   * Returns all enabled routing policy asset groups
+   * Retrieves a list of all enabled routing policy asset groups. Your routing policy defines how your transactions are routed. You can use one or more enabled routing policy asset groups to describe connection or network id routing policy. 
+   * @return CompletableFuture&lt;ApiResponse&lt;List&lt;String&gt;&gt;&gt;
+   * @throws ApiException if fails to make API call
+   */
+  public CompletableFuture<ApiResponse<List<String>>> getRoutingPolicyAssetGroups() throws ApiException {
+    try {
+      HttpRequest.Builder localVarRequestBuilder = getRoutingPolicyAssetGroupsRequestBuilder();
+      return memberVarHttpClient.sendAsync(
+          localVarRequestBuilder.build(),
+          HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
+            if (memberVarAsyncResponseInterceptor != null) {
+              memberVarAsyncResponseInterceptor.accept(localVarResponse);
+            }
+            if (localVarResponse.statusCode()/ 100 != 2) {
+              return CompletableFuture.failedFuture(getApiException("getRoutingPolicyAssetGroups", localVarResponse));
+            }
+            try {
+              String responseBody = localVarResponse.body();
+              return CompletableFuture.completedFuture(
+                  new ApiResponse<List<String>>(
+                      localVarResponse.statusCode(),
+                      localVarResponse.headers().map(),
+                      responseBody == null || responseBody.isBlank() ? null : memberVarObjectMapper.readValue(responseBody, new TypeReference<List<String>>() {}))
+              );
+            } catch (IOException e) {
+              return CompletableFuture.failedFuture(new ApiException(e));
+            }
         }
+      );
+    }
+    catch (ApiException e) {
+      return CompletableFuture.failedFuture(e);
+    }
+  }
+
+  private HttpRequest.Builder getRoutingPolicyAssetGroupsRequestBuilder() throws ApiException {
+
+    HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+    String localVarPath = "/network_ids/routing_policy_asset_groups";
+
+    localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+    localVarRequestBuilder.header("Accept", "application/json");
+
+    localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
+    if (memberVarReadTimeout != null) {
+      localVarRequestBuilder.timeout(memberVarReadTimeout);
+    }
+    if (memberVarInterceptor != null) {
+      memberVarInterceptor.accept(localVarRequestBuilder);
+    }
+    return localVarRequestBuilder;
+  }
+  /**
+   * Update network ID&#39;s discoverability.
+   * Update whether or not the network ID is discoverable by others.  **Note:** This API call is subject to Flexible Routing Schemes.  Your routing policy defines how your transactions are routed. You can choose 1 of the 3 different schemes mentioned below for each asset type:   - **None**; Defines the profile routing to no destination for that asset type. Incoming transactions to asset types routed to &#x60;None&#x60; will fail.   - **Custom**; Route to an account that you choose. If you remove the account, incoming transactions will fail until you choose another one.   - **Default**; Use the routing specified by the network profile the connection is connected to. This scheme is also referred to as \&quot;Profile Routing\&quot;  Default Workspace Presets:   - Network Profile Crypto → **Custom**   - Network Profile FIAT → **None**   - Network Connection Crypto → **Default**   - Network Connection FIAT → **Default**      - **Note**: By default, Custom routing scheme uses (&#x60;dstId&#x60; &#x3D; &#x60;0&#x60;, &#x60;dstType&#x60; &#x3D; &#x60;VAULT&#x60;). 
+   * @param setNetworkIdDiscoverabilityRequest  (required)
+   * @param networkId The ID of the network (required)
+   * @return CompletableFuture&lt;ApiResponse&lt;SetNetworkIdResponse&gt;&gt;
+   * @throws ApiException if fails to make API call
+   */
+  public CompletableFuture<ApiResponse<SetNetworkIdResponse>> setNetworkIdDiscoverability(SetNetworkIdDiscoverabilityRequest setNetworkIdDiscoverabilityRequest, String networkId) throws ApiException {
+    try {
+      HttpRequest.Builder localVarRequestBuilder = setNetworkIdDiscoverabilityRequestBuilder(setNetworkIdDiscoverabilityRequest, networkId);
+      return memberVarHttpClient.sendAsync(
+          localVarRequestBuilder.build(),
+          HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
+            if (memberVarAsyncResponseInterceptor != null) {
+              memberVarAsyncResponseInterceptor.accept(localVarResponse);
+            }
+            if (localVarResponse.statusCode()/ 100 != 2) {
+              return CompletableFuture.failedFuture(getApiException("setNetworkIdDiscoverability", localVarResponse));
+            }
+            try {
+              String responseBody = localVarResponse.body();
+              return CompletableFuture.completedFuture(
+                  new ApiResponse<SetNetworkIdResponse>(
+                      localVarResponse.statusCode(),
+                      localVarResponse.headers().map(),
+                      responseBody == null || responseBody.isBlank() ? null : memberVarObjectMapper.readValue(responseBody, new TypeReference<SetNetworkIdResponse>() {}))
+              );
+            } catch (IOException e) {
+              return CompletableFuture.failedFuture(new ApiException(e));
+            }
+        }
+      );
+    }
+    catch (ApiException e) {
+      return CompletableFuture.failedFuture(e);
+    }
+  }
+
+  private HttpRequest.Builder setNetworkIdDiscoverabilityRequestBuilder(SetNetworkIdDiscoverabilityRequest setNetworkIdDiscoverabilityRequest, String networkId) throws ApiException {
+    // verify the required parameter 'setNetworkIdDiscoverabilityRequest' is set
+    if (setNetworkIdDiscoverabilityRequest == null) {
+      throw new ApiException(400, "Missing the required parameter 'setNetworkIdDiscoverabilityRequest' when calling setNetworkIdDiscoverability");
+    }
+    // verify the required parameter 'networkId' is set
+    if (networkId == null) {
+      throw new ApiException(400, "Missing the required parameter 'networkId' when calling setNetworkIdDiscoverability");
     }
 
-    private HttpRequest.Builder createNetworkIdRequestBuilder(
-            CreateNetworkIdRequest createNetworkIdRequest, String idempotencyKey)
-            throws ApiException {
+    HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
-        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+    String localVarPath = "/network_ids/{networkId}/set_discoverability"
+        .replace("{networkId}", ApiClient.urlEncode(networkId.toString()));
 
-        String localVarPath = "/network_ids";
+    localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
 
-        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+    localVarRequestBuilder.header("Content-Type", "application/json");
+    localVarRequestBuilder.header("Accept", "application/json");
 
-        if (idempotencyKey != null) {
-            localVarRequestBuilder.header("Idempotency-Key", idempotencyKey.toString());
-        }
-        localVarRequestBuilder.header("Content-Type", "application/json");
-        localVarRequestBuilder.header("Accept", "application/json");
-
-        try {
-            byte[] localVarPostBody =
-                    memberVarObjectMapper.writeValueAsBytes(createNetworkIdRequest);
-            localVarRequestBuilder.method(
-                    "POST", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
-        } catch (IOException e) {
-            throw new ApiException(e);
-        }
-        if (memberVarReadTimeout != null) {
-            localVarRequestBuilder.timeout(memberVarReadTimeout);
-        }
-        if (memberVarInterceptor != null) {
-            memberVarInterceptor.accept(localVarRequestBuilder);
-        }
-        return localVarRequestBuilder;
+    try {
+      byte[] localVarPostBody = memberVarObjectMapper.writeValueAsBytes(setNetworkIdDiscoverabilityRequest);
+      localVarRequestBuilder.method("PATCH", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
+    } catch (IOException e) {
+      throw new ApiException(e);
     }
-    /**
-     * Deletes a network connection by ID Deletes an existing network connection specified by its
-     * connection ID. **Note:** This API call is subject to Flexible Routing Schemes. Your routing
-     * policy defines how your transactions are routed. You can choose 1 of the 3 different schemes
-     * mentioned below for each asset type: - **None**; Defines the profile routing to no
-     * destination for that asset type. Incoming transactions to asset types routed to
-     * &#x60;None&#x60; will fail. - **Custom**; Route to an account that you choose. If you remove
-     * the account, incoming transactions will fail until you choose another one. - **Default**; Use
-     * the routing specified by the network profile the connection is connected to. This scheme is
-     * also referred to as \&quot;Profile Routing\&quot; Default Workspace Presets: - Network
-     * Profile Crypto → **Custom** - Network Profile FIAT → **None** - Network Connection Crypto →
-     * **Default** - Network Connection FIAT → **Default** - **Note**: By default, Custom routing
-     * scheme uses (&#x60;dstId&#x60; &#x3D; &#x60;0&#x60;, &#x60;dstType&#x60; &#x3D;
-     * &#x60;VAULT&#x60;).
-     *
-     * @param connectionId The ID of the network connection to delete (required)
-     * @return CompletableFuture&lt;ApiResponse&lt;DeleteNetworkConnectionResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
-     */
-    public CompletableFuture<ApiResponse<DeleteNetworkConnectionResponse>> deleteNetworkConnection(
-            String connectionId) throws ApiException {
-        try {
-            HttpRequest.Builder localVarRequestBuilder =
-                    deleteNetworkConnectionRequestBuilder(connectionId);
-            return memberVarHttpClient
-                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
-                    .thenComposeAsync(
-                            localVarResponse -> {
-                                if (memberVarAsyncResponseInterceptor != null) {
-                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
-                                }
-                                if (localVarResponse.statusCode() / 100 != 2) {
-                                    return CompletableFuture.failedFuture(
-                                            getApiException(
-                                                    "deleteNetworkConnection", localVarResponse));
-                                }
-                                try {
-                                    String responseBody = localVarResponse.body();
-                                    return CompletableFuture.completedFuture(
-                                            new ApiResponse<DeleteNetworkConnectionResponse>(
-                                                    localVarResponse.statusCode(),
-                                                    localVarResponse.headers().map(),
-                                                    responseBody == null || responseBody.isBlank()
-                                                            ? null
-                                                            : memberVarObjectMapper.readValue(
-                                                                    responseBody,
-                                                                    new TypeReference<
-                                                                            DeleteNetworkConnectionResponse>() {})));
-                                } catch (IOException e) {
-                                    return CompletableFuture.failedFuture(new ApiException(e));
-                                }
-                            });
-        } catch (ApiException e) {
-            return CompletableFuture.failedFuture(e);
+    if (memberVarReadTimeout != null) {
+      localVarRequestBuilder.timeout(memberVarReadTimeout);
+    }
+    if (memberVarInterceptor != null) {
+      memberVarInterceptor.accept(localVarRequestBuilder);
+    }
+    return localVarRequestBuilder;
+  }
+  /**
+   * Update network ID&#39;s name.
+   * Updates name of a specified network ID.  **Note:** This API call is subject to Flexible Routing Schemes.  Your routing policy defines how your transactions are routed. You can choose 1 of the 3 different schemes mentioned below for each asset type:   - **None**; Defines the profile routing to no destination for that asset type. Incoming transactions to asset types routed to &#x60;None&#x60; will fail.   - **Custom**; Route to an account that you choose. If you remove the account, incoming transactions will fail until you choose another one.   - **Default**; Use the routing specified by the network profile the connection is connected to. This scheme is also referred to as \&quot;Profile Routing\&quot;  Default Workspace Presets:   - Network Profile Crypto → **Custom**   - Network Profile FIAT → **None**   - Network Connection Crypto → **Default**   - Network Connection FIAT → **Default**      - **Note**: By default, Custom routing scheme uses (&#x60;dstId&#x60; &#x3D; &#x60;0&#x60;, &#x60;dstType&#x60; &#x3D; &#x60;VAULT&#x60;). 
+   * @param setNetworkIdNameRequest  (required)
+   * @param networkId The ID of the network (required)
+   * @return CompletableFuture&lt;ApiResponse&lt;SetNetworkIdResponse&gt;&gt;
+   * @throws ApiException if fails to make API call
+   */
+  public CompletableFuture<ApiResponse<SetNetworkIdResponse>> setNetworkIdName(SetNetworkIdNameRequest setNetworkIdNameRequest, String networkId) throws ApiException {
+    try {
+      HttpRequest.Builder localVarRequestBuilder = setNetworkIdNameRequestBuilder(setNetworkIdNameRequest, networkId);
+      return memberVarHttpClient.sendAsync(
+          localVarRequestBuilder.build(),
+          HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
+            if (memberVarAsyncResponseInterceptor != null) {
+              memberVarAsyncResponseInterceptor.accept(localVarResponse);
+            }
+            if (localVarResponse.statusCode()/ 100 != 2) {
+              return CompletableFuture.failedFuture(getApiException("setNetworkIdName", localVarResponse));
+            }
+            try {
+              String responseBody = localVarResponse.body();
+              return CompletableFuture.completedFuture(
+                  new ApiResponse<SetNetworkIdResponse>(
+                      localVarResponse.statusCode(),
+                      localVarResponse.headers().map(),
+                      responseBody == null || responseBody.isBlank() ? null : memberVarObjectMapper.readValue(responseBody, new TypeReference<SetNetworkIdResponse>() {}))
+              );
+            } catch (IOException e) {
+              return CompletableFuture.failedFuture(new ApiException(e));
+            }
         }
+      );
+    }
+    catch (ApiException e) {
+      return CompletableFuture.failedFuture(e);
+    }
+  }
+
+  private HttpRequest.Builder setNetworkIdNameRequestBuilder(SetNetworkIdNameRequest setNetworkIdNameRequest, String networkId) throws ApiException {
+    // verify the required parameter 'setNetworkIdNameRequest' is set
+    if (setNetworkIdNameRequest == null) {
+      throw new ApiException(400, "Missing the required parameter 'setNetworkIdNameRequest' when calling setNetworkIdName");
+    }
+    // verify the required parameter 'networkId' is set
+    if (networkId == null) {
+      throw new ApiException(400, "Missing the required parameter 'networkId' when calling setNetworkIdName");
     }
 
-    private HttpRequest.Builder deleteNetworkConnectionRequestBuilder(String connectionId)
-            throws ApiException {
-        // verify the required parameter 'connectionId' is set
-        if (connectionId == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'connectionId' when calling"
-                            + " deleteNetworkConnection");
-        }
+    HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
-        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+    String localVarPath = "/network_ids/{networkId}/set_name"
+        .replace("{networkId}", ApiClient.urlEncode(networkId.toString()));
 
-        String localVarPath =
-                "/network_connections/{connectionId}"
-                        .replace("{connectionId}", ApiClient.urlEncode(connectionId.toString()));
+    localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
 
-        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+    localVarRequestBuilder.header("Content-Type", "application/json");
+    localVarRequestBuilder.header("Accept", "application/json");
 
-        localVarRequestBuilder.header("Accept", "application/json");
-
-        localVarRequestBuilder.method("DELETE", HttpRequest.BodyPublishers.noBody());
-        if (memberVarReadTimeout != null) {
-            localVarRequestBuilder.timeout(memberVarReadTimeout);
-        }
-        if (memberVarInterceptor != null) {
-            memberVarInterceptor.accept(localVarRequestBuilder);
-        }
-        return localVarRequestBuilder;
+    try {
+      byte[] localVarPostBody = memberVarObjectMapper.writeValueAsBytes(setNetworkIdNameRequest);
+      localVarRequestBuilder.method("PATCH", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
+    } catch (IOException e) {
+      throw new ApiException(e);
     }
-    /**
-     * Deletes specific network ID. Deletes a network by its ID. **Note:** This API call is subject
-     * to Flexible Routing Schemes. Your routing policy defines how your transactions are routed.
-     * You can choose 1 of the 3 different schemes mentioned below for each asset type: - **None**;
-     * Defines the profile routing to no destination for that asset type. Incoming transactions to
-     * asset types routed to &#x60;None&#x60; will fail. - **Custom**; Route to an account that you
-     * choose. If you remove the account, incoming transactions will fail until you choose another
-     * one. - **Default**; Use the routing specified by the network profile the connection is
-     * connected to. This scheme is also referred to as \&quot;Profile Routing\&quot; Default
-     * Workspace Presets: - Network Profile Crypto → **Custom** - Network Profile FIAT → **None** -
-     * Network Connection Crypto → **Default** - Network Connection FIAT → **Default** - **Note**:
-     * By default, Custom routing scheme uses (&#x60;dstId&#x60; &#x3D; &#x60;0&#x60;,
-     * &#x60;dstType&#x60; &#x3D; &#x60;VAULT&#x60;).
-     *
-     * @param networkId The ID of the network (required)
-     * @return CompletableFuture&lt;ApiResponse&lt;DeleteNetworkIdResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
-     */
-    public CompletableFuture<ApiResponse<DeleteNetworkIdResponse>> deleteNetworkId(String networkId)
-            throws ApiException {
-        try {
-            HttpRequest.Builder localVarRequestBuilder = deleteNetworkIdRequestBuilder(networkId);
-            return memberVarHttpClient
-                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
-                    .thenComposeAsync(
-                            localVarResponse -> {
-                                if (memberVarAsyncResponseInterceptor != null) {
-                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
-                                }
-                                if (localVarResponse.statusCode() / 100 != 2) {
-                                    return CompletableFuture.failedFuture(
-                                            getApiException("deleteNetworkId", localVarResponse));
-                                }
-                                try {
-                                    String responseBody = localVarResponse.body();
-                                    return CompletableFuture.completedFuture(
-                                            new ApiResponse<DeleteNetworkIdResponse>(
-                                                    localVarResponse.statusCode(),
-                                                    localVarResponse.headers().map(),
-                                                    responseBody == null || responseBody.isBlank()
-                                                            ? null
-                                                            : memberVarObjectMapper.readValue(
-                                                                    responseBody,
-                                                                    new TypeReference<
-                                                                            DeleteNetworkIdResponse>() {})));
-                                } catch (IOException e) {
-                                    return CompletableFuture.failedFuture(new ApiException(e));
-                                }
-                            });
-        } catch (ApiException e) {
-            return CompletableFuture.failedFuture(e);
+    if (memberVarReadTimeout != null) {
+      localVarRequestBuilder.timeout(memberVarReadTimeout);
+    }
+    if (memberVarInterceptor != null) {
+      memberVarInterceptor.accept(localVarRequestBuilder);
+    }
+    return localVarRequestBuilder;
+  }
+  /**
+   * Update network id routing policy.
+   * Updates the routing policy of a specified network ID.  **Note:** This API call is subject to Flexible Routing Schemes.  Your routing policy defines how your transactions are routed. You can choose 1 of the 3 different schemes mentioned below for each asset type:   - **None**; Defines the profile routing to no destination for that asset type. Incoming transactions to asset types routed to &#x60;None&#x60; will fail.   - **Custom**; Route to an account that you choose. If you remove the account, incoming transactions will fail until you choose another one.   - **Default**; Use the routing specified by the network profile the connection is connected to. This scheme is also referred to as \&quot;Profile Routing\&quot;  Default Workspace Presets:   - Network Profile Crypto → **Custom**   - Network Profile FIAT → **None**   - Network Connection Crypto → **Default**   - Network Connection FIAT → **Default**  Supported asset groups for routing police can be found at &#x60;/network_ids/routing_policy_asset_groups&#x60;      - **Note**: By default, Custom routing scheme uses (&#x60;dstId&#x60; &#x3D; &#x60;0&#x60;, &#x60;dstType&#x60; &#x3D; &#x60;VAULT&#x60;). 
+   * @param networkId The ID of the network (required)
+   * @param setNetworkIdRoutingPolicyRequest  (optional)
+   * @return CompletableFuture&lt;ApiResponse&lt;SetNetworkIdResponse&gt;&gt;
+   * @throws ApiException if fails to make API call
+   */
+  public CompletableFuture<ApiResponse<SetNetworkIdResponse>> setNetworkIdRoutingPolicy(String networkId, SetNetworkIdRoutingPolicyRequest setNetworkIdRoutingPolicyRequest) throws ApiException {
+    try {
+      HttpRequest.Builder localVarRequestBuilder = setNetworkIdRoutingPolicyRequestBuilder(networkId, setNetworkIdRoutingPolicyRequest);
+      return memberVarHttpClient.sendAsync(
+          localVarRequestBuilder.build(),
+          HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
+            if (memberVarAsyncResponseInterceptor != null) {
+              memberVarAsyncResponseInterceptor.accept(localVarResponse);
+            }
+            if (localVarResponse.statusCode()/ 100 != 2) {
+              return CompletableFuture.failedFuture(getApiException("setNetworkIdRoutingPolicy", localVarResponse));
+            }
+            try {
+              String responseBody = localVarResponse.body();
+              return CompletableFuture.completedFuture(
+                  new ApiResponse<SetNetworkIdResponse>(
+                      localVarResponse.statusCode(),
+                      localVarResponse.headers().map(),
+                      responseBody == null || responseBody.isBlank() ? null : memberVarObjectMapper.readValue(responseBody, new TypeReference<SetNetworkIdResponse>() {}))
+              );
+            } catch (IOException e) {
+              return CompletableFuture.failedFuture(new ApiException(e));
+            }
         }
+      );
+    }
+    catch (ApiException e) {
+      return CompletableFuture.failedFuture(e);
+    }
+  }
+
+  private HttpRequest.Builder setNetworkIdRoutingPolicyRequestBuilder(String networkId, SetNetworkIdRoutingPolicyRequest setNetworkIdRoutingPolicyRequest) throws ApiException {
+    // verify the required parameter 'networkId' is set
+    if (networkId == null) {
+      throw new ApiException(400, "Missing the required parameter 'networkId' when calling setNetworkIdRoutingPolicy");
     }
 
-    private HttpRequest.Builder deleteNetworkIdRequestBuilder(String networkId)
-            throws ApiException {
-        // verify the required parameter 'networkId' is set
-        if (networkId == null) {
-            throw new ApiException(
-                    400, "Missing the required parameter 'networkId' when calling deleteNetworkId");
-        }
+    HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
-        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+    String localVarPath = "/network_ids/{networkId}/set_routing_policy"
+        .replace("{networkId}", ApiClient.urlEncode(networkId.toString()));
 
-        String localVarPath =
-                "/network_ids/{networkId}"
-                        .replace("{networkId}", ApiClient.urlEncode(networkId.toString()));
+    localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
 
-        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+    localVarRequestBuilder.header("Content-Type", "application/json");
+    localVarRequestBuilder.header("Accept", "application/json");
 
-        localVarRequestBuilder.header("Accept", "application/json");
-
-        localVarRequestBuilder.method("DELETE", HttpRequest.BodyPublishers.noBody());
-        if (memberVarReadTimeout != null) {
-            localVarRequestBuilder.timeout(memberVarReadTimeout);
-        }
-        if (memberVarInterceptor != null) {
-            memberVarInterceptor.accept(localVarRequestBuilder);
-        }
-        return localVarRequestBuilder;
+    try {
+      byte[] localVarPostBody = memberVarObjectMapper.writeValueAsBytes(setNetworkIdRoutingPolicyRequest);
+      localVarRequestBuilder.method("PATCH", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
+    } catch (IOException e) {
+      throw new ApiException(e);
     }
-    /**
-     * Get a network connection Gets a network connection by ID. **Note:** This API call is subject
-     * to Flexible Routing Schemes. Your routing policy defines how your transactions are routed.
-     * You can choose 1 of the 3 different schemes mentioned below for each asset type: - **None**;
-     * Defines the profile routing to no destination for that asset type. Incoming transactions to
-     * asset types routed to &#x60;None&#x60; will fail. - **Custom**; Route to an account that you
-     * choose. If you remove the account, incoming transactions will fail until you choose another
-     * one. - **Default**; Use the routing specified by the network profile the connection is
-     * connected to. This scheme is also referred to as \&quot;Profile Routing\&quot; Default
-     * Workspace Presets: - Network Profile Crypto → **Custom** - Network Profile FIAT → **None** -
-     * Network Connection Crypto → **Default** - Network Connection FIAT → **Default** - **Note**:
-     * By default, Custom routing scheme uses (&#x60;dstId&#x60; &#x3D; &#x60;0&#x60;,
-     * &#x60;dstType&#x60; &#x3D; &#x60;VAULT&#x60;).
-     *
-     * @param connectionId The ID of the connection (required)
-     * @return CompletableFuture&lt;ApiResponse&lt;NetworkConnectionResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
-     */
-    public CompletableFuture<ApiResponse<NetworkConnectionResponse>> getNetwork(String connectionId)
-            throws ApiException {
-        try {
-            HttpRequest.Builder localVarRequestBuilder = getNetworkRequestBuilder(connectionId);
-            return memberVarHttpClient
-                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
-                    .thenComposeAsync(
-                            localVarResponse -> {
-                                if (memberVarAsyncResponseInterceptor != null) {
-                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
-                                }
-                                if (localVarResponse.statusCode() / 100 != 2) {
-                                    return CompletableFuture.failedFuture(
-                                            getApiException("getNetwork", localVarResponse));
-                                }
-                                try {
-                                    String responseBody = localVarResponse.body();
-                                    return CompletableFuture.completedFuture(
-                                            new ApiResponse<NetworkConnectionResponse>(
-                                                    localVarResponse.statusCode(),
-                                                    localVarResponse.headers().map(),
-                                                    responseBody == null || responseBody.isBlank()
-                                                            ? null
-                                                            : memberVarObjectMapper.readValue(
-                                                                    responseBody,
-                                                                    new TypeReference<
-                                                                            NetworkConnectionResponse>() {})));
-                                } catch (IOException e) {
-                                    return CompletableFuture.failedFuture(new ApiException(e));
-                                }
-                            });
-        } catch (ApiException e) {
-            return CompletableFuture.failedFuture(e);
+    if (memberVarReadTimeout != null) {
+      localVarRequestBuilder.timeout(memberVarReadTimeout);
+    }
+    if (memberVarInterceptor != null) {
+      memberVarInterceptor.accept(localVarRequestBuilder);
+    }
+    return localVarRequestBuilder;
+  }
+  /**
+   * Update network connection routing policy.
+   * Updates an existing network connection&#39;s routing policy.  **Note:** This API call is subject to Flexible Routing Schemes.  Your routing policy defines how your transactions are routed. You can choose 1 of the 3 different schemes mentioned below for each asset type:   - **None**; Defines the profile routing to no destination for that asset type. Incoming transactions to asset types routed to &#x60;None&#x60; will fail.   - **Custom**; Route to an account that you choose. If you remove the account, incoming transactions will fail until you choose another one.   - **Default**; Use the routing specified by the network profile the connection is connected to. This scheme is also referred to as \&quot;Profile Routing\&quot;  Default Workspace Presets:   - Network Profile Crypto → **Custom**   - Network Profile FIAT → **None**   - Network Connection Crypto → **Default**   - Network Connection FIAT → **Default**  Supported asset groups for routing police can be found at &#x60;/network_ids/routing_policy_asset_groups&#x60;      - **Note**: By default, Custom routing scheme uses (&#x60;dstId&#x60; &#x3D; &#x60;0&#x60;, &#x60;dstType&#x60; &#x3D; &#x60;VAULT&#x60;). 
+   * @param connectionId The ID of the network connection (required)
+   * @param setRoutingPolicyRequest  (optional)
+   * @return CompletableFuture&lt;ApiResponse&lt;SetRoutingPolicyResponse&gt;&gt;
+   * @throws ApiException if fails to make API call
+   */
+  public CompletableFuture<ApiResponse<SetRoutingPolicyResponse>> setRoutingPolicy(String connectionId, SetRoutingPolicyRequest setRoutingPolicyRequest) throws ApiException {
+    try {
+      HttpRequest.Builder localVarRequestBuilder = setRoutingPolicyRequestBuilder(connectionId, setRoutingPolicyRequest);
+      return memberVarHttpClient.sendAsync(
+          localVarRequestBuilder.build(),
+          HttpResponse.BodyHandlers.ofString()).thenComposeAsync(localVarResponse -> {
+            if (memberVarAsyncResponseInterceptor != null) {
+              memberVarAsyncResponseInterceptor.accept(localVarResponse);
+            }
+            if (localVarResponse.statusCode()/ 100 != 2) {
+              return CompletableFuture.failedFuture(getApiException("setRoutingPolicy", localVarResponse));
+            }
+            try {
+              String responseBody = localVarResponse.body();
+              return CompletableFuture.completedFuture(
+                  new ApiResponse<SetRoutingPolicyResponse>(
+                      localVarResponse.statusCode(),
+                      localVarResponse.headers().map(),
+                      responseBody == null || responseBody.isBlank() ? null : memberVarObjectMapper.readValue(responseBody, new TypeReference<SetRoutingPolicyResponse>() {}))
+              );
+            } catch (IOException e) {
+              return CompletableFuture.failedFuture(new ApiException(e));
+            }
         }
+      );
+    }
+    catch (ApiException e) {
+      return CompletableFuture.failedFuture(e);
+    }
+  }
+
+  private HttpRequest.Builder setRoutingPolicyRequestBuilder(String connectionId, SetRoutingPolicyRequest setRoutingPolicyRequest) throws ApiException {
+    // verify the required parameter 'connectionId' is set
+    if (connectionId == null) {
+      throw new ApiException(400, "Missing the required parameter 'connectionId' when calling setRoutingPolicy");
     }
 
-    private HttpRequest.Builder getNetworkRequestBuilder(String connectionId) throws ApiException {
-        // verify the required parameter 'connectionId' is set
-        if (connectionId == null) {
-            throw new ApiException(
-                    400, "Missing the required parameter 'connectionId' when calling getNetwork");
-        }
+    HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
-        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+    String localVarPath = "/network_connections/{connectionId}/set_routing_policy"
+        .replace("{connectionId}", ApiClient.urlEncode(connectionId.toString()));
 
-        String localVarPath =
-                "/network_connections/{connectionId}"
-                        .replace("{connectionId}", ApiClient.urlEncode(connectionId.toString()));
+    localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
 
-        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+    localVarRequestBuilder.header("Content-Type", "application/json");
+    localVarRequestBuilder.header("Accept", "application/json");
 
-        localVarRequestBuilder.header("Accept", "application/json");
-
-        localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
-        if (memberVarReadTimeout != null) {
-            localVarRequestBuilder.timeout(memberVarReadTimeout);
-        }
-        if (memberVarInterceptor != null) {
-            memberVarInterceptor.accept(localVarRequestBuilder);
-        }
-        return localVarRequestBuilder;
+    try {
+      byte[] localVarPostBody = memberVarObjectMapper.writeValueAsBytes(setRoutingPolicyRequest);
+      localVarRequestBuilder.method("PATCH", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
+    } catch (IOException e) {
+      throw new ApiException(e);
     }
-    /**
-     * List network connections Returns all network connections. **Note:** This API call is subject
-     * to Flexible Routing Schemes. Your routing policy defines how your transactions are routed.
-     * You can choose 1 of the 3 different schemes mentioned below for each asset type: - **None**;
-     * Defines the profile routing to no destination for that asset type. Incoming transactions to
-     * asset types routed to &#x60;None&#x60; will fail. - **Custom**; Route to an account that you
-     * choose. If you remove the account, incoming transactions will fail until you choose another
-     * one. - **Default**; Use the routing specified by the network profile the connection is
-     * connected to. This scheme is also referred to as \&quot;Profile Routing\&quot; Default
-     * Workspace Presets: - Network Profile Crypto → **Custom** - Network Profile FIAT → **None** -
-     * Network Connection Crypto → **Default** - Network Connection FIAT → **Default** - **Note**:
-     * By default, Custom routing scheme uses (&#x60;dstId&#x60; &#x3D; &#x60;0&#x60;,
-     * &#x60;dstType&#x60; &#x3D; &#x60;VAULT&#x60;).
-     *
-     * @return CompletableFuture&lt;ApiResponse&lt;List&lt;NetworkConnectionResponse&gt;&gt;&gt;
-     * @throws ApiException if fails to make API call
-     */
-    public CompletableFuture<ApiResponse<List<NetworkConnectionResponse>>> getNetworkConnections()
-            throws ApiException {
-        try {
-            HttpRequest.Builder localVarRequestBuilder = getNetworkConnectionsRequestBuilder();
-            return memberVarHttpClient
-                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
-                    .thenComposeAsync(
-                            localVarResponse -> {
-                                if (memberVarAsyncResponseInterceptor != null) {
-                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
-                                }
-                                if (localVarResponse.statusCode() / 100 != 2) {
-                                    return CompletableFuture.failedFuture(
-                                            getApiException(
-                                                    "getNetworkConnections", localVarResponse));
-                                }
-                                try {
-                                    String responseBody = localVarResponse.body();
-                                    return CompletableFuture.completedFuture(
-                                            new ApiResponse<List<NetworkConnectionResponse>>(
-                                                    localVarResponse.statusCode(),
-                                                    localVarResponse.headers().map(),
-                                                    responseBody == null || responseBody.isBlank()
-                                                            ? null
-                                                            : memberVarObjectMapper.readValue(
-                                                                    responseBody,
-                                                                    new TypeReference<
-                                                                            List<
-                                                                                    NetworkConnectionResponse>>() {})));
-                                } catch (IOException e) {
-                                    return CompletableFuture.failedFuture(new ApiException(e));
-                                }
-                            });
-        } catch (ApiException e) {
-            return CompletableFuture.failedFuture(e);
-        }
+    if (memberVarReadTimeout != null) {
+      localVarRequestBuilder.timeout(memberVarReadTimeout);
     }
-
-    private HttpRequest.Builder getNetworkConnectionsRequestBuilder() throws ApiException {
-
-        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
-
-        String localVarPath = "/network_connections";
-
-        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
-
-        localVarRequestBuilder.header("Accept", "application/json");
-
-        localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
-        if (memberVarReadTimeout != null) {
-            localVarRequestBuilder.timeout(memberVarReadTimeout);
-        }
-        if (memberVarInterceptor != null) {
-            memberVarInterceptor.accept(localVarRequestBuilder);
-        }
-        return localVarRequestBuilder;
+    if (memberVarInterceptor != null) {
+      memberVarInterceptor.accept(localVarRequestBuilder);
     }
-    /**
-     * Returns specific network ID. Retrieves a network by its ID. **Note:** This API call is
-     * subject to Flexible Routing Schemes. Your routing policy defines how your transactions are
-     * routed. You can choose 1 of the 3 different schemes mentioned below for each asset type: -
-     * **None**; Defines the profile routing to no destination for that asset type. Incoming
-     * transactions to asset types routed to &#x60;None&#x60; will fail. - **Custom**; Route to an
-     * account that you choose. If you remove the account, incoming transactions will fail until you
-     * choose another one. - **Default**; Use the routing specified by the network profile the
-     * connection is connected to. This scheme is also referred to as \&quot;Profile Routing\&quot;
-     * Default Workspace Presets: - Network Profile Crypto → **Custom** - Network Profile FIAT →
-     * **None** - Network Connection Crypto → **Default** - Network Connection FIAT → **Default** -
-     * **Note**: By default, Custom routing scheme uses (&#x60;dstId&#x60; &#x3D; &#x60;0&#x60;,
-     * &#x60;dstType&#x60; &#x3D; &#x60;VAULT&#x60;).
-     *
-     * @param networkId The ID of the network (required)
-     * @return CompletableFuture&lt;ApiResponse&lt;NetworkIdResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
-     */
-    public CompletableFuture<ApiResponse<NetworkIdResponse>> getNetworkId(String networkId)
-            throws ApiException {
-        try {
-            HttpRequest.Builder localVarRequestBuilder = getNetworkIdRequestBuilder(networkId);
-            return memberVarHttpClient
-                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
-                    .thenComposeAsync(
-                            localVarResponse -> {
-                                if (memberVarAsyncResponseInterceptor != null) {
-                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
-                                }
-                                if (localVarResponse.statusCode() / 100 != 2) {
-                                    return CompletableFuture.failedFuture(
-                                            getApiException("getNetworkId", localVarResponse));
-                                }
-                                try {
-                                    String responseBody = localVarResponse.body();
-                                    return CompletableFuture.completedFuture(
-                                            new ApiResponse<NetworkIdResponse>(
-                                                    localVarResponse.statusCode(),
-                                                    localVarResponse.headers().map(),
-                                                    responseBody == null || responseBody.isBlank()
-                                                            ? null
-                                                            : memberVarObjectMapper.readValue(
-                                                                    responseBody,
-                                                                    new TypeReference<
-                                                                            NetworkIdResponse>() {})));
-                                } catch (IOException e) {
-                                    return CompletableFuture.failedFuture(new ApiException(e));
-                                }
-                            });
-        } catch (ApiException e) {
-            return CompletableFuture.failedFuture(e);
-        }
-    }
-
-    private HttpRequest.Builder getNetworkIdRequestBuilder(String networkId) throws ApiException {
-        // verify the required parameter 'networkId' is set
-        if (networkId == null) {
-            throw new ApiException(
-                    400, "Missing the required parameter 'networkId' when calling getNetworkId");
-        }
-
-        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
-
-        String localVarPath =
-                "/network_ids/{networkId}"
-                        .replace("{networkId}", ApiClient.urlEncode(networkId.toString()));
-
-        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
-
-        localVarRequestBuilder.header("Accept", "application/json");
-
-        localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
-        if (memberVarReadTimeout != null) {
-            localVarRequestBuilder.timeout(memberVarReadTimeout);
-        }
-        if (memberVarInterceptor != null) {
-            memberVarInterceptor.accept(localVarRequestBuilder);
-        }
-        return localVarRequestBuilder;
-    }
-    /**
-     * Returns all network IDs, both local IDs and discoverable remote IDs Retrieves a list of all
-     * local and discoverable remote network IDs. **Note:** This API call is subject to Flexible
-     * Routing Schemes. Your routing policy defines how your transactions are routed. You can choose
-     * 1 of the 3 different schemes mentioned below for each asset type: - **None**; Defines the
-     * profile routing to no destination for that asset type. Incoming transactions to asset types
-     * routed to &#x60;None&#x60; will fail. - **Custom**; Route to an account that you choose. If
-     * you remove the account, incoming transactions will fail until you choose another one. -
-     * **Default**; Use the routing specified by the network profile the connection is connected to.
-     * This scheme is also referred to as \&quot;Profile Routing\&quot; Default Workspace Presets: -
-     * Network Profile Crypto → **Custom** - Network Profile FIAT → **None** - Network Connection
-     * Crypto → **Default** - Network Connection FIAT → **Default** - **Note**: By default, Custom
-     * routing scheme uses (&#x60;dstId&#x60; &#x3D; &#x60;0&#x60;, &#x60;dstType&#x60; &#x3D;
-     * &#x60;VAULT&#x60;).
-     *
-     * @return CompletableFuture&lt;ApiResponse&lt;List&lt;NetworkIdResponse&gt;&gt;&gt;
-     * @throws ApiException if fails to make API call
-     */
-    public CompletableFuture<ApiResponse<List<NetworkIdResponse>>> getNetworkIds()
-            throws ApiException {
-        try {
-            HttpRequest.Builder localVarRequestBuilder = getNetworkIdsRequestBuilder();
-            return memberVarHttpClient
-                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
-                    .thenComposeAsync(
-                            localVarResponse -> {
-                                if (memberVarAsyncResponseInterceptor != null) {
-                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
-                                }
-                                if (localVarResponse.statusCode() / 100 != 2) {
-                                    return CompletableFuture.failedFuture(
-                                            getApiException("getNetworkIds", localVarResponse));
-                                }
-                                try {
-                                    String responseBody = localVarResponse.body();
-                                    return CompletableFuture.completedFuture(
-                                            new ApiResponse<List<NetworkIdResponse>>(
-                                                    localVarResponse.statusCode(),
-                                                    localVarResponse.headers().map(),
-                                                    responseBody == null || responseBody.isBlank()
-                                                            ? null
-                                                            : memberVarObjectMapper.readValue(
-                                                                    responseBody,
-                                                                    new TypeReference<
-                                                                            List<
-                                                                                    NetworkIdResponse>>() {})));
-                                } catch (IOException e) {
-                                    return CompletableFuture.failedFuture(new ApiException(e));
-                                }
-                            });
-        } catch (ApiException e) {
-            return CompletableFuture.failedFuture(e);
-        }
-    }
-
-    private HttpRequest.Builder getNetworkIdsRequestBuilder() throws ApiException {
-
-        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
-
-        String localVarPath = "/network_ids";
-
-        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
-
-        localVarRequestBuilder.header("Accept", "application/json");
-
-        localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
-        if (memberVarReadTimeout != null) {
-            localVarRequestBuilder.timeout(memberVarReadTimeout);
-        }
-        if (memberVarInterceptor != null) {
-            memberVarInterceptor.accept(localVarRequestBuilder);
-        }
-        return localVarRequestBuilder;
-    }
-    /**
-     * Returns all enabled routing policy asset groups Retrieves a list of all enabled routing
-     * policy asset groups. Your routing policy defines how your transactions are routed. You can
-     * use one or more enabled routing policy asset groups to describe connection or network id
-     * routing policy.
-     *
-     * @return CompletableFuture&lt;ApiResponse&lt;List&lt;String&gt;&gt;&gt;
-     * @throws ApiException if fails to make API call
-     */
-    public CompletableFuture<ApiResponse<List<String>>> getRoutingPolicyAssetGroups()
-            throws ApiException {
-        try {
-            HttpRequest.Builder localVarRequestBuilder =
-                    getRoutingPolicyAssetGroupsRequestBuilder();
-            return memberVarHttpClient
-                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
-                    .thenComposeAsync(
-                            localVarResponse -> {
-                                if (memberVarAsyncResponseInterceptor != null) {
-                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
-                                }
-                                if (localVarResponse.statusCode() / 100 != 2) {
-                                    return CompletableFuture.failedFuture(
-                                            getApiException(
-                                                    "getRoutingPolicyAssetGroups",
-                                                    localVarResponse));
-                                }
-                                try {
-                                    String responseBody = localVarResponse.body();
-                                    return CompletableFuture.completedFuture(
-                                            new ApiResponse<List<String>>(
-                                                    localVarResponse.statusCode(),
-                                                    localVarResponse.headers().map(),
-                                                    responseBody == null || responseBody.isBlank()
-                                                            ? null
-                                                            : memberVarObjectMapper.readValue(
-                                                                    responseBody,
-                                                                    new TypeReference<
-                                                                            List<String>>() {})));
-                                } catch (IOException e) {
-                                    return CompletableFuture.failedFuture(new ApiException(e));
-                                }
-                            });
-        } catch (ApiException e) {
-            return CompletableFuture.failedFuture(e);
-        }
-    }
-
-    private HttpRequest.Builder getRoutingPolicyAssetGroupsRequestBuilder() throws ApiException {
-
-        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
-
-        String localVarPath = "/network_ids/routing_policy_asset_groups";
-
-        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
-
-        localVarRequestBuilder.header("Accept", "application/json");
-
-        localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
-        if (memberVarReadTimeout != null) {
-            localVarRequestBuilder.timeout(memberVarReadTimeout);
-        }
-        if (memberVarInterceptor != null) {
-            memberVarInterceptor.accept(localVarRequestBuilder);
-        }
-        return localVarRequestBuilder;
-    }
-    /**
-     * Update network ID&#39;s discoverability. Update whether or not the network ID is discoverable
-     * by others. **Note:** This API call is subject to Flexible Routing Schemes. Your routing
-     * policy defines how your transactions are routed. You can choose 1 of the 3 different schemes
-     * mentioned below for each asset type: - **None**; Defines the profile routing to no
-     * destination for that asset type. Incoming transactions to asset types routed to
-     * &#x60;None&#x60; will fail. - **Custom**; Route to an account that you choose. If you remove
-     * the account, incoming transactions will fail until you choose another one. - **Default**; Use
-     * the routing specified by the network profile the connection is connected to. This scheme is
-     * also referred to as \&quot;Profile Routing\&quot; Default Workspace Presets: - Network
-     * Profile Crypto → **Custom** - Network Profile FIAT → **None** - Network Connection Crypto →
-     * **Default** - Network Connection FIAT → **Default** - **Note**: By default, Custom routing
-     * scheme uses (&#x60;dstId&#x60; &#x3D; &#x60;0&#x60;, &#x60;dstType&#x60; &#x3D;
-     * &#x60;VAULT&#x60;).
-     *
-     * @param setNetworkIdDiscoverabilityRequest (required)
-     * @param networkId The ID of the network (required)
-     * @return CompletableFuture&lt;ApiResponse&lt;SetNetworkIdResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
-     */
-    public CompletableFuture<ApiResponse<SetNetworkIdResponse>> setNetworkIdDiscoverability(
-            SetNetworkIdDiscoverabilityRequest setNetworkIdDiscoverabilityRequest, String networkId)
-            throws ApiException {
-        try {
-            HttpRequest.Builder localVarRequestBuilder =
-                    setNetworkIdDiscoverabilityRequestBuilder(
-                            setNetworkIdDiscoverabilityRequest, networkId);
-            return memberVarHttpClient
-                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
-                    .thenComposeAsync(
-                            localVarResponse -> {
-                                if (memberVarAsyncResponseInterceptor != null) {
-                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
-                                }
-                                if (localVarResponse.statusCode() / 100 != 2) {
-                                    return CompletableFuture.failedFuture(
-                                            getApiException(
-                                                    "setNetworkIdDiscoverability",
-                                                    localVarResponse));
-                                }
-                                try {
-                                    String responseBody = localVarResponse.body();
-                                    return CompletableFuture.completedFuture(
-                                            new ApiResponse<SetNetworkIdResponse>(
-                                                    localVarResponse.statusCode(),
-                                                    localVarResponse.headers().map(),
-                                                    responseBody == null || responseBody.isBlank()
-                                                            ? null
-                                                            : memberVarObjectMapper.readValue(
-                                                                    responseBody,
-                                                                    new TypeReference<
-                                                                            SetNetworkIdResponse>() {})));
-                                } catch (IOException e) {
-                                    return CompletableFuture.failedFuture(new ApiException(e));
-                                }
-                            });
-        } catch (ApiException e) {
-            return CompletableFuture.failedFuture(e);
-        }
-    }
-
-    private HttpRequest.Builder setNetworkIdDiscoverabilityRequestBuilder(
-            SetNetworkIdDiscoverabilityRequest setNetworkIdDiscoverabilityRequest, String networkId)
-            throws ApiException {
-        // verify the required parameter 'setNetworkIdDiscoverabilityRequest' is set
-        if (setNetworkIdDiscoverabilityRequest == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'setNetworkIdDiscoverabilityRequest' when"
-                            + " calling setNetworkIdDiscoverability");
-        }
-        // verify the required parameter 'networkId' is set
-        if (networkId == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'networkId' when calling"
-                            + " setNetworkIdDiscoverability");
-        }
-
-        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
-
-        String localVarPath =
-                "/network_ids/{networkId}/set_discoverability"
-                        .replace("{networkId}", ApiClient.urlEncode(networkId.toString()));
-
-        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
-
-        localVarRequestBuilder.header("Content-Type", "application/json");
-        localVarRequestBuilder.header("Accept", "application/json");
-
-        try {
-            byte[] localVarPostBody =
-                    memberVarObjectMapper.writeValueAsBytes(setNetworkIdDiscoverabilityRequest);
-            localVarRequestBuilder.method(
-                    "PATCH", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
-        } catch (IOException e) {
-            throw new ApiException(e);
-        }
-        if (memberVarReadTimeout != null) {
-            localVarRequestBuilder.timeout(memberVarReadTimeout);
-        }
-        if (memberVarInterceptor != null) {
-            memberVarInterceptor.accept(localVarRequestBuilder);
-        }
-        return localVarRequestBuilder;
-    }
-    /**
-     * Update network ID&#39;s name. Updates name of a specified network ID. **Note:** This API call
-     * is subject to Flexible Routing Schemes. Your routing policy defines how your transactions are
-     * routed. You can choose 1 of the 3 different schemes mentioned below for each asset type: -
-     * **None**; Defines the profile routing to no destination for that asset type. Incoming
-     * transactions to asset types routed to &#x60;None&#x60; will fail. - **Custom**; Route to an
-     * account that you choose. If you remove the account, incoming transactions will fail until you
-     * choose another one. - **Default**; Use the routing specified by the network profile the
-     * connection is connected to. This scheme is also referred to as \&quot;Profile Routing\&quot;
-     * Default Workspace Presets: - Network Profile Crypto → **Custom** - Network Profile FIAT →
-     * **None** - Network Connection Crypto → **Default** - Network Connection FIAT → **Default** -
-     * **Note**: By default, Custom routing scheme uses (&#x60;dstId&#x60; &#x3D; &#x60;0&#x60;,
-     * &#x60;dstType&#x60; &#x3D; &#x60;VAULT&#x60;).
-     *
-     * @param setNetworkIdNameRequest (required)
-     * @param networkId The ID of the network (required)
-     * @return CompletableFuture&lt;ApiResponse&lt;SetNetworkIdResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
-     */
-    public CompletableFuture<ApiResponse<SetNetworkIdResponse>> setNetworkIdName(
-            SetNetworkIdNameRequest setNetworkIdNameRequest, String networkId) throws ApiException {
-        try {
-            HttpRequest.Builder localVarRequestBuilder =
-                    setNetworkIdNameRequestBuilder(setNetworkIdNameRequest, networkId);
-            return memberVarHttpClient
-                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
-                    .thenComposeAsync(
-                            localVarResponse -> {
-                                if (memberVarAsyncResponseInterceptor != null) {
-                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
-                                }
-                                if (localVarResponse.statusCode() / 100 != 2) {
-                                    return CompletableFuture.failedFuture(
-                                            getApiException("setNetworkIdName", localVarResponse));
-                                }
-                                try {
-                                    String responseBody = localVarResponse.body();
-                                    return CompletableFuture.completedFuture(
-                                            new ApiResponse<SetNetworkIdResponse>(
-                                                    localVarResponse.statusCode(),
-                                                    localVarResponse.headers().map(),
-                                                    responseBody == null || responseBody.isBlank()
-                                                            ? null
-                                                            : memberVarObjectMapper.readValue(
-                                                                    responseBody,
-                                                                    new TypeReference<
-                                                                            SetNetworkIdResponse>() {})));
-                                } catch (IOException e) {
-                                    return CompletableFuture.failedFuture(new ApiException(e));
-                                }
-                            });
-        } catch (ApiException e) {
-            return CompletableFuture.failedFuture(e);
-        }
-    }
-
-    private HttpRequest.Builder setNetworkIdNameRequestBuilder(
-            SetNetworkIdNameRequest setNetworkIdNameRequest, String networkId) throws ApiException {
-        // verify the required parameter 'setNetworkIdNameRequest' is set
-        if (setNetworkIdNameRequest == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'setNetworkIdNameRequest' when calling"
-                            + " setNetworkIdName");
-        }
-        // verify the required parameter 'networkId' is set
-        if (networkId == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'networkId' when calling setNetworkIdName");
-        }
-
-        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
-
-        String localVarPath =
-                "/network_ids/{networkId}/set_name"
-                        .replace("{networkId}", ApiClient.urlEncode(networkId.toString()));
-
-        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
-
-        localVarRequestBuilder.header("Content-Type", "application/json");
-        localVarRequestBuilder.header("Accept", "application/json");
-
-        try {
-            byte[] localVarPostBody =
-                    memberVarObjectMapper.writeValueAsBytes(setNetworkIdNameRequest);
-            localVarRequestBuilder.method(
-                    "PATCH", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
-        } catch (IOException e) {
-            throw new ApiException(e);
-        }
-        if (memberVarReadTimeout != null) {
-            localVarRequestBuilder.timeout(memberVarReadTimeout);
-        }
-        if (memberVarInterceptor != null) {
-            memberVarInterceptor.accept(localVarRequestBuilder);
-        }
-        return localVarRequestBuilder;
-    }
-    /**
-     * Update network id routing policy. Updates the routing policy of a specified network ID.
-     * **Note:** This API call is subject to Flexible Routing Schemes. Your routing policy defines
-     * how your transactions are routed. You can choose 1 of the 3 different schemes mentioned below
-     * for each asset type: - **None**; Defines the profile routing to no destination for that asset
-     * type. Incoming transactions to asset types routed to &#x60;None&#x60; will fail. -
-     * **Custom**; Route to an account that you choose. If you remove the account, incoming
-     * transactions will fail until you choose another one. - **Default**; Use the routing specified
-     * by the network profile the connection is connected to. This scheme is also referred to as
-     * \&quot;Profile Routing\&quot; Default Workspace Presets: - Network Profile Crypto →
-     * **Custom** - Network Profile FIAT → **None** - Network Connection Crypto → **Default** -
-     * Network Connection FIAT → **Default** Supported asset groups for routing police can be found
-     * at &#x60;/network_ids/routing_policy_asset_groups&#x60; - **Note**: By default, Custom
-     * routing scheme uses (&#x60;dstId&#x60; &#x3D; &#x60;0&#x60;, &#x60;dstType&#x60; &#x3D;
-     * &#x60;VAULT&#x60;).
-     *
-     * @param networkId The ID of the network (required)
-     * @param setNetworkIdRoutingPolicyRequest (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;SetNetworkIdResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
-     */
-    public CompletableFuture<ApiResponse<SetNetworkIdResponse>> setNetworkIdRoutingPolicy(
-            String networkId, SetNetworkIdRoutingPolicyRequest setNetworkIdRoutingPolicyRequest)
-            throws ApiException {
-        try {
-            HttpRequest.Builder localVarRequestBuilder =
-                    setNetworkIdRoutingPolicyRequestBuilder(
-                            networkId, setNetworkIdRoutingPolicyRequest);
-            return memberVarHttpClient
-                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
-                    .thenComposeAsync(
-                            localVarResponse -> {
-                                if (memberVarAsyncResponseInterceptor != null) {
-                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
-                                }
-                                if (localVarResponse.statusCode() / 100 != 2) {
-                                    return CompletableFuture.failedFuture(
-                                            getApiException(
-                                                    "setNetworkIdRoutingPolicy", localVarResponse));
-                                }
-                                try {
-                                    String responseBody = localVarResponse.body();
-                                    return CompletableFuture.completedFuture(
-                                            new ApiResponse<SetNetworkIdResponse>(
-                                                    localVarResponse.statusCode(),
-                                                    localVarResponse.headers().map(),
-                                                    responseBody == null || responseBody.isBlank()
-                                                            ? null
-                                                            : memberVarObjectMapper.readValue(
-                                                                    responseBody,
-                                                                    new TypeReference<
-                                                                            SetNetworkIdResponse>() {})));
-                                } catch (IOException e) {
-                                    return CompletableFuture.failedFuture(new ApiException(e));
-                                }
-                            });
-        } catch (ApiException e) {
-            return CompletableFuture.failedFuture(e);
-        }
-    }
-
-    private HttpRequest.Builder setNetworkIdRoutingPolicyRequestBuilder(
-            String networkId, SetNetworkIdRoutingPolicyRequest setNetworkIdRoutingPolicyRequest)
-            throws ApiException {
-        // verify the required parameter 'networkId' is set
-        if (networkId == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'networkId' when calling"
-                            + " setNetworkIdRoutingPolicy");
-        }
-
-        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
-
-        String localVarPath =
-                "/network_ids/{networkId}/set_routing_policy"
-                        .replace("{networkId}", ApiClient.urlEncode(networkId.toString()));
-
-        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
-
-        localVarRequestBuilder.header("Content-Type", "application/json");
-        localVarRequestBuilder.header("Accept", "application/json");
-
-        try {
-            byte[] localVarPostBody =
-                    memberVarObjectMapper.writeValueAsBytes(setNetworkIdRoutingPolicyRequest);
-            localVarRequestBuilder.method(
-                    "PATCH", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
-        } catch (IOException e) {
-            throw new ApiException(e);
-        }
-        if (memberVarReadTimeout != null) {
-            localVarRequestBuilder.timeout(memberVarReadTimeout);
-        }
-        if (memberVarInterceptor != null) {
-            memberVarInterceptor.accept(localVarRequestBuilder);
-        }
-        return localVarRequestBuilder;
-    }
-    /**
-     * Update network connection routing policy. Updates an existing network connection&#39;s
-     * routing policy. **Note:** This API call is subject to Flexible Routing Schemes. Your routing
-     * policy defines how your transactions are routed. You can choose 1 of the 3 different schemes
-     * mentioned below for each asset type: - **None**; Defines the profile routing to no
-     * destination for that asset type. Incoming transactions to asset types routed to
-     * &#x60;None&#x60; will fail. - **Custom**; Route to an account that you choose. If you remove
-     * the account, incoming transactions will fail until you choose another one. - **Default**; Use
-     * the routing specified by the network profile the connection is connected to. This scheme is
-     * also referred to as \&quot;Profile Routing\&quot; Default Workspace Presets: - Network
-     * Profile Crypto → **Custom** - Network Profile FIAT → **None** - Network Connection Crypto →
-     * **Default** - Network Connection FIAT → **Default** Supported asset groups for routing police
-     * can be found at &#x60;/network_ids/routing_policy_asset_groups&#x60; - **Note**: By default,
-     * Custom routing scheme uses (&#x60;dstId&#x60; &#x3D; &#x60;0&#x60;, &#x60;dstType&#x60;
-     * &#x3D; &#x60;VAULT&#x60;).
-     *
-     * @param connectionId The ID of the network connection (required)
-     * @param setRoutingPolicyRequest (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;SetRoutingPolicyResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
-     */
-    public CompletableFuture<ApiResponse<SetRoutingPolicyResponse>> setRoutingPolicy(
-            String connectionId, SetRoutingPolicyRequest setRoutingPolicyRequest)
-            throws ApiException {
-        try {
-            HttpRequest.Builder localVarRequestBuilder =
-                    setRoutingPolicyRequestBuilder(connectionId, setRoutingPolicyRequest);
-            return memberVarHttpClient
-                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
-                    .thenComposeAsync(
-                            localVarResponse -> {
-                                if (memberVarAsyncResponseInterceptor != null) {
-                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
-                                }
-                                if (localVarResponse.statusCode() / 100 != 2) {
-                                    return CompletableFuture.failedFuture(
-                                            getApiException("setRoutingPolicy", localVarResponse));
-                                }
-                                try {
-                                    String responseBody = localVarResponse.body();
-                                    return CompletableFuture.completedFuture(
-                                            new ApiResponse<SetRoutingPolicyResponse>(
-                                                    localVarResponse.statusCode(),
-                                                    localVarResponse.headers().map(),
-                                                    responseBody == null || responseBody.isBlank()
-                                                            ? null
-                                                            : memberVarObjectMapper.readValue(
-                                                                    responseBody,
-                                                                    new TypeReference<
-                                                                            SetRoutingPolicyResponse>() {})));
-                                } catch (IOException e) {
-                                    return CompletableFuture.failedFuture(new ApiException(e));
-                                }
-                            });
-        } catch (ApiException e) {
-            return CompletableFuture.failedFuture(e);
-        }
-    }
-
-    private HttpRequest.Builder setRoutingPolicyRequestBuilder(
-            String connectionId, SetRoutingPolicyRequest setRoutingPolicyRequest)
-            throws ApiException {
-        // verify the required parameter 'connectionId' is set
-        if (connectionId == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'connectionId' when calling setRoutingPolicy");
-        }
-
-        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
-
-        String localVarPath =
-                "/network_connections/{connectionId}/set_routing_policy"
-                        .replace("{connectionId}", ApiClient.urlEncode(connectionId.toString()));
-
-        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
-
-        localVarRequestBuilder.header("Content-Type", "application/json");
-        localVarRequestBuilder.header("Accept", "application/json");
-
-        try {
-            byte[] localVarPostBody =
-                    memberVarObjectMapper.writeValueAsBytes(setRoutingPolicyRequest);
-            localVarRequestBuilder.method(
-                    "PATCH", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
-        } catch (IOException e) {
-            throw new ApiException(e);
-        }
-        if (memberVarReadTimeout != null) {
-            localVarRequestBuilder.timeout(memberVarReadTimeout);
-        }
-        if (memberVarInterceptor != null) {
-            memberVarInterceptor.accept(localVarRequestBuilder);
-        }
-        return localVarRequestBuilder;
-    }
+    return localVarRequestBuilder;
+  }
 }

@@ -10,36 +10,56 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.fireblocks.sdk.model.SystemMessageInfo;
+import java.util.Arrays;
+import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
-/** Model tests for CreateTransactionResponse */
+/**
+ * Model tests for CreateTransactionResponse
+ */
 public class CreateTransactionResponseTest {
     private final CreateTransactionResponse model = new CreateTransactionResponse();
 
-    /** Model tests for CreateTransactionResponse */
+    /**
+     * Model tests for CreateTransactionResponse
+     */
     @Test
     public void testCreateTransactionResponse() {
         // TODO: test CreateTransactionResponse
     }
 
-    /** Test the property 'id' */
+    /**
+     * Test the property 'id'
+     */
     @Test
     public void idTest() {
         // TODO: test id
     }
 
-    /** Test the property 'status' */
+    /**
+     * Test the property 'status'
+     */
     @Test
     public void statusTest() {
         // TODO: test status
     }
 
-    /** Test the property 'systemMessages' */
+    /**
+     * Test the property 'systemMessages'
+     */
     @Test
     public void systemMessagesTest() {
         // TODO: test systemMessages
     }
+
 }

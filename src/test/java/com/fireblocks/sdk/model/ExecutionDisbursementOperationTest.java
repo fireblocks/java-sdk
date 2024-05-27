@@ -10,54 +10,84 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.fireblocks.sdk.model.DisbursementOperationExecution;
+import com.fireblocks.sdk.model.DisbursementOperationPreview;
+import com.fireblocks.sdk.model.DisbursementOperationType;
+import com.fireblocks.sdk.model.DisbursementValidationFailure;
+import com.fireblocks.sdk.model.ExecutionOperationStatus;
+import java.util.Arrays;
+import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
-/** Model tests for ExecutionDisbursementOperation */
+/**
+ * Model tests for ExecutionDisbursementOperation
+ */
 public class ExecutionDisbursementOperationTest {
     private final ExecutionDisbursementOperation model = new ExecutionDisbursementOperation();
 
-    /** Model tests for ExecutionDisbursementOperation */
+    /**
+     * Model tests for ExecutionDisbursementOperation
+     */
     @Test
     public void testExecutionDisbursementOperation() {
         // TODO: test ExecutionDisbursementOperation
     }
 
-    /** Test the property 'operationId' */
+    /**
+     * Test the property 'operationId'
+     */
     @Test
     public void operationIdTest() {
         // TODO: test operationId
     }
 
-    /** Test the property 'status' */
+    /**
+     * Test the property 'status'
+     */
     @Test
     public void statusTest() {
         // TODO: test status
     }
 
-    /** Test the property 'validationFailure' */
+    /**
+     * Test the property 'validationFailure'
+     */
     @Test
     public void validationFailureTest() {
         // TODO: test validationFailure
     }
 
-    /** Test the property 'operationType' */
+    /**
+     * Test the property 'operationType'
+     */
     @Test
     public void operationTypeTest() {
         // TODO: test operationType
     }
 
-    /** Test the property 'preview' */
+    /**
+     * Test the property 'preview'
+     */
     @Test
     public void previewTest() {
         // TODO: test preview
     }
 
-    /** Test the property 'execution' */
+    /**
+     * Test the property 'execution'
+     */
     @Test
     public void executionTest() {
         // TODO: test execution
     }
+
 }

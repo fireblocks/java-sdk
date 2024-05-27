@@ -10,191 +10,191 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
 import java.util.StringJoiner;
+import java.util.Objects;
+import java.util.Map;
+import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
-/** CreateMultipleAccountsRequest */
+
+/**
+ * CreateMultipleAccountsRequest
+ */
 @JsonPropertyOrder({
-    CreateMultipleAccountsRequest.JSON_PROPERTY_COUNT,
-    CreateMultipleAccountsRequest.JSON_PROPERTY_ASSET_IDS
+  CreateMultipleAccountsRequest.JSON_PROPERTY_COUNT,
+  CreateMultipleAccountsRequest.JSON_PROPERTY_ASSET_IDS
 })
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class CreateMultipleAccountsRequest {
-    public static final String JSON_PROPERTY_COUNT = "count";
-    private Integer count;
+  public static final String JSON_PROPERTY_COUNT = "count";
+  private Integer count;
 
-    public static final String JSON_PROPERTY_ASSET_IDS = "assetIds";
-    private List<String> assetIds;
+  public static final String JSON_PROPERTY_ASSET_IDS = "assetIds";
+  private List<String> assetIds;
 
-    public CreateMultipleAccountsRequest() {}
+  public CreateMultipleAccountsRequest() { 
+  }
 
-    public CreateMultipleAccountsRequest count(Integer count) {
-        this.count = count;
-        return this;
+  public CreateMultipleAccountsRequest count(Integer count) {
+    this.count = count;
+    return this;
+  }
+
+   /**
+   * Count
+   * @return count
+  **/
+  @jakarta.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_COUNT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Integer getCount() {
+    return count;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_COUNT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setCount(Integer count) {
+    this.count = count;
+  }
+
+
+  public CreateMultipleAccountsRequest assetIds(List<String> assetIds) {
+    this.assetIds = assetIds;
+    return this;
+  }
+
+  public CreateMultipleAccountsRequest addAssetIdsItem(String assetIdsItem) {
+    if (this.assetIds == null) {
+      this.assetIds = new ArrayList<>();
+    }
+    this.assetIds.add(assetIdsItem);
+    return this;
+  }
+
+   /**
+   * Array of asset IDs
+   * @return assetIds
+  **/
+  @jakarta.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_ASSET_IDS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<String> getAssetIds() {
+    return assetIds;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_ASSET_IDS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setAssetIds(List<String> assetIds) {
+    this.assetIds = assetIds;
+  }
+
+
+  /**
+   * Return true if this CreateMultipleAccountsRequest object is equal to o.
+   */
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    CreateMultipleAccountsRequest createMultipleAccountsRequest = (CreateMultipleAccountsRequest) o;
+    return Objects.equals(this.count, createMultipleAccountsRequest.count) &&
+        Objects.equals(this.assetIds, createMultipleAccountsRequest.assetIds);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(count, assetIds);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class CreateMultipleAccountsRequest {\n");
+    sb.append("    count: ").append(toIndentedString(count)).append("\n");
+    sb.append("    assetIds: ").append(toIndentedString(assetIds)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @return URL query string
+   */
+  public String toUrlQueryString() {
+    return toUrlQueryString(null);
+  }
+
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @param prefix prefix of the query string
+   * @return URL query string
+   */
+  public String toUrlQueryString(String prefix) {
+    String suffix = "";
+    String containerSuffix = "";
+    String containerPrefix = "";
+    if (prefix == null) {
+      // style=form, explode=true, e.g. /pet?name=cat&type=manx
+      prefix = "";
+    } else {
+      // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
+      prefix = prefix + "[";
+      suffix = "]";
+      containerSuffix = "]";
+      containerPrefix = "[";
     }
 
-    /**
-     * Count
-     *
-     * @return count
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_COUNT)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public Integer getCount() {
-        return count;
+    StringJoiner joiner = new StringJoiner("&");
+
+    // add `count` to the URL query string
+    if (getCount() != null) {
+      joiner.add(String.format("%scount%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getCount()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
     }
 
-    @JsonProperty(JSON_PROPERTY_COUNT)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setCount(Integer count) {
-        this.count = count;
+    // add `assetIds` to the URL query string
+    if (getAssetIds() != null) {
+      for (int i = 0; i < getAssetIds().size(); i++) {
+        joiner.add(String.format("%sassetIds%s%s=%s", prefix, suffix,
+            "".equals(suffix) ? "" : String.format("%s%d%s", containerPrefix, i, containerSuffix),
+            URLEncoder.encode(String.valueOf(getAssetIds().get(i)), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+      }
     }
 
-    public CreateMultipleAccountsRequest assetIds(List<String> assetIds) {
-        this.assetIds = assetIds;
-        return this;
-    }
-
-    public CreateMultipleAccountsRequest addAssetIdsItem(String assetIdsItem) {
-        if (this.assetIds == null) {
-            this.assetIds = new ArrayList<>();
-        }
-        this.assetIds.add(assetIdsItem);
-        return this;
-    }
-
-    /**
-     * Array of asset IDs
-     *
-     * @return assetIds
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_ASSET_IDS)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public List<String> getAssetIds() {
-        return assetIds;
-    }
-
-    @JsonProperty(JSON_PROPERTY_ASSET_IDS)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAssetIds(List<String> assetIds) {
-        this.assetIds = assetIds;
-    }
-
-    /** Return true if this CreateMultipleAccountsRequest object is equal to o. */
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        CreateMultipleAccountsRequest createMultipleAccountsRequest =
-                (CreateMultipleAccountsRequest) o;
-        return Objects.equals(this.count, createMultipleAccountsRequest.count)
-                && Objects.equals(this.assetIds, createMultipleAccountsRequest.assetIds);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(count, assetIds);
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("class CreateMultipleAccountsRequest {\n");
-        sb.append("    count: ").append(toIndentedString(count)).append("\n");
-        sb.append("    assetIds: ").append(toIndentedString(assetIds)).append("\n");
-        sb.append("}");
-        return sb.toString();
-    }
-
-    /**
-     * Convert the given object to string with each line indented by 4 spaces (except the first
-     * line).
-     */
-    private String toIndentedString(Object o) {
-        if (o == null) {
-            return "null";
-        }
-        return o.toString().replace("\n", "\n    ");
-    }
-
-    /**
-     * Convert the instance into URL query string.
-     *
-     * @return URL query string
-     */
-    public String toUrlQueryString() {
-        return toUrlQueryString(null);
-    }
-
-    /**
-     * Convert the instance into URL query string.
-     *
-     * @param prefix prefix of the query string
-     * @return URL query string
-     */
-    public String toUrlQueryString(String prefix) {
-        String suffix = "";
-        String containerSuffix = "";
-        String containerPrefix = "";
-        if (prefix == null) {
-            // style=form, explode=true, e.g. /pet?name=cat&type=manx
-            prefix = "";
-        } else {
-            // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
-            prefix = prefix + "[";
-            suffix = "]";
-            containerSuffix = "]";
-            containerPrefix = "[";
-        }
-
-        StringJoiner joiner = new StringJoiner("&");
-
-        // add `count` to the URL query string
-        if (getCount() != null) {
-            joiner.add(
-                    String.format(
-                            "%scount%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(String.valueOf(getCount()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
-        // add `assetIds` to the URL query string
-        if (getAssetIds() != null) {
-            for (int i = 0; i < getAssetIds().size(); i++) {
-                joiner.add(
-                        String.format(
-                                "%sassetIds%s%s=%s",
-                                prefix,
-                                suffix,
-                                "".equals(suffix)
-                                        ? ""
-                                        : String.format(
-                                                "%s%d%s", containerPrefix, i, containerSuffix),
-                                URLEncoder.encode(
-                                                String.valueOf(getAssetIds().get(i)),
-                                                StandardCharsets.UTF_8)
-                                        .replaceAll("\\+", "%20")));
-            }
-        }
-
-        return joiner.toString();
-    }
+    return joiner.toString();
+  }
 }
+

@@ -10,43 +10,66 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.fireblocks.sdk.model.AssetAmount;
+import com.fireblocks.sdk.model.Destination;
+import java.math.BigDecimal;
+import java.util.Arrays;
+import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
-/** Model tests for DisbursementOperationPreviewOutputInstructionSetInner */
+/**
+ * Model tests for DisbursementOperationPreviewOutputInstructionSetInner
+ */
 public class DisbursementOperationPreviewOutputInstructionSetInnerTest {
-    private final DisbursementOperationPreviewOutputInstructionSetInner model =
-            new DisbursementOperationPreviewOutputInstructionSetInner();
+    private final DisbursementOperationPreviewOutputInstructionSetInner model = new DisbursementOperationPreviewOutputInstructionSetInner();
 
-    /** Model tests for DisbursementOperationPreviewOutputInstructionSetInner */
+    /**
+     * Model tests for DisbursementOperationPreviewOutputInstructionSetInner
+     */
     @Test
     public void testDisbursementOperationPreviewOutputInstructionSetInner() {
         // TODO: test DisbursementOperationPreviewOutputInstructionSetInner
     }
 
-    /** Test the property 'amount' */
+    /**
+     * Test the property 'amount'
+     */
     @Test
     public void amountTest() {
         // TODO: test amount
     }
 
-    /** Test the property 'fee' */
+    /**
+     * Test the property 'fee'
+     */
     @Test
     public void feeTest() {
         // TODO: test fee
     }
 
-    /** Test the property 'payeeAccount' */
+    /**
+     * Test the property 'payeeAccount'
+     */
     @Test
     public void payeeAccountTest() {
         // TODO: test payeeAccount
     }
 
-    /** Test the property 'timeSeconds' */
+    /**
+     * Test the property 'timeSeconds'
+     */
     @Test
     public void timeSecondsTest() {
         // TODO: test timeSeconds
     }
+
 }

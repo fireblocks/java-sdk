@@ -10,36 +10,56 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.fireblocks.sdk.model.TransactionFee;
+import java.util.Arrays;
+import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
-/** Model tests for EstimatedTransactionFeeResponse */
+/**
+ * Model tests for EstimatedTransactionFeeResponse
+ */
 public class EstimatedTransactionFeeResponseTest {
     private final EstimatedTransactionFeeResponse model = new EstimatedTransactionFeeResponse();
 
-    /** Model tests for EstimatedTransactionFeeResponse */
+    /**
+     * Model tests for EstimatedTransactionFeeResponse
+     */
     @Test
     public void testEstimatedTransactionFeeResponse() {
         // TODO: test EstimatedTransactionFeeResponse
     }
 
-    /** Test the property 'low' */
+    /**
+     * Test the property 'low'
+     */
     @Test
     public void lowTest() {
         // TODO: test low
     }
 
-    /** Test the property 'medium' */
+    /**
+     * Test the property 'medium'
+     */
     @Test
     public void mediumTest() {
         // TODO: test medium
     }
 
-    /** Test the property 'high' */
+    /**
+     * Test the property 'high'
+     */
     @Test
     public void highTest() {
         // TODO: test high
     }
+
 }

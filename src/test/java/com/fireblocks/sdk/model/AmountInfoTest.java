@@ -10,42 +10,63 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.Arrays;
+import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
-/** Model tests for AmountInfo */
+/**
+ * Model tests for AmountInfo
+ */
 public class AmountInfoTest {
     private final AmountInfo model = new AmountInfo();
 
-    /** Model tests for AmountInfo */
+    /**
+     * Model tests for AmountInfo
+     */
     @Test
     public void testAmountInfo() {
         // TODO: test AmountInfo
     }
 
-    /** Test the property 'amount' */
+    /**
+     * Test the property 'amount'
+     */
     @Test
     public void amountTest() {
         // TODO: test amount
     }
 
-    /** Test the property 'requestedAmount' */
+    /**
+     * Test the property 'requestedAmount'
+     */
     @Test
     public void requestedAmountTest() {
         // TODO: test requestedAmount
     }
 
-    /** Test the property 'netAmount' */
+    /**
+     * Test the property 'netAmount'
+     */
     @Test
     public void netAmountTest() {
         // TODO: test netAmount
     }
 
-    /** Test the property 'amountUSD' */
+    /**
+     * Test the property 'amountUSD'
+     */
     @Test
     public void amountUSDTest() {
         // TODO: test amountUSD
     }
+
 }

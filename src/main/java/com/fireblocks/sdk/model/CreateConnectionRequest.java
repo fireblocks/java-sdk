@@ -10,8 +10,36 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.StringJoiner;
+import java.util.Objects;
+import java.util.Map;
+import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.fireblocks.sdk.model.CreateNcwConnectionRequest;
+import com.fireblocks.sdk.model.CreateVaultAccountConnectionRequest;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+
+import com.fasterxml.jackson.core.type.TypeReference;
+
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
@@ -27,14 +55,6 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 import com.fireblocks.sdk.JSON;
-import java.io.IOException;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.StringJoiner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 @JsonDeserialize(using = CreateConnectionRequest.CreateConnectionRequestDeserializer.class)
@@ -42,8 +62,7 @@ import java.util.logging.Logger;
 public class CreateConnectionRequest extends AbstractOpenApiSchema {
     private static final Logger log = Logger.getLogger(CreateConnectionRequest.class.getName());
 
-    public static class CreateConnectionRequestSerializer
-            extends StdSerializer<CreateConnectionRequest> {
+    public static class CreateConnectionRequestSerializer extends StdSerializer<CreateConnectionRequest> {
         public CreateConnectionRequestSerializer(Class<CreateConnectionRequest> t) {
             super(t);
         }
@@ -53,15 +72,12 @@ public class CreateConnectionRequest extends AbstractOpenApiSchema {
         }
 
         @Override
-        public void serialize(
-                CreateConnectionRequest value, JsonGenerator jgen, SerializerProvider provider)
-                throws IOException, JsonProcessingException {
+        public void serialize(CreateConnectionRequest value, JsonGenerator jgen, SerializerProvider provider) throws IOException, JsonProcessingException {
             jgen.writeObject(value.getActualInstance());
         }
     }
 
-    public static class CreateConnectionRequestDeserializer
-            extends StdDeserializer<CreateConnectionRequest> {
+    public static class CreateConnectionRequestDeserializer extends StdDeserializer<CreateConnectionRequest> {
         public CreateConnectionRequestDeserializer() {
             this(CreateConnectionRequest.class);
         }
@@ -71,8 +87,7 @@ public class CreateConnectionRequest extends AbstractOpenApiSchema {
         }
 
         @Override
-        public CreateConnectionRequest deserialize(JsonParser jp, DeserializationContext ctxt)
-                throws IOException, JsonProcessingException {
+        public CreateConnectionRequest deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException, JsonProcessingException {
             JsonNode tree = jp.readValueAsTree();
             Object deserialized = null;
             boolean typeCoercion = ctxt.isEnabled(MapperFeature.ALLOW_COERCION_OF_SCALARS);
@@ -82,37 +97,17 @@ public class CreateConnectionRequest extends AbstractOpenApiSchema {
             try {
                 boolean attemptParsing = true;
                 // ensure that we respect type coercion as set on the client ObjectMapper
-                if (CreateNcwConnectionRequest.class.equals(Integer.class)
-                        || CreateNcwConnectionRequest.class.equals(Long.class)
-                        || CreateNcwConnectionRequest.class.equals(Float.class)
-                        || CreateNcwConnectionRequest.class.equals(Double.class)
-                        || CreateNcwConnectionRequest.class.equals(Boolean.class)
-                        || CreateNcwConnectionRequest.class.equals(String.class)) {
+                if (CreateNcwConnectionRequest.class.equals(Integer.class) || CreateNcwConnectionRequest.class.equals(Long.class) || CreateNcwConnectionRequest.class.equals(Float.class) || CreateNcwConnectionRequest.class.equals(Double.class) || CreateNcwConnectionRequest.class.equals(Boolean.class) || CreateNcwConnectionRequest.class.equals(String.class)) {
                     attemptParsing = typeCoercion;
                     if (!attemptParsing) {
-                        attemptParsing |=
-                                ((CreateNcwConnectionRequest.class.equals(Integer.class)
-                                                || CreateNcwConnectionRequest.class.equals(
-                                                        Long.class))
-                                        && token == JsonToken.VALUE_NUMBER_INT);
-                        attemptParsing |=
-                                ((CreateNcwConnectionRequest.class.equals(Float.class)
-                                                || CreateNcwConnectionRequest.class.equals(
-                                                        Double.class))
-                                        && token == JsonToken.VALUE_NUMBER_FLOAT);
-                        attemptParsing |=
-                                (CreateNcwConnectionRequest.class.equals(Boolean.class)
-                                        && (token == JsonToken.VALUE_FALSE
-                                                || token == JsonToken.VALUE_TRUE));
-                        attemptParsing |=
-                                (CreateNcwConnectionRequest.class.equals(String.class)
-                                        && token == JsonToken.VALUE_STRING);
+                        attemptParsing |= ((CreateNcwConnectionRequest.class.equals(Integer.class) || CreateNcwConnectionRequest.class.equals(Long.class)) && token == JsonToken.VALUE_NUMBER_INT);
+                        attemptParsing |= ((CreateNcwConnectionRequest.class.equals(Float.class) || CreateNcwConnectionRequest.class.equals(Double.class)) && token == JsonToken.VALUE_NUMBER_FLOAT);
+                        attemptParsing |= (CreateNcwConnectionRequest.class.equals(Boolean.class) && (token == JsonToken.VALUE_FALSE || token == JsonToken.VALUE_TRUE));
+                        attemptParsing |= (CreateNcwConnectionRequest.class.equals(String.class) && token == JsonToken.VALUE_STRING);
                     }
                 }
                 if (attemptParsing) {
-                    deserialized =
-                            tree.traverse(jp.getCodec())
-                                    .readValueAs(CreateNcwConnectionRequest.class);
+                    deserialized = tree.traverse(jp.getCodec()).readValueAs(CreateNcwConnectionRequest.class);
                     // TODO: there is no validation against JSON schema constraints
                     // (min, max, enum, pattern...), this does not perform a strict JSON
                     // validation, which means the 'match' count may be higher than it should be.
@@ -121,61 +116,33 @@ public class CreateConnectionRequest extends AbstractOpenApiSchema {
                 }
             } catch (Exception e) {
                 // deserialization failed, continue
-                log.log(
-                        Level.FINER,
-                        "Input data does not match schema 'CreateNcwConnectionRequest'",
-                        e);
+                log.log(Level.FINER, "Input data does not match schema 'CreateNcwConnectionRequest'", e);
             }
 
             // deserialize CreateVaultAccountConnectionRequest
             try {
                 boolean attemptParsing = true;
                 // ensure that we respect type coercion as set on the client ObjectMapper
-                if (CreateVaultAccountConnectionRequest.class.equals(Integer.class)
-                        || CreateVaultAccountConnectionRequest.class.equals(Long.class)
-                        || CreateVaultAccountConnectionRequest.class.equals(Float.class)
-                        || CreateVaultAccountConnectionRequest.class.equals(Double.class)
-                        || CreateVaultAccountConnectionRequest.class.equals(Boolean.class)
-                        || CreateVaultAccountConnectionRequest.class.equals(String.class)) {
+                if (CreateVaultAccountConnectionRequest.class.equals(Integer.class) || CreateVaultAccountConnectionRequest.class.equals(Long.class) || CreateVaultAccountConnectionRequest.class.equals(Float.class) || CreateVaultAccountConnectionRequest.class.equals(Double.class) || CreateVaultAccountConnectionRequest.class.equals(Boolean.class) || CreateVaultAccountConnectionRequest.class.equals(String.class)) {
                     attemptParsing = typeCoercion;
                     if (!attemptParsing) {
-                        attemptParsing |=
-                                ((CreateVaultAccountConnectionRequest.class.equals(Integer.class)
-                                                || CreateVaultAccountConnectionRequest.class.equals(
-                                                        Long.class))
-                                        && token == JsonToken.VALUE_NUMBER_INT);
-                        attemptParsing |=
-                                ((CreateVaultAccountConnectionRequest.class.equals(Float.class)
-                                                || CreateVaultAccountConnectionRequest.class.equals(
-                                                        Double.class))
-                                        && token == JsonToken.VALUE_NUMBER_FLOAT);
-                        attemptParsing |=
-                                (CreateVaultAccountConnectionRequest.class.equals(Boolean.class)
-                                        && (token == JsonToken.VALUE_FALSE
-                                                || token == JsonToken.VALUE_TRUE));
-                        attemptParsing |=
-                                (CreateVaultAccountConnectionRequest.class.equals(String.class)
-                                        && token == JsonToken.VALUE_STRING);
+                        attemptParsing |= ((CreateVaultAccountConnectionRequest.class.equals(Integer.class) || CreateVaultAccountConnectionRequest.class.equals(Long.class)) && token == JsonToken.VALUE_NUMBER_INT);
+                        attemptParsing |= ((CreateVaultAccountConnectionRequest.class.equals(Float.class) || CreateVaultAccountConnectionRequest.class.equals(Double.class)) && token == JsonToken.VALUE_NUMBER_FLOAT);
+                        attemptParsing |= (CreateVaultAccountConnectionRequest.class.equals(Boolean.class) && (token == JsonToken.VALUE_FALSE || token == JsonToken.VALUE_TRUE));
+                        attemptParsing |= (CreateVaultAccountConnectionRequest.class.equals(String.class) && token == JsonToken.VALUE_STRING);
                     }
                 }
                 if (attemptParsing) {
-                    deserialized =
-                            tree.traverse(jp.getCodec())
-                                    .readValueAs(CreateVaultAccountConnectionRequest.class);
+                    deserialized = tree.traverse(jp.getCodec()).readValueAs(CreateVaultAccountConnectionRequest.class);
                     // TODO: there is no validation against JSON schema constraints
                     // (min, max, enum, pattern...), this does not perform a strict JSON
                     // validation, which means the 'match' count may be higher than it should be.
                     match++;
-                    log.log(
-                            Level.FINER,
-                            "Input data matches schema 'CreateVaultAccountConnectionRequest'");
+                    log.log(Level.FINER, "Input data matches schema 'CreateVaultAccountConnectionRequest'");
                 }
             } catch (Exception e) {
                 // deserialization failed, continue
-                log.log(
-                        Level.FINER,
-                        "Input data does not match schema 'CreateVaultAccountConnectionRequest'",
-                        e);
+                log.log(Level.FINER, "Input data does not match schema 'CreateVaultAccountConnectionRequest'", e);
             }
 
             if (match == 1) {
@@ -183,19 +150,15 @@ public class CreateConnectionRequest extends AbstractOpenApiSchema {
                 ret.setActualInstance(deserialized);
                 return ret;
             }
-            throw new IOException(
-                    String.format(
-                            "Failed deserialization for CreateConnectionRequest: %d classes match"
-                                    + " result, expected 1",
-                            match));
+            throw new IOException(String.format("Failed deserialization for CreateConnectionRequest: %d classes match result, expected 1", match));
         }
 
-        /** Handle deserialization of the 'null' value. */
+        /**
+         * Handle deserialization of the 'null' value.
+         */
         @Override
-        public CreateConnectionRequest getNullValue(DeserializationContext ctxt)
-                throws JsonMappingException {
-            throw new JsonMappingException(
-                    ctxt.getParser(), "CreateConnectionRequest cannot be null");
+        public CreateConnectionRequest getNullValue(DeserializationContext ctxt) throws JsonMappingException {
+            throw new JsonMappingException(ctxt.getParser(), "CreateConnectionRequest cannot be null");
         }
     }
 
@@ -218,10 +181,8 @@ public class CreateConnectionRequest extends AbstractOpenApiSchema {
 
     static {
         schemas.put("CreateNcwConnectionRequest", CreateNcwConnectionRequest.class);
-        schemas.put(
-                "CreateVaultAccountConnectionRequest", CreateVaultAccountConnectionRequest.class);
-        JSON.registerDescendants(
-                CreateConnectionRequest.class, Collections.unmodifiableMap(schemas));
+        schemas.put("CreateVaultAccountConnectionRequest", CreateVaultAccountConnectionRequest.class);
+        JSON.registerDescendants(CreateConnectionRequest.class, Collections.unmodifiableMap(schemas));
     }
 
     @Override
@@ -230,35 +191,31 @@ public class CreateConnectionRequest extends AbstractOpenApiSchema {
     }
 
     /**
-     * Set the instance that matches the oneOf child schema, check the instance parameter is valid
-     * against the oneOf child schemas: CreateNcwConnectionRequest,
-     * CreateVaultAccountConnectionRequest
+     * Set the instance that matches the oneOf child schema, check
+     * the instance parameter is valid against the oneOf child schemas:
+     * CreateNcwConnectionRequest, CreateVaultAccountConnectionRequest
      *
-     * <p>It could be an instance of the 'oneOf' schemas. The oneOf child schemas may themselves be
-     * a composed schema (allOf, anyOf, oneOf).
+     * It could be an instance of the 'oneOf' schemas.
+     * The oneOf child schemas may themselves be a composed schema (allOf, anyOf, oneOf).
      */
     @Override
     public void setActualInstance(Object instance) {
-        if (JSON.isInstanceOf(
-                CreateNcwConnectionRequest.class, instance, new HashSet<Class<?>>())) {
+        if (JSON.isInstanceOf(CreateNcwConnectionRequest.class, instance, new HashSet<Class<?>>())) {
             super.setActualInstance(instance);
             return;
         }
 
-        if (JSON.isInstanceOf(
-                CreateVaultAccountConnectionRequest.class, instance, new HashSet<Class<?>>())) {
+        if (JSON.isInstanceOf(CreateVaultAccountConnectionRequest.class, instance, new HashSet<Class<?>>())) {
             super.setActualInstance(instance);
             return;
         }
 
-        throw new RuntimeException(
-                "Invalid instance type. Must be CreateNcwConnectionRequest,"
-                        + " CreateVaultAccountConnectionRequest");
+        throw new RuntimeException("Invalid instance type. Must be CreateNcwConnectionRequest, CreateVaultAccountConnectionRequest");
     }
 
     /**
-     * Get the actual instance, which can be the following: CreateNcwConnectionRequest,
-     * CreateVaultAccountConnectionRequest
+     * Get the actual instance, which can be the following:
+     * CreateNcwConnectionRequest, CreateVaultAccountConnectionRequest
      *
      * @return The actual instance (CreateNcwConnectionRequest, CreateVaultAccountConnectionRequest)
      */
@@ -268,76 +225,75 @@ public class CreateConnectionRequest extends AbstractOpenApiSchema {
     }
 
     /**
-     * Get the actual instance of `CreateNcwConnectionRequest`. If the actual instance is not
-     * `CreateNcwConnectionRequest`, the ClassCastException will be thrown.
+     * Get the actual instance of `CreateNcwConnectionRequest`. If the actual instance is not `CreateNcwConnectionRequest`,
+     * the ClassCastException will be thrown.
      *
      * @return The actual instance of `CreateNcwConnectionRequest`
      * @throws ClassCastException if the instance is not `CreateNcwConnectionRequest`
      */
     public CreateNcwConnectionRequest getCreateNcwConnectionRequest() throws ClassCastException {
-        return (CreateNcwConnectionRequest) super.getActualInstance();
+        return (CreateNcwConnectionRequest)super.getActualInstance();
     }
 
     /**
-     * Get the actual instance of `CreateVaultAccountConnectionRequest`. If the actual instance is
-     * not `CreateVaultAccountConnectionRequest`, the ClassCastException will be thrown.
+     * Get the actual instance of `CreateVaultAccountConnectionRequest`. If the actual instance is not `CreateVaultAccountConnectionRequest`,
+     * the ClassCastException will be thrown.
      *
      * @return The actual instance of `CreateVaultAccountConnectionRequest`
      * @throws ClassCastException if the instance is not `CreateVaultAccountConnectionRequest`
      */
-    public CreateVaultAccountConnectionRequest getCreateVaultAccountConnectionRequest()
-            throws ClassCastException {
-        return (CreateVaultAccountConnectionRequest) super.getActualInstance();
+    public CreateVaultAccountConnectionRequest getCreateVaultAccountConnectionRequest() throws ClassCastException {
+        return (CreateVaultAccountConnectionRequest)super.getActualInstance();
     }
 
-    /**
-     * Convert the instance into URL query string.
-     *
-     * @return URL query string
-     */
-    public String toUrlQueryString() {
-        return toUrlQueryString(null);
+
+
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @return URL query string
+   */
+  public String toUrlQueryString() {
+    return toUrlQueryString(null);
+  }
+
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @param prefix prefix of the query string
+   * @return URL query string
+   */
+  public String toUrlQueryString(String prefix) {
+    String suffix = "";
+    String containerSuffix = "";
+    String containerPrefix = "";
+    if (prefix == null) {
+      // style=form, explode=true, e.g. /pet?name=cat&type=manx
+      prefix = "";
+    } else {
+      // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
+      prefix = prefix + "[";
+      suffix = "]";
+      containerSuffix = "]";
+      containerPrefix = "[";
     }
 
-    /**
-     * Convert the instance into URL query string.
-     *
-     * @param prefix prefix of the query string
-     * @return URL query string
-     */
-    public String toUrlQueryString(String prefix) {
-        String suffix = "";
-        String containerSuffix = "";
-        String containerPrefix = "";
-        if (prefix == null) {
-            // style=form, explode=true, e.g. /pet?name=cat&type=manx
-            prefix = "";
-        } else {
-            // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
-            prefix = prefix + "[";
-            suffix = "]";
-            containerSuffix = "]";
-            containerPrefix = "[";
-        }
+    StringJoiner joiner = new StringJoiner("&");
 
-        StringJoiner joiner = new StringJoiner("&");
-
-        if (getActualInstance() instanceof CreateVaultAccountConnectionRequest) {
-            if (getActualInstance() != null) {
-                joiner.add(
-                        ((CreateVaultAccountConnectionRequest) getActualInstance())
-                                .toUrlQueryString(prefix + "one_of_0" + suffix));
-            }
-            return joiner.toString();
+    if (getActualInstance() instanceof CreateVaultAccountConnectionRequest) {
+        if (getActualInstance() != null) {
+          joiner.add(((CreateVaultAccountConnectionRequest)getActualInstance()).toUrlQueryString(prefix + "one_of_0" + suffix));
         }
-        if (getActualInstance() instanceof CreateNcwConnectionRequest) {
-            if (getActualInstance() != null) {
-                joiner.add(
-                        ((CreateNcwConnectionRequest) getActualInstance())
-                                .toUrlQueryString(prefix + "one_of_1" + suffix));
-            }
-            return joiner.toString();
-        }
-        return null;
+        return joiner.toString();
     }
+    if (getActualInstance() instanceof CreateNcwConnectionRequest) {
+        if (getActualInstance() != null) {
+          joiner.add(((CreateNcwConnectionRequest)getActualInstance()).toUrlQueryString(prefix + "one_of_1" + suffix));
+        }
+        return joiner.toString();
+    }
+    return null;
+  }
+
 }
+

@@ -10,168 +10,245 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.fireblocks.sdk.model.DestinationTransferPeerPath;
+import com.fireblocks.sdk.model.SourceTransferPeerPath;
+import com.fireblocks.sdk.model.TransactionOperation;
+import com.fireblocks.sdk.model.TransactionRequestAmount;
+import com.fireblocks.sdk.model.TransactionRequestDestination;
+import com.fireblocks.sdk.model.TransactionRequestFee;
+import com.fireblocks.sdk.model.TransactionRequestGasLimit;
+import com.fireblocks.sdk.model.TransactionRequestGasPrice;
+import com.fireblocks.sdk.model.TransactionRequestNetworkFee;
+import com.fireblocks.sdk.model.TransactionRequestNetworkStaking;
+import com.fireblocks.sdk.model.TransactionRequestPriorityFee;
+import com.fireblocks.sdk.model.TravelRuleCreateTransactionRequest;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
-/** Model tests for TransactionRequest */
+/**
+ * Model tests for TransactionRequest
+ */
 public class TransactionRequestTest {
     private final TransactionRequest model = new TransactionRequest();
 
-    /** Model tests for TransactionRequest */
+    /**
+     * Model tests for TransactionRequest
+     */
     @Test
     public void testTransactionRequest() {
         // TODO: test TransactionRequest
     }
 
-    /** Test the property 'operation' */
+    /**
+     * Test the property 'operation'
+     */
     @Test
     public void operationTest() {
         // TODO: test operation
     }
 
-    /** Test the property 'note' */
+    /**
+     * Test the property 'note'
+     */
     @Test
     public void noteTest() {
         // TODO: test note
     }
 
-    /** Test the property 'externalTxId' */
+    /**
+     * Test the property 'externalTxId'
+     */
     @Test
     public void externalTxIdTest() {
         // TODO: test externalTxId
     }
 
-    /** Test the property 'assetId' */
+    /**
+     * Test the property 'assetId'
+     */
     @Test
     public void assetIdTest() {
         // TODO: test assetId
     }
 
-    /** Test the property 'source' */
+    /**
+     * Test the property 'source'
+     */
     @Test
     public void sourceTest() {
         // TODO: test source
     }
 
-    /** Test the property 'destination' */
+    /**
+     * Test the property 'destination'
+     */
     @Test
     public void destinationTest() {
         // TODO: test destination
     }
 
-    /** Test the property 'destinations' */
+    /**
+     * Test the property 'destinations'
+     */
     @Test
     public void destinationsTest() {
         // TODO: test destinations
     }
 
-    /** Test the property 'amount' */
+    /**
+     * Test the property 'amount'
+     */
     @Test
     public void amountTest() {
         // TODO: test amount
     }
 
-    /** Test the property 'treatAsGrossAmount' */
+    /**
+     * Test the property 'treatAsGrossAmount'
+     */
     @Test
     public void treatAsGrossAmountTest() {
         // TODO: test treatAsGrossAmount
     }
 
-    /** Test the property 'forceSweep' */
+    /**
+     * Test the property 'forceSweep'
+     */
     @Test
     public void forceSweepTest() {
         // TODO: test forceSweep
     }
 
-    /** Test the property 'feeLevel' */
+    /**
+     * Test the property 'feeLevel'
+     */
     @Test
     public void feeLevelTest() {
         // TODO: test feeLevel
     }
 
-    /** Test the property 'fee' */
+    /**
+     * Test the property 'fee'
+     */
     @Test
     public void feeTest() {
         // TODO: test fee
     }
 
-    /** Test the property 'priorityFee' */
+    /**
+     * Test the property 'priorityFee'
+     */
     @Test
     public void priorityFeeTest() {
         // TODO: test priorityFee
     }
 
-    /** Test the property 'failOnLowFee' */
+    /**
+     * Test the property 'failOnLowFee'
+     */
     @Test
     public void failOnLowFeeTest() {
         // TODO: test failOnLowFee
     }
 
-    /** Test the property 'maxFee' */
+    /**
+     * Test the property 'maxFee'
+     */
     @Test
     public void maxFeeTest() {
         // TODO: test maxFee
     }
 
-    /** Test the property 'gasLimit' */
+    /**
+     * Test the property 'gasLimit'
+     */
     @Test
     public void gasLimitTest() {
         // TODO: test gasLimit
     }
 
-    /** Test the property 'gasPrice' */
+    /**
+     * Test the property 'gasPrice'
+     */
     @Test
     public void gasPriceTest() {
         // TODO: test gasPrice
     }
 
-    /** Test the property 'networkFee' */
+    /**
+     * Test the property 'networkFee'
+     */
     @Test
     public void networkFeeTest() {
         // TODO: test networkFee
     }
 
-    /** Test the property 'replaceTxByHash' */
+    /**
+     * Test the property 'replaceTxByHash'
+     */
     @Test
     public void replaceTxByHashTest() {
         // TODO: test replaceTxByHash
     }
 
-    /** Test the property 'extraParameters' */
+    /**
+     * Test the property 'extraParameters'
+     */
     @Test
     public void extraParametersTest() {
         // TODO: test extraParameters
     }
 
-    /** Test the property 'customerRefId' */
+    /**
+     * Test the property 'customerRefId'
+     */
     @Test
     public void customerRefIdTest() {
         // TODO: test customerRefId
     }
 
-    /** Test the property 'travelRuleMessage' */
+    /**
+     * Test the property 'travelRuleMessage'
+     */
     @Test
     public void travelRuleMessageTest() {
         // TODO: test travelRuleMessage
     }
 
-    /** Test the property 'autoStaking' */
+    /**
+     * Test the property 'autoStaking'
+     */
     @Test
     public void autoStakingTest() {
         // TODO: test autoStaking
     }
 
-    /** Test the property 'networkStaking' */
+    /**
+     * Test the property 'networkStaking'
+     */
     @Test
     public void networkStakingTest() {
         // TODO: test networkStaking
     }
 
-    /** Test the property 'cpuStaking' */
+    /**
+     * Test the property 'cpuStaking'
+     */
     @Test
     public void cpuStakingTest() {
         // TODO: test cpuStaking
     }
+
 }

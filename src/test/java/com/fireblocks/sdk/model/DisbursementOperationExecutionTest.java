@@ -10,54 +10,83 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.fireblocks.sdk.model.DisbursementOperationExecutionOutput;
+import com.fireblocks.sdk.model.DisbursementOperationInput;
+import com.fireblocks.sdk.model.OperationExecutionFailure;
+import java.math.BigDecimal;
+import java.util.Arrays;
+import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
-/** Model tests for DisbursementOperationExecution */
+/**
+ * Model tests for DisbursementOperationExecution
+ */
 public class DisbursementOperationExecutionTest {
     private final DisbursementOperationExecution model = new DisbursementOperationExecution();
 
-    /** Model tests for DisbursementOperationExecution */
+    /**
+     * Model tests for DisbursementOperationExecution
+     */
     @Test
     public void testDisbursementOperationExecution() {
         // TODO: test DisbursementOperationExecution
     }
 
-    /** Test the property 'input' */
+    /**
+     * Test the property 'input'
+     */
     @Test
     public void inputTest() {
         // TODO: test input
     }
 
-    /** Test the property 'output' */
+    /**
+     * Test the property 'output'
+     */
     @Test
     public void outputTest() {
         // TODO: test output
     }
 
-    /** Test the property 'payoutId' */
+    /**
+     * Test the property 'payoutId'
+     */
     @Test
     public void payoutIdTest() {
         // TODO: test payoutId
     }
 
-    /** Test the property 'startedAt' */
+    /**
+     * Test the property 'startedAt'
+     */
     @Test
     public void startedAtTest() {
         // TODO: test startedAt
     }
 
-    /** Test the property 'finishedAt' */
+    /**
+     * Test the property 'finishedAt'
+     */
     @Test
     public void finishedAtTest() {
         // TODO: test finishedAt
     }
 
-    /** Test the property 'failure' */
+    /**
+     * Test the property 'failure'
+     */
     @Test
     public void failureTest() {
         // TODO: test failure
     }
+
 }

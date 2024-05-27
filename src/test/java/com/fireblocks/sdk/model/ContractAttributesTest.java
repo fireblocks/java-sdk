@@ -10,36 +10,58 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.fireblocks.sdk.model.AuditorData;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
-/** Model tests for ContractAttributes */
+/**
+ * Model tests for ContractAttributes
+ */
 public class ContractAttributesTest {
     private final ContractAttributes model = new ContractAttributes();
 
-    /** Model tests for ContractAttributes */
+    /**
+     * Model tests for ContractAttributes
+     */
     @Test
     public void testContractAttributes() {
         // TODO: test ContractAttributes
     }
 
-    /** Test the property 'useCases' */
+    /**
+     * Test the property 'useCases'
+     */
     @Test
     public void useCasesTest() {
         // TODO: test useCases
     }
 
-    /** Test the property 'standards' */
+    /**
+     * Test the property 'standards'
+     */
     @Test
     public void standardsTest() {
         // TODO: test standards
     }
 
-    /** Test the property 'auditor' */
+    /**
+     * Test the property 'auditor'
+     */
     @Test
     public void auditorTest() {
         // TODO: test auditor
     }
+
 }

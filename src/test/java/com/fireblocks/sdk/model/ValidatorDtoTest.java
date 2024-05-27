@@ -10,30 +10,48 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import java.math.BigDecimal;
+import java.util.Arrays;
+import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
-/** Model tests for ValidatorDto */
+/**
+ * Model tests for ValidatorDto
+ */
 public class ValidatorDtoTest {
     private final ValidatorDto model = new ValidatorDto();
 
-    /** Model tests for ValidatorDto */
+    /**
+     * Model tests for ValidatorDto
+     */
     @Test
     public void testValidatorDto() {
         // TODO: test ValidatorDto
     }
 
-    /** Test the property 'chainDescriptor' */
+    /**
+     * Test the property 'chainDescriptor'
+     */
     @Test
     public void chainDescriptorTest() {
         // TODO: test chainDescriptor
     }
 
-    /** Test the property 'feePercent' */
+    /**
+     * Test the property 'feePercent'
+     */
     @Test
     public void feePercentTest() {
         // TODO: test feePercent
     }
+
 }

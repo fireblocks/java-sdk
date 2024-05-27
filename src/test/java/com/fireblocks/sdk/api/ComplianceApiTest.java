@@ -10,8 +10,8 @@
  * Do not edit the class manually.
  */
 
-package com.fireblocks.sdk.api;
 
+package com.fireblocks.sdk.api;
 
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
@@ -19,107 +19,132 @@ import com.fireblocks.sdk.model.ScreeningConfigurationsRequest;
 import com.fireblocks.sdk.model.ScreeningPolicyResponse;
 import com.fireblocks.sdk.model.ScreeningProviderRulesConfigurationResponse;
 import com.fireblocks.sdk.model.ScreeningUpdateConfigurationsRequest;
-import java.util.concurrent.CompletableFuture;
-import org.junit.Ignore;
 import org.junit.Test;
+import org.junit.Ignore;
 
-/** API tests for ComplianceApi */
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import java.util.concurrent.CompletableFuture;
+
+/**
+ * API tests for ComplianceApi
+ */
 @Ignore
 public class ComplianceApiTest {
 
     private final ComplianceApi api = new ComplianceApi();
 
+    
     /**
      * AML - View Post-Screening Policy
      *
-     * <p>Get the post-screening policy for AML.
+     * Get the post-screening policy for AML.
      *
-     * @throws ApiException if the Api call fails
+     * @throws ApiException
+     *          if the Api call fails
      */
     @Test
     public void getAmlPostScreeningPolicyTest() throws ApiException {
-        CompletableFuture<ApiResponse<ScreeningPolicyResponse>> response =
-                api.getAmlPostScreeningPolicy();
+        CompletableFuture<ApiResponse<ScreeningPolicyResponse>> response = 
+        api.getAmlPostScreeningPolicy();
+        
     }
-
+    
     /**
      * AML - View Screening Policy
      *
-     * <p>Get the screening policy for AML.
+     * Get the screening policy for AML.
      *
-     * @throws ApiException if the Api call fails
+     * @throws ApiException
+     *          if the Api call fails
      */
     @Test
     public void getAmlScreeningPolicyTest() throws ApiException {
-        CompletableFuture<ApiResponse<ScreeningProviderRulesConfigurationResponse>> response =
-                api.getAmlScreeningPolicy();
+        CompletableFuture<ApiResponse<ScreeningProviderRulesConfigurationResponse>> response = 
+        api.getAmlScreeningPolicy();
+        
     }
-
+    
     /**
      * Travel Rule - View Post-Screening Policy
      *
-     * <p>Get the post-screening policy for Travel Rule.
+     * Get the post-screening policy for Travel Rule.
      *
-     * @throws ApiException if the Api call fails
+     * @throws ApiException
+     *          if the Api call fails
      */
     @Test
     public void getPostScreeningPolicyTest() throws ApiException {
-        CompletableFuture<ApiResponse<ScreeningPolicyResponse>> response =
-                api.getPostScreeningPolicy();
+        CompletableFuture<ApiResponse<ScreeningPolicyResponse>> response = 
+        api.getPostScreeningPolicy();
+        
     }
-
+    
     /**
      * Travel Rule - View Screening Policy
      *
-     * <p>Get the screening policy for Travel Rule.
+     * Get the screening policy for Travel Rule.
      *
-     * @throws ApiException if the Api call fails
+     * @throws ApiException
+     *          if the Api call fails
      */
     @Test
     public void getScreeningPolicyTest() throws ApiException {
-        CompletableFuture<ApiResponse<ScreeningProviderRulesConfigurationResponse>> response =
-                api.getScreeningPolicy();
+        CompletableFuture<ApiResponse<ScreeningProviderRulesConfigurationResponse>> response = 
+        api.getScreeningPolicy();
+        
     }
-
+    
     /**
      * Update AML Configuration
      *
-     * <p>Updates bypass screening, inbound delay, or outbound delay configurations for AML.
+     * Updates bypass screening, inbound delay, or outbound delay configurations for AML.
      *
-     * @throws ApiException if the Api call fails
+     * @throws ApiException
+     *          if the Api call fails
      */
     @Test
     public void updateAmlScreeningConfigurationTest() throws ApiException {
         String idempotencyKey = null;
-        CompletableFuture<ApiResponse<ScreeningConfigurationsRequest>> response =
-                api.updateAmlScreeningConfiguration(idempotencyKey);
+        CompletableFuture<ApiResponse<ScreeningConfigurationsRequest>> response = 
+        api.updateAmlScreeningConfiguration(idempotencyKey);
+        
     }
-
+    
     /**
      * Tenant - Screening Configuration
      *
-     * <p>Update tenant screening configuration.
+     * Update tenant screening configuration.
      *
-     * @throws ApiException if the Api call fails
+     * @throws ApiException
+     *          if the Api call fails
      */
     @Test
     public void updateScreeningConfigurationTest() throws ApiException {
         String idempotencyKey = null;
-        CompletableFuture<ApiResponse<ScreeningUpdateConfigurationsRequest>> response =
-                api.updateScreeningConfiguration(idempotencyKey);
+        CompletableFuture<ApiResponse<ScreeningUpdateConfigurationsRequest>> response = 
+        api.updateScreeningConfiguration(idempotencyKey);
+        
     }
-
+    
     /**
      * Update Travel Rule Configuration
      *
-     * <p>Updates bypass screening, inbound delay, or outbound delay configurations for Travel Rule.
+     * Updates bypass screening, inbound delay, or outbound delay configurations for Travel Rule.
      *
-     * @throws ApiException if the Api call fails
+     * @throws ApiException
+     *          if the Api call fails
      */
     @Test
     public void updateTravelRuleConfigTest() throws ApiException {
         String idempotencyKey = null;
-        CompletableFuture<ApiResponse<ScreeningConfigurationsRequest>> response =
-                api.updateTravelRuleConfig(idempotencyKey);
+        CompletableFuture<ApiResponse<ScreeningConfigurationsRequest>> response = 
+        api.updateTravelRuleConfig(idempotencyKey);
+        
     }
+    
 }

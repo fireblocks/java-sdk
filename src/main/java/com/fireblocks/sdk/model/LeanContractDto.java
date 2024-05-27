@@ -10,489 +10,472 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.fasterxml.jackson.annotation.JsonValue;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
-import java.util.Objects;
 import java.util.StringJoiner;
+import java.util.Objects;
+import java.util.Map;
+import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.fireblocks.sdk.model.ContractAttributes;
+import com.fireblocks.sdk.model.VendorDto;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
-/** LeanContractDto */
+
+/**
+ * LeanContractDto
+ */
 @JsonPropertyOrder({
-    LeanContractDto.JSON_PROPERTY_ID,
-    LeanContractDto.JSON_PROPERTY_NAME,
-    LeanContractDto.JSON_PROPERTY_DESCRIPTION,
-    LeanContractDto.JSON_PROPERTY_ATTRIBUTES,
-    LeanContractDto.JSON_PROPERTY_IS_PUBLIC,
-    LeanContractDto.JSON_PROPERTY_CAN_DEPLOY,
-    LeanContractDto.JSON_PROPERTY_OWNER,
-    LeanContractDto.JSON_PROPERTY_VENDOR,
-    LeanContractDto.JSON_PROPERTY_TYPE
+  LeanContractDto.JSON_PROPERTY_ID,
+  LeanContractDto.JSON_PROPERTY_NAME,
+  LeanContractDto.JSON_PROPERTY_DESCRIPTION,
+  LeanContractDto.JSON_PROPERTY_ATTRIBUTES,
+  LeanContractDto.JSON_PROPERTY_IS_PUBLIC,
+  LeanContractDto.JSON_PROPERTY_CAN_DEPLOY,
+  LeanContractDto.JSON_PROPERTY_OWNER,
+  LeanContractDto.JSON_PROPERTY_VENDOR,
+  LeanContractDto.JSON_PROPERTY_TYPE
 })
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class LeanContractDto {
-    public static final String JSON_PROPERTY_ID = "id";
-    private String id;
+  public static final String JSON_PROPERTY_ID = "id";
+  private String id;
 
-    public static final String JSON_PROPERTY_NAME = "name";
-    private String name;
+  public static final String JSON_PROPERTY_NAME = "name";
+  private String name;
 
-    public static final String JSON_PROPERTY_DESCRIPTION = "description";
-    private String description;
+  public static final String JSON_PROPERTY_DESCRIPTION = "description";
+  private String description;
 
-    public static final String JSON_PROPERTY_ATTRIBUTES = "attributes";
-    private ContractAttributes attributes;
+  public static final String JSON_PROPERTY_ATTRIBUTES = "attributes";
+  private ContractAttributes attributes;
 
-    public static final String JSON_PROPERTY_IS_PUBLIC = "isPublic";
-    private Boolean isPublic;
+  public static final String JSON_PROPERTY_IS_PUBLIC = "isPublic";
+  private Boolean isPublic;
 
-    public static final String JSON_PROPERTY_CAN_DEPLOY = "canDeploy";
-    private Boolean canDeploy;
+  public static final String JSON_PROPERTY_CAN_DEPLOY = "canDeploy";
+  private Boolean canDeploy;
 
-    public static final String JSON_PROPERTY_OWNER = "owner";
-    private String owner;
+  public static final String JSON_PROPERTY_OWNER = "owner";
+  private String owner;
 
-    public static final String JSON_PROPERTY_VENDOR = "vendor";
-    private VendorDto vendor;
+  public static final String JSON_PROPERTY_VENDOR = "vendor";
+  private VendorDto vendor;
 
-    /** Gets or Sets type */
-    public enum TypeEnum {
-        FUNGIBLE_TOKEN("FUNGIBLE_TOKEN"),
+  /**
+   * Gets or Sets type
+   */
+  public enum TypeEnum {
+    FUNGIBLE_TOKEN("FUNGIBLE_TOKEN"),
+    
+    NON_FUNGIBLE_TOKEN("NON_FUNGIBLE_TOKEN"),
+    
+    NON_TOKEN("NON_TOKEN"),
+    
+    TOKEN_EXTENSION("TOKEN_EXTENSION"),
+    
+    TOKEN_UTILITY("TOKEN_UTILITY");
 
-        NON_FUNGIBLE_TOKEN("NON_FUNGIBLE_TOKEN"),
+    private String value;
 
-        NON_TOKEN("NON_TOKEN"),
-
-        TOKEN_EXTENSION("TOKEN_EXTENSION"),
-
-        TOKEN_UTILITY("TOKEN_UTILITY");
-
-        private String value;
-
-        TypeEnum(String value) {
-            this.value = value;
-        }
-
-        @JsonValue
-        public String getValue() {
-            return value;
-        }
-
-        @Override
-        public String toString() {
-            return String.valueOf(value);
-        }
-
-        @JsonCreator
-        public static TypeEnum fromValue(String value) {
-            for (TypeEnum b : TypeEnum.values()) {
-                if (b.value.equals(value)) {
-                    return b;
-                }
-            }
-            throw new IllegalArgumentException("Unexpected value '" + value + "'");
-        }
+    TypeEnum(String value) {
+      this.value = value;
     }
 
-    public static final String JSON_PROPERTY_TYPE = "type";
-    private TypeEnum type;
-
-    public LeanContractDto() {}
-
-    public LeanContractDto id(String id) {
-        this.id = id;
-        return this;
-    }
-
-    /**
-     * The unique identifier of the contract template
-     *
-     * @return id
-     */
-    @jakarta.annotation.Nonnull
-    @JsonProperty(JSON_PROPERTY_ID)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public String getId() {
-        return id;
-    }
-
-    @JsonProperty(JSON_PROPERTY_ID)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public LeanContractDto name(String name) {
-        this.name = name;
-        return this;
-    }
-
-    /**
-     * The name of the contract template
-     *
-     * @return name
-     */
-    @jakarta.annotation.Nonnull
-    @JsonProperty(JSON_PROPERTY_NAME)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public String getName() {
-        return name;
-    }
-
-    @JsonProperty(JSON_PROPERTY_NAME)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public LeanContractDto description(String description) {
-        this.description = description;
-        return this;
-    }
-
-    /**
-     * A short description of the contract template
-     *
-     * @return description
-     */
-    @jakarta.annotation.Nonnull
-    @JsonProperty(JSON_PROPERTY_DESCRIPTION)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public String getDescription() {
-        return description;
-    }
-
-    @JsonProperty(JSON_PROPERTY_DESCRIPTION)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public LeanContractDto attributes(ContractAttributes attributes) {
-        this.attributes = attributes;
-        return this;
-    }
-
-    /**
-     * The attributes related to this contract template. It will be displayed in the tokenization
-     * page
-     *
-     * @return attributes
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_ATTRIBUTES)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public ContractAttributes getAttributes() {
-        return attributes;
-    }
-
-    @JsonProperty(JSON_PROPERTY_ATTRIBUTES)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAttributes(ContractAttributes attributes) {
-        this.attributes = attributes;
-    }
-
-    public LeanContractDto isPublic(Boolean isPublic) {
-        this.isPublic = isPublic;
-        return this;
-    }
-
-    /**
-     * Is this a contract that is viewable by all fireblocks&#39;s users or is it visible only for
-     * this workspace
-     *
-     * @return isPublic
-     */
-    @jakarta.annotation.Nonnull
-    @JsonProperty(JSON_PROPERTY_IS_PUBLIC)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public Boolean getIsPublic() {
-        return isPublic;
-    }
-
-    @JsonProperty(JSON_PROPERTY_IS_PUBLIC)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setIsPublic(Boolean isPublic) {
-        this.isPublic = isPublic;
-    }
-
-    public LeanContractDto canDeploy(Boolean canDeploy) {
-        this.canDeploy = canDeploy;
-        return this;
-    }
-
-    /**
-     * True if the workspace allowed to deploy this contract, false otherwise
-     *
-     * @return canDeploy
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_CAN_DEPLOY)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public Boolean getCanDeploy() {
-        return canDeploy;
-    }
-
-    @JsonProperty(JSON_PROPERTY_CAN_DEPLOY)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setCanDeploy(Boolean canDeploy) {
-        this.canDeploy = canDeploy;
-    }
-
-    public LeanContractDto owner(String owner) {
-        this.owner = owner;
-        return this;
-    }
-
-    /**
-     * The workspace id of the owner of this contract template. If it&#39;s a private contract, only
-     * this workspace will be allowed to deploy it
-     *
-     * @return owner
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_OWNER)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public String getOwner() {
-        return owner;
-    }
-
-    @JsonProperty(JSON_PROPERTY_OWNER)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setOwner(String owner) {
-        this.owner = owner;
-    }
-
-    public LeanContractDto vendor(VendorDto vendor) {
-        this.vendor = vendor;
-        return this;
-    }
-
-    /**
-     * The details of the vendor of this contract template. Applicable only for public contract
-     * templates
-     *
-     * @return vendor
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_VENDOR)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public VendorDto getVendor() {
-        return vendor;
-    }
-
-    @JsonProperty(JSON_PROPERTY_VENDOR)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setVendor(VendorDto vendor) {
-        this.vendor = vendor;
-    }
-
-    public LeanContractDto type(TypeEnum type) {
-        this.type = type;
-        return this;
-    }
-
-    /**
-     * Get type
-     *
-     * @return type
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_TYPE)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public TypeEnum getType() {
-        return type;
-    }
-
-    @JsonProperty(JSON_PROPERTY_TYPE)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setType(TypeEnum type) {
-        this.type = type;
-    }
-
-    /** Return true if this LeanContractDto object is equal to o. */
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        LeanContractDto leanContractDto = (LeanContractDto) o;
-        return Objects.equals(this.id, leanContractDto.id)
-                && Objects.equals(this.name, leanContractDto.name)
-                && Objects.equals(this.description, leanContractDto.description)
-                && Objects.equals(this.attributes, leanContractDto.attributes)
-                && Objects.equals(this.isPublic, leanContractDto.isPublic)
-                && Objects.equals(this.canDeploy, leanContractDto.canDeploy)
-                && Objects.equals(this.owner, leanContractDto.owner)
-                && Objects.equals(this.vendor, leanContractDto.vendor)
-                && Objects.equals(this.type, leanContractDto.type);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(
-                id, name, description, attributes, isPublic, canDeploy, owner, vendor, type);
+    @JsonValue
+    public String getValue() {
+      return value;
     }
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("class LeanContractDto {\n");
-        sb.append("    id: ").append(toIndentedString(id)).append("\n");
-        sb.append("    name: ").append(toIndentedString(name)).append("\n");
-        sb.append("    description: ").append(toIndentedString(description)).append("\n");
-        sb.append("    attributes: ").append(toIndentedString(attributes)).append("\n");
-        sb.append("    isPublic: ").append(toIndentedString(isPublic)).append("\n");
-        sb.append("    canDeploy: ").append(toIndentedString(canDeploy)).append("\n");
-        sb.append("    owner: ").append(toIndentedString(owner)).append("\n");
-        sb.append("    vendor: ").append(toIndentedString(vendor)).append("\n");
-        sb.append("    type: ").append(toIndentedString(type)).append("\n");
-        sb.append("}");
-        return sb.toString();
+      return String.valueOf(value);
     }
 
-    /**
-     * Convert the given object to string with each line indented by 4 spaces (except the first
-     * line).
-     */
-    private String toIndentedString(Object o) {
-        if (o == null) {
-            return "null";
+    @JsonCreator
+    public static TypeEnum fromValue(String value) {
+      for (TypeEnum b : TypeEnum.values()) {
+        if (b.value.equals(value)) {
+          return b;
         }
-        return o.toString().replace("\n", "\n    ");
+      }
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
+  }
+
+  public static final String JSON_PROPERTY_TYPE = "type";
+  private TypeEnum type;
+
+  public LeanContractDto() { 
+  }
+
+  public LeanContractDto id(String id) {
+    this.id = id;
+    return this;
+  }
+
+   /**
+   * The unique identifier of the contract template
+   * @return id
+  **/
+  @jakarta.annotation.Nonnull
+  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getId() {
+    return id;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setId(String id) {
+    this.id = id;
+  }
+
+
+  public LeanContractDto name(String name) {
+    this.name = name;
+    return this;
+  }
+
+   /**
+   * The name of the contract template
+   * @return name
+  **/
+  @jakarta.annotation.Nonnull
+  @JsonProperty(JSON_PROPERTY_NAME)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getName() {
+    return name;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_NAME)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setName(String name) {
+    this.name = name;
+  }
+
+
+  public LeanContractDto description(String description) {
+    this.description = description;
+    return this;
+  }
+
+   /**
+   * A short description of the contract template
+   * @return description
+  **/
+  @jakarta.annotation.Nonnull
+  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getDescription() {
+    return description;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_DESCRIPTION)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setDescription(String description) {
+    this.description = description;
+  }
+
+
+  public LeanContractDto attributes(ContractAttributes attributes) {
+    this.attributes = attributes;
+    return this;
+  }
+
+   /**
+   * The attributes related to this contract template. It will be displayed in the tokenization page
+   * @return attributes
+  **/
+  @jakarta.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_ATTRIBUTES)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public ContractAttributes getAttributes() {
+    return attributes;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_ATTRIBUTES)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setAttributes(ContractAttributes attributes) {
+    this.attributes = attributes;
+  }
+
+
+  public LeanContractDto isPublic(Boolean isPublic) {
+    this.isPublic = isPublic;
+    return this;
+  }
+
+   /**
+   * Is this a contract that is viewable by all fireblocks&#39;s users or is it visible only for this workspace
+   * @return isPublic
+  **/
+  @jakarta.annotation.Nonnull
+  @JsonProperty(JSON_PROPERTY_IS_PUBLIC)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public Boolean getIsPublic() {
+    return isPublic;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_IS_PUBLIC)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setIsPublic(Boolean isPublic) {
+    this.isPublic = isPublic;
+  }
+
+
+  public LeanContractDto canDeploy(Boolean canDeploy) {
+    this.canDeploy = canDeploy;
+    return this;
+  }
+
+   /**
+   * True if the workspace allowed to deploy this contract, false otherwise
+   * @return canDeploy
+  **/
+  @jakarta.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_CAN_DEPLOY)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getCanDeploy() {
+    return canDeploy;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_CAN_DEPLOY)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setCanDeploy(Boolean canDeploy) {
+    this.canDeploy = canDeploy;
+  }
+
+
+  public LeanContractDto owner(String owner) {
+    this.owner = owner;
+    return this;
+  }
+
+   /**
+   * The workspace id of the owner of this contract template. If it&#39;s a private contract, only this workspace will be allowed to deploy it
+   * @return owner
+  **/
+  @jakarta.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_OWNER)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getOwner() {
+    return owner;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_OWNER)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setOwner(String owner) {
+    this.owner = owner;
+  }
+
+
+  public LeanContractDto vendor(VendorDto vendor) {
+    this.vendor = vendor;
+    return this;
+  }
+
+   /**
+   * The details of the vendor of this contract template. Applicable only for public contract templates
+   * @return vendor
+  **/
+  @jakarta.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_VENDOR)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public VendorDto getVendor() {
+    return vendor;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_VENDOR)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setVendor(VendorDto vendor) {
+    this.vendor = vendor;
+  }
+
+
+  public LeanContractDto type(TypeEnum type) {
+    this.type = type;
+    return this;
+  }
+
+   /**
+   * Get type
+   * @return type
+  **/
+  @jakarta.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_TYPE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public TypeEnum getType() {
+    return type;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_TYPE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setType(TypeEnum type) {
+    this.type = type;
+  }
+
+
+  /**
+   * Return true if this LeanContractDto object is equal to o.
+   */
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    LeanContractDto leanContractDto = (LeanContractDto) o;
+    return Objects.equals(this.id, leanContractDto.id) &&
+        Objects.equals(this.name, leanContractDto.name) &&
+        Objects.equals(this.description, leanContractDto.description) &&
+        Objects.equals(this.attributes, leanContractDto.attributes) &&
+        Objects.equals(this.isPublic, leanContractDto.isPublic) &&
+        Objects.equals(this.canDeploy, leanContractDto.canDeploy) &&
+        Objects.equals(this.owner, leanContractDto.owner) &&
+        Objects.equals(this.vendor, leanContractDto.vendor) &&
+        Objects.equals(this.type, leanContractDto.type);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(id, name, description, attributes, isPublic, canDeploy, owner, vendor, type);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class LeanContractDto {\n");
+    sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    name: ").append(toIndentedString(name)).append("\n");
+    sb.append("    description: ").append(toIndentedString(description)).append("\n");
+    sb.append("    attributes: ").append(toIndentedString(attributes)).append("\n");
+    sb.append("    isPublic: ").append(toIndentedString(isPublic)).append("\n");
+    sb.append("    canDeploy: ").append(toIndentedString(canDeploy)).append("\n");
+    sb.append("    owner: ").append(toIndentedString(owner)).append("\n");
+    sb.append("    vendor: ").append(toIndentedString(vendor)).append("\n");
+    sb.append("    type: ").append(toIndentedString(type)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @return URL query string
+   */
+  public String toUrlQueryString() {
+    return toUrlQueryString(null);
+  }
+
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @param prefix prefix of the query string
+   * @return URL query string
+   */
+  public String toUrlQueryString(String prefix) {
+    String suffix = "";
+    String containerSuffix = "";
+    String containerPrefix = "";
+    if (prefix == null) {
+      // style=form, explode=true, e.g. /pet?name=cat&type=manx
+      prefix = "";
+    } else {
+      // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
+      prefix = prefix + "[";
+      suffix = "]";
+      containerSuffix = "]";
+      containerPrefix = "[";
     }
 
-    /**
-     * Convert the instance into URL query string.
-     *
-     * @return URL query string
-     */
-    public String toUrlQueryString() {
-        return toUrlQueryString(null);
+    StringJoiner joiner = new StringJoiner("&");
+
+    // add `id` to the URL query string
+    if (getId() != null) {
+      joiner.add(String.format("%sid%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getId()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
     }
 
-    /**
-     * Convert the instance into URL query string.
-     *
-     * @param prefix prefix of the query string
-     * @return URL query string
-     */
-    public String toUrlQueryString(String prefix) {
-        String suffix = "";
-        String containerSuffix = "";
-        String containerPrefix = "";
-        if (prefix == null) {
-            // style=form, explode=true, e.g. /pet?name=cat&type=manx
-            prefix = "";
-        } else {
-            // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
-            prefix = prefix + "[";
-            suffix = "]";
-            containerSuffix = "]";
-            containerPrefix = "[";
-        }
-
-        StringJoiner joiner = new StringJoiner("&");
-
-        // add `id` to the URL query string
-        if (getId() != null) {
-            joiner.add(
-                    String.format(
-                            "%sid%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(String.valueOf(getId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
-        // add `name` to the URL query string
-        if (getName() != null) {
-            joiner.add(
-                    String.format(
-                            "%sname%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(String.valueOf(getName()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
-        // add `description` to the URL query string
-        if (getDescription() != null) {
-            joiner.add(
-                    String.format(
-                            "%sdescription%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getDescription()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
-        // add `attributes` to the URL query string
-        if (getAttributes() != null) {
-            joiner.add(getAttributes().toUrlQueryString(prefix + "attributes" + suffix));
-        }
-
-        // add `isPublic` to the URL query string
-        if (getIsPublic() != null) {
-            joiner.add(
-                    String.format(
-                            "%sisPublic%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(String.valueOf(getIsPublic()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
-        // add `canDeploy` to the URL query string
-        if (getCanDeploy() != null) {
-            joiner.add(
-                    String.format(
-                            "%scanDeploy%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getCanDeploy()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
-        // add `owner` to the URL query string
-        if (getOwner() != null) {
-            joiner.add(
-                    String.format(
-                            "%sowner%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(String.valueOf(getOwner()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
-        // add `vendor` to the URL query string
-        if (getVendor() != null) {
-            joiner.add(getVendor().toUrlQueryString(prefix + "vendor" + suffix));
-        }
-
-        // add `type` to the URL query string
-        if (getType() != null) {
-            joiner.add(
-                    String.format(
-                            "%stype%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(String.valueOf(getType()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
-        return joiner.toString();
+    // add `name` to the URL query string
+    if (getName() != null) {
+      joiner.add(String.format("%sname%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getName()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
     }
+
+    // add `description` to the URL query string
+    if (getDescription() != null) {
+      joiner.add(String.format("%sdescription%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getDescription()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `attributes` to the URL query string
+    if (getAttributes() != null) {
+      joiner.add(getAttributes().toUrlQueryString(prefix + "attributes" + suffix));
+    }
+
+    // add `isPublic` to the URL query string
+    if (getIsPublic() != null) {
+      joiner.add(String.format("%sisPublic%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getIsPublic()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `canDeploy` to the URL query string
+    if (getCanDeploy() != null) {
+      joiner.add(String.format("%scanDeploy%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getCanDeploy()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `owner` to the URL query string
+    if (getOwner() != null) {
+      joiner.add(String.format("%sowner%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getOwner()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `vendor` to the URL query string
+    if (getVendor() != null) {
+      joiner.add(getVendor().toUrlQueryString(prefix + "vendor" + suffix));
+    }
+
+    // add `type` to the URL query string
+    if (getType() != null) {
+      joiner.add(String.format("%stype%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getType()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    return joiner.toString();
+  }
 }
+

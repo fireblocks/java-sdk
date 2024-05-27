@@ -10,8 +10,36 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.StringJoiner;
+import java.util.Objects;
+import java.util.Map;
+import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.fireblocks.sdk.model.CreateConversionConfigOperationRequest;
+import com.fireblocks.sdk.model.CreateDisbursementConfigOperationRequest;
+import com.fireblocks.sdk.model.CreateTransferConfigOperationRequest;
+import com.fireblocks.sdk.model.DisbursementOperationConfigParams;
+import com.fireblocks.sdk.model.DisbursementOperationType;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+
+import com.fasterxml.jackson.core.type.TypeReference;
+
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
@@ -27,25 +55,14 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 import com.fireblocks.sdk.JSON;
-import java.io.IOException;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.StringJoiner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
-@JsonDeserialize(
-        using = CreateConfigOperationRequest.CreateConfigOperationRequestDeserializer.class)
+@JsonDeserialize(using = CreateConfigOperationRequest.CreateConfigOperationRequestDeserializer.class)
 @JsonSerialize(using = CreateConfigOperationRequest.CreateConfigOperationRequestSerializer.class)
 public class CreateConfigOperationRequest extends AbstractOpenApiSchema {
-    private static final Logger log =
-            Logger.getLogger(CreateConfigOperationRequest.class.getName());
+    private static final Logger log = Logger.getLogger(CreateConfigOperationRequest.class.getName());
 
-    public static class CreateConfigOperationRequestSerializer
-            extends StdSerializer<CreateConfigOperationRequest> {
+    public static class CreateConfigOperationRequestSerializer extends StdSerializer<CreateConfigOperationRequest> {
         public CreateConfigOperationRequestSerializer(Class<CreateConfigOperationRequest> t) {
             super(t);
         }
@@ -55,15 +72,12 @@ public class CreateConfigOperationRequest extends AbstractOpenApiSchema {
         }
 
         @Override
-        public void serialize(
-                CreateConfigOperationRequest value, JsonGenerator jgen, SerializerProvider provider)
-                throws IOException, JsonProcessingException {
+        public void serialize(CreateConfigOperationRequest value, JsonGenerator jgen, SerializerProvider provider) throws IOException, JsonProcessingException {
             jgen.writeObject(value.getActualInstance());
         }
     }
 
-    public static class CreateConfigOperationRequestDeserializer
-            extends StdDeserializer<CreateConfigOperationRequest> {
+    public static class CreateConfigOperationRequestDeserializer extends StdDeserializer<CreateConfigOperationRequest> {
         public CreateConfigOperationRequestDeserializer() {
             this(CreateConfigOperationRequest.class);
         }
@@ -73,8 +87,7 @@ public class CreateConfigOperationRequest extends AbstractOpenApiSchema {
         }
 
         @Override
-        public CreateConfigOperationRequest deserialize(JsonParser jp, DeserializationContext ctxt)
-                throws IOException, JsonProcessingException {
+        public CreateConfigOperationRequest deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException, JsonProcessingException {
             JsonNode tree = jp.readValueAsTree();
             Object deserialized = null;
             boolean typeCoercion = ctxt.isEnabled(MapperFeature.ALLOW_COERCION_OF_SCALARS);
@@ -84,156 +97,78 @@ public class CreateConfigOperationRequest extends AbstractOpenApiSchema {
             try {
                 boolean attemptParsing = true;
                 // ensure that we respect type coercion as set on the client ObjectMapper
-                if (CreateConversionConfigOperationRequest.class.equals(Integer.class)
-                        || CreateConversionConfigOperationRequest.class.equals(Long.class)
-                        || CreateConversionConfigOperationRequest.class.equals(Float.class)
-                        || CreateConversionConfigOperationRequest.class.equals(Double.class)
-                        || CreateConversionConfigOperationRequest.class.equals(Boolean.class)
-                        || CreateConversionConfigOperationRequest.class.equals(String.class)) {
+                if (CreateConversionConfigOperationRequest.class.equals(Integer.class) || CreateConversionConfigOperationRequest.class.equals(Long.class) || CreateConversionConfigOperationRequest.class.equals(Float.class) || CreateConversionConfigOperationRequest.class.equals(Double.class) || CreateConversionConfigOperationRequest.class.equals(Boolean.class) || CreateConversionConfigOperationRequest.class.equals(String.class)) {
                     attemptParsing = typeCoercion;
                     if (!attemptParsing) {
-                        attemptParsing |=
-                                ((CreateConversionConfigOperationRequest.class.equals(Integer.class)
-                                                || CreateConversionConfigOperationRequest.class
-                                                        .equals(Long.class))
-                                        && token == JsonToken.VALUE_NUMBER_INT);
-                        attemptParsing |=
-                                ((CreateConversionConfigOperationRequest.class.equals(Float.class)
-                                                || CreateConversionConfigOperationRequest.class
-                                                        .equals(Double.class))
-                                        && token == JsonToken.VALUE_NUMBER_FLOAT);
-                        attemptParsing |=
-                                (CreateConversionConfigOperationRequest.class.equals(Boolean.class)
-                                        && (token == JsonToken.VALUE_FALSE
-                                                || token == JsonToken.VALUE_TRUE));
-                        attemptParsing |=
-                                (CreateConversionConfigOperationRequest.class.equals(String.class)
-                                        && token == JsonToken.VALUE_STRING);
+                        attemptParsing |= ((CreateConversionConfigOperationRequest.class.equals(Integer.class) || CreateConversionConfigOperationRequest.class.equals(Long.class)) && token == JsonToken.VALUE_NUMBER_INT);
+                        attemptParsing |= ((CreateConversionConfigOperationRequest.class.equals(Float.class) || CreateConversionConfigOperationRequest.class.equals(Double.class)) && token == JsonToken.VALUE_NUMBER_FLOAT);
+                        attemptParsing |= (CreateConversionConfigOperationRequest.class.equals(Boolean.class) && (token == JsonToken.VALUE_FALSE || token == JsonToken.VALUE_TRUE));
+                        attemptParsing |= (CreateConversionConfigOperationRequest.class.equals(String.class) && token == JsonToken.VALUE_STRING);
                     }
                 }
                 if (attemptParsing) {
-                    deserialized =
-                            tree.traverse(jp.getCodec())
-                                    .readValueAs(CreateConversionConfigOperationRequest.class);
+                    deserialized = tree.traverse(jp.getCodec()).readValueAs(CreateConversionConfigOperationRequest.class);
                     // TODO: there is no validation against JSON schema constraints
                     // (min, max, enum, pattern...), this does not perform a strict JSON
                     // validation, which means the 'match' count may be higher than it should be.
                     match++;
-                    log.log(
-                            Level.FINER,
-                            "Input data matches schema 'CreateConversionConfigOperationRequest'");
+                    log.log(Level.FINER, "Input data matches schema 'CreateConversionConfigOperationRequest'");
                 }
             } catch (Exception e) {
                 // deserialization failed, continue
-                log.log(
-                        Level.FINER,
-                        "Input data does not match schema 'CreateConversionConfigOperationRequest'",
-                        e);
+                log.log(Level.FINER, "Input data does not match schema 'CreateConversionConfigOperationRequest'", e);
             }
 
             // deserialize CreateDisbursementConfigOperationRequest
             try {
                 boolean attemptParsing = true;
                 // ensure that we respect type coercion as set on the client ObjectMapper
-                if (CreateDisbursementConfigOperationRequest.class.equals(Integer.class)
-                        || CreateDisbursementConfigOperationRequest.class.equals(Long.class)
-                        || CreateDisbursementConfigOperationRequest.class.equals(Float.class)
-                        || CreateDisbursementConfigOperationRequest.class.equals(Double.class)
-                        || CreateDisbursementConfigOperationRequest.class.equals(Boolean.class)
-                        || CreateDisbursementConfigOperationRequest.class.equals(String.class)) {
+                if (CreateDisbursementConfigOperationRequest.class.equals(Integer.class) || CreateDisbursementConfigOperationRequest.class.equals(Long.class) || CreateDisbursementConfigOperationRequest.class.equals(Float.class) || CreateDisbursementConfigOperationRequest.class.equals(Double.class) || CreateDisbursementConfigOperationRequest.class.equals(Boolean.class) || CreateDisbursementConfigOperationRequest.class.equals(String.class)) {
                     attemptParsing = typeCoercion;
                     if (!attemptParsing) {
-                        attemptParsing |=
-                                ((CreateDisbursementConfigOperationRequest.class.equals(
-                                                        Integer.class)
-                                                || CreateDisbursementConfigOperationRequest.class
-                                                        .equals(Long.class))
-                                        && token == JsonToken.VALUE_NUMBER_INT);
-                        attemptParsing |=
-                                ((CreateDisbursementConfigOperationRequest.class.equals(Float.class)
-                                                || CreateDisbursementConfigOperationRequest.class
-                                                        .equals(Double.class))
-                                        && token == JsonToken.VALUE_NUMBER_FLOAT);
-                        attemptParsing |=
-                                (CreateDisbursementConfigOperationRequest.class.equals(
-                                                Boolean.class)
-                                        && (token == JsonToken.VALUE_FALSE
-                                                || token == JsonToken.VALUE_TRUE));
-                        attemptParsing |=
-                                (CreateDisbursementConfigOperationRequest.class.equals(String.class)
-                                        && token == JsonToken.VALUE_STRING);
+                        attemptParsing |= ((CreateDisbursementConfigOperationRequest.class.equals(Integer.class) || CreateDisbursementConfigOperationRequest.class.equals(Long.class)) && token == JsonToken.VALUE_NUMBER_INT);
+                        attemptParsing |= ((CreateDisbursementConfigOperationRequest.class.equals(Float.class) || CreateDisbursementConfigOperationRequest.class.equals(Double.class)) && token == JsonToken.VALUE_NUMBER_FLOAT);
+                        attemptParsing |= (CreateDisbursementConfigOperationRequest.class.equals(Boolean.class) && (token == JsonToken.VALUE_FALSE || token == JsonToken.VALUE_TRUE));
+                        attemptParsing |= (CreateDisbursementConfigOperationRequest.class.equals(String.class) && token == JsonToken.VALUE_STRING);
                     }
                 }
                 if (attemptParsing) {
-                    deserialized =
-                            tree.traverse(jp.getCodec())
-                                    .readValueAs(CreateDisbursementConfigOperationRequest.class);
+                    deserialized = tree.traverse(jp.getCodec()).readValueAs(CreateDisbursementConfigOperationRequest.class);
                     // TODO: there is no validation against JSON schema constraints
                     // (min, max, enum, pattern...), this does not perform a strict JSON
                     // validation, which means the 'match' count may be higher than it should be.
                     match++;
-                    log.log(
-                            Level.FINER,
-                            "Input data matches schema 'CreateDisbursementConfigOperationRequest'");
+                    log.log(Level.FINER, "Input data matches schema 'CreateDisbursementConfigOperationRequest'");
                 }
             } catch (Exception e) {
                 // deserialization failed, continue
-                log.log(
-                        Level.FINER,
-                        "Input data does not match schema"
-                                + " 'CreateDisbursementConfigOperationRequest'",
-                        e);
+                log.log(Level.FINER, "Input data does not match schema 'CreateDisbursementConfigOperationRequest'", e);
             }
 
             // deserialize CreateTransferConfigOperationRequest
             try {
                 boolean attemptParsing = true;
                 // ensure that we respect type coercion as set on the client ObjectMapper
-                if (CreateTransferConfigOperationRequest.class.equals(Integer.class)
-                        || CreateTransferConfigOperationRequest.class.equals(Long.class)
-                        || CreateTransferConfigOperationRequest.class.equals(Float.class)
-                        || CreateTransferConfigOperationRequest.class.equals(Double.class)
-                        || CreateTransferConfigOperationRequest.class.equals(Boolean.class)
-                        || CreateTransferConfigOperationRequest.class.equals(String.class)) {
+                if (CreateTransferConfigOperationRequest.class.equals(Integer.class) || CreateTransferConfigOperationRequest.class.equals(Long.class) || CreateTransferConfigOperationRequest.class.equals(Float.class) || CreateTransferConfigOperationRequest.class.equals(Double.class) || CreateTransferConfigOperationRequest.class.equals(Boolean.class) || CreateTransferConfigOperationRequest.class.equals(String.class)) {
                     attemptParsing = typeCoercion;
                     if (!attemptParsing) {
-                        attemptParsing |=
-                                ((CreateTransferConfigOperationRequest.class.equals(Integer.class)
-                                                || CreateTransferConfigOperationRequest.class
-                                                        .equals(Long.class))
-                                        && token == JsonToken.VALUE_NUMBER_INT);
-                        attemptParsing |=
-                                ((CreateTransferConfigOperationRequest.class.equals(Float.class)
-                                                || CreateTransferConfigOperationRequest.class
-                                                        .equals(Double.class))
-                                        && token == JsonToken.VALUE_NUMBER_FLOAT);
-                        attemptParsing |=
-                                (CreateTransferConfigOperationRequest.class.equals(Boolean.class)
-                                        && (token == JsonToken.VALUE_FALSE
-                                                || token == JsonToken.VALUE_TRUE));
-                        attemptParsing |=
-                                (CreateTransferConfigOperationRequest.class.equals(String.class)
-                                        && token == JsonToken.VALUE_STRING);
+                        attemptParsing |= ((CreateTransferConfigOperationRequest.class.equals(Integer.class) || CreateTransferConfigOperationRequest.class.equals(Long.class)) && token == JsonToken.VALUE_NUMBER_INT);
+                        attemptParsing |= ((CreateTransferConfigOperationRequest.class.equals(Float.class) || CreateTransferConfigOperationRequest.class.equals(Double.class)) && token == JsonToken.VALUE_NUMBER_FLOAT);
+                        attemptParsing |= (CreateTransferConfigOperationRequest.class.equals(Boolean.class) && (token == JsonToken.VALUE_FALSE || token == JsonToken.VALUE_TRUE));
+                        attemptParsing |= (CreateTransferConfigOperationRequest.class.equals(String.class) && token == JsonToken.VALUE_STRING);
                     }
                 }
                 if (attemptParsing) {
-                    deserialized =
-                            tree.traverse(jp.getCodec())
-                                    .readValueAs(CreateTransferConfigOperationRequest.class);
+                    deserialized = tree.traverse(jp.getCodec()).readValueAs(CreateTransferConfigOperationRequest.class);
                     // TODO: there is no validation against JSON schema constraints
                     // (min, max, enum, pattern...), this does not perform a strict JSON
                     // validation, which means the 'match' count may be higher than it should be.
                     match++;
-                    log.log(
-                            Level.FINER,
-                            "Input data matches schema 'CreateTransferConfigOperationRequest'");
+                    log.log(Level.FINER, "Input data matches schema 'CreateTransferConfigOperationRequest'");
                 }
             } catch (Exception e) {
                 // deserialization failed, continue
-                log.log(
-                        Level.FINER,
-                        "Input data does not match schema 'CreateTransferConfigOperationRequest'",
-                        e);
+                log.log(Level.FINER, "Input data does not match schema 'CreateTransferConfigOperationRequest'", e);
             }
 
             if (match == 1) {
@@ -241,19 +176,15 @@ public class CreateConfigOperationRequest extends AbstractOpenApiSchema {
                 ret.setActualInstance(deserialized);
                 return ret;
             }
-            throw new IOException(
-                    String.format(
-                            "Failed deserialization for CreateConfigOperationRequest: %d classes"
-                                    + " match result, expected 1",
-                            match));
+            throw new IOException(String.format("Failed deserialization for CreateConfigOperationRequest: %d classes match result, expected 1", match));
         }
 
-        /** Handle deserialization of the 'null' value. */
+        /**
+         * Handle deserialization of the 'null' value.
+         */
         @Override
-        public CreateConfigOperationRequest getNullValue(DeserializationContext ctxt)
-                throws JsonMappingException {
-            throw new JsonMappingException(
-                    ctxt.getParser(), "CreateConfigOperationRequest cannot be null");
+        public CreateConfigOperationRequest getNullValue(DeserializationContext ctxt) throws JsonMappingException {
+            throw new JsonMappingException(ctxt.getParser(), "CreateConfigOperationRequest cannot be null");
         }
     }
 
@@ -280,16 +211,10 @@ public class CreateConfigOperationRequest extends AbstractOpenApiSchema {
     }
 
     static {
-        schemas.put(
-                "CreateConversionConfigOperationRequest",
-                CreateConversionConfigOperationRequest.class);
-        schemas.put(
-                "CreateDisbursementConfigOperationRequest",
-                CreateDisbursementConfigOperationRequest.class);
-        schemas.put(
-                "CreateTransferConfigOperationRequest", CreateTransferConfigOperationRequest.class);
-        JSON.registerDescendants(
-                CreateConfigOperationRequest.class, Collections.unmodifiableMap(schemas));
+        schemas.put("CreateConversionConfigOperationRequest", CreateConversionConfigOperationRequest.class);
+        schemas.put("CreateDisbursementConfigOperationRequest", CreateDisbursementConfigOperationRequest.class);
+        schemas.put("CreateTransferConfigOperationRequest", CreateTransferConfigOperationRequest.class);
+        JSON.registerDescendants(CreateConfigOperationRequest.class, Collections.unmodifiableMap(schemas));
     }
 
     @Override
@@ -298,47 +223,38 @@ public class CreateConfigOperationRequest extends AbstractOpenApiSchema {
     }
 
     /**
-     * Set the instance that matches the oneOf child schema, check the instance parameter is valid
-     * against the oneOf child schemas: CreateConversionConfigOperationRequest,
-     * CreateDisbursementConfigOperationRequest, CreateTransferConfigOperationRequest
+     * Set the instance that matches the oneOf child schema, check
+     * the instance parameter is valid against the oneOf child schemas:
+     * CreateConversionConfigOperationRequest, CreateDisbursementConfigOperationRequest, CreateTransferConfigOperationRequest
      *
-     * <p>It could be an instance of the 'oneOf' schemas. The oneOf child schemas may themselves be
-     * a composed schema (allOf, anyOf, oneOf).
+     * It could be an instance of the 'oneOf' schemas.
+     * The oneOf child schemas may themselves be a composed schema (allOf, anyOf, oneOf).
      */
     @Override
     public void setActualInstance(Object instance) {
-        if (JSON.isInstanceOf(
-                CreateConversionConfigOperationRequest.class, instance, new HashSet<Class<?>>())) {
+        if (JSON.isInstanceOf(CreateConversionConfigOperationRequest.class, instance, new HashSet<Class<?>>())) {
             super.setActualInstance(instance);
             return;
         }
 
-        if (JSON.isInstanceOf(
-                CreateDisbursementConfigOperationRequest.class,
-                instance,
-                new HashSet<Class<?>>())) {
+        if (JSON.isInstanceOf(CreateDisbursementConfigOperationRequest.class, instance, new HashSet<Class<?>>())) {
             super.setActualInstance(instance);
             return;
         }
 
-        if (JSON.isInstanceOf(
-                CreateTransferConfigOperationRequest.class, instance, new HashSet<Class<?>>())) {
+        if (JSON.isInstanceOf(CreateTransferConfigOperationRequest.class, instance, new HashSet<Class<?>>())) {
             super.setActualInstance(instance);
             return;
         }
 
-        throw new RuntimeException(
-                "Invalid instance type. Must be CreateConversionConfigOperationRequest,"
-                        + " CreateDisbursementConfigOperationRequest,"
-                        + " CreateTransferConfigOperationRequest");
+        throw new RuntimeException("Invalid instance type. Must be CreateConversionConfigOperationRequest, CreateDisbursementConfigOperationRequest, CreateTransferConfigOperationRequest");
     }
 
     /**
-     * Get the actual instance, which can be the following: CreateConversionConfigOperationRequest,
-     * CreateDisbursementConfigOperationRequest, CreateTransferConfigOperationRequest
+     * Get the actual instance, which can be the following:
+     * CreateConversionConfigOperationRequest, CreateDisbursementConfigOperationRequest, CreateTransferConfigOperationRequest
      *
-     * @return The actual instance (CreateConversionConfigOperationRequest,
-     *     CreateDisbursementConfigOperationRequest, CreateTransferConfigOperationRequest)
+     * @return The actual instance (CreateConversionConfigOperationRequest, CreateDisbursementConfigOperationRequest, CreateTransferConfigOperationRequest)
      */
     @Override
     public Object getActualInstance() {
@@ -346,97 +262,92 @@ public class CreateConfigOperationRequest extends AbstractOpenApiSchema {
     }
 
     /**
-     * Get the actual instance of `CreateConversionConfigOperationRequest`. If the actual instance
-     * is not `CreateConversionConfigOperationRequest`, the ClassCastException will be thrown.
+     * Get the actual instance of `CreateConversionConfigOperationRequest`. If the actual instance is not `CreateConversionConfigOperationRequest`,
+     * the ClassCastException will be thrown.
      *
      * @return The actual instance of `CreateConversionConfigOperationRequest`
      * @throws ClassCastException if the instance is not `CreateConversionConfigOperationRequest`
      */
-    public CreateConversionConfigOperationRequest getCreateConversionConfigOperationRequest()
-            throws ClassCastException {
-        return (CreateConversionConfigOperationRequest) super.getActualInstance();
+    public CreateConversionConfigOperationRequest getCreateConversionConfigOperationRequest() throws ClassCastException {
+        return (CreateConversionConfigOperationRequest)super.getActualInstance();
     }
 
     /**
-     * Get the actual instance of `CreateDisbursementConfigOperationRequest`. If the actual instance
-     * is not `CreateDisbursementConfigOperationRequest`, the ClassCastException will be thrown.
+     * Get the actual instance of `CreateDisbursementConfigOperationRequest`. If the actual instance is not `CreateDisbursementConfigOperationRequest`,
+     * the ClassCastException will be thrown.
      *
      * @return The actual instance of `CreateDisbursementConfigOperationRequest`
      * @throws ClassCastException if the instance is not `CreateDisbursementConfigOperationRequest`
      */
-    public CreateDisbursementConfigOperationRequest getCreateDisbursementConfigOperationRequest()
-            throws ClassCastException {
-        return (CreateDisbursementConfigOperationRequest) super.getActualInstance();
+    public CreateDisbursementConfigOperationRequest getCreateDisbursementConfigOperationRequest() throws ClassCastException {
+        return (CreateDisbursementConfigOperationRequest)super.getActualInstance();
     }
 
     /**
-     * Get the actual instance of `CreateTransferConfigOperationRequest`. If the actual instance is
-     * not `CreateTransferConfigOperationRequest`, the ClassCastException will be thrown.
+     * Get the actual instance of `CreateTransferConfigOperationRequest`. If the actual instance is not `CreateTransferConfigOperationRequest`,
+     * the ClassCastException will be thrown.
      *
      * @return The actual instance of `CreateTransferConfigOperationRequest`
      * @throws ClassCastException if the instance is not `CreateTransferConfigOperationRequest`
      */
-    public CreateTransferConfigOperationRequest getCreateTransferConfigOperationRequest()
-            throws ClassCastException {
-        return (CreateTransferConfigOperationRequest) super.getActualInstance();
+    public CreateTransferConfigOperationRequest getCreateTransferConfigOperationRequest() throws ClassCastException {
+        return (CreateTransferConfigOperationRequest)super.getActualInstance();
     }
 
-    /**
-     * Convert the instance into URL query string.
-     *
-     * @return URL query string
-     */
-    public String toUrlQueryString() {
-        return toUrlQueryString(null);
+
+
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @return URL query string
+   */
+  public String toUrlQueryString() {
+    return toUrlQueryString(null);
+  }
+
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @param prefix prefix of the query string
+   * @return URL query string
+   */
+  public String toUrlQueryString(String prefix) {
+    String suffix = "";
+    String containerSuffix = "";
+    String containerPrefix = "";
+    if (prefix == null) {
+      // style=form, explode=true, e.g. /pet?name=cat&type=manx
+      prefix = "";
+    } else {
+      // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
+      prefix = prefix + "[";
+      suffix = "]";
+      containerSuffix = "]";
+      containerPrefix = "[";
     }
 
-    /**
-     * Convert the instance into URL query string.
-     *
-     * @param prefix prefix of the query string
-     * @return URL query string
-     */
-    public String toUrlQueryString(String prefix) {
-        String suffix = "";
-        String containerSuffix = "";
-        String containerPrefix = "";
-        if (prefix == null) {
-            // style=form, explode=true, e.g. /pet?name=cat&type=manx
-            prefix = "";
-        } else {
-            // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
-            prefix = prefix + "[";
-            suffix = "]";
-            containerSuffix = "]";
-            containerPrefix = "[";
-        }
+    StringJoiner joiner = new StringJoiner("&");
 
-        StringJoiner joiner = new StringJoiner("&");
-
-        if (getActualInstance() instanceof CreateConversionConfigOperationRequest) {
-            if (getActualInstance() != null) {
-                joiner.add(
-                        ((CreateConversionConfigOperationRequest) getActualInstance())
-                                .toUrlQueryString(prefix + "one_of_0" + suffix));
-            }
-            return joiner.toString();
+    if (getActualInstance() instanceof CreateConversionConfigOperationRequest) {
+        if (getActualInstance() != null) {
+          joiner.add(((CreateConversionConfigOperationRequest)getActualInstance()).toUrlQueryString(prefix + "one_of_0" + suffix));
         }
-        if (getActualInstance() instanceof CreateTransferConfigOperationRequest) {
-            if (getActualInstance() != null) {
-                joiner.add(
-                        ((CreateTransferConfigOperationRequest) getActualInstance())
-                                .toUrlQueryString(prefix + "one_of_1" + suffix));
-            }
-            return joiner.toString();
-        }
-        if (getActualInstance() instanceof CreateDisbursementConfigOperationRequest) {
-            if (getActualInstance() != null) {
-                joiner.add(
-                        ((CreateDisbursementConfigOperationRequest) getActualInstance())
-                                .toUrlQueryString(prefix + "one_of_2" + suffix));
-            }
-            return joiner.toString();
-        }
-        return null;
+        return joiner.toString();
     }
+    if (getActualInstance() instanceof CreateTransferConfigOperationRequest) {
+        if (getActualInstance() != null) {
+          joiner.add(((CreateTransferConfigOperationRequest)getActualInstance()).toUrlQueryString(prefix + "one_of_1" + suffix));
+        }
+        return joiner.toString();
+    }
+    if (getActualInstance() instanceof CreateDisbursementConfigOperationRequest) {
+        if (getActualInstance() != null) {
+          joiner.add(((CreateDisbursementConfigOperationRequest)getActualInstance()).toUrlQueryString(prefix + "one_of_2" + suffix));
+        }
+        return joiner.toString();
+    }
+    return null;
+  }
+
 }
+

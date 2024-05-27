@@ -10,30 +10,50 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.fireblocks.sdk.model.LeanContractDto;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
-/** Model tests for TemplatesPaginatedResponse */
+/**
+ * Model tests for TemplatesPaginatedResponse
+ */
 public class TemplatesPaginatedResponseTest {
     private final TemplatesPaginatedResponse model = new TemplatesPaginatedResponse();
 
-    /** Model tests for TemplatesPaginatedResponse */
+    /**
+     * Model tests for TemplatesPaginatedResponse
+     */
     @Test
     public void testTemplatesPaginatedResponse() {
         // TODO: test TemplatesPaginatedResponse
     }
 
-    /** Test the property 'data' */
+    /**
+     * Test the property 'data'
+     */
     @Test
     public void dataTest() {
         // TODO: test data
     }
 
-    /** Test the property 'next' */
+    /**
+     * Test the property 'next'
+     */
     @Test
     public void nextTest() {
         // TODO: test next
     }
+
 }

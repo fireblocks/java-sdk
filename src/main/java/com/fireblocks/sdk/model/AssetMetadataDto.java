@@ -10,640 +10,574 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.math.BigDecimal;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
-import java.util.Objects;
 import java.util.StringJoiner;
+import java.util.Objects;
+import java.util.Map;
+import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import java.math.BigDecimal;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
-/** AssetMetadataDto */
+
+/**
+ * AssetMetadataDto
+ */
 @JsonPropertyOrder({
-    AssetMetadataDto.JSON_PROPERTY_ASSET_ID,
-    AssetMetadataDto.JSON_PROPERTY_NAME,
-    AssetMetadataDto.JSON_PROPERTY_SYMBOL,
-    AssetMetadataDto.JSON_PROPERTY_NETWORK_PROTOCOL,
-    AssetMetadataDto.JSON_PROPERTY_TOTAL_SUPPLY,
-    AssetMetadataDto.JSON_PROPERTY_HOLDERS_COUNT,
-    AssetMetadataDto.JSON_PROPERTY_TYPE,
-    AssetMetadataDto.JSON_PROPERTY_CONTRACT_ADDRESS,
-    AssetMetadataDto.JSON_PROPERTY_ISSUER_ADDRESS,
-    AssetMetadataDto.JSON_PROPERTY_TESTNET,
-    AssetMetadataDto.JSON_PROPERTY_BLOCKCHAIN,
-    AssetMetadataDto.JSON_PROPERTY_DECIMALS,
-    AssetMetadataDto.JSON_PROPERTY_VAULT_ACCOUNT_ID
+  AssetMetadataDto.JSON_PROPERTY_ASSET_ID,
+  AssetMetadataDto.JSON_PROPERTY_NAME,
+  AssetMetadataDto.JSON_PROPERTY_SYMBOL,
+  AssetMetadataDto.JSON_PROPERTY_NETWORK_PROTOCOL,
+  AssetMetadataDto.JSON_PROPERTY_TOTAL_SUPPLY,
+  AssetMetadataDto.JSON_PROPERTY_HOLDERS_COUNT,
+  AssetMetadataDto.JSON_PROPERTY_TYPE,
+  AssetMetadataDto.JSON_PROPERTY_CONTRACT_ADDRESS,
+  AssetMetadataDto.JSON_PROPERTY_ISSUER_ADDRESS,
+  AssetMetadataDto.JSON_PROPERTY_TESTNET,
+  AssetMetadataDto.JSON_PROPERTY_BLOCKCHAIN,
+  AssetMetadataDto.JSON_PROPERTY_DECIMALS,
+  AssetMetadataDto.JSON_PROPERTY_VAULT_ACCOUNT_ID
 })
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class AssetMetadataDto {
-    public static final String JSON_PROPERTY_ASSET_ID = "assetId";
-    private String assetId;
+  public static final String JSON_PROPERTY_ASSET_ID = "assetId";
+  private String assetId;
 
-    public static final String JSON_PROPERTY_NAME = "name";
-    private String name;
+  public static final String JSON_PROPERTY_NAME = "name";
+  private String name;
 
-    public static final String JSON_PROPERTY_SYMBOL = "symbol";
-    private String symbol;
+  public static final String JSON_PROPERTY_SYMBOL = "symbol";
+  private String symbol;
 
-    public static final String JSON_PROPERTY_NETWORK_PROTOCOL = "networkProtocol";
-    private String networkProtocol;
+  public static final String JSON_PROPERTY_NETWORK_PROTOCOL = "networkProtocol";
+  private String networkProtocol;
 
-    public static final String JSON_PROPERTY_TOTAL_SUPPLY = "totalSupply";
-    private String totalSupply;
+  public static final String JSON_PROPERTY_TOTAL_SUPPLY = "totalSupply";
+  private String totalSupply;
 
-    public static final String JSON_PROPERTY_HOLDERS_COUNT = "holdersCount";
-    private BigDecimal holdersCount;
+  public static final String JSON_PROPERTY_HOLDERS_COUNT = "holdersCount";
+  private BigDecimal holdersCount;
 
-    public static final String JSON_PROPERTY_TYPE = "type";
-    private String type;
+  public static final String JSON_PROPERTY_TYPE = "type";
+  private String type;
 
-    public static final String JSON_PROPERTY_CONTRACT_ADDRESS = "contractAddress";
-    private String contractAddress;
+  public static final String JSON_PROPERTY_CONTRACT_ADDRESS = "contractAddress";
+  private String contractAddress;
 
-    public static final String JSON_PROPERTY_ISSUER_ADDRESS = "issuerAddress";
-    private String issuerAddress;
+  public static final String JSON_PROPERTY_ISSUER_ADDRESS = "issuerAddress";
+  private String issuerAddress;
 
-    public static final String JSON_PROPERTY_TESTNET = "testnet";
-    private Boolean testnet;
+  public static final String JSON_PROPERTY_TESTNET = "testnet";
+  private Boolean testnet;
 
-    public static final String JSON_PROPERTY_BLOCKCHAIN = "blockchain";
-    private String blockchain;
+  public static final String JSON_PROPERTY_BLOCKCHAIN = "blockchain";
+  private String blockchain;
 
-    public static final String JSON_PROPERTY_DECIMALS = "decimals";
-    private BigDecimal decimals;
+  public static final String JSON_PROPERTY_DECIMALS = "decimals";
+  private BigDecimal decimals;
 
-    public static final String JSON_PROPERTY_VAULT_ACCOUNT_ID = "vaultAccountId";
-    private String vaultAccountId;
+  public static final String JSON_PROPERTY_VAULT_ACCOUNT_ID = "vaultAccountId";
+  private String vaultAccountId;
 
-    public AssetMetadataDto() {}
+  public AssetMetadataDto() { 
+  }
 
-    public AssetMetadataDto assetId(String assetId) {
-        this.assetId = assetId;
-        return this;
+  public AssetMetadataDto assetId(String assetId) {
+    this.assetId = assetId;
+    return this;
+  }
+
+   /**
+   * The Fireblocks&#x60; asset id
+   * @return assetId
+  **/
+  @jakarta.annotation.Nonnull
+  @JsonProperty(JSON_PROPERTY_ASSET_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getAssetId() {
+    return assetId;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_ASSET_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setAssetId(String assetId) {
+    this.assetId = assetId;
+  }
+
+
+  public AssetMetadataDto name(String name) {
+    this.name = name;
+    return this;
+  }
+
+   /**
+   * The name of the token
+   * @return name
+  **/
+  @jakarta.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getName() {
+    return name;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_NAME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setName(String name) {
+    this.name = name;
+  }
+
+
+  public AssetMetadataDto symbol(String symbol) {
+    this.symbol = symbol;
+    return this;
+  }
+
+   /**
+   * The symbol of the token
+   * @return symbol
+  **/
+  @jakarta.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_SYMBOL)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getSymbol() {
+    return symbol;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_SYMBOL)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setSymbol(String symbol) {
+    this.symbol = symbol;
+  }
+
+
+  public AssetMetadataDto networkProtocol(String networkProtocol) {
+    this.networkProtocol = networkProtocol;
+    return this;
+  }
+
+   /**
+   * The network protocol of the token
+   * @return networkProtocol
+  **/
+  @jakarta.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_NETWORK_PROTOCOL)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getNetworkProtocol() {
+    return networkProtocol;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_NETWORK_PROTOCOL)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setNetworkProtocol(String networkProtocol) {
+    this.networkProtocol = networkProtocol;
+  }
+
+
+  public AssetMetadataDto totalSupply(String totalSupply) {
+    this.totalSupply = totalSupply;
+    return this;
+  }
+
+   /**
+   * The total supply of the token
+   * @return totalSupply
+  **/
+  @jakarta.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_TOTAL_SUPPLY)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getTotalSupply() {
+    return totalSupply;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_TOTAL_SUPPLY)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setTotalSupply(String totalSupply) {
+    this.totalSupply = totalSupply;
+  }
+
+
+  public AssetMetadataDto holdersCount(BigDecimal holdersCount) {
+    this.holdersCount = holdersCount;
+    return this;
+  }
+
+   /**
+   * The number of holders of the token
+   * @return holdersCount
+  **/
+  @jakarta.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_HOLDERS_COUNT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public BigDecimal getHoldersCount() {
+    return holdersCount;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_HOLDERS_COUNT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setHoldersCount(BigDecimal holdersCount) {
+    this.holdersCount = holdersCount;
+  }
+
+
+  public AssetMetadataDto type(String type) {
+    this.type = type;
+    return this;
+  }
+
+   /**
+   * The type of the token
+   * @return type
+  **/
+  @jakarta.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_TYPE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getType() {
+    return type;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_TYPE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setType(String type) {
+    this.type = type;
+  }
+
+
+  public AssetMetadataDto contractAddress(String contractAddress) {
+    this.contractAddress = contractAddress;
+    return this;
+  }
+
+   /**
+   * The address of the token contract
+   * @return contractAddress
+  **/
+  @jakarta.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_CONTRACT_ADDRESS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getContractAddress() {
+    return contractAddress;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_CONTRACT_ADDRESS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setContractAddress(String contractAddress) {
+    this.contractAddress = contractAddress;
+  }
+
+
+  public AssetMetadataDto issuerAddress(String issuerAddress) {
+    this.issuerAddress = issuerAddress;
+    return this;
+  }
+
+   /**
+   * In case of Stellar or Ripple, the address of the issuer of the token
+   * @return issuerAddress
+  **/
+  @jakarta.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_ISSUER_ADDRESS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getIssuerAddress() {
+    return issuerAddress;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_ISSUER_ADDRESS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setIssuerAddress(String issuerAddress) {
+    this.issuerAddress = issuerAddress;
+  }
+
+
+  public AssetMetadataDto testnet(Boolean testnet) {
+    this.testnet = testnet;
+    return this;
+  }
+
+   /**
+   * Is it deployed on testnet or to mainnet
+   * @return testnet
+  **/
+  @jakarta.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_TESTNET)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getTestnet() {
+    return testnet;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_TESTNET)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setTestnet(Boolean testnet) {
+    this.testnet = testnet;
+  }
+
+
+  public AssetMetadataDto blockchain(String blockchain) {
+    this.blockchain = blockchain;
+    return this;
+  }
+
+   /**
+   * The blockchain native asset id which the token is deployed on
+   * @return blockchain
+  **/
+  @jakarta.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_BLOCKCHAIN)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getBlockchain() {
+    return blockchain;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_BLOCKCHAIN)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setBlockchain(String blockchain) {
+    this.blockchain = blockchain;
+  }
+
+
+  public AssetMetadataDto decimals(BigDecimal decimals) {
+    this.decimals = decimals;
+    return this;
+  }
+
+   /**
+   * The number of decimals of the token
+   * @return decimals
+  **/
+  @jakarta.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_DECIMALS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public BigDecimal getDecimals() {
+    return decimals;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_DECIMALS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setDecimals(BigDecimal decimals) {
+    this.decimals = decimals;
+  }
+
+
+  public AssetMetadataDto vaultAccountId(String vaultAccountId) {
+    this.vaultAccountId = vaultAccountId;
+    return this;
+  }
+
+   /**
+   * The id of the vault account that initiated the request to issue the token. Will be empty if token was issued outside of Fireblocks.
+   * @return vaultAccountId
+  **/
+  @jakarta.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_VAULT_ACCOUNT_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getVaultAccountId() {
+    return vaultAccountId;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_VAULT_ACCOUNT_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setVaultAccountId(String vaultAccountId) {
+    this.vaultAccountId = vaultAccountId;
+  }
+
+
+  /**
+   * Return true if this AssetMetadataDto object is equal to o.
+   */
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    AssetMetadataDto assetMetadataDto = (AssetMetadataDto) o;
+    return Objects.equals(this.assetId, assetMetadataDto.assetId) &&
+        Objects.equals(this.name, assetMetadataDto.name) &&
+        Objects.equals(this.symbol, assetMetadataDto.symbol) &&
+        Objects.equals(this.networkProtocol, assetMetadataDto.networkProtocol) &&
+        Objects.equals(this.totalSupply, assetMetadataDto.totalSupply) &&
+        Objects.equals(this.holdersCount, assetMetadataDto.holdersCount) &&
+        Objects.equals(this.type, assetMetadataDto.type) &&
+        Objects.equals(this.contractAddress, assetMetadataDto.contractAddress) &&
+        Objects.equals(this.issuerAddress, assetMetadataDto.issuerAddress) &&
+        Objects.equals(this.testnet, assetMetadataDto.testnet) &&
+        Objects.equals(this.blockchain, assetMetadataDto.blockchain) &&
+        Objects.equals(this.decimals, assetMetadataDto.decimals) &&
+        Objects.equals(this.vaultAccountId, assetMetadataDto.vaultAccountId);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(assetId, name, symbol, networkProtocol, totalSupply, holdersCount, type, contractAddress, issuerAddress, testnet, blockchain, decimals, vaultAccountId);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class AssetMetadataDto {\n");
+    sb.append("    assetId: ").append(toIndentedString(assetId)).append("\n");
+    sb.append("    name: ").append(toIndentedString(name)).append("\n");
+    sb.append("    symbol: ").append(toIndentedString(symbol)).append("\n");
+    sb.append("    networkProtocol: ").append(toIndentedString(networkProtocol)).append("\n");
+    sb.append("    totalSupply: ").append(toIndentedString(totalSupply)).append("\n");
+    sb.append("    holdersCount: ").append(toIndentedString(holdersCount)).append("\n");
+    sb.append("    type: ").append(toIndentedString(type)).append("\n");
+    sb.append("    contractAddress: ").append(toIndentedString(contractAddress)).append("\n");
+    sb.append("    issuerAddress: ").append(toIndentedString(issuerAddress)).append("\n");
+    sb.append("    testnet: ").append(toIndentedString(testnet)).append("\n");
+    sb.append("    blockchain: ").append(toIndentedString(blockchain)).append("\n");
+    sb.append("    decimals: ").append(toIndentedString(decimals)).append("\n");
+    sb.append("    vaultAccountId: ").append(toIndentedString(vaultAccountId)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @return URL query string
+   */
+  public String toUrlQueryString() {
+    return toUrlQueryString(null);
+  }
+
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @param prefix prefix of the query string
+   * @return URL query string
+   */
+  public String toUrlQueryString(String prefix) {
+    String suffix = "";
+    String containerSuffix = "";
+    String containerPrefix = "";
+    if (prefix == null) {
+      // style=form, explode=true, e.g. /pet?name=cat&type=manx
+      prefix = "";
+    } else {
+      // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
+      prefix = prefix + "[";
+      suffix = "]";
+      containerSuffix = "]";
+      containerPrefix = "[";
     }
 
-    /**
-     * The Fireblocks&#x60; asset id
-     *
-     * @return assetId
-     */
-    @jakarta.annotation.Nonnull
-    @JsonProperty(JSON_PROPERTY_ASSET_ID)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public String getAssetId() {
-        return assetId;
+    StringJoiner joiner = new StringJoiner("&");
+
+    // add `assetId` to the URL query string
+    if (getAssetId() != null) {
+      joiner.add(String.format("%sassetId%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getAssetId()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
     }
 
-    @JsonProperty(JSON_PROPERTY_ASSET_ID)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setAssetId(String assetId) {
-        this.assetId = assetId;
+    // add `name` to the URL query string
+    if (getName() != null) {
+      joiner.add(String.format("%sname%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getName()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
     }
 
-    public AssetMetadataDto name(String name) {
-        this.name = name;
-        return this;
+    // add `symbol` to the URL query string
+    if (getSymbol() != null) {
+      joiner.add(String.format("%ssymbol%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getSymbol()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
     }
 
-    /**
-     * The name of the token
-     *
-     * @return name
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_NAME)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public String getName() {
-        return name;
+    // add `networkProtocol` to the URL query string
+    if (getNetworkProtocol() != null) {
+      joiner.add(String.format("%snetworkProtocol%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getNetworkProtocol()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
     }
 
-    @JsonProperty(JSON_PROPERTY_NAME)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setName(String name) {
-        this.name = name;
+    // add `totalSupply` to the URL query string
+    if (getTotalSupply() != null) {
+      joiner.add(String.format("%stotalSupply%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getTotalSupply()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
     }
 
-    public AssetMetadataDto symbol(String symbol) {
-        this.symbol = symbol;
-        return this;
+    // add `holdersCount` to the URL query string
+    if (getHoldersCount() != null) {
+      joiner.add(String.format("%sholdersCount%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getHoldersCount()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
     }
 
-    /**
-     * The symbol of the token
-     *
-     * @return symbol
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_SYMBOL)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public String getSymbol() {
-        return symbol;
+    // add `type` to the URL query string
+    if (getType() != null) {
+      joiner.add(String.format("%stype%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getType()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
     }
 
-    @JsonProperty(JSON_PROPERTY_SYMBOL)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setSymbol(String symbol) {
-        this.symbol = symbol;
+    // add `contractAddress` to the URL query string
+    if (getContractAddress() != null) {
+      joiner.add(String.format("%scontractAddress%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getContractAddress()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
     }
 
-    public AssetMetadataDto networkProtocol(String networkProtocol) {
-        this.networkProtocol = networkProtocol;
-        return this;
+    // add `issuerAddress` to the URL query string
+    if (getIssuerAddress() != null) {
+      joiner.add(String.format("%sissuerAddress%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getIssuerAddress()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
     }
 
-    /**
-     * The network protocol of the token
-     *
-     * @return networkProtocol
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_NETWORK_PROTOCOL)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public String getNetworkProtocol() {
-        return networkProtocol;
+    // add `testnet` to the URL query string
+    if (getTestnet() != null) {
+      joiner.add(String.format("%stestnet%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getTestnet()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
     }
 
-    @JsonProperty(JSON_PROPERTY_NETWORK_PROTOCOL)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setNetworkProtocol(String networkProtocol) {
-        this.networkProtocol = networkProtocol;
+    // add `blockchain` to the URL query string
+    if (getBlockchain() != null) {
+      joiner.add(String.format("%sblockchain%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getBlockchain()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
     }
 
-    public AssetMetadataDto totalSupply(String totalSupply) {
-        this.totalSupply = totalSupply;
-        return this;
+    // add `decimals` to the URL query string
+    if (getDecimals() != null) {
+      joiner.add(String.format("%sdecimals%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getDecimals()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
     }
 
-    /**
-     * The total supply of the token
-     *
-     * @return totalSupply
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_TOTAL_SUPPLY)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public String getTotalSupply() {
-        return totalSupply;
+    // add `vaultAccountId` to the URL query string
+    if (getVaultAccountId() != null) {
+      joiner.add(String.format("%svaultAccountId%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getVaultAccountId()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
     }
 
-    @JsonProperty(JSON_PROPERTY_TOTAL_SUPPLY)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setTotalSupply(String totalSupply) {
-        this.totalSupply = totalSupply;
-    }
-
-    public AssetMetadataDto holdersCount(BigDecimal holdersCount) {
-        this.holdersCount = holdersCount;
-        return this;
-    }
-
-    /**
-     * The number of holders of the token
-     *
-     * @return holdersCount
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_HOLDERS_COUNT)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public BigDecimal getHoldersCount() {
-        return holdersCount;
-    }
-
-    @JsonProperty(JSON_PROPERTY_HOLDERS_COUNT)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setHoldersCount(BigDecimal holdersCount) {
-        this.holdersCount = holdersCount;
-    }
-
-    public AssetMetadataDto type(String type) {
-        this.type = type;
-        return this;
-    }
-
-    /**
-     * The type of the token
-     *
-     * @return type
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_TYPE)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public String getType() {
-        return type;
-    }
-
-    @JsonProperty(JSON_PROPERTY_TYPE)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public AssetMetadataDto contractAddress(String contractAddress) {
-        this.contractAddress = contractAddress;
-        return this;
-    }
-
-    /**
-     * The address of the token contract
-     *
-     * @return contractAddress
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_CONTRACT_ADDRESS)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public String getContractAddress() {
-        return contractAddress;
-    }
-
-    @JsonProperty(JSON_PROPERTY_CONTRACT_ADDRESS)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setContractAddress(String contractAddress) {
-        this.contractAddress = contractAddress;
-    }
-
-    public AssetMetadataDto issuerAddress(String issuerAddress) {
-        this.issuerAddress = issuerAddress;
-        return this;
-    }
-
-    /**
-     * In case of Stellar or Ripple, the address of the issuer of the token
-     *
-     * @return issuerAddress
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_ISSUER_ADDRESS)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public String getIssuerAddress() {
-        return issuerAddress;
-    }
-
-    @JsonProperty(JSON_PROPERTY_ISSUER_ADDRESS)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setIssuerAddress(String issuerAddress) {
-        this.issuerAddress = issuerAddress;
-    }
-
-    public AssetMetadataDto testnet(Boolean testnet) {
-        this.testnet = testnet;
-        return this;
-    }
-
-    /**
-     * Is it deployed on testnet or to mainnet
-     *
-     * @return testnet
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_TESTNET)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public Boolean getTestnet() {
-        return testnet;
-    }
-
-    @JsonProperty(JSON_PROPERTY_TESTNET)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setTestnet(Boolean testnet) {
-        this.testnet = testnet;
-    }
-
-    public AssetMetadataDto blockchain(String blockchain) {
-        this.blockchain = blockchain;
-        return this;
-    }
-
-    /**
-     * The blockchain native asset id which the token is deployed on
-     *
-     * @return blockchain
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_BLOCKCHAIN)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public String getBlockchain() {
-        return blockchain;
-    }
-
-    @JsonProperty(JSON_PROPERTY_BLOCKCHAIN)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setBlockchain(String blockchain) {
-        this.blockchain = blockchain;
-    }
-
-    public AssetMetadataDto decimals(BigDecimal decimals) {
-        this.decimals = decimals;
-        return this;
-    }
-
-    /**
-     * The number of decimals of the token
-     *
-     * @return decimals
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_DECIMALS)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public BigDecimal getDecimals() {
-        return decimals;
-    }
-
-    @JsonProperty(JSON_PROPERTY_DECIMALS)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setDecimals(BigDecimal decimals) {
-        this.decimals = decimals;
-    }
-
-    public AssetMetadataDto vaultAccountId(String vaultAccountId) {
-        this.vaultAccountId = vaultAccountId;
-        return this;
-    }
-
-    /**
-     * The id of the vault account that initiated the request to issue the token. Will be empty if
-     * token was issued outside of Fireblocks.
-     *
-     * @return vaultAccountId
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_VAULT_ACCOUNT_ID)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public String getVaultAccountId() {
-        return vaultAccountId;
-    }
-
-    @JsonProperty(JSON_PROPERTY_VAULT_ACCOUNT_ID)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setVaultAccountId(String vaultAccountId) {
-        this.vaultAccountId = vaultAccountId;
-    }
-
-    /** Return true if this AssetMetadataDto object is equal to o. */
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        AssetMetadataDto assetMetadataDto = (AssetMetadataDto) o;
-        return Objects.equals(this.assetId, assetMetadataDto.assetId)
-                && Objects.equals(this.name, assetMetadataDto.name)
-                && Objects.equals(this.symbol, assetMetadataDto.symbol)
-                && Objects.equals(this.networkProtocol, assetMetadataDto.networkProtocol)
-                && Objects.equals(this.totalSupply, assetMetadataDto.totalSupply)
-                && Objects.equals(this.holdersCount, assetMetadataDto.holdersCount)
-                && Objects.equals(this.type, assetMetadataDto.type)
-                && Objects.equals(this.contractAddress, assetMetadataDto.contractAddress)
-                && Objects.equals(this.issuerAddress, assetMetadataDto.issuerAddress)
-                && Objects.equals(this.testnet, assetMetadataDto.testnet)
-                && Objects.equals(this.blockchain, assetMetadataDto.blockchain)
-                && Objects.equals(this.decimals, assetMetadataDto.decimals)
-                && Objects.equals(this.vaultAccountId, assetMetadataDto.vaultAccountId);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(
-                assetId,
-                name,
-                symbol,
-                networkProtocol,
-                totalSupply,
-                holdersCount,
-                type,
-                contractAddress,
-                issuerAddress,
-                testnet,
-                blockchain,
-                decimals,
-                vaultAccountId);
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("class AssetMetadataDto {\n");
-        sb.append("    assetId: ").append(toIndentedString(assetId)).append("\n");
-        sb.append("    name: ").append(toIndentedString(name)).append("\n");
-        sb.append("    symbol: ").append(toIndentedString(symbol)).append("\n");
-        sb.append("    networkProtocol: ").append(toIndentedString(networkProtocol)).append("\n");
-        sb.append("    totalSupply: ").append(toIndentedString(totalSupply)).append("\n");
-        sb.append("    holdersCount: ").append(toIndentedString(holdersCount)).append("\n");
-        sb.append("    type: ").append(toIndentedString(type)).append("\n");
-        sb.append("    contractAddress: ").append(toIndentedString(contractAddress)).append("\n");
-        sb.append("    issuerAddress: ").append(toIndentedString(issuerAddress)).append("\n");
-        sb.append("    testnet: ").append(toIndentedString(testnet)).append("\n");
-        sb.append("    blockchain: ").append(toIndentedString(blockchain)).append("\n");
-        sb.append("    decimals: ").append(toIndentedString(decimals)).append("\n");
-        sb.append("    vaultAccountId: ").append(toIndentedString(vaultAccountId)).append("\n");
-        sb.append("}");
-        return sb.toString();
-    }
-
-    /**
-     * Convert the given object to string with each line indented by 4 spaces (except the first
-     * line).
-     */
-    private String toIndentedString(Object o) {
-        if (o == null) {
-            return "null";
-        }
-        return o.toString().replace("\n", "\n    ");
-    }
-
-    /**
-     * Convert the instance into URL query string.
-     *
-     * @return URL query string
-     */
-    public String toUrlQueryString() {
-        return toUrlQueryString(null);
-    }
-
-    /**
-     * Convert the instance into URL query string.
-     *
-     * @param prefix prefix of the query string
-     * @return URL query string
-     */
-    public String toUrlQueryString(String prefix) {
-        String suffix = "";
-        String containerSuffix = "";
-        String containerPrefix = "";
-        if (prefix == null) {
-            // style=form, explode=true, e.g. /pet?name=cat&type=manx
-            prefix = "";
-        } else {
-            // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
-            prefix = prefix + "[";
-            suffix = "]";
-            containerSuffix = "]";
-            containerPrefix = "[";
-        }
-
-        StringJoiner joiner = new StringJoiner("&");
-
-        // add `assetId` to the URL query string
-        if (getAssetId() != null) {
-            joiner.add(
-                    String.format(
-                            "%sassetId%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(String.valueOf(getAssetId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
-        // add `name` to the URL query string
-        if (getName() != null) {
-            joiner.add(
-                    String.format(
-                            "%sname%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(String.valueOf(getName()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
-        // add `symbol` to the URL query string
-        if (getSymbol() != null) {
-            joiner.add(
-                    String.format(
-                            "%ssymbol%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(String.valueOf(getSymbol()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
-        // add `networkProtocol` to the URL query string
-        if (getNetworkProtocol() != null) {
-            joiner.add(
-                    String.format(
-                            "%snetworkProtocol%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getNetworkProtocol()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
-        // add `totalSupply` to the URL query string
-        if (getTotalSupply() != null) {
-            joiner.add(
-                    String.format(
-                            "%stotalSupply%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getTotalSupply()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
-        // add `holdersCount` to the URL query string
-        if (getHoldersCount() != null) {
-            joiner.add(
-                    String.format(
-                            "%sholdersCount%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getHoldersCount()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
-        // add `type` to the URL query string
-        if (getType() != null) {
-            joiner.add(
-                    String.format(
-                            "%stype%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(String.valueOf(getType()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
-        // add `contractAddress` to the URL query string
-        if (getContractAddress() != null) {
-            joiner.add(
-                    String.format(
-                            "%scontractAddress%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getContractAddress()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
-        // add `issuerAddress` to the URL query string
-        if (getIssuerAddress() != null) {
-            joiner.add(
-                    String.format(
-                            "%sissuerAddress%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getIssuerAddress()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
-        // add `testnet` to the URL query string
-        if (getTestnet() != null) {
-            joiner.add(
-                    String.format(
-                            "%stestnet%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(String.valueOf(getTestnet()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
-        // add `blockchain` to the URL query string
-        if (getBlockchain() != null) {
-            joiner.add(
-                    String.format(
-                            "%sblockchain%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getBlockchain()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
-        // add `decimals` to the URL query string
-        if (getDecimals() != null) {
-            joiner.add(
-                    String.format(
-                            "%sdecimals%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(String.valueOf(getDecimals()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
-        // add `vaultAccountId` to the URL query string
-        if (getVaultAccountId() != null) {
-            joiner.add(
-                    String.format(
-                            "%svaultAccountId%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getVaultAccountId()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
-        return joiner.toString();
-    }
+    return joiner.toString();
+  }
 }
+

@@ -10,48 +10,74 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.fireblocks.sdk.model.FunctionDoc;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
-/** Model tests for ContractDoc */
+/**
+ * Model tests for ContractDoc
+ */
 public class ContractDocTest {
     private final ContractDoc model = new ContractDoc();
 
-    /** Model tests for ContractDoc */
+    /**
+     * Model tests for ContractDoc
+     */
     @Test
     public void testContractDoc() {
         // TODO: test ContractDoc
     }
 
-    /** Test the property 'details' */
+    /**
+     * Test the property 'details'
+     */
     @Test
     public void detailsTest() {
         // TODO: test details
     }
 
-    /** Test the property 'events' */
+    /**
+     * Test the property 'events'
+     */
     @Test
     public void eventsTest() {
         // TODO: test events
     }
 
-    /** Test the property 'kind' */
+    /**
+     * Test the property 'kind'
+     */
     @Test
     public void kindTest() {
         // TODO: test kind
     }
 
-    /** Test the property 'methods' */
+    /**
+     * Test the property 'methods'
+     */
     @Test
     public void methodsTest() {
         // TODO: test methods
     }
 
-    /** Test the property 'version' */
+    /**
+     * Test the property 'version'
+     */
     @Test
     public void versionTest() {
         // TODO: test version
     }
+
 }

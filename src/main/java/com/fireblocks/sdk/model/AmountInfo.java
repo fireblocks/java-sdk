@@ -10,257 +10,249 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
-import java.util.Objects;
 import java.util.StringJoiner;
+import java.util.Objects;
+import java.util.Map;
+import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
-/** The details of the requested amount to transfer. */
+
+/**
+ * The details of the requested amount to transfer.
+ */
 @JsonPropertyOrder({
-    AmountInfo.JSON_PROPERTY_AMOUNT,
-    AmountInfo.JSON_PROPERTY_REQUESTED_AMOUNT,
-    AmountInfo.JSON_PROPERTY_NET_AMOUNT,
-    AmountInfo.JSON_PROPERTY_AMOUNT_U_S_D
+  AmountInfo.JSON_PROPERTY_AMOUNT,
+  AmountInfo.JSON_PROPERTY_REQUESTED_AMOUNT,
+  AmountInfo.JSON_PROPERTY_NET_AMOUNT,
+  AmountInfo.JSON_PROPERTY_AMOUNT_U_S_D
 })
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class AmountInfo {
-    public static final String JSON_PROPERTY_AMOUNT = "amount";
-    private String amount;
+  public static final String JSON_PROPERTY_AMOUNT = "amount";
+  private String amount;
 
-    public static final String JSON_PROPERTY_REQUESTED_AMOUNT = "requestedAmount";
-    private String requestedAmount;
+  public static final String JSON_PROPERTY_REQUESTED_AMOUNT = "requestedAmount";
+  private String requestedAmount;
 
-    public static final String JSON_PROPERTY_NET_AMOUNT = "netAmount";
-    private String netAmount;
+  public static final String JSON_PROPERTY_NET_AMOUNT = "netAmount";
+  private String netAmount;
 
-    public static final String JSON_PROPERTY_AMOUNT_U_S_D = "amountUSD";
-    private String amountUSD;
+  public static final String JSON_PROPERTY_AMOUNT_U_S_D = "amountUSD";
+  private String amountUSD;
 
-    public AmountInfo() {}
+  public AmountInfo() { 
+  }
 
-    public AmountInfo amount(String amount) {
-        this.amount = amount;
-        return this;
+  public AmountInfo amount(String amount) {
+    this.amount = amount;
+    return this;
+  }
+
+   /**
+   * If the transfer is a withdrawal from an exchange, the actual amount that was requested to be transferred. Otherwise, the requested amount.
+   * @return amount
+  **/
+  @jakarta.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_AMOUNT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getAmount() {
+    return amount;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_AMOUNT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setAmount(String amount) {
+    this.amount = amount;
+  }
+
+
+  public AmountInfo requestedAmount(String requestedAmount) {
+    this.requestedAmount = requestedAmount;
+    return this;
+  }
+
+   /**
+   * The amount requested by the user.
+   * @return requestedAmount
+  **/
+  @jakarta.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_REQUESTED_AMOUNT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getRequestedAmount() {
+    return requestedAmount;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_REQUESTED_AMOUNT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setRequestedAmount(String requestedAmount) {
+    this.requestedAmount = requestedAmount;
+  }
+
+
+  public AmountInfo netAmount(String netAmount) {
+    this.netAmount = netAmount;
+    return this;
+  }
+
+   /**
+   * The net amount of the transaction, after fee deduction.
+   * @return netAmount
+  **/
+  @jakarta.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_NET_AMOUNT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getNetAmount() {
+    return netAmount;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_NET_AMOUNT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setNetAmount(String netAmount) {
+    this.netAmount = netAmount;
+  }
+
+
+  public AmountInfo amountUSD(String amountUSD) {
+    this.amountUSD = amountUSD;
+    return this;
+  }
+
+   /**
+   * The USD value of the requested amount.
+   * @return amountUSD
+  **/
+  @jakarta.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_AMOUNT_U_S_D)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getAmountUSD() {
+    return amountUSD;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_AMOUNT_U_S_D)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setAmountUSD(String amountUSD) {
+    this.amountUSD = amountUSD;
+  }
+
+
+  /**
+   * Return true if this AmountInfo object is equal to o.
+   */
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    AmountInfo amountInfo = (AmountInfo) o;
+    return Objects.equals(this.amount, amountInfo.amount) &&
+        Objects.equals(this.requestedAmount, amountInfo.requestedAmount) &&
+        Objects.equals(this.netAmount, amountInfo.netAmount) &&
+        Objects.equals(this.amountUSD, amountInfo.amountUSD);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(amount, requestedAmount, netAmount, amountUSD);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class AmountInfo {\n");
+    sb.append("    amount: ").append(toIndentedString(amount)).append("\n");
+    sb.append("    requestedAmount: ").append(toIndentedString(requestedAmount)).append("\n");
+    sb.append("    netAmount: ").append(toIndentedString(netAmount)).append("\n");
+    sb.append("    amountUSD: ").append(toIndentedString(amountUSD)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @return URL query string
+   */
+  public String toUrlQueryString() {
+    return toUrlQueryString(null);
+  }
+
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @param prefix prefix of the query string
+   * @return URL query string
+   */
+  public String toUrlQueryString(String prefix) {
+    String suffix = "";
+    String containerSuffix = "";
+    String containerPrefix = "";
+    if (prefix == null) {
+      // style=form, explode=true, e.g. /pet?name=cat&type=manx
+      prefix = "";
+    } else {
+      // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
+      prefix = prefix + "[";
+      suffix = "]";
+      containerSuffix = "]";
+      containerPrefix = "[";
     }
 
-    /**
-     * If the transfer is a withdrawal from an exchange, the actual amount that was requested to be
-     * transferred. Otherwise, the requested amount.
-     *
-     * @return amount
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_AMOUNT)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public String getAmount() {
-        return amount;
+    StringJoiner joiner = new StringJoiner("&");
+
+    // add `amount` to the URL query string
+    if (getAmount() != null) {
+      joiner.add(String.format("%samount%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getAmount()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
     }
 
-    @JsonProperty(JSON_PROPERTY_AMOUNT)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAmount(String amount) {
-        this.amount = amount;
+    // add `requestedAmount` to the URL query string
+    if (getRequestedAmount() != null) {
+      joiner.add(String.format("%srequestedAmount%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getRequestedAmount()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
     }
 
-    public AmountInfo requestedAmount(String requestedAmount) {
-        this.requestedAmount = requestedAmount;
-        return this;
+    // add `netAmount` to the URL query string
+    if (getNetAmount() != null) {
+      joiner.add(String.format("%snetAmount%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getNetAmount()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
     }
 
-    /**
-     * The amount requested by the user.
-     *
-     * @return requestedAmount
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_REQUESTED_AMOUNT)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public String getRequestedAmount() {
-        return requestedAmount;
+    // add `amountUSD` to the URL query string
+    if (getAmountUSD() != null) {
+      joiner.add(String.format("%samountUSD%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getAmountUSD()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
     }
 
-    @JsonProperty(JSON_PROPERTY_REQUESTED_AMOUNT)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setRequestedAmount(String requestedAmount) {
-        this.requestedAmount = requestedAmount;
-    }
-
-    public AmountInfo netAmount(String netAmount) {
-        this.netAmount = netAmount;
-        return this;
-    }
-
-    /**
-     * The net amount of the transaction, after fee deduction.
-     *
-     * @return netAmount
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_NET_AMOUNT)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public String getNetAmount() {
-        return netAmount;
-    }
-
-    @JsonProperty(JSON_PROPERTY_NET_AMOUNT)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setNetAmount(String netAmount) {
-        this.netAmount = netAmount;
-    }
-
-    public AmountInfo amountUSD(String amountUSD) {
-        this.amountUSD = amountUSD;
-        return this;
-    }
-
-    /**
-     * The USD value of the requested amount.
-     *
-     * @return amountUSD
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_AMOUNT_U_S_D)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public String getAmountUSD() {
-        return amountUSD;
-    }
-
-    @JsonProperty(JSON_PROPERTY_AMOUNT_U_S_D)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAmountUSD(String amountUSD) {
-        this.amountUSD = amountUSD;
-    }
-
-    /** Return true if this AmountInfo object is equal to o. */
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        AmountInfo amountInfo = (AmountInfo) o;
-        return Objects.equals(this.amount, amountInfo.amount)
-                && Objects.equals(this.requestedAmount, amountInfo.requestedAmount)
-                && Objects.equals(this.netAmount, amountInfo.netAmount)
-                && Objects.equals(this.amountUSD, amountInfo.amountUSD);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(amount, requestedAmount, netAmount, amountUSD);
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("class AmountInfo {\n");
-        sb.append("    amount: ").append(toIndentedString(amount)).append("\n");
-        sb.append("    requestedAmount: ").append(toIndentedString(requestedAmount)).append("\n");
-        sb.append("    netAmount: ").append(toIndentedString(netAmount)).append("\n");
-        sb.append("    amountUSD: ").append(toIndentedString(amountUSD)).append("\n");
-        sb.append("}");
-        return sb.toString();
-    }
-
-    /**
-     * Convert the given object to string with each line indented by 4 spaces (except the first
-     * line).
-     */
-    private String toIndentedString(Object o) {
-        if (o == null) {
-            return "null";
-        }
-        return o.toString().replace("\n", "\n    ");
-    }
-
-    /**
-     * Convert the instance into URL query string.
-     *
-     * @return URL query string
-     */
-    public String toUrlQueryString() {
-        return toUrlQueryString(null);
-    }
-
-    /**
-     * Convert the instance into URL query string.
-     *
-     * @param prefix prefix of the query string
-     * @return URL query string
-     */
-    public String toUrlQueryString(String prefix) {
-        String suffix = "";
-        String containerSuffix = "";
-        String containerPrefix = "";
-        if (prefix == null) {
-            // style=form, explode=true, e.g. /pet?name=cat&type=manx
-            prefix = "";
-        } else {
-            // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
-            prefix = prefix + "[";
-            suffix = "]";
-            containerSuffix = "]";
-            containerPrefix = "[";
-        }
-
-        StringJoiner joiner = new StringJoiner("&");
-
-        // add `amount` to the URL query string
-        if (getAmount() != null) {
-            joiner.add(
-                    String.format(
-                            "%samount%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(String.valueOf(getAmount()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
-        // add `requestedAmount` to the URL query string
-        if (getRequestedAmount() != null) {
-            joiner.add(
-                    String.format(
-                            "%srequestedAmount%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getRequestedAmount()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
-        // add `netAmount` to the URL query string
-        if (getNetAmount() != null) {
-            joiner.add(
-                    String.format(
-                            "%snetAmount%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getNetAmount()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
-        // add `amountUSD` to the URL query string
-        if (getAmountUSD() != null) {
-            joiner.add(
-                    String.format(
-                            "%samountUSD%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getAmountUSD()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
-        return joiner.toString();
-    }
+    return joiner.toString();
+  }
 }
+

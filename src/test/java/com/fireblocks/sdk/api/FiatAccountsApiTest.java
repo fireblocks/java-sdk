@@ -10,80 +10,101 @@
  * Do not edit the class manually.
  */
 
-package com.fireblocks.sdk.api;
 
+package com.fireblocks.sdk.api;
 
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.model.DepositFundsFromLinkedDDAResponse;
+import com.fireblocks.sdk.model.ErrorSchema;
 import com.fireblocks.sdk.model.FiatAccount;
 import com.fireblocks.sdk.model.Funds;
 import com.fireblocks.sdk.model.RedeemFundsToLinkedDDAResponse;
-import java.util.List;
-import java.util.concurrent.CompletableFuture;
-import org.junit.Ignore;
 import org.junit.Test;
+import org.junit.Ignore;
 
-/** API tests for FiatAccountsApi */
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import java.util.concurrent.CompletableFuture;
+
+/**
+ * API tests for FiatAccountsApi
+ */
 @Ignore
 public class FiatAccountsApiTest {
 
     private final FiatAccountsApi api = new FiatAccountsApi();
 
+    
     /**
      * Deposit funds from DDA
      *
-     * <p>Deposits funds from the linked DDA.
+     * Deposits funds from the linked DDA.
      *
-     * @throws ApiException if the Api call fails
+     * @throws ApiException
+     *          if the Api call fails
      */
     @Test
     public void depositFundsFromLinkedDDATest() throws ApiException {
         String accountId = null;
         Funds funds = null;
         String idempotencyKey = null;
-        CompletableFuture<ApiResponse<DepositFundsFromLinkedDDAResponse>> response =
-                api.depositFundsFromLinkedDDA(accountId, funds, idempotencyKey);
+        CompletableFuture<ApiResponse<DepositFundsFromLinkedDDAResponse>> response = 
+        api.depositFundsFromLinkedDDA(accountId, funds, idempotencyKey);
+        
     }
-
+    
     /**
      * Find a specific fiat account
      *
-     * <p>Returns a fiat account by ID.
+     * Returns a fiat account by ID.
      *
-     * @throws ApiException if the Api call fails
+     * @throws ApiException
+     *          if the Api call fails
      */
     @Test
     public void getFiatAccountTest() throws ApiException {
         String accountId = null;
-        CompletableFuture<ApiResponse<FiatAccount>> response = api.getFiatAccount(accountId);
+        CompletableFuture<ApiResponse<FiatAccount>> response = 
+        api.getFiatAccount(accountId);
+        
     }
-
+    
     /**
      * List fiat accounts
      *
-     * <p>Returns all fiat accounts.
+     * Returns all fiat accounts.
      *
-     * @throws ApiException if the Api call fails
+     * @throws ApiException
+     *          if the Api call fails
      */
     @Test
     public void getFiatAccountsTest() throws ApiException {
-        CompletableFuture<ApiResponse<List<FiatAccount>>> response = api.getFiatAccounts();
+        CompletableFuture<ApiResponse<List<FiatAccount>>> response = 
+        api.getFiatAccounts();
+        
     }
-
+    
     /**
      * Redeem funds to DDA
      *
-     * <p>Redeems funds to the linked DDA.
+     * Redeems funds to the linked DDA.
      *
-     * @throws ApiException if the Api call fails
+     * @throws ApiException
+     *          if the Api call fails
      */
     @Test
     public void redeemFundsToLinkedDDATest() throws ApiException {
         String accountId = null;
         Funds funds = null;
         String idempotencyKey = null;
-        CompletableFuture<ApiResponse<RedeemFundsToLinkedDDAResponse>> response =
-                api.redeemFundsToLinkedDDA(accountId, funds, idempotencyKey);
+        CompletableFuture<ApiResponse<RedeemFundsToLinkedDDAResponse>> response = 
+        api.redeemFundsToLinkedDDA(accountId, funds, idempotencyKey);
+        
     }
+    
 }

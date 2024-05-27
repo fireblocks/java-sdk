@@ -10,46 +10,60 @@
  * Do not edit the class manually.
  */
 
-package com.fireblocks.sdk.api;
 
+package com.fireblocks.sdk.api;
 
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.model.ScreeningConfigurationsRequest;
-import java.util.concurrent.CompletableFuture;
-import org.junit.Ignore;
 import org.junit.Test;
+import org.junit.Ignore;
 
-/** API tests for ComplianceScreeningConfigurationApi */
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import java.util.concurrent.CompletableFuture;
+
+/**
+ * API tests for ComplianceScreeningConfigurationApi
+ */
 @Ignore
 public class ComplianceScreeningConfigurationApiTest {
 
-    private final ComplianceScreeningConfigurationApi api =
-            new ComplianceScreeningConfigurationApi();
+    private final ComplianceScreeningConfigurationApi api = new ComplianceScreeningConfigurationApi();
 
+    
     /**
      * Get AML Screening Policy Configuration
      *
-     * <p>Retrieves the configuration for Travel Rule screening policy.
+     * Retrieves the configuration for Travel Rule screening policy.
      *
-     * @throws ApiException if the Api call fails
+     * @throws ApiException
+     *          if the Api call fails
      */
     @Test
     public void getAmlScreeningConfigurationTest() throws ApiException {
-        CompletableFuture<ApiResponse<ScreeningConfigurationsRequest>> response =
-                api.getAmlScreeningConfiguration();
+        CompletableFuture<ApiResponse<ScreeningConfigurationsRequest>> response = 
+        api.getAmlScreeningConfiguration();
+        
     }
-
+    
     /**
      * Get Travel Rule Screening Policy Configuration
      *
-     * <p>Retrieves the configuration for Travel Rule screening policy.
+     * Retrieves the configuration for Travel Rule screening policy.
      *
-     * @throws ApiException if the Api call fails
+     * @throws ApiException
+     *          if the Api call fails
      */
     @Test
     public void getScreeningConfigurationTest() throws ApiException {
-        CompletableFuture<ApiResponse<ScreeningConfigurationsRequest>> response =
-                api.getScreeningConfiguration();
+        CompletableFuture<ApiResponse<ScreeningConfigurationsRequest>> response = 
+        api.getScreeningConfiguration();
+        
     }
+    
 }

@@ -10,106 +10,125 @@
  * Do not edit the class manually.
  */
 
-package com.fireblocks.sdk.api;
 
+package com.fireblocks.sdk.api;
 
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
+import java.math.BigDecimal;
 import com.fireblocks.sdk.model.ConvertAssetsRequest;
 import com.fireblocks.sdk.model.ConvertAssetsResponse;
 import com.fireblocks.sdk.model.CreateInternalTransferRequest;
+import com.fireblocks.sdk.model.ErrorSchema;
 import com.fireblocks.sdk.model.ExchangeAccount;
 import com.fireblocks.sdk.model.ExchangeAccountsPaged;
 import com.fireblocks.sdk.model.ExchangeAsset;
 import com.fireblocks.sdk.model.InternalTransferResponse;
-import java.math.BigDecimal;
-import java.util.List;
-import java.util.concurrent.CompletableFuture;
-import org.junit.Ignore;
 import org.junit.Test;
+import org.junit.Ignore;
 
-/** API tests for ExchangeAccountsApi */
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import java.util.concurrent.CompletableFuture;
+
+/**
+ * API tests for ExchangeAccountsApi
+ */
 @Ignore
 public class ExchangeAccountsApiTest {
 
     private final ExchangeAccountsApi api = new ExchangeAccountsApi();
 
+    
     /**
      * Convert exchange account funds from the source asset to the destination asset.
      *
-     * <p>Convert exchange account funds from the source asset to the destination asset. Coinbase
-     * (USD to USDC, USDC to USD) and Bitso (MXN to USD) are supported conversions.
+     * Convert exchange account funds from the source asset to the destination asset. Coinbase (USD to USDC, USDC to USD) and Bitso (MXN to USD) are supported conversions.
      *
-     * @throws ApiException if the Api call fails
+     * @throws ApiException
+     *          if the Api call fails
      */
     @Test
     public void convertAssetsTest() throws ApiException {
         String exchangeAccountId = null;
         ConvertAssetsRequest convertAssetsRequest = null;
         String idempotencyKey = null;
-        CompletableFuture<ApiResponse<ConvertAssetsResponse>> response =
-                api.convertAssets(exchangeAccountId, convertAssetsRequest, idempotencyKey);
+        CompletableFuture<ApiResponse<ConvertAssetsResponse>> response = 
+        api.convertAssets(exchangeAccountId, convertAssetsRequest, idempotencyKey);
+        
     }
-
+    
     /**
      * Find a specific exchange account
      *
-     * <p>Returns an exchange account by ID.
+     * Returns an exchange account by ID.
      *
-     * @throws ApiException if the Api call fails
+     * @throws ApiException
+     *          if the Api call fails
      */
     @Test
     public void getExchangeAccountTest() throws ApiException {
         String exchangeAccountId = null;
-        CompletableFuture<ApiResponse<ExchangeAccount>> response =
-                api.getExchangeAccount(exchangeAccountId);
+        CompletableFuture<ApiResponse<ExchangeAccount>> response = 
+        api.getExchangeAccount(exchangeAccountId);
+        
     }
-
+    
     /**
      * Find an asset for an exchange account
      *
-     * <p>Returns an asset for an exchange account.
+     * Returns an asset for an exchange account.
      *
-     * @throws ApiException if the Api call fails
+     * @throws ApiException
+     *          if the Api call fails
      */
     @Test
     public void getExchangeAccountAssetTest() throws ApiException {
         String exchangeAccountId = null;
         String assetId = null;
-        CompletableFuture<ApiResponse<ExchangeAsset>> response =
-                api.getExchangeAccountAsset(exchangeAccountId, assetId);
+        CompletableFuture<ApiResponse<ExchangeAsset>> response = 
+        api.getExchangeAccountAsset(exchangeAccountId, assetId);
+        
     }
-
+    
     /**
      * Pagination list exchange accounts
      *
-     * <p>Returns a page include exchange accounts.
+     * Returns a page include exchange accounts.
      *
-     * @throws ApiException if the Api call fails
+     * @throws ApiException
+     *          if the Api call fails
      */
     @Test
     public void getPagedExchangeAccountsTest() throws ApiException {
         BigDecimal limit = null;
         String before = null;
         String after = null;
-        CompletableFuture<ApiResponse<List<ExchangeAccountsPaged>>> response =
-                api.getPagedExchangeAccounts(limit, before, after);
+        CompletableFuture<ApiResponse<List<ExchangeAccountsPaged>>> response = 
+        api.getPagedExchangeAccounts(limit, before, after);
+        
     }
-
+    
     /**
      * Internal transfer for exchange accounts
      *
-     * <p>Transfers funds between trading accounts under the same exchange account.
+     * Transfers funds between trading accounts under the same exchange account.
      *
-     * @throws ApiException if the Api call fails
+     * @throws ApiException
+     *          if the Api call fails
      */
     @Test
     public void internalTransferTest() throws ApiException {
         String exchangeAccountId = null;
         CreateInternalTransferRequest createInternalTransferRequest = null;
         String idempotencyKey = null;
-        CompletableFuture<ApiResponse<InternalTransferResponse>> response =
-                api.internalTransfer(
-                        exchangeAccountId, createInternalTransferRequest, idempotencyKey);
+        CompletableFuture<ApiResponse<InternalTransferResponse>> response = 
+        api.internalTransfer(exchangeAccountId, createInternalTransferRequest, idempotencyKey);
+        
     }
+    
 }

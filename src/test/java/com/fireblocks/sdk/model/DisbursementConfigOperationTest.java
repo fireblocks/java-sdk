@@ -10,48 +10,75 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.fireblocks.sdk.model.ConfigOperationStatus;
+import com.fireblocks.sdk.model.DisbursementOperationConfigParams;
+import com.fireblocks.sdk.model.DisbursementOperationType;
+import com.fireblocks.sdk.model.DisbursementValidationFailure;
+import java.util.Arrays;
+import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
-/** Model tests for DisbursementConfigOperation */
+/**
+ * Model tests for DisbursementConfigOperation
+ */
 public class DisbursementConfigOperationTest {
     private final DisbursementConfigOperation model = new DisbursementConfigOperation();
 
-    /** Model tests for DisbursementConfigOperation */
+    /**
+     * Model tests for DisbursementConfigOperation
+     */
     @Test
     public void testDisbursementConfigOperation() {
         // TODO: test DisbursementConfigOperation
     }
 
-    /** Test the property 'operationId' */
+    /**
+     * Test the property 'operationId'
+     */
     @Test
     public void operationIdTest() {
         // TODO: test operationId
     }
 
-    /** Test the property 'type' */
+    /**
+     * Test the property 'type'
+     */
     @Test
     public void typeTest() {
         // TODO: test type
     }
 
-    /** Test the property 'params' */
+    /**
+     * Test the property 'params'
+     */
     @Test
     public void paramsTest() {
         // TODO: test params
     }
 
-    /** Test the property 'status' */
+    /**
+     * Test the property 'status'
+     */
     @Test
     public void statusTest() {
         // TODO: test status
     }
 
-    /** Test the property 'validationFailure' */
+    /**
+     * Test the property 'validationFailure'
+     */
     @Test
     public void validationFailureTest() {
         // TODO: test validationFailure
     }
+
 }

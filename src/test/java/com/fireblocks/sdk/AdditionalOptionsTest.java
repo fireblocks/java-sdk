@@ -1,7 +1,6 @@
-
-import com.fireblocks.sdk.AdditionalOptions;
-import org.junit.Assert;
 import org.junit.Test;
+import org.junit.Assert;
+import com.fireblocks.sdk.AdditionalOptions;
 
 public class AdditionalOptionsTest {
 

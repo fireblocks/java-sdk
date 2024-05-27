@@ -10,216 +10,214 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.math.BigDecimal;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
-import java.util.Objects;
 import java.util.StringJoiner;
+import java.util.Objects;
+import java.util.Map;
+import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import java.math.BigDecimal;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
-/** ConvertAssetsRequest */
+
+/**
+ * ConvertAssetsRequest
+ */
 @JsonPropertyOrder({
-    ConvertAssetsRequest.JSON_PROPERTY_SRC_ASSET,
-    ConvertAssetsRequest.JSON_PROPERTY_DEST_ASSET,
-    ConvertAssetsRequest.JSON_PROPERTY_AMOUNT
+  ConvertAssetsRequest.JSON_PROPERTY_SRC_ASSET,
+  ConvertAssetsRequest.JSON_PROPERTY_DEST_ASSET,
+  ConvertAssetsRequest.JSON_PROPERTY_AMOUNT
 })
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class ConvertAssetsRequest {
-    public static final String JSON_PROPERTY_SRC_ASSET = "srcAsset";
-    private String srcAsset;
+  public static final String JSON_PROPERTY_SRC_ASSET = "srcAsset";
+  private String srcAsset;
 
-    public static final String JSON_PROPERTY_DEST_ASSET = "destAsset";
-    private String destAsset;
+  public static final String JSON_PROPERTY_DEST_ASSET = "destAsset";
+  private String destAsset;
 
-    public static final String JSON_PROPERTY_AMOUNT = "amount";
-    private BigDecimal amount;
+  public static final String JSON_PROPERTY_AMOUNT = "amount";
+  private BigDecimal amount;
 
-    public ConvertAssetsRequest() {}
+  public ConvertAssetsRequest() { 
+  }
 
-    public ConvertAssetsRequest srcAsset(String srcAsset) {
-        this.srcAsset = srcAsset;
-        return this;
+  public ConvertAssetsRequest srcAsset(String srcAsset) {
+    this.srcAsset = srcAsset;
+    return this;
+  }
+
+   /**
+   * Name of the source asset (must be in a currency that is supported for conversions in the selected exchange type that corresponds to your exchange ID)
+   * @return srcAsset
+  **/
+  @jakarta.annotation.Nonnull
+  @JsonProperty(JSON_PROPERTY_SRC_ASSET)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getSrcAsset() {
+    return srcAsset;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_SRC_ASSET)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setSrcAsset(String srcAsset) {
+    this.srcAsset = srcAsset;
+  }
+
+
+  public ConvertAssetsRequest destAsset(String destAsset) {
+    this.destAsset = destAsset;
+    return this;
+  }
+
+   /**
+   * Name of the destination asset (must be in a currency that is supported for conversions in the selected exchange type that corresponds to your exchange ID)
+   * @return destAsset
+  **/
+  @jakarta.annotation.Nonnull
+  @JsonProperty(JSON_PROPERTY_DEST_ASSET)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getDestAsset() {
+    return destAsset;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_DEST_ASSET)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setDestAsset(String destAsset) {
+    this.destAsset = destAsset;
+  }
+
+
+  public ConvertAssetsRequest amount(BigDecimal amount) {
+    this.amount = amount;
+    return this;
+  }
+
+   /**
+   * The amount to transfer (in the currency of the source asset)
+   * @return amount
+  **/
+  @jakarta.annotation.Nonnull
+  @JsonProperty(JSON_PROPERTY_AMOUNT)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public BigDecimal getAmount() {
+    return amount;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_AMOUNT)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setAmount(BigDecimal amount) {
+    this.amount = amount;
+  }
+
+
+  /**
+   * Return true if this ConvertAssetsRequest object is equal to o.
+   */
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    ConvertAssetsRequest convertAssetsRequest = (ConvertAssetsRequest) o;
+    return Objects.equals(this.srcAsset, convertAssetsRequest.srcAsset) &&
+        Objects.equals(this.destAsset, convertAssetsRequest.destAsset) &&
+        Objects.equals(this.amount, convertAssetsRequest.amount);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(srcAsset, destAsset, amount);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class ConvertAssetsRequest {\n");
+    sb.append("    srcAsset: ").append(toIndentedString(srcAsset)).append("\n");
+    sb.append("    destAsset: ").append(toIndentedString(destAsset)).append("\n");
+    sb.append("    amount: ").append(toIndentedString(amount)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @return URL query string
+   */
+  public String toUrlQueryString() {
+    return toUrlQueryString(null);
+  }
+
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @param prefix prefix of the query string
+   * @return URL query string
+   */
+  public String toUrlQueryString(String prefix) {
+    String suffix = "";
+    String containerSuffix = "";
+    String containerPrefix = "";
+    if (prefix == null) {
+      // style=form, explode=true, e.g. /pet?name=cat&type=manx
+      prefix = "";
+    } else {
+      // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
+      prefix = prefix + "[";
+      suffix = "]";
+      containerSuffix = "]";
+      containerPrefix = "[";
     }
 
-    /**
-     * Name of the source asset (must be in a currency that is supported for conversions in the
-     * selected exchange type that corresponds to your exchange ID)
-     *
-     * @return srcAsset
-     */
-    @jakarta.annotation.Nonnull
-    @JsonProperty(JSON_PROPERTY_SRC_ASSET)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public String getSrcAsset() {
-        return srcAsset;
+    StringJoiner joiner = new StringJoiner("&");
+
+    // add `srcAsset` to the URL query string
+    if (getSrcAsset() != null) {
+      joiner.add(String.format("%ssrcAsset%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getSrcAsset()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
     }
 
-    @JsonProperty(JSON_PROPERTY_SRC_ASSET)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setSrcAsset(String srcAsset) {
-        this.srcAsset = srcAsset;
+    // add `destAsset` to the URL query string
+    if (getDestAsset() != null) {
+      joiner.add(String.format("%sdestAsset%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getDestAsset()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
     }
 
-    public ConvertAssetsRequest destAsset(String destAsset) {
-        this.destAsset = destAsset;
-        return this;
+    // add `amount` to the URL query string
+    if (getAmount() != null) {
+      joiner.add(String.format("%samount%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getAmount()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
     }
 
-    /**
-     * Name of the destination asset (must be in a currency that is supported for conversions in the
-     * selected exchange type that corresponds to your exchange ID)
-     *
-     * @return destAsset
-     */
-    @jakarta.annotation.Nonnull
-    @JsonProperty(JSON_PROPERTY_DEST_ASSET)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public String getDestAsset() {
-        return destAsset;
-    }
-
-    @JsonProperty(JSON_PROPERTY_DEST_ASSET)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setDestAsset(String destAsset) {
-        this.destAsset = destAsset;
-    }
-
-    public ConvertAssetsRequest amount(BigDecimal amount) {
-        this.amount = amount;
-        return this;
-    }
-
-    /**
-     * The amount to transfer (in the currency of the source asset)
-     *
-     * @return amount
-     */
-    @jakarta.annotation.Nonnull
-    @JsonProperty(JSON_PROPERTY_AMOUNT)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public BigDecimal getAmount() {
-        return amount;
-    }
-
-    @JsonProperty(JSON_PROPERTY_AMOUNT)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setAmount(BigDecimal amount) {
-        this.amount = amount;
-    }
-
-    /** Return true if this ConvertAssetsRequest object is equal to o. */
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        ConvertAssetsRequest convertAssetsRequest = (ConvertAssetsRequest) o;
-        return Objects.equals(this.srcAsset, convertAssetsRequest.srcAsset)
-                && Objects.equals(this.destAsset, convertAssetsRequest.destAsset)
-                && Objects.equals(this.amount, convertAssetsRequest.amount);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(srcAsset, destAsset, amount);
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("class ConvertAssetsRequest {\n");
-        sb.append("    srcAsset: ").append(toIndentedString(srcAsset)).append("\n");
-        sb.append("    destAsset: ").append(toIndentedString(destAsset)).append("\n");
-        sb.append("    amount: ").append(toIndentedString(amount)).append("\n");
-        sb.append("}");
-        return sb.toString();
-    }
-
-    /**
-     * Convert the given object to string with each line indented by 4 spaces (except the first
-     * line).
-     */
-    private String toIndentedString(Object o) {
-        if (o == null) {
-            return "null";
-        }
-        return o.toString().replace("\n", "\n    ");
-    }
-
-    /**
-     * Convert the instance into URL query string.
-     *
-     * @return URL query string
-     */
-    public String toUrlQueryString() {
-        return toUrlQueryString(null);
-    }
-
-    /**
-     * Convert the instance into URL query string.
-     *
-     * @param prefix prefix of the query string
-     * @return URL query string
-     */
-    public String toUrlQueryString(String prefix) {
-        String suffix = "";
-        String containerSuffix = "";
-        String containerPrefix = "";
-        if (prefix == null) {
-            // style=form, explode=true, e.g. /pet?name=cat&type=manx
-            prefix = "";
-        } else {
-            // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
-            prefix = prefix + "[";
-            suffix = "]";
-            containerSuffix = "]";
-            containerPrefix = "[";
-        }
-
-        StringJoiner joiner = new StringJoiner("&");
-
-        // add `srcAsset` to the URL query string
-        if (getSrcAsset() != null) {
-            joiner.add(
-                    String.format(
-                            "%ssrcAsset%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(String.valueOf(getSrcAsset()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
-        // add `destAsset` to the URL query string
-        if (getDestAsset() != null) {
-            joiner.add(
-                    String.format(
-                            "%sdestAsset%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getDestAsset()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
-        // add `amount` to the URL query string
-        if (getAmount() != null) {
-            joiner.add(
-                    String.format(
-                            "%samount%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(String.valueOf(getAmount()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
-        return joiner.toString();
-    }
+    return joiner.toString();
+  }
 }
+

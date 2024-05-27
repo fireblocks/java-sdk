@@ -10,8 +10,27 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.StringJoiner;
+import java.util.Objects;
+import java.util.Map;
+import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fireblocks.sdk.model.PolicySrcOrDestSubType;
+import com.fireblocks.sdk.model.PolicySrcOrDestType;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+
+
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
@@ -25,23 +44,14 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 import com.fireblocks.sdk.JSON;
-import java.io.IOException;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.StringJoiner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
-@JsonDeserialize(using = SrcOrDestAttributesInner.SrcOrDestAttributesInnerDeserializer.class)
+@JsonDeserialize(using=SrcOrDestAttributesInner.SrcOrDestAttributesInnerDeserializer.class)
 @JsonSerialize(using = SrcOrDestAttributesInner.SrcOrDestAttributesInnerSerializer.class)
 public class SrcOrDestAttributesInner extends AbstractOpenApiSchema {
     private static final Logger log = Logger.getLogger(SrcOrDestAttributesInner.class.getName());
 
-    public static class SrcOrDestAttributesInnerSerializer
-            extends StdSerializer<SrcOrDestAttributesInner> {
+    public static class SrcOrDestAttributesInnerSerializer extends StdSerializer<SrcOrDestAttributesInner> {
         public SrcOrDestAttributesInnerSerializer(Class<SrcOrDestAttributesInner> t) {
             super(t);
         }
@@ -51,15 +61,12 @@ public class SrcOrDestAttributesInner extends AbstractOpenApiSchema {
         }
 
         @Override
-        public void serialize(
-                SrcOrDestAttributesInner value, JsonGenerator jgen, SerializerProvider provider)
-                throws IOException, JsonProcessingException {
+        public void serialize(SrcOrDestAttributesInner value, JsonGenerator jgen, SerializerProvider provider) throws IOException, JsonProcessingException {
             jgen.writeObject(value.getActualInstance());
         }
     }
 
-    public static class SrcOrDestAttributesInnerDeserializer
-            extends StdDeserializer<SrcOrDestAttributesInner> {
+    public static class SrcOrDestAttributesInnerDeserializer extends StdDeserializer<SrcOrDestAttributesInner> {
         public SrcOrDestAttributesInnerDeserializer() {
             this(SrcOrDestAttributesInner.class);
         }
@@ -69,15 +76,13 @@ public class SrcOrDestAttributesInner extends AbstractOpenApiSchema {
         }
 
         @Override
-        public SrcOrDestAttributesInner deserialize(JsonParser jp, DeserializationContext ctxt)
-                throws IOException, JsonProcessingException {
+        public SrcOrDestAttributesInner deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException, JsonProcessingException {
             JsonNode tree = jp.readValueAsTree();
 
             Object deserialized = null;
             // deserialize PolicySrcOrDestSubType
             try {
-                deserialized =
-                        tree.traverse(jp.getCodec()).readValueAs(PolicySrcOrDestSubType.class);
+                deserialized = tree.traverse(jp.getCodec()).readValueAs(PolicySrcOrDestSubType.class);
                 SrcOrDestAttributesInner ret = new SrcOrDestAttributesInner();
                 ret.setActualInstance(deserialized);
                 return ret;
@@ -108,17 +113,15 @@ public class SrcOrDestAttributesInner extends AbstractOpenApiSchema {
                 log.log(Level.FINER, "Input data does not match 'SrcOrDestAttributesInner'", e);
             }
 
-            throw new IOException(
-                    String.format(
-                            "Failed deserialization for SrcOrDestAttributesInner: no match found"));
+            throw new IOException(String.format("Failed deserialization for SrcOrDestAttributesInner: no match found"));
         }
 
-        /** Handle deserialization of the 'null' value. */
+        /**
+         * Handle deserialization of the 'null' value.
+         */
         @Override
-        public SrcOrDestAttributesInner getNullValue(DeserializationContext ctxt)
-                throws JsonMappingException {
-            throw new JsonMappingException(
-                    ctxt.getParser(), "SrcOrDestAttributesInner cannot be null");
+        public SrcOrDestAttributesInner getNullValue(DeserializationContext ctxt) throws JsonMappingException {
+            throw new JsonMappingException(ctxt.getParser(), "SrcOrDestAttributesInner cannot be null");
         }
     }
 
@@ -148,8 +151,7 @@ public class SrcOrDestAttributesInner extends AbstractOpenApiSchema {
         schemas.put("PolicySrcOrDestSubType", PolicySrcOrDestSubType.class);
         schemas.put("PolicySrcOrDestType", PolicySrcOrDestType.class);
         schemas.put("String", String.class);
-        JSON.registerDescendants(
-                SrcOrDestAttributesInner.class, Collections.unmodifiableMap(schemas));
+        JSON.registerDescendants(SrcOrDestAttributesInner.class, Collections.unmodifiableMap(schemas));
     }
 
     @Override
@@ -158,11 +160,12 @@ public class SrcOrDestAttributesInner extends AbstractOpenApiSchema {
     }
 
     /**
-     * Set the instance that matches the anyOf child schema, check the instance parameter is valid
-     * against the anyOf child schemas: PolicySrcOrDestSubType, PolicySrcOrDestType, String
+     * Set the instance that matches the anyOf child schema, check
+     * the instance parameter is valid against the anyOf child schemas:
+     * PolicySrcOrDestSubType, PolicySrcOrDestType, String
      *
-     * <p>It could be an instance of the 'anyOf' schemas. The anyOf child schemas may themselves be
-     * a composed schema (allOf, anyOf, anyOf).
+     * It could be an instance of the 'anyOf' schemas.
+     * The anyOf child schemas may themselves be a composed schema (allOf, anyOf, anyOf).
      */
     @Override
     public void setActualInstance(Object instance) {
@@ -181,14 +184,12 @@ public class SrcOrDestAttributesInner extends AbstractOpenApiSchema {
             return;
         }
 
-        throw new RuntimeException(
-                "Invalid instance type. Must be PolicySrcOrDestSubType, PolicySrcOrDestType,"
-                        + " String");
+        throw new RuntimeException("Invalid instance type. Must be PolicySrcOrDestSubType, PolicySrcOrDestType, String");
     }
 
     /**
-     * Get the actual instance, which can be the following: PolicySrcOrDestSubType,
-     * PolicySrcOrDestType, String
+     * Get the actual instance, which can be the following:
+     * PolicySrcOrDestSubType, PolicySrcOrDestType, String
      *
      * @return The actual instance (PolicySrcOrDestSubType, PolicySrcOrDestType, String)
      */
@@ -198,70 +199,74 @@ public class SrcOrDestAttributesInner extends AbstractOpenApiSchema {
     }
 
     /**
-     * Get the actual instance of `PolicySrcOrDestSubType`. If the actual instance is not
-     * `PolicySrcOrDestSubType`, the ClassCastException will be thrown.
+     * Get the actual instance of `PolicySrcOrDestSubType`. If the actual instance is not `PolicySrcOrDestSubType`,
+     * the ClassCastException will be thrown.
      *
      * @return The actual instance of `PolicySrcOrDestSubType`
      * @throws ClassCastException if the instance is not `PolicySrcOrDestSubType`
      */
     public PolicySrcOrDestSubType getPolicySrcOrDestSubType() throws ClassCastException {
-        return (PolicySrcOrDestSubType) super.getActualInstance();
+        return (PolicySrcOrDestSubType)super.getActualInstance();
     }
 
     /**
-     * Get the actual instance of `PolicySrcOrDestType`. If the actual instance is not
-     * `PolicySrcOrDestType`, the ClassCastException will be thrown.
+     * Get the actual instance of `PolicySrcOrDestType`. If the actual instance is not `PolicySrcOrDestType`,
+     * the ClassCastException will be thrown.
      *
      * @return The actual instance of `PolicySrcOrDestType`
      * @throws ClassCastException if the instance is not `PolicySrcOrDestType`
      */
     public PolicySrcOrDestType getPolicySrcOrDestType() throws ClassCastException {
-        return (PolicySrcOrDestType) super.getActualInstance();
+        return (PolicySrcOrDestType)super.getActualInstance();
     }
 
     /**
-     * Get the actual instance of `String`. If the actual instance is not `String`, the
-     * ClassCastException will be thrown.
+     * Get the actual instance of `String`. If the actual instance is not `String`,
+     * the ClassCastException will be thrown.
      *
      * @return The actual instance of `String`
      * @throws ClassCastException if the instance is not `String`
      */
     public String getString() throws ClassCastException {
-        return (String) super.getActualInstance();
+        return (String)super.getActualInstance();
     }
 
-    /**
-     * Convert the instance into URL query string.
-     *
-     * @return URL query string
-     */
-    public String toUrlQueryString() {
-        return toUrlQueryString(null);
+
+
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @return URL query string
+   */
+  public String toUrlQueryString() {
+    return toUrlQueryString(null);
+  }
+
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @param prefix prefix of the query string
+   * @return URL query string
+   */
+  public String toUrlQueryString(String prefix) {
+    String suffix = "";
+    String containerSuffix = "";
+    String containerPrefix = "";
+    if (prefix == null) {
+      // style=form, explode=true, e.g. /pet?name=cat&type=manx
+      prefix = "";
+    } else {
+      // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
+      prefix = prefix + "[";
+      suffix = "]";
+      containerSuffix = "]";
+      containerPrefix = "[";
     }
 
-    /**
-     * Convert the instance into URL query string.
-     *
-     * @param prefix prefix of the query string
-     * @return URL query string
-     */
-    public String toUrlQueryString(String prefix) {
-        String suffix = "";
-        String containerSuffix = "";
-        String containerPrefix = "";
-        if (prefix == null) {
-            // style=form, explode=true, e.g. /pet?name=cat&type=manx
-            prefix = "";
-        } else {
-            // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
-            prefix = prefix + "[";
-            suffix = "]";
-            containerSuffix = "]";
-            containerPrefix = "[";
-        }
+    StringJoiner joiner = new StringJoiner("&");
 
-        StringJoiner joiner = new StringJoiner("&");
+    return null;
+  }
 
-        return null;
-    }
 }
+

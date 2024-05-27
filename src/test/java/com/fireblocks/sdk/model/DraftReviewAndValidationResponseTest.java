@@ -10,30 +10,49 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.fireblocks.sdk.model.DraftResponse;
+import com.fireblocks.sdk.model.PolicyValidation;
+import java.util.Arrays;
+import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
-/** Model tests for DraftReviewAndValidationResponse */
+/**
+ * Model tests for DraftReviewAndValidationResponse
+ */
 public class DraftReviewAndValidationResponseTest {
     private final DraftReviewAndValidationResponse model = new DraftReviewAndValidationResponse();
 
-    /** Model tests for DraftReviewAndValidationResponse */
+    /**
+     * Model tests for DraftReviewAndValidationResponse
+     */
     @Test
     public void testDraftReviewAndValidationResponse() {
         // TODO: test DraftReviewAndValidationResponse
     }
 
-    /** Test the property 'draftResponse' */
+    /**
+     * Test the property 'draftResponse'
+     */
     @Test
     public void draftResponseTest() {
         // TODO: test draftResponse
     }
 
-    /** Test the property 'validation' */
+    /**
+     * Test the property 'validation'
+     */
     @Test
     public void validationTest() {
         // TODO: test validation
     }
+
 }

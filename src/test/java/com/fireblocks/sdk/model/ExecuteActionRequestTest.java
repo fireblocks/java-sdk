@@ -10,60 +10,90 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.fireblocks.sdk.model.StakeRequestDto;
+import com.fireblocks.sdk.model.UnstakeRequestDto;
+import com.fireblocks.sdk.model.WithdrawRequestDto;
+import java.util.Arrays;
+import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
-/** Model tests for ExecuteActionRequest */
+/**
+ * Model tests for ExecuteActionRequest
+ */
 public class ExecuteActionRequestTest {
     private final ExecuteActionRequest model = new ExecuteActionRequest();
 
-    /** Model tests for ExecuteActionRequest */
+    /**
+     * Model tests for ExecuteActionRequest
+     */
     @Test
     public void testExecuteActionRequest() {
         // TODO: test ExecuteActionRequest
     }
 
-    /** Test the property 'vaultAccountId' */
+    /**
+     * Test the property 'vaultAccountId'
+     */
     @Test
     public void vaultAccountIdTest() {
         // TODO: test vaultAccountId
     }
 
-    /** Test the property 'providerId' */
+    /**
+     * Test the property 'providerId'
+     */
     @Test
     public void providerIdTest() {
         // TODO: test providerId
     }
 
-    /** Test the property 'stakeAmount' */
+    /**
+     * Test the property 'stakeAmount'
+     */
     @Test
     public void stakeAmountTest() {
         // TODO: test stakeAmount
     }
 
-    /** Test the property 'txNote' */
+    /**
+     * Test the property 'txNote'
+     */
     @Test
     public void txNoteTest() {
         // TODO: test txNote
     }
 
-    /** Test the property 'fee' */
+    /**
+     * Test the property 'fee'
+     */
     @Test
     public void feeTest() {
         // TODO: test fee
     }
 
-    /** Test the property 'feeLevel' */
+    /**
+     * Test the property 'feeLevel'
+     */
     @Test
     public void feeLevelTest() {
         // TODO: test feeLevel
     }
 
-    /** Test the property 'id' */
+    /**
+     * Test the property 'id'
+     */
     @Test
     public void idTest() {
         // TODO: test id
     }
+
 }

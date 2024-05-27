@@ -10,180 +10,177 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
-import java.util.Objects;
 import java.util.StringJoiner;
+import java.util.Objects;
+import java.util.Map;
+import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
-/** ScreeningUpdateConfigurationsRequest */
+
+/**
+ * ScreeningUpdateConfigurationsRequest
+ */
 @JsonPropertyOrder({
-    ScreeningUpdateConfigurationsRequest.JSON_PROPERTY_DISABLE_BYPASS,
-    ScreeningUpdateConfigurationsRequest.JSON_PROPERTY_DISABLE_UNFREEZE
+  ScreeningUpdateConfigurationsRequest.JSON_PROPERTY_DISABLE_BYPASS,
+  ScreeningUpdateConfigurationsRequest.JSON_PROPERTY_DISABLE_UNFREEZE
 })
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class ScreeningUpdateConfigurationsRequest {
-    public static final String JSON_PROPERTY_DISABLE_BYPASS = "disableBypass";
-    private Boolean disableBypass;
+  public static final String JSON_PROPERTY_DISABLE_BYPASS = "disableBypass";
+  private Boolean disableBypass;
 
-    public static final String JSON_PROPERTY_DISABLE_UNFREEZE = "disableUnfreeze";
-    private Boolean disableUnfreeze;
+  public static final String JSON_PROPERTY_DISABLE_UNFREEZE = "disableUnfreeze";
+  private Boolean disableUnfreeze;
 
-    public ScreeningUpdateConfigurationsRequest() {}
+  public ScreeningUpdateConfigurationsRequest() { 
+  }
 
-    public ScreeningUpdateConfigurationsRequest disableBypass(Boolean disableBypass) {
-        this.disableBypass = disableBypass;
-        return this;
+  public ScreeningUpdateConfigurationsRequest disableBypass(Boolean disableBypass) {
+    this.disableBypass = disableBypass;
+    return this;
+  }
+
+   /**
+   * Flag to enable or disable bypass screening on tenant configuration.
+   * @return disableBypass
+  **/
+  @jakarta.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_DISABLE_BYPASS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getDisableBypass() {
+    return disableBypass;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_DISABLE_BYPASS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setDisableBypass(Boolean disableBypass) {
+    this.disableBypass = disableBypass;
+  }
+
+
+  public ScreeningUpdateConfigurationsRequest disableUnfreeze(Boolean disableUnfreeze) {
+    this.disableUnfreeze = disableUnfreeze;
+    return this;
+  }
+
+   /**
+   * Flag to enable or disable unfreeze of transaction frozen by policy rule on tenant configuration.
+   * @return disableUnfreeze
+  **/
+  @jakarta.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_DISABLE_UNFREEZE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getDisableUnfreeze() {
+    return disableUnfreeze;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_DISABLE_UNFREEZE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setDisableUnfreeze(Boolean disableUnfreeze) {
+    this.disableUnfreeze = disableUnfreeze;
+  }
+
+
+  /**
+   * Return true if this ScreeningUpdateConfigurationsRequest object is equal to o.
+   */
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    ScreeningUpdateConfigurationsRequest screeningUpdateConfigurationsRequest = (ScreeningUpdateConfigurationsRequest) o;
+    return Objects.equals(this.disableBypass, screeningUpdateConfigurationsRequest.disableBypass) &&
+        Objects.equals(this.disableUnfreeze, screeningUpdateConfigurationsRequest.disableUnfreeze);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(disableBypass, disableUnfreeze);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class ScreeningUpdateConfigurationsRequest {\n");
+    sb.append("    disableBypass: ").append(toIndentedString(disableBypass)).append("\n");
+    sb.append("    disableUnfreeze: ").append(toIndentedString(disableUnfreeze)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @return URL query string
+   */
+  public String toUrlQueryString() {
+    return toUrlQueryString(null);
+  }
+
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @param prefix prefix of the query string
+   * @return URL query string
+   */
+  public String toUrlQueryString(String prefix) {
+    String suffix = "";
+    String containerSuffix = "";
+    String containerPrefix = "";
+    if (prefix == null) {
+      // style=form, explode=true, e.g. /pet?name=cat&type=manx
+      prefix = "";
+    } else {
+      // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
+      prefix = prefix + "[";
+      suffix = "]";
+      containerSuffix = "]";
+      containerPrefix = "[";
     }
 
-    /**
-     * Flag to enable or disable bypass screening on tenant configuration.
-     *
-     * @return disableBypass
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_DISABLE_BYPASS)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public Boolean getDisableBypass() {
-        return disableBypass;
+    StringJoiner joiner = new StringJoiner("&");
+
+    // add `disableBypass` to the URL query string
+    if (getDisableBypass() != null) {
+      joiner.add(String.format("%sdisableBypass%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getDisableBypass()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
     }
 
-    @JsonProperty(JSON_PROPERTY_DISABLE_BYPASS)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setDisableBypass(Boolean disableBypass) {
-        this.disableBypass = disableBypass;
+    // add `disableUnfreeze` to the URL query string
+    if (getDisableUnfreeze() != null) {
+      joiner.add(String.format("%sdisableUnfreeze%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getDisableUnfreeze()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
     }
 
-    public ScreeningUpdateConfigurationsRequest disableUnfreeze(Boolean disableUnfreeze) {
-        this.disableUnfreeze = disableUnfreeze;
-        return this;
-    }
-
-    /**
-     * Flag to enable or disable unfreeze of transaction frozen by policy rule on tenant
-     * configuration.
-     *
-     * @return disableUnfreeze
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_DISABLE_UNFREEZE)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public Boolean getDisableUnfreeze() {
-        return disableUnfreeze;
-    }
-
-    @JsonProperty(JSON_PROPERTY_DISABLE_UNFREEZE)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setDisableUnfreeze(Boolean disableUnfreeze) {
-        this.disableUnfreeze = disableUnfreeze;
-    }
-
-    /** Return true if this ScreeningUpdateConfigurationsRequest object is equal to o. */
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        ScreeningUpdateConfigurationsRequest screeningUpdateConfigurationsRequest =
-                (ScreeningUpdateConfigurationsRequest) o;
-        return Objects.equals(
-                        this.disableBypass, screeningUpdateConfigurationsRequest.disableBypass)
-                && Objects.equals(
-                        this.disableUnfreeze, screeningUpdateConfigurationsRequest.disableUnfreeze);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(disableBypass, disableUnfreeze);
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("class ScreeningUpdateConfigurationsRequest {\n");
-        sb.append("    disableBypass: ").append(toIndentedString(disableBypass)).append("\n");
-        sb.append("    disableUnfreeze: ").append(toIndentedString(disableUnfreeze)).append("\n");
-        sb.append("}");
-        return sb.toString();
-    }
-
-    /**
-     * Convert the given object to string with each line indented by 4 spaces (except the first
-     * line).
-     */
-    private String toIndentedString(Object o) {
-        if (o == null) {
-            return "null";
-        }
-        return o.toString().replace("\n", "\n    ");
-    }
-
-    /**
-     * Convert the instance into URL query string.
-     *
-     * @return URL query string
-     */
-    public String toUrlQueryString() {
-        return toUrlQueryString(null);
-    }
-
-    /**
-     * Convert the instance into URL query string.
-     *
-     * @param prefix prefix of the query string
-     * @return URL query string
-     */
-    public String toUrlQueryString(String prefix) {
-        String suffix = "";
-        String containerSuffix = "";
-        String containerPrefix = "";
-        if (prefix == null) {
-            // style=form, explode=true, e.g. /pet?name=cat&type=manx
-            prefix = "";
-        } else {
-            // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
-            prefix = prefix + "[";
-            suffix = "]";
-            containerSuffix = "]";
-            containerPrefix = "[";
-        }
-
-        StringJoiner joiner = new StringJoiner("&");
-
-        // add `disableBypass` to the URL query string
-        if (getDisableBypass() != null) {
-            joiner.add(
-                    String.format(
-                            "%sdisableBypass%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getDisableBypass()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
-        // add `disableUnfreeze` to the URL query string
-        if (getDisableUnfreeze() != null) {
-            joiner.add(
-                    String.format(
-                            "%sdisableUnfreeze%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getDisableUnfreeze()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
-        return joiner.toString();
-    }
+    return joiner.toString();
+  }
 }
+

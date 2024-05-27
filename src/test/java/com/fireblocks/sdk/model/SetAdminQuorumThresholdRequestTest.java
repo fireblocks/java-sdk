@@ -10,24 +10,40 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import java.math.BigDecimal;
+import java.util.Arrays;
+import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
-/** Model tests for SetAdminQuorumThresholdRequest */
+/**
+ * Model tests for SetAdminQuorumThresholdRequest
+ */
 public class SetAdminQuorumThresholdRequestTest {
     private final SetAdminQuorumThresholdRequest model = new SetAdminQuorumThresholdRequest();
 
-    /** Model tests for SetAdminQuorumThresholdRequest */
+    /**
+     * Model tests for SetAdminQuorumThresholdRequest
+     */
     @Test
     public void testSetAdminQuorumThresholdRequest() {
         // TODO: test SetAdminQuorumThresholdRequest
     }
 
-    /** Test the property 'adminQuorumThreshold' */
+    /**
+     * Test the property 'adminQuorumThreshold'
+     */
     @Test
     public void adminQuorumThresholdTest() {
         // TODO: test adminQuorumThreshold
     }
+
 }

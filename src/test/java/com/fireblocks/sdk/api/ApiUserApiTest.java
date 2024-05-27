@@ -10,48 +10,65 @@
  * Do not edit the class manually.
  */
 
-package com.fireblocks.sdk.api;
 
+package com.fireblocks.sdk.api;
 
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.model.CreateAPIUser;
+import com.fireblocks.sdk.model.ErrorResponse;
+import com.fireblocks.sdk.model.ErrorSchema;
 import com.fireblocks.sdk.model.GetAPIUsersResponse;
-import java.util.concurrent.CompletableFuture;
-import org.junit.Ignore;
 import org.junit.Test;
+import org.junit.Ignore;
 
-/** API tests for ApiUserApi */
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import java.util.concurrent.CompletableFuture;
+
+/**
+ * API tests for ApiUserApi
+ */
 @Ignore
 public class ApiUserApiTest {
 
     private final ApiUserApi api = new ApiUserApi();
 
+    
     /**
      * Create Api user
      *
-     * <p>Creates Api user in your tenant
+     * Creates Api user in your tenant
      *
-     * @throws ApiException if the Api call fails
+     * @throws ApiException
+     *          if the Api call fails
      */
     @Test
     public void createApiUserTest() throws ApiException {
         CreateAPIUser createAPIUser = null;
         String idempotencyKey = null;
-
-        CompletableFuture<ApiResponse<Void>> response =
-                api.createApiUser(createAPIUser, idempotencyKey);
+        
+        CompletableFuture<ApiResponse<Void>> response = api.createApiUser(createAPIUser, idempotencyKey);
+        
     }
-
+    
     /**
      * Get Api users
      *
-     * <p>Get Api users of your tenant
+     * Get Api users of your tenant
      *
-     * @throws ApiException if the Api call fails
+     * @throws ApiException
+     *          if the Api call fails
      */
     @Test
     public void getApiUsersTest() throws ApiException {
-        CompletableFuture<ApiResponse<GetAPIUsersResponse>> response = api.getApiUsers();
+        CompletableFuture<ApiResponse<GetAPIUsersResponse>> response = 
+        api.getApiUsers();
+        
     }
+    
 }

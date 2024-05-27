@@ -10,31 +10,47 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.Arrays;
+import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
-/** Model tests for AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf2 */
+/**
+ * Model tests for AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf2
+ */
 public class AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf2Test {
-    private final AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf2 model =
-            new AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf2();
+    private final AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf2 model = new AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf2();
 
-    /** Model tests for AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf2 */
+    /**
+     * Model tests for AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf2
+     */
     @Test
     public void testAddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf2() {
         // TODO: test AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf2
     }
 
-    /** Test the property 'speiClabe' */
+    /**
+     * Test the property 'speiClabe'
+     */
     @Test
     public void speiClabeTest() {
         // TODO: test speiClabe
     }
 
-    /** Test the property 'speiName' */
+    /**
+     * Test the property 'speiName'
+     */
     @Test
     public void speiNameTest() {
         // TODO: test speiName
     }
+
 }

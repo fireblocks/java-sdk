@@ -10,193 +10,216 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.StringJoiner;
+import java.util.Objects;
+import java.util.Map;
+import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.fireblocks.sdk.model.DisbursementOperationInput;
+import com.fireblocks.sdk.model.DisbursementOperationPreviewOutput;
+import com.fireblocks.sdk.model.OperationExecutionFailure;
+import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.util.Objects;
-import java.util.StringJoiner;
 
-/** DisbursementOperationPreview */
+
+/**
+ * DisbursementOperationPreview
+ */
 @JsonPropertyOrder({
-    DisbursementOperationPreview.JSON_PROPERTY_INPUT,
-    DisbursementOperationPreview.JSON_PROPERTY_OUTPUT,
-    DisbursementOperationPreview.JSON_PROPERTY_FAILURE
+  DisbursementOperationPreview.JSON_PROPERTY_INPUT,
+  DisbursementOperationPreview.JSON_PROPERTY_OUTPUT,
+  DisbursementOperationPreview.JSON_PROPERTY_FAILURE
 })
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class DisbursementOperationPreview {
-    public static final String JSON_PROPERTY_INPUT = "input";
-    private DisbursementOperationInput input;
+  public static final String JSON_PROPERTY_INPUT = "input";
+  private DisbursementOperationInput input;
 
-    public static final String JSON_PROPERTY_OUTPUT = "output";
-    private DisbursementOperationPreviewOutput output;
+  public static final String JSON_PROPERTY_OUTPUT = "output";
+  private DisbursementOperationPreviewOutput output;
 
-    public static final String JSON_PROPERTY_FAILURE = "failure";
-    private OperationExecutionFailure failure;
+  public static final String JSON_PROPERTY_FAILURE = "failure";
+  private OperationExecutionFailure failure;
 
-    public DisbursementOperationPreview() {}
+  public DisbursementOperationPreview() { 
+  }
 
-    public DisbursementOperationPreview input(DisbursementOperationInput input) {
-        this.input = input;
-        return this;
+  public DisbursementOperationPreview input(DisbursementOperationInput input) {
+    this.input = input;
+    return this;
+  }
+
+   /**
+   * Get input
+   * @return input
+  **/
+  @jakarta.annotation.Nonnull
+  @JsonProperty(JSON_PROPERTY_INPUT)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public DisbursementOperationInput getInput() {
+    return input;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_INPUT)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setInput(DisbursementOperationInput input) {
+    this.input = input;
+  }
+
+
+  public DisbursementOperationPreview output(DisbursementOperationPreviewOutput output) {
+    this.output = output;
+    return this;
+  }
+
+   /**
+   * Get output
+   * @return output
+  **/
+  @jakarta.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_OUTPUT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public DisbursementOperationPreviewOutput getOutput() {
+    return output;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_OUTPUT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setOutput(DisbursementOperationPreviewOutput output) {
+    this.output = output;
+  }
+
+
+  public DisbursementOperationPreview failure(OperationExecutionFailure failure) {
+    this.failure = failure;
+    return this;
+  }
+
+   /**
+   * Get failure
+   * @return failure
+  **/
+  @jakarta.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_FAILURE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public OperationExecutionFailure getFailure() {
+    return failure;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_FAILURE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setFailure(OperationExecutionFailure failure) {
+    this.failure = failure;
+  }
+
+
+  /**
+   * Return true if this DisbursementOperationPreview object is equal to o.
+   */
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    DisbursementOperationPreview disbursementOperationPreview = (DisbursementOperationPreview) o;
+    return Objects.equals(this.input, disbursementOperationPreview.input) &&
+        Objects.equals(this.output, disbursementOperationPreview.output) &&
+        Objects.equals(this.failure, disbursementOperationPreview.failure);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(input, output, failure);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class DisbursementOperationPreview {\n");
+    sb.append("    input: ").append(toIndentedString(input)).append("\n");
+    sb.append("    output: ").append(toIndentedString(output)).append("\n");
+    sb.append("    failure: ").append(toIndentedString(failure)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @return URL query string
+   */
+  public String toUrlQueryString() {
+    return toUrlQueryString(null);
+  }
+
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @param prefix prefix of the query string
+   * @return URL query string
+   */
+  public String toUrlQueryString(String prefix) {
+    String suffix = "";
+    String containerSuffix = "";
+    String containerPrefix = "";
+    if (prefix == null) {
+      // style=form, explode=true, e.g. /pet?name=cat&type=manx
+      prefix = "";
+    } else {
+      // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
+      prefix = prefix + "[";
+      suffix = "]";
+      containerSuffix = "]";
+      containerPrefix = "[";
     }
 
-    /**
-     * Get input
-     *
-     * @return input
-     */
-    @jakarta.annotation.Nonnull
-    @JsonProperty(JSON_PROPERTY_INPUT)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public DisbursementOperationInput getInput() {
-        return input;
+    StringJoiner joiner = new StringJoiner("&");
+
+    // add `input` to the URL query string
+    if (getInput() != null) {
+      joiner.add(getInput().toUrlQueryString(prefix + "input" + suffix));
     }
 
-    @JsonProperty(JSON_PROPERTY_INPUT)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setInput(DisbursementOperationInput input) {
-        this.input = input;
+    // add `output` to the URL query string
+    if (getOutput() != null) {
+      joiner.add(getOutput().toUrlQueryString(prefix + "output" + suffix));
     }
 
-    public DisbursementOperationPreview output(DisbursementOperationPreviewOutput output) {
-        this.output = output;
-        return this;
+    // add `failure` to the URL query string
+    if (getFailure() != null) {
+      joiner.add(getFailure().toUrlQueryString(prefix + "failure" + suffix));
     }
 
-    /**
-     * Get output
-     *
-     * @return output
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_OUTPUT)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public DisbursementOperationPreviewOutput getOutput() {
-        return output;
-    }
-
-    @JsonProperty(JSON_PROPERTY_OUTPUT)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setOutput(DisbursementOperationPreviewOutput output) {
-        this.output = output;
-    }
-
-    public DisbursementOperationPreview failure(OperationExecutionFailure failure) {
-        this.failure = failure;
-        return this;
-    }
-
-    /**
-     * Get failure
-     *
-     * @return failure
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_FAILURE)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public OperationExecutionFailure getFailure() {
-        return failure;
-    }
-
-    @JsonProperty(JSON_PROPERTY_FAILURE)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setFailure(OperationExecutionFailure failure) {
-        this.failure = failure;
-    }
-
-    /** Return true if this DisbursementOperationPreview object is equal to o. */
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        DisbursementOperationPreview disbursementOperationPreview =
-                (DisbursementOperationPreview) o;
-        return Objects.equals(this.input, disbursementOperationPreview.input)
-                && Objects.equals(this.output, disbursementOperationPreview.output)
-                && Objects.equals(this.failure, disbursementOperationPreview.failure);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(input, output, failure);
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("class DisbursementOperationPreview {\n");
-        sb.append("    input: ").append(toIndentedString(input)).append("\n");
-        sb.append("    output: ").append(toIndentedString(output)).append("\n");
-        sb.append("    failure: ").append(toIndentedString(failure)).append("\n");
-        sb.append("}");
-        return sb.toString();
-    }
-
-    /**
-     * Convert the given object to string with each line indented by 4 spaces (except the first
-     * line).
-     */
-    private String toIndentedString(Object o) {
-        if (o == null) {
-            return "null";
-        }
-        return o.toString().replace("\n", "\n    ");
-    }
-
-    /**
-     * Convert the instance into URL query string.
-     *
-     * @return URL query string
-     */
-    public String toUrlQueryString() {
-        return toUrlQueryString(null);
-    }
-
-    /**
-     * Convert the instance into URL query string.
-     *
-     * @param prefix prefix of the query string
-     * @return URL query string
-     */
-    public String toUrlQueryString(String prefix) {
-        String suffix = "";
-        String containerSuffix = "";
-        String containerPrefix = "";
-        if (prefix == null) {
-            // style=form, explode=true, e.g. /pet?name=cat&type=manx
-            prefix = "";
-        } else {
-            // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
-            prefix = prefix + "[";
-            suffix = "]";
-            containerSuffix = "]";
-            containerPrefix = "[";
-        }
-
-        StringJoiner joiner = new StringJoiner("&");
-
-        // add `input` to the URL query string
-        if (getInput() != null) {
-            joiner.add(getInput().toUrlQueryString(prefix + "input" + suffix));
-        }
-
-        // add `output` to the URL query string
-        if (getOutput() != null) {
-            joiner.add(getOutput().toUrlQueryString(prefix + "output" + suffix));
-        }
-
-        // add `failure` to the URL query string
-        if (getFailure() != null) {
-            joiner.add(getFailure().toUrlQueryString(prefix + "failure" + suffix));
-        }
-
-        return joiner.toString();
-    }
+    return joiner.toString();
+  }
 }
+

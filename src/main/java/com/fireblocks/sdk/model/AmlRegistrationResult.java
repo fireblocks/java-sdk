@@ -10,214 +10,214 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.math.BigDecimal;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
-import java.util.Objects;
 import java.util.StringJoiner;
+import java.util.Objects;
+import java.util.Map;
+import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import java.math.BigDecimal;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
-/** AmlRegistrationResult */
+
+/**
+ * AmlRegistrationResult
+ */
 @JsonPropertyOrder({
-    AmlRegistrationResult.JSON_PROPERTY_PROVIDER,
-    AmlRegistrationResult.JSON_PROPERTY_SUCCESS,
-    AmlRegistrationResult.JSON_PROPERTY_TIMESTAMP
+  AmlRegistrationResult.JSON_PROPERTY_PROVIDER,
+  AmlRegistrationResult.JSON_PROPERTY_SUCCESS,
+  AmlRegistrationResult.JSON_PROPERTY_TIMESTAMP
 })
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class AmlRegistrationResult {
-    public static final String JSON_PROPERTY_PROVIDER = "provider";
-    private String provider;
+  public static final String JSON_PROPERTY_PROVIDER = "provider";
+  private String provider;
 
-    public static final String JSON_PROPERTY_SUCCESS = "success";
-    private Boolean success;
+  public static final String JSON_PROPERTY_SUCCESS = "success";
+  private Boolean success;
 
-    public static final String JSON_PROPERTY_TIMESTAMP = "timestamp";
-    private BigDecimal timestamp;
+  public static final String JSON_PROPERTY_TIMESTAMP = "timestamp";
+  private BigDecimal timestamp;
 
-    public AmlRegistrationResult() {}
+  public AmlRegistrationResult() { 
+  }
 
-    public AmlRegistrationResult provider(String provider) {
-        this.provider = provider;
-        return this;
+  public AmlRegistrationResult provider(String provider) {
+    this.provider = provider;
+    return this;
+  }
+
+   /**
+   * Get provider
+   * @return provider
+  **/
+  @jakarta.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_PROVIDER)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getProvider() {
+    return provider;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_PROVIDER)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setProvider(String provider) {
+    this.provider = provider;
+  }
+
+
+  public AmlRegistrationResult success(Boolean success) {
+    this.success = success;
+    return this;
+  }
+
+   /**
+   * Get success
+   * @return success
+  **/
+  @jakarta.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_SUCCESS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getSuccess() {
+    return success;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_SUCCESS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setSuccess(Boolean success) {
+    this.success = success;
+  }
+
+
+  public AmlRegistrationResult timestamp(BigDecimal timestamp) {
+    this.timestamp = timestamp;
+    return this;
+  }
+
+   /**
+   * Get timestamp
+   * @return timestamp
+  **/
+  @jakarta.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_TIMESTAMP)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public BigDecimal getTimestamp() {
+    return timestamp;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_TIMESTAMP)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setTimestamp(BigDecimal timestamp) {
+    this.timestamp = timestamp;
+  }
+
+
+  /**
+   * Return true if this AmlRegistrationResult object is equal to o.
+   */
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    AmlRegistrationResult amlRegistrationResult = (AmlRegistrationResult) o;
+    return Objects.equals(this.provider, amlRegistrationResult.provider) &&
+        Objects.equals(this.success, amlRegistrationResult.success) &&
+        Objects.equals(this.timestamp, amlRegistrationResult.timestamp);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(provider, success, timestamp);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class AmlRegistrationResult {\n");
+    sb.append("    provider: ").append(toIndentedString(provider)).append("\n");
+    sb.append("    success: ").append(toIndentedString(success)).append("\n");
+    sb.append("    timestamp: ").append(toIndentedString(timestamp)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @return URL query string
+   */
+  public String toUrlQueryString() {
+    return toUrlQueryString(null);
+  }
+
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @param prefix prefix of the query string
+   * @return URL query string
+   */
+  public String toUrlQueryString(String prefix) {
+    String suffix = "";
+    String containerSuffix = "";
+    String containerPrefix = "";
+    if (prefix == null) {
+      // style=form, explode=true, e.g. /pet?name=cat&type=manx
+      prefix = "";
+    } else {
+      // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
+      prefix = prefix + "[";
+      suffix = "]";
+      containerSuffix = "]";
+      containerPrefix = "[";
     }
 
-    /**
-     * Get provider
-     *
-     * @return provider
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_PROVIDER)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public String getProvider() {
-        return provider;
+    StringJoiner joiner = new StringJoiner("&");
+
+    // add `provider` to the URL query string
+    if (getProvider() != null) {
+      joiner.add(String.format("%sprovider%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getProvider()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
     }
 
-    @JsonProperty(JSON_PROPERTY_PROVIDER)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setProvider(String provider) {
-        this.provider = provider;
+    // add `success` to the URL query string
+    if (getSuccess() != null) {
+      joiner.add(String.format("%ssuccess%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getSuccess()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
     }
 
-    public AmlRegistrationResult success(Boolean success) {
-        this.success = success;
-        return this;
+    // add `timestamp` to the URL query string
+    if (getTimestamp() != null) {
+      joiner.add(String.format("%stimestamp%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getTimestamp()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
     }
 
-    /**
-     * Get success
-     *
-     * @return success
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_SUCCESS)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public Boolean getSuccess() {
-        return success;
-    }
-
-    @JsonProperty(JSON_PROPERTY_SUCCESS)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setSuccess(Boolean success) {
-        this.success = success;
-    }
-
-    public AmlRegistrationResult timestamp(BigDecimal timestamp) {
-        this.timestamp = timestamp;
-        return this;
-    }
-
-    /**
-     * Get timestamp
-     *
-     * @return timestamp
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_TIMESTAMP)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public BigDecimal getTimestamp() {
-        return timestamp;
-    }
-
-    @JsonProperty(JSON_PROPERTY_TIMESTAMP)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setTimestamp(BigDecimal timestamp) {
-        this.timestamp = timestamp;
-    }
-
-    /** Return true if this AmlRegistrationResult object is equal to o. */
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        AmlRegistrationResult amlRegistrationResult = (AmlRegistrationResult) o;
-        return Objects.equals(this.provider, amlRegistrationResult.provider)
-                && Objects.equals(this.success, amlRegistrationResult.success)
-                && Objects.equals(this.timestamp, amlRegistrationResult.timestamp);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(provider, success, timestamp);
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("class AmlRegistrationResult {\n");
-        sb.append("    provider: ").append(toIndentedString(provider)).append("\n");
-        sb.append("    success: ").append(toIndentedString(success)).append("\n");
-        sb.append("    timestamp: ").append(toIndentedString(timestamp)).append("\n");
-        sb.append("}");
-        return sb.toString();
-    }
-
-    /**
-     * Convert the given object to string with each line indented by 4 spaces (except the first
-     * line).
-     */
-    private String toIndentedString(Object o) {
-        if (o == null) {
-            return "null";
-        }
-        return o.toString().replace("\n", "\n    ");
-    }
-
-    /**
-     * Convert the instance into URL query string.
-     *
-     * @return URL query string
-     */
-    public String toUrlQueryString() {
-        return toUrlQueryString(null);
-    }
-
-    /**
-     * Convert the instance into URL query string.
-     *
-     * @param prefix prefix of the query string
-     * @return URL query string
-     */
-    public String toUrlQueryString(String prefix) {
-        String suffix = "";
-        String containerSuffix = "";
-        String containerPrefix = "";
-        if (prefix == null) {
-            // style=form, explode=true, e.g. /pet?name=cat&type=manx
-            prefix = "";
-        } else {
-            // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
-            prefix = prefix + "[";
-            suffix = "]";
-            containerSuffix = "]";
-            containerPrefix = "[";
-        }
-
-        StringJoiner joiner = new StringJoiner("&");
-
-        // add `provider` to the URL query string
-        if (getProvider() != null) {
-            joiner.add(
-                    String.format(
-                            "%sprovider%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(String.valueOf(getProvider()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
-        // add `success` to the URL query string
-        if (getSuccess() != null) {
-            joiner.add(
-                    String.format(
-                            "%ssuccess%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(String.valueOf(getSuccess()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
-        // add `timestamp` to the URL query string
-        if (getTimestamp() != null) {
-            joiner.add(
-                    String.format(
-                            "%stimestamp%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getTimestamp()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
-        return joiner.toString();
-    }
+    return joiner.toString();
+  }
 }
+

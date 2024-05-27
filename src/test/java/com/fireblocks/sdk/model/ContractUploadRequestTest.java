@@ -10,72 +10,108 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.fireblocks.sdk.model.AbiFunction;
+import com.fireblocks.sdk.model.ContractAttributes;
+import com.fireblocks.sdk.model.ContractDoc;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
-/** Model tests for ContractUploadRequest */
+/**
+ * Model tests for ContractUploadRequest
+ */
 public class ContractUploadRequestTest {
     private final ContractUploadRequest model = new ContractUploadRequest();
 
-    /** Model tests for ContractUploadRequest */
+    /**
+     * Model tests for ContractUploadRequest
+     */
     @Test
     public void testContractUploadRequest() {
         // TODO: test ContractUploadRequest
     }
 
-    /** Test the property 'name' */
+    /**
+     * Test the property 'name'
+     */
     @Test
     public void nameTest() {
         // TODO: test name
     }
 
-    /** Test the property 'description' */
+    /**
+     * Test the property 'description'
+     */
     @Test
     public void descriptionTest() {
         // TODO: test description
     }
 
-    /** Test the property 'longDescription' */
+    /**
+     * Test the property 'longDescription'
+     */
     @Test
     public void longDescriptionTest() {
         // TODO: test longDescription
     }
 
-    /** Test the property 'bytecode' */
+    /**
+     * Test the property 'bytecode'
+     */
     @Test
     public void bytecodeTest() {
         // TODO: test bytecode
     }
 
-    /** Test the property 'sourcecode' */
+    /**
+     * Test the property 'sourcecode'
+     */
     @Test
     public void sourcecodeTest() {
         // TODO: test sourcecode
     }
 
-    /** Test the property 'type' */
+    /**
+     * Test the property 'type'
+     */
     @Test
     public void typeTest() {
         // TODO: test type
     }
 
-    /** Test the property 'docs' */
+    /**
+     * Test the property 'docs'
+     */
     @Test
     public void docsTest() {
         // TODO: test docs
     }
 
-    /** Test the property 'abi' */
+    /**
+     * Test the property 'abi'
+     */
     @Test
     public void abiTest() {
         // TODO: test abi
     }
 
-    /** Test the property 'attributes' */
+    /**
+     * Test the property 'attributes'
+     */
     @Test
     public void attributesTest() {
         // TODO: test attributes
     }
+
 }

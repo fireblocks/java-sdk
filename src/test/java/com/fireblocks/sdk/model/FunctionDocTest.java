@@ -10,36 +10,57 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
-/** Model tests for FunctionDoc */
+/**
+ * Model tests for FunctionDoc
+ */
 public class FunctionDocTest {
     private final FunctionDoc model = new FunctionDoc();
 
-    /** Model tests for FunctionDoc */
+    /**
+     * Model tests for FunctionDoc
+     */
     @Test
     public void testFunctionDoc() {
         // TODO: test FunctionDoc
     }
 
-    /** Test the property 'details' */
+    /**
+     * Test the property 'details'
+     */
     @Test
     public void detailsTest() {
         // TODO: test details
     }
 
-    /** Test the property 'params' */
+    /**
+     * Test the property 'params'
+     */
     @Test
     public void paramsTest() {
         // TODO: test params
     }
 
-    /** Test the property 'returns' */
+    /**
+     * Test the property 'returns'
+     */
     @Test
     public void returnsTest() {
         // TODO: test returns
     }
+
 }

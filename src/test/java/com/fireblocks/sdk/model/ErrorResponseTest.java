@@ -10,24 +10,40 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.fireblocks.sdk.model.ErrorResponseError;
+import java.util.Arrays;
+import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
-/** Model tests for ErrorResponse */
+/**
+ * Model tests for ErrorResponse
+ */
 public class ErrorResponseTest {
     private final ErrorResponse model = new ErrorResponse();
 
-    /** Model tests for ErrorResponse */
+    /**
+     * Model tests for ErrorResponse
+     */
     @Test
     public void testErrorResponse() {
         // TODO: test ErrorResponse
     }
 
-    /** Test the property 'error' */
+    /**
+     * Test the property 'error'
+     */
     @Test
     public void errorTest() {
         // TODO: test error
     }
+
 }

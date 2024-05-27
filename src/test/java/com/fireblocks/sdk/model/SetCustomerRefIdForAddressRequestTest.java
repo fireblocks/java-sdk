@@ -10,24 +10,39 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.Arrays;
+import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
-/** Model tests for SetCustomerRefIdForAddressRequest */
+/**
+ * Model tests for SetCustomerRefIdForAddressRequest
+ */
 public class SetCustomerRefIdForAddressRequestTest {
     private final SetCustomerRefIdForAddressRequest model = new SetCustomerRefIdForAddressRequest();
 
-    /** Model tests for SetCustomerRefIdForAddressRequest */
+    /**
+     * Model tests for SetCustomerRefIdForAddressRequest
+     */
     @Test
     public void testSetCustomerRefIdForAddressRequest() {
         // TODO: test SetCustomerRefIdForAddressRequest
     }
 
-    /** Test the property 'customerRefId' */
+    /**
+     * Test the property 'customerRefId'
+     */
     @Test
     public void customerRefIdTest() {
         // TODO: test customerRefId
     }
+
 }

@@ -10,36 +10,55 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.Arrays;
+import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
-/** Model tests for GasStationConfiguration */
+/**
+ * Model tests for GasStationConfiguration
+ */
 public class GasStationConfigurationTest {
     private final GasStationConfiguration model = new GasStationConfiguration();
 
-    /** Model tests for GasStationConfiguration */
+    /**
+     * Model tests for GasStationConfiguration
+     */
     @Test
     public void testGasStationConfiguration() {
         // TODO: test GasStationConfiguration
     }
 
-    /** Test the property 'gasThreshold' */
+    /**
+     * Test the property 'gasThreshold'
+     */
     @Test
     public void gasThresholdTest() {
         // TODO: test gasThreshold
     }
 
-    /** Test the property 'gasCap' */
+    /**
+     * Test the property 'gasCap'
+     */
     @Test
     public void gasCapTest() {
         // TODO: test gasCap
     }
 
-    /** Test the property 'maxGasPrice' */
+    /**
+     * Test the property 'maxGasPrice'
+     */
     @Test
     public void maxGasPriceTest() {
         // TODO: test maxGasPrice
     }
+
 }

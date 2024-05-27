@@ -10,66 +10,96 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import java.math.BigDecimal;
+import java.util.Arrays;
+import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
-/** Model tests for TransactionFee */
+/**
+ * Model tests for TransactionFee
+ */
 public class TransactionFeeTest {
     private final TransactionFee model = new TransactionFee();
 
-    /** Model tests for TransactionFee */
+    /**
+     * Model tests for TransactionFee
+     */
     @Test
     public void testTransactionFee() {
         // TODO: test TransactionFee
     }
 
-    /** Test the property 'feePerByte' */
+    /**
+     * Test the property 'feePerByte'
+     */
     @Test
     public void feePerByteTest() {
         // TODO: test feePerByte
     }
 
-    /** Test the property 'gasPrice' */
+    /**
+     * Test the property 'gasPrice'
+     */
     @Test
     public void gasPriceTest() {
         // TODO: test gasPrice
     }
 
-    /** Test the property 'gasLimit' */
+    /**
+     * Test the property 'gasLimit'
+     */
     @Test
     public void gasLimitTest() {
         // TODO: test gasLimit
     }
 
-    /** Test the property 'networkFee' */
+    /**
+     * Test the property 'networkFee'
+     */
     @Test
     public void networkFeeTest() {
         // TODO: test networkFee
     }
 
-    /** Test the property 'baseFee' */
+    /**
+     * Test the property 'baseFee'
+     */
     @Test
     public void baseFeeTest() {
         // TODO: test baseFee
     }
 
-    /** Test the property 'priorityFee' */
+    /**
+     * Test the property 'priorityFee'
+     */
     @Test
     public void priorityFeeTest() {
         // TODO: test priorityFee
     }
 
-    /** Test the property 'maxFeePerGasDelta' */
+    /**
+     * Test the property 'maxFeePerGasDelta'
+     */
     @Test
     public void maxFeePerGasDeltaTest() {
         // TODO: test maxFeePerGasDelta
     }
 
-    /** Test the property 'l1Fee' */
+    /**
+     * Test the property 'l1Fee'
+     */
     @Test
     public void l1FeeTest() {
         // TODO: test l1Fee
     }
+
 }

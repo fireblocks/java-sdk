@@ -10,49 +10,65 @@
  * Do not edit the class manually.
  */
 
-package com.fireblocks.sdk.api;
 
+package com.fireblocks.sdk.api;
 
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.model.ErrorSchema;
 import com.fireblocks.sdk.model.GetAuditLogsResponse;
 import com.fireblocks.sdk.model.GetAuditLogsResponseDTO;
-import java.util.concurrent.CompletableFuture;
-import org.junit.Ignore;
 import org.junit.Test;
+import org.junit.Ignore;
 
-/** API tests for AuditLogsApi */
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import java.util.concurrent.CompletableFuture;
+
+/**
+ * API tests for AuditLogsApi
+ */
 @Ignore
 public class AuditLogsApiTest {
 
     private final AuditLogsApi api = new AuditLogsApi();
 
+    
     /**
      * Get audit logs
      *
-     * <p>Get all audits
+     * Get all audits
      *
-     * @throws ApiException if the Api call fails
+     * @throws ApiException
+     *          if the Api call fails
      */
     @Test
     public void getAuditLogsTest() throws ApiException {
         String timePeriod = null;
         String cursor = null;
-        CompletableFuture<ApiResponse<GetAuditLogsResponse>> response =
-                api.getAuditLogs(timePeriod, cursor);
+        CompletableFuture<ApiResponse<GetAuditLogsResponse>> response = 
+        api.getAuditLogs(timePeriod, cursor);
+        
     }
-
+    
     /**
      * Get audit logs
      *
-     * <p>Get all audits
+     * Get all audits
      *
-     * @throws ApiException if the Api call fails
+     * @throws ApiException
+     *          if the Api call fails
      */
     @Test
     public void getAuditsTest() throws ApiException {
         String timePeriod = null;
-        CompletableFuture<ApiResponse<GetAuditLogsResponseDTO>> response =
-                api.getAudits(timePeriod);
+        CompletableFuture<ApiResponse<GetAuditLogsResponseDTO>> response = 
+        api.getAudits(timePeriod);
+        
     }
+    
 }

@@ -10,30 +10,48 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.fireblocks.sdk.model.PaymentAccountType;
+import java.util.Arrays;
+import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
-/** Model tests for PaymentAccountResponse */
+/**
+ * Model tests for PaymentAccountResponse
+ */
 public class PaymentAccountResponseTest {
     private final PaymentAccountResponse model = new PaymentAccountResponse();
 
-    /** Model tests for PaymentAccountResponse */
+    /**
+     * Model tests for PaymentAccountResponse
+     */
     @Test
     public void testPaymentAccountResponse() {
         // TODO: test PaymentAccountResponse
     }
 
-    /** Test the property 'id' */
+    /**
+     * Test the property 'id'
+     */
     @Test
     public void idTest() {
         // TODO: test id
     }
 
-    /** Test the property 'type' */
+    /**
+     * Test the property 'type'
+     */
     @Test
     public void typeTest() {
         // TODO: test type
     }
+
 }

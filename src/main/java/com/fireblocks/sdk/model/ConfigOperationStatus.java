@@ -10,59 +10,73 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
+
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.StringJoiner;
+import java.util.Objects;
+import java.util.Map;
+import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
-/** Gets or Sets ConfigOperationStatus */
+/**
+ * Gets or Sets ConfigOperationStatus
+ */
 public enum ConfigOperationStatus {
-    PENDING("PENDING"),
+  
+  PENDING("PENDING"),
+  
+  VALIDATION_IN_PROGRESS("VALIDATION_IN_PROGRESS"),
+  
+  READY_FOR_EXECUTION("READY_FOR_EXECUTION"),
+  
+  VALIDATION_FAILED("VALIDATION_FAILED");
 
-    VALIDATION_IN_PROGRESS("VALIDATION_IN_PROGRESS"),
+  private String value;
 
-    READY_FOR_EXECUTION("READY_FOR_EXECUTION"),
+  ConfigOperationStatus(String value) {
+    this.value = value;
+  }
 
-    VALIDATION_FAILED("VALIDATION_FAILED");
+  @JsonValue
+  public String getValue() {
+    return value;
+  }
 
-    private String value;
+  @Override
+  public String toString() {
+    return String.valueOf(value);
+  }
 
-    ConfigOperationStatus(String value) {
-        this.value = value;
+  @JsonCreator
+  public static ConfigOperationStatus fromValue(String value) {
+    for (ConfigOperationStatus b : ConfigOperationStatus.values()) {
+      if (b.value.equals(value)) {
+        return b;
+      }
+    }
+    throw new IllegalArgumentException("Unexpected value '" + value + "'");
+  }
+
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @param prefix prefix of the query string
+   * @return URL query string
+   */
+  public String toUrlQueryString(String prefix) {
+    if (prefix == null) {
+      prefix = "";
     }
 
-    @JsonValue
-    public String getValue() {
-        return value;
-    }
+    return String.format("%s=%s", prefix, this.toString());
+  }
 
-    @Override
-    public String toString() {
-        return String.valueOf(value);
-    }
-
-    @JsonCreator
-    public static ConfigOperationStatus fromValue(String value) {
-        for (ConfigOperationStatus b : ConfigOperationStatus.values()) {
-            if (b.value.equals(value)) {
-                return b;
-            }
-        }
-        throw new IllegalArgumentException("Unexpected value '" + value + "'");
-    }
-
-    /**
-     * Convert the instance into URL query string.
-     *
-     * @param prefix prefix of the query string
-     * @return URL query string
-     */
-    public String toUrlQueryString(String prefix) {
-        if (prefix == null) {
-            prefix = "";
-        }
-
-        return String.format("%s=%s", prefix, this.toString());
-    }
 }
+

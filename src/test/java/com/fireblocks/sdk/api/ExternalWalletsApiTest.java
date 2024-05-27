@@ -10,33 +10,44 @@
  * Do not edit the class manually.
  */
 
-package com.fireblocks.sdk.api;
 
+package com.fireblocks.sdk.api;
 
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.model.AddAssetToExternalWalletRequest;
 import com.fireblocks.sdk.model.CreateWalletRequest;
+import com.fireblocks.sdk.model.ErrorSchema;
 import com.fireblocks.sdk.model.ExternalWalletAsset;
 import com.fireblocks.sdk.model.SetCustomerRefIdRequest;
 import com.fireblocks.sdk.model.UnmanagedWallet;
-import java.util.List;
-import java.util.concurrent.CompletableFuture;
-import org.junit.Ignore;
 import org.junit.Test;
+import org.junit.Ignore;
 
-/** API tests for ExternalWalletsApi */
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import java.util.concurrent.CompletableFuture;
+
+/**
+ * API tests for ExternalWalletsApi
+ */
 @Ignore
 public class ExternalWalletsApiTest {
 
     private final ExternalWalletsApi api = new ExternalWalletsApi();
 
+    
     /**
      * Add an asset to an external wallet.
      *
-     * <p>Adds an asset to an existing external wallet.
+     * Adds an asset to an existing external wallet.
      *
-     * @throws ApiException if the Api call fails
+     * @throws ApiException
+     *          if the Api call fails
      */
     @Test
     public void addAssetToExternalWalletTest() throws ApiException {
@@ -44,111 +55,125 @@ public class ExternalWalletsApiTest {
         String assetId = null;
         AddAssetToExternalWalletRequest addAssetToExternalWalletRequest = null;
         String idempotencyKey = null;
-        CompletableFuture<ApiResponse<ExternalWalletAsset>> response =
-                api.addAssetToExternalWallet(
-                        walletId, assetId, addAssetToExternalWalletRequest, idempotencyKey);
+        CompletableFuture<ApiResponse<ExternalWalletAsset>> response = 
+        api.addAssetToExternalWallet(walletId, assetId, addAssetToExternalWalletRequest, idempotencyKey);
+        
     }
-
+    
     /**
      * Create an external wallet
      *
-     * <p>Creates a new external wallet with the requested name.
+     * Creates a new external wallet with the requested name.
      *
-     * @throws ApiException if the Api call fails
+     * @throws ApiException
+     *          if the Api call fails
      */
     @Test
     public void createExternalWalletTest() throws ApiException {
         CreateWalletRequest createWalletRequest = null;
         String idempotencyKey = null;
-        CompletableFuture<ApiResponse<UnmanagedWallet>> response =
-                api.createExternalWallet(createWalletRequest, idempotencyKey);
+        CompletableFuture<ApiResponse<UnmanagedWallet>> response = 
+        api.createExternalWallet(createWalletRequest, idempotencyKey);
+        
     }
-
+    
     /**
      * Delete an external wallet
      *
-     * <p>Deletes an external wallet by ID.
+     * Deletes an external wallet by ID.
      *
-     * @throws ApiException if the Api call fails
+     * @throws ApiException
+     *          if the Api call fails
      */
     @Test
     public void deleteExternalWalletTest() throws ApiException {
         String walletId = null;
-
+        
         CompletableFuture<ApiResponse<Void>> response = api.deleteExternalWallet(walletId);
+        
     }
-
+    
     /**
      * Find an external wallet
      *
-     * <p>Returns an external wallet by ID.
+     * Returns an external wallet by ID.
      *
-     * @throws ApiException if the Api call fails
+     * @throws ApiException
+     *          if the Api call fails
      */
     @Test
     public void getExternalWalletTest() throws ApiException {
         String walletId = null;
-        CompletableFuture<ApiResponse<UnmanagedWallet>> response = api.getExternalWallet(walletId);
+        CompletableFuture<ApiResponse<UnmanagedWallet>> response = 
+        api.getExternalWallet(walletId);
+        
     }
-
+    
     /**
      * Get an asset from an external wallet
      *
-     * <p>Returns an external wallet by wallet ID and asset ID.
+     * Returns an external wallet by wallet ID and asset ID.
      *
-     * @throws ApiException if the Api call fails
+     * @throws ApiException
+     *          if the Api call fails
      */
     @Test
     public void getExternalWalletAssetTest() throws ApiException {
         String walletId = null;
         String assetId = null;
-        CompletableFuture<ApiResponse<ExternalWalletAsset>> response =
-                api.getExternalWalletAsset(walletId, assetId);
+        CompletableFuture<ApiResponse<ExternalWalletAsset>> response = 
+        api.getExternalWalletAsset(walletId, assetId);
+        
     }
-
+    
     /**
      * List external wallets
      *
-     * <p>Gets a list of external wallets under the workspace.
+     * Gets a list of external wallets under the workspace.
      *
-     * @throws ApiException if the Api call fails
+     * @throws ApiException
+     *          if the Api call fails
      */
     @Test
     public void getExternalWalletsTest() throws ApiException {
-        CompletableFuture<ApiResponse<List<UnmanagedWallet>>> response = api.getExternalWallets();
+        CompletableFuture<ApiResponse<List<UnmanagedWallet>>> response = 
+        api.getExternalWallets();
+        
     }
-
+    
     /**
      * Delete an asset from an external wallet
      *
-     * <p>Deletes an external wallet asset by ID.
+     * Deletes an external wallet asset by ID.
      *
-     * @throws ApiException if the Api call fails
+     * @throws ApiException
+     *          if the Api call fails
      */
     @Test
     public void removeAssetFromExternalWalletTest() throws ApiException {
         String walletId = null;
         String assetId = null;
-
-        CompletableFuture<ApiResponse<Void>> response =
-                api.removeAssetFromExternalWallet(walletId, assetId);
+        
+        CompletableFuture<ApiResponse<Void>> response = api.removeAssetFromExternalWallet(walletId, assetId);
+        
     }
-
+    
     /**
      * Set an AML customer reference ID for an external wallet
      *
-     * <p>Sets an AML/KYT customer reference ID for the specific external wallet.
+     * Sets an AML/KYT customer reference ID for the specific external wallet.
      *
-     * @throws ApiException if the Api call fails
+     * @throws ApiException
+     *          if the Api call fails
      */
     @Test
     public void setExternalWalletCustomerRefIdTest() throws ApiException {
         SetCustomerRefIdRequest setCustomerRefIdRequest = null;
         String walletId = null;
         String idempotencyKey = null;
-
-        CompletableFuture<ApiResponse<Void>> response =
-                api.setExternalWalletCustomerRefId(
-                        setCustomerRefIdRequest, walletId, idempotencyKey);
+        
+        CompletableFuture<ApiResponse<Void>> response = api.setExternalWalletCustomerRefId(setCustomerRefIdRequest, walletId, idempotencyKey);
+        
     }
+    
 }

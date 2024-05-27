@@ -10,170 +10,178 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.math.BigDecimal;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
-import java.util.Objects;
 import java.util.StringJoiner;
+import java.util.Objects;
+import java.util.Map;
+import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import java.math.BigDecimal;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
-/** UnspentInput */
-@JsonPropertyOrder({UnspentInput.JSON_PROPERTY_TX_HASH, UnspentInput.JSON_PROPERTY_INDEX})
+
+/**
+ * UnspentInput
+ */
+@JsonPropertyOrder({
+  UnspentInput.JSON_PROPERTY_TX_HASH,
+  UnspentInput.JSON_PROPERTY_INDEX
+})
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class UnspentInput {
-    public static final String JSON_PROPERTY_TX_HASH = "txHash";
-    private String txHash;
+  public static final String JSON_PROPERTY_TX_HASH = "txHash";
+  private String txHash;
 
-    public static final String JSON_PROPERTY_INDEX = "index";
-    private BigDecimal index;
+  public static final String JSON_PROPERTY_INDEX = "index";
+  private BigDecimal index;
 
-    public UnspentInput() {}
+  public UnspentInput() { 
+  }
 
-    public UnspentInput txHash(String txHash) {
-        this.txHash = txHash;
-        return this;
+  public UnspentInput txHash(String txHash) {
+    this.txHash = txHash;
+    return this;
+  }
+
+   /**
+   * Get txHash
+   * @return txHash
+  **/
+  @jakarta.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_TX_HASH)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getTxHash() {
+    return txHash;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_TX_HASH)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setTxHash(String txHash) {
+    this.txHash = txHash;
+  }
+
+
+  public UnspentInput index(BigDecimal index) {
+    this.index = index;
+    return this;
+  }
+
+   /**
+   * Get index
+   * @return index
+  **/
+  @jakarta.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_INDEX)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public BigDecimal getIndex() {
+    return index;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_INDEX)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setIndex(BigDecimal index) {
+    this.index = index;
+  }
+
+
+  /**
+   * Return true if this UnspentInput object is equal to o.
+   */
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    UnspentInput unspentInput = (UnspentInput) o;
+    return Objects.equals(this.txHash, unspentInput.txHash) &&
+        Objects.equals(this.index, unspentInput.index);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(txHash, index);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class UnspentInput {\n");
+    sb.append("    txHash: ").append(toIndentedString(txHash)).append("\n");
+    sb.append("    index: ").append(toIndentedString(index)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @return URL query string
+   */
+  public String toUrlQueryString() {
+    return toUrlQueryString(null);
+  }
+
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @param prefix prefix of the query string
+   * @return URL query string
+   */
+  public String toUrlQueryString(String prefix) {
+    String suffix = "";
+    String containerSuffix = "";
+    String containerPrefix = "";
+    if (prefix == null) {
+      // style=form, explode=true, e.g. /pet?name=cat&type=manx
+      prefix = "";
+    } else {
+      // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
+      prefix = prefix + "[";
+      suffix = "]";
+      containerSuffix = "]";
+      containerPrefix = "[";
     }
 
-    /**
-     * Get txHash
-     *
-     * @return txHash
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_TX_HASH)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public String getTxHash() {
-        return txHash;
+    StringJoiner joiner = new StringJoiner("&");
+
+    // add `txHash` to the URL query string
+    if (getTxHash() != null) {
+      joiner.add(String.format("%stxHash%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getTxHash()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
     }
 
-    @JsonProperty(JSON_PROPERTY_TX_HASH)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setTxHash(String txHash) {
-        this.txHash = txHash;
+    // add `index` to the URL query string
+    if (getIndex() != null) {
+      joiner.add(String.format("%sindex%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getIndex()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
     }
 
-    public UnspentInput index(BigDecimal index) {
-        this.index = index;
-        return this;
-    }
-
-    /**
-     * Get index
-     *
-     * @return index
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_INDEX)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public BigDecimal getIndex() {
-        return index;
-    }
-
-    @JsonProperty(JSON_PROPERTY_INDEX)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setIndex(BigDecimal index) {
-        this.index = index;
-    }
-
-    /** Return true if this UnspentInput object is equal to o. */
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        UnspentInput unspentInput = (UnspentInput) o;
-        return Objects.equals(this.txHash, unspentInput.txHash)
-                && Objects.equals(this.index, unspentInput.index);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(txHash, index);
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("class UnspentInput {\n");
-        sb.append("    txHash: ").append(toIndentedString(txHash)).append("\n");
-        sb.append("    index: ").append(toIndentedString(index)).append("\n");
-        sb.append("}");
-        return sb.toString();
-    }
-
-    /**
-     * Convert the given object to string with each line indented by 4 spaces (except the first
-     * line).
-     */
-    private String toIndentedString(Object o) {
-        if (o == null) {
-            return "null";
-        }
-        return o.toString().replace("\n", "\n    ");
-    }
-
-    /**
-     * Convert the instance into URL query string.
-     *
-     * @return URL query string
-     */
-    public String toUrlQueryString() {
-        return toUrlQueryString(null);
-    }
-
-    /**
-     * Convert the instance into URL query string.
-     *
-     * @param prefix prefix of the query string
-     * @return URL query string
-     */
-    public String toUrlQueryString(String prefix) {
-        String suffix = "";
-        String containerSuffix = "";
-        String containerPrefix = "";
-        if (prefix == null) {
-            // style=form, explode=true, e.g. /pet?name=cat&type=manx
-            prefix = "";
-        } else {
-            // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
-            prefix = prefix + "[";
-            suffix = "]";
-            containerSuffix = "]";
-            containerPrefix = "[";
-        }
-
-        StringJoiner joiner = new StringJoiner("&");
-
-        // add `txHash` to the URL query string
-        if (getTxHash() != null) {
-            joiner.add(
-                    String.format(
-                            "%stxHash%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(String.valueOf(getTxHash()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
-        // add `index` to the URL query string
-        if (getIndex() != null) {
-            joiner.add(
-                    String.format(
-                            "%sindex%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(String.valueOf(getIndex()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
-        return joiner.toString();
-    }
+    return joiner.toString();
+  }
 }
+

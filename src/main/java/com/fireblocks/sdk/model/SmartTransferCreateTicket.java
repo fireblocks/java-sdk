@@ -10,437 +10,409 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.fasterxml.jackson.annotation.JsonValue;
-import java.math.BigDecimal;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
 import java.util.StringJoiner;
+import java.util.Objects;
+import java.util.Map;
+import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.fireblocks.sdk.model.SmartTransferCreateTicketTerm;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
-/** SmartTransferCreateTicket */
+
+/**
+ * SmartTransferCreateTicket
+ */
 @JsonPropertyOrder({
-    SmartTransferCreateTicket.JSON_PROPERTY_CREATED_BY_NETWORK_ID,
-    SmartTransferCreateTicket.JSON_PROPERTY_TYPE,
-    SmartTransferCreateTicket.JSON_PROPERTY_EXPIRES_IN,
-    SmartTransferCreateTicket.JSON_PROPERTY_TERMS,
-    SmartTransferCreateTicket.JSON_PROPERTY_EXTERNAL_REF_ID,
-    SmartTransferCreateTicket.JSON_PROPERTY_NOTE,
-    SmartTransferCreateTicket.JSON_PROPERTY_SUBMIT
+  SmartTransferCreateTicket.JSON_PROPERTY_CREATED_BY_NETWORK_ID,
+  SmartTransferCreateTicket.JSON_PROPERTY_TYPE,
+  SmartTransferCreateTicket.JSON_PROPERTY_EXPIRES_IN,
+  SmartTransferCreateTicket.JSON_PROPERTY_TERMS,
+  SmartTransferCreateTicket.JSON_PROPERTY_EXTERNAL_REF_ID,
+  SmartTransferCreateTicket.JSON_PROPERTY_NOTE,
+  SmartTransferCreateTicket.JSON_PROPERTY_SUBMIT
 })
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class SmartTransferCreateTicket {
-    public static final String JSON_PROPERTY_CREATED_BY_NETWORK_ID = "createdByNetworkId";
-    private String createdByNetworkId;
+  public static final String JSON_PROPERTY_CREATED_BY_NETWORK_ID = "createdByNetworkId";
+  private String createdByNetworkId;
 
-    /** Gets or Sets type */
-    public enum TypeEnum {
-        ASYNC("ASYNC");
+  /**
+   * Gets or Sets type
+   */
+  public enum TypeEnum {
+    ASYNC("ASYNC");
 
-        private String value;
+    private String value;
 
-        TypeEnum(String value) {
-            this.value = value;
-        }
-
-        @JsonValue
-        public String getValue() {
-            return value;
-        }
-
-        @Override
-        public String toString() {
-            return String.valueOf(value);
-        }
-
-        @JsonCreator
-        public static TypeEnum fromValue(String value) {
-            for (TypeEnum b : TypeEnum.values()) {
-                if (b.value.equals(value)) {
-                    return b;
-                }
-            }
-            throw new IllegalArgumentException("Unexpected value '" + value + "'");
-        }
+    TypeEnum(String value) {
+      this.value = value;
     }
 
-    public static final String JSON_PROPERTY_TYPE = "type";
-    private TypeEnum type;
-
-    public static final String JSON_PROPERTY_EXPIRES_IN = "expiresIn";
-    private BigDecimal expiresIn;
-
-    public static final String JSON_PROPERTY_TERMS = "terms";
-    private List<SmartTransferCreateTicketTerm> terms;
-
-    public static final String JSON_PROPERTY_EXTERNAL_REF_ID = "externalRefId";
-    private String externalRefId;
-
-    public static final String JSON_PROPERTY_NOTE = "note";
-    private String note;
-
-    public static final String JSON_PROPERTY_SUBMIT = "submit";
-    private Boolean submit;
-
-    public SmartTransferCreateTicket() {}
-
-    public SmartTransferCreateTicket createdByNetworkId(String createdByNetworkId) {
-        this.createdByNetworkId = createdByNetworkId;
-        return this;
-    }
-
-    /**
-     * Get createdByNetworkId
-     *
-     * @return createdByNetworkId
-     */
-    @jakarta.annotation.Nonnull
-    @JsonProperty(JSON_PROPERTY_CREATED_BY_NETWORK_ID)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public String getCreatedByNetworkId() {
-        return createdByNetworkId;
-    }
-
-    @JsonProperty(JSON_PROPERTY_CREATED_BY_NETWORK_ID)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setCreatedByNetworkId(String createdByNetworkId) {
-        this.createdByNetworkId = createdByNetworkId;
-    }
-
-    public SmartTransferCreateTicket type(TypeEnum type) {
-        this.type = type;
-        return this;
-    }
-
-    /**
-     * Get type
-     *
-     * @return type
-     */
-    @jakarta.annotation.Nonnull
-    @JsonProperty(JSON_PROPERTY_TYPE)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public TypeEnum getType() {
-        return type;
-    }
-
-    @JsonProperty(JSON_PROPERTY_TYPE)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setType(TypeEnum type) {
-        this.type = type;
-    }
-
-    public SmartTransferCreateTicket expiresIn(BigDecimal expiresIn) {
-        this.expiresIn = expiresIn;
-        return this;
-    }
-
-    /**
-     * Number of hours after which an OPEN ticket will expire if no term is funded. minimum: 1
-     * maximum: 48
-     *
-     * @return expiresIn
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_EXPIRES_IN)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public BigDecimal getExpiresIn() {
-        return expiresIn;
-    }
-
-    @JsonProperty(JSON_PROPERTY_EXPIRES_IN)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setExpiresIn(BigDecimal expiresIn) {
-        this.expiresIn = expiresIn;
-    }
-
-    public SmartTransferCreateTicket terms(List<SmartTransferCreateTicketTerm> terms) {
-        this.terms = terms;
-        return this;
-    }
-
-    public SmartTransferCreateTicket addTermsItem(SmartTransferCreateTicketTerm termsItem) {
-        if (this.terms == null) {
-            this.terms = new ArrayList<>();
-        }
-        this.terms.add(termsItem);
-        return this;
-    }
-
-    /**
-     * Get terms
-     *
-     * @return terms
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_TERMS)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public List<SmartTransferCreateTicketTerm> getTerms() {
-        return terms;
-    }
-
-    @JsonProperty(JSON_PROPERTY_TERMS)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setTerms(List<SmartTransferCreateTicketTerm> terms) {
-        this.terms = terms;
-    }
-
-    public SmartTransferCreateTicket externalRefId(String externalRefId) {
-        this.externalRefId = externalRefId;
-        return this;
-    }
-
-    /**
-     * Get externalRefId
-     *
-     * @return externalRefId
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_EXTERNAL_REF_ID)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public String getExternalRefId() {
-        return externalRefId;
-    }
-
-    @JsonProperty(JSON_PROPERTY_EXTERNAL_REF_ID)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setExternalRefId(String externalRefId) {
-        this.externalRefId = externalRefId;
-    }
-
-    public SmartTransferCreateTicket note(String note) {
-        this.note = note;
-        return this;
-    }
-
-    /**
-     * Get note
-     *
-     * @return note
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_NOTE)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public String getNote() {
-        return note;
-    }
-
-    @JsonProperty(JSON_PROPERTY_NOTE)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setNote(String note) {
-        this.note = note;
-    }
-
-    public SmartTransferCreateTicket submit(Boolean submit) {
-        this.submit = submit;
-        return this;
-    }
-
-    /**
-     * Get submit
-     *
-     * @return submit
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_SUBMIT)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public Boolean getSubmit() {
-        return submit;
-    }
-
-    @JsonProperty(JSON_PROPERTY_SUBMIT)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setSubmit(Boolean submit) {
-        this.submit = submit;
-    }
-
-    /** Return true if this SmartTransferCreateTicket object is equal to o. */
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        SmartTransferCreateTicket smartTransferCreateTicket = (SmartTransferCreateTicket) o;
-        return Objects.equals(this.createdByNetworkId, smartTransferCreateTicket.createdByNetworkId)
-                && Objects.equals(this.type, smartTransferCreateTicket.type)
-                && Objects.equals(this.expiresIn, smartTransferCreateTicket.expiresIn)
-                && Objects.equals(this.terms, smartTransferCreateTicket.terms)
-                && Objects.equals(this.externalRefId, smartTransferCreateTicket.externalRefId)
-                && Objects.equals(this.note, smartTransferCreateTicket.note)
-                && Objects.equals(this.submit, smartTransferCreateTicket.submit);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(
-                createdByNetworkId, type, expiresIn, terms, externalRefId, note, submit);
+    @JsonValue
+    public String getValue() {
+      return value;
     }
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("class SmartTransferCreateTicket {\n");
-        sb.append("    createdByNetworkId: ")
-                .append(toIndentedString(createdByNetworkId))
-                .append("\n");
-        sb.append("    type: ").append(toIndentedString(type)).append("\n");
-        sb.append("    expiresIn: ").append(toIndentedString(expiresIn)).append("\n");
-        sb.append("    terms: ").append(toIndentedString(terms)).append("\n");
-        sb.append("    externalRefId: ").append(toIndentedString(externalRefId)).append("\n");
-        sb.append("    note: ").append(toIndentedString(note)).append("\n");
-        sb.append("    submit: ").append(toIndentedString(submit)).append("\n");
-        sb.append("}");
-        return sb.toString();
+      return String.valueOf(value);
     }
 
-    /**
-     * Convert the given object to string with each line indented by 4 spaces (except the first
-     * line).
-     */
-    private String toIndentedString(Object o) {
-        if (o == null) {
-            return "null";
+    @JsonCreator
+    public static TypeEnum fromValue(String value) {
+      for (TypeEnum b : TypeEnum.values()) {
+        if (b.value.equals(value)) {
+          return b;
         }
-        return o.toString().replace("\n", "\n    ");
+      }
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
+  }
+
+  public static final String JSON_PROPERTY_TYPE = "type";
+  private TypeEnum type;
+
+  public static final String JSON_PROPERTY_EXPIRES_IN = "expiresIn";
+  private BigDecimal expiresIn;
+
+  public static final String JSON_PROPERTY_TERMS = "terms";
+  private List<SmartTransferCreateTicketTerm> terms;
+
+  public static final String JSON_PROPERTY_EXTERNAL_REF_ID = "externalRefId";
+  private String externalRefId;
+
+  public static final String JSON_PROPERTY_NOTE = "note";
+  private String note;
+
+  public static final String JSON_PROPERTY_SUBMIT = "submit";
+  private Boolean submit;
+
+  public SmartTransferCreateTicket() { 
+  }
+
+  public SmartTransferCreateTicket createdByNetworkId(String createdByNetworkId) {
+    this.createdByNetworkId = createdByNetworkId;
+    return this;
+  }
+
+   /**
+   * Get createdByNetworkId
+   * @return createdByNetworkId
+  **/
+  @jakarta.annotation.Nonnull
+  @JsonProperty(JSON_PROPERTY_CREATED_BY_NETWORK_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getCreatedByNetworkId() {
+    return createdByNetworkId;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_CREATED_BY_NETWORK_ID)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setCreatedByNetworkId(String createdByNetworkId) {
+    this.createdByNetworkId = createdByNetworkId;
+  }
+
+
+  public SmartTransferCreateTicket type(TypeEnum type) {
+    this.type = type;
+    return this;
+  }
+
+   /**
+   * Get type
+   * @return type
+  **/
+  @jakarta.annotation.Nonnull
+  @JsonProperty(JSON_PROPERTY_TYPE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public TypeEnum getType() {
+    return type;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_TYPE)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setType(TypeEnum type) {
+    this.type = type;
+  }
+
+
+  public SmartTransferCreateTicket expiresIn(BigDecimal expiresIn) {
+    this.expiresIn = expiresIn;
+    return this;
+  }
+
+   /**
+   * Number of hours after which an OPEN ticket will expire if no term is funded.
+   * minimum: 1
+   * maximum: 48
+   * @return expiresIn
+  **/
+  @jakarta.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_EXPIRES_IN)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public BigDecimal getExpiresIn() {
+    return expiresIn;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_EXPIRES_IN)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setExpiresIn(BigDecimal expiresIn) {
+    this.expiresIn = expiresIn;
+  }
+
+
+  public SmartTransferCreateTicket terms(List<SmartTransferCreateTicketTerm> terms) {
+    this.terms = terms;
+    return this;
+  }
+
+  public SmartTransferCreateTicket addTermsItem(SmartTransferCreateTicketTerm termsItem) {
+    if (this.terms == null) {
+      this.terms = new ArrayList<>();
+    }
+    this.terms.add(termsItem);
+    return this;
+  }
+
+   /**
+   * Get terms
+   * @return terms
+  **/
+  @jakarta.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_TERMS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public List<SmartTransferCreateTicketTerm> getTerms() {
+    return terms;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_TERMS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setTerms(List<SmartTransferCreateTicketTerm> terms) {
+    this.terms = terms;
+  }
+
+
+  public SmartTransferCreateTicket externalRefId(String externalRefId) {
+    this.externalRefId = externalRefId;
+    return this;
+  }
+
+   /**
+   * Get externalRefId
+   * @return externalRefId
+  **/
+  @jakarta.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_EXTERNAL_REF_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getExternalRefId() {
+    return externalRefId;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_EXTERNAL_REF_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setExternalRefId(String externalRefId) {
+    this.externalRefId = externalRefId;
+  }
+
+
+  public SmartTransferCreateTicket note(String note) {
+    this.note = note;
+    return this;
+  }
+
+   /**
+   * Get note
+   * @return note
+  **/
+  @jakarta.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_NOTE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getNote() {
+    return note;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_NOTE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setNote(String note) {
+    this.note = note;
+  }
+
+
+  public SmartTransferCreateTicket submit(Boolean submit) {
+    this.submit = submit;
+    return this;
+  }
+
+   /**
+   * Get submit
+   * @return submit
+  **/
+  @jakarta.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_SUBMIT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Boolean getSubmit() {
+    return submit;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_SUBMIT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setSubmit(Boolean submit) {
+    this.submit = submit;
+  }
+
+
+  /**
+   * Return true if this SmartTransferCreateTicket object is equal to o.
+   */
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    SmartTransferCreateTicket smartTransferCreateTicket = (SmartTransferCreateTicket) o;
+    return Objects.equals(this.createdByNetworkId, smartTransferCreateTicket.createdByNetworkId) &&
+        Objects.equals(this.type, smartTransferCreateTicket.type) &&
+        Objects.equals(this.expiresIn, smartTransferCreateTicket.expiresIn) &&
+        Objects.equals(this.terms, smartTransferCreateTicket.terms) &&
+        Objects.equals(this.externalRefId, smartTransferCreateTicket.externalRefId) &&
+        Objects.equals(this.note, smartTransferCreateTicket.note) &&
+        Objects.equals(this.submit, smartTransferCreateTicket.submit);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(createdByNetworkId, type, expiresIn, terms, externalRefId, note, submit);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class SmartTransferCreateTicket {\n");
+    sb.append("    createdByNetworkId: ").append(toIndentedString(createdByNetworkId)).append("\n");
+    sb.append("    type: ").append(toIndentedString(type)).append("\n");
+    sb.append("    expiresIn: ").append(toIndentedString(expiresIn)).append("\n");
+    sb.append("    terms: ").append(toIndentedString(terms)).append("\n");
+    sb.append("    externalRefId: ").append(toIndentedString(externalRefId)).append("\n");
+    sb.append("    note: ").append(toIndentedString(note)).append("\n");
+    sb.append("    submit: ").append(toIndentedString(submit)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @return URL query string
+   */
+  public String toUrlQueryString() {
+    return toUrlQueryString(null);
+  }
+
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @param prefix prefix of the query string
+   * @return URL query string
+   */
+  public String toUrlQueryString(String prefix) {
+    String suffix = "";
+    String containerSuffix = "";
+    String containerPrefix = "";
+    if (prefix == null) {
+      // style=form, explode=true, e.g. /pet?name=cat&type=manx
+      prefix = "";
+    } else {
+      // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
+      prefix = prefix + "[";
+      suffix = "]";
+      containerSuffix = "]";
+      containerPrefix = "[";
     }
 
-    /**
-     * Convert the instance into URL query string.
-     *
-     * @return URL query string
-     */
-    public String toUrlQueryString() {
-        return toUrlQueryString(null);
+    StringJoiner joiner = new StringJoiner("&");
+
+    // add `createdByNetworkId` to the URL query string
+    if (getCreatedByNetworkId() != null) {
+      joiner.add(String.format("%screatedByNetworkId%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getCreatedByNetworkId()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
     }
 
-    /**
-     * Convert the instance into URL query string.
-     *
-     * @param prefix prefix of the query string
-     * @return URL query string
-     */
-    public String toUrlQueryString(String prefix) {
-        String suffix = "";
-        String containerSuffix = "";
-        String containerPrefix = "";
-        if (prefix == null) {
-            // style=form, explode=true, e.g. /pet?name=cat&type=manx
-            prefix = "";
-        } else {
-            // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
-            prefix = prefix + "[";
-            suffix = "]";
-            containerSuffix = "]";
-            containerPrefix = "[";
-        }
-
-        StringJoiner joiner = new StringJoiner("&");
-
-        // add `createdByNetworkId` to the URL query string
-        if (getCreatedByNetworkId() != null) {
-            joiner.add(
-                    String.format(
-                            "%screatedByNetworkId%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getCreatedByNetworkId()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
-        // add `type` to the URL query string
-        if (getType() != null) {
-            joiner.add(
-                    String.format(
-                            "%stype%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(String.valueOf(getType()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
-        // add `expiresIn` to the URL query string
-        if (getExpiresIn() != null) {
-            joiner.add(
-                    String.format(
-                            "%sexpiresIn%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getExpiresIn()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
-        // add `terms` to the URL query string
-        if (getTerms() != null) {
-            for (int i = 0; i < getTerms().size(); i++) {
-                if (getTerms().get(i) != null) {
-                    joiner.add(
-                            getTerms()
-                                    .get(i)
-                                    .toUrlQueryString(
-                                            String.format(
-                                                    "%sterms%s%s",
-                                                    prefix,
-                                                    suffix,
-                                                    "".equals(suffix)
-                                                            ? ""
-                                                            : String.format(
-                                                                    "%s%d%s",
-                                                                    containerPrefix,
-                                                                    i,
-                                                                    containerSuffix))));
-                }
-            }
-        }
-
-        // add `externalRefId` to the URL query string
-        if (getExternalRefId() != null) {
-            joiner.add(
-                    String.format(
-                            "%sexternalRefId%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getExternalRefId()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
-        // add `note` to the URL query string
-        if (getNote() != null) {
-            joiner.add(
-                    String.format(
-                            "%snote%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(String.valueOf(getNote()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
-        // add `submit` to the URL query string
-        if (getSubmit() != null) {
-            joiner.add(
-                    String.format(
-                            "%ssubmit%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(String.valueOf(getSubmit()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
-        return joiner.toString();
+    // add `type` to the URL query string
+    if (getType() != null) {
+      joiner.add(String.format("%stype%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getType()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
     }
+
+    // add `expiresIn` to the URL query string
+    if (getExpiresIn() != null) {
+      joiner.add(String.format("%sexpiresIn%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getExpiresIn()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `terms` to the URL query string
+    if (getTerms() != null) {
+      for (int i = 0; i < getTerms().size(); i++) {
+        if (getTerms().get(i) != null) {
+          joiner.add(getTerms().get(i).toUrlQueryString(String.format("%sterms%s%s", prefix, suffix,
+          "".equals(suffix) ? "" : String.format("%s%d%s", containerPrefix, i, containerSuffix))));
+        }
+      }
+    }
+
+    // add `externalRefId` to the URL query string
+    if (getExternalRefId() != null) {
+      joiner.add(String.format("%sexternalRefId%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getExternalRefId()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `note` to the URL query string
+    if (getNote() != null) {
+      joiner.add(String.format("%snote%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getNote()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    // add `submit` to the URL query string
+    if (getSubmit() != null) {
+      joiner.add(String.format("%ssubmit%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getSubmit()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
+    }
+
+    return joiner.toString();
+  }
 }
+

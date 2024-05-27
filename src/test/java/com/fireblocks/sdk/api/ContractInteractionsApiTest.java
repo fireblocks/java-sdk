@@ -10,50 +10,62 @@
  * Do not edit the class manually.
  */
 
-package com.fireblocks.sdk.api;
 
+package com.fireblocks.sdk.api;
 
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.model.ContractAbiResponseDto;
+import com.fireblocks.sdk.model.ErrorSchema;
 import com.fireblocks.sdk.model.ParameterWithValue;
 import com.fireblocks.sdk.model.ReadCallFunctionDto;
 import com.fireblocks.sdk.model.WriteCallFunctionDto;
 import com.fireblocks.sdk.model.WriteCallFunctionResponseDto;
-import java.util.List;
-import java.util.concurrent.CompletableFuture;
-import org.junit.Ignore;
 import org.junit.Test;
+import org.junit.Ignore;
 
-/** API tests for ContractInteractionsApi */
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import java.util.concurrent.CompletableFuture;
+
+/**
+ * API tests for ContractInteractionsApi
+ */
 @Ignore
 public class ContractInteractionsApiTest {
 
     private final ContractInteractionsApi api = new ContractInteractionsApi();
 
+    
     /**
      * Return deployed contract&#39;s ABI
      *
-     * <p>Return deployed contract&#39;s ABI by blockchain native asset id and contract address
+     * Return deployed contract&#39;s ABI by blockchain native asset id and contract address
      *
-     * @throws ApiException if the Api call fails
+     * @throws ApiException
+     *          if the Api call fails
      */
     @Test
     public void getDeployedContractAbiTest() throws ApiException {
         String contractAddress = null;
         String assetId = null;
         String idempotencyKey = null;
-        CompletableFuture<ApiResponse<ContractAbiResponseDto>> response =
-                api.getDeployedContractAbi(contractAddress, assetId, idempotencyKey);
+        CompletableFuture<ApiResponse<ContractAbiResponseDto>> response = 
+        api.getDeployedContractAbi(contractAddress, assetId, idempotencyKey);
+        
     }
-
+    
     /**
      * Call a read function on a deployed contract
      *
-     * <p>Call a read function on a deployed contract by blockchain native asset id and contract
-     * address
+     * Call a read function on a deployed contract by blockchain native asset id and contract address
      *
-     * @throws ApiException if the Api call fails
+     * @throws ApiException
+     *          if the Api call fails
      */
     @Test
     public void readCallFunctionTest() throws ApiException {
@@ -61,18 +73,18 @@ public class ContractInteractionsApiTest {
         String contractAddress = null;
         String assetId = null;
         String idempotencyKey = null;
-        CompletableFuture<ApiResponse<List<ParameterWithValue>>> response =
-                api.readCallFunction(readCallFunctionDto, contractAddress, assetId, idempotencyKey);
+        CompletableFuture<ApiResponse<List<ParameterWithValue>>> response = 
+        api.readCallFunction(readCallFunctionDto, contractAddress, assetId, idempotencyKey);
+        
     }
-
+    
     /**
      * Call a write function on a deployed contract
      *
-     * <p>Call a write function on a deployed contract by blockchain native asset id and contract
-     * address. This creates an onchain transaction, thus it is an async operation. It returns a
-     * transaction id that can be polled for status check
+     * Call a write function on a deployed contract by blockchain native asset id and contract address. This creates an onchain transaction, thus it is an async operation. It returns a transaction id that can be polled for status check
      *
-     * @throws ApiException if the Api call fails
+     * @throws ApiException
+     *          if the Api call fails
      */
     @Test
     public void writeCallFunctionTest() throws ApiException {
@@ -80,8 +92,9 @@ public class ContractInteractionsApiTest {
         String contractAddress = null;
         String assetId = null;
         String idempotencyKey = null;
-        CompletableFuture<ApiResponse<WriteCallFunctionResponseDto>> response =
-                api.writeCallFunction(
-                        writeCallFunctionDto, contractAddress, assetId, idempotencyKey);
+        CompletableFuture<ApiResponse<WriteCallFunctionResponseDto>> response = 
+        api.writeCallFunction(writeCallFunctionDto, contractAddress, assetId, idempotencyKey);
+        
     }
+    
 }

@@ -10,52 +10,67 @@
  * Do not edit the class manually.
  */
 
-package com.fireblocks.sdk.api;
 
+package com.fireblocks.sdk.api;
 
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.model.ErrorSchema;
 import com.fireblocks.sdk.model.ResendTransactionWebhooksRequest;
 import com.fireblocks.sdk.model.ResendWebhooksByTransactionIdResponse;
 import com.fireblocks.sdk.model.ResendWebhooksResponse;
-import java.util.concurrent.CompletableFuture;
-import org.junit.Ignore;
 import org.junit.Test;
+import org.junit.Ignore;
 
-/** API tests for WebhooksApi */
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import java.util.concurrent.CompletableFuture;
+
+/**
+ * API tests for WebhooksApi
+ */
 @Ignore
 public class WebhooksApiTest {
 
     private final WebhooksApi api = new WebhooksApi();
 
+    
     /**
      * Resend failed webhooks for a transaction by ID
      *
-     * <p>Resends failed webhook notifications for a transaction by ID.
+     * Resends failed webhook notifications for a transaction by ID.
      *
-     * @throws ApiException if the Api call fails
+     * @throws ApiException
+     *          if the Api call fails
      */
     @Test
     public void resendTransactionWebhooksTest() throws ApiException {
         ResendTransactionWebhooksRequest resendTransactionWebhooksRequest = null;
         String txId = null;
         String idempotencyKey = null;
-        CompletableFuture<ApiResponse<ResendWebhooksByTransactionIdResponse>> response =
-                api.resendTransactionWebhooks(
-                        resendTransactionWebhooksRequest, txId, idempotencyKey);
+        CompletableFuture<ApiResponse<ResendWebhooksByTransactionIdResponse>> response = 
+        api.resendTransactionWebhooks(resendTransactionWebhooksRequest, txId, idempotencyKey);
+        
     }
-
+    
     /**
      * Resend failed webhooks
      *
-     * <p>Resends all failed webhook notifications.
+     * Resends all failed webhook notifications.
      *
-     * @throws ApiException if the Api call fails
+     * @throws ApiException
+     *          if the Api call fails
      */
     @Test
     public void resendWebhooksTest() throws ApiException {
         String idempotencyKey = null;
-        CompletableFuture<ApiResponse<ResendWebhooksResponse>> response =
-                api.resendWebhooks(idempotencyKey);
+        CompletableFuture<ApiResponse<ResendWebhooksResponse>> response = 
+        api.resendWebhooks(idempotencyKey);
+        
     }
+    
 }

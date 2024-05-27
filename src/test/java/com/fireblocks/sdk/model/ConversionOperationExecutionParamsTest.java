@@ -10,31 +10,48 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.fireblocks.sdk.model.ConversionOperationExecutionParamsExecutionParams;
+import java.util.Arrays;
+import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
-/** Model tests for ConversionOperationExecutionParams */
+/**
+ * Model tests for ConversionOperationExecutionParams
+ */
 public class ConversionOperationExecutionParamsTest {
-    private final ConversionOperationExecutionParams model =
-            new ConversionOperationExecutionParams();
+    private final ConversionOperationExecutionParams model = new ConversionOperationExecutionParams();
 
-    /** Model tests for ConversionOperationExecutionParams */
+    /**
+     * Model tests for ConversionOperationExecutionParams
+     */
     @Test
     public void testConversionOperationExecutionParams() {
         // TODO: test ConversionOperationExecutionParams
     }
 
-    /** Test the property 'configOperationId' */
+    /**
+     * Test the property 'configOperationId'
+     */
     @Test
     public void configOperationIdTest() {
         // TODO: test configOperationId
     }
 
-    /** Test the property 'executionParams' */
+    /**
+     * Test the property 'executionParams'
+     */
     @Test
     public void executionParamsTest() {
         // TODO: test executionParams
     }
+
 }

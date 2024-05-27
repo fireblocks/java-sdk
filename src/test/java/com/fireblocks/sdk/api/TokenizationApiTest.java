@@ -10,104 +10,123 @@
  * Do not edit the class manually.
  */
 
-package com.fireblocks.sdk.api;
 
+package com.fireblocks.sdk.api;
 
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.model.AssetAlreadyExistHttpError;
+import com.fireblocks.sdk.model.AssetDoesNotExistHttpError;
+import java.math.BigDecimal;
 import com.fireblocks.sdk.model.CreateTokenRequestDto;
+import com.fireblocks.sdk.model.ErrorSchema;
+import com.fireblocks.sdk.model.NotFoundException;
 import com.fireblocks.sdk.model.TokenLinkDto;
+import com.fireblocks.sdk.model.TokenLinkExistsHttpError;
 import com.fireblocks.sdk.model.TokenLinkRequestDto;
 import com.fireblocks.sdk.model.TokensPaginatedResponse;
-import java.math.BigDecimal;
-import java.util.concurrent.CompletableFuture;
-import org.junit.Ignore;
 import org.junit.Test;
+import org.junit.Ignore;
 
-/** API tests for TokenizationApi */
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import java.util.concurrent.CompletableFuture;
+
+/**
+ * API tests for TokenizationApi
+ */
 @Ignore
 public class TokenizationApiTest {
 
     private final TokenizationApi api = new TokenizationApi();
 
+    
     /**
      * Return a linked token
      *
-     * <p>Return a linked token, with its status and metadata.
+     * Return a linked token, with its status and metadata.
      *
-     * @throws ApiException if the Api call fails
+     * @throws ApiException
+     *          if the Api call fails
      */
     @Test
     public void getLinkedTokenTest() throws ApiException {
         String id = null;
-        CompletableFuture<ApiResponse<TokenLinkDto>> response = api.getLinkedToken(id);
+        CompletableFuture<ApiResponse<TokenLinkDto>> response = 
+        api.getLinkedToken(id);
+        
     }
-
+    
     /**
      * List all linked tokens
      *
-     * <p>Return all linked tokens (paginated)
+     * Return all linked tokens (paginated)
      *
-     * @throws ApiException if the Api call fails
+     * @throws ApiException
+     *          if the Api call fails
      */
     @Test
     public void getLinkedTokensTest() throws ApiException {
         String pageCursor = null;
         BigDecimal pageSize = null;
         Object status = null;
-        CompletableFuture<ApiResponse<TokensPaginatedResponse>> response =
-                api.getLinkedTokens(pageCursor, pageSize, status);
+        CompletableFuture<ApiResponse<TokensPaginatedResponse>> response = 
+        api.getLinkedTokens(pageCursor, pageSize, status);
+        
     }
-
+    
     /**
      * Issue a new token
      *
-     * <p>Facilitates the creation of a new token, supporting both EVM-based and Stellar/Ripple
-     * platforms. For EVM, it deploys the corresponding contract template to the blockchain and
-     * links the token to the workspace. For Stellar/Ripple, it links a newly created token directly
-     * to the workspace without deploying a contract. Returns the token link with status
-     * \&quot;PENDING\&quot; until the token is deployed or \&quot;SUCCESS\&quot; if no deployment
-     * is needed.
+     * Facilitates the creation of a new token, supporting both EVM-based and Stellar/Ripple platforms. For EVM, it deploys the corresponding contract template to the blockchain and links the token to the workspace. For Stellar/Ripple, it links a newly created token directly to the workspace without deploying a contract. Returns the token link with status \&quot;PENDING\&quot; until the token is deployed or \&quot;SUCCESS\&quot; if no deployment is needed.
      *
-     * @throws ApiException if the Api call fails
+     * @throws ApiException
+     *          if the Api call fails
      */
     @Test
     public void issueNewTokenTest() throws ApiException {
         CreateTokenRequestDto createTokenRequestDto = null;
         String idempotencyKey = null;
-        CompletableFuture<ApiResponse<TokenLinkDto>> response =
-                api.issueNewToken(createTokenRequestDto, idempotencyKey);
+        CompletableFuture<ApiResponse<TokenLinkDto>> response = 
+        api.issueNewToken(createTokenRequestDto, idempotencyKey);
+        
     }
-
+    
     /**
      * Link a token
      *
-     * <p>Link an already existing token (by assetId, collectionId or contractId as refId) to a
-     * workspace across EVM, Stellar, or Ripple platforms. The token will be linked to the workspace
-     * if it does not already exist.
+     * Link an already existing token (by assetId, collectionId or contractId as refId) to a workspace across EVM, Stellar, or Ripple platforms. The token will be linked to the workspace if it does not already exist.
      *
-     * @throws ApiException if the Api call fails
+     * @throws ApiException
+     *          if the Api call fails
      */
     @Test
     public void linkTest() throws ApiException {
         TokenLinkRequestDto tokenLinkRequestDto = null;
         String idempotencyKey = null;
-        CompletableFuture<ApiResponse<TokenLinkDto>> response =
-                api.link(tokenLinkRequestDto, idempotencyKey);
+        CompletableFuture<ApiResponse<TokenLinkDto>> response = 
+        api.link(tokenLinkRequestDto, idempotencyKey);
+        
     }
-
+    
     /**
      * Unlink a token
      *
-     * <p>Unlink a token. The token will be unlinked from the workspace. The token will not be
-     * deleted on chain nor the refId, only the link to the workspace will be removed.
+     * Unlink a token. The token will be unlinked from the workspace. The token will not be deleted on chain nor the refId, only the link to the workspace will be removed.
      *
-     * @throws ApiException if the Api call fails
+     * @throws ApiException
+     *          if the Api call fails
      */
     @Test
     public void unlinkTest() throws ApiException {
         String id = null;
-
+        
         CompletableFuture<ApiResponse<Void>> response = api.unlink(id);
+        
     }
+    
 }

@@ -10,30 +10,47 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.Arrays;
+import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
-/** Model tests for OneTimeAddress */
+/**
+ * Model tests for OneTimeAddress
+ */
 public class OneTimeAddressTest {
     private final OneTimeAddress model = new OneTimeAddress();
 
-    /** Model tests for OneTimeAddress */
+    /**
+     * Model tests for OneTimeAddress
+     */
     @Test
     public void testOneTimeAddress() {
         // TODO: test OneTimeAddress
     }
 
-    /** Test the property 'address' */
+    /**
+     * Test the property 'address'
+     */
     @Test
     public void addressTest() {
         // TODO: test address
     }
 
-    /** Test the property 'tag' */
+    /**
+     * Test the property 'tag'
+     */
     @Test
     public void tagTest() {
         // TODO: test tag
     }
+
 }

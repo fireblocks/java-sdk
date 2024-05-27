@@ -10,8 +10,34 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.StringJoiner;
+import java.util.Objects;
+import java.util.Map;
+import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.fireblocks.sdk.model.Account;
+import com.fireblocks.sdk.model.AccountType;
+import com.fireblocks.sdk.model.OneTimeAddressAccount;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+
+import com.fasterxml.jackson.core.type.TypeReference;
+
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
@@ -27,14 +53,6 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 import com.fireblocks.sdk.JSON;
-import java.io.IOException;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.StringJoiner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 @JsonDeserialize(using = Destination.DestinationDeserializer.class)
@@ -52,8 +70,7 @@ public class Destination extends AbstractOpenApiSchema {
         }
 
         @Override
-        public void serialize(Destination value, JsonGenerator jgen, SerializerProvider provider)
-                throws IOException, JsonProcessingException {
+        public void serialize(Destination value, JsonGenerator jgen, SerializerProvider provider) throws IOException, JsonProcessingException {
             jgen.writeObject(value.getActualInstance());
         }
     }
@@ -68,8 +85,7 @@ public class Destination extends AbstractOpenApiSchema {
         }
 
         @Override
-        public Destination deserialize(JsonParser jp, DeserializationContext ctxt)
-                throws IOException, JsonProcessingException {
+        public Destination deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException, JsonProcessingException {
             JsonNode tree = jp.readValueAsTree();
             Object deserialized = null;
             boolean typeCoercion = ctxt.isEnabled(MapperFeature.ALLOW_COERCION_OF_SCALARS);
@@ -79,29 +95,13 @@ public class Destination extends AbstractOpenApiSchema {
             try {
                 boolean attemptParsing = true;
                 // ensure that we respect type coercion as set on the client ObjectMapper
-                if (Account.class.equals(Integer.class)
-                        || Account.class.equals(Long.class)
-                        || Account.class.equals(Float.class)
-                        || Account.class.equals(Double.class)
-                        || Account.class.equals(Boolean.class)
-                        || Account.class.equals(String.class)) {
+                if (Account.class.equals(Integer.class) || Account.class.equals(Long.class) || Account.class.equals(Float.class) || Account.class.equals(Double.class) || Account.class.equals(Boolean.class) || Account.class.equals(String.class)) {
                     attemptParsing = typeCoercion;
                     if (!attemptParsing) {
-                        attemptParsing |=
-                                ((Account.class.equals(Integer.class)
-                                                || Account.class.equals(Long.class))
-                                        && token == JsonToken.VALUE_NUMBER_INT);
-                        attemptParsing |=
-                                ((Account.class.equals(Float.class)
-                                                || Account.class.equals(Double.class))
-                                        && token == JsonToken.VALUE_NUMBER_FLOAT);
-                        attemptParsing |=
-                                (Account.class.equals(Boolean.class)
-                                        && (token == JsonToken.VALUE_FALSE
-                                                || token == JsonToken.VALUE_TRUE));
-                        attemptParsing |=
-                                (Account.class.equals(String.class)
-                                        && token == JsonToken.VALUE_STRING);
+                        attemptParsing |= ((Account.class.equals(Integer.class) || Account.class.equals(Long.class)) && token == JsonToken.VALUE_NUMBER_INT);
+                        attemptParsing |= ((Account.class.equals(Float.class) || Account.class.equals(Double.class)) && token == JsonToken.VALUE_NUMBER_FLOAT);
+                        attemptParsing |= (Account.class.equals(Boolean.class) && (token == JsonToken.VALUE_FALSE || token == JsonToken.VALUE_TRUE));
+                        attemptParsing |= (Account.class.equals(String.class) && token == JsonToken.VALUE_STRING);
                     }
                 }
                 if (attemptParsing) {
@@ -121,34 +121,17 @@ public class Destination extends AbstractOpenApiSchema {
             try {
                 boolean attemptParsing = true;
                 // ensure that we respect type coercion as set on the client ObjectMapper
-                if (OneTimeAddressAccount.class.equals(Integer.class)
-                        || OneTimeAddressAccount.class.equals(Long.class)
-                        || OneTimeAddressAccount.class.equals(Float.class)
-                        || OneTimeAddressAccount.class.equals(Double.class)
-                        || OneTimeAddressAccount.class.equals(Boolean.class)
-                        || OneTimeAddressAccount.class.equals(String.class)) {
+                if (OneTimeAddressAccount.class.equals(Integer.class) || OneTimeAddressAccount.class.equals(Long.class) || OneTimeAddressAccount.class.equals(Float.class) || OneTimeAddressAccount.class.equals(Double.class) || OneTimeAddressAccount.class.equals(Boolean.class) || OneTimeAddressAccount.class.equals(String.class)) {
                     attemptParsing = typeCoercion;
                     if (!attemptParsing) {
-                        attemptParsing |=
-                                ((OneTimeAddressAccount.class.equals(Integer.class)
-                                                || OneTimeAddressAccount.class.equals(Long.class))
-                                        && token == JsonToken.VALUE_NUMBER_INT);
-                        attemptParsing |=
-                                ((OneTimeAddressAccount.class.equals(Float.class)
-                                                || OneTimeAddressAccount.class.equals(Double.class))
-                                        && token == JsonToken.VALUE_NUMBER_FLOAT);
-                        attemptParsing |=
-                                (OneTimeAddressAccount.class.equals(Boolean.class)
-                                        && (token == JsonToken.VALUE_FALSE
-                                                || token == JsonToken.VALUE_TRUE));
-                        attemptParsing |=
-                                (OneTimeAddressAccount.class.equals(String.class)
-                                        && token == JsonToken.VALUE_STRING);
+                        attemptParsing |= ((OneTimeAddressAccount.class.equals(Integer.class) || OneTimeAddressAccount.class.equals(Long.class)) && token == JsonToken.VALUE_NUMBER_INT);
+                        attemptParsing |= ((OneTimeAddressAccount.class.equals(Float.class) || OneTimeAddressAccount.class.equals(Double.class)) && token == JsonToken.VALUE_NUMBER_FLOAT);
+                        attemptParsing |= (OneTimeAddressAccount.class.equals(Boolean.class) && (token == JsonToken.VALUE_FALSE || token == JsonToken.VALUE_TRUE));
+                        attemptParsing |= (OneTimeAddressAccount.class.equals(String.class) && token == JsonToken.VALUE_STRING);
                     }
                 }
                 if (attemptParsing) {
-                    deserialized =
-                            tree.traverse(jp.getCodec()).readValueAs(OneTimeAddressAccount.class);
+                    deserialized = tree.traverse(jp.getCodec()).readValueAs(OneTimeAddressAccount.class);
                     // TODO: there is no validation against JSON schema constraints
                     // (min, max, enum, pattern...), this does not perform a strict JSON
                     // validation, which means the 'match' count may be higher than it should be.
@@ -165,14 +148,12 @@ public class Destination extends AbstractOpenApiSchema {
                 ret.setActualInstance(deserialized);
                 return ret;
             }
-            throw new IOException(
-                    String.format(
-                            "Failed deserialization for Destination: %d classes match result,"
-                                    + " expected 1",
-                            match));
+            throw new IOException(String.format("Failed deserialization for Destination: %d classes match result, expected 1", match));
         }
 
-        /** Handle deserialization of the 'null' value. */
+        /**
+         * Handle deserialization of the 'null' value.
+         */
         @Override
         public Destination getNullValue(DeserializationContext ctxt) throws JsonMappingException {
             throw new JsonMappingException(ctxt.getParser(), "Destination cannot be null");
@@ -208,11 +189,12 @@ public class Destination extends AbstractOpenApiSchema {
     }
 
     /**
-     * Set the instance that matches the oneOf child schema, check the instance parameter is valid
-     * against the oneOf child schemas: Account, OneTimeAddressAccount
+     * Set the instance that matches the oneOf child schema, check
+     * the instance parameter is valid against the oneOf child schemas:
+     * Account, OneTimeAddressAccount
      *
-     * <p>It could be an instance of the 'oneOf' schemas. The oneOf child schemas may themselves be
-     * a composed schema (allOf, anyOf, oneOf).
+     * It could be an instance of the 'oneOf' schemas.
+     * The oneOf child schemas may themselves be a composed schema (allOf, anyOf, oneOf).
      */
     @Override
     public void setActualInstance(Object instance) {
@@ -230,7 +212,8 @@ public class Destination extends AbstractOpenApiSchema {
     }
 
     /**
-     * Get the actual instance, which can be the following: Account, OneTimeAddressAccount
+     * Get the actual instance, which can be the following:
+     * Account, OneTimeAddressAccount
      *
      * @return The actual instance (Account, OneTimeAddressAccount)
      */
@@ -240,75 +223,75 @@ public class Destination extends AbstractOpenApiSchema {
     }
 
     /**
-     * Get the actual instance of `Account`. If the actual instance is not `Account`, the
-     * ClassCastException will be thrown.
+     * Get the actual instance of `Account`. If the actual instance is not `Account`,
+     * the ClassCastException will be thrown.
      *
      * @return The actual instance of `Account`
      * @throws ClassCastException if the instance is not `Account`
      */
     public Account getAccount() throws ClassCastException {
-        return (Account) super.getActualInstance();
+        return (Account)super.getActualInstance();
     }
 
     /**
-     * Get the actual instance of `OneTimeAddressAccount`. If the actual instance is not
-     * `OneTimeAddressAccount`, the ClassCastException will be thrown.
+     * Get the actual instance of `OneTimeAddressAccount`. If the actual instance is not `OneTimeAddressAccount`,
+     * the ClassCastException will be thrown.
      *
      * @return The actual instance of `OneTimeAddressAccount`
      * @throws ClassCastException if the instance is not `OneTimeAddressAccount`
      */
     public OneTimeAddressAccount getOneTimeAddressAccount() throws ClassCastException {
-        return (OneTimeAddressAccount) super.getActualInstance();
+        return (OneTimeAddressAccount)super.getActualInstance();
     }
 
-    /**
-     * Convert the instance into URL query string.
-     *
-     * @return URL query string
-     */
-    public String toUrlQueryString() {
-        return toUrlQueryString(null);
+
+
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @return URL query string
+   */
+  public String toUrlQueryString() {
+    return toUrlQueryString(null);
+  }
+
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @param prefix prefix of the query string
+   * @return URL query string
+   */
+  public String toUrlQueryString(String prefix) {
+    String suffix = "";
+    String containerSuffix = "";
+    String containerPrefix = "";
+    if (prefix == null) {
+      // style=form, explode=true, e.g. /pet?name=cat&type=manx
+      prefix = "";
+    } else {
+      // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
+      prefix = prefix + "[";
+      suffix = "]";
+      containerSuffix = "]";
+      containerPrefix = "[";
     }
 
-    /**
-     * Convert the instance into URL query string.
-     *
-     * @param prefix prefix of the query string
-     * @return URL query string
-     */
-    public String toUrlQueryString(String prefix) {
-        String suffix = "";
-        String containerSuffix = "";
-        String containerPrefix = "";
-        if (prefix == null) {
-            // style=form, explode=true, e.g. /pet?name=cat&type=manx
-            prefix = "";
-        } else {
-            // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
-            prefix = prefix + "[";
-            suffix = "]";
-            containerSuffix = "]";
-            containerPrefix = "[";
-        }
+    StringJoiner joiner = new StringJoiner("&");
 
-        StringJoiner joiner = new StringJoiner("&");
-
-        if (getActualInstance() instanceof Account) {
-            if (getActualInstance() != null) {
-                joiner.add(
-                        ((Account) getActualInstance())
-                                .toUrlQueryString(prefix + "one_of_0" + suffix));
-            }
-            return joiner.toString();
+    if (getActualInstance() instanceof Account) {
+        if (getActualInstance() != null) {
+          joiner.add(((Account)getActualInstance()).toUrlQueryString(prefix + "one_of_0" + suffix));
         }
-        if (getActualInstance() instanceof OneTimeAddressAccount) {
-            if (getActualInstance() != null) {
-                joiner.add(
-                        ((OneTimeAddressAccount) getActualInstance())
-                                .toUrlQueryString(prefix + "one_of_1" + suffix));
-            }
-            return joiner.toString();
-        }
-        return null;
+        return joiner.toString();
     }
+    if (getActualInstance() instanceof OneTimeAddressAccount) {
+        if (getActualInstance() != null) {
+          joiner.add(((OneTimeAddressAccount)getActualInstance()).toUrlQueryString(prefix + "one_of_1" + suffix));
+        }
+        return joiner.toString();
+    }
+    return null;
+  }
+
 }
+

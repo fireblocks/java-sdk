@@ -10,196 +10,193 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.util.StringJoiner;
+import java.util.Objects;
+import java.util.Map;
+import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.fireblocks.sdk.model.NetworkIdRoutingPolicyValue;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
-import java.util.StringJoiner;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
-/** CreateNetworkIdRequest */
+
+/**
+ * CreateNetworkIdRequest
+ */
 @JsonPropertyOrder({
-    CreateNetworkIdRequest.JSON_PROPERTY_NAME,
-    CreateNetworkIdRequest.JSON_PROPERTY_ROUTING_POLICY
+  CreateNetworkIdRequest.JSON_PROPERTY_NAME,
+  CreateNetworkIdRequest.JSON_PROPERTY_ROUTING_POLICY
 })
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class CreateNetworkIdRequest {
-    public static final String JSON_PROPERTY_NAME = "name";
-    private String name;
+  public static final String JSON_PROPERTY_NAME = "name";
+  private String name;
 
-    public static final String JSON_PROPERTY_ROUTING_POLICY = "routingPolicy";
-    private Map<String, NetworkIdRoutingPolicyValue> routingPolicy = new HashMap<>();
+  public static final String JSON_PROPERTY_ROUTING_POLICY = "routingPolicy";
+  private Map<String, NetworkIdRoutingPolicyValue> routingPolicy = new HashMap<>();
 
-    public CreateNetworkIdRequest() {}
+  public CreateNetworkIdRequest() { 
+  }
 
-    public CreateNetworkIdRequest name(String name) {
-        this.name = name;
-        return this;
+  public CreateNetworkIdRequest name(String name) {
+    this.name = name;
+    return this;
+  }
+
+   /**
+   * Get name
+   * @return name
+  **/
+  @jakarta.annotation.Nonnull
+  @JsonProperty(JSON_PROPERTY_NAME)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+
+  public String getName() {
+    return name;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_NAME)
+  @JsonInclude(value = JsonInclude.Include.ALWAYS)
+  public void setName(String name) {
+    this.name = name;
+  }
+
+
+  public CreateNetworkIdRequest routingPolicy(Map<String, NetworkIdRoutingPolicyValue> routingPolicy) {
+    this.routingPolicy = routingPolicy;
+    return this;
+  }
+
+  public CreateNetworkIdRequest putRoutingPolicyItem(String key, NetworkIdRoutingPolicyValue routingPolicyItem) {
+    if (this.routingPolicy == null) {
+      this.routingPolicy = new HashMap<>();
+    }
+    this.routingPolicy.put(key, routingPolicyItem);
+    return this;
+  }
+
+   /**
+   * Get routingPolicy
+   * @return routingPolicy
+  **/
+  @jakarta.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_ROUTING_POLICY)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Map<String, NetworkIdRoutingPolicyValue> getRoutingPolicy() {
+    return routingPolicy;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_ROUTING_POLICY)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setRoutingPolicy(Map<String, NetworkIdRoutingPolicyValue> routingPolicy) {
+    this.routingPolicy = routingPolicy;
+  }
+
+
+  /**
+   * Return true if this CreateNetworkIdRequest object is equal to o.
+   */
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    CreateNetworkIdRequest createNetworkIdRequest = (CreateNetworkIdRequest) o;
+    return Objects.equals(this.name, createNetworkIdRequest.name) &&
+        Objects.equals(this.routingPolicy, createNetworkIdRequest.routingPolicy);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(name, routingPolicy);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class CreateNetworkIdRequest {\n");
+    sb.append("    name: ").append(toIndentedString(name)).append("\n");
+    sb.append("    routingPolicy: ").append(toIndentedString(routingPolicy)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @return URL query string
+   */
+  public String toUrlQueryString() {
+    return toUrlQueryString(null);
+  }
+
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @param prefix prefix of the query string
+   * @return URL query string
+   */
+  public String toUrlQueryString(String prefix) {
+    String suffix = "";
+    String containerSuffix = "";
+    String containerPrefix = "";
+    if (prefix == null) {
+      // style=form, explode=true, e.g. /pet?name=cat&type=manx
+      prefix = "";
+    } else {
+      // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
+      prefix = prefix + "[";
+      suffix = "]";
+      containerSuffix = "]";
+      containerPrefix = "[";
     }
 
-    /**
-     * Get name
-     *
-     * @return name
-     */
-    @jakarta.annotation.Nonnull
-    @JsonProperty(JSON_PROPERTY_NAME)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public String getName() {
-        return name;
+    StringJoiner joiner = new StringJoiner("&");
+
+    // add `name` to the URL query string
+    if (getName() != null) {
+      joiner.add(String.format("%sname%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getName()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
     }
 
-    @JsonProperty(JSON_PROPERTY_NAME)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public CreateNetworkIdRequest routingPolicy(
-            Map<String, NetworkIdRoutingPolicyValue> routingPolicy) {
-        this.routingPolicy = routingPolicy;
-        return this;
-    }
-
-    public CreateNetworkIdRequest putRoutingPolicyItem(
-            String key, NetworkIdRoutingPolicyValue routingPolicyItem) {
-        if (this.routingPolicy == null) {
-            this.routingPolicy = new HashMap<>();
+    // add `routingPolicy` to the URL query string
+    if (getRoutingPolicy() != null) {
+      for (String _key : getRoutingPolicy().keySet()) {
+        if (getRoutingPolicy().get(_key) != null) {
+          joiner.add(getRoutingPolicy().get(_key).toUrlQueryString(String.format("%sroutingPolicy%s%s", prefix, suffix,
+              "".equals(suffix) ? "" : String.format("%s%d%s", containerPrefix, _key, containerSuffix))));
         }
-        this.routingPolicy.put(key, routingPolicyItem);
-        return this;
+      }
     }
 
-    /**
-     * Get routingPolicy
-     *
-     * @return routingPolicy
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_ROUTING_POLICY)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public Map<String, NetworkIdRoutingPolicyValue> getRoutingPolicy() {
-        return routingPolicy;
-    }
-
-    @JsonProperty(JSON_PROPERTY_ROUTING_POLICY)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setRoutingPolicy(Map<String, NetworkIdRoutingPolicyValue> routingPolicy) {
-        this.routingPolicy = routingPolicy;
-    }
-
-    /** Return true if this CreateNetworkIdRequest object is equal to o. */
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        CreateNetworkIdRequest createNetworkIdRequest = (CreateNetworkIdRequest) o;
-        return Objects.equals(this.name, createNetworkIdRequest.name)
-                && Objects.equals(this.routingPolicy, createNetworkIdRequest.routingPolicy);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(name, routingPolicy);
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("class CreateNetworkIdRequest {\n");
-        sb.append("    name: ").append(toIndentedString(name)).append("\n");
-        sb.append("    routingPolicy: ").append(toIndentedString(routingPolicy)).append("\n");
-        sb.append("}");
-        return sb.toString();
-    }
-
-    /**
-     * Convert the given object to string with each line indented by 4 spaces (except the first
-     * line).
-     */
-    private String toIndentedString(Object o) {
-        if (o == null) {
-            return "null";
-        }
-        return o.toString().replace("\n", "\n    ");
-    }
-
-    /**
-     * Convert the instance into URL query string.
-     *
-     * @return URL query string
-     */
-    public String toUrlQueryString() {
-        return toUrlQueryString(null);
-    }
-
-    /**
-     * Convert the instance into URL query string.
-     *
-     * @param prefix prefix of the query string
-     * @return URL query string
-     */
-    public String toUrlQueryString(String prefix) {
-        String suffix = "";
-        String containerSuffix = "";
-        String containerPrefix = "";
-        if (prefix == null) {
-            // style=form, explode=true, e.g. /pet?name=cat&type=manx
-            prefix = "";
-        } else {
-            // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
-            prefix = prefix + "[";
-            suffix = "]";
-            containerSuffix = "]";
-            containerPrefix = "[";
-        }
-
-        StringJoiner joiner = new StringJoiner("&");
-
-        // add `name` to the URL query string
-        if (getName() != null) {
-            joiner.add(
-                    String.format(
-                            "%sname%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(String.valueOf(getName()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
-        // add `routingPolicy` to the URL query string
-        if (getRoutingPolicy() != null) {
-            for (String _key : getRoutingPolicy().keySet()) {
-                if (getRoutingPolicy().get(_key) != null) {
-                    joiner.add(
-                            getRoutingPolicy()
-                                    .get(_key)
-                                    .toUrlQueryString(
-                                            String.format(
-                                                    "%sroutingPolicy%s%s",
-                                                    prefix,
-                                                    suffix,
-                                                    "".equals(suffix)
-                                                            ? ""
-                                                            : String.format(
-                                                                    "%s%d%s",
-                                                                    containerPrefix,
-                                                                    _key,
-                                                                    containerSuffix))));
-                }
-            }
-        }
-
-        return joiner.toString();
-    }
+    return joiner.toString();
+  }
 }
+

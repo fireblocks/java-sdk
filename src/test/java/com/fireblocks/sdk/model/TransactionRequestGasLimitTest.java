@@ -10,18 +10,27 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import java.math.BigDecimal;
+import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
-/** Model tests for TransactionRequestGasLimit */
+/**
+ * Model tests for TransactionRequestGasLimit
+ */
 public class TransactionRequestGasLimitTest {
     private final TransactionRequestGasLimit model = new TransactionRequestGasLimit();
 
-    /** Model tests for TransactionRequestGasLimit */
+    /**
+     * Model tests for TransactionRequestGasLimit
+     */
     @Test
     public void testTransactionRequestGasLimit() {
         // TODO: test TransactionRequestGasLimit
     }
+
 }

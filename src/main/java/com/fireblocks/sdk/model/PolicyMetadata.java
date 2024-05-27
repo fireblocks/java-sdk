@@ -10,256 +10,249 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
-import java.util.Objects;
 import java.util.StringJoiner;
+import java.util.Objects;
+import java.util.Map;
+import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
-/** Policy related metadata */
+
+/**
+ * Policy related metadata
+ */
 @JsonPropertyOrder({
-    PolicyMetadata.JSON_PROPERTY_EDITED_BY,
-    PolicyMetadata.JSON_PROPERTY_EDITED_AT,
-    PolicyMetadata.JSON_PROPERTY_PUBLISHED_BY,
-    PolicyMetadata.JSON_PROPERTY_PUBLISHED_AT
+  PolicyMetadata.JSON_PROPERTY_EDITED_BY,
+  PolicyMetadata.JSON_PROPERTY_EDITED_AT,
+  PolicyMetadata.JSON_PROPERTY_PUBLISHED_BY,
+  PolicyMetadata.JSON_PROPERTY_PUBLISHED_AT
 })
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class PolicyMetadata {
-    public static final String JSON_PROPERTY_EDITED_BY = "editedBy";
-    private String editedBy;
+  public static final String JSON_PROPERTY_EDITED_BY = "editedBy";
+  private String editedBy;
 
-    public static final String JSON_PROPERTY_EDITED_AT = "editedAt";
-    private String editedAt;
+  public static final String JSON_PROPERTY_EDITED_AT = "editedAt";
+  private String editedAt;
 
-    public static final String JSON_PROPERTY_PUBLISHED_BY = "publishedBy";
-    private String publishedBy;
+  public static final String JSON_PROPERTY_PUBLISHED_BY = "publishedBy";
+  private String publishedBy;
 
-    public static final String JSON_PROPERTY_PUBLISHED_AT = "publishedAt";
-    private String publishedAt;
+  public static final String JSON_PROPERTY_PUBLISHED_AT = "publishedAt";
+  private String publishedAt;
 
-    public PolicyMetadata() {}
+  public PolicyMetadata() { 
+  }
 
-    public PolicyMetadata editedBy(String editedBy) {
-        this.editedBy = editedBy;
-        return this;
+  public PolicyMetadata editedBy(String editedBy) {
+    this.editedBy = editedBy;
+    return this;
+  }
+
+   /**
+   * The user id of the user who last edited the policy
+   * @return editedBy
+  **/
+  @jakarta.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_EDITED_BY)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getEditedBy() {
+    return editedBy;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_EDITED_BY)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setEditedBy(String editedBy) {
+    this.editedBy = editedBy;
+  }
+
+
+  public PolicyMetadata editedAt(String editedAt) {
+    this.editedAt = editedAt;
+    return this;
+  }
+
+   /**
+   * The timestamp of the last edit of the policy
+   * @return editedAt
+  **/
+  @jakarta.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_EDITED_AT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getEditedAt() {
+    return editedAt;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_EDITED_AT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setEditedAt(String editedAt) {
+    this.editedAt = editedAt;
+  }
+
+
+  public PolicyMetadata publishedBy(String publishedBy) {
+    this.publishedBy = publishedBy;
+    return this;
+  }
+
+   /**
+   * The user id of the user who last published the policy
+   * @return publishedBy
+  **/
+  @jakarta.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_PUBLISHED_BY)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getPublishedBy() {
+    return publishedBy;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_PUBLISHED_BY)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setPublishedBy(String publishedBy) {
+    this.publishedBy = publishedBy;
+  }
+
+
+  public PolicyMetadata publishedAt(String publishedAt) {
+    this.publishedAt = publishedAt;
+    return this;
+  }
+
+   /**
+   * The timestamp of the last publish of the policy
+   * @return publishedAt
+  **/
+  @jakarta.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_PUBLISHED_AT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getPublishedAt() {
+    return publishedAt;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_PUBLISHED_AT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setPublishedAt(String publishedAt) {
+    this.publishedAt = publishedAt;
+  }
+
+
+  /**
+   * Return true if this PolicyMetadata object is equal to o.
+   */
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    PolicyMetadata policyMetadata = (PolicyMetadata) o;
+    return Objects.equals(this.editedBy, policyMetadata.editedBy) &&
+        Objects.equals(this.editedAt, policyMetadata.editedAt) &&
+        Objects.equals(this.publishedBy, policyMetadata.publishedBy) &&
+        Objects.equals(this.publishedAt, policyMetadata.publishedAt);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(editedBy, editedAt, publishedBy, publishedAt);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class PolicyMetadata {\n");
+    sb.append("    editedBy: ").append(toIndentedString(editedBy)).append("\n");
+    sb.append("    editedAt: ").append(toIndentedString(editedAt)).append("\n");
+    sb.append("    publishedBy: ").append(toIndentedString(publishedBy)).append("\n");
+    sb.append("    publishedAt: ").append(toIndentedString(publishedAt)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @return URL query string
+   */
+  public String toUrlQueryString() {
+    return toUrlQueryString(null);
+  }
+
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @param prefix prefix of the query string
+   * @return URL query string
+   */
+  public String toUrlQueryString(String prefix) {
+    String suffix = "";
+    String containerSuffix = "";
+    String containerPrefix = "";
+    if (prefix == null) {
+      // style=form, explode=true, e.g. /pet?name=cat&type=manx
+      prefix = "";
+    } else {
+      // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
+      prefix = prefix + "[";
+      suffix = "]";
+      containerSuffix = "]";
+      containerPrefix = "[";
     }
 
-    /**
-     * The user id of the user who last edited the policy
-     *
-     * @return editedBy
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_EDITED_BY)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public String getEditedBy() {
-        return editedBy;
+    StringJoiner joiner = new StringJoiner("&");
+
+    // add `editedBy` to the URL query string
+    if (getEditedBy() != null) {
+      joiner.add(String.format("%seditedBy%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getEditedBy()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
     }
 
-    @JsonProperty(JSON_PROPERTY_EDITED_BY)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setEditedBy(String editedBy) {
-        this.editedBy = editedBy;
+    // add `editedAt` to the URL query string
+    if (getEditedAt() != null) {
+      joiner.add(String.format("%seditedAt%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getEditedAt()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
     }
 
-    public PolicyMetadata editedAt(String editedAt) {
-        this.editedAt = editedAt;
-        return this;
+    // add `publishedBy` to the URL query string
+    if (getPublishedBy() != null) {
+      joiner.add(String.format("%spublishedBy%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getPublishedBy()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
     }
 
-    /**
-     * The timestamp of the last edit of the policy
-     *
-     * @return editedAt
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_EDITED_AT)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public String getEditedAt() {
-        return editedAt;
+    // add `publishedAt` to the URL query string
+    if (getPublishedAt() != null) {
+      joiner.add(String.format("%spublishedAt%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getPublishedAt()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
     }
 
-    @JsonProperty(JSON_PROPERTY_EDITED_AT)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setEditedAt(String editedAt) {
-        this.editedAt = editedAt;
-    }
-
-    public PolicyMetadata publishedBy(String publishedBy) {
-        this.publishedBy = publishedBy;
-        return this;
-    }
-
-    /**
-     * The user id of the user who last published the policy
-     *
-     * @return publishedBy
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_PUBLISHED_BY)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public String getPublishedBy() {
-        return publishedBy;
-    }
-
-    @JsonProperty(JSON_PROPERTY_PUBLISHED_BY)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setPublishedBy(String publishedBy) {
-        this.publishedBy = publishedBy;
-    }
-
-    public PolicyMetadata publishedAt(String publishedAt) {
-        this.publishedAt = publishedAt;
-        return this;
-    }
-
-    /**
-     * The timestamp of the last publish of the policy
-     *
-     * @return publishedAt
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_PUBLISHED_AT)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public String getPublishedAt() {
-        return publishedAt;
-    }
-
-    @JsonProperty(JSON_PROPERTY_PUBLISHED_AT)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setPublishedAt(String publishedAt) {
-        this.publishedAt = publishedAt;
-    }
-
-    /** Return true if this PolicyMetadata object is equal to o. */
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        PolicyMetadata policyMetadata = (PolicyMetadata) o;
-        return Objects.equals(this.editedBy, policyMetadata.editedBy)
-                && Objects.equals(this.editedAt, policyMetadata.editedAt)
-                && Objects.equals(this.publishedBy, policyMetadata.publishedBy)
-                && Objects.equals(this.publishedAt, policyMetadata.publishedAt);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(editedBy, editedAt, publishedBy, publishedAt);
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("class PolicyMetadata {\n");
-        sb.append("    editedBy: ").append(toIndentedString(editedBy)).append("\n");
-        sb.append("    editedAt: ").append(toIndentedString(editedAt)).append("\n");
-        sb.append("    publishedBy: ").append(toIndentedString(publishedBy)).append("\n");
-        sb.append("    publishedAt: ").append(toIndentedString(publishedAt)).append("\n");
-        sb.append("}");
-        return sb.toString();
-    }
-
-    /**
-     * Convert the given object to string with each line indented by 4 spaces (except the first
-     * line).
-     */
-    private String toIndentedString(Object o) {
-        if (o == null) {
-            return "null";
-        }
-        return o.toString().replace("\n", "\n    ");
-    }
-
-    /**
-     * Convert the instance into URL query string.
-     *
-     * @return URL query string
-     */
-    public String toUrlQueryString() {
-        return toUrlQueryString(null);
-    }
-
-    /**
-     * Convert the instance into URL query string.
-     *
-     * @param prefix prefix of the query string
-     * @return URL query string
-     */
-    public String toUrlQueryString(String prefix) {
-        String suffix = "";
-        String containerSuffix = "";
-        String containerPrefix = "";
-        if (prefix == null) {
-            // style=form, explode=true, e.g. /pet?name=cat&type=manx
-            prefix = "";
-        } else {
-            // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
-            prefix = prefix + "[";
-            suffix = "]";
-            containerSuffix = "]";
-            containerPrefix = "[";
-        }
-
-        StringJoiner joiner = new StringJoiner("&");
-
-        // add `editedBy` to the URL query string
-        if (getEditedBy() != null) {
-            joiner.add(
-                    String.format(
-                            "%seditedBy%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(String.valueOf(getEditedBy()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
-        // add `editedAt` to the URL query string
-        if (getEditedAt() != null) {
-            joiner.add(
-                    String.format(
-                            "%seditedAt%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(String.valueOf(getEditedAt()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
-        // add `publishedBy` to the URL query string
-        if (getPublishedBy() != null) {
-            joiner.add(
-                    String.format(
-                            "%spublishedBy%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getPublishedBy()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
-        // add `publishedAt` to the URL query string
-        if (getPublishedAt() != null) {
-            joiner.add(
-                    String.format(
-                            "%spublishedAt%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getPublishedAt()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
-        return joiner.toString();
-    }
+    return joiner.toString();
+  }
 }
+

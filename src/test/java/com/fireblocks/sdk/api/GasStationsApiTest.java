@@ -10,80 +10,99 @@
  * Do not edit the class manually.
  */
 
-package com.fireblocks.sdk.api;
 
+package com.fireblocks.sdk.api;
 
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.model.EditGasStationConfigurationResponse;
+import com.fireblocks.sdk.model.ErrorSchema;
 import com.fireblocks.sdk.model.GasStationConfiguration;
 import com.fireblocks.sdk.model.GasStationPropertiesResponse;
-import java.util.concurrent.CompletableFuture;
-import org.junit.Ignore;
 import org.junit.Test;
+import org.junit.Ignore;
 
-/** API tests for GasStationsApi */
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import java.util.concurrent.CompletableFuture;
+
+/**
+ * API tests for GasStationsApi
+ */
 @Ignore
 public class GasStationsApiTest {
 
     private final GasStationsApi api = new GasStationsApi();
 
+    
     /**
      * Get gas station settings by asset
      *
-     * <p>Returns gas station settings and balances for a requested asset.
+     * Returns gas station settings and balances for a requested asset.
      *
-     * @throws ApiException if the Api call fails
+     * @throws ApiException
+     *          if the Api call fails
      */
     @Test
     public void getGasStationByAssetIdTest() throws ApiException {
         String assetId = null;
-        CompletableFuture<ApiResponse<GasStationPropertiesResponse>> response =
-                api.getGasStationByAssetId(assetId);
+        CompletableFuture<ApiResponse<GasStationPropertiesResponse>> response = 
+        api.getGasStationByAssetId(assetId);
+        
     }
-
+    
     /**
      * Get gas station settings
      *
-     * <p>Returns gas station settings and ETH balance.
+     * Returns gas station settings and ETH balance.
      *
-     * @throws ApiException if the Api call fails
+     * @throws ApiException
+     *          if the Api call fails
      */
     @Test
     public void getGasStationInfoTest() throws ApiException {
-        CompletableFuture<ApiResponse<GasStationPropertiesResponse>> response =
-                api.getGasStationInfo();
+        CompletableFuture<ApiResponse<GasStationPropertiesResponse>> response = 
+        api.getGasStationInfo();
+        
     }
-
+    
     /**
      * Edit gas station settings
      *
-     * <p>Configures gas station settings for ETH.
+     * Configures gas station settings for ETH.
      *
-     * @throws ApiException if the Api call fails
+     * @throws ApiException
+     *          if the Api call fails
      */
     @Test
     public void updateGasStationConfigurationTest() throws ApiException {
         GasStationConfiguration gasStationConfiguration = null;
         String idempotencyKey = null;
-        CompletableFuture<ApiResponse<EditGasStationConfigurationResponse>> response =
-                api.updateGasStationConfiguration(gasStationConfiguration, idempotencyKey);
+        CompletableFuture<ApiResponse<EditGasStationConfigurationResponse>> response = 
+        api.updateGasStationConfiguration(gasStationConfiguration, idempotencyKey);
+        
     }
-
+    
     /**
      * Edit gas station settings for an asset
      *
-     * <p>Configures gas station settings for a requested asset.
+     * Configures gas station settings for a requested asset.
      *
-     * @throws ApiException if the Api call fails
+     * @throws ApiException
+     *          if the Api call fails
      */
     @Test
     public void updateGasStationConfigurationByAssetIdTest() throws ApiException {
         GasStationConfiguration gasStationConfiguration = null;
         String assetId = null;
         String idempotencyKey = null;
-        CompletableFuture<ApiResponse<EditGasStationConfigurationResponse>> response =
-                api.updateGasStationConfigurationByAssetId(
-                        gasStationConfiguration, assetId, idempotencyKey);
+        CompletableFuture<ApiResponse<EditGasStationConfigurationResponse>> response = 
+        api.updateGasStationConfigurationByAssetId(gasStationConfiguration, assetId, idempotencyKey);
+        
     }
+    
 }

@@ -10,18 +10,27 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import java.math.BigDecimal;
+import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
-/** Model tests for TransactionRequestNetworkStaking */
+/**
+ * Model tests for TransactionRequestNetworkStaking
+ */
 public class TransactionRequestNetworkStakingTest {
     private final TransactionRequestNetworkStaking model = new TransactionRequestNetworkStaking();
 
-    /** Model tests for TransactionRequestNetworkStaking */
+    /**
+     * Model tests for TransactionRequestNetworkStaking
+     */
     @Test
     public void testTransactionRequestNetworkStaking() {
         // TODO: test TransactionRequestNetworkStaking
     }
+
 }

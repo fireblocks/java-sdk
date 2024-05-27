@@ -10,110 +10,132 @@
  * Do not edit the class manually.
  */
 
-package com.fireblocks.sdk.api;
 
+package com.fireblocks.sdk.api;
 
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.model.ErrorSchema;
 import com.fireblocks.sdk.model.Job;
 import com.fireblocks.sdk.model.Task;
-import java.util.List;
-import java.util.concurrent.CompletableFuture;
-import org.junit.Ignore;
 import org.junit.Test;
+import org.junit.Ignore;
 
-/** API tests for JobManagementApi */
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import java.util.concurrent.CompletableFuture;
+
+/**
+ * API tests for JobManagementApi
+ */
 @Ignore
 public class JobManagementApiTest {
 
     private final JobManagementApi api = new JobManagementApi();
 
+    
     /**
      * Cancel a running job
      *
-     * <p>Stop the given job immediately. If the job is in the ‘Active’ state, the job will be
-     * canceled after completing the current task. Vault accounts and Wallets that are already
-     * created will not be affected.
+     * Stop the given job immediately. If the job is in the ‘Active’ state, the job will be canceled after completing the current task. Vault accounts and Wallets that are already created will not be affected.
      *
-     * @throws ApiException if the Api call fails
+     * @throws ApiException
+     *          if the Api call fails
      */
     @Test
     public void cancelJobTest() throws ApiException {
         String jobId = null;
         String idempotencyKey = null;
-
+        
         CompletableFuture<ApiResponse<Void>> response = api.cancelJob(jobId, idempotencyKey);
+        
     }
-
+    
     /**
      * Continue a paused job
      *
-     * <p>Continue the given paused job.
+     * Continue the given paused job.
      *
-     * @throws ApiException if the Api call fails
+     * @throws ApiException
+     *          if the Api call fails
      */
     @Test
     public void continueJobTest() throws ApiException {
         String jobId = null;
         String idempotencyKey = null;
-
+        
         CompletableFuture<ApiResponse<Void>> response = api.continueJob(jobId, idempotencyKey);
+        
     }
-
+    
     /**
      * Get job details
      *
-     * <p>Get an object describing the given job
+     * Get an object describing the given job
      *
-     * @throws ApiException if the Api call fails
+     * @throws ApiException
+     *          if the Api call fails
      */
     @Test
     public void getJobTest() throws ApiException {
         String jobId = null;
-        CompletableFuture<ApiResponse<Job>> response = api.getJob(jobId);
+        CompletableFuture<ApiResponse<Job>> response = 
+        api.getJob(jobId);
+        
     }
-
+    
     /**
      * Return a list of tasks for given job
      *
-     * <p>Return a list of tasks for given job
+     * Return a list of tasks for given job
      *
-     * @throws ApiException if the Api call fails
+     * @throws ApiException
+     *          if the Api call fails
      */
     @Test
     public void getJobTasksTest() throws ApiException {
         String jobId = null;
-        CompletableFuture<ApiResponse<List<Task>>> response = api.getJobTasks(jobId);
+        CompletableFuture<ApiResponse<List<Task>>> response = 
+        api.getJobTasks(jobId);
+        
     }
-
+    
     /**
      * Return a list of jobs belonging to tenant
      *
-     * <p>Get an array of objects including all active, paused, canceled, and complete jobs in a
-     * workspace.
+     * Get an array of objects including all active, paused, canceled, and complete jobs in a workspace.
      *
-     * @throws ApiException if the Api call fails
+     * @throws ApiException
+     *          if the Api call fails
      */
     @Test
     public void getJobsTest() throws ApiException {
         Integer fromTime = null;
         Integer toTime = null;
-        CompletableFuture<ApiResponse<List<Job>>> response = api.getJobs(fromTime, toTime);
+        CompletableFuture<ApiResponse<List<Job>>> response = 
+        api.getJobs(fromTime, toTime);
+        
     }
-
+    
     /**
      * Pause a job
      *
-     * <p>Pause the given job, after the current task is done. A paused job can later be resumed by
-     * calling ‘continue’, or canceled.
+     * Pause the given job, after the current task is done. A paused job can later be resumed by calling ‘continue’, or canceled.
      *
-     * @throws ApiException if the Api call fails
+     * @throws ApiException
+     *          if the Api call fails
      */
     @Test
     public void pauseJobTest() throws ApiException {
         String jobId = null;
         String idempotencyKey = null;
-
+        
         CompletableFuture<ApiResponse<Void>> response = api.pauseJob(jobId, idempotencyKey);
+        
     }
+    
 }

@@ -10,42 +10,66 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.fireblocks.sdk.model.AmountAndChainDescriptor;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
-/** Model tests for DelegationSummaryDto */
+/**
+ * Model tests for DelegationSummaryDto
+ */
 public class DelegationSummaryDtoTest {
     private final DelegationSummaryDto model = new DelegationSummaryDto();
 
-    /** Model tests for DelegationSummaryDto */
+    /**
+     * Model tests for DelegationSummaryDto
+     */
     @Test
     public void testDelegationSummaryDto() {
         // TODO: test DelegationSummaryDto
     }
 
-    /** Test the property 'active' */
+    /**
+     * Test the property 'active'
+     */
     @Test
     public void activeTest() {
         // TODO: test active
     }
 
-    /** Test the property 'inactive' */
+    /**
+     * Test the property 'inactive'
+     */
     @Test
     public void inactiveTest() {
         // TODO: test inactive
     }
 
-    /** Test the property 'rewardsAmount' */
+    /**
+     * Test the property 'rewardsAmount'
+     */
     @Test
     public void rewardsAmountTest() {
         // TODO: test rewardsAmount
     }
 
-    /** Test the property 'totalStaked' */
+    /**
+     * Test the property 'totalStaked'
+     */
     @Test
     public void totalStakedTest() {
         // TODO: test totalStaked
     }
+
 }

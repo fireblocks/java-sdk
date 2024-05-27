@@ -10,17 +10,19 @@
  * Do not edit the class manually.
  */
 
-package com.fireblocks.sdk.api;
 
+package com.fireblocks.sdk.api;
 
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
+import java.math.BigDecimal;
 import com.fireblocks.sdk.model.CreateAddressRequest;
 import com.fireblocks.sdk.model.CreateAddressResponse;
 import com.fireblocks.sdk.model.CreateAssetsRequest;
 import com.fireblocks.sdk.model.CreateMultipleAccountsRequest;
 import com.fireblocks.sdk.model.CreateVaultAccountRequest;
 import com.fireblocks.sdk.model.CreateVaultAssetResponse;
+import com.fireblocks.sdk.model.ErrorSchema;
 import com.fireblocks.sdk.model.GetMaxSpendableAmountResponse;
 import com.fireblocks.sdk.model.JobCreated;
 import com.fireblocks.sdk.model.PaginatedAddressResponse;
@@ -37,40 +39,51 @@ import com.fireblocks.sdk.model.VaultAccount;
 import com.fireblocks.sdk.model.VaultAccountsPagedResponse;
 import com.fireblocks.sdk.model.VaultActionStatus;
 import com.fireblocks.sdk.model.VaultAsset;
-import java.math.BigDecimal;
-import java.util.List;
-import java.util.concurrent.CompletableFuture;
-import org.junit.Ignore;
 import org.junit.Test;
+import org.junit.Ignore;
 
-/** API tests for VaultsApi */
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import java.util.concurrent.CompletableFuture;
+
+/**
+ * API tests for VaultsApi
+ */
 @Ignore
 public class VaultsApiTest {
 
     private final VaultsApi api = new VaultsApi();
 
+    
     /**
      * Activate a wallet in a vault account
      *
-     * <p>Initiates activation for a wallet in a vault account.
+     * Initiates activation for a wallet in a vault account.
      *
-     * @throws ApiException if the Api call fails
+     * @throws ApiException
+     *          if the Api call fails
      */
     @Test
     public void activateAssetForVaultAccountTest() throws ApiException {
         String vaultAccountId = null;
         String assetId = null;
         String idempotencyKey = null;
-        CompletableFuture<ApiResponse<CreateVaultAssetResponse>> response =
-                api.activateAssetForVaultAccount(vaultAccountId, assetId, idempotencyKey);
+        CompletableFuture<ApiResponse<CreateVaultAssetResponse>> response = 
+        api.activateAssetForVaultAccount(vaultAccountId, assetId, idempotencyKey);
+        
     }
-
+    
     /**
      * Convert a segwit address to legacy format
      *
-     * <p>Converts an existing segwit address to the legacy format.
+     * Converts an existing segwit address to the legacy format.
      *
-     * @throws ApiException if the Api call fails
+     * @throws ApiException
+     *          if the Api call fails
      */
     @Test
     public void createLegacyAddressTest() throws ApiException {
@@ -78,48 +91,52 @@ public class VaultsApiTest {
         String assetId = null;
         String addressId = null;
         String idempotencyKey = null;
-        CompletableFuture<ApiResponse<CreateAddressResponse>> response =
-                api.createLegacyAddress(vaultAccountId, assetId, addressId, idempotencyKey);
+        CompletableFuture<ApiResponse<CreateAddressResponse>> response = 
+        api.createLegacyAddress(vaultAccountId, assetId, addressId, idempotencyKey);
+        
     }
-
+    
     /**
      * Bulk creation of new vault accounts
      *
-     * <p>Create multiple vault accounts by running an async job. &lt;/br&gt; **Note**: - These
-     * endpoints are currently in beta and might be subject to changes. - We limit accounts to 10k
-     * per operation and 200k per customer during beta testing.
+     * Create multiple vault accounts by running an async job. &lt;/br&gt; **Note**: - These endpoints are currently in beta and might be subject to changes. - We limit accounts to 10k per operation and 200k per customer during beta testing. 
      *
-     * @throws ApiException if the Api call fails
+     * @throws ApiException
+     *          if the Api call fails
      */
     @Test
     public void createMultipleAccountsTest() throws ApiException {
         CreateMultipleAccountsRequest createMultipleAccountsRequest = null;
         String idempotencyKey = null;
-        CompletableFuture<ApiResponse<JobCreated>> response =
-                api.createMultipleAccounts(createMultipleAccountsRequest, idempotencyKey);
+        CompletableFuture<ApiResponse<JobCreated>> response = 
+        api.createMultipleAccounts(createMultipleAccountsRequest, idempotencyKey);
+        
     }
-
+    
     /**
      * Create a new vault account
      *
-     * <p>Creates a new vault account with the requested name.
+     * Creates a new vault account with the requested name.
      *
-     * @throws ApiException if the Api call fails
+     * @throws ApiException
+     *          if the Api call fails
      */
     @Test
     public void createVaultAccountTest() throws ApiException {
         CreateVaultAccountRequest createVaultAccountRequest = null;
         String idempotencyKey = null;
-        CompletableFuture<ApiResponse<VaultAccount>> response =
-                api.createVaultAccount(createVaultAccountRequest, idempotencyKey);
+        CompletableFuture<ApiResponse<VaultAccount>> response = 
+        api.createVaultAccount(createVaultAccountRequest, idempotencyKey);
+        
     }
-
+    
     /**
      * Create a new wallet
      *
-     * <p>Creates a wallet for a specific asset in a vault account.
+     * Creates a wallet for a specific asset in a vault account.
      *
-     * @throws ApiException if the Api call fails
+     * @throws ApiException
+     *          if the Api call fails
      */
     @Test
     public void createVaultAccountAssetTest() throws ApiException {
@@ -127,17 +144,18 @@ public class VaultsApiTest {
         String assetId = null;
         CreateAssetsRequest createAssetsRequest = null;
         String idempotencyKey = null;
-        CompletableFuture<ApiResponse<CreateVaultAssetResponse>> response =
-                api.createVaultAccountAsset(
-                        vaultAccountId, assetId, createAssetsRequest, idempotencyKey);
+        CompletableFuture<ApiResponse<CreateVaultAssetResponse>> response = 
+        api.createVaultAccountAsset(vaultAccountId, assetId, createAssetsRequest, idempotencyKey);
+        
     }
-
+    
     /**
      * Create new asset deposit address
      *
-     * <p>Creates a new deposit address for an asset of a vault account.
+     * Creates a new deposit address for an asset of a vault account.
      *
-     * @throws ApiException if the Api call fails
+     * @throws ApiException
+     *          if the Api call fails
      */
     @Test
     public void createVaultAccountAssetAddressTest() throws ApiException {
@@ -145,18 +163,18 @@ public class VaultsApiTest {
         String assetId = null;
         CreateAddressRequest createAddressRequest = null;
         String idempotencyKey = null;
-        CompletableFuture<ApiResponse<CreateAddressResponse>> response =
-                api.createVaultAccountAssetAddress(
-                        vaultAccountId, assetId, createAddressRequest, idempotencyKey);
+        CompletableFuture<ApiResponse<CreateAddressResponse>> response = 
+        api.createVaultAccountAssetAddress(vaultAccountId, assetId, createAddressRequest, idempotencyKey);
+        
     }
-
+    
     /**
      * List asset wallets (Paginated)
      *
-     * <p>Gets all asset wallets at all of the vault accounts in your workspace. An asset wallet is
-     * an asset at a vault account. This method allows fast traversal of all account balances.
+     * Gets all asset wallets at all of the vault accounts in your workspace. An asset wallet is an asset at a vault account. This method allows fast traversal of all account balances. 
      *
-     * @throws ApiException if the Api call fails
+     * @throws ApiException
+     *          if the Api call fails
      */
     @Test
     public void getAssetWalletsTest() throws ApiException {
@@ -166,36 +184,36 @@ public class VaultsApiTest {
         String before = null;
         String after = null;
         BigDecimal limit = null;
-        CompletableFuture<ApiResponse<PaginatedAssetWalletResponse>> response =
-                api.getAssetWallets(totalAmountLargerThan, assetId, orderBy, before, after, limit);
+        CompletableFuture<ApiResponse<PaginatedAssetWalletResponse>> response = 
+        api.getAssetWallets(totalAmountLargerThan, assetId, orderBy, before, after, limit);
+        
     }
-
+    
     /**
      * Get the maximum spendable amount in a single transaction.
      *
-     * <p>Get the maximum amount of a particular asset that can be spent in a single transaction
-     * from a specified vault account (UTXO assets only, with a limitation on number of inputs
-     * embedded). Send several transactions if you want to spend more than the maximum spendable
-     * amount.
+     * Get the maximum amount of a particular asset that can be spent in a single transaction from a specified vault account (UTXO assets only, with a limitation on number of inputs embedded). Send several transactions if you want to spend more than the maximum spendable amount.
      *
-     * @throws ApiException if the Api call fails
+     * @throws ApiException
+     *          if the Api call fails
      */
     @Test
     public void getMaxSpendableAmountTest() throws ApiException {
         String vaultAccountId = null;
         String assetId = null;
         Boolean manualSignging = null;
-        CompletableFuture<ApiResponse<GetMaxSpendableAmountResponse>> response =
-                api.getMaxSpendableAmount(vaultAccountId, assetId, manualSignging);
+        CompletableFuture<ApiResponse<GetMaxSpendableAmountResponse>> response = 
+        api.getMaxSpendableAmount(vaultAccountId, assetId, manualSignging);
+        
     }
-
+    
     /**
      * List vault accounts (Paginated)
      *
-     * <p>Gets all vault accounts in your workspace. This endpoint returns a limited amount of
-     * results with a quick response time.
+     * Gets all vault accounts in your workspace. This endpoint returns a limited amount of results with a quick response time.
      *
-     * @throws ApiException if the Api call fails
+     * @throws ApiException
+     *          if the Api call fails
      */
     @Test
     public void getPagedVaultAccountsTest() throws ApiException {
@@ -207,40 +225,36 @@ public class VaultsApiTest {
         String before = null;
         String after = null;
         BigDecimal limit = null;
-        CompletableFuture<ApiResponse<VaultAccountsPagedResponse>> response =
-                api.getPagedVaultAccounts(
-                        namePrefix,
-                        nameSuffix,
-                        minAmountThreshold,
-                        assetId,
-                        orderBy,
-                        before,
-                        after,
-                        limit);
+        CompletableFuture<ApiResponse<VaultAccountsPagedResponse>> response = 
+        api.getPagedVaultAccounts(namePrefix, nameSuffix, minAmountThreshold, assetId, orderBy, before, after, limit);
+        
     }
-
+    
     /**
      * Get the public key information
      *
-     * <p>Gets the public key information based on derivation path and signing algorithm.
+     * Gets the public key information based on derivation path and signing algorithm.
      *
-     * @throws ApiException if the Api call fails
+     * @throws ApiException
+     *          if the Api call fails
      */
     @Test
     public void getPublicKeyInfoTest() throws ApiException {
         String derivationPath = null;
         String algorithm = null;
         Boolean compressed = null;
-        CompletableFuture<ApiResponse<PublicKeyInformation>> response =
-                api.getPublicKeyInfo(derivationPath, algorithm, compressed);
+        CompletableFuture<ApiResponse<PublicKeyInformation>> response = 
+        api.getPublicKeyInfo(derivationPath, algorithm, compressed);
+        
     }
-
+    
     /**
      * Get the public key for a vault account
      *
-     * <p>Gets the public key information for the vault account.
+     * Gets the public key information for the vault account.
      *
-     * @throws ApiException if the Api call fails
+     * @throws ApiException
+     *          if the Api call fails
      */
     @Test
     public void getPublicKeyInfoForAddressTest() throws ApiException {
@@ -249,60 +263,68 @@ public class VaultsApiTest {
         BigDecimal change = null;
         BigDecimal addressIndex = null;
         Boolean compressed = null;
-        CompletableFuture<ApiResponse<PublicKeyInformation>> response =
-                api.getPublicKeyInfoForAddress(
-                        vaultAccountId, assetId, change, addressIndex, compressed);
+        CompletableFuture<ApiResponse<PublicKeyInformation>> response = 
+        api.getPublicKeyInfoForAddress(vaultAccountId, assetId, change, addressIndex, compressed);
+        
     }
-
+    
     /**
      * Get UTXO unspent inputs information
      *
-     * <p>Returns unspent inputs information of an asset in a vault account.
+     * Returns unspent inputs information of an asset in a vault account.
      *
-     * @throws ApiException if the Api call fails
+     * @throws ApiException
+     *          if the Api call fails
      */
     @Test
     public void getUnspentInputsTest() throws ApiException {
         String vaultAccountId = null;
         String assetId = null;
-        CompletableFuture<ApiResponse<List<UnspentInputsResponse>>> response =
-                api.getUnspentInputs(vaultAccountId, assetId);
+        CompletableFuture<ApiResponse<List<UnspentInputsResponse>>> response = 
+        api.getUnspentInputs(vaultAccountId, assetId);
+        
     }
-
+    
     /**
      * Find a vault account by ID
      *
-     * <p>Returns the requested vault account.
+     * Returns the requested vault account.
      *
-     * @throws ApiException if the Api call fails
+     * @throws ApiException
+     *          if the Api call fails
      */
     @Test
     public void getVaultAccountTest() throws ApiException {
         String vaultAccountId = null;
-        CompletableFuture<ApiResponse<VaultAccount>> response = api.getVaultAccount(vaultAccountId);
+        CompletableFuture<ApiResponse<VaultAccount>> response = 
+        api.getVaultAccount(vaultAccountId);
+        
     }
-
+    
     /**
      * Get the asset balance for a vault account
      *
-     * <p>Returns a wallet for a specific asset of a vault account.
+     * Returns a wallet for a specific asset of a vault account.
      *
-     * @throws ApiException if the Api call fails
+     * @throws ApiException
+     *          if the Api call fails
      */
     @Test
     public void getVaultAccountAssetTest() throws ApiException {
         String vaultAccountId = null;
         String assetId = null;
-        CompletableFuture<ApiResponse<VaultAsset>> response =
-                api.getVaultAccountAsset(vaultAccountId, assetId);
+        CompletableFuture<ApiResponse<VaultAsset>> response = 
+        api.getVaultAccountAsset(vaultAccountId, assetId);
+        
     }
-
+    
     /**
      * List addresses (Paginated)
      *
-     * <p>Returns a paginated response of the addresses for a given vault account and asset.
+     * Returns a paginated response of the addresses for a given vault account and asset.
      *
-     * @throws ApiException if the Api call fails
+     * @throws ApiException
+     *          if the Api call fails
      */
     @Test
     public void getVaultAccountAssetAddressesPaginatedTest() throws ApiException {
@@ -311,60 +333,68 @@ public class VaultsApiTest {
         BigDecimal limit = null;
         String before = null;
         String after = null;
-        CompletableFuture<ApiResponse<PaginatedAddressResponse>> response =
-                api.getVaultAccountAssetAddressesPaginated(
-                        vaultAccountId, assetId, limit, before, after);
+        CompletableFuture<ApiResponse<PaginatedAddressResponse>> response = 
+        api.getVaultAccountAssetAddressesPaginated(vaultAccountId, assetId, limit, before, after);
+        
     }
-
+    
     /**
      * Get asset balance for chosen assets
      *
-     * <p>Gets the assets amount summary for all accounts or filtered accounts.
+     * Gets the assets amount summary for all accounts or filtered accounts.
      *
-     * @throws ApiException if the Api call fails
+     * @throws ApiException
+     *          if the Api call fails
      */
     @Test
     public void getVaultAssetsTest() throws ApiException {
         String accountNamePrefix = null;
         String accountNameSuffix = null;
-        CompletableFuture<ApiResponse<List<VaultAsset>>> response =
-                api.getVaultAssets(accountNamePrefix, accountNameSuffix);
+        CompletableFuture<ApiResponse<List<VaultAsset>>> response = 
+        api.getVaultAssets(accountNamePrefix, accountNameSuffix);
+        
     }
-
+    
     /**
      * Get vault balance by asset
      *
-     * <p>Gets the vault balance summary for an asset.
+     * Gets the vault balance summary for an asset.
      *
-     * @throws ApiException if the Api call fails
+     * @throws ApiException
+     *          if the Api call fails
      */
     @Test
     public void getVaultBalanceByAssetTest() throws ApiException {
         String assetId = null;
-        CompletableFuture<ApiResponse<VaultAsset>> response = api.getVaultBalanceByAsset(assetId);
+        CompletableFuture<ApiResponse<VaultAsset>> response = 
+        api.getVaultBalanceByAsset(assetId);
+        
     }
-
+    
     /**
      * Hide a vault account in the console
      *
-     * <p>Hides the requested vault account from the web console view.
+     * Hides the requested vault account from the web console view.
      *
-     * @throws ApiException if the Api call fails
+     * @throws ApiException
+     *          if the Api call fails
      */
     @Test
     public void hideVaultAccountTest() throws ApiException {
         String vaultAccountId = null;
         String idempotencyKey = null;
-        CompletableFuture<ApiResponse<VaultActionStatus>> response =
-                api.hideVaultAccount(vaultAccountId, idempotencyKey);
+        CompletableFuture<ApiResponse<VaultActionStatus>> response = 
+        api.hideVaultAccount(vaultAccountId, idempotencyKey);
+        
     }
-
+    
     /**
      * Assign AML customer reference ID
      *
-     * <p>Sets an AML/KYT customer reference ID for a specific address.
+     * Sets an AML/KYT customer reference ID for a specific address.
      *
-     * @throws ApiException if the Api call fails
+     * @throws ApiException
+     *          if the Api call fails
      */
     @Test
     public void setCustomerRefIdForAddressTest() throws ApiException {
@@ -373,85 +403,89 @@ public class VaultsApiTest {
         String assetId = null;
         String addressId = null;
         String idempotencyKey = null;
-        CompletableFuture<ApiResponse<VaultActionStatus>> response =
-                api.setCustomerRefIdForAddress(
-                        setCustomerRefIdForAddressRequest,
-                        vaultAccountId,
-                        assetId,
-                        addressId,
-                        idempotencyKey);
+        CompletableFuture<ApiResponse<VaultActionStatus>> response = 
+        api.setCustomerRefIdForAddress(setCustomerRefIdForAddressRequest, vaultAccountId, assetId, addressId, idempotencyKey);
+        
     }
-
+    
     /**
      * Turn autofueling on or off
      *
-     * <p>Sets the autofueling property of the vault account to enabled or disabled.
+     * Sets the autofueling property of the vault account to enabled or disabled.
      *
-     * @throws ApiException if the Api call fails
+     * @throws ApiException
+     *          if the Api call fails
      */
     @Test
     public void setVaultAccountAutoFuelTest() throws ApiException {
         SetAutoFuelRequest setAutoFuelRequest = null;
         String vaultAccountId = null;
         String idempotencyKey = null;
-        CompletableFuture<ApiResponse<VaultActionStatus>> response =
-                api.setVaultAccountAutoFuel(setAutoFuelRequest, vaultAccountId, idempotencyKey);
+        CompletableFuture<ApiResponse<VaultActionStatus>> response = 
+        api.setVaultAccountAutoFuel(setAutoFuelRequest, vaultAccountId, idempotencyKey);
+        
     }
-
+    
     /**
      * Set an AML/KYT customer reference ID for a vault account
      *
-     * <p>Assigns an AML/KYT customer reference ID for the vault account.
+     * Assigns an AML/KYT customer reference ID for the vault account.
      *
-     * @throws ApiException if the Api call fails
+     * @throws ApiException
+     *          if the Api call fails
      */
     @Test
     public void setVaultAccountCustomerRefIdTest() throws ApiException {
         SetCustomerRefIdRequest setCustomerRefIdRequest = null;
         String vaultAccountId = null;
         String idempotencyKey = null;
-        CompletableFuture<ApiResponse<VaultActionStatus>> response =
-                api.setVaultAccountCustomerRefId(
-                        setCustomerRefIdRequest, vaultAccountId, idempotencyKey);
+        CompletableFuture<ApiResponse<VaultActionStatus>> response = 
+        api.setVaultAccountCustomerRefId(setCustomerRefIdRequest, vaultAccountId, idempotencyKey);
+        
     }
-
+    
     /**
      * Unhide a vault account in the console
      *
-     * <p>Makes a hidden vault account visible in web console view.
+     * Makes a hidden vault account visible in web console view.
      *
-     * @throws ApiException if the Api call fails
+     * @throws ApiException
+     *          if the Api call fails
      */
     @Test
     public void unhideVaultAccountTest() throws ApiException {
         String vaultAccountId = null;
         String idempotencyKey = null;
-        CompletableFuture<ApiResponse<VaultActionStatus>> response =
-                api.unhideVaultAccount(vaultAccountId, idempotencyKey);
+        CompletableFuture<ApiResponse<VaultActionStatus>> response = 
+        api.unhideVaultAccount(vaultAccountId, idempotencyKey);
+        
     }
-
+    
     /**
      * Rename a vault account
      *
-     * <p>Renames the requested vault account.
+     * Renames the requested vault account.
      *
-     * @throws ApiException if the Api call fails
+     * @throws ApiException
+     *          if the Api call fails
      */
     @Test
     public void updateVaultAccountTest() throws ApiException {
         UpdateVaultAccountRequest updateVaultAccountRequest = null;
         String vaultAccountId = null;
         String idempotencyKey = null;
-        CompletableFuture<ApiResponse<RenameVaultAccountResponse>> response =
-                api.updateVaultAccount(updateVaultAccountRequest, vaultAccountId, idempotencyKey);
+        CompletableFuture<ApiResponse<RenameVaultAccountResponse>> response = 
+        api.updateVaultAccount(updateVaultAccountRequest, vaultAccountId, idempotencyKey);
+        
     }
-
+    
     /**
      * Update address description
      *
-     * <p>Updates the description of an existing address of an asset in a vault account.
+     * Updates the description of an existing address of an asset in a vault account.
      *
-     * @throws ApiException if the Api call fails
+     * @throws ApiException
+     *          if the Api call fails
      */
     @Test
     public void updateVaultAccountAssetAddressTest() throws ApiException {
@@ -460,28 +494,27 @@ public class VaultsApiTest {
         String addressId = null;
         UpdateVaultAccountAssetAddressRequest updateVaultAccountAssetAddressRequest = null;
         String idempotencyKey = null;
-        CompletableFuture<ApiResponse<VaultActionStatus>> response =
-                api.updateVaultAccountAssetAddress(
-                        vaultAccountId,
-                        assetId,
-                        addressId,
-                        updateVaultAccountAssetAddressRequest,
-                        idempotencyKey);
+        CompletableFuture<ApiResponse<VaultActionStatus>> response = 
+        api.updateVaultAccountAssetAddress(vaultAccountId, assetId, addressId, updateVaultAccountAssetAddressRequest, idempotencyKey);
+        
     }
-
+    
     /**
      * Refresh asset balance data
      *
-     * <p>Updates the balance of a specific asset in a vault account.
+     * Updates the balance of a specific asset in a vault account.
      *
-     * @throws ApiException if the Api call fails
+     * @throws ApiException
+     *          if the Api call fails
      */
     @Test
     public void updateVaultAccountAssetBalanceTest() throws ApiException {
         String vaultAccountId = null;
         String assetId = null;
         String idempotencyKey = null;
-        CompletableFuture<ApiResponse<VaultAsset>> response =
-                api.updateVaultAccountAssetBalance(vaultAccountId, assetId, idempotencyKey);
+        CompletableFuture<ApiResponse<VaultAsset>> response = 
+        api.updateVaultAccountAssetBalance(vaultAccountId, assetId, idempotencyKey);
+        
     }
+    
 }

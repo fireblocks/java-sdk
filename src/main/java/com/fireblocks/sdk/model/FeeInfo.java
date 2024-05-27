@@ -10,215 +10,213 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
-import java.util.Objects;
 import java.util.StringJoiner;
+import java.util.Objects;
+import java.util.Map;
+import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
-/** Details of the transaction&#39;s fee. */
+
+/**
+ * Details of the transaction&#39;s fee.
+ */
 @JsonPropertyOrder({
-    FeeInfo.JSON_PROPERTY_NETWORK_FEE,
-    FeeInfo.JSON_PROPERTY_SERVICE_FEE,
-    FeeInfo.JSON_PROPERTY_GAS_PRICE
+  FeeInfo.JSON_PROPERTY_NETWORK_FEE,
+  FeeInfo.JSON_PROPERTY_SERVICE_FEE,
+  FeeInfo.JSON_PROPERTY_GAS_PRICE
 })
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class FeeInfo {
-    public static final String JSON_PROPERTY_NETWORK_FEE = "networkFee";
-    private String networkFee;
+  public static final String JSON_PROPERTY_NETWORK_FEE = "networkFee";
+  private String networkFee;
 
-    public static final String JSON_PROPERTY_SERVICE_FEE = "serviceFee";
-    private String serviceFee;
+  public static final String JSON_PROPERTY_SERVICE_FEE = "serviceFee";
+  private String serviceFee;
 
-    public static final String JSON_PROPERTY_GAS_PRICE = "gasPrice";
-    private String gasPrice;
+  public static final String JSON_PROPERTY_GAS_PRICE = "gasPrice";
+  private String gasPrice;
 
-    public FeeInfo() {}
+  public FeeInfo() { 
+  }
 
-    public FeeInfo networkFee(String networkFee) {
-        this.networkFee = networkFee;
-        return this;
+  public FeeInfo networkFee(String networkFee) {
+    this.networkFee = networkFee;
+    return this;
+  }
+
+   /**
+   * The fee paid to the network
+   * @return networkFee
+  **/
+  @jakarta.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_NETWORK_FEE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getNetworkFee() {
+    return networkFee;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_NETWORK_FEE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setNetworkFee(String networkFee) {
+    this.networkFee = networkFee;
+  }
+
+
+  public FeeInfo serviceFee(String serviceFee) {
+    this.serviceFee = serviceFee;
+    return this;
+  }
+
+   /**
+   * The total fee deducted by the exchange from the actual requested amount (serviceFee &#x3D; amount - netAmount)
+   * @return serviceFee
+  **/
+  @jakarta.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_SERVICE_FEE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getServiceFee() {
+    return serviceFee;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_SERVICE_FEE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setServiceFee(String serviceFee) {
+    this.serviceFee = serviceFee;
+  }
+
+
+  public FeeInfo gasPrice(String gasPrice) {
+    this.gasPrice = gasPrice;
+    return this;
+  }
+
+   /**
+   * Get gasPrice
+   * @return gasPrice
+  **/
+  @jakarta.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_GAS_PRICE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getGasPrice() {
+    return gasPrice;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_GAS_PRICE)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setGasPrice(String gasPrice) {
+    this.gasPrice = gasPrice;
+  }
+
+
+  /**
+   * Return true if this FeeInfo object is equal to o.
+   */
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    FeeInfo feeInfo = (FeeInfo) o;
+    return Objects.equals(this.networkFee, feeInfo.networkFee) &&
+        Objects.equals(this.serviceFee, feeInfo.serviceFee) &&
+        Objects.equals(this.gasPrice, feeInfo.gasPrice);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(networkFee, serviceFee, gasPrice);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class FeeInfo {\n");
+    sb.append("    networkFee: ").append(toIndentedString(networkFee)).append("\n");
+    sb.append("    serviceFee: ").append(toIndentedString(serviceFee)).append("\n");
+    sb.append("    gasPrice: ").append(toIndentedString(gasPrice)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @return URL query string
+   */
+  public String toUrlQueryString() {
+    return toUrlQueryString(null);
+  }
+
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @param prefix prefix of the query string
+   * @return URL query string
+   */
+  public String toUrlQueryString(String prefix) {
+    String suffix = "";
+    String containerSuffix = "";
+    String containerPrefix = "";
+    if (prefix == null) {
+      // style=form, explode=true, e.g. /pet?name=cat&type=manx
+      prefix = "";
+    } else {
+      // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
+      prefix = prefix + "[";
+      suffix = "]";
+      containerSuffix = "]";
+      containerPrefix = "[";
     }
 
-    /**
-     * The fee paid to the network
-     *
-     * @return networkFee
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_NETWORK_FEE)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public String getNetworkFee() {
-        return networkFee;
+    StringJoiner joiner = new StringJoiner("&");
+
+    // add `networkFee` to the URL query string
+    if (getNetworkFee() != null) {
+      joiner.add(String.format("%snetworkFee%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getNetworkFee()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
     }
 
-    @JsonProperty(JSON_PROPERTY_NETWORK_FEE)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setNetworkFee(String networkFee) {
-        this.networkFee = networkFee;
+    // add `serviceFee` to the URL query string
+    if (getServiceFee() != null) {
+      joiner.add(String.format("%sserviceFee%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getServiceFee()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
     }
 
-    public FeeInfo serviceFee(String serviceFee) {
-        this.serviceFee = serviceFee;
-        return this;
+    // add `gasPrice` to the URL query string
+    if (getGasPrice() != null) {
+      joiner.add(String.format("%sgasPrice%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getGasPrice()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
     }
 
-    /**
-     * The total fee deducted by the exchange from the actual requested amount (serviceFee &#x3D;
-     * amount - netAmount)
-     *
-     * @return serviceFee
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_SERVICE_FEE)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public String getServiceFee() {
-        return serviceFee;
-    }
-
-    @JsonProperty(JSON_PROPERTY_SERVICE_FEE)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setServiceFee(String serviceFee) {
-        this.serviceFee = serviceFee;
-    }
-
-    public FeeInfo gasPrice(String gasPrice) {
-        this.gasPrice = gasPrice;
-        return this;
-    }
-
-    /**
-     * Get gasPrice
-     *
-     * @return gasPrice
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_GAS_PRICE)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public String getGasPrice() {
-        return gasPrice;
-    }
-
-    @JsonProperty(JSON_PROPERTY_GAS_PRICE)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setGasPrice(String gasPrice) {
-        this.gasPrice = gasPrice;
-    }
-
-    /** Return true if this FeeInfo object is equal to o. */
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        FeeInfo feeInfo = (FeeInfo) o;
-        return Objects.equals(this.networkFee, feeInfo.networkFee)
-                && Objects.equals(this.serviceFee, feeInfo.serviceFee)
-                && Objects.equals(this.gasPrice, feeInfo.gasPrice);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(networkFee, serviceFee, gasPrice);
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("class FeeInfo {\n");
-        sb.append("    networkFee: ").append(toIndentedString(networkFee)).append("\n");
-        sb.append("    serviceFee: ").append(toIndentedString(serviceFee)).append("\n");
-        sb.append("    gasPrice: ").append(toIndentedString(gasPrice)).append("\n");
-        sb.append("}");
-        return sb.toString();
-    }
-
-    /**
-     * Convert the given object to string with each line indented by 4 spaces (except the first
-     * line).
-     */
-    private String toIndentedString(Object o) {
-        if (o == null) {
-            return "null";
-        }
-        return o.toString().replace("\n", "\n    ");
-    }
-
-    /**
-     * Convert the instance into URL query string.
-     *
-     * @return URL query string
-     */
-    public String toUrlQueryString() {
-        return toUrlQueryString(null);
-    }
-
-    /**
-     * Convert the instance into URL query string.
-     *
-     * @param prefix prefix of the query string
-     * @return URL query string
-     */
-    public String toUrlQueryString(String prefix) {
-        String suffix = "";
-        String containerSuffix = "";
-        String containerPrefix = "";
-        if (prefix == null) {
-            // style=form, explode=true, e.g. /pet?name=cat&type=manx
-            prefix = "";
-        } else {
-            // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
-            prefix = prefix + "[";
-            suffix = "]";
-            containerSuffix = "]";
-            containerPrefix = "[";
-        }
-
-        StringJoiner joiner = new StringJoiner("&");
-
-        // add `networkFee` to the URL query string
-        if (getNetworkFee() != null) {
-            joiner.add(
-                    String.format(
-                            "%snetworkFee%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getNetworkFee()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
-        // add `serviceFee` to the URL query string
-        if (getServiceFee() != null) {
-            joiner.add(
-                    String.format(
-                            "%sserviceFee%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getServiceFee()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
-        // add `gasPrice` to the URL query string
-        if (getGasPrice() != null) {
-            joiner.add(
-                    String.format(
-                            "%sgasPrice%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(String.valueOf(getGasPrice()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
-        return joiner.toString();
-    }
+    return joiner.toString();
+  }
 }
+

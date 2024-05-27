@@ -10,37 +10,58 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.fireblocks.sdk.model.SmartTransferTicket;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
-/** Model tests for SmartTransferTicketFilteredResponse */
+/**
+ * Model tests for SmartTransferTicketFilteredResponse
+ */
 public class SmartTransferTicketFilteredResponseTest {
-    private final SmartTransferTicketFilteredResponse model =
-            new SmartTransferTicketFilteredResponse();
+    private final SmartTransferTicketFilteredResponse model = new SmartTransferTicketFilteredResponse();
 
-    /** Model tests for SmartTransferTicketFilteredResponse */
+    /**
+     * Model tests for SmartTransferTicketFilteredResponse
+     */
     @Test
     public void testSmartTransferTicketFilteredResponse() {
         // TODO: test SmartTransferTicketFilteredResponse
     }
 
-    /** Test the property 'message' */
+    /**
+     * Test the property 'message'
+     */
     @Test
     public void messageTest() {
         // TODO: test message
     }
 
-    /** Test the property 'after' */
+    /**
+     * Test the property 'after'
+     */
     @Test
     public void afterTest() {
         // TODO: test after
     }
 
-    /** Test the property 'data' */
+    /**
+     * Test the property 'data'
+     */
     @Test
     public void dataTest() {
         // TODO: test data
     }
+
 }

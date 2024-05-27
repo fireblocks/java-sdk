@@ -10,75 +10,89 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
+
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.StringJoiner;
+import java.util.Objects;
+import java.util.Map;
+import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
-/** Gets or Sets TransferPeerPathType */
+/**
+ * Gets or Sets TransferPeerPathType
+ */
 public enum TransferPeerPathType {
-    VAULT_ACCOUNT("VAULT_ACCOUNT"),
+  
+  VAULT_ACCOUNT("VAULT_ACCOUNT"),
+  
+  EXCHANGE_ACCOUNT("EXCHANGE_ACCOUNT"),
+  
+  INTERNAL_WALLET("INTERNAL_WALLET"),
+  
+  EXTERNAL_WALLET("EXTERNAL_WALLET"),
+  
+  CONTRACT("CONTRACT"),
+  
+  NETWORK_CONNECTION("NETWORK_CONNECTION"),
+  
+  FIAT_ACCOUNT("FIAT_ACCOUNT"),
+  
+  COMPOUND("COMPOUND"),
+  
+  GAS_STATION("GAS_STATION"),
+  
+  ONE_TIME_ADDRESS("ONE_TIME_ADDRESS"),
+  
+  UNKNOWN("UNKNOWN"),
+  
+  END_USER_WALLET("END_USER_WALLET");
 
-    EXCHANGE_ACCOUNT("EXCHANGE_ACCOUNT"),
+  private String value;
 
-    INTERNAL_WALLET("INTERNAL_WALLET"),
+  TransferPeerPathType(String value) {
+    this.value = value;
+  }
 
-    EXTERNAL_WALLET("EXTERNAL_WALLET"),
+  @JsonValue
+  public String getValue() {
+    return value;
+  }
 
-    CONTRACT("CONTRACT"),
+  @Override
+  public String toString() {
+    return String.valueOf(value);
+  }
 
-    NETWORK_CONNECTION("NETWORK_CONNECTION"),
+  @JsonCreator
+  public static TransferPeerPathType fromValue(String value) {
+    for (TransferPeerPathType b : TransferPeerPathType.values()) {
+      if (b.value.equals(value)) {
+        return b;
+      }
+    }
+    throw new IllegalArgumentException("Unexpected value '" + value + "'");
+  }
 
-    FIAT_ACCOUNT("FIAT_ACCOUNT"),
-
-    COMPOUND("COMPOUND"),
-
-    GAS_STATION("GAS_STATION"),
-
-    ONE_TIME_ADDRESS("ONE_TIME_ADDRESS"),
-
-    UNKNOWN("UNKNOWN"),
-
-    END_USER_WALLET("END_USER_WALLET");
-
-    private String value;
-
-    TransferPeerPathType(String value) {
-        this.value = value;
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @param prefix prefix of the query string
+   * @return URL query string
+   */
+  public String toUrlQueryString(String prefix) {
+    if (prefix == null) {
+      prefix = "";
     }
 
-    @JsonValue
-    public String getValue() {
-        return value;
-    }
+    return String.format("%s=%s", prefix, this.toString());
+  }
 
-    @Override
-    public String toString() {
-        return String.valueOf(value);
-    }
-
-    @JsonCreator
-    public static TransferPeerPathType fromValue(String value) {
-        for (TransferPeerPathType b : TransferPeerPathType.values()) {
-            if (b.value.equals(value)) {
-                return b;
-            }
-        }
-        throw new IllegalArgumentException("Unexpected value '" + value + "'");
-    }
-
-    /**
-     * Convert the instance into URL query string.
-     *
-     * @param prefix prefix of the query string
-     * @return URL query string
-     */
-    public String toUrlQueryString(String prefix) {
-        if (prefix == null) {
-            prefix = "";
-        }
-
-        return String.format("%s=%s", prefix, this.toString());
-    }
 }
+

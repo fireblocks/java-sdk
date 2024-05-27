@@ -10,30 +10,47 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.Arrays;
+import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
-/** Model tests for ThirdPartyRouting */
+/**
+ * Model tests for ThirdPartyRouting
+ */
 public class ThirdPartyRoutingTest {
     private final ThirdPartyRouting model = new ThirdPartyRouting();
 
-    /** Model tests for ThirdPartyRouting */
+    /**
+     * Model tests for ThirdPartyRouting
+     */
     @Test
     public void testThirdPartyRouting() {
         // TODO: test ThirdPartyRouting
     }
 
-    /** Test the property 'isThirdPartyRouting' */
+    /**
+     * Test the property 'isThirdPartyRouting'
+     */
     @Test
     public void isThirdPartyRoutingTest() {
         // TODO: test isThirdPartyRouting
     }
 
-    /** Test the property 'description' */
+    /**
+     * Test the property 'description'
+     */
     @Test
     public void descriptionTest() {
         // TODO: test description
     }
+
 }

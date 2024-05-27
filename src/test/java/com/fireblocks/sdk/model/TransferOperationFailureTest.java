@@ -10,30 +10,48 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.fireblocks.sdk.model.TransferOperationFailureData;
+import java.util.Arrays;
+import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
-/** Model tests for TransferOperationFailure */
+/**
+ * Model tests for TransferOperationFailure
+ */
 public class TransferOperationFailureTest {
     private final TransferOperationFailure model = new TransferOperationFailure();
 
-    /** Model tests for TransferOperationFailure */
+    /**
+     * Model tests for TransferOperationFailure
+     */
     @Test
     public void testTransferOperationFailure() {
         // TODO: test TransferOperationFailure
     }
 
-    /** Test the property 'reason' */
+    /**
+     * Test the property 'reason'
+     */
     @Test
     public void reasonTest() {
         // TODO: test reason
     }
 
-    /** Test the property 'data' */
+    /**
+     * Test the property 'data'
+     */
     @Test
     public void dataTest() {
         // TODO: test data
     }
+
 }

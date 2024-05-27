@@ -10,42 +10,64 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import java.math.BigDecimal;
+import java.util.Arrays;
+import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
-/** Model tests for SignedMessageSignature */
+/**
+ * Model tests for SignedMessageSignature
+ */
 public class SignedMessageSignatureTest {
     private final SignedMessageSignature model = new SignedMessageSignature();
 
-    /** Model tests for SignedMessageSignature */
+    /**
+     * Model tests for SignedMessageSignature
+     */
     @Test
     public void testSignedMessageSignature() {
         // TODO: test SignedMessageSignature
     }
 
-    /** Test the property 'fullSig' */
+    /**
+     * Test the property 'fullSig'
+     */
     @Test
     public void fullSigTest() {
         // TODO: test fullSig
     }
 
-    /** Test the property 'r' */
+    /**
+     * Test the property 'r'
+     */
     @Test
     public void rTest() {
         // TODO: test r
     }
 
-    /** Test the property 's' */
+    /**
+     * Test the property 's'
+     */
     @Test
     public void sTest() {
         // TODO: test s
     }
 
-    /** Test the property 'v' */
+    /**
+     * Test the property 'v'
+     */
     @Test
     public void vTest() {
         // TODO: test v
     }
+
 }

@@ -10,30 +10,47 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.Arrays;
+import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
-/** Model tests for ResendTransactionWebhooksRequest */
+/**
+ * Model tests for ResendTransactionWebhooksRequest
+ */
 public class ResendTransactionWebhooksRequestTest {
     private final ResendTransactionWebhooksRequest model = new ResendTransactionWebhooksRequest();
 
-    /** Model tests for ResendTransactionWebhooksRequest */
+    /**
+     * Model tests for ResendTransactionWebhooksRequest
+     */
     @Test
     public void testResendTransactionWebhooksRequest() {
         // TODO: test ResendTransactionWebhooksRequest
     }
 
-    /** Test the property 'resendCreated' */
+    /**
+     * Test the property 'resendCreated'
+     */
     @Test
     public void resendCreatedTest() {
         // TODO: test resendCreated
     }
 
-    /** Test the property 'resendStatusUpdated' */
+    /**
+     * Test the property 'resendStatusUpdated'
+     */
     @Test
     public void resendStatusUpdatedTest() {
         // TODO: test resendStatusUpdated
     }
+
 }

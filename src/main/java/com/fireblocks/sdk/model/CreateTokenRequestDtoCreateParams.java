@@ -10,8 +10,36 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.StringJoiner;
+import java.util.Objects;
+import java.util.Map;
+import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.fireblocks.sdk.model.EVMTokenCreateParamsDto;
+import com.fireblocks.sdk.model.ParameterWithValue;
+import com.fireblocks.sdk.model.StellarRippleCreateParamsDto;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+
+import com.fasterxml.jackson.core.type.TypeReference;
+
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
@@ -27,30 +55,15 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 import com.fireblocks.sdk.JSON;
-import java.io.IOException;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.StringJoiner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
-@JsonDeserialize(
-        using =
-                CreateTokenRequestDtoCreateParams.CreateTokenRequestDtoCreateParamsDeserializer
-                        .class)
-@JsonSerialize(
-        using = CreateTokenRequestDtoCreateParams.CreateTokenRequestDtoCreateParamsSerializer.class)
+@JsonDeserialize(using = CreateTokenRequestDtoCreateParams.CreateTokenRequestDtoCreateParamsDeserializer.class)
+@JsonSerialize(using = CreateTokenRequestDtoCreateParams.CreateTokenRequestDtoCreateParamsSerializer.class)
 public class CreateTokenRequestDtoCreateParams extends AbstractOpenApiSchema {
-    private static final Logger log =
-            Logger.getLogger(CreateTokenRequestDtoCreateParams.class.getName());
+    private static final Logger log = Logger.getLogger(CreateTokenRequestDtoCreateParams.class.getName());
 
-    public static class CreateTokenRequestDtoCreateParamsSerializer
-            extends StdSerializer<CreateTokenRequestDtoCreateParams> {
-        public CreateTokenRequestDtoCreateParamsSerializer(
-                Class<CreateTokenRequestDtoCreateParams> t) {
+    public static class CreateTokenRequestDtoCreateParamsSerializer extends StdSerializer<CreateTokenRequestDtoCreateParams> {
+        public CreateTokenRequestDtoCreateParamsSerializer(Class<CreateTokenRequestDtoCreateParams> t) {
             super(t);
         }
 
@@ -59,17 +72,12 @@ public class CreateTokenRequestDtoCreateParams extends AbstractOpenApiSchema {
         }
 
         @Override
-        public void serialize(
-                CreateTokenRequestDtoCreateParams value,
-                JsonGenerator jgen,
-                SerializerProvider provider)
-                throws IOException, JsonProcessingException {
+        public void serialize(CreateTokenRequestDtoCreateParams value, JsonGenerator jgen, SerializerProvider provider) throws IOException, JsonProcessingException {
             jgen.writeObject(value.getActualInstance());
         }
     }
 
-    public static class CreateTokenRequestDtoCreateParamsDeserializer
-            extends StdDeserializer<CreateTokenRequestDtoCreateParams> {
+    public static class CreateTokenRequestDtoCreateParamsDeserializer extends StdDeserializer<CreateTokenRequestDtoCreateParams> {
         public CreateTokenRequestDtoCreateParamsDeserializer() {
             this(CreateTokenRequestDtoCreateParams.class);
         }
@@ -79,9 +87,7 @@ public class CreateTokenRequestDtoCreateParams extends AbstractOpenApiSchema {
         }
 
         @Override
-        public CreateTokenRequestDtoCreateParams deserialize(
-                JsonParser jp, DeserializationContext ctxt)
-                throws IOException, JsonProcessingException {
+        public CreateTokenRequestDtoCreateParams deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException, JsonProcessingException {
             JsonNode tree = jp.readValueAsTree();
             Object deserialized = null;
             boolean typeCoercion = ctxt.isEnabled(MapperFeature.ALLOW_COERCION_OF_SCALARS);
@@ -91,35 +97,17 @@ public class CreateTokenRequestDtoCreateParams extends AbstractOpenApiSchema {
             try {
                 boolean attemptParsing = true;
                 // ensure that we respect type coercion as set on the client ObjectMapper
-                if (EVMTokenCreateParamsDto.class.equals(Integer.class)
-                        || EVMTokenCreateParamsDto.class.equals(Long.class)
-                        || EVMTokenCreateParamsDto.class.equals(Float.class)
-                        || EVMTokenCreateParamsDto.class.equals(Double.class)
-                        || EVMTokenCreateParamsDto.class.equals(Boolean.class)
-                        || EVMTokenCreateParamsDto.class.equals(String.class)) {
+                if (EVMTokenCreateParamsDto.class.equals(Integer.class) || EVMTokenCreateParamsDto.class.equals(Long.class) || EVMTokenCreateParamsDto.class.equals(Float.class) || EVMTokenCreateParamsDto.class.equals(Double.class) || EVMTokenCreateParamsDto.class.equals(Boolean.class) || EVMTokenCreateParamsDto.class.equals(String.class)) {
                     attemptParsing = typeCoercion;
                     if (!attemptParsing) {
-                        attemptParsing |=
-                                ((EVMTokenCreateParamsDto.class.equals(Integer.class)
-                                                || EVMTokenCreateParamsDto.class.equals(Long.class))
-                                        && token == JsonToken.VALUE_NUMBER_INT);
-                        attemptParsing |=
-                                ((EVMTokenCreateParamsDto.class.equals(Float.class)
-                                                || EVMTokenCreateParamsDto.class.equals(
-                                                        Double.class))
-                                        && token == JsonToken.VALUE_NUMBER_FLOAT);
-                        attemptParsing |=
-                                (EVMTokenCreateParamsDto.class.equals(Boolean.class)
-                                        && (token == JsonToken.VALUE_FALSE
-                                                || token == JsonToken.VALUE_TRUE));
-                        attemptParsing |=
-                                (EVMTokenCreateParamsDto.class.equals(String.class)
-                                        && token == JsonToken.VALUE_STRING);
+                        attemptParsing |= ((EVMTokenCreateParamsDto.class.equals(Integer.class) || EVMTokenCreateParamsDto.class.equals(Long.class)) && token == JsonToken.VALUE_NUMBER_INT);
+                        attemptParsing |= ((EVMTokenCreateParamsDto.class.equals(Float.class) || EVMTokenCreateParamsDto.class.equals(Double.class)) && token == JsonToken.VALUE_NUMBER_FLOAT);
+                        attemptParsing |= (EVMTokenCreateParamsDto.class.equals(Boolean.class) && (token == JsonToken.VALUE_FALSE || token == JsonToken.VALUE_TRUE));
+                        attemptParsing |= (EVMTokenCreateParamsDto.class.equals(String.class) && token == JsonToken.VALUE_STRING);
                     }
                 }
                 if (attemptParsing) {
-                    deserialized =
-                            tree.traverse(jp.getCodec()).readValueAs(EVMTokenCreateParamsDto.class);
+                    deserialized = tree.traverse(jp.getCodec()).readValueAs(EVMTokenCreateParamsDto.class);
                     // TODO: there is no validation against JSON schema constraints
                     // (min, max, enum, pattern...), this does not perform a strict JSON
                     // validation, which means the 'match' count may be higher than it should be.
@@ -128,61 +116,33 @@ public class CreateTokenRequestDtoCreateParams extends AbstractOpenApiSchema {
                 }
             } catch (Exception e) {
                 // deserialization failed, continue
-                log.log(
-                        Level.FINER,
-                        "Input data does not match schema 'EVMTokenCreateParamsDto'",
-                        e);
+                log.log(Level.FINER, "Input data does not match schema 'EVMTokenCreateParamsDto'", e);
             }
 
             // deserialize StellarRippleCreateParamsDto
             try {
                 boolean attemptParsing = true;
                 // ensure that we respect type coercion as set on the client ObjectMapper
-                if (StellarRippleCreateParamsDto.class.equals(Integer.class)
-                        || StellarRippleCreateParamsDto.class.equals(Long.class)
-                        || StellarRippleCreateParamsDto.class.equals(Float.class)
-                        || StellarRippleCreateParamsDto.class.equals(Double.class)
-                        || StellarRippleCreateParamsDto.class.equals(Boolean.class)
-                        || StellarRippleCreateParamsDto.class.equals(String.class)) {
+                if (StellarRippleCreateParamsDto.class.equals(Integer.class) || StellarRippleCreateParamsDto.class.equals(Long.class) || StellarRippleCreateParamsDto.class.equals(Float.class) || StellarRippleCreateParamsDto.class.equals(Double.class) || StellarRippleCreateParamsDto.class.equals(Boolean.class) || StellarRippleCreateParamsDto.class.equals(String.class)) {
                     attemptParsing = typeCoercion;
                     if (!attemptParsing) {
-                        attemptParsing |=
-                                ((StellarRippleCreateParamsDto.class.equals(Integer.class)
-                                                || StellarRippleCreateParamsDto.class.equals(
-                                                        Long.class))
-                                        && token == JsonToken.VALUE_NUMBER_INT);
-                        attemptParsing |=
-                                ((StellarRippleCreateParamsDto.class.equals(Float.class)
-                                                || StellarRippleCreateParamsDto.class.equals(
-                                                        Double.class))
-                                        && token == JsonToken.VALUE_NUMBER_FLOAT);
-                        attemptParsing |=
-                                (StellarRippleCreateParamsDto.class.equals(Boolean.class)
-                                        && (token == JsonToken.VALUE_FALSE
-                                                || token == JsonToken.VALUE_TRUE));
-                        attemptParsing |=
-                                (StellarRippleCreateParamsDto.class.equals(String.class)
-                                        && token == JsonToken.VALUE_STRING);
+                        attemptParsing |= ((StellarRippleCreateParamsDto.class.equals(Integer.class) || StellarRippleCreateParamsDto.class.equals(Long.class)) && token == JsonToken.VALUE_NUMBER_INT);
+                        attemptParsing |= ((StellarRippleCreateParamsDto.class.equals(Float.class) || StellarRippleCreateParamsDto.class.equals(Double.class)) && token == JsonToken.VALUE_NUMBER_FLOAT);
+                        attemptParsing |= (StellarRippleCreateParamsDto.class.equals(Boolean.class) && (token == JsonToken.VALUE_FALSE || token == JsonToken.VALUE_TRUE));
+                        attemptParsing |= (StellarRippleCreateParamsDto.class.equals(String.class) && token == JsonToken.VALUE_STRING);
                     }
                 }
                 if (attemptParsing) {
-                    deserialized =
-                            tree.traverse(jp.getCodec())
-                                    .readValueAs(StellarRippleCreateParamsDto.class);
+                    deserialized = tree.traverse(jp.getCodec()).readValueAs(StellarRippleCreateParamsDto.class);
                     // TODO: there is no validation against JSON schema constraints
                     // (min, max, enum, pattern...), this does not perform a strict JSON
                     // validation, which means the 'match' count may be higher than it should be.
                     match++;
-                    log.log(
-                            Level.FINER,
-                            "Input data matches schema 'StellarRippleCreateParamsDto'");
+                    log.log(Level.FINER, "Input data matches schema 'StellarRippleCreateParamsDto'");
                 }
             } catch (Exception e) {
                 // deserialization failed, continue
-                log.log(
-                        Level.FINER,
-                        "Input data does not match schema 'StellarRippleCreateParamsDto'",
-                        e);
+                log.log(Level.FINER, "Input data does not match schema 'StellarRippleCreateParamsDto'", e);
             }
 
             if (match == 1) {
@@ -190,19 +150,15 @@ public class CreateTokenRequestDtoCreateParams extends AbstractOpenApiSchema {
                 ret.setActualInstance(deserialized);
                 return ret;
             }
-            throw new IOException(
-                    String.format(
-                            "Failed deserialization for CreateTokenRequestDtoCreateParams: %d"
-                                    + " classes match result, expected 1",
-                            match));
+            throw new IOException(String.format("Failed deserialization for CreateTokenRequestDtoCreateParams: %d classes match result, expected 1", match));
         }
 
-        /** Handle deserialization of the 'null' value. */
+        /**
+         * Handle deserialization of the 'null' value.
+         */
         @Override
-        public CreateTokenRequestDtoCreateParams getNullValue(DeserializationContext ctxt)
-                throws JsonMappingException {
-            throw new JsonMappingException(
-                    ctxt.getParser(), "CreateTokenRequestDtoCreateParams cannot be null");
+        public CreateTokenRequestDtoCreateParams getNullValue(DeserializationContext ctxt) throws JsonMappingException {
+            throw new JsonMappingException(ctxt.getParser(), "CreateTokenRequestDtoCreateParams cannot be null");
         }
     }
 
@@ -226,8 +182,7 @@ public class CreateTokenRequestDtoCreateParams extends AbstractOpenApiSchema {
     static {
         schemas.put("EVMTokenCreateParamsDto", EVMTokenCreateParamsDto.class);
         schemas.put("StellarRippleCreateParamsDto", StellarRippleCreateParamsDto.class);
-        JSON.registerDescendants(
-                CreateTokenRequestDtoCreateParams.class, Collections.unmodifiableMap(schemas));
+        JSON.registerDescendants(CreateTokenRequestDtoCreateParams.class, Collections.unmodifiableMap(schemas));
     }
 
     @Override
@@ -236,11 +191,12 @@ public class CreateTokenRequestDtoCreateParams extends AbstractOpenApiSchema {
     }
 
     /**
-     * Set the instance that matches the oneOf child schema, check the instance parameter is valid
-     * against the oneOf child schemas: EVMTokenCreateParamsDto, StellarRippleCreateParamsDto
+     * Set the instance that matches the oneOf child schema, check
+     * the instance parameter is valid against the oneOf child schemas:
+     * EVMTokenCreateParamsDto, StellarRippleCreateParamsDto
      *
-     * <p>It could be an instance of the 'oneOf' schemas. The oneOf child schemas may themselves be
-     * a composed schema (allOf, anyOf, oneOf).
+     * It could be an instance of the 'oneOf' schemas.
+     * The oneOf child schemas may themselves be a composed schema (allOf, anyOf, oneOf).
      */
     @Override
     public void setActualInstance(Object instance) {
@@ -249,20 +205,17 @@ public class CreateTokenRequestDtoCreateParams extends AbstractOpenApiSchema {
             return;
         }
 
-        if (JSON.isInstanceOf(
-                StellarRippleCreateParamsDto.class, instance, new HashSet<Class<?>>())) {
+        if (JSON.isInstanceOf(StellarRippleCreateParamsDto.class, instance, new HashSet<Class<?>>())) {
             super.setActualInstance(instance);
             return;
         }
 
-        throw new RuntimeException(
-                "Invalid instance type. Must be EVMTokenCreateParamsDto,"
-                        + " StellarRippleCreateParamsDto");
+        throw new RuntimeException("Invalid instance type. Must be EVMTokenCreateParamsDto, StellarRippleCreateParamsDto");
     }
 
     /**
-     * Get the actual instance, which can be the following: EVMTokenCreateParamsDto,
-     * StellarRippleCreateParamsDto
+     * Get the actual instance, which can be the following:
+     * EVMTokenCreateParamsDto, StellarRippleCreateParamsDto
      *
      * @return The actual instance (EVMTokenCreateParamsDto, StellarRippleCreateParamsDto)
      */
@@ -272,76 +225,75 @@ public class CreateTokenRequestDtoCreateParams extends AbstractOpenApiSchema {
     }
 
     /**
-     * Get the actual instance of `EVMTokenCreateParamsDto`. If the actual instance is not
-     * `EVMTokenCreateParamsDto`, the ClassCastException will be thrown.
+     * Get the actual instance of `EVMTokenCreateParamsDto`. If the actual instance is not `EVMTokenCreateParamsDto`,
+     * the ClassCastException will be thrown.
      *
      * @return The actual instance of `EVMTokenCreateParamsDto`
      * @throws ClassCastException if the instance is not `EVMTokenCreateParamsDto`
      */
     public EVMTokenCreateParamsDto getEVMTokenCreateParamsDto() throws ClassCastException {
-        return (EVMTokenCreateParamsDto) super.getActualInstance();
+        return (EVMTokenCreateParamsDto)super.getActualInstance();
     }
 
     /**
-     * Get the actual instance of `StellarRippleCreateParamsDto`. If the actual instance is not
-     * `StellarRippleCreateParamsDto`, the ClassCastException will be thrown.
+     * Get the actual instance of `StellarRippleCreateParamsDto`. If the actual instance is not `StellarRippleCreateParamsDto`,
+     * the ClassCastException will be thrown.
      *
      * @return The actual instance of `StellarRippleCreateParamsDto`
      * @throws ClassCastException if the instance is not `StellarRippleCreateParamsDto`
      */
-    public StellarRippleCreateParamsDto getStellarRippleCreateParamsDto()
-            throws ClassCastException {
-        return (StellarRippleCreateParamsDto) super.getActualInstance();
+    public StellarRippleCreateParamsDto getStellarRippleCreateParamsDto() throws ClassCastException {
+        return (StellarRippleCreateParamsDto)super.getActualInstance();
     }
 
-    /**
-     * Convert the instance into URL query string.
-     *
-     * @return URL query string
-     */
-    public String toUrlQueryString() {
-        return toUrlQueryString(null);
+
+
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @return URL query string
+   */
+  public String toUrlQueryString() {
+    return toUrlQueryString(null);
+  }
+
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @param prefix prefix of the query string
+   * @return URL query string
+   */
+  public String toUrlQueryString(String prefix) {
+    String suffix = "";
+    String containerSuffix = "";
+    String containerPrefix = "";
+    if (prefix == null) {
+      // style=form, explode=true, e.g. /pet?name=cat&type=manx
+      prefix = "";
+    } else {
+      // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
+      prefix = prefix + "[";
+      suffix = "]";
+      containerSuffix = "]";
+      containerPrefix = "[";
     }
 
-    /**
-     * Convert the instance into URL query string.
-     *
-     * @param prefix prefix of the query string
-     * @return URL query string
-     */
-    public String toUrlQueryString(String prefix) {
-        String suffix = "";
-        String containerSuffix = "";
-        String containerPrefix = "";
-        if (prefix == null) {
-            // style=form, explode=true, e.g. /pet?name=cat&type=manx
-            prefix = "";
-        } else {
-            // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
-            prefix = prefix + "[";
-            suffix = "]";
-            containerSuffix = "]";
-            containerPrefix = "[";
-        }
+    StringJoiner joiner = new StringJoiner("&");
 
-        StringJoiner joiner = new StringJoiner("&");
-
-        if (getActualInstance() instanceof EVMTokenCreateParamsDto) {
-            if (getActualInstance() != null) {
-                joiner.add(
-                        ((EVMTokenCreateParamsDto) getActualInstance())
-                                .toUrlQueryString(prefix + "one_of_0" + suffix));
-            }
-            return joiner.toString();
+    if (getActualInstance() instanceof EVMTokenCreateParamsDto) {
+        if (getActualInstance() != null) {
+          joiner.add(((EVMTokenCreateParamsDto)getActualInstance()).toUrlQueryString(prefix + "one_of_0" + suffix));
         }
-        if (getActualInstance() instanceof StellarRippleCreateParamsDto) {
-            if (getActualInstance() != null) {
-                joiner.add(
-                        ((StellarRippleCreateParamsDto) getActualInstance())
-                                .toUrlQueryString(prefix + "one_of_1" + suffix));
-            }
-            return joiner.toString();
-        }
-        return null;
+        return joiner.toString();
     }
+    if (getActualInstance() instanceof StellarRippleCreateParamsDto) {
+        if (getActualInstance() != null) {
+          joiner.add(((StellarRippleCreateParamsDto)getActualInstance()).toUrlQueryString(prefix + "one_of_1" + suffix));
+        }
+        return joiner.toString();
+    }
+    return null;
+  }
+
 }
+

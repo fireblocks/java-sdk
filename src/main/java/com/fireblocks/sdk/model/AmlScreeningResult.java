@@ -10,172 +10,177 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
-import java.util.Objects;
 import java.util.StringJoiner;
+import java.util.Objects;
+import java.util.Map;
+import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
-/** The result of the AML screening. */
+
+/**
+ * The result of the AML screening.
+ */
 @JsonPropertyOrder({
-    AmlScreeningResult.JSON_PROPERTY_PROVIDER,
-    AmlScreeningResult.JSON_PROPERTY_PAYLOAD
+  AmlScreeningResult.JSON_PROPERTY_PROVIDER,
+  AmlScreeningResult.JSON_PROPERTY_PAYLOAD
 })
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class AmlScreeningResult {
-    public static final String JSON_PROPERTY_PROVIDER = "provider";
-    private String provider;
+  public static final String JSON_PROPERTY_PROVIDER = "provider";
+  private String provider;
 
-    public static final String JSON_PROPERTY_PAYLOAD = "payload";
-    private Object payload;
+  public static final String JSON_PROPERTY_PAYLOAD = "payload";
+  private Object payload;
 
-    public AmlScreeningResult() {}
+  public AmlScreeningResult() { 
+  }
 
-    public AmlScreeningResult provider(String provider) {
-        this.provider = provider;
-        return this;
+  public AmlScreeningResult provider(String provider) {
+    this.provider = provider;
+    return this;
+  }
+
+   /**
+   * Get provider
+   * @return provider
+  **/
+  @jakarta.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_PROVIDER)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getProvider() {
+    return provider;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_PROVIDER)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setProvider(String provider) {
+    this.provider = provider;
+  }
+
+
+  public AmlScreeningResult payload(Object payload) {
+    this.payload = payload;
+    return this;
+  }
+
+   /**
+   * Get payload
+   * @return payload
+  **/
+  @jakarta.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_PAYLOAD)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public Object getPayload() {
+    return payload;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_PAYLOAD)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setPayload(Object payload) {
+    this.payload = payload;
+  }
+
+
+  /**
+   * Return true if this AmlScreeningResult object is equal to o.
+   */
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    AmlScreeningResult amlScreeningResult = (AmlScreeningResult) o;
+    return Objects.equals(this.provider, amlScreeningResult.provider) &&
+        Objects.equals(this.payload, amlScreeningResult.payload);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(provider, payload);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class AmlScreeningResult {\n");
+    sb.append("    provider: ").append(toIndentedString(provider)).append("\n");
+    sb.append("    payload: ").append(toIndentedString(payload)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @return URL query string
+   */
+  public String toUrlQueryString() {
+    return toUrlQueryString(null);
+  }
+
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @param prefix prefix of the query string
+   * @return URL query string
+   */
+  public String toUrlQueryString(String prefix) {
+    String suffix = "";
+    String containerSuffix = "";
+    String containerPrefix = "";
+    if (prefix == null) {
+      // style=form, explode=true, e.g. /pet?name=cat&type=manx
+      prefix = "";
+    } else {
+      // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
+      prefix = prefix + "[";
+      suffix = "]";
+      containerSuffix = "]";
+      containerPrefix = "[";
     }
 
-    /**
-     * Get provider
-     *
-     * @return provider
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_PROVIDER)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public String getProvider() {
-        return provider;
+    StringJoiner joiner = new StringJoiner("&");
+
+    // add `provider` to the URL query string
+    if (getProvider() != null) {
+      joiner.add(String.format("%sprovider%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getProvider()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
     }
 
-    @JsonProperty(JSON_PROPERTY_PROVIDER)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setProvider(String provider) {
-        this.provider = provider;
+    // add `payload` to the URL query string
+    if (getPayload() != null) {
+      joiner.add(String.format("%spayload%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getPayload()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
     }
 
-    public AmlScreeningResult payload(Object payload) {
-        this.payload = payload;
-        return this;
-    }
-
-    /**
-     * Get payload
-     *
-     * @return payload
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_PAYLOAD)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public Object getPayload() {
-        return payload;
-    }
-
-    @JsonProperty(JSON_PROPERTY_PAYLOAD)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setPayload(Object payload) {
-        this.payload = payload;
-    }
-
-    /** Return true if this AmlScreeningResult object is equal to o. */
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        AmlScreeningResult amlScreeningResult = (AmlScreeningResult) o;
-        return Objects.equals(this.provider, amlScreeningResult.provider)
-                && Objects.equals(this.payload, amlScreeningResult.payload);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(provider, payload);
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("class AmlScreeningResult {\n");
-        sb.append("    provider: ").append(toIndentedString(provider)).append("\n");
-        sb.append("    payload: ").append(toIndentedString(payload)).append("\n");
-        sb.append("}");
-        return sb.toString();
-    }
-
-    /**
-     * Convert the given object to string with each line indented by 4 spaces (except the first
-     * line).
-     */
-    private String toIndentedString(Object o) {
-        if (o == null) {
-            return "null";
-        }
-        return o.toString().replace("\n", "\n    ");
-    }
-
-    /**
-     * Convert the instance into URL query string.
-     *
-     * @return URL query string
-     */
-    public String toUrlQueryString() {
-        return toUrlQueryString(null);
-    }
-
-    /**
-     * Convert the instance into URL query string.
-     *
-     * @param prefix prefix of the query string
-     * @return URL query string
-     */
-    public String toUrlQueryString(String prefix) {
-        String suffix = "";
-        String containerSuffix = "";
-        String containerPrefix = "";
-        if (prefix == null) {
-            // style=form, explode=true, e.g. /pet?name=cat&type=manx
-            prefix = "";
-        } else {
-            // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
-            prefix = prefix + "[";
-            suffix = "]";
-            containerSuffix = "]";
-            containerPrefix = "[";
-        }
-
-        StringJoiner joiner = new StringJoiner("&");
-
-        // add `provider` to the URL query string
-        if (getProvider() != null) {
-            joiner.add(
-                    String.format(
-                            "%sprovider%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(String.valueOf(getProvider()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
-        // add `payload` to the URL query string
-        if (getPayload() != null) {
-            joiner.add(
-                    String.format(
-                            "%spayload%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(String.valueOf(getPayload()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
-        return joiner.toString();
-    }
+    return joiner.toString();
+  }
 }
+

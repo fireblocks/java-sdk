@@ -10,176 +10,177 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
 
-
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
-import java.util.Objects;
 import java.util.StringJoiner;
+import java.util.Objects;
+import java.util.Map;
+import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+
 
 /**
- * The block hash and height of the block that this transaction was mined in. **Note**: If an
- * outgoing transaction uses the destinations object with more than one value in the array,
- * blockHash is set to null.
+ * The block hash and height of the block that this transaction was mined in.      **Note**: If an outgoing transaction uses the destinations object with more than one value in the array, blockHash is set to null.
  */
-@JsonPropertyOrder({BlockInfo.JSON_PROPERTY_BLOCK_HEIGHT, BlockInfo.JSON_PROPERTY_BLOCK_HASH})
+@JsonPropertyOrder({
+  BlockInfo.JSON_PROPERTY_BLOCK_HEIGHT,
+  BlockInfo.JSON_PROPERTY_BLOCK_HASH
+})
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class BlockInfo {
-    public static final String JSON_PROPERTY_BLOCK_HEIGHT = "blockHeight";
-    private String blockHeight;
+  public static final String JSON_PROPERTY_BLOCK_HEIGHT = "blockHeight";
+  private String blockHeight;
 
-    public static final String JSON_PROPERTY_BLOCK_HASH = "blockHash";
-    private String blockHash;
+  public static final String JSON_PROPERTY_BLOCK_HASH = "blockHash";
+  private String blockHash;
 
-    public BlockInfo() {}
+  public BlockInfo() { 
+  }
 
-    public BlockInfo blockHeight(String blockHeight) {
-        this.blockHeight = blockHeight;
-        return this;
+  public BlockInfo blockHeight(String blockHeight) {
+    this.blockHeight = blockHeight;
+    return this;
+  }
+
+   /**
+   * Get blockHeight
+   * @return blockHeight
+  **/
+  @jakarta.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_BLOCK_HEIGHT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getBlockHeight() {
+    return blockHeight;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_BLOCK_HEIGHT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setBlockHeight(String blockHeight) {
+    this.blockHeight = blockHeight;
+  }
+
+
+  public BlockInfo blockHash(String blockHash) {
+    this.blockHash = blockHash;
+    return this;
+  }
+
+   /**
+   * Get blockHash
+   * @return blockHash
+  **/
+  @jakarta.annotation.Nullable
+  @JsonProperty(JSON_PROPERTY_BLOCK_HASH)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getBlockHash() {
+    return blockHash;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_BLOCK_HASH)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setBlockHash(String blockHash) {
+    this.blockHash = blockHash;
+  }
+
+
+  /**
+   * Return true if this BlockInfo object is equal to o.
+   */
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    BlockInfo blockInfo = (BlockInfo) o;
+    return Objects.equals(this.blockHeight, blockInfo.blockHeight) &&
+        Objects.equals(this.blockHash, blockInfo.blockHash);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(blockHeight, blockHash);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class BlockInfo {\n");
+    sb.append("    blockHeight: ").append(toIndentedString(blockHeight)).append("\n");
+    sb.append("    blockHash: ").append(toIndentedString(blockHash)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @return URL query string
+   */
+  public String toUrlQueryString() {
+    return toUrlQueryString(null);
+  }
+
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @param prefix prefix of the query string
+   * @return URL query string
+   */
+  public String toUrlQueryString(String prefix) {
+    String suffix = "";
+    String containerSuffix = "";
+    String containerPrefix = "";
+    if (prefix == null) {
+      // style=form, explode=true, e.g. /pet?name=cat&type=manx
+      prefix = "";
+    } else {
+      // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
+      prefix = prefix + "[";
+      suffix = "]";
+      containerSuffix = "]";
+      containerPrefix = "[";
     }
 
-    /**
-     * Get blockHeight
-     *
-     * @return blockHeight
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_BLOCK_HEIGHT)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public String getBlockHeight() {
-        return blockHeight;
+    StringJoiner joiner = new StringJoiner("&");
+
+    // add `blockHeight` to the URL query string
+    if (getBlockHeight() != null) {
+      joiner.add(String.format("%sblockHeight%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getBlockHeight()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
     }
 
-    @JsonProperty(JSON_PROPERTY_BLOCK_HEIGHT)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setBlockHeight(String blockHeight) {
-        this.blockHeight = blockHeight;
+    // add `blockHash` to the URL query string
+    if (getBlockHash() != null) {
+      joiner.add(String.format("%sblockHash%s=%s", prefix, suffix, URLEncoder.encode(String.valueOf(getBlockHash()), StandardCharsets.UTF_8).replaceAll("\\+", "%20")));
     }
 
-    public BlockInfo blockHash(String blockHash) {
-        this.blockHash = blockHash;
-        return this;
-    }
-
-    /**
-     * Get blockHash
-     *
-     * @return blockHash
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_BLOCK_HASH)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public String getBlockHash() {
-        return blockHash;
-    }
-
-    @JsonProperty(JSON_PROPERTY_BLOCK_HASH)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setBlockHash(String blockHash) {
-        this.blockHash = blockHash;
-    }
-
-    /** Return true if this BlockInfo object is equal to o. */
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        BlockInfo blockInfo = (BlockInfo) o;
-        return Objects.equals(this.blockHeight, blockInfo.blockHeight)
-                && Objects.equals(this.blockHash, blockInfo.blockHash);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(blockHeight, blockHash);
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("class BlockInfo {\n");
-        sb.append("    blockHeight: ").append(toIndentedString(blockHeight)).append("\n");
-        sb.append("    blockHash: ").append(toIndentedString(blockHash)).append("\n");
-        sb.append("}");
-        return sb.toString();
-    }
-
-    /**
-     * Convert the given object to string with each line indented by 4 spaces (except the first
-     * line).
-     */
-    private String toIndentedString(Object o) {
-        if (o == null) {
-            return "null";
-        }
-        return o.toString().replace("\n", "\n    ");
-    }
-
-    /**
-     * Convert the instance into URL query string.
-     *
-     * @return URL query string
-     */
-    public String toUrlQueryString() {
-        return toUrlQueryString(null);
-    }
-
-    /**
-     * Convert the instance into URL query string.
-     *
-     * @param prefix prefix of the query string
-     * @return URL query string
-     */
-    public String toUrlQueryString(String prefix) {
-        String suffix = "";
-        String containerSuffix = "";
-        String containerPrefix = "";
-        if (prefix == null) {
-            // style=form, explode=true, e.g. /pet?name=cat&type=manx
-            prefix = "";
-        } else {
-            // deepObject style e.g. /pet?id[name]=cat&id[type]=manx
-            prefix = prefix + "[";
-            suffix = "]";
-            containerSuffix = "]";
-            containerPrefix = "[";
-        }
-
-        StringJoiner joiner = new StringJoiner("&");
-
-        // add `blockHeight` to the URL query string
-        if (getBlockHeight() != null) {
-            joiner.add(
-                    String.format(
-                            "%sblockHeight%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getBlockHeight()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
-        // add `blockHash` to the URL query string
-        if (getBlockHash() != null) {
-            joiner.add(
-                    String.format(
-                            "%sblockHash%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getBlockHash()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
-        return joiner.toString();
-    }
+    return joiner.toString();
+  }
 }
+

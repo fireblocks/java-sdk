@@ -10,69 +10,77 @@
  * Do not edit the class manually.
  */
 
+
 package com.fireblocks.sdk.model;
+
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.StringJoiner;
+import java.util.Objects;
+import java.util.Map;
+import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 /**
- * - REQUESTED payout requested with all its details - VERIFIED payout instruction set details were
- * verified - PROCESSING payout instruction set executed and is processing - FINALIZED payout done
- * (all payout instructions completed successfully) - INSUFFICIENT_BALANCE insufficient balance in
- * the payment account (can be a temporary state) - FAILED one or more of the payout instructions
- * failed
+ * - REQUESTED payout requested with all its details - VERIFIED payout instruction set details were verified - PROCESSING payout instruction set executed and is processing - FINALIZED payout done (all payout instructions completed successfully) - INSUFFICIENT_BALANCE insufficient balance in the payment account (can be a temporary state) - FAILED one or more of the payout instructions failed 
  */
 public enum PayoutStatus {
-    REGISTERED("REGISTERED"),
+  
+  REGISTERED("REGISTERED"),
+  
+  VERIFYING("VERIFYING"),
+  
+  IN_PROGRESS("IN_PROGRESS"),
+  
+  DONE("DONE"),
+  
+  INSUFFICIENT_BALANCE("INSUFFICIENT_BALANCE"),
+  
+  FAILED("FAILED");
 
-    VERIFYING("VERIFYING"),
+  private String value;
 
-    IN_PROGRESS("IN_PROGRESS"),
+  PayoutStatus(String value) {
+    this.value = value;
+  }
 
-    DONE("DONE"),
+  @JsonValue
+  public String getValue() {
+    return value;
+  }
 
-    INSUFFICIENT_BALANCE("INSUFFICIENT_BALANCE"),
+  @Override
+  public String toString() {
+    return String.valueOf(value);
+  }
 
-    FAILED("FAILED");
+  @JsonCreator
+  public static PayoutStatus fromValue(String value) {
+    for (PayoutStatus b : PayoutStatus.values()) {
+      if (b.value.equals(value)) {
+        return b;
+      }
+    }
+    throw new IllegalArgumentException("Unexpected value '" + value + "'");
+  }
 
-    private String value;
-
-    PayoutStatus(String value) {
-        this.value = value;
+  /**
+   * Convert the instance into URL query string.
+   *
+   * @param prefix prefix of the query string
+   * @return URL query string
+   */
+  public String toUrlQueryString(String prefix) {
+    if (prefix == null) {
+      prefix = "";
     }
 
-    @JsonValue
-    public String getValue() {
-        return value;
-    }
+    return String.format("%s=%s", prefix, this.toString());
+  }
 
-    @Override
-    public String toString() {
-        return String.valueOf(value);
-    }
-
-    @JsonCreator
-    public static PayoutStatus fromValue(String value) {
-        for (PayoutStatus b : PayoutStatus.values()) {
-            if (b.value.equals(value)) {
-                return b;
-            }
-        }
-        throw new IllegalArgumentException("Unexpected value '" + value + "'");
-    }
-
-    /**
-     * Convert the instance into URL query string.
-     *
-     * @param prefix prefix of the query string
-     * @return URL query string
-     */
-    public String toUrlQueryString(String prefix) {
-        if (prefix == null) {
-            prefix = "";
-        }
-
-        return String.format("%s=%s", prefix, this.toString());
-    }
 }
+
