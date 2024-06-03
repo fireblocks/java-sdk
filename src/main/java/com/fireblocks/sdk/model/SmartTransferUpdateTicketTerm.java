@@ -16,7 +16,6 @@ package com.fireblocks.sdk.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.math.BigDecimal;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.Objects;
@@ -35,7 +34,7 @@ public class SmartTransferUpdateTicketTerm {
     private String asset;
 
     public static final String JSON_PROPERTY_AMOUNT = "amount";
-    private BigDecimal amount;
+    private String amount;
 
     public static final String JSON_PROPERTY_FROM_NETWORK_ID = "fromNetworkId";
     private String fromNetworkId;
@@ -68,7 +67,7 @@ public class SmartTransferUpdateTicketTerm {
         this.asset = asset;
     }
 
-    public SmartTransferUpdateTicketTerm amount(BigDecimal amount) {
+    public SmartTransferUpdateTicketTerm amount(String amount) {
         this.amount = amount;
         return this;
     }
@@ -81,13 +80,13 @@ public class SmartTransferUpdateTicketTerm {
     @jakarta.annotation.Nonnull
     @JsonProperty(JSON_PROPERTY_AMOUNT)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public BigDecimal getAmount() {
+    public String getAmount() {
         return amount;
     }
 
     @JsonProperty(JSON_PROPERTY_AMOUNT)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setAmount(BigDecimal amount) {
+    public void setAmount(String amount) {
         this.amount = amount;
     }
 

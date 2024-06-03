@@ -46,7 +46,7 @@ public class RegisterNewAssetRequest {
     }
 
     /**
-     * Native asset of blockchain
+     * Native asset ID of the blockchain
      *
      * @return blockchainId
      */
@@ -69,7 +69,10 @@ public class RegisterNewAssetRequest {
     }
 
     /**
-     * Asset address
+     * Asset address. - For EVM based chains this should be the token contract address. - For
+     * Stellar (XLM) this should be the issuer address. - For Algorand (ALGO) this should be the
+     * asset ID. - For TRON (TRX) this should be the token contract address. - For NEAR this will be
+     * the token address.
      *
      * @return address
      */
@@ -92,7 +95,7 @@ public class RegisterNewAssetRequest {
     }
 
     /**
-     * Asset symbol
+     * Required for Stellar only, asset code is expected.
      *
      * @return symbol
      */

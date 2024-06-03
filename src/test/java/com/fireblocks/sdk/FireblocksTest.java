@@ -122,7 +122,7 @@ public class FireblocksTest {
             Assert.assertEquals(expectedAuthorizationValue, headerMap.get("Authorization").get(0));
             Assert.assertEquals("application/json", headerMap.get("Content-Type").get(0));
             Assert.assertEquals(
-                    "testUserAgent fireblocks/sdk/java/2.0.0", headerMap.get("User-Agent").get(0));
+                    "testUserAgent fireblocks/sdk/java/2.1.0", headerMap.get("User-Agent").get(0));
             Assert.assertEquals("testApiKey", headerMap.get("X-API-Key").get(0));
         }
     }
@@ -255,7 +255,7 @@ public class FireblocksTest {
             Assert.assertEquals("Bearer mockJwt", headerMap.get("Authorization").get(0));
             Assert.assertEquals("application/json", headerMap.get("Content-Type").get(0));
             Assert.assertEquals(
-                    "testUserAgent fireblocks/sdk/java/2.0.0", headerMap.get("User-Agent").get(0));
+                    "testUserAgent fireblocks/sdk/java/2.1.0", headerMap.get("User-Agent").get(0));
             Assert.assertEquals("testApiKey", headerMap.get("X-API-Key").get(0));
         }
     }
@@ -305,6 +305,50 @@ public class FireblocksTest {
         String expectedAuthorizationValue =
                 "Bearer"
                     + " eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJ0ZXN0QXBpS2V5IiwiYm9keUhhc2giOiJjYjU3OWU5ODdmMDNhZjIyMDE5NWNhZDhjNGMxOTVmNWY5NTYzZjE0ZTZlMjgxYTljNTM2M2Q0ZGYzMzhkNzZjIiwiZXhwIjoxNzExMDI3MDM3LCJ1cmkiOiI_cXVlcnlQYXJhbTE9dmFsdWUxJnF1ZXJ5UGFyYW0yPXZhbHVlMiIsIm5vbmNlIjoiMTIzZTQ1NjctZTg5Yi0xMmQzLWE0NTYtNDI2NjE0MTc0MDAwIiwiaWF0IjoxNzExMDI2OTgyfQ.Os2X3BfG2I0FU3jSqKQPxToW1uuZB1bvroCGFIDXolxzZ0tqZ3xN_Vw2jJ26QofWhZKnTR0AzjsEPxjIp_BMJBzbvO24enBZzOvYHeOh-7iUrbZm1VDzLiE2ANzP7HXdFSkwadKIlx0yu9lP3DH8fewQMq7NYev4XHc2m95MTEKYz8NBAYvWq_52HcRgyx9ON1BFXVCKuFpZDuyFvkfgfhVz2sOlhHxMLBQQ_eVdjjn7OnNFNquTs2ydIhLDZ8j8pQd3fH2AuvN-0VqmwZNf-xMkfgciEQWApzeJnpouiA5We5N3rSzCki3QuThp3fkbN6hPbgQz4pKyRX34xxrAEbqOigQ4ii7B14qIwQgrh6mLNgC5jAkI9n7M0uR2uP5oSRQ53Nv0jdvvxZUirxOkTuPv9MuHe15ObOBqbQC6_cjZAnFh4AT3xWfqDqG4Cze8tdJD6tdpXJdorpsgXM72Y4mH71lwB0070s9kQT7RSHjuHSaoZg1bqkUZDmY5LMQtOS9g_4sCl3ZiqqhFz92Q6zHCjO9joi9K8JxVvfjcdZnKn28P6ubAWETnJg4Df8vqCqZYLPGohz2vv4I-IKuV7ISs3-hN8Pkc6IMRdc2guUZwsk1ztnd4M17f7FiyaIAHgZlbbAPniatu3DdMO9S3p5h4EYx1TyGQdoSmmzs0GWk";
+        runAndVerifyAuthorizationValue(requestBuilder, expectedAuthorizationValue);
+    }
+
+    @Test
+    public void testAuthorizationValueWithBodyAndQueryParamsWithSpecialChars() {
+        HttpRequest.Builder requestBuilder =
+                HttpRequest.newBuilder()
+                        .uri(
+                                URI.create(
+                                        "http://localhost?queryParam%201=value%201&queryParam2=value2"))
+                        .POST(
+                                HttpRequest.BodyPublishers.ofString(
+                                        "{\"param1\":\"value1\", \"param2\":\"value2\"}"));
+        String expectedAuthorizationValue =
+                "Bearer"
+                    + " eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJ0ZXN0QXBpS2V5IiwiYm9keUhhc2giOiJjYjU3OWU5ODdmMDNhZjIyMDE5NWNhZDhjNGMxOTVmNWY5NTYzZjE0ZTZlMjgxYTljNTM2M2Q0ZGYzMzhkNzZjIiwiZXhwIjoxNzExMDI3MDM3LCJ1cmkiOiI_cXVlcnlQYXJhbSUyMDE9dmFsdWUlMjAxJnF1ZXJ5UGFyYW0yPXZhbHVlMiIsIm5vbmNlIjoiMTIzZTQ1NjctZTg5Yi0xMmQzLWE0NTYtNDI2NjE0MTc0MDAwIiwiaWF0IjoxNzExMDI2OTgyfQ.XMcliLy9HxdkuAXsME-MPFniE7k7V-68iLOGZNcT6iL-xsO_T4Gu3CPvIYG192TwAuaYP-BBizuYOoJQYeuFZ3k9RNUJWGN7oAQF49eTW5FIHkJqsphm-C-XN346Sf1jo_QZQExrdKF4D0Rak7paYg4skewywPBrBO7DO-qN-RUeJbMWeZA5qD9jn8NbPdg-oQ4of3-NajzMzqg2pfavnpRhpeD9Se4WyLQHs81DMim3l3OimTxI_It5VuJXSc92afdH8H9Tf41EzGiPGKBlPstIzczYlQ_j4ixEPfpNgRGAJgjQCbcto7nilf8XMEtKXmbX2ZDPSlA2i4AAmCQKpeo2TkFhs6iTJvec1QwobXvcCPkDCpjhGI-c1n8W3Ji_Oe1uQZkjHT35vcxDWOJiu1nyiCwzDo2jeZGYhOR2ga-heyFkEUh99A5TWqgGdA8F7wPrqQuAvlbwYp5FTlCWBpjSo5NzwPaMfqc7MFTGt_6QZ8vuK_obZR7kUH3ixCQHVUcFKrq_Rw9MX9J6b8bjiDt1nKN-dgCdtnFYkFhQaWgrHDpAn2wXapNoaLh1NR7qeT3OtmvJ-Jv6WpnvC-iGndY-kZTBgw3l1l7kw4X-W99JhBIj489J9_NRuCWBH0XP95_zv1qD2nMD2JNEiEppT6P5CK1vFochozRWSdGG6A8";
+        runAndVerifyAuthorizationValue(requestBuilder, expectedAuthorizationValue);
+    }
+
+    @Test
+    public void testAuthorizationValueWithBodyAndPathParams() {
+        HttpRequest.Builder requestBuilder =
+                HttpRequest.newBuilder()
+                        .uri(URI.create("http://localhost/pathParam1/pathParam2"))
+                        .POST(
+                                HttpRequest.BodyPublishers.ofString(
+                                        "{\"param1\":\"value1\", \"param2\":\"value2\"}"));
+        String expectedAuthorizationValue =
+                "Bearer"
+                    + " eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJ0ZXN0QXBpS2V5IiwiYm9keUhhc2giOiJjYjU3OWU5ODdmMDNhZjIyMDE5NWNhZDhjNGMxOTVmNWY5NTYzZjE0ZTZlMjgxYTljNTM2M2Q0ZGYzMzhkNzZjIiwiZXhwIjoxNzExMDI3MDM3LCJ1cmkiOiIvcGF0aFBhcmFtMS9wYXRoUGFyYW0yIiwibm9uY2UiOiIxMjNlNDU2Ny1lODliLTEyZDMtYTQ1Ni00MjY2MTQxNzQwMDAiLCJpYXQiOjE3MTEwMjY5ODJ9.n-86GiRxOeZbxY5vvq-zqbxiYUZs5cznNL9cCbO9VwHB8iHNSK-jxPWJLWYvgfd3DzukW33lhN0vn6-9WU_I9VnAOHibsEzXeXov-g62DeBRyPbbcii_oVOvdaqZ6VQeCouUKdioEZXNhI4tWe7F5Yoe9ZPhG9r2h9S7Dea81XrIIgKd-9AaRqurZ5btEga_CeYLZ9DSmtxh-f6M7Qs01nnQ3F-m7-iiUlDlbN6EJro6-TvyOe_xVKsBI6wJ8Rpk-TqH18GIcxFfaRNMxL8DPMRK3XTECDg4l-_91kGnw1ekxFclc83vX6UUb9o1GhEhmKWsF2KgPX7Q74Lgh8usIw3dRcDqDWkbO0E1a-tY9nm6g1i-R56sCVEBmKxcd-wZPwGUQqKU-RbYm4Nu4cuxy3iNyH06r4YOe8vr2jOYiHvWi65HzM1SV1ivuDsbLome9lRRL7DhpGRAD881K23a_na_qClDfmUCdwHmg6d8G3mhK7J_2CNjDAWDxBRxMSu_BliO13vgrEM3wdOkT5tOz8UWwNnLMafAa9svynaO4tFCA1Mad8DEfk-YnXS0YUHM2GXxpq4nUjPuoxmDfQfi0DBGmv0FJADXtgGS9NGn20FOJ1se8j2yrumJZIb1o95cdE9yoJ2VxYSX3DWz2fWFdCFWwVwRW5QG0cd65wryMi0";
+        runAndVerifyAuthorizationValue(requestBuilder, expectedAuthorizationValue);
+    }
+
+    @Test
+    public void testAuthorizationValueWithBodyAndPathParamsWithSpecialChars() {
+        HttpRequest.Builder requestBuilder =
+                HttpRequest.newBuilder()
+                        .uri(URI.create("http://localhost/pathParam%201/pathParam2"))
+                        .POST(
+                                HttpRequest.BodyPublishers.ofString(
+                                        "{\"param1\":\"value1\", \"param2\":\"value2\"}"));
+        String expectedAuthorizationValue =
+                "Bearer"
+                    + " eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJ0ZXN0QXBpS2V5IiwiYm9keUhhc2giOiJjYjU3OWU5ODdmMDNhZjIyMDE5NWNhZDhjNGMxOTVmNWY5NTYzZjE0ZTZlMjgxYTljNTM2M2Q0ZGYzMzhkNzZjIiwiZXhwIjoxNzExMDI3MDM3LCJ1cmkiOiIvcGF0aFBhcmFtJTIwMS9wYXRoUGFyYW0yIiwibm9uY2UiOiIxMjNlNDU2Ny1lODliLTEyZDMtYTQ1Ni00MjY2MTQxNzQwMDAiLCJpYXQiOjE3MTEwMjY5ODJ9.Bf8MDXydWYjDOfdkW6sZ2AYPHfiADo-64MIiEKH5q1726DfWiCAjKaIPZofF6dqq-kPOFdhccL5N7eL-nl6bW9mdx3hoWEuWOIpHVhBT8pCt9laVer6wkG8RheAw8oX0HKJo2NYZlxF23KGmRFIuSd9MUUvdy9kaPSk-Ls1Jlgz8xBvL8N2IfFIREoG5azBVSDsCn0c_B0QrrwKfexRziy_O1pSQ0VJjKiUbGgba3NG-8y8XoIopIDVJ_3b_1N9LFLURAfFFcXrX46tWWzHB7n7RBSmCOqGLNhGa6Wce-Nc7e7eX1xKq6W7kEnK5L9lZ11f3a51NB0I9XAXQ77p_XitCHSaXiviLvPbamagX23TcCsxu7oMoCFebOKzpV3qPWyikF2M2qJTgDDAXyahlsNisW15Ykm4HTUcYpsK8goiqBQQ4IOjV8sQvESMkHg8pUdd_t1TgdIiIFl1M82BaSUL0jvsxRKW3RAuAKyeakjL5MY9Q56wVdUF_2A-ayz9XkjzFWLU-8DNAvdZQTbDdhgpXdvB9emBEDChN9eczWZ06SQw6PQUCBTmLIfnnPNCdsgL3c5StSNHlRr-CTEkKKmm4zfKDOjWVhrGDh5BxVKEU6pqN5kOFR0XnrQAV7ZwQ0snxMWRnvPmX2lmhGAc7RrXPK7I5q59K6hpjjgZnZF8";
         runAndVerifyAuthorizationValue(requestBuilder, expectedAuthorizationValue);
     }
 
@@ -452,6 +496,14 @@ public class FireblocksTest {
         JobManagementApi jobManagement = fireblocks.jobManagement();
         Assert.assertNotNull(jobManagement);
         Assert.assertSame(jobManagement, fireblocks.jobManagement());
+    }
+
+    @Test
+    public void testGetKeyLinkBetaApi() {
+        setupFireblocks(true, null, null);
+        KeyLinkBetaApi keyLinkBeta = fireblocks.keyLinkBeta();
+        Assert.assertNotNull(keyLinkBeta);
+        Assert.assertSame(keyLinkBeta, fireblocks.keyLinkBeta());
     }
 
     @Test

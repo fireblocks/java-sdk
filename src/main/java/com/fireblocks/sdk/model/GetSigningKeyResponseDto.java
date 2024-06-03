@@ -16,7 +16,6 @@ package com.fireblocks.sdk.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.math.BigDecimal;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -24,76 +23,76 @@ import java.util.List;
 import java.util.Objects;
 import java.util.StringJoiner;
 
-/** Policy rules validation result */
+/** GetSigningKeyResponseDto */
 @JsonPropertyOrder({
-    PolicyCheckResult.JSON_PROPERTY_ERRORS,
-    PolicyCheckResult.JSON_PROPERTY_RESULTS
+    GetSigningKeyResponseDto.JSON_PROPERTY_DATA,
+    GetSigningKeyResponseDto.JSON_PROPERTY_NEXT
 })
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
-public class PolicyCheckResult {
-    public static final String JSON_PROPERTY_ERRORS = "errors";
-    private BigDecimal errors;
+public class GetSigningKeyResponseDto {
+    public static final String JSON_PROPERTY_DATA = "data";
+    private List<SigningKeyDto> data = new ArrayList<>();
 
-    public static final String JSON_PROPERTY_RESULTS = "results";
-    private List<PolicyRuleCheckResult> results = new ArrayList<>();
+    public static final String JSON_PROPERTY_NEXT = "next";
+    private String next;
 
-    public PolicyCheckResult() {}
+    public GetSigningKeyResponseDto() {}
 
-    public PolicyCheckResult errors(BigDecimal errors) {
-        this.errors = errors;
+    public GetSigningKeyResponseDto data(List<SigningKeyDto> data) {
+        this.data = data;
         return this;
     }
 
-    /**
-     * Number of errors
-     *
-     * @return errors
-     */
-    @jakarta.annotation.Nonnull
-    @JsonProperty(JSON_PROPERTY_ERRORS)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public BigDecimal getErrors() {
-        return errors;
-    }
-
-    @JsonProperty(JSON_PROPERTY_ERRORS)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setErrors(BigDecimal errors) {
-        this.errors = errors;
-    }
-
-    public PolicyCheckResult results(List<PolicyRuleCheckResult> results) {
-        this.results = results;
-        return this;
-    }
-
-    public PolicyCheckResult addResultsItem(PolicyRuleCheckResult resultsItem) {
-        if (this.results == null) {
-            this.results = new ArrayList<>();
+    public GetSigningKeyResponseDto addDataItem(SigningKeyDto dataItem) {
+        if (this.data == null) {
+            this.data = new ArrayList<>();
         }
-        this.results.add(resultsItem);
+        this.data.add(dataItem);
         return this;
     }
 
     /**
-     * A set of validation results
+     * Response object for getting external signing keys.
      *
-     * @return results
+     * @return data
      */
     @jakarta.annotation.Nonnull
-    @JsonProperty(JSON_PROPERTY_RESULTS)
+    @JsonProperty(JSON_PROPERTY_DATA)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public List<PolicyRuleCheckResult> getResults() {
-        return results;
+    public List<SigningKeyDto> getData() {
+        return data;
     }
 
-    @JsonProperty(JSON_PROPERTY_RESULTS)
+    @JsonProperty(JSON_PROPERTY_DATA)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setResults(List<PolicyRuleCheckResult> results) {
-        this.results = results;
+    public void setData(List<SigningKeyDto> data) {
+        this.data = data;
     }
 
-    /** Return true if this PolicyCheckResult object is equal to o. */
+    public GetSigningKeyResponseDto next(String next) {
+        this.next = next;
+        return this;
+    }
+
+    /**
+     * The ID of the next page
+     *
+     * @return next
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_NEXT)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getNext() {
+        return next;
+    }
+
+    @JsonProperty(JSON_PROPERTY_NEXT)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setNext(String next) {
+        this.next = next;
+    }
+
+    /** Return true if this GetSigningKeyResponseDto object is equal to o. */
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -102,22 +101,22 @@ public class PolicyCheckResult {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        PolicyCheckResult policyCheckResult = (PolicyCheckResult) o;
-        return Objects.equals(this.errors, policyCheckResult.errors)
-                && Objects.equals(this.results, policyCheckResult.results);
+        GetSigningKeyResponseDto getSigningKeyResponseDto = (GetSigningKeyResponseDto) o;
+        return Objects.equals(this.data, getSigningKeyResponseDto.data)
+                && Objects.equals(this.next, getSigningKeyResponseDto.next);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(errors, results);
+        return Objects.hash(data, next);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("class PolicyCheckResult {\n");
-        sb.append("    errors: ").append(toIndentedString(errors)).append("\n");
-        sb.append("    results: ").append(toIndentedString(results)).append("\n");
+        sb.append("class GetSigningKeyResponseDto {\n");
+        sb.append("    data: ").append(toIndentedString(data)).append("\n");
+        sb.append("    next: ").append(toIndentedString(next)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -165,27 +164,16 @@ public class PolicyCheckResult {
 
         StringJoiner joiner = new StringJoiner("&");
 
-        // add `errors` to the URL query string
-        if (getErrors() != null) {
-            joiner.add(
-                    String.format(
-                            "%serrors%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(String.valueOf(getErrors()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
-        // add `results` to the URL query string
-        if (getResults() != null) {
-            for (int i = 0; i < getResults().size(); i++) {
-                if (getResults().get(i) != null) {
+        // add `data` to the URL query string
+        if (getData() != null) {
+            for (int i = 0; i < getData().size(); i++) {
+                if (getData().get(i) != null) {
                     joiner.add(
-                            getResults()
+                            getData()
                                     .get(i)
                                     .toUrlQueryString(
                                             String.format(
-                                                    "%sresults%s%s",
+                                                    "%sdata%s%s",
                                                     prefix,
                                                     suffix,
                                                     "".equals(suffix)
@@ -197,6 +185,17 @@ public class PolicyCheckResult {
                                                                     containerSuffix))));
                 }
             }
+        }
+
+        // add `next` to the URL query string
+        if (getNext() != null) {
+            joiner.add(
+                    String.format(
+                            "%snext%s=%s",
+                            prefix,
+                            suffix,
+                            URLEncoder.encode(String.valueOf(getNext()), StandardCharsets.UTF_8)
+                                    .replaceAll("\\+", "%20")));
         }
 
         return joiner.toString();
