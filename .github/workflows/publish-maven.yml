@@ -16,10 +16,14 @@ jobs:
         with:
           java-version: '11'
           distribution: 'temurin'
+          server-id: ossrh
+          server-username: MAVEN_USERNAME
+          server-password: MAVEN_PASSWORD
       - name: Configure GPG Key
         run: |
           echo -n "${{ secrets.GPG_SIGNING_KEY }}" | base64 --decode | gpg --import --batch
       - name: Publish package
         run: mvn --batch-mode deploy -Dgpg.passphrase='${{ secrets.GPG_PASSWORD }}'
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          MAVEN_USERNAME: ${{ secrets.MAVEN_OSSRH_USERNAME }}
+          MAVEN_PASSWORD: ${{ secrets.MAVEN_OSSRH_TOKEN }}
