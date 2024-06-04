@@ -31,9 +31,9 @@ public class PolicyCheckResultTest {
         // TODO: test errors
     }
 
-    /** Test the property 'result' */
+    /** Test the property 'results' */
     @Test
-    public void resultTest() {
-        // TODO: test result
+    public void resultsTest() {
+        // TODO: test results
     }
 }

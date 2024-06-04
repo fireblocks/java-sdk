@@ -54,6 +54,7 @@ public class Fireblocks {
     private GasStationsApi gasStations;
     private InternalWalletsApi internalWallets;
     private JobManagementApi jobManagement;
+    private KeyLinkBetaApi keyLinkBeta;
     private NetworkConnectionsApi networkConnections;
     private NftsApi nfts;
     private OffExchangesApi offExchanges;
@@ -155,8 +156,8 @@ public class Fireblocks {
     private String signJwt(HttpRequest.Builder builder) throws NoSuchAlgorithmException {
         HttpRequest request = builder.build();
         String path =
-                request.uri().getPath()
-                        + Optional.ofNullable(request.uri().getQuery())
+                request.uri().getRawPath()
+                        + Optional.ofNullable(request.uri().getRawQuery())
                                 .map(query -> "?" + query)
                                 .orElse("");
 
@@ -336,6 +337,13 @@ public class Fireblocks {
             jobManagement = new JobManagementApi(apiClient);
         }
         return jobManagement;
+    }
+
+    public KeyLinkBetaApi keyLinkBeta() {
+        if (keyLinkBeta == null) {
+            keyLinkBeta = new KeyLinkBetaApi(apiClient);
+        }
+        return keyLinkBeta;
     }
 
     public NetworkConnectionsApi networkConnections() {

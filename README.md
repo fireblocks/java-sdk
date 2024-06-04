@@ -32,7 +32,7 @@ Add this dependency to your project's POM:
 <dependency>
   <groupId>com.fireblocks.sdk</groupId>
   <artifactId>fireblocks-sdk</artifactId>
-  <version>2.0.0</version>
+  <version>2.1.0</version>
   <scope>compile</scope>
 </dependency>
 ```
@@ -42,7 +42,7 @@ Add this dependency to your project's POM:
 Add this dependency to your project's build file:
 
 ```groovy
-compile "com.fireblocks.sdk:fireblocks-sdk:2.0.0"
+compile "com.fireblocks.sdk:fireblocks-sdk:2.1.0"
 ```
 
 ### Others
@@ -55,7 +55,7 @@ mvn clean package
 
 Then manually install the following JARs:
 
-- `target/fireblocks-sdk-2.0.0.jar`
+- `target/fireblocks-sdk-2.1.0.jar`
 - `target/lib/*.jar`
 
 
@@ -219,6 +219,15 @@ Class | Method | HTTP request | Description
 *JobManagementApi* | [**getJobTasks**](docs/JobManagementApi.md#getJobTasks) | **GET** /batch/{jobId}/tasks | Return a list of tasks for given job
 *JobManagementApi* | [**getJobs**](docs/JobManagementApi.md#getJobs) | **GET** /batch/jobs | Return a list of jobs belonging to tenant
 *JobManagementApi* | [**pauseJob**](docs/JobManagementApi.md#pauseJob) | **POST** /batch/{jobId}/pause | Pause a job
+*KeyLinkBetaApi* | [**createSigningKey**](docs/KeyLinkBetaApi.md#createSigningKey) | **POST** /key_link/signing_keys | Add a new signing key
+*KeyLinkBetaApi* | [**createValidationKey**](docs/KeyLinkBetaApi.md#createValidationKey) | **POST** /key_link/validation_keys | Add a new validation key
+*KeyLinkBetaApi* | [**disableValidationKey**](docs/KeyLinkBetaApi.md#disableValidationKey) | **PATCH** /key_link/validation_keys/{keyId} | Disables a validation key
+*KeyLinkBetaApi* | [**getSigningKey**](docs/KeyLinkBetaApi.md#getSigningKey) | **GET** /key_link/signing_keys/{keyId} | Get a signing key by &#x60;keyId&#x60;
+*KeyLinkBetaApi* | [**getSigningKeysList**](docs/KeyLinkBetaApi.md#getSigningKeysList) | **GET** /key_link/signing_keys | Get list of signing keys
+*KeyLinkBetaApi* | [**getValidationKey**](docs/KeyLinkBetaApi.md#getValidationKey) | **GET** /key_link/validation_keys/{keyId} | Get a validation key by &#x60;keyId&#x60;
+*KeyLinkBetaApi* | [**getValidationKeysList**](docs/KeyLinkBetaApi.md#getValidationKeysList) | **GET** /key_link/validation_keys | Get list of registered validation keys
+*KeyLinkBetaApi* | [**setAgentId**](docs/KeyLinkBetaApi.md#setAgentId) | **PATCH** /key_link/signing_keys/{keyId}/agent_user_id | Set agent user id that can sign with the signing key identified by the Fireblocks provided &#x60;keyId&#x60;
+*KeyLinkBetaApi* | [**updateSigningKey**](docs/KeyLinkBetaApi.md#updateSigningKey) | **PATCH** /key_link/signing_keys/{keyId} | Modify the signing by Fireblocks provided &#x60;keyId&#x60;
 *NetworkConnectionsApi* | [**checkThirdPartyRouting**](docs/NetworkConnectionsApi.md#checkThirdPartyRouting) | **GET** /network_connections/{connectionId}/is_third_party_routing/{assetType} | Retrieve third-party network routing validation by asset type.
 *NetworkConnectionsApi* | [**createNetworkConnection**](docs/NetworkConnectionsApi.md#createNetworkConnection) | **POST** /network_connections | Creates a new network connection
 *NetworkConnectionsApi* | [**createNetworkId**](docs/NetworkConnectionsApi.md#createNetworkId) | **POST** /network_ids | Creates a new Network ID
@@ -445,11 +454,14 @@ Class | Method | HTTP request | Description
  - [CreateNcwConnectionRequest](docs/CreateNcwConnectionRequest.md)
  - [CreateNetworkIdRequest](docs/CreateNetworkIdRequest.md)
  - [CreatePayoutRequest](docs/CreatePayoutRequest.md)
+ - [CreateSigningKeyDto](docs/CreateSigningKeyDto.md)
  - [CreateTokenRequestDto](docs/CreateTokenRequestDto.md)
  - [CreateTokenRequestDtoCreateParams](docs/CreateTokenRequestDtoCreateParams.md)
  - [CreateTransactionResponse](docs/CreateTransactionResponse.md)
  - [CreateTransferConfigOperationRequest](docs/CreateTransferConfigOperationRequest.md)
  - [CreateUserGroupResponse](docs/CreateUserGroupResponse.md)
+ - [CreateValidationKeyDto](docs/CreateValidationKeyDto.md)
+ - [CreateValidationKeyResponseDto](docs/CreateValidationKeyResponseDto.md)
  - [CreateVaultAccountConnectionRequest](docs/CreateVaultAccountConnectionRequest.md)
  - [CreateVaultAccountRequest](docs/CreateVaultAccountRequest.md)
  - [CreateVaultAssetResponse](docs/CreateVaultAssetResponse.md)
@@ -530,7 +542,9 @@ Class | Method | HTTP request | Description
  - [GetNFTsResponse](docs/GetNFTsResponse.md)
  - [GetOtaStatusResponse](docs/GetOtaStatusResponse.md)
  - [GetOwnershipTokensResponse](docs/GetOwnershipTokensResponse.md)
+ - [GetSigningKeyResponseDto](docs/GetSigningKeyResponseDto.md)
  - [GetTransactionOperation](docs/GetTransactionOperation.md)
+ - [GetValidationKeyResponseDto](docs/GetValidationKeyResponseDto.md)
  - [GetWhitelistIpAddressesResponse](docs/GetWhitelistIpAddressesResponse.md)
  - [GetWorkspaceStatusResponse](docs/GetWorkspaceStatusResponse.md)
  - [HttpContractDoesNotExistError](docs/HttpContractDoesNotExistError.md)
@@ -544,6 +558,9 @@ Class | Method | HTTP request | Description
  - [ListOwnedCollectionsResponse](docs/ListOwnedCollectionsResponse.md)
  - [ListOwnedTokensResponse](docs/ListOwnedTokensResponse.md)
  - [MediaEntityResponse](docs/MediaEntityResponse.md)
+ - [ModifySigningKeyAgentIdDto](docs/ModifySigningKeyAgentIdDto.md)
+ - [ModifySigningKeyDto](docs/ModifySigningKeyDto.md)
+ - [ModifyValidationKeyDto](docs/ModifyValidationKeyDto.md)
  - [NetworkChannel](docs/NetworkChannel.md)
  - [NetworkConnection](docs/NetworkConnection.md)
  - [NetworkConnectionResponse](docs/NetworkConnectionResponse.md)
@@ -653,6 +670,7 @@ Class | Method | HTTP request | Description
  - [SettlementResponse](docs/SettlementResponse.md)
  - [SignedMessage](docs/SignedMessage.md)
  - [SignedMessageSignature](docs/SignedMessageSignature.md)
+ - [SigningKeyDto](docs/SigningKeyDto.md)
  - [SmartTransferBadRequestResponse](docs/SmartTransferBadRequestResponse.md)
  - [SmartTransferCreateTicket](docs/SmartTransferCreateTicket.md)
  - [SmartTransferCreateTicketTerm](docs/SmartTransferCreateTicketTerm.md)
@@ -758,6 +776,7 @@ Class | Method | HTTP request | Description
  - [UserStatus](docs/UserStatus.md)
  - [UserType](docs/UserType.md)
  - [ValidateAddressResponse](docs/ValidateAddressResponse.md)
+ - [ValidationKeyDto](docs/ValidationKeyDto.md)
  - [ValidatorDto](docs/ValidatorDto.md)
  - [VaultAccount](docs/VaultAccount.md)
  - [VaultAccountsPagedResponse](docs/VaultAccountsPagedResponse.md)
