@@ -18,7 +18,7 @@ jobs:
           distribution: 'temurin'
       - name: Configure GPG Key
         run: |
-          echo -n "${{ secrets.GPG_SIGNING_KEY }}" | base64 --decode | gpg --import
+          echo -n "${{ secrets.GPG_SIGNING_KEY }}" | base64 --decode | gpg --import --batch
       - name: Publish package
         run: mvn --batch-mode deploy
         env:
