@@ -20,6 +20,6 @@ jobs:
         run: |
           echo -n "${{ secrets.GPG_SIGNING_KEY }}" | base64 --decode | gpg --import --batch
       - name: Publish package
-        run: mvn --batch-mode deploy -Dgpg.passphrase=${{ secrets.GPG_PASSWORD }}
+        run: mvn --batch-mode deploy -Dgpg.passphrase='${{ secrets.GPG_PASSWORD }}'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
