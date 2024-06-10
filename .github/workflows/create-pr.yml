@@ -1,0 +1,25 @@
+name: Create Pull Request
+
+on:
+  push:
+    branches:
+      - 'fireblocks-api-spec/generated/*'
+
+jobs:
+  create-pull-request:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+
+      - name: Create pull request
+        run: |
+          gh pr create \
+            --title "${{ github.event.commits[0].message }}" \
+            --body "This PR was automatically generated." \
+            --base master \
+            --head ${{ github.ref }} \
+            --reviewer asafs932,zoharsf,YoavBZ
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
