@@ -72,7 +72,7 @@ public class PolicyEditorBetaApi {
     }
 
     /**
-     * Get the active policy and its validation Returns the active policy and its validation.
+     * Get the active policy and its validation Returns the active policy and its validation.......
      * &lt;/br&gt; **Note:** These endpoints are currently in beta and might be subject to changes.
      * If you want to participate and learn more about the Fireblocks TAP, please contact your
      * Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.
