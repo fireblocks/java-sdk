@@ -41,7 +41,9 @@ public class PolicyRuleCheckResult {
     public enum StatusEnum {
         OK("ok"),
 
-        FAILURE("failure");
+        FAILURE("failure"),
+
+        TEST("test");
 
         private String value;
 
