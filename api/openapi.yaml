@@ -5444,6 +5444,7 @@ paths:
         - Algorand
         - TRON
         - NEAR
+        - Solana
       operationId: registerNewAsset
       parameters:
       - description: "A unique identifier for the request. If the request is sent\
@@ -5480,6 +5481,10 @@ paths:
             - The asset address is invalid. Error code: 1003
 
             - Self serve listing an asset on the requested blockchain is currently not supported, please contact support. Error code: 1004
+
+            - Blockchain is deprecated. Error code: 1006
+
+            - The asset's standard is not supported. Error code: 1007
         "403":
           content:
             application/json:
@@ -16007,11 +16012,14 @@ components:
           example: "(ETH, ETH_TEST5, MATIC_POLYGON)"
           type: string
         address:
-          description: "Asset address. \n- For EVM based chains this should be the\
-            \ token contract address.\n- For Stellar (XLM) this should be the issuer\
-            \ address.\n- For Algorand (ALGO) this should be the asset ID.\n- For\
-            \ TRON (TRX) this should be the token contract address.\n- For NEAR this\
-            \ will be the token address.\n"
+          description: |
+            Asset address.
+            - EVM-based chains: token contract address
+            - Stellar (XLM): issuer address
+            - Algorand (ALGO): asset ID
+            - TRON (TRX): token contract address
+            - NEAR: token address
+            - Solana: token's mint account address
           example: 0xe7A9as1oa38bc4da0248s179E30aa94CcF453991
           type: string
         symbol:
