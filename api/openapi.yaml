@@ -24035,6 +24035,7 @@ components:
           enum:
           - ok
           - failure
+          - test
           type: string
         errors:
           description: A set of rule validation error objects

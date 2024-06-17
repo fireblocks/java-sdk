@@ -20,6 +20,7 @@ The rule validation result
 |---- | -----|
 | OK | &quot;ok&quot; |
 | FAILURE | &quot;failure&quot; |
+| TEST | &quot;test&quot; |
 
 
 
