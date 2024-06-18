@@ -151,15 +151,15 @@ public class AssetResponseOnchain {
      *
      * @return standard
      */
-    @jakarta.annotation.Nonnull
+    @jakarta.annotation.Nullable
     @JsonProperty(JSON_PROPERTY_STANDARD)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
     public String getStandard() {
         return standard;
     }
 
     @JsonProperty(JSON_PROPERTY_STANDARD)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
     public void setStandard(String standard) {
         this.standard = standard;
     }
