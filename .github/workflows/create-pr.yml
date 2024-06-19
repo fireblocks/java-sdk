@@ -1,0 +1,58 @@
+name: Create Pull Request
+
+on:
+  push:
+    branches:
+      - 'fireblocks-api-spec/generated/*'
+
+jobs:
+  bump-version:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install build
+          pip install bump-my-version
+      - name: Bump version
+        run: |
+          initialTag=v0.0.6
+          tag="${initialTag//[v]/}"
+          echo $tag
+          git remote update
+          git fetch
+          echo "finished fetching"
+          echo "finished checkout"
+          git config --global user.email "github-actions@github.com"
+          git config --global user.name "Github Actions"
+          echo "finished configuration"
+          bump-my-version bump --config-file .bump_version.toml --current-version 0.0.0 --new-version $tag
+          echo "bumpversion finished"
+          git add .
+          git commit -m "release $tag"
+          git push
+  create-pull-request:
+    needs: bump-version
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+
+      - name: Create pull request
+        run: |
+          gh pr create \
+            --title "${{ github.event.commits[0].message }}" \
+            --body "This PR was automatically generated." \
+            --base master \
+            --head ${{ github.ref }} \
+            --reviewer asafs932,zoharsf,YoavBZ
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

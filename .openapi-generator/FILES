@@ -1,3 +1,4 @@
+.bump_version.toml
 .github/workflows/build-maven.yml
 .gitignore
 .openapi-generator-ignore

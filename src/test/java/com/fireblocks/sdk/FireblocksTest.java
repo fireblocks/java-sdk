@@ -5,6 +5,7 @@ import com.auth0.jwt.JWTCreator;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.fireblocks.sdk.AdditionalOptions;
 import com.fireblocks.sdk.ApiClient;
+import com.fireblocks.sdk.Configuration;
 import com.fireblocks.sdk.ConfigurationOptions;
 import com.fireblocks.sdk.Fireblocks;
 import com.fireblocks.sdk.InstanceTimeWrapper;
@@ -122,7 +123,8 @@ public class FireblocksTest {
             Assert.assertEquals(expectedAuthorizationValue, headerMap.get("Authorization").get(0));
             Assert.assertEquals("application/json", headerMap.get("Content-Type").get(0));
             Assert.assertEquals(
-                    "testUserAgent fireblocks/sdk/java/2.1.0", headerMap.get("User-Agent").get(0));
+                    "testUserAgent fireblocks/sdk/java/" + Configuration.VERSION,
+                    headerMap.get("User-Agent").get(0));
             Assert.assertEquals("testApiKey", headerMap.get("X-API-Key").get(0));
         }
     }
@@ -255,7 +257,8 @@ public class FireblocksTest {
             Assert.assertEquals("Bearer mockJwt", headerMap.get("Authorization").get(0));
             Assert.assertEquals("application/json", headerMap.get("Content-Type").get(0));
             Assert.assertEquals(
-                    "testUserAgent fireblocks/sdk/java/2.1.0", headerMap.get("User-Agent").get(0));
+                    "testUserAgent fireblocks/sdk/java/" + Configuration.VERSION,
+                    headerMap.get("User-Agent").get(0));
             Assert.assertEquals("testApiKey", headerMap.get("X-API-Key").get(0));
         }
     }

@@ -1,0 +1,21 @@
+[tool.bumpversion]
+commit = false
+tag = false
+current_version = "placeholder_version"
+parse = "(?P<major>\\d+)\\.(?P<minor>\\d+)\\.(?P<patch>\\d+)(\\-(?P<release>[a-z]+))?"
+serialize = [
+    "{major}.{minor}.{patch}-{release}",
+    "{major}.{minor}.{patch}"
+]
+[[tool.bumpversion.files]]
+filename = "pom.xml"
+
+[[tool.bumpversion.files]]
+filename = "build.gradle"
+
+[[tool.bumpversion.files]]
+filename = "README.md"
+
+[[tool.bumpversion.files]]
+filename = "src/main/java/com/fireblocks/sdk/Configuration.java"
+
