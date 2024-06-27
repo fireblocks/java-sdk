@@ -19,6 +19,7 @@ import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.Pair;
+import com.fireblocks.sdk.ValidationUtils;
 import com.fireblocks.sdk.model.CancelTransactionResponse;
 import com.fireblocks.sdk.model.CreateTransactionResponse;
 import com.fireblocks.sdk.model.DropTransactionRequest;
@@ -135,11 +136,7 @@ public class TransactionsApi {
 
     private HttpRequest.Builder cancelTransactionRequestBuilder(
             String txId, UUID xEndUserWalletId, String idempotencyKey) throws ApiException {
-        // verify the required parameter 'txId' is set
-        if (txId == null) {
-            throw new ApiException(
-                    400, "Missing the required parameter 'txId' when calling cancelTransaction");
-        }
+        ValidationUtils.assertParamExistsAndNotEmpty("cancelTransaction", "txId", txId);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
@@ -313,11 +310,7 @@ public class TransactionsApi {
             UUID xEndUserWalletId,
             String idempotencyKey)
             throws ApiException {
-        // verify the required parameter 'txId' is set
-        if (txId == null) {
-            throw new ApiException(
-                    400, "Missing the required parameter 'txId' when calling dropTransaction");
-        }
+        ValidationUtils.assertParamExistsAndNotEmpty("dropTransaction", "txId", txId);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
@@ -399,12 +392,7 @@ public class TransactionsApi {
 
     private HttpRequest.Builder estimateNetworkFeeRequestBuilder(String assetId)
             throws ApiException {
-        // verify the required parameter 'assetId' is set
-        if (assetId == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'assetId' when calling estimateNetworkFee");
-        }
+        ValidationUtils.assertParamExistsAndNotEmpty("estimateNetworkFee", "assetId", assetId);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
@@ -569,11 +557,7 @@ public class TransactionsApi {
 
     private HttpRequest.Builder freezeTransactionRequestBuilder(
             String txId, UUID xEndUserWalletId, String idempotencyKey) throws ApiException {
-        // verify the required parameter 'txId' is set
-        if (txId == null) {
-            throw new ApiException(
-                    400, "Missing the required parameter 'txId' when calling freezeTransaction");
-        }
+        ValidationUtils.assertParamExistsAndNotEmpty("freezeTransaction", "txId", txId);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
@@ -644,11 +628,7 @@ public class TransactionsApi {
     }
 
     private HttpRequest.Builder getTransactionRequestBuilder(String txId) throws ApiException {
-        // verify the required parameter 'txId' is set
-        if (txId == null) {
-            throw new ApiException(
-                    400, "Missing the required parameter 'txId' when calling getTransaction");
-        }
+        ValidationUtils.assertParamExistsAndNotEmpty("getTransaction", "txId", txId);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
@@ -717,13 +697,8 @@ public class TransactionsApi {
 
     private HttpRequest.Builder getTransactionByExternalIdRequestBuilder(String externalTxId)
             throws ApiException {
-        // verify the required parameter 'externalTxId' is set
-        if (externalTxId == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'externalTxId' when calling"
-                            + " getTransactionByExternalId");
-        }
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "getTransactionByExternalId", "externalTxId", externalTxId);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
@@ -974,13 +949,8 @@ public class TransactionsApi {
             SetConfirmationsThresholdRequest setConfirmationsThresholdRequest,
             String idempotencyKey)
             throws ApiException {
-        // verify the required parameter 'txHash' is set
-        if (txHash == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'txHash' when calling"
-                            + " setConfirmationThresholdByTransactionHash");
-        }
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "setConfirmationThresholdByTransactionHash", "txHash", txHash);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
@@ -1073,13 +1043,8 @@ public class TransactionsApi {
             SetConfirmationsThresholdRequest setConfirmationsThresholdRequest,
             String idempotencyKey)
             throws ApiException {
-        // verify the required parameter 'txId' is set
-        if (txId == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'txId' when calling"
-                            + " setTransactionConfirmationThreshold");
-        }
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "setTransactionConfirmationThreshold", "txId", txId);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
@@ -1164,11 +1129,7 @@ public class TransactionsApi {
 
     private HttpRequest.Builder unfreezeTransactionRequestBuilder(
             String txId, UUID xEndUserWalletId, String idempotencyKey) throws ApiException {
-        // verify the required parameter 'txId' is set
-        if (txId == null) {
-            throw new ApiException(
-                    400, "Missing the required parameter 'txId' when calling unfreezeTransaction");
-        }
+        ValidationUtils.assertParamExistsAndNotEmpty("unfreezeTransaction", "txId", txId);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
@@ -1242,16 +1203,8 @@ public class TransactionsApi {
 
     private HttpRequest.Builder validateAddressRequestBuilder(String assetId, String address)
             throws ApiException {
-        // verify the required parameter 'assetId' is set
-        if (assetId == null) {
-            throw new ApiException(
-                    400, "Missing the required parameter 'assetId' when calling validateAddress");
-        }
-        // verify the required parameter 'address' is set
-        if (address == null) {
-            throw new ApiException(
-                    400, "Missing the required parameter 'address' when calling validateAddress");
-        }
+        ValidationUtils.assertParamExistsAndNotEmpty("validateAddress", "assetId", assetId);
+        ValidationUtils.assertParamExistsAndNotEmpty("validateAddress", "address", address);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 

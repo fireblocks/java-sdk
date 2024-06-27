@@ -19,6 +19,7 @@ import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.Pair;
+import com.fireblocks.sdk.ValidationUtils;
 import com.fireblocks.sdk.model.ChainInfoResponseDto;
 import com.fireblocks.sdk.model.DelegationDto;
 import com.fireblocks.sdk.model.DelegationSummaryDto;
@@ -129,13 +130,8 @@ public class StakingBetaApi {
 
     private HttpRequest.Builder approveTermsOfServiceByProviderIdRequestBuilder(
             String providerId, String idempotencyKey) throws ApiException {
-        // verify the required parameter 'providerId' is set
-        if (providerId == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'providerId' when calling"
-                            + " approveTermsOfServiceByProviderId");
-        }
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "approveTermsOfServiceByProviderId", "providerId", providerId);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
@@ -220,24 +216,11 @@ public class StakingBetaApi {
             String actionId,
             String idempotencyKey)
             throws ApiException {
-        // verify the required parameter 'executeActionRequest' is set
-        if (executeActionRequest == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'executeActionRequest' when calling"
-                            + " executeAction");
-        }
-        // verify the required parameter 'chainDescriptor' is set
-        if (chainDescriptor == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'chainDescriptor' when calling executeAction");
-        }
-        // verify the required parameter 'actionId' is set
-        if (actionId == null) {
-            throw new ApiException(
-                    400, "Missing the required parameter 'actionId' when calling executeAction");
-        }
+        ValidationUtils.assertParamExists(
+                "executeAction", "executeActionRequest", executeActionRequest);
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "executeAction", "chainDescriptor", chainDescriptor);
+        ValidationUtils.assertParamExistsAndNotEmpty("executeAction", "actionId", actionId);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
@@ -403,12 +386,8 @@ public class StakingBetaApi {
 
     private HttpRequest.Builder getChainInfoRequestBuilder(String chainDescriptor)
             throws ApiException {
-        // verify the required parameter 'chainDescriptor' is set
-        if (chainDescriptor == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'chainDescriptor' when calling getChainInfo");
-        }
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "getChainInfo", "chainDescriptor", chainDescriptor);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
@@ -536,11 +515,7 @@ public class StakingBetaApi {
     }
 
     private HttpRequest.Builder getDelegationByIdRequestBuilder(String id) throws ApiException {
-        // verify the required parameter 'id' is set
-        if (id == null) {
-            throw new ApiException(
-                    400, "Missing the required parameter 'id' when calling getDelegationById");
-        }
+        ValidationUtils.assertParamExistsAndNotEmpty("getDelegationById", "id", id);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 

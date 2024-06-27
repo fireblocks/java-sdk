@@ -18,6 +18,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.ValidationUtils;
 import com.fireblocks.sdk.model.CreateUserGroupResponse;
 import com.fireblocks.sdk.model.UserGroupCreateRequest;
 import com.fireblocks.sdk.model.UserGroupCreateResponse;
@@ -125,13 +126,8 @@ public class UserGroupsBetaApi {
     private HttpRequest.Builder createUserGroupRequestBuilder(
             UserGroupCreateRequest userGroupCreateRequest, String idempotencyKey)
             throws ApiException {
-        // verify the required parameter 'userGroupCreateRequest' is set
-        if (userGroupCreateRequest == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'userGroupCreateRequest' when calling"
-                            + " createUserGroup");
-        }
+        ValidationUtils.assertParamExists(
+                "createUserGroup", "userGroupCreateRequest", userGroupCreateRequest);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
@@ -197,11 +193,7 @@ public class UserGroupsBetaApi {
     }
 
     private HttpRequest.Builder deleteUserGroupRequestBuilder(String groupId) throws ApiException {
-        // verify the required parameter 'groupId' is set
-        if (groupId == null) {
-            throw new ApiException(
-                    400, "Missing the required parameter 'groupId' when calling deleteUserGroup");
-        }
+        ValidationUtils.assertParamExistsAndNotEmpty("deleteUserGroup", "groupId", groupId);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
@@ -268,11 +260,7 @@ public class UserGroupsBetaApi {
     }
 
     private HttpRequest.Builder getUserGroupRequestBuilder(String groupId) throws ApiException {
-        // verify the required parameter 'groupId' is set
-        if (groupId == null) {
-            throw new ApiException(
-                    400, "Missing the required parameter 'groupId' when calling getUserGroup");
-        }
+        ValidationUtils.assertParamExistsAndNotEmpty("getUserGroup", "groupId", groupId);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
@@ -411,18 +399,9 @@ public class UserGroupsBetaApi {
     private HttpRequest.Builder updateUserGroupRequestBuilder(
             UserGroupUpdateRequest userGroupUpdateRequest, String groupId, String idempotencyKey)
             throws ApiException {
-        // verify the required parameter 'userGroupUpdateRequest' is set
-        if (userGroupUpdateRequest == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'userGroupUpdateRequest' when calling"
-                            + " updateUserGroup");
-        }
-        // verify the required parameter 'groupId' is set
-        if (groupId == null) {
-            throw new ApiException(
-                    400, "Missing the required parameter 'groupId' when calling updateUserGroup");
-        }
+        ValidationUtils.assertParamExists(
+                "updateUserGroup", "userGroupUpdateRequest", userGroupUpdateRequest);
+        ValidationUtils.assertParamExistsAndNotEmpty("updateUserGroup", "groupId", groupId);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 

@@ -17,6 +17,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.ValidationUtils;
 import java.io.InputStream;
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -104,11 +105,7 @@ public class ResetDeviceApi {
 
     private HttpRequest.Builder resetDeviceRequestBuilder(String id, String idempotencyKey)
             throws ApiException {
-        // verify the required parameter 'id' is set
-        if (id == null) {
-            throw new ApiException(
-                    400, "Missing the required parameter 'id' when calling resetDevice");
-        }
+        ValidationUtils.assertParamExistsAndNotEmpty("resetDevice", "id", id);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 

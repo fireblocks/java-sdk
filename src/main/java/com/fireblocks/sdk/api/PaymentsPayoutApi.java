@@ -18,6 +18,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.ValidationUtils;
 import com.fireblocks.sdk.model.CreatePayoutRequest;
 import com.fireblocks.sdk.model.DispatchPayoutResponse;
 import com.fireblocks.sdk.model.PayoutResponse;
@@ -220,12 +221,7 @@ public class PaymentsPayoutApi {
 
     private HttpRequest.Builder executePayoutActionRequestBuilder(
             String payoutId, String idempotencyKey) throws ApiException {
-        // verify the required parameter 'payoutId' is set
-        if (payoutId == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'payoutId' when calling executePayoutAction");
-        }
+        ValidationUtils.assertParamExistsAndNotEmpty("executePayoutAction", "payoutId", payoutId);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
@@ -299,11 +295,7 @@ public class PaymentsPayoutApi {
     }
 
     private HttpRequest.Builder getPayoutRequestBuilder(String payoutId) throws ApiException {
-        // verify the required parameter 'payoutId' is set
-        if (payoutId == null) {
-            throw new ApiException(
-                    400, "Missing the required parameter 'payoutId' when calling getPayout");
-        }
+        ValidationUtils.assertParamExistsAndNotEmpty("getPayout", "payoutId", payoutId);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 

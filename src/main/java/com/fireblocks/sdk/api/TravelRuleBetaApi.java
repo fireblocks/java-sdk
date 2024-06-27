@@ -19,6 +19,7 @@ import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.Pair;
+import com.fireblocks.sdk.ValidationUtils;
 import com.fireblocks.sdk.model.TravelRuleGetAllVASPsResponse;
 import com.fireblocks.sdk.model.TravelRuleUpdateVASPDetails;
 import com.fireblocks.sdk.model.TravelRuleVASP;
@@ -128,11 +129,7 @@ public class TravelRuleBetaApi {
 
     private HttpRequest.Builder getVASPByDIDRequestBuilder(String did, String fields)
             throws ApiException {
-        // verify the required parameter 'did' is set
-        if (did == null) {
-            throw new ApiException(
-                    400, "Missing the required parameter 'did' when calling getVASPByDID");
-        }
+        ValidationUtils.assertParamExistsAndNotEmpty("getVASPByDID", "did", did);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
@@ -320,13 +317,8 @@ public class TravelRuleBetaApi {
     private HttpRequest.Builder updateVaspRequestBuilder(
             TravelRuleUpdateVASPDetails travelRuleUpdateVASPDetails, String idempotencyKey)
             throws ApiException {
-        // verify the required parameter 'travelRuleUpdateVASPDetails' is set
-        if (travelRuleUpdateVASPDetails == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'travelRuleUpdateVASPDetails' when calling"
-                            + " updateVasp");
-        }
+        ValidationUtils.assertParamExists(
+                "updateVasp", "travelRuleUpdateVASPDetails", travelRuleUpdateVASPDetails);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
@@ -419,13 +411,10 @@ public class TravelRuleBetaApi {
             TravelRuleValidateFullTransactionRequest travelRuleValidateFullTransactionRequest,
             String idempotencyKey)
             throws ApiException {
-        // verify the required parameter 'travelRuleValidateFullTransactionRequest' is set
-        if (travelRuleValidateFullTransactionRequest == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'travelRuleValidateFullTransactionRequest' when"
-                            + " calling validateFullTravelRuleTransaction");
-        }
+        ValidationUtils.assertParamExists(
+                "validateFullTravelRuleTransaction",
+                "travelRuleValidateFullTransactionRequest",
+                travelRuleValidateFullTransactionRequest);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
@@ -518,13 +507,10 @@ public class TravelRuleBetaApi {
             TravelRuleValidateTransactionRequest travelRuleValidateTransactionRequest,
             String idempotencyKey)
             throws ApiException {
-        // verify the required parameter 'travelRuleValidateTransactionRequest' is set
-        if (travelRuleValidateTransactionRequest == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'travelRuleValidateTransactionRequest' when"
-                            + " calling validateTravelRuleTransaction");
-        }
+        ValidationUtils.assertParamExists(
+                "validateTravelRuleTransaction",
+                "travelRuleValidateTransactionRequest",
+                travelRuleValidateTransactionRequest);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 

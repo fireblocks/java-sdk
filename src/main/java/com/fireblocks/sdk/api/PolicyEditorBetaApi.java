@@ -18,6 +18,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.ValidationUtils;
 import com.fireblocks.sdk.model.DraftReviewAndValidationResponse;
 import com.fireblocks.sdk.model.PolicyAndValidationResponse;
 import com.fireblocks.sdk.model.PolicyRules;
@@ -252,13 +253,8 @@ public class PolicyEditorBetaApi {
 
     private HttpRequest.Builder publishDraftRequestBuilder(
             PublishDraftRequest publishDraftRequest, String idempotencyKey) throws ApiException {
-        // verify the required parameter 'publishDraftRequest' is set
-        if (publishDraftRequest == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'publishDraftRequest' when calling"
-                            + " publishDraft");
-        }
+        ValidationUtils.assertParamExists(
+                "publishDraft", "publishDraftRequest", publishDraftRequest);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
@@ -341,12 +337,7 @@ public class PolicyEditorBetaApi {
 
     private HttpRequest.Builder publishPolicyRulesRequestBuilder(
             PolicyRules policyRules, String idempotencyKey) throws ApiException {
-        // verify the required parameter 'policyRules' is set
-        if (policyRules == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'policyRules' when calling publishPolicyRules");
-        }
+        ValidationUtils.assertParamExists("publishPolicyRules", "policyRules", policyRules);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
@@ -427,11 +418,7 @@ public class PolicyEditorBetaApi {
 
     private HttpRequest.Builder updateDraftRequestBuilder(
             PolicyRules policyRules, String idempotencyKey) throws ApiException {
-        // verify the required parameter 'policyRules' is set
-        if (policyRules == null) {
-            throw new ApiException(
-                    400, "Missing the required parameter 'policyRules' when calling updateDraft");
-        }
+        ValidationUtils.assertParamExists("updateDraft", "policyRules", policyRules);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 

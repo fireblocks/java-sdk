@@ -18,6 +18,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.ValidationUtils;
 import com.fireblocks.sdk.model.GetOtaStatusResponse;
 import com.fireblocks.sdk.model.SetOtaStatusRequest;
 import com.fireblocks.sdk.model.SetOtaStatusResponse;
@@ -178,13 +179,8 @@ public class OtaBetaApi {
 
     private HttpRequest.Builder setOtaStatusRequestBuilder(
             SetOtaStatusRequest setOtaStatusRequest, String idempotencyKey) throws ApiException {
-        // verify the required parameter 'setOtaStatusRequest' is set
-        if (setOtaStatusRequest == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'setOtaStatusRequest' when calling"
-                            + " setOtaStatus");
-        }
+        ValidationUtils.assertParamExists(
+                "setOtaStatus", "setOtaStatusRequest", setOtaStatusRequest);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 

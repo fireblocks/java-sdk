@@ -19,6 +19,7 @@ import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.Pair;
+import com.fireblocks.sdk.ValidationUtils;
 import com.fireblocks.sdk.model.GetNFTsResponse;
 import com.fireblocks.sdk.model.GetOwnershipTokensResponse;
 import com.fireblocks.sdk.model.ListOwnedCollectionsResponse;
@@ -122,10 +123,7 @@ public class NftsApi {
     }
 
     private HttpRequest.Builder getNFTRequestBuilder(String id) throws ApiException {
-        // verify the required parameter 'id' is set
-        if (id == null) {
-            throw new ApiException(400, "Missing the required parameter 'id' when calling getNFT");
-        }
+        ValidationUtils.assertParamExistsAndNotEmpty("getNFT", "id", id);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
@@ -200,11 +198,7 @@ public class NftsApi {
     private HttpRequest.Builder getNFTsRequestBuilder(
             String ids, String pageCursor, BigDecimal pageSize, List<String> sort, String order)
             throws ApiException {
-        // verify the required parameter 'ids' is set
-        if (ids == null) {
-            throw new ApiException(
-                    400, "Missing the required parameter 'ids' when calling getNFTs");
-        }
+        ValidationUtils.assertParamExistsAndNotEmpty("getNFTs", "ids", ids);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
@@ -719,11 +713,7 @@ public class NftsApi {
 
     private HttpRequest.Builder refreshNFTMetadataRequestBuilder(String id, String idempotencyKey)
             throws ApiException {
-        // verify the required parameter 'id' is set
-        if (id == null) {
-            throw new ApiException(
-                    400, "Missing the required parameter 'id' when calling refreshNFTMetadata");
-        }
+        ValidationUtils.assertParamExistsAndNotEmpty("refreshNFTMetadata", "id", id);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
@@ -791,20 +781,10 @@ public class NftsApi {
     private HttpRequest.Builder updateOwnershipTokensRequestBuilder(
             String blockchainDescriptor, String vaultAccountId, String idempotencyKey)
             throws ApiException {
-        // verify the required parameter 'blockchainDescriptor' is set
-        if (blockchainDescriptor == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'blockchainDescriptor' when calling"
-                            + " updateOwnershipTokens");
-        }
-        // verify the required parameter 'vaultAccountId' is set
-        if (vaultAccountId == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'vaultAccountId' when calling"
-                            + " updateOwnershipTokens");
-        }
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "updateOwnershipTokens", "blockchainDescriptor", blockchainDescriptor);
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "updateOwnershipTokens", "vaultAccountId", vaultAccountId);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
@@ -894,19 +874,11 @@ public class NftsApi {
             String id,
             String idempotencyKey)
             throws ApiException {
-        // verify the required parameter 'updateTokenOwnershipStatusDto' is set
-        if (updateTokenOwnershipStatusDto == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'updateTokenOwnershipStatusDto' when calling"
-                            + " updateTokenOwnershipStatus");
-        }
-        // verify the required parameter 'id' is set
-        if (id == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'id' when calling updateTokenOwnershipStatus");
-        }
+        ValidationUtils.assertParamExists(
+                "updateTokenOwnershipStatus",
+                "updateTokenOwnershipStatusDto",
+                updateTokenOwnershipStatusDto);
+        ValidationUtils.assertParamExistsAndNotEmpty("updateTokenOwnershipStatus", "id", id);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
@@ -984,13 +956,10 @@ public class NftsApi {
             List<TokenOwnershipSpamUpdatePayload> tokenOwnershipSpamUpdatePayload,
             String idempotencyKey)
             throws ApiException {
-        // verify the required parameter 'tokenOwnershipSpamUpdatePayload' is set
-        if (tokenOwnershipSpamUpdatePayload == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'tokenOwnershipSpamUpdatePayload' when calling"
-                            + " updateTokensOwnershipSpam");
-        }
+        ValidationUtils.assertParamExists(
+                "updateTokensOwnershipSpam",
+                "tokenOwnershipSpamUpdatePayload",
+                tokenOwnershipSpamUpdatePayload);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
@@ -1066,13 +1035,10 @@ public class NftsApi {
             List<TokenOwnershipStatusUpdatePayload> tokenOwnershipStatusUpdatePayload,
             String idempotencyKey)
             throws ApiException {
-        // verify the required parameter 'tokenOwnershipStatusUpdatePayload' is set
-        if (tokenOwnershipStatusUpdatePayload == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'tokenOwnershipStatusUpdatePayload' when"
-                            + " calling updateTokensOwnershipStatus");
-        }
+        ValidationUtils.assertParamExists(
+                "updateTokensOwnershipStatus",
+                "tokenOwnershipStatusUpdatePayload",
+                tokenOwnershipStatusUpdatePayload);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 

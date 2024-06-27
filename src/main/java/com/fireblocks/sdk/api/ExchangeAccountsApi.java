@@ -19,6 +19,7 @@ import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.Pair;
+import com.fireblocks.sdk.ValidationUtils;
 import com.fireblocks.sdk.model.ConvertAssetsRequest;
 import com.fireblocks.sdk.model.ConvertAssetsResponse;
 import com.fireblocks.sdk.model.CreateInternalTransferRequest;
@@ -139,13 +140,8 @@ public class ExchangeAccountsApi {
             ConvertAssetsRequest convertAssetsRequest,
             String idempotencyKey)
             throws ApiException {
-        // verify the required parameter 'exchangeAccountId' is set
-        if (exchangeAccountId == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'exchangeAccountId' when calling"
-                            + " convertAssets");
-        }
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "convertAssets", "exchangeAccountId", exchangeAccountId);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
@@ -225,13 +221,8 @@ public class ExchangeAccountsApi {
 
     private HttpRequest.Builder getExchangeAccountRequestBuilder(String exchangeAccountId)
             throws ApiException {
-        // verify the required parameter 'exchangeAccountId' is set
-        if (exchangeAccountId == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'exchangeAccountId' when calling"
-                            + " getExchangeAccount");
-        }
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "getExchangeAccount", "exchangeAccountId", exchangeAccountId);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
@@ -302,20 +293,9 @@ public class ExchangeAccountsApi {
 
     private HttpRequest.Builder getExchangeAccountAssetRequestBuilder(
             String exchangeAccountId, String assetId) throws ApiException {
-        // verify the required parameter 'exchangeAccountId' is set
-        if (exchangeAccountId == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'exchangeAccountId' when calling"
-                            + " getExchangeAccountAsset");
-        }
-        // verify the required parameter 'assetId' is set
-        if (assetId == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'assetId' when calling"
-                            + " getExchangeAccountAsset");
-        }
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "getExchangeAccountAsset", "exchangeAccountId", exchangeAccountId);
+        ValidationUtils.assertParamExistsAndNotEmpty("getExchangeAccountAsset", "assetId", assetId);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
@@ -389,12 +369,7 @@ public class ExchangeAccountsApi {
 
     private HttpRequest.Builder getPagedExchangeAccountsRequestBuilder(
             BigDecimal limit, String before, String after) throws ApiException {
-        // verify the required parameter 'limit' is set
-        if (limit == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'limit' when calling getPagedExchangeAccounts");
-        }
+        ValidationUtils.assertParamExists("getPagedExchangeAccounts", "limit", limit);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
@@ -491,13 +466,8 @@ public class ExchangeAccountsApi {
             CreateInternalTransferRequest createInternalTransferRequest,
             String idempotencyKey)
             throws ApiException {
-        // verify the required parameter 'exchangeAccountId' is set
-        if (exchangeAccountId == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'exchangeAccountId' when calling"
-                            + " internalTransfer");
-        }
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "internalTransfer", "exchangeAccountId", exchangeAccountId);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 

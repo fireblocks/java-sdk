@@ -18,6 +18,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.ValidationUtils;
 import com.fireblocks.sdk.model.AddAssetToExternalWalletRequest;
 import com.fireblocks.sdk.model.CreateWalletRequest;
 import com.fireblocks.sdk.model.ExternalWalletAsset;
@@ -133,20 +134,10 @@ public class ExternalWalletsApi {
             AddAssetToExternalWalletRequest addAssetToExternalWalletRequest,
             String idempotencyKey)
             throws ApiException {
-        // verify the required parameter 'walletId' is set
-        if (walletId == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'walletId' when calling"
-                            + " addAssetToExternalWallet");
-        }
-        // verify the required parameter 'assetId' is set
-        if (assetId == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'assetId' when calling"
-                            + " addAssetToExternalWallet");
-        }
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "addAssetToExternalWallet", "walletId", walletId);
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "addAssetToExternalWallet", "assetId", assetId);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
@@ -294,12 +285,7 @@ public class ExternalWalletsApi {
 
     private HttpRequest.Builder deleteExternalWalletRequestBuilder(String walletId)
             throws ApiException {
-        // verify the required parameter 'walletId' is set
-        if (walletId == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'walletId' when calling deleteExternalWallet");
-        }
+        ValidationUtils.assertParamExistsAndNotEmpty("deleteExternalWallet", "walletId", walletId);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
@@ -365,12 +351,7 @@ public class ExternalWalletsApi {
 
     private HttpRequest.Builder getExternalWalletRequestBuilder(String walletId)
             throws ApiException {
-        // verify the required parameter 'walletId' is set
-        if (walletId == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'walletId' when calling getExternalWallet");
-        }
+        ValidationUtils.assertParamExistsAndNotEmpty("getExternalWallet", "walletId", walletId);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
@@ -439,19 +420,9 @@ public class ExternalWalletsApi {
 
     private HttpRequest.Builder getExternalWalletAssetRequestBuilder(
             String walletId, String assetId) throws ApiException {
-        // verify the required parameter 'walletId' is set
-        if (walletId == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'walletId' when calling"
-                            + " getExternalWalletAsset");
-        }
-        // verify the required parameter 'assetId' is set
-        if (assetId == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'assetId' when calling getExternalWalletAsset");
-        }
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "getExternalWalletAsset", "walletId", walletId);
+        ValidationUtils.assertParamExistsAndNotEmpty("getExternalWalletAsset", "assetId", assetId);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
@@ -575,20 +546,10 @@ public class ExternalWalletsApi {
 
     private HttpRequest.Builder removeAssetFromExternalWalletRequestBuilder(
             String walletId, String assetId) throws ApiException {
-        // verify the required parameter 'walletId' is set
-        if (walletId == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'walletId' when calling"
-                            + " removeAssetFromExternalWallet");
-        }
-        // verify the required parameter 'assetId' is set
-        if (assetId == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'assetId' when calling"
-                            + " removeAssetFromExternalWallet");
-        }
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "removeAssetFromExternalWallet", "walletId", walletId);
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "removeAssetFromExternalWallet", "assetId", assetId);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
@@ -656,20 +617,12 @@ public class ExternalWalletsApi {
     private HttpRequest.Builder setExternalWalletCustomerRefIdRequestBuilder(
             SetCustomerRefIdRequest setCustomerRefIdRequest, String walletId, String idempotencyKey)
             throws ApiException {
-        // verify the required parameter 'setCustomerRefIdRequest' is set
-        if (setCustomerRefIdRequest == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'setCustomerRefIdRequest' when calling"
-                            + " setExternalWalletCustomerRefId");
-        }
-        // verify the required parameter 'walletId' is set
-        if (walletId == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'walletId' when calling"
-                            + " setExternalWalletCustomerRefId");
-        }
+        ValidationUtils.assertParamExists(
+                "setExternalWalletCustomerRefId",
+                "setCustomerRefIdRequest",
+                setCustomerRefIdRequest);
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "setExternalWalletCustomerRefId", "walletId", walletId);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
