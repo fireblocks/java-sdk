@@ -19,6 +19,7 @@ import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.Pair;
+import com.fireblocks.sdk.ValidationUtils;
 import com.fireblocks.sdk.model.Job;
 import com.fireblocks.sdk.model.Task;
 import java.io.IOException;
@@ -113,11 +114,7 @@ public class JobManagementApi {
 
     private HttpRequest.Builder cancelJobRequestBuilder(String jobId, String idempotencyKey)
             throws ApiException {
-        // verify the required parameter 'jobId' is set
-        if (jobId == null) {
-            throw new ApiException(
-                    400, "Missing the required parameter 'jobId' when calling cancelJob");
-        }
+        ValidationUtils.assertParamExistsAndNotEmpty("cancelJob", "jobId", jobId);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
@@ -179,11 +176,7 @@ public class JobManagementApi {
 
     private HttpRequest.Builder continueJobRequestBuilder(String jobId, String idempotencyKey)
             throws ApiException {
-        // verify the required parameter 'jobId' is set
-        if (jobId == null) {
-            throw new ApiException(
-                    400, "Missing the required parameter 'jobId' when calling continueJob");
-        }
+        ValidationUtils.assertParamExistsAndNotEmpty("continueJob", "jobId", jobId);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
@@ -248,11 +241,7 @@ public class JobManagementApi {
     }
 
     private HttpRequest.Builder getJobRequestBuilder(String jobId) throws ApiException {
-        // verify the required parameter 'jobId' is set
-        if (jobId == null) {
-            throw new ApiException(
-                    400, "Missing the required parameter 'jobId' when calling getJob");
-        }
+        ValidationUtils.assertParamExistsAndNotEmpty("getJob", "jobId", jobId);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
@@ -316,11 +305,7 @@ public class JobManagementApi {
     }
 
     private HttpRequest.Builder getJobTasksRequestBuilder(String jobId) throws ApiException {
-        // verify the required parameter 'jobId' is set
-        if (jobId == null) {
-            throw new ApiException(
-                    400, "Missing the required parameter 'jobId' when calling getJobTasks");
-        }
+        ValidationUtils.assertParamExistsAndNotEmpty("getJobTasks", "jobId", jobId);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
@@ -463,11 +448,7 @@ public class JobManagementApi {
 
     private HttpRequest.Builder pauseJobRequestBuilder(String jobId, String idempotencyKey)
             throws ApiException {
-        // verify the required parameter 'jobId' is set
-        if (jobId == null) {
-            throw new ApiException(
-                    400, "Missing the required parameter 'jobId' when calling pauseJob");
-        }
+        ValidationUtils.assertParamExistsAndNotEmpty("pauseJob", "jobId", jobId);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 

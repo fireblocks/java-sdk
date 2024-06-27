@@ -18,6 +18,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.ValidationUtils;
 import com.fireblocks.sdk.model.AddContractAssetRequest;
 import com.fireblocks.sdk.model.CreateContractRequest;
 import com.fireblocks.sdk.model.ExternalWalletAsset;
@@ -131,17 +132,8 @@ public class ContractsApi {
             AddContractAssetRequest addContractAssetRequest,
             String idempotencyKey)
             throws ApiException {
-        // verify the required parameter 'contractId' is set
-        if (contractId == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'contractId' when calling addContractAsset");
-        }
-        // verify the required parameter 'assetId' is set
-        if (assetId == null) {
-            throw new ApiException(
-                    400, "Missing the required parameter 'assetId' when calling addContractAsset");
-        }
+        ValidationUtils.assertParamExistsAndNotEmpty("addContractAsset", "contractId", contractId);
+        ValidationUtils.assertParamExistsAndNotEmpty("addContractAsset", "assetId", assetId);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
@@ -289,11 +281,7 @@ public class ContractsApi {
 
     private HttpRequest.Builder deleteContractRequestBuilder(String contractId)
             throws ApiException {
-        // verify the required parameter 'contractId' is set
-        if (contractId == null) {
-            throw new ApiException(
-                    400, "Missing the required parameter 'contractId' when calling deleteContract");
-        }
+        ValidationUtils.assertParamExistsAndNotEmpty("deleteContract", "contractId", contractId);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
@@ -352,18 +340,9 @@ public class ContractsApi {
 
     private HttpRequest.Builder deleteContractAssetRequestBuilder(String contractId, String assetId)
             throws ApiException {
-        // verify the required parameter 'contractId' is set
-        if (contractId == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'contractId' when calling deleteContractAsset");
-        }
-        // verify the required parameter 'assetId' is set
-        if (assetId == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'assetId' when calling deleteContractAsset");
-        }
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "deleteContractAsset", "contractId", contractId);
+        ValidationUtils.assertParamExistsAndNotEmpty("deleteContractAsset", "assetId", assetId);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
@@ -429,11 +408,7 @@ public class ContractsApi {
     }
 
     private HttpRequest.Builder getContractRequestBuilder(String contractId) throws ApiException {
-        // verify the required parameter 'contractId' is set
-        if (contractId == null) {
-            throw new ApiException(
-                    400, "Missing the required parameter 'contractId' when calling getContract");
-        }
+        ValidationUtils.assertParamExistsAndNotEmpty("getContract", "contractId", contractId);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
@@ -501,17 +476,8 @@ public class ContractsApi {
 
     private HttpRequest.Builder getContractAssetRequestBuilder(String contractId, String assetId)
             throws ApiException {
-        // verify the required parameter 'contractId' is set
-        if (contractId == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'contractId' when calling getContractAsset");
-        }
-        // verify the required parameter 'assetId' is set
-        if (assetId == null) {
-            throw new ApiException(
-                    400, "Missing the required parameter 'assetId' when calling getContractAsset");
-        }
+        ValidationUtils.assertParamExistsAndNotEmpty("getContractAsset", "contractId", contractId);
+        ValidationUtils.assertParamExistsAndNotEmpty("getContractAsset", "assetId", assetId);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 

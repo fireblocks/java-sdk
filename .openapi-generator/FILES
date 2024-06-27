@@ -506,6 +506,7 @@ src/main/java/com/fireblocks/sdk/ServerConfiguration.java
 src/main/java/com/fireblocks/sdk/ServerVariable.java
 src/main/java/com/fireblocks/sdk/SystemWrapper.java
 src/main/java/com/fireblocks/sdk/UserAgentUtil.java
+src/main/java/com/fireblocks/sdk/ValidationUtils.java
 src/main/java/com/fireblocks/sdk/api/ApiUserApi.java
 src/main/java/com/fireblocks/sdk/api/AssetsApi.java
 src/main/java/com/fireblocks/sdk/api/AuditLogsApi.java
@@ -986,6 +987,7 @@ src/test/java/com/fireblocks/sdk/ConfigurationOptionsTest.java
 src/test/java/com/fireblocks/sdk/DummyTestKey.txt
 src/test/java/com/fireblocks/sdk/FireblocksTest.java
 src/test/java/com/fireblocks/sdk/UserAgentUtilTest.java
+src/test/java/com/fireblocks/sdk/ValidationUtilsTest.java
 src/test/java/com/fireblocks/sdk/api/ApiUserApiTest.java
 src/test/java/com/fireblocks/sdk/api/AssetsApiTest.java
 src/test/java/com/fireblocks/sdk/api/AuditLogsApiTest.java

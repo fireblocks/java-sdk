@@ -18,6 +18,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.ValidationUtils;
 import com.fireblocks.sdk.model.ContractAbiResponseDto;
 import com.fireblocks.sdk.model.ParameterWithValue;
 import com.fireblocks.sdk.model.ReadCallFunctionDto;
@@ -124,19 +125,9 @@ public class ContractInteractionsApi {
 
     private HttpRequest.Builder getDeployedContractAbiRequestBuilder(
             String contractAddress, String assetId, String idempotencyKey) throws ApiException {
-        // verify the required parameter 'contractAddress' is set
-        if (contractAddress == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'contractAddress' when calling"
-                            + " getDeployedContractAbi");
-        }
-        // verify the required parameter 'assetId' is set
-        if (assetId == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'assetId' when calling getDeployedContractAbi");
-        }
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "getDeployedContractAbi", "contractAddress", contractAddress);
+        ValidationUtils.assertParamExistsAndNotEmpty("getDeployedContractAbi", "assetId", assetId);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
@@ -225,25 +216,11 @@ public class ContractInteractionsApi {
             String assetId,
             String idempotencyKey)
             throws ApiException {
-        // verify the required parameter 'readCallFunctionDto' is set
-        if (readCallFunctionDto == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'readCallFunctionDto' when calling"
-                            + " readCallFunction");
-        }
-        // verify the required parameter 'contractAddress' is set
-        if (contractAddress == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'contractAddress' when calling"
-                            + " readCallFunction");
-        }
-        // verify the required parameter 'assetId' is set
-        if (assetId == null) {
-            throw new ApiException(
-                    400, "Missing the required parameter 'assetId' when calling readCallFunction");
-        }
+        ValidationUtils.assertParamExists(
+                "readCallFunction", "readCallFunctionDto", readCallFunctionDto);
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "readCallFunction", "contractAddress", contractAddress);
+        ValidationUtils.assertParamExistsAndNotEmpty("readCallFunction", "assetId", assetId);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
@@ -339,25 +316,11 @@ public class ContractInteractionsApi {
             String assetId,
             String idempotencyKey)
             throws ApiException {
-        // verify the required parameter 'writeCallFunctionDto' is set
-        if (writeCallFunctionDto == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'writeCallFunctionDto' when calling"
-                            + " writeCallFunction");
-        }
-        // verify the required parameter 'contractAddress' is set
-        if (contractAddress == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'contractAddress' when calling"
-                            + " writeCallFunction");
-        }
-        // verify the required parameter 'assetId' is set
-        if (assetId == null) {
-            throw new ApiException(
-                    400, "Missing the required parameter 'assetId' when calling writeCallFunction");
-        }
+        ValidationUtils.assertParamExists(
+                "writeCallFunction", "writeCallFunctionDto", writeCallFunctionDto);
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "writeCallFunction", "contractAddress", contractAddress);
+        ValidationUtils.assertParamExistsAndNotEmpty("writeCallFunction", "assetId", assetId);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 

@@ -18,6 +18,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.ValidationUtils;
 import com.fireblocks.sdk.model.EditGasStationConfigurationResponse;
 import com.fireblocks.sdk.model.GasStationConfiguration;
 import com.fireblocks.sdk.model.GasStationPropertiesResponse;
@@ -117,12 +118,7 @@ public class GasStationsApi {
 
     private HttpRequest.Builder getGasStationByAssetIdRequestBuilder(String assetId)
             throws ApiException {
-        // verify the required parameter 'assetId' is set
-        if (assetId == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'assetId' when calling getGasStationByAssetId");
-        }
+        ValidationUtils.assertParamExistsAndNotEmpty("getGasStationByAssetId", "assetId", assetId);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
@@ -259,13 +255,10 @@ public class GasStationsApi {
     private HttpRequest.Builder updateGasStationConfigurationRequestBuilder(
             GasStationConfiguration gasStationConfiguration, String idempotencyKey)
             throws ApiException {
-        // verify the required parameter 'gasStationConfiguration' is set
-        if (gasStationConfiguration == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'gasStationConfiguration' when calling"
-                            + " updateGasStationConfiguration");
-        }
+        ValidationUtils.assertParamExists(
+                "updateGasStationConfiguration",
+                "gasStationConfiguration",
+                gasStationConfiguration);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
@@ -353,20 +346,12 @@ public class GasStationsApi {
     private HttpRequest.Builder updateGasStationConfigurationByAssetIdRequestBuilder(
             GasStationConfiguration gasStationConfiguration, String assetId, String idempotencyKey)
             throws ApiException {
-        // verify the required parameter 'gasStationConfiguration' is set
-        if (gasStationConfiguration == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'gasStationConfiguration' when calling"
-                            + " updateGasStationConfigurationByAssetId");
-        }
-        // verify the required parameter 'assetId' is set
-        if (assetId == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'assetId' when calling"
-                            + " updateGasStationConfigurationByAssetId");
-        }
+        ValidationUtils.assertParamExists(
+                "updateGasStationConfigurationByAssetId",
+                "gasStationConfiguration",
+                gasStationConfiguration);
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "updateGasStationConfigurationByAssetId", "assetId", assetId);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 

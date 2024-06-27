@@ -19,6 +19,7 @@ import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.Pair;
+import com.fireblocks.sdk.ValidationUtils;
 import com.fireblocks.sdk.model.CreateSigningKeyDto;
 import com.fireblocks.sdk.model.CreateValidationKeyDto;
 import com.fireblocks.sdk.model.CreateValidationKeyResponseDto;
@@ -136,13 +137,8 @@ public class KeyLinkBetaApi {
 
     private HttpRequest.Builder createSigningKeyRequestBuilder(
             CreateSigningKeyDto createSigningKeyDto, String idempotencyKey) throws ApiException {
-        // verify the required parameter 'createSigningKeyDto' is set
-        if (createSigningKeyDto == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'createSigningKeyDto' when calling"
-                            + " createSigningKey");
-        }
+        ValidationUtils.assertParamExists(
+                "createSigningKey", "createSigningKeyDto", createSigningKeyDto);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
@@ -228,13 +224,8 @@ public class KeyLinkBetaApi {
     private HttpRequest.Builder createValidationKeyRequestBuilder(
             CreateValidationKeyDto createValidationKeyDto, String idempotencyKey)
             throws ApiException {
-        // verify the required parameter 'createValidationKeyDto' is set
-        if (createValidationKeyDto == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'createValidationKeyDto' when calling"
-                            + " createValidationKey");
-        }
+        ValidationUtils.assertParamExists(
+                "createValidationKey", "createValidationKeyDto", createValidationKeyDto);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
@@ -317,19 +308,9 @@ public class KeyLinkBetaApi {
 
     private HttpRequest.Builder disableValidationKeyRequestBuilder(
             ModifyValidationKeyDto modifyValidationKeyDto, String keyId) throws ApiException {
-        // verify the required parameter 'modifyValidationKeyDto' is set
-        if (modifyValidationKeyDto == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'modifyValidationKeyDto' when calling"
-                            + " disableValidationKey");
-        }
-        // verify the required parameter 'keyId' is set
-        if (keyId == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'keyId' when calling disableValidationKey");
-        }
+        ValidationUtils.assertParamExists(
+                "disableValidationKey", "modifyValidationKeyDto", modifyValidationKeyDto);
+        ValidationUtils.assertParamExistsAndNotEmpty("disableValidationKey", "keyId", keyId);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
@@ -407,11 +388,7 @@ public class KeyLinkBetaApi {
     }
 
     private HttpRequest.Builder getSigningKeyRequestBuilder(String keyId) throws ApiException {
-        // verify the required parameter 'keyId' is set
-        if (keyId == null) {
-            throw new ApiException(
-                    400, "Missing the required parameter 'keyId' when calling getSigningKey");
-        }
+        ValidationUtils.assertParamExistsAndNotEmpty("getSigningKey", "keyId", keyId);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
@@ -576,11 +553,7 @@ public class KeyLinkBetaApi {
     }
 
     private HttpRequest.Builder getValidationKeyRequestBuilder(String keyId) throws ApiException {
-        // verify the required parameter 'keyId' is set
-        if (keyId == null) {
-            throw new ApiException(
-                    400, "Missing the required parameter 'keyId' when calling getValidationKey");
-        }
+        ValidationUtils.assertParamExistsAndNotEmpty("getValidationKey", "keyId", keyId);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
@@ -743,18 +716,9 @@ public class KeyLinkBetaApi {
     private HttpRequest.Builder setAgentIdRequestBuilder(
             ModifySigningKeyAgentIdDto modifySigningKeyAgentIdDto, String keyId)
             throws ApiException {
-        // verify the required parameter 'modifySigningKeyAgentIdDto' is set
-        if (modifySigningKeyAgentIdDto == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'modifySigningKeyAgentIdDto' when calling"
-                            + " setAgentId");
-        }
-        // verify the required parameter 'keyId' is set
-        if (keyId == null) {
-            throw new ApiException(
-                    400, "Missing the required parameter 'keyId' when calling setAgentId");
-        }
+        ValidationUtils.assertParamExists(
+                "setAgentId", "modifySigningKeyAgentIdDto", modifySigningKeyAgentIdDto);
+        ValidationUtils.assertParamExistsAndNotEmpty("setAgentId", "keyId", keyId);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
@@ -835,18 +799,9 @@ public class KeyLinkBetaApi {
 
     private HttpRequest.Builder updateSigningKeyRequestBuilder(
             ModifySigningKeyDto modifySigningKeyDto, String keyId) throws ApiException {
-        // verify the required parameter 'modifySigningKeyDto' is set
-        if (modifySigningKeyDto == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'modifySigningKeyDto' when calling"
-                            + " updateSigningKey");
-        }
-        // verify the required parameter 'keyId' is set
-        if (keyId == null) {
-            throw new ApiException(
-                    400, "Missing the required parameter 'keyId' when calling updateSigningKey");
-        }
+        ValidationUtils.assertParamExists(
+                "updateSigningKey", "modifySigningKeyDto", modifySigningKeyDto);
+        ValidationUtils.assertParamExistsAndNotEmpty("updateSigningKey", "keyId", keyId);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 

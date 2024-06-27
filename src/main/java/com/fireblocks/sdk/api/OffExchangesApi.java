@@ -19,6 +19,7 @@ import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.Pair;
+import com.fireblocks.sdk.ValidationUtils;
 import com.fireblocks.sdk.model.AddCollateralRequestBody;
 import com.fireblocks.sdk.model.CreateTransactionResponse;
 import com.fireblocks.sdk.model.ExchangeAccount;
@@ -207,13 +208,8 @@ public class OffExchangesApi {
 
     private HttpRequest.Builder getOffExchangeCollateralAccountsRequestBuilder(
             String mainExchangeAccountId) throws ApiException {
-        // verify the required parameter 'mainExchangeAccountId' is set
-        if (mainExchangeAccountId == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'mainExchangeAccountId' when calling"
-                            + " getOffExchangeCollateralAccounts");
-        }
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "getOffExchangeCollateralAccounts", "mainExchangeAccountId", mainExchangeAccountId);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
@@ -284,13 +280,10 @@ public class OffExchangesApi {
 
     private HttpRequest.Builder getOffExchangeSettlementTransactionsRequestBuilder(
             String mainExchangeAccountId) throws ApiException {
-        // verify the required parameter 'mainExchangeAccountId' is set
-        if (mainExchangeAccountId == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'mainExchangeAccountId' when calling"
-                            + " getOffExchangeSettlementTransactions");
-        }
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "getOffExchangeSettlementTransactions",
+                "mainExchangeAccountId",
+                mainExchangeAccountId);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 

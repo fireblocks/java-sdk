@@ -18,6 +18,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.ValidationUtils;
 import com.fireblocks.sdk.model.DepositFundsFromLinkedDDAResponse;
 import com.fireblocks.sdk.model.FiatAccount;
 import com.fireblocks.sdk.model.Funds;
@@ -123,13 +124,8 @@ public class FiatAccountsApi {
 
     private HttpRequest.Builder depositFundsFromLinkedDDARequestBuilder(
             String accountId, Funds funds, String idempotencyKey) throws ApiException {
-        // verify the required parameter 'accountId' is set
-        if (accountId == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'accountId' when calling"
-                            + " depositFundsFromLinkedDDA");
-        }
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "depositFundsFromLinkedDDA", "accountId", accountId);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
@@ -204,11 +200,7 @@ public class FiatAccountsApi {
     }
 
     private HttpRequest.Builder getFiatAccountRequestBuilder(String accountId) throws ApiException {
-        // verify the required parameter 'accountId' is set
-        if (accountId == null) {
-            throw new ApiException(
-                    400, "Missing the required parameter 'accountId' when calling getFiatAccount");
-        }
+        ValidationUtils.assertParamExistsAndNotEmpty("getFiatAccount", "accountId", accountId);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
@@ -341,13 +333,8 @@ public class FiatAccountsApi {
 
     private HttpRequest.Builder redeemFundsToLinkedDDARequestBuilder(
             String accountId, Funds funds, String idempotencyKey) throws ApiException {
-        // verify the required parameter 'accountId' is set
-        if (accountId == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'accountId' when calling"
-                            + " redeemFundsToLinkedDDA");
-        }
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "redeemFundsToLinkedDDA", "accountId", accountId);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 

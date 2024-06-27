@@ -18,6 +18,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.ValidationUtils;
 import com.fireblocks.sdk.model.ResendTransactionWebhooksRequest;
 import com.fireblocks.sdk.model.ResendWebhooksByTransactionIdResponse;
 import com.fireblocks.sdk.model.ResendWebhooksResponse;
@@ -129,19 +130,11 @@ public class WebhooksApi {
             String txId,
             String idempotencyKey)
             throws ApiException {
-        // verify the required parameter 'resendTransactionWebhooksRequest' is set
-        if (resendTransactionWebhooksRequest == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'resendTransactionWebhooksRequest' when calling"
-                            + " resendTransactionWebhooks");
-        }
-        // verify the required parameter 'txId' is set
-        if (txId == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'txId' when calling resendTransactionWebhooks");
-        }
+        ValidationUtils.assertParamExists(
+                "resendTransactionWebhooks",
+                "resendTransactionWebhooksRequest",
+                resendTransactionWebhooksRequest);
+        ValidationUtils.assertParamExistsAndNotEmpty("resendTransactionWebhooks", "txId", txId);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 

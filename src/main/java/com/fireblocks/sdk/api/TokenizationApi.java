@@ -19,6 +19,7 @@ import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.Pair;
+import com.fireblocks.sdk.ValidationUtils;
 import com.fireblocks.sdk.model.CreateTokenRequestDto;
 import com.fireblocks.sdk.model.TokenLinkDto;
 import com.fireblocks.sdk.model.TokenLinkRequestDto;
@@ -119,11 +120,7 @@ public class TokenizationApi {
     }
 
     private HttpRequest.Builder getLinkedTokenRequestBuilder(String id) throws ApiException {
-        // verify the required parameter 'id' is set
-        if (id == null) {
-            throw new ApiException(
-                    400, "Missing the required parameter 'id' when calling getLinkedToken");
-        }
+        ValidationUtils.assertParamExistsAndNotEmpty("getLinkedToken", "id", id);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
@@ -287,13 +284,8 @@ public class TokenizationApi {
     private HttpRequest.Builder issueNewTokenRequestBuilder(
             CreateTokenRequestDto createTokenRequestDto, String idempotencyKey)
             throws ApiException {
-        // verify the required parameter 'createTokenRequestDto' is set
-        if (createTokenRequestDto == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'createTokenRequestDto' when calling"
-                            + " issueNewToken");
-        }
+        ValidationUtils.assertParamExists(
+                "issueNewToken", "createTokenRequestDto", createTokenRequestDto);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
@@ -374,11 +366,7 @@ public class TokenizationApi {
 
     private HttpRequest.Builder linkRequestBuilder(
             TokenLinkRequestDto tokenLinkRequestDto, String idempotencyKey) throws ApiException {
-        // verify the required parameter 'tokenLinkRequestDto' is set
-        if (tokenLinkRequestDto == null) {
-            throw new ApiException(
-                    400, "Missing the required parameter 'tokenLinkRequestDto' when calling link");
-        }
+        ValidationUtils.assertParamExists("link", "tokenLinkRequestDto", tokenLinkRequestDto);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
@@ -441,10 +429,7 @@ public class TokenizationApi {
     }
 
     private HttpRequest.Builder unlinkRequestBuilder(String id) throws ApiException {
-        // verify the required parameter 'id' is set
-        if (id == null) {
-            throw new ApiException(400, "Missing the required parameter 'id' when calling unlink");
-        }
+        ValidationUtils.assertParamExistsAndNotEmpty("unlink", "id", id);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 

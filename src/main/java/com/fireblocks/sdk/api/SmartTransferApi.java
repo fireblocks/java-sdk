@@ -19,6 +19,7 @@ import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.Pair;
+import com.fireblocks.sdk.ValidationUtils;
 import com.fireblocks.sdk.model.SmartTransferCreateTicket;
 import com.fireblocks.sdk.model.SmartTransferCreateTicketTerm;
 import com.fireblocks.sdk.model.SmartTransferFundTerm;
@@ -134,11 +135,7 @@ public class SmartTransferApi {
 
     private HttpRequest.Builder cancelTicketRequestBuilder(String ticketId, String idempotencyKey)
             throws ApiException {
-        // verify the required parameter 'ticketId' is set
-        if (ticketId == null) {
-            throw new ApiException(
-                    400, "Missing the required parameter 'ticketId' when calling cancelTicket");
-        }
+        ValidationUtils.assertParamExistsAndNotEmpty("cancelTicket", "ticketId", ticketId);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
@@ -213,13 +210,8 @@ public class SmartTransferApi {
     private HttpRequest.Builder createTicketRequestBuilder(
             SmartTransferCreateTicket smartTransferCreateTicket, String idempotencyKey)
             throws ApiException {
-        // verify the required parameter 'smartTransferCreateTicket' is set
-        if (smartTransferCreateTicket == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'smartTransferCreateTicket' when calling"
-                            + " createTicket");
-        }
+        ValidationUtils.assertParamExists(
+                "createTicket", "smartTransferCreateTicket", smartTransferCreateTicket);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
@@ -306,18 +298,9 @@ public class SmartTransferApi {
             String ticketId,
             String idempotencyKey)
             throws ApiException {
-        // verify the required parameter 'smartTransferCreateTicketTerm' is set
-        if (smartTransferCreateTicketTerm == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'smartTransferCreateTicketTerm' when calling"
-                            + " createTicketTerm");
-        }
-        // verify the required parameter 'ticketId' is set
-        if (ticketId == null) {
-            throw new ApiException(
-                    400, "Missing the required parameter 'ticketId' when calling createTicketTerm");
-        }
+        ValidationUtils.assertParamExists(
+                "createTicketTerm", "smartTransferCreateTicketTerm", smartTransferCreateTicketTerm);
+        ValidationUtils.assertParamExistsAndNotEmpty("createTicketTerm", "ticketId", ticketId);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
@@ -393,11 +376,7 @@ public class SmartTransferApi {
     }
 
     private HttpRequest.Builder findTicketByIdRequestBuilder(String ticketId) throws ApiException {
-        // verify the required parameter 'ticketId' is set
-        if (ticketId == null) {
-            throw new ApiException(
-                    400, "Missing the required parameter 'ticketId' when calling findTicketById");
-        }
+        ValidationUtils.assertParamExistsAndNotEmpty("findTicketById", "ticketId", ticketId);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
@@ -466,17 +445,8 @@ public class SmartTransferApi {
 
     private HttpRequest.Builder findTicketTermByIdRequestBuilder(String ticketId, String termId)
             throws ApiException {
-        // verify the required parameter 'ticketId' is set
-        if (ticketId == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'ticketId' when calling findTicketTermById");
-        }
-        // verify the required parameter 'termId' is set
-        if (termId == null) {
-            throw new ApiException(
-                    400, "Missing the required parameter 'termId' when calling findTicketTermById");
-        }
+        ValidationUtils.assertParamExistsAndNotEmpty("findTicketTermById", "ticketId", ticketId);
+        ValidationUtils.assertParamExistsAndNotEmpty("findTicketTermById", "termId", termId);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
@@ -548,11 +518,7 @@ public class SmartTransferApi {
 
     private HttpRequest.Builder fulfillTicketRequestBuilder(String ticketId, String idempotencyKey)
             throws ApiException {
-        // verify the required parameter 'ticketId' is set
-        if (ticketId == null) {
-            throw new ApiException(
-                    400, "Missing the required parameter 'ticketId' when calling fulfillTicket");
-        }
+        ValidationUtils.assertParamExistsAndNotEmpty("fulfillTicket", "ticketId", ticketId);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
@@ -637,23 +603,10 @@ public class SmartTransferApi {
             String termId,
             String idempotencyKey)
             throws ApiException {
-        // verify the required parameter 'smartTransferFundTerm' is set
-        if (smartTransferFundTerm == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'smartTransferFundTerm' when calling"
-                            + " fundTicketTerm");
-        }
-        // verify the required parameter 'ticketId' is set
-        if (ticketId == null) {
-            throw new ApiException(
-                    400, "Missing the required parameter 'ticketId' when calling fundTicketTerm");
-        }
-        // verify the required parameter 'termId' is set
-        if (termId == null) {
-            throw new ApiException(
-                    400, "Missing the required parameter 'termId' when calling fundTicketTerm");
-        }
+        ValidationUtils.assertParamExists(
+                "fundTicketTerm", "smartTransferFundTerm", smartTransferFundTerm);
+        ValidationUtils.assertParamExistsAndNotEmpty("fundTicketTerm", "ticketId", ticketId);
+        ValidationUtils.assertParamExistsAndNotEmpty("fundTicketTerm", "termId", termId);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
@@ -810,26 +763,13 @@ public class SmartTransferApi {
             String termId,
             String idempotencyKey)
             throws ApiException {
-        // verify the required parameter 'smartTransferManuallyFundTerm' is set
-        if (smartTransferManuallyFundTerm == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'smartTransferManuallyFundTerm' when calling"
-                            + " manuallyFundTicketTerm");
-        }
-        // verify the required parameter 'ticketId' is set
-        if (ticketId == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'ticketId' when calling"
-                            + " manuallyFundTicketTerm");
-        }
-        // verify the required parameter 'termId' is set
-        if (termId == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'termId' when calling manuallyFundTicketTerm");
-        }
+        ValidationUtils.assertParamExists(
+                "manuallyFundTicketTerm",
+                "smartTransferManuallyFundTerm",
+                smartTransferManuallyFundTerm);
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "manuallyFundTicketTerm", "ticketId", ticketId);
+        ValidationUtils.assertParamExistsAndNotEmpty("manuallyFundTicketTerm", "termId", termId);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
@@ -899,16 +839,8 @@ public class SmartTransferApi {
 
     private HttpRequest.Builder removeTicketTermRequestBuilder(String ticketId, String termId)
             throws ApiException {
-        // verify the required parameter 'ticketId' is set
-        if (ticketId == null) {
-            throw new ApiException(
-                    400, "Missing the required parameter 'ticketId' when calling removeTicketTerm");
-        }
-        // verify the required parameter 'termId' is set
-        if (termId == null) {
-            throw new ApiException(
-                    400, "Missing the required parameter 'termId' when calling removeTicketTerm");
-        }
+        ValidationUtils.assertParamExistsAndNotEmpty("removeTicketTerm", "ticketId", ticketId);
+        ValidationUtils.assertParamExistsAndNotEmpty("removeTicketTerm", "termId", termId);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
@@ -1127,18 +1059,11 @@ public class SmartTransferApi {
             String ticketId,
             String idempotencyKey)
             throws ApiException {
-        // verify the required parameter 'smartTransferSetTicketExternalId' is set
-        if (smartTransferSetTicketExternalId == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'smartTransferSetTicketExternalId' when calling"
-                            + " setExternalRefId");
-        }
-        // verify the required parameter 'ticketId' is set
-        if (ticketId == null) {
-            throw new ApiException(
-                    400, "Missing the required parameter 'ticketId' when calling setExternalRefId");
-        }
+        ValidationUtils.assertParamExists(
+                "setExternalRefId",
+                "smartTransferSetTicketExternalId",
+                smartTransferSetTicketExternalId);
+        ValidationUtils.assertParamExistsAndNotEmpty("setExternalRefId", "ticketId", ticketId);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
@@ -1228,19 +1153,11 @@ public class SmartTransferApi {
             String ticketId,
             String idempotencyKey)
             throws ApiException {
-        // verify the required parameter 'smartTransferSetTicketExpiration' is set
-        if (smartTransferSetTicketExpiration == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'smartTransferSetTicketExpiration' when calling"
-                            + " setTicketExpiration");
-        }
-        // verify the required parameter 'ticketId' is set
-        if (ticketId == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'ticketId' when calling setTicketExpiration");
-        }
+        ValidationUtils.assertParamExists(
+                "setTicketExpiration",
+                "smartTransferSetTicketExpiration",
+                smartTransferSetTicketExpiration);
+        ValidationUtils.assertParamExistsAndNotEmpty("setTicketExpiration", "ticketId", ticketId);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
@@ -1323,13 +1240,8 @@ public class SmartTransferApi {
     private HttpRequest.Builder setUserGroupsRequestBuilder(
             SmartTransferSetUserGroups smartTransferSetUserGroups, String idempotencyKey)
             throws ApiException {
-        // verify the required parameter 'smartTransferSetUserGroups' is set
-        if (smartTransferSetUserGroups == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'smartTransferSetUserGroups' when calling"
-                            + " setUserGroups");
-        }
+        ValidationUtils.assertParamExists(
+                "setUserGroups", "smartTransferSetUserGroups", smartTransferSetUserGroups);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
@@ -1416,18 +1328,9 @@ public class SmartTransferApi {
             String ticketId,
             String idempotencyKey)
             throws ApiException {
-        // verify the required parameter 'smartTransferSubmitTicket' is set
-        if (smartTransferSubmitTicket == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'smartTransferSubmitTicket' when calling"
-                            + " submitTicket");
-        }
-        // verify the required parameter 'ticketId' is set
-        if (ticketId == null) {
-            throw new ApiException(
-                    400, "Missing the required parameter 'ticketId' when calling submitTicket");
-        }
+        ValidationUtils.assertParamExists(
+                "submitTicket", "smartTransferSubmitTicket", smartTransferSubmitTicket);
+        ValidationUtils.assertParamExistsAndNotEmpty("submitTicket", "ticketId", ticketId);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
@@ -1519,23 +1422,10 @@ public class SmartTransferApi {
             String termId,
             String idempotencyKey)
             throws ApiException {
-        // verify the required parameter 'smartTransferUpdateTicketTerm' is set
-        if (smartTransferUpdateTicketTerm == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'smartTransferUpdateTicketTerm' when calling"
-                            + " updateTicketTerm");
-        }
-        // verify the required parameter 'ticketId' is set
-        if (ticketId == null) {
-            throw new ApiException(
-                    400, "Missing the required parameter 'ticketId' when calling updateTicketTerm");
-        }
-        // verify the required parameter 'termId' is set
-        if (termId == null) {
-            throw new ApiException(
-                    400, "Missing the required parameter 'termId' when calling updateTicketTerm");
-        }
+        ValidationUtils.assertParamExists(
+                "updateTicketTerm", "smartTransferUpdateTicketTerm", smartTransferUpdateTicketTerm);
+        ValidationUtils.assertParamExistsAndNotEmpty("updateTicketTerm", "ticketId", ticketId);
+        ValidationUtils.assertParamExistsAndNotEmpty("updateTicketTerm", "termId", termId);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 

@@ -18,6 +18,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.ValidationUtils;
 import com.fireblocks.sdk.model.GetWhitelistIpAddressesResponse;
 import java.io.IOException;
 import java.io.InputStream;
@@ -114,12 +115,7 @@ public class WhitelistIpAddressesApi {
 
     private HttpRequest.Builder getWhitelistIpAddressesRequestBuilder(String userId)
             throws ApiException {
-        // verify the required parameter 'userId' is set
-        if (userId == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'userId' when calling getWhitelistIpAddresses");
-        }
+        ValidationUtils.assertParamExistsAndNotEmpty("getWhitelistIpAddresses", "userId", userId);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 

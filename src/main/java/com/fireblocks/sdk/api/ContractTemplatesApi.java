@@ -19,6 +19,7 @@ import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.Pair;
+import com.fireblocks.sdk.ValidationUtils;
 import com.fireblocks.sdk.model.AbiFunction;
 import com.fireblocks.sdk.model.ContractDeployRequest;
 import com.fireblocks.sdk.model.ContractDeployResponse;
@@ -116,13 +117,8 @@ public class ContractTemplatesApi {
 
     private HttpRequest.Builder deleteContractTemplateByIdRequestBuilder(String contractTemplateId)
             throws ApiException {
-        // verify the required parameter 'contractTemplateId' is set
-        if (contractTemplateId == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'contractTemplateId' when calling"
-                            + " deleteContractTemplateById");
-        }
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "deleteContractTemplateById", "contractTemplateId", contractTemplateId);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
@@ -203,20 +199,10 @@ public class ContractTemplatesApi {
             String contractTemplateId,
             String idempotencyKey)
             throws ApiException {
-        // verify the required parameter 'contractDeployRequest' is set
-        if (contractDeployRequest == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'contractDeployRequest' when calling"
-                            + " deployContract");
-        }
-        // verify the required parameter 'contractTemplateId' is set
-        if (contractTemplateId == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'contractTemplateId' when calling"
-                            + " deployContract");
-        }
+        ValidationUtils.assertParamExists(
+                "deployContract", "contractDeployRequest", contractDeployRequest);
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "deployContract", "contractTemplateId", contractTemplateId);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
@@ -299,13 +285,8 @@ public class ContractTemplatesApi {
 
     private HttpRequest.Builder getConstructorByContractTemplateIdRequestBuilder(
             String contractTemplateId, Boolean withDocs) throws ApiException {
-        // verify the required parameter 'contractTemplateId' is set
-        if (contractTemplateId == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'contractTemplateId' when calling"
-                            + " getConstructorByContractTemplateId");
-        }
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "getConstructorByContractTemplateId", "contractTemplateId", contractTemplateId);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
@@ -391,13 +372,8 @@ public class ContractTemplatesApi {
 
     private HttpRequest.Builder getContractTemplateByIdRequestBuilder(String contractTemplateId)
             throws ApiException {
-        // verify the required parameter 'contractTemplateId' is set
-        if (contractTemplateId == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'contractTemplateId' when calling"
-                            + " getContractTemplateById");
-        }
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "getContractTemplateById", "contractTemplateId", contractTemplateId);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
@@ -584,20 +560,10 @@ public class ContractTemplatesApi {
 
     private HttpRequest.Builder getFunctionAbiByContractTemplateIdRequestBuilder(
             String contractTemplateId, String functionSignature) throws ApiException {
-        // verify the required parameter 'contractTemplateId' is set
-        if (contractTemplateId == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'contractTemplateId' when calling"
-                            + " getFunctionAbiByContractTemplateId");
-        }
-        // verify the required parameter 'functionSignature' is set
-        if (functionSignature == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'functionSignature' when calling"
-                            + " getFunctionAbiByContractTemplateId");
-        }
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "getFunctionAbiByContractTemplateId", "contractTemplateId", contractTemplateId);
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "getFunctionAbiByContractTemplateId", "functionSignature", functionSignature);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
@@ -690,13 +656,8 @@ public class ContractTemplatesApi {
     private HttpRequest.Builder uploadContractTemplateRequestBuilder(
             ContractUploadRequest contractUploadRequest, String idempotencyKey)
             throws ApiException {
-        // verify the required parameter 'contractUploadRequest' is set
-        if (contractUploadRequest == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'contractUploadRequest' when calling"
-                            + " uploadContractTemplate");
-        }
+        ValidationUtils.assertParamExists(
+                "uploadContractTemplate", "contractUploadRequest", contractUploadRequest);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 

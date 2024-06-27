@@ -19,6 +19,7 @@ import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.Pair;
+import com.fireblocks.sdk.ValidationUtils;
 import com.fireblocks.sdk.model.CreateConnectionRequest;
 import com.fireblocks.sdk.model.CreateConnectionResponse;
 import com.fireblocks.sdk.model.GetConnectionsResponse;
@@ -129,12 +130,8 @@ public class Web3ConnectionsApi {
     private HttpRequest.Builder createRequestBuilder(
             CreateConnectionRequest createConnectionRequest, String idempotencyKey)
             throws ApiException {
-        // verify the required parameter 'createConnectionRequest' is set
-        if (createConnectionRequest == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'createConnectionRequest' when calling create");
-        }
+        ValidationUtils.assertParamExists(
+                "create", "createConnectionRequest", createConnectionRequest);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
@@ -299,10 +296,7 @@ public class Web3ConnectionsApi {
     }
 
     private HttpRequest.Builder removeRequestBuilder(String id) throws ApiException {
-        // verify the required parameter 'id' is set
-        if (id == null) {
-            throw new ApiException(400, "Missing the required parameter 'id' when calling remove");
-        }
+        ValidationUtils.assertParamExistsAndNotEmpty("remove", "id", id);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
@@ -367,17 +361,9 @@ public class Web3ConnectionsApi {
     private HttpRequest.Builder submitRequestBuilder(
             RespondToConnectionRequest respondToConnectionRequest, String id, String idempotencyKey)
             throws ApiException {
-        // verify the required parameter 'respondToConnectionRequest' is set
-        if (respondToConnectionRequest == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'respondToConnectionRequest' when calling"
-                            + " submit");
-        }
-        // verify the required parameter 'id' is set
-        if (id == null) {
-            throw new ApiException(400, "Missing the required parameter 'id' when calling submit");
-        }
+        ValidationUtils.assertParamExists(
+                "submit", "respondToConnectionRequest", respondToConnectionRequest);
+        ValidationUtils.assertParamExistsAndNotEmpty("submit", "id", id);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 

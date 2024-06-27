@@ -19,6 +19,7 @@ import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.Pair;
+import com.fireblocks.sdk.ValidationUtils;
 import com.fireblocks.sdk.model.CreateAddressRequest;
 import com.fireblocks.sdk.model.CreateAddressResponse;
 import com.fireblocks.sdk.model.CreateAssetsRequest;
@@ -147,20 +148,10 @@ public class VaultsApi {
 
     private HttpRequest.Builder activateAssetForVaultAccountRequestBuilder(
             String vaultAccountId, String assetId, String idempotencyKey) throws ApiException {
-        // verify the required parameter 'vaultAccountId' is set
-        if (vaultAccountId == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'vaultAccountId' when calling"
-                            + " activateAssetForVaultAccount");
-        }
-        // verify the required parameter 'assetId' is set
-        if (assetId == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'assetId' when calling"
-                            + " activateAssetForVaultAccount");
-        }
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "activateAssetForVaultAccount", "vaultAccountId", vaultAccountId);
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "activateAssetForVaultAccount", "assetId", assetId);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
@@ -241,25 +232,10 @@ public class VaultsApi {
     private HttpRequest.Builder createLegacyAddressRequestBuilder(
             String vaultAccountId, String assetId, String addressId, String idempotencyKey)
             throws ApiException {
-        // verify the required parameter 'vaultAccountId' is set
-        if (vaultAccountId == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'vaultAccountId' when calling"
-                            + " createLegacyAddress");
-        }
-        // verify the required parameter 'assetId' is set
-        if (assetId == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'assetId' when calling createLegacyAddress");
-        }
-        // verify the required parameter 'addressId' is set
-        if (addressId == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'addressId' when calling createLegacyAddress");
-        }
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "createLegacyAddress", "vaultAccountId", vaultAccountId);
+        ValidationUtils.assertParamExistsAndNotEmpty("createLegacyAddress", "assetId", assetId);
+        ValidationUtils.assertParamExistsAndNotEmpty("createLegacyAddress", "addressId", addressId);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
@@ -340,13 +316,10 @@ public class VaultsApi {
     private HttpRequest.Builder createMultipleAccountsRequestBuilder(
             CreateMultipleAccountsRequest createMultipleAccountsRequest, String idempotencyKey)
             throws ApiException {
-        // verify the required parameter 'createMultipleAccountsRequest' is set
-        if (createMultipleAccountsRequest == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'createMultipleAccountsRequest' when calling"
-                            + " createMultipleAccounts");
-        }
+        ValidationUtils.assertParamExists(
+                "createMultipleAccounts",
+                "createMultipleAccountsRequest",
+                createMultipleAccountsRequest);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
@@ -428,13 +401,8 @@ public class VaultsApi {
     private HttpRequest.Builder createVaultAccountRequestBuilder(
             CreateVaultAccountRequest createVaultAccountRequest, String idempotencyKey)
             throws ApiException {
-        // verify the required parameter 'createVaultAccountRequest' is set
-        if (createVaultAccountRequest == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'createVaultAccountRequest' when calling"
-                            + " createVaultAccount");
-        }
+        ValidationUtils.assertParamExists(
+                "createVaultAccount", "createVaultAccountRequest", createVaultAccountRequest);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
@@ -526,20 +494,9 @@ public class VaultsApi {
             CreateAssetsRequest createAssetsRequest,
             String idempotencyKey)
             throws ApiException {
-        // verify the required parameter 'vaultAccountId' is set
-        if (vaultAccountId == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'vaultAccountId' when calling"
-                            + " createVaultAccountAsset");
-        }
-        // verify the required parameter 'assetId' is set
-        if (assetId == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'assetId' when calling"
-                            + " createVaultAccountAsset");
-        }
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "createVaultAccountAsset", "vaultAccountId", vaultAccountId);
+        ValidationUtils.assertParamExistsAndNotEmpty("createVaultAccountAsset", "assetId", assetId);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
@@ -634,20 +591,10 @@ public class VaultsApi {
             CreateAddressRequest createAddressRequest,
             String idempotencyKey)
             throws ApiException {
-        // verify the required parameter 'vaultAccountId' is set
-        if (vaultAccountId == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'vaultAccountId' when calling"
-                            + " createVaultAccountAssetAddress");
-        }
-        // verify the required parameter 'assetId' is set
-        if (assetId == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'assetId' when calling"
-                            + " createVaultAccountAssetAddress");
-        }
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "createVaultAccountAssetAddress", "vaultAccountId", vaultAccountId);
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "createVaultAccountAssetAddress", "assetId", assetId);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
@@ -850,19 +797,9 @@ public class VaultsApi {
 
     private HttpRequest.Builder getMaxSpendableAmountRequestBuilder(
             String vaultAccountId, String assetId, Boolean manualSignging) throws ApiException {
-        // verify the required parameter 'vaultAccountId' is set
-        if (vaultAccountId == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'vaultAccountId' when calling"
-                            + " getMaxSpendableAmount");
-        }
-        // verify the required parameter 'assetId' is set
-        if (assetId == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'assetId' when calling getMaxSpendableAmount");
-        }
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "getMaxSpendableAmount", "vaultAccountId", vaultAccountId);
+        ValidationUtils.assertParamExistsAndNotEmpty("getMaxSpendableAmount", "assetId", assetId);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
@@ -1078,19 +1015,9 @@ public class VaultsApi {
 
     private HttpRequest.Builder getPublicKeyInfoRequestBuilder(
             String derivationPath, String algorithm, Boolean compressed) throws ApiException {
-        // verify the required parameter 'derivationPath' is set
-        if (derivationPath == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'derivationPath' when calling"
-                            + " getPublicKeyInfo");
-        }
-        // verify the required parameter 'algorithm' is set
-        if (algorithm == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'algorithm' when calling getPublicKeyInfo");
-        }
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "getPublicKeyInfo", "derivationPath", derivationPath);
+        ValidationUtils.assertParamExistsAndNotEmpty("getPublicKeyInfo", "algorithm", algorithm);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
@@ -1192,34 +1119,13 @@ public class VaultsApi {
             BigDecimal addressIndex,
             Boolean compressed)
             throws ApiException {
-        // verify the required parameter 'vaultAccountId' is set
-        if (vaultAccountId == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'vaultAccountId' when calling"
-                            + " getPublicKeyInfoForAddress");
-        }
-        // verify the required parameter 'assetId' is set
-        if (assetId == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'assetId' when calling"
-                            + " getPublicKeyInfoForAddress");
-        }
-        // verify the required parameter 'change' is set
-        if (change == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'change' when calling"
-                            + " getPublicKeyInfoForAddress");
-        }
-        // verify the required parameter 'addressIndex' is set
-        if (addressIndex == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'addressIndex' when calling"
-                            + " getPublicKeyInfoForAddress");
-        }
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "getPublicKeyInfoForAddress", "vaultAccountId", vaultAccountId);
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "getPublicKeyInfoForAddress", "assetId", assetId);
+        ValidationUtils.assertParamExists("getPublicKeyInfoForAddress", "change", change);
+        ValidationUtils.assertParamExists(
+                "getPublicKeyInfoForAddress", "addressIndex", addressIndex);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
@@ -1308,18 +1214,9 @@ public class VaultsApi {
 
     private HttpRequest.Builder getUnspentInputsRequestBuilder(
             String vaultAccountId, String assetId) throws ApiException {
-        // verify the required parameter 'vaultAccountId' is set
-        if (vaultAccountId == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'vaultAccountId' when calling"
-                            + " getUnspentInputs");
-        }
-        // verify the required parameter 'assetId' is set
-        if (assetId == null) {
-            throw new ApiException(
-                    400, "Missing the required parameter 'assetId' when calling getUnspentInputs");
-        }
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "getUnspentInputs", "vaultAccountId", vaultAccountId);
+        ValidationUtils.assertParamExistsAndNotEmpty("getUnspentInputs", "assetId", assetId);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
@@ -1387,12 +1284,8 @@ public class VaultsApi {
 
     private HttpRequest.Builder getVaultAccountRequestBuilder(String vaultAccountId)
             throws ApiException {
-        // verify the required parameter 'vaultAccountId' is set
-        if (vaultAccountId == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'vaultAccountId' when calling getVaultAccount");
-        }
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "getVaultAccount", "vaultAccountId", vaultAccountId);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
@@ -1463,19 +1356,9 @@ public class VaultsApi {
 
     private HttpRequest.Builder getVaultAccountAssetRequestBuilder(
             String vaultAccountId, String assetId) throws ApiException {
-        // verify the required parameter 'vaultAccountId' is set
-        if (vaultAccountId == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'vaultAccountId' when calling"
-                            + " getVaultAccountAsset");
-        }
-        // verify the required parameter 'assetId' is set
-        if (assetId == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'assetId' when calling getVaultAccountAsset");
-        }
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "getVaultAccountAsset", "vaultAccountId", vaultAccountId);
+        ValidationUtils.assertParamExistsAndNotEmpty("getVaultAccountAsset", "assetId", assetId);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
@@ -1558,20 +1441,10 @@ public class VaultsApi {
     private HttpRequest.Builder getVaultAccountAssetAddressesPaginatedRequestBuilder(
             String vaultAccountId, String assetId, BigDecimal limit, String before, String after)
             throws ApiException {
-        // verify the required parameter 'vaultAccountId' is set
-        if (vaultAccountId == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'vaultAccountId' when calling"
-                            + " getVaultAccountAssetAddressesPaginated");
-        }
-        // verify the required parameter 'assetId' is set
-        if (assetId == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'assetId' when calling"
-                            + " getVaultAccountAssetAddressesPaginated");
-        }
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "getVaultAccountAssetAddressesPaginated", "vaultAccountId", vaultAccountId);
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "getVaultAccountAssetAddressesPaginated", "assetId", assetId);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
@@ -1747,12 +1620,7 @@ public class VaultsApi {
 
     private HttpRequest.Builder getVaultBalanceByAssetRequestBuilder(String assetId)
             throws ApiException {
-        // verify the required parameter 'assetId' is set
-        if (assetId == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'assetId' when calling getVaultBalanceByAsset");
-        }
+        ValidationUtils.assertParamExistsAndNotEmpty("getVaultBalanceByAsset", "assetId", assetId);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
@@ -1823,13 +1691,8 @@ public class VaultsApi {
 
     private HttpRequest.Builder hideVaultAccountRequestBuilder(
             String vaultAccountId, String idempotencyKey) throws ApiException {
-        // verify the required parameter 'vaultAccountId' is set
-        if (vaultAccountId == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'vaultAccountId' when calling"
-                            + " hideVaultAccount");
-        }
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "hideVaultAccount", "vaultAccountId", vaultAccountId);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
@@ -1925,34 +1788,16 @@ public class VaultsApi {
             String addressId,
             String idempotencyKey)
             throws ApiException {
-        // verify the required parameter 'setCustomerRefIdForAddressRequest' is set
-        if (setCustomerRefIdForAddressRequest == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'setCustomerRefIdForAddressRequest' when"
-                            + " calling setCustomerRefIdForAddress");
-        }
-        // verify the required parameter 'vaultAccountId' is set
-        if (vaultAccountId == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'vaultAccountId' when calling"
-                            + " setCustomerRefIdForAddress");
-        }
-        // verify the required parameter 'assetId' is set
-        if (assetId == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'assetId' when calling"
-                            + " setCustomerRefIdForAddress");
-        }
-        // verify the required parameter 'addressId' is set
-        if (addressId == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'addressId' when calling"
-                            + " setCustomerRefIdForAddress");
-        }
+        ValidationUtils.assertParamExists(
+                "setCustomerRefIdForAddress",
+                "setCustomerRefIdForAddressRequest",
+                setCustomerRefIdForAddressRequest);
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "setCustomerRefIdForAddress", "vaultAccountId", vaultAccountId);
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "setCustomerRefIdForAddress", "assetId", assetId);
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "setCustomerRefIdForAddress", "addressId", addressId);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
@@ -2041,20 +1886,10 @@ public class VaultsApi {
     private HttpRequest.Builder setVaultAccountAutoFuelRequestBuilder(
             SetAutoFuelRequest setAutoFuelRequest, String vaultAccountId, String idempotencyKey)
             throws ApiException {
-        // verify the required parameter 'setAutoFuelRequest' is set
-        if (setAutoFuelRequest == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'setAutoFuelRequest' when calling"
-                            + " setVaultAccountAutoFuel");
-        }
-        // verify the required parameter 'vaultAccountId' is set
-        if (vaultAccountId == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'vaultAccountId' when calling"
-                            + " setVaultAccountAutoFuel");
-        }
+        ValidationUtils.assertParamExists(
+                "setVaultAccountAutoFuel", "setAutoFuelRequest", setAutoFuelRequest);
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "setVaultAccountAutoFuel", "vaultAccountId", vaultAccountId);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
@@ -2146,20 +1981,10 @@ public class VaultsApi {
             String vaultAccountId,
             String idempotencyKey)
             throws ApiException {
-        // verify the required parameter 'setCustomerRefIdRequest' is set
-        if (setCustomerRefIdRequest == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'setCustomerRefIdRequest' when calling"
-                            + " setVaultAccountCustomerRefId");
-        }
-        // verify the required parameter 'vaultAccountId' is set
-        if (vaultAccountId == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'vaultAccountId' when calling"
-                            + " setVaultAccountCustomerRefId");
-        }
+        ValidationUtils.assertParamExists(
+                "setVaultAccountCustomerRefId", "setCustomerRefIdRequest", setCustomerRefIdRequest);
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "setVaultAccountCustomerRefId", "vaultAccountId", vaultAccountId);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
@@ -2243,13 +2068,8 @@ public class VaultsApi {
 
     private HttpRequest.Builder unhideVaultAccountRequestBuilder(
             String vaultAccountId, String idempotencyKey) throws ApiException {
-        // verify the required parameter 'vaultAccountId' is set
-        if (vaultAccountId == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'vaultAccountId' when calling"
-                            + " unhideVaultAccount");
-        }
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "unhideVaultAccount", "vaultAccountId", vaultAccountId);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
@@ -2332,20 +2152,10 @@ public class VaultsApi {
             String vaultAccountId,
             String idempotencyKey)
             throws ApiException {
-        // verify the required parameter 'updateVaultAccountRequest' is set
-        if (updateVaultAccountRequest == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'updateVaultAccountRequest' when calling"
-                            + " updateVaultAccount");
-        }
-        // verify the required parameter 'vaultAccountId' is set
-        if (vaultAccountId == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'vaultAccountId' when calling"
-                            + " updateVaultAccount");
-        }
+        ValidationUtils.assertParamExists(
+                "updateVaultAccount", "updateVaultAccountRequest", updateVaultAccountRequest);
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "updateVaultAccount", "vaultAccountId", vaultAccountId);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
@@ -2449,27 +2259,12 @@ public class VaultsApi {
             UpdateVaultAccountAssetAddressRequest updateVaultAccountAssetAddressRequest,
             String idempotencyKey)
             throws ApiException {
-        // verify the required parameter 'vaultAccountId' is set
-        if (vaultAccountId == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'vaultAccountId' when calling"
-                            + " updateVaultAccountAssetAddress");
-        }
-        // verify the required parameter 'assetId' is set
-        if (assetId == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'assetId' when calling"
-                            + " updateVaultAccountAssetAddress");
-        }
-        // verify the required parameter 'addressId' is set
-        if (addressId == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'addressId' when calling"
-                            + " updateVaultAccountAssetAddress");
-        }
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "updateVaultAccountAssetAddress", "vaultAccountId", vaultAccountId);
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "updateVaultAccountAssetAddress", "assetId", assetId);
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "updateVaultAccountAssetAddress", "addressId", addressId);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
@@ -2556,20 +2351,10 @@ public class VaultsApi {
 
     private HttpRequest.Builder updateVaultAccountAssetBalanceRequestBuilder(
             String vaultAccountId, String assetId, String idempotencyKey) throws ApiException {
-        // verify the required parameter 'vaultAccountId' is set
-        if (vaultAccountId == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'vaultAccountId' when calling"
-                            + " updateVaultAccountAssetBalance");
-        }
-        // verify the required parameter 'assetId' is set
-        if (assetId == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'assetId' when calling"
-                            + " updateVaultAccountAssetBalance");
-        }
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "updateVaultAccountAssetBalance", "vaultAccountId", vaultAccountId);
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "updateVaultAccountAssetBalance", "assetId", assetId);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 

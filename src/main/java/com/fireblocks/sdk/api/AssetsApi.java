@@ -18,6 +18,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.ValidationUtils;
 import com.fireblocks.sdk.model.CreateAssetsBulkRequest;
 import com.fireblocks.sdk.model.JobCreated;
 import java.io.IOException;
@@ -122,13 +123,8 @@ public class AssetsApi {
     private HttpRequest.Builder createAssetsBulkRequestBuilder(
             CreateAssetsBulkRequest createAssetsBulkRequest, String idempotencyKey)
             throws ApiException {
-        // verify the required parameter 'createAssetsBulkRequest' is set
-        if (createAssetsBulkRequest == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'createAssetsBulkRequest' when calling"
-                            + " createAssetsBulk");
-        }
+        ValidationUtils.assertParamExists(
+                "createAssetsBulk", "createAssetsBulkRequest", createAssetsBulkRequest);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 

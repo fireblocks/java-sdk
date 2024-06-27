@@ -18,6 +18,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.ValidationUtils;
 import com.fireblocks.sdk.model.CreateNetworkIdRequest;
 import com.fireblocks.sdk.model.DeleteNetworkConnectionResponse;
 import com.fireblocks.sdk.model.DeleteNetworkIdResponse;
@@ -131,20 +132,10 @@ public class NetworkConnectionsApi {
 
     private HttpRequest.Builder checkThirdPartyRoutingRequestBuilder(
             String connectionId, String assetType) throws ApiException {
-        // verify the required parameter 'connectionId' is set
-        if (connectionId == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'connectionId' when calling"
-                            + " checkThirdPartyRouting");
-        }
-        // verify the required parameter 'assetType' is set
-        if (assetType == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'assetType' when calling"
-                            + " checkThirdPartyRouting");
-        }
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "checkThirdPartyRouting", "connectionId", connectionId);
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "checkThirdPartyRouting", "assetType", assetType);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
@@ -409,13 +400,8 @@ public class NetworkConnectionsApi {
 
     private HttpRequest.Builder deleteNetworkConnectionRequestBuilder(String connectionId)
             throws ApiException {
-        // verify the required parameter 'connectionId' is set
-        if (connectionId == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'connectionId' when calling"
-                            + " deleteNetworkConnection");
-        }
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "deleteNetworkConnection", "connectionId", connectionId);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
@@ -492,11 +478,7 @@ public class NetworkConnectionsApi {
 
     private HttpRequest.Builder deleteNetworkIdRequestBuilder(String networkId)
             throws ApiException {
-        // verify the required parameter 'networkId' is set
-        if (networkId == null) {
-            throw new ApiException(
-                    400, "Missing the required parameter 'networkId' when calling deleteNetworkId");
-        }
+        ValidationUtils.assertParamExistsAndNotEmpty("deleteNetworkId", "networkId", networkId);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
@@ -572,11 +554,7 @@ public class NetworkConnectionsApi {
     }
 
     private HttpRequest.Builder getNetworkRequestBuilder(String connectionId) throws ApiException {
-        // verify the required parameter 'connectionId' is set
-        if (connectionId == null) {
-            throw new ApiException(
-                    400, "Missing the required parameter 'connectionId' when calling getNetwork");
-        }
+        ValidationUtils.assertParamExistsAndNotEmpty("getNetwork", "connectionId", connectionId);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
@@ -726,11 +704,7 @@ public class NetworkConnectionsApi {
     }
 
     private HttpRequest.Builder getNetworkIdRequestBuilder(String networkId) throws ApiException {
-        // verify the required parameter 'networkId' is set
-        if (networkId == null) {
-            throw new ApiException(
-                    400, "Missing the required parameter 'networkId' when calling getNetworkId");
-        }
+        ValidationUtils.assertParamExistsAndNotEmpty("getNetworkId", "networkId", networkId);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
@@ -956,20 +930,12 @@ public class NetworkConnectionsApi {
     private HttpRequest.Builder setNetworkIdDiscoverabilityRequestBuilder(
             SetNetworkIdDiscoverabilityRequest setNetworkIdDiscoverabilityRequest, String networkId)
             throws ApiException {
-        // verify the required parameter 'setNetworkIdDiscoverabilityRequest' is set
-        if (setNetworkIdDiscoverabilityRequest == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'setNetworkIdDiscoverabilityRequest' when"
-                            + " calling setNetworkIdDiscoverability");
-        }
-        // verify the required parameter 'networkId' is set
-        if (networkId == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'networkId' when calling"
-                            + " setNetworkIdDiscoverability");
-        }
+        ValidationUtils.assertParamExists(
+                "setNetworkIdDiscoverability",
+                "setNetworkIdDiscoverabilityRequest",
+                setNetworkIdDiscoverabilityRequest);
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "setNetworkIdDiscoverability", "networkId", networkId);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
@@ -1056,19 +1022,9 @@ public class NetworkConnectionsApi {
 
     private HttpRequest.Builder setNetworkIdNameRequestBuilder(
             SetNetworkIdNameRequest setNetworkIdNameRequest, String networkId) throws ApiException {
-        // verify the required parameter 'setNetworkIdNameRequest' is set
-        if (setNetworkIdNameRequest == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'setNetworkIdNameRequest' when calling"
-                            + " setNetworkIdName");
-        }
-        // verify the required parameter 'networkId' is set
-        if (networkId == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'networkId' when calling setNetworkIdName");
-        }
+        ValidationUtils.assertParamExists(
+                "setNetworkIdName", "setNetworkIdNameRequest", setNetworkIdNameRequest);
+        ValidationUtils.assertParamExistsAndNotEmpty("setNetworkIdName", "networkId", networkId);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
@@ -1161,13 +1117,8 @@ public class NetworkConnectionsApi {
     private HttpRequest.Builder setNetworkIdRoutingPolicyRequestBuilder(
             String networkId, SetNetworkIdRoutingPolicyRequest setNetworkIdRoutingPolicyRequest)
             throws ApiException {
-        // verify the required parameter 'networkId' is set
-        if (networkId == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'networkId' when calling"
-                            + " setNetworkIdRoutingPolicy");
-        }
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "setNetworkIdRoutingPolicy", "networkId", networkId);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
@@ -1258,12 +1209,8 @@ public class NetworkConnectionsApi {
     private HttpRequest.Builder setRoutingPolicyRequestBuilder(
             String connectionId, SetRoutingPolicyRequest setRoutingPolicyRequest)
             throws ApiException {
-        // verify the required parameter 'connectionId' is set
-        if (connectionId == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'connectionId' when calling setRoutingPolicy");
-        }
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "setRoutingPolicy", "connectionId", connectionId);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 

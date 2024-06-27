@@ -19,6 +19,7 @@ import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.Pair;
+import com.fireblocks.sdk.ValidationUtils;
 import com.fireblocks.sdk.model.ApiKey;
 import com.fireblocks.sdk.model.ApiKeysPaginatedResponse;
 import com.fireblocks.sdk.model.Cosigner;
@@ -125,16 +126,9 @@ public class CosignersBetaApi {
 
     private HttpRequest.Builder getApiKeyRequestBuilder(UUID cosignerId, String apiKeyId)
             throws ApiException {
-        // verify the required parameter 'cosignerId' is set
-        if (cosignerId == null) {
-            throw new ApiException(
-                    400, "Missing the required parameter 'cosignerId' when calling getApiKey");
-        }
-        // verify the required parameter 'apiKeyId' is set
-        if (apiKeyId == null) {
-            throw new ApiException(
-                    400, "Missing the required parameter 'apiKeyId' when calling getApiKey");
-        }
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "getApiKey", "cosignerId", cosignerId.toString());
+        ValidationUtils.assertParamExistsAndNotEmpty("getApiKey", "apiKeyId", apiKeyId);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
@@ -208,11 +202,8 @@ public class CosignersBetaApi {
     private HttpRequest.Builder getApiKeysRequestBuilder(
             UUID cosignerId, String order, String pageCursor, BigDecimal pageSize)
             throws ApiException {
-        // verify the required parameter 'cosignerId' is set
-        if (cosignerId == null) {
-            throw new ApiException(
-                    400, "Missing the required parameter 'cosignerId' when calling getApiKeys");
-        }
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "getApiKeys", "cosignerId", cosignerId.toString());
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
@@ -298,11 +289,8 @@ public class CosignersBetaApi {
     }
 
     private HttpRequest.Builder getCosignerRequestBuilder(UUID cosignerId) throws ApiException {
-        // verify the required parameter 'cosignerId' is set
-        if (cosignerId == null) {
-            throw new ApiException(
-                    400, "Missing the required parameter 'cosignerId' when calling getCosigner");
-        }
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "getCosigner", "cosignerId", cosignerId.toString());
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
@@ -458,17 +446,9 @@ public class CosignersBetaApi {
 
     private HttpRequest.Builder renameCosignerRequestBuilder(
             RenameCosigner renameCosigner, UUID cosignerId) throws ApiException {
-        // verify the required parameter 'renameCosigner' is set
-        if (renameCosigner == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'renameCosigner' when calling renameCosigner");
-        }
-        // verify the required parameter 'cosignerId' is set
-        if (cosignerId == null) {
-            throw new ApiException(
-                    400, "Missing the required parameter 'cosignerId' when calling renameCosigner");
-        }
+        ValidationUtils.assertParamExists("renameCosigner", "renameCosigner", renameCosigner);
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "renameCosigner", "cosignerId", cosignerId.toString());
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 

@@ -19,6 +19,7 @@ import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.Pair;
+import com.fireblocks.sdk.ValidationUtils;
 import com.fireblocks.sdk.model.DeployedContractResponseDto;
 import com.fireblocks.sdk.model.DeployedContractsPaginatedResponse;
 import java.io.IOException;
@@ -123,20 +124,10 @@ public class DeployedContractsApi {
 
     private HttpRequest.Builder getDeployedContractByAddressRequestBuilder(
             String contractAddress, String assetId) throws ApiException {
-        // verify the required parameter 'contractAddress' is set
-        if (contractAddress == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'contractAddress' when calling"
-                            + " getDeployedContractByAddress");
-        }
-        // verify the required parameter 'assetId' is set
-        if (assetId == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'assetId' when calling"
-                            + " getDeployedContractByAddress");
-        }
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "getDeployedContractByAddress", "contractAddress", contractAddress);
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "getDeployedContractByAddress", "assetId", assetId);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
@@ -206,12 +197,7 @@ public class DeployedContractsApi {
 
     private HttpRequest.Builder getDeployedContractByIdRequestBuilder(String id)
             throws ApiException {
-        // verify the required parameter 'id' is set
-        if (id == null) {
-            throw new ApiException(
-                    400,
-                    "Missing the required parameter 'id' when calling getDeployedContractById");
-        }
+        ValidationUtils.assertParamExistsAndNotEmpty("getDeployedContractById", "id", id);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
