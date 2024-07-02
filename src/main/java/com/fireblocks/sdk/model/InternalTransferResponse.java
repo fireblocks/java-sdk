@@ -22,11 +22,17 @@ import java.util.Objects;
 import java.util.StringJoiner;
 
 /** InternalTransferResponse */
-@JsonPropertyOrder({InternalTransferResponse.JSON_PROPERTY_SUCCESS})
+@JsonPropertyOrder({
+    InternalTransferResponse.JSON_PROPERTY_SUCCESS,
+    InternalTransferResponse.JSON_PROPERTY_ID
+})
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class InternalTransferResponse {
     public static final String JSON_PROPERTY_SUCCESS = "success";
     private Boolean success;
+
+    public static final String JSON_PROPERTY_ID = "id";
+    private String id;
 
     public InternalTransferResponse() {}
 
@@ -53,6 +59,29 @@ public class InternalTransferResponse {
         this.success = success;
     }
 
+    public InternalTransferResponse id(String id) {
+        this.id = id;
+        return this;
+    }
+
+    /**
+     * The transaction ID of the internal transfer
+     *
+     * @return id
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getId() {
+        return id;
+    }
+
+    @JsonProperty(JSON_PROPERTY_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setId(String id) {
+        this.id = id;
+    }
+
     /** Return true if this InternalTransferResponse object is equal to o. */
     @Override
     public boolean equals(Object o) {
@@ -63,12 +92,13 @@ public class InternalTransferResponse {
             return false;
         }
         InternalTransferResponse internalTransferResponse = (InternalTransferResponse) o;
-        return Objects.equals(this.success, internalTransferResponse.success);
+        return Objects.equals(this.success, internalTransferResponse.success)
+                && Objects.equals(this.id, internalTransferResponse.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(success);
+        return Objects.hash(success, id);
     }
 
     @Override
@@ -76,6 +106,7 @@ public class InternalTransferResponse {
         StringBuilder sb = new StringBuilder();
         sb.append("class InternalTransferResponse {\n");
         sb.append("    success: ").append(toIndentedString(success)).append("\n");
+        sb.append("    id: ").append(toIndentedString(id)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -131,6 +162,17 @@ public class InternalTransferResponse {
                             prefix,
                             suffix,
                             URLEncoder.encode(String.valueOf(getSuccess()), StandardCharsets.UTF_8)
+                                    .replaceAll("\\+", "%20")));
+        }
+
+        // add `id` to the URL query string
+        if (getId() != null) {
+            joiner.add(
+                    String.format(
+                            "%sid%s=%s",
+                            prefix,
+                            suffix,
+                            URLEncoder.encode(String.valueOf(getId()), StandardCharsets.UTF_8)
                                     .replaceAll("\\+", "%20")));
         }
 
