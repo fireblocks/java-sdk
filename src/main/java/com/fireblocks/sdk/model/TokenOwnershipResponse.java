@@ -105,7 +105,9 @@ public class TokenOwnershipResponse {
 
         XTZ_TEST("XTZ_TEST"),
 
-        BASECHAIN_ETH("BASECHAIN_ETH");
+        BASECHAIN_ETH("BASECHAIN_ETH"),
+
+        BASECHAIN_ETH_TEST3("BASECHAIN_ETH_TEST3");
 
         private String value;
 

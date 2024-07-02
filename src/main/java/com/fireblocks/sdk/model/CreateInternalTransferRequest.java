@@ -54,15 +54,15 @@ public class CreateInternalTransferRequest {
      *
      * @return asset
      */
-    @jakarta.annotation.Nullable
+    @jakarta.annotation.Nonnull
     @JsonProperty(JSON_PROPERTY_ASSET)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
     public String getAsset() {
         return asset;
     }
 
     @JsonProperty(JSON_PROPERTY_ASSET)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
     public void setAsset(String asset) {
         this.asset = asset;
     }
@@ -77,15 +77,15 @@ public class CreateInternalTransferRequest {
      *
      * @return amount
      */
-    @jakarta.annotation.Nullable
+    @jakarta.annotation.Nonnull
     @JsonProperty(JSON_PROPERTY_AMOUNT)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
     public String getAmount() {
         return amount;
     }
 
     @JsonProperty(JSON_PROPERTY_AMOUNT)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
     public void setAmount(String amount) {
         this.amount = amount;
     }
@@ -100,15 +100,15 @@ public class CreateInternalTransferRequest {
      *
      * @return sourceType
      */
-    @jakarta.annotation.Nullable
+    @jakarta.annotation.Nonnull
     @JsonProperty(JSON_PROPERTY_SOURCE_TYPE)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
     public TradingAccountType getSourceType() {
         return sourceType;
     }
 
     @JsonProperty(JSON_PROPERTY_SOURCE_TYPE)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
     public void setSourceType(TradingAccountType sourceType) {
         this.sourceType = sourceType;
     }
@@ -123,15 +123,15 @@ public class CreateInternalTransferRequest {
      *
      * @return destType
      */
-    @jakarta.annotation.Nullable
+    @jakarta.annotation.Nonnull
     @JsonProperty(JSON_PROPERTY_DEST_TYPE)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
     public TradingAccountType getDestType() {
         return destType;
     }
 
     @JsonProperty(JSON_PROPERTY_DEST_TYPE)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
     public void setDestType(TradingAccountType destType) {
         this.destType = destType;
     }

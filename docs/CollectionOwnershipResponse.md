@@ -30,6 +30,7 @@
 | XTZ | &quot;XTZ&quot; |
 | XTZ_TEST | &quot;XTZ_TEST&quot; |
 | BASECHAIN_ETH | &quot;BASECHAIN_ETH&quot; |
+| BASECHAIN_ETH_TEST3 | &quot;BASECHAIN_ETH_TEST3&quot; |
 
 
 
