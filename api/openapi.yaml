@@ -5444,6 +5444,7 @@ paths:
         - Algorand
         - TRON
         - NEAR
+        - Solana
       operationId: registerNewAsset
       parameters:
       - description: "A unique identifier for the request. If the request is sent\
@@ -5480,6 +5481,10 @@ paths:
             - The asset address is invalid. Error code: 1003
 
             - Self serve listing an asset on the requested blockchain is currently not supported, please contact support. Error code: 1004
+
+            - Blockchain is deprecated. Error code: 1006
+
+            - The asset's standard is not supported. Error code: 1007
         "403":
           content:
             application/json:
@@ -5487,6 +5492,10 @@ paths:
                 $ref: '#/components/schemas/AssetForbiddenErrorResponse'
           description: |
             - The asset creation quota reached. Error code: 1005
+
+            - Tenant is not allowed to create testnet assets. Error code: 1008
+
+            - Tenant is not allowed to create mainnet assets. Error code: 1009
         "404":
           content:
             application/json:
@@ -9816,6 +9825,7 @@ paths:
           - XTZ
           - XTZ_TEST
           - BASECHAIN_ETH
+          - BASECHAIN_ETH_TEST3
           type: string
         style: form
       - description: A comma separated list of Vault Account IDs. Up to 100 are allowed
@@ -9997,7 +10007,6 @@ paths:
         schema:
           enum:
           - ETH
-          - ETH_TEST3
           - ETH_TEST5
           - ETH_TEST6
           - POLYGON
@@ -16007,11 +16016,14 @@ components:
           example: "(ETH, ETH_TEST5, MATIC_POLYGON)"
           type: string
         address:
-          description: "Asset address. \n- For EVM based chains this should be the\
-            \ token contract address.\n- For Stellar (XLM) this should be the issuer\
-            \ address.\n- For Algorand (ALGO) this should be the asset ID.\n- For\
-            \ TRON (TRX) this should be the token contract address.\n- For NEAR this\
-            \ will be the token address.\n"
+          description: |
+            Asset address.
+            - EVM-based chains: token contract address
+            - Stellar (XLM): issuer address
+            - Algorand (ALGO): asset ID
+            - TRON (TRX): token contract address
+            - NEAR: token address
+            - Solana: token's mint account address
           example: 0xe7A9as1oa38bc4da0248s179E30aa94CcF453991
           type: string
         symbol:
@@ -16192,6 +16204,7 @@ components:
       description: Source of the transaction.
       example:
         walletId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        tradingAccount: tradingAccount
         name: name
         subType: subType
         id: id
@@ -16222,6 +16235,11 @@ components:
         walletId:
           format: uuid
           type: string
+        tradingAccount:
+          description: "If this transaction is an exchange internal transfer, this\
+            \ field will be populated with the type of that trading account."
+          nullable: true
+          type: string
       required:
       - type
       type: object
@@ -16232,6 +16250,7 @@ components:
         **Note:** In case the transaction is sent to multiple destinations, the `destinations` parameter is be used instead of this.
       example:
         walletId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        tradingAccount: tradingAccount
         name: name
         subType: subType
         id: id
@@ -16261,6 +16280,11 @@ components:
           type: string
         walletId:
           format: uuid
+          type: string
+        tradingAccount:
+          description: "If this transaction is an exchange internal transfer, this\
+            \ field will be populated with the type of that trading account."
+          nullable: true
           type: string
       required:
       - type
@@ -16339,6 +16363,7 @@ components:
           payload: "{}"
         destination:
           walletId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          tradingAccount: tradingAccount
           name: name
           subType: subType
           id: id
@@ -16424,6 +16449,7 @@ components:
         networkFee: networkFee
         destination:
           walletId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          tradingAccount: tradingAccount
           name: name
           subType: subType
           id: id
@@ -16431,6 +16457,7 @@ components:
         index: 6.027456183070403
         source:
           walletId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          tradingAccount: tradingAccount
           name: name
           subType: subType
           id: id
@@ -16716,6 +16743,7 @@ components:
         fee: 6.84685269835264
         destination:
           walletId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          tradingAccount: tradingAccount
           name: name
           subType: subType
           id: id
@@ -16724,6 +16752,7 @@ components:
         extraParameters: "{}"
         source:
           walletId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          tradingAccount: tradingAccount
           name: name
           subType: subType
           id: id
@@ -16737,6 +16766,7 @@ components:
           networkFee: networkFee
           destination:
             walletId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+            tradingAccount: tradingAccount
             name: name
             subType: subType
             id: id
@@ -16744,6 +16774,7 @@ components:
           index: 6.027456183070403
           source:
             walletId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+            tradingAccount: tradingAccount
             name: name
             subType: subType
             id: id
@@ -16762,6 +16793,7 @@ components:
           networkFee: networkFee
           destination:
             walletId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+            tradingAccount: tradingAccount
             name: name
             subType: subType
             id: id
@@ -16769,6 +16801,7 @@ components:
           index: 6.027456183070403
           source:
             walletId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+            tradingAccount: tradingAccount
             name: name
             subType: subType
             id: id
@@ -16817,6 +16850,7 @@ components:
             payload: "{}"
           destination:
             walletId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+            tradingAccount: tradingAccount
             name: name
             subType: subType
             id: id
@@ -16840,6 +16874,7 @@ components:
             payload: "{}"
           destination:
             walletId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+            tradingAccount: tradingAccount
             name: name
             subType: subType
             id: id
@@ -21935,6 +21970,7 @@ components:
           - XTZ
           - XTZ_TEST
           - BASECHAIN_ETH
+          - BASECHAIN_ETH_TEST3
           type: string
         description:
           type: string
@@ -22085,6 +22121,7 @@ components:
           - XTZ
           - XTZ_TEST
           - BASECHAIN_ETH
+          - BASECHAIN_ETH_TEST3
           type: string
         description:
           type: string
@@ -22173,6 +22210,7 @@ components:
           - XTZ
           - XTZ_TEST
           - BASECHAIN_ETH
+          - BASECHAIN_ETH_TEST3
           type: string
         contractAddress:
           description: Collection contract standard
@@ -26603,7 +26641,6 @@ components:
       required:
       - decimals
       - name
-      - standard
       - symbol
       type: object
     AssetResponse_metadata:

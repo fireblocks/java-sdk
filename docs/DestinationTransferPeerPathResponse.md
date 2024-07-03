@@ -13,6 +13,7 @@ Destination of the transaction.  **Note:** In case the transaction is sent to mu
 |**id** | **String** | The ID of the peer. You can retrieve the ID of each venue object using the endpoints for [listing vault accounts](https://developers.fireblocks.com/reference/get_vault-accounts-paged), [listing exchange account](https://developers.fireblocks.com/reference/get_exchange-accounts), [listing fiat accounts](https://developers.fireblocks.com/reference/get_fiat-accounts), [listing internal wallets](https://developers.fireblocks.com/reference/get_internal-wallets), [listing external wallets](https://developers.fireblocks.com/reference/get_external-wallets), [listing network connections](https://developers.fireblocks.com/reference/get_network-connections). For the other types, this parameter is not needed. |  [optional] |
 |**name** | **String** | The name of the peer. |  [optional] |
 |**walletId** | **UUID** |  |  [optional] |
+|**tradingAccount** | **String** | If this transaction is an exchange internal transfer, this field will be populated with the type of that trading account. |  [optional] |
 
 
 
