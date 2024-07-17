@@ -21,68 +21,39 @@ import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 import java.util.StringJoiner;
 
-/** InternalTransferResponse */
-@JsonPropertyOrder({
-    InternalTransferResponse.JSON_PROPERTY_SUCCESS,
-    InternalTransferResponse.JSON_PROPERTY_ID
-})
+/** GetExchangeAccountsCredentialsPublicKeyResponse */
+@JsonPropertyOrder({GetExchangeAccountsCredentialsPublicKeyResponse.JSON_PROPERTY_PUBLIC_KEY})
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
-public class InternalTransferResponse {
-    public static final String JSON_PROPERTY_SUCCESS = "success";
-    private Boolean success;
+public class GetExchangeAccountsCredentialsPublicKeyResponse {
+    public static final String JSON_PROPERTY_PUBLIC_KEY = "publicKey";
+    private String publicKey;
 
-    public static final String JSON_PROPERTY_ID = "id";
-    private String id;
+    public GetExchangeAccountsCredentialsPublicKeyResponse() {}
 
-    public InternalTransferResponse() {}
-
-    public InternalTransferResponse success(Boolean success) {
-        this.success = success;
+    public GetExchangeAccountsCredentialsPublicKeyResponse publicKey(String publicKey) {
+        this.publicKey = publicKey;
         return this;
     }
 
     /**
-     * Indicates whether the transfer was successful
+     * Public key string
      *
-     * @return success
+     * @return publicKey
      */
     @jakarta.annotation.Nonnull
-    @JsonProperty(JSON_PROPERTY_SUCCESS)
+    @JsonProperty(JSON_PROPERTY_PUBLIC_KEY)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public Boolean getSuccess() {
-        return success;
+    public String getPublicKey() {
+        return publicKey;
     }
 
-    @JsonProperty(JSON_PROPERTY_SUCCESS)
+    @JsonProperty(JSON_PROPERTY_PUBLIC_KEY)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setSuccess(Boolean success) {
-        this.success = success;
+    public void setPublicKey(String publicKey) {
+        this.publicKey = publicKey;
     }
 
-    public InternalTransferResponse id(String id) {
-        this.id = id;
-        return this;
-    }
-
-    /**
-     * The transaction ID of the internal transfer
-     *
-     * @return id
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_ID)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public String getId() {
-        return id;
-    }
-
-    @JsonProperty(JSON_PROPERTY_ID)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    /** Return true if this InternalTransferResponse object is equal to o. */
+    /** Return true if this GetExchangeAccountsCredentialsPublicKeyResponse object is equal to o. */
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -91,22 +62,23 @@ public class InternalTransferResponse {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        InternalTransferResponse internalTransferResponse = (InternalTransferResponse) o;
-        return Objects.equals(this.success, internalTransferResponse.success)
-                && Objects.equals(this.id, internalTransferResponse.id);
+        GetExchangeAccountsCredentialsPublicKeyResponse
+                getExchangeAccountsCredentialsPublicKeyResponse =
+                        (GetExchangeAccountsCredentialsPublicKeyResponse) o;
+        return Objects.equals(
+                this.publicKey, getExchangeAccountsCredentialsPublicKeyResponse.publicKey);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(success, id);
+        return Objects.hash(publicKey);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("class InternalTransferResponse {\n");
-        sb.append("    success: ").append(toIndentedString(success)).append("\n");
-        sb.append("    id: ").append(toIndentedString(id)).append("\n");
+        sb.append("class GetExchangeAccountsCredentialsPublicKeyResponse {\n");
+        sb.append("    publicKey: ").append(toIndentedString(publicKey)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -154,25 +126,15 @@ public class InternalTransferResponse {
 
         StringJoiner joiner = new StringJoiner("&");
 
-        // add `success` to the URL query string
-        if (getSuccess() != null) {
+        // add `publicKey` to the URL query string
+        if (getPublicKey() != null) {
             joiner.add(
                     String.format(
-                            "%ssuccess%s=%s",
+                            "%spublicKey%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getSuccess()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
-        // add `id` to the URL query string
-        if (getId() != null) {
-            joiner.add(
-                    String.format(
-                            "%sid%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(String.valueOf(getId()), StandardCharsets.UTF_8)
+                            URLEncoder.encode(
+                                            String.valueOf(getPublicKey()), StandardCharsets.UTF_8)
                                     .replaceAll("\\+", "%20")));
         }
 

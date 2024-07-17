@@ -55,4 +55,10 @@ public class DestinationTransferPeerPathResponseTest {
     public void walletIdTest() {
         // TODO: test walletId
     }
+
+    /** Test the property 'tradingAccount' */
+    @Test
+    public void tradingAccountTest() {
+        // TODO: test tradingAccount
+    }
 }

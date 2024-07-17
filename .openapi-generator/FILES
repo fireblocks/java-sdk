@@ -202,6 +202,7 @@ docs/GetAuditLogsResponse.md
 docs/GetAuditLogsResponseDTO.md
 docs/GetConnectionsResponse.md
 docs/GetConsoleUsersResponse.md
+docs/GetExchangeAccountsCredentialsPublicKeyResponse.md
 docs/GetFilterParameter.md
 docs/GetMaxSpendableAmountResponse.md
 docs/GetNFTsResponse.md
@@ -724,6 +725,7 @@ src/main/java/com/fireblocks/sdk/model/GetAuditLogsResponse.java
 src/main/java/com/fireblocks/sdk/model/GetAuditLogsResponseDTO.java
 src/main/java/com/fireblocks/sdk/model/GetConnectionsResponse.java
 src/main/java/com/fireblocks/sdk/model/GetConsoleUsersResponse.java
+src/main/java/com/fireblocks/sdk/model/GetExchangeAccountsCredentialsPublicKeyResponse.java
 src/main/java/com/fireblocks/sdk/model/GetFilterParameter.java
 src/main/java/com/fireblocks/sdk/model/GetMaxSpendableAmountResponse.java
 src/main/java/com/fireblocks/sdk/model/GetNFTsResponse.java
@@ -1204,6 +1206,7 @@ src/test/java/com/fireblocks/sdk/model/GetAuditLogsResponseDTOTest.java
 src/test/java/com/fireblocks/sdk/model/GetAuditLogsResponseTest.java
 src/test/java/com/fireblocks/sdk/model/GetConnectionsResponseTest.java
 src/test/java/com/fireblocks/sdk/model/GetConsoleUsersResponseTest.java
+src/test/java/com/fireblocks/sdk/model/GetExchangeAccountsCredentialsPublicKeyResponseTest.java
 src/test/java/com/fireblocks/sdk/model/GetFilterParameterTest.java
 src/test/java/com/fireblocks/sdk/model/GetMaxSpendableAmountResponseTest.java
 src/test/java/com/fireblocks/sdk/model/GetNFTsResponseTest.java

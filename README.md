@@ -537,6 +537,7 @@ Class | Method | HTTP request | Description
  - [GetAuditLogsResponseDTO](docs/GetAuditLogsResponseDTO.md)
  - [GetConnectionsResponse](docs/GetConnectionsResponse.md)
  - [GetConsoleUsersResponse](docs/GetConsoleUsersResponse.md)
+ - [GetExchangeAccountsCredentialsPublicKeyResponse](docs/GetExchangeAccountsCredentialsPublicKeyResponse.md)
  - [GetFilterParameter](docs/GetFilterParameter.md)
  - [GetMaxSpendableAmountResponse](docs/GetMaxSpendableAmountResponse.md)
  - [GetNFTsResponse](docs/GetNFTsResponse.md)

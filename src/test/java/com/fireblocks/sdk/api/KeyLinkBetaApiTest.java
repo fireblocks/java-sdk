@@ -131,8 +131,22 @@ public class KeyLinkBetaApiTest {
         BigDecimal pageSize = null;
         String sortBy = null;
         String order = null;
+        BigDecimal vaultAccountId = null;
+        String agentUserId = null;
+        String algorithm = null;
+        Boolean enabled = null;
+        Boolean available = null;
         CompletableFuture<ApiResponse<GetSigningKeyResponseDto>> response =
-                api.getSigningKeysList(pageCursor, pageSize, sortBy, order);
+                api.getSigningKeysList(
+                        pageCursor,
+                        pageSize,
+                        sortBy,
+                        order,
+                        vaultAccountId,
+                        agentUserId,
+                        algorithm,
+                        enabled,
+                        available);
     }
 
     /**
