@@ -31,7 +31,8 @@ import java.util.UUID;
     DestinationTransferPeerPathResponse.JSON_PROPERTY_SUB_TYPE,
     DestinationTransferPeerPathResponse.JSON_PROPERTY_ID,
     DestinationTransferPeerPathResponse.JSON_PROPERTY_NAME,
-    DestinationTransferPeerPathResponse.JSON_PROPERTY_WALLET_ID
+    DestinationTransferPeerPathResponse.JSON_PROPERTY_WALLET_ID,
+    DestinationTransferPeerPathResponse.JSON_PROPERTY_TRADING_ACCOUNT
 })
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class DestinationTransferPeerPathResponse {
@@ -49,6 +50,9 @@ public class DestinationTransferPeerPathResponse {
 
     public static final String JSON_PROPERTY_WALLET_ID = "walletId";
     private UUID walletId;
+
+    public static final String JSON_PROPERTY_TRADING_ACCOUNT = "tradingAccount";
+    private String tradingAccount;
 
     public DestinationTransferPeerPathResponse() {}
 
@@ -179,6 +183,30 @@ public class DestinationTransferPeerPathResponse {
         this.walletId = walletId;
     }
 
+    public DestinationTransferPeerPathResponse tradingAccount(String tradingAccount) {
+        this.tradingAccount = tradingAccount;
+        return this;
+    }
+
+    /**
+     * If this transaction is an exchange internal transfer, this field will be populated with the
+     * type of that trading account.
+     *
+     * @return tradingAccount
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_TRADING_ACCOUNT)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getTradingAccount() {
+        return tradingAccount;
+    }
+
+    @JsonProperty(JSON_PROPERTY_TRADING_ACCOUNT)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setTradingAccount(String tradingAccount) {
+        this.tradingAccount = tradingAccount;
+    }
+
     /** Return true if this DestinationTransferPeerPathResponse object is equal to o. */
     @Override
     public boolean equals(Object o) {
@@ -194,12 +222,14 @@ public class DestinationTransferPeerPathResponse {
                 && Objects.equals(this.subType, destinationTransferPeerPathResponse.subType)
                 && Objects.equals(this.id, destinationTransferPeerPathResponse.id)
                 && Objects.equals(this.name, destinationTransferPeerPathResponse.name)
-                && Objects.equals(this.walletId, destinationTransferPeerPathResponse.walletId);
+                && Objects.equals(this.walletId, destinationTransferPeerPathResponse.walletId)
+                && Objects.equals(
+                        this.tradingAccount, destinationTransferPeerPathResponse.tradingAccount);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(type, subType, id, name, walletId);
+        return Objects.hash(type, subType, id, name, walletId, tradingAccount);
     }
 
     @Override
@@ -211,6 +241,7 @@ public class DestinationTransferPeerPathResponse {
         sb.append("    id: ").append(toIndentedString(id)).append("\n");
         sb.append("    name: ").append(toIndentedString(name)).append("\n");
         sb.append("    walletId: ").append(toIndentedString(walletId)).append("\n");
+        sb.append("    tradingAccount: ").append(toIndentedString(tradingAccount)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -310,6 +341,19 @@ public class DestinationTransferPeerPathResponse {
                             prefix,
                             suffix,
                             URLEncoder.encode(String.valueOf(getWalletId()), StandardCharsets.UTF_8)
+                                    .replaceAll("\\+", "%20")));
+        }
+
+        // add `tradingAccount` to the URL query string
+        if (getTradingAccount() != null) {
+            joiner.add(
+                    String.format(
+                            "%stradingAccount%s=%s",
+                            prefix,
+                            suffix,
+                            URLEncoder.encode(
+                                            String.valueOf(getTradingAccount()),
+                                            StandardCharsets.UTF_8)
                                     .replaceAll("\\+", "%20")));
         }
 

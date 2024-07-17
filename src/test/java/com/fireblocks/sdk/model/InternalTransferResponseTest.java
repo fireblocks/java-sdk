@@ -30,4 +30,10 @@ public class InternalTransferResponseTest {
     public void successTest() {
         // TODO: test success
     }
+
+    /** Test the property 'id' */
+    @Test
+    public void idTest() {
+        // TODO: test id
+    }
 }

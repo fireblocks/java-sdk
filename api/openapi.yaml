@@ -2435,6 +2435,34 @@ paths:
             \ assetId);"
           name: Fireblocks SDK Java example
       x-accepts: application/json
+  /exchange_accounts/credentials_public_key:
+    get:
+      description: Return public key
+      operationId: getExchangeAccountsCredentialsPublicKey
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetExchangeAccountsCredentialsPublicKeyResponse'
+          description: public key as string
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorSchema'
+          description: Error Response
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+      summary: Get public key to encrypt exchange credentials
+      tags:
+      - Exchange accounts
+      x-internal: true
+      x-accepts: application/json
   /fiat_accounts:
     get:
       description: Returns all fiat accounts.
@@ -4069,6 +4097,54 @@ paths:
           - DESC
           type: string
         style: form
+      - description: Return keys assigned to a specific vault
+        example: 4
+        explode: true
+        in: query
+        name: vaultAccountId
+        required: false
+        schema:
+          type: number
+        style: form
+      - description: Return keys associated with a specific agent user
+        example: 12fed207-5bdf-4a0c-ab12-fcd2627f75d1
+        explode: true
+        in: query
+        name: agentUserId
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: Return only keys with a specific algorithm
+        example: ECDSA_SECP256K1
+        explode: true
+        in: query
+        name: algorithm
+        required: false
+        schema:
+          enum:
+          - ECDSA_SECP256K1
+          - EDDSA_ED25519
+          type: string
+        style: form
+      - description: Return keys that have been proof of ownership
+        explode: true
+        in: query
+        name: enabled
+        required: false
+        schema:
+          type: boolean
+        style: form
+      - description: Return keys that are proof of ownership but not assigned. Available
+          filter can be used only when vaultAccountId and enabled filters are not
+          set
+        explode: true
+        in: query
+        name: available
+        required: false
+        schema:
+          type: boolean
+        style: form
       responses:
         "200":
           content:
@@ -4101,7 +4177,7 @@ paths:
         - language: java
           code: "CompletableFuture<ApiResponse<GetSigningKeyResponseDto>> response\
             \ = fireblocks.keyLinkBeta().getSigningKeysList(pageCursor, pageSize,\
-            \ sortBy, order);"
+            \ sortBy, order, vaultAccountId, agentUserId, algorithm, enabled, available);"
           name: Fireblocks SDK Java example
       x-accepts: application/json
     post:
@@ -5444,6 +5520,7 @@ paths:
         - Algorand
         - TRON
         - NEAR
+        - Solana
       operationId: registerNewAsset
       parameters:
       - description: "A unique identifier for the request. If the request is sent\
@@ -5480,6 +5557,10 @@ paths:
             - The asset address is invalid. Error code: 1003
 
             - Self serve listing an asset on the requested blockchain is currently not supported, please contact support. Error code: 1004
+
+            - Blockchain is deprecated. Error code: 1006
+
+            - The asset's standard is not supported. Error code: 1007
         "403":
           content:
             application/json:
@@ -5487,6 +5568,10 @@ paths:
                 $ref: '#/components/schemas/AssetForbiddenErrorResponse'
           description: |
             - The asset creation quota reached. Error code: 1005
+
+            - Tenant is not allowed to create testnet assets. Error code: 1008
+
+            - Tenant is not allowed to create mainnet assets. Error code: 1009
         "404":
           content:
             application/json:
@@ -9816,6 +9901,7 @@ paths:
           - XTZ
           - XTZ_TEST
           - BASECHAIN_ETH
+          - BASECHAIN_ETH_TEST3
           type: string
         style: form
       - description: A comma separated list of Vault Account IDs. Up to 100 are allowed
@@ -9997,7 +10083,6 @@ paths:
         schema:
           enum:
           - ETH
-          - ETH_TEST3
           - ETH_TEST5
           - ETH_TEST6
           - POLYGON
@@ -15027,14 +15112,24 @@ components:
           $ref: '#/components/schemas/TradingAccountType'
         destType:
           $ref: '#/components/schemas/TradingAccountType'
+      required:
+      - amount
+      - asset
+      - destType
+      - sourceType
       type: object
     InternalTransferResponse:
       example:
         success: true
+        id: id
       properties:
         success:
           description: Indicates whether the transfer was successful
           type: boolean
+        id:
+          description: The transaction ID of the internal transfer
+          nullable: true
+          type: string
       required:
       - success
       type: object
@@ -15071,6 +15166,14 @@ components:
           type: boolean
       required:
       - success
+      type: object
+    GetExchangeAccountsCredentialsPublicKeyResponse:
+      properties:
+        publicKey:
+          description: Public key string
+          type: string
+      required:
+      - publicKey
       type: object
     FiatAccountType:
       enum:
@@ -16007,11 +16110,14 @@ components:
           example: "(ETH, ETH_TEST5, MATIC_POLYGON)"
           type: string
         address:
-          description: "Asset address. \n- For EVM based chains this should be the\
-            \ token contract address.\n- For Stellar (XLM) this should be the issuer\
-            \ address.\n- For Algorand (ALGO) this should be the asset ID.\n- For\
-            \ TRON (TRX) this should be the token contract address.\n- For NEAR this\
-            \ will be the token address.\n"
+          description: |
+            Asset address.
+            - EVM-based chains: token contract address
+            - Stellar (XLM): issuer address
+            - Algorand (ALGO): asset ID
+            - TRON (TRX): token contract address
+            - NEAR: token address
+            - Solana: token's mint account address
           example: 0xe7A9as1oa38bc4da0248s179E30aa94CcF453991
           type: string
         symbol:
@@ -16192,6 +16298,7 @@ components:
       description: Source of the transaction.
       example:
         walletId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        tradingAccount: tradingAccount
         name: name
         subType: subType
         id: id
@@ -16222,6 +16329,11 @@ components:
         walletId:
           format: uuid
           type: string
+        tradingAccount:
+          description: "If this transaction is an exchange internal transfer, this\
+            \ field will be populated with the type of that trading account."
+          nullable: true
+          type: string
       required:
       - type
       type: object
@@ -16232,6 +16344,7 @@ components:
         **Note:** In case the transaction is sent to multiple destinations, the `destinations` parameter is be used instead of this.
       example:
         walletId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        tradingAccount: tradingAccount
         name: name
         subType: subType
         id: id
@@ -16261,6 +16374,11 @@ components:
           type: string
         walletId:
           format: uuid
+          type: string
+        tradingAccount:
+          description: "If this transaction is an exchange internal transfer, this\
+            \ field will be populated with the type of that trading account."
+          nullable: true
           type: string
       required:
       - type
@@ -16339,6 +16457,7 @@ components:
           payload: "{}"
         destination:
           walletId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          tradingAccount: tradingAccount
           name: name
           subType: subType
           id: id
@@ -16424,6 +16543,7 @@ components:
         networkFee: networkFee
         destination:
           walletId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          tradingAccount: tradingAccount
           name: name
           subType: subType
           id: id
@@ -16431,6 +16551,7 @@ components:
         index: 6.027456183070403
         source:
           walletId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          tradingAccount: tradingAccount
           name: name
           subType: subType
           id: id
@@ -16716,6 +16837,7 @@ components:
         fee: 6.84685269835264
         destination:
           walletId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          tradingAccount: tradingAccount
           name: name
           subType: subType
           id: id
@@ -16724,6 +16846,7 @@ components:
         extraParameters: "{}"
         source:
           walletId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          tradingAccount: tradingAccount
           name: name
           subType: subType
           id: id
@@ -16737,6 +16860,7 @@ components:
           networkFee: networkFee
           destination:
             walletId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+            tradingAccount: tradingAccount
             name: name
             subType: subType
             id: id
@@ -16744,6 +16868,7 @@ components:
           index: 6.027456183070403
           source:
             walletId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+            tradingAccount: tradingAccount
             name: name
             subType: subType
             id: id
@@ -16762,6 +16887,7 @@ components:
           networkFee: networkFee
           destination:
             walletId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+            tradingAccount: tradingAccount
             name: name
             subType: subType
             id: id
@@ -16769,6 +16895,7 @@ components:
           index: 6.027456183070403
           source:
             walletId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+            tradingAccount: tradingAccount
             name: name
             subType: subType
             id: id
@@ -16817,6 +16944,7 @@ components:
             payload: "{}"
           destination:
             walletId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+            tradingAccount: tradingAccount
             name: name
             subType: subType
             id: id
@@ -16840,6 +16968,7 @@ components:
             payload: "{}"
           destination:
             walletId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+            tradingAccount: tradingAccount
             name: name
             subType: subType
             id: id
@@ -21935,6 +22064,7 @@ components:
           - XTZ
           - XTZ_TEST
           - BASECHAIN_ETH
+          - BASECHAIN_ETH_TEST3
           type: string
         description:
           type: string
@@ -22085,6 +22215,7 @@ components:
           - XTZ
           - XTZ_TEST
           - BASECHAIN_ETH
+          - BASECHAIN_ETH_TEST3
           type: string
         description:
           type: string
@@ -22173,6 +22304,7 @@ components:
           - XTZ
           - XTZ_TEST
           - BASECHAIN_ETH
+          - BASECHAIN_ETH_TEST3
           type: string
         contractAddress:
           description: Collection contract standard
@@ -26603,7 +26735,6 @@ components:
       required:
       - decimals
       - name
-      - standard
       - symbol
       type: object
     AssetResponse_metadata:
