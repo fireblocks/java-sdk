@@ -39,6 +39,9 @@ docs/AssetForbiddenErrorResponse.md
 docs/AssetInternalServerErrorResponse.md
 docs/AssetMetadataDto.md
 docs/AssetNotFoundErrorResponse.md
+docs/AssetPriceForbiddenErrorResponse.md
+docs/AssetPriceNotFoundErrorResponse.md
+docs/AssetPriceResponse.md
 docs/AssetResponse.md
 docs/AssetResponseMetadata.md
 docs/AssetResponseOnchain.md
@@ -328,6 +331,7 @@ docs/SessionDTO.md
 docs/SessionMetadata.md
 docs/SetAdminQuorumThresholdRequest.md
 docs/SetAdminQuorumThresholdResponse.md
+docs/SetAssetPriceRequest.md
 docs/SetAutoFuelRequest.md
 docs/SetConfirmationsThresholdRequest.md
 docs/SetConfirmationsThresholdResponse.md
@@ -577,6 +581,9 @@ src/main/java/com/fireblocks/sdk/model/AssetForbiddenErrorResponse.java
 src/main/java/com/fireblocks/sdk/model/AssetInternalServerErrorResponse.java
 src/main/java/com/fireblocks/sdk/model/AssetMetadataDto.java
 src/main/java/com/fireblocks/sdk/model/AssetNotFoundErrorResponse.java
+src/main/java/com/fireblocks/sdk/model/AssetPriceForbiddenErrorResponse.java
+src/main/java/com/fireblocks/sdk/model/AssetPriceNotFoundErrorResponse.java
+src/main/java/com/fireblocks/sdk/model/AssetPriceResponse.java
 src/main/java/com/fireblocks/sdk/model/AssetResponse.java
 src/main/java/com/fireblocks/sdk/model/AssetResponseMetadata.java
 src/main/java/com/fireblocks/sdk/model/AssetResponseOnchain.java
@@ -841,6 +848,7 @@ src/main/java/com/fireblocks/sdk/model/SessionDTO.java
 src/main/java/com/fireblocks/sdk/model/SessionMetadata.java
 src/main/java/com/fireblocks/sdk/model/SetAdminQuorumThresholdRequest.java
 src/main/java/com/fireblocks/sdk/model/SetAdminQuorumThresholdResponse.java
+src/main/java/com/fireblocks/sdk/model/SetAssetPriceRequest.java
 src/main/java/com/fireblocks/sdk/model/SetAutoFuelRequest.java
 src/main/java/com/fireblocks/sdk/model/SetConfirmationsThresholdRequest.java
 src/main/java/com/fireblocks/sdk/model/SetConfirmationsThresholdResponse.java
@@ -1058,6 +1066,9 @@ src/test/java/com/fireblocks/sdk/model/AssetForbiddenErrorResponseTest.java
 src/test/java/com/fireblocks/sdk/model/AssetInternalServerErrorResponseTest.java
 src/test/java/com/fireblocks/sdk/model/AssetMetadataDtoTest.java
 src/test/java/com/fireblocks/sdk/model/AssetNotFoundErrorResponseTest.java
+src/test/java/com/fireblocks/sdk/model/AssetPriceForbiddenErrorResponseTest.java
+src/test/java/com/fireblocks/sdk/model/AssetPriceNotFoundErrorResponseTest.java
+src/test/java/com/fireblocks/sdk/model/AssetPriceResponseTest.java
 src/test/java/com/fireblocks/sdk/model/AssetResponseMetadataTest.java
 src/test/java/com/fireblocks/sdk/model/AssetResponseOnchainTest.java
 src/test/java/com/fireblocks/sdk/model/AssetResponseTest.java
@@ -1322,6 +1333,7 @@ src/test/java/com/fireblocks/sdk/model/SessionDTOTest.java
 src/test/java/com/fireblocks/sdk/model/SessionMetadataTest.java
 src/test/java/com/fireblocks/sdk/model/SetAdminQuorumThresholdRequestTest.java
 src/test/java/com/fireblocks/sdk/model/SetAdminQuorumThresholdResponseTest.java
+src/test/java/com/fireblocks/sdk/model/SetAssetPriceRequestTest.java
 src/test/java/com/fireblocks/sdk/model/SetAutoFuelRequestTest.java
 src/test/java/com/fireblocks/sdk/model/SetConfirmationsThresholdRequestTest.java
 src/test/java/com/fireblocks/sdk/model/SetConfirmationsThresholdResponseTest.java

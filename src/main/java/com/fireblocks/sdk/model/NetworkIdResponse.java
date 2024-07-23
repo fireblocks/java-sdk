@@ -25,72 +25,26 @@ import java.util.StringJoiner;
 
 /** NetworkIdResponse */
 @JsonPropertyOrder({
-    NetworkIdResponse.JSON_PROPERTY_ID,
-    NetworkIdResponse.JSON_PROPERTY_NAME,
     NetworkIdResponse.JSON_PROPERTY_ROUTING_POLICY,
-    NetworkIdResponse.JSON_PROPERTY_IS_DISCOVERABLE
+    NetworkIdResponse.JSON_PROPERTY_IS_DISCOVERABLE,
+    NetworkIdResponse.JSON_PROPERTY_ID,
+    NetworkIdResponse.JSON_PROPERTY_NAME
 })
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class NetworkIdResponse {
-    public static final String JSON_PROPERTY_ID = "id";
-    private String id;
-
-    public static final String JSON_PROPERTY_NAME = "name";
-    private String name;
-
     public static final String JSON_PROPERTY_ROUTING_POLICY = "routingPolicy";
     private Map<String, NetworkIdRoutingPolicyValue> routingPolicy = new HashMap<>();
 
     public static final String JSON_PROPERTY_IS_DISCOVERABLE = "isDiscoverable";
     private Boolean isDiscoverable;
 
+    public static final String JSON_PROPERTY_ID = "id";
+    private String id;
+
+    public static final String JSON_PROPERTY_NAME = "name";
+    private String name;
+
     public NetworkIdResponse() {}
-
-    public NetworkIdResponse id(String id) {
-        this.id = id;
-        return this;
-    }
-
-    /**
-     * Get id
-     *
-     * @return id
-     */
-    @jakarta.annotation.Nonnull
-    @JsonProperty(JSON_PROPERTY_ID)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public String getId() {
-        return id;
-    }
-
-    @JsonProperty(JSON_PROPERTY_ID)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public NetworkIdResponse name(String name) {
-        this.name = name;
-        return this;
-    }
-
-    /**
-     * Get name
-     *
-     * @return name
-     */
-    @jakarta.annotation.Nonnull
-    @JsonProperty(JSON_PROPERTY_NAME)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public String getName() {
-        return name;
-    }
-
-    @JsonProperty(JSON_PROPERTY_NAME)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setName(String name) {
-        this.name = name;
-    }
 
     public NetworkIdResponse routingPolicy(Map<String, NetworkIdRoutingPolicyValue> routingPolicy) {
         this.routingPolicy = routingPolicy;
@@ -147,6 +101,52 @@ public class NetworkIdResponse {
         this.isDiscoverable = isDiscoverable;
     }
 
+    public NetworkIdResponse id(String id) {
+        this.id = id;
+        return this;
+    }
+
+    /**
+     * The specific network id
+     *
+     * @return id
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getId() {
+        return id;
+    }
+
+    @JsonProperty(JSON_PROPERTY_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public NetworkIdResponse name(String name) {
+        this.name = name;
+        return this;
+    }
+
+    /**
+     * The specific network name
+     *
+     * @return name
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_NAME)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getName() {
+        return name;
+    }
+
+    @JsonProperty(JSON_PROPERTY_NAME)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setName(String name) {
+        this.name = name;
+    }
+
     /** Return true if this NetworkIdResponse object is equal to o. */
     @Override
     public boolean equals(Object o) {
@@ -157,25 +157,25 @@ public class NetworkIdResponse {
             return false;
         }
         NetworkIdResponse networkIdResponse = (NetworkIdResponse) o;
-        return Objects.equals(this.id, networkIdResponse.id)
-                && Objects.equals(this.name, networkIdResponse.name)
-                && Objects.equals(this.routingPolicy, networkIdResponse.routingPolicy)
-                && Objects.equals(this.isDiscoverable, networkIdResponse.isDiscoverable);
+        return Objects.equals(this.routingPolicy, networkIdResponse.routingPolicy)
+                && Objects.equals(this.isDiscoverable, networkIdResponse.isDiscoverable)
+                && Objects.equals(this.id, networkIdResponse.id)
+                && Objects.equals(this.name, networkIdResponse.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, routingPolicy, isDiscoverable);
+        return Objects.hash(routingPolicy, isDiscoverable, id, name);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("class NetworkIdResponse {\n");
-        sb.append("    id: ").append(toIndentedString(id)).append("\n");
-        sb.append("    name: ").append(toIndentedString(name)).append("\n");
         sb.append("    routingPolicy: ").append(toIndentedString(routingPolicy)).append("\n");
         sb.append("    isDiscoverable: ").append(toIndentedString(isDiscoverable)).append("\n");
+        sb.append("    id: ").append(toIndentedString(id)).append("\n");
+        sb.append("    name: ").append(toIndentedString(name)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -223,28 +223,6 @@ public class NetworkIdResponse {
 
         StringJoiner joiner = new StringJoiner("&");
 
-        // add `id` to the URL query string
-        if (getId() != null) {
-            joiner.add(
-                    String.format(
-                            "%sid%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(String.valueOf(getId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
-        // add `name` to the URL query string
-        if (getName() != null) {
-            joiner.add(
-                    String.format(
-                            "%sname%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(String.valueOf(getName()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
         // add `routingPolicy` to the URL query string
         if (getRoutingPolicy() != null) {
             for (String _key : getRoutingPolicy().keySet()) {
@@ -278,6 +256,28 @@ public class NetworkIdResponse {
                             URLEncoder.encode(
                                             String.valueOf(getIsDiscoverable()),
                                             StandardCharsets.UTF_8)
+                                    .replaceAll("\\+", "%20")));
+        }
+
+        // add `id` to the URL query string
+        if (getId() != null) {
+            joiner.add(
+                    String.format(
+                            "%sid%s=%s",
+                            prefix,
+                            suffix,
+                            URLEncoder.encode(String.valueOf(getId()), StandardCharsets.UTF_8)
+                                    .replaceAll("\\+", "%20")));
+        }
+
+        // add `name` to the URL query string
+        if (getName() != null) {
+            joiner.add(
+                    String.format(
+                            "%sname%s=%s",
+                            prefix,
+                            suffix,
+                            URLEncoder.encode(String.valueOf(getName()), StandardCharsets.UTF_8)
                                     .replaceAll("\\+", "%20")));
         }
 

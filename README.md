@@ -32,7 +32,7 @@ Add this dependency to your project's POM:
 <dependency>
   <groupId>com.fireblocks.sdk</groupId>
   <artifactId>fireblocks-sdk</artifactId>
-  <version>3.0.0</version>
+  <version>0.0.0</version>
   <scope>compile</scope>
 </dependency>
 ```
@@ -42,7 +42,7 @@ Add this dependency to your project's POM:
 Add this dependency to your project's build file:
 
 ```groovy
-compile "com.fireblocks.sdk:fireblocks-sdk:3.0.0"
+compile "com.fireblocks.sdk:fireblocks-sdk:0.0.0"
 ```
 
 ### Others
@@ -55,7 +55,7 @@ mvn clean package
 
 Then manually install the following JARs:
 
-- `target/fireblocks-sdk-3.0.0.jar`
+- `target/fireblocks-sdk-0.0.0.jar`
 - `target/lib/*.jar`
 
 
@@ -148,6 +148,7 @@ Class | Method | HTTP request | Description
 *AuditLogsApi* | [**getAudits**](docs/AuditLogsApi.md#getAudits) | **GET** /audits | Get audit logs
 *BlockchainsAssetsApi* | [**getSupportedAssets**](docs/BlockchainsAssetsApi.md#getSupportedAssets) | **GET** /supported_assets | List all asset types supported by Fireblocks
 *BlockchainsAssetsApi* | [**registerNewAsset**](docs/BlockchainsAssetsApi.md#registerNewAsset) | **POST** /assets | Register an asset
+*BlockchainsAssetsApi* | [**setAssetPrice**](docs/BlockchainsAssetsApi.md#setAssetPrice) | **POST** /assets/prices/{id} | Set asset price
 *ComplianceApi* | [**getAmlPostScreeningPolicy**](docs/ComplianceApi.md#getAmlPostScreeningPolicy) | **GET** /screening/aml/post_screening_policy | AML - View Post-Screening Policy
 *ComplianceApi* | [**getAmlScreeningPolicy**](docs/ComplianceApi.md#getAmlScreeningPolicy) | **GET** /screening/aml/screening_policy | AML - View Screening Policy
 *ComplianceApi* | [**getPostScreeningPolicy**](docs/ComplianceApi.md#getPostScreeningPolicy) | **GET** /screening/travel_rule/post_screening_policy | Travel Rule - View Post-Screening Policy
@@ -389,6 +390,9 @@ Class | Method | HTTP request | Description
  - [AssetInternalServerErrorResponse](docs/AssetInternalServerErrorResponse.md)
  - [AssetMetadataDto](docs/AssetMetadataDto.md)
  - [AssetNotFoundErrorResponse](docs/AssetNotFoundErrorResponse.md)
+ - [AssetPriceForbiddenErrorResponse](docs/AssetPriceForbiddenErrorResponse.md)
+ - [AssetPriceNotFoundErrorResponse](docs/AssetPriceNotFoundErrorResponse.md)
+ - [AssetPriceResponse](docs/AssetPriceResponse.md)
  - [AssetResponse](docs/AssetResponse.md)
  - [AssetResponseMetadata](docs/AssetResponseMetadata.md)
  - [AssetResponseOnchain](docs/AssetResponseOnchain.md)
@@ -653,6 +657,7 @@ Class | Method | HTTP request | Description
  - [SessionMetadata](docs/SessionMetadata.md)
  - [SetAdminQuorumThresholdRequest](docs/SetAdminQuorumThresholdRequest.md)
  - [SetAdminQuorumThresholdResponse](docs/SetAdminQuorumThresholdResponse.md)
+ - [SetAssetPriceRequest](docs/SetAssetPriceRequest.md)
  - [SetAutoFuelRequest](docs/SetAutoFuelRequest.md)
  - [SetConfirmationsThresholdRequest](docs/SetConfirmationsThresholdRequest.md)
  - [SetConfirmationsThresholdResponse](docs/SetConfirmationsThresholdResponse.md)
