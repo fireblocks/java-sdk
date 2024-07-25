@@ -1,0 +1,36 @@
+name: Auto Reply On New Pull Requests
+on:
+  pull_request:
+    types: [opened]
+
+jobs:
+  auto-reply:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+
+      - name: Choose random reply message
+        id: choose_message
+        run: |
+          reply_messages=(
+            "Thank you for raising this! We will review it shortly. (Note that this SDK code is auto generated)"
+            "We appreciate your contribution. Our team will investigate this request shortly. (Note that this SDK code is auto generated)"
+            "Your request has been noted. We'll get back to you soon. (Note that this SDK code is auto generated)"
+            "Thanks for submitting this request. We'll review it and provide updates soon. (Note that this SDK code is auto generated)"
+            "Thank you for letting us know about this request. We'll investigate and get back to you soon. (Note that this SDK code is auto generated)"
+            "Acknowledged. We'll review and respond soon. (Note that this SDK code is auto generated)"
+            "Thanks for bringing this request to our attention. We'll review and provide updates soon. (Note that this SDK code is auto generated)"
+            "We've received your request. Thanks for your patience. (Note that this SDK code is auto generated)"
+            "Noted. Expect updates shortly. (Note that this SDK code is auto generated)"
+            "Your request is important to us. We will look into it shortly. (Note that this SDK code is auto generated)"
+          )
+          random_index=$((RANDOM % ${#reply_messages[@]}))
+          echo "::set-output name=message::${reply_messages[$random_index]}"
+
+      - name: Reply to pull request
+        if: (!contains(fromJSON('["github-actions"]'), github.event.pull_request.user.login))
+        run: |
+          gh pr comment ${{ github.event.number }} --body "${{ steps.choose_message.outputs.message }}"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -87,7 +87,11 @@ public class TokenResponse {
 
         BASECHAIN_ETH("BASECHAIN_ETH"),
 
-        BASECHAIN_ETH_TEST3("BASECHAIN_ETH_TEST3");
+        BASECHAIN_ETH_TEST3("BASECHAIN_ETH_TEST3"),
+
+        ETHERLINK("ETHERLINK"),
+
+        ETHERLINK_TEST("ETHERLINK_TEST");
 
         private String value;
 

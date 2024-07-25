@@ -1,0 +1,35 @@
+name: Auto Reply On New Issues
+on:
+  issues:
+    types: [opened]
+
+jobs:
+  auto-reply:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+
+      - name: Choose random reply message
+        id: choose_message
+        run: |
+          reply_messages=(
+            "Thank you for raising this issue! We will look into it shortly."
+            "We appreciate your feedback. Our team will investigate this issue shortly."
+            "Your issue has been noted. We'll get back to you soon."
+            "Thanks for raising this issue. We'll review it and provide updates soon."
+            "Thank you for letting us know about this issue. We'll investigate and get back to you soon."
+            "Acknowledged. We'll review the issue and respond soon."
+            "Thanks for bringing this to our attention. We'll review it and provide updates soon."
+            "We've received your issue. Thanks for your patience."
+            "Noted. Expect updates on your issue shortly."
+            "Your issue is important to us. We will look into it shortly."
+          )
+          random_index=$((RANDOM % ${#reply_messages[@]}))
+          echo "::set-output name=message::${reply_messages[$random_index]}"
+
+      - name: Reply to issue
+        run: |
+          gh issue comment ${{ github.event.issue.number }} --body "${{ steps.choose_message.outputs.message }}"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
