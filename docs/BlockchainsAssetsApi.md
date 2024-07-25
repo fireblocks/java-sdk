@@ -6,6 +6,7 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 |------------- | ------------- | -------------|
 | [**getSupportedAssets**](BlockchainsAssetsApi.md#getSupportedAssets) | **GET** /supported_assets | List all asset types supported by Fireblocks |
 | [**registerNewAsset**](BlockchainsAssetsApi.md#registerNewAsset) | **POST** /assets | Register an asset |
+| [**setAssetPrice**](BlockchainsAssetsApi.md#setAssetPrice) | **POST** /assets/prices/{id} | Set asset price |
 
 
 
@@ -175,4 +176,93 @@ No authorization required
 | **404** | - Invalid address, could not get asset information. Error code 1003  |  -  |
 | **409** | - The asset is already supported globally. Error code: 1001  - The asset has already been added to this workspace. Error code: 1002  |  -  |
 | **500** | Failed to create asset |  -  |
+
+
+## setAssetPrice
+
+> CompletableFuture<ApiResponse<AssetPriceResponse>> setAssetPrice setAssetPrice(id, setAssetPriceRequest, idempotencyKey)
+
+Set asset price
+
+Set asset price for the given asset id. Returns the asset price response. 
+
+### Example
+
+```java
+// Import classes:
+import com.fireblocks.sdk.ApiClient;
+import com.fireblocks.sdk.ApiException;
+import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
+import com.fireblocks.sdk.api.BlockchainsAssetsApi;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+
+public class Example {
+    public static void main(String[] args) {
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
+
+        String id = "ETH"; // String | The ID of the asset
+        SetAssetPriceRequest setAssetPriceRequest = new SetAssetPriceRequest(); // SetAssetPriceRequest | 
+        String idempotencyKey = "idempotencyKey_example"; // String | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+        try {
+            CompletableFuture<ApiResponse<AssetPriceResponse>> response = fireblocks.blockchainsAssets().setAssetPrice(id, setAssetPriceRequest, idempotencyKey);
+            System.out.println("Status code: " + response.get().getStatusCode());
+            System.out.println("Response headers: " + response.get().getHeaders());
+            System.out.println("Response body: " + response.get().getData());
+        } catch (InterruptedException | ExecutionException e) {
+            ApiException apiException = (ApiException)e.getCause();
+            System.err.println("Exception when calling BlockchainsAssetsApi#setAssetPrice");
+            System.err.println("Status code: " + apiException.getCode());
+            System.err.println("Response headers: " + apiException.getResponseHeaders());
+            System.err.println("Reason: " + apiException.getResponseBody());
+            e.printStackTrace();
+        } catch (ApiException e) {
+            System.err.println("Exception when calling BlockchainsAssetsApi#setAssetPrice");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            System.err.println("Reason: " + e.getResponseBody());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **id** | **String**| The ID of the asset | |
+| **setAssetPriceRequest** | [**SetAssetPriceRequest**](SetAssetPriceRequest.md)|  | [optional] |
+| **idempotencyKey** | **String**| A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | [optional] |
+
+### Return type
+
+CompletableFuture<ApiResponse<[**AssetPriceResponse**](AssetPriceResponse.md)>>
+
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Asset price has been set successfully. |  -  |
+| **403** | - Tenant is not allowed to set rate. Error code: 1002.  |  -  |
+| **404** | - Currency not found. Error code 1001  |  -  |
+| **0** | Error Response |  * X-Request-ID -  <br>  |
 

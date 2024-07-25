@@ -20,8 +20,6 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -40,7 +38,7 @@ public class WriteCallFunctionDto {
     private String vaultAccountId;
 
     public static final String JSON_PROPERTY_ABI_FUNCTION = "abiFunction";
-    private List<WriteAbiFunction> abiFunction = new ArrayList<>();
+    private WriteAbiFunction abiFunction;
 
     public static final String JSON_PROPERTY_AMOUNT = "amount";
     private String amount;
@@ -116,34 +114,26 @@ public class WriteCallFunctionDto {
         this.vaultAccountId = vaultAccountId;
     }
 
-    public WriteCallFunctionDto abiFunction(List<WriteAbiFunction> abiFunction) {
+    public WriteCallFunctionDto abiFunction(WriteAbiFunction abiFunction) {
         this.abiFunction = abiFunction;
         return this;
     }
 
-    public WriteCallFunctionDto addAbiFunctionItem(WriteAbiFunction abiFunctionItem) {
-        if (this.abiFunction == null) {
-            this.abiFunction = new ArrayList<>();
-        }
-        this.abiFunction.add(abiFunctionItem);
-        return this;
-    }
-
     /**
-     * The abi of the read function you wish to call
+     * Get abiFunction
      *
      * @return abiFunction
      */
     @jakarta.annotation.Nonnull
     @JsonProperty(JSON_PROPERTY_ABI_FUNCTION)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public List<WriteAbiFunction> getAbiFunction() {
+    public WriteAbiFunction getAbiFunction() {
         return abiFunction;
     }
 
     @JsonProperty(JSON_PROPERTY_ABI_FUNCTION)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setAbiFunction(List<WriteAbiFunction> abiFunction) {
+    public void setAbiFunction(WriteAbiFunction abiFunction) {
         this.abiFunction = abiFunction;
     }
 
@@ -336,25 +326,7 @@ public class WriteCallFunctionDto {
 
         // add `abiFunction` to the URL query string
         if (getAbiFunction() != null) {
-            for (int i = 0; i < getAbiFunction().size(); i++) {
-                if (getAbiFunction().get(i) != null) {
-                    joiner.add(
-                            getAbiFunction()
-                                    .get(i)
-                                    .toUrlQueryString(
-                                            String.format(
-                                                    "%sabiFunction%s%s",
-                                                    prefix,
-                                                    suffix,
-                                                    "".equals(suffix)
-                                                            ? ""
-                                                            : String.format(
-                                                                    "%s%d%s",
-                                                                    containerPrefix,
-                                                                    i,
-                                                                    containerSuffix))));
-                }
-            }
+            joiner.add(getAbiFunction().toUrlQueryString(prefix + "abiFunction" + suffix));
         }
 
         // add `amount` to the URL query string

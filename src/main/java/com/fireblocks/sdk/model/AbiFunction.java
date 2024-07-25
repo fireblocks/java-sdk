@@ -79,11 +79,19 @@ public class AbiFunction {
     public static final String JSON_PROPERTY_STATE_MUTABILITY = "stateMutability";
     private StateMutabilityEnum stateMutability;
 
-    /** The type if the function */
+    /** The type of the function */
     public enum TypeEnum {
+        CONSTRUCTOR("constructor"),
+
         FUNCTION("function"),
 
-        CONSTRUCTOR("constructor");
+        ERROR("error"),
+
+        EVENT("event"),
+
+        RECEIVE("receive"),
+
+        FALLBACK("fallback");
 
         private String value;
 
@@ -178,7 +186,7 @@ public class AbiFunction {
     }
 
     /**
-     * The type if the function
+     * The type of the function
      *
      * @return type
      */

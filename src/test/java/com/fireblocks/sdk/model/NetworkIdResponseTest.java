@@ -25,18 +25,6 @@ public class NetworkIdResponseTest {
         // TODO: test NetworkIdResponse
     }
 
-    /** Test the property 'id' */
-    @Test
-    public void idTest() {
-        // TODO: test id
-    }
-
-    /** Test the property 'name' */
-    @Test
-    public void nameTest() {
-        // TODO: test name
-    }
-
     /** Test the property 'routingPolicy' */
     @Test
     public void routingPolicyTest() {
@@ -47,5 +35,17 @@ public class NetworkIdResponseTest {
     @Test
     public void isDiscoverableTest() {
         // TODO: test isDiscoverable
+    }
+
+    /** Test the property 'id' */
+    @Test
+    public void idTest() {
+        // TODO: test id
+    }
+
+    /** Test the property 'name' */
+    @Test
+    public void nameTest() {
+        // TODO: test name
     }
 }

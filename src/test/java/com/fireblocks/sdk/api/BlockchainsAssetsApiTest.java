@@ -15,9 +15,11 @@ package com.fireblocks.sdk.api;
 
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.model.AssetPriceResponse;
 import com.fireblocks.sdk.model.AssetResponse;
 import com.fireblocks.sdk.model.AssetTypeResponse;
 import com.fireblocks.sdk.model.RegisterNewAssetRequest;
+import com.fireblocks.sdk.model.SetAssetPriceRequest;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import org.junit.Ignore;
@@ -56,5 +58,21 @@ public class BlockchainsAssetsApiTest {
         String idempotencyKey = null;
         CompletableFuture<ApiResponse<AssetResponse>> response =
                 api.registerNewAsset(registerNewAssetRequest, idempotencyKey);
+    }
+
+    /**
+     * Set asset price
+     *
+     * <p>Set asset price for the given asset id. Returns the asset price response.
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void setAssetPriceTest() throws ApiException {
+        String id = null;
+        SetAssetPriceRequest setAssetPriceRequest = null;
+        String idempotencyKey = null;
+        CompletableFuture<ApiResponse<AssetPriceResponse>> response =
+                api.setAssetPrice(id, setAssetPriceRequest, idempotencyKey);
     }
 }
