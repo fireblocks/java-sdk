@@ -22,12 +22,14 @@ import com.fireblocks.sdk.model.DropTransactionResponse;
 import com.fireblocks.sdk.model.EstimatedNetworkFeeResponse;
 import com.fireblocks.sdk.model.EstimatedTransactionFeeResponse;
 import com.fireblocks.sdk.model.FreezeTransactionResponse;
+import com.fireblocks.sdk.model.RescanTransaction;
 import com.fireblocks.sdk.model.SetConfirmationsThresholdRequest;
 import com.fireblocks.sdk.model.SetConfirmationsThresholdResponse;
 import com.fireblocks.sdk.model.TransactionRequest;
 import com.fireblocks.sdk.model.TransactionResponse;
 import com.fireblocks.sdk.model.UnfreezeTransactionResponse;
 import com.fireblocks.sdk.model.ValidateAddressResponse;
+import com.fireblocks.sdk.model.ValidatedTransactionsForRescan;
 import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
@@ -203,6 +205,23 @@ public class TransactionsApiTest {
                         txHash,
                         sourceWalletId,
                         destWalletId);
+    }
+
+    /**
+     * rescan array of transactions
+     *
+     * <p>rescan transaction by running an async job. &lt;/br&gt; **Note**: - These endpoints are
+     * currently in beta and might be subject to changes. - We limit the amount of the transaction
+     * to 16 per request.
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void rescanTransactionsBetaTest() throws ApiException {
+        List<RescanTransaction> rescanTransaction = null;
+        String idempotencyKey = null;
+        CompletableFuture<ApiResponse<List<ValidatedTransactionsForRescan>>> response =
+                api.rescanTransactionsBeta(rescanTransaction, idempotencyKey);
     }
 
     /**

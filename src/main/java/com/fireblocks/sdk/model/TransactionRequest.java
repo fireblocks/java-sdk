@@ -42,6 +42,7 @@ import java.util.StringJoiner;
     TransactionRequest.JSON_PROPERTY_PRIORITY_FEE,
     TransactionRequest.JSON_PROPERTY_FAIL_ON_LOW_FEE,
     TransactionRequest.JSON_PROPERTY_MAX_FEE,
+    TransactionRequest.JSON_PROPERTY_MAX_TOTAL_FEE,
     TransactionRequest.JSON_PROPERTY_GAS_LIMIT,
     TransactionRequest.JSON_PROPERTY_GAS_PRICE,
     TransactionRequest.JSON_PROPERTY_NETWORK_FEE,
@@ -51,7 +52,8 @@ import java.util.StringJoiner;
     TransactionRequest.JSON_PROPERTY_TRAVEL_RULE_MESSAGE,
     TransactionRequest.JSON_PROPERTY_AUTO_STAKING,
     TransactionRequest.JSON_PROPERTY_NETWORK_STAKING,
-    TransactionRequest.JSON_PROPERTY_CPU_STAKING
+    TransactionRequest.JSON_PROPERTY_CPU_STAKING,
+    TransactionRequest.JSON_PROPERTY_USE_GASLESS
 })
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class TransactionRequest {
@@ -138,6 +140,9 @@ public class TransactionRequest {
     public static final String JSON_PROPERTY_MAX_FEE = "maxFee";
     private String maxFee;
 
+    public static final String JSON_PROPERTY_MAX_TOTAL_FEE = "maxTotalFee";
+    private String maxTotalFee;
+
     public static final String JSON_PROPERTY_GAS_LIMIT = "gasLimit";
     private TransactionRequestGasLimit gasLimit;
 
@@ -167,6 +172,9 @@ public class TransactionRequest {
 
     public static final String JSON_PROPERTY_CPU_STAKING = "cpuStaking";
     private TransactionRequestNetworkStaking cpuStaking;
+
+    public static final String JSON_PROPERTY_USE_GASLESS = "useGasless";
+    private Boolean useGasless;
 
     public TransactionRequest() {}
 
@@ -545,6 +553,30 @@ public class TransactionRequest {
         this.maxFee = maxFee;
     }
 
+    public TransactionRequest maxTotalFee(String maxTotalFee) {
+        this.maxTotalFee = maxTotalFee;
+        return this;
+    }
+
+    /**
+     * For BTC-based blockchains only. The maximum fee (in the units of the fee-paying asset) that
+     * should be paid for the transaction.
+     *
+     * @return maxTotalFee
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_MAX_TOTAL_FEE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getMaxTotalFee() {
+        return maxTotalFee;
+    }
+
+    @JsonProperty(JSON_PROPERTY_MAX_TOTAL_FEE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setMaxTotalFee(String maxTotalFee) {
+        this.maxTotalFee = maxTotalFee;
+    }
+
     public TransactionRequest gasLimit(TransactionRequestGasLimit gasLimit) {
         this.gasLimit = gasLimit;
         return this;
@@ -797,6 +829,29 @@ public class TransactionRequest {
         this.cpuStaking = cpuStaking;
     }
 
+    public TransactionRequest useGasless(Boolean useGasless) {
+        this.useGasless = useGasless;
+        return this;
+    }
+
+    /**
+     * - Override the default gaslsess configuration by sending true\\false
+     *
+     * @return useGasless
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_USE_GASLESS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public Boolean getUseGasless() {
+        return useGasless;
+    }
+
+    @JsonProperty(JSON_PROPERTY_USE_GASLESS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setUseGasless(Boolean useGasless) {
+        this.useGasless = useGasless;
+    }
+
     /** Return true if this TransactionRequest object is equal to o. */
     @Override
     public boolean equals(Object o) {
@@ -822,6 +877,7 @@ public class TransactionRequest {
                 && Objects.equals(this.priorityFee, transactionRequest.priorityFee)
                 && Objects.equals(this.failOnLowFee, transactionRequest.failOnLowFee)
                 && Objects.equals(this.maxFee, transactionRequest.maxFee)
+                && Objects.equals(this.maxTotalFee, transactionRequest.maxTotalFee)
                 && Objects.equals(this.gasLimit, transactionRequest.gasLimit)
                 && Objects.equals(this.gasPrice, transactionRequest.gasPrice)
                 && Objects.equals(this.networkFee, transactionRequest.networkFee)
@@ -831,7 +887,8 @@ public class TransactionRequest {
                 && Objects.equals(this.travelRuleMessage, transactionRequest.travelRuleMessage)
                 && Objects.equals(this.autoStaking, transactionRequest.autoStaking)
                 && Objects.equals(this.networkStaking, transactionRequest.networkStaking)
-                && Objects.equals(this.cpuStaking, transactionRequest.cpuStaking);
+                && Objects.equals(this.cpuStaking, transactionRequest.cpuStaking)
+                && Objects.equals(this.useGasless, transactionRequest.useGasless);
     }
 
     @Override
@@ -852,6 +909,7 @@ public class TransactionRequest {
                 priorityFee,
                 failOnLowFee,
                 maxFee,
+                maxTotalFee,
                 gasLimit,
                 gasPrice,
                 networkFee,
@@ -861,7 +919,8 @@ public class TransactionRequest {
                 travelRuleMessage,
                 autoStaking,
                 networkStaking,
-                cpuStaking);
+                cpuStaking,
+                useGasless);
     }
 
     @Override
@@ -885,6 +944,7 @@ public class TransactionRequest {
         sb.append("    priorityFee: ").append(toIndentedString(priorityFee)).append("\n");
         sb.append("    failOnLowFee: ").append(toIndentedString(failOnLowFee)).append("\n");
         sb.append("    maxFee: ").append(toIndentedString(maxFee)).append("\n");
+        sb.append("    maxTotalFee: ").append(toIndentedString(maxTotalFee)).append("\n");
         sb.append("    gasLimit: ").append(toIndentedString(gasLimit)).append("\n");
         sb.append("    gasPrice: ").append(toIndentedString(gasPrice)).append("\n");
         sb.append("    networkFee: ").append(toIndentedString(networkFee)).append("\n");
@@ -897,6 +957,7 @@ public class TransactionRequest {
         sb.append("    autoStaking: ").append(toIndentedString(autoStaking)).append("\n");
         sb.append("    networkStaking: ").append(toIndentedString(networkStaking)).append("\n");
         sb.append("    cpuStaking: ").append(toIndentedString(cpuStaking)).append("\n");
+        sb.append("    useGasless: ").append(toIndentedString(useGasless)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -1099,6 +1160,19 @@ public class TransactionRequest {
                                     .replaceAll("\\+", "%20")));
         }
 
+        // add `maxTotalFee` to the URL query string
+        if (getMaxTotalFee() != null) {
+            joiner.add(
+                    String.format(
+                            "%smaxTotalFee%s=%s",
+                            prefix,
+                            suffix,
+                            URLEncoder.encode(
+                                            String.valueOf(getMaxTotalFee()),
+                                            StandardCharsets.UTF_8)
+                                    .replaceAll("\\+", "%20")));
+        }
+
         // add `gasLimit` to the URL query string
         if (getGasLimit() != null) {
             joiner.add(getGasLimit().toUrlQueryString(prefix + "gasLimit" + suffix));
@@ -1180,6 +1254,18 @@ public class TransactionRequest {
         // add `cpuStaking` to the URL query string
         if (getCpuStaking() != null) {
             joiner.add(getCpuStaking().toUrlQueryString(prefix + "cpuStaking" + suffix));
+        }
+
+        // add `useGasless` to the URL query string
+        if (getUseGasless() != null) {
+            joiner.add(
+                    String.format(
+                            "%suseGasless%s=%s",
+                            prefix,
+                            suffix,
+                            URLEncoder.encode(
+                                            String.valueOf(getUseGasless()), StandardCharsets.UTF_8)
+                                    .replaceAll("\\+", "%20")));
         }
 
         return joiner.toString();

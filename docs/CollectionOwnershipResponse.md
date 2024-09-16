@@ -33,6 +33,9 @@
 | BASECHAIN_ETH_TEST3 | &quot;BASECHAIN_ETH_TEST3&quot; |
 | ETHERLINK | &quot;ETHERLINK&quot; |
 | ETHERLINK_TEST | &quot;ETHERLINK_TEST&quot; |
+| MANTLE | &quot;MANTLE&quot; |
+| MANTLE_TEST | &quot;MANTLE_TEST&quot; |
+| GUN_GUNZILLA_TEST | &quot;GUN_GUNZILLA_TEST&quot; |
 
 
 

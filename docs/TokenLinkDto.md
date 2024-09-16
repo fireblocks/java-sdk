@@ -10,8 +10,8 @@
 |**id** | **String** | The token link id |  |
 |**status** | [**StatusEnum**](#StatusEnum) | The token status |  |
 |**type** | [**TypeEnum**](#TypeEnum) | The type of token |  [optional] |
-|**refId** | **String** | The Fireblocks&#39; reference id. Can be a Fireblocks&#39; supported asset, collectionId or contractId |  [optional] |
-|**displayName** | **String** | The token display name. If was not provided, would be taken from the contract template name |  [optional] |
+|**refId** | **String** | The Fireblocks&#39; reference id |  [optional] |
+|**displayName** | **String** | The token display name. If was not provided, would be taken from the contract template |  [optional] |
 |**tokenMetadata** | [**TokenLinkDtoTokenMetadata**](TokenLinkDtoTokenMetadata.md) |  |  [optional] |
 
 

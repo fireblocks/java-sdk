@@ -48,4 +48,16 @@ public class CreateVaultAccountRequestTest {
     public void autoFuelTest() {
         // TODO: test autoFuel
     }
+
+    /** Test the property 'vaultType' */
+    @Test
+    public void vaultTypeTest() {
+        // TODO: test vaultType
+    }
+
+    /** Test the property 'autoAssign' */
+    @Test
+    public void autoAssignTest() {
+        // TODO: test autoAssign
+    }
 }

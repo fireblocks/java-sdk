@@ -72,7 +72,13 @@ public class CollectionOwnershipResponse {
 
         ETHERLINK("ETHERLINK"),
 
-        ETHERLINK_TEST("ETHERLINK_TEST");
+        ETHERLINK_TEST("ETHERLINK_TEST"),
+
+        MANTLE("MANTLE"),
+
+        MANTLE_TEST("MANTLE_TEST"),
+
+        GUN_GUNZILLA_TEST("GUN_GUNZILLA_TEST");
 
         private String value;
 

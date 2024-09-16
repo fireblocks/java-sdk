@@ -115,6 +115,12 @@ public class TransactionRequestTest {
         // TODO: test maxFee
     }
 
+    /** Test the property 'maxTotalFee' */
+    @Test
+    public void maxTotalFeeTest() {
+        // TODO: test maxTotalFee
+    }
+
     /** Test the property 'gasLimit' */
     @Test
     public void gasLimitTest() {
@@ -173,5 +179,11 @@ public class TransactionRequestTest {
     @Test
     public void cpuStakingTest() {
         // TODO: test cpuStaking
+    }
+
+    /** Test the property 'useGasless' */
+    @Test
+    public void useGaslessTest() {
+        // TODO: test useGasless
     }
 }
