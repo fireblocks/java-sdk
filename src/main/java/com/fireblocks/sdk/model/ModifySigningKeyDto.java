@@ -37,7 +37,7 @@ public class ModifySigningKeyDto {
     }
 
     /**
-     * Get vaultAccountId minimum: 1
+     * Get vaultAccountId minimum: 0
      *
      * @return vaultAccountId
      */

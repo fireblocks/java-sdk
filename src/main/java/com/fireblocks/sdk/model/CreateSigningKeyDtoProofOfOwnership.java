@@ -21,95 +21,69 @@ import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 import java.util.StringJoiner;
 
-/** AssetDoesNotExistHttpError */
+/** An object containing proof of ownership for the signing key. */
 @JsonPropertyOrder({
-    AssetDoesNotExistHttpError.JSON_PROPERTY_STATUS_CODE,
-    AssetDoesNotExistHttpError.JSON_PROPERTY_MESSAGE,
-    AssetDoesNotExistHttpError.JSON_PROPERTY_ERROR
+    CreateSigningKeyDtoProofOfOwnership.JSON_PROPERTY_MESSAGE,
+    CreateSigningKeyDtoProofOfOwnership.JSON_PROPERTY_SIGNATURE
 })
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
-public class AssetDoesNotExistHttpError {
-    public static final String JSON_PROPERTY_STATUS_CODE = "statusCode";
-    private Integer statusCode;
-
+public class CreateSigningKeyDtoProofOfOwnership {
     public static final String JSON_PROPERTY_MESSAGE = "message";
     private String message;
 
-    public static final String JSON_PROPERTY_ERROR = "error";
-    private String error;
+    public static final String JSON_PROPERTY_SIGNATURE = "signature";
+    private String signature;
 
-    public AssetDoesNotExistHttpError() {}
+    public CreateSigningKeyDtoProofOfOwnership() {}
 
-    public AssetDoesNotExistHttpError statusCode(Integer statusCode) {
-        this.statusCode = statusCode;
-        return this;
-    }
-
-    /**
-     * HTTP status code
-     *
-     * @return statusCode
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_STATUS_CODE)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public Integer getStatusCode() {
-        return statusCode;
-    }
-
-    @JsonProperty(JSON_PROPERTY_STATUS_CODE)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setStatusCode(Integer statusCode) {
-        this.statusCode = statusCode;
-    }
-
-    public AssetDoesNotExistHttpError message(String message) {
+    public CreateSigningKeyDtoProofOfOwnership message(String message) {
         this.message = message;
         return this;
     }
 
     /**
-     * Error message
+     * The message to be signed by the key as proof of ownership. 64 to 1024 bytes in hexadecimal
+     * format.
      *
      * @return message
      */
-    @jakarta.annotation.Nullable
+    @jakarta.annotation.Nonnull
     @JsonProperty(JSON_PROPERTY_MESSAGE)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
     public String getMessage() {
         return message;
     }
 
     @JsonProperty(JSON_PROPERTY_MESSAGE)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
     public void setMessage(String message) {
         this.message = message;
     }
 
-    public AssetDoesNotExistHttpError error(String error) {
-        this.error = error;
+    public CreateSigningKeyDtoProofOfOwnership signature(String signature) {
+        this.signature = signature;
         return this;
     }
 
     /**
-     * Short description of the HTTP error
+     * The signature of the message. 64 bytes in hexadecimal format.
      *
-     * @return error
+     * @return signature
      */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_ERROR)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public String getError() {
-        return error;
+    @jakarta.annotation.Nonnull
+    @JsonProperty(JSON_PROPERTY_SIGNATURE)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public String getSignature() {
+        return signature;
     }
 
-    @JsonProperty(JSON_PROPERTY_ERROR)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setError(String error) {
-        this.error = error;
+    @JsonProperty(JSON_PROPERTY_SIGNATURE)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setSignature(String signature) {
+        this.signature = signature;
     }
 
-    /** Return true if this AssetDoesNotExistHttpError object is equal to o. */
+    /** Return true if this CreateSigningKeyDto_proofOfOwnership object is equal to o. */
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -118,24 +92,23 @@ public class AssetDoesNotExistHttpError {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        AssetDoesNotExistHttpError assetDoesNotExistHttpError = (AssetDoesNotExistHttpError) o;
-        return Objects.equals(this.statusCode, assetDoesNotExistHttpError.statusCode)
-                && Objects.equals(this.message, assetDoesNotExistHttpError.message)
-                && Objects.equals(this.error, assetDoesNotExistHttpError.error);
+        CreateSigningKeyDtoProofOfOwnership createSigningKeyDtoProofOfOwnership =
+                (CreateSigningKeyDtoProofOfOwnership) o;
+        return Objects.equals(this.message, createSigningKeyDtoProofOfOwnership.message)
+                && Objects.equals(this.signature, createSigningKeyDtoProofOfOwnership.signature);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(statusCode, message, error);
+        return Objects.hash(message, signature);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("class AssetDoesNotExistHttpError {\n");
-        sb.append("    statusCode: ").append(toIndentedString(statusCode)).append("\n");
+        sb.append("class CreateSigningKeyDtoProofOfOwnership {\n");
         sb.append("    message: ").append(toIndentedString(message)).append("\n");
-        sb.append("    error: ").append(toIndentedString(error)).append("\n");
+        sb.append("    signature: ").append(toIndentedString(signature)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -183,18 +156,6 @@ public class AssetDoesNotExistHttpError {
 
         StringJoiner joiner = new StringJoiner("&");
 
-        // add `statusCode` to the URL query string
-        if (getStatusCode() != null) {
-            joiner.add(
-                    String.format(
-                            "%sstatusCode%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getStatusCode()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
         // add `message` to the URL query string
         if (getMessage() != null) {
             joiner.add(
@@ -206,14 +167,15 @@ public class AssetDoesNotExistHttpError {
                                     .replaceAll("\\+", "%20")));
         }
 
-        // add `error` to the URL query string
-        if (getError() != null) {
+        // add `signature` to the URL query string
+        if (getSignature() != null) {
             joiner.add(
                     String.format(
-                            "%serror%s=%s",
+                            "%ssignature%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getError()), StandardCharsets.UTF_8)
+                            URLEncoder.encode(
+                                            String.valueOf(getSignature()), StandardCharsets.UTF_8)
                                     .replaceAll("\\+", "%20")));
         }
 

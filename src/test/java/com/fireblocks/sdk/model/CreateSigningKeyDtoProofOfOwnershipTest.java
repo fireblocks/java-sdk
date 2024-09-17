@@ -15,20 +15,15 @@ package com.fireblocks.sdk.model;
 
 import org.junit.Test;
 
-/** Model tests for AssetDoesNotExistHttpError */
-public class AssetDoesNotExistHttpErrorTest {
-    private final AssetDoesNotExistHttpError model = new AssetDoesNotExistHttpError();
+/** Model tests for CreateSigningKeyDtoProofOfOwnership */
+public class CreateSigningKeyDtoProofOfOwnershipTest {
+    private final CreateSigningKeyDtoProofOfOwnership model =
+            new CreateSigningKeyDtoProofOfOwnership();
 
-    /** Model tests for AssetDoesNotExistHttpError */
+    /** Model tests for CreateSigningKeyDtoProofOfOwnership */
     @Test
-    public void testAssetDoesNotExistHttpError() {
-        // TODO: test AssetDoesNotExistHttpError
-    }
-
-    /** Test the property 'statusCode' */
-    @Test
-    public void statusCodeTest() {
-        // TODO: test statusCode
+    public void testCreateSigningKeyDtoProofOfOwnership() {
+        // TODO: test CreateSigningKeyDtoProofOfOwnership
     }
 
     /** Test the property 'message' */
@@ -37,9 +32,9 @@ public class AssetDoesNotExistHttpErrorTest {
         // TODO: test message
     }
 
-    /** Test the property 'error' */
+    /** Test the property 'signature' */
     @Test
-    public void errorTest() {
-        // TODO: test error
+    public void signatureTest() {
+        // TODO: test signature
     }
 }

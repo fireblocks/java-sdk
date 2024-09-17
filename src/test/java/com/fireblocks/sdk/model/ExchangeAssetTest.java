@@ -54,4 +54,10 @@ public class ExchangeAssetTest {
     public void availableTest() {
         // TODO: test available
     }
+
+    /** Test the property 'credit' */
+    @Test
+    public void creditTest() {
+        // TODO: test credit
+    }
 }

@@ -42,4 +42,10 @@ public class CreateSigningKeyDtoTest {
     public void agentUserIdTest() {
         // TODO: test agentUserId
     }
+
+    /** Test the property 'proofOfOwnership' */
+    @Test
+    public void proofOfOwnershipTest() {
+        // TODO: test proofOfOwnership
+    }
 }

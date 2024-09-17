@@ -12,6 +12,7 @@
 |**lockedAmount** | **String** |  |  [optional] |
 |**total** | **String** |  |  [optional] |
 |**available** | **String** |  |  [optional] |
+|**credit** | **String** |  |  [optional] |
 
 
 
