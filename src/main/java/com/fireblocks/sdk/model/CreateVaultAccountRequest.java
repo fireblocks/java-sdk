@@ -13,9 +13,11 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonValue;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.Objects;
@@ -26,7 +28,9 @@ import java.util.StringJoiner;
     CreateVaultAccountRequest.JSON_PROPERTY_NAME,
     CreateVaultAccountRequest.JSON_PROPERTY_HIDDEN_ON_U_I,
     CreateVaultAccountRequest.JSON_PROPERTY_CUSTOMER_REF_ID,
-    CreateVaultAccountRequest.JSON_PROPERTY_AUTO_FUEL
+    CreateVaultAccountRequest.JSON_PROPERTY_AUTO_FUEL,
+    CreateVaultAccountRequest.JSON_PROPERTY_VAULT_TYPE,
+    CreateVaultAccountRequest.JSON_PROPERTY_AUTO_ASSIGN
 })
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class CreateVaultAccountRequest {
@@ -41,6 +45,48 @@ public class CreateVaultAccountRequest {
 
     public static final String JSON_PROPERTY_AUTO_FUEL = "autoFuel";
     private Boolean autoFuel;
+
+    /**
+     * Type of vault account. The default type will be set to MPC.&lt;br/&gt; If the workspace does
+     * not support the selected type, it will return an error.
+     */
+    public enum VaultTypeEnum {
+        MPC("MPC"),
+
+        KEY_LINK("KEY_LINK");
+
+        private String value;
+
+        VaultTypeEnum(String value) {
+            this.value = value;
+        }
+
+        @JsonValue
+        public String getValue() {
+            return value;
+        }
+
+        @Override
+        public String toString() {
+            return String.valueOf(value);
+        }
+
+        @JsonCreator
+        public static VaultTypeEnum fromValue(String value) {
+            for (VaultTypeEnum b : VaultTypeEnum.values()) {
+                if (b.value.equals(value)) {
+                    return b;
+                }
+            }
+            throw new IllegalArgumentException("Unexpected value '" + value + "'");
+        }
+    }
+
+    public static final String JSON_PROPERTY_VAULT_TYPE = "vaultType";
+    private VaultTypeEnum vaultType = VaultTypeEnum.MPC;
+
+    public static final String JSON_PROPERTY_AUTO_ASSIGN = "autoAssign";
+    private Boolean autoAssign = false;
 
     public CreateVaultAccountRequest() {}
 
@@ -137,6 +183,57 @@ public class CreateVaultAccountRequest {
         this.autoFuel = autoFuel;
     }
 
+    public CreateVaultAccountRequest vaultType(VaultTypeEnum vaultType) {
+        this.vaultType = vaultType;
+        return this;
+    }
+
+    /**
+     * Type of vault account. The default type will be set to MPC.&lt;br/&gt; If the workspace does
+     * not support the selected type, it will return an error.
+     *
+     * @return vaultType
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_VAULT_TYPE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public VaultTypeEnum getVaultType() {
+        return vaultType;
+    }
+
+    @JsonProperty(JSON_PROPERTY_VAULT_TYPE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setVaultType(VaultTypeEnum vaultType) {
+        this.vaultType = vaultType;
+    }
+
+    public CreateVaultAccountRequest autoAssign(Boolean autoAssign) {
+        this.autoAssign = autoAssign;
+        return this;
+    }
+
+    /**
+     * Applicable only when the vault account type is KEY_LINK. For MPC, this parameter will be
+     * ignored.&lt;br/&gt; If set to true and there are available keys, random keys will be assigned
+     * to the newly created vault account.&lt;br/&gt; If set to true and there are no available keys
+     * to be assigned, it will return an error.&lt;br/&gt; If set to false, the vault account will
+     * be created without any keys.
+     *
+     * @return autoAssign
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_AUTO_ASSIGN)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public Boolean getAutoAssign() {
+        return autoAssign;
+    }
+
+    @JsonProperty(JSON_PROPERTY_AUTO_ASSIGN)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setAutoAssign(Boolean autoAssign) {
+        this.autoAssign = autoAssign;
+    }
+
     /** Return true if this CreateVaultAccountRequest object is equal to o. */
     @Override
     public boolean equals(Object o) {
@@ -150,12 +247,14 @@ public class CreateVaultAccountRequest {
         return Objects.equals(this.name, createVaultAccountRequest.name)
                 && Objects.equals(this.hiddenOnUI, createVaultAccountRequest.hiddenOnUI)
                 && Objects.equals(this.customerRefId, createVaultAccountRequest.customerRefId)
-                && Objects.equals(this.autoFuel, createVaultAccountRequest.autoFuel);
+                && Objects.equals(this.autoFuel, createVaultAccountRequest.autoFuel)
+                && Objects.equals(this.vaultType, createVaultAccountRequest.vaultType)
+                && Objects.equals(this.autoAssign, createVaultAccountRequest.autoAssign);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, hiddenOnUI, customerRefId, autoFuel);
+        return Objects.hash(name, hiddenOnUI, customerRefId, autoFuel, vaultType, autoAssign);
     }
 
     @Override
@@ -166,6 +265,8 @@ public class CreateVaultAccountRequest {
         sb.append("    hiddenOnUI: ").append(toIndentedString(hiddenOnUI)).append("\n");
         sb.append("    customerRefId: ").append(toIndentedString(customerRefId)).append("\n");
         sb.append("    autoFuel: ").append(toIndentedString(autoFuel)).append("\n");
+        sb.append("    vaultType: ").append(toIndentedString(vaultType)).append("\n");
+        sb.append("    autoAssign: ").append(toIndentedString(autoAssign)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -257,6 +358,30 @@ public class CreateVaultAccountRequest {
                             prefix,
                             suffix,
                             URLEncoder.encode(String.valueOf(getAutoFuel()), StandardCharsets.UTF_8)
+                                    .replaceAll("\\+", "%20")));
+        }
+
+        // add `vaultType` to the URL query string
+        if (getVaultType() != null) {
+            joiner.add(
+                    String.format(
+                            "%svaultType%s=%s",
+                            prefix,
+                            suffix,
+                            URLEncoder.encode(
+                                            String.valueOf(getVaultType()), StandardCharsets.UTF_8)
+                                    .replaceAll("\\+", "%20")));
+        }
+
+        // add `autoAssign` to the URL query string
+        if (getAutoAssign() != null) {
+            joiner.add(
+                    String.format(
+                            "%sautoAssign%s=%s",
+                            prefix,
+                            suffix,
+                            URLEncoder.encode(
+                                            String.valueOf(getAutoAssign()), StandardCharsets.UTF_8)
                                     .replaceAll("\\+", "%20")));
         }
 

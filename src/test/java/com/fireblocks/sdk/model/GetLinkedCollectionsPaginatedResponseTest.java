@@ -15,14 +15,15 @@ package com.fireblocks.sdk.model;
 
 import org.junit.Test;
 
-/** Model tests for GetAuditLogsResponseDTO */
-public class GetAuditLogsResponseDTOTest {
-    private final GetAuditLogsResponseDTO model = new GetAuditLogsResponseDTO();
+/** Model tests for GetLinkedCollectionsPaginatedResponse */
+public class GetLinkedCollectionsPaginatedResponseTest {
+    private final GetLinkedCollectionsPaginatedResponse model =
+            new GetLinkedCollectionsPaginatedResponse();
 
-    /** Model tests for GetAuditLogsResponseDTO */
+    /** Model tests for GetLinkedCollectionsPaginatedResponse */
     @Test
-    public void testGetAuditLogsResponseDTO() {
-        // TODO: test GetAuditLogsResponseDTO
+    public void testGetLinkedCollectionsPaginatedResponse() {
+        // TODO: test GetLinkedCollectionsPaginatedResponse
     }
 
     /** Test the property 'data' */
@@ -31,15 +32,9 @@ public class GetAuditLogsResponseDTOTest {
         // TODO: test data
     }
 
-    /** Test the property 'total' */
+    /** Test the property 'next' */
     @Test
-    public void totalTest() {
-        // TODO: test total
-    }
-
-    /** Test the property 'cursor' */
-    @Test
-    public void cursorTest() {
-        // TODO: test cursor
+    public void nextTest() {
+        // TODO: test next
     }
 }

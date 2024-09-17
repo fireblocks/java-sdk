@@ -16,7 +16,6 @@ package com.fireblocks.sdk.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.math.BigDecimal;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -24,31 +23,27 @@ import java.util.List;
 import java.util.Objects;
 import java.util.StringJoiner;
 
-/** GetAuditLogsResponseDTO */
+/** GetLinkedCollectionsPaginatedResponse */
 @JsonPropertyOrder({
-    GetAuditLogsResponseDTO.JSON_PROPERTY_DATA,
-    GetAuditLogsResponseDTO.JSON_PROPERTY_TOTAL,
-    GetAuditLogsResponseDTO.JSON_PROPERTY_CURSOR
+    GetLinkedCollectionsPaginatedResponse.JSON_PROPERTY_DATA,
+    GetLinkedCollectionsPaginatedResponse.JSON_PROPERTY_NEXT
 })
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
-public class GetAuditLogsResponseDTO {
+public class GetLinkedCollectionsPaginatedResponse {
     public static final String JSON_PROPERTY_DATA = "data";
-    private List<Object> data;
+    private List<CollectionLinkDto> data;
 
-    public static final String JSON_PROPERTY_TOTAL = "total";
-    private BigDecimal total;
+    public static final String JSON_PROPERTY_NEXT = "next";
+    private String next;
 
-    public static final String JSON_PROPERTY_CURSOR = "cursor";
-    private String cursor;
+    public GetLinkedCollectionsPaginatedResponse() {}
 
-    public GetAuditLogsResponseDTO() {}
-
-    public GetAuditLogsResponseDTO data(List<Object> data) {
+    public GetLinkedCollectionsPaginatedResponse data(List<CollectionLinkDto> data) {
         this.data = data;
         return this;
     }
 
-    public GetAuditLogsResponseDTO addDataItem(Object dataItem) {
+    public GetLinkedCollectionsPaginatedResponse addDataItem(CollectionLinkDto dataItem) {
         if (this.data == null) {
             this.data = new ArrayList<>();
         }
@@ -57,70 +52,47 @@ public class GetAuditLogsResponseDTO {
     }
 
     /**
-     * Get data
+     * The data of the current page
      *
      * @return data
      */
     @jakarta.annotation.Nullable
     @JsonProperty(JSON_PROPERTY_DATA)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public List<Object> getData() {
+    public List<CollectionLinkDto> getData() {
         return data;
     }
 
     @JsonProperty(JSON_PROPERTY_DATA)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setData(List<Object> data) {
+    public void setData(List<CollectionLinkDto> data) {
         this.data = data;
     }
 
-    public GetAuditLogsResponseDTO total(BigDecimal total) {
-        this.total = total;
+    public GetLinkedCollectionsPaginatedResponse next(String next) {
+        this.next = next;
         return this;
     }
 
     /**
-     * Get total
+     * The ID of the next page
      *
-     * @return total
+     * @return next
      */
     @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_TOTAL)
+    @JsonProperty(JSON_PROPERTY_NEXT)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public BigDecimal getTotal() {
-        return total;
+    public String getNext() {
+        return next;
     }
 
-    @JsonProperty(JSON_PROPERTY_TOTAL)
+    @JsonProperty(JSON_PROPERTY_NEXT)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setTotal(BigDecimal total) {
-        this.total = total;
+    public void setNext(String next) {
+        this.next = next;
     }
 
-    public GetAuditLogsResponseDTO cursor(String cursor) {
-        this.cursor = cursor;
-        return this;
-    }
-
-    /**
-     * Get cursor
-     *
-     * @return cursor
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_CURSOR)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public String getCursor() {
-        return cursor;
-    }
-
-    @JsonProperty(JSON_PROPERTY_CURSOR)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setCursor(String cursor) {
-        this.cursor = cursor;
-    }
-
-    /** Return true if this GetAuditLogsResponseDTO object is equal to o. */
+    /** Return true if this GetLinkedCollectionsPaginatedResponse object is equal to o. */
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -129,24 +101,23 @@ public class GetAuditLogsResponseDTO {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        GetAuditLogsResponseDTO getAuditLogsResponseDTO = (GetAuditLogsResponseDTO) o;
-        return Objects.equals(this.data, getAuditLogsResponseDTO.data)
-                && Objects.equals(this.total, getAuditLogsResponseDTO.total)
-                && Objects.equals(this.cursor, getAuditLogsResponseDTO.cursor);
+        GetLinkedCollectionsPaginatedResponse getLinkedCollectionsPaginatedResponse =
+                (GetLinkedCollectionsPaginatedResponse) o;
+        return Objects.equals(this.data, getLinkedCollectionsPaginatedResponse.data)
+                && Objects.equals(this.next, getLinkedCollectionsPaginatedResponse.next);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(data, total, cursor);
+        return Objects.hash(data, next);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("class GetAuditLogsResponseDTO {\n");
+        sb.append("class GetLinkedCollectionsPaginatedResponse {\n");
         sb.append("    data: ").append(toIndentedString(data)).append("\n");
-        sb.append("    total: ").append(toIndentedString(total)).append("\n");
-        sb.append("    cursor: ").append(toIndentedString(cursor)).append("\n");
+        sb.append("    next: ").append(toIndentedString(next)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -197,41 +168,34 @@ public class GetAuditLogsResponseDTO {
         // add `data` to the URL query string
         if (getData() != null) {
             for (int i = 0; i < getData().size(); i++) {
-                joiner.add(
-                        String.format(
-                                "%sdata%s%s=%s",
-                                prefix,
-                                suffix,
-                                "".equals(suffix)
-                                        ? ""
-                                        : String.format(
-                                                "%s%d%s", containerPrefix, i, containerSuffix),
-                                URLEncoder.encode(
-                                                String.valueOf(getData().get(i)),
-                                                StandardCharsets.UTF_8)
-                                        .replaceAll("\\+", "%20")));
+                if (getData().get(i) != null) {
+                    joiner.add(
+                            getData()
+                                    .get(i)
+                                    .toUrlQueryString(
+                                            String.format(
+                                                    "%sdata%s%s",
+                                                    prefix,
+                                                    suffix,
+                                                    "".equals(suffix)
+                                                            ? ""
+                                                            : String.format(
+                                                                    "%s%d%s",
+                                                                    containerPrefix,
+                                                                    i,
+                                                                    containerSuffix))));
+                }
             }
         }
 
-        // add `total` to the URL query string
-        if (getTotal() != null) {
+        // add `next` to the URL query string
+        if (getNext() != null) {
             joiner.add(
                     String.format(
-                            "%stotal%s=%s",
+                            "%snext%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getTotal()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
-        // add `cursor` to the URL query string
-        if (getCursor() != null) {
-            joiner.add(
-                    String.format(
-                            "%scursor%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(String.valueOf(getCursor()), StandardCharsets.UTF_8)
+                            URLEncoder.encode(String.valueOf(getNext()), StandardCharsets.UTF_8)
                                     .replaceAll("\\+", "%20")));
         }
 

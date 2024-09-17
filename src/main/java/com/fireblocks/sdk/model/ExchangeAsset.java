@@ -27,7 +27,8 @@ import java.util.StringJoiner;
     ExchangeAsset.JSON_PROPERTY_BALANCE,
     ExchangeAsset.JSON_PROPERTY_LOCKED_AMOUNT,
     ExchangeAsset.JSON_PROPERTY_TOTAL,
-    ExchangeAsset.JSON_PROPERTY_AVAILABLE
+    ExchangeAsset.JSON_PROPERTY_AVAILABLE,
+    ExchangeAsset.JSON_PROPERTY_CREDIT
 })
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class ExchangeAsset {
@@ -45,6 +46,9 @@ public class ExchangeAsset {
 
     public static final String JSON_PROPERTY_AVAILABLE = "available";
     private String available;
+
+    public static final String JSON_PROPERTY_CREDIT = "credit";
+    private String credit;
 
     public ExchangeAsset() {}
 
@@ -163,6 +167,29 @@ public class ExchangeAsset {
         this.available = available;
     }
 
+    public ExchangeAsset credit(String credit) {
+        this.credit = credit;
+        return this;
+    }
+
+    /**
+     * Get credit
+     *
+     * @return credit
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_CREDIT)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getCredit() {
+        return credit;
+    }
+
+    @JsonProperty(JSON_PROPERTY_CREDIT)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setCredit(String credit) {
+        this.credit = credit;
+    }
+
     /** Return true if this ExchangeAsset object is equal to o. */
     @Override
     public boolean equals(Object o) {
@@ -177,12 +204,13 @@ public class ExchangeAsset {
                 && Objects.equals(this.balance, exchangeAsset.balance)
                 && Objects.equals(this.lockedAmount, exchangeAsset.lockedAmount)
                 && Objects.equals(this.total, exchangeAsset.total)
-                && Objects.equals(this.available, exchangeAsset.available);
+                && Objects.equals(this.available, exchangeAsset.available)
+                && Objects.equals(this.credit, exchangeAsset.credit);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, balance, lockedAmount, total, available);
+        return Objects.hash(id, balance, lockedAmount, total, available, credit);
     }
 
     @Override
@@ -194,6 +222,7 @@ public class ExchangeAsset {
         sb.append("    lockedAmount: ").append(toIndentedString(lockedAmount)).append("\n");
         sb.append("    total: ").append(toIndentedString(total)).append("\n");
         sb.append("    available: ").append(toIndentedString(available)).append("\n");
+        sb.append("    credit: ").append(toIndentedString(credit)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -296,6 +325,17 @@ public class ExchangeAsset {
                             suffix,
                             URLEncoder.encode(
                                             String.valueOf(getAvailable()), StandardCharsets.UTF_8)
+                                    .replaceAll("\\+", "%20")));
+        }
+
+        // add `credit` to the URL query string
+        if (getCredit() != null) {
+            joiner.add(
+                    String.format(
+                            "%scredit%s=%s",
+                            prefix,
+                            suffix,
+                            URLEncoder.encode(String.valueOf(getCredit()), StandardCharsets.UTF_8)
                                     .replaceAll("\\+", "%20")));
         }
 
