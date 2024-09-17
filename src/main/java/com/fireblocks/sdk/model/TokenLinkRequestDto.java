@@ -27,7 +27,9 @@ import java.util.StringJoiner;
 @JsonPropertyOrder({
     TokenLinkRequestDto.JSON_PROPERTY_TYPE,
     TokenLinkRequestDto.JSON_PROPERTY_REF_ID,
-    TokenLinkRequestDto.JSON_PROPERTY_DISPLAY_NAME
+    TokenLinkRequestDto.JSON_PROPERTY_DISPLAY_NAME,
+    TokenLinkRequestDto.JSON_PROPERTY_BASE_ASSET_ID,
+    TokenLinkRequestDto.JSON_PROPERTY_CONTRACT_ADDRESS
 })
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class TokenLinkRequestDto {
@@ -77,6 +79,12 @@ public class TokenLinkRequestDto {
     public static final String JSON_PROPERTY_DISPLAY_NAME = "displayName";
     private String displayName;
 
+    public static final String JSON_PROPERTY_BASE_ASSET_ID = "baseAssetId";
+    private String baseAssetId;
+
+    public static final String JSON_PROPERTY_CONTRACT_ADDRESS = "contractAddress";
+    private String contractAddress;
+
     public TokenLinkRequestDto() {}
 
     public TokenLinkRequestDto type(TypeEnum type) {
@@ -113,15 +121,15 @@ public class TokenLinkRequestDto {
      *
      * @return refId
      */
-    @jakarta.annotation.Nonnull
+    @jakarta.annotation.Nullable
     @JsonProperty(JSON_PROPERTY_REF_ID)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
     public String getRefId() {
         return refId;
     }
 
     @JsonProperty(JSON_PROPERTY_REF_ID)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
     public void setRefId(String refId) {
         this.refId = refId;
     }
@@ -149,6 +157,52 @@ public class TokenLinkRequestDto {
         this.displayName = displayName;
     }
 
+    public TokenLinkRequestDto baseAssetId(String baseAssetId) {
+        this.baseAssetId = baseAssetId;
+        return this;
+    }
+
+    /**
+     * The blockchain base assetId
+     *
+     * @return baseAssetId
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_BASE_ASSET_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getBaseAssetId() {
+        return baseAssetId;
+    }
+
+    @JsonProperty(JSON_PROPERTY_BASE_ASSET_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setBaseAssetId(String baseAssetId) {
+        this.baseAssetId = baseAssetId;
+    }
+
+    public TokenLinkRequestDto contractAddress(String contractAddress) {
+        this.contractAddress = contractAddress;
+        return this;
+    }
+
+    /**
+     * The contract&#39;s onchain address
+     *
+     * @return contractAddress
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_CONTRACT_ADDRESS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getContractAddress() {
+        return contractAddress;
+    }
+
+    @JsonProperty(JSON_PROPERTY_CONTRACT_ADDRESS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setContractAddress(String contractAddress) {
+        this.contractAddress = contractAddress;
+    }
+
     /** Return true if this TokenLinkRequestDto object is equal to o. */
     @Override
     public boolean equals(Object o) {
@@ -161,12 +215,14 @@ public class TokenLinkRequestDto {
         TokenLinkRequestDto tokenLinkRequestDto = (TokenLinkRequestDto) o;
         return Objects.equals(this.type, tokenLinkRequestDto.type)
                 && Objects.equals(this.refId, tokenLinkRequestDto.refId)
-                && Objects.equals(this.displayName, tokenLinkRequestDto.displayName);
+                && Objects.equals(this.displayName, tokenLinkRequestDto.displayName)
+                && Objects.equals(this.baseAssetId, tokenLinkRequestDto.baseAssetId)
+                && Objects.equals(this.contractAddress, tokenLinkRequestDto.contractAddress);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(type, refId, displayName);
+        return Objects.hash(type, refId, displayName, baseAssetId, contractAddress);
     }
 
     @Override
@@ -176,6 +232,8 @@ public class TokenLinkRequestDto {
         sb.append("    type: ").append(toIndentedString(type)).append("\n");
         sb.append("    refId: ").append(toIndentedString(refId)).append("\n");
         sb.append("    displayName: ").append(toIndentedString(displayName)).append("\n");
+        sb.append("    baseAssetId: ").append(toIndentedString(baseAssetId)).append("\n");
+        sb.append("    contractAddress: ").append(toIndentedString(contractAddress)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -254,6 +312,32 @@ public class TokenLinkRequestDto {
                             suffix,
                             URLEncoder.encode(
                                             String.valueOf(getDisplayName()),
+                                            StandardCharsets.UTF_8)
+                                    .replaceAll("\\+", "%20")));
+        }
+
+        // add `baseAssetId` to the URL query string
+        if (getBaseAssetId() != null) {
+            joiner.add(
+                    String.format(
+                            "%sbaseAssetId%s=%s",
+                            prefix,
+                            suffix,
+                            URLEncoder.encode(
+                                            String.valueOf(getBaseAssetId()),
+                                            StandardCharsets.UTF_8)
+                                    .replaceAll("\\+", "%20")));
+        }
+
+        // add `contractAddress` to the URL query string
+        if (getContractAddress() != null) {
+            joiner.add(
+                    String.format(
+                            "%scontractAddress%s=%s",
+                            prefix,
+                            suffix,
+                            URLEncoder.encode(
+                                            String.valueOf(getContractAddress()),
                                             StandardCharsets.UTF_8)
                                     .replaceAll("\\+", "%20")));
         }

@@ -39,8 +39,7 @@ import java.util.StringJoiner;
     TravelRuleValidateFullTransactionRequest.JSON_PROPERTY_SKIP_BENEFICIARY_DATA_VALIDATION,
     TravelRuleValidateFullTransactionRequest.JSON_PROPERTY_TRAVEL_RULE_BEHAVIOR,
     TravelRuleValidateFullTransactionRequest.JSON_PROPERTY_ORIGINATOR_PROOF,
-    TravelRuleValidateFullTransactionRequest.JSON_PROPERTY_BENEFICIARY_PROOF,
-    TravelRuleValidateFullTransactionRequest.JSON_PROPERTY_PII
+    TravelRuleValidateFullTransactionRequest.JSON_PROPERTY_BENEFICIARY_PROOF
 })
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class TravelRuleValidateFullTransactionRequest {
@@ -96,9 +95,6 @@ public class TravelRuleValidateFullTransactionRequest {
 
     public static final String JSON_PROPERTY_BENEFICIARY_PROOF = "beneficiaryProof";
     private TravelRuleOwnershipProof beneficiaryProof;
-
-    public static final String JSON_PROPERTY_PII = "pii";
-    private TravelRulePiiIVMS pii;
 
     public TravelRuleValidateFullTransactionRequest() {}
 
@@ -500,29 +496,6 @@ public class TravelRuleValidateFullTransactionRequest {
         this.beneficiaryProof = beneficiaryProof;
     }
 
-    public TravelRuleValidateFullTransactionRequest pii(TravelRulePiiIVMS pii) {
-        this.pii = pii;
-        return this;
-    }
-
-    /**
-     * Personal identifiable information related to the transaction
-     *
-     * @return pii
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_PII)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public TravelRulePiiIVMS getPii() {
-        return pii;
-    }
-
-    @JsonProperty(JSON_PROPERTY_PII)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setPii(TravelRulePiiIVMS pii) {
-        this.pii = pii;
-    }
-
     /** Return true if this TravelRuleValidateFullTransactionRequest object is equal to o. */
     @Override
     public boolean equals(Object o) {
@@ -578,8 +551,7 @@ public class TravelRuleValidateFullTransactionRequest {
                         travelRuleValidateFullTransactionRequest.originatorProof)
                 && Objects.equals(
                         this.beneficiaryProof,
-                        travelRuleValidateFullTransactionRequest.beneficiaryProof)
-                && Objects.equals(this.pii, travelRuleValidateFullTransactionRequest.pii);
+                        travelRuleValidateFullTransactionRequest.beneficiaryProof);
     }
 
     @Override
@@ -601,8 +573,7 @@ public class TravelRuleValidateFullTransactionRequest {
                 skipBeneficiaryDataValidation,
                 travelRuleBehavior,
                 originatorProof,
-                beneficiaryProof,
-                pii);
+                beneficiaryProof);
     }
 
     @Override
@@ -642,7 +613,6 @@ public class TravelRuleValidateFullTransactionRequest {
                 .append("\n");
         sb.append("    originatorProof: ").append(toIndentedString(originatorProof)).append("\n");
         sb.append("    beneficiaryProof: ").append(toIndentedString(beneficiaryProof)).append("\n");
-        sb.append("    pii: ").append(toIndentedString(pii)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -869,11 +839,6 @@ public class TravelRuleValidateFullTransactionRequest {
         if (getBeneficiaryProof() != null) {
             joiner.add(
                     getBeneficiaryProof().toUrlQueryString(prefix + "beneficiaryProof" + suffix));
-        }
-
-        // add `pii` to the URL query string
-        if (getPii() != null) {
-            joiner.add(getPii().toUrlQueryString(prefix + "pii" + suffix));
         }
 
         return joiner.toString();

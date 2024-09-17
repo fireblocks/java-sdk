@@ -25,7 +25,8 @@ import java.util.StringJoiner;
 @JsonPropertyOrder({
     CreateSigningKeyDto.JSON_PROPERTY_SIGNING_DEVICE_KEY_ID,
     CreateSigningKeyDto.JSON_PROPERTY_SIGNED_CERT_PEM,
-    CreateSigningKeyDto.JSON_PROPERTY_AGENT_USER_ID
+    CreateSigningKeyDto.JSON_PROPERTY_AGENT_USER_ID,
+    CreateSigningKeyDto.JSON_PROPERTY_PROOF_OF_OWNERSHIP
 })
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class CreateSigningKeyDto {
@@ -37,6 +38,9 @@ public class CreateSigningKeyDto {
 
     public static final String JSON_PROPERTY_AGENT_USER_ID = "agentUserId";
     private String agentUserId;
+
+    public static final String JSON_PROPERTY_PROOF_OF_OWNERSHIP = "proofOfOwnership";
+    private CreateSigningKeyDtoProofOfOwnership proofOfOwnership;
 
     public CreateSigningKeyDto() {}
 
@@ -110,6 +114,30 @@ public class CreateSigningKeyDto {
         this.agentUserId = agentUserId;
     }
 
+    public CreateSigningKeyDto proofOfOwnership(
+            CreateSigningKeyDtoProofOfOwnership proofOfOwnership) {
+        this.proofOfOwnership = proofOfOwnership;
+        return this;
+    }
+
+    /**
+     * Get proofOfOwnership
+     *
+     * @return proofOfOwnership
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_PROOF_OF_OWNERSHIP)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public CreateSigningKeyDtoProofOfOwnership getProofOfOwnership() {
+        return proofOfOwnership;
+    }
+
+    @JsonProperty(JSON_PROPERTY_PROOF_OF_OWNERSHIP)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setProofOfOwnership(CreateSigningKeyDtoProofOfOwnership proofOfOwnership) {
+        this.proofOfOwnership = proofOfOwnership;
+    }
+
     /** Return true if this CreateSigningKeyDto object is equal to o. */
     @Override
     public boolean equals(Object o) {
@@ -122,12 +150,13 @@ public class CreateSigningKeyDto {
         CreateSigningKeyDto createSigningKeyDto = (CreateSigningKeyDto) o;
         return Objects.equals(this.signingDeviceKeyId, createSigningKeyDto.signingDeviceKeyId)
                 && Objects.equals(this.signedCertPem, createSigningKeyDto.signedCertPem)
-                && Objects.equals(this.agentUserId, createSigningKeyDto.agentUserId);
+                && Objects.equals(this.agentUserId, createSigningKeyDto.agentUserId)
+                && Objects.equals(this.proofOfOwnership, createSigningKeyDto.proofOfOwnership);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(signingDeviceKeyId, signedCertPem, agentUserId);
+        return Objects.hash(signingDeviceKeyId, signedCertPem, agentUserId, proofOfOwnership);
     }
 
     @Override
@@ -139,6 +168,7 @@ public class CreateSigningKeyDto {
                 .append("\n");
         sb.append("    signedCertPem: ").append(toIndentedString(signedCertPem)).append("\n");
         sb.append("    agentUserId: ").append(toIndentedString(agentUserId)).append("\n");
+        sb.append("    proofOfOwnership: ").append(toIndentedString(proofOfOwnership)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -223,6 +253,12 @@ public class CreateSigningKeyDto {
                                             String.valueOf(getAgentUserId()),
                                             StandardCharsets.UTF_8)
                                     .replaceAll("\\+", "%20")));
+        }
+
+        // add `proofOfOwnership` to the URL query string
+        if (getProofOfOwnership() != null) {
+            joiner.add(
+                    getProofOfOwnership().toUrlQueryString(prefix + "proofOfOwnership" + suffix));
         }
 
         return joiner.toString();

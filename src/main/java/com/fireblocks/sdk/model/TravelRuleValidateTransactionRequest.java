@@ -107,15 +107,15 @@ public class TravelRuleValidateTransactionRequest {
      *
      * @return destination
      */
-    @jakarta.annotation.Nonnull
+    @jakarta.annotation.Nullable
     @JsonProperty(JSON_PROPERTY_DESTINATION)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
     public String getDestination() {
         return destination;
     }
 
     @JsonProperty(JSON_PROPERTY_DESTINATION)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
     public void setDestination(String destination) {
         this.destination = destination;
     }

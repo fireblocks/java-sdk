@@ -127,10 +127,4 @@ public class TravelRuleValidateFullTransactionRequestTest {
     public void beneficiaryProofTest() {
         // TODO: test beneficiaryProof
     }
-
-    /** Test the property 'pii' */
-    @Test
-    public void piiTest() {
-        // TODO: test pii
-    }
 }

@@ -25,6 +25,7 @@ import java.util.StringJoiner;
 @JsonPropertyOrder({
     TravelRuleCreateTransactionRequest.JSON_PROPERTY_ORIGINATOR_V_A_S_PDID,
     TravelRuleCreateTransactionRequest.JSON_PROPERTY_BENEFICIARY_V_A_S_PDID,
+    TravelRuleCreateTransactionRequest.JSON_PROPERTY_ORIGINATOR_V_A_S_PNAME,
     TravelRuleCreateTransactionRequest.JSON_PROPERTY_BENEFICIARY_V_A_S_PNAME,
     TravelRuleCreateTransactionRequest.JSON_PROPERTY_TRANSACTION_BLOCKCHAIN_INFO,
     TravelRuleCreateTransactionRequest.JSON_PROPERTY_ORIGINATOR,
@@ -33,9 +34,14 @@ import java.util.StringJoiner;
     TravelRuleCreateTransactionRequest.JSON_PROPERTY_PROTOCOL,
     TravelRuleCreateTransactionRequest.JSON_PROPERTY_SKIP_BENEFICIARY_DATA_VALIDATION,
     TravelRuleCreateTransactionRequest.JSON_PROPERTY_TRAVEL_RULE_BEHAVIOR,
+    TravelRuleCreateTransactionRequest.JSON_PROPERTY_ORIGINATOR_REF,
+    TravelRuleCreateTransactionRequest.JSON_PROPERTY_BENEFICIARY_REF,
+    TravelRuleCreateTransactionRequest.JSON_PROPERTY_TRAVEL_RULE_BEHAVIOR_REF,
     TravelRuleCreateTransactionRequest.JSON_PROPERTY_ORIGINATOR_PROOF,
     TravelRuleCreateTransactionRequest.JSON_PROPERTY_BENEFICIARY_PROOF,
-    TravelRuleCreateTransactionRequest.JSON_PROPERTY_PII
+    TravelRuleCreateTransactionRequest.JSON_PROPERTY_BENEFICIARY_DID,
+    TravelRuleCreateTransactionRequest.JSON_PROPERTY_ORIGINATOR_DID,
+    TravelRuleCreateTransactionRequest.JSON_PROPERTY_IS_NON_CUSTODIAL
 })
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class TravelRuleCreateTransactionRequest {
@@ -44,6 +50,9 @@ public class TravelRuleCreateTransactionRequest {
 
     public static final String JSON_PROPERTY_BENEFICIARY_V_A_S_PDID = "beneficiaryVASPdid";
     private String beneficiaryVASPdid;
+
+    public static final String JSON_PROPERTY_ORIGINATOR_V_A_S_PNAME = "originatorVASPname";
+    private String originatorVASPname;
 
     public static final String JSON_PROPERTY_BENEFICIARY_V_A_S_PNAME = "beneficiaryVASPname";
     private String beneficiaryVASPname;
@@ -71,14 +80,29 @@ public class TravelRuleCreateTransactionRequest {
     public static final String JSON_PROPERTY_TRAVEL_RULE_BEHAVIOR = "travelRuleBehavior";
     private Boolean travelRuleBehavior;
 
+    public static final String JSON_PROPERTY_ORIGINATOR_REF = "originatorRef";
+    private String originatorRef;
+
+    public static final String JSON_PROPERTY_BENEFICIARY_REF = "beneficiaryRef";
+    private String beneficiaryRef;
+
+    public static final String JSON_PROPERTY_TRAVEL_RULE_BEHAVIOR_REF = "travelRuleBehaviorRef";
+    private String travelRuleBehaviorRef;
+
     public static final String JSON_PROPERTY_ORIGINATOR_PROOF = "originatorProof";
     private TravelRuleOwnershipProof originatorProof;
 
     public static final String JSON_PROPERTY_BENEFICIARY_PROOF = "beneficiaryProof";
     private TravelRuleOwnershipProof beneficiaryProof;
 
-    public static final String JSON_PROPERTY_PII = "pii";
-    private TravelRulePiiIVMS pii;
+    public static final String JSON_PROPERTY_BENEFICIARY_DID = "beneficiaryDid";
+    private String beneficiaryDid;
+
+    public static final String JSON_PROPERTY_ORIGINATOR_DID = "originatorDid";
+    private String originatorDid;
+
+    public static final String JSON_PROPERTY_IS_NON_CUSTODIAL = "isNonCustodial";
+    private Boolean isNonCustodial;
 
     public TravelRuleCreateTransactionRequest() {}
 
@@ -126,6 +150,29 @@ public class TravelRuleCreateTransactionRequest {
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
     public void setBeneficiaryVASPdid(String beneficiaryVASPdid) {
         this.beneficiaryVASPdid = beneficiaryVASPdid;
+    }
+
+    public TravelRuleCreateTransactionRequest originatorVASPname(String originatorVASPname) {
+        this.originatorVASPname = originatorVASPname;
+        return this;
+    }
+
+    /**
+     * Get originatorVASPname
+     *
+     * @return originatorVASPname
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_ORIGINATOR_V_A_S_PNAME)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getOriginatorVASPname() {
+        return originatorVASPname;
+    }
+
+    @JsonProperty(JSON_PROPERTY_ORIGINATOR_V_A_S_PNAME)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setOriginatorVASPname(String originatorVASPname) {
+        this.originatorVASPname = originatorVASPname;
     }
 
     public TravelRuleCreateTransactionRequest beneficiaryVASPname(String beneficiaryVASPname) {
@@ -316,6 +363,75 @@ public class TravelRuleCreateTransactionRequest {
         this.travelRuleBehavior = travelRuleBehavior;
     }
 
+    public TravelRuleCreateTransactionRequest originatorRef(String originatorRef) {
+        this.originatorRef = originatorRef;
+        return this;
+    }
+
+    /**
+     * Get originatorRef
+     *
+     * @return originatorRef
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_ORIGINATOR_REF)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getOriginatorRef() {
+        return originatorRef;
+    }
+
+    @JsonProperty(JSON_PROPERTY_ORIGINATOR_REF)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setOriginatorRef(String originatorRef) {
+        this.originatorRef = originatorRef;
+    }
+
+    public TravelRuleCreateTransactionRequest beneficiaryRef(String beneficiaryRef) {
+        this.beneficiaryRef = beneficiaryRef;
+        return this;
+    }
+
+    /**
+     * Get beneficiaryRef
+     *
+     * @return beneficiaryRef
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_BENEFICIARY_REF)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getBeneficiaryRef() {
+        return beneficiaryRef;
+    }
+
+    @JsonProperty(JSON_PROPERTY_BENEFICIARY_REF)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setBeneficiaryRef(String beneficiaryRef) {
+        this.beneficiaryRef = beneficiaryRef;
+    }
+
+    public TravelRuleCreateTransactionRequest travelRuleBehaviorRef(String travelRuleBehaviorRef) {
+        this.travelRuleBehaviorRef = travelRuleBehaviorRef;
+        return this;
+    }
+
+    /**
+     * Get travelRuleBehaviorRef
+     *
+     * @return travelRuleBehaviorRef
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_TRAVEL_RULE_BEHAVIOR_REF)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getTravelRuleBehaviorRef() {
+        return travelRuleBehaviorRef;
+    }
+
+    @JsonProperty(JSON_PROPERTY_TRAVEL_RULE_BEHAVIOR_REF)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setTravelRuleBehaviorRef(String travelRuleBehaviorRef) {
+        this.travelRuleBehaviorRef = travelRuleBehaviorRef;
+    }
+
     public TravelRuleCreateTransactionRequest originatorProof(
             TravelRuleOwnershipProof originatorProof) {
         this.originatorProof = originatorProof;
@@ -364,27 +480,73 @@ public class TravelRuleCreateTransactionRequest {
         this.beneficiaryProof = beneficiaryProof;
     }
 
-    public TravelRuleCreateTransactionRequest pii(TravelRulePiiIVMS pii) {
-        this.pii = pii;
+    public TravelRuleCreateTransactionRequest beneficiaryDid(String beneficiaryDid) {
+        this.beneficiaryDid = beneficiaryDid;
         return this;
     }
 
     /**
-     * Personal identifiable information related to the transaction
+     * Get beneficiaryDid
      *
-     * @return pii
+     * @return beneficiaryDid
      */
     @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_PII)
+    @JsonProperty(JSON_PROPERTY_BENEFICIARY_DID)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public TravelRulePiiIVMS getPii() {
-        return pii;
+    public String getBeneficiaryDid() {
+        return beneficiaryDid;
     }
 
-    @JsonProperty(JSON_PROPERTY_PII)
+    @JsonProperty(JSON_PROPERTY_BENEFICIARY_DID)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setPii(TravelRulePiiIVMS pii) {
-        this.pii = pii;
+    public void setBeneficiaryDid(String beneficiaryDid) {
+        this.beneficiaryDid = beneficiaryDid;
+    }
+
+    public TravelRuleCreateTransactionRequest originatorDid(String originatorDid) {
+        this.originatorDid = originatorDid;
+        return this;
+    }
+
+    /**
+     * Get originatorDid
+     *
+     * @return originatorDid
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_ORIGINATOR_DID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getOriginatorDid() {
+        return originatorDid;
+    }
+
+    @JsonProperty(JSON_PROPERTY_ORIGINATOR_DID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setOriginatorDid(String originatorDid) {
+        this.originatorDid = originatorDid;
+    }
+
+    public TravelRuleCreateTransactionRequest isNonCustodial(Boolean isNonCustodial) {
+        this.isNonCustodial = isNonCustodial;
+        return this;
+    }
+
+    /**
+     * Get isNonCustodial
+     *
+     * @return isNonCustodial
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_IS_NON_CUSTODIAL)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public Boolean getIsNonCustodial() {
+        return isNonCustodial;
+    }
+
+    @JsonProperty(JSON_PROPERTY_IS_NON_CUSTODIAL)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setIsNonCustodial(Boolean isNonCustodial) {
+        this.isNonCustodial = isNonCustodial;
     }
 
     /** Return true if this TravelRuleCreateTransactionRequest object is equal to o. */
@@ -405,6 +567,9 @@ public class TravelRuleCreateTransactionRequest {
                         this.beneficiaryVASPdid,
                         travelRuleCreateTransactionRequest.beneficiaryVASPdid)
                 && Objects.equals(
+                        this.originatorVASPname,
+                        travelRuleCreateTransactionRequest.originatorVASPname)
+                && Objects.equals(
                         this.beneficiaryVASPname,
                         travelRuleCreateTransactionRequest.beneficiaryVASPname)
                 && Objects.equals(
@@ -421,10 +586,22 @@ public class TravelRuleCreateTransactionRequest {
                         this.travelRuleBehavior,
                         travelRuleCreateTransactionRequest.travelRuleBehavior)
                 && Objects.equals(
+                        this.originatorRef, travelRuleCreateTransactionRequest.originatorRef)
+                && Objects.equals(
+                        this.beneficiaryRef, travelRuleCreateTransactionRequest.beneficiaryRef)
+                && Objects.equals(
+                        this.travelRuleBehaviorRef,
+                        travelRuleCreateTransactionRequest.travelRuleBehaviorRef)
+                && Objects.equals(
                         this.originatorProof, travelRuleCreateTransactionRequest.originatorProof)
                 && Objects.equals(
                         this.beneficiaryProof, travelRuleCreateTransactionRequest.beneficiaryProof)
-                && Objects.equals(this.pii, travelRuleCreateTransactionRequest.pii);
+                && Objects.equals(
+                        this.beneficiaryDid, travelRuleCreateTransactionRequest.beneficiaryDid)
+                && Objects.equals(
+                        this.originatorDid, travelRuleCreateTransactionRequest.originatorDid)
+                && Objects.equals(
+                        this.isNonCustodial, travelRuleCreateTransactionRequest.isNonCustodial);
     }
 
     @Override
@@ -432,6 +609,7 @@ public class TravelRuleCreateTransactionRequest {
         return Objects.hash(
                 originatorVASPdid,
                 beneficiaryVASPdid,
+                originatorVASPname,
                 beneficiaryVASPname,
                 transactionBlockchainInfo,
                 originator,
@@ -440,9 +618,14 @@ public class TravelRuleCreateTransactionRequest {
                 protocol,
                 skipBeneficiaryDataValidation,
                 travelRuleBehavior,
+                originatorRef,
+                beneficiaryRef,
+                travelRuleBehaviorRef,
                 originatorProof,
                 beneficiaryProof,
-                pii);
+                beneficiaryDid,
+                originatorDid,
+                isNonCustodial);
     }
 
     @Override
@@ -454,6 +637,9 @@ public class TravelRuleCreateTransactionRequest {
                 .append("\n");
         sb.append("    beneficiaryVASPdid: ")
                 .append(toIndentedString(beneficiaryVASPdid))
+                .append("\n");
+        sb.append("    originatorVASPname: ")
+                .append(toIndentedString(originatorVASPname))
                 .append("\n");
         sb.append("    beneficiaryVASPname: ")
                 .append(toIndentedString(beneficiaryVASPname))
@@ -471,9 +657,16 @@ public class TravelRuleCreateTransactionRequest {
         sb.append("    travelRuleBehavior: ")
                 .append(toIndentedString(travelRuleBehavior))
                 .append("\n");
+        sb.append("    originatorRef: ").append(toIndentedString(originatorRef)).append("\n");
+        sb.append("    beneficiaryRef: ").append(toIndentedString(beneficiaryRef)).append("\n");
+        sb.append("    travelRuleBehaviorRef: ")
+                .append(toIndentedString(travelRuleBehaviorRef))
+                .append("\n");
         sb.append("    originatorProof: ").append(toIndentedString(originatorProof)).append("\n");
         sb.append("    beneficiaryProof: ").append(toIndentedString(beneficiaryProof)).append("\n");
-        sb.append("    pii: ").append(toIndentedString(pii)).append("\n");
+        sb.append("    beneficiaryDid: ").append(toIndentedString(beneficiaryDid)).append("\n");
+        sb.append("    originatorDid: ").append(toIndentedString(originatorDid)).append("\n");
+        sb.append("    isNonCustodial: ").append(toIndentedString(isNonCustodial)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -543,6 +736,19 @@ public class TravelRuleCreateTransactionRequest {
                             suffix,
                             URLEncoder.encode(
                                             String.valueOf(getBeneficiaryVASPdid()),
+                                            StandardCharsets.UTF_8)
+                                    .replaceAll("\\+", "%20")));
+        }
+
+        // add `originatorVASPname` to the URL query string
+        if (getOriginatorVASPname() != null) {
+            joiner.add(
+                    String.format(
+                            "%soriginatorVASPname%s=%s",
+                            prefix,
+                            suffix,
+                            URLEncoder.encode(
+                                            String.valueOf(getOriginatorVASPname()),
                                             StandardCharsets.UTF_8)
                                     .replaceAll("\\+", "%20")));
         }
@@ -626,6 +832,45 @@ public class TravelRuleCreateTransactionRequest {
                                     .replaceAll("\\+", "%20")));
         }
 
+        // add `originatorRef` to the URL query string
+        if (getOriginatorRef() != null) {
+            joiner.add(
+                    String.format(
+                            "%soriginatorRef%s=%s",
+                            prefix,
+                            suffix,
+                            URLEncoder.encode(
+                                            String.valueOf(getOriginatorRef()),
+                                            StandardCharsets.UTF_8)
+                                    .replaceAll("\\+", "%20")));
+        }
+
+        // add `beneficiaryRef` to the URL query string
+        if (getBeneficiaryRef() != null) {
+            joiner.add(
+                    String.format(
+                            "%sbeneficiaryRef%s=%s",
+                            prefix,
+                            suffix,
+                            URLEncoder.encode(
+                                            String.valueOf(getBeneficiaryRef()),
+                                            StandardCharsets.UTF_8)
+                                    .replaceAll("\\+", "%20")));
+        }
+
+        // add `travelRuleBehaviorRef` to the URL query string
+        if (getTravelRuleBehaviorRef() != null) {
+            joiner.add(
+                    String.format(
+                            "%stravelRuleBehaviorRef%s=%s",
+                            prefix,
+                            suffix,
+                            URLEncoder.encode(
+                                            String.valueOf(getTravelRuleBehaviorRef()),
+                                            StandardCharsets.UTF_8)
+                                    .replaceAll("\\+", "%20")));
+        }
+
         // add `originatorProof` to the URL query string
         if (getOriginatorProof() != null) {
             joiner.add(getOriginatorProof().toUrlQueryString(prefix + "originatorProof" + suffix));
@@ -637,9 +882,43 @@ public class TravelRuleCreateTransactionRequest {
                     getBeneficiaryProof().toUrlQueryString(prefix + "beneficiaryProof" + suffix));
         }
 
-        // add `pii` to the URL query string
-        if (getPii() != null) {
-            joiner.add(getPii().toUrlQueryString(prefix + "pii" + suffix));
+        // add `beneficiaryDid` to the URL query string
+        if (getBeneficiaryDid() != null) {
+            joiner.add(
+                    String.format(
+                            "%sbeneficiaryDid%s=%s",
+                            prefix,
+                            suffix,
+                            URLEncoder.encode(
+                                            String.valueOf(getBeneficiaryDid()),
+                                            StandardCharsets.UTF_8)
+                                    .replaceAll("\\+", "%20")));
+        }
+
+        // add `originatorDid` to the URL query string
+        if (getOriginatorDid() != null) {
+            joiner.add(
+                    String.format(
+                            "%soriginatorDid%s=%s",
+                            prefix,
+                            suffix,
+                            URLEncoder.encode(
+                                            String.valueOf(getOriginatorDid()),
+                                            StandardCharsets.UTF_8)
+                                    .replaceAll("\\+", "%20")));
+        }
+
+        // add `isNonCustodial` to the URL query string
+        if (getIsNonCustodial() != null) {
+            joiner.add(
+                    String.format(
+                            "%sisNonCustodial%s=%s",
+                            prefix,
+                            suffix,
+                            URLEncoder.encode(
+                                            String.valueOf(getIsNonCustodial()),
+                                            StandardCharsets.UTF_8)
+                                    .replaceAll("\\+", "%20")));
         }
 
         return joiner.toString();

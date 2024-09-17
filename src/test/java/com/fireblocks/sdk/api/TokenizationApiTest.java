@@ -15,7 +15,14 @@ package com.fireblocks.sdk.api;
 
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.model.CollectionBurnRequestDto;
+import com.fireblocks.sdk.model.CollectionBurnResponseDto;
+import com.fireblocks.sdk.model.CollectionDeployRequestDto;
+import com.fireblocks.sdk.model.CollectionLinkDto;
+import com.fireblocks.sdk.model.CollectionMintRequestDto;
+import com.fireblocks.sdk.model.CollectionMintResponseDto;
 import com.fireblocks.sdk.model.CreateTokenRequestDto;
+import com.fireblocks.sdk.model.GetLinkedCollectionsPaginatedResponse;
 import com.fireblocks.sdk.model.TokenLinkDto;
 import com.fireblocks.sdk.model.TokenLinkRequestDto;
 import com.fireblocks.sdk.model.TokensPaginatedResponse;
@@ -29,6 +36,81 @@ import org.junit.Test;
 public class TokenizationApiTest {
 
     private final TokenizationApi api = new TokenizationApi();
+
+    /**
+     * Burn tokens
+     *
+     * <p>Burn tokens in a collection
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void burnCollectionTokenTest() throws ApiException {
+        CollectionBurnRequestDto collectionBurnRequestDto = null;
+        String id = null;
+        String idempotencyKey = null;
+        CompletableFuture<ApiResponse<CollectionBurnResponseDto>> response =
+                api.burnCollectionToken(collectionBurnRequestDto, id, idempotencyKey);
+    }
+
+    /**
+     * Create a new collection
+     *
+     * <p>Create a new collection and link it as a token
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void createNewCollectionTest() throws ApiException {
+        CollectionDeployRequestDto collectionDeployRequestDto = null;
+        String idempotencyKey = null;
+        CompletableFuture<ApiResponse<CollectionLinkDto>> response =
+                api.createNewCollection(collectionDeployRequestDto, idempotencyKey);
+    }
+
+    /**
+     * Get collection token details
+     *
+     * <p>Get collection token details by id
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void fetchCollectionTokenDetailsTest() throws ApiException {
+        String id = null;
+        String tokenId = null;
+        CompletableFuture<ApiResponse<CollectionLinkDto>> response =
+                api.fetchCollectionTokenDetails(id, tokenId);
+    }
+
+    /**
+     * Get a collection by id
+     *
+     * <p>Get a collection by id
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void getCollectionByIdTest() throws ApiException {
+        String id = null;
+        CompletableFuture<ApiResponse<CollectionLinkDto>> response = api.getCollectionById(id);
+    }
+
+    /**
+     * Get collections
+     *
+     * <p>Get collections (paginated)
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void getLinkedCollectionsTest() throws ApiException {
+        String pageCursor = null;
+        BigDecimal pageSize = null;
+        Object status = null;
+        CompletableFuture<ApiResponse<GetLinkedCollectionsPaginatedResponse>> response =
+                api.getLinkedCollections(pageCursor, pageSize, status);
+    }
 
     /**
      * Return a linked token
@@ -80,11 +162,9 @@ public class TokenizationApiTest {
     }
 
     /**
-     * Link a token
+     * Link a contract
      *
-     * <p>Link an already existing token (by assetId, collectionId or contractId as refId) to a
-     * workspace across EVM, Stellar, or Ripple platforms. The token will be linked to the workspace
-     * if it does not already exist.
+     * <p>Link an a contract
      *
      * @throws ApiException if the Api call fails
      */
@@ -94,6 +174,22 @@ public class TokenizationApiTest {
         String idempotencyKey = null;
         CompletableFuture<ApiResponse<TokenLinkDto>> response =
                 api.link(tokenLinkRequestDto, idempotencyKey);
+    }
+
+    /**
+     * Mint tokens
+     *
+     * <p>Mint tokens and upload metadata
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void mintCollectionTokenTest() throws ApiException {
+        CollectionMintRequestDto collectionMintRequestDto = null;
+        String id = null;
+        String idempotencyKey = null;
+        CompletableFuture<ApiResponse<CollectionMintResponseDto>> response =
+                api.mintCollectionToken(collectionMintRequestDto, id, idempotencyKey);
     }
 
     /**
@@ -109,5 +205,19 @@ public class TokenizationApiTest {
         String id = null;
 
         CompletableFuture<ApiResponse<Void>> response = api.unlink(id);
+    }
+
+    /**
+     * Delete a collection link
+     *
+     * <p>Delete a collection link
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void unlinkCollectionTest() throws ApiException {
+        String id = null;
+
+        CompletableFuture<ApiResponse<Void>> response = api.unlinkCollection(id);
     }
 }

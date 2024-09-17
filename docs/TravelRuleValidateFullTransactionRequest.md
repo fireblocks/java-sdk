@@ -24,7 +24,6 @@
 |**travelRuleBehavior** | **Boolean** | Whether to check if the transaction is a TRAVEL_RULE in the beneficiary VASP&#39;s jurisdiction |  [optional] |
 |**originatorProof** | [**TravelRuleOwnershipProof**](TravelRuleOwnershipProof.md) | Ownership proof related to the originator of the transaction |  [optional] |
 |**beneficiaryProof** | [**TravelRuleOwnershipProof**](TravelRuleOwnershipProof.md) | Ownership proof related to the beneficiary of the transaction |  [optional] |
-|**pii** | [**TravelRulePiiIVMS**](TravelRulePiiIVMS.md) | Personal identifiable information related to the transaction |  [optional] |
 
 
 
