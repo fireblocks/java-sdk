@@ -2404,6 +2404,157 @@ paths:
       - lang: Python
         source: response = fireblocks.vaults.get_vault_balance_by_asset(asset_id);
       x-accepts: application/json
+  /ncw/{walletId}/public_key_info:
+    get:
+      description: Gets the public key information based on derivation path and signing
+        algorithm.
+      operationId: getPublicKeyInfoNcw
+      parameters:
+      - explode: false
+        in: path
+        name: walletId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: true
+        in: query
+        name: derivationPath
+        required: true
+        schema:
+          type: string
+        style: form
+      - explode: true
+        in: query
+        name: algorithm
+        required: true
+        schema:
+          type: string
+        style: form
+      - explode: true
+        in: query
+        name: compressed
+        required: false
+        schema:
+          type: boolean
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublicKeyInformation'
+          description: Public key information
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorSchema'
+          description: Error Response
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+      summary: Get the public key information
+      tags:
+      - Embedded Wallets
+      x-internal: true
+      x-readme:
+        code-samples:
+        - language: python
+          code: "pubKey = fireblocks.NCW.get_public_key_info(wallet_id, algorithm,\
+            \ derivation_path, compressed)"
+          name: Fireblocks SDK Python example (Legacy)
+        - language: javascript
+          code: |
+            const PublicKeyInfoArgs = { algorithm: 'MPC_ECDSA_SECP256K1', derivationPath: '[44,0,0,0,0]' } const pubKey = await fireblocks.NCW.getPublicKeyInfo(walletId, PublicKeyInfoArgs);
+          name: Fireblocks SDK Javascript example
+      x-accepts: application/json
+  /ncw/{walletId}/accounts/{accountId}/{assetId}/{change}/{addressIndex}/public_key_info:
+    get:
+      description: Gets the public key information for the account asset.
+      operationId: getPublicKeyInfoForAddressNcw
+      parameters:
+      - explode: false
+        in: path
+        name: walletId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: accountId
+        required: true
+        schema:
+          format: numeric
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: assetId
+        required: true
+        schema:
+          type: string
+          x-fb-entity: asset
+        style: simple
+      - explode: false
+        in: path
+        name: change
+        required: true
+        schema:
+          type: number
+        style: simple
+      - explode: false
+        in: path
+        name: addressIndex
+        required: true
+        schema:
+          type: number
+        style: simple
+      - explode: true
+        in: query
+        name: compressed
+        required: false
+        schema:
+          type: boolean
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublicKeyInformation'
+          description: Public Key Information
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorSchema'
+          description: Error Response
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+      summary: Get the public key for an account asset
+      tags:
+      - Embedded Wallets
+      x-internal: true
+      x-readme:
+        code-samples:
+        - language: python
+          code: "pubKey = fireblocks.NCW.get_public_key_info_by_account_asset(wallet_id,\
+            \ asset_id, account_id, change, address_index, compressed)"
+          name: Fireblocks SDK Python example (Legacy)
+        - language: javascript
+          code: |
+            const PublicKeyInfoByAccountAssetArgs = { assetId: 'ETH', accountId: 0, change: 0, addressIndex: 0, compressed: true } const pubKey = await fireblocks.NCW.getPublicKeyInfoByAccountAsset(walletId, PublicKeyInfoByAccountAssetArgs);
+          name: Fireblocks SDK Javascript example
+      x-accepts: application/json
   /workspace/freeze:
     post:
       description: "Freezes a Workspace so that ALL operations by ANY user are blocked.\n\
@@ -10445,7 +10596,7 @@ paths:
         style: form
       - explode: true
         in: query
-        name: assetId
+        name: baseAssetId
         required: false
         schema:
           type: string
@@ -10491,11 +10642,11 @@ paths:
         - language: java
           code: "CompletableFuture<ApiResponse<DeployedContractsPaginatedResponse>>\
             \ response = fireblocks.deployedContracts().getDeployedContracts(pageCursor,\
-            \ pageSize, contractAddress, assetId, templateId);"
+            \ pageSize, contractAddress, baseAssetId, templateId);"
           name: Fireblocks SDK Java example
         - language: python
           code: "response = fireblocks.deployed_contracts.get_deployed_contracts(page_cursor,\
-            \ page_size, contract_address, asset_id, template_id);"
+            \ page_size, contract_address, base_asset_id, template_id);"
           name: Fireblocks SDK Python example
       x-codeSamples:
       - lang: TypeScript
@@ -10504,10 +10655,10 @@ paths:
       - lang: Java
         source: "CompletableFuture<ApiResponse<DeployedContractsPaginatedResponse>>\
           \ response = fireblocks.deployedContracts().getDeployedContracts(pageCursor,\
-          \ pageSize, contractAddress, assetId, templateId);"
+          \ pageSize, contractAddress, baseAssetId, templateId);"
       - lang: Python
         source: "response = fireblocks.deployed_contracts.get_deployed_contracts(page_cursor,\
-          \ page_size, contract_address, asset_id, template_id);"
+          \ page_size, contract_address, base_asset_id, template_id);"
       x-accepts: application/json
   /tokenization/contracts/{id}:
     get:
@@ -11613,7 +11764,7 @@ paths:
           \ id, idempotency_key);"
       x-content-type: application/json
       x-accepts: application/json
-  /contract_interactions/base_asset_id/{assetId}/contract_address/{contractAddress}/functions:
+  /contract_interactions/base_asset_id/{baseAssetId}/contract_address/{contractAddress}/functions:
     get:
       description: Return deployed contract's ABI by blockchain native asset id and
         contract address
@@ -11641,7 +11792,7 @@ paths:
         style: simple
       - explode: false
         in: path
-        name: assetId
+        name: baseAssetId
         required: true
         schema:
           type: string
@@ -11682,11 +11833,11 @@ paths:
         - language: java
           code: "CompletableFuture<ApiResponse<ContractAbiResponseDto>> response =\
             \ fireblocks.contractInteractions().getDeployedContractAbi(contractAddress,\
-            \ assetId, idempotencyKey);"
+            \ baseAssetId, idempotencyKey);"
           name: Fireblocks SDK Java example
         - language: python
           code: "response = fireblocks.contract_interactions.get_deployed_contract_abi(contract_address,\
-            \ asset_id, idempotency_key);"
+            \ base_asset_id, idempotency_key);"
           name: Fireblocks SDK Python example
       x-codeSamples:
       - lang: TypeScript
@@ -11695,12 +11846,12 @@ paths:
       - lang: Java
         source: "CompletableFuture<ApiResponse<ContractAbiResponseDto>> response =\
           \ fireblocks.contractInteractions().getDeployedContractAbi(contractAddress,\
-          \ assetId, idempotencyKey);"
+          \ baseAssetId, idempotencyKey);"
       - lang: Python
         source: "response = fireblocks.contract_interactions.get_deployed_contract_abi(contract_address,\
-          \ asset_id, idempotency_key);"
+          \ base_asset_id, idempotency_key);"
       x-accepts: application/json
-  /contract_interactions/base_asset_id/{assetId}/contract_address/{contractAddress}/functions/read:
+  /contract_interactions/base_asset_id/{baseAssetId}/contract_address/{contractAddress}/functions/read:
     post:
       description: Call a read function on a deployed contract by blockchain native
         asset id and contract address
@@ -11728,7 +11879,7 @@ paths:
         style: simple
       - explode: false
         in: path
-        name: assetId
+        name: baseAssetId
         required: true
         schema:
           type: string
@@ -11775,11 +11926,11 @@ paths:
         - language: java
           code: "CompletableFuture<ApiResponse<List<ParameterWithValue>>> response\
             \ = fireblocks.contractInteractions().readCallFunction(readCallFunctionDto,\
-            \ contractAddress, assetId, idempotencyKey);"
+            \ contractAddress, baseAssetId, idempotencyKey);"
           name: Fireblocks SDK Java example
         - language: python
           code: "response = fireblocks.contract_interactions.read_call_function(read_call_function_dto,\
-            \ contract_address, asset_id, idempotency_key);"
+            \ contract_address, base_asset_id, idempotency_key);"
           name: Fireblocks SDK Python example
       x-codeSamples:
       - lang: TypeScript
@@ -11788,13 +11939,13 @@ paths:
       - lang: Java
         source: "CompletableFuture<ApiResponse<List<ParameterWithValue>>> response\
           \ = fireblocks.contractInteractions().readCallFunction(readCallFunctionDto,\
-          \ contractAddress, assetId, idempotencyKey);"
+          \ contractAddress, baseAssetId, idempotencyKey);"
       - lang: Python
         source: "response = fireblocks.contract_interactions.read_call_function(read_call_function_dto,\
-          \ contract_address, asset_id, idempotency_key);"
+          \ contract_address, base_asset_id, idempotency_key);"
       x-content-type: application/json
       x-accepts: application/json
-  /contract_interactions/base_asset_id/{assetId}/contract_address/{contractAddress}/functions/write:
+  /contract_interactions/base_asset_id/{baseAssetId}/contract_address/{contractAddress}/functions/write:
     post:
       description: "Call a write function on a deployed contract by blockchain native\
         \ asset id and contract address. This creates an onchain transaction, thus\
@@ -11824,7 +11975,7 @@ paths:
         style: simple
       - explode: false
         in: path
-        name: assetId
+        name: baseAssetId
         required: true
         schema:
           type: string
@@ -11871,11 +12022,11 @@ paths:
         - language: java
           code: "CompletableFuture<ApiResponse<WriteCallFunctionResponseDto>> response\
             \ = fireblocks.contractInteractions().writeCallFunction(writeCallFunctionDto,\
-            \ contractAddress, assetId, idempotencyKey);"
+            \ contractAddress, baseAssetId, idempotencyKey);"
           name: Fireblocks SDK Java example
         - language: python
           code: "response = fireblocks.contract_interactions.write_call_function(write_call_function_dto,\
-            \ contract_address, asset_id, idempotency_key);"
+            \ contract_address, base_asset_id, idempotency_key);"
           name: Fireblocks SDK Python example
       x-codeSamples:
       - lang: TypeScript
@@ -11884,10 +12035,10 @@ paths:
       - lang: Java
         source: "CompletableFuture<ApiResponse<WriteCallFunctionResponseDto>> response\
           \ = fireblocks.contractInteractions().writeCallFunction(writeCallFunctionDto,\
-          \ contractAddress, assetId, idempotencyKey);"
+          \ contractAddress, baseAssetId, idempotencyKey);"
       - lang: Python
         source: "response = fireblocks.contract_interactions.write_call_function(write_call_function_dto,\
-          \ contract_address, asset_id, idempotency_key);"
+          \ contract_address, base_asset_id, idempotency_key);"
       x-content-type: application/json
       x-accepts: application/json
   /staking/chains:
@@ -14127,6 +14278,157 @@ paths:
           \ idempotency_key);"
       x-content-type: application/json
       x-accepts: application/json
+  /screening/travel_rule/vault/{vaultAccountId}/vasp:
+    get:
+      description: Get assigned VASP Did for a specific vault. Returns empty string
+        vaspDid value in response if none assigned.
+      operationId: getVaspForVault
+      parameters:
+      - description: The ID of the vault account
+        example: 1
+        explode: false
+        in: path
+        name: vaultAccountId
+        required: true
+        schema:
+          format: numeric
+          type: string
+          x-fb-entity: vault_account
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TravelRuleVaspForVault'
+          description: OK
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorSchema'
+          description: Error Response
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+      summary: Get assigned VASP to vault
+      tags:
+      - Travel Rule (Beta)
+      x-readme:
+        code-samples:
+        - language: javascript
+          code: const vaultAsset = await fireblocks.getVaspForVault(vaultAccountId);
+          name: Fireblocks SDK Javascript example
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<TravelRuleVaspForVault>>\
+            \ = fireblocks.travelRuleBeta.getVaspForVault(travelRuleBetaApiGetVaspForVaultRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: CompletableFuture<ApiResponse<TravelRuleVaspForVault>> response =
+            fireblocks.travelRuleBeta().getVaspForVault(vaultAccountId);
+          name: Fireblocks SDK Java example
+        - language: python
+          code: response = fireblocks.travel_rule_beta.get_vasp_for_vault(vault_account_id);
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<TravelRuleVaspForVault>>\
+          \ = fireblocks.travelRuleBeta.getVaspForVault(travelRuleBetaApiGetVaspForVaultRequest);"
+      - lang: Java
+        source: CompletableFuture<ApiResponse<TravelRuleVaspForVault>> response =
+          fireblocks.travelRuleBeta().getVaspForVault(vaultAccountId);
+      - lang: Python
+        source: response = fireblocks.travel_rule_beta.get_vasp_for_vault(vault_account_id);
+      x-accepts: application/json
+    post:
+      description: Sets the VASP Did for a specific vault. Pass empty string to remove
+        existing one.
+      operationId: setVaspForVault
+      parameters:
+      - description: The ID of the vault account
+        explode: false
+        in: path
+        name: vaultAccountId
+        required: true
+        schema:
+          format: numeric
+          type: string
+          x-fb-entity: vault_account
+        style: simple
+      - description: "A unique identifier for the request. If the request is sent\
+          \ multiple times with the same idempotency key, the server will return the\
+          \ same response as the first request. The idempotency key is valid for 24\
+          \ hours."
+        explode: false
+        in: header
+        name: Idempotency-Key
+        required: false
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TravelRuleVaspForVault'
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TravelRuleVaspForVault'
+          description: OK
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorSchema'
+          description: Error Response
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+      summary: Assign VASP to vault
+      tags:
+      - Travel Rule (Beta)
+      x-readme:
+        code-samples:
+        - language: javascript
+          code: "const vaultAsset = await fireblocks.setVaspForVault(vaultAccountId,\
+            \ vaspDid);"
+          name: Fireblocks SDK Javascript example
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<TravelRuleVaspForVault>>\
+            \ = fireblocks.travelRuleBeta.setVaspForVault(travelRuleBetaApiSetVaspForVaultRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<TravelRuleVaspForVault>> response =\
+            \ fireblocks.travelRuleBeta().setVaspForVault(travelRuleVaspForVault,\
+            \ vaultAccountId, idempotencyKey);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.travel_rule_beta.set_vasp_for_vault(travel_rule_vasp_for_vault,\
+            \ vault_account_id, idempotency_key);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<TravelRuleVaspForVault>>\
+          \ = fireblocks.travelRuleBeta.setVaspForVault(travelRuleBetaApiSetVaspForVaultRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<TravelRuleVaspForVault>> response =\
+          \ fireblocks.travelRuleBeta().setVaspForVault(travelRuleVaspForVault, vaultAccountId,\
+          \ idempotencyKey);"
+      - lang: Python
+        source: "response = fireblocks.travel_rule_beta.set_vasp_for_vault(travel_rule_vasp_for_vault,\
+          \ vault_account_id, idempotency_key);"
+      x-content-type: application/json
+      x-accepts: application/json
   /screening/travel_rule/post_screening_policy:
     get:
       description: Get the post-screening policy for Travel Rule.
@@ -15622,7 +15924,7 @@ paths:
           type: string
         style: form
       - description: "Type of transfer. ASYNC executes transfers as they are funded,\
-          \ ATOMIC executes all terms (legs) as one atomic transfer"
+          \ DVP executes all terms (legs) as one dvp transfer"
         explode: true
         in: query
         name: type
@@ -15630,6 +15932,7 @@ paths:
         schema:
           enum:
           - ASYNC
+          - DVP
           type: string
         style: form
       - description: External ref. ID that workspace can use to identify ticket outside
@@ -16165,6 +16468,81 @@ paths:
       - lang: Python
         source: "response = fireblocks.smart_transfer.fulfill_ticket(ticket_id, idempotency_key);"
       x-accepts: application/json
+  /smart_transfers/{ticketId}/dvp/fund:
+    put:
+      description: Create or fulfill dvp ticket order
+      operationId: fundDvpTicket
+      parameters:
+      - explode: false
+        in: path
+        name: ticketId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: "A unique identifier for the request. If the request is sent\
+          \ multiple times with the same idempotency key, the server will return the\
+          \ same response as the first request. The idempotency key is valid for 24\
+          \ hours."
+        explode: false
+        in: header
+        name: Idempotency-Key
+        required: false
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SmartTransferTicketResponse'
+          description: Successfully started creating or fulfilling order on dvp Smart
+            Transfer ticket
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SmartTransferForbiddenResponse'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SmartTransferNotFoundResponse'
+          description: Not found
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SmartTransferBadRequestResponse'
+          description: Bad Request
+      summary: Fund dvp ticket
+      tags:
+      - Smart Transfer
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<SmartTransferTicketResponse>>\
+            \ = fireblocks.smartTransfer.fundDvpTicket(smartTransferApiFundDvpTicketRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<SmartTransferTicketResponse>> response\
+            \ = fireblocks.smartTransfer().fundDvpTicket(ticketId, idempotencyKey);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.smart_transfer.fund_dvp_ticket(ticket_id, idempotency_key);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<SmartTransferTicketResponse>>\
+          \ = fireblocks.smartTransfer.fundDvpTicket(smartTransferApiFundDvpTicketRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<SmartTransferTicketResponse>> response\
+          \ = fireblocks.smartTransfer().fundDvpTicket(ticketId, idempotencyKey);"
+      - lang: Python
+        source: "response = fireblocks.smart_transfer.fund_dvp_ticket(ticket_id, idempotency_key);"
+      x-accepts: application/json
   /smart-transfers/{ticketId}/cancel:
     put:
       description: Cancel Smart Transfer ticket
@@ -16622,6 +17000,99 @@ paths:
           \ ticket_id, term_id, idempotency_key);"
       x-content-type: application/json
       x-accepts: application/json
+  /smart_transfers/{ticketId}/terms/{termId}/dvp/approve:
+    put:
+      description: Set funding source for ticket term and creating approving transaction
+        for contract to transfer asset
+      operationId: approveDvPTicketTerm
+      parameters:
+      - explode: false
+        in: path
+        name: ticketId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: termId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: "A unique identifier for the request. If the request is sent\
+          \ multiple times with the same idempotency key, the server will return the\
+          \ same response as the first request. The idempotency key is valid for 24\
+          \ hours."
+        explode: false
+        in: header
+        name: Idempotency-Key
+        required: false
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SmartTransferApproveTerm'
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SmartTransferTicketTermResponse'
+          description: Creating approval transaction started
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SmartTransferForbiddenResponse'
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SmartTransferNotFoundResponse'
+          description: Not found
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SmartTransferBadRequestResponse'
+          description: Bad Request
+      summary: Define funding source and give approve to contract to transfer asset
+      tags:
+      - Smart Transfer
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<SmartTransferTicketTermResponse>>\
+            \ = fireblocks.smartTransfer.approveDvPTicketTerm(smartTransferApiApproveDvPTicketTermRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<SmartTransferTicketTermResponse>> response\
+            \ = fireblocks.smartTransfer().approveDvPTicketTerm(smartTransferApproveTerm,\
+            \ ticketId, termId, idempotencyKey);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.smart_transfer.approve_dv_p_ticket_term(smart_transfer_approve_term,\
+            \ ticket_id, term_id, idempotency_key);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<SmartTransferTicketTermResponse>>\
+          \ = fireblocks.smartTransfer.approveDvPTicketTerm(smartTransferApiApproveDvPTicketTermRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<SmartTransferTicketTermResponse>> response\
+          \ = fireblocks.smartTransfer().approveDvPTicketTerm(smartTransferApproveTerm,\
+          \ ticketId, termId, idempotencyKey);"
+      - lang: Python
+        source: "response = fireblocks.smart_transfer.approve_dv_p_ticket_term(smart_transfer_approve_term,\
+          \ ticket_id, term_id, idempotency_key);"
+      x-content-type: application/json
+      x-accepts: application/json
   /smart-transfers/{ticketId}/terms/{termId}/manually-fund:
     put:
       description: Manually set ticket term transaction
@@ -16834,6 +17305,58 @@ paths:
         source: "response = fireblocks.smart_transfer.set_user_groups(smart_transfer_set_user_groups,\
           \ idempotency_key);"
       x-content-type: application/json
+      x-accepts: application/json
+  /smart_transfers/statistic:
+    get:
+      description: Get smart transfer statistic
+      operationId: getSmartTransferStatistic
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SmartTransferStatistic'
+          description: Smart Transfer ticket statistic returned successfully
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SmartTransferForbiddenResponse'
+          description: Unauthorized
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorSchema'
+          description: Error Response
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+      summary: Get smart transfers statistic
+      tags:
+      - Smart Transfer
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<SmartTransferStatistic>>\
+            \ = fireblocks.smartTransfer.getSmartTransferStatistic();"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: CompletableFuture<ApiResponse<SmartTransferStatistic>> response =
+            fireblocks.smartTransfer().getSmartTransferStatistic();
+          name: Fireblocks SDK Java example
+        - language: python
+          code: response = fireblocks.smart_transfer.get_smart_transfer_statistic();
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<SmartTransferStatistic>>\
+          \ = fireblocks.smartTransfer.getSmartTransferStatistic();"
+      - lang: Java
+        source: CompletableFuture<ApiResponse<SmartTransferStatistic>> response =
+          fireblocks.smartTransfer().getSmartTransferStatistic();
+      - lang: Python
+        source: response = fireblocks.smart_transfer.get_smart_transfer_statistic();
       x-accepts: application/json
   /batch/jobs:
     get:
@@ -21369,7 +21892,7 @@ components:
         cpuStaking:
           $ref: '#/components/schemas/TransactionRequest_networkStaking'
         useGasless:
-          description: '- Override the default gaslsess configuration by sending true\false'
+          description: '- Override the default gasless configuration by sending true\false'
           type: boolean
       type: object
     CreateTransactionResponse:
@@ -24275,6 +24798,21 @@ components:
           items:
             $ref: '#/components/schemas/ParameterWithValue'
           type: array
+        outputs:
+          description: The function outputs
+          items:
+            $ref: '#/components/schemas/ParameterWithValue'
+          type: array
+        stateMutability:
+          description: "The state mutability of the function (e.g., view, pure, nonpayable,\
+            \ payable)"
+          enum:
+          - view
+          - pure
+          - nonpayable
+          - payable
+          example: nonpayable
+          type: string
       required:
       - inputs
       type: object
@@ -24797,8 +25335,7 @@ components:
       type: object
     EVMTokenCreateParamsDto:
       example:
-        contractId: b70701f4-d7b1-4795-a8ee-b09cdb5b850d
-        constructorParams:
+        deployFunctionParams:
         - internalType: string
           name: name
           type: string
@@ -24819,14 +25356,15 @@ components:
             name: _isMintable
             type: bool
             value: false
+        contractId: b70701f4-d7b1-4795-a8ee-b09cdb5b850d
       properties:
         contractId:
           description: The id of the contract template that will be used to create
             the token
           example: b70701f4-d7b1-4795-a8ee-b09cdb5b850d
           type: string
-        constructorParams:
-          description: The constructor parameters and values of the contract template
+        deployFunctionParams:
+          description: The deploy function parameters and values of the contract template
           example:
           - internalType: string
             name: name
@@ -24849,9 +25387,7 @@ components:
               type: bool
               value: false
           items:
-            items:
-              $ref: '#/components/schemas/ParameterWithValue'
-            type: array
+            $ref: '#/components/schemas/ParameterWithValue'
           type: array
       required:
       - contractId
@@ -24883,8 +25419,7 @@ components:
         vaultAccountId: "0"
         blockchainId: B7QG017M
         createParams:
-          contractId: b70701f4-d7b1-4795-a8ee-b09cdb5b850d
-          constructorParams:
+          deployFunctionParams:
           - internalType: string
             name: name
             type: string
@@ -24905,6 +25440,7 @@ components:
               name: _isMintable
               type: bool
               value: false
+          contractId: b70701f4-d7b1-4795-a8ee-b09cdb5b850d
       properties:
         blockchainId:
           description: The id of the blockchain the request was initiated on
@@ -25907,6 +26443,65 @@ components:
       required:
       - stakeAccountAddress
       type: object
+    RelatedRequestStatusType:
+      description: The status of the request
+      enum:
+      - error
+      - created
+      - canceled
+      - activate_requested
+      - approve_inprogress
+      - approve_inprogress_signed
+      - activate_inprogress
+      - activate_inprogress_signed
+      - activate_inprogress_confirmed
+      - activate_done
+      - deactivate_requested
+      - deactivate_inprogress
+      - deactivate_inprogress_signed
+      - deactivate_inprogress_confirmed
+      - deactivate_done
+      - withdraw_inprogress
+      - withdraw_requested
+      - withdraw_inprogress_confirmed
+      - withdraw_done
+      - claim_rewards_requested
+      - claim_rewards_inprogress
+      - claim_rewards_done
+      - pending
+      - pending_queued
+      - active_offline
+      - active_online
+      - exiting_online
+      - exited
+      - active
+      - inactive
+      - activating
+      - deactivating
+      example: deactivating
+      type: string
+    RelatedRequestDto:
+      properties:
+        status:
+          $ref: '#/components/schemas/RelatedRequestStatusType'
+        inProgress:
+          description: Indicates whether there is an ongoing action for this position
+            related to this request
+          example: false
+          type: boolean
+        amount:
+          description: Amount of tokens to Unstake
+          example: "0.05"
+          type: string
+        txId:
+          description: The transaction ID of the ongoing request
+          example: c80601f4-d7b1-4795-a8ee-b09cdb5b450c
+          type: string
+      required:
+      - amount
+      - inProgress
+      - status
+      type: object
     DelegationDto:
       example:
         availableActions:
@@ -25915,10 +26510,16 @@ components:
           stakeAccountAddress: 3Ru67FyzMTcdENmmRL4Eve4dtPd6AdpuypR21q5EQCdq
         chainDescriptor: SOL
         amount: "0.05"
+        relatedRequests:
+        - status: deactivating
+          inProgress: false
+          amount: "0.05"
+          txId: c80601f4-d7b1-4795-a8ee-b09cdb5b450c
         inProgress: true
         inProgressTxId: c80601f4-d7b1-4795-a8ee-b09cdb5b450c
         validatorAddress: FwR3PbjS5iyqzLiLugrBqKSa5EKZ4vK9SKs7eQXtT59f
         vaultAccountId: "2"
+        dateUpdated: 2023-07-13T15:55:34.256Z
         rewardsAmount: "0.000856038"
         dateCreated: 2023-07-13T15:55:34.256Z
         providerId: kiln
@@ -25964,6 +26565,12 @@ components:
         dateCreated:
           description: When was the request made (ISO Date).
           example: 2023-07-13T15:55:34.256Z
+          format: date-time
+          type: string
+        dateUpdated:
+          description: When has the position last changed (ISO Date).
+          example: 2023-07-13T15:55:34.256Z
+          format: date-time
           type: string
         status:
           description: The current status.
@@ -26016,6 +26623,22 @@ components:
             \ is available."
           example:
             stakeAccountAddress: 3Ru67FyzMTcdENmmRL4Eve4dtPd6AdpuypR21q5EQCdq
+        relatedRequests:
+          description: "An array of partial unstake requests for this position, relevant\
+            \ only for the Lido provider. Each object includes the status of the unstake\
+            \ request, a boolean indicating whether the action is in progress, the\
+            \ amount of tokens to unstake, and the transaction ID of the request.\
+            \ With Lido, a position may have multiple partial unstake requests in\
+            \ different states. This field is optional and not applicable for other\
+            \ providers."
+          example:
+          - status: deactivating
+            inProgress: false
+            amount: "0.05"
+            txId: c80601f4-d7b1-4795-a8ee-b09cdb5b450c
+          items:
+            $ref: '#/components/schemas/RelatedRequestDto'
+          type: array
       required:
       - amount
       - availableActions
@@ -27678,6 +28301,15 @@ components:
       required:
       - did
       - pii_didkey
+      type: object
+    TravelRuleVaspForVault:
+      example:
+        vaspDid: did:ethr:0x5dddec8dd669c49304ddbcba36ccc6e0798534dc
+      properties:
+        vaspDid:
+          description: VASP DID
+          example: did:ethr:0x5dddec8dd669c49304ddbcba36ccc6e0798534dc
+          type: string
       type: object
     TravelRulePolicyRuleResponse:
       example:
@@ -29950,9 +30582,10 @@ components:
           example: 118320d2-761f-46c7-96cf-65e71a370b36
           type: string
         type:
-          description: Kind of Smart Transfer. Can be either `ASYNC` or `ATOMIC`
+          description: Kind of Smart Transfer. Can be either `ASYNC` or `DVP`
           enum:
           - ASYNC
+          - DVP
           example: ASYNC
           type: string
         direction:
@@ -30293,6 +30926,7 @@ components:
         type:
           enum:
           - ASYNC
+          - DVP
           type: string
         expiresIn:
           description: Number of hours after which an OPEN ticket will expire if no
@@ -30570,6 +31204,49 @@ components:
       - srcId
       - srcType
       type: object
+    SmartTransferApproveTerm:
+      example:
+        note: Transaction note
+        amount: "133.789161216184"
+        srcId: "2"
+        fee: "0.001"
+        feeLevel: MEDIUM
+        asset: USDC
+      properties:
+        asset:
+          description: Asset name
+          example: USDC
+          type: string
+          x-fb-entity: asset
+        amount:
+          description: Amount
+          example: "133.789161216184"
+          type: string
+        srcId:
+          description: Id of the vault that is used as the source of the asset.
+          example: "2"
+          type: string
+        fee:
+          description: Transaction fee
+          example: "0.001"
+          type: string
+        feeLevel:
+          description: Transaction fee level.
+          enum:
+          - LOW
+          - MEDIUM
+          - HIGH
+          example: MEDIUM
+          type: string
+        note:
+          description: Transaction note
+          example: Transaction note
+          type: string
+      required:
+      - amount
+      - asset
+      - srcId
+      type: object
     SmartTransferManuallyFundTerm:
       example:
         txHash: txHash
@@ -30627,6 +31304,57 @@ components:
           type: array
       required:
       - userGroupIds
+      type: object
+    SmartTransferCoinStatistic:
+      description: Smart transfer coin statistic
+      example:
+        amount: "15"
+        asset: BTC
+      properties:
+        asset:
+          example: BTC
+          type: string
+        amount:
+          example: "15"
+          type: string
+      type: object
+    SmartTransferStatistic:
+      description: Smart transfers statistic
+      example:
+        outflow:
+          ticketCount: 4
+          coins:
+          - amount: "15"
+            asset: BTC
+          - amount: "15"
+            asset: BTC
+        totalInactiveTickets: 5
+        inflow:
+          ticketCount: 4
+          coins:
+          - amount: "15"
+            asset: BTC
+          - amount: "15"
+            asset: BTC
+        totalActiveTickets: 5
+      properties:
+        inflow:
+          $ref: '#/components/schemas/SmartTransferStatistic_inflow'
+        outflow:
+          $ref: '#/components/schemas/SmartTransferStatistic_outflow'
+        totalActiveTickets:
+          description: Number of total active tickets
+          example: 5
+          type: integer
+        totalInactiveTickets:
+          description: "Number of total inactive tickets (expired, canceled, completed)"
+          example: 5
+          type: integer
+      required:
+      - inflow
+      - outflow
+      - totalActiveTickets
+      - totalInactiveTickets
       type: object
     Task:
       example:
@@ -31488,6 +32216,42 @@ components:
           type: string
         derivationPath:
           $ref: '#/components/schemas/PolicyRule_rawMessageSigning_derivationPath'
+      type: object
+    SmartTransferStatistic_inflow:
+      description: Inflow tickets data
+      example:
+        ticketCount: 4
+        coins:
+        - amount: "15"
+          asset: BTC
+        - amount: "15"
+          asset: BTC
+      properties:
+        coins:
+          items:
+            $ref: '#/components/schemas/SmartTransferCoinStatistic'
+          type: array
+        ticketCount:
+          example: 4
+          type: integer
+      type: object
+    SmartTransferStatistic_outflow:
+      description: Outflow tickets data
+      example:
+        ticketCount: 4
+        coins:
+        - amount: "15"
+          asset: BTC
+        - amount: "15"
+          asset: BTC
+      properties:
+        coins:
+          items:
+            $ref: '#/components/schemas/SmartTransferCoinStatistic'
+          type: array
+        ticketCount:
+          example: 4
+          type: integer
       type: object
   securitySchemes:
     bearerTokenAuth:

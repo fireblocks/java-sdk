@@ -354,7 +354,7 @@ No authorization required
 
 ## getDeployedContracts
 
-> CompletableFuture<ApiResponse<DeployedContractsPaginatedResponse>> getDeployedContracts getDeployedContracts(pageCursor, pageSize, contractAddress, assetId, templateId)
+> CompletableFuture<ApiResponse<DeployedContractsPaginatedResponse>> getDeployedContracts getDeployedContracts(pageCursor, pageSize, contractAddress, baseAssetId, templateId)
 
 List deployed contracts data
 
@@ -386,10 +386,10 @@ public class Example {
         String pageCursor = "MjAyMy0xMi0xMyAyMDozNjowOC4zMDI=:MTEwMA=="; // String | Page cursor to get the next page
         BigDecimal pageSize = new BigDecimal("10"); // BigDecimal | Number of items per page, requesting more then max will return max items
         String contractAddress = "0xC2c4e1Db41F0bB97996D0eD0542D2170d146FB66"; // String | The contract's onchain address
-        String assetId = "assetId_example"; // String | 
+        String baseAssetId = "baseAssetId_example"; // String | 
         String templateId = "templateId_example"; // String | 
         try {
-            CompletableFuture<ApiResponse<DeployedContractsPaginatedResponse>> response = fireblocks.deployedContracts().getDeployedContracts(pageCursor, pageSize, contractAddress, assetId, templateId);
+            CompletableFuture<ApiResponse<DeployedContractsPaginatedResponse>> response = fireblocks.deployedContracts().getDeployedContracts(pageCursor, pageSize, contractAddress, baseAssetId, templateId);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
@@ -419,7 +419,7 @@ public class Example {
 | **pageCursor** | **String**| Page cursor to get the next page | [optional] |
 | **pageSize** | **BigDecimal**| Number of items per page, requesting more then max will return max items | [optional] |
 | **contractAddress** | **String**| The contract&#39;s onchain address | [optional] |
-| **assetId** | **String**|  | [optional] |
+| **baseAssetId** | **String**|  | [optional] |
 | **templateId** | **String**|  | [optional] |
 
 ### Return type

@@ -835,7 +835,7 @@ public class TransactionRequest {
     }
 
     /**
-     * - Override the default gaslsess configuration by sending true\\false
+     * - Override the default gasless configuration by sending true\\false
      *
      * @return useGasless
      */

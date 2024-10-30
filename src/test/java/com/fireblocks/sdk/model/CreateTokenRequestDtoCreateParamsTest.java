@@ -31,10 +31,10 @@ public class CreateTokenRequestDtoCreateParamsTest {
         // TODO: test contractId
     }
 
-    /** Test the property 'constructorParams' */
+    /** Test the property 'deployFunctionParams' */
     @Test
-    public void constructorParamsTest() {
-        // TODO: test constructorParams
+    public void deployFunctionParamsTest() {
+        // TODO: test deployFunctionParams
     }
 
     /** Test the property 'symbol' */

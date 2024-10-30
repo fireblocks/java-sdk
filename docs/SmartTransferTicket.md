@@ -9,7 +9,7 @@ Data object with result data
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
 |**id** | **String** | Unique id of Smart Transfer ticket |  |
-|**type** | [**TypeEnum**](#TypeEnum) | Kind of Smart Transfer. Can be either &#x60;ASYNC&#x60; or &#x60;ATOMIC&#x60; |  |
+|**type** | [**TypeEnum**](#TypeEnum) | Kind of Smart Transfer. Can be either &#x60;ASYNC&#x60; or &#x60;DVP&#x60; |  |
 |**direction** | [**DirectionEnum**](#DirectionEnum) | Direction of Smart Transfer. |  [optional] |
 |**status** | [**StatusEnum**](#StatusEnum) | Current status of Smart Transfer ticket |  |
 |**terms** | [**List&lt;SmartTransferTicketTerm&gt;**](SmartTransferTicketTerm.md) | Ticket terms (legs) |  [optional] |
@@ -36,6 +36,7 @@ Data object with result data
 | Name | Value |
 |---- | -----|
 | ASYNC | &quot;ASYNC&quot; |
+| DVP | &quot;DVP&quot; |
 
 
 

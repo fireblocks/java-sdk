@@ -317,6 +317,8 @@ docs/ReadAbiFunction.md
 docs/ReadCallFunctionDto.md
 docs/RedeemFundsToLinkedDDAResponse.md
 docs/RegisterNewAssetRequest.md
+docs/RelatedRequestDto.md
+docs/RelatedRequestStatusType.md
 docs/RelatedTransactionDto.md
 docs/RemoveCollateralRequestBody.md
 docs/RenameCosigner.md
@@ -365,7 +367,9 @@ docs/SignedMessage.md
 docs/SignedMessageSignature.md
 docs/SigningKeyDto.md
 docs/SmartTransferApi.md
+docs/SmartTransferApproveTerm.md
 docs/SmartTransferBadRequestResponse.md
+docs/SmartTransferCoinStatistic.md
 docs/SmartTransferCreateTicket.md
 docs/SmartTransferCreateTicketTerm.md
 docs/SmartTransferForbiddenResponse.md
@@ -375,6 +379,9 @@ docs/SmartTransferNotFoundResponse.md
 docs/SmartTransferSetTicketExpiration.md
 docs/SmartTransferSetTicketExternalId.md
 docs/SmartTransferSetUserGroups.md
+docs/SmartTransferStatistic.md
+docs/SmartTransferStatisticInflow.md
+docs/SmartTransferStatisticOutflow.md
 docs/SmartTransferSubmitTicket.md
 docs/SmartTransferTicket.md
 docs/SmartTransferTicketFilteredResponse.md
@@ -457,6 +464,7 @@ docs/TravelRuleVASP.md
 docs/TravelRuleValidateFullTransactionRequest.md
 docs/TravelRuleValidateTransactionRequest.md
 docs/TravelRuleValidateTransactionResponse.md
+docs/TravelRuleVaspForVault.md
 docs/UnfreezeTransactionResponse.md
 docs/UnmanagedWallet.md
 docs/UnspentInput.md
@@ -849,6 +857,8 @@ src/main/java/com/fireblocks/sdk/model/ReadAbiFunction.java
 src/main/java/com/fireblocks/sdk/model/ReadCallFunctionDto.java
 src/main/java/com/fireblocks/sdk/model/RedeemFundsToLinkedDDAResponse.java
 src/main/java/com/fireblocks/sdk/model/RegisterNewAssetRequest.java
+src/main/java/com/fireblocks/sdk/model/RelatedRequestDto.java
+src/main/java/com/fireblocks/sdk/model/RelatedRequestStatusType.java
 src/main/java/com/fireblocks/sdk/model/RelatedTransactionDto.java
 src/main/java/com/fireblocks/sdk/model/RemoveCollateralRequestBody.java
 src/main/java/com/fireblocks/sdk/model/RenameCosigner.java
@@ -895,7 +905,9 @@ src/main/java/com/fireblocks/sdk/model/SettlementResponse.java
 src/main/java/com/fireblocks/sdk/model/SignedMessage.java
 src/main/java/com/fireblocks/sdk/model/SignedMessageSignature.java
 src/main/java/com/fireblocks/sdk/model/SigningKeyDto.java
+src/main/java/com/fireblocks/sdk/model/SmartTransferApproveTerm.java
 src/main/java/com/fireblocks/sdk/model/SmartTransferBadRequestResponse.java
+src/main/java/com/fireblocks/sdk/model/SmartTransferCoinStatistic.java
 src/main/java/com/fireblocks/sdk/model/SmartTransferCreateTicket.java
 src/main/java/com/fireblocks/sdk/model/SmartTransferCreateTicketTerm.java
 src/main/java/com/fireblocks/sdk/model/SmartTransferForbiddenResponse.java
@@ -905,6 +917,9 @@ src/main/java/com/fireblocks/sdk/model/SmartTransferNotFoundResponse.java
 src/main/java/com/fireblocks/sdk/model/SmartTransferSetTicketExpiration.java
 src/main/java/com/fireblocks/sdk/model/SmartTransferSetTicketExternalId.java
 src/main/java/com/fireblocks/sdk/model/SmartTransferSetUserGroups.java
+src/main/java/com/fireblocks/sdk/model/SmartTransferStatistic.java
+src/main/java/com/fireblocks/sdk/model/SmartTransferStatisticInflow.java
+src/main/java/com/fireblocks/sdk/model/SmartTransferStatisticOutflow.java
 src/main/java/com/fireblocks/sdk/model/SmartTransferSubmitTicket.java
 src/main/java/com/fireblocks/sdk/model/SmartTransferTicket.java
 src/main/java/com/fireblocks/sdk/model/SmartTransferTicketFilteredResponse.java
@@ -983,6 +998,7 @@ src/main/java/com/fireblocks/sdk/model/TravelRuleVASP.java
 src/main/java/com/fireblocks/sdk/model/TravelRuleValidateFullTransactionRequest.java
 src/main/java/com/fireblocks/sdk/model/TravelRuleValidateTransactionRequest.java
 src/main/java/com/fireblocks/sdk/model/TravelRuleValidateTransactionResponse.java
+src/main/java/com/fireblocks/sdk/model/TravelRuleVaspForVault.java
 src/main/java/com/fireblocks/sdk/model/UnfreezeTransactionResponse.java
 src/main/java/com/fireblocks/sdk/model/UnmanagedWallet.java
 src/main/java/com/fireblocks/sdk/model/UnspentInput.java
@@ -1348,6 +1364,8 @@ src/test/java/com/fireblocks/sdk/model/ReadAbiFunctionTest.java
 src/test/java/com/fireblocks/sdk/model/ReadCallFunctionDtoTest.java
 src/test/java/com/fireblocks/sdk/model/RedeemFundsToLinkedDDAResponseTest.java
 src/test/java/com/fireblocks/sdk/model/RegisterNewAssetRequestTest.java
+src/test/java/com/fireblocks/sdk/model/RelatedRequestDtoTest.java
+src/test/java/com/fireblocks/sdk/model/RelatedRequestStatusTypeTest.java
 src/test/java/com/fireblocks/sdk/model/RelatedTransactionDtoTest.java
 src/test/java/com/fireblocks/sdk/model/RemoveCollateralRequestBodyTest.java
 src/test/java/com/fireblocks/sdk/model/RenameCosignerTest.java
@@ -1394,7 +1412,9 @@ src/test/java/com/fireblocks/sdk/model/SettlementResponseTest.java
 src/test/java/com/fireblocks/sdk/model/SignedMessageSignatureTest.java
 src/test/java/com/fireblocks/sdk/model/SignedMessageTest.java
 src/test/java/com/fireblocks/sdk/model/SigningKeyDtoTest.java
+src/test/java/com/fireblocks/sdk/model/SmartTransferApproveTermTest.java
 src/test/java/com/fireblocks/sdk/model/SmartTransferBadRequestResponseTest.java
+src/test/java/com/fireblocks/sdk/model/SmartTransferCoinStatisticTest.java
 src/test/java/com/fireblocks/sdk/model/SmartTransferCreateTicketTermTest.java
 src/test/java/com/fireblocks/sdk/model/SmartTransferCreateTicketTest.java
 src/test/java/com/fireblocks/sdk/model/SmartTransferForbiddenResponseTest.java
@@ -1404,6 +1424,9 @@ src/test/java/com/fireblocks/sdk/model/SmartTransferNotFoundResponseTest.java
 src/test/java/com/fireblocks/sdk/model/SmartTransferSetTicketExpirationTest.java
 src/test/java/com/fireblocks/sdk/model/SmartTransferSetTicketExternalIdTest.java
 src/test/java/com/fireblocks/sdk/model/SmartTransferSetUserGroupsTest.java
+src/test/java/com/fireblocks/sdk/model/SmartTransferStatisticInflowTest.java
+src/test/java/com/fireblocks/sdk/model/SmartTransferStatisticOutflowTest.java
+src/test/java/com/fireblocks/sdk/model/SmartTransferStatisticTest.java
 src/test/java/com/fireblocks/sdk/model/SmartTransferSubmitTicketTest.java
 src/test/java/com/fireblocks/sdk/model/SmartTransferTicketFilteredResponseTest.java
 src/test/java/com/fireblocks/sdk/model/SmartTransferTicketResponseTest.java
@@ -1482,6 +1505,7 @@ src/test/java/com/fireblocks/sdk/model/TravelRuleVASPTest.java
 src/test/java/com/fireblocks/sdk/model/TravelRuleValidateFullTransactionRequestTest.java
 src/test/java/com/fireblocks/sdk/model/TravelRuleValidateTransactionRequestTest.java
 src/test/java/com/fireblocks/sdk/model/TravelRuleValidateTransactionResponseTest.java
+src/test/java/com/fireblocks/sdk/model/TravelRuleVaspForVaultTest.java
 src/test/java/com/fireblocks/sdk/model/UnfreezeTransactionResponseTest.java
 src/test/java/com/fireblocks/sdk/model/UnmanagedWalletTest.java
 src/test/java/com/fireblocks/sdk/model/UnspentInputTest.java

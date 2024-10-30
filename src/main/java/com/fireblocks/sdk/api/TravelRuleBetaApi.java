@@ -26,6 +26,7 @@ import com.fireblocks.sdk.model.TravelRuleVASP;
 import com.fireblocks.sdk.model.TravelRuleValidateFullTransactionRequest;
 import com.fireblocks.sdk.model.TravelRuleValidateTransactionRequest;
 import com.fireblocks.sdk.model.TravelRuleValidateTransactionResponse;
+import com.fireblocks.sdk.model.TravelRuleVaspForVault;
 import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigDecimal;
@@ -253,6 +254,170 @@ public class TravelRuleBetaApi {
         localVarRequestBuilder.header("Accept", "application/json");
 
         localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
+     * Get assigned VASP to vault Get assigned VASP Did for a specific vault. Returns empty string
+     * vaspDid value in response if none assigned.
+     *
+     * @param vaultAccountId The ID of the vault account (required)
+     * @return CompletableFuture&lt;ApiResponse&lt;TravelRuleVaspForVault&gt;&gt;
+     * @throws ApiException if fails to make API call
+     */
+    public CompletableFuture<ApiResponse<TravelRuleVaspForVault>> getVaspForVault(
+            String vaultAccountId) throws ApiException {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    getVaspForVaultRequestBuilder(vaultAccountId);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException("getVaspForVault", localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<TravelRuleVaspForVault>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            TravelRuleVaspForVault>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            });
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder getVaspForVaultRequestBuilder(String vaultAccountId)
+            throws ApiException {
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "getVaspForVault", "vaultAccountId", vaultAccountId);
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath =
+                "/screening/travel_rule/vault/{vaultAccountId}/vasp"
+                        .replace(
+                                "{vaultAccountId}", ApiClient.urlEncode(vaultAccountId.toString()));
+
+        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
+     * Assign VASP to vault Sets the VASP Did for a specific vault. Pass empty string to remove
+     * existing one.
+     *
+     * @param travelRuleVaspForVault (required)
+     * @param vaultAccountId The ID of the vault account (required)
+     * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
+     *     times with the same idempotency key, the server will return the same response as the
+     *     first request. The idempotency key is valid for 24 hours. (optional)
+     * @return CompletableFuture&lt;ApiResponse&lt;TravelRuleVaspForVault&gt;&gt;
+     * @throws ApiException if fails to make API call
+     */
+    public CompletableFuture<ApiResponse<TravelRuleVaspForVault>> setVaspForVault(
+            TravelRuleVaspForVault travelRuleVaspForVault,
+            String vaultAccountId,
+            String idempotencyKey)
+            throws ApiException {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    setVaspForVaultRequestBuilder(
+                            travelRuleVaspForVault, vaultAccountId, idempotencyKey);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException("setVaspForVault", localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<TravelRuleVaspForVault>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            TravelRuleVaspForVault>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            });
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder setVaspForVaultRequestBuilder(
+            TravelRuleVaspForVault travelRuleVaspForVault,
+            String vaultAccountId,
+            String idempotencyKey)
+            throws ApiException {
+        ValidationUtils.assertParamExists(
+                "setVaspForVault", "travelRuleVaspForVault", travelRuleVaspForVault);
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "setVaspForVault", "vaultAccountId", vaultAccountId);
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath =
+                "/screening/travel_rule/vault/{vaultAccountId}/vasp"
+                        .replace(
+                                "{vaultAccountId}", ApiClient.urlEncode(vaultAccountId.toString()));
+
+        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+        if (idempotencyKey != null) {
+            localVarRequestBuilder.header("Idempotency-Key", idempotencyKey.toString());
+        }
+        localVarRequestBuilder.header("Content-Type", "application/json");
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        try {
+            byte[] localVarPostBody =
+                    memberVarObjectMapper.writeValueAsBytes(travelRuleVaspForVault);
+            localVarRequestBuilder.method(
+                    "POST", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
+        } catch (IOException e) {
+            throw new ApiException(e);
+        }
         if (memberVarReadTimeout != null) {
             localVarRequestBuilder.timeout(memberVarReadTimeout);
         }

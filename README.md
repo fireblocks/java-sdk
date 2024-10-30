@@ -32,7 +32,7 @@ Add this dependency to your project's POM:
 <dependency>
   <groupId>com.fireblocks.sdk</groupId>
   <artifactId>fireblocks-sdk</artifactId>
-  <version>4.0.0</version>
+  <version>0.0.0</version>
   <scope>compile</scope>
 </dependency>
 ```
@@ -42,7 +42,7 @@ Add this dependency to your project's POM:
 Add this dependency to your project's build file:
 
 ```groovy
-compile "com.fireblocks.sdk:fireblocks-sdk:4.0.0"
+compile "com.fireblocks.sdk:fireblocks-sdk:0.0.0"
 ```
 
 ### Others
@@ -55,7 +55,7 @@ mvn clean package
 
 Then manually install the following JARs:
 
-- `target/fireblocks-sdk-4.0.0.jar`
+- `target/fireblocks-sdk-0.0.0.jar`
 - `target/lib/*.jar`
 
 
@@ -159,9 +159,9 @@ Class | Method | HTTP request | Description
 *ComplianceScreeningConfigurationApi* | [**getScreeningConfiguration**](docs/ComplianceScreeningConfigurationApi.md#getScreeningConfiguration) | **GET** /screening/travel_rule/policy_configuration | Get Travel Rule Screening Policy Configuration
 *ConsoleUserApi* | [**createConsoleUser**](docs/ConsoleUserApi.md#createConsoleUser) | **POST** /management/users | Create console user
 *ConsoleUserApi* | [**getConsoleUsers**](docs/ConsoleUserApi.md#getConsoleUsers) | **GET** /management/users | Get console users
-*ContractInteractionsApi* | [**getDeployedContractAbi**](docs/ContractInteractionsApi.md#getDeployedContractAbi) | **GET** /contract_interactions/base_asset_id/{assetId}/contract_address/{contractAddress}/functions | Return deployed contract&#39;s ABI
-*ContractInteractionsApi* | [**readCallFunction**](docs/ContractInteractionsApi.md#readCallFunction) | **POST** /contract_interactions/base_asset_id/{assetId}/contract_address/{contractAddress}/functions/read | Call a read function on a deployed contract
-*ContractInteractionsApi* | [**writeCallFunction**](docs/ContractInteractionsApi.md#writeCallFunction) | **POST** /contract_interactions/base_asset_id/{assetId}/contract_address/{contractAddress}/functions/write | Call a write function on a deployed contract
+*ContractInteractionsApi* | [**getDeployedContractAbi**](docs/ContractInteractionsApi.md#getDeployedContractAbi) | **GET** /contract_interactions/base_asset_id/{baseAssetId}/contract_address/{contractAddress}/functions | Return deployed contract&#39;s ABI
+*ContractInteractionsApi* | [**readCallFunction**](docs/ContractInteractionsApi.md#readCallFunction) | **POST** /contract_interactions/base_asset_id/{baseAssetId}/contract_address/{contractAddress}/functions/read | Call a read function on a deployed contract
+*ContractInteractionsApi* | [**writeCallFunction**](docs/ContractInteractionsApi.md#writeCallFunction) | **POST** /contract_interactions/base_asset_id/{baseAssetId}/contract_address/{contractAddress}/functions/write | Call a write function on a deployed contract
 *ContractTemplatesApi* | [**deleteContractTemplateById**](docs/ContractTemplatesApi.md#deleteContractTemplateById) | **DELETE** /tokenization/templates/{contractTemplateId} | Delete a contract template by id
 *ContractTemplatesApi* | [**deployContract**](docs/ContractTemplatesApi.md#deployContract) | **POST** /tokenization/templates/{contractTemplateId}/deploy | Deploy contract
 *ContractTemplatesApi* | [**getConstructorByContractTemplateId**](docs/ContractTemplatesApi.md#getConstructorByContractTemplateId) | **GET** /tokenization/templates/{contractTemplateId}/constructor | Return contract template&#39;s constructor
@@ -270,13 +270,16 @@ Class | Method | HTTP request | Description
 *PolicyEditorBetaApi* | [**publishPolicyRules**](docs/PolicyEditorBetaApi.md#publishPolicyRules) | **POST** /tap/publish | Send publish request for a set of policy rules
 *PolicyEditorBetaApi* | [**updateDraft**](docs/PolicyEditorBetaApi.md#updateDraft) | **PUT** /tap/draft | Update the draft with a new set of rules
 *ResetDeviceApi* | [**resetDevice**](docs/ResetDeviceApi.md#resetDevice) | **POST** /management/users/{id}/reset_device | Resets device
+*SmartTransferApi* | [**approveDvPTicketTerm**](docs/SmartTransferApi.md#approveDvPTicketTerm) | **PUT** /smart_transfers/{ticketId}/terms/{termId}/dvp/approve | Define funding source and give approve to contract to transfer asset
 *SmartTransferApi* | [**cancelTicket**](docs/SmartTransferApi.md#cancelTicket) | **PUT** /smart-transfers/{ticketId}/cancel | Cancel Ticket
 *SmartTransferApi* | [**createTicket**](docs/SmartTransferApi.md#createTicket) | **POST** /smart-transfers | Create Ticket
 *SmartTransferApi* | [**createTicketTerm**](docs/SmartTransferApi.md#createTicketTerm) | **POST** /smart-transfers/{ticketId}/terms | Create leg (term)
 *SmartTransferApi* | [**findTicketById**](docs/SmartTransferApi.md#findTicketById) | **GET** /smart-transfers/{ticketId} | Search Tickets by ID
 *SmartTransferApi* | [**findTicketTermById**](docs/SmartTransferApi.md#findTicketTermById) | **GET** /smart-transfers/{ticketId}/terms/{termId} | Search ticket by leg (term) ID
 *SmartTransferApi* | [**fulfillTicket**](docs/SmartTransferApi.md#fulfillTicket) | **PUT** /smart-transfers/{ticketId}/fulfill | Fund ticket manually
+*SmartTransferApi* | [**fundDvpTicket**](docs/SmartTransferApi.md#fundDvpTicket) | **PUT** /smart_transfers/{ticketId}/dvp/fund | Fund dvp ticket
 *SmartTransferApi* | [**fundTicketTerm**](docs/SmartTransferApi.md#fundTicketTerm) | **PUT** /smart-transfers/{ticketId}/terms/{termId}/fund | Define funding source
+*SmartTransferApi* | [**getSmartTransferStatistic**](docs/SmartTransferApi.md#getSmartTransferStatistic) | **GET** /smart_transfers/statistic | Get smart transfers statistic
 *SmartTransferApi* | [**getSmartTransferUserGroups**](docs/SmartTransferApi.md#getSmartTransferUserGroups) | **GET** /smart-transfers/settings/user-groups | Get user group
 *SmartTransferApi* | [**manuallyFundTicketTerm**](docs/SmartTransferApi.md#manuallyFundTicketTerm) | **PUT** /smart-transfers/{ticketId}/terms/{termId}/manually-fund | Manually add term transaction
 *SmartTransferApi* | [**removeTicketTerm**](docs/SmartTransferApi.md#removeTicketTerm) | **DELETE** /smart-transfers/{ticketId}/terms/{termId} | Delete ticket leg (term)
@@ -323,6 +326,8 @@ Class | Method | HTTP request | Description
 *TransactionsApi* | [**validateAddress**](docs/TransactionsApi.md#validateAddress) | **GET** /transactions/validate_address/{assetId}/{address} | Validate destination address
 *TravelRuleBetaApi* | [**getVASPByDID**](docs/TravelRuleBetaApi.md#getVASPByDID) | **GET** /screening/travel_rule/vasp/{did} | Get VASP details
 *TravelRuleBetaApi* | [**getVASPs**](docs/TravelRuleBetaApi.md#getVASPs) | **GET** /screening/travel_rule/vasp | Get All VASPs
+*TravelRuleBetaApi* | [**getVaspForVault**](docs/TravelRuleBetaApi.md#getVaspForVault) | **GET** /screening/travel_rule/vault/{vaultAccountId}/vasp | Get assigned VASP to vault
+*TravelRuleBetaApi* | [**setVaspForVault**](docs/TravelRuleBetaApi.md#setVaspForVault) | **POST** /screening/travel_rule/vault/{vaultAccountId}/vasp | Assign VASP to vault
 *TravelRuleBetaApi* | [**updateVasp**](docs/TravelRuleBetaApi.md#updateVasp) | **PUT** /screening/travel_rule/vasp/update | Add jsonDidKey to VASP details
 *TravelRuleBetaApi* | [**validateFullTravelRuleTransaction**](docs/TravelRuleBetaApi.md#validateFullTravelRuleTransaction) | **POST** /screening/travel_rule/transaction/validate/full | Validate Full Travel Rule Transaction
 *TravelRuleBetaApi* | [**validateTravelRuleTransaction**](docs/TravelRuleBetaApi.md#validateTravelRuleTransaction) | **POST** /screening/travel_rule/transaction/validate | Validate Travel Rule Transaction
@@ -653,6 +658,8 @@ Class | Method | HTTP request | Description
  - [ReadCallFunctionDto](docs/ReadCallFunctionDto.md)
  - [RedeemFundsToLinkedDDAResponse](docs/RedeemFundsToLinkedDDAResponse.md)
  - [RegisterNewAssetRequest](docs/RegisterNewAssetRequest.md)
+ - [RelatedRequestDto](docs/RelatedRequestDto.md)
+ - [RelatedRequestStatusType](docs/RelatedRequestStatusType.md)
  - [RelatedTransactionDto](docs/RelatedTransactionDto.md)
  - [RemoveCollateralRequestBody](docs/RemoveCollateralRequestBody.md)
  - [RenameCosigner](docs/RenameCosigner.md)
@@ -699,7 +706,9 @@ Class | Method | HTTP request | Description
  - [SignedMessage](docs/SignedMessage.md)
  - [SignedMessageSignature](docs/SignedMessageSignature.md)
  - [SigningKeyDto](docs/SigningKeyDto.md)
+ - [SmartTransferApproveTerm](docs/SmartTransferApproveTerm.md)
  - [SmartTransferBadRequestResponse](docs/SmartTransferBadRequestResponse.md)
+ - [SmartTransferCoinStatistic](docs/SmartTransferCoinStatistic.md)
  - [SmartTransferCreateTicket](docs/SmartTransferCreateTicket.md)
  - [SmartTransferCreateTicketTerm](docs/SmartTransferCreateTicketTerm.md)
  - [SmartTransferForbiddenResponse](docs/SmartTransferForbiddenResponse.md)
@@ -709,6 +718,9 @@ Class | Method | HTTP request | Description
  - [SmartTransferSetTicketExpiration](docs/SmartTransferSetTicketExpiration.md)
  - [SmartTransferSetTicketExternalId](docs/SmartTransferSetTicketExternalId.md)
  - [SmartTransferSetUserGroups](docs/SmartTransferSetUserGroups.md)
+ - [SmartTransferStatistic](docs/SmartTransferStatistic.md)
+ - [SmartTransferStatisticInflow](docs/SmartTransferStatisticInflow.md)
+ - [SmartTransferStatisticOutflow](docs/SmartTransferStatisticOutflow.md)
  - [SmartTransferSubmitTicket](docs/SmartTransferSubmitTicket.md)
  - [SmartTransferTicket](docs/SmartTransferTicket.md)
  - [SmartTransferTicketFilteredResponse](docs/SmartTransferTicketFilteredResponse.md)
@@ -787,6 +799,7 @@ Class | Method | HTTP request | Description
  - [TravelRuleValidateFullTransactionRequest](docs/TravelRuleValidateFullTransactionRequest.md)
  - [TravelRuleValidateTransactionRequest](docs/TravelRuleValidateTransactionRequest.md)
  - [TravelRuleValidateTransactionResponse](docs/TravelRuleValidateTransactionResponse.md)
+ - [TravelRuleVaspForVault](docs/TravelRuleVaspForVault.md)
  - [UnfreezeTransactionResponse](docs/UnfreezeTransactionResponse.md)
  - [UnmanagedWallet](docs/UnmanagedWallet.md)
  - [UnspentInput](docs/UnspentInput.md)

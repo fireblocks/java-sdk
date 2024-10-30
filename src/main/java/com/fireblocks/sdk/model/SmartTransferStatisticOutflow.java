@@ -23,78 +23,76 @@ import java.util.List;
 import java.util.Objects;
 import java.util.StringJoiner;
 
-/** EVMTokenCreateParamsDto */
+/** Outflow tickets data */
 @JsonPropertyOrder({
-    EVMTokenCreateParamsDto.JSON_PROPERTY_CONTRACT_ID,
-    EVMTokenCreateParamsDto.JSON_PROPERTY_DEPLOY_FUNCTION_PARAMS
+    SmartTransferStatisticOutflow.JSON_PROPERTY_COINS,
+    SmartTransferStatisticOutflow.JSON_PROPERTY_TICKET_COUNT
 })
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
-public class EVMTokenCreateParamsDto {
-    public static final String JSON_PROPERTY_CONTRACT_ID = "contractId";
-    private String contractId;
+public class SmartTransferStatisticOutflow {
+    public static final String JSON_PROPERTY_COINS = "coins";
+    private List<SmartTransferCoinStatistic> coins;
 
-    public static final String JSON_PROPERTY_DEPLOY_FUNCTION_PARAMS = "deployFunctionParams";
-    private List<ParameterWithValue> deployFunctionParams;
+    public static final String JSON_PROPERTY_TICKET_COUNT = "ticketCount";
+    private Integer ticketCount;
 
-    public EVMTokenCreateParamsDto() {}
+    public SmartTransferStatisticOutflow() {}
 
-    public EVMTokenCreateParamsDto contractId(String contractId) {
-        this.contractId = contractId;
+    public SmartTransferStatisticOutflow coins(List<SmartTransferCoinStatistic> coins) {
+        this.coins = coins;
         return this;
     }
 
-    /**
-     * The id of the contract template that will be used to create the token
-     *
-     * @return contractId
-     */
-    @jakarta.annotation.Nonnull
-    @JsonProperty(JSON_PROPERTY_CONTRACT_ID)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public String getContractId() {
-        return contractId;
-    }
-
-    @JsonProperty(JSON_PROPERTY_CONTRACT_ID)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setContractId(String contractId) {
-        this.contractId = contractId;
-    }
-
-    public EVMTokenCreateParamsDto deployFunctionParams(
-            List<ParameterWithValue> deployFunctionParams) {
-        this.deployFunctionParams = deployFunctionParams;
-        return this;
-    }
-
-    public EVMTokenCreateParamsDto addDeployFunctionParamsItem(
-            ParameterWithValue deployFunctionParamsItem) {
-        if (this.deployFunctionParams == null) {
-            this.deployFunctionParams = new ArrayList<>();
+    public SmartTransferStatisticOutflow addCoinsItem(SmartTransferCoinStatistic coinsItem) {
+        if (this.coins == null) {
+            this.coins = new ArrayList<>();
         }
-        this.deployFunctionParams.add(deployFunctionParamsItem);
+        this.coins.add(coinsItem);
         return this;
     }
 
     /**
-     * The deploy function parameters and values of the contract template
+     * Get coins
      *
-     * @return deployFunctionParams
+     * @return coins
      */
     @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_DEPLOY_FUNCTION_PARAMS)
+    @JsonProperty(JSON_PROPERTY_COINS)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public List<ParameterWithValue> getDeployFunctionParams() {
-        return deployFunctionParams;
+    public List<SmartTransferCoinStatistic> getCoins() {
+        return coins;
     }
 
-    @JsonProperty(JSON_PROPERTY_DEPLOY_FUNCTION_PARAMS)
+    @JsonProperty(JSON_PROPERTY_COINS)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setDeployFunctionParams(List<ParameterWithValue> deployFunctionParams) {
-        this.deployFunctionParams = deployFunctionParams;
+    public void setCoins(List<SmartTransferCoinStatistic> coins) {
+        this.coins = coins;
     }
 
-    /** Return true if this EVMTokenCreateParamsDto object is equal to o. */
+    public SmartTransferStatisticOutflow ticketCount(Integer ticketCount) {
+        this.ticketCount = ticketCount;
+        return this;
+    }
+
+    /**
+     * Get ticketCount
+     *
+     * @return ticketCount
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_TICKET_COUNT)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public Integer getTicketCount() {
+        return ticketCount;
+    }
+
+    @JsonProperty(JSON_PROPERTY_TICKET_COUNT)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setTicketCount(Integer ticketCount) {
+        this.ticketCount = ticketCount;
+    }
+
+    /** Return true if this SmartTransferStatistic_outflow object is equal to o. */
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -103,25 +101,23 @@ public class EVMTokenCreateParamsDto {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        EVMTokenCreateParamsDto evMTokenCreateParamsDto = (EVMTokenCreateParamsDto) o;
-        return Objects.equals(this.contractId, evMTokenCreateParamsDto.contractId)
-                && Objects.equals(
-                        this.deployFunctionParams, evMTokenCreateParamsDto.deployFunctionParams);
+        SmartTransferStatisticOutflow smartTransferStatisticOutflow =
+                (SmartTransferStatisticOutflow) o;
+        return Objects.equals(this.coins, smartTransferStatisticOutflow.coins)
+                && Objects.equals(this.ticketCount, smartTransferStatisticOutflow.ticketCount);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(contractId, deployFunctionParams);
+        return Objects.hash(coins, ticketCount);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("class EVMTokenCreateParamsDto {\n");
-        sb.append("    contractId: ").append(toIndentedString(contractId)).append("\n");
-        sb.append("    deployFunctionParams: ")
-                .append(toIndentedString(deployFunctionParams))
-                .append("\n");
+        sb.append("class SmartTransferStatisticOutflow {\n");
+        sb.append("    coins: ").append(toIndentedString(coins)).append("\n");
+        sb.append("    ticketCount: ").append(toIndentedString(ticketCount)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -169,28 +165,16 @@ public class EVMTokenCreateParamsDto {
 
         StringJoiner joiner = new StringJoiner("&");
 
-        // add `contractId` to the URL query string
-        if (getContractId() != null) {
-            joiner.add(
-                    String.format(
-                            "%scontractId%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getContractId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
-        // add `deployFunctionParams` to the URL query string
-        if (getDeployFunctionParams() != null) {
-            for (int i = 0; i < getDeployFunctionParams().size(); i++) {
-                if (getDeployFunctionParams().get(i) != null) {
+        // add `coins` to the URL query string
+        if (getCoins() != null) {
+            for (int i = 0; i < getCoins().size(); i++) {
+                if (getCoins().get(i) != null) {
                     joiner.add(
-                            getDeployFunctionParams()
+                            getCoins()
                                     .get(i)
                                     .toUrlQueryString(
                                             String.format(
-                                                    "%sdeployFunctionParams%s%s",
+                                                    "%scoins%s%s",
                                                     prefix,
                                                     suffix,
                                                     "".equals(suffix)
@@ -202,6 +186,19 @@ public class EVMTokenCreateParamsDto {
                                                                     containerSuffix))));
                 }
             }
+        }
+
+        // add `ticketCount` to the URL query string
+        if (getTicketCount() != null) {
+            joiner.add(
+                    String.format(
+                            "%sticketCount%s=%s",
+                            prefix,
+                            suffix,
+                            URLEncoder.encode(
+                                            String.valueOf(getTicketCount()),
+                                            StandardCharsets.UTF_8)
+                                    .replaceAll("\\+", "%20")));
         }
 
         return joiner.toString();

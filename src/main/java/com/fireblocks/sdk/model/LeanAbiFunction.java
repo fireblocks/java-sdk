@@ -13,9 +13,11 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonValue;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -24,7 +26,12 @@ import java.util.Objects;
 import java.util.StringJoiner;
 
 /** LeanAbiFunction */
-@JsonPropertyOrder({LeanAbiFunction.JSON_PROPERTY_NAME, LeanAbiFunction.JSON_PROPERTY_INPUTS})
+@JsonPropertyOrder({
+    LeanAbiFunction.JSON_PROPERTY_NAME,
+    LeanAbiFunction.JSON_PROPERTY_INPUTS,
+    LeanAbiFunction.JSON_PROPERTY_OUTPUTS,
+    LeanAbiFunction.JSON_PROPERTY_STATE_MUTABILITY
+})
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class LeanAbiFunction {
     public static final String JSON_PROPERTY_NAME = "name";
@@ -32,6 +39,49 @@ public class LeanAbiFunction {
 
     public static final String JSON_PROPERTY_INPUTS = "inputs";
     private List<ParameterWithValue> inputs = new ArrayList<>();
+
+    public static final String JSON_PROPERTY_OUTPUTS = "outputs";
+    private List<ParameterWithValue> outputs;
+
+    /** The state mutability of the function (e.g., view, pure, nonpayable, payable) */
+    public enum StateMutabilityEnum {
+        VIEW("view"),
+
+        PURE("pure"),
+
+        NONPAYABLE("nonpayable"),
+
+        PAYABLE("payable");
+
+        private String value;
+
+        StateMutabilityEnum(String value) {
+            this.value = value;
+        }
+
+        @JsonValue
+        public String getValue() {
+            return value;
+        }
+
+        @Override
+        public String toString() {
+            return String.valueOf(value);
+        }
+
+        @JsonCreator
+        public static StateMutabilityEnum fromValue(String value) {
+            for (StateMutabilityEnum b : StateMutabilityEnum.values()) {
+                if (b.value.equals(value)) {
+                    return b;
+                }
+            }
+            throw new IllegalArgumentException("Unexpected value '" + value + "'");
+        }
+    }
+
+    public static final String JSON_PROPERTY_STATE_MUTABILITY = "stateMutability";
+    private StateMutabilityEnum stateMutability;
 
     public LeanAbiFunction() {}
 
@@ -89,6 +139,60 @@ public class LeanAbiFunction {
         this.inputs = inputs;
     }
 
+    public LeanAbiFunction outputs(List<ParameterWithValue> outputs) {
+        this.outputs = outputs;
+        return this;
+    }
+
+    public LeanAbiFunction addOutputsItem(ParameterWithValue outputsItem) {
+        if (this.outputs == null) {
+            this.outputs = new ArrayList<>();
+        }
+        this.outputs.add(outputsItem);
+        return this;
+    }
+
+    /**
+     * The function outputs
+     *
+     * @return outputs
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_OUTPUTS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public List<ParameterWithValue> getOutputs() {
+        return outputs;
+    }
+
+    @JsonProperty(JSON_PROPERTY_OUTPUTS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setOutputs(List<ParameterWithValue> outputs) {
+        this.outputs = outputs;
+    }
+
+    public LeanAbiFunction stateMutability(StateMutabilityEnum stateMutability) {
+        this.stateMutability = stateMutability;
+        return this;
+    }
+
+    /**
+     * The state mutability of the function (e.g., view, pure, nonpayable, payable)
+     *
+     * @return stateMutability
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_STATE_MUTABILITY)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public StateMutabilityEnum getStateMutability() {
+        return stateMutability;
+    }
+
+    @JsonProperty(JSON_PROPERTY_STATE_MUTABILITY)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setStateMutability(StateMutabilityEnum stateMutability) {
+        this.stateMutability = stateMutability;
+    }
+
     /** Return true if this LeanAbiFunction object is equal to o. */
     @Override
     public boolean equals(Object o) {
@@ -100,12 +204,14 @@ public class LeanAbiFunction {
         }
         LeanAbiFunction leanAbiFunction = (LeanAbiFunction) o;
         return Objects.equals(this.name, leanAbiFunction.name)
-                && Objects.equals(this.inputs, leanAbiFunction.inputs);
+                && Objects.equals(this.inputs, leanAbiFunction.inputs)
+                && Objects.equals(this.outputs, leanAbiFunction.outputs)
+                && Objects.equals(this.stateMutability, leanAbiFunction.stateMutability);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, inputs);
+        return Objects.hash(name, inputs, outputs, stateMutability);
     }
 
     @Override
@@ -114,6 +220,8 @@ public class LeanAbiFunction {
         sb.append("class LeanAbiFunction {\n");
         sb.append("    name: ").append(toIndentedString(name)).append("\n");
         sb.append("    inputs: ").append(toIndentedString(inputs)).append("\n");
+        sb.append("    outputs: ").append(toIndentedString(outputs)).append("\n");
+        sb.append("    stateMutability: ").append(toIndentedString(stateMutability)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -193,6 +301,42 @@ public class LeanAbiFunction {
                                                                     containerSuffix))));
                 }
             }
+        }
+
+        // add `outputs` to the URL query string
+        if (getOutputs() != null) {
+            for (int i = 0; i < getOutputs().size(); i++) {
+                if (getOutputs().get(i) != null) {
+                    joiner.add(
+                            getOutputs()
+                                    .get(i)
+                                    .toUrlQueryString(
+                                            String.format(
+                                                    "%soutputs%s%s",
+                                                    prefix,
+                                                    suffix,
+                                                    "".equals(suffix)
+                                                            ? ""
+                                                            : String.format(
+                                                                    "%s%d%s",
+                                                                    containerPrefix,
+                                                                    i,
+                                                                    containerSuffix))));
+                }
+            }
+        }
+
+        // add `stateMutability` to the URL query string
+        if (getStateMutability() != null) {
+            joiner.add(
+                    String.format(
+                            "%sstateMutability%s=%s",
+                            prefix,
+                            suffix,
+                            URLEncoder.encode(
+                                            String.valueOf(getStateMutability()),
+                                            StandardCharsets.UTF_8)
+                                    .replaceAll("\\+", "%20")));
         }
 
         return joiner.toString();

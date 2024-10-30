@@ -73,6 +73,12 @@ public class DelegationDtoTest {
         // TODO: test dateCreated
     }
 
+    /** Test the property 'dateUpdated' */
+    @Test
+    public void dateUpdatedTest() {
+        // TODO: test dateUpdated
+    }
+
     /** Test the property 'status' */
     @Test
     public void statusTest() {
@@ -119,5 +125,11 @@ public class DelegationDtoTest {
     @Test
     public void blockchainPositionInfoTest() {
         // TODO: test blockchainPositionInfo
+    }
+
+    /** Test the property 'relatedRequests' */
+    @Test
+    public void relatedRequestsTest() {
+        // TODO: test relatedRequests
     }
 }
