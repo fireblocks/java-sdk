@@ -385,7 +385,7 @@ public class DeployedContractsApi {
      * @param pageSize Number of items per page, requesting more then max will return max items
      *     (optional)
      * @param contractAddress The contract&#39;s onchain address (optional)
-     * @param assetId (optional)
+     * @param baseAssetId (optional)
      * @param templateId (optional)
      * @return CompletableFuture&lt;ApiResponse&lt;DeployedContractsPaginatedResponse&gt;&gt;
      * @throws ApiException if fails to make API call
@@ -394,13 +394,13 @@ public class DeployedContractsApi {
             String pageCursor,
             BigDecimal pageSize,
             String contractAddress,
-            String assetId,
+            String baseAssetId,
             String templateId)
             throws ApiException {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     getDeployedContractsRequestBuilder(
-                            pageCursor, pageSize, contractAddress, assetId, templateId);
+                            pageCursor, pageSize, contractAddress, baseAssetId, templateId);
             return memberVarHttpClient
                     .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
                     .thenComposeAsync(
@@ -438,7 +438,7 @@ public class DeployedContractsApi {
             String pageCursor,
             BigDecimal pageSize,
             String contractAddress,
-            String assetId,
+            String baseAssetId,
             String templateId)
             throws ApiException {
 
@@ -455,8 +455,8 @@ public class DeployedContractsApi {
         localVarQueryParams.addAll(ApiClient.parameterToPairs("pageSize", pageSize));
         localVarQueryParameterBaseName = "contractAddress";
         localVarQueryParams.addAll(ApiClient.parameterToPairs("contractAddress", contractAddress));
-        localVarQueryParameterBaseName = "assetId";
-        localVarQueryParams.addAll(ApiClient.parameterToPairs("assetId", assetId));
+        localVarQueryParameterBaseName = "baseAssetId";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("baseAssetId", baseAssetId));
         localVarQueryParameterBaseName = "templateId";
         localVarQueryParams.addAll(ApiClient.parameterToPairs("templateId", templateId));
 

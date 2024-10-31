@@ -36,4 +36,16 @@ public class LeanAbiFunctionTest {
     public void inputsTest() {
         // TODO: test inputs
     }
+
+    /** Test the property 'outputs' */
+    @Test
+    public void outputsTest() {
+        // TODO: test outputs
+    }
+
+    /** Test the property 'stateMutability' */
+    @Test
+    public void stateMutabilityTest() {
+        // TODO: test stateMutability
+    }
 }

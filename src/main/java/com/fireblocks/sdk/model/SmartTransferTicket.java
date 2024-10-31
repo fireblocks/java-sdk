@@ -55,9 +55,11 @@ public class SmartTransferTicket {
     public static final String JSON_PROPERTY_ID = "id";
     private String id;
 
-    /** Kind of Smart Transfer. Can be either &#x60;ASYNC&#x60; or &#x60;ATOMIC&#x60; */
+    /** Kind of Smart Transfer. Can be either &#x60;ASYNC&#x60; or &#x60;DVP&#x60; */
     public enum TypeEnum {
-        ASYNC("ASYNC");
+        ASYNC("ASYNC"),
+
+        DVP("DVP");
 
         private String value;
 
@@ -255,7 +257,7 @@ public class SmartTransferTicket {
     }
 
     /**
-     * Kind of Smart Transfer. Can be either &#x60;ASYNC&#x60; or &#x60;ATOMIC&#x60;
+     * Kind of Smart Transfer. Can be either &#x60;ASYNC&#x60; or &#x60;DVP&#x60;
      *
      * @return type
      */

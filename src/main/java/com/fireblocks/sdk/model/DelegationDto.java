@@ -18,6 +18,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -33,6 +34,7 @@ import java.util.StringJoiner;
     DelegationDto.JSON_PROPERTY_AMOUNT,
     DelegationDto.JSON_PROPERTY_REWARDS_AMOUNT,
     DelegationDto.JSON_PROPERTY_DATE_CREATED,
+    DelegationDto.JSON_PROPERTY_DATE_UPDATED,
     DelegationDto.JSON_PROPERTY_STATUS,
     DelegationDto.JSON_PROPERTY_RELATED_TRANSACTIONS,
     DelegationDto.JSON_PROPERTY_VALIDATOR_ADDRESS,
@@ -40,7 +42,8 @@ import java.util.StringJoiner;
     DelegationDto.JSON_PROPERTY_AVAILABLE_ACTIONS,
     DelegationDto.JSON_PROPERTY_IN_PROGRESS,
     DelegationDto.JSON_PROPERTY_IN_PROGRESS_TX_ID,
-    DelegationDto.JSON_PROPERTY_BLOCKCHAIN_POSITION_INFO
+    DelegationDto.JSON_PROPERTY_BLOCKCHAIN_POSITION_INFO,
+    DelegationDto.JSON_PROPERTY_RELATED_REQUESTS
 })
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class DelegationDto {
@@ -66,7 +69,10 @@ public class DelegationDto {
     private String rewardsAmount;
 
     public static final String JSON_PROPERTY_DATE_CREATED = "dateCreated";
-    private String dateCreated;
+    private OffsetDateTime dateCreated;
+
+    public static final String JSON_PROPERTY_DATE_UPDATED = "dateUpdated";
+    private OffsetDateTime dateUpdated;
 
     public static final String JSON_PROPERTY_STATUS = "status";
     private String status;
@@ -91,6 +97,9 @@ public class DelegationDto {
 
     public static final String JSON_PROPERTY_BLOCKCHAIN_POSITION_INFO = "blockchainPositionInfo";
     private SolanaBlockchainDataDto blockchainPositionInfo;
+
+    public static final String JSON_PROPERTY_RELATED_REQUESTS = "relatedRequests";
+    private List<RelatedRequestDto> relatedRequests;
 
     public DelegationDto() {}
 
@@ -255,7 +264,7 @@ public class DelegationDto {
         this.rewardsAmount = rewardsAmount;
     }
 
-    public DelegationDto dateCreated(String dateCreated) {
+    public DelegationDto dateCreated(OffsetDateTime dateCreated) {
         this.dateCreated = dateCreated;
         return this;
     }
@@ -268,14 +277,37 @@ public class DelegationDto {
     @jakarta.annotation.Nonnull
     @JsonProperty(JSON_PROPERTY_DATE_CREATED)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public String getDateCreated() {
+    public OffsetDateTime getDateCreated() {
         return dateCreated;
     }
 
     @JsonProperty(JSON_PROPERTY_DATE_CREATED)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setDateCreated(String dateCreated) {
+    public void setDateCreated(OffsetDateTime dateCreated) {
         this.dateCreated = dateCreated;
+    }
+
+    public DelegationDto dateUpdated(OffsetDateTime dateUpdated) {
+        this.dateUpdated = dateUpdated;
+        return this;
+    }
+
+    /**
+     * When has the position last changed (ISO Date).
+     *
+     * @return dateUpdated
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_DATE_UPDATED)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public OffsetDateTime getDateUpdated() {
+        return dateUpdated;
+    }
+
+    @JsonProperty(JSON_PROPERTY_DATE_UPDATED)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setDateUpdated(OffsetDateTime dateUpdated) {
+        this.dateUpdated = dateUpdated;
     }
 
     public DelegationDto status(String status) {
@@ -485,6 +517,41 @@ public class DelegationDto {
         this.blockchainPositionInfo = blockchainPositionInfo;
     }
 
+    public DelegationDto relatedRequests(List<RelatedRequestDto> relatedRequests) {
+        this.relatedRequests = relatedRequests;
+        return this;
+    }
+
+    public DelegationDto addRelatedRequestsItem(RelatedRequestDto relatedRequestsItem) {
+        if (this.relatedRequests == null) {
+            this.relatedRequests = new ArrayList<>();
+        }
+        this.relatedRequests.add(relatedRequestsItem);
+        return this;
+    }
+
+    /**
+     * An array of partial unstake requests for this position, relevant only for the Lido provider.
+     * Each object includes the status of the unstake request, a boolean indicating whether the
+     * action is in progress, the amount of tokens to unstake, and the transaction ID of the
+     * request. With Lido, a position may have multiple partial unstake requests in different
+     * states. This field is optional and not applicable for other providers.
+     *
+     * @return relatedRequests
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_RELATED_REQUESTS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public List<RelatedRequestDto> getRelatedRequests() {
+        return relatedRequests;
+    }
+
+    @JsonProperty(JSON_PROPERTY_RELATED_REQUESTS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setRelatedRequests(List<RelatedRequestDto> relatedRequests) {
+        this.relatedRequests = relatedRequests;
+    }
+
     /** Return true if this DelegationDto object is equal to o. */
     @Override
     public boolean equals(Object o) {
@@ -503,6 +570,7 @@ public class DelegationDto {
                 && Objects.equals(this.amount, delegationDto.amount)
                 && Objects.equals(this.rewardsAmount, delegationDto.rewardsAmount)
                 && Objects.equals(this.dateCreated, delegationDto.dateCreated)
+                && Objects.equals(this.dateUpdated, delegationDto.dateUpdated)
                 && Objects.equals(this.status, delegationDto.status)
                 && Objects.equals(this.relatedTransactions, delegationDto.relatedTransactions)
                 && Objects.equals(this.validatorAddress, delegationDto.validatorAddress)
@@ -510,8 +578,8 @@ public class DelegationDto {
                 && Objects.equals(this.availableActions, delegationDto.availableActions)
                 && Objects.equals(this.inProgress, delegationDto.inProgress)
                 && Objects.equals(this.inProgressTxId, delegationDto.inProgressTxId)
-                && Objects.equals(
-                        this.blockchainPositionInfo, delegationDto.blockchainPositionInfo);
+                && Objects.equals(this.blockchainPositionInfo, delegationDto.blockchainPositionInfo)
+                && Objects.equals(this.relatedRequests, delegationDto.relatedRequests);
     }
 
     @Override
@@ -525,6 +593,7 @@ public class DelegationDto {
                 amount,
                 rewardsAmount,
                 dateCreated,
+                dateUpdated,
                 status,
                 relatedTransactions,
                 validatorAddress,
@@ -532,7 +601,8 @@ public class DelegationDto {
                 availableActions,
                 inProgress,
                 inProgressTxId,
-                blockchainPositionInfo);
+                blockchainPositionInfo,
+                relatedRequests);
     }
 
     @Override
@@ -547,6 +617,7 @@ public class DelegationDto {
         sb.append("    amount: ").append(toIndentedString(amount)).append("\n");
         sb.append("    rewardsAmount: ").append(toIndentedString(rewardsAmount)).append("\n");
         sb.append("    dateCreated: ").append(toIndentedString(dateCreated)).append("\n");
+        sb.append("    dateUpdated: ").append(toIndentedString(dateUpdated)).append("\n");
         sb.append("    status: ").append(toIndentedString(status)).append("\n");
         sb.append("    relatedTransactions: ")
                 .append(toIndentedString(relatedTransactions))
@@ -559,6 +630,7 @@ public class DelegationDto {
         sb.append("    blockchainPositionInfo: ")
                 .append(toIndentedString(blockchainPositionInfo))
                 .append("\n");
+        sb.append("    relatedRequests: ").append(toIndentedString(relatedRequests)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -706,6 +778,19 @@ public class DelegationDto {
                                     .replaceAll("\\+", "%20")));
         }
 
+        // add `dateUpdated` to the URL query string
+        if (getDateUpdated() != null) {
+            joiner.add(
+                    String.format(
+                            "%sdateUpdated%s=%s",
+                            prefix,
+                            suffix,
+                            URLEncoder.encode(
+                                            String.valueOf(getDateUpdated()),
+                                            StandardCharsets.UTF_8)
+                                    .replaceAll("\\+", "%20")));
+        }
+
         // add `status` to the URL query string
         if (getStatus() != null) {
             joiner.add(
@@ -814,6 +899,29 @@ public class DelegationDto {
             joiner.add(
                     getBlockchainPositionInfo()
                             .toUrlQueryString(prefix + "blockchainPositionInfo" + suffix));
+        }
+
+        // add `relatedRequests` to the URL query string
+        if (getRelatedRequests() != null) {
+            for (int i = 0; i < getRelatedRequests().size(); i++) {
+                if (getRelatedRequests().get(i) != null) {
+                    joiner.add(
+                            getRelatedRequests()
+                                    .get(i)
+                                    .toUrlQueryString(
+                                            String.format(
+                                                    "%srelatedRequests%s%s",
+                                                    prefix,
+                                                    suffix,
+                                                    "".equals(suffix)
+                                                            ? ""
+                                                            : String.format(
+                                                                    "%s%d%s",
+                                                                    containerPrefix,
+                                                                    i,
+                                                                    containerSuffix))));
+                }
+            }
         }
 
         return joiner.toString();

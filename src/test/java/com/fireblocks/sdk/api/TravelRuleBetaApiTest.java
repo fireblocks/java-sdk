@@ -21,6 +21,7 @@ import com.fireblocks.sdk.model.TravelRuleVASP;
 import com.fireblocks.sdk.model.TravelRuleValidateFullTransactionRequest;
 import com.fireblocks.sdk.model.TravelRuleValidateTransactionRequest;
 import com.fireblocks.sdk.model.TravelRuleValidateTransactionResponse;
+import com.fireblocks.sdk.model.TravelRuleVaspForVault;
 import java.math.BigDecimal;
 import java.util.concurrent.CompletableFuture;
 import org.junit.Ignore;
@@ -69,6 +70,37 @@ public class TravelRuleBetaApiTest {
         String fields = null;
         CompletableFuture<ApiResponse<TravelRuleGetAllVASPsResponse>> response =
                 api.getVASPs(order, perPage, page, fields);
+    }
+
+    /**
+     * Get assigned VASP to vault
+     *
+     * <p>Get assigned VASP Did for a specific vault. Returns empty string vaspDid value in response
+     * if none assigned.
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void getVaspForVaultTest() throws ApiException {
+        String vaultAccountId = null;
+        CompletableFuture<ApiResponse<TravelRuleVaspForVault>> response =
+                api.getVaspForVault(vaultAccountId);
+    }
+
+    /**
+     * Assign VASP to vault
+     *
+     * <p>Sets the VASP Did for a specific vault. Pass empty string to remove existing one.
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void setVaspForVaultTest() throws ApiException {
+        TravelRuleVaspForVault travelRuleVaspForVault = null;
+        String vaultAccountId = null;
+        String idempotencyKey = null;
+        CompletableFuture<ApiResponse<TravelRuleVaspForVault>> response =
+                api.setVaspForVault(travelRuleVaspForVault, vaultAccountId, idempotencyKey);
     }
 
     /**

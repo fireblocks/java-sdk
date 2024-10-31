@@ -20,6 +20,7 @@ import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.Pair;
 import com.fireblocks.sdk.ValidationUtils;
+import com.fireblocks.sdk.model.SmartTransferApproveTerm;
 import com.fireblocks.sdk.model.SmartTransferCreateTicket;
 import com.fireblocks.sdk.model.SmartTransferCreateTicketTerm;
 import com.fireblocks.sdk.model.SmartTransferFundTerm;
@@ -27,6 +28,7 @@ import com.fireblocks.sdk.model.SmartTransferManuallyFundTerm;
 import com.fireblocks.sdk.model.SmartTransferSetTicketExpiration;
 import com.fireblocks.sdk.model.SmartTransferSetTicketExternalId;
 import com.fireblocks.sdk.model.SmartTransferSetUserGroups;
+import com.fireblocks.sdk.model.SmartTransferStatistic;
 import com.fireblocks.sdk.model.SmartTransferSubmitTicket;
 import com.fireblocks.sdk.model.SmartTransferTicketFilteredResponse;
 import com.fireblocks.sdk.model.SmartTransferTicketResponse;
@@ -86,6 +88,104 @@ public class SmartTransferApi {
         return operationId + " call failed with: " + statusCode + " - " + body;
     }
 
+    /**
+     * Define funding source and give approve to contract to transfer asset Set funding source for
+     * ticket term and creating approving transaction for contract to transfer asset
+     *
+     * @param smartTransferApproveTerm (required)
+     * @param ticketId (required)
+     * @param termId (required)
+     * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
+     *     times with the same idempotency key, the server will return the same response as the
+     *     first request. The idempotency key is valid for 24 hours. (optional)
+     * @return CompletableFuture&lt;ApiResponse&lt;SmartTransferTicketTermResponse&gt;&gt;
+     * @throws ApiException if fails to make API call
+     */
+    public CompletableFuture<ApiResponse<SmartTransferTicketTermResponse>> approveDvPTicketTerm(
+            SmartTransferApproveTerm smartTransferApproveTerm,
+            String ticketId,
+            String termId,
+            String idempotencyKey)
+            throws ApiException {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    approveDvPTicketTermRequestBuilder(
+                            smartTransferApproveTerm, ticketId, termId, idempotencyKey);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException(
+                                                    "approveDvPTicketTerm", localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<SmartTransferTicketTermResponse>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            SmartTransferTicketTermResponse>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            });
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder approveDvPTicketTermRequestBuilder(
+            SmartTransferApproveTerm smartTransferApproveTerm,
+            String ticketId,
+            String termId,
+            String idempotencyKey)
+            throws ApiException {
+        ValidationUtils.assertParamExists(
+                "approveDvPTicketTerm", "smartTransferApproveTerm", smartTransferApproveTerm);
+        ValidationUtils.assertParamExistsAndNotEmpty("approveDvPTicketTerm", "ticketId", ticketId);
+        ValidationUtils.assertParamExistsAndNotEmpty("approveDvPTicketTerm", "termId", termId);
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath =
+                "/smart_transfers/{ticketId}/terms/{termId}/dvp/approve"
+                        .replace("{ticketId}", ApiClient.urlEncode(ticketId.toString()))
+                        .replace("{termId}", ApiClient.urlEncode(termId.toString()));
+
+        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+        if (idempotencyKey != null) {
+            localVarRequestBuilder.header("Idempotency-Key", idempotencyKey.toString());
+        }
+        localVarRequestBuilder.header("Content-Type", "application/json");
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        try {
+            byte[] localVarPostBody =
+                    memberVarObjectMapper.writeValueAsBytes(smartTransferApproveTerm);
+            localVarRequestBuilder.method(
+                    "PUT", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
+        } catch (IOException e) {
+            throw new ApiException(e);
+        }
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
     /**
      * Cancel Ticket Cancel Smart Transfer ticket
      *
@@ -543,6 +643,79 @@ public class SmartTransferApi {
         return localVarRequestBuilder;
     }
     /**
+     * Fund dvp ticket Create or fulfill dvp ticket order
+     *
+     * @param ticketId (required)
+     * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
+     *     times with the same idempotency key, the server will return the same response as the
+     *     first request. The idempotency key is valid for 24 hours. (optional)
+     * @return CompletableFuture&lt;ApiResponse&lt;SmartTransferTicketResponse&gt;&gt;
+     * @throws ApiException if fails to make API call
+     */
+    public CompletableFuture<ApiResponse<SmartTransferTicketResponse>> fundDvpTicket(
+            String ticketId, String idempotencyKey) throws ApiException {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    fundDvpTicketRequestBuilder(ticketId, idempotencyKey);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException("fundDvpTicket", localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<SmartTransferTicketResponse>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            SmartTransferTicketResponse>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            });
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder fundDvpTicketRequestBuilder(String ticketId, String idempotencyKey)
+            throws ApiException {
+        ValidationUtils.assertParamExistsAndNotEmpty("fundDvpTicket", "ticketId", ticketId);
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath =
+                "/smart_transfers/{ticketId}/dvp/fund"
+                        .replace("{ticketId}", ApiClient.urlEncode(ticketId.toString()));
+
+        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+        if (idempotencyKey != null) {
+            localVarRequestBuilder.header("Idempotency-Key", idempotencyKey.toString());
+        }
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        localVarRequestBuilder.method("PUT", HttpRequest.BodyPublishers.noBody());
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
      * Define funding source Set funding source for ticket term (in case of ASYNC tickets, this will
      * execute transfer immediately)
      *
@@ -631,6 +804,68 @@ public class SmartTransferApi {
         } catch (IOException e) {
             throw new ApiException(e);
         }
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
+     * Get smart transfers statistic Get smart transfer statistic
+     *
+     * @return CompletableFuture&lt;ApiResponse&lt;SmartTransferStatistic&gt;&gt;
+     * @throws ApiException if fails to make API call
+     */
+    public CompletableFuture<ApiResponse<SmartTransferStatistic>> getSmartTransferStatistic()
+            throws ApiException {
+        try {
+            HttpRequest.Builder localVarRequestBuilder = getSmartTransferStatisticRequestBuilder();
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException(
+                                                    "getSmartTransferStatistic", localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<SmartTransferStatistic>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            SmartTransferStatistic>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            });
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder getSmartTransferStatisticRequestBuilder() throws ApiException {
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath = "/smart_transfers/statistic";
+
+        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
         if (memberVarReadTimeout != null) {
             localVarRequestBuilder.timeout(memberVarReadTimeout);
         }
@@ -872,8 +1107,8 @@ public class SmartTransferApi {
      *     (optional)
      * @param expiresAfter Lower bound of search range. Optional (optional)
      * @param expiresBefore Upper bound of search range. Optional (optional)
-     * @param type Type of transfer. ASYNC executes transfers as they are funded, ATOMIC executes
-     *     all terms (legs) as one atomic transfer (optional)
+     * @param type Type of transfer. ASYNC executes transfers as they are funded, DVP executes all
+     *     terms (legs) as one dvp transfer (optional)
      * @param externalRefId External ref. ID that workspace can use to identify ticket outside of
      *     Fireblocks system. (optional)
      * @param after ID of the record after which to fetch $limit records (optional)

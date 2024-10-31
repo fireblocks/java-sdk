@@ -103,10 +103,10 @@ public class DeployedContractsApiTest {
         String pageCursor = null;
         BigDecimal pageSize = null;
         String contractAddress = null;
-        String assetId = null;
+        String baseAssetId = null;
         String templateId = null;
         CompletableFuture<ApiResponse<DeployedContractsPaginatedResponse>> response =
                 api.getDeployedContracts(
-                        pageCursor, pageSize, contractAddress, assetId, templateId);
+                        pageCursor, pageSize, contractAddress, baseAssetId, templateId);
     }
 }

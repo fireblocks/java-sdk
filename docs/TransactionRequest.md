@@ -33,7 +33,7 @@
 |**autoStaking** | **Boolean** | This feature is no longer supported. |  [optional] |
 |**networkStaking** | [**TransactionRequestNetworkStaking**](TransactionRequestNetworkStaking.md) |  |  [optional] |
 |**cpuStaking** | [**TransactionRequestNetworkStaking**](TransactionRequestNetworkStaking.md) |  |  [optional] |
-|**useGasless** | **Boolean** | - Override the default gaslsess configuration by sending true\\false |  [optional] |
+|**useGasless** | **Boolean** | - Override the default gasless configuration by sending true\\false |  [optional] |
 
 
 

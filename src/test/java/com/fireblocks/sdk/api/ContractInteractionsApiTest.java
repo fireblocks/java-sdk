@@ -41,10 +41,10 @@ public class ContractInteractionsApiTest {
     @Test
     public void getDeployedContractAbiTest() throws ApiException {
         String contractAddress = null;
-        String assetId = null;
+        String baseAssetId = null;
         String idempotencyKey = null;
         CompletableFuture<ApiResponse<ContractAbiResponseDto>> response =
-                api.getDeployedContractAbi(contractAddress, assetId, idempotencyKey);
+                api.getDeployedContractAbi(contractAddress, baseAssetId, idempotencyKey);
     }
 
     /**
@@ -59,10 +59,11 @@ public class ContractInteractionsApiTest {
     public void readCallFunctionTest() throws ApiException {
         ReadCallFunctionDto readCallFunctionDto = null;
         String contractAddress = null;
-        String assetId = null;
+        String baseAssetId = null;
         String idempotencyKey = null;
         CompletableFuture<ApiResponse<List<ParameterWithValue>>> response =
-                api.readCallFunction(readCallFunctionDto, contractAddress, assetId, idempotencyKey);
+                api.readCallFunction(
+                        readCallFunctionDto, contractAddress, baseAssetId, idempotencyKey);
     }
 
     /**
@@ -78,10 +79,10 @@ public class ContractInteractionsApiTest {
     public void writeCallFunctionTest() throws ApiException {
         WriteCallFunctionDto writeCallFunctionDto = null;
         String contractAddress = null;
-        String assetId = null;
+        String baseAssetId = null;
         String idempotencyKey = null;
         CompletableFuture<ApiResponse<WriteCallFunctionResponseDto>> response =
                 api.writeCallFunction(
-                        writeCallFunctionDto, contractAddress, assetId, idempotencyKey);
+                        writeCallFunctionDto, contractAddress, baseAssetId, idempotencyKey);
     }
 }

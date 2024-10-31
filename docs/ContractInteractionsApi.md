@@ -4,15 +4,15 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
-| [**getDeployedContractAbi**](ContractInteractionsApi.md#getDeployedContractAbi) | **GET** /contract_interactions/base_asset_id/{assetId}/contract_address/{contractAddress}/functions | Return deployed contract&#39;s ABI |
-| [**readCallFunction**](ContractInteractionsApi.md#readCallFunction) | **POST** /contract_interactions/base_asset_id/{assetId}/contract_address/{contractAddress}/functions/read | Call a read function on a deployed contract |
-| [**writeCallFunction**](ContractInteractionsApi.md#writeCallFunction) | **POST** /contract_interactions/base_asset_id/{assetId}/contract_address/{contractAddress}/functions/write | Call a write function on a deployed contract |
+| [**getDeployedContractAbi**](ContractInteractionsApi.md#getDeployedContractAbi) | **GET** /contract_interactions/base_asset_id/{baseAssetId}/contract_address/{contractAddress}/functions | Return deployed contract&#39;s ABI |
+| [**readCallFunction**](ContractInteractionsApi.md#readCallFunction) | **POST** /contract_interactions/base_asset_id/{baseAssetId}/contract_address/{contractAddress}/functions/read | Call a read function on a deployed contract |
+| [**writeCallFunction**](ContractInteractionsApi.md#writeCallFunction) | **POST** /contract_interactions/base_asset_id/{baseAssetId}/contract_address/{contractAddress}/functions/write | Call a write function on a deployed contract |
 
 
 
 ## getDeployedContractAbi
 
-> CompletableFuture<ApiResponse<ContractAbiResponseDto>> getDeployedContractAbi getDeployedContractAbi(contractAddress, assetId, idempotencyKey)
+> CompletableFuture<ApiResponse<ContractAbiResponseDto>> getDeployedContractAbi getDeployedContractAbi(contractAddress, baseAssetId, idempotencyKey)
 
 Return deployed contract&#39;s ABI
 
@@ -42,10 +42,10 @@ public class Example {
         Fireblocks fireblocks = new Fireblocks(configurationOptions);
 
         String contractAddress = "0xC2c4e1Db41F0bB97996D0eD0542D2170d146FB66"; // String | The contract's onchain address
-        String assetId = "assetId_example"; // String | 
+        String baseAssetId = "baseAssetId_example"; // String | 
         String idempotencyKey = "idempotencyKey_example"; // String | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
         try {
-            CompletableFuture<ApiResponse<ContractAbiResponseDto>> response = fireblocks.contractInteractions().getDeployedContractAbi(contractAddress, assetId, idempotencyKey);
+            CompletableFuture<ApiResponse<ContractAbiResponseDto>> response = fireblocks.contractInteractions().getDeployedContractAbi(contractAddress, baseAssetId, idempotencyKey);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
@@ -73,7 +73,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **contractAddress** | **String**| The contract&#39;s onchain address | |
-| **assetId** | **String**|  | |
+| **baseAssetId** | **String**|  | |
 | **idempotencyKey** | **String**| A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | [optional] |
 
 ### Return type
@@ -99,7 +99,7 @@ No authorization required
 
 ## readCallFunction
 
-> CompletableFuture<ApiResponse<List<ParameterWithValue>>> readCallFunction readCallFunction(readCallFunctionDto, contractAddress, assetId, idempotencyKey)
+> CompletableFuture<ApiResponse<List<ParameterWithValue>>> readCallFunction readCallFunction(readCallFunctionDto, contractAddress, baseAssetId, idempotencyKey)
 
 Call a read function on a deployed contract
 
@@ -130,10 +130,10 @@ public class Example {
 
         ReadCallFunctionDto readCallFunctionDto = new ReadCallFunctionDto(); // ReadCallFunctionDto | 
         String contractAddress = "0xC2c4e1Db41F0bB97996D0eD0542D2170d146FB66"; // String | The contract's onchain address
-        String assetId = "assetId_example"; // String | 
+        String baseAssetId = "baseAssetId_example"; // String | 
         String idempotencyKey = "idempotencyKey_example"; // String | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
         try {
-            CompletableFuture<ApiResponse<List<ParameterWithValue>>> response = fireblocks.contractInteractions().readCallFunction(readCallFunctionDto, contractAddress, assetId, idempotencyKey);
+            CompletableFuture<ApiResponse<List<ParameterWithValue>>> response = fireblocks.contractInteractions().readCallFunction(readCallFunctionDto, contractAddress, baseAssetId, idempotencyKey);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
@@ -162,7 +162,7 @@ public class Example {
 |------------- | ------------- | ------------- | -------------|
 | **readCallFunctionDto** | [**ReadCallFunctionDto**](ReadCallFunctionDto.md)|  | |
 | **contractAddress** | **String**| The contract&#39;s onchain address | |
-| **assetId** | **String**|  | |
+| **baseAssetId** | **String**|  | |
 | **idempotencyKey** | **String**| A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | [optional] |
 
 ### Return type
@@ -188,7 +188,7 @@ No authorization required
 
 ## writeCallFunction
 
-> CompletableFuture<ApiResponse<WriteCallFunctionResponseDto>> writeCallFunction writeCallFunction(writeCallFunctionDto, contractAddress, assetId, idempotencyKey)
+> CompletableFuture<ApiResponse<WriteCallFunctionResponseDto>> writeCallFunction writeCallFunction(writeCallFunctionDto, contractAddress, baseAssetId, idempotencyKey)
 
 Call a write function on a deployed contract
 
@@ -219,10 +219,10 @@ public class Example {
 
         WriteCallFunctionDto writeCallFunctionDto = new WriteCallFunctionDto(); // WriteCallFunctionDto | 
         String contractAddress = "0xC2c4e1Db41F0bB97996D0eD0542D2170d146FB66"; // String | The contract's onchain address
-        String assetId = "assetId_example"; // String | 
+        String baseAssetId = "baseAssetId_example"; // String | 
         String idempotencyKey = "idempotencyKey_example"; // String | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
         try {
-            CompletableFuture<ApiResponse<WriteCallFunctionResponseDto>> response = fireblocks.contractInteractions().writeCallFunction(writeCallFunctionDto, contractAddress, assetId, idempotencyKey);
+            CompletableFuture<ApiResponse<WriteCallFunctionResponseDto>> response = fireblocks.contractInteractions().writeCallFunction(writeCallFunctionDto, contractAddress, baseAssetId, idempotencyKey);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
@@ -251,7 +251,7 @@ public class Example {
 |------------- | ------------- | ------------- | -------------|
 | **writeCallFunctionDto** | [**WriteCallFunctionDto**](WriteCallFunctionDto.md)|  | |
 | **contractAddress** | **String**| The contract&#39;s onchain address | |
-| **assetId** | **String**|  | |
+| **baseAssetId** | **String**|  | |
 | **idempotencyKey** | **String**| A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | [optional] |
 
 ### Return type
