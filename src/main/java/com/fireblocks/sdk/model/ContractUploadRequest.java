@@ -100,7 +100,7 @@ public class ContractUploadRequest {
     private ContractDoc docs;
 
     public static final String JSON_PROPERTY_ABI = "abi";
-    private List<List<AbiFunction>> abi = new ArrayList<>();
+    private List<AbiFunction> abi = new ArrayList<>();
 
     public static final String JSON_PROPERTY_ATTRIBUTES = "attributes";
     private ContractAttributes attributes;
@@ -269,12 +269,12 @@ public class ContractUploadRequest {
         this.docs = docs;
     }
 
-    public ContractUploadRequest abi(List<List<AbiFunction>> abi) {
+    public ContractUploadRequest abi(List<AbiFunction> abi) {
         this.abi = abi;
         return this;
     }
 
-    public ContractUploadRequest addAbiItem(List<AbiFunction> abiItem) {
+    public ContractUploadRequest addAbiItem(AbiFunction abiItem) {
         if (this.abi == null) {
             this.abi = new ArrayList<>();
         }
@@ -283,20 +283,20 @@ public class ContractUploadRequest {
     }
 
     /**
-     * Get abi
+     * The abi of the contract template. Necessary for displaying and for after deployment encoding
      *
      * @return abi
      */
     @jakarta.annotation.Nonnull
     @JsonProperty(JSON_PROPERTY_ABI)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public List<List<AbiFunction>> getAbi() {
+    public List<AbiFunction> getAbi() {
         return abi;
     }
 
     @JsonProperty(JSON_PROPERTY_ABI)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setAbi(List<List<AbiFunction>> abi) {
+    public void setAbi(List<AbiFunction> abi) {
         this.abi = abi;
     }
 
@@ -500,18 +500,19 @@ public class ContractUploadRequest {
             for (int i = 0; i < getAbi().size(); i++) {
                 if (getAbi().get(i) != null) {
                     joiner.add(
-                            String.format(
-                                    "%sabi%s%s=%s",
-                                    prefix,
-                                    suffix,
-                                    "".equals(suffix)
-                                            ? ""
-                                            : String.format(
-                                                    "%s%d%s", containerPrefix, i, containerSuffix),
-                                    URLEncoder.encode(
-                                                    String.valueOf(getAbi().get(i)),
-                                                    StandardCharsets.UTF_8)
-                                            .replaceAll("\\+", "%20")));
+                            getAbi().get(i)
+                                    .toUrlQueryString(
+                                            String.format(
+                                                    "%sabi%s%s",
+                                                    prefix,
+                                                    suffix,
+                                                    "".equals(suffix)
+                                                            ? ""
+                                                            : String.format(
+                                                                    "%s%d%s",
+                                                                    containerPrefix,
+                                                                    i,
+                                                                    containerSuffix))));
                 }
             }
         }

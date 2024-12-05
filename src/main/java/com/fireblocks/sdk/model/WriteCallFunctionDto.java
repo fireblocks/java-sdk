@@ -30,7 +30,9 @@ import java.util.StringJoiner;
     WriteCallFunctionDto.JSON_PROPERTY_AMOUNT,
     WriteCallFunctionDto.JSON_PROPERTY_FEE_LEVEL,
     WriteCallFunctionDto.JSON_PROPERTY_FEE,
-    WriteCallFunctionDto.JSON_PROPERTY_NOTE
+    WriteCallFunctionDto.JSON_PROPERTY_NOTE,
+    WriteCallFunctionDto.JSON_PROPERTY_USE_GASLESS,
+    WriteCallFunctionDto.JSON_PROPERTY_EXTERNAL_ID
 })
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class WriteCallFunctionDto {
@@ -88,6 +90,12 @@ public class WriteCallFunctionDto {
 
     public static final String JSON_PROPERTY_NOTE = "note";
     private String note;
+
+    public static final String JSON_PROPERTY_USE_GASLESS = "useGasless";
+    private Boolean useGasless;
+
+    public static final String JSON_PROPERTY_EXTERNAL_ID = "externalId";
+    private String externalId;
 
     public WriteCallFunctionDto() {}
 
@@ -231,6 +239,55 @@ public class WriteCallFunctionDto {
         this.note = note;
     }
 
+    public WriteCallFunctionDto useGasless(Boolean useGasless) {
+        this.useGasless = useGasless;
+        return this;
+    }
+
+    /**
+     * Indicates whether the token should be created in a gasless manner, utilizing the ERC-2771
+     * standard. When set to true, the transaction will be relayed by a designated relayer. The
+     * workspace must be configured to use Fireblocks gasless relay.
+     *
+     * @return useGasless
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_USE_GASLESS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public Boolean getUseGasless() {
+        return useGasless;
+    }
+
+    @JsonProperty(JSON_PROPERTY_USE_GASLESS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setUseGasless(Boolean useGasless) {
+        this.useGasless = useGasless;
+    }
+
+    public WriteCallFunctionDto externalId(String externalId) {
+        this.externalId = externalId;
+        return this;
+    }
+
+    /**
+     * External id that can be used to identify the transaction in your system. The unique
+     * identifier of the transaction outside of Fireblocks with max length of 255 characters
+     *
+     * @return externalId
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_EXTERNAL_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getExternalId() {
+        return externalId;
+    }
+
+    @JsonProperty(JSON_PROPERTY_EXTERNAL_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setExternalId(String externalId) {
+        this.externalId = externalId;
+    }
+
     /** Return true if this WriteCallFunctionDto object is equal to o. */
     @Override
     public boolean equals(Object o) {
@@ -246,12 +303,15 @@ public class WriteCallFunctionDto {
                 && Objects.equals(this.amount, writeCallFunctionDto.amount)
                 && Objects.equals(this.feeLevel, writeCallFunctionDto.feeLevel)
                 && Objects.equals(this.fee, writeCallFunctionDto.fee)
-                && Objects.equals(this.note, writeCallFunctionDto.note);
+                && Objects.equals(this.note, writeCallFunctionDto.note)
+                && Objects.equals(this.useGasless, writeCallFunctionDto.useGasless)
+                && Objects.equals(this.externalId, writeCallFunctionDto.externalId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(vaultAccountId, abiFunction, amount, feeLevel, fee, note);
+        return Objects.hash(
+                vaultAccountId, abiFunction, amount, feeLevel, fee, note, useGasless, externalId);
     }
 
     @Override
@@ -264,6 +324,8 @@ public class WriteCallFunctionDto {
         sb.append("    feeLevel: ").append(toIndentedString(feeLevel)).append("\n");
         sb.append("    fee: ").append(toIndentedString(fee)).append("\n");
         sb.append("    note: ").append(toIndentedString(note)).append("\n");
+        sb.append("    useGasless: ").append(toIndentedString(useGasless)).append("\n");
+        sb.append("    externalId: ").append(toIndentedString(externalId)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -370,6 +432,30 @@ public class WriteCallFunctionDto {
                             prefix,
                             suffix,
                             URLEncoder.encode(String.valueOf(getNote()), StandardCharsets.UTF_8)
+                                    .replaceAll("\\+", "%20")));
+        }
+
+        // add `useGasless` to the URL query string
+        if (getUseGasless() != null) {
+            joiner.add(
+                    String.format(
+                            "%suseGasless%s=%s",
+                            prefix,
+                            suffix,
+                            URLEncoder.encode(
+                                            String.valueOf(getUseGasless()), StandardCharsets.UTF_8)
+                                    .replaceAll("\\+", "%20")));
+        }
+
+        // add `externalId` to the URL query string
+        if (getExternalId() != null) {
+            joiner.add(
+                    String.format(
+                            "%sexternalId%s=%s",
+                            prefix,
+                            suffix,
+                            URLEncoder.encode(
+                                            String.valueOf(getExternalId()), StandardCharsets.UTF_8)
                                     .replaceAll("\\+", "%20")));
         }
 

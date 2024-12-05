@@ -21,22 +21,22 @@ import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 import java.util.StringJoiner;
 
-/** ScreeningUpdateConfigurationsRequest */
+/** ScreeningUpdateConfigurations */
 @JsonPropertyOrder({
-    ScreeningUpdateConfigurationsRequest.JSON_PROPERTY_DISABLE_BYPASS,
-    ScreeningUpdateConfigurationsRequest.JSON_PROPERTY_DISABLE_UNFREEZE
+    ScreeningUpdateConfigurations.JSON_PROPERTY_DISABLE_BYPASS,
+    ScreeningUpdateConfigurations.JSON_PROPERTY_DISABLE_UNFREEZE
 })
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
-public class ScreeningUpdateConfigurationsRequest {
+public class ScreeningUpdateConfigurations {
     public static final String JSON_PROPERTY_DISABLE_BYPASS = "disableBypass";
     private Boolean disableBypass;
 
     public static final String JSON_PROPERTY_DISABLE_UNFREEZE = "disableUnfreeze";
     private Boolean disableUnfreeze;
 
-    public ScreeningUpdateConfigurationsRequest() {}
+    public ScreeningUpdateConfigurations() {}
 
-    public ScreeningUpdateConfigurationsRequest disableBypass(Boolean disableBypass) {
+    public ScreeningUpdateConfigurations disableBypass(Boolean disableBypass) {
         this.disableBypass = disableBypass;
         return this;
     }
@@ -59,7 +59,7 @@ public class ScreeningUpdateConfigurationsRequest {
         this.disableBypass = disableBypass;
     }
 
-    public ScreeningUpdateConfigurationsRequest disableUnfreeze(Boolean disableUnfreeze) {
+    public ScreeningUpdateConfigurations disableUnfreeze(Boolean disableUnfreeze) {
         this.disableUnfreeze = disableUnfreeze;
         return this;
     }
@@ -83,7 +83,7 @@ public class ScreeningUpdateConfigurationsRequest {
         this.disableUnfreeze = disableUnfreeze;
     }
 
-    /** Return true if this ScreeningUpdateConfigurationsRequest object is equal to o. */
+    /** Return true if this ScreeningUpdateConfigurations object is equal to o. */
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -92,12 +92,11 @@ public class ScreeningUpdateConfigurationsRequest {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        ScreeningUpdateConfigurationsRequest screeningUpdateConfigurationsRequest =
-                (ScreeningUpdateConfigurationsRequest) o;
-        return Objects.equals(
-                        this.disableBypass, screeningUpdateConfigurationsRequest.disableBypass)
+        ScreeningUpdateConfigurations screeningUpdateConfigurations =
+                (ScreeningUpdateConfigurations) o;
+        return Objects.equals(this.disableBypass, screeningUpdateConfigurations.disableBypass)
                 && Objects.equals(
-                        this.disableUnfreeze, screeningUpdateConfigurationsRequest.disableUnfreeze);
+                        this.disableUnfreeze, screeningUpdateConfigurations.disableUnfreeze);
     }
 
     @Override
@@ -108,7 +107,7 @@ public class ScreeningUpdateConfigurationsRequest {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("class ScreeningUpdateConfigurationsRequest {\n");
+        sb.append("class ScreeningUpdateConfigurations {\n");
         sb.append("    disableBypass: ").append(toIndentedString(disableBypass)).append("\n");
         sb.append("    disableUnfreeze: ").append(toIndentedString(disableUnfreeze)).append("\n");
         sb.append("}");

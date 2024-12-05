@@ -637,7 +637,7 @@ No authorization required
 
 ## fundDvpTicket
 
-> CompletableFuture<ApiResponse<SmartTransferTicketResponse>> fundDvpTicket fundDvpTicket(ticketId, idempotencyKey)
+> CompletableFuture<ApiResponse<SmartTransferTicketResponse>> fundDvpTicket fundDvpTicket(smartTransferFundDvpTicket, ticketId, idempotencyKey)
 
 Fund dvp ticket
 
@@ -666,10 +666,11 @@ public class Example {
             .secretKey("my-secret-key");
         Fireblocks fireblocks = new Fireblocks(configurationOptions);
 
+        SmartTransferFundDvpTicket smartTransferFundDvpTicket = new SmartTransferFundDvpTicket(); // SmartTransferFundDvpTicket | 
         String ticketId = "ticketId_example"; // String | 
         String idempotencyKey = "idempotencyKey_example"; // String | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
         try {
-            CompletableFuture<ApiResponse<SmartTransferTicketResponse>> response = fireblocks.smartTransfer().fundDvpTicket(ticketId, idempotencyKey);
+            CompletableFuture<ApiResponse<SmartTransferTicketResponse>> response = fireblocks.smartTransfer().fundDvpTicket(smartTransferFundDvpTicket, ticketId, idempotencyKey);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
@@ -696,6 +697,7 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
+| **smartTransferFundDvpTicket** | [**SmartTransferFundDvpTicket**](SmartTransferFundDvpTicket.md)|  | |
 | **ticketId** | **String**|  | |
 | **idempotencyKey** | **String**| A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | [optional] |
 
@@ -710,7 +712,7 @@ No authorization required
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 ### HTTP response details

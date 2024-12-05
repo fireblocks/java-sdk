@@ -13,72 +13,77 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonValue;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 import java.util.StringJoiner;
 
-/** UnstakeRequestDto */
+/** SmartTransferFundDvpTicket */
 @JsonPropertyOrder({
-    UnstakeRequestDto.JSON_PROPERTY_ID,
-    UnstakeRequestDto.JSON_PROPERTY_FEE,
-    UnstakeRequestDto.JSON_PROPERTY_FEE_LEVEL,
-    UnstakeRequestDto.JSON_PROPERTY_TX_NOTE,
-    UnstakeRequestDto.JSON_PROPERTY_AMOUNT
+    SmartTransferFundDvpTicket.JSON_PROPERTY_FEE,
+    SmartTransferFundDvpTicket.JSON_PROPERTY_FEE_LEVEL,
+    SmartTransferFundDvpTicket.JSON_PROPERTY_NOTE
 })
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
-public class UnstakeRequestDto {
-    public static final String JSON_PROPERTY_ID = "id";
-    private String id;
-
+public class SmartTransferFundDvpTicket {
     public static final String JSON_PROPERTY_FEE = "fee";
     private String fee;
 
+    /** Transaction fee level. */
+    public enum FeeLevelEnum {
+        LOW("LOW"),
+
+        MEDIUM("MEDIUM"),
+
+        HIGH("HIGH");
+
+        private String value;
+
+        FeeLevelEnum(String value) {
+            this.value = value;
+        }
+
+        @JsonValue
+        public String getValue() {
+            return value;
+        }
+
+        @Override
+        public String toString() {
+            return String.valueOf(value);
+        }
+
+        @JsonCreator
+        public static FeeLevelEnum fromValue(String value) {
+            for (FeeLevelEnum b : FeeLevelEnum.values()) {
+                if (b.value.equals(value)) {
+                    return b;
+                }
+            }
+            throw new IllegalArgumentException("Unexpected value '" + value + "'");
+        }
+    }
+
     public static final String JSON_PROPERTY_FEE_LEVEL = "feeLevel";
-    private String feeLevel;
+    private FeeLevelEnum feeLevel;
 
-    public static final String JSON_PROPERTY_TX_NOTE = "txNote";
-    private String txNote;
+    public static final String JSON_PROPERTY_NOTE = "note";
+    private String note;
 
-    public static final String JSON_PROPERTY_AMOUNT = "amount";
-    private String amount;
+    public SmartTransferFundDvpTicket() {}
 
-    public UnstakeRequestDto() {}
-
-    public UnstakeRequestDto id(String id) {
-        this.id = id;
-        return this;
-    }
-
-    /**
-     * id of position to unstake
-     *
-     * @return id
-     */
-    @jakarta.annotation.Nonnull
-    @JsonProperty(JSON_PROPERTY_ID)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public String getId() {
-        return id;
-    }
-
-    @JsonProperty(JSON_PROPERTY_ID)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public UnstakeRequestDto fee(String fee) {
+    public SmartTransferFundDvpTicket fee(String fee) {
         this.fee = fee;
         return this;
     }
 
     /**
-     * Represents the fee for a transaction, which can be specified as a percentage value. Only one
-     * of fee/feeLevel is required.
+     * Transaction fee
      *
      * @return fee
      */
@@ -95,79 +100,53 @@ public class UnstakeRequestDto {
         this.fee = fee;
     }
 
-    public UnstakeRequestDto feeLevel(String feeLevel) {
+    public SmartTransferFundDvpTicket feeLevel(FeeLevelEnum feeLevel) {
         this.feeLevel = feeLevel;
         return this;
     }
 
     /**
-     * Represents the fee level for a transaction, which can be set as slow, medium, or fast. Only
-     * one of fee/feeLevel is required.
+     * Transaction fee level.
      *
      * @return feeLevel
      */
     @jakarta.annotation.Nullable
     @JsonProperty(JSON_PROPERTY_FEE_LEVEL)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public String getFeeLevel() {
+    public FeeLevelEnum getFeeLevel() {
         return feeLevel;
     }
 
     @JsonProperty(JSON_PROPERTY_FEE_LEVEL)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setFeeLevel(String feeLevel) {
+    public void setFeeLevel(FeeLevelEnum feeLevel) {
         this.feeLevel = feeLevel;
     }
 
-    public UnstakeRequestDto txNote(String txNote) {
-        this.txNote = txNote;
+    public SmartTransferFundDvpTicket note(String note) {
+        this.note = note;
         return this;
     }
 
     /**
-     * The note to associate with the transactions.
+     * Transaction note
      *
-     * @return txNote
+     * @return note
      */
     @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_TX_NOTE)
+    @JsonProperty(JSON_PROPERTY_NOTE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public String getTxNote() {
-        return txNote;
+    public String getNote() {
+        return note;
     }
 
-    @JsonProperty(JSON_PROPERTY_TX_NOTE)
+    @JsonProperty(JSON_PROPERTY_NOTE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setTxNote(String txNote) {
-        this.txNote = txNote;
+    public void setNote(String note) {
+        this.note = note;
     }
 
-    public UnstakeRequestDto amount(String amount) {
-        this.amount = amount;
-        return this;
-    }
-
-    /**
-     * The number of tokens to unstake. This optional field is applicable only for liquid staking
-     * and allows for a partial unstake of the position. If not provided, the entire position will
-     * be unstaked by default.
-     *
-     * @return amount
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_AMOUNT)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public String getAmount() {
-        return amount;
-    }
-
-    @JsonProperty(JSON_PROPERTY_AMOUNT)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAmount(String amount) {
-        this.amount = amount;
-    }
-
-    /** Return true if this UnstakeRequestDto object is equal to o. */
+    /** Return true if this SmartTransferFundDvpTicket object is equal to o. */
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -176,28 +155,24 @@ public class UnstakeRequestDto {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        UnstakeRequestDto unstakeRequestDto = (UnstakeRequestDto) o;
-        return Objects.equals(this.id, unstakeRequestDto.id)
-                && Objects.equals(this.fee, unstakeRequestDto.fee)
-                && Objects.equals(this.feeLevel, unstakeRequestDto.feeLevel)
-                && Objects.equals(this.txNote, unstakeRequestDto.txNote)
-                && Objects.equals(this.amount, unstakeRequestDto.amount);
+        SmartTransferFundDvpTicket smartTransferFundDvpTicket = (SmartTransferFundDvpTicket) o;
+        return Objects.equals(this.fee, smartTransferFundDvpTicket.fee)
+                && Objects.equals(this.feeLevel, smartTransferFundDvpTicket.feeLevel)
+                && Objects.equals(this.note, smartTransferFundDvpTicket.note);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, fee, feeLevel, txNote, amount);
+        return Objects.hash(fee, feeLevel, note);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("class UnstakeRequestDto {\n");
-        sb.append("    id: ").append(toIndentedString(id)).append("\n");
+        sb.append("class SmartTransferFundDvpTicket {\n");
         sb.append("    fee: ").append(toIndentedString(fee)).append("\n");
         sb.append("    feeLevel: ").append(toIndentedString(feeLevel)).append("\n");
-        sb.append("    txNote: ").append(toIndentedString(txNote)).append("\n");
-        sb.append("    amount: ").append(toIndentedString(amount)).append("\n");
+        sb.append("    note: ").append(toIndentedString(note)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -245,17 +220,6 @@ public class UnstakeRequestDto {
 
         StringJoiner joiner = new StringJoiner("&");
 
-        // add `id` to the URL query string
-        if (getId() != null) {
-            joiner.add(
-                    String.format(
-                            "%sid%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(String.valueOf(getId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
         // add `fee` to the URL query string
         if (getFee() != null) {
             joiner.add(
@@ -278,25 +242,14 @@ public class UnstakeRequestDto {
                                     .replaceAll("\\+", "%20")));
         }
 
-        // add `txNote` to the URL query string
-        if (getTxNote() != null) {
+        // add `note` to the URL query string
+        if (getNote() != null) {
             joiner.add(
                     String.format(
-                            "%stxNote%s=%s",
+                            "%snote%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getTxNote()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
-        // add `amount` to the URL query string
-        if (getAmount() != null) {
-            joiner.add(
-                    String.format(
-                            "%samount%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(String.valueOf(getAmount()), StandardCharsets.UTF_8)
+                            URLEncoder.encode(String.valueOf(getNote()), StandardCharsets.UTF_8)
                                     .replaceAll("\\+", "%20")));
         }
 

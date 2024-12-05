@@ -23,6 +23,7 @@ import com.fireblocks.sdk.ValidationUtils;
 import com.fireblocks.sdk.model.SmartTransferApproveTerm;
 import com.fireblocks.sdk.model.SmartTransferCreateTicket;
 import com.fireblocks.sdk.model.SmartTransferCreateTicketTerm;
+import com.fireblocks.sdk.model.SmartTransferFundDvpTicket;
 import com.fireblocks.sdk.model.SmartTransferFundTerm;
 import com.fireblocks.sdk.model.SmartTransferManuallyFundTerm;
 import com.fireblocks.sdk.model.SmartTransferSetTicketExpiration;
@@ -645,6 +646,7 @@ public class SmartTransferApi {
     /**
      * Fund dvp ticket Create or fulfill dvp ticket order
      *
+     * @param smartTransferFundDvpTicket (required)
      * @param ticketId (required)
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
@@ -653,10 +655,14 @@ public class SmartTransferApi {
      * @throws ApiException if fails to make API call
      */
     public CompletableFuture<ApiResponse<SmartTransferTicketResponse>> fundDvpTicket(
-            String ticketId, String idempotencyKey) throws ApiException {
+            SmartTransferFundDvpTicket smartTransferFundDvpTicket,
+            String ticketId,
+            String idempotencyKey)
+            throws ApiException {
         try {
             HttpRequest.Builder localVarRequestBuilder =
-                    fundDvpTicketRequestBuilder(ticketId, idempotencyKey);
+                    fundDvpTicketRequestBuilder(
+                            smartTransferFundDvpTicket, ticketId, idempotencyKey);
             return memberVarHttpClient
                     .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
                     .thenComposeAsync(
@@ -689,8 +695,13 @@ public class SmartTransferApi {
         }
     }
 
-    private HttpRequest.Builder fundDvpTicketRequestBuilder(String ticketId, String idempotencyKey)
+    private HttpRequest.Builder fundDvpTicketRequestBuilder(
+            SmartTransferFundDvpTicket smartTransferFundDvpTicket,
+            String ticketId,
+            String idempotencyKey)
             throws ApiException {
+        ValidationUtils.assertParamExists(
+                "fundDvpTicket", "smartTransferFundDvpTicket", smartTransferFundDvpTicket);
         ValidationUtils.assertParamExistsAndNotEmpty("fundDvpTicket", "ticketId", ticketId);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
@@ -704,9 +715,17 @@ public class SmartTransferApi {
         if (idempotencyKey != null) {
             localVarRequestBuilder.header("Idempotency-Key", idempotencyKey.toString());
         }
+        localVarRequestBuilder.header("Content-Type", "application/json");
         localVarRequestBuilder.header("Accept", "application/json");
 
-        localVarRequestBuilder.method("PUT", HttpRequest.BodyPublishers.noBody());
+        try {
+            byte[] localVarPostBody =
+                    memberVarObjectMapper.writeValueAsBytes(smartTransferFundDvpTicket);
+            localVarRequestBuilder.method(
+                    "PUT", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
+        } catch (IOException e) {
+            throw new ApiException(e);
+        }
         if (memberVarReadTimeout != null) {
             localVarRequestBuilder.timeout(memberVarReadTimeout);
         }

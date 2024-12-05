@@ -14,7 +14,7 @@
 |**sourcecode** | **String** | The source code of the contract. Optional. |  [optional] |
 |**type** | [**TypeEnum**](#TypeEnum) | The type of the contract template |  [optional] |
 |**docs** | [**ContractDoc**](ContractDoc.md) | A &#x60;natspec&#x60; compliant documentation json. Can be retrieved from the output json after compilation |  [optional] |
-|**abi** | **List&lt;List&lt;AbiFunction&gt;&gt;** |  |  |
+|**abi** | [**List&lt;AbiFunction&gt;**](AbiFunction.md) | The abi of the contract template. Necessary for displaying and for after deployment encoding |  |
 |**attributes** | [**ContractAttributes**](ContractAttributes.md) | The attributes related to this contract template. It will be displayed in the tokenization page |  [optional] |
 
 

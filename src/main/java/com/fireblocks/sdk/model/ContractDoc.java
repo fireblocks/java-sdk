@@ -16,6 +16,7 @@ package com.fireblocks.sdk.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import java.math.BigDecimal;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
@@ -46,7 +47,7 @@ public class ContractDoc {
     private Map<String, FunctionDoc> methods = new HashMap<>();
 
     public static final String JSON_PROPERTY_VERSION = "version";
-    private String version;
+    private BigDecimal version;
 
     public ContractDoc() {}
 
@@ -150,7 +151,7 @@ public class ContractDoc {
         this.methods = methods;
     }
 
-    public ContractDoc version(String version) {
+    public ContractDoc version(BigDecimal version) {
         this.version = version;
         return this;
     }
@@ -163,13 +164,13 @@ public class ContractDoc {
     @jakarta.annotation.Nonnull
     @JsonProperty(JSON_PROPERTY_VERSION)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public String getVersion() {
+    public BigDecimal getVersion() {
         return version;
     }
 
     @JsonProperty(JSON_PROPERTY_VERSION)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setVersion(String version) {
+    public void setVersion(BigDecimal version) {
         this.version = version;
     }
 

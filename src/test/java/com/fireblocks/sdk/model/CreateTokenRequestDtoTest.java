@@ -54,4 +54,22 @@ public class CreateTokenRequestDtoTest {
     public void displayNameTest() {
         // TODO: test displayName
     }
+
+    /** Test the property 'useGasless' */
+    @Test
+    public void useGaslessTest() {
+        // TODO: test useGasless
+    }
+
+    /** Test the property 'fee' */
+    @Test
+    public void feeTest() {
+        // TODO: test fee
+    }
+
+    /** Test the property 'feeLevel' */
+    @Test
+    public void feeLevelTest() {
+        // TODO: test feeLevel
+    }
 }
