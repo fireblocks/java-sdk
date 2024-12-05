@@ -49,6 +49,18 @@ public class SmartTransferTicketTest {
         // TODO: test status
     }
 
+    /** Test the property 'dvpExecutionStatus' */
+    @Test
+    public void dvpExecutionStatusTest() {
+        // TODO: test dvpExecutionStatus
+    }
+
+    /** Test the property 'orderCreatedByNetworkId' */
+    @Test
+    public void orderCreatedByNetworkIdTest() {
+        // TODO: test orderCreatedByNetworkId
+    }
+
     /** Test the property 'terms' */
     @Test
     public void termsTest() {

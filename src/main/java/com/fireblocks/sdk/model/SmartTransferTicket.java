@@ -33,6 +33,8 @@ import java.util.StringJoiner;
     SmartTransferTicket.JSON_PROPERTY_TYPE,
     SmartTransferTicket.JSON_PROPERTY_DIRECTION,
     SmartTransferTicket.JSON_PROPERTY_STATUS,
+    SmartTransferTicket.JSON_PROPERTY_DVP_EXECUTION_STATUS,
+    SmartTransferTicket.JSON_PROPERTY_ORDER_CREATED_BY_NETWORK_ID,
     SmartTransferTicket.JSON_PROPERTY_TERMS,
     SmartTransferTicket.JSON_PROPERTY_EXPIRES_IN,
     SmartTransferTicket.JSON_PROPERTY_EXPIRES_AT,
@@ -177,6 +179,56 @@ public class SmartTransferTicket {
     public static final String JSON_PROPERTY_STATUS = "status";
     private StatusEnum status;
 
+    /** Current status of DVP execution */
+    public enum DvpExecutionStatusEnum {
+        STARTED("STARTED"),
+
+        CREATING_ORDER("CREATING_ORDER"),
+
+        ORDER_CREATED("ORDER_CREATED"),
+
+        FULFILLING("FULFILLING"),
+
+        FULFILLING_ORDER_FAILED("FULFILLING_ORDER_FAILED"),
+
+        CREATING_ORDER_FAILED("CREATING_ORDER_FAILED"),
+
+        FULFILLED("FULFILLED");
+
+        private String value;
+
+        DvpExecutionStatusEnum(String value) {
+            this.value = value;
+        }
+
+        @JsonValue
+        public String getValue() {
+            return value;
+        }
+
+        @Override
+        public String toString() {
+            return String.valueOf(value);
+        }
+
+        @JsonCreator
+        public static DvpExecutionStatusEnum fromValue(String value) {
+            for (DvpExecutionStatusEnum b : DvpExecutionStatusEnum.values()) {
+                if (b.value.equals(value)) {
+                    return b;
+                }
+            }
+            throw new IllegalArgumentException("Unexpected value '" + value + "'");
+        }
+    }
+
+    public static final String JSON_PROPERTY_DVP_EXECUTION_STATUS = "dvpExecutionStatus";
+    private DvpExecutionStatusEnum dvpExecutionStatus;
+
+    public static final String JSON_PROPERTY_ORDER_CREATED_BY_NETWORK_ID =
+            "orderCreatedByNetworkId";
+    private String orderCreatedByNetworkId;
+
     public static final String JSON_PROPERTY_TERMS = "terms";
     private List<SmartTransferTicketTerm> terms;
 
@@ -318,6 +370,52 @@ public class SmartTransferTicket {
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
     public void setStatus(StatusEnum status) {
         this.status = status;
+    }
+
+    public SmartTransferTicket dvpExecutionStatus(DvpExecutionStatusEnum dvpExecutionStatus) {
+        this.dvpExecutionStatus = dvpExecutionStatus;
+        return this;
+    }
+
+    /**
+     * Current status of DVP execution
+     *
+     * @return dvpExecutionStatus
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_DVP_EXECUTION_STATUS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public DvpExecutionStatusEnum getDvpExecutionStatus() {
+        return dvpExecutionStatus;
+    }
+
+    @JsonProperty(JSON_PROPERTY_DVP_EXECUTION_STATUS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setDvpExecutionStatus(DvpExecutionStatusEnum dvpExecutionStatus) {
+        this.dvpExecutionStatus = dvpExecutionStatus;
+    }
+
+    public SmartTransferTicket orderCreatedByNetworkId(String orderCreatedByNetworkId) {
+        this.orderCreatedByNetworkId = orderCreatedByNetworkId;
+        return this;
+    }
+
+    /**
+     * ID of network profile that created order
+     *
+     * @return orderCreatedByNetworkId
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_ORDER_CREATED_BY_NETWORK_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getOrderCreatedByNetworkId() {
+        return orderCreatedByNetworkId;
+    }
+
+    @JsonProperty(JSON_PROPERTY_ORDER_CREATED_BY_NETWORK_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setOrderCreatedByNetworkId(String orderCreatedByNetworkId) {
+        this.orderCreatedByNetworkId = orderCreatedByNetworkId;
     }
 
     public SmartTransferTicket terms(List<SmartTransferTicketTerm> terms) {
@@ -711,6 +809,9 @@ public class SmartTransferTicket {
                 && Objects.equals(this.type, smartTransferTicket.type)
                 && Objects.equals(this.direction, smartTransferTicket.direction)
                 && Objects.equals(this.status, smartTransferTicket.status)
+                && Objects.equals(this.dvpExecutionStatus, smartTransferTicket.dvpExecutionStatus)
+                && Objects.equals(
+                        this.orderCreatedByNetworkId, smartTransferTicket.orderCreatedByNetworkId)
                 && Objects.equals(this.terms, smartTransferTicket.terms)
                 && Objects.equals(this.expiresIn, smartTransferTicket.expiresIn)
                 && Objects.equals(this.expiresAt, smartTransferTicket.expiresAt)
@@ -738,6 +839,8 @@ public class SmartTransferTicket {
                 type,
                 direction,
                 status,
+                dvpExecutionStatus,
+                orderCreatedByNetworkId,
                 terms,
                 expiresIn,
                 expiresAt,
@@ -764,6 +867,12 @@ public class SmartTransferTicket {
         sb.append("    type: ").append(toIndentedString(type)).append("\n");
         sb.append("    direction: ").append(toIndentedString(direction)).append("\n");
         sb.append("    status: ").append(toIndentedString(status)).append("\n");
+        sb.append("    dvpExecutionStatus: ")
+                .append(toIndentedString(dvpExecutionStatus))
+                .append("\n");
+        sb.append("    orderCreatedByNetworkId: ")
+                .append(toIndentedString(orderCreatedByNetworkId))
+                .append("\n");
         sb.append("    terms: ").append(toIndentedString(terms)).append("\n");
         sb.append("    expiresIn: ").append(toIndentedString(expiresIn)).append("\n");
         sb.append("    expiresAt: ").append(toIndentedString(expiresAt)).append("\n");
@@ -875,6 +984,32 @@ public class SmartTransferTicket {
                             prefix,
                             suffix,
                             URLEncoder.encode(String.valueOf(getStatus()), StandardCharsets.UTF_8)
+                                    .replaceAll("\\+", "%20")));
+        }
+
+        // add `dvpExecutionStatus` to the URL query string
+        if (getDvpExecutionStatus() != null) {
+            joiner.add(
+                    String.format(
+                            "%sdvpExecutionStatus%s=%s",
+                            prefix,
+                            suffix,
+                            URLEncoder.encode(
+                                            String.valueOf(getDvpExecutionStatus()),
+                                            StandardCharsets.UTF_8)
+                                    .replaceAll("\\+", "%20")));
+        }
+
+        // add `orderCreatedByNetworkId` to the URL query string
+        if (getOrderCreatedByNetworkId() != null) {
+            joiner.add(
+                    String.format(
+                            "%sorderCreatedByNetworkId%s=%s",
+                            prefix,
+                            suffix,
+                            URLEncoder.encode(
+                                            String.valueOf(getOrderCreatedByNetworkId()),
+                                            StandardCharsets.UTF_8)
                                     .replaceAll("\\+", "%20")));
         }
 

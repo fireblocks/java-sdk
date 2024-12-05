@@ -354,7 +354,7 @@ No authorization required
 
 ## getDeployedContracts
 
-> CompletableFuture<ApiResponse<DeployedContractsPaginatedResponse>> getDeployedContracts getDeployedContracts(pageCursor, pageSize, contractAddress, baseAssetId, templateId)
+> CompletableFuture<ApiResponse<DeployedContractsPaginatedResponse>> getDeployedContracts getDeployedContracts(pageCursor, pageSize, contractAddress, baseAssetId, contractTemplateId)
 
 List deployed contracts data
 
@@ -387,9 +387,9 @@ public class Example {
         BigDecimal pageSize = new BigDecimal("10"); // BigDecimal | Number of items per page, requesting more then max will return max items
         String contractAddress = "0xC2c4e1Db41F0bB97996D0eD0542D2170d146FB66"; // String | The contract's onchain address
         String baseAssetId = "baseAssetId_example"; // String | 
-        String templateId = "templateId_example"; // String | 
+        String contractTemplateId = "contractTemplateId_example"; // String | 
         try {
-            CompletableFuture<ApiResponse<DeployedContractsPaginatedResponse>> response = fireblocks.deployedContracts().getDeployedContracts(pageCursor, pageSize, contractAddress, baseAssetId, templateId);
+            CompletableFuture<ApiResponse<DeployedContractsPaginatedResponse>> response = fireblocks.deployedContracts().getDeployedContracts(pageCursor, pageSize, contractAddress, baseAssetId, contractTemplateId);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
@@ -420,7 +420,7 @@ public class Example {
 | **pageSize** | **BigDecimal**| Number of items per page, requesting more then max will return max items | [optional] |
 | **contractAddress** | **String**| The contract&#39;s onchain address | [optional] |
 | **baseAssetId** | **String**|  | [optional] |
-| **templateId** | **String**|  | [optional] |
+| **contractTemplateId** | **String**|  | [optional] |
 
 ### Return type
 

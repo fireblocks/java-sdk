@@ -18,10 +18,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.ValidationUtils;
 import com.fireblocks.sdk.model.ScreeningConfigurationsRequest;
 import com.fireblocks.sdk.model.ScreeningPolicyResponse;
 import com.fireblocks.sdk.model.ScreeningProviderRulesConfigurationResponse;
-import com.fireblocks.sdk.model.ScreeningUpdateConfigurationsRequest;
+import com.fireblocks.sdk.model.ScreeningUpdateConfigurations;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
@@ -397,17 +398,22 @@ public class ComplianceApi {
     /**
      * Tenant - Screening Configuration Update tenant screening configuration.
      *
+     * @param screeningUpdateConfigurations (required)
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;ScreeningUpdateConfigurationsRequest&gt;&gt;
+     * @return CompletableFuture&lt;ApiResponse&lt;ScreeningUpdateConfigurations&gt;&gt;
      * @throws ApiException if fails to make API call
      */
-    public CompletableFuture<ApiResponse<ScreeningUpdateConfigurationsRequest>>
-            updateScreeningConfiguration(String idempotencyKey) throws ApiException {
+    public CompletableFuture<ApiResponse<ScreeningUpdateConfigurations>>
+            updateScreeningConfiguration(
+                    ScreeningUpdateConfigurations screeningUpdateConfigurations,
+                    String idempotencyKey)
+                    throws ApiException {
         try {
             HttpRequest.Builder localVarRequestBuilder =
-                    updateScreeningConfigurationRequestBuilder(idempotencyKey);
+                    updateScreeningConfigurationRequestBuilder(
+                            screeningUpdateConfigurations, idempotencyKey);
             return memberVarHttpClient
                     .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
                     .thenComposeAsync(
@@ -424,7 +430,7 @@ public class ComplianceApi {
                                 try {
                                     String responseBody = localVarResponse.body();
                                     return CompletableFuture.completedFuture(
-                                            new ApiResponse<ScreeningUpdateConfigurationsRequest>(
+                                            new ApiResponse<ScreeningUpdateConfigurations>(
                                                     localVarResponse.statusCode(),
                                                     localVarResponse.headers().map(),
                                                     responseBody == null || responseBody.isBlank()
@@ -432,7 +438,7 @@ public class ComplianceApi {
                                                             : memberVarObjectMapper.readValue(
                                                                     responseBody,
                                                                     new TypeReference<
-                                                                            ScreeningUpdateConfigurationsRequest>() {})));
+                                                                            ScreeningUpdateConfigurations>() {})));
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
@@ -442,8 +448,13 @@ public class ComplianceApi {
         }
     }
 
-    private HttpRequest.Builder updateScreeningConfigurationRequestBuilder(String idempotencyKey)
+    private HttpRequest.Builder updateScreeningConfigurationRequestBuilder(
+            ScreeningUpdateConfigurations screeningUpdateConfigurations, String idempotencyKey)
             throws ApiException {
+        ValidationUtils.assertParamExists(
+                "updateScreeningConfiguration",
+                "screeningUpdateConfigurations",
+                screeningUpdateConfigurations);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
@@ -454,9 +465,17 @@ public class ComplianceApi {
         if (idempotencyKey != null) {
             localVarRequestBuilder.header("Idempotency-Key", idempotencyKey.toString());
         }
+        localVarRequestBuilder.header("Content-Type", "application/json");
         localVarRequestBuilder.header("Accept", "application/json");
 
-        localVarRequestBuilder.method("PUT", HttpRequest.BodyPublishers.noBody());
+        try {
+            byte[] localVarPostBody =
+                    memberVarObjectMapper.writeValueAsBytes(screeningUpdateConfigurations);
+            localVarRequestBuilder.method(
+                    "PUT", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
+        } catch (IOException e) {
+            throw new ApiException(e);
+        }
         if (memberVarReadTimeout != null) {
             localVarRequestBuilder.timeout(memberVarReadTimeout);
         }

@@ -14,6 +14,7 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 | [**getNetworkId**](NetworkConnectionsApi.md#getNetworkId) | **GET** /network_ids/{networkId} | Returns specific network ID. |
 | [**getNetworkIds**](NetworkConnectionsApi.md#getNetworkIds) | **GET** /network_ids | Returns all network IDs, both local IDs and discoverable remote IDs |
 | [**getRoutingPolicyAssetGroups**](NetworkConnectionsApi.md#getRoutingPolicyAssetGroups) | **GET** /network_ids/routing_policy_asset_groups | Returns all enabled routing policy asset groups |
+| [**searchNetworkIds**](NetworkConnectionsApi.md#searchNetworkIds) | **GET** /network_ids/search | Search network IDs, both local IDs and discoverable remote IDs |
 | [**setNetworkIdDiscoverability**](NetworkConnectionsApi.md#setNetworkIdDiscoverability) | **PATCH** /network_ids/{networkId}/set_discoverability | Update network ID&#39;s discoverability. |
 | [**setNetworkIdName**](NetworkConnectionsApi.md#setNetworkIdName) | **PATCH** /network_ids/{networkId}/set_name | Update network ID&#39;s name. |
 | [**setNetworkIdRoutingPolicy**](NetworkConnectionsApi.md#setNetworkIdRoutingPolicy) | **PATCH** /network_ids/{networkId}/set_routing_policy | Update network id routing policy. |
@@ -842,6 +843,97 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | A list of enabled routing policy asset groups |  * X-Request-ID -  <br>  |
+| **0** | Error Response |  * X-Request-ID -  <br>  |
+
+
+## searchNetworkIds
+
+> CompletableFuture<ApiResponse<SearchNetworkIdsResponse>> searchNetworkIds searchNetworkIds(search, excludeSelf, excludeConnected, pageCursor, pageSize)
+
+Search network IDs, both local IDs and discoverable remote IDs
+
+Retrieves a list of all local and discoverable remote network IDs. Can be filtered.  **Note:** This API call is subject to Flexible Routing Schemes.  Your routing policy defines how your transactions are routed. You can choose 1 of the 3 different schemes mentioned below for each asset type:   - **None**; Defines the profile routing to no destination for that asset type. Incoming transactions to asset types routed to &#x60;None&#x60; will fail.   - **Custom**; Route to an account that you choose. If you remove the account, incoming transactions will fail until you choose another one.   - **Default**; Use the routing specified by the network profile the connection is connected to. This scheme is also referred to as \&quot;Profile Routing\&quot;  Default Workspace Presets:   - Network Profile Crypto → **Custom**   - Network Profile FIAT → **None**   - Network Connection Crypto → **Default**   - Network Connection FIAT → **Default**      - **Note**: By default, Custom routing scheme uses (&#x60;dstId&#x60; &#x3D; &#x60;0&#x60;, &#x60;dstType&#x60; &#x3D; &#x60;VAULT&#x60;). 
+
+### Example
+
+```java
+// Import classes:
+import com.fireblocks.sdk.ApiClient;
+import com.fireblocks.sdk.ApiException;
+import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
+import com.fireblocks.sdk.api.NetworkConnectionsApi;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+
+public class Example {
+    public static void main(String[] args) {
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
+
+        String search = "search_example"; // String | Search string - displayName networkId. Optional
+        Boolean excludeSelf = true; // Boolean | Exclude your networkIds. Optional, default false
+        Boolean excludeConnected = true; // Boolean | Exclude connected networkIds. Optional, default false
+        String pageCursor = "pageCursor_example"; // String | ID of the record after which to fetch $limit records
+        BigDecimal pageSize = new BigDecimal("50"); // BigDecimal | Number of records to fetch. By default, it is 50
+        try {
+            CompletableFuture<ApiResponse<SearchNetworkIdsResponse>> response = fireblocks.networkConnections().searchNetworkIds(search, excludeSelf, excludeConnected, pageCursor, pageSize);
+            System.out.println("Status code: " + response.get().getStatusCode());
+            System.out.println("Response headers: " + response.get().getHeaders());
+            System.out.println("Response body: " + response.get().getData());
+        } catch (InterruptedException | ExecutionException e) {
+            ApiException apiException = (ApiException)e.getCause();
+            System.err.println("Exception when calling NetworkConnectionsApi#searchNetworkIds");
+            System.err.println("Status code: " + apiException.getCode());
+            System.err.println("Response headers: " + apiException.getResponseHeaders());
+            System.err.println("Reason: " + apiException.getResponseBody());
+            e.printStackTrace();
+        } catch (ApiException e) {
+            System.err.println("Exception when calling NetworkConnectionsApi#searchNetworkIds");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            System.err.println("Reason: " + e.getResponseBody());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **search** | **String**| Search string - displayName networkId. Optional | [optional] |
+| **excludeSelf** | **Boolean**| Exclude your networkIds. Optional, default false | [optional] |
+| **excludeConnected** | **Boolean**| Exclude connected networkIds. Optional, default false | [optional] |
+| **pageCursor** | **String**| ID of the record after which to fetch $limit records | [optional] |
+| **pageSize** | **BigDecimal**| Number of records to fetch. By default, it is 50 | [optional] [default to 50] |
+
+### Return type
+
+CompletableFuture<ApiResponse<[**SearchNetworkIdsResponse**](SearchNetworkIdsResponse.md)>>
+
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | A list of network IDs |  * X-Request-ID -  <br>  |
 | **0** | Error Response |  * X-Request-ID -  <br>  |
 
 

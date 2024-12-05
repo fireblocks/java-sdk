@@ -124,7 +124,7 @@ public class AbiFunction {
     private TypeEnum type;
 
     public static final String JSON_PROPERTY_INPUTS = "inputs";
-    private List<Parameter> inputs = new ArrayList<>();
+    private List<Parameter> inputs;
 
     public static final String JSON_PROPERTY_OUTPUTS = "outputs";
     private List<Parameter> outputs;
@@ -221,15 +221,15 @@ public class AbiFunction {
      *
      * @return inputs
      */
-    @jakarta.annotation.Nonnull
+    @jakarta.annotation.Nullable
     @JsonProperty(JSON_PROPERTY_INPUTS)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
     public List<Parameter> getInputs() {
         return inputs;
     }
 
     @JsonProperty(JSON_PROPERTY_INPUTS)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
     public void setInputs(List<Parameter> inputs) {
         this.inputs = inputs;
     }

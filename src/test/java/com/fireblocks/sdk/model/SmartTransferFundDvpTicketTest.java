@@ -15,20 +15,14 @@ package com.fireblocks.sdk.model;
 
 import org.junit.Test;
 
-/** Model tests for UnstakeRequestDto */
-public class UnstakeRequestDtoTest {
-    private final UnstakeRequestDto model = new UnstakeRequestDto();
+/** Model tests for SmartTransferFundDvpTicket */
+public class SmartTransferFundDvpTicketTest {
+    private final SmartTransferFundDvpTicket model = new SmartTransferFundDvpTicket();
 
-    /** Model tests for UnstakeRequestDto */
+    /** Model tests for SmartTransferFundDvpTicket */
     @Test
-    public void testUnstakeRequestDto() {
-        // TODO: test UnstakeRequestDto
-    }
-
-    /** Test the property 'id' */
-    @Test
-    public void idTest() {
-        // TODO: test id
+    public void testSmartTransferFundDvpTicket() {
+        // TODO: test SmartTransferFundDvpTicket
     }
 
     /** Test the property 'fee' */
@@ -43,15 +37,9 @@ public class UnstakeRequestDtoTest {
         // TODO: test feeLevel
     }
 
-    /** Test the property 'txNote' */
+    /** Test the property 'note' */
     @Test
-    public void txNoteTest() {
-        // TODO: test txNote
-    }
-
-    /** Test the property 'amount' */
-    @Test
-    public void amountTest() {
-        // TODO: test amount
+    public void noteTest() {
+        // TODO: test note
     }
 }

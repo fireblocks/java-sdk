@@ -12,6 +12,7 @@ Data object with result data
 |**ticketId** | **String** | Unique id of Smart Transfer ticket |  |
 |**asset** | **String** | Asset name |  |
 |**amount** | **String** | Amount |  |
+|**dvpSrcDstVaultId** | **String** | Identifier of the source and destination vault for DVP execution |  [optional] |
 |**amountUsd** | **String** | Amount USD |  [optional] |
 |**fromNetworkId** | **String** | Identifier of the origination Network Profile |  |
 |**fromNetworkIdName** | **String** | Source network name |  |

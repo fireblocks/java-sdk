@@ -318,7 +318,6 @@ docs/ReadCallFunctionDto.md
 docs/RedeemFundsToLinkedDDAResponse.md
 docs/RegisterNewAssetRequest.md
 docs/RelatedRequestDto.md
-docs/RelatedRequestStatusType.md
 docs/RelatedTransactionDto.md
 docs/RemoveCollateralRequestBody.md
 docs/RenameCosigner.md
@@ -338,10 +337,11 @@ docs/ScreeningOperationFailure.md
 docs/ScreeningOperationType.md
 docs/ScreeningPolicyResponse.md
 docs/ScreeningProviderRulesConfigurationResponse.md
-docs/ScreeningUpdateConfigurationsRequest.md
+docs/ScreeningUpdateConfigurations.md
 docs/ScreeningValidationFailure.md
 docs/ScreeningVerdict.md
 docs/ScreeningVerdictMatchedRule.md
+docs/SearchNetworkIdsResponse.md
 docs/SessionDTO.md
 docs/SessionMetadata.md
 docs/SetAdminQuorumThresholdRequest.md
@@ -373,6 +373,7 @@ docs/SmartTransferCoinStatistic.md
 docs/SmartTransferCreateTicket.md
 docs/SmartTransferCreateTicketTerm.md
 docs/SmartTransferForbiddenResponse.md
+docs/SmartTransferFundDvpTicket.md
 docs/SmartTransferFundTerm.md
 docs/SmartTransferManuallyFundTerm.md
 docs/SmartTransferNotFoundResponse.md
@@ -858,7 +859,6 @@ src/main/java/com/fireblocks/sdk/model/ReadCallFunctionDto.java
 src/main/java/com/fireblocks/sdk/model/RedeemFundsToLinkedDDAResponse.java
 src/main/java/com/fireblocks/sdk/model/RegisterNewAssetRequest.java
 src/main/java/com/fireblocks/sdk/model/RelatedRequestDto.java
-src/main/java/com/fireblocks/sdk/model/RelatedRequestStatusType.java
 src/main/java/com/fireblocks/sdk/model/RelatedTransactionDto.java
 src/main/java/com/fireblocks/sdk/model/RemoveCollateralRequestBody.java
 src/main/java/com/fireblocks/sdk/model/RenameCosigner.java
@@ -877,10 +877,11 @@ src/main/java/com/fireblocks/sdk/model/ScreeningOperationFailure.java
 src/main/java/com/fireblocks/sdk/model/ScreeningOperationType.java
 src/main/java/com/fireblocks/sdk/model/ScreeningPolicyResponse.java
 src/main/java/com/fireblocks/sdk/model/ScreeningProviderRulesConfigurationResponse.java
-src/main/java/com/fireblocks/sdk/model/ScreeningUpdateConfigurationsRequest.java
+src/main/java/com/fireblocks/sdk/model/ScreeningUpdateConfigurations.java
 src/main/java/com/fireblocks/sdk/model/ScreeningValidationFailure.java
 src/main/java/com/fireblocks/sdk/model/ScreeningVerdict.java
 src/main/java/com/fireblocks/sdk/model/ScreeningVerdictMatchedRule.java
+src/main/java/com/fireblocks/sdk/model/SearchNetworkIdsResponse.java
 src/main/java/com/fireblocks/sdk/model/SessionDTO.java
 src/main/java/com/fireblocks/sdk/model/SessionMetadata.java
 src/main/java/com/fireblocks/sdk/model/SetAdminQuorumThresholdRequest.java
@@ -911,6 +912,7 @@ src/main/java/com/fireblocks/sdk/model/SmartTransferCoinStatistic.java
 src/main/java/com/fireblocks/sdk/model/SmartTransferCreateTicket.java
 src/main/java/com/fireblocks/sdk/model/SmartTransferCreateTicketTerm.java
 src/main/java/com/fireblocks/sdk/model/SmartTransferForbiddenResponse.java
+src/main/java/com/fireblocks/sdk/model/SmartTransferFundDvpTicket.java
 src/main/java/com/fireblocks/sdk/model/SmartTransferFundTerm.java
 src/main/java/com/fireblocks/sdk/model/SmartTransferManuallyFundTerm.java
 src/main/java/com/fireblocks/sdk/model/SmartTransferNotFoundResponse.java
@@ -1365,7 +1367,6 @@ src/test/java/com/fireblocks/sdk/model/ReadCallFunctionDtoTest.java
 src/test/java/com/fireblocks/sdk/model/RedeemFundsToLinkedDDAResponseTest.java
 src/test/java/com/fireblocks/sdk/model/RegisterNewAssetRequestTest.java
 src/test/java/com/fireblocks/sdk/model/RelatedRequestDtoTest.java
-src/test/java/com/fireblocks/sdk/model/RelatedRequestStatusTypeTest.java
 src/test/java/com/fireblocks/sdk/model/RelatedTransactionDtoTest.java
 src/test/java/com/fireblocks/sdk/model/RemoveCollateralRequestBodyTest.java
 src/test/java/com/fireblocks/sdk/model/RenameCosignerTest.java
@@ -1384,10 +1385,11 @@ src/test/java/com/fireblocks/sdk/model/ScreeningOperationFailureTest.java
 src/test/java/com/fireblocks/sdk/model/ScreeningOperationTypeTest.java
 src/test/java/com/fireblocks/sdk/model/ScreeningPolicyResponseTest.java
 src/test/java/com/fireblocks/sdk/model/ScreeningProviderRulesConfigurationResponseTest.java
-src/test/java/com/fireblocks/sdk/model/ScreeningUpdateConfigurationsRequestTest.java
+src/test/java/com/fireblocks/sdk/model/ScreeningUpdateConfigurationsTest.java
 src/test/java/com/fireblocks/sdk/model/ScreeningValidationFailureTest.java
 src/test/java/com/fireblocks/sdk/model/ScreeningVerdictMatchedRuleTest.java
 src/test/java/com/fireblocks/sdk/model/ScreeningVerdictTest.java
+src/test/java/com/fireblocks/sdk/model/SearchNetworkIdsResponseTest.java
 src/test/java/com/fireblocks/sdk/model/SessionDTOTest.java
 src/test/java/com/fireblocks/sdk/model/SessionMetadataTest.java
 src/test/java/com/fireblocks/sdk/model/SetAdminQuorumThresholdRequestTest.java
@@ -1418,6 +1420,7 @@ src/test/java/com/fireblocks/sdk/model/SmartTransferCoinStatisticTest.java
 src/test/java/com/fireblocks/sdk/model/SmartTransferCreateTicketTermTest.java
 src/test/java/com/fireblocks/sdk/model/SmartTransferCreateTicketTest.java
 src/test/java/com/fireblocks/sdk/model/SmartTransferForbiddenResponseTest.java
+src/test/java/com/fireblocks/sdk/model/SmartTransferFundDvpTicketTest.java
 src/test/java/com/fireblocks/sdk/model/SmartTransferFundTermTest.java
 src/test/java/com/fireblocks/sdk/model/SmartTransferManuallyFundTermTest.java
 src/test/java/com/fireblocks/sdk/model/SmartTransferNotFoundResponseTest.java

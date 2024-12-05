@@ -3801,6 +3801,7 @@ paths:
       x-accepts: application/json
   /network_ids:
     get:
+      deprecated: true
       description: |
         Retrieves a list of all local and discoverable remote network IDs.
 
@@ -3999,6 +4000,121 @@ paths:
         source: CompletableFuture<ApiResponse<List<String>>> response = fireblocks.networkConnections().getRoutingPolicyAssetGroups();
       - lang: Python
         source: response = fireblocks.network_connections.get_routing_policy_asset_groups();
+      x-accepts: application/json
+  /network_ids/search:
+    get:
+      description: |
+        Retrieves a list of all local and discoverable remote network IDs. Can be filtered.
+
+        **Note:** This API call is subject to Flexible Routing Schemes.
+
+        Your routing policy defines how your transactions are routed.
+        You can choose 1 of the 3 different schemes mentioned below for each asset type:
+          - **None**; Defines the profile routing to no destination for that asset type. Incoming transactions to asset types routed to `None` will fail.
+          - **Custom**; Route to an account that you choose. If you remove the account, incoming transactions will fail until you choose another one.
+          - **Default**; Use the routing specified by the network profile the connection is connected to. This scheme is also referred to as "Profile Routing"
+
+        Default Workspace Presets:
+          - Network Profile Crypto → **Custom**
+          - Network Profile FIAT → **None**
+          - Network Connection Crypto → **Default**
+          - Network Connection FIAT → **Default**
+
+            - **Note**: By default, Custom routing scheme uses (`dstId` = `0`, `dstType` = `VAULT`).
+      operationId: searchNetworkIds
+      parameters:
+      - description: Search string - displayName networkId. Optional
+        explode: true
+        in: query
+        name: search
+        required: false
+        schema:
+          minLength: 1
+          type: string
+        style: form
+      - description: "Exclude your networkIds. Optional, default false"
+        explode: true
+        in: query
+        name: excludeSelf
+        required: false
+        schema:
+          type: boolean
+        style: form
+      - description: "Exclude connected networkIds. Optional, default false"
+        explode: true
+        in: query
+        name: excludeConnected
+        required: false
+        schema:
+          type: boolean
+        style: form
+      - description: ID of the record after which to fetch $limit records
+        explode: true
+        in: query
+        name: pageCursor
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: "Number of records to fetch. By default, it is 50"
+        explode: true
+        in: query
+        name: pageSize
+        required: false
+        schema:
+          default: 50
+          maximum: 50
+          minimum: 1
+          type: number
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SearchNetworkIdsResponse'
+          description: A list of network IDs
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorSchema'
+          description: Error Response
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+      summary: "Search network IDs, both local IDs and discoverable remote IDs"
+      tags:
+      - Network connections
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<SearchNetworkIdsResponse>>\
+            \ = fireblocks.networkConnections.searchNetworkIds(networkConnectionsApiSearchNetworkIdsRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<SearchNetworkIdsResponse>> response\
+            \ = fireblocks.networkConnections().searchNetworkIds(search, excludeSelf,\
+            \ excludeConnected, pageCursor, pageSize);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.network_connections.search_network_ids(search,\
+            \ exclude_self, exclude_connected, page_cursor, page_size);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<SearchNetworkIdsResponse>>\
+          \ = fireblocks.networkConnections.searchNetworkIds(networkConnectionsApiSearchNetworkIdsRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<SearchNetworkIdsResponse>> response\
+          \ = fireblocks.networkConnections().searchNetworkIds(search, excludeSelf,\
+          \ excludeConnected, pageCursor, pageSize);"
+      - lang: Python
+        source: "response = fireblocks.network_connections.search_network_ids(search,\
+          \ exclude_self, exclude_connected, page_cursor, page_size);"
       x-accepts: application/json
   /network_ids/{networkId}:
     delete:
@@ -10603,7 +10719,7 @@ paths:
         style: form
       - explode: true
         in: query
-        name: templateId
+        name: contractTemplateId
         required: false
         schema:
           type: string
@@ -10642,11 +10758,11 @@ paths:
         - language: java
           code: "CompletableFuture<ApiResponse<DeployedContractsPaginatedResponse>>\
             \ response = fireblocks.deployedContracts().getDeployedContracts(pageCursor,\
-            \ pageSize, contractAddress, baseAssetId, templateId);"
+            \ pageSize, contractAddress, baseAssetId, contractTemplateId);"
           name: Fireblocks SDK Java example
         - language: python
           code: "response = fireblocks.deployed_contracts.get_deployed_contracts(page_cursor,\
-            \ page_size, contract_address, base_asset_id, template_id);"
+            \ page_size, contract_address, base_asset_id, contract_template_id);"
           name: Fireblocks SDK Python example
       x-codeSamples:
       - lang: TypeScript
@@ -10655,10 +10771,10 @@ paths:
       - lang: Java
         source: "CompletableFuture<ApiResponse<DeployedContractsPaginatedResponse>>\
           \ response = fireblocks.deployedContracts().getDeployedContracts(pageCursor,\
-          \ pageSize, contractAddress, baseAssetId, templateId);"
+          \ pageSize, contractAddress, baseAssetId, contractTemplateId);"
       - lang: Python
         source: "response = fireblocks.deployed_contracts.get_deployed_contracts(page_cursor,\
-          \ page_size, contract_address, base_asset_id, template_id);"
+          \ page_size, contract_address, base_asset_id, contract_template_id);"
       x-accepts: application/json
   /tokenization/contracts/{id}:
     get:
@@ -14771,12 +14887,18 @@ paths:
         schema:
           type: string
         style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ScreeningUpdateConfigurations'
+        required: true
       responses:
         "200":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ScreeningUpdateConfigurationsRequest'
+                $ref: '#/components/schemas/ScreeningUpdateConfigurations'
           description: Tenant Screening configuration updated successfully.
       summary: Tenant - Screening Configuration
       tags:
@@ -14784,25 +14906,30 @@ paths:
       x-readme:
         code-samples:
         - language: typescript
-          code: "const response: Promise<FireblocksResponse<ScreeningUpdateConfigurationsRequest>>\
+          code: "const response: Promise<FireblocksResponse<ScreeningUpdateConfigurations>>\
             \ = fireblocks.compliance.updateScreeningConfiguration(complianceApiUpdateScreeningConfigurationRequest);"
           name: Fireblocks SDK TypeScript example
         - language: java
-          code: CompletableFuture<ApiResponse<ScreeningUpdateConfigurationsRequest>>
-            response = fireblocks.compliance().updateScreeningConfiguration(idempotencyKey);
+          code: "CompletableFuture<ApiResponse<ScreeningUpdateConfigurations>> response\
+            \ = fireblocks.compliance().updateScreeningConfiguration(screeningUpdateConfigurations,\
+            \ idempotencyKey);"
           name: Fireblocks SDK Java example
         - language: python
-          code: response = fireblocks.compliance.update_screening_configuration(idempotency_key);
+          code: "response = fireblocks.compliance.update_screening_configuration(screening_update_configurations,\
+            \ idempotency_key);"
           name: Fireblocks SDK Python example
       x-codeSamples:
       - lang: TypeScript
-        source: "const response: Promise<FireblocksResponse<ScreeningUpdateConfigurationsRequest>>\
+        source: "const response: Promise<FireblocksResponse<ScreeningUpdateConfigurations>>\
           \ = fireblocks.compliance.updateScreeningConfiguration(complianceApiUpdateScreeningConfigurationRequest);"
       - lang: Java
-        source: CompletableFuture<ApiResponse<ScreeningUpdateConfigurationsRequest>>
-          response = fireblocks.compliance().updateScreeningConfiguration(idempotencyKey);
+        source: "CompletableFuture<ApiResponse<ScreeningUpdateConfigurations>> response\
+          \ = fireblocks.compliance().updateScreeningConfiguration(screeningUpdateConfigurations,\
+          \ idempotencyKey);"
       - lang: Python
-        source: response = fireblocks.compliance.update_screening_configuration(idempotency_key);
+        source: "response = fireblocks.compliance.update_screening_configuration(screening_update_configurations,\
+          \ idempotency_key);"
+      x-content-type: application/json
       x-accepts: application/json
   /management/ota:
     get:
@@ -16491,6 +16618,12 @@ paths:
         schema:
           type: string
         style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SmartTransferFundDvpTicket'
+        required: true
       responses:
         "200":
           content:
@@ -16528,10 +16661,12 @@ paths:
           name: Fireblocks SDK TypeScript example
         - language: java
           code: "CompletableFuture<ApiResponse<SmartTransferTicketResponse>> response\
-            \ = fireblocks.smartTransfer().fundDvpTicket(ticketId, idempotencyKey);"
+            \ = fireblocks.smartTransfer().fundDvpTicket(smartTransferFundDvpTicket,\
+            \ ticketId, idempotencyKey);"
           name: Fireblocks SDK Java example
         - language: python
-          code: "response = fireblocks.smart_transfer.fund_dvp_ticket(ticket_id, idempotency_key);"
+          code: "response = fireblocks.smart_transfer.fund_dvp_ticket(smart_transfer_fund_dvp_ticket,\
+            \ ticket_id, idempotency_key);"
           name: Fireblocks SDK Python example
       x-codeSamples:
       - lang: TypeScript
@@ -16539,9 +16674,12 @@ paths:
           \ = fireblocks.smartTransfer.fundDvpTicket(smartTransferApiFundDvpTicketRequest);"
       - lang: Java
         source: "CompletableFuture<ApiResponse<SmartTransferTicketResponse>> response\
-          \ = fireblocks.smartTransfer().fundDvpTicket(ticketId, idempotencyKey);"
+          \ = fireblocks.smartTransfer().fundDvpTicket(smartTransferFundDvpTicket,\
+          \ ticketId, idempotencyKey);"
       - lang: Python
-        source: "response = fireblocks.smart_transfer.fund_dvp_ticket(ticket_id, idempotency_key);"
+        source: "response = fireblocks.smart_transfer.fund_dvp_ticket(smart_transfer_fund_dvp_ticket,\
+          \ ticket_id, idempotency_key);"
+      x-content-type: application/json
       x-accepts: application/json
   /smart-transfers/{ticketId}/cancel:
     put:
@@ -19571,6 +19709,34 @@ components:
       items:
         type: string
       type: array
+    SearchNetworkIdsResponse:
+      example:
+        next: next
+        data:
+        - name: name
+          isDiscoverable: true
+          routingPolicy:
+            key:
+              scheme: CUSTOM
+              dstId: dstId
+              dstType: FIAT_ACCOUNT
+          id: id
+        - name: name
+          isDiscoverable: true
+          routingPolicy:
+            key:
+              scheme: CUSTOM
+              dstId: dstId
+              dstType: FIAT_ACCOUNT
+          id: id
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/NetworkIdResponse'
+          type: array
+        next:
+          type: string
+      type: object
     DeleteNetworkIdResponse:
       example:
         success: true
@@ -24228,8 +24394,8 @@ components:
           type: object
         version:
           description: The version of the contract
-          example: "1"
-          type: string
+          example: 1
+          type: number
       required:
       - kind
       - methods
@@ -24346,7 +24512,6 @@ components:
           description: The documentation of this function (if has any)
           type: string
       required:
-      - inputs
       - type
       type: object
     ContractUploadRequest:
@@ -24382,24 +24547,15 @@ components:
         name: My Contract
         description: an ERC20 implementation
         abi:
-        - - inputs:
-            - internalType: address
-              name: implementation
-              type: address
-            - internalType: bytes
-              name: _data
-              type: bytes
-            stateMutability: payable
-            type: constructor
-        - - inputs:
-            - internalType: address
-              name: implementation
-              type: address
-            - internalType: bytes
-              name: _data
-              type: bytes
-            stateMutability: payable
-            type: constructor
+        - inputs:
+          - internalType: address
+            name: implementation
+            type: address
+          - internalType: bytes
+            name: _data
+            type: bytes
+          stateMutability: payable
+          type: constructor
         attributes:
           useCases:
           - Stablecoin
@@ -24477,22 +24633,20 @@ components:
                   \ is empty, `msg.value` must be zero."
             version: 1
         abi:
+          description: The abi of the contract template. Necessary for displaying
+            and for after deployment encoding
+          example:
+          - inputs:
+            - internalType: address
+              name: implementation
+              type: address
+            - internalType: bytes
+              name: _data
+              type: bytes
+            stateMutability: payable
+            type: constructor
           items:
-            description: The abi of the contract template. Necessary for displaying
-              and for after deployment encoding
-            example:
-            - inputs:
-              - internalType: address
-                name: implementation
-                type: address
-              - internalType: bytes
-                name: _data
-                type: bytes
-              stateMutability: payable
-              type: constructor
-            items:
-              $ref: '#/components/schemas/AbiFunction'
-            type: array
+            $ref: '#/components/schemas/AbiFunction'
           type: array
         attributes:
           allOf:
@@ -24526,24 +24680,15 @@ components:
         owner: b70701f4-d7b1-4795-a8ee-b09cdb5b850d
         description: an ERC20 implementation
         abi:
-        - - inputs:
-            - internalType: address
-              name: implementation
-              type: address
-            - internalType: bytes
-              name: _data
-              type: bytes
-            stateMutability: payable
-            type: constructor
-        - - inputs:
-            - internalType: address
-              name: implementation
-              type: address
-            - internalType: bytes
-              name: _data
-              type: bytes
-            stateMutability: payable
-            type: constructor
+        - inputs:
+          - internalType: address
+            name: implementation
+            type: address
+          - internalType: bytes
+            name: _data
+            type: bytes
+          stateMutability: payable
+          type: constructor
         initializationPhase: ON_DEPLOYMENT
         type: FUNGIBLE_TOKEN
         docs:
@@ -24608,22 +24753,20 @@ components:
              - burn
           type: string
         abi:
+          description: The abi of the contract template. Necessary for displaying
+            and for after deployment encoding
+          example:
+          - inputs:
+            - internalType: address
+              name: implementation
+              type: address
+            - internalType: bytes
+              name: _data
+              type: bytes
+            stateMutability: payable
+            type: constructor
           items:
-            description: The abi of the contract template. Necessary for displaying
-              and for after deployment encoding
-            example:
-            - inputs:
-              - internalType: address
-                name: implementation
-                type: address
-              - internalType: bytes
-                name: _data
-                type: bytes
-              stateMutability: payable
-              type: constructor
-            items:
-              $ref: '#/components/schemas/AbiFunction'
-            type: array
+            $ref: '#/components/schemas/AbiFunction'
           type: array
         attributes:
           allOf:
@@ -24828,7 +24971,10 @@ components:
           name: symbol_
           type: string
           value: TokenSymbol
+        useGasless: false
+        fee: "2000"
         vaultAccountId: "0"
+        feeLevel: MEDIUM
       properties:
         assetId:
           description: The base asset identifier of the blockchain you want to deploy
@@ -24853,6 +24999,27 @@ components:
           items:
             $ref: '#/components/schemas/ParameterWithValue'
           type: array
+        useGasless:
+          description: "Indicates whether the token should be created in a gasless\
+            \ manner, utilizing the ERC-2771 standard. When set to true, the transaction\
+            \ will be relayed by a designated relayer. The workspace must be configured\
+            \ to use Fireblocks gasless relay."
+          example: false
+          type: boolean
+        fee:
+          description: Max fee amount for the write function transaction. interchangeable
+            with the 'feeLevel' field
+          example: "2000"
+          type: string
+        feeLevel:
+          description: Fee level for the write function transaction. interchangeable
+            with the 'fee' field
+          enum:
+          - LOW
+          - MEDIUM
+          - HIGH
+          example: MEDIUM
+          type: string
       required:
       - assetId
       - vaultAccountId
@@ -25416,7 +25583,10 @@ components:
       example:
         assetId: ETH_TEST5
         displayName: displayName
+        useGasless: false
+        fee: "2000"
         vaultAccountId: "0"
+        feeLevel: MEDIUM
         blockchainId: B7QG017M
         createParams:
           deployFunctionParams:
@@ -25459,6 +25629,27 @@ components:
         createParams:
           $ref: '#/components/schemas/CreateTokenRequestDto_createParams'
         displayName:
+          type: string
+        useGasless:
+          description: "Indicates whether the token should be created in a gasless\
+            \ manner, utilizing the ERC-2771 standard. When set to true, the transaction\
+            \ will be relayed by a designated relayer. The workspace must be configured\
+            \ to use Fireblocks gasless relay."
+          example: false
+          type: boolean
+        fee:
+          description: Max fee amount for the write function transaction. interchangeable
+            with the 'feeLevel' field
+          example: "2000"
+          type: string
+        feeLevel:
+          description: Fee level for the write function transaction. interchangeable
+            with the 'fee' field
+          enum:
+          - LOW
+          - MEDIUM
+          - HIGH
+          example: MEDIUM
           type: string
       required:
       - createParams
@@ -26198,7 +26389,9 @@ components:
         note: note
         amount: "12.345"
         fee: "2000"
+        useGasless: false
         vaultAccountId: "0"
+        externalId: 0192e4f5-924e-7bb9-8e5b-c748270feb38
         feeLevel: MEDIUM
       properties:
         vaultAccountId:
@@ -26228,6 +26421,19 @@ components:
         note:
           description: "Custom note, not sent to the blockchain, that describes the\
             \ transaction at your Fireblocks workspace"
+          type: string
+        useGasless:
+          description: "Indicates whether the token should be created in a gasless\
+            \ manner, utilizing the ERC-2771 standard. When set to true, the transaction\
+            \ will be relayed by a designated relayer. The workspace must be configured\
+            \ to use Fireblocks gasless relay."
+          example: false
+          type: boolean
+        externalId:
+          description: External id that can be used to identify the transaction in
+            your system. The unique identifier of the transaction outside of Fireblocks
+            with max length of 255 characters
+          example: 0192e4f5-924e-7bb9-8e5b-c748270feb38
           type: string
       required:
       - abiFunction
@@ -26367,6 +26573,12 @@ components:
           description: The note to associate with the transactions.
           example: "unstake request id b70701f4-d7b1-4795-a8ee-b09cdb5b850d #ETH"
           type: string
+        amount:
+          description: "The number of tokens to unstake.  This optional field is applicable\
+            \ only for liquid staking and allows for a partial unstake of the position.\
+            \  If not provided, the entire position will be unstaked by default."
+          example: "75"
+          type: string
       required:
       - id
       type: object
@@ -26443,47 +26655,14 @@ components:
       required:
       - stakeAccountAddress
       type: object
-    RelatedRequestStatusType:
-      description: The status of the request
-      enum:
-      - error
-      - created
-      - canceled
-      - activate_requested
-      - approve_inprogress
-      - approve_inprogress_signed
-      - activate_inprogress
-      - activate_inprogress_signed
-      - activate_inprogress_confirmed
-      - activate_done
-      - deactivate_requested
-      - deactivate_inprogress
-      - deactivate_inprogress_signed
-      - deactivate_inprogress_confirmed
-      - deactivate_done
-      - withdraw_inprogress
-      - withdraw_requested
-      - withdraw_inprogress_confirmed
-      - withdraw_done
-      - claim_rewards_requested
-      - claim_rewards_inprogress
-      - claim_rewards_done
-      - pending
-      - pending_queued
-      - active_offline
-      - active_online
-      - exiting_online
-      - exited
-      - active
-      - inactive
-      - activating
-      - deactivating
-      example: deactivating
-      type: string
     RelatedRequestDto:
       properties:
         status:
-          $ref: '#/components/schemas/RelatedRequestStatusType'
+          description: The status of the request
+          enum:
+          - deactivating
+          example: deactivating
+          type: string
         inProgress:
           description: Indicates whether there is an ongoing action for this position
             related to this request
@@ -28459,7 +28638,7 @@ components:
           description: Outbound transaction delay in seconds.
           type: number
       type: object
-    ScreeningUpdateConfigurationsRequest:
+    ScreeningUpdateConfigurations:
       example:
         disableUnfreeze: true
         disableBypass: true
@@ -30401,6 +30580,7 @@ components:
         toNetworkId: 5d009697-c29b-48e0-aff8-1f4305d19dc2
         txStatus: COMPLETED
         createdAt: 2023-03-01T11:23:00Z
+        dvpSrcDstVaultId: "1"
         id: 84601ee2-b10f-4aa8-be9c-dba259a3533a
         fromNetworkId: 947c6115-1f5f-4fb4-9fd6-a1f9dee14670
         toNetworkIdName: Destination network profile name
@@ -30427,6 +30607,10 @@ components:
         amount:
           description: Amount
           example: "133.789161216184"
+          type: string
+        dvpSrcDstVaultId:
+          description: Identifier of the source and destination vault for DVP execution
+          example: "1"
           type: string
         amountUsd:
           description: Amount USD
@@ -30523,6 +30707,7 @@ components:
       example:
         note: Random note
         externalRefId: 2631ffb9d8fe47c6b0825b5be28297da
+        orderCreatedByNetworkId: 3eaa94c5-128b-4835-bb08-3111bb6564c7
         type: ASYNC
         createdByNetworkId: 3eaa94c5-128b-4835-bb08-3111bb6564c7
         expiresAt: 2023-03-01T11:23:00Z
@@ -30531,6 +30716,7 @@ components:
         createdAt: 2023-03-01T11:23:00Z
         fulfilledAt: 2023-03-01T11:23:00Z
         createdByMe: true
+        dvpExecutionStatus: STARTED
         terms:
         - id: 84601ee2-b10f-4aa8-be9c-dba259a3533a
           ticketId: 118320d2-761f-46c7-96cf-65e71a370b36
@@ -30608,6 +30794,22 @@ components:
           - EXPIRED
           - CANCELED
           example: DRAFT
+          type: string
+        dvpExecutionStatus:
+          description: Current status of DVP execution
+          enum:
+          - STARTED
+          - CREATING_ORDER
+          - ORDER_CREATED
+          - FULFILLING
+          - FULFILLING_ORDER_FAILED
+          - CREATING_ORDER_FAILED
+          - FULFILLED
+          example: STARTED
+          type: string
+        orderCreatedByNetworkId:
+          description: ID of network profile that created order
+          example: 3eaa94c5-128b-4835-bb08-3111bb6564c7
           type: string
         terms:
           description: Ticket terms (legs)
@@ -30728,6 +30930,7 @@ components:
         data:
         - note: Random note
           externalRefId: 2631ffb9d8fe47c6b0825b5be28297da
+          orderCreatedByNetworkId: 3eaa94c5-128b-4835-bb08-3111bb6564c7
           type: ASYNC
           createdByNetworkId: 3eaa94c5-128b-4835-bb08-3111bb6564c7
           expiresAt: 2023-03-01T11:23:00Z
@@ -30736,6 +30939,7 @@ components:
           createdAt: 2023-03-01T11:23:00Z
           fulfilledAt: 2023-03-01T11:23:00Z
           createdByMe: true
+          dvpExecutionStatus: STARTED
           terms:
           - id: 84601ee2-b10f-4aa8-be9c-dba259a3533a
             ticketId: 118320d2-761f-46c7-96cf-65e71a370b36
@@ -30782,6 +30986,7 @@ components:
           updatedAt: 2023-03-01T11:23:00Z
         - note: Random note
           externalRefId: 2631ffb9d8fe47c6b0825b5be28297da
+          orderCreatedByNetworkId: 3eaa94c5-128b-4835-bb08-3111bb6564c7
           type: ASYNC
           createdByNetworkId: 3eaa94c5-128b-4835-bb08-3111bb6564c7
           expiresAt: 2023-03-01T11:23:00Z
@@ -30790,6 +30995,7 @@ components:
           createdAt: 2023-03-01T11:23:00Z
           fulfilledAt: 2023-03-01T11:23:00Z
           createdByMe: true
+          dvpExecutionStatus: STARTED
           terms:
           - id: 84601ee2-b10f-4aa8-be9c-dba259a3533a
             ticketId: 118320d2-761f-46c7-96cf-65e71a370b36
@@ -30955,6 +31161,7 @@ components:
         data:
           note: Random note
           externalRefId: 2631ffb9d8fe47c6b0825b5be28297da
+          orderCreatedByNetworkId: 3eaa94c5-128b-4835-bb08-3111bb6564c7
           type: ASYNC
           createdByNetworkId: 3eaa94c5-128b-4835-bb08-3111bb6564c7
           expiresAt: 2023-03-01T11:23:00Z
@@ -30963,6 +31170,7 @@ components:
           createdAt: 2023-03-01T11:23:00Z
           fulfilledAt: 2023-03-01T11:23:00Z
           createdByMe: true
+          dvpExecutionStatus: STARTED
           terms:
           - id: 84601ee2-b10f-4aa8-be9c-dba259a3533a
             ticketId: 118320d2-761f-46c7-96cf-65e71a370b36
@@ -31093,6 +31301,29 @@ components:
           minimum: 1
           type: number
       type: object
+    SmartTransferFundDvpTicket:
+      example:
+        note: Transaction note
+        fee: "0.001"
+        feeLevel: MEDIUM
+      properties:
+        fee:
+          description: Transaction fee
+          example: "0.001"
+          type: string
+        feeLevel:
+          description: Transaction fee level.
+          enum:
+          - LOW
+          - MEDIUM
+          - HIGH
+          example: MEDIUM
+          type: string
+        note:
+          description: Transaction note
+          example: Transaction note
+          type: string
+      type: object
     SmartTransferTicketTermResponse:
       example:
         data:
@@ -31103,6 +31334,7 @@ components:
           toNetworkId: 5d009697-c29b-48e0-aff8-1f4305d19dc2
           txStatus: COMPLETED
           createdAt: 2023-03-01T11:23:00Z
+          dvpSrcDstVaultId: "1"
           id: 84601ee2-b10f-4aa8-be9c-dba259a3533a
           fromNetworkId: 947c6115-1f5f-4fb4-9fd6-a1f9dee14670
           toNetworkIdName: Destination network profile name

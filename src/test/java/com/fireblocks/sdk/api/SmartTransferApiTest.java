@@ -18,6 +18,7 @@ import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.model.SmartTransferApproveTerm;
 import com.fireblocks.sdk.model.SmartTransferCreateTicket;
 import com.fireblocks.sdk.model.SmartTransferCreateTicketTerm;
+import com.fireblocks.sdk.model.SmartTransferFundDvpTicket;
 import com.fireblocks.sdk.model.SmartTransferFundTerm;
 import com.fireblocks.sdk.model.SmartTransferManuallyFundTerm;
 import com.fireblocks.sdk.model.SmartTransferSetTicketExpiration;
@@ -161,10 +162,11 @@ public class SmartTransferApiTest {
      */
     @Test
     public void fundDvpTicketTest() throws ApiException {
+        SmartTransferFundDvpTicket smartTransferFundDvpTicket = null;
         String ticketId = null;
         String idempotencyKey = null;
         CompletableFuture<ApiResponse<SmartTransferTicketResponse>> response =
-                api.fundDvpTicket(ticketId, idempotencyKey);
+                api.fundDvpTicket(smartTransferFundDvpTicket, ticketId, idempotencyKey);
     }
 
     /**

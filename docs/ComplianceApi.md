@@ -410,7 +410,7 @@ No authorization required
 
 ## updateScreeningConfiguration
 
-> CompletableFuture<ApiResponse<ScreeningUpdateConfigurationsRequest>> updateScreeningConfiguration updateScreeningConfiguration(idempotencyKey)
+> CompletableFuture<ApiResponse<ScreeningUpdateConfigurations>> updateScreeningConfiguration updateScreeningConfiguration(screeningUpdateConfigurations, idempotencyKey)
 
 Tenant - Screening Configuration
 
@@ -439,9 +439,10 @@ public class Example {
             .secretKey("my-secret-key");
         Fireblocks fireblocks = new Fireblocks(configurationOptions);
 
+        ScreeningUpdateConfigurations screeningUpdateConfigurations = new ScreeningUpdateConfigurations(); // ScreeningUpdateConfigurations | 
         String idempotencyKey = "idempotencyKey_example"; // String | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
         try {
-            CompletableFuture<ApiResponse<ScreeningUpdateConfigurationsRequest>> response = fireblocks.compliance().updateScreeningConfiguration(idempotencyKey);
+            CompletableFuture<ApiResponse<ScreeningUpdateConfigurations>> response = fireblocks.compliance().updateScreeningConfiguration(screeningUpdateConfigurations, idempotencyKey);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
@@ -468,11 +469,12 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
+| **screeningUpdateConfigurations** | [**ScreeningUpdateConfigurations**](ScreeningUpdateConfigurations.md)|  | |
 | **idempotencyKey** | **String**| A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | [optional] |
 
 ### Return type
 
-CompletableFuture<ApiResponse<[**ScreeningUpdateConfigurationsRequest**](ScreeningUpdateConfigurationsRequest.md)>>
+CompletableFuture<ApiResponse<[**ScreeningUpdateConfigurations**](ScreeningUpdateConfigurations.md)>>
 
 
 ### Authorization
@@ -481,7 +483,7 @@ No authorization required
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 ### HTTP response details

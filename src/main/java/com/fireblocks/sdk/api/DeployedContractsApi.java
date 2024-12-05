@@ -386,7 +386,7 @@ public class DeployedContractsApi {
      *     (optional)
      * @param contractAddress The contract&#39;s onchain address (optional)
      * @param baseAssetId (optional)
-     * @param templateId (optional)
+     * @param contractTemplateId (optional)
      * @return CompletableFuture&lt;ApiResponse&lt;DeployedContractsPaginatedResponse&gt;&gt;
      * @throws ApiException if fails to make API call
      */
@@ -395,12 +395,12 @@ public class DeployedContractsApi {
             BigDecimal pageSize,
             String contractAddress,
             String baseAssetId,
-            String templateId)
+            String contractTemplateId)
             throws ApiException {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     getDeployedContractsRequestBuilder(
-                            pageCursor, pageSize, contractAddress, baseAssetId, templateId);
+                            pageCursor, pageSize, contractAddress, baseAssetId, contractTemplateId);
             return memberVarHttpClient
                     .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
                     .thenComposeAsync(
@@ -439,7 +439,7 @@ public class DeployedContractsApi {
             BigDecimal pageSize,
             String contractAddress,
             String baseAssetId,
-            String templateId)
+            String contractTemplateId)
             throws ApiException {
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
@@ -457,8 +457,9 @@ public class DeployedContractsApi {
         localVarQueryParams.addAll(ApiClient.parameterToPairs("contractAddress", contractAddress));
         localVarQueryParameterBaseName = "baseAssetId";
         localVarQueryParams.addAll(ApiClient.parameterToPairs("baseAssetId", baseAssetId));
-        localVarQueryParameterBaseName = "templateId";
-        localVarQueryParams.addAll(ApiClient.parameterToPairs("templateId", templateId));
+        localVarQueryParameterBaseName = "contractTemplateId";
+        localVarQueryParams.addAll(
+                ApiClient.parameterToPairs("contractTemplateId", contractTemplateId));
 
         if (!localVarQueryParams.isEmpty() || localVarQueryStringJoiner.length() != 0) {
             StringJoiner queryJoiner = new StringJoiner("&");

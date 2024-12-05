@@ -66,4 +66,10 @@ public class ExecuteActionRequestTest {
     public void idTest() {
         // TODO: test id
     }
+
+    /** Test the property 'amount' */
+    @Test
+    public void amountTest() {
+        // TODO: test amount
+    }
 }

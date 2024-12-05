@@ -11,7 +11,7 @@
 |**events** | **String** | A description of the contract&#x60;s events |  [optional] |
 |**kind** | **String** | Is it devdoc or userdoc |  |
 |**methods** | [**Map&lt;String, FunctionDoc&gt;**](FunctionDoc.md) | The description of the contract functions |  |
-|**version** | **String** | The version of the contract |  |
+|**version** | **BigDecimal** | The version of the contract |  |
 
 
 

@@ -42,4 +42,22 @@ public class ContractDeployRequestTest {
     public void constructorParametersTest() {
         // TODO: test constructorParameters
     }
+
+    /** Test the property 'useGasless' */
+    @Test
+    public void useGaslessTest() {
+        // TODO: test useGasless
+    }
+
+    /** Test the property 'fee' */
+    @Test
+    public void feeTest() {
+        // TODO: test fee
+    }
+
+    /** Test the property 'feeLevel' */
+    @Test
+    public void feeLevelTest() {
+        // TODO: test feeLevel
+    }
 }

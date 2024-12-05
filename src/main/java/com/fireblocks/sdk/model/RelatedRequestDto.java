@@ -13,9 +13,11 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonValue;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.Objects;
@@ -30,8 +32,39 @@ import java.util.StringJoiner;
 })
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class RelatedRequestDto {
+    /** The status of the request */
+    public enum StatusEnum {
+        DEACTIVATING("deactivating");
+
+        private String value;
+
+        StatusEnum(String value) {
+            this.value = value;
+        }
+
+        @JsonValue
+        public String getValue() {
+            return value;
+        }
+
+        @Override
+        public String toString() {
+            return String.valueOf(value);
+        }
+
+        @JsonCreator
+        public static StatusEnum fromValue(String value) {
+            for (StatusEnum b : StatusEnum.values()) {
+                if (b.value.equals(value)) {
+                    return b;
+                }
+            }
+            throw new IllegalArgumentException("Unexpected value '" + value + "'");
+        }
+    }
+
     public static final String JSON_PROPERTY_STATUS = "status";
-    private RelatedRequestStatusType status;
+    private StatusEnum status;
 
     public static final String JSON_PROPERTY_IN_PROGRESS = "inProgress";
     private Boolean inProgress;
@@ -44,26 +77,26 @@ public class RelatedRequestDto {
 
     public RelatedRequestDto() {}
 
-    public RelatedRequestDto status(RelatedRequestStatusType status) {
+    public RelatedRequestDto status(StatusEnum status) {
         this.status = status;
         return this;
     }
 
     /**
-     * Get status
+     * The status of the request
      *
      * @return status
      */
     @jakarta.annotation.Nonnull
     @JsonProperty(JSON_PROPERTY_STATUS)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public RelatedRequestStatusType getStatus() {
+    public StatusEnum getStatus() {
         return status;
     }
 
     @JsonProperty(JSON_PROPERTY_STATUS)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setStatus(RelatedRequestStatusType status) {
+    public void setStatus(StatusEnum status) {
         this.status = status;
     }
 

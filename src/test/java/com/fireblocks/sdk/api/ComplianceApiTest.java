@@ -18,7 +18,7 @@ import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.model.ScreeningConfigurationsRequest;
 import com.fireblocks.sdk.model.ScreeningPolicyResponse;
 import com.fireblocks.sdk.model.ScreeningProviderRulesConfigurationResponse;
-import com.fireblocks.sdk.model.ScreeningUpdateConfigurationsRequest;
+import com.fireblocks.sdk.model.ScreeningUpdateConfigurations;
 import java.util.concurrent.CompletableFuture;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -104,9 +104,10 @@ public class ComplianceApiTest {
      */
     @Test
     public void updateScreeningConfigurationTest() throws ApiException {
+        ScreeningUpdateConfigurations screeningUpdateConfigurations = null;
         String idempotencyKey = null;
-        CompletableFuture<ApiResponse<ScreeningUpdateConfigurationsRequest>> response =
-                api.updateScreeningConfiguration(idempotencyKey);
+        CompletableFuture<ApiResponse<ScreeningUpdateConfigurations>> response =
+                api.updateScreeningConfiguration(screeningUpdateConfigurations, idempotencyKey);
     }
 
     /**

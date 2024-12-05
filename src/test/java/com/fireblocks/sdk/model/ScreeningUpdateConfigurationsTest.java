@@ -15,15 +15,14 @@ package com.fireblocks.sdk.model;
 
 import org.junit.Test;
 
-/** Model tests for ScreeningUpdateConfigurationsRequest */
-public class ScreeningUpdateConfigurationsRequestTest {
-    private final ScreeningUpdateConfigurationsRequest model =
-            new ScreeningUpdateConfigurationsRequest();
+/** Model tests for ScreeningUpdateConfigurations */
+public class ScreeningUpdateConfigurationsTest {
+    private final ScreeningUpdateConfigurations model = new ScreeningUpdateConfigurations();
 
-    /** Model tests for ScreeningUpdateConfigurationsRequest */
+    /** Model tests for ScreeningUpdateConfigurations */
     @Test
-    public void testScreeningUpdateConfigurationsRequest() {
-        // TODO: test ScreeningUpdateConfigurationsRequest
+    public void testScreeningUpdateConfigurations() {
+        // TODO: test ScreeningUpdateConfigurations
     }
 
     /** Test the property 'disableBypass' */
