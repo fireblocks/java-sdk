@@ -454,6 +454,14 @@ public class FireblocksTest {
     }
 
     @Test
+    public void testGetEmbeddedWalletsApi() {
+        setupFireblocks(true, null, null);
+        EmbeddedWalletsApi embeddedWallets = fireblocks.embeddedWallets();
+        Assert.assertNotNull(embeddedWallets);
+        Assert.assertSame(embeddedWallets, fireblocks.embeddedWallets());
+    }
+
+    @Test
     public void testGetExchangeAccountsApi() {
         setupFireblocks(true, null, null);
         ExchangeAccountsApi exchangeAccounts = fireblocks.exchangeAccounts();

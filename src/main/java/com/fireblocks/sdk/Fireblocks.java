@@ -48,6 +48,7 @@ public class Fireblocks {
     private ContractsApi contracts;
     private CosignersBetaApi cosignersBeta;
     private DeployedContractsApi deployedContracts;
+    private EmbeddedWalletsApi embeddedWallets;
     private ExchangeAccountsApi exchangeAccounts;
     private ExternalWalletsApi externalWallets;
     private FiatAccountsApi fiatAccounts;
@@ -295,6 +296,13 @@ public class Fireblocks {
             deployedContracts = new DeployedContractsApi(apiClient);
         }
         return deployedContracts;
+    }
+
+    public EmbeddedWalletsApi embeddedWallets() {
+        if (embeddedWallets == null) {
+            embeddedWallets = new EmbeddedWalletsApi(apiClient);
+        }
+        return embeddedWallets;
     }
 
     public ExchangeAccountsApi exchangeAccounts() {

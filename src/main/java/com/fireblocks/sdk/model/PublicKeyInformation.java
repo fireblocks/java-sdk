@@ -13,10 +13,11 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.math.BigDecimal;
+import com.fasterxml.jackson.annotation.JsonValue;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -32,46 +33,81 @@ import java.util.StringJoiner;
 })
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class PublicKeyInformation {
+    /** Elliptic Curve */
+    public enum AlgorithmEnum {
+        ECDSA_SECP256K1("MPC_ECDSA_SECP256K1"),
+
+        ECDSA_SECP256R1("MPC_ECDSA_SECP256R1"),
+
+        EDDSA_ED25519("MPC_EDDSA_ED25519");
+
+        private String value;
+
+        AlgorithmEnum(String value) {
+            this.value = value;
+        }
+
+        @JsonValue
+        public String getValue() {
+            return value;
+        }
+
+        @Override
+        public String toString() {
+            return String.valueOf(value);
+        }
+
+        @JsonCreator
+        public static AlgorithmEnum fromValue(String value) {
+            for (AlgorithmEnum b : AlgorithmEnum.values()) {
+                if (b.value.equals(value)) {
+                    return b;
+                }
+            }
+            throw new IllegalArgumentException("Unexpected value '" + value + "'");
+        }
+    }
+
     public static final String JSON_PROPERTY_ALGORITHM = "algorithm";
-    private String algorithm;
+    private AlgorithmEnum algorithm;
 
     public static final String JSON_PROPERTY_DERIVATION_PATH = "derivationPath";
-    private List<BigDecimal> derivationPath;
+    private List<Integer> derivationPath;
 
     public static final String JSON_PROPERTY_PUBLIC_KEY = "publicKey";
     private String publicKey;
 
     public PublicKeyInformation() {}
 
-    public PublicKeyInformation algorithm(String algorithm) {
+    public PublicKeyInformation algorithm(AlgorithmEnum algorithm) {
         this.algorithm = algorithm;
         return this;
     }
 
     /**
-     * Get algorithm
+     * Elliptic Curve
      *
      * @return algorithm
      */
     @jakarta.annotation.Nullable
     @JsonProperty(JSON_PROPERTY_ALGORITHM)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public String getAlgorithm() {
+    public AlgorithmEnum getAlgorithm() {
         return algorithm;
     }
 
     @JsonProperty(JSON_PROPERTY_ALGORITHM)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAlgorithm(String algorithm) {
+    public void setAlgorithm(AlgorithmEnum algorithm) {
         this.algorithm = algorithm;
     }
 
-    public PublicKeyInformation derivationPath(List<BigDecimal> derivationPath) {
+    public PublicKeyInformation derivationPath(List<Integer> derivationPath) {
         this.derivationPath = derivationPath;
         return this;
     }
 
-    public PublicKeyInformation addDerivationPathItem(BigDecimal derivationPathItem) {
+    public PublicKeyInformation addDerivationPathItem(Integer derivationPathItem) {
         if (this.derivationPath == null) {
             this.derivationPath = new ArrayList<>();
         }
@@ -80,20 +116,20 @@ public class PublicKeyInformation {
     }
 
     /**
-     * Get derivationPath
+     * BIP44 derivation path
      *
      * @return derivationPath
      */
     @jakarta.annotation.Nullable
     @JsonProperty(JSON_PROPERTY_DERIVATION_PATH)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public List<BigDecimal> getDerivationPath() {
+    public List<Integer> getDerivationPath() {
         return derivationPath;
     }
 
     @JsonProperty(JSON_PROPERTY_DERIVATION_PATH)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setDerivationPath(List<BigDecimal> derivationPath) {
+    public void setDerivationPath(List<Integer> derivationPath) {
         this.derivationPath = derivationPath;
     }
 
@@ -103,7 +139,7 @@ public class PublicKeyInformation {
     }
 
     /**
-     * Get publicKey
+     * Compressed/Uncompressed public key value in hex representation
      *
      * @return publicKey
      */
@@ -209,21 +245,19 @@ public class PublicKeyInformation {
         // add `derivationPath` to the URL query string
         if (getDerivationPath() != null) {
             for (int i = 0; i < getDerivationPath().size(); i++) {
-                if (getDerivationPath().get(i) != null) {
-                    joiner.add(
-                            String.format(
-                                    "%sderivationPath%s%s=%s",
-                                    prefix,
-                                    suffix,
-                                    "".equals(suffix)
-                                            ? ""
-                                            : String.format(
-                                                    "%s%d%s", containerPrefix, i, containerSuffix),
-                                    URLEncoder.encode(
-                                                    String.valueOf(getDerivationPath().get(i)),
-                                                    StandardCharsets.UTF_8)
-                                            .replaceAll("\\+", "%20")));
-                }
+                joiner.add(
+                        String.format(
+                                "%sderivationPath%s%s=%s",
+                                prefix,
+                                suffix,
+                                "".equals(suffix)
+                                        ? ""
+                                        : String.format(
+                                                "%s%d%s", containerPrefix, i, containerSuffix),
+                                URLEncoder.encode(
+                                                String.valueOf(getDerivationPath().get(i)),
+                                                StandardCharsets.UTF_8)
+                                        .replaceAll("\\+", "%20")));
             }
         }
 

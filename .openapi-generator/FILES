@@ -177,6 +177,7 @@ docs/DropTransactionRequest.md
 docs/DropTransactionResponse.md
 docs/EVMTokenCreateParamsDto.md
 docs/EditGasStationConfigurationResponse.md
+docs/EmbeddedWalletsApi.md
 docs/ErrorResponse.md
 docs/ErrorResponseError.md
 docs/ErrorSchema.md
@@ -547,6 +548,7 @@ src/main/java/com/fireblocks/sdk/api/ContractTemplatesApi.java
 src/main/java/com/fireblocks/sdk/api/ContractsApi.java
 src/main/java/com/fireblocks/sdk/api/CosignersBetaApi.java
 src/main/java/com/fireblocks/sdk/api/DeployedContractsApi.java
+src/main/java/com/fireblocks/sdk/api/EmbeddedWalletsApi.java
 src/main/java/com/fireblocks/sdk/api/ExchangeAccountsApi.java
 src/main/java/com/fireblocks/sdk/api/ExternalWalletsApi.java
 src/main/java/com/fireblocks/sdk/api/FiatAccountsApi.java
@@ -1056,6 +1058,7 @@ src/test/java/com/fireblocks/sdk/api/ContractTemplatesApiTest.java
 src/test/java/com/fireblocks/sdk/api/ContractsApiTest.java
 src/test/java/com/fireblocks/sdk/api/CosignersBetaApiTest.java
 src/test/java/com/fireblocks/sdk/api/DeployedContractsApiTest.java
+src/test/java/com/fireblocks/sdk/api/EmbeddedWalletsApiTest.java
 src/test/java/com/fireblocks/sdk/api/ExchangeAccountsApiTest.java
 src/test/java/com/fireblocks/sdk/api/ExternalWalletsApiTest.java
 src/test/java/com/fireblocks/sdk/api/FiatAccountsApiTest.java
