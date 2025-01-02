@@ -2407,28 +2407,44 @@ paths:
   /ncw/{walletId}/public_key_info:
     get:
       description: Gets the public key information based on derivation path and signing
-        algorithm.
+        algorithm within a Non-Custodial Wallet
       operationId: getPublicKeyInfoNcw
       parameters:
-      - explode: false
+      - description: The ID of the Non-Custodial wallet
+        explode: false
         in: path
         name: walletId
         required: true
         schema:
+          example: 550e8400-e29b-41d4-a716-446655440000
           type: string
         style: simple
-      - explode: true
+      - description: "An array of integers (passed as JSON stringified array) representing\
+          \ the full BIP44 derivation path of the requested public key. \nThe first\
+          \ element must always be 44.\n"
+        example:
+        - 44
+        - 0
+        - 0
+        - 0
+        - 0
+        explode: true
         in: query
         name: derivationPath
         required: true
         schema:
           type: string
         style: form
-      - explode: true
+      - description: Elliptic Curve
+        explode: true
         in: query
         name: algorithm
         required: true
         schema:
+          enum:
+          - MPC_ECDSA_SECP256K1
+          - MPC_ECDSA_SECP256R1
+          - MPC_EDDSA_ED25519
           type: string
         style: form
       - explode: true
@@ -2457,64 +2473,94 @@ paths:
           headers:
             X-Request-ID:
               $ref: '#/components/headers/X-Request-ID'
-      summary: Get the public key information
+      summary: Get the public key for a derivation path
       tags:
       - Embedded Wallets
-      x-internal: true
       x-readme:
         code-samples:
-        - language: python
-          code: "pubKey = fireblocks.NCW.get_public_key_info(wallet_id, algorithm,\
-            \ derivation_path, compressed)"
-          name: Fireblocks SDK Python example (Legacy)
         - language: javascript
-          code: |
-            const PublicKeyInfoArgs = { algorithm: 'MPC_ECDSA_SECP256K1', derivationPath: '[44,0,0,0,0]' } const pubKey = await fireblocks.NCW.getPublicKeyInfo(walletId, PublicKeyInfoArgs);
+          code: "const publicKeyInfoArgs = { \n  algorithm: 'MPC_ECDSA_SECP256K1',\n\
+            \  derivationPath: [44, 0, 0, 0, 0],\n  compressed: true\n};\nconst pubKey\
+            \ = await fireblocks.NCW.getPublicKeyInfo(walletId, publicKeyInfoArgs);\n"
           name: Fireblocks SDK Javascript example
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<PublicKeyInformation>>\
+            \ = fireblocks.embeddedWallets.getPublicKeyInfoNcw(embeddedWalletsApiGetPublicKeyInfoNcwRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<PublicKeyInformation>> response = fireblocks.embeddedWallets().getPublicKeyInfoNcw(walletId,\
+            \ derivationPath, algorithm, compressed);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.embedded_wallets.get_public_key_info_ncw(wallet_id,\
+            \ derivation_path, algorithm, compressed);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<PublicKeyInformation>>\
+          \ = fireblocks.embeddedWallets.getPublicKeyInfoNcw(embeddedWalletsApiGetPublicKeyInfoNcwRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<PublicKeyInformation>> response = fireblocks.embeddedWallets().getPublicKeyInfoNcw(walletId,\
+          \ derivationPath, algorithm, compressed);"
+      - lang: Python
+        source: "response = fireblocks.embedded_wallets.get_public_key_info_ncw(wallet_id,\
+          \ derivation_path, algorithm, compressed);"
       x-accepts: application/json
   /ncw/{walletId}/accounts/{accountId}/{assetId}/{change}/{addressIndex}/public_key_info:
     get:
-      description: Gets the public key information for the account asset.
+      description: Gets the public key of an asset associated with a specific account
+        within a Non-Custodial Wallet
       operationId: getPublicKeyInfoForAddressNcw
       parameters:
-      - explode: false
+      - description: The ID of the Non-Custodial wallet
+        explode: false
         in: path
         name: walletId
         required: true
         schema:
+          example: 550e8400-e29b-41d4-a716-446655440000
           type: string
         style: simple
-      - explode: false
+      - description: The ID of the account
+        explode: false
         in: path
         name: accountId
         required: true
         schema:
+          example: "0"
           format: numeric
           type: string
         style: simple
-      - explode: false
+      - description: The ID of the asset
+        explode: false
         in: path
         name: assetId
         required: true
         schema:
+          example: BTC
           type: string
           x-fb-entity: asset
         style: simple
-      - explode: false
+      - description: BIP44 derivation path - change value
+        explode: false
         in: path
         name: change
         required: true
         schema:
+          example: 0
           type: number
         style: simple
-      - explode: false
+      - description: BIP44 derivation path - index value
+        explode: false
         in: path
         name: addressIndex
         required: true
         schema:
+          example: 0
           type: number
         style: simple
-      - explode: true
+      - description: Compressed/Uncompressed public key format
+        explode: true
         in: query
         name: compressed
         required: false
@@ -2540,20 +2586,39 @@ paths:
           headers:
             X-Request-ID:
               $ref: '#/components/headers/X-Request-ID'
-      summary: Get the public key for an account asset
+      summary: Get the public key of an asset
       tags:
       - Embedded Wallets
-      x-internal: true
       x-readme:
         code-samples:
-        - language: python
-          code: "pubKey = fireblocks.NCW.get_public_key_info_by_account_asset(wallet_id,\
-            \ asset_id, account_id, change, address_index, compressed)"
-          name: Fireblocks SDK Python example (Legacy)
         - language: javascript
-          code: |
-            const PublicKeyInfoByAccountAssetArgs = { assetId: 'ETH', accountId: 0, change: 0, addressIndex: 0, compressed: true } const pubKey = await fireblocks.NCW.getPublicKeyInfoByAccountAsset(walletId, PublicKeyInfoByAccountAssetArgs);
+          code: "const publicKeyInfoByAccountAssetArgs = {\n  assetId: 'ETH',\n  accountId:\
+            \ 0,\n  change: 0,\n  addressIndex: 0,\n  compressed: true\n};       \
+            \     \nconst pubKey = await fireblocks.NCW.getPublicKeyInfoByAccountAsset(walletId,\
+            \ publicKeyInfoByAccountAssetArgs);\n"
           name: Fireblocks SDK Javascript example
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<PublicKeyInformation>>\
+            \ = fireblocks.embeddedWallets.getPublicKeyInfoForAddressNcw(embeddedWalletsApiGetPublicKeyInfoForAddressNcwRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<PublicKeyInformation>> response = fireblocks.embeddedWallets().getPublicKeyInfoForAddressNcw(walletId,\
+            \ accountId, assetId, change, addressIndex, compressed);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.embedded_wallets.get_public_key_info_for_address_ncw(wallet_id,\
+            \ account_id, asset_id, change, address_index, compressed);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<PublicKeyInformation>>\
+          \ = fireblocks.embeddedWallets.getPublicKeyInfoForAddressNcw(embeddedWalletsApiGetPublicKeyInfoForAddressNcwRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<PublicKeyInformation>> response = fireblocks.embeddedWallets().getPublicKeyInfoForAddressNcw(walletId,\
+          \ accountId, assetId, change, addressIndex, compressed);"
+      - lang: Python
+        source: "response = fireblocks.embedded_wallets.get_public_key_info_for_address_ncw(wallet_id,\
+          \ account_id, asset_id, change, address_index, compressed);"
       x-accepts: application/json
   /workspace/freeze:
     post:
@@ -5799,6 +5864,116 @@ paths:
           \ key_id);"
       x-content-type: application/json
       x-accepts: application/json
+  /keys/mpc/list:
+    get:
+      description: "Returns a list of MPC signing keys of the workspace. For each\
+        \ key, the list of players associated with it is attached.\n**Note:** \nThis\
+        \ endpoint is currently in beta and might be subject to changes."
+      operationId: getMpcKeysList
+      parameters: []
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetMpcKeysResponse'
+          description: List of mpc keys
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorSchema'
+          description: Error Response
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+      summary: Get list of mpc keys
+      tags:
+      - Keys (Beta)
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<GetMpcKeysResponse>> =\
+            \ fireblocks.keysBeta.getMpcKeysList();"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: CompletableFuture<ApiResponse<GetMpcKeysResponse>> response = fireblocks.keysBeta().getMpcKeysList();
+          name: Fireblocks SDK Java example
+        - language: python
+          code: response = fireblocks.keys_beta.get_mpc_keys_list();
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<GetMpcKeysResponse>> =\
+          \ fireblocks.keysBeta.getMpcKeysList();"
+      - lang: Java
+        source: CompletableFuture<ApiResponse<GetMpcKeysResponse>> response = fireblocks.keysBeta().getMpcKeysList();
+      - lang: Python
+        source: response = fireblocks.keys_beta.get_mpc_keys_list();
+      x-accepts: application/json
+  /keys/mpc/list/{userId}:
+    get:
+      description: |-
+        Returns a list of MPC signing keys of a specific user. For each key, the list of players associated with it is attached.
+        **Note:**
+        This endpoint is currently in beta and might be subject to changes.
+      operationId: getMpcKeysListByUser
+      parameters:
+      - description: The id for the user
+        example: 46a92767-5f93-4a46-9eed-f012196bb4fc
+        explode: false
+        in: path
+        name: userId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetMpcKeysResponse'
+          description: List of mpc keys
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorSchema'
+          description: Error Response
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+      summary: Get list of mpc keys by `userId`
+      tags:
+      - Keys (Beta)
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<GetMpcKeysResponse>> =\
+            \ fireblocks.keysBeta.getMpcKeysListByUser(keysBetaApiGetMpcKeysListByUserRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: CompletableFuture<ApiResponse<GetMpcKeysResponse>> response = fireblocks.keysBeta().getMpcKeysListByUser(userId);
+          name: Fireblocks SDK Java example
+        - language: python
+          code: response = fireblocks.keys_beta.get_mpc_keys_list_by_user(user_id);
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<GetMpcKeysResponse>> =\
+          \ fireblocks.keysBeta.getMpcKeysListByUser(keysBetaApiGetMpcKeysListByUserRequest);"
+      - lang: Java
+        source: CompletableFuture<ApiResponse<GetMpcKeysResponse>> response = fireblocks.keysBeta().getMpcKeysListByUser(userId);
+      - lang: Python
+        source: response = fireblocks.keys_beta.get_mpc_keys_list_by_user(user_id);
+      x-accepts: application/json
   /external_wallets:
     get:
       description: Gets a list of external wallets under the workspace.
@@ -6846,6 +7021,150 @@ paths:
         source: response = fireblocks.blockchains_&_assets.get_supported_assets();
       x-accepts: application/json
   /assets:
+    get:
+      description: |
+        Returns all asset type supported by Fireblocks.</br>
+
+        **Note**:
+        - This endpoint is now in Beta, disabled for general availability at this time.
+      operationId: listAssets
+      parameters:
+      - description: Blockchain id of the assets
+        example: 0f672204-a28b-464a-b318-a387abd3d3c7
+        explode: true
+        in: query
+        name: blockchainId
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: Assets class
+        explode: true
+        in: query
+        name: assetClass
+        required: false
+        schema:
+          $ref: '#/components/schemas/AssetClassBeta'
+        style: form
+      - description: Assets onchain symbol
+        example: ETH
+        explode: true
+        in: query
+        name: symbol
+        required: false
+        schema:
+          minLength: 1
+          type: string
+        style: form
+      - description: Scope of the assets
+        example: Global
+        explode: true
+        in: query
+        name: scope
+        required: false
+        schema:
+          enum:
+          - Global
+          - Local
+          type: string
+        style: form
+      - description: Are assets deprecated
+        example: false
+        explode: true
+        in: query
+        name: deprecated
+        required: false
+        schema:
+          type: boolean
+        style: form
+      - description: Next page cursor to fetch
+        example: MjAyMy0xMi0xMyAyMDozNjowOC4zMDI=:MTEwMA==
+        explode: true
+        in: query
+        name: pageCursor
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: Items per page
+        example: 500
+        explode: true
+        in: query
+        name: pageSize
+        required: false
+        schema:
+          default: 500
+          maximum: 1000
+          minimum: 100
+          type: number
+        style: form
+      - description: "A unique identifier for the request. If the request is sent\
+          \ multiple times with the same idempotency key, the server will return the\
+          \ same response as the first request. The idempotency key is valid for 24\
+          \ hours."
+        explode: false
+        in: header
+        name: Idempotency-Key
+        required: false
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListAssetsResponse'
+          description: List of assets
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AssetInternalServerErrorResponse'
+          description: Error occurred while listing assets
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorSchema'
+          description: Error Response
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+      summary: List assets
+      tags:
+      - Blockchains & assets (Beta)
+      x-readme:
+        code-samples:
+        - language: python
+          code: assets = fireblocks.listAssets(filters)
+          name: Fireblocks SDK Python example (Legacy)
+        - language: javascript
+          code: const assets = await fireblocks.listAssets(filters);
+          name: Fireblocks SDK Javascript example
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<ListAssetsResponse>> =\
+            \ fireblocks.blockchainsAssetsBeta.listAssets(blockchainsAssetsBetaApiListAssetsRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<ListAssetsResponse>> response = fireblocks.blockchainsAssetsBeta().listAssets(blockchainId,\
+            \ assetClass, symbol, scope, deprecated, pageCursor, pageSize, idempotencyKey);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.blockchains_&_assets_beta.list_assets(blockchain_id,\
+            \ asset_class, symbol, scope, deprecated, page_cursor, page_size, idempotency_key);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<ListAssetsResponse>> =\
+          \ fireblocks.blockchainsAssetsBeta.listAssets(blockchainsAssetsBetaApiListAssetsRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<ListAssetsResponse>> response = fireblocks.blockchainsAssetsBeta().listAssets(blockchainId,\
+          \ assetClass, symbol, scope, deprecated, pageCursor, pageSize, idempotencyKey);"
+      - lang: Python
+        source: "response = fireblocks.blockchains_&_assets_beta.list_assets(blockchain_id,\
+          \ asset_class, symbol, scope, deprecated, page_cursor, page_size, idempotency_key);"
+      x-accepts: application/json
     post:
       description: |
         Register a new asset to a workspace and return the newly created asset's details. Currently supported chains are:
@@ -6912,7 +7231,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/AssetNotFoundErrorResponse'
+                $ref: '#/components/schemas/TokenInfoNotFoundErrorResponse'
           description: |
             - Invalid address, could not get asset information. Error code 1003
         "409":
@@ -6930,6 +7249,15 @@ paths:
               schema:
                 $ref: '#/components/schemas/AssetInternalServerErrorResponse'
           description: Failed to create asset
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorSchema'
+          description: Error Response
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
       summary: Register an asset
       tags:
       - Blockchains & assets
@@ -6964,6 +7292,102 @@ paths:
         source: "response = fireblocks.blockchains_&_assets.register_new_asset(register_new_asset_request,\
           \ idempotency_key);"
       x-content-type: application/json
+      x-accepts: application/json
+  /assets/{id}:
+    get:
+      description: |
+        Returns an asset by ID or legacyID.</br>
+
+        **Note**:
+        - This endpoint is now in Beta, disabled for general availability at this time.
+      operationId: getAssetById
+      parameters:
+      - description: The ID or legacyId of the asset
+        example: ETH
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+          x-fb-entity: asset
+        style: simple
+      - description: "A unique identifier for the request. If the request is sent\
+          \ multiple times with the same idempotency key, the server will return the\
+          \ same response as the first request. The idempotency key is valid for 24\
+          \ hours."
+        explode: false
+        in: header
+        name: Idempotency-Key
+        required: false
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AssetResponseBeta'
+          description: Asset with requested identification
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AssetNotFoundErrorResponse'
+          description: |
+            - Asset with specified ID or legacy ID is not found. Error code 1504
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AssetInternalServerErrorResponse'
+          description: Error occurred while getting an asset
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorSchema'
+          description: Error Response
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+      summary: Get an asset
+      tags:
+      - Blockchains & assets (Beta)
+      x-readme:
+        code-samples:
+        - language: python
+          code: asset = fireblocks.getAssetById(assetId)
+          name: Fireblocks SDK Python example (Legacy)
+        - language: javascript
+          code: const asset = await fireblocks.getAssetById(assetId);
+          name: Fireblocks SDK Javascript example
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<AssetResponseBeta>> =\
+            \ fireblocks.blockchainsAssetsBeta.getAssetById(blockchainsAssetsBetaApiGetAssetByIdRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<AssetResponseBeta>> response = fireblocks.blockchainsAssetsBeta().getAssetById(id,\
+            \ idempotencyKey);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.blockchains_&_assets_beta.get_asset_by_id(id,\
+            \ idempotency_key);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<AssetResponseBeta>> =\
+          \ fireblocks.blockchainsAssetsBeta.getAssetById(blockchainsAssetsBetaApiGetAssetByIdRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<AssetResponseBeta>> response = fireblocks.blockchainsAssetsBeta().getAssetById(id,\
+          \ idempotencyKey);"
+      - lang: Python
+        source: "response = fireblocks.blockchains_&_assets_beta.get_asset_by_id(id,\
+          \ idempotency_key);"
       x-accepts: application/json
   /assets/prices/{id}:
     post:
@@ -7061,6 +7485,201 @@ paths:
         source: "response = fireblocks.blockchains_&_assets.set_asset_price(id, set_asset_price_request,\
           \ idempotency_key);"
       x-content-type: application/json
+      x-accepts: application/json
+  /blockchains:
+    get:
+      description: |
+        Returns all blockchains supported by Fireblocks.</br>
+
+        **Note**:
+        - This endpoint is now in Beta, disabled for general availability at this time.
+      operationId: listBlockchains
+      parameters:
+      - description: Blockchain protocol
+        example: SOL
+        explode: true
+        in: query
+        name: protocol
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: Is blockchain deprecated
+        example: false
+        explode: true
+        in: query
+        name: deprecated
+        required: false
+        schema:
+          type: boolean
+        style: form
+      - description: Is test blockchain
+        example: false
+        explode: true
+        in: query
+        name: test
+        required: false
+        schema:
+          type: boolean
+        style: form
+      - description: Page cursor to fetch
+        example: MjAyMy0xMi0xMyAyMDozNjowOC4zMDI=:MTEwMA==
+        explode: true
+        in: query
+        name: pageCursor
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: Items per page (max 500)
+        example: 500
+        explode: true
+        in: query
+        name: pageSize
+        required: false
+        schema:
+          default: 500
+          maximum: 500
+          minimum: 1
+          type: number
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListBlockchainsResponse'
+          description: List of supported blockchains
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AssetInternalServerErrorResponse'
+          description: Error occurred while listing blockchains
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorSchema'
+          description: Error Response
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+      summary: List blockchains
+      tags:
+      - Blockchains & assets (Beta)
+      x-readme:
+        code-samples:
+        - language: python
+          code: blockchains = fireblocks.listBlockchains(filters)
+          name: Fireblocks SDK Python example (Legacy)
+        - language: javascript
+          code: const blockchains = await fireblocks.listBlockchains(filters);
+          name: Fireblocks SDK Javascript example
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<ListBlockchainsResponse>>\
+            \ = fireblocks.blockchainsAssetsBeta.listBlockchains(blockchainsAssetsBetaApiListBlockchainsRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<ListBlockchainsResponse>> response\
+            \ = fireblocks.blockchainsAssetsBeta().listBlockchains(protocol, deprecated,\
+            \ test, pageCursor, pageSize);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.blockchains_&_assets_beta.list_blockchains(protocol,\
+            \ deprecated, test, page_cursor, page_size);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<ListBlockchainsResponse>>\
+          \ = fireblocks.blockchainsAssetsBeta.listBlockchains(blockchainsAssetsBetaApiListBlockchainsRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<ListBlockchainsResponse>> response\
+          \ = fireblocks.blockchainsAssetsBeta().listBlockchains(protocol, deprecated,\
+          \ test, pageCursor, pageSize);"
+      - lang: Python
+        source: "response = fireblocks.blockchains_&_assets_beta.list_blockchains(protocol,\
+          \ deprecated, test, page_cursor, page_size);"
+      x-accepts: application/json
+  /blockchains/{id}:
+    get:
+      description: |
+        Returns an blockchain by ID or legacyID.</br>
+
+        **Note**:
+        - This endpoint is now in Beta, disabled for general availability at this time.
+      operationId: getBlockchainById
+      parameters:
+      - description: The ID or legacyId of the blockchain
+        example: ETH
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BlockchainResponse'
+          description: Blockchain with requested identification
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BlockchainNotFoundErrorResponse'
+          description: |
+            - Blockchain with specified ID or legacy ID is not found. Error code 1505
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AssetInternalServerErrorResponse'
+          description: Error occurred while getting an blockchain
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorSchema'
+          description: Error Response
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+      summary: Get an blockchain
+      tags:
+      - Blockchains & assets (Beta)
+      x-readme:
+        code-samples:
+        - language: python
+          code: blockchain = fireblocks.getBlockchainById(blockchainId)
+          name: Fireblocks SDK Python example (Legacy)
+        - language: javascript
+          code: const blockchain = await fireblocks.getBlockchainById(blockchainId);
+          name: Fireblocks SDK Javascript example
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<BlockchainResponse>> =\
+            \ fireblocks.blockchainsAssetsBeta.getBlockchainById(blockchainsAssetsBetaApiGetBlockchainByIdRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: CompletableFuture<ApiResponse<BlockchainResponse>> response = fireblocks.blockchainsAssetsBeta().getBlockchainById(id);
+          name: Fireblocks SDK Java example
+        - language: python
+          code: response = fireblocks.blockchains_&_assets_beta.get_blockchain_by_id(id);
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<BlockchainResponse>> =\
+          \ fireblocks.blockchainsAssetsBeta.getBlockchainById(blockchainsAssetsBetaApiGetBlockchainByIdRequest);"
+      - lang: Java
+        source: CompletableFuture<ApiResponse<BlockchainResponse>> response = fireblocks.blockchainsAssetsBeta().getBlockchainById(id);
+      - lang: Python
+        source: response = fireblocks.blockchains_&_assets_beta.get_blockchain_by_id(id);
       x-accepts: application/json
   /transactions:
     get:
@@ -10114,6 +10733,555 @@ paths:
           \ tx_id, idempotency_key);"
       x-content-type: application/json
       x-accepts: application/json
+  /webhooks:
+    get:
+      description: |
+        Get all webhooks (paginated)
+        **Note:** These endpoints are currently in beta and might be subject to changes.
+      operationId: getWebhooks
+      parameters:
+      - description: ASC / DESC ordering (default DESC)
+        explode: true
+        in: query
+        name: order
+        required: false
+        schema:
+          default: DESC
+          enum:
+          - ASC
+          - DESC
+          example: ASC
+          type: string
+        style: form
+      - description: Cursor of the required page
+        explode: true
+        in: query
+        name: pageCursor
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: Maximum number of items in the page
+        explode: true
+        in: query
+        name: pageSize
+        required: false
+        schema:
+          default: 10
+          example: 10
+          maximum: 100
+          minimum: 1
+          type: number
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebhookPaginatedResponse'
+          description: A paginated response containing WebhookDto objects
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorSchema'
+          description: Error Response
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+      summary: Get all webhooks
+      tags:
+      - Webhooks V2 (Beta)
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<WebhookPaginatedResponse>>\
+            \ = fireblocks.webhooksV2Beta.getWebhooks(webhooksV2BetaApiGetWebhooksRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<WebhookPaginatedResponse>> response\
+            \ = fireblocks.webhooksV2Beta().getWebhooks(order, pageCursor, pageSize);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.webhooks_v2_beta.get_webhooks(order, page_cursor,\
+            \ page_size);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<WebhookPaginatedResponse>>\
+          \ = fireblocks.webhooksV2Beta.getWebhooks(webhooksV2BetaApiGetWebhooksRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<WebhookPaginatedResponse>> response\
+          \ = fireblocks.webhooksV2Beta().getWebhooks(order, pageCursor, pageSize);"
+      - lang: Python
+        source: "response = fireblocks.webhooks_v2_beta.get_webhooks(order, page_cursor,\
+          \ page_size);"
+      x-accepts: application/json
+    post:
+      description: |
+        Creates a new webhook, which will be triggered on the specified events
+        **Note:** These endpoints are currently in beta and might be subject to changes.
+      operationId: createWebhook
+      parameters:
+      - description: "A unique identifier for the request. If the request is sent\
+          \ multiple times with the same idempotency key, the server will return the\
+          \ same response as the first request. The idempotency key is valid for 24\
+          \ hours."
+        explode: false
+        in: header
+        name: Idempotency-Key
+        required: false
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateWebhookRequest'
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Webhook'
+          description: created new webhook successfully
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorSchema'
+          description: Error Response
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+      summary: Create new webhook
+      tags:
+      - Webhooks V2 (Beta)
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<Webhook>> = fireblocks.webhooksV2Beta.createWebhook(webhooksV2BetaApiCreateWebhookRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<Webhook>> response = fireblocks.webhooksV2Beta().createWebhook(createWebhookRequest,\
+            \ idempotencyKey);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.webhooks_v2_beta.create_webhook(create_webhook_request,\
+            \ idempotency_key);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<Webhook>> = fireblocks.webhooksV2Beta.createWebhook(webhooksV2BetaApiCreateWebhookRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<Webhook>> response = fireblocks.webhooksV2Beta().createWebhook(createWebhookRequest,\
+          \ idempotencyKey);"
+      - lang: Python
+        source: "response = fireblocks.webhooks_v2_beta.create_webhook(create_webhook_request,\
+          \ idempotency_key);"
+      x-content-type: application/json
+      x-accepts: application/json
+  /webhooks/{webhookId}:
+    delete:
+      description: |
+        Delete a webhook by its id
+        **Note:** These endpoints are currently in beta and might be subject to changes.
+      operationId: deleteWebhook
+      parameters:
+      - description: The unique identifier of the webhook
+        explode: false
+        in: path
+        name: webhookId
+        required: true
+        schema:
+          example: 44fcead0-7053-4831-a53a-df7fb90d440f
+          format: uuid
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Webhook'
+          description: Deleted webhook object
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorSchema'
+          description: Error Response
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+      summary: Delete webhook
+      tags:
+      - Webhooks V2 (Beta)
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<Webhook>> = fireblocks.webhooksV2Beta.deleteWebhook(webhooksV2BetaApiDeleteWebhookRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: CompletableFuture<ApiResponse<Webhook>> response = fireblocks.webhooksV2Beta().deleteWebhook(webhookId);
+          name: Fireblocks SDK Java example
+        - language: python
+          code: response = fireblocks.webhooks_v2_beta.delete_webhook(webhook_id);
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<Webhook>> = fireblocks.webhooksV2Beta.deleteWebhook(webhooksV2BetaApiDeleteWebhookRequest);"
+      - lang: Java
+        source: CompletableFuture<ApiResponse<Webhook>> response = fireblocks.webhooksV2Beta().deleteWebhook(webhookId);
+      - lang: Python
+        source: response = fireblocks.webhooks_v2_beta.delete_webhook(webhook_id);
+      x-accepts: application/json
+    get:
+      description: |
+        Retrieve a webhook by its id
+        **Note:** These endpoints are currently in beta and might be subject to changes.
+      operationId: getWebhook
+      parameters:
+      - description: The unique identifier of the webhook
+        explode: false
+        in: path
+        name: webhookId
+        required: true
+        schema:
+          example: 44fcead0-7053-4831-a53a-df7fb90d440f
+          format: uuid
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Webhook'
+          description: A webhook object
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorSchema'
+          description: Error Response
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+      summary: Get webhook by id
+      tags:
+      - Webhooks V2 (Beta)
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<Webhook>> = fireblocks.webhooksV2Beta.getWebhook(webhooksV2BetaApiGetWebhookRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: CompletableFuture<ApiResponse<Webhook>> response = fireblocks.webhooksV2Beta().getWebhook(webhookId);
+          name: Fireblocks SDK Java example
+        - language: python
+          code: response = fireblocks.webhooks_v2_beta.get_webhook(webhook_id);
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<Webhook>> = fireblocks.webhooksV2Beta.getWebhook(webhooksV2BetaApiGetWebhookRequest);"
+      - lang: Java
+        source: CompletableFuture<ApiResponse<Webhook>> response = fireblocks.webhooksV2Beta().getWebhook(webhookId);
+      - lang: Python
+        source: response = fireblocks.webhooks_v2_beta.get_webhook(webhook_id);
+      x-accepts: application/json
+    patch:
+      description: |
+        Update a webhook by its id
+        **Note:** These endpoints are currently in beta and might be subject to changes.
+      operationId: updateWebhook
+      parameters:
+      - description: The unique identifier of the webhook
+        explode: false
+        in: path
+        name: webhookId
+        required: true
+        schema:
+          example: 44fcead0-7053-4831-a53a-df7fb90d440f
+          format: uuid
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateWebhookRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Webhook'
+          description: Updated webhook object
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorSchema'
+          description: Error Response
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+      summary: Update webhook
+      tags:
+      - Webhooks V2 (Beta)
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<Webhook>> = fireblocks.webhooksV2Beta.updateWebhook(webhooksV2BetaApiUpdateWebhookRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<Webhook>> response = fireblocks.webhooksV2Beta().updateWebhook(updateWebhookRequest,\
+            \ webhookId);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.webhooks_v2_beta.update_webhook(update_webhook_request,\
+            \ webhook_id);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<Webhook>> = fireblocks.webhooksV2Beta.updateWebhook(webhooksV2BetaApiUpdateWebhookRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<Webhook>> response = fireblocks.webhooksV2Beta().updateWebhook(updateWebhookRequest,\
+          \ webhookId);"
+      - lang: Python
+        source: "response = fireblocks.webhooks_v2_beta.update_webhook(update_webhook_request,\
+          \ webhook_id);"
+      x-content-type: application/json
+      x-accepts: application/json
+  /webhooks/{webhookId}/notifications:
+    get:
+      description: |
+        Get all notifications by webhook id (paginated)
+        **Note:** These endpoints are currently in beta and might be subject to changes.
+      operationId: getNotifications
+      parameters:
+      - explode: false
+        in: path
+        name: webhookId
+        required: true
+        schema:
+          example: 44fcead0-7053-4831-a53a-df7fb90d440f
+          format: uuid
+          type: string
+        style: simple
+      - description: ASC / DESC ordering (default DESC)
+        explode: true
+        in: query
+        name: order
+        required: false
+        schema:
+          default: DESC
+          enum:
+          - ASC
+          - DESC
+          example: ASC
+          type: string
+        style: form
+      - description: Cursor of the required page
+        explode: true
+        in: query
+        name: pageCursor
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: Maximum number of items in the page
+        explode: true
+        in: query
+        name: pageSize
+        required: false
+        schema:
+          default: 100
+          example: 10
+          maximum: 100
+          minimum: 1
+          type: number
+        style: form
+      - description: sort by start date
+        explode: true
+        in: query
+        name: createdStartDate
+        required: false
+        schema:
+          example: 2024-09-24T09:14:38.356Z
+          type: string
+        style: form
+      - description: sort by end date
+        explode: true
+        in: query
+        name: createdEndDate
+        required: false
+        schema:
+          example: 2024-09-24T09:14:38.356Z
+          type: string
+        style: form
+      - description: Filter by Notification statues
+        explode: true
+        in: query
+        name: statuses
+        required: false
+        schema:
+          example: COMPLETED
+          items:
+            $ref: '#/components/schemas/NotificationStatus'
+          type: array
+        style: form
+      - description: Filter by Notification eventTypes
+        explode: true
+        in: query
+        name: eventTypes
+        required: false
+        schema:
+          example:
+          - transaction.created
+          - transaction.status.updated
+          items:
+            $ref: '#/components/schemas/WebhookEvent'
+          type: array
+        style: form
+      - description: Filter by resourceId
+        explode: true
+        in: query
+        name: resourceId
+        required: false
+        schema:
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotificationPaginatedResponse'
+          description: A paginated response containing NotificationExternalDTO objects
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+      summary: Get all notifications by webhook id
+      tags:
+      - Webhooks V2 (Beta)
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<NotificationPaginatedResponse>>\
+            \ = fireblocks.webhooksV2Beta.getNotifications(webhooksV2BetaApiGetNotificationsRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<NotificationPaginatedResponse>> response\
+            \ = fireblocks.webhooksV2Beta().getNotifications(webhookId, order, pageCursor,\
+            \ pageSize, createdStartDate, createdEndDate, statuses, eventTypes, resourceId);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.webhooks_v2_beta.get_notifications(webhook_id,\
+            \ order, page_cursor, page_size, created_start_date, created_end_date,\
+            \ statuses, event_types, resource_id);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<NotificationPaginatedResponse>>\
+          \ = fireblocks.webhooksV2Beta.getNotifications(webhooksV2BetaApiGetNotificationsRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<NotificationPaginatedResponse>> response\
+          \ = fireblocks.webhooksV2Beta().getNotifications(webhookId, order, pageCursor,\
+          \ pageSize, createdStartDate, createdEndDate, statuses, eventTypes, resourceId);"
+      - lang: Python
+        source: "response = fireblocks.webhooks_v2_beta.get_notifications(webhook_id,\
+          \ order, page_cursor, page_size, created_start_date, created_end_date, statuses,\
+          \ event_types, resource_id);"
+      x-accepts: application/json
+  /webhooks/{webhookId}/notifications/{notificationId}:
+    get:
+      description: |
+        Get notification by id
+        **Note:** These endpoints are currently in beta and might be subject to changes.
+      operationId: getNotification
+      parameters:
+      - description: Include the data of the notification
+        explode: true
+        in: query
+        name: includeData
+        required: false
+        schema:
+          type: boolean
+        style: form
+      - description: The ID of the webhook to fetch
+        explode: false
+        in: path
+        name: webhookId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: The ID of the notification to fetch
+        explode: false
+        in: path
+        name: notificationId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotificationWithData'
+          description: OK
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+      summary: Get notification by id
+      tags:
+      - Webhooks V2 (Beta)
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<NotificationWithData>>\
+            \ = fireblocks.webhooksV2Beta.getNotification(webhooksV2BetaApiGetNotificationRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<NotificationWithData>> response = fireblocks.webhooksV2Beta().getNotification(webhookId,\
+            \ notificationId, includeData);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.webhooks_v2_beta.get_notification(webhook_id,\
+            \ notification_id, include_data);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<NotificationWithData>>\
+          \ = fireblocks.webhooksV2Beta.getNotification(webhooksV2BetaApiGetNotificationRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<NotificationWithData>> response = fireblocks.webhooksV2Beta().getNotification(webhookId,\
+          \ notificationId, includeData);"
+      - lang: Python
+        source: "response = fireblocks.webhooks_v2_beta.get_notification(webhook_id,\
+          \ notification_id, include_data);"
+      x-accepts: application/json
   /tokenization/templates:
     get:
       description: Return minimal representation of all the contract templates available
@@ -12161,40 +13329,48 @@ paths:
     get:
       description: Return an alphabetical list of supported chains.
       operationId: getChains
-      parameters: []
       responses:
         "200":
           content:
             application/json:
-              example:
-              - ETH
-              - SOL
               schema:
                 $ref: '#/components/schemas/StakingGetChainsResponse'
-          description: ""
-      summary: ""
+          description: An array of supported chains was returned successfully
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorSchema'
+          description: Error Response
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+      summary: List staking supported chains
       tags:
-      - Staking (Beta)
+      - Staking
       x-readme:
         code-samples:
         - language: typescript
           code: "const response: Promise<FireblocksResponse<StakingGetChainsResponse>>\
-            \ = fireblocks.stakingBeta.getChains();"
+            \ = fireblocks.staking.getChains();"
           name: Fireblocks SDK TypeScript example
         - language: java
-          code: CompletableFuture<ApiResponse<List<String>>> response = fireblocks.stakingBeta().getChains();
+          code: CompletableFuture<ApiResponse<List<String>>> response = fireblocks.staking().getChains();
           name: Fireblocks SDK Java example
         - language: python
-          code: response = fireblocks.staking_beta.get_chains();
+          code: response = fireblocks.staking.get_chains();
           name: Fireblocks SDK Python example
       x-codeSamples:
       - lang: TypeScript
         source: "const response: Promise<FireblocksResponse<StakingGetChainsResponse>>\
-          \ = fireblocks.stakingBeta.getChains();"
+          \ = fireblocks.staking.getChains();"
       - lang: Java
-        source: CompletableFuture<ApiResponse<List<String>>> response = fireblocks.stakingBeta().getChains();
+        source: CompletableFuture<ApiResponse<List<String>>> response = fireblocks.staking().getChains();
       - lang: Python
-        source: response = fireblocks.staking_beta.get_chains();
+        source: response = fireblocks.staking.get_chains();
       x-accepts: application/json
   /staking/chains/{chainDescriptor}/chainInfo:
     get:
@@ -12202,79 +13378,301 @@ paths:
         \ epoch details, lockup durations, estimated rewards, etc.)"
       operationId: getChainInfo
       parameters:
-      - description: The protocol identifier (e.g. "ETH"/"SOL") to use
+      - description: The protocol identifier (e.g. "ETH"/"SOL"/"MATIC"/"STETH_ETH")
+          to use
+        example: SOL
         explode: false
         in: path
         name: chainDescriptor
         required: true
         schema:
-          enum:
-          - ETH
-          - SOL
-          - ETH_TEST3
-          - SOL_TEST
-          type: string
+          $ref: '#/components/schemas/ChainDescriptor'
         style: simple
       responses:
         "200":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ChainInfoResponseDto'
+                $ref: '#/components/schemas/ChainInfoResponse'
           description: Chain specific info summary was returned successfully
-      summary: ""
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorSchema'
+          description: Error Response
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+      summary: Get chain-specific staking summary
       tags:
-      - Staking (Beta)
+      - Staking
       x-readme:
         code-samples:
         - language: typescript
-          code: "const response: Promise<FireblocksResponse<ChainInfoResponseDto>>\
-            \ = fireblocks.stakingBeta.getChainInfo(stakingBetaApiGetChainInfoRequest);"
+          code: "const response: Promise<FireblocksResponse<ChainInfoResponse>> =\
+            \ fireblocks.staking.getChainInfo(stakingApiGetChainInfoRequest);"
           name: Fireblocks SDK TypeScript example
         - language: java
-          code: CompletableFuture<ApiResponse<ChainInfoResponseDto>> response = fireblocks.stakingBeta().getChainInfo(chainDescriptor);
+          code: CompletableFuture<ApiResponse<ChainInfoResponse>> response = fireblocks.staking().getChainInfo(chainDescriptor);
           name: Fireblocks SDK Java example
         - language: python
-          code: response = fireblocks.staking_beta.get_chain_info(chain_descriptor);
+          code: response = fireblocks.staking.get_chain_info(chain_descriptor);
           name: Fireblocks SDK Python example
       x-codeSamples:
       - lang: TypeScript
-        source: "const response: Promise<FireblocksResponse<ChainInfoResponseDto>>\
-          \ = fireblocks.stakingBeta.getChainInfo(stakingBetaApiGetChainInfoRequest);"
+        source: "const response: Promise<FireblocksResponse<ChainInfoResponse>> =\
+          \ fireblocks.staking.getChainInfo(stakingApiGetChainInfoRequest);"
       - lang: Java
-        source: CompletableFuture<ApiResponse<ChainInfoResponseDto>> response = fireblocks.stakingBeta().getChainInfo(chainDescriptor);
+        source: CompletableFuture<ApiResponse<ChainInfoResponse>> response = fireblocks.staking().getChainInfo(chainDescriptor);
       - lang: Python
-        source: response = fireblocks.staking_beta.get_chain_info(chain_descriptor);
+        source: response = fireblocks.staking.get_chain_info(chain_descriptor);
       x-accepts: application/json
-  /staking/chains/{chainDescriptor}/{actionId}:
+  /staking/chains/{chainDescriptor}/stake:
     post:
-      description: "Perform a chain-specific staking action (e.g. stake, unstake,\
-        \ withdraw)."
-      operationId: executeAction
+      description: Perform a chain-specific Stake.
+      operationId: stake
       parameters:
-      - description: The protocol identifier (e.g. "ETH"/"SOL") to use
+      - description: The protocol identifier (e.g. "ETH"/"SOL"/"MATIC") to use
+        example: SOL
+        explode: false
+        in: path
+        name: chainDescriptor
+        required: true
+        schema:
+          $ref: '#/components/schemas/ChainDescriptor'
+        style: simple
+      - description: "A unique identifier for the request. If the request is sent\
+          \ multiple times with the same idempotency key, the server will return the\
+          \ same response as the first request. The idempotency key is valid for 24\
+          \ hours."
+        explode: false
+        in: header
+        name: Idempotency-Key
+        required: false
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StakeRequest'
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StakeResponse'
+          description: Stake action has been executed successfully on vault and is
+            associated with 201 status code.
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorSchema'
+          description: Error Response
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+      summary: Initiate Stake Operation
+      tags:
+      - Staking
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<StakeResponse>> = fireblocks.staking.stake(stakingApiStakeRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<StakeResponse>> response = fireblocks.staking().stake(stakeRequest,\
+            \ chainDescriptor, idempotencyKey);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.staking.stake(stake_request, chain_descriptor,\
+            \ idempotency_key);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<StakeResponse>> = fireblocks.staking.stake(stakingApiStakeRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<StakeResponse>> response = fireblocks.staking().stake(stakeRequest,\
+          \ chainDescriptor, idempotencyKey);"
+      - lang: Python
+        source: "response = fireblocks.staking.stake(stake_request, chain_descriptor,\
+          \ idempotency_key);"
+      x-content-type: application/json
+      x-accepts: application/json
+  /staking/chains/{chainDescriptor}/unstake:
+    post:
+      description: Execute an Unstake operation
+      operationId: unstake
+      parameters:
+      - description: The protocol identifier (e.g. "ETH"/"SOL"/"MATIC") to use
+        example: SOL
+        explode: false
+        in: path
+        name: chainDescriptor
+        required: true
+        schema:
+          $ref: '#/components/schemas/ChainDescriptor'
+        style: simple
+      - description: "A unique identifier for the request. If the request is sent\
+          \ multiple times with the same idempotency key, the server will return the\
+          \ same response as the first request. The idempotency key is valid for 24\
+          \ hours."
+        explode: false
+        in: header
+        name: Idempotency-Key
+        required: false
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UnstakeRequest'
+        required: true
+      responses:
+        "201":
+          description: Unstake action has been executed successfully on vault and
+            is associated with 201 status code.
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorSchema'
+          description: Error Response
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+      summary: Execute an Unstake operation
+      tags:
+      - Staking
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<void>> = fireblocks.staking.unstake(stakingApiUnstakeRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<Void>> response = fireblocks.staking().unstake(unstakeRequest,\
+            \ chainDescriptor, idempotencyKey);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.staking.unstake(unstake_request, chain_descriptor,\
+            \ idempotency_key);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<void>> = fireblocks.staking.unstake(stakingApiUnstakeRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<Void>> response = fireblocks.staking().unstake(unstakeRequest,\
+          \ chainDescriptor, idempotencyKey);"
+      - lang: Python
+        source: "response = fireblocks.staking.unstake(unstake_request, chain_descriptor,\
+          \ idempotency_key);"
+      x-content-type: application/json
+      x-accepts: application/json
+  /staking/chains/{chainDescriptor}/withdraw:
+    post:
+      description: Perform a chain-specific Withdraw.
+      operationId: withdraw
+      parameters:
+      - description: The protocol identifier (e.g. "ETH"/"SOL"/"MATIC") to use
+        example: SOL
+        explode: false
+        in: path
+        name: chainDescriptor
+        required: true
+        schema:
+          $ref: '#/components/schemas/ChainDescriptor'
+        style: simple
+      - description: "A unique identifier for the request. If the request is sent\
+          \ multiple times with the same idempotency key, the server will return the\
+          \ same response as the first request. The idempotency key is valid for 24\
+          \ hours."
+        explode: false
+        in: header
+        name: Idempotency-Key
+        required: false
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WithdrawRequest'
+        required: true
+      responses:
+        "201":
+          description: Withdraw action has been executed successfully on vault and
+            is associated with 201 status code.
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorSchema'
+          description: Error Response
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+      summary: Execute a Withdraw operation
+      tags:
+      - Staking
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<void>> = fireblocks.staking.withdraw(stakingApiWithdrawRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<Void>> response = fireblocks.staking().withdraw(withdrawRequest,\
+            \ chainDescriptor, idempotencyKey);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.staking.withdraw(withdraw_request, chain_descriptor,\
+            \ idempotency_key);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<void>> = fireblocks.staking.withdraw(stakingApiWithdrawRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<Void>> response = fireblocks.staking().withdraw(withdrawRequest,\
+          \ chainDescriptor, idempotencyKey);"
+      - lang: Python
+        source: "response = fireblocks.staking.withdraw(withdraw_request, chain_descriptor,\
+          \ idempotency_key);"
+      x-content-type: application/json
+      x-accepts: application/json
+  /staking/chains/{chainDescriptor}/claim_rewards:
+    post:
+      description: Perform a chain-specific Claim Rewards.
+      operationId: claimRewards
+      parameters:
+      - description: The protocol identifier (e.g. "MATIC"/"SOL") to use
+        example: MATIC
         explode: false
         in: path
         name: chainDescriptor
         required: true
         schema:
           enum:
-          - ETH
+          - MATIC
           - SOL
-          - ETH_TEST3
           - SOL_TEST
-          type: string
-        style: simple
-      - description: The operation that can be executed on a vault/position
-        explode: false
-        in: path
-        name: actionId
-        required: true
-        schema:
-          enum:
-          - stake
-          - unstake
-          - withdraw
           type: string
         style: simple
       - description: "A unique identifier for the request. If the request is sent\
@@ -12291,76 +13689,131 @@ paths:
       requestBody:
         content:
           application/json:
-            examples:
-              stake:
-                value:
-                  vaultAccountId: "22"
-                  providerId: kiln
-                  stakeAmount: "32"
-                  chainDescriptor: ETH
-                  txNote: stake request id CcaHc2L43ZWjwCHART3oZoJvHLAe9hzT2DJNUpBzoTN1
-                    of 32ETH created on 02.04.23
-                  feeLevel: MEDIUM
-              unstake:
-                value:
-                  id: b70701f4-d7b1-4795-a8ee-b09cdb5b850b
-                  txNote: "unstake request id b70701f4-d7b1-4795-a8ee-b09cdb5b850d\
-                    \ #ETH"
-                  feeLevel: MEDIUM
-              withdraw:
-                value:
-                  id: b70701f4-d7b1-4795-a8ee-b09cdb5b850c
-                  txNote: "withdraw request id b70701f4-d7b1-4795-a8ee-b09cdb5b850d\
-                    \ #ETH"
-                  feeLevel: MEDIUM
             schema:
-              $ref: '#/components/schemas/ExecuteActionRequest'
+              $ref: '#/components/schemas/ClaimRewardsRequest'
+        required: true
+      responses:
+        "201":
+          description: Claim Rewards action has been executed successfully on vault
+            and is associated with 201 status code.
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorSchema'
+          description: Error Response
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+      summary: Execute a Claim Rewards operation
+      tags:
+      - Staking
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<void>> = fireblocks.staking.claimRewards(stakingApiClaimRewardsRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<Void>> response = fireblocks.staking().claimRewards(claimRewardsRequest,\
+            \ chainDescriptor, idempotencyKey);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.staking.claim_rewards(claim_rewards_request,\
+            \ chain_descriptor, idempotency_key);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<void>> = fireblocks.staking.claimRewards(stakingApiClaimRewardsRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<Void>> response = fireblocks.staking().claimRewards(claimRewardsRequest,\
+          \ chainDescriptor, idempotencyKey);"
+      - lang: Python
+        source: "response = fireblocks.staking.claim_rewards(claim_rewards_request,\
+          \ chain_descriptor, idempotency_key);"
+      x-content-type: application/json
+      x-accepts: application/json
+  /staking/chains/{chainDescriptor}/split:
+    post:
+      description: Perform a Solana Split stake account.
+      operationId: split
+      parameters:
+      - description: The protocol identifier (e.g. "SOL"/"SOL_TEST") to use
+        example: SOL
+        explode: false
+        in: path
+        name: chainDescriptor
+        required: true
+        schema:
+          enum:
+          - SOL
+          - SOL_TEST
+          type: string
+        style: simple
+      - description: "A unique identifier for the request. If the request is sent\
+          \ multiple times with the same idempotency key, the server will return the\
+          \ same response as the first request. The idempotency key is valid for 24\
+          \ hours."
+        explode: false
+        in: header
+        name: Idempotency-Key
+        required: false
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SplitRequest'
         required: true
       responses:
         "201":
           content:
             application/json:
-              examples:
-                stake:
-                  value:
-                    id: afedfd2e4-e3c9-4b70-90d6-eb0f74bfd4sd8
-                unstake:
-                  value: {}
-                withdraw:
-                  value: {}
               schema:
-                $ref: '#/components/schemas/ExecuteActionResponse'
-          description: A chain-specific action has been executed successfully on vault/position
-            and is associated with 201 status code.
-      summary: ""
+                $ref: '#/components/schemas/SplitResponse'
+          description: Split action has been executed successfully on vault and is
+            associated with 201 status code.
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorSchema'
+          description: Error Response
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+      summary: Execute a Split operation on SOL/SOL_TEST stake account
       tags:
-      - Staking (Beta)
+      - Staking
       x-readme:
         code-samples:
         - language: typescript
-          code: "const response: Promise<FireblocksResponse<ExecuteActionResponse>>\
-            \ = fireblocks.stakingBeta.executeAction(stakingBetaApiExecuteActionRequest);"
+          code: "const response: Promise<FireblocksResponse<SplitResponse>> = fireblocks.staking.split(stakingApiSplitRequest);"
           name: Fireblocks SDK TypeScript example
         - language: java
-          code: "CompletableFuture<ApiResponse<ExecuteActionResponse>> response =\
-            \ fireblocks.stakingBeta().executeAction(executeActionRequest, chainDescriptor,\
-            \ actionId, idempotencyKey);"
+          code: "CompletableFuture<ApiResponse<SplitResponse>> response = fireblocks.staking().split(splitRequest,\
+            \ chainDescriptor, idempotencyKey);"
           name: Fireblocks SDK Java example
         - language: python
-          code: "response = fireblocks.staking_beta.execute_action(execute_action_request,\
-            \ chain_descriptor, action_id, idempotency_key);"
+          code: "response = fireblocks.staking.split(split_request, chain_descriptor,\
+            \ idempotency_key);"
           name: Fireblocks SDK Python example
       x-codeSamples:
       - lang: TypeScript
-        source: "const response: Promise<FireblocksResponse<ExecuteActionResponse>>\
-          \ = fireblocks.stakingBeta.executeAction(stakingBetaApiExecuteActionRequest);"
+        source: "const response: Promise<FireblocksResponse<SplitResponse>> = fireblocks.staking.split(stakingApiSplitRequest);"
       - lang: Java
-        source: "CompletableFuture<ApiResponse<ExecuteActionResponse>> response =\
-          \ fireblocks.stakingBeta().executeAction(executeActionRequest, chainDescriptor,\
-          \ actionId, idempotencyKey);"
+        source: "CompletableFuture<ApiResponse<SplitResponse>> response = fireblocks.staking().split(splitRequest,\
+          \ chainDescriptor, idempotencyKey);"
       - lang: Python
-        source: "response = fireblocks.staking_beta.execute_action(execute_action_request,\
-          \ chain_descriptor, action_id, idempotency_key);"
+        source: "response = fireblocks.staking.split(split_request, chain_descriptor,\
+          \ idempotency_key);"
       x-content-type: application/json
       x-accepts: application/json
   /staking/positions:
@@ -12369,15 +13822,16 @@ paths:
         \ the staked amount, rewards, status and more."
       operationId: getAllDelegations
       parameters:
-      - description: Use "ETH" / "SOL" in order to obtain information related to the
-          specific blockchain network or retrieve information about all chains that
-          have data available by providing no argument.
+      - description: Use "ETH" / "SOL" / "MATIC" / "STETH_ETH" in order to obtain
+          information related to the specific blockchain network or retrieve information
+          about all chains that have data available by providing no argument.
+        example: SOL
         explode: true
         in: query
         name: chainDescriptor
         required: false
         schema:
-          type: string
+          $ref: '#/components/schemas/ChainDescriptor'
         style: form
       responses:
         "200":
@@ -12386,36 +13840,47 @@ paths:
               schema:
                 $ref: '#/components/schemas/StakingGetAllDelegationsResponse'
           description: An array of position data was returned successfully
-      summary: ""
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorSchema'
+          description: Error Response
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+      summary: List staking positions details
       tags:
-      - Staking (Beta)
+      - Staking
       x-readme:
         code-samples:
         - language: typescript
           code: "const response: Promise<FireblocksResponse<StakingGetAllDelegationsResponse>>\
-            \ = fireblocks.stakingBeta.getAllDelegations(stakingBetaApiGetAllDelegationsRequest);"
+            \ = fireblocks.staking.getAllDelegations(stakingApiGetAllDelegationsRequest);"
           name: Fireblocks SDK TypeScript example
         - language: java
-          code: CompletableFuture<ApiResponse<List<DelegationDto>>> response = fireblocks.stakingBeta().getAllDelegations(chainDescriptor);
+          code: CompletableFuture<ApiResponse<List<Delegation>>> response = fireblocks.staking().getAllDelegations(chainDescriptor);
           name: Fireblocks SDK Java example
         - language: python
-          code: response = fireblocks.staking_beta.get_all_delegations(chain_descriptor);
+          code: response = fireblocks.staking.get_all_delegations(chain_descriptor);
           name: Fireblocks SDK Python example
       x-codeSamples:
       - lang: TypeScript
         source: "const response: Promise<FireblocksResponse<StakingGetAllDelegationsResponse>>\
-          \ = fireblocks.stakingBeta.getAllDelegations(stakingBetaApiGetAllDelegationsRequest);"
+          \ = fireblocks.staking.getAllDelegations(stakingApiGetAllDelegationsRequest);"
       - lang: Java
-        source: CompletableFuture<ApiResponse<List<DelegationDto>>> response = fireblocks.stakingBeta().getAllDelegations(chainDescriptor);
+        source: CompletableFuture<ApiResponse<List<Delegation>>> response = fireblocks.staking().getAllDelegations(chainDescriptor);
       - lang: Python
-        source: response = fireblocks.staking_beta.get_all_delegations(chain_descriptor);
+        source: response = fireblocks.staking.get_all_delegations(chain_descriptor);
       x-accepts: application/json
   /staking/positions/summary:
     get:
       description: "Return a summary of all vaults, categorized by their status (active,\
         \ inactive), the total amounts staked and total rewards per-chain."
       operationId: getSummary
-      parameters: []
       responses:
         "200":
           content:
@@ -12442,38 +13907,49 @@ paths:
                 - chainDescriptor: SOL
                   amount: "0.077345939"
               schema:
-                $ref: '#/components/schemas/DelegationSummaryDto'
+                $ref: '#/components/schemas/DelegationSummary'
           description: A summary for all vaults were returned successfully
-      summary: ""
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorSchema'
+          description: Error Response
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+      summary: Get staking summary details
       tags:
-      - Staking (Beta)
+      - Staking
       x-readme:
         code-samples:
         - language: typescript
-          code: "const response: Promise<FireblocksResponse<DelegationSummaryDto>>\
-            \ = fireblocks.stakingBeta.getSummary();"
+          code: "const response: Promise<FireblocksResponse<DelegationSummary>> =\
+            \ fireblocks.staking.getSummary();"
           name: Fireblocks SDK TypeScript example
         - language: java
-          code: CompletableFuture<ApiResponse<DelegationSummaryDto>> response = fireblocks.stakingBeta().getSummary();
+          code: CompletableFuture<ApiResponse<DelegationSummary>> response = fireblocks.staking().getSummary();
           name: Fireblocks SDK Java example
         - language: python
-          code: response = fireblocks.staking_beta.get_summary();
+          code: response = fireblocks.staking.get_summary();
           name: Fireblocks SDK Python example
       x-codeSamples:
       - lang: TypeScript
-        source: "const response: Promise<FireblocksResponse<DelegationSummaryDto>>\
-          \ = fireblocks.stakingBeta.getSummary();"
+        source: "const response: Promise<FireblocksResponse<DelegationSummary>> =\
+          \ fireblocks.staking.getSummary();"
       - lang: Java
-        source: CompletableFuture<ApiResponse<DelegationSummaryDto>> response = fireblocks.stakingBeta().getSummary();
+        source: CompletableFuture<ApiResponse<DelegationSummary>> response = fireblocks.staking().getSummary();
       - lang: Python
-        source: response = fireblocks.staking_beta.get_summary();
+        source: response = fireblocks.staking.get_summary();
       x-accepts: application/json
   /staking/positions/summary/vaults:
     get:
       description: "Return a summary for each vault, categorized by their status (active,\
         \ inactive), the total amounts staked and total rewards per-chain."
       operationId: getSummaryByVault
-      parameters: []
       responses:
         "200":
           content:
@@ -12516,31 +13992,43 @@ paths:
               schema:
                 $ref: '#/components/schemas/StakingGetSummaryByVaultResponse'
           description: A summary for each vault were returned successfully
-      summary: ""
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorSchema'
+          description: Error Response
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+      summary: Get staking summary details by vault
       tags:
-      - Staking (Beta)
+      - Staking
       x-readme:
         code-samples:
         - language: typescript
           code: "const response: Promise<FireblocksResponse<StakingGetSummaryByVaultResponse>>\
-            \ = fireblocks.stakingBeta.getSummaryByVault();"
+            \ = fireblocks.staking.getSummaryByVault();"
           name: Fireblocks SDK TypeScript example
         - language: java
           code: CompletableFuture<ApiResponse<StakingGetSummaryByVaultResponse>> response
-            = fireblocks.stakingBeta().getSummaryByVault();
+            = fireblocks.staking().getSummaryByVault();
           name: Fireblocks SDK Java example
         - language: python
-          code: response = fireblocks.staking_beta.get_summary_by_vault();
+          code: response = fireblocks.staking.get_summary_by_vault();
           name: Fireblocks SDK Python example
       x-codeSamples:
       - lang: TypeScript
         source: "const response: Promise<FireblocksResponse<StakingGetSummaryByVaultResponse>>\
-          \ = fireblocks.stakingBeta.getSummaryByVault();"
+          \ = fireblocks.staking.getSummaryByVault();"
       - lang: Java
         source: CompletableFuture<ApiResponse<StakingGetSummaryByVaultResponse>> response
-          = fireblocks.stakingBeta().getSummaryByVault();
+          = fireblocks.staking().getSummaryByVault();
       - lang: Python
-        source: response = fireblocks.staking_beta.get_summary_by_vault();
+        source: response = fireblocks.staking.get_summary_by_vault();
       x-accepts: application/json
   /staking/positions/{id}:
     get:
@@ -12549,6 +14037,7 @@ paths:
       operationId: getDelegationById
       parameters:
       - description: The unique identifier of the staking position
+        example: 1fe3b61f-7e1f-4a19-aff0-4f0a524d44d7
         explode: false
         in: path
         name: id
@@ -12561,35 +14050,46 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DelegationDto'
+                $ref: '#/components/schemas/Delegation'
           description: Position data was returned successfully
-      summary: ""
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorSchema'
+          description: Error Response
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+      summary: Get staking position details
       tags:
-      - Staking (Beta)
+      - Staking
       x-readme:
         code-samples:
         - language: typescript
-          code: "const response: Promise<FireblocksResponse<DelegationDto>> = fireblocks.stakingBeta.getDelegationById(stakingBetaApiGetDelegationByIdRequest);"
+          code: "const response: Promise<FireblocksResponse<Delegation>> = fireblocks.staking.getDelegationById(stakingApiGetDelegationByIdRequest);"
           name: Fireblocks SDK TypeScript example
         - language: java
-          code: CompletableFuture<ApiResponse<DelegationDto>> response = fireblocks.stakingBeta().getDelegationById(id);
+          code: CompletableFuture<ApiResponse<Delegation>> response = fireblocks.staking().getDelegationById(id);
           name: Fireblocks SDK Java example
         - language: python
-          code: response = fireblocks.staking_beta.get_delegation_by_id(id);
+          code: response = fireblocks.staking.get_delegation_by_id(id);
           name: Fireblocks SDK Python example
       x-codeSamples:
       - lang: TypeScript
-        source: "const response: Promise<FireblocksResponse<DelegationDto>> = fireblocks.stakingBeta.getDelegationById(stakingBetaApiGetDelegationByIdRequest);"
+        source: "const response: Promise<FireblocksResponse<Delegation>> = fireblocks.staking.getDelegationById(stakingApiGetDelegationByIdRequest);"
       - lang: Java
-        source: CompletableFuture<ApiResponse<DelegationDto>> response = fireblocks.stakingBeta().getDelegationById(id);
+        source: CompletableFuture<ApiResponse<Delegation>> response = fireblocks.staking().getDelegationById(id);
       - lang: Python
-        source: response = fireblocks.staking_beta.get_delegation_by_id(id);
+        source: response = fireblocks.staking.get_delegation_by_id(id);
       x-accepts: application/json
   /staking/providers:
     get:
       description: Return information on all the available staking providers.
       operationId: getProviders
-      parameters: []
       responses:
         "200":
           content:
@@ -12597,29 +14097,41 @@ paths:
               schema:
                 $ref: '#/components/schemas/StakingGetProvidersResponse'
           description: An array of supported providers was returned successfully
-      summary: ""
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorSchema'
+          description: Error Response
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+      summary: List staking providers details
       tags:
-      - Staking (Beta)
+      - Staking
       x-readme:
         code-samples:
         - language: typescript
           code: "const response: Promise<FireblocksResponse<StakingGetProvidersResponse>>\
-            \ = fireblocks.stakingBeta.getProviders();"
+            \ = fireblocks.staking.getProviders();"
           name: Fireblocks SDK TypeScript example
         - language: java
-          code: CompletableFuture<ApiResponse<List<ProviderDto>>> response = fireblocks.stakingBeta().getProviders();
+          code: CompletableFuture<ApiResponse<List<Provider>>> response = fireblocks.staking().getProviders();
           name: Fireblocks SDK Java example
         - language: python
-          code: response = fireblocks.staking_beta.get_providers();
+          code: response = fireblocks.staking.get_providers();
           name: Fireblocks SDK Python example
       x-codeSamples:
       - lang: TypeScript
         source: "const response: Promise<FireblocksResponse<StakingGetProvidersResponse>>\
-          \ = fireblocks.stakingBeta.getProviders();"
+          \ = fireblocks.staking.getProviders();"
       - lang: Java
-        source: CompletableFuture<ApiResponse<List<ProviderDto>>> response = fireblocks.stakingBeta().getProviders();
+        source: CompletableFuture<ApiResponse<List<Provider>>> response = fireblocks.staking().getProviders();
       - lang: Python
-        source: response = fireblocks.staking_beta.get_providers();
+        source: response = fireblocks.staking.get_providers();
       x-accepts: application/json
   /staking/providers/{providerId}/approveTermsOfService:
     post:
@@ -12629,15 +14141,13 @@ paths:
       operationId: approveTermsOfServiceByProviderId
       parameters:
       - description: The unique identifier of the staking provider
+        example: kiln
         explode: false
         in: path
         name: providerId
         required: true
         schema:
-          enum:
-          - kiln
-          - figment
-          type: string
+          $ref: '#/components/schemas/StakingProvider'
         style: simple
       - description: "A unique identifier for the request. If the request is sent\
           \ multiple times with the same idempotency key, the server will return the\
@@ -12652,38 +14162,44 @@ paths:
         style: simple
       responses:
         "201":
+          description: The terms of service have been successfully approved and is
+            associated with 201 status code.
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+        default:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ProvidersResponseDto'
-          description: The terms of service have been successfully approved and is
-            associated with 201 status code.
-      summary: ""
+                $ref: '#/components/schemas/ErrorSchema'
+          description: Error Response
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+      summary: Approve staking terms of service
       tags:
-      - Staking (Beta)
+      - Staking
       x-readme:
         code-samples:
         - language: typescript
-          code: "const response: Promise<FireblocksResponse<ProvidersResponseDto>>\
-            \ = fireblocks.stakingBeta.approveTermsOfServiceByProviderId(stakingBetaApiApproveTermsOfServiceByProviderIdRequest);"
+          code: "const response: Promise<FireblocksResponse<void>> = fireblocks.staking.approveTermsOfServiceByProviderId(stakingApiApproveTermsOfServiceByProviderIdRequest);"
           name: Fireblocks SDK TypeScript example
         - language: java
-          code: "CompletableFuture<ApiResponse<ProvidersResponseDto>> response = fireblocks.stakingBeta().approveTermsOfServiceByProviderId(providerId,\
+          code: "CompletableFuture<ApiResponse<Void>> response = fireblocks.staking().approveTermsOfServiceByProviderId(providerId,\
             \ idempotencyKey);"
           name: Fireblocks SDK Java example
         - language: python
-          code: "response = fireblocks.staking_beta.approve_terms_of_service_by_provider_id(provider_id,\
+          code: "response = fireblocks.staking.approve_terms_of_service_by_provider_id(provider_id,\
             \ idempotency_key);"
           name: Fireblocks SDK Python example
       x-codeSamples:
       - lang: TypeScript
-        source: "const response: Promise<FireblocksResponse<ProvidersResponseDto>>\
-          \ = fireblocks.stakingBeta.approveTermsOfServiceByProviderId(stakingBetaApiApproveTermsOfServiceByProviderIdRequest);"
+        source: "const response: Promise<FireblocksResponse<void>> = fireblocks.staking.approveTermsOfServiceByProviderId(stakingApiApproveTermsOfServiceByProviderIdRequest);"
       - lang: Java
-        source: "CompletableFuture<ApiResponse<ProvidersResponseDto>> response = fireblocks.stakingBeta().approveTermsOfServiceByProviderId(providerId,\
+        source: "CompletableFuture<ApiResponse<Void>> response = fireblocks.staking().approveTermsOfServiceByProviderId(providerId,\
           \ idempotencyKey);"
       - lang: Python
-        source: "response = fireblocks.staking_beta.approve_terms_of_service_by_provider_id(provider_id,\
+        source: "response = fireblocks.staking.approve_terms_of_service_by_provider_id(provider_id,\
           \ idempotency_key);"
       x-accepts: application/json
   /admin_quorum:
@@ -14930,6 +16446,83 @@ paths:
         source: "response = fireblocks.compliance.update_screening_configuration(screening_update_configurations,\
           \ idempotency_key);"
       x-content-type: application/json
+      x-accepts: application/json
+  /screening/transaction/{txId}/bypass_screening_policy:
+    post:
+      description: This endpoint is restricted to Admin API users and is only applicable
+        to outgoing transactions.
+      operationId: retryRejectedTransactionBypassScreeningChecks
+      parameters:
+      - description: The transaction id that was rejected by screening checks
+        example: 550e8400-e29b-41d4-a716-446655440000
+        explode: false
+        in: path
+        name: txId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: "A unique identifier for the request. If the request is sent\
+          \ multiple times with the same idempotency key, the server will return the\
+          \ same response as the first request. The idempotency key is valid for 24\
+          \ hours."
+        explode: false
+        in: header
+        name: Idempotency-Key
+        required: false
+        schema:
+          type: string
+        style: simple
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateTransactionResponse'
+          description: A transaction object
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorSchema'
+          description: Error Response
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+      summary: "Calling the \"Bypass Screening Policy\" API endpoint triggers a new\
+        \ transaction, with the API user as the initiator, bypassing the screening\
+        \ policy check"
+      tags:
+      - Compliance
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<CreateTransactionResponse>>\
+            \ = fireblocks.compliance.retryRejectedTransactionBypassScreeningChecks(complianceApiRetryRejectedTransactionBypassScreeningChecksRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<CreateTransactionResponse>> response\
+            \ = fireblocks.compliance().retryRejectedTransactionBypassScreeningChecks(txId,\
+            \ idempotencyKey);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.compliance.retry_rejected_transaction_bypass_screening_checks(tx_id,\
+            \ idempotency_key);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<CreateTransactionResponse>>\
+          \ = fireblocks.compliance.retryRejectedTransactionBypassScreeningChecks(complianceApiRetryRejectedTransactionBypassScreeningChecksRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<CreateTransactionResponse>> response\
+          \ = fireblocks.compliance().retryRejectedTransactionBypassScreeningChecks(txId,\
+          \ idempotencyKey);"
+      - lang: Python
+        source: "response = fireblocks.compliance.retry_rejected_transaction_bypass_screening_checks(tx_id,\
+          \ idempotency_key);"
       x-accepts: application/json
   /management/ota:
     get:
@@ -17939,6 +19532,76 @@ paths:
         source: "response = fireblocks.cosigners_beta.get_cosigners(order, page_cursor,\
           \ page_size);"
       x-accepts: application/json
+    post:
+      description: Add a new cosigner. The cosigner will be pending pairing until
+        the API key is manually paired
+      operationId: addCosigner
+      parameters:
+      - description: "A unique identifier for the request. If the request is sent\
+          \ multiple times with the same idempotency key, the server will return the\
+          \ same response as the first request. The idempotency key is valid for 24\
+          \ hours."
+        explode: false
+        in: header
+        name: Idempotency-Key
+        required: false
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddCosignerRequest'
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AddCosignerResponse'
+          description: Pending cosigner added
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorSchema'
+          description: Error Response
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+      summary: Add cosigner
+      tags:
+      - Cosigners (Beta)
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<AddCosignerResponse>>\
+            \ = fireblocks.cosignersBeta.addCosigner(cosignersBetaApiAddCosignerRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<AddCosignerResponse>> response = fireblocks.cosignersBeta().addCosigner(addCosignerRequest,\
+            \ idempotencyKey);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.cosigners_beta.add_cosigner(add_cosigner_request,\
+            \ idempotency_key);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<AddCosignerResponse>>\
+          \ = fireblocks.cosignersBeta.addCosigner(cosignersBetaApiAddCosignerRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<AddCosignerResponse>> response = fireblocks.cosignersBeta().addCosigner(addCosignerRequest,\
+          \ idempotencyKey);"
+      - lang: Python
+        source: "response = fireblocks.cosigners_beta.add_cosigner(add_cosigner_request,\
+          \ idempotency_key);"
+      x-content-type: application/json
+      x-accepts: application/json
   /cosigners/{cosignerId}:
     get:
       description: |
@@ -18067,9 +19730,7 @@ paths:
       x-accepts: application/json
   /cosigners/{cosignerId}/api_keys:
     get:
-      description: |
-        Get all cosigner paired API keys (paginated)
-        **Note:** These endpoints are currently in beta and might be subject to changes.
+      description: Get all cosigner paired API keys (paginated)
       operationId: getApiKeys
       parameters:
       - description: The unique identifier of the cosigner
@@ -18165,6 +19826,76 @@ paths:
           \ page_cursor, page_size);"
       x-accepts: application/json
   /cosigners/{cosignerId}/api_keys/{apiKeyId}:
+    delete:
+      description: Unpair an API key from a cosigner
+      operationId: unpairApiKey
+      parameters:
+      - description: The unique identifier of the cosigner
+        example: 44fcead0-7053-4831-a53a-df7fb90d440f
+        explode: false
+        in: path
+        name: cosignerId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: The unique identifier of the API key
+        example: 44fcead0-7053-4831-a53a-df7fb90d440f
+        explode: false
+        in: path
+        name: apiKeyId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "202":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiKey'
+          description: The API key object to be unpaired
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+            Location:
+              $ref: '#/components/headers/Location'
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorSchema'
+          description: Error Response
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+      summary: Unpair API key
+      tags:
+      - Cosigners (Beta)
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<ApiKey>> = fireblocks.cosignersBeta.unpairApiKey(cosignersBetaApiUnpairApiKeyRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<ApiKey>> response = fireblocks.cosignersBeta().unpairApiKey(cosignerId,\
+            \ apiKeyId);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.cosigners_beta.unpair_api_key(cosigner_id,\
+            \ api_key_id);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<ApiKey>> = fireblocks.cosignersBeta.unpairApiKey(cosignersBetaApiUnpairApiKeyRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<ApiKey>> response = fireblocks.cosignersBeta().unpairApiKey(cosignerId,\
+          \ apiKeyId);"
+      - lang: Python
+        source: "response = fireblocks.cosigners_beta.unpair_api_key(cosigner_id,\
+          \ api_key_id);"
+      x-accepts: application/json
     get:
       description: |
         Get an API key by ID
@@ -18233,6 +19964,253 @@ paths:
       - lang: Python
         source: "response = fireblocks.cosigners_beta.get_api_key(cosigner_id, api_key_id);"
       x-accepts: application/json
+    patch:
+      description: Update the callback handler of an API key
+      operationId: updateCallbackHandler
+      parameters:
+      - description: The unique identifier of the cosigner
+        example: 44fcead0-7053-4831-a53a-df7fb90d440f
+        explode: false
+        in: path
+        name: cosignerId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: The unique identifier of the API key
+        example: 44fcead0-7053-4831-a53a-df7fb90d440f
+        explode: false
+        in: path
+        name: apiKeyId
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateCallbackHandlerRequest'
+        required: true
+      responses:
+        "202":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateCallbackHandlerResponse'
+          description: The API key object with the new callback handler
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+            Location:
+              $ref: '#/components/headers/Location'
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorSchema'
+          description: Error Response
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+      summary: Update API key callback handler
+      tags:
+      - Cosigners (Beta)
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<UpdateCallbackHandlerResponse>>\
+            \ = fireblocks.cosignersBeta.updateCallbackHandler(cosignersBetaApiUpdateCallbackHandlerRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<UpdateCallbackHandlerResponse>> response\
+            \ = fireblocks.cosignersBeta().updateCallbackHandler(updateCallbackHandlerRequest,\
+            \ cosignerId, apiKeyId);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.cosigners_beta.update_callback_handler(update_callback_handler_request,\
+            \ cosigner_id, api_key_id);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<UpdateCallbackHandlerResponse>>\
+          \ = fireblocks.cosignersBeta.updateCallbackHandler(cosignersBetaApiUpdateCallbackHandlerRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<UpdateCallbackHandlerResponse>> response\
+          \ = fireblocks.cosignersBeta().updateCallbackHandler(updateCallbackHandlerRequest,\
+          \ cosignerId, apiKeyId);"
+      - lang: Python
+        source: "response = fireblocks.cosigners_beta.update_callback_handler(update_callback_handler_request,\
+          \ cosigner_id, api_key_id);"
+      x-content-type: application/json
+      x-accepts: application/json
+    put:
+      description: Pair an API key to a cosigner
+      operationId: pairApiKey
+      parameters:
+      - description: The unique identifier of the cosigner
+        example: 44fcead0-7053-4831-a53a-df7fb90d440f
+        explode: false
+        in: path
+        name: cosignerId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: The unique identifier of the API key
+        example: 44fcead0-7053-4831-a53a-df7fb90d440f
+        explode: false
+        in: path
+        name: apiKeyId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: "A unique identifier for the request. If the request is sent\
+          \ multiple times with the same idempotency key, the server will return the\
+          \ same response as the first request. The idempotency key is valid for 24\
+          \ hours."
+        explode: false
+        in: header
+        name: Idempotency-Key
+        required: false
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PairApiKeyRequest'
+        required: true
+      responses:
+        "202":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PairApiKeyResponse'
+          description: The API key object to be paired
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+            Location:
+              $ref: '#/components/headers/Location'
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorSchema'
+          description: Error Response
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+      summary: Pair API key
+      tags:
+      - Cosigners (Beta)
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<PairApiKeyResponse>> =\
+            \ fireblocks.cosignersBeta.pairApiKey(cosignersBetaApiPairApiKeyRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<PairApiKeyResponse>> response = fireblocks.cosignersBeta().pairApiKey(pairApiKeyRequest,\
+            \ cosignerId, apiKeyId, idempotencyKey);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.cosigners_beta.pair_api_key(pair_api_key_request,\
+            \ cosigner_id, api_key_id, idempotency_key);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<PairApiKeyResponse>> =\
+          \ fireblocks.cosignersBeta.pairApiKey(cosignersBetaApiPairApiKeyRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<PairApiKeyResponse>> response = fireblocks.cosignersBeta().pairApiKey(pairApiKeyRequest,\
+          \ cosignerId, apiKeyId, idempotencyKey);"
+      - lang: Python
+        source: "response = fireblocks.cosigners_beta.pair_api_key(pair_api_key_request,\
+          \ cosigner_id, api_key_id, idempotency_key);"
+      x-content-type: application/json
+      x-accepts: application/json
+  /cosigners/{cosignerId}/api_keys/{apiKeyId}/{requestId}:
+    get:
+      description: Get the status of an asynchronous request
+      operationId: getRequestStatus
+      parameters:
+      - description: The unique identifier of the cosigner
+        example: 44fcead0-7053-4831-a53a-df7fb90d440f
+        explode: false
+        in: path
+        name: cosignerId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: The unique identifier of the API key
+        example: 44fcead0-7053-4831-a53a-df7fb90d440f
+        explode: false
+        in: path
+        name: apiKeyId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: requestId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Status'
+          description: The status of the request
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorSchema'
+          description: Error Response
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+      summary: Get request status
+      tags:
+      - Cosigners (Beta)
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<Status>> = fireblocks.cosignersBeta.getRequestStatus(cosignersBetaApiGetRequestStatusRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<Status>> response = fireblocks.cosignersBeta().getRequestStatus(cosignerId,\
+            \ apiKeyId, requestId);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.cosigners_beta.get_request_status(cosigner_id,\
+            \ api_key_id, request_id);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<Status>> = fireblocks.cosignersBeta.getRequestStatus(cosignersBetaApiGetRequestStatusRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<Status>> response = fireblocks.cosignersBeta().getRequestStatus(cosignerId,\
+          \ apiKeyId, requestId);"
+      - lang: Python
+        source: "response = fireblocks.cosigners_beta.get_request_status(cosigner_id,\
+          \ api_key_id, request_id);"
+      x-accepts: application/json
 components:
   headers:
     X-Request-ID:
@@ -18252,6 +20230,13 @@ components:
     prev-page:
       description: URL representing a new request to this API endpoint to receive
         the previous page of results.
+      explode: false
+      schema:
+        type: string
+      style: simple
+    Location:
+      description: The location URL of the request status
+      example: /v1/cosigners/7cd3c3d2-611b-43fe-98da-1e0bfe893e2f/api_keys/ec1ca5d4-3824-4c67-9bea-7f3f636b9f40/123456789
       explode: false
       schema:
         type: string
@@ -18959,18 +20944,35 @@ components:
     PublicKeyInformation:
       example:
         derivationPath:
-        - 0.8008281904610115
-        - 0.8008281904610115
-        publicKey: publicKey
-        algorithm: algorithm
+        - 44
+        - 0
+        - 0
+        - 0
+        - 0
+        publicKey: 1044c36403c1802818b472398f546a43a0d91569d5583a6e807c3825b155c7bd
+        algorithm: MPC_ECDSA_SECP256K1
       properties:
         algorithm:
+          description: Elliptic Curve
+          enum:
+          - MPC_ECDSA_SECP256K1
+          - MPC_ECDSA_SECP256R1
+          - MPC_EDDSA_ED25519
           type: string
         derivationPath:
+          description: BIP44 derivation path
+          example:
+          - 44
+          - 0
+          - 0
+          - 0
+          - 0
           items:
-            type: number
+            type: integer
           type: array
         publicKey:
+          description: Compressed/Uncompressed public key value in hex representation
+          example: 1044c36403c1802818b472398f546a43a0d91569d5583a6e807c3825b155c7bd
           type: string
       type: object
     GetVaultAssetsResponse:
@@ -20166,6 +22168,109 @@ components:
       required:
       - enabled
       type: object
+    Players:
+      example:
+        id: 47d3383e-37a3-43d5-90a4-de0ca8c5e258
+        type: MOBILE
+      properties:
+        id:
+          description: id of the player
+          example: 47d3383e-37a3-43d5-90a4-de0ca8c5e258
+          maxLength: 36
+          minLength: 36
+          type: string
+        type:
+          description: Type of the player
+          enum:
+          - MOBILE
+          - CLOUD
+          example: MOBILE
+          type: string
+      required:
+      - id
+      - type
+      type: object
+    MpcKey:
+      example:
+        lastPreprocessedIndex: 6
+        players:
+        - id: 47d3383e-37a3-43d5-90a4-de0ca8c5e258
+          type: MOBILE
+        - id: 47d3383e-37a3-43d5-90a4-de0ca8c5e258
+          type: MOBILE
+        keyId: 743f82cf-b526-4148-afb1-cd71f1dfee10
+        userId: da084d02-d446-413e-b4ce-1e3256517dfd
+        algorithm: 201
+      properties:
+        keyId:
+          example: 743f82cf-b526-4148-afb1-cd71f1dfee10
+          maxLength: 36
+          minLength: 36
+          type: string
+        userId:
+          description: The user id that owns the key
+          example: da084d02-d446-413e-b4ce-1e3256517dfd
+          maxLength: 36
+          minLength: 36
+          type: string
+        algorithm:
+          description: The algorithm of the key
+          example: 201
+          type: number
+        players:
+          description: The players that are associated with the key
+          items:
+            $ref: '#/components/schemas/Players'
+          type: array
+        lastPreprocessedIndex:
+          description: The last index used on this key
+          example: 6
+          minimum: 0
+          type: number
+      required:
+      - algorithm
+      - keyId
+      - players
+      - userId
+      type: object
+    GetMpcKeysResponse:
+      example:
+        keys:
+        - lastPreprocessedIndex: 6
+          players:
+          - id: 47d3383e-37a3-43d5-90a4-de0ca8c5e258
+            type: MOBILE
+          - id: 47d3383e-37a3-43d5-90a4-de0ca8c5e258
+            type: MOBILE
+          keyId: 743f82cf-b526-4148-afb1-cd71f1dfee10
+          userId: da084d02-d446-413e-b4ce-1e3256517dfd
+          algorithm: 201
+        - lastPreprocessedIndex: 6
+          players:
+          - id: 47d3383e-37a3-43d5-90a4-de0ca8c5e258
+            type: MOBILE
+          - id: 47d3383e-37a3-43d5-90a4-de0ca8c5e258
+            type: MOBILE
+          keyId: 743f82cf-b526-4148-afb1-cd71f1dfee10
+          userId: da084d02-d446-413e-b4ce-1e3256517dfd
+          algorithm: 201
+        tenantId: bdb57751-921d-45d5-99fd-344cffb364f6
+      properties:
+        tenantId:
+          description: The workspace id of the keys
+          example: bdb57751-921d-45d5-99fd-344cffb364f6
+          maxLength: 36
+          minLength: 36
+          type: string
+        keys:
+          description: The keys that are associated with the workspace
+          items:
+            $ref: '#/components/schemas/MpcKey'
+          type: array
+      required:
+      - keys
+      - tenantId
+      type: object
     GetExternalWalletsResponse:
       items:
         $ref: '#/components/schemas/UnmanagedWallet'
@@ -20344,6 +22449,281 @@ components:
       items:
         $ref: '#/components/schemas/AssetTypeResponse'
       type: array
+    AssetClassBeta:
+      enum:
+      - NATIVE
+      - FT
+      - FIAT
+      - NFT
+      - SFT
+      example: FT
+      type: string
+    AssetOnchainBeta:
+      example:
+        standards:
+        - ERC20
+        symbol: TST3
+        address: 0xe7A9as1oa38bc4da0248s179E30aa94CcF453991
+        decimals: 18
+        name: Test 3
+      properties:
+        symbol:
+          description: The asset symbol
+          example: TST3
+          type: string
+        name:
+          description: The asset name
+          example: Test 3
+          type: string
+        address:
+          description: The asset address
+          example: 0xe7A9as1oa38bc4da0248s179E30aa94CcF453991
+          type: string
+        decimals:
+          description: Number of decimals
+          example: 18
+          type: number
+        standards:
+          description: Supported standards
+          example:
+          - ERC20
+          items:
+            type: string
+          type: array
+      required:
+      - decimals
+      - name
+      - symbol
+      type: object
+    AssetMedia:
+      example:
+        attributes:
+          monochrome: true
+        type: image/svg+xml
+        url: https://example.com/image.png
+      properties:
+        url:
+          description: Media URL
+          example: https://example.com/image.png
+          type: string
+        type:
+          description: Media type
+          enum:
+          - image/svg+xml
+          - image/png
+          example: image/svg+xml
+          type: string
+        attributes:
+          $ref: '#/components/schemas/AssetMedia_attributes'
+      required:
+      - type
+      - url
+      type: object
+    AssetMetadataBeta:
+      example:
+        website: https://example.org
+        scope: Global
+        deprecated: false
+        deprecationReferralId: 056776ab-9efa-4219-9820-9ece0cc4d90d
+        verified: true
+        media:
+        - attributes:
+            monochrome: true
+          type: image/svg+xml
+          url: https://example.com/image.png
+        - attributes:
+            monochrome: true
+          type: image/svg+xml
+          url: https://example.com/image.png
+      properties:
+        scope:
+          description: The scope of the asset
+          enum:
+          - Global
+          - Local
+          example: Global
+          type: string
+        deprecated:
+          description: Is asset deprecated
+          example: false
+          type: boolean
+        deprecationReferralId:
+          description: New asset ID replacement
+          example: 056776ab-9efa-4219-9820-9ece0cc4d90d
+          type: string
+        verified:
+          description: Is asset verified by Fireblocks
+          example: true
+          type: boolean
+        website:
+          description: Vendor’s website
+          example: https://example.org
+          type: string
+        media:
+          description: Asset’s media
+          items:
+            $ref: '#/components/schemas/AssetMedia'
+          type: array
+      required:
+      - deprecated
+      - scope
+      - verified
+      type: object
+    AssetResponseBeta:
+      example:
+        displaySymbol: TST3
+        metadata:
+          website: https://example.org
+          scope: Global
+          deprecated: false
+          deprecationReferralId: 056776ab-9efa-4219-9820-9ece0cc4d90d
+          verified: true
+          media:
+          - attributes:
+              monochrome: true
+            type: image/svg+xml
+            url: https://example.com/image.png
+          - attributes:
+              monochrome: true
+            type: image/svg+xml
+            url: https://example.com/image.png
+        displayName: Test 3
+        legacyId: TST3
+        id: 9f9f7062-df90-4fc0-8697-96685184358d
+        assetClass: FT
+        blockchainId: e85208ff-3b15-44e9-af14-0ed0280b2a15
+        onchain:
+          standards:
+          - ERC20
+          symbol: TST3
+          address: 0xe7A9as1oa38bc4da0248s179E30aa94CcF453991
+          decimals: 18
+          name: Test 3
+      properties:
+        id:
+          description: The ID of the asset
+          example: 9f9f7062-df90-4fc0-8697-96685184358d
+          type: string
+        legacyId:
+          description: The Legacy ID of the asset
+          example: TST3
+          type: string
+        blockchainId:
+          description: The ID of the asset's blockchain
+          example: e85208ff-3b15-44e9-af14-0ed0280b2a15
+          type: string
+        displayName:
+          description: Asset's display name
+          example: Test 3
+          type: string
+        displaySymbol:
+          description: Asset's display symbol
+          example: TST3
+          type: string
+        assetClass:
+          $ref: '#/components/schemas/AssetClassBeta'
+        onchain:
+          $ref: '#/components/schemas/AssetOnchainBeta'
+        metadata:
+          $ref: '#/components/schemas/AssetMetadataBeta'
+      required:
+      - assetClass
+      - id
+      - legacyId
+      - metadata
+      type: object
+    ListAssetsResponse:
+      example:
+        next: eJ0eXAiOiJKV1QiLCJhbGcOiJIUzI1NiJ9
+        data:
+        - displaySymbol: TST3
+          metadata:
+            website: https://example.org
+            scope: Global
+            deprecated: false
+            deprecationReferralId: 056776ab-9efa-4219-9820-9ece0cc4d90d
+            verified: true
+            media:
+            - attributes:
+                monochrome: true
+              type: image/svg+xml
+              url: https://example.com/image.png
+            - attributes:
+                monochrome: true
+              type: image/svg+xml
+              url: https://example.com/image.png
+          displayName: Test 3
+          legacyId: TST3
+          id: 9f9f7062-df90-4fc0-8697-96685184358d
+          assetClass: FT
+          blockchainId: e85208ff-3b15-44e9-af14-0ed0280b2a15
+          onchain:
+            standards:
+            - ERC20
+            symbol: TST3
+            address: 0xe7A9as1oa38bc4da0248s179E30aa94CcF453991
+            decimals: 18
+            name: Test 3
+        - displaySymbol: TST3
+          metadata:
+            website: https://example.org
+            scope: Global
+            deprecated: false
+            deprecationReferralId: 056776ab-9efa-4219-9820-9ece0cc4d90d
+            verified: true
+            media:
+            - attributes:
+                monochrome: true
+              type: image/svg+xml
+              url: https://example.com/image.png
+            - attributes:
+                monochrome: true
+              type: image/svg+xml
+              url: https://example.com/image.png
+          displayName: Test 3
+          legacyId: TST3
+          id: 9f9f7062-df90-4fc0-8697-96685184358d
+          assetClass: FT
+          blockchainId: e85208ff-3b15-44e9-af14-0ed0280b2a15
+          onchain:
+            standards:
+            - ERC20
+            symbol: TST3
+            address: 0xe7A9as1oa38bc4da0248s179E30aa94CcF453991
+            decimals: 18
+            name: Test 3
+      properties:
+        data:
+          description: The data of the current page
+          items:
+            $ref: '#/components/schemas/AssetResponseBeta'
+          type: array
+        next:
+          description: Cursor to the next page
+          example: eJ0eXAiOiJKV1QiLCJhbGcOiJIUzI1NiJ9
+          nullable: true
+          type: string
+      required:
+      - data
+      - next
+      type: object
+    AssetInternalServerErrorResponse:
+      example:
+        code: 3005
+        message: Internal server error
+      properties:
+        message:
+          description: Internal server error code
+          example: Internal server error
+          type: string
+        code:
+          description: Error code
+          example: 3005
+          type: number
+      required:
+      - code
+      - message
+      type: object
     RegisterNewAssetRequest:
       example:
         symbol: TST3
@@ -20373,6 +22753,59 @@ components:
       - address
       - blockchainId
       type: object
+    AssetOnchain:
+      example:
+        standard: ERC20
+        symbol: TST3
+        address: 0xe7A9as1oa38bc4da0248s179E30aa94CcF453991
+        decimals: 18
+        name: Test 3
+      properties:
+        symbol:
+          description: The asset symbol
+          example: TST3
+          type: string
+        name:
+          description: The asset name
+          example: Test 3
+          type: string
+        address:
+          description: The asset address
+          example: 0xe7A9as1oa38bc4da0248s179E30aa94CcF453991
+          type: string
+        decimals:
+          description: Number of decimals
+          example: 18
+          type: number
+        standard:
+          description: The asset standard
+          example: ERC20
+          type: string
+      required:
+      - decimals
+      - name
+      - symbol
+      type: object
+    AssetMetadata:
+      example:
+        scope: Global
+        deprecated: false
+      properties:
+        scope:
+          description: The scope of the asset
+          enum:
+          - Global
+          - Local
+          example: Global
+          type: string
+        deprecated:
+          description: Is asset deprecated
+          example: false
+          type: boolean
+      required:
+      - deprecated
+      - scope
+      type: object
     AssetResponse:
       example:
         metadata:
@@ -20399,9 +22832,9 @@ components:
           example: FT
           type: string
         onchain:
-          $ref: '#/components/schemas/AssetResponse_onchain'
+          $ref: '#/components/schemas/AssetOnchain'
         metadata:
-          $ref: '#/components/schemas/AssetResponse_metadata'
+          $ref: '#/components/schemas/AssetMetadata'
       required:
       - assetClass
       - legacyId
@@ -20410,7 +22843,7 @@ components:
       type: object
     AssetBadRequestErrorResponse:
       example:
-        code: "3001"
+        code: 3001
         message: Listing an asset on the requested blockchain is not supported
       properties:
         message:
@@ -20419,15 +22852,15 @@ components:
           type: string
         code:
           description: Error code
-          example: "3001"
-          type: string
+          example: 3001
+          type: number
       required:
       - code
       - message
       type: object
     AssetForbiddenErrorResponse:
       example:
-        code: "3006"
+        code: 3006
         message: Asset creation quota reached
       properties:
         message:
@@ -20436,15 +22869,15 @@ components:
           type: string
         code:
           description: Error code
-          example: "3006"
-          type: string
+          example: 3006
+          type: number
       required:
       - code
       - message
       type: object
-    AssetNotFoundErrorResponse:
+    TokenInfoNotFoundErrorResponse:
       example:
-        code: "3009"
+        code: 3009
         message: "Invalid address, could not get asset information"
       properties:
         message:
@@ -20453,15 +22886,15 @@ components:
           type: string
         code:
           description: Error code
-          example: "3009"
-          type: string
+          example: 3009
+          type: number
       required:
       - code
       - message
       type: object
     AssetConflictErrorResponse:
       example:
-        code: "3002"
+        code: 3002
         message: Asset already listed
       properties:
         message:
@@ -20470,25 +22903,25 @@ components:
           type: string
         code:
           description: Error code
-          example: "3002"
-          type: string
+          example: 3002
+          type: number
       required:
       - code
       - message
       type: object
-    AssetInternalServerErrorResponse:
+    AssetNotFoundErrorResponse:
       example:
-        code: "3005"
-        message: Internal server error
+        code: 1504
+        message: Asset with specified ID not found
       properties:
         message:
-          description: Internal server error code
-          example: Internal server error
+          description: Not found error code
+          example: Asset with specified ID not found
           type: string
         code:
           description: Error code
-          example: "3005"
-          type: string
+          example: 1504
+          type: number
       required:
       - code
       - message
@@ -20550,7 +22983,7 @@ components:
       type: object
     AssetPriceForbiddenErrorResponse:
       example:
-        code: "3002"
+        code: 3002
         message: Tenant is not allowed to update asset
       properties:
         message:
@@ -20559,15 +22992,15 @@ components:
           type: string
         code:
           description: Error code
-          example: "3002"
-          type: string
+          example: 3002
+          type: number
       required:
       - code
       - message
       type: object
     AssetPriceNotFoundErrorResponse:
       example:
-        code: "3001"
+        code: 3001
         message: Currency not found
       properties:
         message:
@@ -20576,8 +23009,255 @@ components:
           type: string
         code:
           description: Error code
-          example: "3001"
+          example: 3001
+          type: number
+      required:
+      - code
+      - message
+      type: object
+    BlockchainOnchain:
+      example:
+        protocol: EVM
+        test: false
+        chainId: "1"
+        signingAlgo: ECDSA_SECP256K1
+      properties:
+        protocol:
+          description: The protocol of the blockchain
+          example: EVM
           type: string
+        chainId:
+          description: Network/chain ID
+          example: "1"
+          type: string
+        test:
+          description: Is test blockchain
+          example: false
+          type: boolean
+        signingAlgo:
+          description: Signing alghorithm
+          enum:
+          - ECDSA_SECP256K1
+          - EDDSA_ED25519
+          example: ECDSA_SECP256K1
+          type: string
+      required:
+      - protocol
+      - signingAlgo
+      - test
+      type: object
+    BlockchainMedia:
+      example:
+        type: image/svg+xml
+        url: https://example.com/image.png
+      properties:
+        url:
+          description: Media URL
+          example: https://example.com/image.png
+          type: string
+        type:
+          description: Media type
+          enum:
+          - image/svg+xml
+          - image/png
+          example: image/svg+xml
+          type: string
+      required:
+      - type
+      - url
+      type: object
+    BlockchainExplorer:
+      example:
+        address: "https://example.com/address/{address}"
+        tx: "https://example.com/tx/{tx}"
+        base: https://example.com
+        token: "https://example.com/nft/{contract}/{tokenId}"
+      properties:
+        base:
+          description: Explorer base url
+          example: https://example.com
+          type: string
+        address:
+          description: Explorer address url
+          example: "https://example.com/address/{address}"
+          type: string
+        tx:
+          description: Explorer transaction url
+          example: "https://example.com/tx/{tx}"
+          type: string
+        token:
+          description: Explorer token url
+          example: "https://example.com/nft/{contract}/{tokenId}"
+          type: string
+      required:
+      - base
+      type: object
+    BlockchainMetadata:
+      example:
+        scope: Global
+        deprecated: false
+        explorer:
+          address: "https://example.com/address/{address}"
+          tx: "https://example.com/tx/{tx}"
+          base: https://example.com
+          token: "https://example.com/nft/{contract}/{tokenId}"
+        media:
+        - type: image/svg+xml
+          url: https://example.com/image.png
+        - type: image/svg+xml
+          url: https://example.com/image.png
+      properties:
+        scope:
+          description: Is blockchain listed on all workspaces? Global or Local
+          enum:
+          - Global
+          - Local
+          example: Global
+          type: string
+        deprecated:
+          description: Is blockchain deprecated
+          example: false
+          type: boolean
+        media:
+          description: Blockchain’s media
+          items:
+            $ref: '#/components/schemas/BlockchainMedia'
+          type: array
+        explorer:
+          $ref: '#/components/schemas/BlockchainExplorer'
+      required:
+      - deprecated
+      - scope
+      type: object
+    BlockchainResponse:
+      example:
+        nativeAssetId: 9f9f7062-df90-4fc0-8697-96685184356a
+        metadata:
+          scope: Global
+          deprecated: false
+          explorer:
+            address: "https://example.com/address/{address}"
+            tx: "https://example.com/tx/{tx}"
+            base: https://example.com
+            token: "https://example.com/nft/{contract}/{tokenId}"
+          media:
+          - type: image/svg+xml
+            url: https://example.com/image.png
+          - type: image/svg+xml
+            url: https://example.com/image.png
+        displayName: Test 3
+        legacyId: TST3
+        id: 9f9f7062-df90-4fc0-8697-96685184357b
+        onchain:
+          protocol: EVM
+          test: false
+          chainId: "1"
+          signingAlgo: ECDSA_SECP256K1
+      properties:
+        id:
+          description: The ID of the blockchain
+          example: 9f9f7062-df90-4fc0-8697-96685184357b
+          type: string
+        legacyId:
+          description: The old blockchain ID representation of the blockchain
+          example: TST3
+          type: string
+        displayName:
+          description: The name of the blockchain
+          example: Test 3
+          type: string
+        nativeAssetId:
+          description: Native asset ID of this blockchain
+          example: 9f9f7062-df90-4fc0-8697-96685184356a
+          type: string
+        onchain:
+          $ref: '#/components/schemas/BlockchainOnchain'
+        metadata:
+          $ref: '#/components/schemas/BlockchainMetadata'
+      required:
+      - displayName
+      - id
+      - legacyId
+      - metadata
+      - nativeAssetId
+      - onchain
+      type: object
+    ListBlockchainsResponse:
+      example:
+        next: eJ0eXAiOiJKV1QiLCJhbGcOiJIUzI1NiJ9
+        data:
+        - nativeAssetId: 9f9f7062-df90-4fc0-8697-96685184356a
+          metadata:
+            scope: Global
+            deprecated: false
+            explorer:
+              address: "https://example.com/address/{address}"
+              tx: "https://example.com/tx/{tx}"
+              base: https://example.com
+              token: "https://example.com/nft/{contract}/{tokenId}"
+            media:
+            - type: image/svg+xml
+              url: https://example.com/image.png
+            - type: image/svg+xml
+              url: https://example.com/image.png
+          displayName: Test 3
+          legacyId: TST3
+          id: 9f9f7062-df90-4fc0-8697-96685184357b
+          onchain:
+            protocol: EVM
+            test: false
+            chainId: "1"
+            signingAlgo: ECDSA_SECP256K1
+        - nativeAssetId: 9f9f7062-df90-4fc0-8697-96685184356a
+          metadata:
+            scope: Global
+            deprecated: false
+            explorer:
+              address: "https://example.com/address/{address}"
+              tx: "https://example.com/tx/{tx}"
+              base: https://example.com
+              token: "https://example.com/nft/{contract}/{tokenId}"
+            media:
+            - type: image/svg+xml
+              url: https://example.com/image.png
+            - type: image/svg+xml
+              url: https://example.com/image.png
+          displayName: Test 3
+          legacyId: TST3
+          id: 9f9f7062-df90-4fc0-8697-96685184357b
+          onchain:
+            protocol: EVM
+            test: false
+            chainId: "1"
+            signingAlgo: ECDSA_SECP256K1
+      properties:
+        data:
+          description: The data of the current page
+          items:
+            $ref: '#/components/schemas/BlockchainResponse'
+          type: array
+        next:
+          description: Cursor to the next page
+          example: eJ0eXAiOiJKV1QiLCJhbGcOiJIUzI1NiJ9
+          nullable: true
+          type: string
+      required:
+      - data
+      - next
+      type: object
+    BlockchainNotFoundErrorResponse:
+      example:
+        code: 1505
+        message: Blockchain with specified ID not found
+      properties:
+        message:
+          description: Not found error code
+          example: Blockchain with specified ID not found
+          type: string
+        code:
+          description: Error code
+          example: 1505
+          type: number
       required:
       - code
       - message
@@ -20627,6 +23307,7 @@ components:
       - ONE_TIME_ADDRESS
       - UNKNOWN
       - END_USER_WALLET
+      - PROGRAM_CALL
       type: string
     SourceTransferPeerPathResponse:
       description: Source of the transaction.
@@ -21626,12 +24307,14 @@ components:
         * `MINT` - Mints new tokens. Supported for Stellar, Ripple and EVM-based blockchains.
         * `BURN` - Burns tokens. Supported for Stellar, Ripple and EVM-based blockchains.
         * `CONTRACT_CALL` - Calls a smart contract method for web3 operations on any EVM blockchain. The Fireblocks [development libraries](https://developers.fireblocks.com/docs/ethereum-development#convenience-libraries) are recommended for building contract call transactions.
+        * `PROGRAM_CALL` - Execute multiple instructions on Solana blockchain. The @solana/web3.js library is recommended for building program call transactions. Currently in beta and disabled
         * `TYPED_MESSAGE` - An off-chain message in either Ethereum Personal Message or EIP712 format. Use it to sign specific readable messages that are not actual transactions. [Learn more about typed messages](https://developers.fireblocks.com/docs/typed-message-signing).
         * `RAW` - An off-chain message with no predefined format. Use it to sign any message with your private key, including protocols such as blockchains and custom transaction types that are not natively supported by Fireblocks. [Learn more about raw signing transactions.](https://developers.fireblocks.com/docs/raw-message-signing)
       enum:
       - TRANSFER
       - BURN
       - CONTRACT_CALL
+      - PROGRAM_CALL
       - MINT
       - RAW
       - TYPED_MESSAGE
@@ -24167,6 +26850,371 @@ components:
       required:
       - success
       type: object
+    WebhookEvent:
+      enum:
+      - transaction.created
+      - transaction.status.updated
+      - transaction.approval_status.updated
+      - external_wallet.asset.added
+      - internal_wallet.asset.added
+      - internal_wallet.asset.removed
+      - contract_wallet.asset.added
+      - contract_wallet.asset.removed
+      - vault_account.created
+      - vault_account.asset.added
+      - vault_account.asset.balance_updated
+      - vault_account.nft.balance_updated
+      - embedded_wallet.asset.added
+      - embedded_wallet.asset.balance_updated
+      - exchange_account.added
+      - fiat_account.added
+      - ticket.created
+      - ticket.submitted
+      - ticket.expired
+      - ticket.canceled
+      - ticket.fulfilled
+      - ticket.counterparty.added
+      - ticket.counterparty_external_id.set
+      - ticket.note.added
+      - ticket.expired_in.set
+      - ticket.expired_at.set
+      - ticket.term.added
+      - ticket.term.updated
+      - ticket.term.deleted
+      - ticket.term.funded
+      - ticket.term.manually_funded
+      - ticket.term.funding_canceled
+      - ticket.term.funding_failed
+      - ticket.term.funding_completed
+      - ticket.term.transaction_status_changed
+      type: string
+    Webhook:
+      example:
+        createdAt: 2021-09-01T12:00:00Z
+        description: This webhook is used for transactions notifications
+        id: 123e4567-e89b-12d3-a456-426614174000
+        url: https://example.com/webhook
+        events:
+        - transaction.created
+        - transaction.status.updated
+        status: ENABLED
+        updatedAt: 2021-09-05T15:00:00Z
+      properties:
+        id:
+          description: The id of the webhook
+          example: 123e4567-e89b-12d3-a456-426614174000
+          format: uuid
+          type: string
+        url:
+          description: The url of the webhook where notifications will be sent. Must
+            be a valid URL and https.
+          example: https://example.com/webhook
+          minLength: 1
+          type: string
+        description:
+          description: description of the webhook of what it is used for
+          example: This webhook is used for transactions notifications
+          minLength: 1
+          type: string
+        events:
+          description: The events that the webhook will be subscribed to
+          example:
+          - transaction.created
+          - transaction.status.updated
+          items:
+            $ref: '#/components/schemas/WebhookEvent'
+          type: array
+        status:
+          description: The status of the webhook
+          enum:
+          - DISABLED
+          - ENABLED
+          example: ENABLED
+          type: string
+        createdAt:
+          description: The date and time the webhook was created
+          example: 2021-09-01T12:00:00Z
+          format: date-time
+          type: string
+        updatedAt:
+          description: The date and time the webhook was last updated
+          example: 2021-09-05T15:00:00Z
+          format: date-time
+          type: string
+      type: object
+    WebhookPaginatedResponse:
+      example:
+        next: eJ0eXAiOiJKV1QiLCJhbGcOiJIUzI1NiJ9
+        data:
+        - createdAt: 2021-09-01T12:00:00Z
+          description: This webhook is used for transactions notifications
+          id: 123e4567-e89b-12d3-a456-426614174000
+          url: https://example.com/webhook
+          events:
+          - transaction.created
+          - transaction.status.updated
+          status: ENABLED
+          updatedAt: 2021-09-05T15:00:00Z
+        - createdAt: 2021-09-01T12:00:00Z
+          description: This webhook is used for transactions notifications
+          id: 123e4567-e89b-12d3-a456-426614174000
+          url: https://example.com/webhook
+          events:
+          - transaction.created
+          - transaction.status.updated
+          status: ENABLED
+          updatedAt: 2021-09-05T15:00:00Z
+      properties:
+        data:
+          description: The data of the current page
+          items:
+            $ref: '#/components/schemas/Webhook'
+          type: array
+        next:
+          description: The ID of the next page
+          example: eJ0eXAiOiJKV1QiLCJhbGcOiJIUzI1NiJ9
+          nullable: true
+          type: string
+      required:
+      - data
+      type: object
+    CreateWebhookRequest:
+      example:
+        description: This webhook is used for transactions notifications
+        url: https://example.com/webhook
+        events:
+        - transaction.created
+        - transaction.status.updated
+        enabled: false
+      properties:
+        url:
+          description: "The url of the webhook where notifications will be sent. URL\
+            \ must be valid, unique and https."
+          example: https://example.com/webhook
+          minLength: 1
+          type: string
+        description:
+          description: description of the webhook. should not contain special characters.
+          example: This webhook is used for transactions notifications
+          minLength: 1
+          type: string
+        events:
+          description: event types the webhook will subscribe to
+          example:
+          - transaction.created
+          - transaction.status.updated
+          items:
+            $ref: '#/components/schemas/WebhookEvent'
+          type: array
+        enabled:
+          default: true
+          description: "The status of the webhook. If false, the webhook will not\
+            \ receive notifications."
+          example: false
+          type: boolean
+      required:
+      - description
+      - events
+      - url
+      type: object
+    UpdateWebhookRequest:
+      example:
+        description: This webhook is used for transactions notifications
+        url: https://example.com/webhook
+        events:
+        - transaction.created
+        - transaction.status.updated
+        enabled: false
+      properties:
+        url:
+          description: "The url of the webhook where notifications will be sent. URL\
+            \ must be valid, unique and https."
+          example: https://example.com/webhook
+          minLength: 1
+          type: string
+        description:
+          description: description of the webhook of what it is used for.should not
+            contain special characters.
+          example: This webhook is used for transactions notifications
+          minLength: 1
+          type: string
+        events:
+          description: The events that the webhook will be subscribed to
+          example:
+          - transaction.created
+          - transaction.status.updated
+          items:
+            $ref: '#/components/schemas/WebhookEvent'
+          type: array
+        enabled:
+          description: The status of the webhook
+          example: false
+          type: boolean
+      type: object
+    NotificationStatus:
+      description: The status of the Notification
+      enum:
+      - COMPLETED
+      - FAILED
+      - IN_PROGRESS
+      example: COMPLETED
+      type: string
+    Notification:
+      example:
+        createdAt: 2021-07-01T00:00:00Z
+        resourceId: 44fcead0-7053-4831-a53a-df7fb90d440f
+        eventVersion: 1
+        id: 44fcead0-7053-4831-a53a-df7fb90d440f
+        eventType: null
+        updatedAt: 2021-07-01T00:00:00Z
+        status: COMPLETED
+        attempts:
+        - attempts
+        - attempts
+      properties:
+        id:
+          description: The id of the Notification
+          example: 44fcead0-7053-4831-a53a-df7fb90d440f
+          format: uuid
+          type: string
+        createdAt:
+          description: The creation date of the notification
+          example: 2021-07-01T00:00:00Z
+          format: date-time
+          type: string
+        updatedAt:
+          description: The date when the notification was updated
+          example: 2021-07-01T00:00:00Z
+          format: date-time
+          type: string
+        status:
+          $ref: '#/components/schemas/NotificationStatus'
+        eventType:
+          $ref: '#/components/schemas/WebhookEvent'
+        eventVersion:
+          description: The event version of the Notification
+          example: 1
+          type: number
+        resourceId:
+          description: The resource id of the event which the Notification is listen
+            to
+          example: 44fcead0-7053-4831-a53a-df7fb90d440f
+          format: uuid
+          nullable: true
+          type: string
+        attempts:
+          default: []
+          description: The attempts related to Notification
+          items:
+            type: string
+          type: array
+      required:
+      - createdAt
+      - eventType
+      - eventVersion
+      - id
+      - status
+      - updatedAt
+      type: object
+    NotificationPaginatedResponse:
+      example:
+        next: eJ0eXAiOiJKV1QiLCJhbGcOiJIUzI1NiJ9
+        data:
+        - createdAt: 2021-07-01T00:00:00Z
+          resourceId: 44fcead0-7053-4831-a53a-df7fb90d440f
+          eventVersion: 1
+          id: 44fcead0-7053-4831-a53a-df7fb90d440f
+          eventType: null
+          updatedAt: 2021-07-01T00:00:00Z
+          status: COMPLETED
+          attempts:
+          - attempts
+          - attempts
+        - createdAt: 2021-07-01T00:00:00Z
+          resourceId: 44fcead0-7053-4831-a53a-df7fb90d440f
+          eventVersion: 1
+          id: 44fcead0-7053-4831-a53a-df7fb90d440f
+          eventType: null
+          updatedAt: 2021-07-01T00:00:00Z
+          status: COMPLETED
+          attempts:
+          - attempts
+          - attempts
+      properties:
+        data:
+          description: The data of the current page
+          items:
+            $ref: '#/components/schemas/Notification'
+          type: array
+        next:
+          description: The ID of the next page
+          example: eJ0eXAiOiJKV1QiLCJhbGcOiJIUzI1NiJ9
+          nullable: true
+          type: string
+      required:
+      - data
+      type: object
+    NotificationWithData:
+      example:
+        createdAt: 2021-07-01T00:00:00Z
+        resourceId: 44fcead0-7053-4831-a53a-df7fb90d440f
+        data: "{}"
+        eventVersion: 1
+        id: 44fcead0-7053-4831-a53a-df7fb90d440f
+        eventType: null
+        updatedAt: 2021-07-01T00:00:00Z
+        status: COMPLETED
+        attempts:
+        - attempts
+        - attempts
+      properties:
+        id:
+          example: 44fcead0-7053-4831-a53a-df7fb90d440f
+          format: uuid
+          type: string
+        createdAt:
+          description: The creation date of the notification
+          example: 2021-07-01T00:00:00Z
+          format: date-time
+          type: string
+        updatedAt:
+          description: The date when the notification was updated
+          example: 2021-07-01T00:00:00Z
+          format: date-time
+          type: string
+        status:
+          $ref: '#/components/schemas/NotificationStatus'
+        eventType:
+          $ref: '#/components/schemas/WebhookEvent'
+        eventVersion:
+          description: The event version which the Notification is listen to
+          example: 1
+          type: number
+        resourceId:
+          description: The resource id of the event which the Notification is listen
+            to
+          example: 44fcead0-7053-4831-a53a-df7fb90d440f
+          format: uuid
+          nullable: true
+          type: string
+        attempts:
+          default: []
+          description: The attempts related to Notification
+          items:
+            type: string
+          type: array
+        data:
+          description: notification data
+          type: object
+      required:
+      - attempts
+      - createdAt
+      - eventType
+      - eventVersion
+      - id
+      - status
+      - updatedAt
+      type: object
     AuditorData:
       properties:
         name:
@@ -26449,10 +29497,30 @@ components:
       - txId
       type: object
     StakingGetChainsResponse:
+      example:
+      - ETH
+      - ETH_TEST6
+      - SOL
+      - SOL_TEST
+      - MATIC
       items:
         type: string
       type: array
-    AdditionalInfoDto:
+    ChainDescriptor:
+      enum:
+      - ETH
+      - SOL
+      - MATIC
+      - ETH_TEST6
+      - SOL_TEST
+      type: string
+    AdditionalInfo:
+      description: Additional information related to the blockchain. This may include
+        extra details about the blockchain network.
+      example:
+        activationPeriod: 172800000
+        estimatedAnnualReward: 6.48
+        lockupPeriod: 172800000
       properties:
         estimatedAnnualReward:
           description: "The estimated annual reward rate for the blockchain, represented\
@@ -26474,12 +29542,15 @@ components:
       - estimatedAnnualReward
       - lockupPeriod
       type: object
-    ChainInfoResponseDto:
+    ChainInfoResponse:
       example:
         chainDescriptor: SOL
         epochElapsed: 0.31
         epochDuration: 172800000
-        additionalInfo: ""
+        additionalInfo:
+          activationPeriod: 172800000
+          estimatedAnnualReward: 6.48
+          lockupPeriod: 172800000
         currentEpoch: 483
       properties:
         chainDescriptor:
@@ -26500,10 +29571,7 @@ components:
           example: 172800000
           type: number
         additionalInfo:
-          allOf:
-          - $ref: '#/components/schemas/AdditionalInfoDto'
-          description: Additional information related to the blockchain. This may
-            include extra details about the blockchain network.
+          $ref: '#/components/schemas/AdditionalInfo'
       required:
       - additionalInfo
       - chainDescriptor
@@ -26511,14 +29579,30 @@ components:
       - epochDuration
       - epochElapsed
       type: object
-    StakeRequestDto:
+    StakingProvider:
+      description: The unique identifier of the staking provider
+      enum:
+      - kiln
+      - figment
+      - lido
+      example: kiln
+      type: string
+    FeeLevel:
+      description: "Represents the fee level for a transaction, which can be set as\
+        \ slow, medium, or fast. Only one of fee/feeLevel is required."
+      enum:
+      - LOW
+      - MEDIUM
+      - HIGH
+      example: MEDIUM
+      type: string
+    StakeRequest:
       example:
-        stakeAmount: "32"
-        txNote: stake request id CcaHc2L43ZWjwCHART3oZoJvHLAe9hzT2DJNUpBzoTN1 of 32ETH
-          created on 02.04.23
-        providerId: kiln
-        fee: "7"
         vaultAccountId: "22"
+        providerId: kiln
+        stakeAmount: "100"
+        txNote: stake request id CcaHc2L43ZWjwCHART3oZoJvHLAe9hzT2DJNUpBzoTN1 of 100
+          SOL created on 02.04.23
         feeLevel: MEDIUM
       properties:
         vaultAccountId:
@@ -26526,9 +29610,7 @@ components:
           example: "22"
           type: string
         providerId:
-          description: The ID of the provider
-          example: kiln
-          type: string
+          $ref: '#/components/schemas/StakingProvider'
         stakeAmount:
           description: Amount of tokens to stake
           example: "32"
@@ -26544,16 +29626,28 @@ components:
           example: "7"
           type: string
         feeLevel:
-          description: "Represents the fee level for a transaction, which can be set\
-            \ as slow, medium, or fast. Only one of fee/feeLevel is required."
-          example: MEDIUM
-          type: string
+          $ref: '#/components/schemas/FeeLevel'
       required:
       - providerId
       - stakeAmount
       - vaultAccountId
       type: object
-    UnstakeRequestDto:
+    StakeResponse:
+      example:
+        id: afedfd2e4-e3c9-4b70-90d6-eb0f74bfd4sd8
+      properties:
+        id:
+          description: The unique identifier of the staking position
+          example: afedfd2e4-e3c9-4b70-90d6-eb0f74bfd4sd8
+          type: string
+      required:
+      - id
+      type: object
+    UnstakeRequest:
+      example:
+        id: b70701f4-d7b1-4795-a8ee-b09cdb5b850d
+        txNote: "unstake request id b70701f4-d7b1-4795-a8ee-b09cdb5b850d #SOL"
+        feeLevel: MEDIUM
       properties:
         id:
           description: id of position to unstake
@@ -26565,10 +29659,7 @@ components:
           example: "7"
           type: string
         feeLevel:
-          description: "Represents the fee level for a transaction, which can be set\
-            \ as slow, medium, or fast. Only one of fee/feeLevel is required."
-          example: MEDIUM
-          type: string
+          $ref: '#/components/schemas/FeeLevel'
         txNote:
           description: The note to associate with the transactions.
           example: "unstake request id b70701f4-d7b1-4795-a8ee-b09cdb5b850d #ETH"
@@ -26582,7 +29673,11 @@ components:
       required:
       - id
       type: object
-    WithdrawRequestDto:
+    WithdrawRequest:
+      example:
+        id: b70701f4-d7b1-4795-a8ee-b09cdb5b850d
+        txNote: "withdraw request id b70701f4-d7b1-4795-a8ee-b09cdb5b850d #SOL"
+        feeLevel: MEDIUM
       properties:
         id:
           description: id of position to withdraw
@@ -26594,10 +29689,7 @@ components:
           example: "7"
           type: string
         feeLevel:
-          description: "Represents the fee level for a transaction, which can be set\
-            \ as slow, medium, or fast. Only one of fee/feeLevel is required."
-          example: MEDIUM
-          type: string
+          $ref: '#/components/schemas/FeeLevel'
         txNote:
           description: The note to associate with the transactions.
           example: "withdraw request id b70701f4-d7b1-4795-a8ee-b09cdb5b850d #ETH"
@@ -26605,34 +29697,73 @@ components:
       required:
       - id
       type: object
-    ExecuteActionRequest:
-      oneOf:
-      - $ref: '#/components/schemas/StakeRequestDto'
-      - $ref: '#/components/schemas/UnstakeRequestDto'
-      - $ref: '#/components/schemas/WithdrawRequestDto'
-    StakeResponseDto:
+    ClaimRewardsRequest:
       example:
         id: b70701f4-d7b1-4795-a8ee-b09cdb5b850d
+        txNote: claim rewards request id b70701f4-d7b1-4795-a8ee-b09cdb5b850d
+        feeLevel: MEDIUM
       properties:
         id:
-          description: The unique identifier of the staking position
+          description: id of position to withdraw rewards from
+          example: b70701f4-d7b1-4795-a8ee-b09cdb5b850f
+          type: string
+        fee:
+          description: "Represents the fee for a transaction, which can be specified\
+            \ as a percentage value. Only one of fee/feeLevel is required."
+          example: "7"
+          type: string
+        feeLevel:
+          $ref: '#/components/schemas/FeeLevel'
+        txNote:
+          description: The note to associate with the transactions.
+          example: "claim rewards request id b70701f4-d7b1-4795-a8ee-b09cdb5b850d\
+            \ #MATIC"
+          type: string
+      required:
+      - id
+      type: object
+    SplitRequest:
+      example:
+        id: b70701f4-d7b1-4795-a8ee-b09cdb5b850d
+        amount: "20"
+        txNote: "split 20 SOL out of 100 SOL, created on 02.04.23"
+        feeLevel: MEDIUM
+      properties:
+        id:
+          description: id of position to split
+          example: b70701f4-d7b1-4795-a8ee-b09cdb5b850f
+          type: string
+        amount:
+          description: Amount of tokens to be transferred to the new stake account.
+          example: "20"
+          type: string
+        fee:
+          description: "Represents the fee for a transaction, which can be specified\
+            \ as a percentage value. Only one of fee/feeLevel is required."
+          example: "7"
+          type: string
+        feeLevel:
+          $ref: '#/components/schemas/FeeLevel'
+        txNote:
+          description: The note to associate with the transactions.
+          example: "split 20 SOL out of 100 SOL, created on 02.04.23"
+          type: string
+      required:
+      - amount
+      - id
+      type: object
+    SplitResponse:
+      example:
+        id: afedfd2e4-e3c9-4b70-90d6-eb0f74bfd4sd8
+      properties:
+        id:
+          description: The unique identifier of the new staking position
           example: b70701f4-d7b1-4795-a8ee-b09cdb5b850d
           type: string
       required:
       - id
       type: object
-    UnstakeResponseDto:
-      properties: {}
-      type: object
-    WithdrawResponseDto:
-      properties: {}
-      type: object
-    ExecuteActionResponse:
-      oneOf:
-      - $ref: '#/components/schemas/StakeResponseDto'
-      - $ref: '#/components/schemas/UnstakeResponseDto'
-      - $ref: '#/components/schemas/WithdrawResponseDto'
-    RelatedTransactionDto:
+    RelatedTransaction:
       properties:
         txId:
           description: The transaction ID
@@ -26646,16 +29777,28 @@ components:
       - completed
       - txId
       type: object
-    SolanaBlockchainDataDto:
+    SolanaBlockchainData:
+      description: "Additional fields per blockchain - can be empty or missing if\
+        \ not initialized or no additional info exists. The type depends on the chainDescriptor\
+        \ value. For Solana (SOL), stake account address. For Ethereum (ETH), an empty\
+        \ object is returned as no specific data is available."
+      example:
+        stakeAccountAddress: 3Ru67FyzMTcdENmmRL4Eve4dtPd6AdpuypR21q5EQCdq
       properties:
         stakeAccountAddress:
           description: The stake account address matching the stakeAccountId.
           example: 3Ru67FyzMTcdENmmRL4Eve4dtPd6AdpuypR21q5EQCdq
           type: string
+        stakeAccountDerivationChangeValue:
+          description: The value of the change level in the BIP32 path which was used
+            to derive the stake account address
+          example: 7
+          type: number
       required:
       - stakeAccountAddress
+      - stakeAccountDerivationChangeValue
       type: object
-    RelatedRequestDto:
+    RelatedRequest:
       properties:
         status:
           description: The status of the request
@@ -26681,7 +29824,7 @@ components:
       - inProgress
       - status
       type: object
-    DelegationDto:
+    Delegation:
       example:
         availableActions:
         - unstake
@@ -26765,16 +29908,14 @@ components:
           - txId: c80601f4-d7b1-4795-a8ee-b09cdb5b450c
             completed: false
           items:
-            $ref: '#/components/schemas/RelatedTransactionDto'
+            $ref: '#/components/schemas/RelatedTransaction'
           type: array
         validatorAddress:
           description: The destination address of the staking transaction.
           example: FwR3PbjS5iyqzLiLugrBqKSa5EKZ4vK9SKs7eQXtT59f
           type: string
         providerId:
-          description: The unique identifier of the staking provider
-          example: kiln
-          type: string
+          $ref: '#/components/schemas/StakingProvider'
         availableActions:
           description: "An array of available actions that can be performed. for example,\
             \ actions like \"unstake\" or \"withdraw\"."
@@ -26793,15 +29934,7 @@ components:
           example: c80601f4-d7b1-4795-a8ee-b09cdb5b450c
           type: string
         blockchainPositionInfo:
-          allOf:
-          - $ref: '#/components/schemas/SolanaBlockchainDataDto'
-          description: "Additional fields per blockchain - can be empty or missing\
-            \ if not initialized or no additional info exists. The type depends on\
-            \ the chainDescriptor value. For Solana (SOL), stake account address.\
-            \ For Ethereum (ETH), an empty object is returned as no specific data\
-            \ is available."
-          example:
-            stakeAccountAddress: 3Ru67FyzMTcdENmmRL4Eve4dtPd6AdpuypR21q5EQCdq
+          $ref: '#/components/schemas/SolanaBlockchainData'
         relatedRequests:
           description: "An array of partial unstake requests for this position, relevant\
             \ only for the Lido provider. Each object includes the status of the unstake\
@@ -26816,7 +29949,7 @@ components:
             amount: "0.05"
             txId: c80601f4-d7b1-4795-a8ee-b09cdb5b450c
           items:
-            $ref: '#/components/schemas/RelatedRequestDto'
+            $ref: '#/components/schemas/RelatedRequest'
           type: array
       required:
       - amount
@@ -26824,6 +29957,7 @@ components:
       - blockchainPositionInfo
       - chainDescriptor
       - dateCreated
+      - dateUpdated
       - id
       - inProgress
       - providerId
@@ -26837,7 +29971,7 @@ components:
       type: object
     StakingGetAllDelegationsResponse:
       items:
-        $ref: '#/components/schemas/DelegationDto'
+        $ref: '#/components/schemas/Delegation'
       type: array
     AmountAndChainDescriptor:
       example:
@@ -26856,7 +29990,7 @@ components:
       - amount
       - chainDescriptor
       type: object
-    DelegationSummaryDto:
+    DelegationSummary:
       example:
         rewardsAmount:
         - chainDescriptor: ETH
@@ -26912,9 +30046,9 @@ components:
       type: object
     StakingGetSummaryByVaultResponse:
       additionalProperties:
-        $ref: '#/components/schemas/DelegationSummaryDto'
+        $ref: '#/components/schemas/DelegationSummary'
       type: object
-    ValidatorDto:
+    Validator:
       properties:
         chainDescriptor:
           description: The protocol identifier (e.g. "ETH"/"SOL") of the validator
@@ -26924,22 +30058,28 @@ components:
           description: The service fee as a percentage out of the earned rewards
           example: 5
           type: number
+        isPrivate:
+          description: "Is the validator private, i.e created by the user"
+          example: true
+          type: boolean
       required:
       - chainDescriptor
       - feePercent
       type: object
-    ProviderDto:
+    Provider:
       example:
         termsOfServiceUrl: https://www.kiln.fi/terms-and-conditions-for-fireblocks-customers
         validators:
-        - chainDescriptor: SOL
-          feePercent: 5
         - chainDescriptor: ETH
+          feePercent: 5
+        - chainDescriptor: SOL
           feePercent: 7
         id: kiln
         iconUrl: https://static.fireblocks.io/staking/validators/kiln_console.png
+        isPrivate: true
         providerName: Kiln
         isTermsOfServiceApproved: true
+        isLiquidStaking: true
       properties:
         id:
           description: The ID of the provider
@@ -26953,12 +30093,12 @@ components:
           description: An array of objects that includes chain descriptors and the
             corresponding fee percentages for validators supported by the provider
           example:
-          - chainDescriptor: SOL
-            feePercent: 5
           - chainDescriptor: ETH
+            feePercent: 5
+          - chainDescriptor: SOL
             feePercent: 7
           items:
-            $ref: '#/components/schemas/ValidatorDto'
+            $ref: '#/components/schemas/Validator'
           type: array
         iconUrl:
           description: URL to the validator's icon
@@ -26972,21 +30112,25 @@ components:
           description: Indicates whether the terms of service are approved
           example: true
           type: boolean
+        isPrivate:
+          description: "Is the provider private, i.e created by the user"
+          example: true
+          type: boolean
+        isLiquidStaking:
+          description: Is the provider a liquid staking provider
+          example: true
+          type: boolean
       required:
-      - iconUrl
       - id
+      - isLiquidStaking
       - isTermsOfServiceApproved
       - providerName
-      - termsOfServiceUrl
       - validators
       type: object
     StakingGetProvidersResponse:
       items:
-        $ref: '#/components/schemas/ProviderDto'
+        $ref: '#/components/schemas/Provider'
       type: array
-    ProvidersResponseDto:
-      properties: {}
-      type: object
     SetAdminQuorumThresholdRequest:
       properties:
         adminQuorumThreshold:
@@ -31665,11 +34809,25 @@ components:
       items:
         $ref: '#/components/schemas/Task'
       type: array
+    Version:
+      example:
+        hash: a1b2c3d4
+      properties:
+        hash:
+          description: The version hash of the cosigner
+          example: a1b2c3d4
+          type: string
+      required:
+      - hash
+      type: object
     Cosigner:
       example:
         archived: false
         name: My Cosigner 1
         id: 44fcead0-7053-4831-a53a-df7fb90d440f
+        type: SGX
+        version:
+          hash: a1b2c3d4
       properties:
         archived:
           description: Whether the cosigner is archived
@@ -31683,8 +34841,19 @@ components:
         name:
           description: The name of the cosigner
           example: My Cosigner 1
-          nullable: true
           type: string
+        type:
+          description: The type of the cosigner
+          enum:
+          - SANDBOX
+          - SGX
+          - GCP-CONFSPACE
+          - AWS-NITRO
+          - PLAIN
+          example: SGX
+          type: string
+        version:
+          $ref: '#/components/schemas/Version'
       required:
       - archived
       - id
@@ -31696,9 +34865,15 @@ components:
         - archived: false
           name: My Cosigner 1
           id: 44fcead0-7053-4831-a53a-df7fb90d440f
+          type: SGX
+          version:
+            hash: a1b2c3d4
         - archived: false
           name: My Cosigner 1
           id: 44fcead0-7053-4831-a53a-df7fb90d440f
+          type: SGX
+          version:
+            hash: a1b2c3d4
       properties:
         data:
           description: The data of the current page
@@ -31713,6 +34888,63 @@ components:
       required:
       - data
       type: object
+    AddCosignerRequest:
+      example:
+        existingCosigner: false
+        name: My Cosigner 1
+        apiKeyId: 123e4567-e89b-12d3-a456-426614174000
+      properties:
+        apiKeyId:
+          description: The id of the API key to be paired with the cosigner
+          example: 123e4567-e89b-12d3-a456-426614174000
+          format: uuid
+          type: string
+        name:
+          description: The name of the cosigner
+          example: My Cosigner 1
+          minLength: 1
+          type: string
+        existingCosigner:
+          default: false
+          description: Whether the cosigner already exists in another workspace
+          example: false
+          type: boolean
+      required:
+      - apiKeyId
+      - name
+      type: object
+    AddCosignerResponse:
+      example:
+        pendingCosignerId: 44fcead0-7053-4831-a53a-df7fb90d440f
+        existingCosigner: false
+        name: My Cosigner 1
+        apiKeyId: 123e4567-e89b-12d3-a456-426614174000
+      properties:
+        apiKeyId:
+          description: The id of the API key to be paired with the cosigner
+          example: 123e4567-e89b-12d3-a456-426614174000
+          format: uuid
+          type: string
+        name:
+          description: The name of the cosigner
+          example: My Cosigner 1
+          minLength: 1
+          type: string
+        existingCosigner:
+          default: false
+          description: Whether the cosigner already exists in another workspace
+          example: false
+          type: boolean
+        pendingCosignerId:
+          description: The unique identifier of a pending cosigner
+          example: 44fcead0-7053-4831-a53a-df7fb90d440f
+          format: uuid
+          type: string
+      required:
+      - apiKeyId
+      - name
+      - pendingCosignerId
+      type: object
     RenameCosigner:
       example:
         name: My Cosigner 1
@@ -31720,11 +34952,44 @@ components:
         name:
           description: The new name of the cosigner
           example: My Cosigner 1
-          nullable: true
           type: string
+      type: object
+    CallbackHandler:
+      example:
+        certPublicKeyHash: certPublicKeyHash
+        publicKey: |-
+          -----BEGIN PUBLIC KEY-----
+          ... truncated ...
+          -----END PUBLIC KEY-----
+        url: https://example.com/callback-handler
+      properties:
+        url:
+          description: The callback handler's URL
+          example: https://example.com/callback-handler
+          type: string
+        publicKey:
+          description: The callback handler's public key
+          example: |-
+            -----BEGIN PUBLIC KEY-----
+            ... truncated ...
+            -----END PUBLIC KEY-----
+          type: string
+        certPublicKeyHash:
+          description: A hashed representation of the public key of the callback handler's
+            certificate
+          type: string
+      required:
+      - url
       type: object
     ApiKey:
       example:
+        callbackHandler:
+          certPublicKeyHash: certPublicKeyHash
+          publicKey: |-
+            -----BEGIN PUBLIC KEY-----
+            ... truncated ...
+            -----END PUBLIC KEY-----
+          url: https://example.com/callback-handler
         lastSeen: 2021-07-01T00:00:00Z
         id: 44fcead0-7053-4831-a53a-df7fb90d440f
       properties:
@@ -31738,17 +35003,32 @@ components:
           example: 2021-07-01T00:00:00Z
           format: date-time
           type: string
+        callbackHandler:
+          $ref: '#/components/schemas/CallbackHandler'
       required:
       - id
-      - lastSeen
       type: object
     ApiKeysPaginatedResponse:
       example:
         next: eJ0eXAiOiJKV1QiLCJhbGcOiJIUzI1NiJ9
         data:
-        - lastSeen: 2021-07-01T00:00:00Z
+        - callbackHandler:
+            certPublicKeyHash: certPublicKeyHash
+            publicKey: |-
+              -----BEGIN PUBLIC KEY-----
+              ... truncated ...
+              -----END PUBLIC KEY-----
+            url: https://example.com/callback-handler
+          lastSeen: 2021-07-01T00:00:00Z
           id: 44fcead0-7053-4831-a53a-df7fb90d440f
-        - lastSeen: 2021-07-01T00:00:00Z
+        - callbackHandler:
+            certPublicKeyHash: certPublicKeyHash
+            publicKey: |-
+              -----BEGIN PUBLIC KEY-----
+              ... truncated ...
+              -----END PUBLIC KEY-----
+            url: https://example.com/callback-handler
+          lastSeen: 2021-07-01T00:00:00Z
           id: 44fcead0-7053-4831-a53a-df7fb90d440f
       properties:
         data:
@@ -31763,6 +35043,140 @@ components:
           type: string
       required:
       - data
+      type: object
+    CallbackHandlerRequest:
+      example:
+        cert: |-
+          -----BEGIN CERTIFICATE-----
+          ... truncated ...
+          -----END CERTIFICATE-----
+        publicKey: |-
+          -----BEGIN PUBLIC KEY-----
+          ... truncated ...-----END PUBLIC KEY-----
+        url: https://example.com/callback-handler
+      properties:
+        url:
+          description: The callback handler's URL
+          example: https://example.com/callback-handler
+          type: string
+        publicKey:
+          description: The callback handler's public key
+          example: |-
+            -----BEGIN PUBLIC KEY-----
+            ... truncated ...-----END PUBLIC KEY-----
+          type: string
+        cert:
+          description: The callback handler's certificate
+          example: |-
+            -----BEGIN CERTIFICATE-----
+            ... truncated ...
+            -----END CERTIFICATE-----
+          type: string
+      required:
+      - url
+      type: object
+    PairApiKeyRequest:
+      example:
+        callbackHandler:
+          cert: |-
+            -----BEGIN CERTIFICATE-----
+            ... truncated ...
+            -----END CERTIFICATE-----
+          publicKey: |-
+            -----BEGIN PUBLIC KEY-----
+            ... truncated ...-----END PUBLIC KEY-----
+          url: https://example.com/callback-handler
+      properties:
+        callbackHandler:
+          $ref: '#/components/schemas/CallbackHandlerRequest'
+      type: object
+    PairApiKeyResponse:
+      example:
+        callbackHandler:
+          cert: |-
+            -----BEGIN CERTIFICATE-----
+            ... truncated ...
+            -----END CERTIFICATE-----
+          publicKey: |-
+            -----BEGIN PUBLIC KEY-----
+            ... truncated ...-----END PUBLIC KEY-----
+          url: https://example.com/callback-handler
+        id: 44fcead0-7053-4831-a53a-df7fb90d440f
+      properties:
+        id:
+          description: The unique identifier of the API key
+          example: 44fcead0-7053-4831-a53a-df7fb90d440f
+          format: uuid
+          type: string
+        callbackHandler:
+          $ref: '#/components/schemas/CallbackHandlerRequest'
+      required:
+      - id
+      type: object
+    UpdateCallbackHandlerRequest:
+      example:
+        callbackHandler:
+          cert: |-
+            -----BEGIN CERTIFICATE-----
+            ... truncated ...
+            -----END CERTIFICATE-----
+          publicKey: |-
+            -----BEGIN PUBLIC KEY-----
+            ... truncated ...-----END PUBLIC KEY-----
+          url: https://example.com/callback-handler
+      properties:
+        callbackHandler:
+          $ref: '#/components/schemas/CallbackHandlerRequest'
+      type: object
+    UpdateCallbackHandlerResponse:
+      example:
+        callbackHandler:
+          cert: |-
+            -----BEGIN CERTIFICATE-----
+            ... truncated ...
+            -----END CERTIFICATE-----
+          publicKey: |-
+            -----BEGIN PUBLIC KEY-----
+            ... truncated ...-----END PUBLIC KEY-----
+          url: https://example.com/callback-handler
+        id: 44fcead0-7053-4831-a53a-df7fb90d440f
+      properties:
+        id:
+          description: The unique identifier of the API key
+          example: 44fcead0-7053-4831-a53a-df7fb90d440f
+          format: uuid
+          type: string
+        callbackHandler:
+          $ref: '#/components/schemas/CallbackHandlerRequest'
+      required:
+      - id
+      type: object
+    Status:
+      example:
+        type: PAIR_API_KEY
+        status: COMPLETED
+      properties:
+        status:
+          description: The status of the command
+          enum:
+          - WAITING_FOR_APPROVAL
+          - APPROVED
+          - CANCELLED
+          - REJECTED
+          - COMPLETED
+          example: COMPLETED
+          type: string
+        type:
+          description: The type of the command
+          enum:
+          - PAIR_API_KEY
+          - UPDATE_CALLBACK_HANDLER
+          - UNPAIR_API_KEY
+          example: PAIR_API_KEY
+          type: string
+      required:
+      - status
+      - type
       type: object
     get_filter_parameter:
       properties:
@@ -31970,58 +35384,15 @@ components:
       required:
       - additionalInfo
       type: object
-    AssetResponse_onchain:
+    AssetMedia_attributes:
+      description: Media attributes
       example:
-        standard: ERC20
-        symbol: TST3
-        address: 0xe7A9as1oa38bc4da0248s179E30aa94CcF453991
-        decimals: 18
-        name: Test 3
+        monochrome: true
       properties:
-        symbol:
-          description: The asset symbol
-          example: TST3
-          type: string
-        name:
-          description: The asset name
-          example: Test 3
-          type: string
-        address:
-          description: The asset address
-          example: 0xe7A9as1oa38bc4da0248s179E30aa94CcF453991
-          type: string
-        decimals:
-          description: Number of decimals
-          example: 18
-          type: number
-        standard:
-          description: The asset standard
-          example: ERC20
-          type: string
-      required:
-      - decimals
-      - name
-      - symbol
-      type: object
-    AssetResponse_metadata:
-      example:
-        scope: Global
-        deprecated: false
-      properties:
-        scope:
-          description: The scope of the asset
-          enum:
-          - Global
-          - Local
-          example: Global
-          type: string
-        deprecated:
-          description: Is asset deprecated
-          example: false
+        monochrome:
+          description: Monochrome flag
+          example: true
           type: boolean
-      required:
-      - deprecated
-      - scope
       type: object
     SignedMessage_signature:
       example:

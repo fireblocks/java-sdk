@@ -42,4 +42,16 @@ public class CosignerTest {
     public void nameTest() {
         // TODO: test name
     }
+
+    /** Test the property 'type' */
+    @Test
+    public void typeTest() {
+        // TODO: test type
+    }
+
+    /** Test the property 'version' */
+    @Test
+    public void versionTest() {
+        // TODO: test version
+    }
 }

@@ -36,4 +36,10 @@ public class ApiKeyTest {
     public void lastSeenTest() {
         // TODO: test lastSeen
     }
+
+    /** Test the property 'callbackHandler' */
+    @Test
+    public void callbackHandlerTest() {
+        // TODO: test callbackHandler
+    }
 }
