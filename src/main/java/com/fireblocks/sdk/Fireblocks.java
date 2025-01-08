@@ -40,6 +40,7 @@ public class Fireblocks {
     private AssetsApi assets;
     private AuditLogsApi auditLogs;
     private BlockchainsAssetsApi blockchainsAssets;
+    private BlockchainsAssetsBetaApi blockchainsAssetsBeta;
     private ComplianceApi compliance;
     private ComplianceScreeningConfigurationApi complianceScreeningConfiguration;
     private ConsoleUserApi consoleUser;
@@ -48,6 +49,7 @@ public class Fireblocks {
     private ContractsApi contracts;
     private CosignersBetaApi cosignersBeta;
     private DeployedContractsApi deployedContracts;
+    private EmbeddedWalletsApi embeddedWallets;
     private ExchangeAccountsApi exchangeAccounts;
     private ExternalWalletsApi externalWallets;
     private FiatAccountsApi fiatAccounts;
@@ -55,6 +57,7 @@ public class Fireblocks {
     private InternalWalletsApi internalWallets;
     private JobManagementApi jobManagement;
     private KeyLinkBetaApi keyLinkBeta;
+    private KeysBetaApi keysBeta;
     private NetworkConnectionsApi networkConnections;
     private NftsApi nfts;
     private OffExchangesApi offExchanges;
@@ -63,7 +66,7 @@ public class Fireblocks {
     private PolicyEditorBetaApi policyEditorBeta;
     private ResetDeviceApi resetDevice;
     private SmartTransferApi smartTransfer;
-    private StakingBetaApi stakingBeta;
+    private StakingApi staking;
     private TokenizationApi tokenization;
     private TransactionsApi transactions;
     private TravelRuleBetaApi travelRuleBeta;
@@ -72,6 +75,7 @@ public class Fireblocks {
     private VaultsApi vaults;
     private Web3ConnectionsApi web3Connections;
     private WebhooksApi webhooks;
+    private WebhooksV2BetaApi webhooksV2Beta;
     private WhitelistIpAddressesApi whitelistIpAddresses;
     private WorkspaceStatusBetaApi workspaceStatusBeta;
 
@@ -241,6 +245,13 @@ public class Fireblocks {
         return blockchainsAssets;
     }
 
+    public BlockchainsAssetsBetaApi blockchainsAssetsBeta() {
+        if (blockchainsAssetsBeta == null) {
+            blockchainsAssetsBeta = new BlockchainsAssetsBetaApi(apiClient);
+        }
+        return blockchainsAssetsBeta;
+    }
+
     public ComplianceApi compliance() {
         if (compliance == null) {
             compliance = new ComplianceApi(apiClient);
@@ -297,6 +308,13 @@ public class Fireblocks {
         return deployedContracts;
     }
 
+    public EmbeddedWalletsApi embeddedWallets() {
+        if (embeddedWallets == null) {
+            embeddedWallets = new EmbeddedWalletsApi(apiClient);
+        }
+        return embeddedWallets;
+    }
+
     public ExchangeAccountsApi exchangeAccounts() {
         if (exchangeAccounts == null) {
             exchangeAccounts = new ExchangeAccountsApi(apiClient);
@@ -344,6 +362,13 @@ public class Fireblocks {
             keyLinkBeta = new KeyLinkBetaApi(apiClient);
         }
         return keyLinkBeta;
+    }
+
+    public KeysBetaApi keysBeta() {
+        if (keysBeta == null) {
+            keysBeta = new KeysBetaApi(apiClient);
+        }
+        return keysBeta;
     }
 
     public NetworkConnectionsApi networkConnections() {
@@ -402,11 +427,11 @@ public class Fireblocks {
         return smartTransfer;
     }
 
-    public StakingBetaApi stakingBeta() {
-        if (stakingBeta == null) {
-            stakingBeta = new StakingBetaApi(apiClient);
+    public StakingApi staking() {
+        if (staking == null) {
+            staking = new StakingApi(apiClient);
         }
-        return stakingBeta;
+        return staking;
     }
 
     public TokenizationApi tokenization() {
@@ -463,6 +488,13 @@ public class Fireblocks {
             webhooks = new WebhooksApi(apiClient);
         }
         return webhooks;
+    }
+
+    public WebhooksV2BetaApi webhooksV2Beta() {
+        if (webhooksV2Beta == null) {
+            webhooksV2Beta = new WebhooksV2BetaApi(apiClient);
+        }
+        return webhooksV2Beta;
     }
 
     public WhitelistIpAddressesApi whitelistIpAddresses() {

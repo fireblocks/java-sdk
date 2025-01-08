@@ -76,10 +76,10 @@ public class AssetResponse {
     private AssetClassEnum assetClass;
 
     public static final String JSON_PROPERTY_ONCHAIN = "onchain";
-    private AssetResponseOnchain onchain;
+    private AssetOnchain onchain;
 
     public static final String JSON_PROPERTY_METADATA = "metadata";
-    private AssetResponseMetadata metadata;
+    private AssetMetadata metadata;
 
     public AssetResponse() {}
 
@@ -129,7 +129,7 @@ public class AssetResponse {
         this.assetClass = assetClass;
     }
 
-    public AssetResponse onchain(AssetResponseOnchain onchain) {
+    public AssetResponse onchain(AssetOnchain onchain) {
         this.onchain = onchain;
         return this;
     }
@@ -142,17 +142,17 @@ public class AssetResponse {
     @jakarta.annotation.Nonnull
     @JsonProperty(JSON_PROPERTY_ONCHAIN)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public AssetResponseOnchain getOnchain() {
+    public AssetOnchain getOnchain() {
         return onchain;
     }
 
     @JsonProperty(JSON_PROPERTY_ONCHAIN)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setOnchain(AssetResponseOnchain onchain) {
+    public void setOnchain(AssetOnchain onchain) {
         this.onchain = onchain;
     }
 
-    public AssetResponse metadata(AssetResponseMetadata metadata) {
+    public AssetResponse metadata(AssetMetadata metadata) {
         this.metadata = metadata;
         return this;
     }
@@ -165,13 +165,13 @@ public class AssetResponse {
     @jakarta.annotation.Nonnull
     @JsonProperty(JSON_PROPERTY_METADATA)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public AssetResponseMetadata getMetadata() {
+    public AssetMetadata getMetadata() {
         return metadata;
     }
 
     @JsonProperty(JSON_PROPERTY_METADATA)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setMetadata(AssetResponseMetadata metadata) {
+    public void setMetadata(AssetMetadata metadata) {
         this.metadata = metadata;
     }
 

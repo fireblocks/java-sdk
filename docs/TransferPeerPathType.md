@@ -29,5 +29,7 @@
 
 * `END_USER_WALLET` (value: `"END_USER_WALLET"`)
 
+* `PROGRAM_CALL` (value: `"PROGRAM_CALL"`)
+
 
 

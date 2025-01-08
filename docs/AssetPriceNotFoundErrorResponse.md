@@ -8,7 +8,7 @@
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
 |**message** | **String** | Not found error message |  |
-|**code** | **String** | Error code |  |
+|**code** | **BigDecimal** | Error code |  |
 
 
 

@@ -15,11 +15,18 @@ package com.fireblocks.sdk.api;
 
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.model.AddCosignerRequest;
+import com.fireblocks.sdk.model.AddCosignerResponse;
 import com.fireblocks.sdk.model.ApiKey;
 import com.fireblocks.sdk.model.ApiKeysPaginatedResponse;
 import com.fireblocks.sdk.model.Cosigner;
 import com.fireblocks.sdk.model.CosignersPaginatedResponse;
+import com.fireblocks.sdk.model.PairApiKeyRequest;
+import com.fireblocks.sdk.model.PairApiKeyResponse;
 import com.fireblocks.sdk.model.RenameCosigner;
+import com.fireblocks.sdk.model.Status;
+import com.fireblocks.sdk.model.UpdateCallbackHandlerRequest;
+import com.fireblocks.sdk.model.UpdateCallbackHandlerResponse;
 import java.math.BigDecimal;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
@@ -31,6 +38,22 @@ import org.junit.Test;
 public class CosignersBetaApiTest {
 
     private final CosignersBetaApi api = new CosignersBetaApi();
+
+    /**
+     * Add cosigner
+     *
+     * <p>Add a new cosigner. The cosigner will be pending pairing until the API key is manually
+     * paired
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void addCosignerTest() throws ApiException {
+        AddCosignerRequest addCosignerRequest = null;
+        String idempotencyKey = null;
+        CompletableFuture<ApiResponse<AddCosignerResponse>> response =
+                api.addCosigner(addCosignerRequest, idempotencyKey);
+    }
 
     /**
      * Get API key
@@ -50,8 +73,7 @@ public class CosignersBetaApiTest {
     /**
      * Get all API keys
      *
-     * <p>Get all cosigner paired API keys (paginated) **Note:** These endpoints are currently in
-     * beta and might be subject to changes.
+     * <p>Get all cosigner paired API keys (paginated)
      *
      * @throws ApiException if the Api call fails
      */
@@ -97,6 +119,39 @@ public class CosignersBetaApiTest {
     }
 
     /**
+     * Get request status
+     *
+     * <p>Get the status of an asynchronous request
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void getRequestStatusTest() throws ApiException {
+        UUID cosignerId = null;
+        String apiKeyId = null;
+        String requestId = null;
+        CompletableFuture<ApiResponse<Status>> response =
+                api.getRequestStatus(cosignerId, apiKeyId, requestId);
+    }
+
+    /**
+     * Pair API key
+     *
+     * <p>Pair an API key to a cosigner
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void pairApiKeyTest() throws ApiException {
+        PairApiKeyRequest pairApiKeyRequest = null;
+        UUID cosignerId = null;
+        String apiKeyId = null;
+        String idempotencyKey = null;
+        CompletableFuture<ApiResponse<PairApiKeyResponse>> response =
+                api.pairApiKey(pairApiKeyRequest, cosignerId, apiKeyId, idempotencyKey);
+    }
+
+    /**
      * Rename cosigner
      *
      * <p>Rename a cosigner by ID **Note:** These endpoints are currently in beta and might be
@@ -110,5 +165,35 @@ public class CosignersBetaApiTest {
         UUID cosignerId = null;
         CompletableFuture<ApiResponse<Cosigner>> response =
                 api.renameCosigner(renameCosigner, cosignerId);
+    }
+
+    /**
+     * Unpair API key
+     *
+     * <p>Unpair an API key from a cosigner
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void unpairApiKeyTest() throws ApiException {
+        UUID cosignerId = null;
+        String apiKeyId = null;
+        CompletableFuture<ApiResponse<ApiKey>> response = api.unpairApiKey(cosignerId, apiKeyId);
+    }
+
+    /**
+     * Update API key callback handler
+     *
+     * <p>Update the callback handler of an API key
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void updateCallbackHandlerTest() throws ApiException {
+        UpdateCallbackHandlerRequest updateCallbackHandlerRequest = null;
+        UUID cosignerId = null;
+        String apiKeyId = null;
+        CompletableFuture<ApiResponse<UpdateCallbackHandlerResponse>> response =
+                api.updateCallbackHandler(updateCallbackHandlerRequest, cosignerId, apiKeyId);
     }
 }
