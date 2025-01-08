@@ -5,6 +5,7 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
 | [**getDeployedContractAbi**](ContractInteractionsApi.md#getDeployedContractAbi) | **GET** /contract_interactions/base_asset_id/{baseAssetId}/contract_address/{contractAddress}/functions | Return deployed contract&#39;s ABI |
+| [**getTransactionReceipt**](ContractInteractionsApi.md#getTransactionReceipt) | **GET** /contract_interactions/base_asset_id/{baseAssetId}/tx_hash/{txHash}/receipt | Get transaction receipt |
 | [**readCallFunction**](ContractInteractionsApi.md#readCallFunction) | **POST** /contract_interactions/base_asset_id/{baseAssetId}/contract_address/{contractAddress}/functions/read | Call a read function on a deployed contract |
 | [**writeCallFunction**](ContractInteractionsApi.md#writeCallFunction) | **POST** /contract_interactions/base_asset_id/{baseAssetId}/contract_address/{contractAddress}/functions/write | Call a write function on a deployed contract |
 
@@ -94,6 +95,91 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** |  |  -  |
+| **0** | Error Response |  * X-Request-ID -  <br>  |
+
+
+## getTransactionReceipt
+
+> CompletableFuture<ApiResponse<TransactionReceiptResponse>> getTransactionReceipt getTransactionReceipt(baseAssetId, txHash)
+
+Get transaction receipt
+
+Retrieve the transaction receipt by blockchain native asset ID and transaction hash
+
+### Example
+
+```java
+// Import classes:
+import com.fireblocks.sdk.ApiClient;
+import com.fireblocks.sdk.ApiException;
+import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
+import com.fireblocks.sdk.api.ContractInteractionsApi;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+
+public class Example {
+    public static void main(String[] args) {
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
+
+        String baseAssetId = "ETH_TEST6"; // String | The blockchain base assetId
+        String txHash = "0x3b015ca0518c55d7bff4e3f5aa5d0431705771553ba8a95cf20e34cb597f57f6"; // String | The transaction hash
+        try {
+            CompletableFuture<ApiResponse<TransactionReceiptResponse>> response = fireblocks.contractInteractions().getTransactionReceipt(baseAssetId, txHash);
+            System.out.println("Status code: " + response.get().getStatusCode());
+            System.out.println("Response headers: " + response.get().getHeaders());
+            System.out.println("Response body: " + response.get().getData());
+        } catch (InterruptedException | ExecutionException e) {
+            ApiException apiException = (ApiException)e.getCause();
+            System.err.println("Exception when calling ContractInteractionsApi#getTransactionReceipt");
+            System.err.println("Status code: " + apiException.getCode());
+            System.err.println("Response headers: " + apiException.getResponseHeaders());
+            System.err.println("Reason: " + apiException.getResponseBody());
+            e.printStackTrace();
+        } catch (ApiException e) {
+            System.err.println("Exception when calling ContractInteractionsApi#getTransactionReceipt");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            System.err.println("Reason: " + e.getResponseBody());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **baseAssetId** | **String**| The blockchain base assetId | |
+| **txHash** | **String**| The transaction hash | |
+
+### Return type
+
+CompletableFuture<ApiResponse<[**TransactionReceiptResponse**](TransactionReceiptResponse.md)>>
+
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Retrieved The Transaction Receipt Successfully |  -  |
 | **0** | Error Response |  * X-Request-ID -  <br>  |
 
 

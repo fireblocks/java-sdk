@@ -25,9 +25,11 @@ import com.fasterxml.jackson.annotation.JsonValue;
  * Calls a smart contract method for web3 operations on any EVM blockchain. The Fireblocks
  * [development
  * libraries](https://developers.fireblocks.com/docs/ethereum-development#convenience-libraries) are
- * recommended for building contract call transactions. * &#x60;TYPED_MESSAGE&#x60; - An off-chain
- * message in either Ethereum Personal Message or EIP712 format. Use it to sign specific readable
- * messages that are not actual transactions. [Learn more about typed
+ * recommended for building contract call transactions. * &#x60;PROGRAM_CALL&#x60; - Execute
+ * multiple instructions on Solana blockchain. The @solana/web3.js library is recommended for
+ * building program call transactions. Currently in beta and disabled * &#x60;TYPED_MESSAGE&#x60; -
+ * An off-chain message in either Ethereum Personal Message or EIP712 format. Use it to sign
+ * specific readable messages that are not actual transactions. [Learn more about typed
  * messages](https://developers.fireblocks.com/docs/typed-message-signing). * &#x60;RAW&#x60; - An
  * off-chain message with no predefined format. Use it to sign any message with your private key,
  * including protocols such as blockchains and custom transaction types that are not natively
@@ -40,6 +42,8 @@ public enum TransactionOperation {
     BURN("BURN"),
 
     CONTRACT_CALL("CONTRACT_CALL"),
+
+    PROGRAM_CALL("PROGRAM_CALL"),
 
     MINT("MINT"),
 

@@ -15,6 +15,7 @@ package com.fireblocks.sdk.api;
 
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.model.CreateTransactionResponse;
 import com.fireblocks.sdk.model.ScreeningConfigurationsRequest;
 import com.fireblocks.sdk.model.ScreeningPolicyResponse;
 import com.fireblocks.sdk.model.ScreeningProviderRulesConfigurationResponse;
@@ -79,6 +80,23 @@ public class ComplianceApiTest {
     public void getScreeningPolicyTest() throws ApiException {
         CompletableFuture<ApiResponse<ScreeningProviderRulesConfigurationResponse>> response =
                 api.getScreeningPolicy();
+    }
+
+    /**
+     * Calling the \&quot;Bypass Screening Policy\&quot; API endpoint triggers a new transaction,
+     * with the API user as the initiator, bypassing the screening policy check
+     *
+     * <p>This endpoint is restricted to Admin API users and is only applicable to outgoing
+     * transactions.
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void retryRejectedTransactionBypassScreeningChecksTest() throws ApiException {
+        String txId = null;
+        String idempotencyKey = null;
+        CompletableFuture<ApiResponse<CreateTransactionResponse>> response =
+                api.retryRejectedTransactionBypassScreeningChecks(txId, idempotencyKey);
     }
 
     /**

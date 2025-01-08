@@ -18,6 +18,7 @@ import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.model.ContractAbiResponseDto;
 import com.fireblocks.sdk.model.ParameterWithValue;
 import com.fireblocks.sdk.model.ReadCallFunctionDto;
+import com.fireblocks.sdk.model.TransactionReceiptResponse;
 import com.fireblocks.sdk.model.WriteCallFunctionDto;
 import com.fireblocks.sdk.model.WriteCallFunctionResponseDto;
 import java.util.List;
@@ -45,6 +46,21 @@ public class ContractInteractionsApiTest {
         String idempotencyKey = null;
         CompletableFuture<ApiResponse<ContractAbiResponseDto>> response =
                 api.getDeployedContractAbi(contractAddress, baseAssetId, idempotencyKey);
+    }
+
+    /**
+     * Get transaction receipt
+     *
+     * <p>Retrieve the transaction receipt by blockchain native asset ID and transaction hash
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void getTransactionReceiptTest() throws ApiException {
+        String baseAssetId = null;
+        String txHash = null;
+        CompletableFuture<ApiResponse<TransactionReceiptResponse>> response =
+                api.getTransactionReceipt(baseAssetId, txHash);
     }
 
     /**

@@ -16,6 +16,7 @@ package com.fireblocks.sdk.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import java.math.BigDecimal;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.Objects;
@@ -38,10 +39,10 @@ public class AuditLogData {
     private String id;
 
     public static final String JSON_PROPERTY_TIMESTAMP = "timestamp";
-    private String timestamp;
+    private BigDecimal timestamp;
 
     public static final String JSON_PROPERTY_CREATED_AT = "createdAt";
-    private String createdAt;
+    private BigDecimal createdAt;
 
     public static final String JSON_PROPERTY_USER = "user";
     private String user;
@@ -83,7 +84,7 @@ public class AuditLogData {
         this.id = id;
     }
 
-    public AuditLogData timestamp(String timestamp) {
+    public AuditLogData timestamp(BigDecimal timestamp) {
         this.timestamp = timestamp;
         return this;
     }
@@ -96,17 +97,17 @@ public class AuditLogData {
     @jakarta.annotation.Nullable
     @JsonProperty(JSON_PROPERTY_TIMESTAMP)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public String getTimestamp() {
+    public BigDecimal getTimestamp() {
         return timestamp;
     }
 
     @JsonProperty(JSON_PROPERTY_TIMESTAMP)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setTimestamp(String timestamp) {
+    public void setTimestamp(BigDecimal timestamp) {
         this.timestamp = timestamp;
     }
 
-    public AuditLogData createdAt(String createdAt) {
+    public AuditLogData createdAt(BigDecimal createdAt) {
         this.createdAt = createdAt;
         return this;
     }
@@ -119,13 +120,13 @@ public class AuditLogData {
     @jakarta.annotation.Nullable
     @JsonProperty(JSON_PROPERTY_CREATED_AT)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public String getCreatedAt() {
+    public BigDecimal getCreatedAt() {
         return createdAt;
     }
 
     @JsonProperty(JSON_PROPERTY_CREATED_AT)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setCreatedAt(String createdAt) {
+    public void setCreatedAt(BigDecimal createdAt) {
         this.createdAt = createdAt;
     }
 

@@ -11,6 +11,8 @@
 
 * `CONTRACT_CALL` (value: `"CONTRACT_CALL"`)
 
+* `PROGRAM_CALL` (value: `"PROGRAM_CALL"`)
+
 * `MINT` (value: `"MINT"`)
 
 * `RAW` (value: `"RAW"`)

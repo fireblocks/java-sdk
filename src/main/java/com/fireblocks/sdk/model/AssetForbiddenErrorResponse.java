@@ -16,6 +16,7 @@ package com.fireblocks.sdk.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import java.math.BigDecimal;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.Objects;
@@ -32,7 +33,7 @@ public class AssetForbiddenErrorResponse {
     private String message;
 
     public static final String JSON_PROPERTY_CODE = "code";
-    private String code;
+    private BigDecimal code;
 
     public AssetForbiddenErrorResponse() {}
 
@@ -59,7 +60,7 @@ public class AssetForbiddenErrorResponse {
         this.message = message;
     }
 
-    public AssetForbiddenErrorResponse code(String code) {
+    public AssetForbiddenErrorResponse code(BigDecimal code) {
         this.code = code;
         return this;
     }
@@ -72,13 +73,13 @@ public class AssetForbiddenErrorResponse {
     @jakarta.annotation.Nonnull
     @JsonProperty(JSON_PROPERTY_CODE)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public String getCode() {
+    public BigDecimal getCode() {
         return code;
     }
 
     @JsonProperty(JSON_PROPERTY_CODE)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setCode(String code) {
+    public void setCode(BigDecimal code) {
         this.code = code;
     }
 

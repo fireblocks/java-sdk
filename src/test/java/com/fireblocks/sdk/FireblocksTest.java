@@ -388,6 +388,14 @@ public class FireblocksTest {
     }
 
     @Test
+    public void testGetBlockchainsAssetsBetaApi() {
+        setupFireblocks(true, null, null);
+        BlockchainsAssetsBetaApi blockchainsAssetsBeta = fireblocks.blockchainsAssetsBeta();
+        Assert.assertNotNull(blockchainsAssetsBeta);
+        Assert.assertSame(blockchainsAssetsBeta, fireblocks.blockchainsAssetsBeta());
+    }
+
+    @Test
     public void testGetComplianceApi() {
         setupFireblocks(true, null, null);
         ComplianceApi compliance = fireblocks.compliance();
@@ -454,6 +462,14 @@ public class FireblocksTest {
     }
 
     @Test
+    public void testGetEmbeddedWalletsApi() {
+        setupFireblocks(true, null, null);
+        EmbeddedWalletsApi embeddedWallets = fireblocks.embeddedWallets();
+        Assert.assertNotNull(embeddedWallets);
+        Assert.assertSame(embeddedWallets, fireblocks.embeddedWallets());
+    }
+
+    @Test
     public void testGetExchangeAccountsApi() {
         setupFireblocks(true, null, null);
         ExchangeAccountsApi exchangeAccounts = fireblocks.exchangeAccounts();
@@ -507,6 +523,14 @@ public class FireblocksTest {
         KeyLinkBetaApi keyLinkBeta = fireblocks.keyLinkBeta();
         Assert.assertNotNull(keyLinkBeta);
         Assert.assertSame(keyLinkBeta, fireblocks.keyLinkBeta());
+    }
+
+    @Test
+    public void testGetKeysBetaApi() {
+        setupFireblocks(true, null, null);
+        KeysBetaApi keysBeta = fireblocks.keysBeta();
+        Assert.assertNotNull(keysBeta);
+        Assert.assertSame(keysBeta, fireblocks.keysBeta());
     }
 
     @Test
@@ -574,11 +598,11 @@ public class FireblocksTest {
     }
 
     @Test
-    public void testGetStakingBetaApi() {
+    public void testGetStakingApi() {
         setupFireblocks(true, null, null);
-        StakingBetaApi stakingBeta = fireblocks.stakingBeta();
-        Assert.assertNotNull(stakingBeta);
-        Assert.assertSame(stakingBeta, fireblocks.stakingBeta());
+        StakingApi staking = fireblocks.staking();
+        Assert.assertNotNull(staking);
+        Assert.assertSame(staking, fireblocks.staking());
     }
 
     @Test
@@ -643,6 +667,14 @@ public class FireblocksTest {
         WebhooksApi webhooks = fireblocks.webhooks();
         Assert.assertNotNull(webhooks);
         Assert.assertSame(webhooks, fireblocks.webhooks());
+    }
+
+    @Test
+    public void testGetWebhooksV2BetaApi() {
+        setupFireblocks(true, null, null);
+        WebhooksV2BetaApi webhooksV2Beta = fireblocks.webhooksV2Beta();
+        Assert.assertNotNull(webhooksV2Beta);
+        Assert.assertSame(webhooksV2Beta, fireblocks.webhooksV2Beta());
     }
 
     @Test

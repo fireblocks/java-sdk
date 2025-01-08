@@ -9,8 +9,8 @@
 |------------ | ------------- | ------------- | -------------|
 |**legacyId** | **String** |  |  |
 |**assetClass** | [**AssetClassEnum**](#AssetClassEnum) |  |  |
-|**onchain** | [**AssetResponseOnchain**](AssetResponseOnchain.md) |  |  |
-|**metadata** | [**AssetResponseMetadata**](AssetResponseMetadata.md) |  |  |
+|**onchain** | [**AssetOnchain**](AssetOnchain.md) |  |  |
+|**metadata** | [**AssetMetadata**](AssetMetadata.md) |  |  |
 
 
 
