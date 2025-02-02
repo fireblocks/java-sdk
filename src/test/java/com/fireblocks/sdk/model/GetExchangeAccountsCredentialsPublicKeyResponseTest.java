@@ -31,4 +31,10 @@ public class GetExchangeAccountsCredentialsPublicKeyResponseTest {
     public void publicKeyTest() {
         // TODO: test publicKey
     }
+
+    /** Test the property 'tenantId' */
+    @Test
+    public void tenantIdTest() {
+        // TODO: test tenantId
+    }
 }

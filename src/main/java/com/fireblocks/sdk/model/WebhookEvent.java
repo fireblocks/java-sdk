@@ -26,6 +26,8 @@ public enum WebhookEvent {
 
     EXTERNAL_WALLET_ASSET_ADDED("external_wallet.asset.added"),
 
+    EXTERNAL_WALLET_ASSET_REMOVED("external_wallet.asset.removed"),
+
     INTERNAL_WALLET_ASSET_ADDED("internal_wallet.asset.added"),
 
     INTERNAL_WALLET_ASSET_REMOVED("internal_wallet.asset.removed"),
@@ -36,19 +38,27 @@ public enum WebhookEvent {
 
     VAULT_ACCOUNT_CREATED("vault_account.created"),
 
-    VAULT_ACCOUNT_ASSET_ADDED("vault_account.asset.added"),
+    VAULT_ACCOUNT_ASSET_LISTED("vault_account.asset.listed"),
 
     VAULT_ACCOUNT_ASSET_BALANCE_UPDATED("vault_account.asset.balance_updated"),
 
     VAULT_ACCOUNT_NFT_BALANCE_UPDATED("vault_account.nft.balance_updated"),
 
-    EMBEDDED_WALLET_ASSET_ADDED("embedded_wallet.asset.added"),
+    EMBEDDED_WALLET_CREATED("embedded_wallet.created"),
 
     EMBEDDED_WALLET_ASSET_BALANCE_UPDATED("embedded_wallet.asset.balance_updated"),
 
-    EXCHANGE_ACCOUNT_ADDED("exchange_account.added"),
+    EMBEDDED_WALLET_ASSET_LISTED("embedded_wallet.asset.listed"),
 
-    FIAT_ACCOUNT_ADDED("fiat_account.added"),
+    EMBEDDED_WALLET_ACCOUNT_CREATED("embedded_wallet.account.created"),
+
+    EMBEDDED_WALLET_DEVICE_ADDED("embedded_wallet.device.added"),
+
+    EMBEDDED_WALLET_TRANSACTION_UPDATED("embedded_wallet.transaction.updated"),
+
+    EXCHANGE_ACCOUNT_CONNECTED("exchange_account.connected"),
+
+    FIAT_ACCOUNT_CONNECTED("fiat_account.connected"),
 
     TICKET_CREATED("ticket.created"),
 
@@ -86,7 +96,11 @@ public enum WebhookEvent {
 
     TICKET_TERM_FUNDING_COMPLETED("ticket.term.funding_completed"),
 
-    TICKET_TERM_TRANSACTION_STATUS_CHANGED("ticket.term.transaction_status_changed");
+    TICKET_TERM_TRANSACTION_STATUS_CHANGED("ticket.term.transaction_status_changed"),
+
+    SETTLEMENT_CREATED("settlement.created"),
+
+    COLLATERAL_STATUS_UPDATED("collateral.status.updated");
 
     private String value;
 

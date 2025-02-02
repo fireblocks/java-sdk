@@ -24,8 +24,11 @@ docs/AddCollateralRequestBody.md
 docs/AddContractAssetRequest.md
 docs/AddCosignerRequest.md
 docs/AddCosignerResponse.md
+docs/AddExchangeAccountRequest.md
+docs/AddExchangeAccountResponse.md
 docs/AdditionalInfo.md
 docs/AmlRegistrationResult.md
+docs/AmlRegistrationResultFullPayload.md
 docs/AmlScreeningResult.md
 docs/AmountAggregationTimePeriodMethod.md
 docs/AmountAndChainDescriptor.md
@@ -89,8 +92,10 @@ docs/CollectionTokenMetadataDto.md
 docs/CollectionType.md
 docs/ComplianceApi.md
 docs/ComplianceResult.md
+docs/ComplianceResultFullPayload.md
 docs/ComplianceScreeningConfigurationApi.md
 docs/ComplianceScreeningResult.md
+docs/ComplianceScreeningResultFullPayload.md
 docs/ConfigChangeRequestStatus.md
 docs/ConfigConversionOperationSnapshot.md
 docs/ConfigDisbursementOperationSnapshot.md
@@ -641,8 +646,11 @@ src/main/java/com/fireblocks/sdk/model/AddCollateralRequestBody.java
 src/main/java/com/fireblocks/sdk/model/AddContractAssetRequest.java
 src/main/java/com/fireblocks/sdk/model/AddCosignerRequest.java
 src/main/java/com/fireblocks/sdk/model/AddCosignerResponse.java
+src/main/java/com/fireblocks/sdk/model/AddExchangeAccountRequest.java
+src/main/java/com/fireblocks/sdk/model/AddExchangeAccountResponse.java
 src/main/java/com/fireblocks/sdk/model/AdditionalInfo.java
 src/main/java/com/fireblocks/sdk/model/AmlRegistrationResult.java
+src/main/java/com/fireblocks/sdk/model/AmlRegistrationResultFullPayload.java
 src/main/java/com/fireblocks/sdk/model/AmlScreeningResult.java
 src/main/java/com/fireblocks/sdk/model/AmountAggregationTimePeriodMethod.java
 src/main/java/com/fireblocks/sdk/model/AmountAndChainDescriptor.java
@@ -700,7 +708,9 @@ src/main/java/com/fireblocks/sdk/model/CollectionTokenMetadataAttributeDto.java
 src/main/java/com/fireblocks/sdk/model/CollectionTokenMetadataDto.java
 src/main/java/com/fireblocks/sdk/model/CollectionType.java
 src/main/java/com/fireblocks/sdk/model/ComplianceResult.java
+src/main/java/com/fireblocks/sdk/model/ComplianceResultFullPayload.java
 src/main/java/com/fireblocks/sdk/model/ComplianceScreeningResult.java
+src/main/java/com/fireblocks/sdk/model/ComplianceScreeningResultFullPayload.java
 src/main/java/com/fireblocks/sdk/model/ConfigChangeRequestStatus.java
 src/main/java/com/fireblocks/sdk/model/ConfigConversionOperationSnapshot.java
 src/main/java/com/fireblocks/sdk/model/ConfigDisbursementOperationSnapshot.java
@@ -1196,7 +1206,10 @@ src/test/java/com/fireblocks/sdk/model/AddCollateralRequestBodyTest.java
 src/test/java/com/fireblocks/sdk/model/AddContractAssetRequestTest.java
 src/test/java/com/fireblocks/sdk/model/AddCosignerRequestTest.java
 src/test/java/com/fireblocks/sdk/model/AddCosignerResponseTest.java
+src/test/java/com/fireblocks/sdk/model/AddExchangeAccountRequestTest.java
+src/test/java/com/fireblocks/sdk/model/AddExchangeAccountResponseTest.java
 src/test/java/com/fireblocks/sdk/model/AdditionalInfoTest.java
+src/test/java/com/fireblocks/sdk/model/AmlRegistrationResultFullPayloadTest.java
 src/test/java/com/fireblocks/sdk/model/AmlRegistrationResultTest.java
 src/test/java/com/fireblocks/sdk/model/AmlScreeningResultTest.java
 src/test/java/com/fireblocks/sdk/model/AmountAggregationTimePeriodMethodTest.java
@@ -1254,7 +1267,9 @@ src/test/java/com/fireblocks/sdk/model/CollectionOwnershipResponseTest.java
 src/test/java/com/fireblocks/sdk/model/CollectionTokenMetadataAttributeDtoTest.java
 src/test/java/com/fireblocks/sdk/model/CollectionTokenMetadataDtoTest.java
 src/test/java/com/fireblocks/sdk/model/CollectionTypeTest.java
+src/test/java/com/fireblocks/sdk/model/ComplianceResultFullPayloadTest.java
 src/test/java/com/fireblocks/sdk/model/ComplianceResultTest.java
+src/test/java/com/fireblocks/sdk/model/ComplianceScreeningResultFullPayloadTest.java
 src/test/java/com/fireblocks/sdk/model/ComplianceScreeningResultTest.java
 src/test/java/com/fireblocks/sdk/model/ConfigChangeRequestStatusTest.java
 src/test/java/com/fireblocks/sdk/model/ConfigConversionOperationSnapshotTest.java

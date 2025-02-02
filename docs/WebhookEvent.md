@@ -13,6 +13,8 @@
 
 * `EXTERNAL_WALLET_ASSET_ADDED` (value: `"external_wallet.asset.added"`)
 
+* `EXTERNAL_WALLET_ASSET_REMOVED` (value: `"external_wallet.asset.removed"`)
+
 * `INTERNAL_WALLET_ASSET_ADDED` (value: `"internal_wallet.asset.added"`)
 
 * `INTERNAL_WALLET_ASSET_REMOVED` (value: `"internal_wallet.asset.removed"`)
@@ -23,19 +25,27 @@
 
 * `VAULT_ACCOUNT_CREATED` (value: `"vault_account.created"`)
 
-* `VAULT_ACCOUNT_ASSET_ADDED` (value: `"vault_account.asset.added"`)
+* `VAULT_ACCOUNT_ASSET_LISTED` (value: `"vault_account.asset.listed"`)
 
 * `VAULT_ACCOUNT_ASSET_BALANCE_UPDATED` (value: `"vault_account.asset.balance_updated"`)
 
 * `VAULT_ACCOUNT_NFT_BALANCE_UPDATED` (value: `"vault_account.nft.balance_updated"`)
 
-* `EMBEDDED_WALLET_ASSET_ADDED` (value: `"embedded_wallet.asset.added"`)
+* `EMBEDDED_WALLET_CREATED` (value: `"embedded_wallet.created"`)
 
 * `EMBEDDED_WALLET_ASSET_BALANCE_UPDATED` (value: `"embedded_wallet.asset.balance_updated"`)
 
-* `EXCHANGE_ACCOUNT_ADDED` (value: `"exchange_account.added"`)
+* `EMBEDDED_WALLET_ASSET_LISTED` (value: `"embedded_wallet.asset.listed"`)
 
-* `FIAT_ACCOUNT_ADDED` (value: `"fiat_account.added"`)
+* `EMBEDDED_WALLET_ACCOUNT_CREATED` (value: `"embedded_wallet.account.created"`)
+
+* `EMBEDDED_WALLET_DEVICE_ADDED` (value: `"embedded_wallet.device.added"`)
+
+* `EMBEDDED_WALLET_TRANSACTION_UPDATED` (value: `"embedded_wallet.transaction.updated"`)
+
+* `EXCHANGE_ACCOUNT_CONNECTED` (value: `"exchange_account.connected"`)
+
+* `FIAT_ACCOUNT_CONNECTED` (value: `"fiat_account.connected"`)
 
 * `TICKET_CREATED` (value: `"ticket.created"`)
 
@@ -74,6 +84,10 @@
 * `TICKET_TERM_FUNDING_COMPLETED` (value: `"ticket.term.funding_completed"`)
 
 * `TICKET_TERM_TRANSACTION_STATUS_CHANGED` (value: `"ticket.term.transaction_status_changed"`)
+
+* `SETTLEMENT_CREATED` (value: `"settlement.created"`)
+
+* `COLLATERAL_STATUS_UPDATED` (value: `"collateral.status.updated"`)
 
 
 

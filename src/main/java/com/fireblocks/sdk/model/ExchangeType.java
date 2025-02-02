@@ -16,59 +16,91 @@ package com.fireblocks.sdk.model;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
-/** Gets or Sets ExchangeType */
+/** Exchange account&#39;s type */
 public enum ExchangeType {
-    BINANCE("BINANCE"),
+    INDEPENDENT_RESERVE("INDEPENDENT_RESERVE"),
 
-    BINANCEUS("BINANCEUS"),
+    ENCLAVE_MARKETS("ENCLAVE_MARKETS"),
 
-    BITFINEX("BITFINEX"),
+    BIT("BIT"),
+
+    COINFLEX("COINFLEX"),
+
+    KUCOIN("KUCOIN"),
+
+    PXS("PXS"),
+
+    LIQUID("LIQUID"),
 
     BITHUMB("BITHUMB"),
 
-    BITMEX("BITMEX"),
+    BITFINEX("BITFINEX"),
 
     BITSO("BITSO"),
 
     BITSTAMP("BITSTAMP"),
 
-    BITTREX("BITTREX"),
+    KRAKEN("KRAKEN"),
 
-    CIRCLE("CIRCLE"),
+    KRAKENINTL("KRAKENINTL"),
 
-    COINBASEPRO("COINBASEPRO"),
+    BINANCE("BINANCE"),
 
-    COINMETRO("COINMETRO"),
-
-    COINSPRO("COINSPRO"),
+    BINANCEUS("BINANCEUS"),
 
     CRYPTOCOM("CRYPTOCOM"),
 
-    DERIBIT("DERIBIT"),
+    BYBIT_V2("BYBIT_V2"),
 
-    FTX("FTX"),
+    COINBASEPRO("COINBASEPRO"),
 
-    FIXUS("FIXUS"),
+    COINBASEPRIME("COINBASEPRIME"),
 
-    GEMINI("GEMINI"),
+    COINBASEINTERNATIONAL("COINBASEINTERNATIONAL"),
 
-    HITBTC("HITBTC"),
+    WHITEBIT("WHITEBIT"),
 
-    HUOBI("HUOBI"),
+    COINBASEEXCHANGE("COINBASEEXCHANGE"),
 
     KORBIT("KORBIT"),
 
-    KRAKEN("KRAKEN"),
+    HITBTC("HITBTC"),
 
-    LIQUID("LIQUID"),
+    GEMINI("GEMINI"),
 
-    POLONIEX("POLONIEX"),
+    CIRCLE("CIRCLE"),
 
-    OKCOIN("OKCOIN"),
+    BITMEX("BITMEX"),
+
+    HUOBI("HUOBI"),
+
+    DERIBIT("DERIBIT"),
+
+    OKCOIN_V5("OKCOIN_V5"),
 
     OKEX("OKEX"),
 
-    SEEDCX("SEEDCX");
+    COINMETRO("COINMETRO"),
+
+    GATEIO("GATEIO"),
+
+    SCRYPT("SCRYPT"),
+
+    COINHAKO("COINHAKO"),
+
+    LIGHTBIT("LIGHTBIT"),
+
+    BULLISH("BULLISH"),
+
+    CANVAS_CONNECT("CANVAS_CONNECT"),
+
+    BITGET("BITGET"),
+
+    LUNO("LUNO"),
+
+    BIT_GENERA("BIT_GENERA"),
+
+    TRANSFERO("TRANSFERO");
 
     private String value;
 
