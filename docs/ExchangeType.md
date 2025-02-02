@@ -5,57 +5,89 @@
 ## Enum
 
 
-* `BINANCE` (value: `"BINANCE"`)
+* `INDEPENDENT_RESERVE` (value: `"INDEPENDENT_RESERVE"`)
 
-* `BINANCEUS` (value: `"BINANCEUS"`)
+* `ENCLAVE_MARKETS` (value: `"ENCLAVE_MARKETS"`)
 
-* `BITFINEX` (value: `"BITFINEX"`)
+* `BIT` (value: `"BIT"`)
+
+* `COINFLEX` (value: `"COINFLEX"`)
+
+* `KUCOIN` (value: `"KUCOIN"`)
+
+* `PXS` (value: `"PXS"`)
+
+* `LIQUID` (value: `"LIQUID"`)
 
 * `BITHUMB` (value: `"BITHUMB"`)
 
-* `BITMEX` (value: `"BITMEX"`)
+* `BITFINEX` (value: `"BITFINEX"`)
 
 * `BITSO` (value: `"BITSO"`)
 
 * `BITSTAMP` (value: `"BITSTAMP"`)
 
-* `BITTREX` (value: `"BITTREX"`)
+* `KRAKEN` (value: `"KRAKEN"`)
 
-* `CIRCLE` (value: `"CIRCLE"`)
+* `KRAKENINTL` (value: `"KRAKENINTL"`)
 
-* `COINBASEPRO` (value: `"COINBASEPRO"`)
+* `BINANCE` (value: `"BINANCE"`)
 
-* `COINMETRO` (value: `"COINMETRO"`)
-
-* `COINSPRO` (value: `"COINSPRO"`)
+* `BINANCEUS` (value: `"BINANCEUS"`)
 
 * `CRYPTOCOM` (value: `"CRYPTOCOM"`)
 
-* `DERIBIT` (value: `"DERIBIT"`)
+* `BYBIT_V2` (value: `"BYBIT_V2"`)
 
-* `FTX` (value: `"FTX"`)
+* `COINBASEPRO` (value: `"COINBASEPRO"`)
 
-* `FIXUS` (value: `"FIXUS"`)
+* `COINBASEPRIME` (value: `"COINBASEPRIME"`)
 
-* `GEMINI` (value: `"GEMINI"`)
+* `COINBASEINTERNATIONAL` (value: `"COINBASEINTERNATIONAL"`)
 
-* `HITBTC` (value: `"HITBTC"`)
+* `WHITEBIT` (value: `"WHITEBIT"`)
 
-* `HUOBI` (value: `"HUOBI"`)
+* `COINBASEEXCHANGE` (value: `"COINBASEEXCHANGE"`)
 
 * `KORBIT` (value: `"KORBIT"`)
 
-* `KRAKEN` (value: `"KRAKEN"`)
+* `HITBTC` (value: `"HITBTC"`)
 
-* `LIQUID` (value: `"LIQUID"`)
+* `GEMINI` (value: `"GEMINI"`)
 
-* `POLONIEX` (value: `"POLONIEX"`)
+* `CIRCLE` (value: `"CIRCLE"`)
 
-* `OKCOIN` (value: `"OKCOIN"`)
+* `BITMEX` (value: `"BITMEX"`)
+
+* `HUOBI` (value: `"HUOBI"`)
+
+* `DERIBIT` (value: `"DERIBIT"`)
+
+* `OKCOIN_V5` (value: `"OKCOIN_V5"`)
 
 * `OKEX` (value: `"OKEX"`)
 
-* `SEEDCX` (value: `"SEEDCX"`)
+* `COINMETRO` (value: `"COINMETRO"`)
+
+* `GATEIO` (value: `"GATEIO"`)
+
+* `SCRYPT` (value: `"SCRYPT"`)
+
+* `COINHAKO` (value: `"COINHAKO"`)
+
+* `LIGHTBIT` (value: `"LIGHTBIT"`)
+
+* `BULLISH` (value: `"BULLISH"`)
+
+* `CANVAS_CONNECT` (value: `"CANVAS_CONNECT"`)
+
+* `BITGET` (value: `"BITGET"`)
+
+* `LUNO` (value: `"LUNO"`)
+
+* `BIT_GENERA` (value: `"BIT_GENERA"`)
+
+* `TRANSFERO` (value: `"TRANSFERO"`)
 
 
 

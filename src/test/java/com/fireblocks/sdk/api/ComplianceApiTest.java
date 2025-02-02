@@ -15,6 +15,7 @@ package com.fireblocks.sdk.api;
 
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.model.ComplianceResultFullPayload;
 import com.fireblocks.sdk.model.CreateTransactionResponse;
 import com.fireblocks.sdk.model.ScreeningConfigurationsRequest;
 import com.fireblocks.sdk.model.ScreeningPolicyResponse;
@@ -67,6 +68,20 @@ public class ComplianceApiTest {
     public void getPostScreeningPolicyTest() throws ApiException {
         CompletableFuture<ApiResponse<ScreeningPolicyResponse>> response =
                 api.getPostScreeningPolicy();
+    }
+
+    /**
+     * Provides all the compliance details for the given screened transaction.
+     *
+     * <p>Provides all the compliance details for the given screened transaction.
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void getScreeningFullDetailsTest() throws ApiException {
+        String txId = null;
+        CompletableFuture<ApiResponse<ComplianceResultFullPayload>> response =
+                api.getScreeningFullDetails(txId);
     }
 
     /**

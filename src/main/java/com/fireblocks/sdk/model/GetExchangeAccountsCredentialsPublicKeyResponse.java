@@ -22,11 +22,17 @@ import java.util.Objects;
 import java.util.StringJoiner;
 
 /** GetExchangeAccountsCredentialsPublicKeyResponse */
-@JsonPropertyOrder({GetExchangeAccountsCredentialsPublicKeyResponse.JSON_PROPERTY_PUBLIC_KEY})
+@JsonPropertyOrder({
+    GetExchangeAccountsCredentialsPublicKeyResponse.JSON_PROPERTY_PUBLIC_KEY,
+    GetExchangeAccountsCredentialsPublicKeyResponse.JSON_PROPERTY_TENANT_ID
+})
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class GetExchangeAccountsCredentialsPublicKeyResponse {
     public static final String JSON_PROPERTY_PUBLIC_KEY = "publicKey";
     private String publicKey;
+
+    public static final String JSON_PROPERTY_TENANT_ID = "tenantId";
+    private String tenantId;
 
     public GetExchangeAccountsCredentialsPublicKeyResponse() {}
 
@@ -53,6 +59,29 @@ public class GetExchangeAccountsCredentialsPublicKeyResponse {
         this.publicKey = publicKey;
     }
 
+    public GetExchangeAccountsCredentialsPublicKeyResponse tenantId(String tenantId) {
+        this.tenantId = tenantId;
+        return this;
+    }
+
+    /**
+     * Tenant identifier
+     *
+     * @return tenantId
+     */
+    @jakarta.annotation.Nonnull
+    @JsonProperty(JSON_PROPERTY_TENANT_ID)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public String getTenantId() {
+        return tenantId;
+    }
+
+    @JsonProperty(JSON_PROPERTY_TENANT_ID)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setTenantId(String tenantId) {
+        this.tenantId = tenantId;
+    }
+
     /** Return true if this GetExchangeAccountsCredentialsPublicKeyResponse object is equal to o. */
     @Override
     public boolean equals(Object o) {
@@ -66,12 +95,14 @@ public class GetExchangeAccountsCredentialsPublicKeyResponse {
                 getExchangeAccountsCredentialsPublicKeyResponse =
                         (GetExchangeAccountsCredentialsPublicKeyResponse) o;
         return Objects.equals(
-                this.publicKey, getExchangeAccountsCredentialsPublicKeyResponse.publicKey);
+                        this.publicKey, getExchangeAccountsCredentialsPublicKeyResponse.publicKey)
+                && Objects.equals(
+                        this.tenantId, getExchangeAccountsCredentialsPublicKeyResponse.tenantId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(publicKey);
+        return Objects.hash(publicKey, tenantId);
     }
 
     @Override
@@ -79,6 +110,7 @@ public class GetExchangeAccountsCredentialsPublicKeyResponse {
         StringBuilder sb = new StringBuilder();
         sb.append("class GetExchangeAccountsCredentialsPublicKeyResponse {\n");
         sb.append("    publicKey: ").append(toIndentedString(publicKey)).append("\n");
+        sb.append("    tenantId: ").append(toIndentedString(tenantId)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -135,6 +167,17 @@ public class GetExchangeAccountsCredentialsPublicKeyResponse {
                             suffix,
                             URLEncoder.encode(
                                             String.valueOf(getPublicKey()), StandardCharsets.UTF_8)
+                                    .replaceAll("\\+", "%20")));
+        }
+
+        // add `tenantId` to the URL query string
+        if (getTenantId() != null) {
+            joiner.add(
+                    String.format(
+                            "%stenantId%s=%s",
+                            prefix,
+                            suffix,
+                            URLEncoder.encode(String.valueOf(getTenantId()), StandardCharsets.UTF_8)
                                     .replaceAll("\\+", "%20")));
         }
 

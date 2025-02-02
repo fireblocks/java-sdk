@@ -70,6 +70,8 @@ public class CollectionOwnershipResponse {
 
         BASECHAIN_ETH_TEST3("BASECHAIN_ETH_TEST3"),
 
+        BASECHAIN_ETH_TEST5("BASECHAIN_ETH_TEST5"),
+
         ETHERLINK("ETHERLINK"),
 
         ETHERLINK_TEST("ETHERLINK_TEST"),
@@ -78,7 +80,13 @@ public class CollectionOwnershipResponse {
 
         MANTLE_TEST("MANTLE_TEST"),
 
-        GUN_GUNZILLA_TEST("GUN_GUNZILLA_TEST");
+        GUN_GUNZILLA_TEST("GUN_GUNZILLA_TEST"),
+
+        ETH_SONEIUM("ETH_SONEIUM"),
+
+        SONEIUM_MINATO_TEST("SONEIUM_MINATO_TEST"),
+
+        IOTX_IOTEX("IOTX_IOTEX");
 
         private String value;
 
