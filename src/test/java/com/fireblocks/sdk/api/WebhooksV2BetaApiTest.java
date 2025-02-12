@@ -147,6 +147,24 @@ public class WebhooksV2BetaApiTest {
     }
 
     /**
+     * Resend notification by id
+     *
+     * <p>Resend notification by ID **Note:** These endpoints are currently in beta and might be
+     * subject to changes.
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void resendNotificationByIdTest() throws ApiException {
+        String webhookId = null;
+        String notificationId = null;
+        String idempotencyKey = null;
+
+        CompletableFuture<ApiResponse<Void>> response =
+                api.resendNotificationById(webhookId, notificationId, idempotencyKey);
+    }
+
+    /**
      * Update webhook
      *
      * <p>Update a webhook by its id **Note:** These endpoints are currently in beta and might be

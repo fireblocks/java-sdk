@@ -79,15 +79,15 @@ public class CreateWebhookRequest {
      *
      * @return description
      */
-    @jakarta.annotation.Nonnull
+    @jakarta.annotation.Nullable
     @JsonProperty(JSON_PROPERTY_DESCRIPTION)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
     public String getDescription() {
         return description;
     }
 
     @JsonProperty(JSON_PROPERTY_DESCRIPTION)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
     public void setDescription(String description) {
         this.description = description;
     }

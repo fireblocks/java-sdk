@@ -55,12 +55,6 @@ public class NotificationWithDataTest {
         // TODO: test eventType
     }
 
-    /** Test the property 'eventVersion' */
-    @Test
-    public void eventVersionTest() {
-        // TODO: test eventVersion
-    }
-
     /** Test the property 'resourceId' */
     @Test
     public void resourceIdTest() {

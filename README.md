@@ -32,7 +32,7 @@ Add this dependency to your project's POM:
 <dependency>
   <groupId>com.fireblocks.sdk</groupId>
   <artifactId>fireblocks-sdk</artifactId>
-  <version>8.0.0</version>
+  <version>0.0.0</version>
   <scope>compile</scope>
 </dependency>
 ```
@@ -42,7 +42,7 @@ Add this dependency to your project's POM:
 Add this dependency to your project's build file:
 
 ```groovy
-compile "com.fireblocks.sdk:fireblocks-sdk:8.0.0"
+compile "com.fireblocks.sdk:fireblocks-sdk:0.0.0"
 ```
 
 ### Others
@@ -55,7 +55,7 @@ mvn clean package
 
 Then manually install the following JARs:
 
-- `target/fireblocks-sdk-8.0.0.jar`
+- `target/fireblocks-sdk-0.0.0.jar`
 - `target/lib/*.jar`
 
 
@@ -397,6 +397,7 @@ Class | Method | HTTP request | Description
 *WebhooksV2BetaApi* | [**getNotifications**](docs/WebhooksV2BetaApi.md#getNotifications) | **GET** /webhooks/{webhookId}/notifications | Get all notifications by webhook id
 *WebhooksV2BetaApi* | [**getWebhook**](docs/WebhooksV2BetaApi.md#getWebhook) | **GET** /webhooks/{webhookId} | Get webhook by id
 *WebhooksV2BetaApi* | [**getWebhooks**](docs/WebhooksV2BetaApi.md#getWebhooks) | **GET** /webhooks | Get all webhooks
+*WebhooksV2BetaApi* | [**resendNotificationById**](docs/WebhooksV2BetaApi.md#resendNotificationById) | **POST** /webhooks/{webhookId}/notifications/{notificationId}/resend | Resend notification by id
 *WebhooksV2BetaApi* | [**updateWebhook**](docs/WebhooksV2BetaApi.md#updateWebhook) | **PATCH** /webhooks/{webhookId} | Update webhook
 *WhitelistIpAddressesApi* | [**getWhitelistIpAddresses**](docs/WhitelistIpAddressesApi.md#getWhitelistIpAddresses) | **GET** /management/api_users/{userId}/whitelist_ip_addresses | Gets whitelisted ip addresses
 *WorkspaceStatusBetaApi* | [**getWorkspaceStatus**](docs/WorkspaceStatusBetaApi.md#getWorkspaceStatus) | **GET** /management/workspace_status | Returns current workspace status
@@ -662,6 +663,7 @@ Class | Method | HTTP request | Description
  - [NoneNetworkRoutingDest](docs/NoneNetworkRoutingDest.md)
  - [NotFoundException](docs/NotFoundException.md)
  - [Notification](docs/Notification.md)
+ - [NotificationAttempt](docs/NotificationAttempt.md)
  - [NotificationPaginatedResponse](docs/NotificationPaginatedResponse.md)
  - [NotificationStatus](docs/NotificationStatus.md)
  - [NotificationWithData](docs/NotificationWithData.md)
