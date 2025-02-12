@@ -290,6 +290,7 @@ docs/NftsApi.md
 docs/NoneNetworkRoutingDest.md
 docs/NotFoundException.md
 docs/Notification.md
+docs/NotificationAttempt.md
 docs/NotificationPaginatedResponse.md
 docs/NotificationStatus.md
 docs/NotificationWithData.md
@@ -888,6 +889,7 @@ src/main/java/com/fireblocks/sdk/model/NetworkRecord.java
 src/main/java/com/fireblocks/sdk/model/NoneNetworkRoutingDest.java
 src/main/java/com/fireblocks/sdk/model/NotFoundException.java
 src/main/java/com/fireblocks/sdk/model/Notification.java
+src/main/java/com/fireblocks/sdk/model/NotificationAttempt.java
 src/main/java/com/fireblocks/sdk/model/NotificationPaginatedResponse.java
 src/main/java/com/fireblocks/sdk/model/NotificationStatus.java
 src/main/java/com/fireblocks/sdk/model/NotificationWithData.java
@@ -1447,6 +1449,7 @@ src/test/java/com/fireblocks/sdk/model/NetworkIdTest.java
 src/test/java/com/fireblocks/sdk/model/NetworkRecordTest.java
 src/test/java/com/fireblocks/sdk/model/NoneNetworkRoutingDestTest.java
 src/test/java/com/fireblocks/sdk/model/NotFoundExceptionTest.java
+src/test/java/com/fireblocks/sdk/model/NotificationAttemptTest.java
 src/test/java/com/fireblocks/sdk/model/NotificationPaginatedResponseTest.java
 src/test/java/com/fireblocks/sdk/model/NotificationStatusTest.java
 src/test/java/com/fireblocks/sdk/model/NotificationTest.java

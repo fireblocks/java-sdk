@@ -848,7 +848,7 @@ No authorization required
 
 ## searchNetworkIds
 
-> CompletableFuture<ApiResponse<SearchNetworkIdsResponse>> searchNetworkIds searchNetworkIds(search, excludeSelf, excludeConnected, pageCursor, pageSize)
+> CompletableFuture<ApiResponse<SearchNetworkIdsResponse>> searchNetworkIds searchNetworkIds(search, excludeSelf, onlySelf, excludeConnected, pageCursor, pageSize)
 
 Search network IDs, both local IDs and discoverable remote IDs
 
@@ -879,11 +879,12 @@ public class Example {
 
         String search = "search_example"; // String | Search string - displayName networkId. Optional
         Boolean excludeSelf = true; // Boolean | Exclude your networkIds. Optional, default false
+        Boolean onlySelf = true; // Boolean | Include just your networkIds. Optional, default false
         Boolean excludeConnected = true; // Boolean | Exclude connected networkIds. Optional, default false
         String pageCursor = "pageCursor_example"; // String | ID of the record after which to fetch $limit records
         BigDecimal pageSize = new BigDecimal("50"); // BigDecimal | Number of records to fetch. By default, it is 50
         try {
-            CompletableFuture<ApiResponse<SearchNetworkIdsResponse>> response = fireblocks.networkConnections().searchNetworkIds(search, excludeSelf, excludeConnected, pageCursor, pageSize);
+            CompletableFuture<ApiResponse<SearchNetworkIdsResponse>> response = fireblocks.networkConnections().searchNetworkIds(search, excludeSelf, onlySelf, excludeConnected, pageCursor, pageSize);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
@@ -912,6 +913,7 @@ public class Example {
 |------------- | ------------- | ------------- | -------------|
 | **search** | **String**| Search string - displayName networkId. Optional | [optional] |
 | **excludeSelf** | **Boolean**| Exclude your networkIds. Optional, default false | [optional] |
+| **onlySelf** | **Boolean**| Include just your networkIds. Optional, default false | [optional] |
 | **excludeConnected** | **Boolean**| Exclude connected networkIds. Optional, default false | [optional] |
 | **pageCursor** | **String**| ID of the record after which to fetch $limit records | [optional] |
 | **pageSize** | **BigDecimal**| Number of records to fetch. By default, it is 50 | [optional] [default to 50] |
