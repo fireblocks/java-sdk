@@ -24,7 +24,6 @@ import com.fireblocks.sdk.model.TravelRuleGetAllVASPsResponse;
 import com.fireblocks.sdk.model.TravelRuleUpdateVASPDetails;
 import com.fireblocks.sdk.model.TravelRuleVASP;
 import com.fireblocks.sdk.model.TravelRuleValidateFullTransactionRequest;
-import com.fireblocks.sdk.model.TravelRuleValidateTransactionRequest;
 import com.fireblocks.sdk.model.TravelRuleValidateTransactionResponse;
 import com.fireblocks.sdk.model.TravelRuleVaspForVault;
 import java.io.IOException;
@@ -42,7 +41,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
-public class TravelRuleBetaApi {
+public class TravelRuleApi {
     private final HttpClient memberVarHttpClient;
     private final ObjectMapper memberVarObjectMapper;
     private final String memberVarBaseUri;
@@ -51,11 +50,11 @@ public class TravelRuleBetaApi {
     private final Consumer<HttpResponse<InputStream>> memberVarResponseInterceptor;
     private final Consumer<HttpResponse<String>> memberVarAsyncResponseInterceptor;
 
-    public TravelRuleBetaApi() {
+    public TravelRuleApi() {
         this(new ApiClient());
     }
 
-    public TravelRuleBetaApi(ApiClient apiClient) {
+    public TravelRuleApi(ApiClient apiClient) {
         memberVarHttpClient = apiClient.getHttpClient();
         memberVarObjectMapper = apiClient.getObjectMapper();
         memberVarBaseUri = apiClient.getBaseUri();
@@ -81,19 +80,15 @@ public class TravelRuleBetaApi {
 
     /**
      * Get VASP details Get VASP Details. Returns information about a VASP that has the specified
-     * DID. **Note:** The reference content in this section documents the Travel Rule beta endpoint.
-     * The beta endpoint includes APIs that are currently in preview and aren&#39;t yet generally
-     * available. To enroll in the beta and enable this endpoint, contact your Fireblocks Customer
-     * Success Manager or send an email to [CSM@fireblocks.com](mailto:CSM@fireblocks.com).
+     * DID.
      *
      * @param did (required)
-     * @param fields CSV of fields to return (all, \&quot;blank\&quot; or see list of all field
-     *     names below) (optional)
+     * @param fields A CSV of fields to return. Choose from the following options: (optional
      * @return CompletableFuture&lt;ApiResponse&lt;TravelRuleVASP&gt;&gt;
      * @throws ApiException if fails to make API call
      */
-    public CompletableFuture<ApiResponse<TravelRuleVASP>> getVASPByDID(String did, String fields)
-            throws ApiException {
+    public CompletableFuture<ApiResponse<TravelRuleVASP>> getVASPByDID(
+            String did, List<String> fields) throws ApiException {
         try {
             HttpRequest.Builder localVarRequestBuilder = getVASPByDIDRequestBuilder(did, fields);
             return memberVarHttpClient
@@ -128,7 +123,7 @@ public class TravelRuleBetaApi {
         }
     }
 
-    private HttpRequest.Builder getVASPByDIDRequestBuilder(String did, String fields)
+    private HttpRequest.Builder getVASPByDIDRequestBuilder(String did, List<String> fields)
             throws ApiException {
         ValidationUtils.assertParamExistsAndNotEmpty("getVASPByDID", "did", did);
 
@@ -142,7 +137,7 @@ public class TravelRuleBetaApi {
         StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
         String localVarQueryParameterBaseName;
         localVarQueryParameterBaseName = "fields";
-        localVarQueryParams.addAll(ApiClient.parameterToPairs("fields", fields));
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("multi", "fields", fields));
 
         if (!localVarQueryParams.isEmpty() || localVarQueryStringJoiner.length() != 0) {
             StringJoiner queryJoiner = new StringJoiner("&");
@@ -168,26 +163,34 @@ public class TravelRuleBetaApi {
         return localVarRequestBuilder;
     }
     /**
-     * Get All VASPs Get All VASPs. Returns a list of VASPs. VASPs can be searched and sorted and
-     * results are paginated. **Note:** The reference content in this section documents the Travel
-     * Rule beta endpoint. The beta endpoint includes APIs that are currently in preview and
-     * aren&#39;t yet generally available. To enroll in the beta and enable this endpoint, contact
-     * your Fireblocks Customer Success Manager or send an email to
-     * [CSM@fireblocks.com](mailto:CSM@fireblocks.com).
+     * Get All VASPs Get All VASPs. Returns a list of VASPs. VASPs can be searched and sorted.
      *
      * @param order Field to order by (optional)
-     * @param perPage Records per page (optional)
-     * @param page Page number (optional)
+     * @param pageSize Records per page (optional, default to 500)
      * @param fields CSV of fields to return (all, \&quot;blank\&quot; or see list of all field
-     *     names below) (optional)
+     *     names below) (optional
+     * @param search Search query (optional)
+     * @param reviewValue Filter by the VASP&#39;s review status. Possible values include:
+     *     \&quot;TRUSTED\&quot;, \&quot;BLOCKED\&quot;, \&quot;MANUAL\&quot;, or
+     *     \&quot;NULL\&quot;. When provided, only VASPs that match the specified reviewValue will
+     *     be returned (i.e., VASPs that have already been reviewed to this status). (optional)
+     * @param pageCursor Cursor for pagination. When provided, the response will include the next
+     *     page of results. (optional)
      * @return CompletableFuture&lt;ApiResponse&lt;TravelRuleGetAllVASPsResponse&gt;&gt;
      * @throws ApiException if fails to make API call
      */
     public CompletableFuture<ApiResponse<TravelRuleGetAllVASPsResponse>> getVASPs(
-            String order, BigDecimal perPage, BigDecimal page, String fields) throws ApiException {
+            String order,
+            BigDecimal pageSize,
+            List<String> fields,
+            String search,
+            String reviewValue,
+            String pageCursor)
+            throws ApiException {
         try {
             HttpRequest.Builder localVarRequestBuilder =
-                    getVASPsRequestBuilder(order, perPage, page, fields);
+                    getVASPsRequestBuilder(
+                            order, pageSize, fields, search, reviewValue, pageCursor);
             return memberVarHttpClient
                     .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
                     .thenComposeAsync(
@@ -221,7 +224,13 @@ public class TravelRuleBetaApi {
     }
 
     private HttpRequest.Builder getVASPsRequestBuilder(
-            String order, BigDecimal perPage, BigDecimal page, String fields) throws ApiException {
+            String order,
+            BigDecimal pageSize,
+            List<String> fields,
+            String search,
+            String reviewValue,
+            String pageCursor)
+            throws ApiException {
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
@@ -232,12 +241,16 @@ public class TravelRuleBetaApi {
         String localVarQueryParameterBaseName;
         localVarQueryParameterBaseName = "order";
         localVarQueryParams.addAll(ApiClient.parameterToPairs("order", order));
-        localVarQueryParameterBaseName = "per_page";
-        localVarQueryParams.addAll(ApiClient.parameterToPairs("per_page", perPage));
-        localVarQueryParameterBaseName = "page";
-        localVarQueryParams.addAll(ApiClient.parameterToPairs("page", page));
+        localVarQueryParameterBaseName = "pageSize";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("pageSize", pageSize));
         localVarQueryParameterBaseName = "fields";
-        localVarQueryParams.addAll(ApiClient.parameterToPairs("fields", fields));
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("multi", "fields", fields));
+        localVarQueryParameterBaseName = "search";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("search", search));
+        localVarQueryParameterBaseName = "reviewValue";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("reviewValue", reviewValue));
+        localVarQueryParameterBaseName = "pageCursor";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("pageCursor", pageCursor));
 
         if (!localVarQueryParams.isEmpty() || localVarQueryStringJoiner.length() != 0) {
             StringJoiner queryJoiner = new StringJoiner("&");
@@ -428,11 +441,7 @@ public class TravelRuleBetaApi {
     }
     /**
      * Add jsonDidKey to VASP details Update VASP Details. Updates a VASP with the provided
-     * parameters. Use this endpoint to add your public jsonDIDkey generated by Notabene. **Note:**
-     * The reference content in this section documents the Travel Rule beta endpoint. The beta
-     * endpoint includes APIs that are currently in preview and aren&#39;t yet generally available.
-     * To enroll in the beta and enable this endpoint, contact your Fireblocks Customer Success
-     * Manager or send an email to [CSM@fireblocks.com](mailto:CSM@fireblocks.com).
+     * parameters. Use this endpoint to add your public jsonDIDkey generated by Notabene.
      *
      * @param travelRuleUpdateVASPDetails (required)
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
@@ -515,13 +524,16 @@ public class TravelRuleBetaApi {
     }
     /**
      * Validate Full Travel Rule Transaction Validate Full Travel Rule transactions. Checks for all
-     * required information on the originator and beneficiary VASPs. **Note:** The reference content
-     * in this section documents the Travel Rule beta endpoint. The beta endpoint includes APIs that
-     * are currently in preview and aren&#39;t yet generally available. To enroll in the beta and
-     * enable this endpoint, contact your Fireblocks Customer Success Manager or send an email to
-     * [CSM@fireblocks.com](mailto:CSM@fireblocks.com).
+     * required information on the originator and beneficiary VASPs.
      *
      * @param travelRuleValidateFullTransactionRequest (required)
+     * @param notation Specifies the notation of the transaction. Possible values are: -
+     *     &#x60;notabene&#x60;: Uses Notabene notation (default behavior). -
+     *     &#x60;fireblocks&#x60;: Uses Fireblocks notation, with automatic translation of asset
+     *     tickers and amounts. - &#x60;&lt;none&gt;&#x60;: Defaults to &#x60;notabene&#x60; for
+     *     backward compatibility. **Note:** The default value for the &#x60;notation&#x60;
+     *     parameter will change from &#x60;notabene&#x60; to &#x60;fireblocks&#x60; Update your
+     *     integrations accordingly. (optional
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
@@ -532,12 +544,13 @@ public class TravelRuleBetaApi {
             validateFullTravelRuleTransaction(
                     TravelRuleValidateFullTransactionRequest
                             travelRuleValidateFullTransactionRequest,
+                    List<String> notation,
                     String idempotencyKey)
                     throws ApiException {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     validateFullTravelRuleTransactionRequestBuilder(
-                            travelRuleValidateFullTransactionRequest, idempotencyKey);
+                            travelRuleValidateFullTransactionRequest, notation, idempotencyKey);
             return memberVarHttpClient
                     .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
                     .thenComposeAsync(
@@ -574,6 +587,7 @@ public class TravelRuleBetaApi {
 
     private HttpRequest.Builder validateFullTravelRuleTransactionRequestBuilder(
             TravelRuleValidateFullTransactionRequest travelRuleValidateFullTransactionRequest,
+            List<String> notation,
             String idempotencyKey)
             throws ApiException {
         ValidationUtils.assertParamExists(
@@ -585,7 +599,23 @@ public class TravelRuleBetaApi {
 
         String localVarPath = "/screening/travel_rule/transaction/validate/full";
 
-        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+        List<Pair> localVarQueryParams = new ArrayList<>();
+        StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
+        String localVarQueryParameterBaseName;
+        localVarQueryParameterBaseName = "notation";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("multi", "notation", notation));
+
+        if (!localVarQueryParams.isEmpty() || localVarQueryStringJoiner.length() != 0) {
+            StringJoiner queryJoiner = new StringJoiner("&");
+            localVarQueryParams.forEach(p -> queryJoiner.add(p.getName() + '=' + p.getValue()));
+            if (localVarQueryStringJoiner.length() != 0) {
+                queryJoiner.add(localVarQueryStringJoiner.toString());
+            }
+            localVarRequestBuilder.uri(
+                    URI.create(memberVarBaseUri + localVarPath + '?' + queryJoiner.toString()));
+        } else {
+            localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+        }
 
         if (idempotencyKey != null) {
             localVarRequestBuilder.header("Idempotency-Key", idempotencyKey.toString());
@@ -597,101 +627,6 @@ public class TravelRuleBetaApi {
             byte[] localVarPostBody =
                     memberVarObjectMapper.writeValueAsBytes(
                             travelRuleValidateFullTransactionRequest);
-            localVarRequestBuilder.method(
-                    "POST", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
-        } catch (IOException e) {
-            throw new ApiException(e);
-        }
-        if (memberVarReadTimeout != null) {
-            localVarRequestBuilder.timeout(memberVarReadTimeout);
-        }
-        if (memberVarInterceptor != null) {
-            memberVarInterceptor.accept(localVarRequestBuilder);
-        }
-        return localVarRequestBuilder;
-    }
-    /**
-     * Validate Travel Rule Transaction Validate Travel Rule transactions. Checks what beneficiary
-     * VASP details are required by your jurisdiction and the beneficiary&#39;s jurisdiction.
-     * **Note:** The reference content in this section documents the Travel Rule beta endpoint. The
-     * beta endpoint includes APIs that are currently in preview and aren&#39;t yet generally
-     * available. To enroll in the beta and enable this endpoint, contact your Fireblocks Customer
-     * Success Manager or send an email to [CSM@fireblocks.com](mailto:CSM@fireblocks.com).
-     *
-     * @param travelRuleValidateTransactionRequest (required)
-     * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
-     *     times with the same idempotency key, the server will return the same response as the
-     *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;TravelRuleValidateTransactionResponse&gt;&gt;
-     * @throws ApiException if fails to make API call
-     */
-    public CompletableFuture<ApiResponse<TravelRuleValidateTransactionResponse>>
-            validateTravelRuleTransaction(
-                    TravelRuleValidateTransactionRequest travelRuleValidateTransactionRequest,
-                    String idempotencyKey)
-                    throws ApiException {
-        try {
-            HttpRequest.Builder localVarRequestBuilder =
-                    validateTravelRuleTransactionRequestBuilder(
-                            travelRuleValidateTransactionRequest, idempotencyKey);
-            return memberVarHttpClient
-                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
-                    .thenComposeAsync(
-                            localVarResponse -> {
-                                if (memberVarAsyncResponseInterceptor != null) {
-                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
-                                }
-                                if (localVarResponse.statusCode() / 100 != 2) {
-                                    return CompletableFuture.failedFuture(
-                                            getApiException(
-                                                    "validateTravelRuleTransaction",
-                                                    localVarResponse));
-                                }
-                                try {
-                                    String responseBody = localVarResponse.body();
-                                    return CompletableFuture.completedFuture(
-                                            new ApiResponse<TravelRuleValidateTransactionResponse>(
-                                                    localVarResponse.statusCode(),
-                                                    localVarResponse.headers().map(),
-                                                    responseBody == null || responseBody.isBlank()
-                                                            ? null
-                                                            : memberVarObjectMapper.readValue(
-                                                                    responseBody,
-                                                                    new TypeReference<
-                                                                            TravelRuleValidateTransactionResponse>() {})));
-                                } catch (IOException e) {
-                                    return CompletableFuture.failedFuture(new ApiException(e));
-                                }
-                            });
-        } catch (ApiException e) {
-            return CompletableFuture.failedFuture(e);
-        }
-    }
-
-    private HttpRequest.Builder validateTravelRuleTransactionRequestBuilder(
-            TravelRuleValidateTransactionRequest travelRuleValidateTransactionRequest,
-            String idempotencyKey)
-            throws ApiException {
-        ValidationUtils.assertParamExists(
-                "validateTravelRuleTransaction",
-                "travelRuleValidateTransactionRequest",
-                travelRuleValidateTransactionRequest);
-
-        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
-
-        String localVarPath = "/screening/travel_rule/transaction/validate";
-
-        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
-
-        if (idempotencyKey != null) {
-            localVarRequestBuilder.header("Idempotency-Key", idempotencyKey.toString());
-        }
-        localVarRequestBuilder.header("Content-Type", "application/json");
-        localVarRequestBuilder.header("Accept", "application/json");
-
-        try {
-            byte[] localVarPostBody =
-                    memberVarObjectMapper.writeValueAsBytes(travelRuleValidateTransactionRequest);
             localVarRequestBuilder.method(
                     "POST", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
         } catch (IOException e) {

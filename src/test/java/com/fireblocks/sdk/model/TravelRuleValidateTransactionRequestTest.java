@@ -44,6 +44,12 @@ public class TravelRuleValidateTransactionRequestTest {
         // TODO: test transactionAmount
     }
 
+    /** Test the property 'transactionAssetDecimals' */
+    @Test
+    public void transactionAssetDecimalsTest() {
+        // TODO: test transactionAssetDecimals
+    }
+
     /** Test the property 'originatorVASPdid' */
     @Test
     public void originatorVASPdidTest() {

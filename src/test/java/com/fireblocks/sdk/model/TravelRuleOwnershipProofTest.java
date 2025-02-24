@@ -36,4 +36,34 @@ public class TravelRuleOwnershipProofTest {
     public void proofTest() {
         // TODO: test proof
     }
+
+    /** Test the property 'attestation' */
+    @Test
+    public void attestationTest() {
+        // TODO: test attestation
+    }
+
+    /** Test the property 'address' */
+    @Test
+    public void addressTest() {
+        // TODO: test address
+    }
+
+    /** Test the property 'walletProvider' */
+    @Test
+    public void walletProviderTest() {
+        // TODO: test walletProvider
+    }
+
+    /** Test the property 'url' */
+    @Test
+    public void urlTest() {
+        // TODO: test url
+    }
+
+    /** Test the property 'confirmed' */
+    @Test
+    public void confirmedTest() {
+        // TODO: test confirmed
+    }
 }
