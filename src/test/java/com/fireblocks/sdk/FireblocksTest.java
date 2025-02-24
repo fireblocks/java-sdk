@@ -622,11 +622,11 @@ public class FireblocksTest {
     }
 
     @Test
-    public void testGetTravelRuleBetaApi() {
+    public void testGetTravelRuleApi() {
         setupFireblocks(true, null, null);
-        TravelRuleBetaApi travelRuleBeta = fireblocks.travelRuleBeta();
-        Assert.assertNotNull(travelRuleBeta);
-        Assert.assertSame(travelRuleBeta, fireblocks.travelRuleBeta());
+        TravelRuleApi travelRule = fireblocks.travelRule();
+        Assert.assertNotNull(travelRule);
+        Assert.assertSame(travelRule, fireblocks.travelRule());
     }
 
     @Test

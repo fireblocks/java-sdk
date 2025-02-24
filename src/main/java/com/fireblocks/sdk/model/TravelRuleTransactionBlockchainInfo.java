@@ -21,7 +21,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 import java.util.StringJoiner;
 
-/** TravelRuleTransactionBlockchainInfo */
+/** Information about the blockchain transaction. */
 @JsonPropertyOrder({
     TravelRuleTransactionBlockchainInfo.JSON_PROPERTY_TX_HASH,
     TravelRuleTransactionBlockchainInfo.JSON_PROPERTY_ORIGIN,
@@ -46,7 +46,7 @@ public class TravelRuleTransactionBlockchainInfo {
     }
 
     /**
-     * Get txHash
+     * The hash of the transaction
      *
      * @return txHash
      */
@@ -69,7 +69,7 @@ public class TravelRuleTransactionBlockchainInfo {
     }
 
     /**
-     * Get origin
+     * The origin address of the transaction
      *
      * @return origin
      */
@@ -92,7 +92,7 @@ public class TravelRuleTransactionBlockchainInfo {
     }
 
     /**
-     * Get destination
+     * The destination address of the transaction
      *
      * @return destination
      */
