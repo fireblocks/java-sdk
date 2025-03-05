@@ -69,7 +69,7 @@ public class Fireblocks {
     private StakingApi staking;
     private TokenizationApi tokenization;
     private TransactionsApi transactions;
-    private TravelRuleApi travelRule;
+    private TravelRuleBetaApi travelRuleBeta;
     private UserGroupsBetaApi userGroupsBeta;
     private UsersApi users;
     private VaultsApi vaults;
@@ -448,11 +448,11 @@ public class Fireblocks {
         return transactions;
     }
 
-    public TravelRuleApi travelRule() {
-        if (travelRule == null) {
-            travelRule = new TravelRuleApi(apiClient);
+    public TravelRuleBetaApi travelRuleBeta() {
+        if (travelRuleBeta == null) {
+            travelRuleBeta = new TravelRuleBetaApi(apiClient);
         }
-        return travelRule;
+        return travelRuleBeta;
     }
 
     public UserGroupsBetaApi userGroupsBeta() {

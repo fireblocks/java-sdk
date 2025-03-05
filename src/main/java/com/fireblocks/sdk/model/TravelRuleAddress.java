@@ -54,15 +54,15 @@ public class TravelRuleAddress {
      *
      * @return street
      */
-    @jakarta.annotation.Nullable
+    @jakarta.annotation.Nonnull
     @JsonProperty(JSON_PROPERTY_STREET)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
     public String getStreet() {
         return street;
     }
 
     @JsonProperty(JSON_PROPERTY_STREET)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
     public void setStreet(String street) {
         this.street = street;
     }
@@ -77,15 +77,15 @@ public class TravelRuleAddress {
      *
      * @return city
      */
-    @jakarta.annotation.Nullable
+    @jakarta.annotation.Nonnull
     @JsonProperty(JSON_PROPERTY_CITY)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
     public String getCity() {
         return city;
     }
 
     @JsonProperty(JSON_PROPERTY_CITY)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
     public void setCity(String city) {
         this.city = city;
     }
@@ -100,15 +100,15 @@ public class TravelRuleAddress {
      *
      * @return state
      */
-    @jakarta.annotation.Nullable
+    @jakarta.annotation.Nonnull
     @JsonProperty(JSON_PROPERTY_STATE)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
     public String getState() {
         return state;
     }
 
     @JsonProperty(JSON_PROPERTY_STATE)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
     public void setState(String state) {
         this.state = state;
     }
@@ -123,15 +123,15 @@ public class TravelRuleAddress {
      *
      * @return postalCode
      */
-    @jakarta.annotation.Nullable
+    @jakarta.annotation.Nonnull
     @JsonProperty(JSON_PROPERTY_POSTAL_CODE)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
     public String getPostalCode() {
         return postalCode;
     }
 
     @JsonProperty(JSON_PROPERTY_POSTAL_CODE)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
     public void setPostalCode(String postalCode) {
         this.postalCode = postalCode;
     }

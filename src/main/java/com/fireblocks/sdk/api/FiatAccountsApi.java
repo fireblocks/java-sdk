@@ -73,7 +73,10 @@ public class FiatAccountsApi {
     }
 
     /**
-     * Deposit funds from DDA Deposits funds from the linked DDA.
+     * Deposit funds from DDA Deposits funds from the linked DDA. Learn more about Fireblocks FIAT
+     * Connectivity in the following
+     * [guide](https://developers.fireblocks.com/docs/connect-to-exchanges-and-fiat-providers).
+     * &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin.
      *
      * @param accountId The ID of the fiat account to use (required)
      * @param funds (optional)
@@ -157,7 +160,8 @@ public class FiatAccountsApi {
         return localVarRequestBuilder;
     }
     /**
-     * Find a specific fiat account Returns a fiat account by ID.
+     * Find a specific fiat account Returns a fiat account by ID. &lt;/br&gt;Endpoint Permission:
+     * Admin, Non-Signing Admin.
      *
      * @param accountId The ID of the fiat account to return (required)
      * @return CompletableFuture&lt;ApiResponse&lt;FiatAccount&gt;&gt;
@@ -222,7 +226,8 @@ public class FiatAccountsApi {
         return localVarRequestBuilder;
     }
     /**
-     * List fiat accounts Returns all fiat accounts.
+     * List fiat accounts Returns all fiat accounts. &lt;/br&gt;Endpoint Permission: Admin,
+     * Non-Signing Admin.
      *
      * @return CompletableFuture&lt;ApiResponse&lt;List&lt;FiatAccount&gt;&gt;&gt;
      * @throws ApiException if fails to make API call
@@ -283,7 +288,10 @@ public class FiatAccountsApi {
         return localVarRequestBuilder;
     }
     /**
-     * Redeem funds to DDA Redeems funds to the linked DDA.
+     * Redeem funds to DDA Redeems funds to the linked DDA. Learn more about Fireblocks FIAT
+     * Connectivity in the following
+     * [guide](https://developers.fireblocks.com/docs/connect-to-exchanges-and-fiat-providers).
+     * &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin.
      *
      * @param accountId The ID of the fiat account to use (required)
      * @param funds (optional)

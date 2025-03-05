@@ -32,7 +32,7 @@ Add this dependency to your project's POM:
 <dependency>
   <groupId>com.fireblocks.sdk</groupId>
   <artifactId>fireblocks-sdk</artifactId>
-  <version>8.1.0</version>
+  <version>0.0.0</version>
   <scope>compile</scope>
 </dependency>
 ```
@@ -42,7 +42,7 @@ Add this dependency to your project's POM:
 Add this dependency to your project's build file:
 
 ```groovy
-compile "com.fireblocks.sdk:fireblocks-sdk:8.1.0"
+compile "com.fireblocks.sdk:fireblocks-sdk:0.0.0"
 ```
 
 ### Others
@@ -55,7 +55,7 @@ mvn clean package
 
 Then manually install the following JARs:
 
-- `target/fireblocks-sdk-8.1.0.jar`
+- `target/fireblocks-sdk-0.0.0.jar`
 - `target/lib/*.jar`
 
 
@@ -347,12 +347,13 @@ Class | Method | HTTP request | Description
 *TransactionsApi* | [**setTransactionConfirmationThreshold**](docs/TransactionsApi.md#setTransactionConfirmationThreshold) | **POST** /transactions/{txId}/set_confirmation_threshold | Set confirmation threshold by transaction ID
 *TransactionsApi* | [**unfreezeTransaction**](docs/TransactionsApi.md#unfreezeTransaction) | **POST** /transactions/{txId}/unfreeze | Unfreeze a transaction
 *TransactionsApi* | [**validateAddress**](docs/TransactionsApi.md#validateAddress) | **GET** /transactions/validate_address/{assetId}/{address} | Validate destination address
-*TravelRuleApi* | [**getVASPByDID**](docs/TravelRuleApi.md#getVASPByDID) | **GET** /screening/travel_rule/vasp/{did} | Get VASP details
-*TravelRuleApi* | [**getVASPs**](docs/TravelRuleApi.md#getVASPs) | **GET** /screening/travel_rule/vasp | Get All VASPs
-*TravelRuleApi* | [**getVaspForVault**](docs/TravelRuleApi.md#getVaspForVault) | **GET** /screening/travel_rule/vault/{vaultAccountId}/vasp | Get assigned VASP to vault
-*TravelRuleApi* | [**setVaspForVault**](docs/TravelRuleApi.md#setVaspForVault) | **POST** /screening/travel_rule/vault/{vaultAccountId}/vasp | Assign VASP to vault
-*TravelRuleApi* | [**updateVasp**](docs/TravelRuleApi.md#updateVasp) | **PUT** /screening/travel_rule/vasp/update | Add jsonDidKey to VASP details
-*TravelRuleApi* | [**validateFullTravelRuleTransaction**](docs/TravelRuleApi.md#validateFullTravelRuleTransaction) | **POST** /screening/travel_rule/transaction/validate/full | Validate Full Travel Rule Transaction
+*TravelRuleBetaApi* | [**getVASPByDID**](docs/TravelRuleBetaApi.md#getVASPByDID) | **GET** /screening/travel_rule/vasp/{did} | Get VASP details
+*TravelRuleBetaApi* | [**getVASPs**](docs/TravelRuleBetaApi.md#getVASPs) | **GET** /screening/travel_rule/vasp | Get All VASPs
+*TravelRuleBetaApi* | [**getVaspForVault**](docs/TravelRuleBetaApi.md#getVaspForVault) | **GET** /screening/travel_rule/vault/{vaultAccountId}/vasp | Get assigned VASP to vault
+*TravelRuleBetaApi* | [**setVaspForVault**](docs/TravelRuleBetaApi.md#setVaspForVault) | **POST** /screening/travel_rule/vault/{vaultAccountId}/vasp | Assign VASP to vault
+*TravelRuleBetaApi* | [**updateVasp**](docs/TravelRuleBetaApi.md#updateVasp) | **PUT** /screening/travel_rule/vasp/update | Add jsonDidKey to VASP details
+*TravelRuleBetaApi* | [**validateFullTravelRuleTransaction**](docs/TravelRuleBetaApi.md#validateFullTravelRuleTransaction) | **POST** /screening/travel_rule/transaction/validate/full | Validate Full Travel Rule Transaction
+*TravelRuleBetaApi* | [**validateTravelRuleTransaction**](docs/TravelRuleBetaApi.md#validateTravelRuleTransaction) | **POST** /screening/travel_rule/transaction/validate | Validate Travel Rule Transaction
 *UserGroupsBetaApi* | [**createUserGroup**](docs/UserGroupsBetaApi.md#createUserGroup) | **POST** /management/user_groups | Create user group
 *UserGroupsBetaApi* | [**deleteUserGroup**](docs/UserGroupsBetaApi.md#deleteUserGroup) | **DELETE** /management/user_groups/{groupId} | Delete user group
 *UserGroupsBetaApi* | [**getUserGroup**](docs/UserGroupsBetaApi.md#getUserGroup) | **GET** /management/user_groups/{groupId} | Get user group
@@ -396,7 +397,6 @@ Class | Method | HTTP request | Description
 *WebhooksV2BetaApi* | [**getNotifications**](docs/WebhooksV2BetaApi.md#getNotifications) | **GET** /webhooks/{webhookId}/notifications | Get all notifications by webhook id
 *WebhooksV2BetaApi* | [**getWebhook**](docs/WebhooksV2BetaApi.md#getWebhook) | **GET** /webhooks/{webhookId} | Get webhook by id
 *WebhooksV2BetaApi* | [**getWebhooks**](docs/WebhooksV2BetaApi.md#getWebhooks) | **GET** /webhooks | Get all webhooks
-*WebhooksV2BetaApi* | [**resendNotificationById**](docs/WebhooksV2BetaApi.md#resendNotificationById) | **POST** /webhooks/{webhookId}/notifications/{notificationId}/resend | Resend notification by id
 *WebhooksV2BetaApi* | [**updateWebhook**](docs/WebhooksV2BetaApi.md#updateWebhook) | **PATCH** /webhooks/{webhookId} | Update webhook
 *WhitelistIpAddressesApi* | [**getWhitelistIpAddresses**](docs/WhitelistIpAddressesApi.md#getWhitelistIpAddresses) | **GET** /management/api_users/{userId}/whitelist_ip_addresses | Gets whitelisted ip addresses
 *WorkspaceStatusBetaApi* | [**getWorkspaceStatus**](docs/WorkspaceStatusBetaApi.md#getWorkspaceStatus) | **GET** /management/workspace_status | Returns current workspace status
@@ -662,7 +662,6 @@ Class | Method | HTTP request | Description
  - [NoneNetworkRoutingDest](docs/NoneNetworkRoutingDest.md)
  - [NotFoundException](docs/NotFoundException.md)
  - [Notification](docs/Notification.md)
- - [NotificationAttempt](docs/NotificationAttempt.md)
  - [NotificationPaginatedResponse](docs/NotificationPaginatedResponse.md)
  - [NotificationStatus](docs/NotificationStatus.md)
  - [NotificationWithData](docs/NotificationWithData.md)
@@ -859,35 +858,16 @@ Class | Method | HTTP request | Description
  - [TransferValidationFailure](docs/TransferValidationFailure.md)
  - [TravelRuleAddress](docs/TravelRuleAddress.md)
  - [TravelRuleCreateTransactionRequest](docs/TravelRuleCreateTransactionRequest.md)
- - [TravelRuleDateAndPlaceOfBirth](docs/TravelRuleDateAndPlaceOfBirth.md)
- - [TravelRuleGeographicAddress](docs/TravelRuleGeographicAddress.md)
  - [TravelRuleGetAllVASPsResponse](docs/TravelRuleGetAllVASPsResponse.md)
  - [TravelRuleIssuer](docs/TravelRuleIssuer.md)
  - [TravelRuleIssuers](docs/TravelRuleIssuers.md)
- - [TravelRuleLegalPerson](docs/TravelRuleLegalPerson.md)
- - [TravelRuleLegalPersonNameIdentifier](docs/TravelRuleLegalPersonNameIdentifier.md)
- - [TravelRuleNationalIdentification](docs/TravelRuleNationalIdentification.md)
- - [TravelRuleNaturalNameIdentifier](docs/TravelRuleNaturalNameIdentifier.md)
- - [TravelRuleNaturalPerson](docs/TravelRuleNaturalPerson.md)
- - [TravelRuleNaturalPersonNameIdentifier](docs/TravelRuleNaturalPersonNameIdentifier.md)
  - [TravelRuleOwnershipProof](docs/TravelRuleOwnershipProof.md)
- - [TravelRulePerson](docs/TravelRulePerson.md)
  - [TravelRulePiiIVMS](docs/TravelRulePiiIVMS.md)
  - [TravelRulePolicyRuleResponse](docs/TravelRulePolicyRuleResponse.md)
  - [TravelRuleTransactionBlockchainInfo](docs/TravelRuleTransactionBlockchainInfo.md)
  - [TravelRuleUpdateVASPDetails](docs/TravelRuleUpdateVASPDetails.md)
  - [TravelRuleVASP](docs/TravelRuleVASP.md)
- - [TravelRuleValidateDateAndPlaceOfBirth](docs/TravelRuleValidateDateAndPlaceOfBirth.md)
  - [TravelRuleValidateFullTransactionRequest](docs/TravelRuleValidateFullTransactionRequest.md)
- - [TravelRuleValidateGeographicAddress](docs/TravelRuleValidateGeographicAddress.md)
- - [TravelRuleValidateLegalPerson](docs/TravelRuleValidateLegalPerson.md)
- - [TravelRuleValidateLegalPersonNameIdentifier](docs/TravelRuleValidateLegalPersonNameIdentifier.md)
- - [TravelRuleValidateNationalIdentification](docs/TravelRuleValidateNationalIdentification.md)
- - [TravelRuleValidateNaturalNameIdentifier](docs/TravelRuleValidateNaturalNameIdentifier.md)
- - [TravelRuleValidateNaturalPerson](docs/TravelRuleValidateNaturalPerson.md)
- - [TravelRuleValidateNaturalPersonNameIdentifier](docs/TravelRuleValidateNaturalPersonNameIdentifier.md)
- - [TravelRuleValidatePerson](docs/TravelRuleValidatePerson.md)
- - [TravelRuleValidatePiiIVMS](docs/TravelRuleValidatePiiIVMS.md)
  - [TravelRuleValidateTransactionRequest](docs/TravelRuleValidateTransactionRequest.md)
  - [TravelRuleValidateTransactionResponse](docs/TravelRuleValidateTransactionResponse.md)
  - [TravelRuleVaspForVault](docs/TravelRuleVaspForVault.md)

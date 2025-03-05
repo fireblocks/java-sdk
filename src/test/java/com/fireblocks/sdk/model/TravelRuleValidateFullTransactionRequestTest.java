@@ -26,18 +26,6 @@ public class TravelRuleValidateFullTransactionRequestTest {
         // TODO: test TravelRuleValidateFullTransactionRequest
     }
 
-    /** Test the property 'originatorVASPdid' */
-    @Test
-    public void originatorVASPdidTest() {
-        // TODO: test originatorVASPdid
-    }
-
-    /** Test the property 'beneficiaryVASPdid' */
-    @Test
-    public void beneficiaryVASPdidTest() {
-        // TODO: test beneficiaryVASPdid
-    }
-
     /** Test the property 'transactionAsset' */
     @Test
     public void transactionAssetTest() {
@@ -50,10 +38,28 @@ public class TravelRuleValidateFullTransactionRequestTest {
         // TODO: test transactionAmount
     }
 
-    /** Test the property 'originatorVASPname' */
+    /** Test the property 'originatorDid' */
     @Test
-    public void originatorVASPnameTest() {
-        // TODO: test originatorVASPname
+    public void originatorDidTest() {
+        // TODO: test originatorDid
+    }
+
+    /** Test the property 'beneficiaryDid' */
+    @Test
+    public void beneficiaryDidTest() {
+        // TODO: test beneficiaryDid
+    }
+
+    /** Test the property 'originatorVASPdid' */
+    @Test
+    public void originatorVASPdidTest() {
+        // TODO: test originatorVASPdid
+    }
+
+    /** Test the property 'beneficiaryVASPdid' */
+    @Test
+    public void beneficiaryVASPdidTest() {
+        // TODO: test beneficiaryVASPdid
     }
 
     /** Test the property 'beneficiaryVASPname' */
@@ -92,6 +98,12 @@ public class TravelRuleValidateFullTransactionRequestTest {
         // TODO: test protocol
     }
 
+    /** Test the property 'notificationEmail' */
+    @Test
+    public void notificationEmailTest() {
+        // TODO: test notificationEmail
+    }
+
     /** Test the property 'skipBeneficiaryDataValidation' */
     @Test
     public void skipBeneficiaryDataValidationTest() {
@@ -102,24 +114,6 @@ public class TravelRuleValidateFullTransactionRequestTest {
     @Test
     public void travelRuleBehaviorTest() {
         // TODO: test travelRuleBehavior
-    }
-
-    /** Test the property 'originatorRef' */
-    @Test
-    public void originatorRefTest() {
-        // TODO: test originatorRef
-    }
-
-    /** Test the property 'beneficiaryRef' */
-    @Test
-    public void beneficiaryRefTest() {
-        // TODO: test beneficiaryRef
-    }
-
-    /** Test the property 'travelRuleBehaviorRef' */
-    @Test
-    public void travelRuleBehaviorRefTest() {
-        // TODO: test travelRuleBehaviorRef
     }
 
     /** Test the property 'originatorProof' */
@@ -134,39 +128,9 @@ public class TravelRuleValidateFullTransactionRequestTest {
         // TODO: test beneficiaryProof
     }
 
-    /** Test the property 'beneficiaryDid' */
-    @Test
-    public void beneficiaryDidTest() {
-        // TODO: test beneficiaryDid
-    }
-
-    /** Test the property 'originatorDid' */
-    @Test
-    public void originatorDidTest() {
-        // TODO: test originatorDid
-    }
-
-    /** Test the property 'isNonCustodial' */
-    @Test
-    public void isNonCustodialTest() {
-        // TODO: test isNonCustodial
-    }
-
-    /** Test the property 'notificationEmail' */
-    @Test
-    public void notificationEmailTest() {
-        // TODO: test notificationEmail
-    }
-
     /** Test the property 'pii' */
     @Test
     public void piiTest() {
         // TODO: test pii
-    }
-
-    /** Test the property 'piiUrl' */
-    @Test
-    public void piiUrlTest() {
-        // TODO: test piiUrl
     }
 }

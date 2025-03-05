@@ -20,6 +20,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -48,15 +49,13 @@ public class Webhook {
     private String description;
 
     public static final String JSON_PROPERTY_EVENTS = "events";
-    private List<WebhookEvent> events = new ArrayList<>();
+    private List<WebhookEvent> events;
 
     /** The status of the webhook */
     public enum StatusEnum {
         DISABLED("DISABLED"),
 
-        ENABLED("ENABLED"),
-
-        SUSPENDED("SUSPENDED");
+        ENABLED("ENABLED");
 
         private String value;
 
@@ -89,10 +88,10 @@ public class Webhook {
     private StatusEnum status;
 
     public static final String JSON_PROPERTY_CREATED_AT = "createdAt";
-    private Long createdAt;
+    private OffsetDateTime createdAt;
 
     public static final String JSON_PROPERTY_UPDATED_AT = "updatedAt";
-    private Long updatedAt;
+    private OffsetDateTime updatedAt;
 
     public Webhook() {}
 
@@ -106,15 +105,15 @@ public class Webhook {
      *
      * @return id
      */
-    @jakarta.annotation.Nonnull
+    @jakarta.annotation.Nullable
     @JsonProperty(JSON_PROPERTY_ID)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
     public UUID getId() {
         return id;
     }
 
     @JsonProperty(JSON_PROPERTY_ID)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
     public void setId(UUID id) {
         this.id = id;
     }
@@ -129,15 +128,15 @@ public class Webhook {
      *
      * @return url
      */
-    @jakarta.annotation.Nonnull
+    @jakarta.annotation.Nullable
     @JsonProperty(JSON_PROPERTY_URL)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
     public String getUrl() {
         return url;
     }
 
     @JsonProperty(JSON_PROPERTY_URL)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
     public void setUrl(String url) {
         this.url = url;
     }
@@ -183,15 +182,15 @@ public class Webhook {
      *
      * @return events
      */
-    @jakarta.annotation.Nonnull
+    @jakarta.annotation.Nullable
     @JsonProperty(JSON_PROPERTY_EVENTS)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
     public List<WebhookEvent> getEvents() {
         return events;
     }
 
     @JsonProperty(JSON_PROPERTY_EVENTS)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
     public void setEvents(List<WebhookEvent> events) {
         this.events = events;
     }
@@ -206,62 +205,62 @@ public class Webhook {
      *
      * @return status
      */
-    @jakarta.annotation.Nonnull
+    @jakarta.annotation.Nullable
     @JsonProperty(JSON_PROPERTY_STATUS)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
     public StatusEnum getStatus() {
         return status;
     }
 
     @JsonProperty(JSON_PROPERTY_STATUS)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
     public void setStatus(StatusEnum status) {
         this.status = status;
     }
 
-    public Webhook createdAt(Long createdAt) {
+    public Webhook createdAt(OffsetDateTime createdAt) {
         this.createdAt = createdAt;
         return this;
     }
 
     /**
-     * The date and time the webhook was created in milliseconds
+     * The date and time the webhook was created
      *
      * @return createdAt
      */
-    @jakarta.annotation.Nonnull
+    @jakarta.annotation.Nullable
     @JsonProperty(JSON_PROPERTY_CREATED_AT)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public Long getCreatedAt() {
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public OffsetDateTime getCreatedAt() {
         return createdAt;
     }
 
     @JsonProperty(JSON_PROPERTY_CREATED_AT)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setCreatedAt(Long createdAt) {
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setCreatedAt(OffsetDateTime createdAt) {
         this.createdAt = createdAt;
     }
 
-    public Webhook updatedAt(Long updatedAt) {
+    public Webhook updatedAt(OffsetDateTime updatedAt) {
         this.updatedAt = updatedAt;
         return this;
     }
 
     /**
-     * The date and time the webhook was last updated in milliseconds
+     * The date and time the webhook was last updated
      *
      * @return updatedAt
      */
-    @jakarta.annotation.Nonnull
+    @jakarta.annotation.Nullable
     @JsonProperty(JSON_PROPERTY_UPDATED_AT)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public Long getUpdatedAt() {
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public OffsetDateTime getUpdatedAt() {
         return updatedAt;
     }
 
     @JsonProperty(JSON_PROPERTY_UPDATED_AT)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setUpdatedAt(Long updatedAt) {
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setUpdatedAt(OffsetDateTime updatedAt) {
         this.updatedAt = updatedAt;
     }
 

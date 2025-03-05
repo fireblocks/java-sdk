@@ -17,7 +17,7 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 
 Deposit funds from DDA
 
-Deposits funds from the linked DDA.
+Deposits funds from the linked DDA. Learn more about Fireblocks FIAT Connectivity in the following [guide](https://developers.fireblocks.com/docs/connect-to-exchanges-and-fiat-providers). &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin.
 
 ### Example
 
@@ -104,7 +104,7 @@ No authorization required
 
 Find a specific fiat account
 
-Returns a fiat account by ID.
+Returns a fiat account by ID. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin.
 
 ### Example
 
@@ -187,7 +187,7 @@ No authorization required
 
 List fiat accounts
 
-Returns all fiat accounts.
+Returns all fiat accounts. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin.
 
 ### Example
 
@@ -266,7 +266,7 @@ No authorization required
 
 Redeem funds to DDA
 
-Redeems funds to the linked DDA.
+Redeems funds to the linked DDA. Learn more about Fireblocks FIAT Connectivity in the following [guide](https://developers.fireblocks.com/docs/connect-to-exchanges-and-fiat-providers). &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin.
 
 ### Example
 

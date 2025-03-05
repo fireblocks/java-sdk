@@ -16,8 +16,10 @@ package com.fireblocks.sdk.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import java.math.BigDecimal;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -31,6 +33,7 @@ import java.util.UUID;
     NotificationWithData.JSON_PROPERTY_UPDATED_AT,
     NotificationWithData.JSON_PROPERTY_STATUS,
     NotificationWithData.JSON_PROPERTY_EVENT_TYPE,
+    NotificationWithData.JSON_PROPERTY_EVENT_VERSION,
     NotificationWithData.JSON_PROPERTY_RESOURCE_ID,
     NotificationWithData.JSON_PROPERTY_ATTEMPTS,
     NotificationWithData.JSON_PROPERTY_DATA
@@ -41,10 +44,10 @@ public class NotificationWithData {
     private UUID id;
 
     public static final String JSON_PROPERTY_CREATED_AT = "createdAt";
-    private Long createdAt;
+    private OffsetDateTime createdAt;
 
     public static final String JSON_PROPERTY_UPDATED_AT = "updatedAt";
-    private Long updatedAt;
+    private OffsetDateTime updatedAt;
 
     public static final String JSON_PROPERTY_STATUS = "status";
     private NotificationStatus status;
@@ -52,11 +55,14 @@ public class NotificationWithData {
     public static final String JSON_PROPERTY_EVENT_TYPE = "eventType";
     private WebhookEvent eventType;
 
+    public static final String JSON_PROPERTY_EVENT_VERSION = "eventVersion";
+    private BigDecimal eventVersion;
+
     public static final String JSON_PROPERTY_RESOURCE_ID = "resourceId";
     private UUID resourceId;
 
     public static final String JSON_PROPERTY_ATTEMPTS = "attempts";
-    private List<NotificationAttempt> attempts = new ArrayList<>();
+    private List<String> attempts = new ArrayList<>();
 
     public static final String JSON_PROPERTY_DATA = "data";
     private Object data;
@@ -86,49 +92,49 @@ public class NotificationWithData {
         this.id = id;
     }
 
-    public NotificationWithData createdAt(Long createdAt) {
+    public NotificationWithData createdAt(OffsetDateTime createdAt) {
         this.createdAt = createdAt;
         return this;
     }
 
     /**
-     * The creation date of the notification in milliseconds
+     * The creation date of the notification
      *
      * @return createdAt
      */
     @jakarta.annotation.Nonnull
     @JsonProperty(JSON_PROPERTY_CREATED_AT)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public Long getCreatedAt() {
+    public OffsetDateTime getCreatedAt() {
         return createdAt;
     }
 
     @JsonProperty(JSON_PROPERTY_CREATED_AT)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setCreatedAt(Long createdAt) {
+    public void setCreatedAt(OffsetDateTime createdAt) {
         this.createdAt = createdAt;
     }
 
-    public NotificationWithData updatedAt(Long updatedAt) {
+    public NotificationWithData updatedAt(OffsetDateTime updatedAt) {
         this.updatedAt = updatedAt;
         return this;
     }
 
     /**
-     * The date when the notification was updated in milliseconds
+     * The date when the notification was updated
      *
      * @return updatedAt
      */
     @jakarta.annotation.Nonnull
     @JsonProperty(JSON_PROPERTY_UPDATED_AT)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public Long getUpdatedAt() {
+    public OffsetDateTime getUpdatedAt() {
         return updatedAt;
     }
 
     @JsonProperty(JSON_PROPERTY_UPDATED_AT)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setUpdatedAt(Long updatedAt) {
+    public void setUpdatedAt(OffsetDateTime updatedAt) {
         this.updatedAt = updatedAt;
     }
 
@@ -178,6 +184,29 @@ public class NotificationWithData {
         this.eventType = eventType;
     }
 
+    public NotificationWithData eventVersion(BigDecimal eventVersion) {
+        this.eventVersion = eventVersion;
+        return this;
+    }
+
+    /**
+     * The event version which the Notification is listen to
+     *
+     * @return eventVersion
+     */
+    @jakarta.annotation.Nonnull
+    @JsonProperty(JSON_PROPERTY_EVENT_VERSION)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public BigDecimal getEventVersion() {
+        return eventVersion;
+    }
+
+    @JsonProperty(JSON_PROPERTY_EVENT_VERSION)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setEventVersion(BigDecimal eventVersion) {
+        this.eventVersion = eventVersion;
+    }
+
     public NotificationWithData resourceId(UUID resourceId) {
         this.resourceId = resourceId;
         return this;
@@ -201,12 +230,12 @@ public class NotificationWithData {
         this.resourceId = resourceId;
     }
 
-    public NotificationWithData attempts(List<NotificationAttempt> attempts) {
+    public NotificationWithData attempts(List<String> attempts) {
         this.attempts = attempts;
         return this;
     }
 
-    public NotificationWithData addAttemptsItem(NotificationAttempt attemptsItem) {
+    public NotificationWithData addAttemptsItem(String attemptsItem) {
         if (this.attempts == null) {
             this.attempts = new ArrayList<>();
         }
@@ -222,13 +251,13 @@ public class NotificationWithData {
     @jakarta.annotation.Nonnull
     @JsonProperty(JSON_PROPERTY_ATTEMPTS)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public List<NotificationAttempt> getAttempts() {
+    public List<String> getAttempts() {
         return attempts;
     }
 
     @JsonProperty(JSON_PROPERTY_ATTEMPTS)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setAttempts(List<NotificationAttempt> attempts) {
+    public void setAttempts(List<String> attempts) {
         this.attempts = attempts;
     }
 
@@ -270,6 +299,7 @@ public class NotificationWithData {
                 && Objects.equals(this.updatedAt, notificationWithData.updatedAt)
                 && Objects.equals(this.status, notificationWithData.status)
                 && Objects.equals(this.eventType, notificationWithData.eventType)
+                && Objects.equals(this.eventVersion, notificationWithData.eventVersion)
                 && Objects.equals(this.resourceId, notificationWithData.resourceId)
                 && Objects.equals(this.attempts, notificationWithData.attempts)
                 && Objects.equals(this.data, notificationWithData.data);
@@ -278,7 +308,15 @@ public class NotificationWithData {
     @Override
     public int hashCode() {
         return Objects.hash(
-                id, createdAt, updatedAt, status, eventType, resourceId, attempts, data);
+                id,
+                createdAt,
+                updatedAt,
+                status,
+                eventType,
+                eventVersion,
+                resourceId,
+                attempts,
+                data);
     }
 
     @Override
@@ -290,6 +328,7 @@ public class NotificationWithData {
         sb.append("    updatedAt: ").append(toIndentedString(updatedAt)).append("\n");
         sb.append("    status: ").append(toIndentedString(status)).append("\n");
         sb.append("    eventType: ").append(toIndentedString(eventType)).append("\n");
+        sb.append("    eventVersion: ").append(toIndentedString(eventVersion)).append("\n");
         sb.append("    resourceId: ").append(toIndentedString(resourceId)).append("\n");
         sb.append("    attempts: ").append(toIndentedString(attempts)).append("\n");
         sb.append("    data: ").append(toIndentedString(data)).append("\n");
@@ -398,6 +437,19 @@ public class NotificationWithData {
                                     .replaceAll("\\+", "%20")));
         }
 
+        // add `eventVersion` to the URL query string
+        if (getEventVersion() != null) {
+            joiner.add(
+                    String.format(
+                            "%seventVersion%s=%s",
+                            prefix,
+                            suffix,
+                            URLEncoder.encode(
+                                            String.valueOf(getEventVersion()),
+                                            StandardCharsets.UTF_8)
+                                    .replaceAll("\\+", "%20")));
+        }
+
         // add `resourceId` to the URL query string
         if (getResourceId() != null) {
             joiner.add(
@@ -413,23 +465,19 @@ public class NotificationWithData {
         // add `attempts` to the URL query string
         if (getAttempts() != null) {
             for (int i = 0; i < getAttempts().size(); i++) {
-                if (getAttempts().get(i) != null) {
-                    joiner.add(
-                            getAttempts()
-                                    .get(i)
-                                    .toUrlQueryString(
-                                            String.format(
-                                                    "%sattempts%s%s",
-                                                    prefix,
-                                                    suffix,
-                                                    "".equals(suffix)
-                                                            ? ""
-                                                            : String.format(
-                                                                    "%s%d%s",
-                                                                    containerPrefix,
-                                                                    i,
-                                                                    containerSuffix))));
-                }
+                joiner.add(
+                        String.format(
+                                "%sattempts%s%s=%s",
+                                prefix,
+                                suffix,
+                                "".equals(suffix)
+                                        ? ""
+                                        : String.format(
+                                                "%s%d%s", containerPrefix, i, containerSuffix),
+                                URLEncoder.encode(
+                                                String.valueOf(getAttempts().get(i)),
+                                                StandardCharsets.UTF_8)
+                                        .replaceAll("\\+", "%20")));
             }
         }
 

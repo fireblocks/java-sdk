@@ -33,7 +33,10 @@ public class FiatAccountsApiTest {
     /**
      * Deposit funds from DDA
      *
-     * <p>Deposits funds from the linked DDA.
+     * <p>Deposits funds from the linked DDA. Learn more about Fireblocks FIAT Connectivity in the
+     * following
+     * [guide](https://developers.fireblocks.com/docs/connect-to-exchanges-and-fiat-providers).
+     * &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin.
      *
      * @throws ApiException if the Api call fails
      */
@@ -49,7 +52,7 @@ public class FiatAccountsApiTest {
     /**
      * Find a specific fiat account
      *
-     * <p>Returns a fiat account by ID.
+     * <p>Returns a fiat account by ID. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin.
      *
      * @throws ApiException if the Api call fails
      */
@@ -62,7 +65,7 @@ public class FiatAccountsApiTest {
     /**
      * List fiat accounts
      *
-     * <p>Returns all fiat accounts.
+     * <p>Returns all fiat accounts. &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin.
      *
      * @throws ApiException if the Api call fails
      */
@@ -74,7 +77,10 @@ public class FiatAccountsApiTest {
     /**
      * Redeem funds to DDA
      *
-     * <p>Redeems funds to the linked DDA.
+     * <p>Redeems funds to the linked DDA. Learn more about Fireblocks FIAT Connectivity in the
+     * following
+     * [guide](https://developers.fireblocks.com/docs/connect-to-exchanges-and-fiat-providers).
+     * &lt;/br&gt;Endpoint Permission: Admin, Non-Signing Admin.
      *
      * @throws ApiException if the Api call fails
      */

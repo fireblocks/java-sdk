@@ -294,13 +294,11 @@ public class NetworkConnectionsApiTest {
     public void searchNetworkIdsTest() throws ApiException {
         String search = null;
         Boolean excludeSelf = null;
-        Boolean onlySelf = null;
         Boolean excludeConnected = null;
         String pageCursor = null;
         BigDecimal pageSize = null;
         CompletableFuture<ApiResponse<SearchNetworkIdsResponse>> response =
-                api.searchNetworkIds(
-                        search, excludeSelf, onlySelf, excludeConnected, pageCursor, pageSize);
+                api.searchNetworkIds(search, excludeSelf, excludeConnected, pageCursor, pageSize);
     }
 
     /**

@@ -38,22 +38,10 @@ public class TravelRuleCreateTransactionRequestTest {
         // TODO: test beneficiaryVASPdid
     }
 
-    /** Test the property 'originatorVASPname' */
-    @Test
-    public void originatorVASPnameTest() {
-        // TODO: test originatorVASPname
-    }
-
     /** Test the property 'beneficiaryVASPname' */
     @Test
     public void beneficiaryVASPnameTest() {
         // TODO: test beneficiaryVASPname
-    }
-
-    /** Test the property 'beneficiaryVASPwebsite' */
-    @Test
-    public void beneficiaryVASPwebsiteTest() {
-        // TODO: test beneficiaryVASPwebsite
     }
 
     /** Test the property 'transactionBlockchainInfo' */
@@ -98,24 +86,6 @@ public class TravelRuleCreateTransactionRequestTest {
         // TODO: test travelRuleBehavior
     }
 
-    /** Test the property 'originatorRef' */
-    @Test
-    public void originatorRefTest() {
-        // TODO: test originatorRef
-    }
-
-    /** Test the property 'beneficiaryRef' */
-    @Test
-    public void beneficiaryRefTest() {
-        // TODO: test beneficiaryRef
-    }
-
-    /** Test the property 'travelRuleBehaviorRef' */
-    @Test
-    public void travelRuleBehaviorRefTest() {
-        // TODO: test travelRuleBehaviorRef
-    }
-
     /** Test the property 'originatorProof' */
     @Test
     public void originatorProofTest() {
@@ -128,21 +98,9 @@ public class TravelRuleCreateTransactionRequestTest {
         // TODO: test beneficiaryProof
     }
 
-    /** Test the property 'beneficiaryDid' */
+    /** Test the property 'pii' */
     @Test
-    public void beneficiaryDidTest() {
-        // TODO: test beneficiaryDid
-    }
-
-    /** Test the property 'originatorDid' */
-    @Test
-    public void originatorDidTest() {
-        // TODO: test originatorDid
-    }
-
-    /** Test the property 'isNonCustodial' */
-    @Test
-    public void isNonCustodialTest() {
-        // TODO: test isNonCustodial
+    public void piiTest() {
+        // TODO: test pii
     }
 }

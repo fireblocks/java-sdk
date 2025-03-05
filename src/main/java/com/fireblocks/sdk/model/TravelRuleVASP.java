@@ -219,7 +219,7 @@ public class TravelRuleVASP {
     }
 
     /**
-     * The Decentralized Identifier (DID) of the VASP.
+     * Get did
      *
      * @return did
      */
@@ -242,7 +242,7 @@ public class TravelRuleVASP {
     }
 
     /**
-     * The name of the VASP.
+     * Get name
      *
      * @return name
      */
@@ -265,7 +265,7 @@ public class TravelRuleVASP {
     }
 
     /**
-     * The current verification status of the VASP.
+     * Get verificationStatus
      *
      * @return verificationStatus
      */
@@ -288,7 +288,7 @@ public class TravelRuleVASP {
     }
 
     /**
-     * The first line of the VASP&#39;s address.
+     * Get addressLine1
      *
      * @return addressLine1
      */
@@ -311,19 +311,19 @@ public class TravelRuleVASP {
     }
 
     /**
-     * The second line of the VASP&#39;s address (if applicable).
+     * Get addressLine2
      *
      * @return addressLine2
      */
-    @jakarta.annotation.Nullable
+    @jakarta.annotation.Nonnull
     @JsonProperty(JSON_PROPERTY_ADDRESS_LINE2)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
     public String getAddressLine2() {
         return addressLine2;
     }
 
     @JsonProperty(JSON_PROPERTY_ADDRESS_LINE2)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
     public void setAddressLine2(String addressLine2) {
         this.addressLine2 = addressLine2;
     }
@@ -334,7 +334,7 @@ public class TravelRuleVASP {
     }
 
     /**
-     * The city where the VASP is located.
+     * Get city
      *
      * @return city
      */
@@ -357,7 +357,7 @@ public class TravelRuleVASP {
     }
 
     /**
-     * The country where the VASP is registered (ISO-3166 Alpha-2 code).
+     * Get country
      *
      * @return country
      */
@@ -380,7 +380,7 @@ public class TravelRuleVASP {
     }
 
     /**
-     * Comma-separated list of email domains associated with the VASP.
+     * Get emailDomains
      *
      * @return emailDomains
      */
@@ -403,7 +403,7 @@ public class TravelRuleVASP {
     }
 
     /**
-     * The official website of the VASP.
+     * Get website
      *
      * @return website
      */
@@ -426,19 +426,19 @@ public class TravelRuleVASP {
     }
 
     /**
-     * URL to the logo of the VASP.
+     * Get logo
      *
      * @return logo
      */
-    @jakarta.annotation.Nullable
+    @jakarta.annotation.Nonnull
     @JsonProperty(JSON_PROPERTY_LOGO)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
     public String getLogo() {
         return logo;
     }
 
     @JsonProperty(JSON_PROPERTY_LOGO)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
     public void setLogo(String logo) {
         this.logo = logo;
     }
@@ -449,7 +449,7 @@ public class TravelRuleVASP {
     }
 
     /**
-     * The legal structure of the VASP (e.g., Corporation, LLC).
+     * Get legalStructure
      *
      * @return legalStructure
      */
@@ -472,7 +472,7 @@ public class TravelRuleVASP {
     }
 
     /**
-     * The legal name of the VASP.
+     * Get legalName
      *
      * @return legalName
      */
@@ -495,7 +495,7 @@ public class TravelRuleVASP {
     }
 
     /**
-     * The year the VASP was founded.
+     * Get yearFounded
      *
      * @return yearFounded
      */
@@ -518,7 +518,7 @@ public class TravelRuleVASP {
     }
 
     /**
-     * The country where the VASP is incorporated (ISO-3166 Alpha-2 code).
+     * Get incorporationCountry
      *
      * @return incorporationCountry
      */
@@ -541,7 +541,7 @@ public class TravelRuleVASP {
     }
 
     /**
-     * Indicates whether the VASP is regulated.
+     * Get isRegulated
      *
      * @return isRegulated
      */
@@ -564,19 +564,19 @@ public class TravelRuleVASP {
     }
 
     /**
-     * Other names the VASP is known by.
+     * Get otherNames
      *
      * @return otherNames
      */
-    @jakarta.annotation.Nullable
+    @jakarta.annotation.Nonnull
     @JsonProperty(JSON_PROPERTY_OTHER_NAMES)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
     public String getOtherNames() {
         return otherNames;
     }
 
     @JsonProperty(JSON_PROPERTY_OTHER_NAMES)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
     public void setOtherNames(String otherNames) {
         this.otherNames = otherNames;
     }
@@ -587,19 +587,19 @@ public class TravelRuleVASP {
     }
 
     /**
-     * The type of identification used by the VASP.
+     * Get identificationType
      *
      * @return identificationType
      */
-    @jakarta.annotation.Nullable
+    @jakarta.annotation.Nonnull
     @JsonProperty(JSON_PROPERTY_IDENTIFICATION_TYPE)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
     public String getIdentificationType() {
         return identificationType;
     }
 
     @JsonProperty(JSON_PROPERTY_IDENTIFICATION_TYPE)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
     public void setIdentificationType(String identificationType) {
         this.identificationType = identificationType;
     }
@@ -610,19 +610,19 @@ public class TravelRuleVASP {
     }
 
     /**
-     * The country of identification for the VASP (ISO-3166 Alpha-2 code).
+     * Get identificationCountry
      *
      * @return identificationCountry
      */
-    @jakarta.annotation.Nullable
+    @jakarta.annotation.Nonnull
     @JsonProperty(JSON_PROPERTY_IDENTIFICATION_COUNTRY)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
     public String getIdentificationCountry() {
         return identificationCountry;
     }
 
     @JsonProperty(JSON_PROPERTY_IDENTIFICATION_COUNTRY)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
     public void setIdentificationCountry(String identificationCountry) {
         this.identificationCountry = identificationCountry;
     }
@@ -633,19 +633,19 @@ public class TravelRuleVASP {
     }
 
     /**
-     * The business registration number of the VASP.
+     * Get businessNumber
      *
      * @return businessNumber
      */
-    @jakarta.annotation.Nullable
+    @jakarta.annotation.Nonnull
     @JsonProperty(JSON_PROPERTY_BUSINESS_NUMBER)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
     public String getBusinessNumber() {
         return businessNumber;
     }
 
     @JsonProperty(JSON_PROPERTY_BUSINESS_NUMBER)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
     public void setBusinessNumber(String businessNumber) {
         this.businessNumber = businessNumber;
     }
@@ -656,19 +656,19 @@ public class TravelRuleVASP {
     }
 
     /**
-     * The regulatory authorities overseeing the VASP.
+     * Get regulatoryAuthorities
      *
      * @return regulatoryAuthorities
      */
-    @jakarta.annotation.Nullable
+    @jakarta.annotation.Nonnull
     @JsonProperty(JSON_PROPERTY_REGULATORY_AUTHORITIES)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
     public String getRegulatoryAuthorities() {
         return regulatoryAuthorities;
     }
 
     @JsonProperty(JSON_PROPERTY_REGULATORY_AUTHORITIES)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
     public void setRegulatoryAuthorities(String regulatoryAuthorities) {
         this.regulatoryAuthorities = regulatoryAuthorities;
     }
@@ -679,7 +679,7 @@ public class TravelRuleVASP {
     }
 
     /**
-     * The jurisdictions where the VASP operates.
+     * Get jurisdictions
      *
      * @return jurisdictions
      */
@@ -702,19 +702,19 @@ public class TravelRuleVASP {
     }
 
     /**
-     * The street name where the VASP is located.
+     * Get street
      *
      * @return street
      */
-    @jakarta.annotation.Nullable
+    @jakarta.annotation.Nonnull
     @JsonProperty(JSON_PROPERTY_STREET)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
     public String getStreet() {
         return street;
     }
 
     @JsonProperty(JSON_PROPERTY_STREET)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
     public void setStreet(String street) {
         this.street = street;
     }
@@ -725,19 +725,19 @@ public class TravelRuleVASP {
     }
 
     /**
-     * The building number of the VASP&#39;s address.
+     * Get number
      *
      * @return number
      */
-    @jakarta.annotation.Nullable
+    @jakarta.annotation.Nonnull
     @JsonProperty(JSON_PROPERTY_NUMBER)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
     public String getNumber() {
         return number;
     }
 
     @JsonProperty(JSON_PROPERTY_NUMBER)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
     public void setNumber(String number) {
         this.number = number;
     }
@@ -748,19 +748,19 @@ public class TravelRuleVASP {
     }
 
     /**
-     * The unit or suite number of the VASP&#39;s address.
+     * Get unit
      *
      * @return unit
      */
-    @jakarta.annotation.Nullable
+    @jakarta.annotation.Nonnull
     @JsonProperty(JSON_PROPERTY_UNIT)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
     public String getUnit() {
         return unit;
     }
 
     @JsonProperty(JSON_PROPERTY_UNIT)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
     public void setUnit(String unit) {
         this.unit = unit;
     }
@@ -771,19 +771,19 @@ public class TravelRuleVASP {
     }
 
     /**
-     * The postal code of the VASP&#39;s location.
+     * Get postCode
      *
      * @return postCode
      */
-    @jakarta.annotation.Nullable
+    @jakarta.annotation.Nonnull
     @JsonProperty(JSON_PROPERTY_POST_CODE)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
     public String getPostCode() {
         return postCode;
     }
 
     @JsonProperty(JSON_PROPERTY_POST_CODE)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
     public void setPostCode(String postCode) {
         this.postCode = postCode;
     }
@@ -794,19 +794,19 @@ public class TravelRuleVASP {
     }
 
     /**
-     * The state or region where the VASP is located.
+     * Get state
      *
      * @return state
      */
-    @jakarta.annotation.Nullable
+    @jakarta.annotation.Nonnull
     @JsonProperty(JSON_PROPERTY_STATE)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
     public String getState() {
         return state;
     }
 
     @JsonProperty(JSON_PROPERTY_STATE)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
     public void setState(String state) {
         this.state = state;
     }
@@ -817,19 +817,19 @@ public class TravelRuleVASP {
     }
 
     /**
-     * Certificates or licenses held by the VASP.
+     * Get certificates
      *
      * @return certificates
      */
-    @jakarta.annotation.Nullable
+    @jakarta.annotation.Nonnull
     @JsonProperty(JSON_PROPERTY_CERTIFICATES)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
     public String getCertificates() {
         return certificates;
     }
 
     @JsonProperty(JSON_PROPERTY_CERTIFICATES)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
     public void setCertificates(String certificates) {
         this.certificates = certificates;
     }
@@ -840,19 +840,19 @@ public class TravelRuleVASP {
     }
 
     /**
-     * A brief description of the VASP.
+     * Get description
      *
      * @return description
      */
-    @jakarta.annotation.Nullable
+    @jakarta.annotation.Nonnull
     @JsonProperty(JSON_PROPERTY_DESCRIPTION)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
     public String getDescription() {
         return description;
     }
 
     @JsonProperty(JSON_PROPERTY_DESCRIPTION)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
     public void setDescription(String description) {
         this.description = description;
     }
@@ -863,19 +863,19 @@ public class TravelRuleVASP {
     }
 
     /**
-     * Travel rule compliance status for OpenVASP.
+     * Get travelRuleOPENVASP
      *
      * @return travelRuleOPENVASP
      */
-    @jakarta.annotation.Nullable
+    @jakarta.annotation.Nonnull
     @JsonProperty(JSON_PROPERTY_TRAVEL_RULE_O_P_E_N_V_A_S_P)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
     public String getTravelRuleOPENVASP() {
         return travelRuleOPENVASP;
     }
 
     @JsonProperty(JSON_PROPERTY_TRAVEL_RULE_O_P_E_N_V_A_S_P)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
     public void setTravelRuleOPENVASP(String travelRuleOPENVASP) {
         this.travelRuleOPENVASP = travelRuleOPENVASP;
     }
@@ -886,19 +886,19 @@ public class TravelRuleVASP {
     }
 
     /**
-     * Travel rule compliance status for Sygna.
+     * Get travelRuleSYGNA
      *
      * @return travelRuleSYGNA
      */
-    @jakarta.annotation.Nullable
+    @jakarta.annotation.Nonnull
     @JsonProperty(JSON_PROPERTY_TRAVEL_RULE_S_Y_G_N_A)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
     public String getTravelRuleSYGNA() {
         return travelRuleSYGNA;
     }
 
     @JsonProperty(JSON_PROPERTY_TRAVEL_RULE_S_Y_G_N_A)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
     public void setTravelRuleSYGNA(String travelRuleSYGNA) {
         this.travelRuleSYGNA = travelRuleSYGNA;
     }
@@ -909,19 +909,19 @@ public class TravelRuleVASP {
     }
 
     /**
-     * Travel rule compliance status for TRISA.
+     * Get travelRuleTRISA
      *
      * @return travelRuleTRISA
      */
-    @jakarta.annotation.Nullable
+    @jakarta.annotation.Nonnull
     @JsonProperty(JSON_PROPERTY_TRAVEL_RULE_T_R_I_S_A)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
     public String getTravelRuleTRISA() {
         return travelRuleTRISA;
     }
 
     @JsonProperty(JSON_PROPERTY_TRAVEL_RULE_T_R_I_S_A)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
     public void setTravelRuleTRISA(String travelRuleTRISA) {
         this.travelRuleTRISA = travelRuleTRISA;
     }
@@ -932,7 +932,7 @@ public class TravelRuleVASP {
     }
 
     /**
-     * Travel rule compliance status for TRLight.
+     * Get travelRuleTRLIGHT
      *
      * @return travelRuleTRLIGHT
      */
@@ -955,19 +955,19 @@ public class TravelRuleVASP {
     }
 
     /**
-     * Travel rule compliance status for EMAIL.
+     * Get travelRuleEMAIL
      *
      * @return travelRuleEMAIL
      */
-    @jakarta.annotation.Nullable
+    @jakarta.annotation.Nonnull
     @JsonProperty(JSON_PROPERTY_TRAVEL_RULE_E_M_A_I_L)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
     public String getTravelRuleEMAIL() {
         return travelRuleEMAIL;
     }
 
     @JsonProperty(JSON_PROPERTY_TRAVEL_RULE_E_M_A_I_L)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
     public void setTravelRuleEMAIL(String travelRuleEMAIL) {
         this.travelRuleEMAIL = travelRuleEMAIL;
     }
@@ -978,19 +978,19 @@ public class TravelRuleVASP {
     }
 
     /**
-     * Travel rule compliance status for TRP.
+     * Get travelRuleTRP
      *
      * @return travelRuleTRP
      */
-    @jakarta.annotation.Nullable
+    @jakarta.annotation.Nonnull
     @JsonProperty(JSON_PROPERTY_TRAVEL_RULE_T_R_P)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
     public String getTravelRuleTRP() {
         return travelRuleTRP;
     }
 
     @JsonProperty(JSON_PROPERTY_TRAVEL_RULE_T_R_P)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
     public void setTravelRuleTRP(String travelRuleTRP) {
         this.travelRuleTRP = travelRuleTRP;
     }
@@ -1001,19 +1001,19 @@ public class TravelRuleVASP {
     }
 
     /**
-     * Travel rule compliance status for Shyft.
+     * Get travelRuleSHYFT
      *
      * @return travelRuleSHYFT
      */
-    @jakarta.annotation.Nullable
+    @jakarta.annotation.Nonnull
     @JsonProperty(JSON_PROPERTY_TRAVEL_RULE_S_H_Y_F_T)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
     public String getTravelRuleSHYFT() {
         return travelRuleSHYFT;
     }
 
     @JsonProperty(JSON_PROPERTY_TRAVEL_RULE_S_H_Y_F_T)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
     public void setTravelRuleSHYFT(String travelRuleSHYFT) {
         this.travelRuleSHYFT = travelRuleSHYFT;
     }
@@ -1024,19 +1024,19 @@ public class TravelRuleVASP {
     }
 
     /**
-     * Travel rule compliance status for US Travel Rule WG.
+     * Get travelRuleUSTRAVELRULEWG
      *
      * @return travelRuleUSTRAVELRULEWG
      */
-    @jakarta.annotation.Nullable
+    @jakarta.annotation.Nonnull
     @JsonProperty(JSON_PROPERTY_TRAVEL_RULE_U_S_T_R_A_V_E_L_R_U_L_E_W_G)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
     public String getTravelRuleUSTRAVELRULEWG() {
         return travelRuleUSTRAVELRULEWG;
     }
 
     @JsonProperty(JSON_PROPERTY_TRAVEL_RULE_U_S_T_R_A_V_E_L_R_U_L_E_W_G)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
     public void setTravelRuleUSTRAVELRULEWG(String travelRuleUSTRAVELRULEWG) {
         this.travelRuleUSTRAVELRULEWG = travelRuleUSTRAVELRULEWG;
     }
@@ -1047,7 +1047,7 @@ public class TravelRuleVASP {
     }
 
     /**
-     * Timestamp when the VASP record was created.
+     * Get createdAt
      *
      * @return createdAt
      */
@@ -1070,19 +1070,19 @@ public class TravelRuleVASP {
     }
 
     /**
-     * User or system that created the VASP record.
+     * Get createdBy
      *
      * @return createdBy
      */
-    @jakarta.annotation.Nullable
+    @jakarta.annotation.Nonnull
     @JsonProperty(JSON_PROPERTY_CREATED_BY)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
     public String getCreatedBy() {
         return createdBy;
     }
 
     @JsonProperty(JSON_PROPERTY_CREATED_BY)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
     public void setCreatedBy(String createdBy) {
         this.createdBy = createdBy;
     }
@@ -1093,19 +1093,19 @@ public class TravelRuleVASP {
     }
 
     /**
-     * Timestamp of the last update to the VASP record.
+     * Get updatedAt
      *
      * @return updatedAt
      */
-    @jakarta.annotation.Nullable
+    @jakarta.annotation.Nonnull
     @JsonProperty(JSON_PROPERTY_UPDATED_AT)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
     public String getUpdatedAt() {
         return updatedAt;
     }
 
     @JsonProperty(JSON_PROPERTY_UPDATED_AT)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
     public void setUpdatedAt(String updatedAt) {
         this.updatedAt = updatedAt;
     }
@@ -1116,19 +1116,19 @@ public class TravelRuleVASP {
     }
 
     /**
-     * User or system that last updated the VASP record.
+     * Get updatedBy
      *
      * @return updatedBy
      */
-    @jakarta.annotation.Nullable
+    @jakarta.annotation.Nonnull
     @JsonProperty(JSON_PROPERTY_UPDATED_BY)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
     public String getUpdatedBy() {
         return updatedBy;
     }
 
     @JsonProperty(JSON_PROPERTY_UPDATED_BY)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
     public void setUpdatedBy(String updatedBy) {
         this.updatedBy = updatedBy;
     }
@@ -1139,19 +1139,19 @@ public class TravelRuleVASP {
     }
 
     /**
-     * The last date a transaction was sent by the VASP.
+     * Get lastSentDate
      *
      * @return lastSentDate
      */
-    @jakarta.annotation.Nullable
+    @jakarta.annotation.Nonnull
     @JsonProperty(JSON_PROPERTY_LAST_SENT_DATE)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
     public String getLastSentDate() {
         return lastSentDate;
     }
 
     @JsonProperty(JSON_PROPERTY_LAST_SENT_DATE)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
     public void setLastSentDate(String lastSentDate) {
         this.lastSentDate = lastSentDate;
     }
@@ -1162,19 +1162,19 @@ public class TravelRuleVASP {
     }
 
     /**
-     * The last date a transaction was received by the VASP.
+     * Get lastReceivedDate
      *
      * @return lastReceivedDate
      */
-    @jakarta.annotation.Nullable
+    @jakarta.annotation.Nonnull
     @JsonProperty(JSON_PROPERTY_LAST_RECEIVED_DATE)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
     public String getLastReceivedDate() {
         return lastReceivedDate;
     }
 
     @JsonProperty(JSON_PROPERTY_LAST_RECEIVED_DATE)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
     public void setLastReceivedDate(String lastReceivedDate) {
         this.lastReceivedDate = lastReceivedDate;
     }
@@ -1185,19 +1185,19 @@ public class TravelRuleVASP {
     }
 
     /**
-     * Documents associated with the VASP.
+     * Get documents
      *
      * @return documents
      */
-    @jakarta.annotation.Nullable
+    @jakarta.annotation.Nonnull
     @JsonProperty(JSON_PROPERTY_DOCUMENTS)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
     public String getDocuments() {
         return documents;
     }
 
     @JsonProperty(JSON_PROPERTY_DOCUMENTS)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
     public void setDocuments(String documents) {
         this.documents = documents;
     }
@@ -1208,7 +1208,7 @@ public class TravelRuleVASP {
     }
 
     /**
-     * Indicates if the VASP has an admin.
+     * Get hasAdmin
      *
      * @return hasAdmin
      */
@@ -1231,7 +1231,7 @@ public class TravelRuleVASP {
     }
 
     /**
-     * Indicates if the VASP is notifiable for compliance reasons.
+     * Get isNotifiable
      *
      * @return isNotifiable
      */

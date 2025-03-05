@@ -13,11 +13,9 @@
 package com.fireblocks.sdk.model;
 
 
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.fasterxml.jackson.annotation.JsonValue;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.Objects;
@@ -25,47 +23,44 @@ import java.util.StringJoiner;
 
 /** TravelRuleValidateFullTransactionRequest */
 @JsonPropertyOrder({
-    TravelRuleValidateFullTransactionRequest.JSON_PROPERTY_ORIGINATOR_V_A_S_PDID,
-    TravelRuleValidateFullTransactionRequest.JSON_PROPERTY_BENEFICIARY_V_A_S_PDID,
     TravelRuleValidateFullTransactionRequest.JSON_PROPERTY_TRANSACTION_ASSET,
     TravelRuleValidateFullTransactionRequest.JSON_PROPERTY_TRANSACTION_AMOUNT,
-    TravelRuleValidateFullTransactionRequest.JSON_PROPERTY_ORIGINATOR_V_A_S_PNAME,
+    TravelRuleValidateFullTransactionRequest.JSON_PROPERTY_ORIGINATOR_DID,
+    TravelRuleValidateFullTransactionRequest.JSON_PROPERTY_BENEFICIARY_DID,
+    TravelRuleValidateFullTransactionRequest.JSON_PROPERTY_ORIGINATOR_V_A_S_PDID,
+    TravelRuleValidateFullTransactionRequest.JSON_PROPERTY_BENEFICIARY_V_A_S_PDID,
     TravelRuleValidateFullTransactionRequest.JSON_PROPERTY_BENEFICIARY_V_A_S_PNAME,
     TravelRuleValidateFullTransactionRequest.JSON_PROPERTY_TRANSACTION_BLOCKCHAIN_INFO,
     TravelRuleValidateFullTransactionRequest.JSON_PROPERTY_ORIGINATOR,
     TravelRuleValidateFullTransactionRequest.JSON_PROPERTY_BENEFICIARY,
     TravelRuleValidateFullTransactionRequest.JSON_PROPERTY_ENCRYPTED,
     TravelRuleValidateFullTransactionRequest.JSON_PROPERTY_PROTOCOL,
+    TravelRuleValidateFullTransactionRequest.JSON_PROPERTY_NOTIFICATION_EMAIL,
     TravelRuleValidateFullTransactionRequest.JSON_PROPERTY_SKIP_BENEFICIARY_DATA_VALIDATION,
     TravelRuleValidateFullTransactionRequest.JSON_PROPERTY_TRAVEL_RULE_BEHAVIOR,
-    TravelRuleValidateFullTransactionRequest.JSON_PROPERTY_ORIGINATOR_REF,
-    TravelRuleValidateFullTransactionRequest.JSON_PROPERTY_BENEFICIARY_REF,
-    TravelRuleValidateFullTransactionRequest.JSON_PROPERTY_TRAVEL_RULE_BEHAVIOR_REF,
     TravelRuleValidateFullTransactionRequest.JSON_PROPERTY_ORIGINATOR_PROOF,
     TravelRuleValidateFullTransactionRequest.JSON_PROPERTY_BENEFICIARY_PROOF,
-    TravelRuleValidateFullTransactionRequest.JSON_PROPERTY_BENEFICIARY_DID,
-    TravelRuleValidateFullTransactionRequest.JSON_PROPERTY_ORIGINATOR_DID,
-    TravelRuleValidateFullTransactionRequest.JSON_PROPERTY_IS_NON_CUSTODIAL,
-    TravelRuleValidateFullTransactionRequest.JSON_PROPERTY_NOTIFICATION_EMAIL,
-    TravelRuleValidateFullTransactionRequest.JSON_PROPERTY_PII,
-    TravelRuleValidateFullTransactionRequest.JSON_PROPERTY_PII_URL
+    TravelRuleValidateFullTransactionRequest.JSON_PROPERTY_PII
 })
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class TravelRuleValidateFullTransactionRequest {
-    public static final String JSON_PROPERTY_ORIGINATOR_V_A_S_PDID = "originatorVASPdid";
-    private String originatorVASPdid;
-
-    public static final String JSON_PROPERTY_BENEFICIARY_V_A_S_PDID = "beneficiaryVASPdid";
-    private String beneficiaryVASPdid;
-
     public static final String JSON_PROPERTY_TRANSACTION_ASSET = "transactionAsset";
     private String transactionAsset;
 
     public static final String JSON_PROPERTY_TRANSACTION_AMOUNT = "transactionAmount";
     private String transactionAmount;
 
-    public static final String JSON_PROPERTY_ORIGINATOR_V_A_S_PNAME = "originatorVASPname";
-    private String originatorVASPname;
+    public static final String JSON_PROPERTY_ORIGINATOR_DID = "originatorDid";
+    private String originatorDid;
+
+    public static final String JSON_PROPERTY_BENEFICIARY_DID = "beneficiaryDid";
+    private String beneficiaryDid;
+
+    public static final String JSON_PROPERTY_ORIGINATOR_V_A_S_PDID = "originatorVASPdid";
+    private String originatorVASPdid;
+
+    public static final String JSON_PROPERTY_BENEFICIARY_V_A_S_PDID = "beneficiaryVASPdid";
+    private String beneficiaryVASPdid;
 
     public static final String JSON_PROPERTY_BENEFICIARY_V_A_S_PNAME = "beneficiaryVASPname";
     private String beneficiaryVASPname;
@@ -75,51 +70,19 @@ public class TravelRuleValidateFullTransactionRequest {
     private TravelRuleTransactionBlockchainInfo transactionBlockchainInfo;
 
     public static final String JSON_PROPERTY_ORIGINATOR = "originator";
-    private TravelRuleValidatePiiIVMS originator;
+    private TravelRulePiiIVMS originator;
 
     public static final String JSON_PROPERTY_BENEFICIARY = "beneficiary";
-    private TravelRuleValidatePiiIVMS beneficiary;
+    private TravelRulePiiIVMS beneficiary;
 
     public static final String JSON_PROPERTY_ENCRYPTED = "encrypted";
     private String encrypted;
 
-    /** The protocol used to perform the travel rule. */
-    public enum ProtocolEnum {
-        TRLIGHT("TRLight"),
-
-        TRP("TRP"),
-
-        OPENVASP("OpenVASP");
-
-        private String value;
-
-        ProtocolEnum(String value) {
-            this.value = value;
-        }
-
-        @JsonValue
-        public String getValue() {
-            return value;
-        }
-
-        @Override
-        public String toString() {
-            return String.valueOf(value);
-        }
-
-        @JsonCreator
-        public static ProtocolEnum fromValue(String value) {
-            for (ProtocolEnum b : ProtocolEnum.values()) {
-                if (b.value.equals(value)) {
-                    return b;
-                }
-            }
-            throw new IllegalArgumentException("Unexpected value '" + value + "'");
-        }
-    }
-
     public static final String JSON_PROPERTY_PROTOCOL = "protocol";
-    private ProtocolEnum protocol;
+    private String protocol;
+
+    public static final String JSON_PROPERTY_NOTIFICATION_EMAIL = "notificationEmail";
+    private String notificationEmail;
 
     public static final String JSON_PROPERTY_SKIP_BENEFICIARY_DATA_VALIDATION =
             "skipBeneficiaryDataValidation";
@@ -128,90 +91,16 @@ public class TravelRuleValidateFullTransactionRequest {
     public static final String JSON_PROPERTY_TRAVEL_RULE_BEHAVIOR = "travelRuleBehavior";
     private Boolean travelRuleBehavior;
 
-    public static final String JSON_PROPERTY_ORIGINATOR_REF = "originatorRef";
-    private String originatorRef;
-
-    public static final String JSON_PROPERTY_BENEFICIARY_REF = "beneficiaryRef";
-    private String beneficiaryRef;
-
-    public static final String JSON_PROPERTY_TRAVEL_RULE_BEHAVIOR_REF = "travelRuleBehaviorRef";
-    private String travelRuleBehaviorRef;
-
     public static final String JSON_PROPERTY_ORIGINATOR_PROOF = "originatorProof";
     private TravelRuleOwnershipProof originatorProof;
 
     public static final String JSON_PROPERTY_BENEFICIARY_PROOF = "beneficiaryProof";
     private TravelRuleOwnershipProof beneficiaryProof;
 
-    public static final String JSON_PROPERTY_BENEFICIARY_DID = "beneficiaryDid";
-    private String beneficiaryDid;
-
-    public static final String JSON_PROPERTY_ORIGINATOR_DID = "originatorDid";
-    private String originatorDid;
-
-    public static final String JSON_PROPERTY_IS_NON_CUSTODIAL = "isNonCustodial";
-    private Boolean isNonCustodial;
-
-    public static final String JSON_PROPERTY_NOTIFICATION_EMAIL = "notificationEmail";
-    private String notificationEmail;
-
     public static final String JSON_PROPERTY_PII = "pii";
     private TravelRulePiiIVMS pii;
 
-    public static final String JSON_PROPERTY_PII_URL = "pii_url";
-    private String piiUrl;
-
     public TravelRuleValidateFullTransactionRequest() {}
-
-    public TravelRuleValidateFullTransactionRequest originatorVASPdid(String originatorVASPdid) {
-        this.originatorVASPdid = originatorVASPdid;
-        return this;
-    }
-
-    /**
-     * The Decentralized Identifier (DID) of the exchange (VASP) that is sending the virtual assets.
-     * This identifier is unique to the exchange and is generated when the exchange&#39;s account is
-     * created in the Notabene network.
-     *
-     * @return originatorVASPdid
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_ORIGINATOR_V_A_S_PDID)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public String getOriginatorVASPdid() {
-        return originatorVASPdid;
-    }
-
-    @JsonProperty(JSON_PROPERTY_ORIGINATOR_V_A_S_PDID)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setOriginatorVASPdid(String originatorVASPdid) {
-        this.originatorVASPdid = originatorVASPdid;
-    }
-
-    public TravelRuleValidateFullTransactionRequest beneficiaryVASPdid(String beneficiaryVASPdid) {
-        this.beneficiaryVASPdid = beneficiaryVASPdid;
-        return this;
-    }
-
-    /**
-     * The Decentralized Identifier (DID) of the exchange (VASP) that is receiving the virtual
-     * assets. This identifier is unique to the exchange and is generated when the exchange&#39;s
-     * account is created in the Notabene network.
-     *
-     * @return beneficiaryVASPdid
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_BENEFICIARY_V_A_S_PDID)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public String getBeneficiaryVASPdid() {
-        return beneficiaryVASPdid;
-    }
-
-    @JsonProperty(JSON_PROPERTY_BENEFICIARY_V_A_S_PDID)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setBeneficiaryVASPdid(String beneficiaryVASPdid) {
-        this.beneficiaryVASPdid = beneficiaryVASPdid;
-    }
 
     public TravelRuleValidateFullTransactionRequest transactionAsset(String transactionAsset) {
         this.transactionAsset = transactionAsset;
@@ -219,10 +108,7 @@ public class TravelRuleValidateFullTransactionRequest {
     }
 
     /**
-     * Transaction asset symbol (e.g., BTC, ETH, USDC). By using the &#x60;notation&#x60; query
-     * string, users can select the type of asset notation: - &#x60;fireblocks&#x60;: Converts asset
-     * symbols to Fireblocks notation. - &#x60;notabene&#x60;: Retains the original Notabene asset
-     * symbol format.
+     * The asset involved in the transaction
      *
      * @return transactionAsset
      */
@@ -245,11 +131,7 @@ public class TravelRuleValidateFullTransactionRequest {
     }
 
     /**
-     * Transaction amount in the transaction asset. For example, if the asset is BTC, the amount is
-     * the value in BTC units. By using the &#x60;notation&#x60; query string, users can select the
-     * type of amount notation: - &#x60;fireblocks&#x60;: Converts the amount to Fireblocks notation
-     * (e.g., adjusted for decimals). - &#x60;notabene&#x60;: Retains the original Notabene amount
-     * format.
+     * The amount of the transaction
      *
      * @return transactionAmount
      */
@@ -266,27 +148,96 @@ public class TravelRuleValidateFullTransactionRequest {
         this.transactionAmount = transactionAmount;
     }
 
-    public TravelRuleValidateFullTransactionRequest originatorVASPname(String originatorVASPname) {
-        this.originatorVASPname = originatorVASPname;
+    public TravelRuleValidateFullTransactionRequest originatorDid(String originatorDid) {
+        this.originatorDid = originatorDid;
         return this;
     }
 
     /**
-     * The name of the VASP acting as the transaction originator.
+     * The DID of the transaction originator
      *
-     * @return originatorVASPname
+     * @return originatorDid
      */
     @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_ORIGINATOR_V_A_S_PNAME)
+    @JsonProperty(JSON_PROPERTY_ORIGINATOR_DID)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public String getOriginatorVASPname() {
-        return originatorVASPname;
+    public String getOriginatorDid() {
+        return originatorDid;
     }
 
-    @JsonProperty(JSON_PROPERTY_ORIGINATOR_V_A_S_PNAME)
+    @JsonProperty(JSON_PROPERTY_ORIGINATOR_DID)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setOriginatorVASPname(String originatorVASPname) {
-        this.originatorVASPname = originatorVASPname;
+    public void setOriginatorDid(String originatorDid) {
+        this.originatorDid = originatorDid;
+    }
+
+    public TravelRuleValidateFullTransactionRequest beneficiaryDid(String beneficiaryDid) {
+        this.beneficiaryDid = beneficiaryDid;
+        return this;
+    }
+
+    /**
+     * The DID of the transaction beneficiary
+     *
+     * @return beneficiaryDid
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_BENEFICIARY_DID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getBeneficiaryDid() {
+        return beneficiaryDid;
+    }
+
+    @JsonProperty(JSON_PROPERTY_BENEFICIARY_DID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setBeneficiaryDid(String beneficiaryDid) {
+        this.beneficiaryDid = beneficiaryDid;
+    }
+
+    public TravelRuleValidateFullTransactionRequest originatorVASPdid(String originatorVASPdid) {
+        this.originatorVASPdid = originatorVASPdid;
+        return this;
+    }
+
+    /**
+     * The VASP ID of the transaction originator
+     *
+     * @return originatorVASPdid
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_ORIGINATOR_V_A_S_PDID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getOriginatorVASPdid() {
+        return originatorVASPdid;
+    }
+
+    @JsonProperty(JSON_PROPERTY_ORIGINATOR_V_A_S_PDID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setOriginatorVASPdid(String originatorVASPdid) {
+        this.originatorVASPdid = originatorVASPdid;
+    }
+
+    public TravelRuleValidateFullTransactionRequest beneficiaryVASPdid(String beneficiaryVASPdid) {
+        this.beneficiaryVASPdid = beneficiaryVASPdid;
+        return this;
+    }
+
+    /**
+     * The VASP ID of the transaction beneficiary
+     *
+     * @return beneficiaryVASPdid
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_BENEFICIARY_V_A_S_PDID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getBeneficiaryVASPdid() {
+        return beneficiaryVASPdid;
+    }
+
+    @JsonProperty(JSON_PROPERTY_BENEFICIARY_V_A_S_PDID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setBeneficiaryVASPdid(String beneficiaryVASPdid) {
+        this.beneficiaryVASPdid = beneficiaryVASPdid;
     }
 
     public TravelRuleValidateFullTransactionRequest beneficiaryVASPname(
@@ -296,7 +247,7 @@ public class TravelRuleValidateFullTransactionRequest {
     }
 
     /**
-     * The name of the VASP acting as the transaction beneficiary.
+     * The name of the VASP acting as the beneficiary
      *
      * @return beneficiaryVASPname
      */
@@ -320,7 +271,7 @@ public class TravelRuleValidateFullTransactionRequest {
     }
 
     /**
-     * Get transactionBlockchainInfo
+     * Information about the blockchain transaction
      *
      * @return transactionBlockchainInfo
      */
@@ -338,51 +289,49 @@ public class TravelRuleValidateFullTransactionRequest {
         this.transactionBlockchainInfo = transactionBlockchainInfo;
     }
 
-    public TravelRuleValidateFullTransactionRequest originator(
-            TravelRuleValidatePiiIVMS originator) {
+    public TravelRuleValidateFullTransactionRequest originator(TravelRulePiiIVMS originator) {
         this.originator = originator;
         return this;
     }
 
     /**
-     * Get originator
+     * Information about the originator of the transaction
      *
      * @return originator
      */
     @jakarta.annotation.Nonnull
     @JsonProperty(JSON_PROPERTY_ORIGINATOR)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public TravelRuleValidatePiiIVMS getOriginator() {
+    public TravelRulePiiIVMS getOriginator() {
         return originator;
     }
 
     @JsonProperty(JSON_PROPERTY_ORIGINATOR)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setOriginator(TravelRuleValidatePiiIVMS originator) {
+    public void setOriginator(TravelRulePiiIVMS originator) {
         this.originator = originator;
     }
 
-    public TravelRuleValidateFullTransactionRequest beneficiary(
-            TravelRuleValidatePiiIVMS beneficiary) {
+    public TravelRuleValidateFullTransactionRequest beneficiary(TravelRulePiiIVMS beneficiary) {
         this.beneficiary = beneficiary;
         return this;
     }
 
     /**
-     * Get beneficiary
+     * Information about the beneficiary of the transaction
      *
      * @return beneficiary
      */
     @jakarta.annotation.Nonnull
     @JsonProperty(JSON_PROPERTY_BENEFICIARY)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public TravelRuleValidatePiiIVMS getBeneficiary() {
+    public TravelRulePiiIVMS getBeneficiary() {
         return beneficiary;
     }
 
     @JsonProperty(JSON_PROPERTY_BENEFICIARY)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setBeneficiary(TravelRuleValidatePiiIVMS beneficiary) {
+    public void setBeneficiary(TravelRulePiiIVMS beneficiary) {
         this.beneficiary = beneficiary;
     }
 
@@ -392,7 +341,7 @@ public class TravelRuleValidateFullTransactionRequest {
     }
 
     /**
-     * Encrypted data related to the transaction.
+     * Encrypted data related to the transaction
      *
      * @return encrypted
      */
@@ -409,270 +358,27 @@ public class TravelRuleValidateFullTransactionRequest {
         this.encrypted = encrypted;
     }
 
-    public TravelRuleValidateFullTransactionRequest protocol(ProtocolEnum protocol) {
+    public TravelRuleValidateFullTransactionRequest protocol(String protocol) {
         this.protocol = protocol;
         return this;
     }
 
     /**
-     * The protocol used to perform the travel rule.
+     * The protocol used to perform the travel rule
      *
      * @return protocol
      */
     @jakarta.annotation.Nullable
     @JsonProperty(JSON_PROPERTY_PROTOCOL)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public ProtocolEnum getProtocol() {
+    public String getProtocol() {
         return protocol;
     }
 
     @JsonProperty(JSON_PROPERTY_PROTOCOL)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setProtocol(ProtocolEnum protocol) {
+    public void setProtocol(String protocol) {
         this.protocol = protocol;
-    }
-
-    public TravelRuleValidateFullTransactionRequest skipBeneficiaryDataValidation(
-            Boolean skipBeneficiaryDataValidation) {
-        this.skipBeneficiaryDataValidation = skipBeneficiaryDataValidation;
-        return this;
-    }
-
-    /**
-     * Whether to skip validation of beneficiary data.
-     *
-     * @return skipBeneficiaryDataValidation
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_SKIP_BENEFICIARY_DATA_VALIDATION)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public Boolean getSkipBeneficiaryDataValidation() {
-        return skipBeneficiaryDataValidation;
-    }
-
-    @JsonProperty(JSON_PROPERTY_SKIP_BENEFICIARY_DATA_VALIDATION)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setSkipBeneficiaryDataValidation(Boolean skipBeneficiaryDataValidation) {
-        this.skipBeneficiaryDataValidation = skipBeneficiaryDataValidation;
-    }
-
-    public TravelRuleValidateFullTransactionRequest travelRuleBehavior(Boolean travelRuleBehavior) {
-        this.travelRuleBehavior = travelRuleBehavior;
-        return this;
-    }
-
-    /**
-     * Whether to check if the transaction complies with the travel rule in the beneficiary
-     * VASP&#39;s jurisdiction.
-     *
-     * @return travelRuleBehavior
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_TRAVEL_RULE_BEHAVIOR)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public Boolean getTravelRuleBehavior() {
-        return travelRuleBehavior;
-    }
-
-    @JsonProperty(JSON_PROPERTY_TRAVEL_RULE_BEHAVIOR)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setTravelRuleBehavior(Boolean travelRuleBehavior) {
-        this.travelRuleBehavior = travelRuleBehavior;
-    }
-
-    public TravelRuleValidateFullTransactionRequest originatorRef(String originatorRef) {
-        this.originatorRef = originatorRef;
-        return this;
-    }
-
-    /**
-     * A reference ID related to the originator of the transaction.
-     *
-     * @return originatorRef
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_ORIGINATOR_REF)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public String getOriginatorRef() {
-        return originatorRef;
-    }
-
-    @JsonProperty(JSON_PROPERTY_ORIGINATOR_REF)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setOriginatorRef(String originatorRef) {
-        this.originatorRef = originatorRef;
-    }
-
-    public TravelRuleValidateFullTransactionRequest beneficiaryRef(String beneficiaryRef) {
-        this.beneficiaryRef = beneficiaryRef;
-        return this;
-    }
-
-    /**
-     * A reference ID related to the beneficiary of the transaction.
-     *
-     * @return beneficiaryRef
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_BENEFICIARY_REF)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public String getBeneficiaryRef() {
-        return beneficiaryRef;
-    }
-
-    @JsonProperty(JSON_PROPERTY_BENEFICIARY_REF)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setBeneficiaryRef(String beneficiaryRef) {
-        this.beneficiaryRef = beneficiaryRef;
-    }
-
-    public TravelRuleValidateFullTransactionRequest travelRuleBehaviorRef(
-            String travelRuleBehaviorRef) {
-        this.travelRuleBehaviorRef = travelRuleBehaviorRef;
-        return this;
-    }
-
-    /**
-     * A reference ID related to the travel rule behavior.
-     *
-     * @return travelRuleBehaviorRef
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_TRAVEL_RULE_BEHAVIOR_REF)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public String getTravelRuleBehaviorRef() {
-        return travelRuleBehaviorRef;
-    }
-
-    @JsonProperty(JSON_PROPERTY_TRAVEL_RULE_BEHAVIOR_REF)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setTravelRuleBehaviorRef(String travelRuleBehaviorRef) {
-        this.travelRuleBehaviorRef = travelRuleBehaviorRef;
-    }
-
-    public TravelRuleValidateFullTransactionRequest originatorProof(
-            TravelRuleOwnershipProof originatorProof) {
-        this.originatorProof = originatorProof;
-        return this;
-    }
-
-    /**
-     * Get originatorProof
-     *
-     * @return originatorProof
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_ORIGINATOR_PROOF)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public TravelRuleOwnershipProof getOriginatorProof() {
-        return originatorProof;
-    }
-
-    @JsonProperty(JSON_PROPERTY_ORIGINATOR_PROOF)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setOriginatorProof(TravelRuleOwnershipProof originatorProof) {
-        this.originatorProof = originatorProof;
-    }
-
-    public TravelRuleValidateFullTransactionRequest beneficiaryProof(
-            TravelRuleOwnershipProof beneficiaryProof) {
-        this.beneficiaryProof = beneficiaryProof;
-        return this;
-    }
-
-    /**
-     * Get beneficiaryProof
-     *
-     * @return beneficiaryProof
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_BENEFICIARY_PROOF)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public TravelRuleOwnershipProof getBeneficiaryProof() {
-        return beneficiaryProof;
-    }
-
-    @JsonProperty(JSON_PROPERTY_BENEFICIARY_PROOF)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setBeneficiaryProof(TravelRuleOwnershipProof beneficiaryProof) {
-        this.beneficiaryProof = beneficiaryProof;
-    }
-
-    public TravelRuleValidateFullTransactionRequest beneficiaryDid(String beneficiaryDid) {
-        this.beneficiaryDid = beneficiaryDid;
-        return this;
-    }
-
-    /**
-     * The Decentralized Identifier (DID) of the person at the receiving exchange (VASP). This
-     * identifier is generated when the customer is registered in the Notabene network, or
-     * automatically created based on the &#x60;beneficiaryRef&#x60;. - If neither
-     * &#x60;beneficiaryRef&#x60; nor &#x60;beneficiaryDid&#x60; is provided in the
-     * &#x60;txCreate&#x60; payload, a new random DID is generated for every transaction.
-     *
-     * @return beneficiaryDid
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_BENEFICIARY_DID)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public String getBeneficiaryDid() {
-        return beneficiaryDid;
-    }
-
-    @JsonProperty(JSON_PROPERTY_BENEFICIARY_DID)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setBeneficiaryDid(String beneficiaryDid) {
-        this.beneficiaryDid = beneficiaryDid;
-    }
-
-    public TravelRuleValidateFullTransactionRequest originatorDid(String originatorDid) {
-        this.originatorDid = originatorDid;
-        return this;
-    }
-
-    /**
-     * The Decentralized Identifier (DID) of the person at the exchange (VASP) who is requesting the
-     * withdrawal. This identifier is generated when the customer is registered in the Notabene
-     * network or automatically created based on the &#x60;originatorRef&#x60;. - If neither
-     * &#x60;originatorRef&#x60; nor &#x60;originatorDid&#x60; is provided in the
-     * &#x60;txCreate&#x60; payload, a new random DID is generated for every transaction.
-     *
-     * @return originatorDid
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_ORIGINATOR_DID)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public String getOriginatorDid() {
-        return originatorDid;
-    }
-
-    @JsonProperty(JSON_PROPERTY_ORIGINATOR_DID)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setOriginatorDid(String originatorDid) {
-        this.originatorDid = originatorDid;
-    }
-
-    public TravelRuleValidateFullTransactionRequest isNonCustodial(Boolean isNonCustodial) {
-        this.isNonCustodial = isNonCustodial;
-        return this;
-    }
-
-    /**
-     * Indicates if the transaction involves a non-custodial wallet.
-     *
-     * @return isNonCustodial
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_IS_NON_CUSTODIAL)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public Boolean getIsNonCustodial() {
-        return isNonCustodial;
-    }
-
-    @JsonProperty(JSON_PROPERTY_IS_NON_CUSTODIAL)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setIsNonCustodial(Boolean isNonCustodial) {
-        this.isNonCustodial = isNonCustodial;
     }
 
     public TravelRuleValidateFullTransactionRequest notificationEmail(String notificationEmail) {
@@ -698,13 +404,109 @@ public class TravelRuleValidateFullTransactionRequest {
         this.notificationEmail = notificationEmail;
     }
 
+    public TravelRuleValidateFullTransactionRequest skipBeneficiaryDataValidation(
+            Boolean skipBeneficiaryDataValidation) {
+        this.skipBeneficiaryDataValidation = skipBeneficiaryDataValidation;
+        return this;
+    }
+
+    /**
+     * Whether to skip validation of beneficiary data
+     *
+     * @return skipBeneficiaryDataValidation
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_SKIP_BENEFICIARY_DATA_VALIDATION)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public Boolean getSkipBeneficiaryDataValidation() {
+        return skipBeneficiaryDataValidation;
+    }
+
+    @JsonProperty(JSON_PROPERTY_SKIP_BENEFICIARY_DATA_VALIDATION)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setSkipBeneficiaryDataValidation(Boolean skipBeneficiaryDataValidation) {
+        this.skipBeneficiaryDataValidation = skipBeneficiaryDataValidation;
+    }
+
+    public TravelRuleValidateFullTransactionRequest travelRuleBehavior(Boolean travelRuleBehavior) {
+        this.travelRuleBehavior = travelRuleBehavior;
+        return this;
+    }
+
+    /**
+     * Whether to check if the transaction is a TRAVEL_RULE in the beneficiary VASP&#39;s
+     * jurisdiction
+     *
+     * @return travelRuleBehavior
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_TRAVEL_RULE_BEHAVIOR)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public Boolean getTravelRuleBehavior() {
+        return travelRuleBehavior;
+    }
+
+    @JsonProperty(JSON_PROPERTY_TRAVEL_RULE_BEHAVIOR)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setTravelRuleBehavior(Boolean travelRuleBehavior) {
+        this.travelRuleBehavior = travelRuleBehavior;
+    }
+
+    public TravelRuleValidateFullTransactionRequest originatorProof(
+            TravelRuleOwnershipProof originatorProof) {
+        this.originatorProof = originatorProof;
+        return this;
+    }
+
+    /**
+     * Ownership proof related to the originator of the transaction
+     *
+     * @return originatorProof
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_ORIGINATOR_PROOF)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public TravelRuleOwnershipProof getOriginatorProof() {
+        return originatorProof;
+    }
+
+    @JsonProperty(JSON_PROPERTY_ORIGINATOR_PROOF)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setOriginatorProof(TravelRuleOwnershipProof originatorProof) {
+        this.originatorProof = originatorProof;
+    }
+
+    public TravelRuleValidateFullTransactionRequest beneficiaryProof(
+            TravelRuleOwnershipProof beneficiaryProof) {
+        this.beneficiaryProof = beneficiaryProof;
+        return this;
+    }
+
+    /**
+     * Ownership proof related to the beneficiary of the transaction
+     *
+     * @return beneficiaryProof
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_BENEFICIARY_PROOF)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public TravelRuleOwnershipProof getBeneficiaryProof() {
+        return beneficiaryProof;
+    }
+
+    @JsonProperty(JSON_PROPERTY_BENEFICIARY_PROOF)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setBeneficiaryProof(TravelRuleOwnershipProof beneficiaryProof) {
+        this.beneficiaryProof = beneficiaryProof;
+    }
+
     public TravelRuleValidateFullTransactionRequest pii(TravelRulePiiIVMS pii) {
         this.pii = pii;
         return this;
     }
 
     /**
-     * Get pii
+     * Personal identifiable information related to the transaction
      *
      * @return pii
      */
@@ -721,29 +523,6 @@ public class TravelRuleValidateFullTransactionRequest {
         this.pii = pii;
     }
 
-    public TravelRuleValidateFullTransactionRequest piiUrl(String piiUrl) {
-        this.piiUrl = piiUrl;
-        return this;
-    }
-
-    /**
-     * The URL of the personal identifiable information related to the transaction
-     *
-     * @return piiUrl
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_PII_URL)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public String getPiiUrl() {
-        return piiUrl;
-    }
-
-    @JsonProperty(JSON_PROPERTY_PII_URL)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setPiiUrl(String piiUrl) {
-        this.piiUrl = piiUrl;
-    }
-
     /** Return true if this TravelRuleValidateFullTransactionRequest object is equal to o. */
     @Override
     public boolean equals(Object o) {
@@ -756,20 +535,22 @@ public class TravelRuleValidateFullTransactionRequest {
         TravelRuleValidateFullTransactionRequest travelRuleValidateFullTransactionRequest =
                 (TravelRuleValidateFullTransactionRequest) o;
         return Objects.equals(
-                        this.originatorVASPdid,
-                        travelRuleValidateFullTransactionRequest.originatorVASPdid)
-                && Objects.equals(
-                        this.beneficiaryVASPdid,
-                        travelRuleValidateFullTransactionRequest.beneficiaryVASPdid)
-                && Objects.equals(
                         this.transactionAsset,
                         travelRuleValidateFullTransactionRequest.transactionAsset)
                 && Objects.equals(
                         this.transactionAmount,
                         travelRuleValidateFullTransactionRequest.transactionAmount)
                 && Objects.equals(
-                        this.originatorVASPname,
-                        travelRuleValidateFullTransactionRequest.originatorVASPname)
+                        this.originatorDid, travelRuleValidateFullTransactionRequest.originatorDid)
+                && Objects.equals(
+                        this.beneficiaryDid,
+                        travelRuleValidateFullTransactionRequest.beneficiaryDid)
+                && Objects.equals(
+                        this.originatorVASPdid,
+                        travelRuleValidateFullTransactionRequest.originatorVASPdid)
+                && Objects.equals(
+                        this.beneficiaryVASPdid,
+                        travelRuleValidateFullTransactionRequest.beneficiaryVASPdid)
                 && Objects.equals(
                         this.beneficiaryVASPname,
                         travelRuleValidateFullTransactionRequest.beneficiaryVASPname)
@@ -784,85 +565,61 @@ public class TravelRuleValidateFullTransactionRequest {
                         this.encrypted, travelRuleValidateFullTransactionRequest.encrypted)
                 && Objects.equals(this.protocol, travelRuleValidateFullTransactionRequest.protocol)
                 && Objects.equals(
+                        this.notificationEmail,
+                        travelRuleValidateFullTransactionRequest.notificationEmail)
+                && Objects.equals(
                         this.skipBeneficiaryDataValidation,
                         travelRuleValidateFullTransactionRequest.skipBeneficiaryDataValidation)
                 && Objects.equals(
                         this.travelRuleBehavior,
                         travelRuleValidateFullTransactionRequest.travelRuleBehavior)
                 && Objects.equals(
-                        this.originatorRef, travelRuleValidateFullTransactionRequest.originatorRef)
-                && Objects.equals(
-                        this.beneficiaryRef,
-                        travelRuleValidateFullTransactionRequest.beneficiaryRef)
-                && Objects.equals(
-                        this.travelRuleBehaviorRef,
-                        travelRuleValidateFullTransactionRequest.travelRuleBehaviorRef)
-                && Objects.equals(
                         this.originatorProof,
                         travelRuleValidateFullTransactionRequest.originatorProof)
                 && Objects.equals(
                         this.beneficiaryProof,
                         travelRuleValidateFullTransactionRequest.beneficiaryProof)
-                && Objects.equals(
-                        this.beneficiaryDid,
-                        travelRuleValidateFullTransactionRequest.beneficiaryDid)
-                && Objects.equals(
-                        this.originatorDid, travelRuleValidateFullTransactionRequest.originatorDid)
-                && Objects.equals(
-                        this.isNonCustodial,
-                        travelRuleValidateFullTransactionRequest.isNonCustodial)
-                && Objects.equals(
-                        this.notificationEmail,
-                        travelRuleValidateFullTransactionRequest.notificationEmail)
-                && Objects.equals(this.pii, travelRuleValidateFullTransactionRequest.pii)
-                && Objects.equals(this.piiUrl, travelRuleValidateFullTransactionRequest.piiUrl);
+                && Objects.equals(this.pii, travelRuleValidateFullTransactionRequest.pii);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-                originatorVASPdid,
-                beneficiaryVASPdid,
                 transactionAsset,
                 transactionAmount,
-                originatorVASPname,
+                originatorDid,
+                beneficiaryDid,
+                originatorVASPdid,
+                beneficiaryVASPdid,
                 beneficiaryVASPname,
                 transactionBlockchainInfo,
                 originator,
                 beneficiary,
                 encrypted,
                 protocol,
+                notificationEmail,
                 skipBeneficiaryDataValidation,
                 travelRuleBehavior,
-                originatorRef,
-                beneficiaryRef,
-                travelRuleBehaviorRef,
                 originatorProof,
                 beneficiaryProof,
-                beneficiaryDid,
-                originatorDid,
-                isNonCustodial,
-                notificationEmail,
-                pii,
-                piiUrl);
+                pii);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("class TravelRuleValidateFullTransactionRequest {\n");
+        sb.append("    transactionAsset: ").append(toIndentedString(transactionAsset)).append("\n");
+        sb.append("    transactionAmount: ")
+                .append(toIndentedString(transactionAmount))
+                .append("\n");
+        sb.append("    originatorDid: ").append(toIndentedString(originatorDid)).append("\n");
+        sb.append("    beneficiaryDid: ").append(toIndentedString(beneficiaryDid)).append("\n");
         sb.append("    originatorVASPdid: ")
                 .append(toIndentedString(originatorVASPdid))
                 .append("\n");
         sb.append("    beneficiaryVASPdid: ")
                 .append(toIndentedString(beneficiaryVASPdid))
-                .append("\n");
-        sb.append("    transactionAsset: ").append(toIndentedString(transactionAsset)).append("\n");
-        sb.append("    transactionAmount: ")
-                .append(toIndentedString(transactionAmount))
-                .append("\n");
-        sb.append("    originatorVASPname: ")
-                .append(toIndentedString(originatorVASPname))
                 .append("\n");
         sb.append("    beneficiaryVASPname: ")
                 .append(toIndentedString(beneficiaryVASPname))
@@ -874,27 +631,18 @@ public class TravelRuleValidateFullTransactionRequest {
         sb.append("    beneficiary: ").append(toIndentedString(beneficiary)).append("\n");
         sb.append("    encrypted: ").append(toIndentedString(encrypted)).append("\n");
         sb.append("    protocol: ").append(toIndentedString(protocol)).append("\n");
+        sb.append("    notificationEmail: ")
+                .append(toIndentedString(notificationEmail))
+                .append("\n");
         sb.append("    skipBeneficiaryDataValidation: ")
                 .append(toIndentedString(skipBeneficiaryDataValidation))
                 .append("\n");
         sb.append("    travelRuleBehavior: ")
                 .append(toIndentedString(travelRuleBehavior))
                 .append("\n");
-        sb.append("    originatorRef: ").append(toIndentedString(originatorRef)).append("\n");
-        sb.append("    beneficiaryRef: ").append(toIndentedString(beneficiaryRef)).append("\n");
-        sb.append("    travelRuleBehaviorRef: ")
-                .append(toIndentedString(travelRuleBehaviorRef))
-                .append("\n");
         sb.append("    originatorProof: ").append(toIndentedString(originatorProof)).append("\n");
         sb.append("    beneficiaryProof: ").append(toIndentedString(beneficiaryProof)).append("\n");
-        sb.append("    beneficiaryDid: ").append(toIndentedString(beneficiaryDid)).append("\n");
-        sb.append("    originatorDid: ").append(toIndentedString(originatorDid)).append("\n");
-        sb.append("    isNonCustodial: ").append(toIndentedString(isNonCustodial)).append("\n");
-        sb.append("    notificationEmail: ")
-                .append(toIndentedString(notificationEmail))
-                .append("\n");
         sb.append("    pii: ").append(toIndentedString(pii)).append("\n");
-        sb.append("    piiUrl: ").append(toIndentedString(piiUrl)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -942,32 +690,6 @@ public class TravelRuleValidateFullTransactionRequest {
 
         StringJoiner joiner = new StringJoiner("&");
 
-        // add `originatorVASPdid` to the URL query string
-        if (getOriginatorVASPdid() != null) {
-            joiner.add(
-                    String.format(
-                            "%soriginatorVASPdid%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getOriginatorVASPdid()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
-        // add `beneficiaryVASPdid` to the URL query string
-        if (getBeneficiaryVASPdid() != null) {
-            joiner.add(
-                    String.format(
-                            "%sbeneficiaryVASPdid%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getBeneficiaryVASPdid()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
         // add `transactionAsset` to the URL query string
         if (getTransactionAsset() != null) {
             joiner.add(
@@ -994,15 +716,54 @@ public class TravelRuleValidateFullTransactionRequest {
                                     .replaceAll("\\+", "%20")));
         }
 
-        // add `originatorVASPname` to the URL query string
-        if (getOriginatorVASPname() != null) {
+        // add `originatorDid` to the URL query string
+        if (getOriginatorDid() != null) {
             joiner.add(
                     String.format(
-                            "%soriginatorVASPname%s=%s",
+                            "%soriginatorDid%s=%s",
                             prefix,
                             suffix,
                             URLEncoder.encode(
-                                            String.valueOf(getOriginatorVASPname()),
+                                            String.valueOf(getOriginatorDid()),
+                                            StandardCharsets.UTF_8)
+                                    .replaceAll("\\+", "%20")));
+        }
+
+        // add `beneficiaryDid` to the URL query string
+        if (getBeneficiaryDid() != null) {
+            joiner.add(
+                    String.format(
+                            "%sbeneficiaryDid%s=%s",
+                            prefix,
+                            suffix,
+                            URLEncoder.encode(
+                                            String.valueOf(getBeneficiaryDid()),
+                                            StandardCharsets.UTF_8)
+                                    .replaceAll("\\+", "%20")));
+        }
+
+        // add `originatorVASPdid` to the URL query string
+        if (getOriginatorVASPdid() != null) {
+            joiner.add(
+                    String.format(
+                            "%soriginatorVASPdid%s=%s",
+                            prefix,
+                            suffix,
+                            URLEncoder.encode(
+                                            String.valueOf(getOriginatorVASPdid()),
+                                            StandardCharsets.UTF_8)
+                                    .replaceAll("\\+", "%20")));
+        }
+
+        // add `beneficiaryVASPdid` to the URL query string
+        if (getBeneficiaryVASPdid() != null) {
+            joiner.add(
+                    String.format(
+                            "%sbeneficiaryVASPdid%s=%s",
+                            prefix,
+                            suffix,
+                            URLEncoder.encode(
+                                            String.valueOf(getBeneficiaryVASPdid()),
                                             StandardCharsets.UTF_8)
                                     .replaceAll("\\+", "%20")));
         }
@@ -1060,6 +821,19 @@ public class TravelRuleValidateFullTransactionRequest {
                                     .replaceAll("\\+", "%20")));
         }
 
+        // add `notificationEmail` to the URL query string
+        if (getNotificationEmail() != null) {
+            joiner.add(
+                    String.format(
+                            "%snotificationEmail%s=%s",
+                            prefix,
+                            suffix,
+                            URLEncoder.encode(
+                                            String.valueOf(getNotificationEmail()),
+                                            StandardCharsets.UTF_8)
+                                    .replaceAll("\\+", "%20")));
+        }
+
         // add `skipBeneficiaryDataValidation` to the URL query string
         if (getSkipBeneficiaryDataValidation() != null) {
             joiner.add(
@@ -1086,45 +860,6 @@ public class TravelRuleValidateFullTransactionRequest {
                                     .replaceAll("\\+", "%20")));
         }
 
-        // add `originatorRef` to the URL query string
-        if (getOriginatorRef() != null) {
-            joiner.add(
-                    String.format(
-                            "%soriginatorRef%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getOriginatorRef()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
-        // add `beneficiaryRef` to the URL query string
-        if (getBeneficiaryRef() != null) {
-            joiner.add(
-                    String.format(
-                            "%sbeneficiaryRef%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getBeneficiaryRef()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
-        // add `travelRuleBehaviorRef` to the URL query string
-        if (getTravelRuleBehaviorRef() != null) {
-            joiner.add(
-                    String.format(
-                            "%stravelRuleBehaviorRef%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getTravelRuleBehaviorRef()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
         // add `originatorProof` to the URL query string
         if (getOriginatorProof() != null) {
             joiner.add(getOriginatorProof().toUrlQueryString(prefix + "originatorProof" + suffix));
@@ -1136,72 +871,9 @@ public class TravelRuleValidateFullTransactionRequest {
                     getBeneficiaryProof().toUrlQueryString(prefix + "beneficiaryProof" + suffix));
         }
 
-        // add `beneficiaryDid` to the URL query string
-        if (getBeneficiaryDid() != null) {
-            joiner.add(
-                    String.format(
-                            "%sbeneficiaryDid%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getBeneficiaryDid()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
-        // add `originatorDid` to the URL query string
-        if (getOriginatorDid() != null) {
-            joiner.add(
-                    String.format(
-                            "%soriginatorDid%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getOriginatorDid()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
-        // add `isNonCustodial` to the URL query string
-        if (getIsNonCustodial() != null) {
-            joiner.add(
-                    String.format(
-                            "%sisNonCustodial%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getIsNonCustodial()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
-        // add `notificationEmail` to the URL query string
-        if (getNotificationEmail() != null) {
-            joiner.add(
-                    String.format(
-                            "%snotificationEmail%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getNotificationEmail()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
         // add `pii` to the URL query string
         if (getPii() != null) {
             joiner.add(getPii().toUrlQueryString(prefix + "pii" + suffix));
-        }
-
-        // add `pii_url` to the URL query string
-        if (getPiiUrl() != null) {
-            joiner.add(
-                    String.format(
-                            "%spii_url%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(String.valueOf(getPiiUrl()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
         }
 
         return joiner.toString();

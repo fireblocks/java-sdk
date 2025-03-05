@@ -42,7 +42,7 @@ public enum WebhookEvent {
 
     VAULT_ACCOUNT_ASSET_BALANCE_UPDATED("vault_account.asset.balance_updated"),
 
-    EMBEDDED_WALLET_STATUS_UPDATED("embedded_wallet.status.updated"),
+    VAULT_ACCOUNT_NFT_BALANCE_UPDATED("vault_account.nft.balance_updated"),
 
     EMBEDDED_WALLET_CREATED("embedded_wallet.created"),
 
@@ -52,7 +52,55 @@ public enum WebhookEvent {
 
     EMBEDDED_WALLET_ACCOUNT_CREATED("embedded_wallet.account.created"),
 
-    EMBEDDED_WALLET_DEVICE_ADDED("embedded_wallet.device.added");
+    EMBEDDED_WALLET_DEVICE_ADDED("embedded_wallet.device.added"),
+
+    EMBEDDED_WALLET_TRANSACTION_UPDATED("embedded_wallet.transaction.updated"),
+
+    EXCHANGE_ACCOUNT_CONNECTED("exchange_account.connected"),
+
+    FIAT_ACCOUNT_CONNECTED("fiat_account.connected"),
+
+    TICKET_CREATED("ticket.created"),
+
+    TICKET_SUBMITTED("ticket.submitted"),
+
+    TICKET_EXPIRED("ticket.expired"),
+
+    TICKET_CANCELED("ticket.canceled"),
+
+    TICKET_FULFILLED("ticket.fulfilled"),
+
+    TICKET_COUNTERPARTY_ADDED("ticket.counterparty.added"),
+
+    TICKET_COUNTERPARTY_EXTERNAL_ID_SET("ticket.counterparty_external_id.set"),
+
+    TICKET_NOTE_ADDED("ticket.note.added"),
+
+    TICKET_EXPIRED_IN_SET("ticket.expired_in.set"),
+
+    TICKET_EXPIRED_AT_SET("ticket.expired_at.set"),
+
+    TICKET_TERM_ADDED("ticket.term.added"),
+
+    TICKET_TERM_UPDATED("ticket.term.updated"),
+
+    TICKET_TERM_DELETED("ticket.term.deleted"),
+
+    TICKET_TERM_FUNDED("ticket.term.funded"),
+
+    TICKET_TERM_MANUALLY_FUNDED("ticket.term.manually_funded"),
+
+    TICKET_TERM_FUNDING_CANCELED("ticket.term.funding_canceled"),
+
+    TICKET_TERM_FUNDING_FAILED("ticket.term.funding_failed"),
+
+    TICKET_TERM_FUNDING_COMPLETED("ticket.term.funding_completed"),
+
+    TICKET_TERM_TRANSACTION_STATUS_CHANGED("ticket.term.transaction_status_changed"),
+
+    SETTLEMENT_CREATED("settlement.created"),
+
+    COLLATERAL_STATUS_UPDATED("collateral.status.updated");
 
     private String value;
 

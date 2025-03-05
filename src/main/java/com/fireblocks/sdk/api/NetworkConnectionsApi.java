@@ -890,7 +890,6 @@ public class NetworkConnectionsApi {
      *
      * @param search Search string - displayName networkId. Optional (optional)
      * @param excludeSelf Exclude your networkIds. Optional, default false (optional)
-     * @param onlySelf Include just your networkIds. Optional, default false (optional)
      * @param excludeConnected Exclude connected networkIds. Optional, default false (optional)
      * @param pageCursor ID of the record after which to fetch $limit records (optional)
      * @param pageSize Number of records to fetch. By default, it is 50 (optional, default to 50)
@@ -900,7 +899,6 @@ public class NetworkConnectionsApi {
     public CompletableFuture<ApiResponse<SearchNetworkIdsResponse>> searchNetworkIds(
             String search,
             Boolean excludeSelf,
-            Boolean onlySelf,
             Boolean excludeConnected,
             String pageCursor,
             BigDecimal pageSize)
@@ -908,7 +906,7 @@ public class NetworkConnectionsApi {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     searchNetworkIdsRequestBuilder(
-                            search, excludeSelf, onlySelf, excludeConnected, pageCursor, pageSize);
+                            search, excludeSelf, excludeConnected, pageCursor, pageSize);
             return memberVarHttpClient
                     .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
                     .thenComposeAsync(
@@ -944,7 +942,6 @@ public class NetworkConnectionsApi {
     private HttpRequest.Builder searchNetworkIdsRequestBuilder(
             String search,
             Boolean excludeSelf,
-            Boolean onlySelf,
             Boolean excludeConnected,
             String pageCursor,
             BigDecimal pageSize)
@@ -961,8 +958,6 @@ public class NetworkConnectionsApi {
         localVarQueryParams.addAll(ApiClient.parameterToPairs("search", search));
         localVarQueryParameterBaseName = "excludeSelf";
         localVarQueryParams.addAll(ApiClient.parameterToPairs("excludeSelf", excludeSelf));
-        localVarQueryParameterBaseName = "onlySelf";
-        localVarQueryParams.addAll(ApiClient.parameterToPairs("onlySelf", onlySelf));
         localVarQueryParameterBaseName = "excludeConnected";
         localVarQueryParams.addAll(
                 ApiClient.parameterToPairs("excludeConnected", excludeConnected));

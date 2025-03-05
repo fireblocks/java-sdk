@@ -16,107 +16,49 @@ package com.fireblocks.sdk.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.StringJoiner;
 
 /** TravelRuleGetAllVASPsResponse */
-@JsonPropertyOrder({
-    TravelRuleGetAllVASPsResponse.JSON_PROPERTY_DATA,
-    TravelRuleGetAllVASPsResponse.JSON_PROPERTY_TOTAL,
-    TravelRuleGetAllVASPsResponse.JSON_PROPERTY_NEXT
-})
+@JsonPropertyOrder({TravelRuleGetAllVASPsResponse.JSON_PROPERTY_VASPS})
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class TravelRuleGetAllVASPsResponse {
-    public static final String JSON_PROPERTY_DATA = "data";
-    private List<TravelRuleVASP> data = new ArrayList<>();
-
-    public static final String JSON_PROPERTY_TOTAL = "total";
-    private Integer total;
-
-    public static final String JSON_PROPERTY_NEXT = "next";
-    private String next;
+    public static final String JSON_PROPERTY_VASPS = "vasps";
+    private List<TravelRuleVASP> vasps = new ArrayList<>();
 
     public TravelRuleGetAllVASPsResponse() {}
 
-    public TravelRuleGetAllVASPsResponse data(List<TravelRuleVASP> data) {
-        this.data = data;
+    public TravelRuleGetAllVASPsResponse vasps(List<TravelRuleVASP> vasps) {
+        this.vasps = vasps;
         return this;
     }
 
-    public TravelRuleGetAllVASPsResponse addDataItem(TravelRuleVASP dataItem) {
-        if (this.data == null) {
-            this.data = new ArrayList<>();
+    public TravelRuleGetAllVASPsResponse addVaspsItem(TravelRuleVASP vaspsItem) {
+        if (this.vasps == null) {
+            this.vasps = new ArrayList<>();
         }
-        this.data.add(dataItem);
+        this.vasps.add(vaspsItem);
         return this;
     }
 
     /**
-     * An array of VASP objects, referencing the TravelRuleVASP schema.
+     * Get vasps
      *
-     * @return data
+     * @return vasps
      */
     @jakarta.annotation.Nonnull
-    @JsonProperty(JSON_PROPERTY_DATA)
+    @JsonProperty(JSON_PROPERTY_VASPS)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public List<TravelRuleVASP> getData() {
-        return data;
+    public List<TravelRuleVASP> getVasps() {
+        return vasps;
     }
 
-    @JsonProperty(JSON_PROPERTY_DATA)
+    @JsonProperty(JSON_PROPERTY_VASPS)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setData(List<TravelRuleVASP> data) {
-        this.data = data;
-    }
-
-    public TravelRuleGetAllVASPsResponse total(Integer total) {
-        this.total = total;
-        return this;
-    }
-
-    /**
-     * The total number of VASPs.
-     *
-     * @return total
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_TOTAL)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public Integer getTotal() {
-        return total;
-    }
-
-    @JsonProperty(JSON_PROPERTY_TOTAL)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setTotal(Integer total) {
-        this.total = total;
-    }
-
-    public TravelRuleGetAllVASPsResponse next(String next) {
-        this.next = next;
-        return this;
-    }
-
-    /**
-     * The URL for the next page of results.
-     *
-     * @return next
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_NEXT)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public String getNext() {
-        return next;
-    }
-
-    @JsonProperty(JSON_PROPERTY_NEXT)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setNext(String next) {
-        this.next = next;
+    public void setVasps(List<TravelRuleVASP> vasps) {
+        this.vasps = vasps;
     }
 
     /** Return true if this TravelRuleGetAllVASPsResponse object is equal to o. */
@@ -130,23 +72,19 @@ public class TravelRuleGetAllVASPsResponse {
         }
         TravelRuleGetAllVASPsResponse travelRuleGetAllVASPsResponse =
                 (TravelRuleGetAllVASPsResponse) o;
-        return Objects.equals(this.data, travelRuleGetAllVASPsResponse.data)
-                && Objects.equals(this.total, travelRuleGetAllVASPsResponse.total)
-                && Objects.equals(this.next, travelRuleGetAllVASPsResponse.next);
+        return Objects.equals(this.vasps, travelRuleGetAllVASPsResponse.vasps);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(data, total, next);
+        return Objects.hash(vasps);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("class TravelRuleGetAllVASPsResponse {\n");
-        sb.append("    data: ").append(toIndentedString(data)).append("\n");
-        sb.append("    total: ").append(toIndentedString(total)).append("\n");
-        sb.append("    next: ").append(toIndentedString(next)).append("\n");
+        sb.append("    vasps: ").append(toIndentedString(vasps)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -194,16 +132,16 @@ public class TravelRuleGetAllVASPsResponse {
 
         StringJoiner joiner = new StringJoiner("&");
 
-        // add `data` to the URL query string
-        if (getData() != null) {
-            for (int i = 0; i < getData().size(); i++) {
-                if (getData().get(i) != null) {
+        // add `vasps` to the URL query string
+        if (getVasps() != null) {
+            for (int i = 0; i < getVasps().size(); i++) {
+                if (getVasps().get(i) != null) {
                     joiner.add(
-                            getData()
+                            getVasps()
                                     .get(i)
                                     .toUrlQueryString(
                                             String.format(
-                                                    "%sdata%s%s",
+                                                    "%svasps%s%s",
                                                     prefix,
                                                     suffix,
                                                     "".equals(suffix)
@@ -215,28 +153,6 @@ public class TravelRuleGetAllVASPsResponse {
                                                                     containerSuffix))));
                 }
             }
-        }
-
-        // add `total` to the URL query string
-        if (getTotal() != null) {
-            joiner.add(
-                    String.format(
-                            "%stotal%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(String.valueOf(getTotal()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
-        // add `next` to the URL query string
-        if (getNext() != null) {
-            joiner.add(
-                    String.format(
-                            "%snext%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(String.valueOf(getNext()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
         }
 
         return joiner.toString();
