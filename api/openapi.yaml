@@ -4680,10 +4680,24 @@ paths:
       x-accepts: application/json
   /internal_wallets:
     get:
-      description: |
+      description: |-
         Gets a list of internal wallets.
 
-        **Note**: BTC-based assets belonging to whitelisted addresses cannot be retrieved between 00:00 UTC and 00:01 UTC daily due to third-party provider, Blockchair, being unavailable for this 60 second period. Please wait until the next minute to retrieve BTC-based assets.
+         **Note**:
+        - BTC-based assets belonging to whitelisted addresses cannot be
+          retrieved between 00:00 UTC and 00:01 UTC daily due to third-party
+          provider, Blockchain, being unavailable for this 60 second period.
+          </br>Please wait until the next minute to retrieve BTC-based assets.
+        - The list of assets returned will NOT include the balances anymore.
+
+        Internal Wallets are whitelisted wallets that belong to you outside of Fireblocks.
+
+          - You can see the balance of the Internal Wallet via Fireblocks
+          - You cannot initiate transactions from Internal Wallets through Fireblocks
+
+        Learn more about Whitelisted Internal Addresses [here](https://developers.fireblocks.com/docs/whitelist-addresses#internal-wallets)
+
+        Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
       operationId: getInternalWallets
       responses:
         "200":
@@ -4729,7 +4743,12 @@ paths:
         source: response = fireblocks.internal_wallets.get_internal_wallets();
       x-accepts: application/json
     post:
-      description: Creates a new internal wallet with the requested name.
+      description: |-
+        Creates a new internal wallet with the requested name.
+
+        Learn more about Whitelisted Internal Addresses [here](https://developers.fireblocks.com/docs/whitelist-addresses#internal-wallets)
+
+        Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
       operationId: createInternalWallet
       parameters:
       - description: "A unique identifier for the request. If the request is sent\
@@ -4803,7 +4822,14 @@ paths:
       x-accepts: application/json
   /internal_wallets/{walletId}:
     delete:
-      description: Deletes an internal wallet by ID.
+      description: |-
+        Deletes an internal wallet by ID.
+        Internal Wallets are whitelisted wallets that belong to you outside of Fireblocks.
+
+          - You can see the balance of the Internal Wallet via Fireblocks
+          - You cannot initiate transactions from Internal Wallets through Fireblocks
+
+        Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
       operationId: deleteInternalWallet
       parameters:
       - description: The ID of the wallet to delete
@@ -4858,7 +4884,17 @@ paths:
         source: response = fireblocks.internal_wallets.delete_internal_wallet(wallet_id);
       x-accepts: application/json
     get:
-      description: Returns all assets in an internal wallet by ID.
+      description: |-
+        Returns information for an asset in an internal wallet.
+
+        This endpoint will be deprecated after 6 months. </br>As part of the depreciation process this endpoint will no longer return balances, only addresses. </br>Until it is deprecated, this endpoint will behave the same way.
+
+        Internal Wallets are whitelisted wallets that belong to you outside of Fireblocks.
+
+          - You can see the balance of the Internal Wallet via Fireblocks
+          - You cannot initiate transactions from Internal Wallets through Fireblocks
+
+        Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
       operationId: getInternalWallet
       parameters:
       - description: The ID of the wallet to return
@@ -4888,7 +4924,7 @@ paths:
           headers:
             X-Request-ID:
               $ref: '#/components/headers/X-Request-ID'
-      summary: Get assets for internal wallet
+      summary: Get an asset from an internal wallet
       tags:
       - Internal wallets
       x-readme:
@@ -4916,10 +4952,121 @@ paths:
       - lang: Python
         source: response = fireblocks.internal_wallets.get_internal_wallet(wallet_id);
       x-accepts: application/json
+  /internal_wallets/{walletId}/assets:
+    get:
+      description: |-
+        Returns a paginated response of assets in an internal wallet.
+
+        This is a new paginated endpoint that gets all the assets from the wallet container with balances. </br>This endpoint returns a limited amount of results with a quick response time.
+
+        Internal Wallets are whitelisted wallets that belong to you outside of Fireblocks.
+
+          - You can see the balance of the Internal Wallet via Fireblocks
+          - You cannot initiate transactions from Internal Wallets through Fireblocks
+
+        Learn more about Whitelisted Internal Addresses [here](https://developers.fireblocks.com/docs/whitelist-addresses#internal-wallets)
+
+        Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+      operationId: getInternalWalletAssetsPaginated
+      parameters:
+      - description: The ID of the internal wallet to return assets for
+        explode: false
+        in: path
+        name: walletId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - example: 10
+        explode: true
+        in: query
+        name: pageSize
+        required: false
+        schema:
+          default: 50
+          description: Number of assets to return per page
+          maximum: 200
+          minimum: 1
+          type: number
+        style: form
+      - explode: true
+        in: query
+        name: pageCursor
+        required: false
+        schema:
+          description: Cursor for pagination
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedAssetsResponse'
+          description: A paginated response of assets for the internal wallet
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorSchema'
+          description: Error Response
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+      summary: List assets in an internal wallet (Paginated)
+      tags:
+      - Internal wallets
+      x-readme:
+        code-samples:
+        - language: python
+          code: "internalWalletAssets = fireblocks.get_internal_wallet_assets(walletId,\
+            \ pageSize, pageCursor)"
+          name: Fireblocks SDK Python example (Legacy)
+        - language: javascript
+          code: "const internalWalletAssets = fireblocks.getInternalWalletAssets(walletId,\
+            \ pageSize, pageCursor);"
+          name: Fireblocks SDK Javascript example
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<PaginatedAssetsResponse>>\
+            \ = fireblocks.internalWallets.getInternalWalletAssetsPaginated(internalWalletsApiGetInternalWalletAssetsPaginatedRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<PaginatedAssetsResponse>> response\
+            \ = fireblocks.internalWallets().getInternalWalletAssetsPaginated(walletId,\
+            \ pageSize, pageCursor);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.internal_wallets.get_internal_wallet_assets_paginated(wallet_id,\
+            \ page_size, page_cursor);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<PaginatedAssetsResponse>>\
+          \ = fireblocks.internalWallets.getInternalWalletAssetsPaginated(internalWalletsApiGetInternalWalletAssetsPaginatedRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<PaginatedAssetsResponse>> response\
+          \ = fireblocks.internalWallets().getInternalWalletAssetsPaginated(walletId,\
+          \ pageSize, pageCursor);"
+      - lang: Python
+        source: "response = fireblocks.internal_wallets.get_internal_wallet_assets_paginated(wallet_id,\
+          \ page_size, page_cursor);"
+      x-accepts: application/json
   /internal_wallets/{walletId}/set_customer_ref_id:
     post:
-      description: Sets an AML/KYT customer reference ID for the specific internal
-        wallet.
+      description: |-
+        Sets an AML/KYT customer reference ID for the specific internal wallet.
+
+        Internal Wallets are whitelisted wallets that belong to you outside of Fireblocks.
+
+          - You can see the balance of the Internal Wallet via Fireblocks
+          - You cannot initiate transactions from Internal Wallets through Fireblocks
+
+        Learn more about Whitelisted Internal Addresses [here](https://developers.fireblocks.com/docs/whitelist-addresses#internal-wallets)
+
+        Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
       operationId: setCustomerRefIdForInternalWallet
       parameters:
       - description: The wallet ID
@@ -4999,7 +5146,17 @@ paths:
       x-accepts: application/json
   /internal_wallets/{walletId}/{assetId}:
     delete:
-      description: Deletes a whitelisted address (for an asset) from an internal wallet.
+      description: |-
+        Deletes a whitelisted address (for an asset) from an internal wallet.
+
+        Internal Wallets are whitelisted wallets that belong to you outside of Fireblocks.
+
+          - You can see the balance of the Internal Wallet via Fireblocks
+          - You cannot initiate transactions from Internal Wallets through Fireblocks
+
+        Learn more about Whitelisted Internal Addresses [here](https://developers.fireblocks.com/docs/whitelist-addresses#internal-wallets)
+
+        Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
       operationId: deleteInternalWalletAsset
       parameters:
       - description: The ID of the wallet
@@ -5034,7 +5191,7 @@ paths:
           headers:
             X-Request-ID:
               $ref: '#/components/headers/X-Request-ID'
-      summary: Delete a whitelisted address from an internal wallet
+      summary: Delete a whitelisted address
       tags:
       - Internal wallets
       x-readme:
@@ -5068,7 +5225,17 @@ paths:
           \ asset_id);"
       x-accepts: application/json
     get:
-      description: Returns information for an asset in an internal wallet.
+      description: |-
+        Returns information for an asset in an internal wallet.
+
+        Internal Wallets are whitelisted wallets that belong to you outside of Fireblocks.
+
+          - You can see the balance of the Internal Wallet via Fireblocks
+          - You cannot initiate transactions from Internal Wallets through Fireblocks
+
+        Learn more about Whitelisted Internal Addresses [here](https://developers.fireblocks.com/docs/whitelist-addresses#internal-wallets)
+
+        Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
       operationId: getInternalWalletAsset
       parameters:
       - description: The ID of the wallet
@@ -5142,7 +5309,18 @@ paths:
           \ asset_id);"
       x-accepts: application/json
     post:
-      description: Adds an asset to an existing internal wallet.
+      description: |-
+        Adds an asset to an existing internal wallet.
+
+        Internal Wallets are whitelisted wallets that belong to you outside of Fireblocks.
+
+          - You can see the balance of the Internal Wallet via Fireblocks
+          - You cannot initiate transactions from Internal Wallets through Fireblocks
+
+          Learn more about Whitelisted Internal Addresses
+        [here](https://developers.fireblocks.com/docs/whitelist-addresses#internal-wallets)
+
+        Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
       operationId: createInternalWalletAsset
       parameters:
       - description: The ID of the wallet
@@ -22306,6 +22484,41 @@ components:
           description: Optional - Sets a customer reference ID
           type: string
       type: object
+    PaginatedAssetsResponse:
+      example:
+        next: next
+        total: 0.8008281904610115
+        data:
+          assets:
+          - lockedAmount: lockedAmount
+            address: address
+            balance: balance
+            id: id
+            tag: tag
+            activationTime: activationTime
+            status: null
+          - lockedAmount: lockedAmount
+            address: address
+            balance: balance
+            id: id
+            tag: tag
+            activationTime: activationTime
+            status: null
+          name: name
+          id: id
+          customerRefId: customerRefId
+      properties:
+        total:
+          description: Total number of assets in the internal wallet
+          type: number
+        data:
+          $ref: '#/components/schemas/UnmanagedWallet'
+        next:
+          description: Cursor for the next page of results
+          type: string
+      required:
+      - data
+      type: object
     CreateInternalWalletAssetRequest:
       example:
         address: address
@@ -24741,6 +24954,7 @@ components:
         * `PROGRAM_CALL` - Execute multiple instructions on Solana blockchain. The @solana/web3.js library is recommended for building program call transactions. Currently in beta and disabled
         * `TYPED_MESSAGE` - An off-chain message in either Ethereum Personal Message or EIP712 format. Use it to sign specific readable messages that are not actual transactions. [Learn more about typed messages](https://developers.fireblocks.com/docs/typed-message-signing).
         * `RAW` - An off-chain message with no predefined format. Use it to sign any message with your private key, including protocols such as blockchains and custom transaction types that are not natively supported by Fireblocks. [Learn more about raw signing transactions.](https://developers.fireblocks.com/docs/raw-message-signing)
+        * `APPROVE` - Enables the approve function for a smart contract or wallet to  withdraw from a designated wallet. [Learn more](https://support.fireblocks.io/hc/en-us/articles/4404616097426-Amount-Cap-for-Approve-transactions).
       enum:
       - TRANSFER
       - BURN
@@ -24749,6 +24963,7 @@ components:
       - MINT
       - RAW
       - TYPED_MESSAGE
+      - APPROVE
       type: string
     TransferPeerPathSubType:
       enum:
@@ -33915,6 +34130,7 @@ components:
       - bytecode
       - description
       - name
+      - type
       type: object
     ContractTemplateDto:
       example:

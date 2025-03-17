@@ -303,6 +303,7 @@ docs/PaginatedAddressResponse.md
 docs/PaginatedAddressResponsePaging.md
 docs/PaginatedAssetWalletResponse.md
 docs/PaginatedAssetWalletResponsePaging.md
+docs/PaginatedAssetsResponse.md
 docs/Paging.md
 docs/PairApiKeyRequest.md
 docs/PairApiKeyResponse.md
@@ -919,6 +920,7 @@ src/main/java/com/fireblocks/sdk/model/PaginatedAddressResponse.java
 src/main/java/com/fireblocks/sdk/model/PaginatedAddressResponsePaging.java
 src/main/java/com/fireblocks/sdk/model/PaginatedAssetWalletResponse.java
 src/main/java/com/fireblocks/sdk/model/PaginatedAssetWalletResponsePaging.java
+src/main/java/com/fireblocks/sdk/model/PaginatedAssetsResponse.java
 src/main/java/com/fireblocks/sdk/model/Paging.java
 src/main/java/com/fireblocks/sdk/model/PairApiKeyRequest.java
 src/main/java/com/fireblocks/sdk/model/PairApiKeyResponse.java
@@ -1499,6 +1501,7 @@ src/test/java/com/fireblocks/sdk/model/PaginatedAddressResponsePagingTest.java
 src/test/java/com/fireblocks/sdk/model/PaginatedAddressResponseTest.java
 src/test/java/com/fireblocks/sdk/model/PaginatedAssetWalletResponsePagingTest.java
 src/test/java/com/fireblocks/sdk/model/PaginatedAssetWalletResponseTest.java
+src/test/java/com/fireblocks/sdk/model/PaginatedAssetsResponseTest.java
 src/test/java/com/fireblocks/sdk/model/PagingTest.java
 src/test/java/com/fireblocks/sdk/model/PairApiKeyRequestTest.java
 src/test/java/com/fireblocks/sdk/model/PairApiKeyResponseTest.java
