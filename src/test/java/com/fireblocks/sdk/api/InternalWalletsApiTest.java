@@ -17,9 +17,11 @@ import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.model.CreateInternalWalletAssetRequest;
 import com.fireblocks.sdk.model.CreateWalletRequest;
+import com.fireblocks.sdk.model.PaginatedAssetsResponse;
 import com.fireblocks.sdk.model.SetCustomerRefIdRequest;
 import com.fireblocks.sdk.model.UnmanagedWallet;
 import com.fireblocks.sdk.model.WalletAsset;
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import org.junit.Ignore;
@@ -34,7 +36,10 @@ public class InternalWalletsApiTest {
     /**
      * Create an internal wallet
      *
-     * <p>Creates a new internal wallet with the requested name.
+     * <p>Creates a new internal wallet with the requested name. Learn more about Whitelisted
+     * Internal Addresses
+     * [here](https://developers.fireblocks.com/docs/whitelist-addresses#internal-wallets) Endpoint
+     * Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
      *
      * @throws ApiException if the Api call fails
      */
@@ -49,7 +54,12 @@ public class InternalWalletsApiTest {
     /**
      * Add an asset to an internal wallet
      *
-     * <p>Adds an asset to an existing internal wallet.
+     * <p>Adds an asset to an existing internal wallet. Internal Wallets are whitelisted wallets
+     * that belong to you outside of Fireblocks. - You can see the balance of the Internal Wallet
+     * via Fireblocks - You cannot initiate transactions from Internal Wallets through Fireblocks
+     * Learn more about Whitelisted Internal Addresses
+     * [here](https://developers.fireblocks.com/docs/whitelist-addresses#internal-wallets) Endpoint
+     * Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
      *
      * @throws ApiException if the Api call fails
      */
@@ -67,7 +77,10 @@ public class InternalWalletsApiTest {
     /**
      * Delete an internal wallet
      *
-     * <p>Deletes an internal wallet by ID.
+     * <p>Deletes an internal wallet by ID. Internal Wallets are whitelisted wallets that belong to
+     * you outside of Fireblocks. - You can see the balance of the Internal Wallet via Fireblocks -
+     * You cannot initiate transactions from Internal Wallets through Fireblocks Endpoint
+     * Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
      *
      * @throws ApiException if the Api call fails
      */
@@ -79,9 +92,14 @@ public class InternalWalletsApiTest {
     }
 
     /**
-     * Delete a whitelisted address from an internal wallet
+     * Delete a whitelisted address
      *
-     * <p>Deletes a whitelisted address (for an asset) from an internal wallet.
+     * <p>Deletes a whitelisted address (for an asset) from an internal wallet. Internal Wallets are
+     * whitelisted wallets that belong to you outside of Fireblocks. - You can see the balance of
+     * the Internal Wallet via Fireblocks - You cannot initiate transactions from Internal Wallets
+     * through Fireblocks Learn more about Whitelisted Internal Addresses
+     * [here](https://developers.fireblocks.com/docs/whitelist-addresses#internal-wallets) Endpoint
+     * Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
      *
      * @throws ApiException if the Api call fails
      */
@@ -95,9 +113,15 @@ public class InternalWalletsApiTest {
     }
 
     /**
-     * Get assets for internal wallet
+     * Get an asset from an internal wallet
      *
-     * <p>Returns all assets in an internal wallet by ID.
+     * <p>Returns information for an asset in an internal wallet. This endpoint will be deprecated
+     * after 6 months. &lt;/br&gt;As part of the depreciation process this endpoint will no longer
+     * return balances, only addresses. &lt;/br&gt;Until it is deprecated, this endpoint will behave
+     * the same way. Internal Wallets are whitelisted wallets that belong to you outside of
+     * Fireblocks. - You can see the balance of the Internal Wallet via Fireblocks - You cannot
+     * initiate transactions from Internal Wallets through Fireblocks Endpoint Permission: Admin,
+     * Non-Signing Admin, Signer, Approver, Editor, Viewer.
      *
      * @throws ApiException if the Api call fails
      */
@@ -110,7 +134,12 @@ public class InternalWalletsApiTest {
     /**
      * Get an asset from an internal wallet
      *
-     * <p>Returns information for an asset in an internal wallet.
+     * <p>Returns information for an asset in an internal wallet. Internal Wallets are whitelisted
+     * wallets that belong to you outside of Fireblocks. - You can see the balance of the Internal
+     * Wallet via Fireblocks - You cannot initiate transactions from Internal Wallets through
+     * Fireblocks Learn more about Whitelisted Internal Addresses
+     * [here](https://developers.fireblocks.com/docs/whitelist-addresses#internal-wallets) Endpoint
+     * Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
      *
      * @throws ApiException if the Api call fails
      */
@@ -123,12 +152,41 @@ public class InternalWalletsApiTest {
     }
 
     /**
+     * List assets in an internal wallet (Paginated)
+     *
+     * <p>Returns a paginated response of assets in an internal wallet. This is a new paginated
+     * endpoint that gets all the assets from the wallet container with balances. &lt;/br&gt;This
+     * endpoint returns a limited amount of results with a quick response time. Internal Wallets are
+     * whitelisted wallets that belong to you outside of Fireblocks. - You can see the balance of
+     * the Internal Wallet via Fireblocks - You cannot initiate transactions from Internal Wallets
+     * through Fireblocks Learn more about Whitelisted Internal Addresses
+     * [here](https://developers.fireblocks.com/docs/whitelist-addresses#internal-wallets) Endpoint
+     * Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void getInternalWalletAssetsPaginatedTest() throws ApiException {
+        String walletId = null;
+        BigDecimal pageSize = null;
+        String pageCursor = null;
+        CompletableFuture<ApiResponse<PaginatedAssetsResponse>> response =
+                api.getInternalWalletAssetsPaginated(walletId, pageSize, pageCursor);
+    }
+
+    /**
      * List internal wallets
      *
-     * <p>Gets a list of internal wallets. **Note**: BTC-based assets belonging to whitelisted
+     * <p>Gets a list of internal wallets. **Note**: - BTC-based assets belonging to whitelisted
      * addresses cannot be retrieved between 00:00 UTC and 00:01 UTC daily due to third-party
-     * provider, Blockchair, being unavailable for this 60 second period. Please wait until the next
-     * minute to retrieve BTC-based assets.
+     * provider, Blockchain, being unavailable for this 60 second period. &lt;/br&gt;Please wait
+     * until the next minute to retrieve BTC-based assets. - The list of assets returned will NOT
+     * include the balances anymore. Internal Wallets are whitelisted wallets that belong to you
+     * outside of Fireblocks. - You can see the balance of the Internal Wallet via Fireblocks - You
+     * cannot initiate transactions from Internal Wallets through Fireblocks Learn more about
+     * Whitelisted Internal Addresses
+     * [here](https://developers.fireblocks.com/docs/whitelist-addresses#internal-wallets) Endpoint
+     * Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
      *
      * @throws ApiException if the Api call fails
      */
@@ -140,7 +198,12 @@ public class InternalWalletsApiTest {
     /**
      * Set an AML/KYT customer reference ID for an internal wallet
      *
-     * <p>Sets an AML/KYT customer reference ID for the specific internal wallet.
+     * <p>Sets an AML/KYT customer reference ID for the specific internal wallet. Internal Wallets
+     * are whitelisted wallets that belong to you outside of Fireblocks. - You can see the balance
+     * of the Internal Wallet via Fireblocks - You cannot initiate transactions from Internal
+     * Wallets through Fireblocks Learn more about Whitelisted Internal Addresses
+     * [here](https://developers.fireblocks.com/docs/whitelist-addresses#internal-wallets) Endpoint
+     * Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
      *
      * @throws ApiException if the Api call fails
      */

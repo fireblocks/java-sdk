@@ -19,5 +19,7 @@
 
 * `TYPED_MESSAGE` (value: `"TYPED_MESSAGE"`)
 
+* `APPROVE` (value: `"APPROVE"`)
+
 
 

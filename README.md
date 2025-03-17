@@ -32,7 +32,7 @@ Add this dependency to your project's POM:
 <dependency>
   <groupId>com.fireblocks.sdk</groupId>
   <artifactId>fireblocks-sdk</artifactId>
-  <version>8.1.0</version>
+  <version>0.0.0</version>
   <scope>compile</scope>
 </dependency>
 ```
@@ -42,7 +42,7 @@ Add this dependency to your project's POM:
 Add this dependency to your project's build file:
 
 ```groovy
-compile "com.fireblocks.sdk:fireblocks-sdk:8.1.0"
+compile "com.fireblocks.sdk:fireblocks-sdk:0.0.0"
 ```
 
 ### Others
@@ -55,7 +55,7 @@ mvn clean package
 
 Then manually install the following JARs:
 
-- `target/fireblocks-sdk-8.1.0.jar`
+- `target/fireblocks-sdk-0.0.0.jar`
 - `target/lib/*.jar`
 
 
@@ -226,9 +226,10 @@ Class | Method | HTTP request | Description
 *InternalWalletsApi* | [**createInternalWallet**](docs/InternalWalletsApi.md#createInternalWallet) | **POST** /internal_wallets | Create an internal wallet
 *InternalWalletsApi* | [**createInternalWalletAsset**](docs/InternalWalletsApi.md#createInternalWalletAsset) | **POST** /internal_wallets/{walletId}/{assetId} | Add an asset to an internal wallet
 *InternalWalletsApi* | [**deleteInternalWallet**](docs/InternalWalletsApi.md#deleteInternalWallet) | **DELETE** /internal_wallets/{walletId} | Delete an internal wallet
-*InternalWalletsApi* | [**deleteInternalWalletAsset**](docs/InternalWalletsApi.md#deleteInternalWalletAsset) | **DELETE** /internal_wallets/{walletId}/{assetId} | Delete a whitelisted address from an internal wallet
-*InternalWalletsApi* | [**getInternalWallet**](docs/InternalWalletsApi.md#getInternalWallet) | **GET** /internal_wallets/{walletId} | Get assets for internal wallet
+*InternalWalletsApi* | [**deleteInternalWalletAsset**](docs/InternalWalletsApi.md#deleteInternalWalletAsset) | **DELETE** /internal_wallets/{walletId}/{assetId} | Delete a whitelisted address
+*InternalWalletsApi* | [**getInternalWallet**](docs/InternalWalletsApi.md#getInternalWallet) | **GET** /internal_wallets/{walletId} | Get an asset from an internal wallet
 *InternalWalletsApi* | [**getInternalWalletAsset**](docs/InternalWalletsApi.md#getInternalWalletAsset) | **GET** /internal_wallets/{walletId}/{assetId} | Get an asset from an internal wallet
+*InternalWalletsApi* | [**getInternalWalletAssetsPaginated**](docs/InternalWalletsApi.md#getInternalWalletAssetsPaginated) | **GET** /internal_wallets/{walletId}/assets | List assets in an internal wallet (Paginated)
 *InternalWalletsApi* | [**getInternalWallets**](docs/InternalWalletsApi.md#getInternalWallets) | **GET** /internal_wallets | List internal wallets
 *InternalWalletsApi* | [**setCustomerRefIdForInternalWallet**](docs/InternalWalletsApi.md#setCustomerRefIdForInternalWallet) | **POST** /internal_wallets/{walletId}/set_customer_ref_id | Set an AML/KYT customer reference ID for an internal wallet
 *JobManagementApi* | [**cancelJob**](docs/JobManagementApi.md#cancelJob) | **POST** /batch/{jobId}/cancel | Cancel a running job
@@ -673,6 +674,7 @@ Class | Method | HTTP request | Description
  - [PaginatedAddressResponsePaging](docs/PaginatedAddressResponsePaging.md)
  - [PaginatedAssetWalletResponse](docs/PaginatedAssetWalletResponse.md)
  - [PaginatedAssetWalletResponsePaging](docs/PaginatedAssetWalletResponsePaging.md)
+ - [PaginatedAssetsResponse](docs/PaginatedAssetsResponse.md)
  - [Paging](docs/Paging.md)
  - [PairApiKeyRequest](docs/PairApiKeyRequest.md)
  - [PairApiKeyResponse](docs/PairApiKeyResponse.md)

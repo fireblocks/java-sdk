@@ -34,7 +34,10 @@ import com.fasterxml.jackson.annotation.JsonValue;
  * off-chain message with no predefined format. Use it to sign any message with your private key,
  * including protocols such as blockchains and custom transaction types that are not natively
  * supported by Fireblocks. [Learn more about raw signing
- * transactions.](https://developers.fireblocks.com/docs/raw-message-signing)
+ * transactions.](https://developers.fireblocks.com/docs/raw-message-signing) * &#x60;APPROVE&#x60;
+ * - Enables the approve function for a smart contract or wallet to withdraw from a designated
+ * wallet. [Learn
+ * more](https://support.fireblocks.io/hc/en-us/articles/4404616097426-Amount-Cap-for-Approve-transactions).
  */
 public enum TransactionOperation {
     TRANSFER("TRANSFER"),
@@ -49,7 +52,9 @@ public enum TransactionOperation {
 
     RAW("RAW"),
 
-    TYPED_MESSAGE("TYPED_MESSAGE");
+    TYPED_MESSAGE("TYPED_MESSAGE"),
+
+    APPROVE("APPROVE");
 
     private String value;
 
