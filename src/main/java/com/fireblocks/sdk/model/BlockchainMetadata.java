@@ -13,11 +13,9 @@
 package com.fireblocks.sdk.model;
 
 
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.fasterxml.jackson.annotation.JsonValue;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -34,41 +32,8 @@ import java.util.StringJoiner;
 })
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class BlockchainMetadata {
-    /** Is blockchain listed on all workspaces? Global or Local */
-    public enum ScopeEnum {
-        GLOBAL("Global"),
-
-        LOCAL("Local");
-
-        private String value;
-
-        ScopeEnum(String value) {
-            this.value = value;
-        }
-
-        @JsonValue
-        public String getValue() {
-            return value;
-        }
-
-        @Override
-        public String toString() {
-            return String.valueOf(value);
-        }
-
-        @JsonCreator
-        public static ScopeEnum fromValue(String value) {
-            for (ScopeEnum b : ScopeEnum.values()) {
-                if (b.value.equals(value)) {
-                    return b;
-                }
-            }
-            throw new IllegalArgumentException("Unexpected value '" + value + "'");
-        }
-    }
-
     public static final String JSON_PROPERTY_SCOPE = "scope";
-    private ScopeEnum scope;
+    private AssetScope scope;
 
     public static final String JSON_PROPERTY_DEPRECATED = "deprecated";
     private Boolean deprecated;
@@ -81,26 +46,26 @@ public class BlockchainMetadata {
 
     public BlockchainMetadata() {}
 
-    public BlockchainMetadata scope(ScopeEnum scope) {
+    public BlockchainMetadata scope(AssetScope scope) {
         this.scope = scope;
         return this;
     }
 
     /**
-     * Is blockchain listed on all workspaces? Global or Local
+     * Get scope
      *
      * @return scope
      */
     @jakarta.annotation.Nonnull
     @JsonProperty(JSON_PROPERTY_SCOPE)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public ScopeEnum getScope() {
+    public AssetScope getScope() {
         return scope;
     }
 
     @JsonProperty(JSON_PROPERTY_SCOPE)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setScope(ScopeEnum scope) {
+    public void setScope(AssetScope scope) {
         this.scope = scope;
     }
 

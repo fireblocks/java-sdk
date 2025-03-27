@@ -1,6 +1,6 @@
 
 
-# AssetClassBeta
+# AssetClass
 
 ## Enum
 

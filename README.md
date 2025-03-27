@@ -32,7 +32,7 @@ Add this dependency to your project's POM:
 <dependency>
   <groupId>com.fireblocks.sdk</groupId>
   <artifactId>fireblocks-sdk</artifactId>
-  <version>9.0.0</version>
+  <version>0.0.0</version>
   <scope>compile</scope>
 </dependency>
 ```
@@ -42,7 +42,7 @@ Add this dependency to your project's POM:
 Add this dependency to your project's build file:
 
 ```groovy
-compile "com.fireblocks.sdk:fireblocks-sdk:9.0.0"
+compile "com.fireblocks.sdk:fireblocks-sdk:0.0.0"
 ```
 
 ### Others
@@ -55,7 +55,7 @@ mvn clean package
 
 Then manually install the following JARs:
 
-- `target/fireblocks-sdk-9.0.0.jar`
+- `target/fireblocks-sdk-0.0.0.jar`
 - `target/lib/*.jar`
 
 
@@ -145,13 +145,13 @@ Class | Method | HTTP request | Description
 *ApiUserApi* | [**getApiUsers**](docs/ApiUserApi.md#getApiUsers) | **GET** /management/api_users | Get Api users
 *AssetsApi* | [**createAssetsBulk**](docs/AssetsApi.md#createAssetsBulk) | **POST** /vault/assets/bulk | Bulk creation of wallets
 *AuditLogsApi* | [**getAuditLogs**](docs/AuditLogsApi.md#getAuditLogs) | **GET** /management/audit_logs | Get audit logs
-*BlockchainsAssetsApi* | [**getSupportedAssets**](docs/BlockchainsAssetsApi.md#getSupportedAssets) | **GET** /supported_assets | List all asset types supported by Fireblocks
+*BlockchainsAssetsApi* | [**getAsset**](docs/BlockchainsAssetsApi.md#getAsset) | **GET** /assets/{id} | Get an asset
+*BlockchainsAssetsApi* | [**getBlockchain**](docs/BlockchainsAssetsApi.md#getBlockchain) | **GET** /blockchains/{id} | Get an blockchain
+*BlockchainsAssetsApi* | [**getSupportedAssets**](docs/BlockchainsAssetsApi.md#getSupportedAssets) | **GET** /supported_assets | List all asset types supported by Fireblocks - legacy endpoint
+*BlockchainsAssetsApi* | [**listAssets**](docs/BlockchainsAssetsApi.md#listAssets) | **GET** /assets | List assets
+*BlockchainsAssetsApi* | [**listBlockchains**](docs/BlockchainsAssetsApi.md#listBlockchains) | **GET** /blockchains | List blockchains
 *BlockchainsAssetsApi* | [**registerNewAsset**](docs/BlockchainsAssetsApi.md#registerNewAsset) | **POST** /assets | Register an asset
 *BlockchainsAssetsApi* | [**setAssetPrice**](docs/BlockchainsAssetsApi.md#setAssetPrice) | **POST** /assets/prices/{id} | Set asset price
-*BlockchainsAssetsBetaApi* | [**getAssetById**](docs/BlockchainsAssetsBetaApi.md#getAssetById) | **GET** /assets/{id} | Get an asset
-*BlockchainsAssetsBetaApi* | [**getBlockchainById**](docs/BlockchainsAssetsBetaApi.md#getBlockchainById) | **GET** /blockchains/{id} | Get an blockchain
-*BlockchainsAssetsBetaApi* | [**listAssets**](docs/BlockchainsAssetsBetaApi.md#listAssets) | **GET** /assets | List assets
-*BlockchainsAssetsBetaApi* | [**listBlockchains**](docs/BlockchainsAssetsBetaApi.md#listBlockchains) | **GET** /blockchains | List blockchains
 *ComplianceApi* | [**getAmlPostScreeningPolicy**](docs/ComplianceApi.md#getAmlPostScreeningPolicy) | **GET** /screening/aml/post_screening_policy | AML - View Post-Screening Policy
 *ComplianceApi* | [**getAmlScreeningPolicy**](docs/ComplianceApi.md#getAmlScreeningPolicy) | **GET** /screening/aml/screening_policy | AML - View Screening Policy
 *ComplianceApi* | [**getPostScreeningPolicy**](docs/ComplianceApi.md#getPostScreeningPolicy) | **GET** /screening/travel_rule/post_screening_policy | Travel Rule - View Post-Screening Policy
@@ -432,26 +432,27 @@ Class | Method | HTTP request | Description
  - [AmountInfo](docs/AmountInfo.md)
  - [ApiKey](docs/ApiKey.md)
  - [ApiKeysPaginatedResponse](docs/ApiKeysPaginatedResponse.md)
+ - [Asset](docs/Asset.md)
  - [AssetAlreadyExistHttpError](docs/AssetAlreadyExistHttpError.md)
  - [AssetAmount](docs/AssetAmount.md)
  - [AssetBadRequestErrorResponse](docs/AssetBadRequestErrorResponse.md)
- - [AssetClassBeta](docs/AssetClassBeta.md)
+ - [AssetClass](docs/AssetClass.md)
  - [AssetConflictErrorResponse](docs/AssetConflictErrorResponse.md)
+ - [AssetDetailsMetadata](docs/AssetDetailsMetadata.md)
+ - [AssetDetailsOnchain](docs/AssetDetailsOnchain.md)
  - [AssetForbiddenErrorResponse](docs/AssetForbiddenErrorResponse.md)
  - [AssetInternalServerErrorResponse](docs/AssetInternalServerErrorResponse.md)
  - [AssetMedia](docs/AssetMedia.md)
  - [AssetMediaAttributes](docs/AssetMediaAttributes.md)
  - [AssetMetadata](docs/AssetMetadata.md)
- - [AssetMetadataBeta](docs/AssetMetadataBeta.md)
  - [AssetMetadataDto](docs/AssetMetadataDto.md)
  - [AssetNotFoundErrorResponse](docs/AssetNotFoundErrorResponse.md)
  - [AssetOnchain](docs/AssetOnchain.md)
- - [AssetOnchainBeta](docs/AssetOnchainBeta.md)
  - [AssetPriceForbiddenErrorResponse](docs/AssetPriceForbiddenErrorResponse.md)
  - [AssetPriceNotFoundErrorResponse](docs/AssetPriceNotFoundErrorResponse.md)
  - [AssetPriceResponse](docs/AssetPriceResponse.md)
  - [AssetResponse](docs/AssetResponse.md)
- - [AssetResponseBeta](docs/AssetResponseBeta.md)
+ - [AssetScope](docs/AssetScope.md)
  - [AssetTypeResponse](docs/AssetTypeResponse.md)
  - [AssetWallet](docs/AssetWallet.md)
  - [AuditLogData](docs/AuditLogData.md)

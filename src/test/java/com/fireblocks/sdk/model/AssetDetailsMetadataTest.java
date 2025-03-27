@@ -15,14 +15,14 @@ package com.fireblocks.sdk.model;
 
 import org.junit.Test;
 
-/** Model tests for AssetMetadataBeta */
-public class AssetMetadataBetaTest {
-    private final AssetMetadataBeta model = new AssetMetadataBeta();
+/** Model tests for AssetDetailsMetadata */
+public class AssetDetailsMetadataTest {
+    private final AssetDetailsMetadata model = new AssetDetailsMetadata();
 
-    /** Model tests for AssetMetadataBeta */
+    /** Model tests for AssetDetailsMetadata */
     @Test
-    public void testAssetMetadataBeta() {
-        // TODO: test AssetMetadataBeta
+    public void testAssetDetailsMetadata() {
+        // TODO: test AssetDetailsMetadata
     }
 
     /** Test the property 'scope' */
@@ -41,12 +41,6 @@ public class AssetMetadataBetaTest {
     @Test
     public void deprecationReferralIdTest() {
         // TODO: test deprecationReferralId
-    }
-
-    /** Test the property 'verified' */
-    @Test
-    public void verifiedTest() {
-        // TODO: test verified
     }
 
     /** Test the property 'website' */

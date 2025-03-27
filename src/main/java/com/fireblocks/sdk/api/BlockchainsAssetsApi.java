@@ -18,20 +18,30 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.Pair;
 import com.fireblocks.sdk.ValidationUtils;
+import com.fireblocks.sdk.model.Asset;
+import com.fireblocks.sdk.model.AssetClass;
 import com.fireblocks.sdk.model.AssetPriceResponse;
 import com.fireblocks.sdk.model.AssetResponse;
+import com.fireblocks.sdk.model.AssetScope;
 import com.fireblocks.sdk.model.AssetTypeResponse;
+import com.fireblocks.sdk.model.BlockchainResponse;
+import com.fireblocks.sdk.model.ListAssetsResponse;
+import com.fireblocks.sdk.model.ListBlockchainsResponse;
 import com.fireblocks.sdk.model.RegisterNewAssetRequest;
 import com.fireblocks.sdk.model.SetAssetPriceRequest;
 import java.io.IOException;
 import java.io.InputStream;
+import java.math.BigDecimal;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.time.Duration;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.StringJoiner;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 
@@ -74,7 +84,148 @@ public class BlockchainsAssetsApi {
     }
 
     /**
-     * List all asset types supported by Fireblocks Returns all asset types supported by Fireblocks.
+     * Get an asset Returns an asset by ID or legacyID.&lt;/br&gt; **Note**: - We will continue
+     * displaying and supporting the legacy ID (API ID). Since not all Fireblocks services fully
+     * support the new Assets UUID, please use only the legacy ID until further notice.
+     *
+     * @param id The ID or legacyId of the asset (required)
+     * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
+     *     times with the same idempotency key, the server will return the same response as the
+     *     first request. The idempotency key is valid for 24 hours. (optional)
+     * @return CompletableFuture&lt;ApiResponse&lt;Asset&gt;&gt;
+     * @throws ApiException if fails to make API call
+     */
+    public CompletableFuture<ApiResponse<Asset>> getAsset(String id, String idempotencyKey)
+            throws ApiException {
+        try {
+            HttpRequest.Builder localVarRequestBuilder = getAssetRequestBuilder(id, idempotencyKey);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException("getAsset", localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<Asset>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            Asset>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            });
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder getAssetRequestBuilder(String id, String idempotencyKey)
+            throws ApiException {
+        ValidationUtils.assertParamExistsAndNotEmpty("getAsset", "id", id);
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath = "/assets/{id}".replace("{id}", ApiClient.urlEncode(id.toString()));
+
+        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+        if (idempotencyKey != null) {
+            localVarRequestBuilder.header("Idempotency-Key", idempotencyKey.toString());
+        }
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
+     * Get an blockchain Returns an blockchain by ID or legacyID.
+     *
+     * @param id The ID or legacyId of the blockchain (required)
+     * @return CompletableFuture&lt;ApiResponse&lt;BlockchainResponse&gt;&gt;
+     * @throws ApiException if fails to make API call
+     */
+    public CompletableFuture<ApiResponse<BlockchainResponse>> getBlockchain(String id)
+            throws ApiException {
+        try {
+            HttpRequest.Builder localVarRequestBuilder = getBlockchainRequestBuilder(id);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException("getBlockchain", localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<BlockchainResponse>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            BlockchainResponse>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            });
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder getBlockchainRequestBuilder(String id) throws ApiException {
+        ValidationUtils.assertParamExistsAndNotEmpty("getBlockchain", "id", id);
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath =
+                "/blockchains/{id}".replace("{id}", ApiClient.urlEncode(id.toString()));
+
+        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
+     * List all asset types supported by Fireblocks - legacy endpoint Legacy Endpoint – Retrieves
+     * all assets supported by Fireblocks in your workspace without extended information.&lt;/br&gt;
+     * **Note**: - This endpoint will remain available for the foreseeable future and is not
+     * deprecated.&lt;/br&gt; - The &#x60;listAssets&#x60; endpoint provides more detailed asset
+     * information and improved performance.&lt;/br&gt; - We recommend transitioning to the
+     * &#x60;listAssets&#x60; endpoint for better results.
      *
      * @return CompletableFuture&lt;ApiResponse&lt;List&lt;AssetTypeResponse&gt;&gt;&gt;
      * @throws ApiException if fails to make API call
@@ -124,6 +275,240 @@ public class BlockchainsAssetsApi {
         String localVarPath = "/supported_assets";
 
         localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
+     * List assets Retrieves all assets supported by Fireblocks in your workspace, providing
+     * extended information and enhanced performance compared to the legacy
+     * &#x60;supported_assets&#x60; endpoint.&lt;/br&gt; **Note**: - We will continue displaying and
+     * supporting the legacy ID (API ID). Since not all Fireblocks services fully support the new
+     * Assets UUID, please use only the legacy ID until further notice.&lt;/br&gt;
+     *
+     * @param blockchainId Blockchain id of the assets (optional)
+     * @param assetClass Assets class (optional)
+     * @param symbol Assets onchain symbol (optional)
+     * @param scope Scope of the assets (optional)
+     * @param deprecated Are assets deprecated (optional)
+     * @param pageCursor Next page cursor to fetch (optional)
+     * @param pageSize Items per page (optional, default to 500)
+     * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
+     *     times with the same idempotency key, the server will return the same response as the
+     *     first request. The idempotency key is valid for 24 hours. (optional)
+     * @return CompletableFuture&lt;ApiResponse&lt;ListAssetsResponse&gt;&gt;
+     * @throws ApiException if fails to make API call
+     */
+    public CompletableFuture<ApiResponse<ListAssetsResponse>> listAssets(
+            String blockchainId,
+            AssetClass assetClass,
+            String symbol,
+            AssetScope scope,
+            Boolean deprecated,
+            String pageCursor,
+            BigDecimal pageSize,
+            String idempotencyKey)
+            throws ApiException {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    listAssetsRequestBuilder(
+                            blockchainId,
+                            assetClass,
+                            symbol,
+                            scope,
+                            deprecated,
+                            pageCursor,
+                            pageSize,
+                            idempotencyKey);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException("listAssets", localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<ListAssetsResponse>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            ListAssetsResponse>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            });
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder listAssetsRequestBuilder(
+            String blockchainId,
+            AssetClass assetClass,
+            String symbol,
+            AssetScope scope,
+            Boolean deprecated,
+            String pageCursor,
+            BigDecimal pageSize,
+            String idempotencyKey)
+            throws ApiException {
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath = "/assets";
+
+        List<Pair> localVarQueryParams = new ArrayList<>();
+        StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
+        String localVarQueryParameterBaseName;
+        localVarQueryParameterBaseName = "blockchainId";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("blockchainId", blockchainId));
+        localVarQueryParameterBaseName = "assetClass";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("assetClass", assetClass));
+        localVarQueryParameterBaseName = "symbol";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("symbol", symbol));
+        localVarQueryParameterBaseName = "scope";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("scope", scope));
+        localVarQueryParameterBaseName = "deprecated";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("deprecated", deprecated));
+        localVarQueryParameterBaseName = "pageCursor";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("pageCursor", pageCursor));
+        localVarQueryParameterBaseName = "pageSize";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("pageSize", pageSize));
+
+        if (!localVarQueryParams.isEmpty() || localVarQueryStringJoiner.length() != 0) {
+            StringJoiner queryJoiner = new StringJoiner("&");
+            localVarQueryParams.forEach(p -> queryJoiner.add(p.getName() + '=' + p.getValue()));
+            if (localVarQueryStringJoiner.length() != 0) {
+                queryJoiner.add(localVarQueryStringJoiner.toString());
+            }
+            localVarRequestBuilder.uri(
+                    URI.create(memberVarBaseUri + localVarPath + '?' + queryJoiner.toString()));
+        } else {
+            localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+        }
+
+        if (idempotencyKey != null) {
+            localVarRequestBuilder.header("Idempotency-Key", idempotencyKey.toString());
+        }
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
+     * List blockchains Returns all blockchains supported by Fireblocks.
+     *
+     * @param protocol Blockchain protocol (optional)
+     * @param deprecated Is blockchain deprecated (optional)
+     * @param test Is test blockchain (optional)
+     * @param pageCursor Page cursor to fetch (optional)
+     * @param pageSize Items per page (max 500) (optional, default to 500)
+     * @return CompletableFuture&lt;ApiResponse&lt;ListBlockchainsResponse&gt;&gt;
+     * @throws ApiException if fails to make API call
+     */
+    public CompletableFuture<ApiResponse<ListBlockchainsResponse>> listBlockchains(
+            String protocol,
+            Boolean deprecated,
+            Boolean test,
+            String pageCursor,
+            BigDecimal pageSize)
+            throws ApiException {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    listBlockchainsRequestBuilder(protocol, deprecated, test, pageCursor, pageSize);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException("listBlockchains", localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<ListBlockchainsResponse>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            ListBlockchainsResponse>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            });
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder listBlockchainsRequestBuilder(
+            String protocol,
+            Boolean deprecated,
+            Boolean test,
+            String pageCursor,
+            BigDecimal pageSize)
+            throws ApiException {
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath = "/blockchains";
+
+        List<Pair> localVarQueryParams = new ArrayList<>();
+        StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
+        String localVarQueryParameterBaseName;
+        localVarQueryParameterBaseName = "protocol";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("protocol", protocol));
+        localVarQueryParameterBaseName = "deprecated";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("deprecated", deprecated));
+        localVarQueryParameterBaseName = "test";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("test", test));
+        localVarQueryParameterBaseName = "pageCursor";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("pageCursor", pageCursor));
+        localVarQueryParameterBaseName = "pageSize";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("pageSize", pageSize));
+
+        if (!localVarQueryParams.isEmpty() || localVarQueryStringJoiner.length() != 0) {
+            StringJoiner queryJoiner = new StringJoiner("&");
+            localVarQueryParams.forEach(p -> queryJoiner.add(p.getName() + '=' + p.getValue()));
+            if (localVarQueryStringJoiner.length() != 0) {
+                queryJoiner.add(localVarQueryStringJoiner.toString());
+            }
+            localVarRequestBuilder.uri(
+                    URI.create(memberVarBaseUri + localVarPath + '?' + queryJoiner.toString()));
+        } else {
+            localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+        }
 
         localVarRequestBuilder.header("Accept", "application/json");
 

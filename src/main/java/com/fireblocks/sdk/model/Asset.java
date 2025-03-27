@@ -21,19 +21,19 @@ import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 import java.util.StringJoiner;
 
-/** AssetResponseBeta */
+/** Asset */
 @JsonPropertyOrder({
-    AssetResponseBeta.JSON_PROPERTY_ID,
-    AssetResponseBeta.JSON_PROPERTY_LEGACY_ID,
-    AssetResponseBeta.JSON_PROPERTY_BLOCKCHAIN_ID,
-    AssetResponseBeta.JSON_PROPERTY_DISPLAY_NAME,
-    AssetResponseBeta.JSON_PROPERTY_DISPLAY_SYMBOL,
-    AssetResponseBeta.JSON_PROPERTY_ASSET_CLASS,
-    AssetResponseBeta.JSON_PROPERTY_ONCHAIN,
-    AssetResponseBeta.JSON_PROPERTY_METADATA
+    Asset.JSON_PROPERTY_ID,
+    Asset.JSON_PROPERTY_LEGACY_ID,
+    Asset.JSON_PROPERTY_BLOCKCHAIN_ID,
+    Asset.JSON_PROPERTY_DISPLAY_NAME,
+    Asset.JSON_PROPERTY_DISPLAY_SYMBOL,
+    Asset.JSON_PROPERTY_ASSET_CLASS,
+    Asset.JSON_PROPERTY_ONCHAIN,
+    Asset.JSON_PROPERTY_METADATA
 })
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
-public class AssetResponseBeta {
+public class Asset {
     public static final String JSON_PROPERTY_ID = "id";
     private String id;
 
@@ -50,17 +50,17 @@ public class AssetResponseBeta {
     private String displaySymbol;
 
     public static final String JSON_PROPERTY_ASSET_CLASS = "assetClass";
-    private AssetClassBeta assetClass;
+    private AssetClass assetClass;
 
     public static final String JSON_PROPERTY_ONCHAIN = "onchain";
-    private AssetOnchainBeta onchain;
+    private AssetDetailsOnchain onchain;
 
     public static final String JSON_PROPERTY_METADATA = "metadata";
-    private AssetMetadataBeta metadata;
+    private AssetDetailsMetadata metadata;
 
-    public AssetResponseBeta() {}
+    public Asset() {}
 
-    public AssetResponseBeta id(String id) {
+    public Asset id(String id) {
         this.id = id;
         return this;
     }
@@ -83,7 +83,7 @@ public class AssetResponseBeta {
         this.id = id;
     }
 
-    public AssetResponseBeta legacyId(String legacyId) {
+    public Asset legacyId(String legacyId) {
         this.legacyId = legacyId;
         return this;
     }
@@ -106,7 +106,7 @@ public class AssetResponseBeta {
         this.legacyId = legacyId;
     }
 
-    public AssetResponseBeta blockchainId(String blockchainId) {
+    public Asset blockchainId(String blockchainId) {
         this.blockchainId = blockchainId;
         return this;
     }
@@ -129,7 +129,7 @@ public class AssetResponseBeta {
         this.blockchainId = blockchainId;
     }
 
-    public AssetResponseBeta displayName(String displayName) {
+    public Asset displayName(String displayName) {
         this.displayName = displayName;
         return this;
     }
@@ -139,20 +139,20 @@ public class AssetResponseBeta {
      *
      * @return displayName
      */
-    @jakarta.annotation.Nullable
+    @jakarta.annotation.Nonnull
     @JsonProperty(JSON_PROPERTY_DISPLAY_NAME)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
     public String getDisplayName() {
         return displayName;
     }
 
     @JsonProperty(JSON_PROPERTY_DISPLAY_NAME)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
     public void setDisplayName(String displayName) {
         this.displayName = displayName;
     }
 
-    public AssetResponseBeta displaySymbol(String displaySymbol) {
+    public Asset displaySymbol(String displaySymbol) {
         this.displaySymbol = displaySymbol;
         return this;
     }
@@ -162,20 +162,20 @@ public class AssetResponseBeta {
      *
      * @return displaySymbol
      */
-    @jakarta.annotation.Nullable
+    @jakarta.annotation.Nonnull
     @JsonProperty(JSON_PROPERTY_DISPLAY_SYMBOL)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
     public String getDisplaySymbol() {
         return displaySymbol;
     }
 
     @JsonProperty(JSON_PROPERTY_DISPLAY_SYMBOL)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
     public void setDisplaySymbol(String displaySymbol) {
         this.displaySymbol = displaySymbol;
     }
 
-    public AssetResponseBeta assetClass(AssetClassBeta assetClass) {
+    public Asset assetClass(AssetClass assetClass) {
         this.assetClass = assetClass;
         return this;
     }
@@ -188,17 +188,17 @@ public class AssetResponseBeta {
     @jakarta.annotation.Nonnull
     @JsonProperty(JSON_PROPERTY_ASSET_CLASS)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public AssetClassBeta getAssetClass() {
+    public AssetClass getAssetClass() {
         return assetClass;
     }
 
     @JsonProperty(JSON_PROPERTY_ASSET_CLASS)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setAssetClass(AssetClassBeta assetClass) {
+    public void setAssetClass(AssetClass assetClass) {
         this.assetClass = assetClass;
     }
 
-    public AssetResponseBeta onchain(AssetOnchainBeta onchain) {
+    public Asset onchain(AssetDetailsOnchain onchain) {
         this.onchain = onchain;
         return this;
     }
@@ -211,17 +211,17 @@ public class AssetResponseBeta {
     @jakarta.annotation.Nullable
     @JsonProperty(JSON_PROPERTY_ONCHAIN)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public AssetOnchainBeta getOnchain() {
+    public AssetDetailsOnchain getOnchain() {
         return onchain;
     }
 
     @JsonProperty(JSON_PROPERTY_ONCHAIN)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setOnchain(AssetOnchainBeta onchain) {
+    public void setOnchain(AssetDetailsOnchain onchain) {
         this.onchain = onchain;
     }
 
-    public AssetResponseBeta metadata(AssetMetadataBeta metadata) {
+    public Asset metadata(AssetDetailsMetadata metadata) {
         this.metadata = metadata;
         return this;
     }
@@ -234,17 +234,17 @@ public class AssetResponseBeta {
     @jakarta.annotation.Nonnull
     @JsonProperty(JSON_PROPERTY_METADATA)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public AssetMetadataBeta getMetadata() {
+    public AssetDetailsMetadata getMetadata() {
         return metadata;
     }
 
     @JsonProperty(JSON_PROPERTY_METADATA)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setMetadata(AssetMetadataBeta metadata) {
+    public void setMetadata(AssetDetailsMetadata metadata) {
         this.metadata = metadata;
     }
 
-    /** Return true if this AssetResponseBeta object is equal to o. */
+    /** Return true if this Asset object is equal to o. */
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -253,15 +253,15 @@ public class AssetResponseBeta {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        AssetResponseBeta assetResponseBeta = (AssetResponseBeta) o;
-        return Objects.equals(this.id, assetResponseBeta.id)
-                && Objects.equals(this.legacyId, assetResponseBeta.legacyId)
-                && Objects.equals(this.blockchainId, assetResponseBeta.blockchainId)
-                && Objects.equals(this.displayName, assetResponseBeta.displayName)
-                && Objects.equals(this.displaySymbol, assetResponseBeta.displaySymbol)
-                && Objects.equals(this.assetClass, assetResponseBeta.assetClass)
-                && Objects.equals(this.onchain, assetResponseBeta.onchain)
-                && Objects.equals(this.metadata, assetResponseBeta.metadata);
+        Asset asset = (Asset) o;
+        return Objects.equals(this.id, asset.id)
+                && Objects.equals(this.legacyId, asset.legacyId)
+                && Objects.equals(this.blockchainId, asset.blockchainId)
+                && Objects.equals(this.displayName, asset.displayName)
+                && Objects.equals(this.displaySymbol, asset.displaySymbol)
+                && Objects.equals(this.assetClass, asset.assetClass)
+                && Objects.equals(this.onchain, asset.onchain)
+                && Objects.equals(this.metadata, asset.metadata);
     }
 
     @Override
@@ -280,7 +280,7 @@ public class AssetResponseBeta {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("class AssetResponseBeta {\n");
+        sb.append("class Asset {\n");
         sb.append("    id: ").append(toIndentedString(id)).append("\n");
         sb.append("    legacyId: ").append(toIndentedString(legacyId)).append("\n");
         sb.append("    blockchainId: ").append(toIndentedString(blockchainId)).append("\n");

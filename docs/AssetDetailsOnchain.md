@@ -1,6 +1,6 @@
 
 
-# AssetOnchainBeta
+# AssetDetailsOnchain
 
 
 ## Properties

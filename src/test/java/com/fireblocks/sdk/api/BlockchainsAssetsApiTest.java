@@ -15,11 +15,18 @@ package com.fireblocks.sdk.api;
 
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.model.Asset;
+import com.fireblocks.sdk.model.AssetClass;
 import com.fireblocks.sdk.model.AssetPriceResponse;
 import com.fireblocks.sdk.model.AssetResponse;
+import com.fireblocks.sdk.model.AssetScope;
 import com.fireblocks.sdk.model.AssetTypeResponse;
+import com.fireblocks.sdk.model.BlockchainResponse;
+import com.fireblocks.sdk.model.ListAssetsResponse;
+import com.fireblocks.sdk.model.ListBlockchainsResponse;
 import com.fireblocks.sdk.model.RegisterNewAssetRequest;
 import com.fireblocks.sdk.model.SetAssetPriceRequest;
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import org.junit.Ignore;
@@ -32,15 +39,99 @@ public class BlockchainsAssetsApiTest {
     private final BlockchainsAssetsApi api = new BlockchainsAssetsApi();
 
     /**
-     * List all asset types supported by Fireblocks
+     * Get an asset
      *
-     * <p>Returns all asset types supported by Fireblocks.
+     * <p>Returns an asset by ID or legacyID.&lt;/br&gt; **Note**: - We will continue displaying and
+     * supporting the legacy ID (API ID). Since not all Fireblocks services fully support the new
+     * Assets UUID, please use only the legacy ID until further notice.
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void getAssetTest() throws ApiException {
+        String id = null;
+        String idempotencyKey = null;
+        CompletableFuture<ApiResponse<Asset>> response = api.getAsset(id, idempotencyKey);
+    }
+
+    /**
+     * Get an blockchain
+     *
+     * <p>Returns an blockchain by ID or legacyID.
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void getBlockchainTest() throws ApiException {
+        String id = null;
+        CompletableFuture<ApiResponse<BlockchainResponse>> response = api.getBlockchain(id);
+    }
+
+    /**
+     * List all asset types supported by Fireblocks - legacy endpoint
+     *
+     * <p>Legacy Endpoint – Retrieves all assets supported by Fireblocks in your workspace without
+     * extended information.&lt;/br&gt; **Note**: - This endpoint will remain available for the
+     * foreseeable future and is not deprecated.&lt;/br&gt; - The &#x60;listAssets&#x60; endpoint
+     * provides more detailed asset information and improved performance.&lt;/br&gt; - We recommend
+     * transitioning to the &#x60;listAssets&#x60; endpoint for better results.
      *
      * @throws ApiException if the Api call fails
      */
     @Test
     public void getSupportedAssetsTest() throws ApiException {
         CompletableFuture<ApiResponse<List<AssetTypeResponse>>> response = api.getSupportedAssets();
+    }
+
+    /**
+     * List assets
+     *
+     * <p>Retrieves all assets supported by Fireblocks in your workspace, providing extended
+     * information and enhanced performance compared to the legacy &#x60;supported_assets&#x60;
+     * endpoint.&lt;/br&gt; **Note**: - We will continue displaying and supporting the legacy ID
+     * (API ID). Since not all Fireblocks services fully support the new Assets UUID, please use
+     * only the legacy ID until further notice.&lt;/br&gt;
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void listAssetsTest() throws ApiException {
+        String blockchainId = null;
+        AssetClass assetClass = null;
+        String symbol = null;
+        AssetScope scope = null;
+        Boolean deprecated = null;
+        String pageCursor = null;
+        BigDecimal pageSize = null;
+        String idempotencyKey = null;
+        CompletableFuture<ApiResponse<ListAssetsResponse>> response =
+                api.listAssets(
+                        blockchainId,
+                        assetClass,
+                        symbol,
+                        scope,
+                        deprecated,
+                        pageCursor,
+                        pageSize,
+                        idempotencyKey);
+    }
+
+    /**
+     * List blockchains
+     *
+     * <p>Returns all blockchains supported by Fireblocks.
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void listBlockchainsTest() throws ApiException {
+        String protocol = null;
+        Boolean deprecated = null;
+        Boolean test = null;
+        String pageCursor = null;
+        BigDecimal pageSize = null;
+        CompletableFuture<ApiResponse<ListBlockchainsResponse>> response =
+                api.listBlockchains(protocol, deprecated, test, pageCursor, pageSize);
     }
 
     /**

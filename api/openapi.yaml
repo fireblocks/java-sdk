@@ -7245,7 +7245,13 @@ paths:
       x-accepts: application/json
   /supported_assets:
     get:
-      description: Returns all asset types supported by Fireblocks.
+      description: |
+        Legacy Endpoint – Retrieves all assets supported by Fireblocks in your workspace without extended information.</br>
+        **Note**:
+
+          - This endpoint will remain available for the foreseeable future and is not deprecated.</br>
+          - The `listAssets` endpoint provides more detailed asset information and improved performance.</br>
+          - We recommend transitioning to the `listAssets` endpoint for better results.
       operationId: getSupportedAssets
       responses:
         "200":
@@ -7266,7 +7272,7 @@ paths:
           headers:
             X-Request-ID:
               $ref: '#/components/headers/X-Request-ID'
-      summary: List all asset types supported by Fireblocks
+      summary: List all asset types supported by Fireblocks - legacy endpoint
       tags:
       - Blockchains & assets
       x-readme:
@@ -7301,10 +7307,10 @@ paths:
   /assets:
     get:
       description: |
-        Returns all asset type supported by Fireblocks.</br>
-
+        Retrieves all assets supported by Fireblocks in your workspace, providing extended information and enhanced performance compared to the legacy `supported_assets` endpoint.</br>
         **Note**:
-        - This endpoint is now in Beta, disabled for general availability at this time.
+
+          - We will continue displaying and supporting the legacy ID (API ID). Since not all Fireblocks services fully support the new Assets UUID, please use only the legacy ID until further notice.</br>
       operationId: listAssets
       parameters:
       - description: Blockchain id of the assets
@@ -7322,7 +7328,7 @@ paths:
         name: assetClass
         required: false
         schema:
-          $ref: '#/components/schemas/AssetClassBeta'
+          $ref: '#/components/schemas/AssetClass'
         style: form
       - description: Assets onchain symbol
         example: ETH
@@ -7335,16 +7341,12 @@ paths:
           type: string
         style: form
       - description: Scope of the assets
-        example: Global
         explode: true
         in: query
         name: scope
         required: false
         schema:
-          enum:
-          - Global
-          - Local
-          type: string
+          $ref: '#/components/schemas/AssetScope'
         style: form
       - description: Are assets deprecated
         example: false
@@ -7411,7 +7413,7 @@ paths:
               $ref: '#/components/headers/X-Request-ID'
       summary: List assets
       tags:
-      - Blockchains & assets (Beta)
+      - Blockchains & assets
       x-readme:
         code-samples:
         - language: python
@@ -7422,25 +7424,25 @@ paths:
           name: Fireblocks SDK Javascript example
         - language: typescript
           code: "const response: Promise<FireblocksResponse<ListAssetsResponse>> =\
-            \ fireblocks.blockchainsAssetsBeta.listAssets(blockchainsAssetsBetaApiListAssetsRequest);"
+            \ fireblocks.blockchainsAssets.listAssets(blockchainsAssetsApiListAssetsRequest);"
           name: Fireblocks SDK TypeScript example
         - language: java
-          code: "CompletableFuture<ApiResponse<ListAssetsResponse>> response = fireblocks.blockchainsAssetsBeta().listAssets(blockchainId,\
+          code: "CompletableFuture<ApiResponse<ListAssetsResponse>> response = fireblocks.blockchainsAssets().listAssets(blockchainId,\
             \ assetClass, symbol, scope, deprecated, pageCursor, pageSize, idempotencyKey);"
           name: Fireblocks SDK Java example
         - language: python
-          code: "response = fireblocks.blockchains_&_assets_beta.list_assets(blockchain_id,\
+          code: "response = fireblocks.blockchains_&_assets.list_assets(blockchain_id,\
             \ asset_class, symbol, scope, deprecated, page_cursor, page_size, idempotency_key);"
           name: Fireblocks SDK Python example
       x-codeSamples:
       - lang: TypeScript
         source: "const response: Promise<FireblocksResponse<ListAssetsResponse>> =\
-          \ fireblocks.blockchainsAssetsBeta.listAssets(blockchainsAssetsBetaApiListAssetsRequest);"
+          \ fireblocks.blockchainsAssets.listAssets(blockchainsAssetsApiListAssetsRequest);"
       - lang: Java
-        source: "CompletableFuture<ApiResponse<ListAssetsResponse>> response = fireblocks.blockchainsAssetsBeta().listAssets(blockchainId,\
+        source: "CompletableFuture<ApiResponse<ListAssetsResponse>> response = fireblocks.blockchainsAssets().listAssets(blockchainId,\
           \ assetClass, symbol, scope, deprecated, pageCursor, pageSize, idempotencyKey);"
       - lang: Python
-        source: "response = fireblocks.blockchains_&_assets_beta.list_assets(blockchain_id,\
+        source: "response = fireblocks.blockchains_&_assets.list_assets(blockchain_id,\
           \ asset_class, symbol, scope, deprecated, page_cursor, page_size, idempotency_key);"
       x-accepts: application/json
     post:
@@ -7577,8 +7579,9 @@ paths:
         Returns an asset by ID or legacyID.</br>
 
         **Note**:
-        - This endpoint is now in Beta, disabled for general availability at this time.
-      operationId: getAssetById
+
+          - We will continue displaying and supporting the legacy ID (API ID). Since not all Fireblocks services fully support the new Assets UUID, please use only the legacy ID until further notice.
+      operationId: getAsset
       parameters:
       - description: The ID or legacyId of the asset
         example: ETH
@@ -7606,7 +7609,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/AssetResponseBeta'
+                $ref: '#/components/schemas/Asset'
           description: Asset with requested identification
           headers:
             X-Request-ID:
@@ -7635,7 +7638,7 @@ paths:
               $ref: '#/components/headers/X-Request-ID'
       summary: Get an asset
       tags:
-      - Blockchains & assets (Beta)
+      - Blockchains & assets
       x-readme:
         code-samples:
         - language: python
@@ -7645,27 +7648,23 @@ paths:
           code: const asset = await fireblocks.getAssetById(assetId);
           name: Fireblocks SDK Javascript example
         - language: typescript
-          code: "const response: Promise<FireblocksResponse<AssetResponseBeta>> =\
-            \ fireblocks.blockchainsAssetsBeta.getAssetById(blockchainsAssetsBetaApiGetAssetByIdRequest);"
+          code: "const response: Promise<FireblocksResponse<Asset>> = fireblocks.blockchainsAssets.getAsset(blockchainsAssetsApiGetAssetRequest);"
           name: Fireblocks SDK TypeScript example
         - language: java
-          code: "CompletableFuture<ApiResponse<AssetResponseBeta>> response = fireblocks.blockchainsAssetsBeta().getAssetById(id,\
+          code: "CompletableFuture<ApiResponse<Asset>> response = fireblocks.blockchainsAssets().getAsset(id,\
             \ idempotencyKey);"
           name: Fireblocks SDK Java example
         - language: python
-          code: "response = fireblocks.blockchains_&_assets_beta.get_asset_by_id(id,\
-            \ idempotency_key);"
+          code: "response = fireblocks.blockchains_&_assets.get_asset(id, idempotency_key);"
           name: Fireblocks SDK Python example
       x-codeSamples:
       - lang: TypeScript
-        source: "const response: Promise<FireblocksResponse<AssetResponseBeta>> =\
-          \ fireblocks.blockchainsAssetsBeta.getAssetById(blockchainsAssetsBetaApiGetAssetByIdRequest);"
+        source: "const response: Promise<FireblocksResponse<Asset>> = fireblocks.blockchainsAssets.getAsset(blockchainsAssetsApiGetAssetRequest);"
       - lang: Java
-        source: "CompletableFuture<ApiResponse<AssetResponseBeta>> response = fireblocks.blockchainsAssetsBeta().getAssetById(id,\
+        source: "CompletableFuture<ApiResponse<Asset>> response = fireblocks.blockchainsAssets().getAsset(id,\
           \ idempotencyKey);"
       - lang: Python
-        source: "response = fireblocks.blockchains_&_assets_beta.get_asset_by_id(id,\
-          \ idempotency_key);"
+        source: "response = fireblocks.blockchains_&_assets.get_asset(id, idempotency_key);"
       x-accepts: application/json
   /assets/prices/{id}:
     post:
@@ -7767,10 +7766,7 @@ paths:
   /blockchains:
     get:
       description: |
-        Returns all blockchains supported by Fireblocks.</br>
-
-        **Note**:
-        - This endpoint is now in Beta, disabled for general availability at this time.
+        Returns all blockchains supported by Fireblocks.
       operationId: listBlockchains
       parameters:
       - description: Blockchain protocol
@@ -7845,7 +7841,7 @@ paths:
               $ref: '#/components/headers/X-Request-ID'
       summary: List blockchains
       tags:
-      - Blockchains & assets (Beta)
+      - Blockchains & assets
       x-readme:
         code-samples:
         - language: python
@@ -7856,37 +7852,34 @@ paths:
           name: Fireblocks SDK Javascript example
         - language: typescript
           code: "const response: Promise<FireblocksResponse<ListBlockchainsResponse>>\
-            \ = fireblocks.blockchainsAssetsBeta.listBlockchains(blockchainsAssetsBetaApiListBlockchainsRequest);"
+            \ = fireblocks.blockchainsAssets.listBlockchains(blockchainsAssetsApiListBlockchainsRequest);"
           name: Fireblocks SDK TypeScript example
         - language: java
           code: "CompletableFuture<ApiResponse<ListBlockchainsResponse>> response\
-            \ = fireblocks.blockchainsAssetsBeta().listBlockchains(protocol, deprecated,\
+            \ = fireblocks.blockchainsAssets().listBlockchains(protocol, deprecated,\
             \ test, pageCursor, pageSize);"
           name: Fireblocks SDK Java example
         - language: python
-          code: "response = fireblocks.blockchains_&_assets_beta.list_blockchains(protocol,\
+          code: "response = fireblocks.blockchains_&_assets.list_blockchains(protocol,\
             \ deprecated, test, page_cursor, page_size);"
           name: Fireblocks SDK Python example
       x-codeSamples:
       - lang: TypeScript
         source: "const response: Promise<FireblocksResponse<ListBlockchainsResponse>>\
-          \ = fireblocks.blockchainsAssetsBeta.listBlockchains(blockchainsAssetsBetaApiListBlockchainsRequest);"
+          \ = fireblocks.blockchainsAssets.listBlockchains(blockchainsAssetsApiListBlockchainsRequest);"
       - lang: Java
         source: "CompletableFuture<ApiResponse<ListBlockchainsResponse>> response\
-          \ = fireblocks.blockchainsAssetsBeta().listBlockchains(protocol, deprecated,\
+          \ = fireblocks.blockchainsAssets().listBlockchains(protocol, deprecated,\
           \ test, pageCursor, pageSize);"
       - lang: Python
-        source: "response = fireblocks.blockchains_&_assets_beta.list_blockchains(protocol,\
+        source: "response = fireblocks.blockchains_&_assets.list_blockchains(protocol,\
           \ deprecated, test, page_cursor, page_size);"
       x-accepts: application/json
   /blockchains/{id}:
     get:
       description: |
-        Returns an blockchain by ID or legacyID.</br>
-
-        **Note**:
-        - This endpoint is now in Beta, disabled for general availability at this time.
-      operationId: getBlockchainById
+        Returns an blockchain by ID or legacyID.
+      operationId: getBlockchain
       parameters:
       - description: The ID or legacyId of the blockchain
         example: ETH
@@ -7931,7 +7924,7 @@ paths:
               $ref: '#/components/headers/X-Request-ID'
       summary: Get an blockchain
       tags:
-      - Blockchains & assets (Beta)
+      - Blockchains & assets
       x-readme:
         code-samples:
         - language: python
@@ -7942,22 +7935,22 @@ paths:
           name: Fireblocks SDK Javascript example
         - language: typescript
           code: "const response: Promise<FireblocksResponse<BlockchainResponse>> =\
-            \ fireblocks.blockchainsAssetsBeta.getBlockchainById(blockchainsAssetsBetaApiGetBlockchainByIdRequest);"
+            \ fireblocks.blockchainsAssets.getBlockchain(blockchainsAssetsApiGetBlockchainRequest);"
           name: Fireblocks SDK TypeScript example
         - language: java
-          code: CompletableFuture<ApiResponse<BlockchainResponse>> response = fireblocks.blockchainsAssetsBeta().getBlockchainById(id);
+          code: CompletableFuture<ApiResponse<BlockchainResponse>> response = fireblocks.blockchainsAssets().getBlockchain(id);
           name: Fireblocks SDK Java example
         - language: python
-          code: response = fireblocks.blockchains_&_assets_beta.get_blockchain_by_id(id);
+          code: response = fireblocks.blockchains_&_assets.get_blockchain(id);
           name: Fireblocks SDK Python example
       x-codeSamples:
       - lang: TypeScript
         source: "const response: Promise<FireblocksResponse<BlockchainResponse>> =\
-          \ fireblocks.blockchainsAssetsBeta.getBlockchainById(blockchainsAssetsBetaApiGetBlockchainByIdRequest);"
+          \ fireblocks.blockchainsAssets.getBlockchain(blockchainsAssetsApiGetBlockchainRequest);"
       - lang: Java
-        source: CompletableFuture<ApiResponse<BlockchainResponse>> response = fireblocks.blockchainsAssetsBeta().getBlockchainById(id);
+        source: CompletableFuture<ApiResponse<BlockchainResponse>> response = fireblocks.blockchainsAssets().getBlockchain(id);
       - lang: Python
-        source: response = fireblocks.blockchains_&_assets_beta.get_blockchain_by_id(id);
+        source: response = fireblocks.blockchains_&_assets.get_blockchain(id);
       x-accepts: application/json
   /transactions:
     get:
@@ -23093,7 +23086,7 @@ components:
       items:
         $ref: '#/components/schemas/AssetTypeResponse'
       type: array
-    AssetClassBeta:
+    AssetClass:
       enum:
       - NATIVE
       - FT
@@ -23102,30 +23095,37 @@ components:
       - SFT
       example: FT
       type: string
-    AssetOnchainBeta:
+    AssetScope:
+      description: The scope of the asset
+      enum:
+      - GLOBAL
+      - LOCAL
+      example: GLOBAL
+      type: string
+    AssetDetailsOnchain:
       example:
         standards:
         - ERC20
-        symbol: TST3
-        address: 0xe7A9as1oa38bc4da0248s179E30aa94CcF453991
-        decimals: 18
-        name: Test 3
+        symbol: USDT
+        address: 1.2488751460129641E+48
+        decimals: 6
+        name: Tether USD
       properties:
         symbol:
           description: The asset symbol
-          example: TST3
+          example: USDT
           type: string
         name:
           description: The asset name
-          example: Test 3
+          example: Tether USD
           type: string
         address:
           description: The asset address
-          example: 0xe7A9as1oa38bc4da0248s179E30aa94CcF453991
+          example: 1.2488751460129641E+48
           type: string
         decimals:
           description: Number of decimals
-          example: 18
+          example: 6
           type: number
         standards:
           description: Supported standards
@@ -23163,13 +23163,12 @@ components:
       - type
       - url
       type: object
-    AssetMetadataBeta:
+    AssetDetailsMetadata:
       example:
         website: https://example.org
-        scope: Global
+        scope: GLOBAL
         deprecated: false
         deprecationReferralId: 056776ab-9efa-4219-9820-9ece0cc4d90d
-        verified: true
         media:
         - attributes:
             monochrome: true
@@ -23181,12 +23180,7 @@ components:
           url: https://example.com/image.png
       properties:
         scope:
-          description: The scope of the asset
-          enum:
-          - Global
-          - Local
-          example: Global
-          type: string
+          $ref: '#/components/schemas/AssetScope'
         deprecated:
           description: Is asset deprecated
           example: false
@@ -23195,10 +23189,6 @@ components:
           description: New asset ID replacement
           example: 056776ab-9efa-4219-9820-9ece0cc4d90d
           type: string
-        verified:
-          description: Is asset verified by Fireblocks
-          example: true
-          type: boolean
         website:
           description: Vendor’s website
           example: https://example.org
@@ -23211,17 +23201,15 @@ components:
       required:
       - deprecated
       - scope
-      - verified
       type: object
-    AssetResponseBeta:
+    Asset:
       example:
-        displaySymbol: TST3
+        displaySymbol: USDT
         metadata:
           website: https://example.org
-          scope: Global
+          scope: GLOBAL
           deprecated: false
           deprecationReferralId: 056776ab-9efa-4219-9820-9ece0cc4d90d
-          verified: true
           media:
           - attributes:
               monochrome: true
@@ -23231,18 +23219,18 @@ components:
               monochrome: true
             type: image/svg+xml
             url: https://example.com/image.png
-        displayName: Test 3
-        legacyId: TST3
+        displayName: Tether USD
+        legacyId: USDT_ERC20
         id: 9f9f7062-df90-4fc0-8697-96685184358d
         assetClass: FT
         blockchainId: e85208ff-3b15-44e9-af14-0ed0280b2a15
         onchain:
           standards:
           - ERC20
-          symbol: TST3
-          address: 0xe7A9as1oa38bc4da0248s179E30aa94CcF453991
-          decimals: 18
-          name: Test 3
+          symbol: USDT
+          address: 1.2488751460129641E+48
+          decimals: 6
+          name: Tether USD
       properties:
         id:
           description: The ID of the asset
@@ -23250,7 +23238,7 @@ components:
           type: string
         legacyId:
           description: The Legacy ID of the asset
-          example: TST3
+          example: USDT_ERC20
           type: string
         blockchainId:
           description: The ID of the asset's blockchain
@@ -23258,20 +23246,22 @@ components:
           type: string
         displayName:
           description: Asset's display name
-          example: Test 3
+          example: Tether USD
           type: string
         displaySymbol:
           description: Asset's display symbol
-          example: TST3
+          example: USDT
           type: string
         assetClass:
-          $ref: '#/components/schemas/AssetClassBeta'
+          $ref: '#/components/schemas/AssetClass'
         onchain:
-          $ref: '#/components/schemas/AssetOnchainBeta'
+          $ref: '#/components/schemas/AssetDetailsOnchain'
         metadata:
-          $ref: '#/components/schemas/AssetMetadataBeta'
+          $ref: '#/components/schemas/AssetDetailsMetadata'
       required:
       - assetClass
+      - displayName
+      - displaySymbol
       - id
       - legacyId
       - metadata
@@ -23280,13 +23270,12 @@ components:
       example:
         next: eJ0eXAiOiJKV1QiLCJhbGcOiJIUzI1NiJ9
         data:
-        - displaySymbol: TST3
+        - displaySymbol: USDT
           metadata:
             website: https://example.org
-            scope: Global
+            scope: GLOBAL
             deprecated: false
             deprecationReferralId: 056776ab-9efa-4219-9820-9ece0cc4d90d
-            verified: true
             media:
             - attributes:
                 monochrome: true
@@ -23296,25 +23285,24 @@ components:
                 monochrome: true
               type: image/svg+xml
               url: https://example.com/image.png
-          displayName: Test 3
-          legacyId: TST3
+          displayName: Tether USD
+          legacyId: USDT_ERC20
           id: 9f9f7062-df90-4fc0-8697-96685184358d
           assetClass: FT
           blockchainId: e85208ff-3b15-44e9-af14-0ed0280b2a15
           onchain:
             standards:
             - ERC20
-            symbol: TST3
-            address: 0xe7A9as1oa38bc4da0248s179E30aa94CcF453991
-            decimals: 18
-            name: Test 3
-        - displaySymbol: TST3
+            symbol: USDT
+            address: 1.2488751460129641E+48
+            decimals: 6
+            name: Tether USD
+        - displaySymbol: USDT
           metadata:
             website: https://example.org
-            scope: Global
+            scope: GLOBAL
             deprecated: false
             deprecationReferralId: 056776ab-9efa-4219-9820-9ece0cc4d90d
-            verified: true
             media:
             - attributes:
                 monochrome: true
@@ -23324,23 +23312,23 @@ components:
                 monochrome: true
               type: image/svg+xml
               url: https://example.com/image.png
-          displayName: Test 3
-          legacyId: TST3
+          displayName: Tether USD
+          legacyId: USDT_ERC20
           id: 9f9f7062-df90-4fc0-8697-96685184358d
           assetClass: FT
           blockchainId: e85208ff-3b15-44e9-af14-0ed0280b2a15
           onchain:
             standards:
             - ERC20
-            symbol: TST3
-            address: 0xe7A9as1oa38bc4da0248s179E30aa94CcF453991
-            decimals: 18
-            name: Test 3
+            symbol: USDT
+            address: 1.2488751460129641E+48
+            decimals: 6
+            name: Tether USD
       properties:
         data:
           description: The data of the current page
           items:
-            $ref: '#/components/schemas/AssetResponseBeta'
+            $ref: '#/components/schemas/Asset'
           type: array
         next:
           description: Cursor to the next page
@@ -23738,7 +23726,7 @@ components:
       type: object
     BlockchainMetadata:
       example:
-        scope: Global
+        scope: GLOBAL
         deprecated: false
         explorer:
           address: "https://example.com/address/{address}"
@@ -23752,12 +23740,7 @@ components:
           url: https://example.com/image.png
       properties:
         scope:
-          description: Is blockchain listed on all workspaces? Global or Local
-          enum:
-          - Global
-          - Local
-          example: Global
-          type: string
+          $ref: '#/components/schemas/AssetScope'
         deprecated:
           description: Is blockchain deprecated
           example: false
@@ -23777,7 +23760,7 @@ components:
       example:
         nativeAssetId: 9f9f7062-df90-4fc0-8697-96685184356a
         metadata:
-          scope: Global
+          scope: GLOBAL
           deprecated: false
           explorer:
             address: "https://example.com/address/{address}"
@@ -23789,8 +23772,8 @@ components:
             url: https://example.com/image.png
           - type: image/svg+xml
             url: https://example.com/image.png
-        displayName: Test 3
-        legacyId: TST3
+        displayName: Ethereum
+        legacyId: ETH
         id: 9f9f7062-df90-4fc0-8697-96685184357b
         onchain:
           protocol: EVM
@@ -23804,11 +23787,11 @@ components:
           type: string
         legacyId:
           description: The old blockchain ID representation of the blockchain
-          example: TST3
+          example: ETH
           type: string
         displayName:
           description: The name of the blockchain
-          example: Test 3
+          example: Ethereum
           type: string
         nativeAssetId:
           description: Native asset ID of this blockchain
@@ -23832,7 +23815,7 @@ components:
         data:
         - nativeAssetId: 9f9f7062-df90-4fc0-8697-96685184356a
           metadata:
-            scope: Global
+            scope: GLOBAL
             deprecated: false
             explorer:
               address: "https://example.com/address/{address}"
@@ -23844,8 +23827,8 @@ components:
               url: https://example.com/image.png
             - type: image/svg+xml
               url: https://example.com/image.png
-          displayName: Test 3
-          legacyId: TST3
+          displayName: Ethereum
+          legacyId: ETH
           id: 9f9f7062-df90-4fc0-8697-96685184357b
           onchain:
             protocol: EVM
@@ -23854,7 +23837,7 @@ components:
             signingAlgo: ECDSA_SECP256K1
         - nativeAssetId: 9f9f7062-df90-4fc0-8697-96685184356a
           metadata:
-            scope: Global
+            scope: GLOBAL
             deprecated: false
             explorer:
               address: "https://example.com/address/{address}"
@@ -23866,8 +23849,8 @@ components:
               url: https://example.com/image.png
             - type: image/svg+xml
               url: https://example.com/image.png
-          displayName: Test 3
-          legacyId: TST3
+          displayName: Ethereum
+          legacyId: ETH
           id: 9f9f7062-df90-4fc0-8697-96685184357b
           onchain:
             protocol: EVM

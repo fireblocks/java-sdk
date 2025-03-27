@@ -15,14 +15,14 @@ package com.fireblocks.sdk.model;
 
 import org.junit.Test;
 
-/** Model tests for AssetOnchainBeta */
-public class AssetOnchainBetaTest {
-    private final AssetOnchainBeta model = new AssetOnchainBeta();
+/** Model tests for AssetDetailsOnchain */
+public class AssetDetailsOnchainTest {
+    private final AssetDetailsOnchain model = new AssetDetailsOnchain();
 
-    /** Model tests for AssetOnchainBeta */
+    /** Model tests for AssetDetailsOnchain */
     @Test
-    public void testAssetOnchainBeta() {
-        // TODO: test AssetOnchainBeta
+    public void testAssetDetailsOnchain() {
+        // TODO: test AssetDetailsOnchain
     }
 
     /** Test the property 'symbol' */
