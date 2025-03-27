@@ -28,19 +28,19 @@ import java.util.StringJoiner;
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class ListAssetsResponse {
     public static final String JSON_PROPERTY_DATA = "data";
-    private List<AssetResponseBeta> data = new ArrayList<>();
+    private List<Asset> data = new ArrayList<>();
 
     public static final String JSON_PROPERTY_NEXT = "next";
     private String next;
 
     public ListAssetsResponse() {}
 
-    public ListAssetsResponse data(List<AssetResponseBeta> data) {
+    public ListAssetsResponse data(List<Asset> data) {
         this.data = data;
         return this;
     }
 
-    public ListAssetsResponse addDataItem(AssetResponseBeta dataItem) {
+    public ListAssetsResponse addDataItem(Asset dataItem) {
         if (this.data == null) {
             this.data = new ArrayList<>();
         }
@@ -56,13 +56,13 @@ public class ListAssetsResponse {
     @jakarta.annotation.Nonnull
     @JsonProperty(JSON_PROPERTY_DATA)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public List<AssetResponseBeta> getData() {
+    public List<Asset> getData() {
         return data;
     }
 
     @JsonProperty(JSON_PROPERTY_DATA)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setData(List<AssetResponseBeta> data) {
+    public void setData(List<Asset> data) {
         this.data = data;
     }
 

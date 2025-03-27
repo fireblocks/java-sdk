@@ -24,16 +24,16 @@ import java.util.List;
 import java.util.Objects;
 import java.util.StringJoiner;
 
-/** AssetOnchainBeta */
+/** AssetDetailsOnchain */
 @JsonPropertyOrder({
-    AssetOnchainBeta.JSON_PROPERTY_SYMBOL,
-    AssetOnchainBeta.JSON_PROPERTY_NAME,
-    AssetOnchainBeta.JSON_PROPERTY_ADDRESS,
-    AssetOnchainBeta.JSON_PROPERTY_DECIMALS,
-    AssetOnchainBeta.JSON_PROPERTY_STANDARDS
+    AssetDetailsOnchain.JSON_PROPERTY_SYMBOL,
+    AssetDetailsOnchain.JSON_PROPERTY_NAME,
+    AssetDetailsOnchain.JSON_PROPERTY_ADDRESS,
+    AssetDetailsOnchain.JSON_PROPERTY_DECIMALS,
+    AssetDetailsOnchain.JSON_PROPERTY_STANDARDS
 })
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
-public class AssetOnchainBeta {
+public class AssetDetailsOnchain {
     public static final String JSON_PROPERTY_SYMBOL = "symbol";
     private String symbol;
 
@@ -49,9 +49,9 @@ public class AssetOnchainBeta {
     public static final String JSON_PROPERTY_STANDARDS = "standards";
     private List<String> standards;
 
-    public AssetOnchainBeta() {}
+    public AssetDetailsOnchain() {}
 
-    public AssetOnchainBeta symbol(String symbol) {
+    public AssetDetailsOnchain symbol(String symbol) {
         this.symbol = symbol;
         return this;
     }
@@ -74,7 +74,7 @@ public class AssetOnchainBeta {
         this.symbol = symbol;
     }
 
-    public AssetOnchainBeta name(String name) {
+    public AssetDetailsOnchain name(String name) {
         this.name = name;
         return this;
     }
@@ -97,7 +97,7 @@ public class AssetOnchainBeta {
         this.name = name;
     }
 
-    public AssetOnchainBeta address(String address) {
+    public AssetDetailsOnchain address(String address) {
         this.address = address;
         return this;
     }
@@ -120,7 +120,7 @@ public class AssetOnchainBeta {
         this.address = address;
     }
 
-    public AssetOnchainBeta decimals(BigDecimal decimals) {
+    public AssetDetailsOnchain decimals(BigDecimal decimals) {
         this.decimals = decimals;
         return this;
     }
@@ -143,12 +143,12 @@ public class AssetOnchainBeta {
         this.decimals = decimals;
     }
 
-    public AssetOnchainBeta standards(List<String> standards) {
+    public AssetDetailsOnchain standards(List<String> standards) {
         this.standards = standards;
         return this;
     }
 
-    public AssetOnchainBeta addStandardsItem(String standardsItem) {
+    public AssetDetailsOnchain addStandardsItem(String standardsItem) {
         if (this.standards == null) {
             this.standards = new ArrayList<>();
         }
@@ -174,7 +174,7 @@ public class AssetOnchainBeta {
         this.standards = standards;
     }
 
-    /** Return true if this AssetOnchainBeta object is equal to o. */
+    /** Return true if this AssetDetailsOnchain object is equal to o. */
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -183,12 +183,12 @@ public class AssetOnchainBeta {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        AssetOnchainBeta assetOnchainBeta = (AssetOnchainBeta) o;
-        return Objects.equals(this.symbol, assetOnchainBeta.symbol)
-                && Objects.equals(this.name, assetOnchainBeta.name)
-                && Objects.equals(this.address, assetOnchainBeta.address)
-                && Objects.equals(this.decimals, assetOnchainBeta.decimals)
-                && Objects.equals(this.standards, assetOnchainBeta.standards);
+        AssetDetailsOnchain assetDetailsOnchain = (AssetDetailsOnchain) o;
+        return Objects.equals(this.symbol, assetDetailsOnchain.symbol)
+                && Objects.equals(this.name, assetDetailsOnchain.name)
+                && Objects.equals(this.address, assetDetailsOnchain.address)
+                && Objects.equals(this.decimals, assetDetailsOnchain.decimals)
+                && Objects.equals(this.standards, assetDetailsOnchain.standards);
     }
 
     @Override
@@ -199,7 +199,7 @@ public class AssetOnchainBeta {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("class AssetOnchainBeta {\n");
+        sb.append("class AssetDetailsOnchain {\n");
         sb.append("    symbol: ").append(toIndentedString(symbol)).append("\n");
         sb.append("    name: ").append(toIndentedString(name)).append("\n");
         sb.append("    address: ").append(toIndentedString(address)).append("\n");

@@ -388,14 +388,6 @@ public class FireblocksTest {
     }
 
     @Test
-    public void testGetBlockchainsAssetsBetaApi() {
-        setupFireblocks(true, null, null);
-        BlockchainsAssetsBetaApi blockchainsAssetsBeta = fireblocks.blockchainsAssetsBeta();
-        Assert.assertNotNull(blockchainsAssetsBeta);
-        Assert.assertSame(blockchainsAssetsBeta, fireblocks.blockchainsAssetsBeta());
-    }
-
-    @Test
     public void testGetComplianceApi() {
         setupFireblocks(true, null, null);
         ComplianceApi compliance = fireblocks.compliance();

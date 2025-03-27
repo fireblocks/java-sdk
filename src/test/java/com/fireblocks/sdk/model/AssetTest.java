@@ -15,14 +15,14 @@ package com.fireblocks.sdk.model;
 
 import org.junit.Test;
 
-/** Model tests for AssetResponseBeta */
-public class AssetResponseBetaTest {
-    private final AssetResponseBeta model = new AssetResponseBeta();
+/** Model tests for Asset */
+public class AssetTest {
+    private final Asset model = new Asset();
 
-    /** Model tests for AssetResponseBeta */
+    /** Model tests for Asset */
     @Test
-    public void testAssetResponseBeta() {
-        // TODO: test AssetResponseBeta
+    public void testAsset() {
+        // TODO: test Asset
     }
 
     /** Test the property 'id' */

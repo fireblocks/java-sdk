@@ -40,7 +40,6 @@ public class Fireblocks {
     private AssetsApi assets;
     private AuditLogsApi auditLogs;
     private BlockchainsAssetsApi blockchainsAssets;
-    private BlockchainsAssetsBetaApi blockchainsAssetsBeta;
     private ComplianceApi compliance;
     private ComplianceScreeningConfigurationApi complianceScreeningConfiguration;
     private ConsoleUserApi consoleUser;
@@ -243,13 +242,6 @@ public class Fireblocks {
             blockchainsAssets = new BlockchainsAssetsApi(apiClient);
         }
         return blockchainsAssets;
-    }
-
-    public BlockchainsAssetsBetaApi blockchainsAssetsBeta() {
-        if (blockchainsAssetsBeta == null) {
-            blockchainsAssetsBeta = new BlockchainsAssetsBetaApi(apiClient);
-        }
-        return blockchainsAssetsBeta;
     }
 
     public ComplianceApi compliance() {

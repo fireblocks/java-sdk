@@ -13,11 +13,9 @@
 package com.fireblocks.sdk.model;
 
 
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.fasterxml.jackson.annotation.JsonValue;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -25,52 +23,18 @@ import java.util.List;
 import java.util.Objects;
 import java.util.StringJoiner;
 
-/** AssetMetadataBeta */
+/** AssetDetailsMetadata */
 @JsonPropertyOrder({
-    AssetMetadataBeta.JSON_PROPERTY_SCOPE,
-    AssetMetadataBeta.JSON_PROPERTY_DEPRECATED,
-    AssetMetadataBeta.JSON_PROPERTY_DEPRECATION_REFERRAL_ID,
-    AssetMetadataBeta.JSON_PROPERTY_VERIFIED,
-    AssetMetadataBeta.JSON_PROPERTY_WEBSITE,
-    AssetMetadataBeta.JSON_PROPERTY_MEDIA
+    AssetDetailsMetadata.JSON_PROPERTY_SCOPE,
+    AssetDetailsMetadata.JSON_PROPERTY_DEPRECATED,
+    AssetDetailsMetadata.JSON_PROPERTY_DEPRECATION_REFERRAL_ID,
+    AssetDetailsMetadata.JSON_PROPERTY_WEBSITE,
+    AssetDetailsMetadata.JSON_PROPERTY_MEDIA
 })
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
-public class AssetMetadataBeta {
-    /** The scope of the asset */
-    public enum ScopeEnum {
-        GLOBAL("Global"),
-
-        LOCAL("Local");
-
-        private String value;
-
-        ScopeEnum(String value) {
-            this.value = value;
-        }
-
-        @JsonValue
-        public String getValue() {
-            return value;
-        }
-
-        @Override
-        public String toString() {
-            return String.valueOf(value);
-        }
-
-        @JsonCreator
-        public static ScopeEnum fromValue(String value) {
-            for (ScopeEnum b : ScopeEnum.values()) {
-                if (b.value.equals(value)) {
-                    return b;
-                }
-            }
-            throw new IllegalArgumentException("Unexpected value '" + value + "'");
-        }
-    }
-
+public class AssetDetailsMetadata {
     public static final String JSON_PROPERTY_SCOPE = "scope";
-    private ScopeEnum scope;
+    private AssetScope scope;
 
     public static final String JSON_PROPERTY_DEPRECATED = "deprecated";
     private Boolean deprecated;
@@ -78,41 +42,38 @@ public class AssetMetadataBeta {
     public static final String JSON_PROPERTY_DEPRECATION_REFERRAL_ID = "deprecationReferralId";
     private String deprecationReferralId;
 
-    public static final String JSON_PROPERTY_VERIFIED = "verified";
-    private Boolean verified;
-
     public static final String JSON_PROPERTY_WEBSITE = "website";
     private String website;
 
     public static final String JSON_PROPERTY_MEDIA = "media";
     private List<AssetMedia> media;
 
-    public AssetMetadataBeta() {}
+    public AssetDetailsMetadata() {}
 
-    public AssetMetadataBeta scope(ScopeEnum scope) {
+    public AssetDetailsMetadata scope(AssetScope scope) {
         this.scope = scope;
         return this;
     }
 
     /**
-     * The scope of the asset
+     * Get scope
      *
      * @return scope
      */
     @jakarta.annotation.Nonnull
     @JsonProperty(JSON_PROPERTY_SCOPE)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public ScopeEnum getScope() {
+    public AssetScope getScope() {
         return scope;
     }
 
     @JsonProperty(JSON_PROPERTY_SCOPE)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setScope(ScopeEnum scope) {
+    public void setScope(AssetScope scope) {
         this.scope = scope;
     }
 
-    public AssetMetadataBeta deprecated(Boolean deprecated) {
+    public AssetDetailsMetadata deprecated(Boolean deprecated) {
         this.deprecated = deprecated;
         return this;
     }
@@ -135,7 +96,7 @@ public class AssetMetadataBeta {
         this.deprecated = deprecated;
     }
 
-    public AssetMetadataBeta deprecationReferralId(String deprecationReferralId) {
+    public AssetDetailsMetadata deprecationReferralId(String deprecationReferralId) {
         this.deprecationReferralId = deprecationReferralId;
         return this;
     }
@@ -158,30 +119,7 @@ public class AssetMetadataBeta {
         this.deprecationReferralId = deprecationReferralId;
     }
 
-    public AssetMetadataBeta verified(Boolean verified) {
-        this.verified = verified;
-        return this;
-    }
-
-    /**
-     * Is asset verified by Fireblocks
-     *
-     * @return verified
-     */
-    @jakarta.annotation.Nonnull
-    @JsonProperty(JSON_PROPERTY_VERIFIED)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public Boolean getVerified() {
-        return verified;
-    }
-
-    @JsonProperty(JSON_PROPERTY_VERIFIED)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setVerified(Boolean verified) {
-        this.verified = verified;
-    }
-
-    public AssetMetadataBeta website(String website) {
+    public AssetDetailsMetadata website(String website) {
         this.website = website;
         return this;
     }
@@ -204,12 +142,12 @@ public class AssetMetadataBeta {
         this.website = website;
     }
 
-    public AssetMetadataBeta media(List<AssetMedia> media) {
+    public AssetDetailsMetadata media(List<AssetMedia> media) {
         this.media = media;
         return this;
     }
 
-    public AssetMetadataBeta addMediaItem(AssetMedia mediaItem) {
+    public AssetDetailsMetadata addMediaItem(AssetMedia mediaItem) {
         if (this.media == null) {
             this.media = new ArrayList<>();
         }
@@ -235,7 +173,7 @@ public class AssetMetadataBeta {
         this.media = media;
     }
 
-    /** Return true if this AssetMetadataBeta object is equal to o. */
+    /** Return true if this AssetDetailsMetadata object is equal to o. */
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -244,31 +182,29 @@ public class AssetMetadataBeta {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        AssetMetadataBeta assetMetadataBeta = (AssetMetadataBeta) o;
-        return Objects.equals(this.scope, assetMetadataBeta.scope)
-                && Objects.equals(this.deprecated, assetMetadataBeta.deprecated)
+        AssetDetailsMetadata assetDetailsMetadata = (AssetDetailsMetadata) o;
+        return Objects.equals(this.scope, assetDetailsMetadata.scope)
+                && Objects.equals(this.deprecated, assetDetailsMetadata.deprecated)
                 && Objects.equals(
-                        this.deprecationReferralId, assetMetadataBeta.deprecationReferralId)
-                && Objects.equals(this.verified, assetMetadataBeta.verified)
-                && Objects.equals(this.website, assetMetadataBeta.website)
-                && Objects.equals(this.media, assetMetadataBeta.media);
+                        this.deprecationReferralId, assetDetailsMetadata.deprecationReferralId)
+                && Objects.equals(this.website, assetDetailsMetadata.website)
+                && Objects.equals(this.media, assetDetailsMetadata.media);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(scope, deprecated, deprecationReferralId, verified, website, media);
+        return Objects.hash(scope, deprecated, deprecationReferralId, website, media);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("class AssetMetadataBeta {\n");
+        sb.append("class AssetDetailsMetadata {\n");
         sb.append("    scope: ").append(toIndentedString(scope)).append("\n");
         sb.append("    deprecated: ").append(toIndentedString(deprecated)).append("\n");
         sb.append("    deprecationReferralId: ")
                 .append(toIndentedString(deprecationReferralId))
                 .append("\n");
-        sb.append("    verified: ").append(toIndentedString(verified)).append("\n");
         sb.append("    website: ").append(toIndentedString(website)).append("\n");
         sb.append("    media: ").append(toIndentedString(media)).append("\n");
         sb.append("}");
@@ -351,17 +287,6 @@ public class AssetMetadataBeta {
                             URLEncoder.encode(
                                             String.valueOf(getDeprecationReferralId()),
                                             StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
-        // add `verified` to the URL query string
-        if (getVerified() != null) {
-            joiner.add(
-                    String.format(
-                            "%sverified%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(String.valueOf(getVerified()), StandardCharsets.UTF_8)
                                     .replaceAll("\\+", "%20")));
         }
 

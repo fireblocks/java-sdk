@@ -16,8 +16,8 @@ package com.fireblocks.sdk.model;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
-/** Gets or Sets AssetClassBeta */
-public enum AssetClassBeta {
+/** Gets or Sets AssetClass */
+public enum AssetClass {
     NATIVE("NATIVE"),
 
     FT("FT"),
@@ -30,7 +30,7 @@ public enum AssetClassBeta {
 
     private String value;
 
-    AssetClassBeta(String value) {
+    AssetClass(String value) {
         this.value = value;
     }
 
@@ -45,8 +45,8 @@ public enum AssetClassBeta {
     }
 
     @JsonCreator
-    public static AssetClassBeta fromValue(String value) {
-        for (AssetClassBeta b : AssetClassBeta.values()) {
+    public static AssetClass fromValue(String value) {
+        for (AssetClass b : AssetClass.values()) {
             if (b.value.equals(value)) {
                 return b;
             }

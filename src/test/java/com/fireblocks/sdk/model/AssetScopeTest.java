@@ -15,11 +15,11 @@ package com.fireblocks.sdk.model;
 
 import org.junit.Test;
 
-/** Model tests for AssetClassBeta */
-public class AssetClassBetaTest {
-    /** Model tests for AssetClassBeta */
+/** Model tests for AssetScope */
+public class AssetScopeTest {
+    /** Model tests for AssetScope */
     @Test
-    public void testAssetClassBeta() {
-        // TODO: test AssetClassBeta
+    public void testAssetScope() {
+        // TODO: test AssetScope
     }
 }
