@@ -21,12 +21,17 @@ import com.fireblocks.sdk.model.CollectionDeployRequestDto;
 import com.fireblocks.sdk.model.CollectionLinkDto;
 import com.fireblocks.sdk.model.CollectionMintRequestDto;
 import com.fireblocks.sdk.model.CollectionMintResponseDto;
+import com.fireblocks.sdk.model.CreateMultichainTokenRequestDto;
 import com.fireblocks.sdk.model.CreateTokenRequestDto;
+import com.fireblocks.sdk.model.DeployableAddressResponseDto;
+import com.fireblocks.sdk.model.GetDeployableAddressRequestDto;
 import com.fireblocks.sdk.model.GetLinkedCollectionsPaginatedResponse;
+import com.fireblocks.sdk.model.ReissueMultichainTokenRequestDto;
 import com.fireblocks.sdk.model.TokenLinkDto;
 import com.fireblocks.sdk.model.TokenLinkRequestDto;
 import com.fireblocks.sdk.model.TokensPaginatedResponse;
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -97,6 +102,23 @@ public class TokenizationApiTest {
     }
 
     /**
+     * Get deterministic address for contract deployment
+     *
+     * <p>Get a deterministic address for contract deployment. The address is derived from the
+     * contract&#39;s bytecode and provided salt. This endpoint is used to get the address of a
+     * contract that will be deployed in the future.
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void getDeployableAddressTest() throws ApiException {
+        GetDeployableAddressRequestDto getDeployableAddressRequestDto = null;
+        String idempotencyKey = null;
+        CompletableFuture<ApiResponse<DeployableAddressResponseDto>> response =
+                api.getDeployableAddress(getDeployableAddressRequestDto, idempotencyKey);
+    }
+
+    /**
      * Get collections
      *
      * <p>Get collections (paginated)
@@ -162,6 +184,21 @@ public class TokenizationApiTest {
     }
 
     /**
+     * Issue a token on one or more blockchains
+     *
+     * <p>Facilitates the creation of a new token on one or more blockchains.
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void issueTokenMultiChainTest() throws ApiException {
+        CreateMultichainTokenRequestDto createMultichainTokenRequestDto = null;
+        String idempotencyKey = null;
+        CompletableFuture<ApiResponse<List<TokenLinkDto>>> response =
+                api.issueTokenMultiChain(createMultichainTokenRequestDto, idempotencyKey);
+    }
+
+    /**
      * Link a contract
      *
      * <p>Link an a contract
@@ -190,6 +227,24 @@ public class TokenizationApiTest {
         String idempotencyKey = null;
         CompletableFuture<ApiResponse<CollectionMintResponseDto>> response =
                 api.mintCollectionToken(collectionMintRequestDto, id, idempotencyKey);
+    }
+
+    /**
+     * Reissue a multichain token
+     *
+     * <p>Reissue a multichain token. This endpoint allows you to reissue a token on one or more
+     * blockchains. The token must be initially issued using the issueTokenMultiChain endpoint.
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void reIssueTokenMultiChainTest() throws ApiException {
+        ReissueMultichainTokenRequestDto reissueMultichainTokenRequestDto = null;
+        String tokenLinkId = null;
+        String idempotencyKey = null;
+        CompletableFuture<ApiResponse<List<TokenLinkDto>>> response =
+                api.reIssueTokenMultiChain(
+                        reissueMultichainTokenRequestDto, tokenLinkId, idempotencyKey);
     }
 
     /**
