@@ -12940,6 +12940,306 @@ paths:
       - lang: Python
         source: response = fireblocks.tokenization.get_linked_token(id);
       x-accepts: application/json
+  /tokenization/multichain/deterministic_address:
+    post:
+      description: Get a deterministic address for contract deployment. The address
+        is derived from the contract's bytecode and  provided salt. This endpoint
+        is used to get the address of a contract that will be deployed in the future.
+      operationId: getDeployableAddress
+      parameters:
+      - description: "A unique identifier for the request. If the request is sent\
+          \ multiple times with the same idempotency key, the server will return the\
+          \ same response as the first request. The idempotency key is valid for 24\
+          \ hours."
+        explode: false
+        in: header
+        name: Idempotency-Key
+        required: false
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GetDeployableAddressRequestDto'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeployableAddressResponseDto'
+          description: Deterministic address for contract deployment
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvalidParamaterValueError'
+          description: Invalid parameters or template has no bytecode
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AddressNotAvailableError'
+          description: Address is already taken
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorSchema'
+          description: Error Response
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+      summary: Get deterministic address for contract deployment
+      tags:
+      - Tokenization
+      x-readme:
+        code-samples:
+        - language: javascript
+          code: |-
+            const payload = {
+                chainDescriptor: "ETH",
+                templateId: "b70701f4-d7b1-4795-a8ee-b09cdb5b850d",
+                initParams: [
+                    { name: "name", type: "string", value: "TokenName" },
+                    { name: "symbol", type: "string", value: "TokenSymbol" },
+                    {
+                        name: "customConfigProps",
+                        type: "tuple",
+                        components: [
+                            { name: "_isMintable", type: "bool" }
+                        ],
+                        value: [{ _isMintable: false }]
+                    }
+                ],
+                salt: "123456789"
+            }; const address = await fireblocks.getDeterministicAddress(payload);
+          name: Fireblocks SDK Javascript example
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<DeployableAddressResponseDto>>\
+            \ = fireblocks.tokenization.getDeployableAddress(tokenizationApiGetDeployableAddressRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<DeployableAddressResponseDto>> response\
+            \ = fireblocks.tokenization().getDeployableAddress(getDeployableAddressRequestDto,\
+            \ idempotencyKey);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.tokenization.get_deployable_address(get_deployable_address_request_dto,\
+            \ idempotency_key);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<DeployableAddressResponseDto>>\
+          \ = fireblocks.tokenization.getDeployableAddress(tokenizationApiGetDeployableAddressRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<DeployableAddressResponseDto>> response\
+          \ = fireblocks.tokenization().getDeployableAddress(getDeployableAddressRequestDto,\
+          \ idempotencyKey);"
+      - lang: Python
+        source: "response = fireblocks.tokenization.get_deployable_address(get_deployable_address_request_dto,\
+          \ idempotency_key);"
+      x-content-type: application/json
+      x-accepts: application/json
+  /tokenization/multichain/tokens:
+    post:
+      description: Facilitates the creation of a new token on one or more blockchains.
+      operationId: issueTokenMultiChain
+      parameters:
+      - description: "A unique identifier for the request. If the request is sent\
+          \ multiple times with the same idempotency key, the server will return the\
+          \ same response as the first request. The idempotency key is valid for 24\
+          \ hours."
+        explode: false
+        in: header
+        name: Idempotency-Key
+        required: false
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateMultichainTokenRequestDto'
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IssueTokenMultichainResponse'
+          description: Tokens were created successfully
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvalidParamaterValueError'
+          description: Invalid input.
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AddressNotAvailableError'
+          description: Address is already taken.
+      summary: Issue a token on one or more blockchains
+      tags:
+      - Tokenization
+      x-readme:
+        code-samples:
+        - language: javascript
+          code: |-
+            const payload = {
+                vaultAccountId: "0",
+                createParams: {
+                  contractId: "b70701f4-d7b1-4795-a8ee-b09cdb5b850d",
+                  deployFunctionParams: [
+                    { name: "name", type: "string", value: "TokenName" },
+                    { name: "symbol", type: "string", value: "TokenSymbol" },
+                    {
+                        name: "customConfigProps",
+                        type: "tuple",
+                        components: [
+                            { name: "_isMintable", type: "bool" }
+                        ],
+                        value: [{ _isMintable: false }]
+                    },
+                  ],
+                },
+                salt: "123456789",
+                chains: ["ETH", "POLYGON"]
+            }; const token = await fireblocks.issueTokenMultiChain(payload);
+          name: Fireblocks SDK Javascript example
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<IssueTokenMultichainResponse>>\
+            \ = fireblocks.tokenization.issueTokenMultiChain(tokenizationApiIssueTokenMultiChainRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<List<TokenLinkDto>>> response = fireblocks.tokenization().issueTokenMultiChain(createMultichainTokenRequestDto,\
+            \ idempotencyKey);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.tokenization.issue_token_multi_chain(create_multichain_token_request_dto,\
+            \ idempotency_key);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<IssueTokenMultichainResponse>>\
+          \ = fireblocks.tokenization.issueTokenMultiChain(tokenizationApiIssueTokenMultiChainRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<List<TokenLinkDto>>> response = fireblocks.tokenization().issueTokenMultiChain(createMultichainTokenRequestDto,\
+          \ idempotencyKey);"
+      - lang: Python
+        source: "response = fireblocks.tokenization.issue_token_multi_chain(create_multichain_token_request_dto,\
+          \ idempotency_key);"
+      x-content-type: application/json
+      x-accepts: application/json
+  /tokenization/multichain/token/{tokenLinkId}:
+    post:
+      description: Reissue a multichain token. This endpoint allows you to reissue
+        a token on one or more blockchains. The token must be initially issued using
+        the issueTokenMultiChain endpoint.
+      operationId: reIssueTokenMultiChain
+      parameters:
+      - description: "A unique identifier for the request. If the request is sent\
+          \ multiple times with the same idempotency key, the server will return the\
+          \ same response as the first request. The idempotency key is valid for 24\
+          \ hours."
+        explode: false
+        in: header
+        name: Idempotency-Key
+        required: false
+        schema:
+          type: string
+        style: simple
+      - description: The ID of the token link
+        explode: false
+        in: path
+        name: tokenLinkId
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReissueMultichainTokenRequestDto'
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IssueTokenMultichainResponse'
+          description: Successfully reissued multichain token
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenLinkNotMultichainCompatibleHttpError'
+          description: Invalid input
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeployedContractNotFoundError'
+          description: Deployed contract not found
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AddressNotAvailableError'
+          description: Address is already taken
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorSchema'
+          description: Error Response
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+      summary: Reissue a multichain token
+      tags:
+      - Tokenization
+      x-readme:
+        code-samples:
+        - language: javascript
+          code: |-
+            const payload = {
+              vaultAccountId: "0",
+              chains: "ETH",
+              salt: "123456789",
+              chains: ["ETH", "POLYGON"]
+            }; const token = await fireblocks.reIssueTokenMultiChain(tokenLinkId, payload);
+          name: Fireblocks SDK Javascript example
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<IssueTokenMultichainResponse>>\
+            \ = fireblocks.tokenization.reIssueTokenMultiChain(tokenizationApiReIssueTokenMultiChainRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<List<TokenLinkDto>>> response = fireblocks.tokenization().reIssueTokenMultiChain(reissueMultichainTokenRequestDto,\
+            \ tokenLinkId, idempotencyKey);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.tokenization.re_issue_token_multi_chain(reissue_multichain_token_request_dto,\
+            \ token_link_id, idempotency_key);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<IssueTokenMultichainResponse>>\
+          \ = fireblocks.tokenization.reIssueTokenMultiChain(tokenizationApiReIssueTokenMultiChainRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<List<TokenLinkDto>>> response = fireblocks.tokenization().reIssueTokenMultiChain(reissueMultichainTokenRequestDto,\
+          \ tokenLinkId, idempotencyKey);"
+      - lang: Python
+        source: "response = fireblocks.tokenization.re_issue_token_multi_chain(reissue_multichain_token_request_dto,\
+          \ token_link_id, idempotency_key);"
+      x-content-type: application/json
+      x-accepts: application/json
   /tokenization/collections:
     get:
       description: Get collections (paginated)
@@ -35193,6 +35493,291 @@ components:
           example: Not Found
           type: string
       type: object
+    GetDeployableAddressRequestDto:
+      description: Request body for calculating deterministic address
+      example:
+        chainDescriptor: ETH
+        initParams:
+        - internalType: string
+          name: name
+          type: string
+          value: name
+        - internalType: string
+          name: symbol
+          type: string
+          value: symbol
+        - components:
+          - internalType: bool
+            name: _isMintable
+            type: bool
+          internalType: struct MyStruct
+          value:
+          - internalType: bool
+            name: _isMintable
+            type: bool
+            value: false
+        salt: "123456789"
+        templateId: b70701f4-d7b1-4795-a8ee-b09cdb5b850d
+      properties:
+        chainDescriptor:
+          description: The base asset identifier of the blockchain (legacyId) to calculate
+            deterministic address
+          example: ETH
+          type: string
+        templateId:
+          description: The template identifier
+          example: b70701f4-d7b1-4795-a8ee-b09cdb5b850d
+          format: uuid
+          type: string
+        initParams:
+          description: The deploy function parameters and values of the contract template
+          example:
+          - internalType: string
+            name: name
+            type: string
+            value: name
+          - internalType: string
+            name: symbol
+            type: string
+            value: symbol
+          - components:
+            - internalType: bool
+              name: _isMintable
+              type: bool
+            internalType: struct MyStruct
+            value:
+            - internalType: bool
+              name: _isMintable
+              type: bool
+              value: false
+          items:
+            $ref: '#/components/schemas/ParameterWithValue'
+          type: array
+        salt:
+          description: "The salt to calculate the deterministic address. Must be a\
+            \ number between 0 and 2^256 -1, for it to fit in the bytes32 parameter"
+          example: "123456789"
+          type: string
+      required:
+      - chainDescriptor
+      - initParams
+      - salt
+      - templateId
+      type: object
+    DeployableAddressResponseDto:
+      description: Response DTO containing a deployable address
+      example:
+        address: 0x1234567890abcdef1234567890abcdef12345678
+      properties:
+        address:
+          description: The deployable address
+          type: string
+      required:
+      - address
+      type: object
+    InvalidParamaterValueError:
+      example:
+        code: 400
+        message: Invalid initParams.
+      properties:
+        message:
+          description: Bad request error message
+          example: Invalid initParams.
+          type: string
+        code:
+          description: Error code
+          example: 400
+          type: number
+      required:
+      - code
+      - message
+      type: object
+    AddressNotAvailableError:
+      example:
+        code: 409
+        message: Address is already taken
+      properties:
+        message:
+          description: Conflict error message
+          example: Address is already taken
+          type: string
+        code:
+          description: Error code
+          example: 409
+          type: number
+      required:
+      - code
+      - message
+      type: object
+    CreateMultichainTokenRequestDto:
+      example:
+        salt: "123456789"
+        chains:
+        - ETH
+        - POLYGON
+        displayName: displayName
+        useGasless: false
+        fee: "2000"
+        vaultAccountId: "0"
+        feeLevel: MEDIUM
+        createParams:
+          deployFunctionParams:
+          - internalType: string
+            name: name
+            type: string
+            value: name
+          - internalType: string
+            name: symbol
+            type: string
+            value: symbol
+          - components:
+            - internalType: bool
+              name: _isMintable
+              type: bool
+            internalType: struct MyStruct
+            name: customConfigProps
+            type: tuple
+            value:
+            - internalType: bool
+              name: _isMintable
+              type: bool
+              value: false
+          contractId: b70701f4-d7b1-4795-a8ee-b09cdb5b850d
+      properties:
+        vaultAccountId:
+          description: The id of the vault account that initiated the request to issue
+            the token
+          example: "0"
+          type: string
+        createParams:
+          $ref: '#/components/schemas/CreateMultichainTokenRequestDto_createParams'
+        salt:
+          description: "The salt to calculate the deterministic address. Must be a\
+            \ number between 0 and 2^256 -1, for it to fit in the bytes32 parameter."
+          example: "123456789"
+          type: string
+        chains:
+          description: The base asset identifiers of the blockchains (legacyId) to
+            calculate deterministic addresses
+          example:
+          - ETH
+          - POLYGON
+          items:
+            type: string
+          type: array
+        displayName:
+          type: string
+        useGasless:
+          description: "Indicates whether the token should be created in a gasless\
+            \ manner, utilizing the ERC-2771 standard. When set to true, the transaction\
+            \ will be relayed by a designated relayer. The workspace must be configured\
+            \ to use Fireblocks gasless relay."
+          example: false
+          type: boolean
+        fee:
+          description: Max fee amount for the write function transaction. interchangeable
+            with the 'feeLevel' field
+          example: "2000"
+          type: string
+        feeLevel:
+          description: Fee level for the write function transaction. interchangeable
+            with the 'fee' field
+          enum:
+          - LOW
+          - MEDIUM
+          - HIGH
+          example: MEDIUM
+          type: string
+      required:
+      - chains
+      - createParams
+      - vaultAccountId
+      type: object
+    IssueTokenMultichainResponse:
+      description: Response schema for issuing tokens across multiple chains
+      items:
+        $ref: '#/components/schemas/TokenLinkDto'
+      type: array
+    ReissueMultichainTokenRequestDto:
+      example:
+        chains:
+        - ETH
+        - POLYGON
+        useGasless: true
+        fee: "2000"
+        vaultAccountId: "0"
+        feeLevel: MEDIUM
+      properties:
+        vaultAccountId:
+          description: The id of the vault account that initiated the request to issue
+            the token
+          example: "0"
+          type: string
+        chains:
+          description: The base asset identifiers of the blockchains you want to deploy
+            to
+          example:
+          - ETH
+          - POLYGON
+          items:
+            type: string
+          type: array
+        useGasless:
+          description: Whether to use gasless deployment or not
+          example: true
+          type: boolean
+        fee:
+          description: Max fee amount for the deploy request. Interchangeable with
+            the 'feeLevel' field
+          example: "2000"
+          type: string
+        feeLevel:
+          description: Fee level for the deploy request. Interchangeable with the
+            'fee' field
+          enum:
+          - LOW
+          - MEDIUM
+          - HIGH
+          example: MEDIUM
+          type: string
+      required:
+      - chains
+      - vaultAccountId
+      type: object
+    TokenLinkNotMultichainCompatibleHttpError:
+      example:
+        code: 400
+        message: Token link is not multichain compatible.
+      properties:
+        message:
+          description: Bad request error message
+          example: Token link is not multichain compatible.
+          type: string
+        code:
+          description: Error code
+          example: 400
+          type: number
+      required:
+      - code
+      - message
+      type: object
+    DeployedContractNotFoundError:
+      example:
+        code: 404
+        message: Deployed contract not found
+      properties:
+        message:
+          description: Not Found error message
+          example: Deployed contract not found
+          type: string
+        code:
+          description: Error code
+          example: 404
+          type: number
+      required:
+      - code
+      - message
+      type: object
     CollectionType:
       description: The type of collection
       enum:
@@ -45471,6 +46056,9 @@ components:
       oneOf:
       - $ref: '#/components/schemas/EVMTokenCreateParamsDto'
       - $ref: '#/components/schemas/StellarRippleCreateParamsDto'
+    CreateMultichainTokenRequestDto_createParams:
+      oneOf:
+      - $ref: '#/components/schemas/EVMTokenCreateParamsDto'
     SetOtaStatusResponse_oneOf:
       example:
         message: No change needed. The current status is false
