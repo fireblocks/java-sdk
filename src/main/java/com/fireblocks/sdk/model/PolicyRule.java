@@ -76,7 +76,8 @@ public class PolicyRule {
      * assets for earning staking rewards. * RAW - An off-chain message with no predefined format,
      * use it to sign any message with your private key. * TYPED_MESSAGE - An off-chain message type
      * that follows a predefined format, used to sign specific messages that are not actual
-     * transactions.
+     * transactions. * PROGRAM_CALL - In Solana refers to invoking on-chain programs (smart
+     * contracts) to execute transactions and interact with the blockchain.
      */
     public enum TransactionTypeEnum {
         TRANSFER("TRANSFER"),
@@ -97,7 +98,9 @@ public class PolicyRule {
 
         RAW("RAW"),
 
-        TYPED_MESSAGE("TYPED_MESSAGE");
+        TYPED_MESSAGE("TYPED_MESSAGE"),
+
+        PROGRAM_CALL("PROGRAM_CALL");
 
         private String value;
 
@@ -464,7 +467,8 @@ public class PolicyRule {
      * assets for earning staking rewards. * RAW - An off-chain message with no predefined format,
      * use it to sign any message with your private key. * TYPED_MESSAGE - An off-chain message type
      * that follows a predefined format, used to sign specific messages that are not actual
-     * transactions.
+     * transactions. * PROGRAM_CALL - In Solana refers to invoking on-chain programs (smart
+     * contracts) to execute transactions and interact with the blockchain.
      *
      * @return transactionType
      */

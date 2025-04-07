@@ -10,7 +10,7 @@ Policy rule which is enforced on transactions
 |------------ | ------------- | ------------- | -------------|
 |**operator** | **String** | (deprecated - replaced by \&quot;operators\&quot;)  | Defines users who can initiate the type of transaction to which the rule applies. options are * \&quot;*\&quot; - All users are allowed * Specific User id |  [optional] |
 |**operators** | [**PolicyRuleOperators**](PolicyRuleOperators.md) |  |  [optional] |
-|**transactionType** | [**TransactionTypeEnum**](#TransactionTypeEnum) | Defines the type of transaction to which the rule applies.   * TRANSFER - Default. Transfers funds from one account to another   * CONTRACT_CALL - Calls a smart contract, mainly for DeFi operations.   * APPROVE - Allows a smart contract to withdraw from a designated wallet.   * MINT - Perform a mint operation (increase supply) on a supported token   * BURN - Perform a burn operation (reduce supply) on a supported token   * SUPPLY - Use for DeFi to lend assets   * REDEEM - Use for DeFi to get lending back   * STAKE - Allows you to allocate and lock certain assets for earning staking rewards.   * RAW - An off-chain message with no predefined format, use it to sign any message with your private key.   * TYPED_MESSAGE - An off-chain message type that follows a predefined format, used to sign specific messages that are not actual transactions.  |  [optional] |
+|**transactionType** | [**TransactionTypeEnum**](#TransactionTypeEnum) | Defines the type of transaction to which the rule applies.   * TRANSFER - Default. Transfers funds from one account to another   * CONTRACT_CALL - Calls a smart contract, mainly for DeFi operations.   * APPROVE - Allows a smart contract to withdraw from a designated wallet.   * MINT - Perform a mint operation (increase supply) on a supported token   * BURN - Perform a burn operation (reduce supply) on a supported token   * SUPPLY - Use for DeFi to lend assets   * REDEEM - Use for DeFi to get lending back   * STAKE - Allows you to allocate and lock certain assets for earning staking rewards.   * RAW - An off-chain message with no predefined format, use it to sign any message with your private key.   * TYPED_MESSAGE - An off-chain message type that follows a predefined format, used to sign specific messages that are not actual transactions.   * PROGRAM_CALL - In Solana refers to invoking on-chain programs (smart contracts) to execute transactions and interact with the blockchain.  |  [optional] |
 |**designatedSigner** | **String** | (deprecated - replaced by \&quot;designatedSigners\&quot;) Id representing the user who signs transactions that match a specific rule |  [optional] |
 |**designatedSigners** | [**PolicyRuleDesignatedSigners**](PolicyRuleDesignatedSigners.md) |  |  [optional] |
 |**type** | [**TypeEnum**](#TypeEnum) | Policy rule type |  |
@@ -54,6 +54,7 @@ Policy rule which is enforced on transactions
 | STAKE | &quot;STAKE&quot; |
 | RAW | &quot;RAW&quot; |
 | TYPED_MESSAGE | &quot;TYPED_MESSAGE&quot; |
+| PROGRAM_CALL | &quot;PROGRAM_CALL&quot; |
 
 
 
