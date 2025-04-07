@@ -48,7 +48,9 @@ import com.fasterxml.jackson.annotation.JsonValue;
  * this as their operation, in case users in the workspace have used the direct integration between
  * Fireblocks and the Compound DeFI protocol. * &#x60;REDEEM_FROM_COMPOUND&#x60; - Deprecated since
  * April 1st, 2023. Older transactions may have this as their operation, in case users in the
- * workspace have used the direct integration between Fireblocks and the Compound DeFI protocol.
+ * workspace have used the direct integration between Fireblocks and the Compound DeFI protocol. *
+ * &#x60;PROGRAM_CALL&#x60; - In Solana refers to invoking on-chain programs (smart contracts) to
+ * execute transactions and interact with the blockchain.
  */
 public enum GetTransactionOperation {
     TRANSFER("TRANSFER"),
@@ -73,7 +75,9 @@ public enum GetTransactionOperation {
 
     REDEEM_FROM_COMPOUND("REDEEM_FROM_COMPOUND"),
 
-    SUPPLY_TO_COMPOUND("SUPPLY_TO_COMPOUND");
+    SUPPLY_TO_COMPOUND("SUPPLY_TO_COMPOUND"),
+
+    PROGRAM_CALL("PROGRAM_CALL");
 
     private String value;
 

@@ -21338,6 +21338,8 @@ components:
           enum:
           - SEGWIT
           - LEGACY
+          - BASE
+          - PAYMENT
           type: string
         legacyAddress:
           type: string
@@ -23906,6 +23908,7 @@ components:
 
         * `SUPPLY_TO_COMPOUND` - Deprecated since April 1st, 2023. Older transactions may have this as their operation, in case users in the workspace have used the direct integration between Fireblocks and the Compound DeFI protocol.
         * `REDEEM_FROM_COMPOUND` - Deprecated since April 1st, 2023. Older transactions may have this as their operation, in case users in the workspace have used the direct integration between Fireblocks and the Compound DeFI protocol.
+        * `PROGRAM_CALL` - In Solana refers to invoking on-chain programs (smart contracts) to execute transactions and interact with the blockchain.
       enum:
       - TRANSFER
       - BURN
@@ -23919,6 +23922,7 @@ components:
       - WITHDRAW
       - REDEEM_FROM_COMPOUND
       - SUPPLY_TO_COMPOUND
+      - PROGRAM_CALL
       type: string
     TransferPeerPathType:
       enum:
@@ -41855,6 +41859,7 @@ components:
               * STAKE - Allows you to allocate and lock certain assets for earning staking rewards.
               * RAW - An off-chain message with no predefined format, use it to sign any message with your private key.
               * TYPED_MESSAGE - An off-chain message type that follows a predefined format, used to sign specific messages that are not actual transactions.
+              * PROGRAM_CALL - In Solana refers to invoking on-chain programs (smart contracts) to execute transactions and interact with the blockchain.
           enum:
           - TRANSFER
           - CONTRACT_CALL
@@ -41866,6 +41871,7 @@ components:
           - STAKE
           - RAW
           - TYPED_MESSAGE
+          - PROGRAM_CALL
           type: string
         designatedSigner:
           deprecated: true
