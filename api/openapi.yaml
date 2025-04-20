@@ -14732,6 +14732,10 @@ paths:
           - ETH_SONEIUM
           - SONEIUM_MINATO_TEST
           - IOTX_IOTEX
+          - KLAY_KAIA
+          - KLAY_KAIA_TEST
+          - APECHAIN
+          - APECHAIN_TEST
           type: string
         style: form
       - description: A comma separated list of Vault Account IDs. Up to 100 are allowed
@@ -14946,6 +14950,10 @@ paths:
           - ETH_SONEIUM
           - SONEIUM_MINATO_TEST
           - IOTX_IOTEX
+          - KLAY_KAIA
+          - KLAY_KAIA_TEST
+          - APECHAIN
+          - APECHAIN_TEST
           type: string
         style: form
       - description: Vault account filter
@@ -36872,6 +36880,10 @@ components:
           - ETH_SONEIUM
           - SONEIUM_MINATO_TEST
           - IOTX_IOTEX
+          - KLAY_KAIA
+          - KLAY_KAIA_TEST
+          - APECHAIN
+          - APECHAIN_TEST
           type: string
         description:
           type: string
@@ -37032,6 +37044,10 @@ components:
           - ETH_SONEIUM
           - SONEIUM_MINATO_TEST
           - IOTX_IOTEX
+          - KLAY_KAIA
+          - KLAY_KAIA_TEST
+          - APECHAIN
+          - APECHAIN_TEST
           type: string
         description:
           type: string
@@ -37130,6 +37146,10 @@ components:
           - ETH_SONEIUM
           - SONEIUM_MINATO_TEST
           - IOTX_IOTEX
+          - KLAY_KAIA
+          - KLAY_KAIA_TEST
+          - APECHAIN
+          - APECHAIN_TEST
           type: string
         contractAddress:
           description: Collection contract standard

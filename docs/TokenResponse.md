@@ -45,6 +45,10 @@
 | ETH_SONEIUM | &quot;ETH_SONEIUM&quot; |
 | SONEIUM_MINATO_TEST | &quot;SONEIUM_MINATO_TEST&quot; |
 | IOTX_IOTEX | &quot;IOTX_IOTEX&quot; |
+| KLAY_KAIA | &quot;KLAY_KAIA&quot; |
+| KLAY_KAIA_TEST | &quot;KLAY_KAIA_TEST&quot; |
+| APECHAIN | &quot;APECHAIN&quot; |
+| APECHAIN_TEST | &quot;APECHAIN_TEST&quot; |
 
 
 

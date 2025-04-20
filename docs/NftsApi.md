@@ -262,7 +262,7 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **blockchainDescriptor** | **String**| Blockchain descriptor filter | [optional] [enum: ETH, ETH_TEST3, ETH_TEST5, ETH_TEST6, POLYGON, POLYGON_TEST_MUMBAI, AMOY_POLYGON_TEST, XTZ, XTZ_TEST, BASECHAIN_ETH, BASECHAIN_ETH_TEST3, BASECHAIN_ETH_TEST5, ETHERLINK, ETHERLINK_TEST, MANTLE, MANTLE_TEST, GUN_GUNZILLA_TEST, ETH_SONEIUM, SONEIUM_MINATO_TEST, IOTX_IOTEX] |
+| **blockchainDescriptor** | **String**| Blockchain descriptor filter | [optional] [enum: ETH, ETH_TEST3, ETH_TEST5, ETH_TEST6, POLYGON, POLYGON_TEST_MUMBAI, AMOY_POLYGON_TEST, XTZ, XTZ_TEST, BASECHAIN_ETH, BASECHAIN_ETH_TEST3, BASECHAIN_ETH_TEST5, ETHERLINK, ETHERLINK_TEST, MANTLE, MANTLE_TEST, GUN_GUNZILLA_TEST, ETH_SONEIUM, SONEIUM_MINATO_TEST, IOTX_IOTEX, KLAY_KAIA, KLAY_KAIA_TEST, APECHAIN, APECHAIN_TEST] |
 | **vaultAccountIds** | **String**| A comma separated list of Vault Account IDs. Up to 100 are allowed in a single request.  This field will be ignored when walletType&#x3D;END_USER_WALLET or ncwId is provided. | [optional] |
 | **ncwId** | **String**| Tenant&#39;s Non-Custodial Wallet ID | [optional] |
 | **ncwAccountIds** | **String**| A comma separated list of Non-Custodial account IDs. Up to 100 are allowed in a single request. This field will be ignored when walletType&#x3D;VAULT_ACCOUNT or ncwId is not provided. | [optional] |
@@ -635,7 +635,7 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **blockchainDescriptor** | **String**| Blockchain descriptor filter | [enum: ETH, ETH_TEST5, ETH_TEST6, POLYGON, POLYGON_TEST_MUMBAI, AMOY_POLYGON_TEST, BASECHAIN_ETH, BASECHAIN_ETH_TEST5, ETHERLINK, ETHERLINK_TEST, MANTLE, MANTLE_TEST, GUN_GUNZILLA_TEST, ETH_SONEIUM, SONEIUM_MINATO_TEST, IOTX_IOTEX] |
+| **blockchainDescriptor** | **String**| Blockchain descriptor filter | [enum: ETH, ETH_TEST5, ETH_TEST6, POLYGON, POLYGON_TEST_MUMBAI, AMOY_POLYGON_TEST, BASECHAIN_ETH, BASECHAIN_ETH_TEST5, ETHERLINK, ETHERLINK_TEST, MANTLE, MANTLE_TEST, GUN_GUNZILLA_TEST, ETH_SONEIUM, SONEIUM_MINATO_TEST, IOTX_IOTEX, KLAY_KAIA, KLAY_KAIA_TEST, APECHAIN, APECHAIN_TEST] |
 | **vaultAccountId** | **String**| Vault account filter | |
 | **idempotencyKey** | **String**| A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | [optional] |
 
