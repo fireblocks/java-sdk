@@ -125,7 +125,15 @@ public class TokenOwnershipResponse {
 
         SONEIUM_MINATO_TEST("SONEIUM_MINATO_TEST"),
 
-        IOTX_IOTEX("IOTX_IOTEX");
+        IOTX_IOTEX("IOTX_IOTEX"),
+
+        KLAY_KAIA("KLAY_KAIA"),
+
+        KLAY_KAIA_TEST("KLAY_KAIA_TEST"),
+
+        APECHAIN("APECHAIN"),
+
+        APECHAIN_TEST("APECHAIN_TEST");
 
         private String value;
 
