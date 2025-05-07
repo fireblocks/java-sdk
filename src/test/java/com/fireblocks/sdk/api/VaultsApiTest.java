@@ -19,6 +19,8 @@ import com.fireblocks.sdk.model.CreateAddressRequest;
 import com.fireblocks.sdk.model.CreateAddressResponse;
 import com.fireblocks.sdk.model.CreateAssetsRequest;
 import com.fireblocks.sdk.model.CreateMultipleAccountsRequest;
+import com.fireblocks.sdk.model.CreateMultipleDepositAddressesJobStatus;
+import com.fireblocks.sdk.model.CreateMultipleDepositAddressesRequest;
 import com.fireblocks.sdk.model.CreateVaultAccountRequest;
 import com.fireblocks.sdk.model.CreateVaultAssetResponse;
 import com.fireblocks.sdk.model.GetMaxSpendableAmountResponse;
@@ -100,6 +102,23 @@ public class VaultsApiTest {
     }
 
     /**
+     * Bulk creation of new deposit addresses
+     *
+     * <p>Create multiple deposit address by running an async job. &lt;/br&gt; **Note**: - We limit
+     * accounts to 10k per operation.
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void createMultipleDepositAddressesTest() throws ApiException {
+        CreateMultipleDepositAddressesRequest createMultipleDepositAddressesRequest = null;
+        String idempotencyKey = null;
+        CompletableFuture<ApiResponse<JobCreated>> response =
+                api.createMultipleDepositAddresses(
+                        createMultipleDepositAddressesRequest, idempotencyKey);
+    }
+
+    /**
      * Create a new vault account
      *
      * <p>Creates a new vault account with the requested name.
@@ -168,6 +187,20 @@ public class VaultsApiTest {
         BigDecimal limit = null;
         CompletableFuture<ApiResponse<PaginatedAssetWalletResponse>> response =
                 api.getAssetWallets(totalAmountLargerThan, assetId, orderBy, before, after, limit);
+    }
+
+    /**
+     * Get job status of bulk creation of new deposit addresses
+     *
+     * <p>Returns the status of bulk creation of new deposit addresses job and the result or error
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void getCreateMultipleDepositAddressesJobStatusTest() throws ApiException {
+        String jobId = null;
+        CompletableFuture<ApiResponse<CreateMultipleDepositAddressesJobStatus>> response =
+                api.getCreateMultipleDepositAddressesJobStatus(jobId);
     }
 
     /**

@@ -26,8 +26,12 @@ import com.fireblocks.sdk.model.CollectionDeployRequestDto;
 import com.fireblocks.sdk.model.CollectionLinkDto;
 import com.fireblocks.sdk.model.CollectionMintRequestDto;
 import com.fireblocks.sdk.model.CollectionMintResponseDto;
+import com.fireblocks.sdk.model.CreateMultichainTokenRequest;
 import com.fireblocks.sdk.model.CreateTokenRequestDto;
+import com.fireblocks.sdk.model.DeployableAddressResponse;
+import com.fireblocks.sdk.model.GetDeployableAddressRequest;
 import com.fireblocks.sdk.model.GetLinkedCollectionsPaginatedResponse;
+import com.fireblocks.sdk.model.ReissueMultichainTokenRequest;
 import com.fireblocks.sdk.model.TokenLinkDto;
 import com.fireblocks.sdk.model.TokenLinkRequestDto;
 import com.fireblocks.sdk.model.TokensPaginatedResponse;
@@ -392,6 +396,91 @@ public class TokenizationApi {
         return localVarRequestBuilder;
     }
     /**
+     * Get deterministic address for contract deployment Get a deterministic address for contract
+     * deployment. The address is derived from the contract&#39;s bytecode and provided salt. This
+     * endpoint is used to get the address of a contract that will be deployed in the future.
+     *
+     * @param getDeployableAddressRequest (required)
+     * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
+     *     times with the same idempotency key, the server will return the same response as the
+     *     first request. The idempotency key is valid for 24 hours. (optional)
+     * @return CompletableFuture&lt;ApiResponse&lt;DeployableAddressResponse&gt;&gt;
+     * @throws ApiException if fails to make API call
+     */
+    public CompletableFuture<ApiResponse<DeployableAddressResponse>> getDeployableAddress(
+            GetDeployableAddressRequest getDeployableAddressRequest, String idempotencyKey)
+            throws ApiException {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    getDeployableAddressRequestBuilder(getDeployableAddressRequest, idempotencyKey);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException(
+                                                    "getDeployableAddress", localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<DeployableAddressResponse>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            DeployableAddressResponse>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            });
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder getDeployableAddressRequestBuilder(
+            GetDeployableAddressRequest getDeployableAddressRequest, String idempotencyKey)
+            throws ApiException {
+        ValidationUtils.assertParamExists(
+                "getDeployableAddress", "getDeployableAddressRequest", getDeployableAddressRequest);
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath = "/tokenization/multichain/deterministic_address";
+
+        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+        if (idempotencyKey != null) {
+            localVarRequestBuilder.header("Idempotency-Key", idempotencyKey.toString());
+        }
+        localVarRequestBuilder.header("Content-Type", "application/json");
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        try {
+            byte[] localVarPostBody =
+                    memberVarObjectMapper.writeValueAsBytes(getDeployableAddressRequest);
+            localVarRequestBuilder.method(
+                    "POST", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
+        } catch (IOException e) {
+            throw new ApiException(e);
+        }
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
      * Get collections Get collections (paginated)
      *
      * @param pageCursor Page cursor to get the next page, for example -
@@ -722,6 +811,94 @@ public class TokenizationApi {
         return localVarRequestBuilder;
     }
     /**
+     * Issue a token on one or more blockchains Facilitates the creation of a new token on one or
+     * more blockchains.
+     *
+     * @param createMultichainTokenRequest (required)
+     * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
+     *     times with the same idempotency key, the server will return the same response as the
+     *     first request. The idempotency key is valid for 24 hours. (optional)
+     * @return CompletableFuture&lt;ApiResponse&lt;List&lt;TokenLinkDto&gt;&gt;&gt;
+     * @throws ApiException if fails to make API call
+     */
+    public CompletableFuture<ApiResponse<List<TokenLinkDto>>> issueTokenMultiChain(
+            CreateMultichainTokenRequest createMultichainTokenRequest, String idempotencyKey)
+            throws ApiException {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    issueTokenMultiChainRequestBuilder(
+                            createMultichainTokenRequest, idempotencyKey);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException(
+                                                    "issueTokenMultiChain", localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<List<TokenLinkDto>>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            List<
+                                                                                    TokenLinkDto>>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            });
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder issueTokenMultiChainRequestBuilder(
+            CreateMultichainTokenRequest createMultichainTokenRequest, String idempotencyKey)
+            throws ApiException {
+        ValidationUtils.assertParamExists(
+                "issueTokenMultiChain",
+                "createMultichainTokenRequest",
+                createMultichainTokenRequest);
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath = "/tokenization/multichain/tokens";
+
+        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+        if (idempotencyKey != null) {
+            localVarRequestBuilder.header("Idempotency-Key", idempotencyKey.toString());
+        }
+        localVarRequestBuilder.header("Content-Type", "application/json");
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        try {
+            byte[] localVarPostBody =
+                    memberVarObjectMapper.writeValueAsBytes(createMultichainTokenRequest);
+            localVarRequestBuilder.method(
+                    "POST", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
+        } catch (IOException e) {
+            throw new ApiException(e);
+        }
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
      * Link a contract Link an a contract
      *
      * @param tokenLinkRequestDto (required)
@@ -873,6 +1050,104 @@ public class TokenizationApi {
         try {
             byte[] localVarPostBody =
                     memberVarObjectMapper.writeValueAsBytes(collectionMintRequestDto);
+            localVarRequestBuilder.method(
+                    "POST", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
+        } catch (IOException e) {
+            throw new ApiException(e);
+        }
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
+     * Reissue a multichain token Reissue a multichain token. This endpoint allows you to reissue a
+     * token on one or more blockchains. The token must be initially issued using the
+     * issueTokenMultiChain endpoint.
+     *
+     * @param reissueMultichainTokenRequest (required)
+     * @param tokenLinkId The ID of the token link (required)
+     * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
+     *     times with the same idempotency key, the server will return the same response as the
+     *     first request. The idempotency key is valid for 24 hours. (optional)
+     * @return CompletableFuture&lt;ApiResponse&lt;List&lt;TokenLinkDto&gt;&gt;&gt;
+     * @throws ApiException if fails to make API call
+     */
+    public CompletableFuture<ApiResponse<List<TokenLinkDto>>> reIssueTokenMultiChain(
+            ReissueMultichainTokenRequest reissueMultichainTokenRequest,
+            String tokenLinkId,
+            String idempotencyKey)
+            throws ApiException {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    reIssueTokenMultiChainRequestBuilder(
+                            reissueMultichainTokenRequest, tokenLinkId, idempotencyKey);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException(
+                                                    "reIssueTokenMultiChain", localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<List<TokenLinkDto>>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            List<
+                                                                                    TokenLinkDto>>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            });
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder reIssueTokenMultiChainRequestBuilder(
+            ReissueMultichainTokenRequest reissueMultichainTokenRequest,
+            String tokenLinkId,
+            String idempotencyKey)
+            throws ApiException {
+        ValidationUtils.assertParamExists(
+                "reIssueTokenMultiChain",
+                "reissueMultichainTokenRequest",
+                reissueMultichainTokenRequest);
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "reIssueTokenMultiChain", "tokenLinkId", tokenLinkId);
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath =
+                "/tokenization/multichain/token/{tokenLinkId}"
+                        .replace("{tokenLinkId}", ApiClient.urlEncode(tokenLinkId.toString()));
+
+        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+        if (idempotencyKey != null) {
+            localVarRequestBuilder.header("Idempotency-Key", idempotencyKey.toString());
+        }
+        localVarRequestBuilder.header("Content-Type", "application/json");
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        try {
+            byte[] localVarPostBody =
+                    memberVarObjectMapper.writeValueAsBytes(reissueMultichainTokenRequest);
             localVarRequestBuilder.method(
                     "POST", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
         } catch (IOException e) {

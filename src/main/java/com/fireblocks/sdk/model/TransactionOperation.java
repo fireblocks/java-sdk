@@ -38,6 +38,9 @@ import com.fasterxml.jackson.annotation.JsonValue;
  * - Enables the approve function for a smart contract or wallet to withdraw from a designated
  * wallet. [Learn
  * more](https://support.fireblocks.io/hc/en-us/articles/4404616097426-Amount-Cap-for-Approve-transactions).
+ * * &#x60;ENABLE_ASSET&#x60; - Algorand, DigitalBits, Solana, and Stellar require an on-chain
+ * transaction to create an asset wallet and enable the deposit address. This transaction is
+ * automatically created when adding assets on these blockchains at a vault account.
  */
 public enum TransactionOperation {
     TRANSFER("TRANSFER"),
@@ -54,7 +57,9 @@ public enum TransactionOperation {
 
     TYPED_MESSAGE("TYPED_MESSAGE"),
 
-    APPROVE("APPROVE");
+    APPROVE("APPROVE"),
+
+    ENABLE_ASSET("ENABLE_ASSET");
 
     private String value;
 

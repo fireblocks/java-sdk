@@ -19,6 +19,7 @@ import com.fireblocks.sdk.model.CreateWebhookRequest;
 import com.fireblocks.sdk.model.NotificationPaginatedResponse;
 import com.fireblocks.sdk.model.NotificationStatus;
 import com.fireblocks.sdk.model.NotificationWithData;
+import com.fireblocks.sdk.model.ResendNotificationsByResourceIdRequest;
 import com.fireblocks.sdk.model.UpdateWebhookRequest;
 import com.fireblocks.sdk.model.Webhook;
 import com.fireblocks.sdk.model.WebhookEvent;
@@ -162,6 +163,25 @@ public class WebhooksV2BetaApiTest {
 
         CompletableFuture<ApiResponse<Void>> response =
                 api.resendNotificationById(webhookId, notificationId, idempotencyKey);
+    }
+
+    /**
+     * Resend notifications by resource Id
+     *
+     * <p>Resend notifications by resource Id **Note:** These endpoints are currently in beta and
+     * might be subject to changes.
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void resendNotificationsByResourceIdTest() throws ApiException {
+        ResendNotificationsByResourceIdRequest resendNotificationsByResourceIdRequest = null;
+        String webhookId = null;
+        String idempotencyKey = null;
+
+        CompletableFuture<ApiResponse<Void>> response =
+                api.resendNotificationsByResourceId(
+                        resendNotificationsByResourceIdRequest, webhookId, idempotencyKey);
     }
 
     /**

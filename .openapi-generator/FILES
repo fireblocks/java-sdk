@@ -27,6 +27,7 @@ docs/AddCosignerResponse.md
 docs/AddExchangeAccountRequest.md
 docs/AddExchangeAccountResponse.md
 docs/AdditionalInfo.md
+docs/AddressNotAvailableError.md
 docs/AmlRegistrationResult.md
 docs/AmlRegistrationResultFullPayload.md
 docs/AmlScreeningResult.md
@@ -147,7 +148,11 @@ docs/CreateConversionConfigOperationRequest.md
 docs/CreateDisbursementConfigOperationRequest.md
 docs/CreateInternalTransferRequest.md
 docs/CreateInternalWalletAssetRequest.md
+docs/CreateMultichainTokenRequest.md
+docs/CreateMultichainTokenRequestCreateParams.md
 docs/CreateMultipleAccountsRequest.md
+docs/CreateMultipleDepositAddressesJobStatus.md
+docs/CreateMultipleDepositAddressesRequest.md
 docs/CreateNcwConnectionRequest.md
 docs/CreateNetworkIdRequest.md
 docs/CreatePayoutRequest.md
@@ -172,6 +177,8 @@ docs/Delegation.md
 docs/DelegationSummary.md
 docs/DeleteNetworkConnectionResponse.md
 docs/DeleteNetworkIdResponse.md
+docs/DeployableAddressResponse.md
+docs/DeployedContractNotFoundError.md
 docs/DeployedContractResponseDto.md
 docs/DeployedContractsApi.md
 docs/DeployedContractsPaginatedResponse.md
@@ -241,6 +248,7 @@ docs/GetAPIUsersResponse.md
 docs/GetAuditLogsResponse.md
 docs/GetConnectionsResponse.md
 docs/GetConsoleUsersResponse.md
+docs/GetDeployableAddressRequest.md
 docs/GetExchangeAccountsCredentialsPublicKeyResponse.md
 docs/GetFilterParameter.md
 docs/GetLinkedCollectionsPaginatedResponse.md
@@ -258,6 +266,7 @@ docs/HttpContractDoesNotExistError.md
 docs/InstructionAmount.md
 docs/InternalTransferResponse.md
 docs/InternalWalletsApi.md
+docs/InvalidParamaterValueError.md
 docs/Job.md
 docs/JobCreated.md
 docs/JobManagementApi.md
@@ -286,6 +295,7 @@ docs/NetworkId.md
 docs/NetworkIdResponse.md
 docs/NetworkIdRoutingPolicyValue.md
 docs/NetworkRecord.md
+docs/NewAddress.md
 docs/NftsApi.md
 docs/NoneNetworkRoutingDest.md
 docs/NotFoundException.md
@@ -356,12 +366,14 @@ docs/ReadAbiFunction.md
 docs/ReadCallFunctionDto.md
 docs/RedeemFundsToLinkedDDAResponse.md
 docs/RegisterNewAssetRequest.md
+docs/ReissueMultichainTokenRequest.md
 docs/RelatedRequest.md
 docs/RelatedTransaction.md
 docs/RemoveCollateralRequestBody.md
 docs/RenameCosigner.md
 docs/RenameVaultAccountResponse.md
 docs/RescanTransaction.md
+docs/ResendNotificationsByResourceIdRequest.md
 docs/ResendTransactionWebhooksRequest.md
 docs/ResendWebhooksByTransactionIdResponse.md
 docs/ResendWebhooksResponse.md
@@ -456,6 +468,7 @@ docs/TokenInfoNotFoundErrorResponse.md
 docs/TokenLinkDto.md
 docs/TokenLinkDtoTokenMetadata.md
 docs/TokenLinkExistsHttpError.md
+docs/TokenLinkNotMultichainCompatibleHttpError.md
 docs/TokenLinkRequestDto.md
 docs/TokenOwnershipResponse.md
 docs/TokenOwnershipSpamUpdatePayload.md
@@ -669,6 +682,7 @@ src/main/java/com/fireblocks/sdk/model/AddCosignerResponse.java
 src/main/java/com/fireblocks/sdk/model/AddExchangeAccountRequest.java
 src/main/java/com/fireblocks/sdk/model/AddExchangeAccountResponse.java
 src/main/java/com/fireblocks/sdk/model/AdditionalInfo.java
+src/main/java/com/fireblocks/sdk/model/AddressNotAvailableError.java
 src/main/java/com/fireblocks/sdk/model/AmlRegistrationResult.java
 src/main/java/com/fireblocks/sdk/model/AmlRegistrationResultFullPayload.java
 src/main/java/com/fireblocks/sdk/model/AmlScreeningResult.java
@@ -778,7 +792,11 @@ src/main/java/com/fireblocks/sdk/model/CreateConversionConfigOperationRequest.ja
 src/main/java/com/fireblocks/sdk/model/CreateDisbursementConfigOperationRequest.java
 src/main/java/com/fireblocks/sdk/model/CreateInternalTransferRequest.java
 src/main/java/com/fireblocks/sdk/model/CreateInternalWalletAssetRequest.java
+src/main/java/com/fireblocks/sdk/model/CreateMultichainTokenRequest.java
+src/main/java/com/fireblocks/sdk/model/CreateMultichainTokenRequestCreateParams.java
 src/main/java/com/fireblocks/sdk/model/CreateMultipleAccountsRequest.java
+src/main/java/com/fireblocks/sdk/model/CreateMultipleDepositAddressesJobStatus.java
+src/main/java/com/fireblocks/sdk/model/CreateMultipleDepositAddressesRequest.java
 src/main/java/com/fireblocks/sdk/model/CreateNcwConnectionRequest.java
 src/main/java/com/fireblocks/sdk/model/CreateNetworkIdRequest.java
 src/main/java/com/fireblocks/sdk/model/CreatePayoutRequest.java
@@ -803,6 +821,8 @@ src/main/java/com/fireblocks/sdk/model/Delegation.java
 src/main/java/com/fireblocks/sdk/model/DelegationSummary.java
 src/main/java/com/fireblocks/sdk/model/DeleteNetworkConnectionResponse.java
 src/main/java/com/fireblocks/sdk/model/DeleteNetworkIdResponse.java
+src/main/java/com/fireblocks/sdk/model/DeployableAddressResponse.java
+src/main/java/com/fireblocks/sdk/model/DeployedContractNotFoundError.java
 src/main/java/com/fireblocks/sdk/model/DeployedContractResponseDto.java
 src/main/java/com/fireblocks/sdk/model/DeployedContractsPaginatedResponse.java
 src/main/java/com/fireblocks/sdk/model/DepositFundsFromLinkedDDAResponse.java
@@ -866,6 +886,7 @@ src/main/java/com/fireblocks/sdk/model/GetAPIUsersResponse.java
 src/main/java/com/fireblocks/sdk/model/GetAuditLogsResponse.java
 src/main/java/com/fireblocks/sdk/model/GetConnectionsResponse.java
 src/main/java/com/fireblocks/sdk/model/GetConsoleUsersResponse.java
+src/main/java/com/fireblocks/sdk/model/GetDeployableAddressRequest.java
 src/main/java/com/fireblocks/sdk/model/GetExchangeAccountsCredentialsPublicKeyResponse.java
 src/main/java/com/fireblocks/sdk/model/GetFilterParameter.java
 src/main/java/com/fireblocks/sdk/model/GetLinkedCollectionsPaginatedResponse.java
@@ -882,6 +903,7 @@ src/main/java/com/fireblocks/sdk/model/GetWorkspaceStatusResponse.java
 src/main/java/com/fireblocks/sdk/model/HttpContractDoesNotExistError.java
 src/main/java/com/fireblocks/sdk/model/InstructionAmount.java
 src/main/java/com/fireblocks/sdk/model/InternalTransferResponse.java
+src/main/java/com/fireblocks/sdk/model/InvalidParamaterValueError.java
 src/main/java/com/fireblocks/sdk/model/Job.java
 src/main/java/com/fireblocks/sdk/model/JobCreated.java
 src/main/java/com/fireblocks/sdk/model/LeanAbiFunction.java
@@ -906,6 +928,7 @@ src/main/java/com/fireblocks/sdk/model/NetworkId.java
 src/main/java/com/fireblocks/sdk/model/NetworkIdResponse.java
 src/main/java/com/fireblocks/sdk/model/NetworkIdRoutingPolicyValue.java
 src/main/java/com/fireblocks/sdk/model/NetworkRecord.java
+src/main/java/com/fireblocks/sdk/model/NewAddress.java
 src/main/java/com/fireblocks/sdk/model/NoneNetworkRoutingDest.java
 src/main/java/com/fireblocks/sdk/model/NotFoundException.java
 src/main/java/com/fireblocks/sdk/model/Notification.java
@@ -971,12 +994,14 @@ src/main/java/com/fireblocks/sdk/model/ReadAbiFunction.java
 src/main/java/com/fireblocks/sdk/model/ReadCallFunctionDto.java
 src/main/java/com/fireblocks/sdk/model/RedeemFundsToLinkedDDAResponse.java
 src/main/java/com/fireblocks/sdk/model/RegisterNewAssetRequest.java
+src/main/java/com/fireblocks/sdk/model/ReissueMultichainTokenRequest.java
 src/main/java/com/fireblocks/sdk/model/RelatedRequest.java
 src/main/java/com/fireblocks/sdk/model/RelatedTransaction.java
 src/main/java/com/fireblocks/sdk/model/RemoveCollateralRequestBody.java
 src/main/java/com/fireblocks/sdk/model/RenameCosigner.java
 src/main/java/com/fireblocks/sdk/model/RenameVaultAccountResponse.java
 src/main/java/com/fireblocks/sdk/model/RescanTransaction.java
+src/main/java/com/fireblocks/sdk/model/ResendNotificationsByResourceIdRequest.java
 src/main/java/com/fireblocks/sdk/model/ResendTransactionWebhooksRequest.java
 src/main/java/com/fireblocks/sdk/model/ResendWebhooksByTransactionIdResponse.java
 src/main/java/com/fireblocks/sdk/model/ResendWebhooksResponse.java
@@ -1068,6 +1093,7 @@ src/main/java/com/fireblocks/sdk/model/TokenInfoNotFoundErrorResponse.java
 src/main/java/com/fireblocks/sdk/model/TokenLinkDto.java
 src/main/java/com/fireblocks/sdk/model/TokenLinkDtoTokenMetadata.java
 src/main/java/com/fireblocks/sdk/model/TokenLinkExistsHttpError.java
+src/main/java/com/fireblocks/sdk/model/TokenLinkNotMultichainCompatibleHttpError.java
 src/main/java/com/fireblocks/sdk/model/TokenLinkRequestDto.java
 src/main/java/com/fireblocks/sdk/model/TokenOwnershipResponse.java
 src/main/java/com/fireblocks/sdk/model/TokenOwnershipSpamUpdatePayload.java
@@ -1250,6 +1276,7 @@ src/test/java/com/fireblocks/sdk/model/AddCosignerResponseTest.java
 src/test/java/com/fireblocks/sdk/model/AddExchangeAccountRequestTest.java
 src/test/java/com/fireblocks/sdk/model/AddExchangeAccountResponseTest.java
 src/test/java/com/fireblocks/sdk/model/AdditionalInfoTest.java
+src/test/java/com/fireblocks/sdk/model/AddressNotAvailableErrorTest.java
 src/test/java/com/fireblocks/sdk/model/AmlRegistrationResultFullPayloadTest.java
 src/test/java/com/fireblocks/sdk/model/AmlRegistrationResultTest.java
 src/test/java/com/fireblocks/sdk/model/AmlScreeningResultTest.java
@@ -1359,7 +1386,11 @@ src/test/java/com/fireblocks/sdk/model/CreateConversionConfigOperationRequestTes
 src/test/java/com/fireblocks/sdk/model/CreateDisbursementConfigOperationRequestTest.java
 src/test/java/com/fireblocks/sdk/model/CreateInternalTransferRequestTest.java
 src/test/java/com/fireblocks/sdk/model/CreateInternalWalletAssetRequestTest.java
+src/test/java/com/fireblocks/sdk/model/CreateMultichainTokenRequestCreateParamsTest.java
+src/test/java/com/fireblocks/sdk/model/CreateMultichainTokenRequestTest.java
 src/test/java/com/fireblocks/sdk/model/CreateMultipleAccountsRequestTest.java
+src/test/java/com/fireblocks/sdk/model/CreateMultipleDepositAddressesJobStatusTest.java
+src/test/java/com/fireblocks/sdk/model/CreateMultipleDepositAddressesRequestTest.java
 src/test/java/com/fireblocks/sdk/model/CreateNcwConnectionRequestTest.java
 src/test/java/com/fireblocks/sdk/model/CreateNetworkIdRequestTest.java
 src/test/java/com/fireblocks/sdk/model/CreatePayoutRequestTest.java
@@ -1384,6 +1415,8 @@ src/test/java/com/fireblocks/sdk/model/DelegationSummaryTest.java
 src/test/java/com/fireblocks/sdk/model/DelegationTest.java
 src/test/java/com/fireblocks/sdk/model/DeleteNetworkConnectionResponseTest.java
 src/test/java/com/fireblocks/sdk/model/DeleteNetworkIdResponseTest.java
+src/test/java/com/fireblocks/sdk/model/DeployableAddressResponseTest.java
+src/test/java/com/fireblocks/sdk/model/DeployedContractNotFoundErrorTest.java
 src/test/java/com/fireblocks/sdk/model/DeployedContractResponseDtoTest.java
 src/test/java/com/fireblocks/sdk/model/DeployedContractsPaginatedResponseTest.java
 src/test/java/com/fireblocks/sdk/model/DepositFundsFromLinkedDDAResponseTest.java
@@ -1447,6 +1480,7 @@ src/test/java/com/fireblocks/sdk/model/GetAPIUsersResponseTest.java
 src/test/java/com/fireblocks/sdk/model/GetAuditLogsResponseTest.java
 src/test/java/com/fireblocks/sdk/model/GetConnectionsResponseTest.java
 src/test/java/com/fireblocks/sdk/model/GetConsoleUsersResponseTest.java
+src/test/java/com/fireblocks/sdk/model/GetDeployableAddressRequestTest.java
 src/test/java/com/fireblocks/sdk/model/GetExchangeAccountsCredentialsPublicKeyResponseTest.java
 src/test/java/com/fireblocks/sdk/model/GetFilterParameterTest.java
 src/test/java/com/fireblocks/sdk/model/GetLinkedCollectionsPaginatedResponseTest.java
@@ -1463,6 +1497,7 @@ src/test/java/com/fireblocks/sdk/model/GetWorkspaceStatusResponseTest.java
 src/test/java/com/fireblocks/sdk/model/HttpContractDoesNotExistErrorTest.java
 src/test/java/com/fireblocks/sdk/model/InstructionAmountTest.java
 src/test/java/com/fireblocks/sdk/model/InternalTransferResponseTest.java
+src/test/java/com/fireblocks/sdk/model/InvalidParamaterValueErrorTest.java
 src/test/java/com/fireblocks/sdk/model/JobCreatedTest.java
 src/test/java/com/fireblocks/sdk/model/JobTest.java
 src/test/java/com/fireblocks/sdk/model/LeanAbiFunctionTest.java
@@ -1487,6 +1522,7 @@ src/test/java/com/fireblocks/sdk/model/NetworkIdResponseTest.java
 src/test/java/com/fireblocks/sdk/model/NetworkIdRoutingPolicyValueTest.java
 src/test/java/com/fireblocks/sdk/model/NetworkIdTest.java
 src/test/java/com/fireblocks/sdk/model/NetworkRecordTest.java
+src/test/java/com/fireblocks/sdk/model/NewAddressTest.java
 src/test/java/com/fireblocks/sdk/model/NoneNetworkRoutingDestTest.java
 src/test/java/com/fireblocks/sdk/model/NotFoundExceptionTest.java
 src/test/java/com/fireblocks/sdk/model/NotificationAttemptTest.java
@@ -1552,12 +1588,14 @@ src/test/java/com/fireblocks/sdk/model/ReadAbiFunctionTest.java
 src/test/java/com/fireblocks/sdk/model/ReadCallFunctionDtoTest.java
 src/test/java/com/fireblocks/sdk/model/RedeemFundsToLinkedDDAResponseTest.java
 src/test/java/com/fireblocks/sdk/model/RegisterNewAssetRequestTest.java
+src/test/java/com/fireblocks/sdk/model/ReissueMultichainTokenRequestTest.java
 src/test/java/com/fireblocks/sdk/model/RelatedRequestTest.java
 src/test/java/com/fireblocks/sdk/model/RelatedTransactionTest.java
 src/test/java/com/fireblocks/sdk/model/RemoveCollateralRequestBodyTest.java
 src/test/java/com/fireblocks/sdk/model/RenameCosignerTest.java
 src/test/java/com/fireblocks/sdk/model/RenameVaultAccountResponseTest.java
 src/test/java/com/fireblocks/sdk/model/RescanTransactionTest.java
+src/test/java/com/fireblocks/sdk/model/ResendNotificationsByResourceIdRequestTest.java
 src/test/java/com/fireblocks/sdk/model/ResendTransactionWebhooksRequestTest.java
 src/test/java/com/fireblocks/sdk/model/ResendWebhooksByTransactionIdResponseTest.java
 src/test/java/com/fireblocks/sdk/model/ResendWebhooksResponseTest.java
@@ -1649,6 +1687,7 @@ src/test/java/com/fireblocks/sdk/model/TokenInfoNotFoundErrorResponseTest.java
 src/test/java/com/fireblocks/sdk/model/TokenLinkDtoTest.java
 src/test/java/com/fireblocks/sdk/model/TokenLinkDtoTokenMetadataTest.java
 src/test/java/com/fireblocks/sdk/model/TokenLinkExistsHttpErrorTest.java
+src/test/java/com/fireblocks/sdk/model/TokenLinkNotMultichainCompatibleHttpErrorTest.java
 src/test/java/com/fireblocks/sdk/model/TokenLinkRequestDtoTest.java
 src/test/java/com/fireblocks/sdk/model/TokenOwnershipResponseTest.java
 src/test/java/com/fireblocks/sdk/model/TokenOwnershipSpamUpdatePayloadTest.java

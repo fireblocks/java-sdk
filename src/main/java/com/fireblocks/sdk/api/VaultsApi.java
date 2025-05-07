@@ -24,6 +24,8 @@ import com.fireblocks.sdk.model.CreateAddressRequest;
 import com.fireblocks.sdk.model.CreateAddressResponse;
 import com.fireblocks.sdk.model.CreateAssetsRequest;
 import com.fireblocks.sdk.model.CreateMultipleAccountsRequest;
+import com.fireblocks.sdk.model.CreateMultipleDepositAddressesJobStatus;
+import com.fireblocks.sdk.model.CreateMultipleDepositAddressesRequest;
 import com.fireblocks.sdk.model.CreateVaultAccountRequest;
 import com.fireblocks.sdk.model.CreateVaultAssetResponse;
 import com.fireblocks.sdk.model.GetMaxSpendableAmountResponse;
@@ -336,6 +338,96 @@ public class VaultsApi {
         try {
             byte[] localVarPostBody =
                     memberVarObjectMapper.writeValueAsBytes(createMultipleAccountsRequest);
+            localVarRequestBuilder.method(
+                    "POST", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
+        } catch (IOException e) {
+            throw new ApiException(e);
+        }
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
+     * Bulk creation of new deposit addresses Create multiple deposit address by running an async
+     * job. &lt;/br&gt; **Note**: - We limit accounts to 10k per operation.
+     *
+     * @param createMultipleDepositAddressesRequest (required)
+     * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
+     *     times with the same idempotency key, the server will return the same response as the
+     *     first request. The idempotency key is valid for 24 hours. (optional)
+     * @return CompletableFuture&lt;ApiResponse&lt;JobCreated&gt;&gt;
+     * @throws ApiException if fails to make API call
+     */
+    public CompletableFuture<ApiResponse<JobCreated>> createMultipleDepositAddresses(
+            CreateMultipleDepositAddressesRequest createMultipleDepositAddressesRequest,
+            String idempotencyKey)
+            throws ApiException {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    createMultipleDepositAddressesRequestBuilder(
+                            createMultipleDepositAddressesRequest, idempotencyKey);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException(
+                                                    "createMultipleDepositAddresses",
+                                                    localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<JobCreated>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            JobCreated>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            });
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder createMultipleDepositAddressesRequestBuilder(
+            CreateMultipleDepositAddressesRequest createMultipleDepositAddressesRequest,
+            String idempotencyKey)
+            throws ApiException {
+        ValidationUtils.assertParamExists(
+                "createMultipleDepositAddresses",
+                "createMultipleDepositAddressesRequest",
+                createMultipleDepositAddressesRequest);
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath = "/vault/accounts/addresses/bulk";
+
+        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+        if (idempotencyKey != null) {
+            localVarRequestBuilder.header("Idempotency-Key", idempotencyKey.toString());
+        }
+        localVarRequestBuilder.header("Content-Type", "application/json");
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        try {
+            byte[] localVarPostBody =
+                    memberVarObjectMapper.writeValueAsBytes(createMultipleDepositAddressesRequest);
             localVarRequestBuilder.method(
                     "POST", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
         } catch (IOException e) {
@@ -730,6 +822,78 @@ public class VaultsApi {
         } else {
             localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
         }
+
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
+     * Get job status of bulk creation of new deposit addresses Returns the status of bulk creation
+     * of new deposit addresses job and the result or error
+     *
+     * @param jobId The ID of the job to create addresses (required)
+     * @return CompletableFuture&lt;ApiResponse&lt;CreateMultipleDepositAddressesJobStatus&gt;&gt;
+     * @throws ApiException if fails to make API call
+     */
+    public CompletableFuture<ApiResponse<CreateMultipleDepositAddressesJobStatus>>
+            getCreateMultipleDepositAddressesJobStatus(String jobId) throws ApiException {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    getCreateMultipleDepositAddressesJobStatusRequestBuilder(jobId);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException(
+                                                    "getCreateMultipleDepositAddressesJobStatus",
+                                                    localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<
+                                                    CreateMultipleDepositAddressesJobStatus>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            CreateMultipleDepositAddressesJobStatus>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            });
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder getCreateMultipleDepositAddressesJobStatusRequestBuilder(
+            String jobId) throws ApiException {
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "getCreateMultipleDepositAddressesJobStatus", "jobId", jobId);
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath =
+                "/vault/accounts/addresses/bulk/{jobId}"
+                        .replace("{jobId}", ApiClient.urlEncode(jobId.toString()));
+
+        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
 
         localVarRequestBuilder.header("Accept", "application/json");
 

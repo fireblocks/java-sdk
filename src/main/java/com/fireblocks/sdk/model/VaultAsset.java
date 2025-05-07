@@ -16,7 +16,6 @@ package com.fireblocks.sdk.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.math.BigDecimal;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.Objects;
@@ -69,7 +68,7 @@ public class VaultAsset {
     private String staked;
 
     public static final String JSON_PROPERTY_TOTAL_STAKED_C_P_U = "totalStakedCPU";
-    private BigDecimal totalStakedCPU;
+    private String totalStakedCPU;
 
     public static final String JSON_PROPERTY_TOTAL_STAKED_NETWORK = "totalStakedNetwork";
     private String totalStakedNetwork;
@@ -284,7 +283,7 @@ public class VaultAsset {
         this.staked = staked;
     }
 
-    public VaultAsset totalStakedCPU(BigDecimal totalStakedCPU) {
+    public VaultAsset totalStakedCPU(String totalStakedCPU) {
         this.totalStakedCPU = totalStakedCPU;
         return this;
     }
@@ -297,13 +296,13 @@ public class VaultAsset {
     @jakarta.annotation.Nullable
     @JsonProperty(JSON_PROPERTY_TOTAL_STAKED_C_P_U)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public BigDecimal getTotalStakedCPU() {
+    public String getTotalStakedCPU() {
         return totalStakedCPU;
     }
 
     @JsonProperty(JSON_PROPERTY_TOTAL_STAKED_C_P_U)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setTotalStakedCPU(BigDecimal totalStakedCPU) {
+    public void setTotalStakedCPU(String totalStakedCPU) {
         this.totalStakedCPU = totalStakedCPU;
     }
 

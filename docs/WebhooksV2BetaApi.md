@@ -11,6 +11,7 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 | [**getWebhook**](WebhooksV2BetaApi.md#getWebhook) | **GET** /webhooks/{webhookId} | Get webhook by id |
 | [**getWebhooks**](WebhooksV2BetaApi.md#getWebhooks) | **GET** /webhooks | Get all webhooks |
 | [**resendNotificationById**](WebhooksV2BetaApi.md#resendNotificationById) | **POST** /webhooks/{webhookId}/notifications/{notificationId}/resend | Resend notification by id |
+| [**resendNotificationsByResourceId**](WebhooksV2BetaApi.md#resendNotificationsByResourceId) | **POST** /webhooks/{webhookId}/notifications/resend_by_resource | Resend notifications by resource Id |
 | [**updateWebhook**](WebhooksV2BetaApi.md#updateWebhook) | **PATCH** /webhooks/{webhookId} | Update webhook |
 
 
@@ -622,6 +623,92 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **202** | Resend notification request was accepted and is being processed |  * X-Request-ID -  <br>  |
+| **0** | Error Response |  * X-Request-ID -  <br>  |
+
+
+## resendNotificationsByResourceId
+
+> CompletableFuture<ApiResponse<Void>> resendNotificationsByResourceId resendNotificationsByResourceId(resendNotificationsByResourceIdRequest, webhookId, idempotencyKey)
+
+Resend notifications by resource Id
+
+Resend notifications by resource Id **Note:** These endpoints are currently in beta and might be subject to changes. 
+
+### Example
+
+```java
+// Import classes:
+import com.fireblocks.sdk.ApiClient;
+import com.fireblocks.sdk.ApiException;
+import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
+import com.fireblocks.sdk.api.WebhooksV2BetaApi;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+
+public class Example {
+    public static void main(String[] args) {
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
+
+        ResendNotificationsByResourceIdRequest resendNotificationsByResourceIdRequest = new ResendNotificationsByResourceIdRequest(); // ResendNotificationsByResourceIdRequest | 
+        String webhookId = "webhookId_example"; // String | The ID of the webhook
+        String idempotencyKey = "idempotencyKey_example"; // String | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+        try {
+            CompletableFuture<ApiResponse<Void>> response = fireblocks.webhooksV2Beta().resendNotificationsByResourceId(resendNotificationsByResourceIdRequest, webhookId, idempotencyKey);
+            System.out.println("Status code: " + response.get().getStatusCode());
+            System.out.println("Response headers: " + response.get().getHeaders());
+        } catch (InterruptedException | ExecutionException e) {
+            ApiException apiException = (ApiException)e.getCause();
+            System.err.println("Exception when calling WebhooksV2BetaApi#resendNotificationsByResourceId");
+            System.err.println("Status code: " + apiException.getCode());
+            System.err.println("Response headers: " + apiException.getResponseHeaders());
+            System.err.println("Reason: " + apiException.getResponseBody());
+            e.printStackTrace();
+        } catch (ApiException e) {
+            System.err.println("Exception when calling WebhooksV2BetaApi#resendNotificationsByResourceId");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            System.err.println("Reason: " + e.getResponseBody());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **resendNotificationsByResourceIdRequest** | [**ResendNotificationsByResourceIdRequest**](ResendNotificationsByResourceIdRequest.md)|  | |
+| **webhookId** | **String**| The ID of the webhook | |
+| **idempotencyKey** | **String**| A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | [optional] |
+
+### Return type
+
+
+CompletableFuture<ApiResponse<Void>>
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **202** | Resend notifications by resource request was accepted and is being processed |  * X-Request-ID -  <br>  |
 | **0** | Error Response |  * X-Request-ID -  <br>  |
 
 

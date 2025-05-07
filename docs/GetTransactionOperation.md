@@ -31,5 +31,7 @@
 
 * `PROGRAM_CALL` (value: `"PROGRAM_CALL"`)
 
+* `APPROVE` (value: `"APPROVE"`)
+
 
 

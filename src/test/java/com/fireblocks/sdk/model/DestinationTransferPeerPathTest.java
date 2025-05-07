@@ -60,4 +60,10 @@ public class DestinationTransferPeerPathTest {
     public void oneTimeAddressTest() {
         // TODO: test oneTimeAddress
     }
+
+    /** Test the property 'isCollateral' */
+    @Test
+    public void isCollateralTest() {
+        // TODO: test isCollateral
+    }
 }
