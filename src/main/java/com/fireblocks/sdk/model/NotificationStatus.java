@@ -22,7 +22,9 @@ public enum NotificationStatus {
 
     FAILED("FAILED"),
 
-    IN_PROGRESS("IN_PROGRESS");
+    IN_PROGRESS("IN_PROGRESS"),
+
+    ON_HOLD("ON_HOLD");
 
     private String value;
 

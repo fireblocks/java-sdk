@@ -50,7 +50,9 @@ import com.fasterxml.jackson.annotation.JsonValue;
  * April 1st, 2023. Older transactions may have this as their operation, in case users in the
  * workspace have used the direct integration between Fireblocks and the Compound DeFI protocol. *
  * &#x60;PROGRAM_CALL&#x60; - In Solana refers to invoking on-chain programs (smart contracts) to
- * execute transactions and interact with the blockchain.
+ * execute transactions and interact with the blockchain. * &#x60;APPROVE&#x60; - Enables the
+ * approve function for a smart contract or wallet to withdraw from a designated wallet. [Learn
+ * more](https://support.fireblocks.io/hc/en-us/articles/4404616097426-Amount-Cap-for-Approve-transactions).
  */
 public enum GetTransactionOperation {
     TRANSFER("TRANSFER"),
@@ -77,7 +79,9 @@ public enum GetTransactionOperation {
 
     SUPPLY_TO_COMPOUND("SUPPLY_TO_COMPOUND"),
 
-    PROGRAM_CALL("PROGRAM_CALL");
+    PROGRAM_CALL("PROGRAM_CALL"),
+
+    APPROVE("APPROVE");
 
     private String value;
 

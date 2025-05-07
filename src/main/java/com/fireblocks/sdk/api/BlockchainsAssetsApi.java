@@ -299,6 +299,7 @@ public class BlockchainsAssetsApi {
      * @param symbol Assets onchain symbol (optional)
      * @param scope Scope of the assets (optional)
      * @param deprecated Are assets deprecated (optional)
+     * @param ids A list of asset IDs (max 100) (optional
      * @param pageCursor Next page cursor to fetch (optional)
      * @param pageSize Items per page (optional, default to 500)
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
@@ -313,6 +314,7 @@ public class BlockchainsAssetsApi {
             String symbol,
             AssetScope scope,
             Boolean deprecated,
+            List<String> ids,
             String pageCursor,
             BigDecimal pageSize,
             String idempotencyKey)
@@ -325,6 +327,7 @@ public class BlockchainsAssetsApi {
                             symbol,
                             scope,
                             deprecated,
+                            ids,
                             pageCursor,
                             pageSize,
                             idempotencyKey);
@@ -366,6 +369,7 @@ public class BlockchainsAssetsApi {
             String symbol,
             AssetScope scope,
             Boolean deprecated,
+            List<String> ids,
             String pageCursor,
             BigDecimal pageSize,
             String idempotencyKey)
@@ -388,6 +392,8 @@ public class BlockchainsAssetsApi {
         localVarQueryParams.addAll(ApiClient.parameterToPairs("scope", scope));
         localVarQueryParameterBaseName = "deprecated";
         localVarQueryParams.addAll(ApiClient.parameterToPairs("deprecated", deprecated));
+        localVarQueryParameterBaseName = "ids";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("multi", "ids", ids));
         localVarQueryParameterBaseName = "pageCursor";
         localVarQueryParams.addAll(ApiClient.parameterToPairs("pageCursor", pageCursor));
         localVarQueryParameterBaseName = "pageSize";
@@ -425,6 +431,7 @@ public class BlockchainsAssetsApi {
      * @param protocol Blockchain protocol (optional)
      * @param deprecated Is blockchain deprecated (optional)
      * @param test Is test blockchain (optional)
+     * @param ids A list of blockchain IDs (max 100) (optional
      * @param pageCursor Page cursor to fetch (optional)
      * @param pageSize Items per page (max 500) (optional, default to 500)
      * @return CompletableFuture&lt;ApiResponse&lt;ListBlockchainsResponse&gt;&gt;
@@ -434,12 +441,14 @@ public class BlockchainsAssetsApi {
             String protocol,
             Boolean deprecated,
             Boolean test,
+            List<String> ids,
             String pageCursor,
             BigDecimal pageSize)
             throws ApiException {
         try {
             HttpRequest.Builder localVarRequestBuilder =
-                    listBlockchainsRequestBuilder(protocol, deprecated, test, pageCursor, pageSize);
+                    listBlockchainsRequestBuilder(
+                            protocol, deprecated, test, ids, pageCursor, pageSize);
             return memberVarHttpClient
                     .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
                     .thenComposeAsync(
@@ -476,6 +485,7 @@ public class BlockchainsAssetsApi {
             String protocol,
             Boolean deprecated,
             Boolean test,
+            List<String> ids,
             String pageCursor,
             BigDecimal pageSize)
             throws ApiException {
@@ -493,6 +503,8 @@ public class BlockchainsAssetsApi {
         localVarQueryParams.addAll(ApiClient.parameterToPairs("deprecated", deprecated));
         localVarQueryParameterBaseName = "test";
         localVarQueryParams.addAll(ApiClient.parameterToPairs("test", test));
+        localVarQueryParameterBaseName = "ids";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("multi", "ids", ids));
         localVarQueryParameterBaseName = "pageCursor";
         localVarQueryParams.addAll(ApiClient.parameterToPairs("pageCursor", pageCursor));
         localVarQueryParameterBaseName = "pageSize";

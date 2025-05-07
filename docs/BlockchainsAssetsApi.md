@@ -267,7 +267,7 @@ No authorization required
 
 ## listAssets
 
-> CompletableFuture<ApiResponse<ListAssetsResponse>> listAssets listAssets(blockchainId, assetClass, symbol, scope, deprecated, pageCursor, pageSize, idempotencyKey)
+> CompletableFuture<ApiResponse<ListAssetsResponse>> listAssets listAssets(blockchainId, assetClass, symbol, scope, deprecated, ids, pageCursor, pageSize, idempotencyKey)
 
 List assets
 
@@ -301,11 +301,12 @@ public class Example {
         String symbol = "ETH"; // String | Assets onchain symbol
         AssetScope scope = AssetScope.fromValue("GLOBAL"); // AssetScope | Scope of the assets
         Boolean deprecated = false; // Boolean | Are assets deprecated
+        List<String> ids = Arrays.asList(); // List<String> | A list of asset IDs (max 100)
         String pageCursor = "MjAyMy0xMi0xMyAyMDozNjowOC4zMDI=:MTEwMA=="; // String | Next page cursor to fetch
         BigDecimal pageSize = new BigDecimal("500"); // BigDecimal | Items per page
         String idempotencyKey = "idempotencyKey_example"; // String | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
         try {
-            CompletableFuture<ApiResponse<ListAssetsResponse>> response = fireblocks.blockchainsAssets().listAssets(blockchainId, assetClass, symbol, scope, deprecated, pageCursor, pageSize, idempotencyKey);
+            CompletableFuture<ApiResponse<ListAssetsResponse>> response = fireblocks.blockchainsAssets().listAssets(blockchainId, assetClass, symbol, scope, deprecated, ids, pageCursor, pageSize, idempotencyKey);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
@@ -337,6 +338,7 @@ public class Example {
 | **symbol** | **String**| Assets onchain symbol | [optional] |
 | **scope** | [**AssetScope**](.md)| Scope of the assets | [optional] [enum: GLOBAL, LOCAL] |
 | **deprecated** | **Boolean**| Are assets deprecated | [optional] |
+| **ids** | [**List&lt;String&gt;**](String.md)| A list of asset IDs (max 100) | [optional] |
 | **pageCursor** | **String**| Next page cursor to fetch | [optional] |
 | **pageSize** | **BigDecimal**| Items per page | [optional] [default to 500] |
 | **idempotencyKey** | **String**| A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | [optional] |
@@ -365,7 +367,7 @@ No authorization required
 
 ## listBlockchains
 
-> CompletableFuture<ApiResponse<ListBlockchainsResponse>> listBlockchains listBlockchains(protocol, deprecated, test, pageCursor, pageSize)
+> CompletableFuture<ApiResponse<ListBlockchainsResponse>> listBlockchains listBlockchains(protocol, deprecated, test, ids, pageCursor, pageSize)
 
 List blockchains
 
@@ -397,10 +399,11 @@ public class Example {
         String protocol = "SOL"; // String | Blockchain protocol
         Boolean deprecated = false; // Boolean | Is blockchain deprecated
         Boolean test = false; // Boolean | Is test blockchain
+        List<String> ids = Arrays.asList(); // List<String> | A list of blockchain IDs (max 100)
         String pageCursor = "MjAyMy0xMi0xMyAyMDozNjowOC4zMDI=:MTEwMA=="; // String | Page cursor to fetch
         BigDecimal pageSize = new BigDecimal("500"); // BigDecimal | Items per page (max 500)
         try {
-            CompletableFuture<ApiResponse<ListBlockchainsResponse>> response = fireblocks.blockchainsAssets().listBlockchains(protocol, deprecated, test, pageCursor, pageSize);
+            CompletableFuture<ApiResponse<ListBlockchainsResponse>> response = fireblocks.blockchainsAssets().listBlockchains(protocol, deprecated, test, ids, pageCursor, pageSize);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
@@ -430,6 +433,7 @@ public class Example {
 | **protocol** | **String**| Blockchain protocol | [optional] |
 | **deprecated** | **Boolean**| Is blockchain deprecated | [optional] |
 | **test** | **Boolean**| Is test blockchain | [optional] |
+| **ids** | [**List&lt;String&gt;**](String.md)| A list of blockchain IDs (max 100) | [optional] |
 | **pageCursor** | **String**| Page cursor to fetch | [optional] |
 | **pageSize** | **BigDecimal**| Items per page (max 500) | [optional] [default to 500] |
 

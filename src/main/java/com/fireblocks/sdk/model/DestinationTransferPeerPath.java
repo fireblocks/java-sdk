@@ -29,7 +29,8 @@ import java.util.UUID;
     DestinationTransferPeerPath.JSON_PROPERTY_ID,
     DestinationTransferPeerPath.JSON_PROPERTY_NAME,
     DestinationTransferPeerPath.JSON_PROPERTY_WALLET_ID,
-    DestinationTransferPeerPath.JSON_PROPERTY_ONE_TIME_ADDRESS
+    DestinationTransferPeerPath.JSON_PROPERTY_ONE_TIME_ADDRESS,
+    DestinationTransferPeerPath.JSON_PROPERTY_IS_COLLATERAL
 })
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class DestinationTransferPeerPath {
@@ -50,6 +51,9 @@ public class DestinationTransferPeerPath {
 
     public static final String JSON_PROPERTY_ONE_TIME_ADDRESS = "oneTimeAddress";
     private OneTimeAddress oneTimeAddress;
+
+    public static final String JSON_PROPERTY_IS_COLLATERAL = "isCollateral";
+    private Boolean isCollateral;
 
     public DestinationTransferPeerPath() {}
 
@@ -191,6 +195,29 @@ public class DestinationTransferPeerPath {
         this.oneTimeAddress = oneTimeAddress;
     }
 
+    public DestinationTransferPeerPath isCollateral(Boolean isCollateral) {
+        this.isCollateral = isCollateral;
+        return this;
+    }
+
+    /**
+     * indicate if the destination is collateral account
+     *
+     * @return isCollateral
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_IS_COLLATERAL)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public Boolean getIsCollateral() {
+        return isCollateral;
+    }
+
+    @JsonProperty(JSON_PROPERTY_IS_COLLATERAL)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setIsCollateral(Boolean isCollateral) {
+        this.isCollateral = isCollateral;
+    }
+
     /** Return true if this DestinationTransferPeerPath object is equal to o. */
     @Override
     public boolean equals(Object o) {
@@ -206,12 +233,13 @@ public class DestinationTransferPeerPath {
                 && Objects.equals(this.id, destinationTransferPeerPath.id)
                 && Objects.equals(this.name, destinationTransferPeerPath.name)
                 && Objects.equals(this.walletId, destinationTransferPeerPath.walletId)
-                && Objects.equals(this.oneTimeAddress, destinationTransferPeerPath.oneTimeAddress);
+                && Objects.equals(this.oneTimeAddress, destinationTransferPeerPath.oneTimeAddress)
+                && Objects.equals(this.isCollateral, destinationTransferPeerPath.isCollateral);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(type, subType, id, name, walletId, oneTimeAddress);
+        return Objects.hash(type, subType, id, name, walletId, oneTimeAddress, isCollateral);
     }
 
     @Override
@@ -224,6 +252,7 @@ public class DestinationTransferPeerPath {
         sb.append("    name: ").append(toIndentedString(name)).append("\n");
         sb.append("    walletId: ").append(toIndentedString(walletId)).append("\n");
         sb.append("    oneTimeAddress: ").append(toIndentedString(oneTimeAddress)).append("\n");
+        sb.append("    isCollateral: ").append(toIndentedString(isCollateral)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -329,6 +358,19 @@ public class DestinationTransferPeerPath {
         // add `oneTimeAddress` to the URL query string
         if (getOneTimeAddress() != null) {
             joiner.add(getOneTimeAddress().toUrlQueryString(prefix + "oneTimeAddress" + suffix));
+        }
+
+        // add `isCollateral` to the URL query string
+        if (getIsCollateral() != null) {
+            joiner.add(
+                    String.format(
+                            "%sisCollateral%s=%s",
+                            prefix,
+                            suffix,
+                            URLEncoder.encode(
+                                            String.valueOf(getIsCollateral()),
+                                            StandardCharsets.UTF_8)
+                                    .replaceAll("\\+", "%20")));
         }
 
         return joiner.toString();

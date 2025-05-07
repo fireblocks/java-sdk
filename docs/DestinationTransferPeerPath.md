@@ -14,6 +14,7 @@ The destination of the transaction.
 |**name** | **String** |  |  [optional] |
 |**walletId** | **UUID** |  |  [optional] |
 |**oneTimeAddress** | [**OneTimeAddress**](OneTimeAddress.md) |  |  [optional] |
+|**isCollateral** | **Boolean** | indicate if the destination is collateral account |  [optional] |
 
 
 

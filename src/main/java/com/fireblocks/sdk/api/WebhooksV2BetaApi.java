@@ -24,6 +24,7 @@ import com.fireblocks.sdk.model.CreateWebhookRequest;
 import com.fireblocks.sdk.model.NotificationPaginatedResponse;
 import com.fireblocks.sdk.model.NotificationStatus;
 import com.fireblocks.sdk.model.NotificationWithData;
+import com.fireblocks.sdk.model.ResendNotificationsByResourceIdRequest;
 import com.fireblocks.sdk.model.UpdateWebhookRequest;
 import com.fireblocks.sdk.model.Webhook;
 import com.fireblocks.sdk.model.WebhookEvent;
@@ -669,6 +670,93 @@ public class WebhooksV2BetaApi {
         localVarRequestBuilder.header("Accept", "application/json");
 
         localVarRequestBuilder.method("POST", HttpRequest.BodyPublishers.noBody());
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
+     * Resend notifications by resource Id Resend notifications by resource Id **Note:** These
+     * endpoints are currently in beta and might be subject to changes.
+     *
+     * @param resendNotificationsByResourceIdRequest (required)
+     * @param webhookId The ID of the webhook (required)
+     * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
+     *     times with the same idempotency key, the server will return the same response as the
+     *     first request. The idempotency key is valid for 24 hours. (optional)
+     * @return CompletableFuture&lt;ApiResponse&lt;Void&gt;&gt;
+     * @throws ApiException if fails to make API call
+     */
+    public CompletableFuture<ApiResponse<Void>> resendNotificationsByResourceId(
+            ResendNotificationsByResourceIdRequest resendNotificationsByResourceIdRequest,
+            String webhookId,
+            String idempotencyKey)
+            throws ApiException {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    resendNotificationsByResourceIdRequestBuilder(
+                            resendNotificationsByResourceIdRequest, webhookId, idempotencyKey);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException(
+                                                    "resendNotificationsByResourceId",
+                                                    localVarResponse));
+                                }
+                                return CompletableFuture.completedFuture(
+                                        new ApiResponse<Void>(
+                                                localVarResponse.statusCode(),
+                                                localVarResponse.headers().map(),
+                                                null));
+                            });
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder resendNotificationsByResourceIdRequestBuilder(
+            ResendNotificationsByResourceIdRequest resendNotificationsByResourceIdRequest,
+            String webhookId,
+            String idempotencyKey)
+            throws ApiException {
+        ValidationUtils.assertParamExists(
+                "resendNotificationsByResourceId",
+                "resendNotificationsByResourceIdRequest",
+                resendNotificationsByResourceIdRequest);
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "resendNotificationsByResourceId", "webhookId", webhookId);
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath =
+                "/webhooks/{webhookId}/notifications/resend_by_resource"
+                        .replace("{webhookId}", ApiClient.urlEncode(webhookId.toString()));
+
+        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+        if (idempotencyKey != null) {
+            localVarRequestBuilder.header("Idempotency-Key", idempotencyKey.toString());
+        }
+        localVarRequestBuilder.header("Content-Type", "application/json");
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        try {
+            byte[] localVarPostBody =
+                    memberVarObjectMapper.writeValueAsBytes(resendNotificationsByResourceIdRequest);
+            localVarRequestBuilder.method(
+                    "POST", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
+        } catch (IOException e) {
+            throw new ApiException(e);
+        }
         if (memberVarReadTimeout != null) {
             localVarRequestBuilder.timeout(memberVarReadTimeout);
         }

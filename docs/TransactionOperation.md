@@ -21,5 +21,7 @@
 
 * `APPROVE` (value: `"APPROVE"`)
 
+* `ENABLE_ASSET` (value: `"ENABLE_ASSET"`)
+
 
 

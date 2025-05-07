@@ -54,4 +54,10 @@ public class SourceTransferPeerPathTest {
     public void walletIdTest() {
         // TODO: test walletId
     }
+
+    /** Test the property 'isCollateral' */
+    @Test
+    public void isCollateralTest() {
+        // TODO: test isCollateral
+    }
 }

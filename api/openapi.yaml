@@ -148,6 +148,137 @@ paths:
           \ idempotency_key);"
       x-content-type: application/json
       x-accepts: application/json
+  /vault/accounts/addresses/bulk:
+    post:
+      description: |
+        Create multiple deposit address by running an async job. </br>
+        **Note**:
+        - We limit accounts to 10k per operation.
+      operationId: createMultipleDepositAddresses
+      parameters:
+      - description: "A unique identifier for the request. If the request is sent\
+          \ multiple times with the same idempotency key, the server will return the\
+          \ same response as the first request. The idempotency key is valid for 24\
+          \ hours."
+        explode: false
+        in: header
+        name: Idempotency-Key
+        required: false
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateMultipleDepositAddressesRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JobCreated'
+          description: A JobCreated object
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorSchema'
+          description: Error Response
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+      summary: Bulk creation of new deposit addresses
+      tags:
+      - Vaults
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<JobCreated>> = fireblocks.vaults.createMultipleDepositAddresses(vaultsApiCreateMultipleDepositAddressesRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<JobCreated>> response = fireblocks.vaults().createMultipleDepositAddresses(createMultipleDepositAddressesRequest,\
+            \ idempotencyKey);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.vaults.create_multiple_deposit_addresses(create_multiple_deposit_addresses_request,\
+            \ idempotency_key);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<JobCreated>> = fireblocks.vaults.createMultipleDepositAddresses(vaultsApiCreateMultipleDepositAddressesRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<JobCreated>> response = fireblocks.vaults().createMultipleDepositAddresses(createMultipleDepositAddressesRequest,\
+          \ idempotencyKey);"
+      - lang: Python
+        source: "response = fireblocks.vaults.create_multiple_deposit_addresses(create_multiple_deposit_addresses_request,\
+          \ idempotency_key);"
+      x-content-type: application/json
+      x-accepts: application/json
+  /vault/accounts/addresses/bulk/{jobId}:
+    get:
+      description: Returns the status of bulk creation of new deposit addresses job
+        and the result or error
+      operationId: getCreateMultipleDepositAddressesJobStatus
+      parameters:
+      - description: The ID of the job to create addresses
+        example: 019681b4-107d-7243-942d-4c3c30e36fae
+        explode: false
+        in: path
+        name: jobId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateMultipleDepositAddressesJobStatus'
+          description: A Job with status
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorSchema'
+          description: Error Response
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+      summary: Get job status of bulk creation of new deposit addresses
+      tags:
+      - Vaults
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<CreateMultipleDepositAddressesJobStatus>>\
+            \ = fireblocks.vaults.getCreateMultipleDepositAddressesJobStatus(vaultsApiGetCreateMultipleDepositAddressesJobStatusRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: CompletableFuture<ApiResponse<CreateMultipleDepositAddressesJobStatus>>
+            response = fireblocks.vaults().getCreateMultipleDepositAddressesJobStatus(jobId);
+          name: Fireblocks SDK Java example
+        - language: python
+          code: response = fireblocks.vaults.get_create_multiple_deposit_addresses_job_status(job_id);
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<CreateMultipleDepositAddressesJobStatus>>\
+          \ = fireblocks.vaults.getCreateMultipleDepositAddressesJobStatus(vaultsApiGetCreateMultipleDepositAddressesJobStatusRequest);"
+      - lang: Java
+        source: CompletableFuture<ApiResponse<CreateMultipleDepositAddressesJobStatus>>
+          response = fireblocks.vaults().getCreateMultipleDepositAddressesJobStatus(jobId);
+      - lang: Python
+        source: response = fireblocks.vaults.get_create_multiple_deposit_addresses_job_status(job_id);
+      x-accepts: application/json
   /vault/accounts/bulk:
     post:
       description: |
@@ -7357,6 +7488,20 @@ paths:
         schema:
           type: boolean
         style: form
+      - description: A list of asset IDs (max 100)
+        example:
+        - 3ed32525-70df-45c8-bae3-e69ab56dc095
+        - 3a3b5f06-61e7-44f0-9962-4425b55795ff
+        - SHANI5_B75VRLGX_MUPA
+        explode: true
+        in: query
+        name: ids
+        required: false
+        schema:
+          items:
+            type: string
+          type: array
+        style: form
       - description: Next page cursor to fetch
         example: MjAyMy0xMi0xMyAyMDozNjowOC4zMDI=:MTEwMA==
         explode: true
@@ -7428,11 +7573,12 @@ paths:
           name: Fireblocks SDK TypeScript example
         - language: java
           code: "CompletableFuture<ApiResponse<ListAssetsResponse>> response = fireblocks.blockchainsAssets().listAssets(blockchainId,\
-            \ assetClass, symbol, scope, deprecated, pageCursor, pageSize, idempotencyKey);"
+            \ assetClass, symbol, scope, deprecated, ids, pageCursor, pageSize, idempotencyKey);"
           name: Fireblocks SDK Java example
         - language: python
           code: "response = fireblocks.blockchains_&_assets.list_assets(blockchain_id,\
-            \ asset_class, symbol, scope, deprecated, page_cursor, page_size, idempotency_key);"
+            \ asset_class, symbol, scope, deprecated, ids, page_cursor, page_size,\
+            \ idempotency_key);"
           name: Fireblocks SDK Python example
       x-codeSamples:
       - lang: TypeScript
@@ -7440,10 +7586,10 @@ paths:
           \ fireblocks.blockchainsAssets.listAssets(blockchainsAssetsApiListAssetsRequest);"
       - lang: Java
         source: "CompletableFuture<ApiResponse<ListAssetsResponse>> response = fireblocks.blockchainsAssets().listAssets(blockchainId,\
-          \ assetClass, symbol, scope, deprecated, pageCursor, pageSize, idempotencyKey);"
+          \ assetClass, symbol, scope, deprecated, ids, pageCursor, pageSize, idempotencyKey);"
       - lang: Python
         source: "response = fireblocks.blockchains_&_assets.list_assets(blockchain_id,\
-          \ asset_class, symbol, scope, deprecated, page_cursor, page_size, idempotency_key);"
+          \ asset_class, symbol, scope, deprecated, ids, page_cursor, page_size, idempotency_key);"
       x-accepts: application/json
     post:
       description: |
@@ -7796,6 +7942,20 @@ paths:
         schema:
           type: boolean
         style: form
+      - description: A list of blockchain IDs (max 100)
+        example:
+        - 3ed32525-70df-45c8-bae3-e69ab56dc095
+        - 3a3b5f06-61e7-44f0-9962-4425b55795ff
+        - MANTRA
+        explode: true
+        in: query
+        name: ids
+        required: false
+        schema:
+          items:
+            type: string
+          type: array
+        style: form
       - description: Page cursor to fetch
         example: MjAyMy0xMi0xMyAyMDozNjowOC4zMDI=:MTEwMA==
         explode: true
@@ -7857,11 +8017,11 @@ paths:
         - language: java
           code: "CompletableFuture<ApiResponse<ListBlockchainsResponse>> response\
             \ = fireblocks.blockchainsAssets().listBlockchains(protocol, deprecated,\
-            \ test, pageCursor, pageSize);"
+            \ test, ids, pageCursor, pageSize);"
           name: Fireblocks SDK Java example
         - language: python
           code: "response = fireblocks.blockchains_&_assets.list_blockchains(protocol,\
-            \ deprecated, test, page_cursor, page_size);"
+            \ deprecated, test, ids, page_cursor, page_size);"
           name: Fireblocks SDK Python example
       x-codeSamples:
       - lang: TypeScript
@@ -7870,10 +8030,10 @@ paths:
       - lang: Java
         source: "CompletableFuture<ApiResponse<ListBlockchainsResponse>> response\
           \ = fireblocks.blockchainsAssets().listBlockchains(protocol, deprecated,\
-          \ test, pageCursor, pageSize);"
+          \ test, ids, pageCursor, pageSize);"
       - lang: Python
         source: "response = fireblocks.blockchains_&_assets.list_blockchains(protocol,\
-          \ deprecated, test, page_cursor, page_size);"
+          \ deprecated, test, ids, page_cursor, page_size);"
       x-accepts: application/json
   /blockchains/{id}:
     get:
@@ -11646,6 +11806,81 @@ paths:
         source: "response = fireblocks.webhooks_v2_beta.resend_notification_by_id(webhook_id,\
           \ notification_id, idempotency_key);"
       x-accepts: application/json
+  /webhooks/{webhookId}/notifications/resend_by_resource:
+    post:
+      description: |
+        Resend notifications by resource Id
+        **Note:** These endpoints are currently in beta and might be subject to changes.
+      operationId: resendNotificationsByResourceId
+      parameters:
+      - description: "A unique identifier for the request. If the request is sent\
+          \ multiple times with the same idempotency key, the server will return the\
+          \ same response as the first request. The idempotency key is valid for 24\
+          \ hours."
+        explode: false
+        in: header
+        name: Idempotency-Key
+        required: false
+        schema:
+          type: string
+        style: simple
+      - description: The ID of the webhook
+        explode: false
+        in: path
+        name: webhookId
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ResendNotificationsByResourceIdRequest'
+        required: true
+      responses:
+        "202":
+          description: Resend notifications by resource request was accepted and is
+            being processed
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorSchema'
+          description: Error Response
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+      summary: Resend notifications by resource Id
+      tags:
+      - Webhooks V2 (Beta)
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<void>> = fireblocks.webhooksV2Beta.resendNotificationsByResourceId(webhooksV2BetaApiResendNotificationsByResourceIdRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<Void>> response = fireblocks.webhooksV2Beta().resendNotificationsByResourceId(resendNotificationsByResourceIdRequest,\
+            \ webhookId, idempotencyKey);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.webhooks_v2_beta.resend_notifications_by_resource_id(resend_notifications_by_resource_id_request,\
+            \ webhook_id, idempotency_key);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<void>> = fireblocks.webhooksV2Beta.resendNotificationsByResourceId(webhooksV2BetaApiResendNotificationsByResourceIdRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<Void>> response = fireblocks.webhooksV2Beta().resendNotificationsByResourceId(resendNotificationsByResourceIdRequest,\
+          \ webhookId, idempotencyKey);"
+      - lang: Python
+        source: "response = fireblocks.webhooks_v2_beta.resend_notifications_by_resource_id(resend_notifications_by_resource_id_request,\
+          \ webhook_id, idempotency_key);"
+      x-content-type: application/json
+      x-accepts: application/json
   /tokenization/templates:
     get:
       description: Return minimal representation of all the contract templates available
@@ -12939,6 +13174,306 @@ paths:
         source: CompletableFuture<ApiResponse<TokenLinkDto>> response = fireblocks.tokenization().getLinkedToken(id);
       - lang: Python
         source: response = fireblocks.tokenization.get_linked_token(id);
+      x-accepts: application/json
+  /tokenization/multichain/deterministic_address:
+    post:
+      description: Get a deterministic address for contract deployment. The address
+        is derived from the contract's bytecode and  provided salt. This endpoint
+        is used to get the address of a contract that will be deployed in the future.
+      operationId: getDeployableAddress
+      parameters:
+      - description: "A unique identifier for the request. If the request is sent\
+          \ multiple times with the same idempotency key, the server will return the\
+          \ same response as the first request. The idempotency key is valid for 24\
+          \ hours."
+        explode: false
+        in: header
+        name: Idempotency-Key
+        required: false
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GetDeployableAddressRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeployableAddressResponse'
+          description: Deterministic address for contract deployment
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvalidParamaterValueError'
+          description: Invalid parameters or template has no bytecode
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AddressNotAvailableError'
+          description: Address is already taken
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorSchema'
+          description: Error Response
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+      summary: Get deterministic address for contract deployment
+      tags:
+      - Tokenization
+      x-readme:
+        code-samples:
+        - language: javascript
+          code: |-
+            const payload = {
+                chainDescriptor: "ETH",
+                templateId: "b70701f4-d7b1-4795-a8ee-b09cdb5b850d",
+                initParams: [
+                    { name: "name", type: "string", value: "TokenName" },
+                    { name: "symbol", type: "string", value: "TokenSymbol" },
+                    {
+                        name: "customConfigProps",
+                        type: "tuple",
+                        components: [
+                            { name: "_isMintable", type: "bool" }
+                        ],
+                        value: [{ _isMintable: false }]
+                    }
+                ],
+                salt: "123456789"
+            }; const address = await fireblocks.getDeterministicAddress(payload);
+          name: Fireblocks SDK Javascript example
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<DeployableAddressResponse>>\
+            \ = fireblocks.tokenization.getDeployableAddress(tokenizationApiGetDeployableAddressRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<DeployableAddressResponse>> response\
+            \ = fireblocks.tokenization().getDeployableAddress(getDeployableAddressRequest,\
+            \ idempotencyKey);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.tokenization.get_deployable_address(get_deployable_address_request,\
+            \ idempotency_key);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<DeployableAddressResponse>>\
+          \ = fireblocks.tokenization.getDeployableAddress(tokenizationApiGetDeployableAddressRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<DeployableAddressResponse>> response\
+          \ = fireblocks.tokenization().getDeployableAddress(getDeployableAddressRequest,\
+          \ idempotencyKey);"
+      - lang: Python
+        source: "response = fireblocks.tokenization.get_deployable_address(get_deployable_address_request,\
+          \ idempotency_key);"
+      x-content-type: application/json
+      x-accepts: application/json
+  /tokenization/multichain/tokens:
+    post:
+      description: Facilitates the creation of a new token on one or more blockchains.
+      operationId: issueTokenMultiChain
+      parameters:
+      - description: "A unique identifier for the request. If the request is sent\
+          \ multiple times with the same idempotency key, the server will return the\
+          \ same response as the first request. The idempotency key is valid for 24\
+          \ hours."
+        explode: false
+        in: header
+        name: Idempotency-Key
+        required: false
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateMultichainTokenRequest'
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IssueTokenMultichainResponse'
+          description: Tokens were created successfully
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvalidParamaterValueError'
+          description: Invalid input.
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AddressNotAvailableError'
+          description: Address is already taken.
+      summary: Issue a token on one or more blockchains
+      tags:
+      - Tokenization
+      x-readme:
+        code-samples:
+        - language: javascript
+          code: |-
+            const payload = {
+                vaultAccountId: "0",
+                createParams: {
+                  contractId: "b70701f4-d7b1-4795-a8ee-b09cdb5b850d",
+                  deployFunctionParams: [
+                    { name: "name", type: "string", value: "TokenName" },
+                    { name: "symbol", type: "string", value: "TokenSymbol" },
+                    {
+                        name: "customConfigProps",
+                        type: "tuple",
+                        components: [
+                            { name: "_isMintable", type: "bool" }
+                        ],
+                        value: [{ _isMintable: false }]
+                    },
+                  ],
+                },
+                salt: "123456789",
+                chains: ["ETH", "POLYGON"]
+            }; const token = await fireblocks.issueTokenMultiChain(payload);
+          name: Fireblocks SDK Javascript example
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<IssueTokenMultichainResponse>>\
+            \ = fireblocks.tokenization.issueTokenMultiChain(tokenizationApiIssueTokenMultiChainRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<List<TokenLinkDto>>> response = fireblocks.tokenization().issueTokenMultiChain(createMultichainTokenRequest,\
+            \ idempotencyKey);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.tokenization.issue_token_multi_chain(create_multichain_token_request,\
+            \ idempotency_key);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<IssueTokenMultichainResponse>>\
+          \ = fireblocks.tokenization.issueTokenMultiChain(tokenizationApiIssueTokenMultiChainRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<List<TokenLinkDto>>> response = fireblocks.tokenization().issueTokenMultiChain(createMultichainTokenRequest,\
+          \ idempotencyKey);"
+      - lang: Python
+        source: "response = fireblocks.tokenization.issue_token_multi_chain(create_multichain_token_request,\
+          \ idempotency_key);"
+      x-content-type: application/json
+      x-accepts: application/json
+  /tokenization/multichain/token/{tokenLinkId}:
+    post:
+      description: Reissue a multichain token. This endpoint allows you to reissue
+        a token on one or more blockchains. The token must be initially issued using
+        the issueTokenMultiChain endpoint.
+      operationId: reIssueTokenMultiChain
+      parameters:
+      - description: "A unique identifier for the request. If the request is sent\
+          \ multiple times with the same idempotency key, the server will return the\
+          \ same response as the first request. The idempotency key is valid for 24\
+          \ hours."
+        explode: false
+        in: header
+        name: Idempotency-Key
+        required: false
+        schema:
+          type: string
+        style: simple
+      - description: The ID of the token link
+        explode: false
+        in: path
+        name: tokenLinkId
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReissueMultichainTokenRequest'
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IssueTokenMultichainResponse'
+          description: Successfully reissued multichain token
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenLinkNotMultichainCompatibleHttpError'
+          description: Invalid input
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeployedContractNotFoundError'
+          description: Deployed contract not found
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AddressNotAvailableError'
+          description: Address is already taken
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorSchema'
+          description: Error Response
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+      summary: Reissue a multichain token
+      tags:
+      - Tokenization
+      x-readme:
+        code-samples:
+        - language: javascript
+          code: |-
+            const payload = {
+              vaultAccountId: "0",
+              chains: "ETH",
+              salt: "123456789",
+              chains: ["ETH", "POLYGON"]
+            }; const token = await fireblocks.reIssueTokenMultiChain(tokenLinkId, payload);
+          name: Fireblocks SDK Javascript example
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<IssueTokenMultichainResponse>>\
+            \ = fireblocks.tokenization.reIssueTokenMultiChain(tokenizationApiReIssueTokenMultiChainRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<List<TokenLinkDto>>> response = fireblocks.tokenization().reIssueTokenMultiChain(reissueMultichainTokenRequest,\
+            \ tokenLinkId, idempotencyKey);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.tokenization.re_issue_token_multi_chain(reissue_multichain_token_request,\
+            \ token_link_id, idempotency_key);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<IssueTokenMultichainResponse>>\
+          \ = fireblocks.tokenization.reIssueTokenMultiChain(tokenizationApiReIssueTokenMultiChainRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<List<TokenLinkDto>>> response = fireblocks.tokenization().reIssueTokenMultiChain(reissueMultichainTokenRequest,\
+          \ tokenLinkId, idempotencyKey);"
+      - lang: Python
+        source: "response = fireblocks.tokenization.re_issue_token_multi_chain(reissue_multichain_token_request,\
+          \ token_link_id, idempotency_key);"
+      x-content-type: application/json
       x-accepts: application/json
   /tokenization/collections:
     get:
@@ -20822,7 +21357,7 @@ components:
   schemas:
     ErrorSchema:
       example:
-        code: 6.027456183070403
+        code: 0.8008281904610115
         message: message
       properties:
         message:
@@ -20840,7 +21375,7 @@ components:
       type: object
     VaultAsset:
       example:
-        totalStakedCPU: 0.8008281904610115
+        totalStakedCPU: totalStakedCPU
         blockHash: blockHash
         pendingRefundNetwork: pendingRefundNetwork
         lockedAmount: lockedAmount
@@ -20889,7 +21424,7 @@ components:
           type: string
         totalStakedCPU:
           description: Deprecated
-          type: number
+          type: string
         totalStakedNetwork:
           description: Deprecated
           type: string
@@ -20915,7 +21450,7 @@ components:
     VaultAccount:
       example:
         assets:
-        - totalStakedCPU: 0.8008281904610115
+        - totalStakedCPU: totalStakedCPU
           blockHash: blockHash
           pendingRefundNetwork: pendingRefundNetwork
           lockedAmount: lockedAmount
@@ -20933,7 +21468,7 @@ components:
           selfStakedNetwork: selfStakedNetwork
           pendingRefundCPU: pendingRefundCPU
           id: id
-        - totalStakedCPU: 0.8008281904610115
+        - totalStakedCPU: totalStakedCPU
           blockHash: blockHash
           pendingRefundNetwork: pendingRefundNetwork
           lockedAmount: lockedAmount
@@ -21017,6 +21552,106 @@ components:
             \ be created without any keys."
           type: boolean
       type: object
+    CreateMultipleDepositAddressesRequest:
+      example:
+        assetId: ADA
+        vaultAccountToCopyDescFrom: 0
+        vaultAccountToCopyDescFromIndex: 1000
+        count: 10
+        vaultAccountId: 5
+        descriptions:
+        - First address
+        - Second address
+        - df4c0987-30da-4976-8dcf-bc2dd41ae331
+      properties:
+        vaultAccountId:
+          description: Existing Vault account ID to add deposit addresses to
+          example: 5
+          type: integer
+        assetId:
+          description: asset ID
+          example: ADA
+          type: string
+        count:
+          description: Count of deposit addresses to issue
+          example: 10
+          type: integer
+        descriptions:
+          description: Desctiptions of the newly created addresses
+          example:
+          - First address
+          - Second address
+          - df4c0987-30da-4976-8dcf-bc2dd41ae331
+          items:
+            type: string
+          type: array
+        vaultAccountToCopyDescFrom:
+          description: Existing Vault Account ID to copy deposit addresses descriptions
+            from in case no descriptions were provided
+          example: 0
+          type: integer
+        vaultAccountToCopyDescFromIndex:
+          description: Existing length within the vault account to copy deposit addresses
+            descriptions from
+          example: 1000
+          type: integer
+      required:
+      - assetId
+      - count
+      - vaultAccountId
+      type: object
+    JobCreated:
+      example:
+        jobId: jobId
+      properties:
+        jobId:
+          type: string
+      type: object
+    NewAddress:
+      properties:
+        address:
+          description: The address string.
+          example: addr_test1qp07k5kdwdfx4rpfqud8ry65acxgtgfgrxw0t35cwvl4uasjneqjdc868eqlex5p2f0nyekyyk4ze5xuanvj50ysrj3qqxqhsn
+          type: string
+        index:
+          description: The index of the address in the list.
+          example: 0
+          type: integer
+        description:
+          description: A description of the address.
+          example: Address one
+          type: string
+      required:
+      - address
+      - description
+      - index
+      type: object
+    CreateMultipleDepositAddressesJobStatus:
+      example:
+        addresses:
+        - address: addr_test1qp07k5kdwdfx4rpfqud8ry65acxgtgfgrxw0t35cwvl4uasjneqjdc868eqlex5p2f0nyekyyk4ze5xuanvj50ysrj3qqxqhsn
+          index: 0
+          descriptio: Address one
+        errorMessage: Asset not supported
+        status: Success
+      properties:
+        status:
+          example: Success
+          type: string
+        addresses:
+          example:
+          - address: addr_test1qp07k5kdwdfx4rpfqud8ry65acxgtgfgrxw0t35cwvl4uasjneqjdc868eqlex5p2f0nyekyyk4ze5xuanvj50ysrj3qqxqhsn
+            index: 0
+            descriptio: Address one
+          items:
+            $ref: '#/components/schemas/NewAddress'
+          type: array
+        errorMessage:
+          example: Asset not supported
+          type: string
+      required:
+      - status
+      type: object
     CreateMultipleAccountsRequest:
       example:
         count: 0
@@ -21033,13 +21668,6 @@ components:
             type: string
           type: array
       type: object
-    JobCreated:
-      example:
-        jobId: jobId
-      properties:
-        jobId:
-          type: string
-      type: object
     VaultAccountsPagedResponse:
       example:
         previousUrl: previousUrl
@@ -21048,7 +21676,7 @@ components:
           after: after
         accounts:
         - assets:
-          - totalStakedCPU: 0.8008281904610115
+          - totalStakedCPU: totalStakedCPU
             blockHash: blockHash
             pendingRefundNetwork: pendingRefundNetwork
             lockedAmount: lockedAmount
@@ -21066,7 +21694,7 @@ components:
             selfStakedNetwork: selfStakedNetwork
             pendingRefundCPU: pendingRefundCPU
             id: id
-          - totalStakedCPU: 0.8008281904610115
+          - totalStakedCPU: totalStakedCPU
             blockHash: blockHash
             pendingRefundNetwork: pendingRefundNetwork
             lockedAmount: lockedAmount
@@ -21090,7 +21718,7 @@ components:
           customerRefId: customerRefId
           autoFuel: true
         - assets:
-          - totalStakedCPU: 0.8008281904610115
+          - totalStakedCPU: totalStakedCPU
             blockHash: blockHash
             pendingRefundNetwork: pendingRefundNetwork
             lockedAmount: lockedAmount
@@ -21108,7 +21736,7 @@ components:
             selfStakedNetwork: selfStakedNetwork
             pendingRefundCPU: pendingRefundCPU
             id: id
-          - totalStakedCPU: 0.8008281904610115
+          - totalStakedCPU: totalStakedCPU
             blockHash: blockHash
             pendingRefundNetwork: pendingRefundNetwork
             lockedAmount: lockedAmount
@@ -23117,7 +23745,7 @@ components:
         standards:
         - ERC20
         symbol: USDT
-        address: 1.2488751460129641E+48
+        address: 0xdAC17F958D2ee523a2206206994597C13D831ec7
         decimals: 6
         name: Tether USD
       properties:
@@ -23131,7 +23759,7 @@ components:
           type: string
         address:
           description: The asset address
-          example: 1.2488751460129641E+48
+          example: 0xdAC17F958D2ee523a2206206994597C13D831ec7
           type: string
         decimals:
           description: Number of decimals
@@ -23238,7 +23866,7 @@ components:
           standards:
           - ERC20
           symbol: USDT
-          address: 1.2488751460129641E+48
+          address: 0xdAC17F958D2ee523a2206206994597C13D831ec7
           decimals: 6
           name: Tether USD
       properties:
@@ -23304,7 +23932,7 @@ components:
             standards:
             - ERC20
             symbol: USDT
-            address: 1.2488751460129641E+48
+            address: 0xdAC17F958D2ee523a2206206994597C13D831ec7
             decimals: 6
             name: Tether USD
         - displaySymbol: USDT
@@ -23331,7 +23959,7 @@ components:
             standards:
             - ERC20
             symbol: USDT
-            address: 1.2488751460129641E+48
+            address: 0xdAC17F958D2ee523a2206206994597C13D831ec7
             decimals: 6
             name: Tether USD
       properties:
@@ -23917,6 +24545,7 @@ components:
         * `SUPPLY_TO_COMPOUND` - Deprecated since April 1st, 2023. Older transactions may have this as their operation, in case users in the workspace have used the direct integration between Fireblocks and the Compound DeFI protocol.
         * `REDEEM_FROM_COMPOUND` - Deprecated since April 1st, 2023. Older transactions may have this as their operation, in case users in the workspace have used the direct integration between Fireblocks and the Compound DeFI protocol.
         * `PROGRAM_CALL` - In Solana refers to invoking on-chain programs (smart contracts) to execute transactions and interact with the blockchain.
+        * `APPROVE` - Enables the approve function for a smart contract or wallet to  withdraw from a designated wallet. [Learn more](https://support.fireblocks.io/hc/en-us/articles/4404616097426-Amount-Cap-for-Approve-transactions).
       enum:
       - TRANSFER
       - BURN
@@ -23931,6 +24560,7 @@ components:
       - REDEEM_FROM_COMPOUND
       - SUPPLY_TO_COMPOUND
       - PROGRAM_CALL
+      - APPROVE
       type: string
     TransferPeerPathType:
       enum:
@@ -24950,6 +25580,7 @@ components:
         * `TYPED_MESSAGE` - An off-chain message in either Ethereum Personal Message or EIP712 format. Use it to sign specific readable messages that are not actual transactions. [Learn more about typed messages](https://developers.fireblocks.com/docs/typed-message-signing).
         * `RAW` - An off-chain message with no predefined format. Use it to sign any message with your private key, including protocols such as blockchains and custom transaction types that are not natively supported by Fireblocks. [Learn more about raw signing transactions.](https://developers.fireblocks.com/docs/raw-message-signing)
         * `APPROVE` - Enables the approve function for a smart contract or wallet to  withdraw from a designated wallet. [Learn more](https://support.fireblocks.io/hc/en-us/articles/4404616097426-Amount-Cap-for-Approve-transactions).
+        * `ENABLE_ASSET` - Algorand, DigitalBits, Solana, and Stellar require an on-chain transaction to create an asset wallet and enable the deposit address. This transaction is automatically created when adding assets on these blockchains at a vault account.
       enum:
       - TRANSFER
       - BURN
@@ -24959,6 +25590,7 @@ components:
       - RAW
       - TYPED_MESSAGE
       - APPROVE
+      - ENABLE_ASSET
       type: string
     TransferPeerPathSubType:
       enum:
@@ -24999,6 +25631,7 @@ components:
       description: The source of the transaction.
       example:
         walletId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        isCollateral: true
         name: name
         subType: null
         id: id
@@ -25015,6 +25648,10 @@ components:
         walletId:
           format: uuid
           type: string
+        isCollateral:
+          description: indicate if the source is collateral account
+          example: true
+          type: boolean
       required:
       - type
       type: object
@@ -25037,6 +25674,7 @@ components:
           address: address
           tag: tag
         walletId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        isCollateral: true
         name: name
         subType: null
         id: id
@@ -25055,6 +25693,10 @@ components:
           type: string
         oneTimeAddress:
           $ref: '#/components/schemas/OneTimeAddress'
+        isCollateral:
+          description: indicate if the destination is collateral account
+          example: true
+          type: boolean
       required:
       - type
       type: object
@@ -25066,6 +25708,7 @@ components:
             address: address
             tag: tag
           walletId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          isCollateral: true
           name: name
           subType: null
           id: id
@@ -27539,6 +28182,7 @@ components:
             address: address
             tag: tag
           walletId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          isCollateral: true
           name: name
           subType: null
           id: id
@@ -27546,6 +28190,7 @@ components:
         extraParameters: "{}"
         source:
           walletId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          isCollateral: true
           name: name
           subType: null
           id: id
@@ -27568,6 +28213,7 @@ components:
               address: address
               tag: tag
             walletId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+            isCollateral: true
             name: name
             subType: null
             id: id
@@ -27578,6 +28224,7 @@ components:
               address: address
               tag: tag
             walletId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+            isCollateral: true
             name: name
             subType: null
             id: id
@@ -30668,6 +31315,7 @@ components:
               address: address
               tag: tag
             walletId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+            isCollateral: true
             name: name
             subType: null
             id: id
@@ -30675,6 +31323,7 @@ components:
           extraParameters: "{}"
           source:
             walletId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+            isCollateral: true
             name: name
             subType: null
             id: id
@@ -30697,6 +31346,7 @@ components:
                 address: address
                 tag: tag
               walletId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+              isCollateral: true
               name: name
               subType: null
               id: id
@@ -30707,6 +31357,7 @@ components:
                 address: address
                 tag: tag
               walletId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+              isCollateral: true
               name: name
               subType: null
               id: id
@@ -31881,6 +32532,7 @@ components:
               address: address
               tag: tag
             walletId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+            isCollateral: true
             name: name
             subType: null
             id: id
@@ -31888,6 +32540,7 @@ components:
           extraParameters: "{}"
           source:
             walletId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+            isCollateral: true
             name: name
             subType: null
             id: id
@@ -31910,6 +32563,7 @@ components:
                 address: address
                 tag: tag
               walletId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+              isCollateral: true
               name: name
               subType: null
               id: id
@@ -31920,6 +32574,7 @@ components:
                 address: address
                 tag: tag
               walletId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+              isCollateral: true
               name: name
               subType: null
               id: id
@@ -33423,6 +34078,7 @@ components:
       - COMPLETED
       - FAILED
       - IN_PROGRESS
+      - ON_HOLD
       example: COMPLETED
       type: string
     NotificationAttempt:
@@ -33622,6 +34278,33 @@ components:
       - id
       - status
       - updatedAt
+      type: object
+    ResendNotificationsByResourceIdRequest:
+      example:
+        resourceId: 44fcead0-7053-4831-a53a-df7fb90d440f
+        excludeStatuses:
+        - IN_PROGRESS
+        - FAILED
+      properties:
+        resourceId:
+          description: The resource id to resend notifications for
+          example: 44fcead0-7053-4831-a53a-df7fb90d440f
+          format: uuid
+          type: string
+        excludeStatuses:
+          description: |
+            (optional) List of notification statuses to exclude from the resend operation
+                - Empty array means all statuses will be included
+                - If you want to exclude some statuses, you can use the following example: [ IN_PROGRESS, FAILED ]
+                - Default if missing, means all statuses other than "COMPLETED" will be included
+          example:
+          - IN_PROGRESS
+          - FAILED
+          items:
+            $ref: '#/components/schemas/NotificationStatus'
+          type: array
+      required:
+      - resourceId
       type: object
     AuditorData:
       properties:
@@ -35204,6 +35887,291 @@ components:
           description: Short description of the HTTP error
           example: Not Found
           type: string
+      type: object
+    GetDeployableAddressRequest:
+      description: Request body for calculating deterministic address
+      example:
+        chainDescriptor: ETH
+        initParams:
+        - internalType: string
+          name: name
+          type: string
+          value: name
+        - internalType: string
+          name: symbol
+          type: string
+          value: symbol
+        - components:
+          - internalType: bool
+            name: _isMintable
+            type: bool
+          internalType: struct MyStruct
+          value:
+          - internalType: bool
+            name: _isMintable
+            type: bool
+            value: false
+        salt: "123456789"
+        templateId: b70701f4-d7b1-4795-a8ee-b09cdb5b850d
+      properties:
+        chainDescriptor:
+          description: The base asset identifier of the blockchain (legacyId) to calculate
+            deterministic address
+          example: ETH
+          type: string
+        templateId:
+          description: The template identifier
+          example: b70701f4-d7b1-4795-a8ee-b09cdb5b850d
+          format: uuid
+          type: string
+        initParams:
+          description: The deploy function parameters and values of the contract template
+          example:
+          - internalType: string
+            name: name
+            type: string
+            value: name
+          - internalType: string
+            name: symbol
+            type: string
+            value: symbol
+          - components:
+            - internalType: bool
+              name: _isMintable
+              type: bool
+            internalType: struct MyStruct
+            value:
+            - internalType: bool
+              name: _isMintable
+              type: bool
+              value: false
+          items:
+            $ref: '#/components/schemas/ParameterWithValue'
+          type: array
+        salt:
+          description: "The salt to calculate the deterministic address. Must be a\
+            \ number between 0 and 2^256 -1, for it to fit in the bytes32 parameter"
+          example: "123456789"
+          type: string
+      required:
+      - chainDescriptor
+      - initParams
+      - salt
+      - templateId
+      type: object
+    DeployableAddressResponse:
+      description: Response DTO containing a deployable address
+      example:
+        address: 0x1234567890abcdef1234567890abcdef12345678
+      properties:
+        address:
+          description: The deployable address
+          type: string
+      required:
+      - address
+      type: object
+    InvalidParamaterValueError:
+      example:
+        code: 400
+        message: Invalid initParams.
+      properties:
+        message:
+          description: Bad request error message
+          example: Invalid initParams.
+          type: string
+        code:
+          description: Error code
+          example: 400
+          type: number
+      required:
+      - code
+      - message
+      type: object
+    AddressNotAvailableError:
+      example:
+        code: 409
+        message: Address is already taken
+      properties:
+        message:
+          description: Conflict error message
+          example: Address is already taken
+          type: string
+        code:
+          description: Error code
+          example: 409
+          type: number
+      required:
+      - code
+      - message
+      type: object
+    CreateMultichainTokenRequest:
+      example:
+        salt: "123456789"
+        chains:
+        - ETH
+        - POLYGON
+        displayName: displayName
+        useGasless: false
+        fee: "2000"
+        vaultAccountId: "0"
+        feeLevel: MEDIUM
+        createParams:
+          deployFunctionParams:
+          - internalType: string
+            name: name
+            type: string
+            value: name
+          - internalType: string
+            name: symbol
+            type: string
+            value: symbol
+          - components:
+            - internalType: bool
+              name: _isMintable
+              type: bool
+            internalType: struct MyStruct
+            name: customConfigProps
+            type: tuple
+            value:
+            - internalType: bool
+              name: _isMintable
+              type: bool
+              value: false
+          contractId: b70701f4-d7b1-4795-a8ee-b09cdb5b850d
+      properties:
+        vaultAccountId:
+          description: The id of the vault account that initiated the request to issue
+            the token
+          example: "0"
+          type: string
+        createParams:
+          $ref: '#/components/schemas/CreateMultichainTokenRequest_createParams'
+        salt:
+          description: "The salt to calculate the deterministic address. Must be a\
+            \ number between 0 and 2^256 -1, for it to fit in the bytes32 parameter."
+          example: "123456789"
+          type: string
+        chains:
+          description: The base asset identifiers of the blockchains (legacyId) to
+            calculate deterministic addresses
+          example:
+          - ETH
+          - POLYGON
+          items:
+            type: string
+          type: array
+        displayName:
+          type: string
+        useGasless:
+          description: "Indicates whether the token should be created in a gasless\
+            \ manner, utilizing the ERC-2771 standard. When set to true, the transaction\
+            \ will be relayed by a designated relayer. The workspace must be configured\
+            \ to use Fireblocks gasless relay."
+          example: false
+          type: boolean
+        fee:
+          description: Max fee amount for the write function transaction. interchangeable
+            with the 'feeLevel' field
+          example: "2000"
+          type: string
+        feeLevel:
+          description: Fee level for the write function transaction. interchangeable
+            with the 'fee' field
+          enum:
+          - LOW
+          - MEDIUM
+          - HIGH
+          example: MEDIUM
+          type: string
+      required:
+      - chains
+      - createParams
+      - vaultAccountId
+      type: object
+    IssueTokenMultichainResponse:
+      description: Response schema for issuing tokens across multiple chains
+      items:
+        $ref: '#/components/schemas/TokenLinkDto'
+      type: array
+    ReissueMultichainTokenRequest:
+      example:
+        chains:
+        - ETH
+        - POLYGON
+        useGasless: true
+        fee: "2000"
+        vaultAccountId: "0"
+        feeLevel: MEDIUM
+      properties:
+        vaultAccountId:
+          description: The id of the vault account that initiated the request to issue
+            the token
+          example: "0"
+          type: string
+        chains:
+          description: The base asset identifiers of the blockchains you want to deploy
+            to
+          example:
+          - ETH
+          - POLYGON
+          items:
+            type: string
+          type: array
+        useGasless:
+          description: Whether to use gasless deployment or not
+          example: true
+          type: boolean
+        fee:
+          description: Max fee amount for the deploy request. Interchangeable with
+            the 'feeLevel' field
+          example: "2000"
+          type: string
+        feeLevel:
+          description: Fee level for the deploy request. Interchangeable with the
+            'fee' field
+          enum:
+          - LOW
+          - MEDIUM
+          - HIGH
+          example: MEDIUM
+          type: string
+      required:
+      - chains
+      - vaultAccountId
+      type: object
+    TokenLinkNotMultichainCompatibleHttpError:
+      example:
+        code: 400
+        message: Token link is not multichain compatible.
+      properties:
+        message:
+          description: Bad request error message
+          example: Token link is not multichain compatible.
+          type: string
+        code:
+          description: Error code
+          example: 400
+          type: number
+      required:
+      - code
+      - message
+      type: object
+    DeployedContractNotFoundError:
+      example:
+        code: 404
+        message: Deployed contract not found
+      properties:
+        message:
+          description: Not Found error message
+          example: Deployed contract not found
+          type: string
+        code:
+          description: Error code
+          example: 404
+          type: number
+      required:
+      - code
+      - message
       type: object
     CollectionType:
       description: The type of collection
@@ -45497,6 +46465,9 @@ components:
       oneOf:
       - $ref: '#/components/schemas/EVMTokenCreateParamsDto'
       - $ref: '#/components/schemas/StellarRippleCreateParamsDto'
+    CreateMultichainTokenRequest_createParams:
+      oneOf:
+      - $ref: '#/components/schemas/EVMTokenCreateParamsDto'
     SetOtaStatusResponse_oneOf:
       example:
         message: No change needed. The current status is false

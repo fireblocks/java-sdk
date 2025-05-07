@@ -13,6 +13,7 @@ The source of the transaction.
 |**id** | **String** |  |  [optional] |
 |**name** | **String** |  |  [optional] |
 |**walletId** | **UUID** |  |  [optional] |
+|**isCollateral** | **Boolean** | indicate if the source is collateral account |  [optional] |
 
 
 

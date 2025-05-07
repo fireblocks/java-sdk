@@ -32,7 +32,7 @@ Add this dependency to your project's POM:
 <dependency>
   <groupId>com.fireblocks.sdk</groupId>
   <artifactId>fireblocks-sdk</artifactId>
-  <version>10.0.2</version>
+  <version>0.0.0</version>
   <scope>compile</scope>
 </dependency>
 ```
@@ -42,7 +42,7 @@ Add this dependency to your project's POM:
 Add this dependency to your project's build file:
 
 ```groovy
-compile "com.fireblocks.sdk:fireblocks-sdk:10.0.2"
+compile "com.fireblocks.sdk:fireblocks-sdk:0.0.0"
 ```
 
 ### Others
@@ -55,7 +55,7 @@ mvn clean package
 
 Then manually install the following JARs:
 
-- `target/fireblocks-sdk-10.0.2.jar`
+- `target/fireblocks-sdk-0.0.0.jar`
 - `target/lib/*.jar`
 
 
@@ -326,12 +326,15 @@ Class | Method | HTTP request | Description
 *TokenizationApi* | [**createNewCollection**](docs/TokenizationApi.md#createNewCollection) | **POST** /tokenization/collections | Create a new collection
 *TokenizationApi* | [**fetchCollectionTokenDetails**](docs/TokenizationApi.md#fetchCollectionTokenDetails) | **GET** /tokenization/collections/{id}/tokens/{tokenId} | Get collection token details
 *TokenizationApi* | [**getCollectionById**](docs/TokenizationApi.md#getCollectionById) | **GET** /tokenization/collections/{id} | Get a collection by id
+*TokenizationApi* | [**getDeployableAddress**](docs/TokenizationApi.md#getDeployableAddress) | **POST** /tokenization/multichain/deterministic_address | Get deterministic address for contract deployment
 *TokenizationApi* | [**getLinkedCollections**](docs/TokenizationApi.md#getLinkedCollections) | **GET** /tokenization/collections | Get collections
 *TokenizationApi* | [**getLinkedToken**](docs/TokenizationApi.md#getLinkedToken) | **GET** /tokenization/tokens/{id} | Return a linked token
 *TokenizationApi* | [**getLinkedTokens**](docs/TokenizationApi.md#getLinkedTokens) | **GET** /tokenization/tokens | List all linked tokens
 *TokenizationApi* | [**issueNewToken**](docs/TokenizationApi.md#issueNewToken) | **POST** /tokenization/tokens | Issue a new token
+*TokenizationApi* | [**issueTokenMultiChain**](docs/TokenizationApi.md#issueTokenMultiChain) | **POST** /tokenization/multichain/tokens | Issue a token on one or more blockchains
 *TokenizationApi* | [**link**](docs/TokenizationApi.md#link) | **POST** /tokenization/tokens/link | Link a contract
 *TokenizationApi* | [**mintCollectionToken**](docs/TokenizationApi.md#mintCollectionToken) | **POST** /tokenization/collections/{id}/tokens/mint | Mint tokens
+*TokenizationApi* | [**reIssueTokenMultiChain**](docs/TokenizationApi.md#reIssueTokenMultiChain) | **POST** /tokenization/multichain/token/{tokenLinkId} | Reissue a multichain token
 *TokenizationApi* | [**unlink**](docs/TokenizationApi.md#unlink) | **DELETE** /tokenization/tokens/{id} | Unlink a token
 *TokenizationApi* | [**unlinkCollection**](docs/TokenizationApi.md#unlinkCollection) | **DELETE** /tokenization/collections/{id} | Delete a collection link
 *TransactionsApi* | [**cancelTransaction**](docs/TransactionsApi.md#cancelTransaction) | **POST** /transactions/{txId}/cancel | Cancel a transaction
@@ -363,10 +366,12 @@ Class | Method | HTTP request | Description
 *VaultsApi* | [**activateAssetForVaultAccount**](docs/VaultsApi.md#activateAssetForVaultAccount) | **POST** /vault/accounts/{vaultAccountId}/{assetId}/activate | Activate a wallet in a vault account
 *VaultsApi* | [**createLegacyAddress**](docs/VaultsApi.md#createLegacyAddress) | **POST** /vault/accounts/{vaultAccountId}/{assetId}/addresses/{addressId}/create_legacy | Convert a segwit address to legacy format
 *VaultsApi* | [**createMultipleAccounts**](docs/VaultsApi.md#createMultipleAccounts) | **POST** /vault/accounts/bulk | Bulk creation of new vault accounts
+*VaultsApi* | [**createMultipleDepositAddresses**](docs/VaultsApi.md#createMultipleDepositAddresses) | **POST** /vault/accounts/addresses/bulk | Bulk creation of new deposit addresses
 *VaultsApi* | [**createVaultAccount**](docs/VaultsApi.md#createVaultAccount) | **POST** /vault/accounts | Create a new vault account
 *VaultsApi* | [**createVaultAccountAsset**](docs/VaultsApi.md#createVaultAccountAsset) | **POST** /vault/accounts/{vaultAccountId}/{assetId} | Create a new wallet
 *VaultsApi* | [**createVaultAccountAssetAddress**](docs/VaultsApi.md#createVaultAccountAssetAddress) | **POST** /vault/accounts/{vaultAccountId}/{assetId}/addresses | Create new asset deposit address
 *VaultsApi* | [**getAssetWallets**](docs/VaultsApi.md#getAssetWallets) | **GET** /vault/asset_wallets | List asset wallets (Paginated)
+*VaultsApi* | [**getCreateMultipleDepositAddressesJobStatus**](docs/VaultsApi.md#getCreateMultipleDepositAddressesJobStatus) | **GET** /vault/accounts/addresses/bulk/{jobId} | Get job status of bulk creation of new deposit addresses
 *VaultsApi* | [**getMaxSpendableAmount**](docs/VaultsApi.md#getMaxSpendableAmount) | **GET** /vault/accounts/{vaultAccountId}/{assetId}/max_spendable_amount | Get the maximum spendable amount in a single transaction.
 *VaultsApi* | [**getPagedVaultAccounts**](docs/VaultsApi.md#getPagedVaultAccounts) | **GET** /vault/accounts_paged | List vault accounts (Paginated)
 *VaultsApi* | [**getPublicKeyInfo**](docs/VaultsApi.md#getPublicKeyInfo) | **GET** /vault/public_key_info | Get the public key information
@@ -398,6 +403,7 @@ Class | Method | HTTP request | Description
 *WebhooksV2BetaApi* | [**getWebhook**](docs/WebhooksV2BetaApi.md#getWebhook) | **GET** /webhooks/{webhookId} | Get webhook by id
 *WebhooksV2BetaApi* | [**getWebhooks**](docs/WebhooksV2BetaApi.md#getWebhooks) | **GET** /webhooks | Get all webhooks
 *WebhooksV2BetaApi* | [**resendNotificationById**](docs/WebhooksV2BetaApi.md#resendNotificationById) | **POST** /webhooks/{webhookId}/notifications/{notificationId}/resend | Resend notification by id
+*WebhooksV2BetaApi* | [**resendNotificationsByResourceId**](docs/WebhooksV2BetaApi.md#resendNotificationsByResourceId) | **POST** /webhooks/{webhookId}/notifications/resend_by_resource | Resend notifications by resource Id
 *WebhooksV2BetaApi* | [**updateWebhook**](docs/WebhooksV2BetaApi.md#updateWebhook) | **PATCH** /webhooks/{webhookId} | Update webhook
 *WhitelistIpAddressesApi* | [**getWhitelistIpAddresses**](docs/WhitelistIpAddressesApi.md#getWhitelistIpAddresses) | **GET** /management/api_users/{userId}/whitelist_ip_addresses | Gets whitelisted ip addresses
 *WorkspaceStatusBetaApi* | [**getWorkspaceStatus**](docs/WorkspaceStatusBetaApi.md#getWorkspaceStatus) | **GET** /management/workspace_status | Returns current workspace status
@@ -424,6 +430,7 @@ Class | Method | HTTP request | Description
  - [AddExchangeAccountRequest](docs/AddExchangeAccountRequest.md)
  - [AddExchangeAccountResponse](docs/AddExchangeAccountResponse.md)
  - [AdditionalInfo](docs/AdditionalInfo.md)
+ - [AddressNotAvailableError](docs/AddressNotAvailableError.md)
  - [AmlRegistrationResult](docs/AmlRegistrationResult.md)
  - [AmlRegistrationResultFullPayload](docs/AmlRegistrationResultFullPayload.md)
  - [AmlScreeningResult](docs/AmlScreeningResult.md)
@@ -533,7 +540,11 @@ Class | Method | HTTP request | Description
  - [CreateDisbursementConfigOperationRequest](docs/CreateDisbursementConfigOperationRequest.md)
  - [CreateInternalTransferRequest](docs/CreateInternalTransferRequest.md)
  - [CreateInternalWalletAssetRequest](docs/CreateInternalWalletAssetRequest.md)
+ - [CreateMultichainTokenRequest](docs/CreateMultichainTokenRequest.md)
+ - [CreateMultichainTokenRequestCreateParams](docs/CreateMultichainTokenRequestCreateParams.md)
  - [CreateMultipleAccountsRequest](docs/CreateMultipleAccountsRequest.md)
+ - [CreateMultipleDepositAddressesJobStatus](docs/CreateMultipleDepositAddressesJobStatus.md)
+ - [CreateMultipleDepositAddressesRequest](docs/CreateMultipleDepositAddressesRequest.md)
  - [CreateNcwConnectionRequest](docs/CreateNcwConnectionRequest.md)
  - [CreateNetworkIdRequest](docs/CreateNetworkIdRequest.md)
  - [CreatePayoutRequest](docs/CreatePayoutRequest.md)
@@ -558,6 +569,8 @@ Class | Method | HTTP request | Description
  - [DelegationSummary](docs/DelegationSummary.md)
  - [DeleteNetworkConnectionResponse](docs/DeleteNetworkConnectionResponse.md)
  - [DeleteNetworkIdResponse](docs/DeleteNetworkIdResponse.md)
+ - [DeployableAddressResponse](docs/DeployableAddressResponse.md)
+ - [DeployedContractNotFoundError](docs/DeployedContractNotFoundError.md)
  - [DeployedContractResponseDto](docs/DeployedContractResponseDto.md)
  - [DeployedContractsPaginatedResponse](docs/DeployedContractsPaginatedResponse.md)
  - [DepositFundsFromLinkedDDAResponse](docs/DepositFundsFromLinkedDDAResponse.md)
@@ -621,6 +634,7 @@ Class | Method | HTTP request | Description
  - [GetAuditLogsResponse](docs/GetAuditLogsResponse.md)
  - [GetConnectionsResponse](docs/GetConnectionsResponse.md)
  - [GetConsoleUsersResponse](docs/GetConsoleUsersResponse.md)
+ - [GetDeployableAddressRequest](docs/GetDeployableAddressRequest.md)
  - [GetExchangeAccountsCredentialsPublicKeyResponse](docs/GetExchangeAccountsCredentialsPublicKeyResponse.md)
  - [GetFilterParameter](docs/GetFilterParameter.md)
  - [GetLinkedCollectionsPaginatedResponse](docs/GetLinkedCollectionsPaginatedResponse.md)
@@ -637,6 +651,7 @@ Class | Method | HTTP request | Description
  - [HttpContractDoesNotExistError](docs/HttpContractDoesNotExistError.md)
  - [InstructionAmount](docs/InstructionAmount.md)
  - [InternalTransferResponse](docs/InternalTransferResponse.md)
+ - [InvalidParamaterValueError](docs/InvalidParamaterValueError.md)
  - [Job](docs/Job.md)
  - [JobCreated](docs/JobCreated.md)
  - [LeanAbiFunction](docs/LeanAbiFunction.md)
@@ -661,6 +676,7 @@ Class | Method | HTTP request | Description
  - [NetworkIdResponse](docs/NetworkIdResponse.md)
  - [NetworkIdRoutingPolicyValue](docs/NetworkIdRoutingPolicyValue.md)
  - [NetworkRecord](docs/NetworkRecord.md)
+ - [NewAddress](docs/NewAddress.md)
  - [NoneNetworkRoutingDest](docs/NoneNetworkRoutingDest.md)
  - [NotFoundException](docs/NotFoundException.md)
  - [Notification](docs/Notification.md)
@@ -726,12 +742,14 @@ Class | Method | HTTP request | Description
  - [ReadCallFunctionDto](docs/ReadCallFunctionDto.md)
  - [RedeemFundsToLinkedDDAResponse](docs/RedeemFundsToLinkedDDAResponse.md)
  - [RegisterNewAssetRequest](docs/RegisterNewAssetRequest.md)
+ - [ReissueMultichainTokenRequest](docs/ReissueMultichainTokenRequest.md)
  - [RelatedRequest](docs/RelatedRequest.md)
  - [RelatedTransaction](docs/RelatedTransaction.md)
  - [RemoveCollateralRequestBody](docs/RemoveCollateralRequestBody.md)
  - [RenameCosigner](docs/RenameCosigner.md)
  - [RenameVaultAccountResponse](docs/RenameVaultAccountResponse.md)
  - [RescanTransaction](docs/RescanTransaction.md)
+ - [ResendNotificationsByResourceIdRequest](docs/ResendNotificationsByResourceIdRequest.md)
  - [ResendTransactionWebhooksRequest](docs/ResendTransactionWebhooksRequest.md)
  - [ResendWebhooksByTransactionIdResponse](docs/ResendWebhooksByTransactionIdResponse.md)
  - [ResendWebhooksResponse](docs/ResendWebhooksResponse.md)
@@ -823,6 +841,7 @@ Class | Method | HTTP request | Description
  - [TokenLinkDto](docs/TokenLinkDto.md)
  - [TokenLinkDtoTokenMetadata](docs/TokenLinkDtoTokenMetadata.md)
  - [TokenLinkExistsHttpError](docs/TokenLinkExistsHttpError.md)
+ - [TokenLinkNotMultichainCompatibleHttpError](docs/TokenLinkNotMultichainCompatibleHttpError.md)
  - [TokenLinkRequestDto](docs/TokenLinkRequestDto.md)
  - [TokenOwnershipResponse](docs/TokenOwnershipResponse.md)
  - [TokenOwnershipSpamUpdatePayload](docs/TokenOwnershipSpamUpdatePayload.md)

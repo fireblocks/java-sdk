@@ -101,6 +101,7 @@ public class BlockchainsAssetsApiTest {
         String symbol = null;
         AssetScope scope = null;
         Boolean deprecated = null;
+        List<String> ids = null;
         String pageCursor = null;
         BigDecimal pageSize = null;
         String idempotencyKey = null;
@@ -111,6 +112,7 @@ public class BlockchainsAssetsApiTest {
                         symbol,
                         scope,
                         deprecated,
+                        ids,
                         pageCursor,
                         pageSize,
                         idempotencyKey);
@@ -128,10 +130,11 @@ public class BlockchainsAssetsApiTest {
         String protocol = null;
         Boolean deprecated = null;
         Boolean test = null;
+        List<String> ids = null;
         String pageCursor = null;
         BigDecimal pageSize = null;
         CompletableFuture<ApiResponse<ListBlockchainsResponse>> response =
-                api.listBlockchains(protocol, deprecated, test, pageCursor, pageSize);
+                api.listBlockchains(protocol, deprecated, test, ids, pageCursor, pageSize);
     }
 
     /**

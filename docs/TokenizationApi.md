@@ -8,12 +8,15 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 | [**createNewCollection**](TokenizationApi.md#createNewCollection) | **POST** /tokenization/collections | Create a new collection |
 | [**fetchCollectionTokenDetails**](TokenizationApi.md#fetchCollectionTokenDetails) | **GET** /tokenization/collections/{id}/tokens/{tokenId} | Get collection token details |
 | [**getCollectionById**](TokenizationApi.md#getCollectionById) | **GET** /tokenization/collections/{id} | Get a collection by id |
+| [**getDeployableAddress**](TokenizationApi.md#getDeployableAddress) | **POST** /tokenization/multichain/deterministic_address | Get deterministic address for contract deployment |
 | [**getLinkedCollections**](TokenizationApi.md#getLinkedCollections) | **GET** /tokenization/collections | Get collections |
 | [**getLinkedToken**](TokenizationApi.md#getLinkedToken) | **GET** /tokenization/tokens/{id} | Return a linked token |
 | [**getLinkedTokens**](TokenizationApi.md#getLinkedTokens) | **GET** /tokenization/tokens | List all linked tokens |
 | [**issueNewToken**](TokenizationApi.md#issueNewToken) | **POST** /tokenization/tokens | Issue a new token |
+| [**issueTokenMultiChain**](TokenizationApi.md#issueTokenMultiChain) | **POST** /tokenization/multichain/tokens | Issue a token on one or more blockchains |
 | [**link**](TokenizationApi.md#link) | **POST** /tokenization/tokens/link | Link a contract |
 | [**mintCollectionToken**](TokenizationApi.md#mintCollectionToken) | **POST** /tokenization/collections/{id}/tokens/mint | Mint tokens |
+| [**reIssueTokenMultiChain**](TokenizationApi.md#reIssueTokenMultiChain) | **POST** /tokenization/multichain/token/{tokenLinkId} | Reissue a multichain token |
 | [**unlink**](TokenizationApi.md#unlink) | **DELETE** /tokenization/tokens/{id} | Unlink a token |
 | [**unlinkCollection**](TokenizationApi.md#unlinkCollection) | **DELETE** /tokenization/collections/{id} | Delete a collection link |
 
@@ -359,6 +362,93 @@ No authorization required
 | **0** | Error Response |  * X-Request-ID -  <br>  |
 
 
+## getDeployableAddress
+
+> CompletableFuture<ApiResponse<DeployableAddressResponse>> getDeployableAddress getDeployableAddress(getDeployableAddressRequest, idempotencyKey)
+
+Get deterministic address for contract deployment
+
+Get a deterministic address for contract deployment. The address is derived from the contract&#39;s bytecode and  provided salt. This endpoint is used to get the address of a contract that will be deployed in the future.
+
+### Example
+
+```java
+// Import classes:
+import com.fireblocks.sdk.ApiClient;
+import com.fireblocks.sdk.ApiException;
+import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
+import com.fireblocks.sdk.api.TokenizationApi;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+
+public class Example {
+    public static void main(String[] args) {
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
+
+        GetDeployableAddressRequest getDeployableAddressRequest = new GetDeployableAddressRequest(); // GetDeployableAddressRequest | 
+        String idempotencyKey = "idempotencyKey_example"; // String | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+        try {
+            CompletableFuture<ApiResponse<DeployableAddressResponse>> response = fireblocks.tokenization().getDeployableAddress(getDeployableAddressRequest, idempotencyKey);
+            System.out.println("Status code: " + response.get().getStatusCode());
+            System.out.println("Response headers: " + response.get().getHeaders());
+            System.out.println("Response body: " + response.get().getData());
+        } catch (InterruptedException | ExecutionException e) {
+            ApiException apiException = (ApiException)e.getCause();
+            System.err.println("Exception when calling TokenizationApi#getDeployableAddress");
+            System.err.println("Status code: " + apiException.getCode());
+            System.err.println("Response headers: " + apiException.getResponseHeaders());
+            System.err.println("Reason: " + apiException.getResponseBody());
+            e.printStackTrace();
+        } catch (ApiException e) {
+            System.err.println("Exception when calling TokenizationApi#getDeployableAddress");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            System.err.println("Reason: " + e.getResponseBody());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **getDeployableAddressRequest** | [**GetDeployableAddressRequest**](GetDeployableAddressRequest.md)|  | |
+| **idempotencyKey** | **String**| A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | [optional] |
+
+### Return type
+
+CompletableFuture<ApiResponse<[**DeployableAddressResponse**](DeployableAddressResponse.md)>>
+
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Deterministic address for contract deployment |  -  |
+| **400** | Invalid parameters or template has no bytecode |  -  |
+| **409** | Address is already taken |  -  |
+| **0** | Error Response |  * X-Request-ID -  <br>  |
+
+
 ## getLinkedCollections
 
 > CompletableFuture<ApiResponse<GetLinkedCollectionsPaginatedResponse>> getLinkedCollections getLinkedCollections(pageCursor, pageSize, status)
@@ -701,6 +791,92 @@ No authorization required
 | **409** | Asset already exists |  -  |
 
 
+## issueTokenMultiChain
+
+> CompletableFuture<ApiResponse<List<TokenLinkDto>>> issueTokenMultiChain issueTokenMultiChain(createMultichainTokenRequest, idempotencyKey)
+
+Issue a token on one or more blockchains
+
+Facilitates the creation of a new token on one or more blockchains.
+
+### Example
+
+```java
+// Import classes:
+import com.fireblocks.sdk.ApiClient;
+import com.fireblocks.sdk.ApiException;
+import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
+import com.fireblocks.sdk.api.TokenizationApi;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+
+public class Example {
+    public static void main(String[] args) {
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
+
+        CreateMultichainTokenRequest createMultichainTokenRequest = new CreateMultichainTokenRequest(); // CreateMultichainTokenRequest | 
+        String idempotencyKey = "idempotencyKey_example"; // String | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+        try {
+            CompletableFuture<ApiResponse<List<TokenLinkDto>>> response = fireblocks.tokenization().issueTokenMultiChain(createMultichainTokenRequest, idempotencyKey);
+            System.out.println("Status code: " + response.get().getStatusCode());
+            System.out.println("Response headers: " + response.get().getHeaders());
+            System.out.println("Response body: " + response.get().getData());
+        } catch (InterruptedException | ExecutionException e) {
+            ApiException apiException = (ApiException)e.getCause();
+            System.err.println("Exception when calling TokenizationApi#issueTokenMultiChain");
+            System.err.println("Status code: " + apiException.getCode());
+            System.err.println("Response headers: " + apiException.getResponseHeaders());
+            System.err.println("Reason: " + apiException.getResponseBody());
+            e.printStackTrace();
+        } catch (ApiException e) {
+            System.err.println("Exception when calling TokenizationApi#issueTokenMultiChain");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            System.err.println("Reason: " + e.getResponseBody());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **createMultichainTokenRequest** | [**CreateMultichainTokenRequest**](CreateMultichainTokenRequest.md)|  | |
+| **idempotencyKey** | **String**| A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | [optional] |
+
+### Return type
+
+CompletableFuture<ApiResponse<[**List&lt;TokenLinkDto&gt;**](TokenLinkDto.md)>>
+
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **201** | Tokens were created successfully |  -  |
+| **400** | Invalid input. |  -  |
+| **409** | Address is already taken. |  -  |
+
+
 ## link
 
 > CompletableFuture<ApiResponse<TokenLinkDto>> link link(tokenLinkRequestDto, idempotencyKey)
@@ -873,6 +1049,96 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **202** | Tokens minted successfully |  -  |
+| **0** | Error Response |  * X-Request-ID -  <br>  |
+
+
+## reIssueTokenMultiChain
+
+> CompletableFuture<ApiResponse<List<TokenLinkDto>>> reIssueTokenMultiChain reIssueTokenMultiChain(reissueMultichainTokenRequest, tokenLinkId, idempotencyKey)
+
+Reissue a multichain token
+
+Reissue a multichain token. This endpoint allows you to reissue a token on one or more blockchains. The token must be initially issued using the issueTokenMultiChain endpoint.
+
+### Example
+
+```java
+// Import classes:
+import com.fireblocks.sdk.ApiClient;
+import com.fireblocks.sdk.ApiException;
+import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
+import com.fireblocks.sdk.api.TokenizationApi;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+
+public class Example {
+    public static void main(String[] args) {
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
+
+        ReissueMultichainTokenRequest reissueMultichainTokenRequest = new ReissueMultichainTokenRequest(); // ReissueMultichainTokenRequest | 
+        String tokenLinkId = "tokenLinkId_example"; // String | The ID of the token link
+        String idempotencyKey = "idempotencyKey_example"; // String | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+        try {
+            CompletableFuture<ApiResponse<List<TokenLinkDto>>> response = fireblocks.tokenization().reIssueTokenMultiChain(reissueMultichainTokenRequest, tokenLinkId, idempotencyKey);
+            System.out.println("Status code: " + response.get().getStatusCode());
+            System.out.println("Response headers: " + response.get().getHeaders());
+            System.out.println("Response body: " + response.get().getData());
+        } catch (InterruptedException | ExecutionException e) {
+            ApiException apiException = (ApiException)e.getCause();
+            System.err.println("Exception when calling TokenizationApi#reIssueTokenMultiChain");
+            System.err.println("Status code: " + apiException.getCode());
+            System.err.println("Response headers: " + apiException.getResponseHeaders());
+            System.err.println("Reason: " + apiException.getResponseBody());
+            e.printStackTrace();
+        } catch (ApiException e) {
+            System.err.println("Exception when calling TokenizationApi#reIssueTokenMultiChain");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            System.err.println("Reason: " + e.getResponseBody());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **reissueMultichainTokenRequest** | [**ReissueMultichainTokenRequest**](ReissueMultichainTokenRequest.md)|  | |
+| **tokenLinkId** | **String**| The ID of the token link | |
+| **idempotencyKey** | **String**| A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | [optional] |
+
+### Return type
+
+CompletableFuture<ApiResponse<[**List&lt;TokenLinkDto&gt;**](TokenLinkDto.md)>>
+
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **201** | Successfully reissued multichain token |  -  |
+| **400** | Invalid input |  -  |
+| **404** | Deployed contract not found |  -  |
+| **409** | Address is already taken |  -  |
 | **0** | Error Response |  * X-Request-ID -  <br>  |
 
 
