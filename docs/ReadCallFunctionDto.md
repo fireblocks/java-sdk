@@ -7,7 +7,7 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**abiFunction** | [**ReadAbiFunction**](ReadAbiFunction.md) |  |  |
+|**abiFunction** | [**ReadCallFunctionDtoAbiFunction**](ReadCallFunctionDtoAbiFunction.md) |  |  |
 
 
 

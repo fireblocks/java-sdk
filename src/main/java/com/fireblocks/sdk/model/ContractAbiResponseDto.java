@@ -29,19 +29,19 @@ import java.util.StringJoiner;
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class ContractAbiResponseDto {
     public static final String JSON_PROPERTY_ABI = "abi";
-    private List<AbiFunction> abi = new ArrayList<>();
+    private List<ContractAbiResponseDtoAbiInner> abi = new ArrayList<>();
 
     public static final String JSON_PROPERTY_IMPLEMENTATION_ABI = "implementationAbi";
     private List<AbiFunction> implementationAbi;
 
     public ContractAbiResponseDto() {}
 
-    public ContractAbiResponseDto abi(List<AbiFunction> abi) {
+    public ContractAbiResponseDto abi(List<ContractAbiResponseDtoAbiInner> abi) {
         this.abi = abi;
         return this;
     }
 
-    public ContractAbiResponseDto addAbiItem(AbiFunction abiItem) {
+    public ContractAbiResponseDto addAbiItem(ContractAbiResponseDtoAbiInner abiItem) {
         if (this.abi == null) {
             this.abi = new ArrayList<>();
         }
@@ -57,13 +57,13 @@ public class ContractAbiResponseDto {
     @jakarta.annotation.Nonnull
     @JsonProperty(JSON_PROPERTY_ABI)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public List<AbiFunction> getAbi() {
+    public List<ContractAbiResponseDtoAbiInner> getAbi() {
         return abi;
     }
 
     @JsonProperty(JSON_PROPERTY_ABI)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setAbi(List<AbiFunction> abi) {
+    public void setAbi(List<ContractAbiResponseDtoAbiInner> abi) {
         this.abi = abi;
     }
 

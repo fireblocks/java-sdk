@@ -134,6 +134,55 @@ public class CreateTokenRequestDtoCreateParams extends AbstractOpenApiSchema {
                         e);
             }
 
+            // deserialize SolanaSimpleCreateParams
+            try {
+                boolean attemptParsing = true;
+                // ensure that we respect type coercion as set on the client ObjectMapper
+                if (SolanaSimpleCreateParams.class.equals(Integer.class)
+                        || SolanaSimpleCreateParams.class.equals(Long.class)
+                        || SolanaSimpleCreateParams.class.equals(Float.class)
+                        || SolanaSimpleCreateParams.class.equals(Double.class)
+                        || SolanaSimpleCreateParams.class.equals(Boolean.class)
+                        || SolanaSimpleCreateParams.class.equals(String.class)) {
+                    attemptParsing = typeCoercion;
+                    if (!attemptParsing) {
+                        attemptParsing |=
+                                ((SolanaSimpleCreateParams.class.equals(Integer.class)
+                                                || SolanaSimpleCreateParams.class.equals(
+                                                        Long.class))
+                                        && token == JsonToken.VALUE_NUMBER_INT);
+                        attemptParsing |=
+                                ((SolanaSimpleCreateParams.class.equals(Float.class)
+                                                || SolanaSimpleCreateParams.class.equals(
+                                                        Double.class))
+                                        && token == JsonToken.VALUE_NUMBER_FLOAT);
+                        attemptParsing |=
+                                (SolanaSimpleCreateParams.class.equals(Boolean.class)
+                                        && (token == JsonToken.VALUE_FALSE
+                                                || token == JsonToken.VALUE_TRUE));
+                        attemptParsing |=
+                                (SolanaSimpleCreateParams.class.equals(String.class)
+                                        && token == JsonToken.VALUE_STRING);
+                    }
+                }
+                if (attemptParsing) {
+                    deserialized =
+                            tree.traverse(jp.getCodec())
+                                    .readValueAs(SolanaSimpleCreateParams.class);
+                    // TODO: there is no validation against JSON schema constraints
+                    // (min, max, enum, pattern...), this does not perform a strict JSON
+                    // validation, which means the 'match' count may be higher than it should be.
+                    match++;
+                    log.log(Level.FINER, "Input data matches schema 'SolanaSimpleCreateParams'");
+                }
+            } catch (Exception e) {
+                // deserialization failed, continue
+                log.log(
+                        Level.FINER,
+                        "Input data does not match schema 'SolanaSimpleCreateParams'",
+                        e);
+            }
+
             // deserialize StellarRippleCreateParamsDto
             try {
                 boolean attemptParsing = true;
@@ -218,6 +267,11 @@ public class CreateTokenRequestDtoCreateParams extends AbstractOpenApiSchema {
         setActualInstance(o);
     }
 
+    public CreateTokenRequestDtoCreateParams(SolanaSimpleCreateParams o) {
+        super("oneOf", Boolean.FALSE);
+        setActualInstance(o);
+    }
+
     public CreateTokenRequestDtoCreateParams(StellarRippleCreateParamsDto o) {
         super("oneOf", Boolean.FALSE);
         setActualInstance(o);
@@ -225,6 +279,7 @@ public class CreateTokenRequestDtoCreateParams extends AbstractOpenApiSchema {
 
     static {
         schemas.put("EVMTokenCreateParamsDto", EVMTokenCreateParamsDto.class);
+        schemas.put("SolanaSimpleCreateParams", SolanaSimpleCreateParams.class);
         schemas.put("StellarRippleCreateParamsDto", StellarRippleCreateParamsDto.class);
         JSON.registerDescendants(
                 CreateTokenRequestDtoCreateParams.class, Collections.unmodifiableMap(schemas));
@@ -237,7 +292,8 @@ public class CreateTokenRequestDtoCreateParams extends AbstractOpenApiSchema {
 
     /**
      * Set the instance that matches the oneOf child schema, check the instance parameter is valid
-     * against the oneOf child schemas: EVMTokenCreateParamsDto, StellarRippleCreateParamsDto
+     * against the oneOf child schemas: EVMTokenCreateParamsDto, SolanaSimpleCreateParams,
+     * StellarRippleCreateParamsDto
      *
      * <p>It could be an instance of the 'oneOf' schemas. The oneOf child schemas may themselves be
      * a composed schema (allOf, anyOf, oneOf).
@@ -249,6 +305,11 @@ public class CreateTokenRequestDtoCreateParams extends AbstractOpenApiSchema {
             return;
         }
 
+        if (JSON.isInstanceOf(SolanaSimpleCreateParams.class, instance, new HashSet<Class<?>>())) {
+            super.setActualInstance(instance);
+            return;
+        }
+
         if (JSON.isInstanceOf(
                 StellarRippleCreateParamsDto.class, instance, new HashSet<Class<?>>())) {
             super.setActualInstance(instance);
@@ -256,15 +317,16 @@ public class CreateTokenRequestDtoCreateParams extends AbstractOpenApiSchema {
         }
 
         throw new RuntimeException(
-                "Invalid instance type. Must be EVMTokenCreateParamsDto,"
+                "Invalid instance type. Must be EVMTokenCreateParamsDto, SolanaSimpleCreateParams,"
                         + " StellarRippleCreateParamsDto");
     }
 
     /**
      * Get the actual instance, which can be the following: EVMTokenCreateParamsDto,
-     * StellarRippleCreateParamsDto
+     * SolanaSimpleCreateParams, StellarRippleCreateParamsDto
      *
-     * @return The actual instance (EVMTokenCreateParamsDto, StellarRippleCreateParamsDto)
+     * @return The actual instance (EVMTokenCreateParamsDto, SolanaSimpleCreateParams,
+     *     StellarRippleCreateParamsDto)
      */
     @Override
     public Object getActualInstance() {
@@ -280,6 +342,17 @@ public class CreateTokenRequestDtoCreateParams extends AbstractOpenApiSchema {
      */
     public EVMTokenCreateParamsDto getEVMTokenCreateParamsDto() throws ClassCastException {
         return (EVMTokenCreateParamsDto) super.getActualInstance();
+    }
+
+    /**
+     * Get the actual instance of `SolanaSimpleCreateParams`. If the actual instance is not
+     * `SolanaSimpleCreateParams`, the ClassCastException will be thrown.
+     *
+     * @return The actual instance of `SolanaSimpleCreateParams`
+     * @throws ClassCastException if the instance is not `SolanaSimpleCreateParams`
+     */
+    public SolanaSimpleCreateParams getSolanaSimpleCreateParams() throws ClassCastException {
+        return (SolanaSimpleCreateParams) super.getActualInstance();
     }
 
     /**
@@ -339,6 +412,14 @@ public class CreateTokenRequestDtoCreateParams extends AbstractOpenApiSchema {
                 joiner.add(
                         ((StellarRippleCreateParamsDto) getActualInstance())
                                 .toUrlQueryString(prefix + "one_of_1" + suffix));
+            }
+            return joiner.toString();
+        }
+        if (getActualInstance() instanceof SolanaSimpleCreateParams) {
+            if (getActualInstance() != null) {
+                joiner.add(
+                        ((SolanaSimpleCreateParams) getActualInstance())
+                                .toUrlQueryString(prefix + "one_of_2" + suffix));
             }
             return joiner.toString();
         }

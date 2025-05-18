@@ -107,6 +107,7 @@ docs/ConfigTransferOperationSnapshot.md
 docs/ConsoleUser.md
 docs/ConsoleUserApi.md
 docs/ContractAbiResponseDto.md
+docs/ContractAbiResponseDtoAbiInner.md
 docs/ContractAttributes.md
 docs/ContractDeployRequest.md
 docs/ContractDeployResponse.md
@@ -244,6 +245,8 @@ docs/GasStationConfiguration.md
 docs/GasStationConfigurationResponse.md
 docs/GasStationPropertiesResponse.md
 docs/GasStationsApi.md
+docs/GasslessStandardConfigurations.md
+docs/GasslessStandardConfigurationsGaslessStandardConfigurationsValue.md
 docs/GetAPIUsersResponse.md
 docs/GetAuditLogsResponse.md
 docs/GetConnectionsResponse.md
@@ -263,6 +266,7 @@ docs/GetValidationKeyResponseDto.md
 docs/GetWhitelistIpAddressesResponse.md
 docs/GetWorkspaceStatusResponse.md
 docs/HttpContractDoesNotExistError.md
+docs/IdlType.md
 docs/InstructionAmount.md
 docs/InternalTransferResponse.md
 docs/InternalWalletsApi.md
@@ -284,6 +288,7 @@ docs/ModifySigningKeyAgentIdDto.md
 docs/ModifySigningKeyDto.md
 docs/ModifyValidationKeyDto.md
 docs/MpcKey.md
+docs/MultichainDeploymentMetadata.md
 docs/NetworkChannel.md
 docs/NetworkConnection.md
 docs/NetworkConnectionResponse.md
@@ -364,6 +369,7 @@ docs/PublishDraftRequest.md
 docs/PublishResult.md
 docs/ReadAbiFunction.md
 docs/ReadCallFunctionDto.md
+docs/ReadCallFunctionDtoAbiFunction.md
 docs/RedeemFundsToLinkedDDAResponse.md
 docs/RegisterNewAssetRequest.md
 docs/ReissueMultichainTokenRequest.md
@@ -381,6 +387,8 @@ docs/ResetDeviceApi.md
 docs/RespondToConnectionRequest.md
 docs/RewardInfo.md
 docs/RewardsInfo.md
+docs/SOLAccount.md
+docs/SOLAccountWithValue.md
 docs/ScreeningConfigurationsRequest.md
 docs/ScreeningOperationExecution.md
 docs/ScreeningOperationExecutionOutput.md
@@ -443,7 +451,13 @@ docs/SmartTransferTicketTermResponse.md
 docs/SmartTransferUpdateTicketTerm.md
 docs/SmartTransferUserGroups.md
 docs/SmartTransferUserGroupsResponse.md
+docs/SolParameter.md
+docs/SolParameterWithValue.md
 docs/SolanaBlockchainData.md
+docs/SolanaConfig.md
+docs/SolanaInstruction.md
+docs/SolanaInstructionWithValue.md
+docs/SolanaSimpleCreateParams.md
 docs/SourceTransferPeerPath.md
 docs/SourceTransferPeerPathResponse.md
 docs/SpamOwnershipResponse.md
@@ -594,6 +608,7 @@ docs/WorkflowExecutionOperation.md
 docs/WorkspaceStatusBetaApi.md
 docs/WriteAbiFunction.md
 docs/WriteCallFunctionDto.md
+docs/WriteCallFunctionDtoAbiFunction.md
 docs/WriteCallFunctionResponseDto.md
 git_push.sh
 gradle.properties
@@ -755,6 +770,7 @@ src/main/java/com/fireblocks/sdk/model/ConfigOperationStatus.java
 src/main/java/com/fireblocks/sdk/model/ConfigTransferOperationSnapshot.java
 src/main/java/com/fireblocks/sdk/model/ConsoleUser.java
 src/main/java/com/fireblocks/sdk/model/ContractAbiResponseDto.java
+src/main/java/com/fireblocks/sdk/model/ContractAbiResponseDtoAbiInner.java
 src/main/java/com/fireblocks/sdk/model/ContractAttributes.java
 src/main/java/com/fireblocks/sdk/model/ContractDeployRequest.java
 src/main/java/com/fireblocks/sdk/model/ContractDeployResponse.java
@@ -882,6 +898,8 @@ src/main/java/com/fireblocks/sdk/model/Funds.java
 src/main/java/com/fireblocks/sdk/model/GasStationConfiguration.java
 src/main/java/com/fireblocks/sdk/model/GasStationConfigurationResponse.java
 src/main/java/com/fireblocks/sdk/model/GasStationPropertiesResponse.java
+src/main/java/com/fireblocks/sdk/model/GasslessStandardConfigurations.java
+src/main/java/com/fireblocks/sdk/model/GasslessStandardConfigurationsGaslessStandardConfigurationsValue.java
 src/main/java/com/fireblocks/sdk/model/GetAPIUsersResponse.java
 src/main/java/com/fireblocks/sdk/model/GetAuditLogsResponse.java
 src/main/java/com/fireblocks/sdk/model/GetConnectionsResponse.java
@@ -901,6 +919,7 @@ src/main/java/com/fireblocks/sdk/model/GetValidationKeyResponseDto.java
 src/main/java/com/fireblocks/sdk/model/GetWhitelistIpAddressesResponse.java
 src/main/java/com/fireblocks/sdk/model/GetWorkspaceStatusResponse.java
 src/main/java/com/fireblocks/sdk/model/HttpContractDoesNotExistError.java
+src/main/java/com/fireblocks/sdk/model/IdlType.java
 src/main/java/com/fireblocks/sdk/model/InstructionAmount.java
 src/main/java/com/fireblocks/sdk/model/InternalTransferResponse.java
 src/main/java/com/fireblocks/sdk/model/InvalidParamaterValueError.java
@@ -918,6 +937,7 @@ src/main/java/com/fireblocks/sdk/model/ModifySigningKeyAgentIdDto.java
 src/main/java/com/fireblocks/sdk/model/ModifySigningKeyDto.java
 src/main/java/com/fireblocks/sdk/model/ModifyValidationKeyDto.java
 src/main/java/com/fireblocks/sdk/model/MpcKey.java
+src/main/java/com/fireblocks/sdk/model/MultichainDeploymentMetadata.java
 src/main/java/com/fireblocks/sdk/model/NetworkChannel.java
 src/main/java/com/fireblocks/sdk/model/NetworkConnection.java
 src/main/java/com/fireblocks/sdk/model/NetworkConnectionResponse.java
@@ -992,6 +1012,7 @@ src/main/java/com/fireblocks/sdk/model/PublishDraftRequest.java
 src/main/java/com/fireblocks/sdk/model/PublishResult.java
 src/main/java/com/fireblocks/sdk/model/ReadAbiFunction.java
 src/main/java/com/fireblocks/sdk/model/ReadCallFunctionDto.java
+src/main/java/com/fireblocks/sdk/model/ReadCallFunctionDtoAbiFunction.java
 src/main/java/com/fireblocks/sdk/model/RedeemFundsToLinkedDDAResponse.java
 src/main/java/com/fireblocks/sdk/model/RegisterNewAssetRequest.java
 src/main/java/com/fireblocks/sdk/model/ReissueMultichainTokenRequest.java
@@ -1008,6 +1029,8 @@ src/main/java/com/fireblocks/sdk/model/ResendWebhooksResponse.java
 src/main/java/com/fireblocks/sdk/model/RespondToConnectionRequest.java
 src/main/java/com/fireblocks/sdk/model/RewardInfo.java
 src/main/java/com/fireblocks/sdk/model/RewardsInfo.java
+src/main/java/com/fireblocks/sdk/model/SOLAccount.java
+src/main/java/com/fireblocks/sdk/model/SOLAccountWithValue.java
 src/main/java/com/fireblocks/sdk/model/ScreeningConfigurationsRequest.java
 src/main/java/com/fireblocks/sdk/model/ScreeningOperationExecution.java
 src/main/java/com/fireblocks/sdk/model/ScreeningOperationExecutionOutput.java
@@ -1069,7 +1092,13 @@ src/main/java/com/fireblocks/sdk/model/SmartTransferTicketTermResponse.java
 src/main/java/com/fireblocks/sdk/model/SmartTransferUpdateTicketTerm.java
 src/main/java/com/fireblocks/sdk/model/SmartTransferUserGroups.java
 src/main/java/com/fireblocks/sdk/model/SmartTransferUserGroupsResponse.java
+src/main/java/com/fireblocks/sdk/model/SolParameter.java
+src/main/java/com/fireblocks/sdk/model/SolParameterWithValue.java
 src/main/java/com/fireblocks/sdk/model/SolanaBlockchainData.java
+src/main/java/com/fireblocks/sdk/model/SolanaConfig.java
+src/main/java/com/fireblocks/sdk/model/SolanaInstruction.java
+src/main/java/com/fireblocks/sdk/model/SolanaInstructionWithValue.java
+src/main/java/com/fireblocks/sdk/model/SolanaSimpleCreateParams.java
 src/main/java/com/fireblocks/sdk/model/SourceTransferPeerPath.java
 src/main/java/com/fireblocks/sdk/model/SourceTransferPeerPathResponse.java
 src/main/java/com/fireblocks/sdk/model/SpamOwnershipResponse.java
@@ -1208,6 +1237,7 @@ src/main/java/com/fireblocks/sdk/model/WorkflowConfigurationId.java
 src/main/java/com/fireblocks/sdk/model/WorkflowExecutionOperation.java
 src/main/java/com/fireblocks/sdk/model/WriteAbiFunction.java
 src/main/java/com/fireblocks/sdk/model/WriteCallFunctionDto.java
+src/main/java/com/fireblocks/sdk/model/WriteCallFunctionDtoAbiFunction.java
 src/main/java/com/fireblocks/sdk/model/WriteCallFunctionResponseDto.java
 src/test/java/com/fireblocks/sdk/AdditionalOptionsTest.java
 src/test/java/com/fireblocks/sdk/BasePathTest.java
@@ -1348,6 +1378,7 @@ src/test/java/com/fireblocks/sdk/model/ConfigOperationStatusTest.java
 src/test/java/com/fireblocks/sdk/model/ConfigOperationTest.java
 src/test/java/com/fireblocks/sdk/model/ConfigTransferOperationSnapshotTest.java
 src/test/java/com/fireblocks/sdk/model/ConsoleUserTest.java
+src/test/java/com/fireblocks/sdk/model/ContractAbiResponseDtoAbiInnerTest.java
 src/test/java/com/fireblocks/sdk/model/ContractAbiResponseDtoTest.java
 src/test/java/com/fireblocks/sdk/model/ContractAttributesTest.java
 src/test/java/com/fireblocks/sdk/model/ContractDeployRequestTest.java
@@ -1476,6 +1507,8 @@ src/test/java/com/fireblocks/sdk/model/FundsTest.java
 src/test/java/com/fireblocks/sdk/model/GasStationConfigurationResponseTest.java
 src/test/java/com/fireblocks/sdk/model/GasStationConfigurationTest.java
 src/test/java/com/fireblocks/sdk/model/GasStationPropertiesResponseTest.java
+src/test/java/com/fireblocks/sdk/model/GasslessStandardConfigurationsGaslessStandardConfigurationsValueTest.java
+src/test/java/com/fireblocks/sdk/model/GasslessStandardConfigurationsTest.java
 src/test/java/com/fireblocks/sdk/model/GetAPIUsersResponseTest.java
 src/test/java/com/fireblocks/sdk/model/GetAuditLogsResponseTest.java
 src/test/java/com/fireblocks/sdk/model/GetConnectionsResponseTest.java
@@ -1495,6 +1528,7 @@ src/test/java/com/fireblocks/sdk/model/GetValidationKeyResponseDtoTest.java
 src/test/java/com/fireblocks/sdk/model/GetWhitelistIpAddressesResponseTest.java
 src/test/java/com/fireblocks/sdk/model/GetWorkspaceStatusResponseTest.java
 src/test/java/com/fireblocks/sdk/model/HttpContractDoesNotExistErrorTest.java
+src/test/java/com/fireblocks/sdk/model/IdlTypeTest.java
 src/test/java/com/fireblocks/sdk/model/InstructionAmountTest.java
 src/test/java/com/fireblocks/sdk/model/InternalTransferResponseTest.java
 src/test/java/com/fireblocks/sdk/model/InvalidParamaterValueErrorTest.java
@@ -1512,6 +1546,7 @@ src/test/java/com/fireblocks/sdk/model/ModifySigningKeyAgentIdDtoTest.java
 src/test/java/com/fireblocks/sdk/model/ModifySigningKeyDtoTest.java
 src/test/java/com/fireblocks/sdk/model/ModifyValidationKeyDtoTest.java
 src/test/java/com/fireblocks/sdk/model/MpcKeyTest.java
+src/test/java/com/fireblocks/sdk/model/MultichainDeploymentMetadataTest.java
 src/test/java/com/fireblocks/sdk/model/NetworkChannelTest.java
 src/test/java/com/fireblocks/sdk/model/NetworkConnectionResponseTest.java
 src/test/java/com/fireblocks/sdk/model/NetworkConnectionRoutingPolicyValueTest.java
@@ -1585,6 +1620,7 @@ src/test/java/com/fireblocks/sdk/model/PublicKeyInformationTest.java
 src/test/java/com/fireblocks/sdk/model/PublishDraftRequestTest.java
 src/test/java/com/fireblocks/sdk/model/PublishResultTest.java
 src/test/java/com/fireblocks/sdk/model/ReadAbiFunctionTest.java
+src/test/java/com/fireblocks/sdk/model/ReadCallFunctionDtoAbiFunctionTest.java
 src/test/java/com/fireblocks/sdk/model/ReadCallFunctionDtoTest.java
 src/test/java/com/fireblocks/sdk/model/RedeemFundsToLinkedDDAResponseTest.java
 src/test/java/com/fireblocks/sdk/model/RegisterNewAssetRequestTest.java
@@ -1602,6 +1638,8 @@ src/test/java/com/fireblocks/sdk/model/ResendWebhooksResponseTest.java
 src/test/java/com/fireblocks/sdk/model/RespondToConnectionRequestTest.java
 src/test/java/com/fireblocks/sdk/model/RewardInfoTest.java
 src/test/java/com/fireblocks/sdk/model/RewardsInfoTest.java
+src/test/java/com/fireblocks/sdk/model/SOLAccountTest.java
+src/test/java/com/fireblocks/sdk/model/SOLAccountWithValueTest.java
 src/test/java/com/fireblocks/sdk/model/ScreeningConfigurationsRequestTest.java
 src/test/java/com/fireblocks/sdk/model/ScreeningOperationExecutionOutputTest.java
 src/test/java/com/fireblocks/sdk/model/ScreeningOperationExecutionTest.java
@@ -1663,7 +1701,13 @@ src/test/java/com/fireblocks/sdk/model/SmartTransferTicketTest.java
 src/test/java/com/fireblocks/sdk/model/SmartTransferUpdateTicketTermTest.java
 src/test/java/com/fireblocks/sdk/model/SmartTransferUserGroupsResponseTest.java
 src/test/java/com/fireblocks/sdk/model/SmartTransferUserGroupsTest.java
+src/test/java/com/fireblocks/sdk/model/SolParameterTest.java
+src/test/java/com/fireblocks/sdk/model/SolParameterWithValueTest.java
 src/test/java/com/fireblocks/sdk/model/SolanaBlockchainDataTest.java
+src/test/java/com/fireblocks/sdk/model/SolanaConfigTest.java
+src/test/java/com/fireblocks/sdk/model/SolanaInstructionTest.java
+src/test/java/com/fireblocks/sdk/model/SolanaInstructionWithValueTest.java
+src/test/java/com/fireblocks/sdk/model/SolanaSimpleCreateParamsTest.java
 src/test/java/com/fireblocks/sdk/model/SourceTransferPeerPathResponseTest.java
 src/test/java/com/fireblocks/sdk/model/SourceTransferPeerPathTest.java
 src/test/java/com/fireblocks/sdk/model/SpamOwnershipResponseTest.java
@@ -1801,5 +1845,6 @@ src/test/java/com/fireblocks/sdk/model/WorkflowConfigStatusTest.java
 src/test/java/com/fireblocks/sdk/model/WorkflowConfigurationIdTest.java
 src/test/java/com/fireblocks/sdk/model/WorkflowExecutionOperationTest.java
 src/test/java/com/fireblocks/sdk/model/WriteAbiFunctionTest.java
+src/test/java/com/fireblocks/sdk/model/WriteCallFunctionDtoAbiFunctionTest.java
 src/test/java/com/fireblocks/sdk/model/WriteCallFunctionDtoTest.java
 src/test/java/com/fireblocks/sdk/model/WriteCallFunctionResponseDtoTest.java
