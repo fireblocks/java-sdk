@@ -35,7 +35,8 @@ import java.util.StringJoiner;
     ContractUploadRequest.JSON_PROPERTY_TYPE,
     ContractUploadRequest.JSON_PROPERTY_DOCS,
     ContractUploadRequest.JSON_PROPERTY_ABI,
-    ContractUploadRequest.JSON_PROPERTY_ATTRIBUTES
+    ContractUploadRequest.JSON_PROPERTY_ATTRIBUTES,
+    ContractUploadRequest.JSON_PROPERTY_PROTOCOL
 })
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class ContractUploadRequest {
@@ -104,6 +105,42 @@ public class ContractUploadRequest {
 
     public static final String JSON_PROPERTY_ATTRIBUTES = "attributes";
     private ContractAttributes attributes;
+
+    /** The protocol that the template will be used for */
+    public enum ProtocolEnum {
+        ETH("ETH"),
+
+        SOL("SOL");
+
+        private String value;
+
+        ProtocolEnum(String value) {
+            this.value = value;
+        }
+
+        @JsonValue
+        public String getValue() {
+            return value;
+        }
+
+        @Override
+        public String toString() {
+            return String.valueOf(value);
+        }
+
+        @JsonCreator
+        public static ProtocolEnum fromValue(String value) {
+            for (ProtocolEnum b : ProtocolEnum.values()) {
+                if (b.value.equals(value)) {
+                    return b;
+                }
+            }
+            throw new IllegalArgumentException("Unexpected value '" + value + "'");
+        }
+    }
+
+    public static final String JSON_PROPERTY_PROTOCOL = "protocol";
+    private ProtocolEnum protocol;
 
     public ContractUploadRequest() {}
 
@@ -324,6 +361,29 @@ public class ContractUploadRequest {
         this.attributes = attributes;
     }
 
+    public ContractUploadRequest protocol(ProtocolEnum protocol) {
+        this.protocol = protocol;
+        return this;
+    }
+
+    /**
+     * The protocol that the template will be used for
+     *
+     * @return protocol
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_PROTOCOL)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public ProtocolEnum getProtocol() {
+        return protocol;
+    }
+
+    @JsonProperty(JSON_PROPERTY_PROTOCOL)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setProtocol(ProtocolEnum protocol) {
+        this.protocol = protocol;
+    }
+
     /** Return true if this ContractUploadRequest object is equal to o. */
     @Override
     public boolean equals(Object o) {
@@ -342,7 +402,8 @@ public class ContractUploadRequest {
                 && Objects.equals(this.type, contractUploadRequest.type)
                 && Objects.equals(this.docs, contractUploadRequest.docs)
                 && Objects.equals(this.abi, contractUploadRequest.abi)
-                && Objects.equals(this.attributes, contractUploadRequest.attributes);
+                && Objects.equals(this.attributes, contractUploadRequest.attributes)
+                && Objects.equals(this.protocol, contractUploadRequest.protocol);
     }
 
     @Override
@@ -356,7 +417,8 @@ public class ContractUploadRequest {
                 type,
                 docs,
                 abi,
-                attributes);
+                attributes,
+                protocol);
     }
 
     @Override
@@ -372,6 +434,7 @@ public class ContractUploadRequest {
         sb.append("    docs: ").append(toIndentedString(docs)).append("\n");
         sb.append("    abi: ").append(toIndentedString(abi)).append("\n");
         sb.append("    attributes: ").append(toIndentedString(attributes)).append("\n");
+        sb.append("    protocol: ").append(toIndentedString(protocol)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -520,6 +583,17 @@ public class ContractUploadRequest {
         // add `attributes` to the URL query string
         if (getAttributes() != null) {
             joiner.add(getAttributes().toUrlQueryString(prefix + "attributes" + suffix));
+        }
+
+        // add `protocol` to the URL query string
+        if (getProtocol() != null) {
+            joiner.add(
+                    String.format(
+                            "%sprotocol%s=%s",
+                            prefix,
+                            suffix,
+                            URLEncoder.encode(String.valueOf(getProtocol()), StandardCharsets.UTF_8)
+                                    .replaceAll("\\+", "%20")));
         }
 
         return joiner.toString();

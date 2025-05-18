@@ -27,7 +27,11 @@ import java.util.StringJoiner;
     DeployedContractResponseDto.JSON_PROPERTY_CONTRACT_ADDRESS,
     DeployedContractResponseDto.JSON_PROPERTY_CONTRACT_TEMPLATE_ID,
     DeployedContractResponseDto.JSON_PROPERTY_VAULT_ACCOUNT_ID,
-    DeployedContractResponseDto.JSON_PROPERTY_BLOCKCHAIN_ID
+    DeployedContractResponseDto.JSON_PROPERTY_BLOCKCHAIN_ID,
+    DeployedContractResponseDto.JSON_PROPERTY_BASE_ASSET_ID,
+    DeployedContractResponseDto.JSON_PROPERTY_GASLESS_CONFIG,
+    DeployedContractResponseDto.JSON_PROPERTY_MULTICHAIN_DEPLOYMENT_METADATA,
+    DeployedContractResponseDto.JSON_PROPERTY_SOLANA_CONFIG
 })
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class DeployedContractResponseDto {
@@ -45,6 +49,19 @@ public class DeployedContractResponseDto {
 
     public static final String JSON_PROPERTY_BLOCKCHAIN_ID = "blockchainId";
     private String blockchainId;
+
+    public static final String JSON_PROPERTY_BASE_ASSET_ID = "baseAssetId";
+    private String baseAssetId;
+
+    public static final String JSON_PROPERTY_GASLESS_CONFIG = "gaslessConfig";
+    private GasslessStandardConfigurations gaslessConfig;
+
+    public static final String JSON_PROPERTY_MULTICHAIN_DEPLOYMENT_METADATA =
+            "multichainDeploymentMetadata";
+    private MultichainDeploymentMetadata multichainDeploymentMetadata;
+
+    public static final String JSON_PROPERTY_SOLANA_CONFIG = "solanaConfig";
+    private SolanaConfig solanaConfig;
 
     public DeployedContractResponseDto() {}
 
@@ -163,6 +180,100 @@ public class DeployedContractResponseDto {
         this.blockchainId = blockchainId;
     }
 
+    public DeployedContractResponseDto baseAssetId(String baseAssetId) {
+        this.baseAssetId = baseAssetId;
+        return this;
+    }
+
+    /**
+     * The blockchain base assetId
+     *
+     * @return baseAssetId
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_BASE_ASSET_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getBaseAssetId() {
+        return baseAssetId;
+    }
+
+    @JsonProperty(JSON_PROPERTY_BASE_ASSET_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setBaseAssetId(String baseAssetId) {
+        this.baseAssetId = baseAssetId;
+    }
+
+    public DeployedContractResponseDto gaslessConfig(GasslessStandardConfigurations gaslessConfig) {
+        this.gaslessConfig = gaslessConfig;
+        return this;
+    }
+
+    /**
+     * Get gaslessConfig
+     *
+     * @return gaslessConfig
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_GASLESS_CONFIG)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public GasslessStandardConfigurations getGaslessConfig() {
+        return gaslessConfig;
+    }
+
+    @JsonProperty(JSON_PROPERTY_GASLESS_CONFIG)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setGaslessConfig(GasslessStandardConfigurations gaslessConfig) {
+        this.gaslessConfig = gaslessConfig;
+    }
+
+    public DeployedContractResponseDto multichainDeploymentMetadata(
+            MultichainDeploymentMetadata multichainDeploymentMetadata) {
+        this.multichainDeploymentMetadata = multichainDeploymentMetadata;
+        return this;
+    }
+
+    /**
+     * Get multichainDeploymentMetadata
+     *
+     * @return multichainDeploymentMetadata
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_MULTICHAIN_DEPLOYMENT_METADATA)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public MultichainDeploymentMetadata getMultichainDeploymentMetadata() {
+        return multichainDeploymentMetadata;
+    }
+
+    @JsonProperty(JSON_PROPERTY_MULTICHAIN_DEPLOYMENT_METADATA)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setMultichainDeploymentMetadata(
+            MultichainDeploymentMetadata multichainDeploymentMetadata) {
+        this.multichainDeploymentMetadata = multichainDeploymentMetadata;
+    }
+
+    public DeployedContractResponseDto solanaConfig(SolanaConfig solanaConfig) {
+        this.solanaConfig = solanaConfig;
+        return this;
+    }
+
+    /**
+     * Get solanaConfig
+     *
+     * @return solanaConfig
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_SOLANA_CONFIG)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public SolanaConfig getSolanaConfig() {
+        return solanaConfig;
+    }
+
+    @JsonProperty(JSON_PROPERTY_SOLANA_CONFIG)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setSolanaConfig(SolanaConfig solanaConfig) {
+        this.solanaConfig = solanaConfig;
+    }
+
     /** Return true if this DeployedContractResponseDto object is equal to o. */
     @Override
     public boolean equals(Object o) {
@@ -178,12 +289,27 @@ public class DeployedContractResponseDto {
                 && Objects.equals(
                         this.contractTemplateId, deployedContractResponseDto.contractTemplateId)
                 && Objects.equals(this.vaultAccountId, deployedContractResponseDto.vaultAccountId)
-                && Objects.equals(this.blockchainId, deployedContractResponseDto.blockchainId);
+                && Objects.equals(this.blockchainId, deployedContractResponseDto.blockchainId)
+                && Objects.equals(this.baseAssetId, deployedContractResponseDto.baseAssetId)
+                && Objects.equals(this.gaslessConfig, deployedContractResponseDto.gaslessConfig)
+                && Objects.equals(
+                        this.multichainDeploymentMetadata,
+                        deployedContractResponseDto.multichainDeploymentMetadata)
+                && Objects.equals(this.solanaConfig, deployedContractResponseDto.solanaConfig);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, contractAddress, contractTemplateId, vaultAccountId, blockchainId);
+        return Objects.hash(
+                id,
+                contractAddress,
+                contractTemplateId,
+                vaultAccountId,
+                blockchainId,
+                baseAssetId,
+                gaslessConfig,
+                multichainDeploymentMetadata,
+                solanaConfig);
     }
 
     @Override
@@ -197,6 +323,12 @@ public class DeployedContractResponseDto {
                 .append("\n");
         sb.append("    vaultAccountId: ").append(toIndentedString(vaultAccountId)).append("\n");
         sb.append("    blockchainId: ").append(toIndentedString(blockchainId)).append("\n");
+        sb.append("    baseAssetId: ").append(toIndentedString(baseAssetId)).append("\n");
+        sb.append("    gaslessConfig: ").append(toIndentedString(gaslessConfig)).append("\n");
+        sb.append("    multichainDeploymentMetadata: ")
+                .append(toIndentedString(multichainDeploymentMetadata))
+                .append("\n");
+        sb.append("    solanaConfig: ").append(toIndentedString(solanaConfig)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -305,6 +437,36 @@ public class DeployedContractResponseDto {
                                             String.valueOf(getBlockchainId()),
                                             StandardCharsets.UTF_8)
                                     .replaceAll("\\+", "%20")));
+        }
+
+        // add `baseAssetId` to the URL query string
+        if (getBaseAssetId() != null) {
+            joiner.add(
+                    String.format(
+                            "%sbaseAssetId%s=%s",
+                            prefix,
+                            suffix,
+                            URLEncoder.encode(
+                                            String.valueOf(getBaseAssetId()),
+                                            StandardCharsets.UTF_8)
+                                    .replaceAll("\\+", "%20")));
+        }
+
+        // add `gaslessConfig` to the URL query string
+        if (getGaslessConfig() != null) {
+            joiner.add(getGaslessConfig().toUrlQueryString(prefix + "gaslessConfig" + suffix));
+        }
+
+        // add `multichainDeploymentMetadata` to the URL query string
+        if (getMultichainDeploymentMetadata() != null) {
+            joiner.add(
+                    getMultichainDeploymentMetadata()
+                            .toUrlQueryString(prefix + "multichainDeploymentMetadata" + suffix));
+        }
+
+        // add `solanaConfig` to the URL query string
+        if (getSolanaConfig() != null) {
+            joiner.add(getSolanaConfig().toUrlQueryString(prefix + "solanaConfig" + suffix));
         }
 
         return joiner.toString();

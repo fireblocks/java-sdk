@@ -426,6 +426,7 @@ public class KeyLinkBetaApi {
      * @param enabled Return keys that have been proof of ownership (optional)
      * @param available Return keys that are proof of ownership but not assigned. Available filter
      *     can be used only when vaultAccountId and enabled filters are not set (optional)
+     * @param isAssigned Return keys that are assigned to a vault account (optional)
      * @return CompletableFuture&lt;ApiResponse&lt;GetSigningKeyResponseDto&gt;&gt;
      * @throws ApiException if fails to make API call
      */
@@ -438,7 +439,8 @@ public class KeyLinkBetaApi {
             String agentUserId,
             String algorithm,
             Boolean enabled,
-            Boolean available)
+            Boolean available,
+            Boolean isAssigned)
             throws ApiException {
         try {
             HttpRequest.Builder localVarRequestBuilder =
@@ -451,7 +453,8 @@ public class KeyLinkBetaApi {
                             agentUserId,
                             algorithm,
                             enabled,
-                            available);
+                            available,
+                            isAssigned);
             return memberVarHttpClient
                     .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
                     .thenComposeAsync(
@@ -494,7 +497,8 @@ public class KeyLinkBetaApi {
             String agentUserId,
             String algorithm,
             Boolean enabled,
-            Boolean available)
+            Boolean available,
+            Boolean isAssigned)
             throws ApiException {
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
@@ -522,6 +526,8 @@ public class KeyLinkBetaApi {
         localVarQueryParams.addAll(ApiClient.parameterToPairs("enabled", enabled));
         localVarQueryParameterBaseName = "available";
         localVarQueryParams.addAll(ApiClient.parameterToPairs("available", available));
+        localVarQueryParameterBaseName = "isAssigned";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("isAssigned", isAssigned));
 
         if (!localVarQueryParams.isEmpty() || localVarQueryStringJoiner.length() != 0) {
             StringJoiner queryJoiner = new StringJoiner("&");

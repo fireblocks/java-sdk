@@ -54,4 +54,10 @@ public class CreateTokenRequestDtoCreateParamsTest {
     public void issuerAddressTest() {
         // TODO: test issuerAddress
     }
+
+    /** Test the property 'decimals' */
+    @Test
+    public void decimalsTest() {
+        // TODO: test decimals
+    }
 }

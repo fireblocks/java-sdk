@@ -356,7 +356,7 @@ No authorization required
 
 ## getSigningKeysList
 
-> CompletableFuture<ApiResponse<GetSigningKeyResponseDto>> getSigningKeysList getSigningKeysList(pageCursor, pageSize, sortBy, order, vaultAccountId, agentUserId, algorithm, enabled, available)
+> CompletableFuture<ApiResponse<GetSigningKeyResponseDto>> getSigningKeysList getSigningKeysList(pageCursor, pageSize, sortBy, order, vaultAccountId, agentUserId, algorithm, enabled, available, isAssigned)
 
 Get list of signing keys
 
@@ -394,8 +394,9 @@ public class Example {
         String algorithm = "ECDSA_SECP256K1"; // String | Return only keys with a specific algorithm
         Boolean enabled = true; // Boolean | Return keys that have been proof of ownership
         Boolean available = true; // Boolean | Return keys that are proof of ownership but not assigned. Available filter can be used only when vaultAccountId and enabled filters are not set
+        Boolean isAssigned = true; // Boolean | Return keys that are assigned to a vault account
         try {
-            CompletableFuture<ApiResponse<GetSigningKeyResponseDto>> response = fireblocks.keyLinkBeta().getSigningKeysList(pageCursor, pageSize, sortBy, order, vaultAccountId, agentUserId, algorithm, enabled, available);
+            CompletableFuture<ApiResponse<GetSigningKeyResponseDto>> response = fireblocks.keyLinkBeta().getSigningKeysList(pageCursor, pageSize, sortBy, order, vaultAccountId, agentUserId, algorithm, enabled, available, isAssigned);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
@@ -431,6 +432,7 @@ public class Example {
 | **algorithm** | **String**| Return only keys with a specific algorithm | [optional] [enum: ECDSA_SECP256K1, EDDSA_ED25519] |
 | **enabled** | **Boolean**| Return keys that have been proof of ownership | [optional] |
 | **available** | **Boolean**| Return keys that are proof of ownership but not assigned. Available filter can be used only when vaultAccountId and enabled filters are not set | [optional] |
+| **isAssigned** | **Boolean**| Return keys that are assigned to a vault account | [optional] |
 
 ### Return type
 

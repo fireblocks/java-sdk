@@ -32,7 +32,7 @@ Add this dependency to your project's POM:
 <dependency>
   <groupId>com.fireblocks.sdk</groupId>
   <artifactId>fireblocks-sdk</artifactId>
-  <version>10.1.0</version>
+  <version>0.0.0</version>
   <scope>compile</scope>
 </dependency>
 ```
@@ -42,7 +42,7 @@ Add this dependency to your project's POM:
 Add this dependency to your project's build file:
 
 ```groovy
-compile "com.fireblocks.sdk:fireblocks-sdk:10.1.0"
+compile "com.fireblocks.sdk:fireblocks-sdk:0.0.0"
 ```
 
 ### Others
@@ -55,7 +55,7 @@ mvn clean package
 
 Then manually install the following JARs:
 
-- `target/fireblocks-sdk-10.1.0.jar`
+- `target/fireblocks-sdk-0.0.0.jar`
 - `target/lib/*.jar`
 
 
@@ -503,6 +503,7 @@ Class | Method | HTTP request | Description
  - [ConfigTransferOperationSnapshot](docs/ConfigTransferOperationSnapshot.md)
  - [ConsoleUser](docs/ConsoleUser.md)
  - [ContractAbiResponseDto](docs/ContractAbiResponseDto.md)
+ - [ContractAbiResponseDtoAbiInner](docs/ContractAbiResponseDtoAbiInner.md)
  - [ContractAttributes](docs/ContractAttributes.md)
  - [ContractDeployRequest](docs/ContractDeployRequest.md)
  - [ContractDeployResponse](docs/ContractDeployResponse.md)
@@ -630,6 +631,8 @@ Class | Method | HTTP request | Description
  - [GasStationConfiguration](docs/GasStationConfiguration.md)
  - [GasStationConfigurationResponse](docs/GasStationConfigurationResponse.md)
  - [GasStationPropertiesResponse](docs/GasStationPropertiesResponse.md)
+ - [GasslessStandardConfigurations](docs/GasslessStandardConfigurations.md)
+ - [GasslessStandardConfigurationsGaslessStandardConfigurationsValue](docs/GasslessStandardConfigurationsGaslessStandardConfigurationsValue.md)
  - [GetAPIUsersResponse](docs/GetAPIUsersResponse.md)
  - [GetAuditLogsResponse](docs/GetAuditLogsResponse.md)
  - [GetConnectionsResponse](docs/GetConnectionsResponse.md)
@@ -649,6 +652,7 @@ Class | Method | HTTP request | Description
  - [GetWhitelistIpAddressesResponse](docs/GetWhitelistIpAddressesResponse.md)
  - [GetWorkspaceStatusResponse](docs/GetWorkspaceStatusResponse.md)
  - [HttpContractDoesNotExistError](docs/HttpContractDoesNotExistError.md)
+ - [IdlType](docs/IdlType.md)
  - [InstructionAmount](docs/InstructionAmount.md)
  - [InternalTransferResponse](docs/InternalTransferResponse.md)
  - [InvalidParamaterValueError](docs/InvalidParamaterValueError.md)
@@ -666,6 +670,7 @@ Class | Method | HTTP request | Description
  - [ModifySigningKeyDto](docs/ModifySigningKeyDto.md)
  - [ModifyValidationKeyDto](docs/ModifyValidationKeyDto.md)
  - [MpcKey](docs/MpcKey.md)
+ - [MultichainDeploymentMetadata](docs/MultichainDeploymentMetadata.md)
  - [NetworkChannel](docs/NetworkChannel.md)
  - [NetworkConnection](docs/NetworkConnection.md)
  - [NetworkConnectionResponse](docs/NetworkConnectionResponse.md)
@@ -740,6 +745,7 @@ Class | Method | HTTP request | Description
  - [PublishResult](docs/PublishResult.md)
  - [ReadAbiFunction](docs/ReadAbiFunction.md)
  - [ReadCallFunctionDto](docs/ReadCallFunctionDto.md)
+ - [ReadCallFunctionDtoAbiFunction](docs/ReadCallFunctionDtoAbiFunction.md)
  - [RedeemFundsToLinkedDDAResponse](docs/RedeemFundsToLinkedDDAResponse.md)
  - [RegisterNewAssetRequest](docs/RegisterNewAssetRequest.md)
  - [ReissueMultichainTokenRequest](docs/ReissueMultichainTokenRequest.md)
@@ -756,6 +762,8 @@ Class | Method | HTTP request | Description
  - [RespondToConnectionRequest](docs/RespondToConnectionRequest.md)
  - [RewardInfo](docs/RewardInfo.md)
  - [RewardsInfo](docs/RewardsInfo.md)
+ - [SOLAccount](docs/SOLAccount.md)
+ - [SOLAccountWithValue](docs/SOLAccountWithValue.md)
  - [ScreeningConfigurationsRequest](docs/ScreeningConfigurationsRequest.md)
  - [ScreeningOperationExecution](docs/ScreeningOperationExecution.md)
  - [ScreeningOperationExecutionOutput](docs/ScreeningOperationExecutionOutput.md)
@@ -817,7 +825,13 @@ Class | Method | HTTP request | Description
  - [SmartTransferUpdateTicketTerm](docs/SmartTransferUpdateTicketTerm.md)
  - [SmartTransferUserGroups](docs/SmartTransferUserGroups.md)
  - [SmartTransferUserGroupsResponse](docs/SmartTransferUserGroupsResponse.md)
+ - [SolParameter](docs/SolParameter.md)
+ - [SolParameterWithValue](docs/SolParameterWithValue.md)
  - [SolanaBlockchainData](docs/SolanaBlockchainData.md)
+ - [SolanaConfig](docs/SolanaConfig.md)
+ - [SolanaInstruction](docs/SolanaInstruction.md)
+ - [SolanaInstructionWithValue](docs/SolanaInstructionWithValue.md)
+ - [SolanaSimpleCreateParams](docs/SolanaSimpleCreateParams.md)
  - [SourceTransferPeerPath](docs/SourceTransferPeerPath.md)
  - [SourceTransferPeerPathResponse](docs/SourceTransferPeerPathResponse.md)
  - [SpamOwnershipResponse](docs/SpamOwnershipResponse.md)
@@ -956,6 +970,7 @@ Class | Method | HTTP request | Description
  - [WorkflowExecutionOperation](docs/WorkflowExecutionOperation.md)
  - [WriteAbiFunction](docs/WriteAbiFunction.md)
  - [WriteCallFunctionDto](docs/WriteCallFunctionDto.md)
+ - [WriteCallFunctionDtoAbiFunction](docs/WriteCallFunctionDtoAbiFunction.md)
  - [WriteCallFunctionResponseDto](docs/WriteCallFunctionResponseDto.md)
 
 
