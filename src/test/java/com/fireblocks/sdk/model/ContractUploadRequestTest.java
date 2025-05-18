@@ -78,4 +78,10 @@ public class ContractUploadRequestTest {
     public void attributesTest() {
         // TODO: test attributes
     }
+
+    /** Test the property 'protocol' */
+    @Test
+    public void protocolTest() {
+        // TODO: test protocol
+    }
 }

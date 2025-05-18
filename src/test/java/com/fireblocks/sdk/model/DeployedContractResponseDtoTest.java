@@ -54,4 +54,28 @@ public class DeployedContractResponseDtoTest {
     public void blockchainIdTest() {
         // TODO: test blockchainId
     }
+
+    /** Test the property 'baseAssetId' */
+    @Test
+    public void baseAssetIdTest() {
+        // TODO: test baseAssetId
+    }
+
+    /** Test the property 'gaslessConfig' */
+    @Test
+    public void gaslessConfigTest() {
+        // TODO: test gaslessConfig
+    }
+
+    /** Test the property 'multichainDeploymentMetadata' */
+    @Test
+    public void multichainDeploymentMetadataTest() {
+        // TODO: test multichainDeploymentMetadata
+    }
+
+    /** Test the property 'solanaConfig' */
+    @Test
+    public void solanaConfigTest() {
+        // TODO: test solanaConfig
+    }
 }

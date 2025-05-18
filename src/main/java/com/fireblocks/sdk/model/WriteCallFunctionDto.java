@@ -40,7 +40,7 @@ public class WriteCallFunctionDto {
     private String vaultAccountId;
 
     public static final String JSON_PROPERTY_ABI_FUNCTION = "abiFunction";
-    private WriteAbiFunction abiFunction;
+    private WriteCallFunctionDtoAbiFunction abiFunction;
 
     public static final String JSON_PROPERTY_AMOUNT = "amount";
     private String amount;
@@ -122,7 +122,7 @@ public class WriteCallFunctionDto {
         this.vaultAccountId = vaultAccountId;
     }
 
-    public WriteCallFunctionDto abiFunction(WriteAbiFunction abiFunction) {
+    public WriteCallFunctionDto abiFunction(WriteCallFunctionDtoAbiFunction abiFunction) {
         this.abiFunction = abiFunction;
         return this;
     }
@@ -135,13 +135,13 @@ public class WriteCallFunctionDto {
     @jakarta.annotation.Nonnull
     @JsonProperty(JSON_PROPERTY_ABI_FUNCTION)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public WriteAbiFunction getAbiFunction() {
+    public WriteCallFunctionDtoAbiFunction getAbiFunction() {
         return abiFunction;
     }
 
     @JsonProperty(JSON_PROPERTY_ABI_FUNCTION)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setAbiFunction(WriteAbiFunction abiFunction) {
+    public void setAbiFunction(WriteCallFunctionDtoAbiFunction abiFunction) {
         this.abiFunction = abiFunction;
     }
 

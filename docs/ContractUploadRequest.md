@@ -16,6 +16,7 @@
 |**docs** | [**ContractDoc**](ContractDoc.md) | A &#x60;natspec&#x60; compliant documentation json. Can be retrieved from the output json after compilation |  [optional] |
 |**abi** | [**List&lt;AbiFunction&gt;**](AbiFunction.md) | The abi of the contract template. Necessary for displaying and for after deployment encoding |  |
 |**attributes** | [**ContractAttributes**](ContractAttributes.md) | The attributes related to this contract template. It will be displayed in the tokenization page |  [optional] |
+|**protocol** | [**ProtocolEnum**](#ProtocolEnum) | The protocol that the template will be used for |  [optional] |
 
 
 
@@ -28,6 +29,15 @@
 | NON_TOKEN | &quot;NON_TOKEN&quot; |
 | TOKEN_EXTENSION | &quot;TOKEN_EXTENSION&quot; |
 | TOKEN_UTILITY | &quot;TOKEN_UTILITY&quot; |
+
+
+
+## Enum: ProtocolEnum
+
+| Name | Value |
+|---- | -----|
+| ETH | &quot;ETH&quot; |
+| SOL | &quot;SOL&quot; |
 
 
 

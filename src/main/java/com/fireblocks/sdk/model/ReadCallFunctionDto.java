@@ -24,11 +24,11 @@ import java.util.StringJoiner;
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class ReadCallFunctionDto {
     public static final String JSON_PROPERTY_ABI_FUNCTION = "abiFunction";
-    private ReadAbiFunction abiFunction;
+    private ReadCallFunctionDtoAbiFunction abiFunction;
 
     public ReadCallFunctionDto() {}
 
-    public ReadCallFunctionDto abiFunction(ReadAbiFunction abiFunction) {
+    public ReadCallFunctionDto abiFunction(ReadCallFunctionDtoAbiFunction abiFunction) {
         this.abiFunction = abiFunction;
         return this;
     }
@@ -41,13 +41,13 @@ public class ReadCallFunctionDto {
     @jakarta.annotation.Nonnull
     @JsonProperty(JSON_PROPERTY_ABI_FUNCTION)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public ReadAbiFunction getAbiFunction() {
+    public ReadCallFunctionDtoAbiFunction getAbiFunction() {
         return abiFunction;
     }
 
     @JsonProperty(JSON_PROPERTY_ABI_FUNCTION)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setAbiFunction(ReadAbiFunction abiFunction) {
+    public void setAbiFunction(ReadCallFunctionDtoAbiFunction abiFunction) {
         this.abiFunction = abiFunction;
     }
 

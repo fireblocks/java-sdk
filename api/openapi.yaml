@@ -5641,6 +5641,15 @@ paths:
         schema:
           type: boolean
         style: form
+      - description: Return keys that are assigned to a vault account
+        explode: true
+        in: query
+        name: isAssigned
+        required: false
+        schema:
+          nullable: true
+          type: boolean
+        style: form
       responses:
         "200":
           content:
@@ -5673,12 +5682,13 @@ paths:
         - language: java
           code: "CompletableFuture<ApiResponse<GetSigningKeyResponseDto>> response\
             \ = fireblocks.keyLinkBeta().getSigningKeysList(pageCursor, pageSize,\
-            \ sortBy, order, vaultAccountId, agentUserId, algorithm, enabled, available);"
+            \ sortBy, order, vaultAccountId, agentUserId, algorithm, enabled, available,\
+            \ isAssigned);"
           name: Fireblocks SDK Java example
         - language: python
           code: "response = fireblocks.key_link_beta.get_signing_keys_list(page_cursor,\
             \ page_size, sort_by, order, vault_account_id, agent_user_id, algorithm,\
-            \ enabled, available);"
+            \ enabled, available, is_assigned);"
           name: Fireblocks SDK Python example
       x-codeSamples:
       - lang: TypeScript
@@ -5687,11 +5697,11 @@ paths:
       - lang: Java
         source: "CompletableFuture<ApiResponse<GetSigningKeyResponseDto>> response\
           \ = fireblocks.keyLinkBeta().getSigningKeysList(pageCursor, pageSize, sortBy,\
-          \ order, vaultAccountId, agentUserId, algorithm, enabled, available);"
+          \ order, vaultAccountId, agentUserId, algorithm, enabled, available, isAssigned);"
       - lang: Python
         source: "response = fireblocks.key_link_beta.get_signing_keys_list(page_cursor,\
           \ page_size, sort_by, order, vault_account_id, agent_user_id, algorithm,\
-          \ enabled, available);"
+          \ enabled, available, is_assigned);"
       x-accepts: application/json
     post:
       description: "Adds a new signing key to the workspace. The added key will be\
@@ -15263,6 +15273,7 @@ paths:
           - ETHERLINK_TEST
           - MANTLE
           - MANTLE_TEST
+          - GUN_GUNZILLA
           - GUN_GUNZILLA_TEST
           - ETH_SONEIUM
           - SONEIUM_MINATO_TEST
@@ -15481,6 +15492,7 @@ paths:
           - ETHERLINK_TEST
           - MANTLE
           - MANTLE_TEST
+          - GUN_GUNZILLA
           - GUN_GUNZILLA_TEST
           - ETH_SONEIUM
           - SONEIUM_MINATO_TEST
@@ -34661,6 +34673,7 @@ components:
            - mint
            - burn
         bytecode: bytecode
+        protocol: ETH
         docs:
           details: "This contract implements an upgradeable proxy. It is upgradeable\
             \ because calls are delegated to an implementation address that can be\
@@ -34803,6 +34816,13 @@ components:
               name: MyAuditor
               imageURL: https://my-images.com/my-image.jpg
               link: https://my-auditor.com/my-audit-report
+        protocol:
+          description: The protocol that the template will be used for
+          enum:
+          - ETH
+          - SOL
+          example: ETH
+          type: string
       required:
       - abi
       - bytecode
@@ -35228,11 +35248,195 @@ components:
       required:
       - data
       type: object
+    GasslessStandardConfigurations:
+      description: The gasless configuration of the contract
+      example:
+        gaslessStandardConfigurations:
+          key:
+            forwarderAddresses:
+            - 0x2E7B54631e18E9eEcc2eb5219249cc8388586f66
+            - 0x2E7B54631e18E9eEcc2eb5219249cc8388586f66
+            lastOnChainCheck: 2024-09-09T04:17:46.918Z
+      properties:
+        gaslessStandardConfigurations:
+          additionalProperties:
+            $ref: '#/components/schemas/GasslessStandardConfigurations_gaslessStandardConfigurations_value'
+          type: object
+      type: object
+    ParameterWithValueList:
+      items:
+        $ref: '#/components/schemas/ParameterWithValue'
+      type: array
+    MultichainDeploymentMetadata:
+      description: The multichain deployment metadata
+      example:
+        address: 0x742d35Cc6634C0532925a3b844Bc454e4438f44e
+        initParams:
+        - components:
+          - components:
+            - null
+            - null
+            name: _name
+            description: The name of the token
+            internalType: string
+            type: string
+          - components:
+            - null
+            - null
+            name: _name
+            description: The name of the token
+            internalType: string
+            type: string
+          name: _name
+          description: The name of the token
+          functionValue: ""
+          internalType: string
+          type: string
+          value: "true"
+        - components:
+          - components:
+            - null
+            - null
+            name: _name
+            description: The name of the token
+            internalType: string
+            type: string
+          - components:
+            - null
+            - null
+            name: _name
+            description: The name of the token
+            internalType: string
+            type: string
+          name: _name
+          description: The name of the token
+          functionValue: ""
+          internalType: string
+          type: string
+          value: "true"
+        deploymentSalt: 0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef
+        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        templateId: 0e4f5a3b-924e-7bb9-8e5b-c748270feb38
+        encodedInitParams: 0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef
+      properties:
+        id:
+          description: The unique identifier of the deployment metadata
+          format: uuid
+          type: string
+        address:
+          description: The address of the deployed contract
+          example: 0x742d35Cc6634C0532925a3b844Bc454e4438f44e
+          type: string
+        templateId:
+          description: The unique identifier of the contract template
+          example: 0e4f5a3b-924e-7bb9-8e5b-c748270feb38
+          format: uuid
+          type: string
+        deploymentSalt:
+          description: The salt used for the deployment
+          example: 0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef
+          type: string
+        initParams:
+          items:
+            $ref: '#/components/schemas/ParameterWithValue'
+          type: array
+        encodedInitParams:
+          description: The encoded init params
+          example: 0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef
+          type: string
+      type: object
+    SolanaConfig:
+      description: The Solana configuration of the contract
+      example:
+        extensions:
+        - metadataPointer
+        - transferHook
+        type: TOKEN2022
+      properties:
+        extensions:
+          description: The extensions that the contract implements.
+          example:
+          - metadataPointer
+          - transferHook
+          items:
+            type: string
+          type: array
+        type:
+          description: The type of the contract.
+          enum:
+          - SPL
+          - TOKEN2022
+          - PROGRAM
+          example: TOKEN2022
+          type: string
+      type: object
     DeployedContractResponseDto:
       example:
+        baseAssetId: ETH_TEST5
+        gaslessConfig:
+          gaslessStandardConfigurations:
+            key:
+              forwarderAddresses:
+              - 0x2E7B54631e18E9eEcc2eb5219249cc8388586f66
+              - 0x2E7B54631e18E9eEcc2eb5219249cc8388586f66
+              lastOnChainCheck: 2024-09-09T04:17:46.918Z
         contractTemplateId: b70701f4-d7b1-4795-a8ee-b09cdb5b850d
+        solanaConfig:
+          extensions:
+          - metadataPointer
+          - transferHook
+          type: TOKEN2022
         contractAddress: 0xC2c4e1Db41F0bB97996D0eD0542D2170d146FB66
         vaultAccountId: "0"
+        multichainDeploymentMetadata:
+          address: 0x742d35Cc6634C0532925a3b844Bc454e4438f44e
+          initParams:
+          - components:
+            - components:
+              - null
+              - null
+              name: _name
+              description: The name of the token
+              internalType: string
+              type: string
+            - components:
+              - null
+              - null
+              name: _name
+              description: The name of the token
+              internalType: string
+              type: string
+            name: _name
+            description: The name of the token
+            functionValue: ""
+            internalType: string
+            type: string
+            value: "true"
+          - components:
+            - components:
+              - null
+              - null
+              name: _name
+              description: The name of the token
+              internalType: string
+              type: string
+            - components:
+              - null
+              - null
+              name: _name
+              description: The name of the token
+              internalType: string
+              type: string
+            name: _name
+            description: The name of the token
+            functionValue: ""
+            internalType: string
+            type: string
+            value: "true"
+          deploymentSalt: 0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef
+          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          templateId: 0e4f5a3b-924e-7bb9-8e5b-c748270feb38
+          encodedInitParams: 0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef
         id: b70701f4-d7b1-4795-a8ee-b09cdb5b850d
         blockchainId: blockchainId
       properties:
@@ -35254,6 +35458,16 @@ components:
           type: string
         blockchainId:
           type: string
+        baseAssetId:
+          description: The blockchain base assetId
+          example: ETH_TEST5
+          type: string
+        gaslessConfig:
+          $ref: '#/components/schemas/GasslessStandardConfigurations'
+        multichainDeploymentMetadata:
+          $ref: '#/components/schemas/MultichainDeploymentMetadata'
+        solanaConfig:
+          $ref: '#/components/schemas/SolanaConfig'
       required:
       - blockchainId
       - contractAddress
@@ -35716,6 +35930,26 @@ components:
           type: string
       required:
       - issuerAddress
+      - name
+      - symbol
+      type: object
+    SolanaSimpleCreateParams:
+      properties:
+        name:
+          description: The name of the token or asset being created.
+          example: SolanaToken
+          type: string
+        symbol:
+          description: "The symbol for the token, typically an abbreviated representation."
+          example: SOL
+          type: string
+        decimals:
+          description: "The number of decimal places the token supports (e.g., 9 for\
+            \ typical Solana tokens)."
+          example: 9
+          type: integer
+      required:
+      - decimals
       - name
       - symbol
       type: object
@@ -36430,6 +36664,92 @@ components:
       required:
       - txId
       type: object
+    SOLAccount:
+      description: The accounts involved in the instruction
+      properties:
+        name:
+          description: The name of the account
+          example: mint
+          type: string
+        signer:
+          description: Indicates if the account needs to sign the instruction. If
+            true a signature for this account must be provided
+          example: false
+          type: boolean
+        writable:
+          description: Indicates if the account's data can be changed by the instruction.
+          example: true
+          type: boolean
+        address:
+          description: The address of the account
+          example: 4PVcDXAkAgQkVx4puiSXdZ5H8BrTqUzstJBKKWFy3XsH
+          type: string
+      required:
+      - name
+      type: object
+    IdlType:
+      description: The type of the parameter
+      enum:
+      - bool
+      - u8
+      - i8
+      - u16
+      - i16
+      - u32
+      - i32
+      - f32
+      - u64
+      - i64
+      - f64
+      - u128
+      - i128
+      - u256
+      - i256
+      - bytes
+      - string
+      - pubkey
+      example: u8
+      type: string
+    SolParameter:
+      description: The arguments of the instruction
+      properties:
+        name:
+          description: The name of the parameter
+          example: mint
+          type: string
+        type:
+          $ref: '#/components/schemas/IdlType'
+      required:
+      - name
+      - type
+      type: object
+    SolanaInstruction:
+      properties:
+        name:
+          description: The name of the instruction
+          example: transfer
+          type: string
+        discriminator:
+          description: The discriminator for the instruction. Acts as a function selector
+          example:
+          - 13
+          items:
+            type: number
+          type: array
+        accounts:
+          items:
+            $ref: '#/components/schemas/SOLAccount'
+          type: array
+        args:
+          items:
+            $ref: '#/components/schemas/SolParameter'
+          type: array
+      required:
+      - accounts
+      - args
+      - discriminator
+      - name
+      type: object
     ContractAbiResponseDto:
       example:
         abi:
@@ -36467,7 +36787,7 @@ components:
             stateMutability: nonpayable
             type: constructor
           items:
-            $ref: '#/components/schemas/AbiFunction'
+            $ref: '#/components/schemas/ContractAbiResponseDto_abi_inner'
           type: array
         implementationAbi:
           description: The abi of the implementation contract if exists. Relevant
@@ -36579,6 +36899,74 @@ components:
       - stateMutability
       - type
       type: object
+    SOLAccountWithValue:
+      properties:
+        name:
+          description: The name of the account
+          example: mint
+          type: string
+        signer:
+          description: Indicates if the account needs to sign the instruction. If
+            true a signature for this account must be provided
+          example: false
+          type: boolean
+        writable:
+          description: Indicates if the account's data can be changed by the instruction.
+          example: true
+          type: boolean
+        address:
+          description: The address of the account
+          example: 4PVcDXAkAgQkVx4puiSXdZ5H8BrTqUzstJBKKWFy3XsH
+          type: string
+      required:
+      - address
+      - name
+      type: object
+    SolParameterWithValue:
+      properties:
+        value:
+          description: The value of the parameter
+          example: "1000000"
+          type: string
+        name:
+          description: The name of the parameter
+          example: mint
+          type: string
+        type:
+          $ref: '#/components/schemas/IdlType'
+      required:
+      - name
+      - type
+      - value
+      type: object
+    SolanaInstructionWithValue:
+      properties:
+        name:
+          description: The name of the instruction
+          example: approve
+          type: string
+        discriminator:
+          description: The discriminator for the instruction. Acts as a function selector
+          example:
+          - 13
+          items:
+            type: number
+          type: array
+        accounts:
+          items:
+            $ref: '#/components/schemas/SOLAccountWithValue'
+          type: array
+        args:
+          description: The arguments of the instruction
+          items:
+            $ref: '#/components/schemas/SolParameterWithValue'
+          type: array
+      required:
+      - accounts
+      - args
+      - discriminator
+      - name
+      type: object
     ReadCallFunctionDto:
       example:
         abiFunction:
@@ -36646,14 +37034,10 @@ components:
           type: type
       properties:
         abiFunction:
-          $ref: '#/components/schemas/ReadAbiFunction'
+          $ref: '#/components/schemas/ReadCallFunctionDto_abiFunction'
       required:
       - abiFunction
       type: object
-    ParameterWithValueList:
-      items:
-        $ref: '#/components/schemas/ParameterWithValue'
-      type: array
     WriteAbiFunction:
       example:
         outputs:
@@ -36824,7 +37208,7 @@ components:
           example: "0"
           type: string
         abiFunction:
-          $ref: '#/components/schemas/WriteAbiFunction'
+          $ref: '#/components/schemas/WriteCallFunctionDto_abiFunction'
         amount:
           description: Amount in base asset. Being used in payable functions
           example: "12.345"
@@ -37844,6 +38228,7 @@ components:
           - ETHERLINK_TEST
           - MANTLE
           - MANTLE_TEST
+          - GUN_GUNZILLA
           - GUN_GUNZILLA_TEST
           - ETH_SONEIUM
           - SONEIUM_MINATO_TEST
@@ -38008,6 +38393,7 @@ components:
           - ETHERLINK_TEST
           - MANTLE
           - MANTLE_TEST
+          - GUN_GUNZILLA
           - GUN_GUNZILLA_TEST
           - ETH_SONEIUM
           - SONEIUM_MINATO_TEST
@@ -38110,6 +38496,7 @@ components:
           - ETHERLINK_TEST
           - MANTLE
           - MANTLE_TEST
+          - GUN_GUNZILLA
           - GUN_GUNZILLA_TEST
           - ETH_SONEIUM
           - SONEIUM_MINATO_TEST
@@ -46455,6 +46842,23 @@ components:
         required:
         - timeSeconds
         type: object
+    GasslessStandardConfigurations_gaslessStandardConfigurations_value:
+      example:
+        forwarderAddresses:
+        - 0x2E7B54631e18E9eEcc2eb5219249cc8388586f66
+        - 0x2E7B54631e18E9eEcc2eb5219249cc8388586f66
+        lastOnChainCheck: 2024-09-09T04:17:46.918Z
+      properties:
+        lastOnChainCheck:
+          example: 2024-09-09T04:17:46.918Z
+          format: date-time
+          type: string
+        forwarderAddresses:
+          items:
+            example: 0x2E7B54631e18E9eEcc2eb5219249cc8388586f66
+            type: string
+          type: array
+      type: object
     TokenLinkDto_tokenMetadata:
       description: The token's metadata
       oneOf:
@@ -46465,9 +46869,22 @@ components:
       oneOf:
       - $ref: '#/components/schemas/EVMTokenCreateParamsDto'
       - $ref: '#/components/schemas/StellarRippleCreateParamsDto'
+      - $ref: '#/components/schemas/SolanaSimpleCreateParams'
     CreateMultichainTokenRequest_createParams:
       oneOf:
       - $ref: '#/components/schemas/EVMTokenCreateParamsDto'
+    ContractAbiResponseDto_abi_inner:
+      oneOf:
+      - $ref: '#/components/schemas/AbiFunction'
+      - $ref: '#/components/schemas/SolanaInstruction'
+    ReadCallFunctionDto_abiFunction:
+      oneOf:
+      - $ref: '#/components/schemas/ReadAbiFunction'
+      - $ref: '#/components/schemas/SolanaInstructionWithValue'
+    WriteCallFunctionDto_abiFunction:
+      oneOf:
+      - $ref: '#/components/schemas/WriteAbiFunction'
+      - $ref: '#/components/schemas/SolanaInstructionWithValue'
     SetOtaStatusResponse_oneOf:
       example:
         message: No change needed. The current status is false
