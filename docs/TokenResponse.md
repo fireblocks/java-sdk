@@ -41,6 +41,7 @@
 | ETHERLINK_TEST | &quot;ETHERLINK_TEST&quot; |
 | MANTLE | &quot;MANTLE&quot; |
 | MANTLE_TEST | &quot;MANTLE_TEST&quot; |
+| GUN_GUNZILLA | &quot;GUN_GUNZILLA&quot; |
 | GUN_GUNZILLA_TEST | &quot;GUN_GUNZILLA_TEST&quot; |
 | ETH_SONEIUM | &quot;ETH_SONEIUM&quot; |
 | SONEIUM_MINATO_TEST | &quot;SONEIUM_MINATO_TEST&quot; |

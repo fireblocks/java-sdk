@@ -2,6 +2,7 @@
 
 # AmlRegistrationResultFullPayload
 
+The results of the AML address registration.
 
 ## Properties
 

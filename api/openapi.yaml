@@ -64,6 +64,7 @@ paths:
       tags:
       - Vaults
       x-internal: true
+      x-rate-limit-category: query
       x-readme:
         code-samples:
         - language: python
@@ -116,6 +117,7 @@ paths:
       summary: Create a new vault account
       tags:
       - Vaults
+      x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: python
@@ -327,6 +329,7 @@ paths:
       summary: Bulk creation of new vault accounts
       tags:
       - Vaults
+      x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: typescript
@@ -436,6 +439,7 @@ paths:
       summary: List vault accounts (Paginated)
       tags:
       - Vaults
+      x-rate-limit-category: query
       x-readme:
         code-samples:
         - language: python
@@ -508,6 +512,7 @@ paths:
       summary: Find a vault account by ID
       tags:
       - Vaults
+      x-rate-limit-category: read
       x-readme:
         code-samples:
         - language: python
@@ -701,6 +706,7 @@ paths:
       summary: List asset wallets (Paginated)
       tags:
       - Vaults
+      x-rate-limit-category: query
       x-readme:
         code-samples:
         - language: python
@@ -782,6 +788,7 @@ paths:
       summary: Hide a vault account in the console
       tags:
       - Vaults
+      x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: python
@@ -861,6 +868,7 @@ paths:
       summary: Unhide a vault account in the console
       tags:
       - Vaults
+      x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: python
@@ -950,6 +958,7 @@ paths:
       summary: Activate a wallet in a vault account
       tags:
       - Vaults
+      x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: typescript
@@ -1031,6 +1040,7 @@ paths:
       summary: Set an AML/KYT customer reference ID for a vault account
       tags:
       - Vaults
+      x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: python
@@ -1120,6 +1130,7 @@ paths:
       summary: Turn autofueling on or off
       tags:
       - Vaults
+      x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: typescript
@@ -1189,6 +1200,7 @@ paths:
       summary: Get the asset balance for a vault account
       tags:
       - Vaults
+      x-rate-limit-category: read
       x-readme:
         code-samples:
         - language: python
@@ -1283,6 +1295,7 @@ paths:
       summary: Create a new wallet
       tags:
       - Vaults
+      x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: python
@@ -1375,6 +1388,7 @@ paths:
       summary: Refresh asset balance data
       tags:
       - Vaults
+      x-rate-limit-category: async
       x-readme:
         code-samples:
         - language: python
@@ -1459,6 +1473,7 @@ paths:
       tags:
       - Vaults
       x-internal: true
+      x-rate-limit-category: query
       x-readme:
         code-samples:
         - language: python
@@ -1532,6 +1547,7 @@ paths:
       summary: Create new asset deposit address
       tags:
       - Vaults
+      x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: python
@@ -1636,6 +1652,7 @@ paths:
       summary: List addresses (Paginated)
       tags:
       - Vaults
+      x-rate-limit-category: query
       x-readme:
         code-samples:
         - language: python
@@ -1731,6 +1748,7 @@ paths:
       summary: Get the maximum spendable amount in a single transaction.
       tags:
       - Vaults
+      x-rate-limit-category: read
       x-readme:
         code-samples:
         - language: python
@@ -1838,6 +1856,7 @@ paths:
       summary: Update address description
       tags:
       - Vaults
+      x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: python
@@ -2043,6 +2062,7 @@ paths:
       summary: Convert a segwit address to legacy format
       tags:
       - Vaults
+      x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: typescript
@@ -2116,6 +2136,7 @@ paths:
       summary: Get UTXO unspent inputs information
       tags:
       - Vaults
+      x-rate-limit-category: read
       x-readme:
         code-samples:
         - language: python
@@ -2197,6 +2218,7 @@ paths:
       summary: Get the public key information
       tags:
       - Vaults
+      x-rate-limit-category: read
       x-readme:
         code-samples:
         - language: python
@@ -2295,6 +2317,7 @@ paths:
       summary: Get the public key for a vault account
       tags:
       - Vaults
+      x-rate-limit-category: read
       x-readme:
         code-samples:
         - language: python
@@ -2369,6 +2392,7 @@ paths:
       summary: Get asset balance for chosen assets
       tags:
       - Vaults
+      x-rate-limit-category: read
       x-readme:
         code-samples:
         - language: python
@@ -2451,6 +2475,7 @@ paths:
       summary: Bulk creation of wallets
       tags:
       - Assets
+      x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: typescript
@@ -2510,6 +2535,7 @@ paths:
       summary: Get vault balance by asset
       tags:
       - Vaults
+      x-rate-limit-category: read
       x-readme:
         code-samples:
         - language: python
@@ -2535,12 +2561,1148 @@ paths:
       - lang: Python
         source: response = fireblocks.vaults.get_vault_balance_by_asset(asset_id);
       x-accepts: application/json
-  /ncw/{walletId}/public_key_info:
+  /ncw/wallets/supported_assets:
+    get:
+      description: Get all the available supported assets for the Non-Custodial Wallet
+      operationId: GetEmbeddedWalletSupportedAssets
+      parameters:
+      - description: Next page cursor to fetch
+        example: MjAyMy0xMi0xMyAyMDozNjowOC4zMDI=:MTEwMA==
+        explode: true
+        in: query
+        name: pageCursor
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: Items per page
+        example: 500
+        explode: true
+        in: query
+        name: pageSize
+        required: false
+        schema:
+          default: 200
+          maximum: 400
+          type: number
+        style: form
+      - description: Only base assets
+        example: true
+        explode: true
+        in: query
+        name: onlyBaseAssets
+        required: false
+        schema:
+          type: boolean
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmbeddedWalletPaginatedAssetsResponse'
+          description: Successful response
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorSchema'
+          description: Error Response
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+      summary: Retrieve supported assets
+      tags:
+      - Embedded Wallets
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<EmbeddedWalletPaginatedAssetsResponse>>\
+            \ = fireblocks.embeddedWallets.getEmbeddedWalletSupportedAssets(embeddedWalletsApiGetEmbeddedWalletSupportedAssetsRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<EmbeddedWalletPaginatedAssetsResponse>>\
+            \ response = fireblocks.embeddedWallets().getEmbeddedWalletSupportedAssets(pageCursor,\
+            \ pageSize, onlyBaseAssets);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.embedded_wallets.get_embedded_wallet_supported_assets(page_cursor,\
+            \ page_size, only_base_assets);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<EmbeddedWalletPaginatedAssetsResponse>>\
+          \ = fireblocks.embeddedWallets.getEmbeddedWalletSupportedAssets(embeddedWalletsApiGetEmbeddedWalletSupportedAssetsRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<EmbeddedWalletPaginatedAssetsResponse>>\
+          \ response = fireblocks.embeddedWallets().getEmbeddedWalletSupportedAssets(pageCursor,\
+          \ pageSize, onlyBaseAssets);"
+      - lang: Python
+        source: "response = fireblocks.embedded_wallets.get_embedded_wallet_supported_assets(page_cursor,\
+          \ page_size, only_base_assets);"
+      x-accepts: application/json
+  /ncw/wallets:
+    get:
+      description: Get all Non Custodial Wallets
+      operationId: GetEmbeddedWallets
+      parameters:
+      - description: Next page cursor to fetch
+        example: MjAyMy0xMi0xMyAyMDozNjowOC4zMDI=:MTEwMA==
+        explode: true
+        in: query
+        name: pageCursor
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: Items per page
+        example: 500
+        explode: true
+        in: query
+        name: pageSize
+        required: false
+        schema:
+          default: 200
+          maximum: 400
+          type: number
+        style: form
+      - description: Field(s) to use for sorting
+        example: createdAt
+        explode: true
+        in: query
+        name: sort
+        required: false
+        schema:
+          default: createdAt
+          enum:
+          - createdAt
+          type: string
+        style: form
+      - description: Is the order ascending or descending
+        example: ASC
+        explode: true
+        in: query
+        name: order
+        required: false
+        schema:
+          default: ASC
+          enum:
+          - ASC
+          - DESC
+          type: string
+        style: form
+      - description: Enabled Wallets
+        example: true
+        explode: true
+        in: query
+        name: enabled
+        required: false
+        schema:
+          type: boolean
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmbeddedWalletPaginatedWalletsResponse'
+          description: Successful response
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorSchema'
+          description: Error Response
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+      summary: List wallets
+      tags:
+      - Embedded Wallets
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<EmbeddedWalletPaginatedWalletsResponse>>\
+            \ = fireblocks.embeddedWallets.getEmbeddedWallets(embeddedWalletsApiGetEmbeddedWalletsRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<EmbeddedWalletPaginatedWalletsResponse>>\
+            \ response = fireblocks.embeddedWallets().getEmbeddedWallets(pageCursor,\
+            \ pageSize, sort, order, enabled);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.embedded_wallets.get_embedded_wallets(page_cursor,\
+            \ page_size, sort, order, enabled);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<EmbeddedWalletPaginatedWalletsResponse>>\
+          \ = fireblocks.embeddedWallets.getEmbeddedWallets(embeddedWalletsApiGetEmbeddedWalletsRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<EmbeddedWalletPaginatedWalletsResponse>>\
+          \ response = fireblocks.embeddedWallets().getEmbeddedWallets(pageCursor,\
+          \ pageSize, sort, order, enabled);"
+      - lang: Python
+        source: "response = fireblocks.embedded_wallets.get_embedded_wallets(page_cursor,\
+          \ page_size, sort, order, enabled);"
+      x-accepts: application/json
+    post:
+      description: Create new Non Custodial Wallet
+      operationId: CreateEmbeddedWallet
+      parameters:
+      - description: "A unique identifier for the request. If the request is sent\
+          \ multiple times with the same idempotency key, the server will return the\
+          \ same response as the first request. The idempotency key is valid for 24\
+          \ hours."
+        explode: false
+        in: header
+        name: Idempotency-Key
+        required: false
+        schema:
+          type: string
+        style: simple
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmbeddedWallet'
+          description: Wallet created successfully
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorSchema'
+          description: Error Response
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+      summary: Create a new wallet
+      tags:
+      - Embedded Wallets
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<EmbeddedWallet>> = fireblocks.embeddedWallets.createEmbeddedWallet(embeddedWalletsApiCreateEmbeddedWalletRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: CompletableFuture<ApiResponse<EmbeddedWallet>> response = fireblocks.embeddedWallets().createEmbeddedWallet(idempotencyKey);
+          name: Fireblocks SDK Java example
+        - language: python
+          code: response = fireblocks.embedded_wallets.create_embedded_wallet(idempotency_key);
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<EmbeddedWallet>> = fireblocks.embeddedWallets.createEmbeddedWallet(embeddedWalletsApiCreateEmbeddedWalletRequest);"
+      - lang: Java
+        source: CompletableFuture<ApiResponse<EmbeddedWallet>> response = fireblocks.embeddedWallets().createEmbeddedWallet(idempotencyKey);
+      - lang: Python
+        source: response = fireblocks.embedded_wallets.create_embedded_wallet(idempotency_key);
+      x-accepts: application/json
+  /ncw/wallets/{walletId}:
+    get:
+      description: Get a wallet
+      operationId: GetEmbeddedWallet
+      parameters:
+      - description: Wallet Id
+        explode: false
+        in: path
+        name: walletId
+        required: true
+        schema:
+          example: 550e8400-e29b-41d4-a716-446655440000
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmbeddedWallet'
+          description: Successful response
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorSchema'
+          description: Error Response
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+      summary: Get a wallet
+      tags:
+      - Embedded Wallets
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<EmbeddedWallet>> = fireblocks.embeddedWallets.getEmbeddedWallet(embeddedWalletsApiGetEmbeddedWalletRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: CompletableFuture<ApiResponse<EmbeddedWallet>> response = fireblocks.embeddedWallets().getEmbeddedWallet(walletId);
+          name: Fireblocks SDK Java example
+        - language: python
+          code: response = fireblocks.embedded_wallets.get_embedded_wallet(wallet_id);
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<EmbeddedWallet>> = fireblocks.embeddedWallets.getEmbeddedWallet(embeddedWalletsApiGetEmbeddedWalletRequest);"
+      - lang: Java
+        source: CompletableFuture<ApiResponse<EmbeddedWallet>> response = fireblocks.embeddedWallets().getEmbeddedWallet(walletId);
+      - lang: Python
+        source: response = fireblocks.embedded_wallets.get_embedded_wallet(wallet_id);
+      x-accepts: application/json
+  /ncw/wallets/{walletId}/accounts/{accountId}/assets/{assetId}:
+    get:
+      description: "Get asset under a specific account, under a specific Non Custodial\
+        \ Wallet"
+      operationId: GetEmbeddedWalletAsset
+      parameters:
+      - description: Wallet Id
+        example: 550e8400-e29b-41d4-a716-446655440000
+        explode: false
+        in: path
+        name: walletId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: The ID of the account
+        example: "0"
+        explode: false
+        in: path
+        name: accountId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: The ID of the asset
+        example: BTC
+        explode: false
+        in: path
+        name: assetId
+        required: true
+        schema:
+          type: string
+          x-fb-entity: asset
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmbeddedWalletAssetResponse'
+          description: Successful response
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorSchema'
+          description: Error Response
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+      summary: Retrieve asset
+      tags:
+      - Embedded Wallets
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<EmbeddedWalletAssetResponse>>\
+            \ = fireblocks.embeddedWallets.getEmbeddedWalletAsset(embeddedWalletsApiGetEmbeddedWalletAssetRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<EmbeddedWalletAssetResponse>> response\
+            \ = fireblocks.embeddedWallets().getEmbeddedWalletAsset(walletId, accountId,\
+            \ assetId);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.embedded_wallets.get_embedded_wallet_asset(wallet_id,\
+            \ account_id, asset_id);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<EmbeddedWalletAssetResponse>>\
+          \ = fireblocks.embeddedWallets.getEmbeddedWalletAsset(embeddedWalletsApiGetEmbeddedWalletAssetRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<EmbeddedWalletAssetResponse>> response\
+          \ = fireblocks.embeddedWallets().getEmbeddedWalletAsset(walletId, accountId,\
+          \ assetId);"
+      - lang: Python
+        source: "response = fireblocks.embedded_wallets.get_embedded_wallet_asset(wallet_id,\
+          \ account_id, asset_id);"
+      x-accepts: application/json
+    post:
+      description: "Get the addresses of a specific asset, under a specific account,\
+        \ under a specific Non Custodial Wallet"
+      operationId: AddEmbeddedWalletAsset
+      parameters:
+      - description: "A unique identifier for the request. If the request is sent\
+          \ multiple times with the same idempotency key, the server will return the\
+          \ same response as the first request. The idempotency key is valid for 24\
+          \ hours."
+        explode: false
+        in: header
+        name: Idempotency-Key
+        required: false
+        schema:
+          type: string
+        style: simple
+      - description: Wallet Id
+        example: 550e8400-e29b-41d4-a716-446655440000
+        explode: false
+        in: path
+        name: walletId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: The ID of the account
+        example: "0"
+        explode: false
+        in: path
+        name: accountId
+        required: true
+        schema:
+          type: string
+          x-fb-entity: asset
+        style: simple
+      - description: The ID of the asset
+        example: BTC
+        explode: false
+        in: path
+        name: assetId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmbeddedWalletAddressDetails'
+          description: Created
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorSchema'
+          description: Error Response
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+      summary: Add asset to account
+      tags:
+      - Embedded Wallets
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<EmbeddedWalletAddressDetails>>\
+            \ = fireblocks.embeddedWallets.addEmbeddedWalletAsset(embeddedWalletsApiAddEmbeddedWalletAssetRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<EmbeddedWalletAddressDetails>> response\
+            \ = fireblocks.embeddedWallets().addEmbeddedWalletAsset(walletId, accountId,\
+            \ assetId, idempotencyKey);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.embedded_wallets.add_embedded_wallet_asset(wallet_id,\
+            \ account_id, asset_id, idempotency_key);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<EmbeddedWalletAddressDetails>>\
+          \ = fireblocks.embeddedWallets.addEmbeddedWalletAsset(embeddedWalletsApiAddEmbeddedWalletAssetRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<EmbeddedWalletAddressDetails>> response\
+          \ = fireblocks.embeddedWallets().addEmbeddedWalletAsset(walletId, accountId,\
+          \ assetId, idempotencyKey);"
+      - lang: Python
+        source: "response = fireblocks.embedded_wallets.add_embedded_wallet_asset(wallet_id,\
+          \ account_id, asset_id, idempotency_key);"
+      x-accepts: application/json
+  /ncw/wallets/{walletId}/accounts/{accountId}/assets/{assetId}/balance:
+    get:
+      description: "Get balance for specific asset, under a specific account"
+      operationId: GetEmbeddedWalletAssetBalance
+      parameters:
+      - description: Wallet Id
+        example: 550e8400-e29b-41d4-a716-446655440000
+        explode: false
+        in: path
+        name: walletId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: The ID of the account
+        example: "0"
+        explode: false
+        in: path
+        name: accountId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: The ID of the asset
+        example: BTC
+        explode: false
+        in: path
+        name: assetId
+        required: true
+        schema:
+          type: string
+          x-fb-entity: asset
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmbeddedWalletAssetBalance'
+          description: Successful response
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorSchema'
+          description: Error Response
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+      summary: Retrieve asset balance
+      tags:
+      - Embedded Wallets
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<EmbeddedWalletAssetBalance>>\
+            \ = fireblocks.embeddedWallets.getEmbeddedWalletAssetBalance(embeddedWalletsApiGetEmbeddedWalletAssetBalanceRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<EmbeddedWalletAssetBalance>> response\
+            \ = fireblocks.embeddedWallets().getEmbeddedWalletAssetBalance(walletId,\
+            \ accountId, assetId);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.embedded_wallets.get_embedded_wallet_asset_balance(wallet_id,\
+            \ account_id, asset_id);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<EmbeddedWalletAssetBalance>>\
+          \ = fireblocks.embeddedWallets.getEmbeddedWalletAssetBalance(embeddedWalletsApiGetEmbeddedWalletAssetBalanceRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<EmbeddedWalletAssetBalance>> response\
+          \ = fireblocks.embeddedWallets().getEmbeddedWalletAssetBalance(walletId,\
+          \ accountId, assetId);"
+      - lang: Python
+        source: "response = fireblocks.embedded_wallets.get_embedded_wallet_asset_balance(wallet_id,\
+          \ account_id, asset_id);"
+      x-accepts: application/json
+    put:
+      description: Refresh the balance of an asset in a specific account
+      operationId: RefreshEmbeddedWalletAssetBalance
+      parameters:
+      - description: "A unique identifier for the request. If the request is sent\
+          \ multiple times with the same idempotency key, the server will return the\
+          \ same response as the first request. The idempotency key is valid for 24\
+          \ hours."
+        explode: false
+        in: header
+        name: Idempotency-Key
+        required: false
+        schema:
+          type: string
+        style: simple
+      - description: Wallet Id
+        example: 550e8400-e29b-41d4-a716-446655440000
+        explode: false
+        in: path
+        name: walletId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: The ID of the account
+        example: "0"
+        explode: false
+        in: path
+        name: accountId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: The ID of the asset
+        example: BTC
+        explode: false
+        in: path
+        name: assetId
+        required: true
+        schema:
+          type: string
+          x-fb-entity: asset
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmbeddedWalletAssetBalance'
+          description: Successful response
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorSchema'
+          description: Error Response
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+      summary: Refresh asset balance
+      tags:
+      - Embedded Wallets
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<EmbeddedWalletAssetBalance>>\
+            \ = fireblocks.embeddedWallets.refreshEmbeddedWalletAssetBalance(embeddedWalletsApiRefreshEmbeddedWalletAssetBalanceRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<EmbeddedWalletAssetBalance>> response\
+            \ = fireblocks.embeddedWallets().refreshEmbeddedWalletAssetBalance(walletId,\
+            \ accountId, assetId, idempotencyKey);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.embedded_wallets.refresh_embedded_wallet_asset_balance(wallet_id,\
+            \ account_id, asset_id, idempotency_key);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<EmbeddedWalletAssetBalance>>\
+          \ = fireblocks.embeddedWallets.refreshEmbeddedWalletAssetBalance(embeddedWalletsApiRefreshEmbeddedWalletAssetBalanceRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<EmbeddedWalletAssetBalance>> response\
+          \ = fireblocks.embeddedWallets().refreshEmbeddedWalletAssetBalance(walletId,\
+          \ accountId, assetId, idempotencyKey);"
+      - lang: Python
+        source: "response = fireblocks.embedded_wallets.refresh_embedded_wallet_asset_balance(wallet_id,\
+          \ account_id, asset_id, idempotency_key);"
+      x-accepts: application/json
+  /ncw/wallets/{walletId}/accounts/{accountId}/assets/{assetId}/addresses:
+    get:
+      description: "Get the addresses of a specific asset, under a specific account,\
+        \ under a specific Non Custodial Wallet"
+      operationId: GetEmbeddedWalletAddresses
+      parameters:
+      - description: Wallet Id
+        example: 550e8400-e29b-41d4-a716-446655440000
+        explode: false
+        in: path
+        name: walletId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: The ID of the account
+        example: "0"
+        explode: false
+        in: path
+        name: accountId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: The ID of the asset
+        example: BTC
+        explode: false
+        in: path
+        name: assetId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: Cursor to the next page
+        example: MjAyMy0xMi0xMyAyMDozNjowOC4zMDI=:MTEwMA==
+        explode: true
+        in: query
+        name: pageCursor
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: Items per page
+        example: 10
+        explode: true
+        in: query
+        name: pageSize
+        required: false
+        schema:
+          maximum: 100
+          minimum: 1
+          type: number
+        style: form
+      - description: Sort by address
+        example: address
+        explode: true
+        in: query
+        name: sort
+        required: false
+        schema:
+          default: createdAt
+          enum:
+          - address
+          - createdAt
+          type: string
+        style: form
+      - description: Is the order ascending or descending
+        example: ASC
+        explode: true
+        in: query
+        name: order
+        required: false
+        schema:
+          default: ASC
+          enum:
+          - DESC
+          - ASC
+          type: string
+        style: form
+      - description: Enabled
+        example: true
+        explode: true
+        in: query
+        name: enabled
+        required: false
+        schema:
+          type: boolean
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmbeddedWalletPaginatedAddressesResponse'
+          description: Successful response
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorSchema'
+          description: Error Response
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+      summary: Retrieve asset addresses
+      tags:
+      - Embedded Wallets
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<EmbeddedWalletPaginatedAddressesResponse>>\
+            \ = fireblocks.embeddedWallets.getEmbeddedWalletAddresses(embeddedWalletsApiGetEmbeddedWalletAddressesRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<EmbeddedWalletPaginatedAddressesResponse>>\
+            \ response = fireblocks.embeddedWallets().getEmbeddedWalletAddresses(walletId,\
+            \ accountId, assetId, pageCursor, pageSize, sort, order, enabled);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.embedded_wallets.get_embedded_wallet_addresses(wallet_id,\
+            \ account_id, asset_id, page_cursor, page_size, sort, order, enabled);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<EmbeddedWalletPaginatedAddressesResponse>>\
+          \ = fireblocks.embeddedWallets.getEmbeddedWalletAddresses(embeddedWalletsApiGetEmbeddedWalletAddressesRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<EmbeddedWalletPaginatedAddressesResponse>>\
+          \ response = fireblocks.embeddedWallets().getEmbeddedWalletAddresses(walletId,\
+          \ accountId, assetId, pageCursor, pageSize, sort, order, enabled);"
+      - lang: Python
+        source: "response = fireblocks.embedded_wallets.get_embedded_wallet_addresses(wallet_id,\
+          \ account_id, asset_id, page_cursor, page_size, sort, order, enabled);"
+      x-accepts: application/json
+  /ncw/wallets/{walletId}/accounts:
+    post:
+      description: Create a new account under a specific Non Custodial Wallet
+      operationId: CreateEmbeddedWalletAccount
+      parameters:
+      - description: "A unique identifier for the request. If the request is sent\
+          \ multiple times with the same idempotency key, the server will return the\
+          \ same response as the first request. The idempotency key is valid for 24\
+          \ hours."
+        explode: false
+        in: header
+        name: Idempotency-Key
+        required: false
+        schema:
+          type: string
+        style: simple
+      - description: Wallet Id
+        example: 550e8400-e29b-41d4-a716-446655440000
+        explode: false
+        in: path
+        name: walletId
+        required: true
+        schema:
+          example: 550e8400-e29b-41d4-a716-446655440000
+          type: string
+        style: simple
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmbeddedWalletAccount'
+          description: Account Created
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorSchema'
+          description: Error Response
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+      summary: Create a new account
+      tags:
+      - Embedded Wallets
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<EmbeddedWalletAccount>>\
+            \ = fireblocks.embeddedWallets.createEmbeddedWalletAccount(embeddedWalletsApiCreateEmbeddedWalletAccountRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<EmbeddedWalletAccount>> response =\
+            \ fireblocks.embeddedWallets().createEmbeddedWalletAccount(walletId, idempotencyKey);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.embedded_wallets.create_embedded_wallet_account(wallet_id,\
+            \ idempotency_key);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<EmbeddedWalletAccount>>\
+          \ = fireblocks.embeddedWallets.createEmbeddedWalletAccount(embeddedWalletsApiCreateEmbeddedWalletAccountRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<EmbeddedWalletAccount>> response =\
+          \ fireblocks.embeddedWallets().createEmbeddedWalletAccount(walletId, idempotencyKey);"
+      - lang: Python
+        source: "response = fireblocks.embedded_wallets.create_embedded_wallet_account(wallet_id,\
+          \ idempotency_key);"
+      x-accepts: application/json
+  /ncw/wallets/{walletId}/accounts/{accountId}:
+    get:
+      description: Get a specific account under a specific Non Custodial Wallet
+      operationId: GetEmbeddedWalletAccount
+      parameters:
+      - description: WalletId
+        example: 550e8400-e29b-41d4-a716-446655440000
+        explode: false
+        in: path
+        name: walletId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: The ID of the account
+        example: "0"
+        explode: false
+        in: path
+        name: accountId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmbeddedWalletAccount'
+          description: Successful response
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorSchema'
+          description: Error Response
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+      summary: Get a account
+      tags:
+      - Embedded Wallets
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<EmbeddedWalletAccount>>\
+            \ = fireblocks.embeddedWallets.getEmbeddedWalletAccount(embeddedWalletsApiGetEmbeddedWalletAccountRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<EmbeddedWalletAccount>> response =\
+            \ fireblocks.embeddedWallets().getEmbeddedWalletAccount(walletId, accountId);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.embedded_wallets.get_embedded_wallet_account(wallet_id,\
+            \ account_id);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<EmbeddedWalletAccount>>\
+          \ = fireblocks.embeddedWallets.getEmbeddedWalletAccount(embeddedWalletsApiGetEmbeddedWalletAccountRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<EmbeddedWalletAccount>> response =\
+          \ fireblocks.embeddedWallets().getEmbeddedWalletAccount(walletId, accountId);"
+      - lang: Python
+        source: "response = fireblocks.embedded_wallets.get_embedded_wallet_account(wallet_id,\
+          \ account_id);"
+      x-accepts: application/json
+  /ncw/wallets/{walletId}/backup/latest:
+    get:
+      description: "Get wallet Latest Backup details, including the deviceId, and\
+        \ backup time"
+      operationId: GetEmbeddedWalletLatestBackup
+      parameters:
+      - description: Wallet Id
+        example: 550e8400-e29b-41d4-a716-446655440000
+        explode: false
+        in: path
+        name: walletId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmbeddedWalletLatestBackupResponse'
+          description: Successful response
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorSchema'
+          description: Error Response
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+      summary: Get wallet Latest Backup details
+      tags:
+      - Embedded Wallets
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<EmbeddedWalletLatestBackupResponse>>\
+            \ = fireblocks.embeddedWallets.getEmbeddedWalletLatestBackup(embeddedWalletsApiGetEmbeddedWalletLatestBackupRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: CompletableFuture<ApiResponse<EmbeddedWalletLatestBackupResponse>>
+            response = fireblocks.embeddedWallets().getEmbeddedWalletLatestBackup(walletId);
+          name: Fireblocks SDK Java example
+        - language: python
+          code: response = fireblocks.embedded_wallets.get_embedded_wallet_latest_backup(wallet_id);
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<EmbeddedWalletLatestBackupResponse>>\
+          \ = fireblocks.embeddedWallets.getEmbeddedWalletLatestBackup(embeddedWalletsApiGetEmbeddedWalletLatestBackupRequest);"
+      - lang: Java
+        source: CompletableFuture<ApiResponse<EmbeddedWalletLatestBackupResponse>>
+          response = fireblocks.embeddedWallets().getEmbeddedWalletLatestBackup(walletId);
+      - lang: Python
+        source: response = fireblocks.embedded_wallets.get_embedded_wallet_latest_backup(wallet_id);
+      x-accepts: application/json
+  /ncw/wallets/{walletId}/devices/{deviceId}:
+    get:
+      description: Get specific device for a specific s Wallet
+      operationId: GetEmbeddedWalletDevice
+      parameters:
+      - description: Wallet Id
+        example: 550e8400-e29b-41d4-a716-446655440000
+        explode: false
+        in: path
+        name: walletId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: Device Id
+        example: 9ee1bff0-6dba-4f0c-9b75-03fe90e66fa3
+        explode: false
+        in: path
+        name: deviceId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmbeddedWalletDevice'
+          description: Successful response
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorSchema'
+          description: Error Response
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+      summary: Get Embedded Wallet Device
+      tags:
+      - Embedded Wallets
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<EmbeddedWalletDevice>>\
+            \ = fireblocks.embeddedWallets.getEmbeddedWalletDevice(embeddedWalletsApiGetEmbeddedWalletDeviceRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<EmbeddedWalletDevice>> response = fireblocks.embeddedWallets().getEmbeddedWalletDevice(walletId,\
+            \ deviceId);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.embedded_wallets.get_embedded_wallet_device(wallet_id,\
+            \ device_id);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<EmbeddedWalletDevice>>\
+          \ = fireblocks.embeddedWallets.getEmbeddedWalletDevice(embeddedWalletsApiGetEmbeddedWalletDeviceRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<EmbeddedWalletDevice>> response = fireblocks.embeddedWallets().getEmbeddedWalletDevice(walletId,\
+          \ deviceId);"
+      - lang: Python
+        source: "response = fireblocks.embedded_wallets.get_embedded_wallet_device(wallet_id,\
+          \ device_id);"
+      x-accepts: application/json
+  /ncw/wallets/{walletId}/devices/{deviceId}/setup_status:
+    get:
+      description: Get the state of the specific device setup key under a specific
+        Non Custodial Wallet
+      operationId: GetEmbeddedWalletDeviceSetupState
+      parameters:
+      - description: Wallet Id
+        example: 550e8400-e29b-41d4-a716-446655440000
+        explode: false
+        in: path
+        name: walletId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: Device Id
+        example: 9ee1bff0-6dba-4f0c-9b75-03fe90e66fa3
+        explode: false
+        in: path
+        name: deviceId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmbeddedWalletDeviceKeySetupResponse'
+          description: Successful response
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorSchema'
+          description: Error Response
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+      summary: Get device key setup state
+      tags:
+      - Embedded Wallets
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<EmbeddedWalletDeviceKeySetupResponse>>\
+            \ = fireblocks.embeddedWallets.getEmbeddedWalletDeviceSetupState(embeddedWalletsApiGetEmbeddedWalletDeviceSetupStateRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<EmbeddedWalletDeviceKeySetupResponse>>\
+            \ response = fireblocks.embeddedWallets().getEmbeddedWalletDeviceSetupState(walletId,\
+            \ deviceId);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.embedded_wallets.get_embedded_wallet_device_setup_state(wallet_id,\
+            \ device_id);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<EmbeddedWalletDeviceKeySetupResponse>>\
+          \ = fireblocks.embeddedWallets.getEmbeddedWalletDeviceSetupState(embeddedWalletsApiGetEmbeddedWalletDeviceSetupStateRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<EmbeddedWalletDeviceKeySetupResponse>>\
+          \ response = fireblocks.embeddedWallets().getEmbeddedWalletDeviceSetupState(walletId,\
+          \ deviceId);"
+      - lang: Python
+        source: "response = fireblocks.embedded_wallets.get_embedded_wallet_device_setup_state(wallet_id,\
+          \ device_id);"
+      x-accepts: application/json
+  /ncw/wallets/{walletId}/public_key_info:
     get:
       description: Gets the public key information based on derivation path and signing
         algorithm within a Non-Custodial Wallet
       operationId: getPublicKeyInfoNcw
       parameters:
+      - description: Unique ID of the End-User wallet to the API request. Required
+          for end-user wallet operations.
+        explode: false
+        in: header
+        name: X-End-User-Wallet-Id
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
       - description: The ID of the Non-Custodial wallet
         explode: false
         in: path
@@ -2576,13 +3738,16 @@ paths:
           - MPC_ECDSA_SECP256K1
           - MPC_ECDSA_SECP256R1
           - MPC_EDDSA_ED25519
+          example: MPC_EDDSA_ED25519
           type: string
         style: form
-      - explode: true
+      - description: Compressed/Uncompressed public key format
+        explode: true
         in: query
         name: compressed
         required: false
         schema:
+          example: true
           type: boolean
         style: form
       responses:
@@ -2620,11 +3785,11 @@ paths:
           name: Fireblocks SDK TypeScript example
         - language: java
           code: "CompletableFuture<ApiResponse<PublicKeyInformation>> response = fireblocks.embeddedWallets().getPublicKeyInfoNcw(walletId,\
-            \ derivationPath, algorithm, compressed);"
+            \ derivationPath, algorithm, xEndUserWalletId, compressed);"
           name: Fireblocks SDK Java example
         - language: python
           code: "response = fireblocks.embedded_wallets.get_public_key_info_ncw(wallet_id,\
-            \ derivation_path, algorithm, compressed);"
+            \ derivation_path, algorithm, x_end_user_wallet_id, compressed);"
           name: Fireblocks SDK Python example
       x-codeSamples:
       - lang: TypeScript
@@ -2632,17 +3797,27 @@ paths:
           \ = fireblocks.embeddedWallets.getPublicKeyInfoNcw(embeddedWalletsApiGetPublicKeyInfoNcwRequest);"
       - lang: Java
         source: "CompletableFuture<ApiResponse<PublicKeyInformation>> response = fireblocks.embeddedWallets().getPublicKeyInfoNcw(walletId,\
-          \ derivationPath, algorithm, compressed);"
+          \ derivationPath, algorithm, xEndUserWalletId, compressed);"
       - lang: Python
         source: "response = fireblocks.embedded_wallets.get_public_key_info_ncw(wallet_id,\
-          \ derivation_path, algorithm, compressed);"
+          \ derivation_path, algorithm, x_end_user_wallet_id, compressed);"
       x-accepts: application/json
-  /ncw/{walletId}/accounts/{accountId}/{assetId}/{change}/{addressIndex}/public_key_info:
+  /ncw/wallets/{walletId}/accounts/{accountId}/assets/{assetId}/{change}/{addressIndex}/public_key_info:
     get:
       description: Gets the public key of an asset associated with a specific account
         within a Non-Custodial Wallet
-      operationId: getPublicKeyInfoForAddressNcw
+      operationId: GetEmbeddedWalletPublicKeyInfoForAddress
       parameters:
+      - description: Unique ID of the End-User wallet to the API request. Required
+          for end-user wallet operations.
+        explode: false
+        in: header
+        name: X-End-User-Wallet-Id
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
       - description: The ID of the Non-Custodial wallet
         explode: false
         in: path
@@ -2696,6 +3871,7 @@ paths:
         name: compressed
         required: false
         schema:
+          example: true
           type: boolean
         style: form
       responses:
@@ -2730,26 +3906,134 @@ paths:
           name: Fireblocks SDK Javascript example
         - language: typescript
           code: "const response: Promise<FireblocksResponse<PublicKeyInformation>>\
-            \ = fireblocks.embeddedWallets.getPublicKeyInfoForAddressNcw(embeddedWalletsApiGetPublicKeyInfoForAddressNcwRequest);"
+            \ = fireblocks.embeddedWallets.getEmbeddedWalletPublicKeyInfoForAddress(embeddedWalletsApiGetEmbeddedWalletPublicKeyInfoForAddressRequest);"
           name: Fireblocks SDK TypeScript example
         - language: java
-          code: "CompletableFuture<ApiResponse<PublicKeyInformation>> response = fireblocks.embeddedWallets().getPublicKeyInfoForAddressNcw(walletId,\
-            \ accountId, assetId, change, addressIndex, compressed);"
+          code: "CompletableFuture<ApiResponse<PublicKeyInformation>> response = fireblocks.embeddedWallets().getEmbeddedWalletPublicKeyInfoForAddress(walletId,\
+            \ accountId, assetId, change, addressIndex, xEndUserWalletId, compressed);"
           name: Fireblocks SDK Java example
         - language: python
-          code: "response = fireblocks.embedded_wallets.get_public_key_info_for_address_ncw(wallet_id,\
-            \ account_id, asset_id, change, address_index, compressed);"
+          code: "response = fireblocks.embedded_wallets.get_embedded_wallet_public_key_info_for_address(wallet_id,\
+            \ account_id, asset_id, change, address_index, x_end_user_wallet_id, compressed);"
           name: Fireblocks SDK Python example
       x-codeSamples:
       - lang: TypeScript
         source: "const response: Promise<FireblocksResponse<PublicKeyInformation>>\
-          \ = fireblocks.embeddedWallets.getPublicKeyInfoForAddressNcw(embeddedWalletsApiGetPublicKeyInfoForAddressNcwRequest);"
+          \ = fireblocks.embeddedWallets.getEmbeddedWalletPublicKeyInfoForAddress(embeddedWalletsApiGetEmbeddedWalletPublicKeyInfoForAddressRequest);"
       - lang: Java
-        source: "CompletableFuture<ApiResponse<PublicKeyInformation>> response = fireblocks.embeddedWallets().getPublicKeyInfoForAddressNcw(walletId,\
-          \ accountId, assetId, change, addressIndex, compressed);"
+        source: "CompletableFuture<ApiResponse<PublicKeyInformation>> response = fireblocks.embeddedWallets().getEmbeddedWalletPublicKeyInfoForAddress(walletId,\
+          \ accountId, assetId, change, addressIndex, xEndUserWalletId, compressed);"
       - lang: Python
-        source: "response = fireblocks.embedded_wallets.get_public_key_info_for_address_ncw(wallet_id,\
-          \ account_id, asset_id, change, address_index, compressed);"
+        source: "response = fireblocks.embedded_wallets.get_embedded_wallet_public_key_info_for_address(wallet_id,\
+          \ account_id, asset_id, change, address_index, x_end_user_wallet_id, compressed);"
+      x-accepts: application/json
+  /ncw/{walletId}/accounts/{accountId}/{assetId}/{change}/{addressIndex}/public_key_info:
+    get:
+      description: Gets the public key of an asset associated with a specific account
+        within a Non-Custodial Wallet
+      operationId: getPublicKeyInfoForAddressNcw
+      parameters:
+      - description: Unique ID of the End-User wallet to the API request. Required
+          for end-user wallet operations.
+        explode: false
+        in: header
+        name: X-End-User-Wallet-Id
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: The ID of the Non-Custodial wallet
+        explode: false
+        in: path
+        name: walletId
+        required: true
+        schema:
+          example: 550e8400-e29b-41d4-a716-446655440000
+          type: string
+        style: simple
+      - description: The ID of the account
+        explode: false
+        in: path
+        name: accountId
+        required: true
+        schema:
+          example: "0"
+          format: numeric
+          type: string
+        style: simple
+      - description: The ID of the asset
+        explode: false
+        in: path
+        name: assetId
+        required: true
+        schema:
+          example: BTC
+          type: string
+          x-fb-entity: asset
+        style: simple
+      - description: BIP44 derivation path - change value
+        explode: false
+        in: path
+        name: change
+        required: true
+        schema:
+          example: 0
+          type: number
+        style: simple
+      - description: BIP44 derivation path - index value
+        explode: false
+        in: path
+        name: addressIndex
+        required: true
+        schema:
+          example: 0
+          type: number
+        style: simple
+      - description: Compressed/Uncompressed public key format
+        explode: true
+        in: query
+        name: compressed
+        required: false
+        schema:
+          example: true
+          type: boolean
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublicKeyInformation'
+          description: Public Key Information
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorSchema'
+          description: Error Response
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+      summary: Get the public key of an asset
+      tags:
+      - Embedded Wallets
+      x-internal: true
+      x-readme:
+        code-samples:
+        - language: python
+          code: "pubKey = fireblocks.NCW.get_public_key_info_by_account_asset(wallet_id,\
+            \ asset_id, account_id, change, address_index, compressed)"
+          name: Fireblocks SDK Python example
+        - language: javascript
+          code: "const publicKeyInfoByAccountAssetArgs = {\n  assetId: 'ETH',\n  accountId:\
+            \ 0,\n  change: 0,\n  addressIndex: 0,\n  compressed: true\n};       \
+            \     \nconst pubKey = await fireblocks.NCW.getPublicKeyInfoByAccountAsset(walletId,\
+            \ publicKeyInfoByAccountAssetArgs);\n"
+          name: Fireblocks SDK Javascript example
       x-accepts: application/json
   /workspace/freeze:
     post:
@@ -2820,6 +4104,7 @@ paths:
       tags:
       - Exchange accounts
       x-internal: true
+      x-rate-limit-category: query
       x-readme:
         code-samples:
         - language: python
@@ -2952,6 +4237,7 @@ paths:
       summary: Pagination list exchange accounts
       tags:
       - Exchange accounts
+      x-rate-limit-category: query
       x-readme:
         code-samples:
         - language: javascript
@@ -3020,6 +4306,7 @@ paths:
       summary: Find a specific exchange account
       tags:
       - Exchange accounts
+      x-rate-limit-category: query
       x-readme:
         code-samples:
         - language: python
@@ -3097,6 +4384,7 @@ paths:
       summary: Internal transfer for exchange accounts
       tags:
       - Exchange accounts
+      x-rate-limit-category: high_compute
       x-readme:
         code-samples:
         - language: typescript
@@ -3180,6 +4468,7 @@ paths:
         asset.
       tags:
       - Exchange accounts
+      x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: typescript
@@ -3251,6 +4540,7 @@ paths:
       summary: Find an asset for an exchange account
       tags:
       - Exchange accounts
+      x-rate-limit-category: query
       x-readme:
         code-samples:
         - language: python
@@ -3308,6 +4598,7 @@ paths:
       summary: Get public key to encrypt exchange credentials
       tags:
       - Exchange accounts
+      x-rate-limit-category: read
       x-readme:
         code-samples:
         - language: typescript
@@ -3619,7 +4910,6 @@ paths:
     get:
       description: |
         Returns all network connections.
-
         **Note:** This API call is subject to Flexible Routing Schemes.
 
         Your routing policy defines how your transactions are routed.
@@ -3658,6 +4948,7 @@ paths:
       summary: List network connections
       tags:
       - Network connections
+      x-rate-limit-category: query
       x-readme:
         code-samples:
         - language: python
@@ -3690,7 +4981,6 @@ paths:
     post:
       description: |
         Initiates a new network connection.
-
         **Note:** This API call is subject to Flexible Routing Schemes.
 
         Your routing policy defines how your transactions are routed.
@@ -3748,6 +5038,7 @@ paths:
       summary: Creates a new network connection
       tags:
       - Network connections
+      x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: typescript
@@ -4131,6 +5422,7 @@ paths:
       summary: "Returns all network IDs, both local IDs and discoverable remote IDs"
       tags:
       - Network connections
+      x-rate-limit-category: query
       x-readme:
         code-samples:
         - language: typescript
@@ -4213,6 +5505,7 @@ paths:
       summary: Creates a new Network ID
       tags:
       - Network connections
+      x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: typescript
@@ -6419,6 +7712,7 @@ paths:
       summary: List external wallets
       tags:
       - External wallets
+      x-rate-limit-category: query
       x-readme:
         code-samples:
         - language: python
@@ -6488,6 +7782,7 @@ paths:
       summary: Create an external wallet
       tags:
       - External wallets
+      x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: python
@@ -6550,6 +7845,7 @@ paths:
       summary: Delete an external wallet
       tags:
       - External wallets
+      x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: python
@@ -6609,6 +7905,7 @@ paths:
       summary: Find an external wallet
       tags:
       - External wallets
+      x-rate-limit-category: read
       x-readme:
         code-samples:
         - language: python
@@ -6683,6 +7980,7 @@ paths:
       summary: Set an AML customer reference ID for an external wallet
       tags:
       - External wallets
+      x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: python
@@ -6755,6 +8053,7 @@ paths:
       summary: Delete an asset from an external wallet
       tags:
       - External wallets
+      x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: python
@@ -6828,6 +8127,7 @@ paths:
       summary: Get an asset from an external wallet
       tags:
       - External wallets
+      x-rate-limit-category: read
       x-readme:
         code-samples:
         - language: python
@@ -6920,6 +8220,7 @@ paths:
       summary: Add an asset to an external wallet.
       tags:
       - External wallets
+      x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: python
@@ -6980,6 +8281,7 @@ paths:
       summary: List contracts
       tags:
       - Contracts
+      x-rate-limit-category: query
       x-readme:
         code-samples:
         - language: typescript
@@ -7043,6 +8345,7 @@ paths:
       summary: Create a contract
       tags:
       - Contracts
+      x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: typescript
@@ -7098,6 +8401,7 @@ paths:
       summary: Delete a contract
       tags:
       - Contracts
+      x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: typescript
@@ -7151,6 +8455,7 @@ paths:
       summary: Find a specific contract
       tags:
       - Contracts
+      x-rate-limit-category: read
       x-readme:
         code-samples:
         - language: typescript
@@ -7210,6 +8515,7 @@ paths:
       summary: Delete a contract asset
       tags:
       - Contracts
+      x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: typescript
@@ -7276,6 +8582,7 @@ paths:
       summary: Find a contract asset
       tags:
       - Contracts
+      x-rate-limit-category: read
       x-readme:
         code-samples:
         - language: typescript
@@ -7358,6 +8665,7 @@ paths:
       summary: Add an asset to a contract
       tags:
       - Contracts
+      x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: typescript
@@ -7416,6 +8724,7 @@ paths:
       summary: List all asset types supported by Fireblocks - legacy endpoint
       tags:
       - Blockchains & assets
+      x-rate-limit-category: query
       x-readme:
         code-samples:
         - language: python
@@ -7697,6 +9006,7 @@ paths:
       summary: Register an asset
       tags:
       - Blockchains & assets
+      x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: python
@@ -7795,6 +9105,7 @@ paths:
       summary: Get an asset
       tags:
       - Blockchains & assets
+      x-rate-limit-category: read
       x-readme:
         code-samples:
         - language: python
@@ -8304,6 +9615,7 @@ paths:
       summary: List transaction history
       tags:
       - Transactions
+      x-rate-limit-category: query
       x-readme:
         code-samples:
         - language: python
@@ -8396,6 +9708,7 @@ paths:
       summary: Create a new transaction
       tags:
       - Transactions
+      x-rate-limit-category: async
       x-readme:
         code-samples:
         - language: python
@@ -8477,6 +9790,7 @@ paths:
       summary: Estimate transaction fee
       tags:
       - Transactions
+      x-rate-limit-category: high_compute
       x-readme:
         code-samples:
         - language: python
@@ -8558,6 +9872,7 @@ paths:
       summary: Find a specific transaction by Fireblocks transaction ID
       tags:
       - Transactions
+      x-rate-limit-category: read
       x-readme:
         code-samples:
         - language: python
@@ -8621,6 +9936,7 @@ paths:
       summary: Find a specific transaction by external transaction ID
       tags:
       - Transactions
+      x-rate-limit-category: read
       x-readme:
         code-samples:
         - language: python
@@ -8700,6 +10016,7 @@ paths:
       summary: Set confirmation threshold by transaction ID
       tags:
       - Transactions
+      x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: python
@@ -8795,6 +10112,7 @@ paths:
       summary: Drop ETH transaction by ID
       tags:
       - Transactions
+      x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: python
@@ -8885,6 +10203,7 @@ paths:
       summary: Cancel a transaction
       tags:
       - Transactions
+      x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: python
@@ -8965,6 +10284,7 @@ paths:
       summary: Freeze a transaction
       tags:
       - Transactions
+      x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: python
@@ -9046,6 +10366,7 @@ paths:
       summary: Unfreeze a transaction
       tags:
       - Transactions
+      x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: python
@@ -9123,6 +10444,7 @@ paths:
       summary: Validate destination address
       tags:
       - Transactions
+      x-rate-limit-category: read
       x-readme:
         code-samples:
         - language: python
@@ -9200,6 +10522,7 @@ paths:
       summary: rescan array of transactions
       tags:
       - Transactions
+      x-rate-limit-category: async
       x-readme:
         code-samples:
         - language: typescript
@@ -9280,6 +10603,7 @@ paths:
       summary: Set confirmation threshold by transaction hash
       tags:
       - Transactions
+      x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: python
@@ -9352,6 +10676,7 @@ paths:
       summary: Estimate the required fee for an asset
       tags:
       - Transactions
+      x-rate-limit-category: read
       x-readme:
         code-samples:
         - language: python
@@ -10290,6 +11615,7 @@ paths:
       summary: List user groups
       tags:
       - User groups (Beta)
+      x-rate-limit-category: query
       x-readme:
         code-samples:
         - language: typescript
@@ -10688,6 +12014,7 @@ paths:
       summary: Get audit logs
       tags:
       - Audit Logs
+      x-rate-limit-category: query
       x-readme:
         code-samples:
         - language: typescript
@@ -11057,6 +12384,7 @@ paths:
       summary: Resend failed webhooks
       tags:
       - Webhooks
+      x-rate-limit-category: async
       x-readme:
         code-samples:
         - language: python
@@ -11138,6 +12466,7 @@ paths:
       summary: Resend failed webhooks for a transaction by ID
       tags:
       - Webhooks
+      x-rate-limit-category: async
       x-readme:
         code-samples:
         - language: python
@@ -11369,6 +12698,7 @@ paths:
       summary: Delete webhook
       tags:
       - Webhooks V2 (Beta)
+      x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: typescript
@@ -11426,6 +12756,7 @@ paths:
       summary: Get webhook by id
       tags:
       - Webhooks V2 (Beta)
+      x-rate-limit-category: read
       x-readme:
         code-samples:
         - language: typescript
@@ -11489,6 +12820,7 @@ paths:
       summary: Update webhook
       tags:
       - Webhooks V2 (Beta)
+      x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: typescript
@@ -11634,6 +12966,7 @@ paths:
       summary: Get all notifications by webhook id
       tags:
       - Webhooks V2 (Beta)
+      x-rate-limit-category: query
       x-readme:
         code-samples:
         - language: typescript
@@ -11716,6 +13049,7 @@ paths:
       summary: Get notification by id
       tags:
       - Webhooks V2 (Beta)
+      x-rate-limit-category: read
       x-readme:
         code-samples:
         - language: typescript
@@ -11793,6 +13127,7 @@ paths:
       summary: Resend notification by id
       tags:
       - Webhooks V2 (Beta)
+      x-rate-limit-category: async
       x-readme:
         code-samples:
         - language: typescript
@@ -11867,6 +13202,7 @@ paths:
       summary: Resend notifications by resource Id
       tags:
       - Webhooks V2 (Beta)
+      x-rate-limit-category: async
       x-readme:
         code-samples:
         - language: typescript
@@ -12882,6 +14218,7 @@ paths:
       summary: List all linked tokens
       tags:
       - Tokenization
+      x-rate-limit-category: query
       x-readme:
         code-samples:
         - language: python
@@ -12955,6 +14292,7 @@ paths:
       summary: Issue a new token
       tags:
       - Tokenization
+      x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: python
@@ -13040,6 +14378,7 @@ paths:
       summary: Link a contract
       tags:
       - Tokenization
+      x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: typescript
@@ -13103,6 +14442,7 @@ paths:
       summary: Unlink a token
       tags:
       - Tokenization
+      x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: python
@@ -13160,6 +14500,7 @@ paths:
       summary: Return a linked token
       tags:
       - Tokenization
+      x-rate-limit-category: read
       x-readme:
         code-samples:
         - language: python
@@ -13240,6 +14581,7 @@ paths:
       summary: Get deterministic address for contract deployment
       tags:
       - Tokenization
+      x-rate-limit-category: read
       x-readme:
         code-samples:
         - language: javascript
@@ -13332,6 +14674,7 @@ paths:
       summary: Issue a token on one or more blockchains
       tags:
       - Tokenization
+      x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: javascript
@@ -13381,7 +14724,7 @@ paths:
           \ idempotency_key);"
       x-content-type: application/json
       x-accepts: application/json
-  /tokenization/multichain/token/{tokenLinkId}:
+  /tokenization/multichain/reissue/token/{tokenLinkId}:
     post:
       description: Reissue a multichain token. This endpoint allows you to reissue
         a token on one or more blockchains. The token must be initially issued using
@@ -13450,6 +14793,7 @@ paths:
       summary: Reissue a multichain token
       tags:
       - Tokenization
+      x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: javascript
@@ -13538,6 +14882,7 @@ paths:
       summary: Get collections
       tags:
       - Tokenization
+      x-rate-limit-category: query
       x-readme:
         code-samples:
         - language: typescript
@@ -13605,6 +14950,7 @@ paths:
       summary: Create a new collection
       tags:
       - Tokenization
+      x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: typescript
@@ -13662,6 +15008,7 @@ paths:
       summary: Delete a collection link
       tags:
       - Tokenization
+      x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: typescript
@@ -13713,6 +15060,7 @@ paths:
       summary: Get a collection by id
       tags:
       - Tokenization
+      x-rate-limit-category: read
       x-readme:
         code-samples:
         - language: typescript
@@ -13776,6 +15124,7 @@ paths:
       summary: Get collection token details
       tags:
       - Tokenization
+      x-rate-limit-category: read
       x-readme:
         code-samples:
         - language: typescript
@@ -13851,6 +15200,7 @@ paths:
       summary: Mint tokens
       tags:
       - Tokenization
+      x-rate-limit-category: async
       x-readme:
         code-samples:
         - language: typescript
@@ -13929,6 +15279,7 @@ paths:
       summary: Burn tokens
       tags:
       - Tokenization
+      x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: typescript
@@ -14125,6 +15476,7 @@ paths:
           code: "response = fireblocks.contract_interactions.read_call_function(read_call_function_dto,\
             \ contract_address, base_asset_id, idempotency_key);"
           name: Fireblocks SDK Python example
+      x-rate-limit-category: read
       x-codeSamples:
       - lang: TypeScript
         source: "const response: Promise<FireblocksResponse<ParameterWithValueList>>\
@@ -14221,6 +15573,7 @@ paths:
           code: "response = fireblocks.contract_interactions.write_call_function(write_call_function_dto,\
             \ contract_address, base_asset_id, idempotency_key);"
           name: Fireblocks SDK Python example
+      x-rate-limit-category: async
       x-codeSamples:
       - lang: TypeScript
         source: "const response: Promise<FireblocksResponse<WriteCallFunctionResponseDto>>\
@@ -15234,6 +16587,7 @@ paths:
       tags:
       - Admin Quorum
       x-internal: true
+      x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: python
@@ -15273,6 +16627,7 @@ paths:
           - ETHERLINK_TEST
           - MANTLE
           - MANTLE_TEST
+          - GUN_GUNZILLA
           - GUN_GUNZILLA_TEST
           - ETH_SONEIUM
           - SONEIUM_MINATO_TEST
@@ -15436,6 +16791,7 @@ paths:
       summary: List all owned tokens (paginated)
       tags:
       - NFTs
+      x-rate-limit-category: query
       x-readme:
         code-samples:
         - language: typescript
@@ -15491,6 +16847,7 @@ paths:
           - ETHERLINK_TEST
           - MANTLE
           - MANTLE_TEST
+          - GUN_GUNZILLA
           - GUN_GUNZILLA_TEST
           - ETH_SONEIUM
           - SONEIUM_MINATO_TEST
@@ -15668,6 +17025,7 @@ paths:
       summary: List all distinct owned tokens (paginated)
       tags:
       - NFTs
+      x-rate-limit-category: query
       x-readme:
         code-samples:
         - language: typescript
@@ -15800,6 +17158,7 @@ paths:
       summary: List owned collections (paginated)
       tags:
       - NFTs
+      x-rate-limit-category: query
       x-readme:
         code-samples:
         - language: typescript
@@ -15855,6 +17214,7 @@ paths:
       summary: List token data by ID
       tags:
       - NFTs
+      x-rate-limit-category: query
       x-readme:
         code-samples:
         - language: typescript
@@ -15879,6 +17239,16 @@ paths:
         Updates the latest token metadata.
       operationId: refreshNFTMetadata
       parameters:
+      - description: Unique ID of the End-User wallet to the API request. Required
+          for end-user wallet operations.
+        explode: false
+        in: header
+        name: X-End-User-Wallet-Id
+        required: false
+        schema:
+          format: uuid
+          type: string
+        style: simple
       - description: NFT ID
         example: NFT-abcdefabcdefabcdefabcdefabcdefabcdefabcd
         explode: false
@@ -15915,19 +17285,21 @@ paths:
           name: Fireblocks SDK TypeScript example
         - language: java
           code: "CompletableFuture<ApiResponse<Void>> response = fireblocks.nFTs().refreshNFTMetadata(id,\
-            \ idempotencyKey);"
+            \ xEndUserWalletId, idempotencyKey);"
           name: Fireblocks SDK Java example
         - language: python
-          code: "response = fireblocks.n_f_ts.refresh_n_f_t_metadata(id, idempotency_key);"
+          code: "response = fireblocks.n_f_ts.refresh_n_f_t_metadata(id, x_end_user_wallet_id,\
+            \ idempotency_key);"
           name: Fireblocks SDK Python example
       x-codeSamples:
       - lang: TypeScript
         source: "const response: Promise<FireblocksResponse<void>> = fireblocks.nFTs.refreshNFTMetadata(nFTsApiRefreshNFTMetadataRequest);"
       - lang: Java
         source: "CompletableFuture<ApiResponse<Void>> response = fireblocks.nFTs().refreshNFTMetadata(id,\
-          \ idempotencyKey);"
+          \ xEndUserWalletId, idempotencyKey);"
       - lang: Python
-        source: "response = fireblocks.n_f_ts.refresh_n_f_t_metadata(id, idempotency_key);"
+        source: "response = fireblocks.n_f_ts.refresh_n_f_t_metadata(id, x_end_user_wallet_id,\
+          \ idempotency_key);"
       x-accepts: application/json
   /nfts/tokens:
     get:
@@ -16003,6 +17375,7 @@ paths:
       summary: List tokens by IDs
       tags:
       - NFTs
+      x-rate-limit-category: query
       x-readme:
         code-samples:
         - language: typescript
@@ -16032,6 +17405,16 @@ paths:
         Updates token status for a tenant, in all tenant vaults.
       operationId: updateTokenOwnershipStatus
       parameters:
+      - description: Unique ID of the End-User wallet to the API request. Required
+          for end-user wallet operations.
+        explode: false
+        in: header
+        name: X-End-User-Wallet-Id
+        required: false
+        schema:
+          format: uuid
+          type: string
+        style: simple
       - description: NFT ID
         example: NFT-abcdefabcdefabcdefabcdefabcdefabcdefabcd
         explode: false
@@ -16074,21 +17457,21 @@ paths:
           name: Fireblocks SDK TypeScript example
         - language: java
           code: "CompletableFuture<ApiResponse<Void>> response = fireblocks.nFTs().updateTokenOwnershipStatus(updateTokenOwnershipStatusDto,\
-            \ id, idempotencyKey);"
+            \ id, xEndUserWalletId, idempotencyKey);"
           name: Fireblocks SDK Java example
         - language: python
           code: "response = fireblocks.n_f_ts.update_token_ownership_status(update_token_ownership_status_dto,\
-            \ id, idempotency_key);"
+            \ id, x_end_user_wallet_id, idempotency_key);"
           name: Fireblocks SDK Python example
       x-codeSamples:
       - lang: TypeScript
         source: "const response: Promise<FireblocksResponse<void>> = fireblocks.nFTs.updateTokenOwnershipStatus(nFTsApiUpdateTokenOwnershipStatusRequest);"
       - lang: Java
         source: "CompletableFuture<ApiResponse<Void>> response = fireblocks.nFTs().updateTokenOwnershipStatus(updateTokenOwnershipStatusDto,\
-          \ id, idempotencyKey);"
+          \ id, xEndUserWalletId, idempotencyKey);"
       - lang: Python
         source: "response = fireblocks.n_f_ts.update_token_ownership_status(update_token_ownership_status_dto,\
-          \ id, idempotency_key);"
+          \ id, x_end_user_wallet_id, idempotency_key);"
       x-content-type: application/json
       x-accepts: application/json
   /nfts/ownership/tokens/status:
@@ -16096,6 +17479,16 @@ paths:
       description: "Updates tokens status for a tenant, in all tenant vaults."
       operationId: updateTokensOwnershipStatus
       parameters:
+      - description: Unique ID of the End-User wallet to the API request. Required
+          for end-user wallet operations.
+        explode: false
+        in: header
+        name: X-End-User-Wallet-Id
+        required: false
+        schema:
+          format: uuid
+          type: string
+        style: simple
       - description: "A unique identifier for the request. If the request is sent\
           \ multiple times with the same idempotency key, the server will return the\
           \ same response as the first request. The idempotency key is valid for 24\
@@ -16139,21 +17532,21 @@ paths:
           name: Fireblocks SDK TypeScript example
         - language: java
           code: "CompletableFuture<ApiResponse<Void>> response = fireblocks.nFTs().updateTokensOwnershipStatus(tokenOwnershipStatusUpdatePayload,\
-            \ idempotencyKey);"
+            \ xEndUserWalletId, idempotencyKey);"
           name: Fireblocks SDK Java example
         - language: python
           code: "response = fireblocks.n_f_ts.update_tokens_ownership_status(token_ownership_status_update_payload,\
-            \ idempotency_key);"
+            \ x_end_user_wallet_id, idempotency_key);"
           name: Fireblocks SDK Python example
       x-codeSamples:
       - lang: TypeScript
         source: "const response: Promise<FireblocksResponse<void>> = fireblocks.nFTs.updateTokensOwnershipStatus(nFTsApiUpdateTokensOwnershipStatusRequest);"
       - lang: Java
         source: "CompletableFuture<ApiResponse<Void>> response = fireblocks.nFTs().updateTokensOwnershipStatus(tokenOwnershipStatusUpdatePayload,\
-          \ idempotencyKey);"
+          \ xEndUserWalletId, idempotencyKey);"
       - lang: Python
         source: "response = fireblocks.n_f_ts.update_tokens_ownership_status(token_ownership_status_update_payload,\
-          \ idempotency_key);"
+          \ x_end_user_wallet_id, idempotency_key);"
       x-content-type: application/json
       x-accepts: application/json
   /nfts/ownership/tokens/spam:
@@ -16162,6 +17555,16 @@ paths:
         \ in all tenant vaults."
       operationId: updateTokensOwnershipSpam
       parameters:
+      - description: Unique ID of the End-User wallet to the API request. Required
+          for end-user wallet operations.
+        explode: false
+        in: header
+        name: X-End-User-Wallet-Id
+        required: false
+        schema:
+          format: uuid
+          type: string
+        style: simple
       - description: "A unique identifier for the request. If the request is sent\
           \ multiple times with the same idempotency key, the server will return the\
           \ same response as the first request. The idempotency key is valid for 24\
@@ -16205,21 +17608,21 @@ paths:
           name: Fireblocks SDK TypeScript example
         - language: java
           code: "CompletableFuture<ApiResponse<Void>> response = fireblocks.nFTs().updateTokensOwnershipSpam(tokenOwnershipSpamUpdatePayload,\
-            \ idempotencyKey);"
+            \ xEndUserWalletId, idempotencyKey);"
           name: Fireblocks SDK Java example
         - language: python
           code: "response = fireblocks.n_f_ts.update_tokens_ownership_spam(token_ownership_spam_update_payload,\
-            \ idempotency_key);"
+            \ x_end_user_wallet_id, idempotency_key);"
           name: Fireblocks SDK Python example
       x-codeSamples:
       - lang: TypeScript
         source: "const response: Promise<FireblocksResponse<void>> = fireblocks.nFTs.updateTokensOwnershipSpam(nFTsApiUpdateTokensOwnershipSpamRequest);"
       - lang: Java
         source: "CompletableFuture<ApiResponse<Void>> response = fireblocks.nFTs().updateTokensOwnershipSpam(tokenOwnershipSpamUpdatePayload,\
-          \ idempotencyKey);"
+          \ xEndUserWalletId, idempotencyKey);"
       - lang: Python
         source: "response = fireblocks.n_f_ts.update_tokens_ownership_spam(token_ownership_spam_update_payload,\
-          \ idempotency_key);"
+          \ x_end_user_wallet_id, idempotency_key);"
       x-content-type: application/json
       x-accepts: application/json
   /connections:
@@ -16227,6 +17630,16 @@ paths:
       description: Get open Web3 connections.
       operationId: get
       parameters:
+      - description: Unique ID of the End-User wallet to the API request. Required
+          for end-user wallet operations.
+        explode: false
+        in: header
+        name: X-End-User-Wallet-Id
+        required: false
+        schema:
+          format: uuid
+          type: string
+        style: simple
       - description: List order; ascending or descending.
         explode: true
         in: query
@@ -16324,6 +17737,7 @@ paths:
       summary: List all open Web3 connections.
       tags:
       - Web3 connections
+      x-rate-limit-category: high_compute
       x-readme:
         code-samples:
         - language: typescript
@@ -16332,11 +17746,12 @@ paths:
           name: Fireblocks SDK TypeScript example
         - language: java
           code: "CompletableFuture<ApiResponse<GetConnectionsResponse>> response =\
-            \ fireblocks.web3Connections().get(order, filter, sort, pageSize, next);"
+            \ fireblocks.web3Connections().get(order, filter, sort, pageSize, next,\
+            \ xEndUserWalletId);"
           name: Fireblocks SDK Java example
         - language: python
           code: "response = fireblocks.web3_connections.get(order, filter, sort, page_size,\
-            \ next);"
+            \ next, x_end_user_wallet_id);"
           name: Fireblocks SDK Python example
       x-codeSamples:
       - lang: TypeScript
@@ -16344,10 +17759,11 @@ paths:
           \ = fireblocks.web3Connections.get(web3ConnectionsApiGetRequest);"
       - lang: Java
         source: "CompletableFuture<ApiResponse<GetConnectionsResponse>> response =\
-          \ fireblocks.web3Connections().get(order, filter, sort, pageSize, next);"
+          \ fireblocks.web3Connections().get(order, filter, sort, pageSize, next,\
+          \ xEndUserWalletId);"
       - lang: Python
         source: "response = fireblocks.web3_connections.get(order, filter, sort, page_size,\
-          \ next);"
+          \ next, x_end_user_wallet_id);"
       x-accepts: application/json
   /connections/wc:
     post:
@@ -16366,6 +17782,16 @@ paths:
         name: Idempotency-Key
         required: false
         schema:
+          type: string
+        style: simple
+      - description: Unique ID of the End-User wallet to the API request. Required
+          for end-user wallet operations.
+        explode: false
+        in: header
+        name: X-End-User-Wallet-Id
+        required: false
+        schema:
+          format: uuid
           type: string
         style: simple
       requestBody:
@@ -16397,6 +17823,7 @@ paths:
       summary: Create a new Web3 connection.
       tags:
       - Web3 connections
+      x-rate-limit-category: high_compute
       x-readme:
         code-samples:
         - language: typescript
@@ -16405,11 +17832,12 @@ paths:
           name: Fireblocks SDK TypeScript example
         - language: java
           code: "CompletableFuture<ApiResponse<CreateConnectionResponse>> response\
-            \ = fireblocks.web3Connections().create(createConnectionRequest, idempotencyKey);"
+            \ = fireblocks.web3Connections().create(createConnectionRequest, idempotencyKey,\
+            \ xEndUserWalletId);"
           name: Fireblocks SDK Java example
         - language: python
           code: "response = fireblocks.web3_connections.create(create_connection_request,\
-            \ idempotency_key);"
+            \ idempotency_key, x_end_user_wallet_id);"
           name: Fireblocks SDK Python example
       x-codeSamples:
       - lang: TypeScript
@@ -16417,10 +17845,11 @@ paths:
           \ = fireblocks.web3Connections.create(web3ConnectionsApiCreateRequest);"
       - lang: Java
         source: "CompletableFuture<ApiResponse<CreateConnectionResponse>> response\
-          \ = fireblocks.web3Connections().create(createConnectionRequest, idempotencyKey);"
+          \ = fireblocks.web3Connections().create(createConnectionRequest, idempotencyKey,\
+          \ xEndUserWalletId);"
       - lang: Python
         source: "response = fireblocks.web3_connections.create(create_connection_request,\
-          \ idempotency_key);"
+          \ idempotency_key, x_end_user_wallet_id);"
       x-content-type: application/json
       x-accepts: application/json
   /connections/wc/{id}:
@@ -16428,6 +17857,16 @@ paths:
       description: Remove a Web3 connection
       operationId: remove
       parameters:
+      - description: Unique ID of the End-User wallet to the API request. Required
+          for end-user wallet operations.
+        explode: false
+        in: header
+        name: X-End-User-Wallet-Id
+        required: false
+        schema:
+          format: uuid
+          type: string
+        style: simple
       - description: The ID of the existing Web3 connection to remove.
         explode: false
         in: path
@@ -16455,24 +17894,27 @@ paths:
       summary: Remove an existing Web3 connection.
       tags:
       - Web3 connections
+      x-rate-limit-category: high_compute
       x-readme:
         code-samples:
         - language: typescript
           code: "const response: Promise<FireblocksResponse<void>> = fireblocks.web3Connections.remove(web3ConnectionsApiRemoveRequest);"
           name: Fireblocks SDK TypeScript example
         - language: java
-          code: CompletableFuture<ApiResponse<Void>> response = fireblocks.web3Connections().remove(id);
+          code: "CompletableFuture<ApiResponse<Void>> response = fireblocks.web3Connections().remove(id,\
+            \ xEndUserWalletId);"
           name: Fireblocks SDK Java example
         - language: python
-          code: response = fireblocks.web3_connections.remove(id);
+          code: "response = fireblocks.web3_connections.remove(id, x_end_user_wallet_id);"
           name: Fireblocks SDK Python example
       x-codeSamples:
       - lang: TypeScript
         source: "const response: Promise<FireblocksResponse<void>> = fireblocks.web3Connections.remove(web3ConnectionsApiRemoveRequest);"
       - lang: Java
-        source: CompletableFuture<ApiResponse<Void>> response = fireblocks.web3Connections().remove(id);
+        source: "CompletableFuture<ApiResponse<Void>> response = fireblocks.web3Connections().remove(id,\
+          \ xEndUserWalletId);"
       - lang: Python
-        source: response = fireblocks.web3_connections.remove(id);
+        source: "response = fireblocks.web3_connections.remove(id, x_end_user_wallet_id);"
       x-accepts: application/json
     put:
       description: |-
@@ -16499,6 +17941,16 @@ paths:
         name: Idempotency-Key
         required: false
         schema:
+          type: string
+        style: simple
+      - description: Unique ID of the End-User wallet to the API request. Required
+          for end-user wallet operations.
+        explode: false
+        in: header
+        name: X-End-User-Wallet-Id
+        required: false
+        schema:
+          format: uuid
           type: string
         style: simple
       requestBody:
@@ -16531,6 +17983,7 @@ paths:
       summary: Respond to a pending Web3 connection request.
       tags:
       - Web3 connections
+      x-rate-limit-category: high_compute
       x-readme:
         code-samples:
         - language: typescript
@@ -16538,21 +17991,21 @@ paths:
           name: Fireblocks SDK TypeScript example
         - language: java
           code: "CompletableFuture<ApiResponse<Void>> response = fireblocks.web3Connections().submit(respondToConnectionRequest,\
-            \ id, idempotencyKey);"
+            \ id, idempotencyKey, xEndUserWalletId);"
           name: Fireblocks SDK Java example
         - language: python
           code: "response = fireblocks.web3_connections.submit(respond_to_connection_request,\
-            \ id, idempotency_key);"
+            \ id, idempotency_key, x_end_user_wallet_id);"
           name: Fireblocks SDK Python example
       x-codeSamples:
       - lang: TypeScript
         source: "const response: Promise<FireblocksResponse<void>> = fireblocks.web3Connections.submit(web3ConnectionsApiSubmitRequest);"
       - lang: Java
         source: "CompletableFuture<ApiResponse<Void>> response = fireblocks.web3Connections().submit(respondToConnectionRequest,\
-          \ id, idempotencyKey);"
+          \ id, idempotencyKey, xEndUserWalletId);"
       - lang: Python
         source: "response = fireblocks.web3_connections.submit(respond_to_connection_request,\
-          \ id, idempotency_key);"
+          \ id, idempotency_key, x_end_user_wallet_id);"
       x-content-type: application/json
       x-accepts: application/json
   /screening/travel_rule/transaction/validate:
@@ -18789,6 +20242,7 @@ paths:
       summary: Find Ticket
       tags:
       - Smart Transfer
+      x-rate-limit-category: query
       x-readme:
         code-samples:
         - language: typescript
@@ -18863,6 +20317,7 @@ paths:
       summary: Create Ticket
       tags:
       - Smart Transfer
+      x-rate-limit-category: async
       x-readme:
         code-samples:
         - language: typescript
@@ -18924,6 +20379,7 @@ paths:
       summary: Search Tickets by ID
       tags:
       - Smart Transfer
+      x-rate-limit-category: query
       x-readme:
         code-samples:
         - language: typescript
@@ -19004,6 +20460,7 @@ paths:
       summary: Set expiration
       tags:
       - Smart Transfer
+      x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: typescript
@@ -19089,6 +20546,7 @@ paths:
       summary: Add external ref. ID
       tags:
       - Smart Transfer
+      x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: typescript
@@ -19175,6 +20633,7 @@ paths:
       summary: Submit ticket
       tags:
       - Smart Transfer
+      x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: typescript
@@ -19255,6 +20714,7 @@ paths:
       summary: Fund ticket manually
       tags:
       - Smart Transfer
+      x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: typescript
@@ -19415,6 +20875,7 @@ paths:
       summary: Cancel Ticket
       tags:
       - Smart Transfer
+      x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: typescript
@@ -19490,6 +20951,7 @@ paths:
       summary: Create leg (term)
       tags:
       - Smart Transfer
+      x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: typescript
@@ -19555,6 +21017,7 @@ paths:
       summary: Delete ticket leg (term)
       tags:
       - Smart Transfer
+      x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: typescript
@@ -19618,6 +21081,7 @@ paths:
       summary: Search ticket by leg (term) ID
       tags:
       - Smart Transfer
+      x-rate-limit-category: read
       x-readme:
         code-samples:
         - language: typescript
@@ -19700,6 +21164,7 @@ paths:
       summary: Update ticket leg (term)
       tags:
       - Smart Transfer
+      x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: typescript
@@ -19793,6 +21258,7 @@ paths:
       summary: Define funding source
       tags:
       - Smart Transfer
+      x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: typescript
@@ -19886,6 +21352,7 @@ paths:
       summary: Define funding source and give approve to contract to transfer asset
       tags:
       - Smart Transfer
+      x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: typescript
@@ -19978,6 +21445,7 @@ paths:
       summary: Manually add term transaction
       tags:
       - Smart Transfer
+      x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: typescript
@@ -20033,6 +21501,7 @@ paths:
       summary: Get user group
       tags:
       - Smart Transfer
+      x-rate-limit-category: query
       x-readme:
         code-samples:
         - language: typescript
@@ -20099,6 +21568,7 @@ paths:
       summary: Set user group
       tags:
       - Smart Transfer
+      x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: typescript
@@ -20156,6 +21626,7 @@ paths:
       summary: Get smart transfers statistic
       tags:
       - Smart Transfer
+      x-rate-limit-category: query
       x-readme:
         code-samples:
         - language: typescript
@@ -20223,6 +21694,7 @@ paths:
       summary: Return a list of jobs belonging to tenant
       tags:
       - Job Management
+      x-rate-limit-category: query
       x-readme:
         code-samples:
         - language: typescript
@@ -20279,6 +21751,7 @@ paths:
       summary: Get job details
       tags:
       - Job Management
+      x-rate-limit-category: read
       x-readme:
         code-samples:
         - language: typescript
@@ -20301,7 +21774,7 @@ paths:
   /batch/{jobId}/pause:
     post:
       description: "Pause the given job, after the current task is done. A paused\
-        \ job can later be resumed by calling ‘continue’, or canceled."
+        \ job can later be resumed by calling 'continue', or canceled."
       operationId: pauseJob
       parameters:
       - description: The requested job id
@@ -20338,6 +21811,7 @@ paths:
       summary: Pause a job
       tags:
       - Job Management
+      x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: typescript
@@ -20398,6 +21872,7 @@ paths:
       summary: Continue a paused job
       tags:
       - Job Management
+      x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: typescript
@@ -20421,7 +21896,7 @@ paths:
       x-accepts: application/json
   /batch/{jobId}/cancel:
     post:
-      description: "Stop the given job immediately. If the job is in the ‘Active’\
+      description: "Stop the given job immediately. If the job is in the 'Active'\
         \ state, the job will be canceled after completing the current task. Vault\
         \ accounts and Wallets that are already created will not be affected."
       operationId: cancelJob
@@ -20460,6 +21935,7 @@ paths:
       summary: Cancel a running job
       tags:
       - Job Management
+      x-rate-limit-category: read
       x-readme:
         code-samples:
         - language: typescript
@@ -20516,6 +21992,7 @@ paths:
       summary: Return a list of tasks for given job
       tags:
       - Job Management
+      x-rate-limit-category: query
       x-readme:
         code-samples:
         - language: typescript
@@ -20597,6 +22074,7 @@ paths:
       summary: Get all cosigners
       tags:
       - Cosigners (Beta)
+      x-rate-limit-category: query
       x-readme:
         code-samples:
         - language: typescript
@@ -20731,6 +22209,7 @@ paths:
       summary: Get cosigner
       tags:
       - Cosigners (Beta)
+      x-rate-limit-category: read
       x-readme:
         code-samples:
         - language: typescript
@@ -20794,6 +22273,7 @@ paths:
       summary: Rename cosigner
       tags:
       - Cosigners (Beta)
+      x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: typescript
@@ -20888,6 +22368,7 @@ paths:
       summary: Get all API keys
       tags:
       - Cosigners (Beta)
+      x-rate-limit-category: query
       x-readme:
         code-samples:
         - language: typescript
@@ -21033,6 +22514,7 @@ paths:
       summary: Get API key
       tags:
       - Cosigners (Beta)
+      x-rate-limit-category: read
       x-readme:
         code-samples:
         - language: typescript
@@ -21341,6 +22823,17 @@ components:
       name: Idempotency-Key
       required: false
       schema:
+        type: string
+      style: simple
+    X-End-User-Wallet-Id_required:
+      description: Unique ID of the End-User wallet to the API request. Required for
+        end-user wallet operations.
+      explode: false
+      in: header
+      name: X-End-User-Wallet-Id
+      required: true
+      schema:
+        format: uuid
         type: string
       style: simple
     X-End-User-Wallet-Id:
@@ -22179,6 +23672,581 @@ components:
         vaultAccountIdTo:
           description: The largest vault account ID in the range
           type: string
+      type: object
+    EmbeddedWalletAssetResponse:
+      example:
+        coinType: 0
+        symbol: USDT
+        ethNetwork: ethNetwork
+        blockchainDisplayName: BTH
+        deprecated: false
+        hasFee: true
+        baseAsset: ETH_TEST5
+        ethContractAddress: ethContractAddress
+        blockchain: ETH_TEST5
+        issuerAddress: rnDV4JiwgRNhudPY2sm65AzECpRXaasL4r
+        blockchainSymbol: BTH
+        decimals: 6
+        name: Tether USD
+        id: id
+        testnet: true
+        networkProtocol: ETH
+        algorithm: MPC_ECDSA_SECP256K1
+      properties:
+        id:
+          type: string
+        symbol:
+          description: The asset symbol
+          example: USDT
+          type: string
+        name:
+          description: The asset name
+          example: Tether USD
+          type: string
+        decimals:
+          description: Number of decimals
+          example: 6
+          type: number
+        networkProtocol:
+          description: "Netowrk protocol of the blockchain (BTC, ETH)"
+          example: ETH
+          type: string
+        testnet:
+          description: Is in testnet
+          example: true
+          type: boolean
+        hasFee:
+          description: Has fee
+          example: true
+          type: boolean
+        baseAsset:
+          description: "Base asset symbol BTC_TEST, ETH_TEST5)"
+          example: ETH_TEST5
+          type: string
+        ethNetwork:
+          type: string
+        ethContractAddress:
+          type: string
+        issuerAddress:
+          description: The address of the issuer of this token. Will be part of the
+            identifier of this token on chain.
+          example: rnDV4JiwgRNhudPY2sm65AzECpRXaasL4r
+          type: string
+        blockchainSymbol:
+          description: Name of blockchain
+          example: BTH
+          type: string
+        deprecated:
+          description: Is blockchain deprecated
+          example: false
+          type: boolean
+        coinType:
+          description: "Unique identifier of an asset (0 for BTC, 60 for ETH, etc.)"
+          example: 0
+          type: number
+        blockchain:
+          description: The blockchain native asset id which the token is deployed
+            on
+          example: ETH_TEST5
+          type: string
+        blockchainDisplayName:
+          description: Name of blockchain
+          example: BTH
+          type: string
+        algorithm:
+          enum:
+          - MPC_ECDSA_SECP256K1
+          - MPC_EDDSA_ED25519
+          type: string
+      required:
+      - baseAsset
+      - blockchain
+      - coinType
+      - decimals
+      - hasFee
+      - id
+      - name
+      - networkProtocol
+      - symbol
+      - testnet
+      - type
+      type: object
+    EmbeddedWalletPaginatedAssetsResponse:
+      example:
+        next: eJ0eXAiOiJKV1QiLCJhbGcOiJIUzI1NiJ9
+        data:
+        - coinType: 0
+          symbol: USDT
+          ethNetwork: ethNetwork
+          blockchainDisplayName: BTH
+          deprecated: false
+          hasFee: true
+          baseAsset: ETH_TEST5
+          ethContractAddress: ethContractAddress
+          blockchain: ETH_TEST5
+          issuerAddress: rnDV4JiwgRNhudPY2sm65AzECpRXaasL4r
+          blockchainSymbol: BTH
+          decimals: 6
+          name: Tether USD
+          id: id
+          testnet: true
+          networkProtocol: ETH
+          algorithm: MPC_ECDSA_SECP256K1
+        - coinType: 0
+          symbol: USDT
+          ethNetwork: ethNetwork
+          blockchainDisplayName: BTH
+          deprecated: false
+          hasFee: true
+          baseAsset: ETH_TEST5
+          ethContractAddress: ethContractAddress
+          blockchain: ETH_TEST5
+          issuerAddress: rnDV4JiwgRNhudPY2sm65AzECpRXaasL4r
+          blockchainSymbol: BTH
+          decimals: 6
+          name: Tether USD
+          id: id
+          testnet: true
+          networkProtocol: ETH
+          algorithm: MPC_ECDSA_SECP256K1
+      properties:
+        data:
+          description: The data of the current page
+          items:
+            $ref: '#/components/schemas/EmbeddedWalletAssetResponse'
+          type: array
+        next:
+          description: The ID of the next page
+          example: eJ0eXAiOiJKV1QiLCJhbGcOiJIUzI1NiJ9
+          nullable: true
+          type: string
+      required:
+      - data
+      type: object
+    EmbeddedWallet:
+      example:
+        walletId: 550e8400-e29b-41d4-a716-446655440000
+        enabled: true
+      properties:
+        walletId:
+          description: walletId
+          example: 550e8400-e29b-41d4-a716-446655440000
+          type: string
+        enabled:
+          description: enabled
+          example: true
+          type: boolean
+      required:
+      - enabled
+      - walletId
+      type: object
+    EmbeddedWalletPaginatedWalletsResponse:
+      example:
+        next: eJ0eXAiOiJKV1QiLCJhbGcOiJIUzI1NiJ9
+        data:
+        - walletId: 550e8400-e29b-41d4-a716-446655440000
+          enabled: true
+        - walletId: 550e8400-e29b-41d4-a716-446655440000
+          enabled: true
+      properties:
+        data:
+          description: The data of the current page
+          items:
+            $ref: '#/components/schemas/EmbeddedWallet'
+          type: array
+        next:
+          description: The ID of the next page
+          example: eJ0eXAiOiJKV1QiLCJhbGcOiJIUzI1NiJ9
+          nullable: true
+          type: string
+      required:
+      - data
+      type: object
+    EmbeddedWalletAddressDetails:
+      example:
+        coinType: 1.4658129805029452
+        legacyAddress: legacyAddressName
+        address: addressName
+        accountName: accountName
+        addressType: addressType
+        change: 6.027456183070403
+        addressFormat: addressFormatName
+        userDefined: true
+        customerRefId: customerRefIdName
+        paymentAddress: paymentAddressName
+        accountId: accountIdName
+        addressDescription: addressDescriptionName
+        addressIndex: 0.8008281904610115
+        tag: tagName
+        state: stateName
+        asset: assetName
+      properties:
+        accountName:
+          description: accountName
+          example: accountName
+          type: string
+        accountId:
+          description: accountId
+          example: accountIdName
+          type: string
+        asset:
+          description: asset
+          example: assetName
+          type: string
+        address:
+          description: address
+          example: addressName
+          type: string
+        addressType:
+          description: addressType
+          enum:
+          - PERMANENT
+          - CHANGE
+          - DEFAULT
+          - ADDRESS
+          example: addressType
+          type: string
+        addressDescription:
+          description: addressDescription
+          example: addressDescriptionName
+          type: string
+        tag:
+          description: tag
+          example: tagName
+          type: string
+        addressIndex:
+          description: addressIndex
+          type: number
+        change:
+          description: change
+          type: number
+        coinType:
+          description: "Unique identifier of an asset (0 for BTC, 60 for ETH, etc.)"
+          type: number
+        customerRefId:
+          description: customerRefId
+          example: customerRefIdName
+          type: string
+        addressFormat:
+          description: addressFormat
+          example: addressFormatName
+          type: string
+        legacyAddress:
+          description: legacyAddress
+          example: legacyAddressName
+          type: string
+        paymentAddress:
+          description: paymentAddress
+          example: paymentAddressName
+          type: string
+        userDefined:
+          description: userDefined
+          example: true
+          type: boolean
+        state:
+          description: state
+          enum:
+          - PENDING_ACTIVATION
+          - ACTIVATION_FAILED
+          - READY
+          example: stateName
+          type: string
+      required:
+      - accountId
+      - accountName
+      - address
+      - addressDescription
+      - addressType
+      - asset
+      - tag
+      type: object
+    EmbeddedWalletAssetRewardInfo:
+      example:
+        pendingRewards: "5"
+      properties:
+        pendingRewards:
+          description: Amount that is pending for rewards
+          example: "5"
+          type: string
+      required:
+      - pendingRewards
+      type: object
+    EmbeddedWalletAssetBalance:
+      example:
+        blockHash: 0000000000000000000769e73a0b8f32a6c5d55e0d64f9ec20c6c3d4e5a9a3f1
+        total: "0.87500000"
+        lockedAmount: "0.01000000"
+        blockHeight: "8459341"
+        rewardInfo:
+          pendingRewards: "5"
+        pending: "0.01500000"
+        available: "0.84500000"
+        frozen: "0.00500000"
+        id: BTC-mainnet-acc-01
+      properties:
+        id:
+          description: Unique identifier of the asset balance entry
+          example: BTC-mainnet-acc-01
+          type: string
+        total:
+          description: "Total balance amount for the asset in the account (including\
+            \ pending, locked, and available)"
+          example: "0.87500000"
+          type: string
+        available:
+          description: The balance available for use or withdrawal
+          example: "0.84500000"
+          type: string
+        pending:
+          description: "Amount pending confirmation from blockchain (e.g., unconfirmed\
+            \ deposits)"
+          example: "0.01500000"
+          type: string
+        frozen:
+          description: Balance that is frozen due to policy or regulatory lock
+          example: "0.00500000"
+          type: string
+        lockedAmount:
+          description: Funds locked for operations such as staking or delegation
+          example: "0.01000000"
+          type: string
+        blockHeight:
+          description: Latest known blockchain height when balance was fetched
+          example: "8459341"
+          type: string
+        blockHash:
+          description: Hash of the blockchain block associated with the current balance
+            state
+          example: 0000000000000000000769e73a0b8f32a6c5d55e0d64f9ec20c6c3d4e5a9a3f1
+          type: string
+        rewardInfo:
+          $ref: '#/components/schemas/EmbeddedWalletAssetRewardInfo'
+      required:
+      - available
+      - frozen
+      - id
+      - lockedAmount
+      - pending
+      - total
+      type: object
+    EmbeddedWalletPaginatedAddressesResponse:
+      example:
+        next: eJ0eXAiOiJKV1QiLCJhbGcOiJIUzI1NiJ9
+        data:
+        - coinType: 1.4658129805029452
+          legacyAddress: legacyAddressName
+          address: addressName
+          accountName: accountName
+          addressType: addressType
+          change: 6.027456183070403
+          addressFormat: addressFormatName
+          userDefined: true
+          customerRefId: customerRefIdName
+          paymentAddress: paymentAddressName
+          accountId: accountIdName
+          addressDescription: addressDescriptionName
+          addressIndex: 0.8008281904610115
+          tag: tagName
+          state: stateName
+          asset: assetName
+        - coinType: 1.4658129805029452
+          legacyAddress: legacyAddressName
+          address: addressName
+          accountName: accountName
+          addressType: addressType
+          change: 6.027456183070403
+          addressFormat: addressFormatName
+          userDefined: true
+          customerRefId: customerRefIdName
+          paymentAddress: paymentAddressName
+          accountId: accountIdName
+          addressDescription: addressDescriptionName
+          addressIndex: 0.8008281904610115
+          tag: tagName
+          state: stateName
+          asset: assetName
+      properties:
+        data:
+          description: The data of the current page
+          items:
+            $ref: '#/components/schemas/EmbeddedWalletAddressDetails'
+          type: array
+        next:
+          description: The ID of the next page
+          example: eJ0eXAiOiJKV1QiLCJhbGcOiJIUzI1NiJ9
+          nullable: true
+          type: string
+      required:
+      - data
+      type: object
+    EmbeddedWalletAccount:
+      example:
+        accountId: "0"
+        walletId: 550e8400-e29b-41d4-a716-446655440000
+      properties:
+        accountId:
+          description: The ID of the account
+          example: "0"
+          type: string
+        walletId:
+          description: Unique identifier of the Non-Custodial Wallet (UUID)
+          example: 550e8400-e29b-41d4-a716-446655440000
+          type: string
+      required:
+      - accountId
+      - walletId
+      type: object
+    EmbeddedWalletLatestBackupKey:
+      example:
+        keyId: keyIdValue
+        publicKey: publicKeyValue
+        deviceId: deviceIdValue
+        algorithm: algorithm
+      properties:
+        deviceId:
+          description: deviceId
+          example: deviceIdValue
+          type: string
+        publicKey:
+          description: publicKey
+          example: publicKeyValue
+          type: string
+        keyId:
+          description: keyId
+          example: keyIdValue
+          type: string
+        algorithm:
+          description: algorithm
+          enum:
+          - MPC_CMP_ECDSA_SECP256K1
+          - MPC_CMP_EDDSA_ED25519
+          - MPC_ECDSA_SECP256K1
+          example: algorithm
+          type: string
+      required:
+      - algorithm
+      - deviceId
+      - keyId
+      - publicKey
+      type: object
+    EmbeddedWalletLatestBackupResponse:
+      example:
+        createdAt: 1713789296
+        keys:
+        - keyId: keyIdValue
+          publicKey: publicKeyValue
+          deviceId: deviceIdValue
+          algorithm: algorithm
+        - keyId: keyIdValue
+          publicKey: publicKeyValue
+          deviceId: deviceIdValue
+          algorithm: algorithm
+        passphraseId: passphraseId
+      properties:
+        passphraseId:
+          description: passphraseId
+          example: passphraseId
+          type: string
+        createdAt:
+          description: createdAt
+          example: 1713789296
+          type: number
+        keys:
+          description: keys
+          items:
+            $ref: '#/components/schemas/EmbeddedWalletLatestBackupKey'
+          type: array
+      required:
+      - createdAt
+      - keys
+      - passphraseId
+      type: object
+    EmbeddedWalletDevice:
+      example:
+        physicalDeviceId: physicalDeviceIdValue
+        deviceId: deviceIdValue
+        enabled: true
+      properties:
+        deviceId:
+          description: deviceId
+          example: deviceIdValue
+          type: string
+        enabled:
+          description: enabled
+          example: true
+          type: boolean
+        physicalDeviceId:
+          description: physicalDeviceId
+          example: physicalDeviceIdValue
+          type: string
+      required:
+      - deviceId
+      - enabled
+      - physicalDeviceId
+      type: object
+    EmbeddedWalletSetUpStatus:
+      description: embedded wallet setup status
+      example:
+        status: statusValue
+      properties:
+        status:
+          description: status
+          enum:
+          - COMPLETE
+          - INCOMPLETE
+          example: statusValue
+          type: string
+      required:
+      - status
+      type: object
+    EmbeddedWalletAlgoritm:
+      description: algorithm name
+      properties:
+        algorithm:
+          description: algorithm
+          enum:
+          - MPC_ECDSA_SECP256K1
+          - MPC_EDDSA_ED25519
+          example: MPC_EDDSA_ED25519
+          type: string
+      required:
+      - algorithm
+      type: object
+    EmbeddedWalletDeviceKeySetupResponse:
+      example:
+        setupStatus:
+        - setupStatus: setupStatusValue
+          confirmed: true
+          backedUp: true
+        deviceId: deviceIdValue
+        enabled: true
+        status:
+          status: statusValue
+      properties:
+        status:
+          $ref: '#/components/schemas/EmbeddedWalletSetUpStatus'
+        deviceId:
+          description: deviceId
+          example: deviceIdValue
+          type: string
+        enabled:
+          description: enabled
+          example: true
+          type: boolean
+        setupStatus:
+          description: setupStatus
+          example:
+          - setupStatus: setupStatusValue
+            confirmed: true
+            backedUp: true
+          items:
+            $ref: '#/components/schemas/EmbeddedWalletDeviceKeySetupResponse_setupStatus_inner'
+          type: array
+      required:
+      - deviceId
+      - enabled
+      - setupStatus
+      - status
       type: object
     ExchangeType:
       description: Exchange account's type
@@ -24587,6 +26655,7 @@ components:
       - UNKNOWN
       - END_USER_WALLET
       - PROGRAM_CALL
+      - MULTI_DESTINATION
       type: string
     SourceTransferPeerPathResponse:
       description: Source of the transaction.
@@ -37525,6 +39594,7 @@ components:
       - kiln
       - figment
       - lido
+      - p2p
       example: kiln
       type: string
     FeeLevel:
@@ -38226,6 +40296,7 @@ components:
           - ETHERLINK_TEST
           - MANTLE
           - MANTLE_TEST
+          - GUN_GUNZILLA
           - GUN_GUNZILLA_TEST
           - ETH_SONEIUM
           - SONEIUM_MINATO_TEST
@@ -38390,6 +40461,7 @@ components:
           - ETHERLINK_TEST
           - MANTLE
           - MANTLE_TEST
+          - GUN_GUNZILLA
           - GUN_GUNZILLA_TEST
           - ETH_SONEIUM
           - SONEIUM_MINATO_TEST
@@ -38492,6 +40564,7 @@ components:
           - ETHERLINK_TEST
           - MANTLE
           - MANTLE_TEST
+          - GUN_GUNZILLA
           - GUN_GUNZILLA_TEST
           - ETH_SONEIUM
           - SONEIUM_MINATO_TEST
@@ -42754,7 +44827,7 @@ components:
         sourceSubType: sourceSubType
         asset: asset
         operation: operation
-        networkProtocol: networkProtocol
+        networkProtocol: ETH
       properties:
         sourceType:
           type: string
@@ -42779,6 +44852,8 @@ components:
         amountUSD:
           type: number
         networkProtocol:
+          description: The network protocol of the token
+          example: ETH
           type: string
         operation:
           type: string
@@ -42810,7 +44885,7 @@ components:
           sourceSubType: sourceSubType
           asset: asset
           operation: operation
-          networkProtocol: networkProtocol
+          networkProtocol: ETH
         createDate: 2000-01-23T04:56:07.000+00:00
       properties:
         policy:
@@ -42901,6 +44976,7 @@ components:
           type: boolean
       type: object
     ComplianceScreeningResultFullPayload:
+      description: The result of the Travel Rule screening.
       example:
         provider: provider
         payload: "{}"
@@ -42930,7 +45006,35 @@ components:
           format: date-time
           type: number
       type: object
+    ComplianceResultStatusesEnum:
+      description: Status of compliance result screening.
+      enum:
+      - Started
+      - NetworkConnectionAddressResolve
+      - ScreeningPrepare
+      - AMLStarted
+      - AMLCompleted
+      - AMLFailed
+      - AMLInBackground
+      - TRPreconditionChecks
+      - TRStarted
+      - TRCompleted
+      - TRFailed
+      - Completed
+      - IncomingStarted
+      - IncomingScreeningPrepare
+      - IncomingWaitForFirstConfirmation
+      - AMLIncomingStarted
+      - AMLIncomingCompleted
+      - AMLIncomingFailed
+      - AMLIncomingInBackground
+      - TRIncomingStarted
+      - TRIncomingCompleted
+      - TRIncomingFailed
+      - IncomingCompleted
+      type: string
     AmlRegistrationResultFullPayload:
+      description: The results of the AML address registration.
       example:
         provider: provider
         success: true
@@ -42947,21 +45051,13 @@ components:
       description: The result of the Compliance AML/Travel Rule screening.
       example:
         aml:
-        - provider: provider
-          payload: "{}"
-          bypassReason: bypassReason
-          screeningStatus: COMPLETED
-          timestamp: 0.8008281904610115
-        - provider: provider
+          provider: provider
           payload: "{}"
           bypassReason: bypassReason
           screeningStatus: COMPLETED
           timestamp: 0.8008281904610115
         amlRegistration:
-        - provider: provider
-          success: true
-          timestamp: 6.027456183070403
-        - provider: provider
+          provider: provider
           success: true
           timestamp: 6.027456183070403
         amlList:
@@ -42976,65 +45072,26 @@ components:
           screeningStatus: COMPLETED
           timestamp: 0.8008281904610115
         tr:
-        - provider: provider
+          provider: provider
           payload: "{}"
           bypassReason: bypassReason
           screeningStatus: COMPLETED
           timestamp: 0.8008281904610115
-        - provider: provider
-          payload: "{}"
-          bypassReason: bypassReason
-          screeningStatus: COMPLETED
-          timestamp: 0.8008281904610115
-        status: Started
+        status: null
       properties:
         aml:
-          description: The end result of the AML screening.
-          items:
-            $ref: '#/components/schemas/ComplianceScreeningResultFullPayload'
-          type: array
+          $ref: '#/components/schemas/ComplianceScreeningResultFullPayload'
         tr:
-          description: The result of the Travel Rule screening.
-          items:
-            $ref: '#/components/schemas/ComplianceScreeningResultFullPayload'
-          type: array
+          $ref: '#/components/schemas/ComplianceScreeningResultFullPayload'
         amlList:
           description: The list of all results of the AML screening.
           items:
             $ref: '#/components/schemas/ComplianceScreeningResultFullPayload'
           type: array
         status:
-          description: Status of compliance result screening.
-          enum:
-          - Started
-          - NetworkConnectionAddressResolve
-          - ScreeningPrepare
-          - AMLStarted
-          - AMLCompleted
-          - AMLFailed
-          - AMLInBackground
-          - TRPreconditionChecks
-          - TRStarted
-          - TRCompleted
-          - TRFailed
-          - Completed
-          - IncomingStarted
-          - IncomingScreeningPrepare
-          - IncomingWaitForFirstConfirmation
-          - AMLIncomingStarted
-          - AMLIncomingCompleted
-          - AMLIncomingFailed
-          - AMLIncomingInBackground
-          - TRIncomingStarted
-          - TRIncomingCompleted
-          - TRIncomingFailed
-          - IncomingCompleted
-          type: string
+          $ref: '#/components/schemas/ComplianceResultStatusesEnum'
         amlRegistration:
-          description: The results of the AML address registration.
-          items:
-            $ref: '#/components/schemas/AmlRegistrationResultFullPayload'
-          type: array
+          $ref: '#/components/schemas/AmlRegistrationResultFullPayload'
       type: object
     GetOtaStatusResponse:
       example:
@@ -46479,6 +48536,23 @@ components:
             request to this API endpoint as the “after” request parameter to fetch
             the next page of results.
           type: string
+      type: object
+    EmbeddedWalletDeviceKeySetupResponse_setupStatus_inner:
+      properties:
+        algorithmName:
+          $ref: '#/components/schemas/EmbeddedWalletAlgoritm'
+        confirmed:
+          description: confirmed
+          example: true
+          type: boolean
+        backedUp:
+          description: backedUp
+          example: true
+          type: boolean
+      required:
+      - algorithmName
+      - backedUp
+      - confirmed
       type: object
     ExchangeAccountsPaged_paging:
       example:

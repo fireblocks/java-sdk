@@ -381,7 +381,7 @@ public class TravelRulePolicyRuleResponse {
     }
 
     /**
-     * Get networkProtocol
+     * The network protocol of the token
      *
      * @return networkProtocol
      */

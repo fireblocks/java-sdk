@@ -11,5 +11,7 @@
 
 * `LIDO` (value: `"lido"`)
 
+* `P2P` (value: `"p2p"`)
+
 
 
