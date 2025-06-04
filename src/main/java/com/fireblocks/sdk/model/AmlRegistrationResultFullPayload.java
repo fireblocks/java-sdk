@@ -22,7 +22,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 import java.util.StringJoiner;
 
-/** AmlRegistrationResultFullPayload */
+/** The results of the AML address registration. */
 @JsonPropertyOrder({
     AmlRegistrationResultFullPayload.JSON_PROPERTY_PROVIDER,
     AmlRegistrationResultFullPayload.JSON_PROPERTY_SUCCESS,

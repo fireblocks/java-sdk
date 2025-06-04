@@ -20,6 +20,17 @@ import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.Pair;
 import com.fireblocks.sdk.ValidationUtils;
+import com.fireblocks.sdk.model.EmbeddedWallet;
+import com.fireblocks.sdk.model.EmbeddedWalletAccount;
+import com.fireblocks.sdk.model.EmbeddedWalletAddressDetails;
+import com.fireblocks.sdk.model.EmbeddedWalletAssetBalance;
+import com.fireblocks.sdk.model.EmbeddedWalletAssetResponse;
+import com.fireblocks.sdk.model.EmbeddedWalletDevice;
+import com.fireblocks.sdk.model.EmbeddedWalletDeviceKeySetupResponse;
+import com.fireblocks.sdk.model.EmbeddedWalletLatestBackupResponse;
+import com.fireblocks.sdk.model.EmbeddedWalletPaginatedAddressesResponse;
+import com.fireblocks.sdk.model.EmbeddedWalletPaginatedAssetsResponse;
+import com.fireblocks.sdk.model.EmbeddedWalletPaginatedWalletsResponse;
 import com.fireblocks.sdk.model.PublicKeyInformation;
 import java.io.IOException;
 import java.io.InputStream;
@@ -32,6 +43,7 @@ import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringJoiner;
+import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 
@@ -74,30 +86,25 @@ public class EmbeddedWalletsApi {
     }
 
     /**
-     * Get the public key of an asset Gets the public key of an asset associated with a specific
-     * account within a Non-Custodial Wallet
+     * Add asset to account Get the addresses of a specific asset, under a specific account, under a
+     * specific Non Custodial Wallet
      *
-     * @param walletId The ID of the Non-Custodial wallet (required)
+     * @param walletId Wallet Id (required)
      * @param accountId The ID of the account (required)
      * @param assetId The ID of the asset (required)
-     * @param change BIP44 derivation path - change value (required)
-     * @param addressIndex BIP44 derivation path - index value (required)
-     * @param compressed Compressed/Uncompressed public key format (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;PublicKeyInformation&gt;&gt;
+     * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
+     *     times with the same idempotency key, the server will return the same response as the
+     *     first request. The idempotency key is valid for 24 hours. (optional)
+     * @return CompletableFuture&lt;ApiResponse&lt;EmbeddedWalletAddressDetails&gt;&gt;
      * @throws ApiException if fails to make API call
      */
-    public CompletableFuture<ApiResponse<PublicKeyInformation>> getPublicKeyInfoForAddressNcw(
-            String walletId,
-            String accountId,
-            String assetId,
-            BigDecimal change,
-            BigDecimal addressIndex,
-            Boolean compressed)
+    public CompletableFuture<ApiResponse<EmbeddedWalletAddressDetails>> addEmbeddedWalletAsset(
+            String walletId, String accountId, String assetId, String idempotencyKey)
             throws ApiException {
         try {
             HttpRequest.Builder localVarRequestBuilder =
-                    getPublicKeyInfoForAddressNcwRequestBuilder(
-                            walletId, accountId, assetId, change, addressIndex, compressed);
+                    addEmbeddedWalletAssetRequestBuilder(
+                            walletId, accountId, assetId, idempotencyKey);
             return memberVarHttpClient
                     .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
                     .thenComposeAsync(
@@ -108,7 +115,901 @@ public class EmbeddedWalletsApi {
                                 if (localVarResponse.statusCode() / 100 != 2) {
                                     return CompletableFuture.failedFuture(
                                             getApiException(
-                                                    "getPublicKeyInfoForAddressNcw",
+                                                    "addEmbeddedWalletAsset", localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<EmbeddedWalletAddressDetails>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            EmbeddedWalletAddressDetails>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            });
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder addEmbeddedWalletAssetRequestBuilder(
+            String walletId, String accountId, String assetId, String idempotencyKey)
+            throws ApiException {
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "addEmbeddedWalletAsset", "walletId", walletId);
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "addEmbeddedWalletAsset", "accountId", accountId);
+        ValidationUtils.assertParamExistsAndNotEmpty("addEmbeddedWalletAsset", "assetId", assetId);
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath =
+                "/ncw/wallets/{walletId}/accounts/{accountId}/assets/{assetId}"
+                        .replace("{walletId}", ApiClient.urlEncode(walletId.toString()))
+                        .replace("{accountId}", ApiClient.urlEncode(accountId.toString()))
+                        .replace("{assetId}", ApiClient.urlEncode(assetId.toString()));
+
+        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+        if (idempotencyKey != null) {
+            localVarRequestBuilder.header("Idempotency-Key", idempotencyKey.toString());
+        }
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        localVarRequestBuilder.method("POST", HttpRequest.BodyPublishers.noBody());
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
+     * Create a new wallet Create new Non Custodial Wallet
+     *
+     * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
+     *     times with the same idempotency key, the server will return the same response as the
+     *     first request. The idempotency key is valid for 24 hours. (optional)
+     * @return CompletableFuture&lt;ApiResponse&lt;EmbeddedWallet&gt;&gt;
+     * @throws ApiException if fails to make API call
+     */
+    public CompletableFuture<ApiResponse<EmbeddedWallet>> createEmbeddedWallet(
+            String idempotencyKey) throws ApiException {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    createEmbeddedWalletRequestBuilder(idempotencyKey);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException(
+                                                    "createEmbeddedWallet", localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<EmbeddedWallet>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            EmbeddedWallet>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            });
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder createEmbeddedWalletRequestBuilder(String idempotencyKey)
+            throws ApiException {
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath = "/ncw/wallets";
+
+        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+        if (idempotencyKey != null) {
+            localVarRequestBuilder.header("Idempotency-Key", idempotencyKey.toString());
+        }
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        localVarRequestBuilder.method("POST", HttpRequest.BodyPublishers.noBody());
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
+     * Create a new account Create a new account under a specific Non Custodial Wallet
+     *
+     * @param walletId Wallet Id (required)
+     * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
+     *     times with the same idempotency key, the server will return the same response as the
+     *     first request. The idempotency key is valid for 24 hours. (optional)
+     * @return CompletableFuture&lt;ApiResponse&lt;EmbeddedWalletAccount&gt;&gt;
+     * @throws ApiException if fails to make API call
+     */
+    public CompletableFuture<ApiResponse<EmbeddedWalletAccount>> createEmbeddedWalletAccount(
+            String walletId, String idempotencyKey) throws ApiException {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    createEmbeddedWalletAccountRequestBuilder(walletId, idempotencyKey);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException(
+                                                    "createEmbeddedWalletAccount",
+                                                    localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<EmbeddedWalletAccount>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            EmbeddedWalletAccount>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            });
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder createEmbeddedWalletAccountRequestBuilder(
+            String walletId, String idempotencyKey) throws ApiException {
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "createEmbeddedWalletAccount", "walletId", walletId);
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath =
+                "/ncw/wallets/{walletId}/accounts"
+                        .replace("{walletId}", ApiClient.urlEncode(walletId.toString()));
+
+        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+        if (idempotencyKey != null) {
+            localVarRequestBuilder.header("Idempotency-Key", idempotencyKey.toString());
+        }
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        localVarRequestBuilder.method("POST", HttpRequest.BodyPublishers.noBody());
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
+     * Get a wallet Get a wallet
+     *
+     * @param walletId Wallet Id (required)
+     * @return CompletableFuture&lt;ApiResponse&lt;EmbeddedWallet&gt;&gt;
+     * @throws ApiException if fails to make API call
+     */
+    public CompletableFuture<ApiResponse<EmbeddedWallet>> getEmbeddedWallet(String walletId)
+            throws ApiException {
+        try {
+            HttpRequest.Builder localVarRequestBuilder = getEmbeddedWalletRequestBuilder(walletId);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException("getEmbeddedWallet", localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<EmbeddedWallet>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            EmbeddedWallet>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            });
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder getEmbeddedWalletRequestBuilder(String walletId)
+            throws ApiException {
+        ValidationUtils.assertParamExistsAndNotEmpty("getEmbeddedWallet", "walletId", walletId);
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath =
+                "/ncw/wallets/{walletId}"
+                        .replace("{walletId}", ApiClient.urlEncode(walletId.toString()));
+
+        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
+     * Get a account Get a specific account under a specific Non Custodial Wallet
+     *
+     * @param walletId WalletId (required)
+     * @param accountId The ID of the account (required)
+     * @return CompletableFuture&lt;ApiResponse&lt;EmbeddedWalletAccount&gt;&gt;
+     * @throws ApiException if fails to make API call
+     */
+    public CompletableFuture<ApiResponse<EmbeddedWalletAccount>> getEmbeddedWalletAccount(
+            String walletId, String accountId) throws ApiException {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    getEmbeddedWalletAccountRequestBuilder(walletId, accountId);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException(
+                                                    "getEmbeddedWalletAccount", localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<EmbeddedWalletAccount>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            EmbeddedWalletAccount>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            });
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder getEmbeddedWalletAccountRequestBuilder(
+            String walletId, String accountId) throws ApiException {
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "getEmbeddedWalletAccount", "walletId", walletId);
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "getEmbeddedWalletAccount", "accountId", accountId);
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath =
+                "/ncw/wallets/{walletId}/accounts/{accountId}"
+                        .replace("{walletId}", ApiClient.urlEncode(walletId.toString()))
+                        .replace("{accountId}", ApiClient.urlEncode(accountId.toString()));
+
+        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
+     * Retrieve asset addresses Get the addresses of a specific asset, under a specific account,
+     * under a specific Non Custodial Wallet
+     *
+     * @param walletId Wallet Id (required)
+     * @param accountId The ID of the account (required)
+     * @param assetId The ID of the asset (required)
+     * @param pageCursor Cursor to the next page (optional)
+     * @param pageSize Items per page (optional)
+     * @param sort Sort by address (optional, default to createdAt)
+     * @param order Is the order ascending or descending (optional, default to ASC)
+     * @param enabled Enabled (optional)
+     * @return CompletableFuture&lt;ApiResponse&lt;EmbeddedWalletPaginatedAddressesResponse&gt;&gt;
+     * @throws ApiException if fails to make API call
+     */
+    public CompletableFuture<ApiResponse<EmbeddedWalletPaginatedAddressesResponse>>
+            getEmbeddedWalletAddresses(
+                    String walletId,
+                    String accountId,
+                    String assetId,
+                    String pageCursor,
+                    BigDecimal pageSize,
+                    String sort,
+                    String order,
+                    Boolean enabled)
+                    throws ApiException {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    getEmbeddedWalletAddressesRequestBuilder(
+                            walletId,
+                            accountId,
+                            assetId,
+                            pageCursor,
+                            pageSize,
+                            sort,
+                            order,
+                            enabled);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException(
+                                                    "getEmbeddedWalletAddresses",
+                                                    localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<
+                                                    EmbeddedWalletPaginatedAddressesResponse>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            EmbeddedWalletPaginatedAddressesResponse>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            });
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder getEmbeddedWalletAddressesRequestBuilder(
+            String walletId,
+            String accountId,
+            String assetId,
+            String pageCursor,
+            BigDecimal pageSize,
+            String sort,
+            String order,
+            Boolean enabled)
+            throws ApiException {
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "getEmbeddedWalletAddresses", "walletId", walletId);
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "getEmbeddedWalletAddresses", "accountId", accountId);
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "getEmbeddedWalletAddresses", "assetId", assetId);
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath =
+                "/ncw/wallets/{walletId}/accounts/{accountId}/assets/{assetId}/addresses"
+                        .replace("{walletId}", ApiClient.urlEncode(walletId.toString()))
+                        .replace("{accountId}", ApiClient.urlEncode(accountId.toString()))
+                        .replace("{assetId}", ApiClient.urlEncode(assetId.toString()));
+
+        List<Pair> localVarQueryParams = new ArrayList<>();
+        StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
+        String localVarQueryParameterBaseName;
+        localVarQueryParameterBaseName = "pageCursor";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("pageCursor", pageCursor));
+        localVarQueryParameterBaseName = "pageSize";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("pageSize", pageSize));
+        localVarQueryParameterBaseName = "sort";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("sort", sort));
+        localVarQueryParameterBaseName = "order";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("order", order));
+        localVarQueryParameterBaseName = "enabled";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("enabled", enabled));
+
+        if (!localVarQueryParams.isEmpty() || localVarQueryStringJoiner.length() != 0) {
+            StringJoiner queryJoiner = new StringJoiner("&");
+            localVarQueryParams.forEach(p -> queryJoiner.add(p.getName() + '=' + p.getValue()));
+            if (localVarQueryStringJoiner.length() != 0) {
+                queryJoiner.add(localVarQueryStringJoiner.toString());
+            }
+            localVarRequestBuilder.uri(
+                    URI.create(memberVarBaseUri + localVarPath + '?' + queryJoiner.toString()));
+        } else {
+            localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+        }
+
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
+     * Retrieve asset Get asset under a specific account, under a specific Non Custodial Wallet
+     *
+     * @param walletId Wallet Id (required)
+     * @param accountId The ID of the account (required)
+     * @param assetId The ID of the asset (required)
+     * @return CompletableFuture&lt;ApiResponse&lt;EmbeddedWalletAssetResponse&gt;&gt;
+     * @throws ApiException if fails to make API call
+     */
+    public CompletableFuture<ApiResponse<EmbeddedWalletAssetResponse>> getEmbeddedWalletAsset(
+            String walletId, String accountId, String assetId) throws ApiException {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    getEmbeddedWalletAssetRequestBuilder(walletId, accountId, assetId);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException(
+                                                    "getEmbeddedWalletAsset", localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<EmbeddedWalletAssetResponse>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            EmbeddedWalletAssetResponse>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            });
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder getEmbeddedWalletAssetRequestBuilder(
+            String walletId, String accountId, String assetId) throws ApiException {
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "getEmbeddedWalletAsset", "walletId", walletId);
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "getEmbeddedWalletAsset", "accountId", accountId);
+        ValidationUtils.assertParamExistsAndNotEmpty("getEmbeddedWalletAsset", "assetId", assetId);
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath =
+                "/ncw/wallets/{walletId}/accounts/{accountId}/assets/{assetId}"
+                        .replace("{walletId}", ApiClient.urlEncode(walletId.toString()))
+                        .replace("{accountId}", ApiClient.urlEncode(accountId.toString()))
+                        .replace("{assetId}", ApiClient.urlEncode(assetId.toString()));
+
+        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
+     * Retrieve asset balance Get balance for specific asset, under a specific account
+     *
+     * @param walletId Wallet Id (required)
+     * @param accountId The ID of the account (required)
+     * @param assetId The ID of the asset (required)
+     * @return CompletableFuture&lt;ApiResponse&lt;EmbeddedWalletAssetBalance&gt;&gt;
+     * @throws ApiException if fails to make API call
+     */
+    public CompletableFuture<ApiResponse<EmbeddedWalletAssetBalance>> getEmbeddedWalletAssetBalance(
+            String walletId, String accountId, String assetId) throws ApiException {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    getEmbeddedWalletAssetBalanceRequestBuilder(walletId, accountId, assetId);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException(
+                                                    "getEmbeddedWalletAssetBalance",
+                                                    localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<EmbeddedWalletAssetBalance>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            EmbeddedWalletAssetBalance>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            });
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder getEmbeddedWalletAssetBalanceRequestBuilder(
+            String walletId, String accountId, String assetId) throws ApiException {
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "getEmbeddedWalletAssetBalance", "walletId", walletId);
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "getEmbeddedWalletAssetBalance", "accountId", accountId);
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "getEmbeddedWalletAssetBalance", "assetId", assetId);
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath =
+                "/ncw/wallets/{walletId}/accounts/{accountId}/assets/{assetId}/balance"
+                        .replace("{walletId}", ApiClient.urlEncode(walletId.toString()))
+                        .replace("{accountId}", ApiClient.urlEncode(accountId.toString()))
+                        .replace("{assetId}", ApiClient.urlEncode(assetId.toString()));
+
+        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
+     * Get Embedded Wallet Device Get specific device for a specific s Wallet
+     *
+     * @param walletId Wallet Id (required)
+     * @param deviceId Device Id (required)
+     * @return CompletableFuture&lt;ApiResponse&lt;EmbeddedWalletDevice&gt;&gt;
+     * @throws ApiException if fails to make API call
+     */
+    public CompletableFuture<ApiResponse<EmbeddedWalletDevice>> getEmbeddedWalletDevice(
+            String walletId, String deviceId) throws ApiException {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    getEmbeddedWalletDeviceRequestBuilder(walletId, deviceId);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException(
+                                                    "getEmbeddedWalletDevice", localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<EmbeddedWalletDevice>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            EmbeddedWalletDevice>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            });
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder getEmbeddedWalletDeviceRequestBuilder(
+            String walletId, String deviceId) throws ApiException {
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "getEmbeddedWalletDevice", "walletId", walletId);
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "getEmbeddedWalletDevice", "deviceId", deviceId);
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath =
+                "/ncw/wallets/{walletId}/devices/{deviceId}"
+                        .replace("{walletId}", ApiClient.urlEncode(walletId.toString()))
+                        .replace("{deviceId}", ApiClient.urlEncode(deviceId.toString()));
+
+        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
+     * Get device key setup state Get the state of the specific device setup key under a specific
+     * Non Custodial Wallet
+     *
+     * @param walletId Wallet Id (required)
+     * @param deviceId Device Id (required)
+     * @return CompletableFuture&lt;ApiResponse&lt;EmbeddedWalletDeviceKeySetupResponse&gt;&gt;
+     * @throws ApiException if fails to make API call
+     */
+    public CompletableFuture<ApiResponse<EmbeddedWalletDeviceKeySetupResponse>>
+            getEmbeddedWalletDeviceSetupState(String walletId, String deviceId)
+                    throws ApiException {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    getEmbeddedWalletDeviceSetupStateRequestBuilder(walletId, deviceId);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException(
+                                                    "getEmbeddedWalletDeviceSetupState",
+                                                    localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<EmbeddedWalletDeviceKeySetupResponse>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            EmbeddedWalletDeviceKeySetupResponse>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            });
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder getEmbeddedWalletDeviceSetupStateRequestBuilder(
+            String walletId, String deviceId) throws ApiException {
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "getEmbeddedWalletDeviceSetupState", "walletId", walletId);
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "getEmbeddedWalletDeviceSetupState", "deviceId", deviceId);
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath =
+                "/ncw/wallets/{walletId}/devices/{deviceId}/setup_status"
+                        .replace("{walletId}", ApiClient.urlEncode(walletId.toString()))
+                        .replace("{deviceId}", ApiClient.urlEncode(deviceId.toString()));
+
+        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
+     * Get wallet Latest Backup details Get wallet Latest Backup details, including the deviceId,
+     * and backup time
+     *
+     * @param walletId Wallet Id (required)
+     * @return CompletableFuture&lt;ApiResponse&lt;EmbeddedWalletLatestBackupResponse&gt;&gt;
+     * @throws ApiException if fails to make API call
+     */
+    public CompletableFuture<ApiResponse<EmbeddedWalletLatestBackupResponse>>
+            getEmbeddedWalletLatestBackup(String walletId) throws ApiException {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    getEmbeddedWalletLatestBackupRequestBuilder(walletId);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException(
+                                                    "getEmbeddedWalletLatestBackup",
+                                                    localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<EmbeddedWalletLatestBackupResponse>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            EmbeddedWalletLatestBackupResponse>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            });
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder getEmbeddedWalletLatestBackupRequestBuilder(String walletId)
+            throws ApiException {
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "getEmbeddedWalletLatestBackup", "walletId", walletId);
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath =
+                "/ncw/wallets/{walletId}/backup/latest"
+                        .replace("{walletId}", ApiClient.urlEncode(walletId.toString()));
+
+        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
+     * Get the public key of an asset Gets the public key of an asset associated with a specific
+     * account within a Non-Custodial Wallet
+     *
+     * @param xEndUserWalletId Unique ID of the End-User wallet to the API request. Required for
+     *     end-user wallet operations. (required)
+     * @param walletId The ID of the Non-Custodial wallet (required)
+     * @param accountId The ID of the account (required)
+     * @param assetId The ID of the asset (required)
+     * @param change BIP44 derivation path - change value (required)
+     * @param addressIndex BIP44 derivation path - index value (required)
+     * @param compressed Compressed/Uncompressed public key format (optional)
+     * @return CompletableFuture&lt;ApiResponse&lt;PublicKeyInformation&gt;&gt;
+     * @throws ApiException if fails to make API call
+     */
+    public CompletableFuture<ApiResponse<PublicKeyInformation>>
+            getEmbeddedWalletPublicKeyInfoForAddress(
+                    UUID xEndUserWalletId,
+                    String walletId,
+                    String accountId,
+                    String assetId,
+                    BigDecimal change,
+                    BigDecimal addressIndex,
+                    Boolean compressed)
+                    throws ApiException {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    getEmbeddedWalletPublicKeyInfoForAddressRequestBuilder(
+                            xEndUserWalletId,
+                            walletId,
+                            accountId,
+                            assetId,
+                            change,
+                            addressIndex,
+                            compressed);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException(
+                                                    "getEmbeddedWalletPublicKeyInfoForAddress",
                                                     localVarResponse));
                                 }
                                 try {
@@ -132,7 +1033,8 @@ public class EmbeddedWalletsApi {
         }
     }
 
-    private HttpRequest.Builder getPublicKeyInfoForAddressNcwRequestBuilder(
+    private HttpRequest.Builder getEmbeddedWalletPublicKeyInfoForAddressRequestBuilder(
+            UUID xEndUserWalletId,
             String walletId,
             String accountId,
             String assetId,
@@ -141,19 +1043,24 @@ public class EmbeddedWalletsApi {
             Boolean compressed)
             throws ApiException {
         ValidationUtils.assertParamExistsAndNotEmpty(
-                "getPublicKeyInfoForAddressNcw", "walletId", walletId);
+                "getEmbeddedWalletPublicKeyInfoForAddress",
+                "xEndUserWalletId",
+                xEndUserWalletId.toString());
         ValidationUtils.assertParamExistsAndNotEmpty(
-                "getPublicKeyInfoForAddressNcw", "accountId", accountId);
+                "getEmbeddedWalletPublicKeyInfoForAddress", "walletId", walletId);
         ValidationUtils.assertParamExistsAndNotEmpty(
-                "getPublicKeyInfoForAddressNcw", "assetId", assetId);
-        ValidationUtils.assertParamExists("getPublicKeyInfoForAddressNcw", "change", change);
+                "getEmbeddedWalletPublicKeyInfoForAddress", "accountId", accountId);
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "getEmbeddedWalletPublicKeyInfoForAddress", "assetId", assetId);
         ValidationUtils.assertParamExists(
-                "getPublicKeyInfoForAddressNcw", "addressIndex", addressIndex);
+                "getEmbeddedWalletPublicKeyInfoForAddress", "change", change);
+        ValidationUtils.assertParamExists(
+                "getEmbeddedWalletPublicKeyInfoForAddress", "addressIndex", addressIndex);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
         String localVarPath =
-                "/ncw/{walletId}/accounts/{accountId}/{assetId}/{change}/{addressIndex}/public_key_info"
+                "/ncw/wallets/{walletId}/accounts/{accountId}/assets/{assetId}/{change}/{addressIndex}/public_key_info"
                         .replace("{walletId}", ApiClient.urlEncode(walletId.toString()))
                         .replace("{accountId}", ApiClient.urlEncode(accountId.toString()))
                         .replace("{assetId}", ApiClient.urlEncode(assetId.toString()))
@@ -165,6 +1072,200 @@ public class EmbeddedWalletsApi {
         String localVarQueryParameterBaseName;
         localVarQueryParameterBaseName = "compressed";
         localVarQueryParams.addAll(ApiClient.parameterToPairs("compressed", compressed));
+
+        if (!localVarQueryParams.isEmpty() || localVarQueryStringJoiner.length() != 0) {
+            StringJoiner queryJoiner = new StringJoiner("&");
+            localVarQueryParams.forEach(p -> queryJoiner.add(p.getName() + '=' + p.getValue()));
+            if (localVarQueryStringJoiner.length() != 0) {
+                queryJoiner.add(localVarQueryStringJoiner.toString());
+            }
+            localVarRequestBuilder.uri(
+                    URI.create(memberVarBaseUri + localVarPath + '?' + queryJoiner.toString()));
+        } else {
+            localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+        }
+
+        if (xEndUserWalletId != null) {
+            localVarRequestBuilder.header("X-End-User-Wallet-Id", xEndUserWalletId.toString());
+        }
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
+     * Retrieve supported assets Get all the available supported assets for the Non-Custodial Wallet
+     *
+     * @param pageCursor Next page cursor to fetch (optional)
+     * @param pageSize Items per page (optional, default to 200)
+     * @param onlyBaseAssets Only base assets (optional)
+     * @return CompletableFuture&lt;ApiResponse&lt;EmbeddedWalletPaginatedAssetsResponse&gt;&gt;
+     * @throws ApiException if fails to make API call
+     */
+    public CompletableFuture<ApiResponse<EmbeddedWalletPaginatedAssetsResponse>>
+            getEmbeddedWalletSupportedAssets(
+                    String pageCursor, BigDecimal pageSize, Boolean onlyBaseAssets)
+                    throws ApiException {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    getEmbeddedWalletSupportedAssetsRequestBuilder(
+                            pageCursor, pageSize, onlyBaseAssets);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException(
+                                                    "getEmbeddedWalletSupportedAssets",
+                                                    localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<EmbeddedWalletPaginatedAssetsResponse>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            EmbeddedWalletPaginatedAssetsResponse>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            });
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder getEmbeddedWalletSupportedAssetsRequestBuilder(
+            String pageCursor, BigDecimal pageSize, Boolean onlyBaseAssets) throws ApiException {
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath = "/ncw/wallets/supported_assets";
+
+        List<Pair> localVarQueryParams = new ArrayList<>();
+        StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
+        String localVarQueryParameterBaseName;
+        localVarQueryParameterBaseName = "pageCursor";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("pageCursor", pageCursor));
+        localVarQueryParameterBaseName = "pageSize";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("pageSize", pageSize));
+        localVarQueryParameterBaseName = "onlyBaseAssets";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("onlyBaseAssets", onlyBaseAssets));
+
+        if (!localVarQueryParams.isEmpty() || localVarQueryStringJoiner.length() != 0) {
+            StringJoiner queryJoiner = new StringJoiner("&");
+            localVarQueryParams.forEach(p -> queryJoiner.add(p.getName() + '=' + p.getValue()));
+            if (localVarQueryStringJoiner.length() != 0) {
+                queryJoiner.add(localVarQueryStringJoiner.toString());
+            }
+            localVarRequestBuilder.uri(
+                    URI.create(memberVarBaseUri + localVarPath + '?' + queryJoiner.toString()));
+        } else {
+            localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+        }
+
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
+     * List wallets Get all Non Custodial Wallets
+     *
+     * @param pageCursor Next page cursor to fetch (optional)
+     * @param pageSize Items per page (optional, default to 200)
+     * @param sort Field(s) to use for sorting (optional, default to createdAt)
+     * @param order Is the order ascending or descending (optional, default to ASC)
+     * @param enabled Enabled Wallets (optional)
+     * @return CompletableFuture&lt;ApiResponse&lt;EmbeddedWalletPaginatedWalletsResponse&gt;&gt;
+     * @throws ApiException if fails to make API call
+     */
+    public CompletableFuture<ApiResponse<EmbeddedWalletPaginatedWalletsResponse>>
+            getEmbeddedWallets(
+                    String pageCursor,
+                    BigDecimal pageSize,
+                    String sort,
+                    String order,
+                    Boolean enabled)
+                    throws ApiException {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    getEmbeddedWalletsRequestBuilder(pageCursor, pageSize, sort, order, enabled);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException(
+                                                    "getEmbeddedWallets", localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<EmbeddedWalletPaginatedWalletsResponse>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            EmbeddedWalletPaginatedWalletsResponse>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            });
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder getEmbeddedWalletsRequestBuilder(
+            String pageCursor, BigDecimal pageSize, String sort, String order, Boolean enabled)
+            throws ApiException {
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath = "/ncw/wallets";
+
+        List<Pair> localVarQueryParams = new ArrayList<>();
+        StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
+        String localVarQueryParameterBaseName;
+        localVarQueryParameterBaseName = "pageCursor";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("pageCursor", pageCursor));
+        localVarQueryParameterBaseName = "pageSize";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("pageSize", pageSize));
+        localVarQueryParameterBaseName = "sort";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("sort", sort));
+        localVarQueryParameterBaseName = "order";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("order", order));
+        localVarQueryParameterBaseName = "enabled";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("enabled", enabled));
 
         if (!localVarQueryParams.isEmpty() || localVarQueryStringJoiner.length() != 0) {
             StringJoiner queryJoiner = new StringJoiner("&");
@@ -193,22 +1294,28 @@ public class EmbeddedWalletsApi {
      * Get the public key for a derivation path Gets the public key information based on derivation
      * path and signing algorithm within a Non-Custodial Wallet
      *
+     * @param xEndUserWalletId Unique ID of the End-User wallet to the API request. Required for
+     *     end-user wallet operations. (required)
      * @param walletId The ID of the Non-Custodial wallet (required)
      * @param derivationPath An array of integers (passed as JSON stringified array) representing
      *     the full BIP44 derivation path of the requested public key. The first element must always
      *     be 44. (required)
      * @param algorithm Elliptic Curve (required)
-     * @param compressed (optional)
+     * @param compressed Compressed/Uncompressed public key format (optional)
      * @return CompletableFuture&lt;ApiResponse&lt;PublicKeyInformation&gt;&gt;
      * @throws ApiException if fails to make API call
      */
     public CompletableFuture<ApiResponse<PublicKeyInformation>> getPublicKeyInfoNcw(
-            String walletId, String derivationPath, String algorithm, Boolean compressed)
+            UUID xEndUserWalletId,
+            String walletId,
+            String derivationPath,
+            String algorithm,
+            Boolean compressed)
             throws ApiException {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     getPublicKeyInfoNcwRequestBuilder(
-                            walletId, derivationPath, algorithm, compressed);
+                            xEndUserWalletId, walletId, derivationPath, algorithm, compressed);
             return memberVarHttpClient
                     .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
                     .thenComposeAsync(
@@ -243,8 +1350,14 @@ public class EmbeddedWalletsApi {
     }
 
     private HttpRequest.Builder getPublicKeyInfoNcwRequestBuilder(
-            String walletId, String derivationPath, String algorithm, Boolean compressed)
+            UUID xEndUserWalletId,
+            String walletId,
+            String derivationPath,
+            String algorithm,
+            Boolean compressed)
             throws ApiException {
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "getPublicKeyInfoNcw", "xEndUserWalletId", xEndUserWalletId.toString());
         ValidationUtils.assertParamExistsAndNotEmpty("getPublicKeyInfoNcw", "walletId", walletId);
         ValidationUtils.assertParamExistsAndNotEmpty(
                 "getPublicKeyInfoNcw", "derivationPath", derivationPath);
@@ -253,7 +1366,7 @@ public class EmbeddedWalletsApi {
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
         String localVarPath =
-                "/ncw/{walletId}/public_key_info"
+                "/ncw/wallets/{walletId}/public_key_info"
                         .replace("{walletId}", ApiClient.urlEncode(walletId.toString()));
 
         List<Pair> localVarQueryParams = new ArrayList<>();
@@ -278,9 +1391,100 @@ public class EmbeddedWalletsApi {
             localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
         }
 
+        if (xEndUserWalletId != null) {
+            localVarRequestBuilder.header("X-End-User-Wallet-Id", xEndUserWalletId.toString());
+        }
         localVarRequestBuilder.header("Accept", "application/json");
 
         localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
+     * Refresh asset balance Refresh the balance of an asset in a specific account
+     *
+     * @param walletId Wallet Id (required)
+     * @param accountId The ID of the account (required)
+     * @param assetId The ID of the asset (required)
+     * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
+     *     times with the same idempotency key, the server will return the same response as the
+     *     first request. The idempotency key is valid for 24 hours. (optional)
+     * @return CompletableFuture&lt;ApiResponse&lt;EmbeddedWalletAssetBalance&gt;&gt;
+     * @throws ApiException if fails to make API call
+     */
+    public CompletableFuture<ApiResponse<EmbeddedWalletAssetBalance>>
+            refreshEmbeddedWalletAssetBalance(
+                    String walletId, String accountId, String assetId, String idempotencyKey)
+                    throws ApiException {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    refreshEmbeddedWalletAssetBalanceRequestBuilder(
+                            walletId, accountId, assetId, idempotencyKey);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException(
+                                                    "refreshEmbeddedWalletAssetBalance",
+                                                    localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<EmbeddedWalletAssetBalance>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            EmbeddedWalletAssetBalance>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            });
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder refreshEmbeddedWalletAssetBalanceRequestBuilder(
+            String walletId, String accountId, String assetId, String idempotencyKey)
+            throws ApiException {
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "refreshEmbeddedWalletAssetBalance", "walletId", walletId);
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "refreshEmbeddedWalletAssetBalance", "accountId", accountId);
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "refreshEmbeddedWalletAssetBalance", "assetId", assetId);
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath =
+                "/ncw/wallets/{walletId}/accounts/{accountId}/assets/{assetId}/balance"
+                        .replace("{walletId}", ApiClient.urlEncode(walletId.toString()))
+                        .replace("{accountId}", ApiClient.urlEncode(accountId.toString()))
+                        .replace("{assetId}", ApiClient.urlEncode(assetId.toString()));
+
+        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+        if (idempotencyKey != null) {
+            localVarRequestBuilder.header("Idempotency-Key", idempotencyKey.toString());
+        }
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        localVarRequestBuilder.method("PUT", HttpRequest.BodyPublishers.noBody());
         if (memberVarReadTimeout != null) {
             localVarRequestBuilder.timeout(memberVarReadTimeout);
         }

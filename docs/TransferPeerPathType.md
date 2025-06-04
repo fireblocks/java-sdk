@@ -31,5 +31,7 @@
 
 * `PROGRAM_CALL` (value: `"PROGRAM_CALL"`)
 
+* `MULTI_DESTINATION` (value: `"MULTI_DESTINATION"`)
+
 
 
