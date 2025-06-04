@@ -24,7 +24,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 import java.util.StringJoiner;
 
-/** ComplianceScreeningResultFullPayload */
+/** The result of the Travel Rule screening. */
 @JsonPropertyOrder({
     ComplianceScreeningResultFullPayload.JSON_PROPERTY_PROVIDER,
     ComplianceScreeningResultFullPayload.JSON_PROPERTY_PAYLOAD,

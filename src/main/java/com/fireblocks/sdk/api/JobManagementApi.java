@@ -74,9 +74,9 @@ public class JobManagementApi {
     }
 
     /**
-     * Cancel a running job Stop the given job immediately. If the job is in the ‘Active’ state, the
-     * job will be canceled after completing the current task. Vault accounts and Wallets that are
-     * already created will not be affected.
+     * Cancel a running job Stop the given job immediately. If the job is in the &#39;Active&#39;
+     * state, the job will be canceled after completing the current task. Vault accounts and Wallets
+     * that are already created will not be affected.
      *
      * @param jobId The requested job id (required)
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
@@ -410,7 +410,7 @@ public class JobManagementApi {
     }
     /**
      * Pause a job Pause the given job, after the current task is done. A paused job can later be
-     * resumed by calling ‘continue’, or canceled.
+     * resumed by calling &#39;continue&#39;, or canceled.
      *
      * @param jobId The requested job id (required)
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple

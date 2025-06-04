@@ -42,7 +42,9 @@ public enum TransferPeerPathType {
 
     END_USER_WALLET("END_USER_WALLET"),
 
-    PROGRAM_CALL("PROGRAM_CALL");
+    PROGRAM_CALL("PROGRAM_CALL"),
+
+    MULTI_DESTINATION("MULTI_DESTINATION");
 
     private String value;
 

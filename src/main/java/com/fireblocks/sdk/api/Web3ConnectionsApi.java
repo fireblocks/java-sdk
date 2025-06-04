@@ -36,6 +36,7 @@ import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringJoiner;
+import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 
@@ -86,15 +87,19 @@ public class Web3ConnectionsApi {
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
+     * @param xEndUserWalletId Unique ID of the End-User wallet to the API request. Required for
+     *     end-user wallet operations. (optional)
      * @return CompletableFuture&lt;ApiResponse&lt;CreateConnectionResponse&gt;&gt;
      * @throws ApiException if fails to make API call
      */
     public CompletableFuture<ApiResponse<CreateConnectionResponse>> create(
-            CreateConnectionRequest createConnectionRequest, String idempotencyKey)
+            CreateConnectionRequest createConnectionRequest,
+            String idempotencyKey,
+            UUID xEndUserWalletId)
             throws ApiException {
         try {
             HttpRequest.Builder localVarRequestBuilder =
-                    createRequestBuilder(createConnectionRequest, idempotencyKey);
+                    createRequestBuilder(createConnectionRequest, idempotencyKey, xEndUserWalletId);
             return memberVarHttpClient
                     .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
                     .thenComposeAsync(
@@ -128,7 +133,9 @@ public class Web3ConnectionsApi {
     }
 
     private HttpRequest.Builder createRequestBuilder(
-            CreateConnectionRequest createConnectionRequest, String idempotencyKey)
+            CreateConnectionRequest createConnectionRequest,
+            String idempotencyKey,
+            UUID xEndUserWalletId)
             throws ApiException {
         ValidationUtils.assertParamExists(
                 "create", "createConnectionRequest", createConnectionRequest);
@@ -141,6 +148,9 @@ public class Web3ConnectionsApi {
 
         if (idempotencyKey != null) {
             localVarRequestBuilder.header("Idempotency-Key", idempotencyKey.toString());
+        }
+        if (xEndUserWalletId != null) {
+            localVarRequestBuilder.header("X-End-User-Wallet-Id", xEndUserWalletId.toString());
         }
         localVarRequestBuilder.header("Content-Type", "application/json");
         localVarRequestBuilder.header("Accept", "application/json");
@@ -164,6 +174,8 @@ public class Web3ConnectionsApi {
     /**
      * List all open Web3 connections. Get open Web3 connections.
      *
+     * @param xEndUserWalletId Unique ID of the End-User wallet to the API request. Required for
+     *     end-user wallet operations. (optional)
      * @param order List order; ascending or descending. (optional, default to ASC)
      * @param filter Parsed filter object (optional)
      * @param sort Property to sort Web3 connections by. (optional, default to createdAt)
@@ -173,11 +185,16 @@ public class Web3ConnectionsApi {
      * @throws ApiException if fails to make API call
      */
     public CompletableFuture<ApiResponse<GetConnectionsResponse>> get(
-            String order, GetFilterParameter filter, String sort, BigDecimal pageSize, String next)
+            UUID xEndUserWalletId,
+            String order,
+            GetFilterParameter filter,
+            String sort,
+            BigDecimal pageSize,
+            String next)
             throws ApiException {
         try {
             HttpRequest.Builder localVarRequestBuilder =
-                    getRequestBuilder(order, filter, sort, pageSize, next);
+                    getRequestBuilder(xEndUserWalletId, order, filter, sort, pageSize, next);
             return memberVarHttpClient
                     .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
                     .thenComposeAsync(
@@ -211,7 +228,12 @@ public class Web3ConnectionsApi {
     }
 
     private HttpRequest.Builder getRequestBuilder(
-            String order, GetFilterParameter filter, String sort, BigDecimal pageSize, String next)
+            UUID xEndUserWalletId,
+            String order,
+            GetFilterParameter filter,
+            String sort,
+            BigDecimal pageSize,
+            String next)
             throws ApiException {
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
@@ -252,6 +274,9 @@ public class Web3ConnectionsApi {
             localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
         }
 
+        if (xEndUserWalletId != null) {
+            localVarRequestBuilder.header("X-End-User-Wallet-Id", xEndUserWalletId.toString());
+        }
         localVarRequestBuilder.header("Accept", "application/json");
 
         localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
@@ -267,12 +292,15 @@ public class Web3ConnectionsApi {
      * Remove an existing Web3 connection. Remove a Web3 connection
      *
      * @param id The ID of the existing Web3 connection to remove. (required)
+     * @param xEndUserWalletId Unique ID of the End-User wallet to the API request. Required for
+     *     end-user wallet operations. (optional)
      * @return CompletableFuture&lt;ApiResponse&lt;Void&gt;&gt;
      * @throws ApiException if fails to make API call
      */
-    public CompletableFuture<ApiResponse<Void>> remove(String id) throws ApiException {
+    public CompletableFuture<ApiResponse<Void>> remove(String id, UUID xEndUserWalletId)
+            throws ApiException {
         try {
-            HttpRequest.Builder localVarRequestBuilder = removeRequestBuilder(id);
+            HttpRequest.Builder localVarRequestBuilder = removeRequestBuilder(id, xEndUserWalletId);
             return memberVarHttpClient
                     .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
                     .thenComposeAsync(
@@ -295,7 +323,8 @@ public class Web3ConnectionsApi {
         }
     }
 
-    private HttpRequest.Builder removeRequestBuilder(String id) throws ApiException {
+    private HttpRequest.Builder removeRequestBuilder(String id, UUID xEndUserWalletId)
+            throws ApiException {
         ValidationUtils.assertParamExistsAndNotEmpty("remove", "id", id);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
@@ -305,6 +334,9 @@ public class Web3ConnectionsApi {
 
         localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
 
+        if (xEndUserWalletId != null) {
+            localVarRequestBuilder.header("X-End-User-Wallet-Id", xEndUserWalletId.toString());
+        }
         localVarRequestBuilder.header("Accept", "application/json");
 
         localVarRequestBuilder.method("DELETE", HttpRequest.BodyPublishers.noBody());
@@ -327,15 +359,21 @@ public class Web3ConnectionsApi {
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
+     * @param xEndUserWalletId Unique ID of the End-User wallet to the API request. Required for
+     *     end-user wallet operations. (optional)
      * @return CompletableFuture&lt;ApiResponse&lt;Void&gt;&gt;
      * @throws ApiException if fails to make API call
      */
     public CompletableFuture<ApiResponse<Void>> submit(
-            RespondToConnectionRequest respondToConnectionRequest, String id, String idempotencyKey)
+            RespondToConnectionRequest respondToConnectionRequest,
+            String id,
+            String idempotencyKey,
+            UUID xEndUserWalletId)
             throws ApiException {
         try {
             HttpRequest.Builder localVarRequestBuilder =
-                    submitRequestBuilder(respondToConnectionRequest, id, idempotencyKey);
+                    submitRequestBuilder(
+                            respondToConnectionRequest, id, idempotencyKey, xEndUserWalletId);
             return memberVarHttpClient
                     .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
                     .thenComposeAsync(
@@ -359,7 +397,10 @@ public class Web3ConnectionsApi {
     }
 
     private HttpRequest.Builder submitRequestBuilder(
-            RespondToConnectionRequest respondToConnectionRequest, String id, String idempotencyKey)
+            RespondToConnectionRequest respondToConnectionRequest,
+            String id,
+            String idempotencyKey,
+            UUID xEndUserWalletId)
             throws ApiException {
         ValidationUtils.assertParamExists(
                 "submit", "respondToConnectionRequest", respondToConnectionRequest);
@@ -374,6 +415,9 @@ public class Web3ConnectionsApi {
 
         if (idempotencyKey != null) {
             localVarRequestBuilder.header("Idempotency-Key", idempotencyKey.toString());
+        }
+        if (xEndUserWalletId != null) {
+            localVarRequestBuilder.header("X-End-User-Wallet-Id", xEndUserWalletId.toString());
         }
         localVarRequestBuilder.header("Content-Type", "application/json");
         localVarRequestBuilder.header("Accept", "application/json");

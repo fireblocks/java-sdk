@@ -32,7 +32,7 @@ Add this dependency to your project's POM:
 <dependency>
   <groupId>com.fireblocks.sdk</groupId>
   <artifactId>fireblocks-sdk</artifactId>
-  <version>10.1.1</version>
+  <version>0.0.0</version>
   <scope>compile</scope>
 </dependency>
 ```
@@ -42,7 +42,7 @@ Add this dependency to your project's POM:
 Add this dependency to your project's build file:
 
 ```groovy
-compile "com.fireblocks.sdk:fireblocks-sdk:10.1.1"
+compile "com.fireblocks.sdk:fireblocks-sdk:0.0.0"
 ```
 
 ### Others
@@ -55,7 +55,7 @@ mvn clean package
 
 Then manually install the following JARs:
 
-- `target/fireblocks-sdk-10.1.1.jar`
+- `target/fireblocks-sdk-0.0.0.jar`
 - `target/lib/*.jar`
 
 
@@ -198,8 +198,22 @@ Class | Method | HTTP request | Description
 *DeployedContractsApi* | [**getDeployedContractByAddress**](docs/DeployedContractsApi.md#getDeployedContractByAddress) | **GET** /tokenization/contracts/{assetId}/{contractAddress} | Return deployed contract data
 *DeployedContractsApi* | [**getDeployedContractById**](docs/DeployedContractsApi.md#getDeployedContractById) | **GET** /tokenization/contracts/{id} | Return deployed contract data by id
 *DeployedContractsApi* | [**getDeployedContracts**](docs/DeployedContractsApi.md#getDeployedContracts) | **GET** /tokenization/contracts | List deployed contracts data
-*EmbeddedWalletsApi* | [**getPublicKeyInfoForAddressNcw**](docs/EmbeddedWalletsApi.md#getPublicKeyInfoForAddressNcw) | **GET** /ncw/{walletId}/accounts/{accountId}/{assetId}/{change}/{addressIndex}/public_key_info | Get the public key of an asset
-*EmbeddedWalletsApi* | [**getPublicKeyInfoNcw**](docs/EmbeddedWalletsApi.md#getPublicKeyInfoNcw) | **GET** /ncw/{walletId}/public_key_info | Get the public key for a derivation path
+*EmbeddedWalletsApi* | [**addEmbeddedWalletAsset**](docs/EmbeddedWalletsApi.md#addEmbeddedWalletAsset) | **POST** /ncw/wallets/{walletId}/accounts/{accountId}/assets/{assetId} | Add asset to account
+*EmbeddedWalletsApi* | [**createEmbeddedWallet**](docs/EmbeddedWalletsApi.md#createEmbeddedWallet) | **POST** /ncw/wallets | Create a new wallet
+*EmbeddedWalletsApi* | [**createEmbeddedWalletAccount**](docs/EmbeddedWalletsApi.md#createEmbeddedWalletAccount) | **POST** /ncw/wallets/{walletId}/accounts | Create a new account
+*EmbeddedWalletsApi* | [**getEmbeddedWallet**](docs/EmbeddedWalletsApi.md#getEmbeddedWallet) | **GET** /ncw/wallets/{walletId} | Get a wallet
+*EmbeddedWalletsApi* | [**getEmbeddedWalletAccount**](docs/EmbeddedWalletsApi.md#getEmbeddedWalletAccount) | **GET** /ncw/wallets/{walletId}/accounts/{accountId} | Get a account
+*EmbeddedWalletsApi* | [**getEmbeddedWalletAddresses**](docs/EmbeddedWalletsApi.md#getEmbeddedWalletAddresses) | **GET** /ncw/wallets/{walletId}/accounts/{accountId}/assets/{assetId}/addresses | Retrieve asset addresses
+*EmbeddedWalletsApi* | [**getEmbeddedWalletAsset**](docs/EmbeddedWalletsApi.md#getEmbeddedWalletAsset) | **GET** /ncw/wallets/{walletId}/accounts/{accountId}/assets/{assetId} | Retrieve asset
+*EmbeddedWalletsApi* | [**getEmbeddedWalletAssetBalance**](docs/EmbeddedWalletsApi.md#getEmbeddedWalletAssetBalance) | **GET** /ncw/wallets/{walletId}/accounts/{accountId}/assets/{assetId}/balance | Retrieve asset balance
+*EmbeddedWalletsApi* | [**getEmbeddedWalletDevice**](docs/EmbeddedWalletsApi.md#getEmbeddedWalletDevice) | **GET** /ncw/wallets/{walletId}/devices/{deviceId} | Get Embedded Wallet Device
+*EmbeddedWalletsApi* | [**getEmbeddedWalletDeviceSetupState**](docs/EmbeddedWalletsApi.md#getEmbeddedWalletDeviceSetupState) | **GET** /ncw/wallets/{walletId}/devices/{deviceId}/setup_status | Get device key setup state
+*EmbeddedWalletsApi* | [**getEmbeddedWalletLatestBackup**](docs/EmbeddedWalletsApi.md#getEmbeddedWalletLatestBackup) | **GET** /ncw/wallets/{walletId}/backup/latest | Get wallet Latest Backup details
+*EmbeddedWalletsApi* | [**getEmbeddedWalletPublicKeyInfoForAddress**](docs/EmbeddedWalletsApi.md#getEmbeddedWalletPublicKeyInfoForAddress) | **GET** /ncw/wallets/{walletId}/accounts/{accountId}/assets/{assetId}/{change}/{addressIndex}/public_key_info | Get the public key of an asset
+*EmbeddedWalletsApi* | [**getEmbeddedWalletSupportedAssets**](docs/EmbeddedWalletsApi.md#getEmbeddedWalletSupportedAssets) | **GET** /ncw/wallets/supported_assets | Retrieve supported assets
+*EmbeddedWalletsApi* | [**getEmbeddedWallets**](docs/EmbeddedWalletsApi.md#getEmbeddedWallets) | **GET** /ncw/wallets | List wallets
+*EmbeddedWalletsApi* | [**getPublicKeyInfoNcw**](docs/EmbeddedWalletsApi.md#getPublicKeyInfoNcw) | **GET** /ncw/wallets/{walletId}/public_key_info | Get the public key for a derivation path
+*EmbeddedWalletsApi* | [**refreshEmbeddedWalletAssetBalance**](docs/EmbeddedWalletsApi.md#refreshEmbeddedWalletAssetBalance) | **PUT** /ncw/wallets/{walletId}/accounts/{accountId}/assets/{assetId}/balance | Refresh asset balance
 *ExchangeAccountsApi* | [**addExchangeAccount**](docs/ExchangeAccountsApi.md#addExchangeAccount) | **POST** /exchange_accounts | Add an exchange account
 *ExchangeAccountsApi* | [**convertAssets**](docs/ExchangeAccountsApi.md#convertAssets) | **POST** /exchange_accounts/{exchangeAccountId}/convert | Convert exchange account funds from the source asset to the destination asset.
 *ExchangeAccountsApi* | [**getExchangeAccount**](docs/ExchangeAccountsApi.md#getExchangeAccount) | **GET** /exchange_accounts/{exchangeAccountId} | Find a specific exchange account
@@ -334,7 +348,7 @@ Class | Method | HTTP request | Description
 *TokenizationApi* | [**issueTokenMultiChain**](docs/TokenizationApi.md#issueTokenMultiChain) | **POST** /tokenization/multichain/tokens | Issue a token on one or more blockchains
 *TokenizationApi* | [**link**](docs/TokenizationApi.md#link) | **POST** /tokenization/tokens/link | Link a contract
 *TokenizationApi* | [**mintCollectionToken**](docs/TokenizationApi.md#mintCollectionToken) | **POST** /tokenization/collections/{id}/tokens/mint | Mint tokens
-*TokenizationApi* | [**reIssueTokenMultiChain**](docs/TokenizationApi.md#reIssueTokenMultiChain) | **POST** /tokenization/multichain/token/{tokenLinkId} | Reissue a multichain token
+*TokenizationApi* | [**reIssueTokenMultiChain**](docs/TokenizationApi.md#reIssueTokenMultiChain) | **POST** /tokenization/multichain/reissue/token/{tokenLinkId} | Reissue a multichain token
 *TokenizationApi* | [**unlink**](docs/TokenizationApi.md#unlink) | **DELETE** /tokenization/tokens/{id} | Unlink a token
 *TokenizationApi* | [**unlinkCollection**](docs/TokenizationApi.md#unlinkCollection) | **DELETE** /tokenization/collections/{id} | Delete a collection link
 *TransactionsApi* | [**cancelTransaction**](docs/TransactionsApi.md#cancelTransaction) | **POST** /transactions/{txId}/cancel | Cancel a transaction
@@ -492,6 +506,7 @@ Class | Method | HTTP request | Description
  - [CollectionType](docs/CollectionType.md)
  - [ComplianceResult](docs/ComplianceResult.md)
  - [ComplianceResultFullPayload](docs/ComplianceResultFullPayload.md)
+ - [ComplianceResultStatusesEnum](docs/ComplianceResultStatusesEnum.md)
  - [ComplianceScreeningResult](docs/ComplianceScreeningResult.md)
  - [ComplianceScreeningResultFullPayload](docs/ComplianceScreeningResultFullPayload.md)
  - [ConfigChangeRequestStatus](docs/ConfigChangeRequestStatus.md)
@@ -601,6 +616,22 @@ Class | Method | HTTP request | Description
  - [DropTransactionResponse](docs/DropTransactionResponse.md)
  - [EVMTokenCreateParamsDto](docs/EVMTokenCreateParamsDto.md)
  - [EditGasStationConfigurationResponse](docs/EditGasStationConfigurationResponse.md)
+ - [EmbeddedWallet](docs/EmbeddedWallet.md)
+ - [EmbeddedWalletAccount](docs/EmbeddedWalletAccount.md)
+ - [EmbeddedWalletAddressDetails](docs/EmbeddedWalletAddressDetails.md)
+ - [EmbeddedWalletAlgoritm](docs/EmbeddedWalletAlgoritm.md)
+ - [EmbeddedWalletAssetBalance](docs/EmbeddedWalletAssetBalance.md)
+ - [EmbeddedWalletAssetResponse](docs/EmbeddedWalletAssetResponse.md)
+ - [EmbeddedWalletAssetRewardInfo](docs/EmbeddedWalletAssetRewardInfo.md)
+ - [EmbeddedWalletDevice](docs/EmbeddedWalletDevice.md)
+ - [EmbeddedWalletDeviceKeySetupResponse](docs/EmbeddedWalletDeviceKeySetupResponse.md)
+ - [EmbeddedWalletDeviceKeySetupResponseSetupStatusInner](docs/EmbeddedWalletDeviceKeySetupResponseSetupStatusInner.md)
+ - [EmbeddedWalletLatestBackupKey](docs/EmbeddedWalletLatestBackupKey.md)
+ - [EmbeddedWalletLatestBackupResponse](docs/EmbeddedWalletLatestBackupResponse.md)
+ - [EmbeddedWalletPaginatedAddressesResponse](docs/EmbeddedWalletPaginatedAddressesResponse.md)
+ - [EmbeddedWalletPaginatedAssetsResponse](docs/EmbeddedWalletPaginatedAssetsResponse.md)
+ - [EmbeddedWalletPaginatedWalletsResponse](docs/EmbeddedWalletPaginatedWalletsResponse.md)
+ - [EmbeddedWalletSetUpStatus](docs/EmbeddedWalletSetUpStatus.md)
  - [ErrorResponse](docs/ErrorResponse.md)
  - [ErrorResponseError](docs/ErrorResponseError.md)
  - [ErrorSchema](docs/ErrorSchema.md)

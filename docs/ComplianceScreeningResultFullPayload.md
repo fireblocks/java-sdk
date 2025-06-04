@@ -2,6 +2,7 @@
 
 # ComplianceScreeningResultFullPayload
 
+The result of the Travel Rule screening.
 
 ## Properties
 

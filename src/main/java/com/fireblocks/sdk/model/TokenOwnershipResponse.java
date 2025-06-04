@@ -119,6 +119,8 @@ public class TokenOwnershipResponse {
 
         MANTLE_TEST("MANTLE_TEST"),
 
+        GUN_GUNZILLA("GUN_GUNZILLA"),
+
         GUN_GUNZILLA_TEST("GUN_GUNZILLA_TEST"),
 
         ETH_SONEIUM("ETH_SONEIUM"),

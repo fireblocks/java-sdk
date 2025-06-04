@@ -22,7 +22,9 @@ public enum StakingProvider {
 
     FIGMENT("figment"),
 
-    LIDO("lido");
+    LIDO("lido"),
+
+    P2P("p2p");
 
     private String value;
 

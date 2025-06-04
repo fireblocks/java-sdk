@@ -1134,7 +1134,7 @@ public class TokenizationApi {
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
         String localVarPath =
-                "/tokenization/multichain/token/{tokenLinkId}"
+                "/tokenization/multichain/reissue/token/{tokenLinkId}"
                         .replace("{tokenLinkId}", ApiClient.urlEncode(tokenLinkId.toString()));
 
         localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));

@@ -21,6 +21,7 @@ import com.fireblocks.sdk.model.GetConnectionsResponse;
 import com.fireblocks.sdk.model.GetFilterParameter;
 import com.fireblocks.sdk.model.RespondToConnectionRequest;
 import java.math.BigDecimal;
+import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -43,8 +44,9 @@ public class Web3ConnectionsApiTest {
     public void createTest() throws ApiException {
         CreateConnectionRequest createConnectionRequest = null;
         String idempotencyKey = null;
+        UUID xEndUserWalletId = null;
         CompletableFuture<ApiResponse<CreateConnectionResponse>> response =
-                api.create(createConnectionRequest, idempotencyKey);
+                api.create(createConnectionRequest, idempotencyKey, xEndUserWalletId);
     }
 
     /**
@@ -56,13 +58,14 @@ public class Web3ConnectionsApiTest {
      */
     @Test
     public void getTest() throws ApiException {
+        UUID xEndUserWalletId = null;
         String order = null;
         GetFilterParameter filter = null;
         String sort = null;
         BigDecimal pageSize = null;
         String next = null;
         CompletableFuture<ApiResponse<GetConnectionsResponse>> response =
-                api.get(order, filter, sort, pageSize, next);
+                api.get(xEndUserWalletId, order, filter, sort, pageSize, next);
     }
 
     /**
@@ -75,8 +78,9 @@ public class Web3ConnectionsApiTest {
     @Test
     public void removeTest() throws ApiException {
         String id = null;
+        UUID xEndUserWalletId = null;
 
-        CompletableFuture<ApiResponse<Void>> response = api.remove(id);
+        CompletableFuture<ApiResponse<Void>> response = api.remove(id, xEndUserWalletId);
     }
 
     /**
@@ -93,8 +97,9 @@ public class Web3ConnectionsApiTest {
         RespondToConnectionRequest respondToConnectionRequest = null;
         String id = null;
         String idempotencyKey = null;
+        UUID xEndUserWalletId = null;
 
         CompletableFuture<ApiResponse<Void>> response =
-                api.submit(respondToConnectionRequest, id, idempotencyKey);
+                api.submit(respondToConnectionRequest, id, idempotencyKey, xEndUserWalletId);
     }
 }
