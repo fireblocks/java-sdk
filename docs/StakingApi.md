@@ -13,6 +13,7 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 | [**getProviders**](StakingApi.md#getProviders) | **GET** /staking/providers | List staking providers details |
 | [**getSummary**](StakingApi.md#getSummary) | **GET** /staking/positions/summary | Get staking summary details |
 | [**getSummaryByVault**](StakingApi.md#getSummaryByVault) | **GET** /staking/positions/summary/vaults | Get staking summary details by vault |
+| [**mergeStakeAccounts**](StakingApi.md#mergeStakeAccounts) | **POST** /staking/chains/{chainDescriptor}/merge | Execute a Merge operation on SOL/SOL_TEST stake accounts |
 | [**split**](StakingApi.md#split) | **POST** /staking/chains/{chainDescriptor}/split | Execute a Split operation on SOL/SOL_TEST stake account |
 | [**stake**](StakingApi.md#stake) | **POST** /staking/chains/{chainDescriptor}/stake | Initiate Stake Operation |
 | [**unstake**](StakingApi.md#unstake) | **POST** /staking/chains/{chainDescriptor}/unstake | Execute an Unstake operation |
@@ -752,6 +753,93 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | A summary for each vault were returned successfully |  * X-Request-ID -  <br>  |
+| **0** | Error Response |  * X-Request-ID -  <br>  |
+
+
+## mergeStakeAccounts
+
+> CompletableFuture<ApiResponse<MergeStakeAccountsResponse>> mergeStakeAccounts mergeStakeAccounts(mergeStakeAccountsRequest, chainDescriptor, idempotencyKey)
+
+Execute a Merge operation on SOL/SOL_TEST stake accounts
+
+Perform a Solana Merge of two active stake accounts into one.
+
+### Example
+
+```java
+// Import classes:
+import com.fireblocks.sdk.ApiClient;
+import com.fireblocks.sdk.ApiException;
+import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
+import com.fireblocks.sdk.api.StakingApi;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+
+public class Example {
+    public static void main(String[] args) {
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
+
+        MergeStakeAccountsRequest mergeStakeAccountsRequest = new MergeStakeAccountsRequest(); // MergeStakeAccountsRequest | 
+        String chainDescriptor = "SOL"; // String | The protocol identifier (e.g. \"SOL\"/\"SOL_TEST\") to use
+        String idempotencyKey = "idempotencyKey_example"; // String | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+        try {
+            CompletableFuture<ApiResponse<MergeStakeAccountsResponse>> response = fireblocks.staking().mergeStakeAccounts(mergeStakeAccountsRequest, chainDescriptor, idempotencyKey);
+            System.out.println("Status code: " + response.get().getStatusCode());
+            System.out.println("Response headers: " + response.get().getHeaders());
+            System.out.println("Response body: " + response.get().getData());
+        } catch (InterruptedException | ExecutionException e) {
+            ApiException apiException = (ApiException)e.getCause();
+            System.err.println("Exception when calling StakingApi#mergeStakeAccounts");
+            System.err.println("Status code: " + apiException.getCode());
+            System.err.println("Response headers: " + apiException.getResponseHeaders());
+            System.err.println("Reason: " + apiException.getResponseBody());
+            e.printStackTrace();
+        } catch (ApiException e) {
+            System.err.println("Exception when calling StakingApi#mergeStakeAccounts");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            System.err.println("Reason: " + e.getResponseBody());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **mergeStakeAccountsRequest** | [**MergeStakeAccountsRequest**](MergeStakeAccountsRequest.md)|  | |
+| **chainDescriptor** | **String**| The protocol identifier (e.g. \&quot;SOL\&quot;/\&quot;SOL_TEST\&quot;) to use | [enum: SOL, SOL_TEST] |
+| **idempotencyKey** | **String**| A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | [optional] |
+
+### Return type
+
+CompletableFuture<ApiResponse<[**MergeStakeAccountsResponse**](MergeStakeAccountsResponse.md)>>
+
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **201** | Merge action has been executed successfully on vault and is associated with 201 status code. |  * X-Request-ID -  <br>  |
 | **0** | Error Response |  * X-Request-ID -  <br>  |
 
 

@@ -211,10 +211,10 @@ public class TransactionResponseTest {
         // TODO: test amlScreeningResult
     }
 
-    /** Test the property 'complianceResult' */
+    /** Test the property 'complianceResults' */
     @Test
-    public void complianceResultTest() {
-        // TODO: test complianceResult
+    public void complianceResultsTest() {
+        // TODO: test complianceResults
     }
 
     /** Test the property 'extraParameters' */

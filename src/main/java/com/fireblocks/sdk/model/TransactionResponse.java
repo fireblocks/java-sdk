@@ -59,7 +59,7 @@ import java.util.StringJoiner;
     TransactionResponse.JSON_PROPERTY_EXCHANGE_TX_ID,
     TransactionResponse.JSON_PROPERTY_CUSTOMER_REF_ID,
     TransactionResponse.JSON_PROPERTY_AML_SCREENING_RESULT,
-    TransactionResponse.JSON_PROPERTY_COMPLIANCE_RESULT,
+    TransactionResponse.JSON_PROPERTY_COMPLIANCE_RESULTS,
     TransactionResponse.JSON_PROPERTY_EXTRA_PARAMETERS,
     TransactionResponse.JSON_PROPERTY_SIGNED_MESSAGES,
     TransactionResponse.JSON_PROPERTY_NUM_OF_CONFIRMATIONS,
@@ -173,8 +173,8 @@ public class TransactionResponse {
     public static final String JSON_PROPERTY_AML_SCREENING_RESULT = "amlScreeningResult";
     private AmlScreeningResult amlScreeningResult;
 
-    public static final String JSON_PROPERTY_COMPLIANCE_RESULT = "complianceResult";
-    private ComplianceResult complianceResult;
+    public static final String JSON_PROPERTY_COMPLIANCE_RESULTS = "complianceResults";
+    private ComplianceResults complianceResults;
 
     public static final String JSON_PROPERTY_EXTRA_PARAMETERS = "extraParameters";
     private Object extraParameters;
@@ -1042,27 +1042,27 @@ public class TransactionResponse {
         this.amlScreeningResult = amlScreeningResult;
     }
 
-    public TransactionResponse complianceResult(ComplianceResult complianceResult) {
-        this.complianceResult = complianceResult;
+    public TransactionResponse complianceResults(ComplianceResults complianceResults) {
+        this.complianceResults = complianceResults;
         return this;
     }
 
     /**
-     * Get complianceResult
+     * Get complianceResults
      *
-     * @return complianceResult
+     * @return complianceResults
      */
     @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_COMPLIANCE_RESULT)
+    @JsonProperty(JSON_PROPERTY_COMPLIANCE_RESULTS)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public ComplianceResult getComplianceResult() {
-        return complianceResult;
+    public ComplianceResults getComplianceResults() {
+        return complianceResults;
     }
 
-    @JsonProperty(JSON_PROPERTY_COMPLIANCE_RESULT)
+    @JsonProperty(JSON_PROPERTY_COMPLIANCE_RESULTS)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setComplianceResult(ComplianceResult complianceResult) {
-        this.complianceResult = complianceResult;
+    public void setComplianceResults(ComplianceResults complianceResults) {
+        this.complianceResults = complianceResults;
     }
 
     public TransactionResponse extraParameters(Object extraParameters) {
@@ -1524,7 +1524,7 @@ public class TransactionResponse {
                 && Objects.equals(this.exchangeTxId, transactionResponse.exchangeTxId)
                 && Objects.equals(this.customerRefId, transactionResponse.customerRefId)
                 && Objects.equals(this.amlScreeningResult, transactionResponse.amlScreeningResult)
-                && Objects.equals(this.complianceResult, transactionResponse.complianceResult)
+                && Objects.equals(this.complianceResults, transactionResponse.complianceResults)
                 && Objects.equals(this.extraParameters, transactionResponse.extraParameters)
                 && Objects.equals(this.signedMessages, transactionResponse.signedMessages)
                 && Objects.equals(this.numOfConfirmations, transactionResponse.numOfConfirmations)
@@ -1577,7 +1577,7 @@ public class TransactionResponse {
                 exchangeTxId,
                 customerRefId,
                 amlScreeningResult,
-                complianceResult,
+                complianceResults,
                 extraParameters,
                 signedMessages,
                 numOfConfirmations,
@@ -1643,7 +1643,9 @@ public class TransactionResponse {
         sb.append("    amlScreeningResult: ")
                 .append(toIndentedString(amlScreeningResult))
                 .append("\n");
-        sb.append("    complianceResult: ").append(toIndentedString(complianceResult)).append("\n");
+        sb.append("    complianceResults: ")
+                .append(toIndentedString(complianceResults))
+                .append("\n");
         sb.append("    extraParameters: ").append(toIndentedString(extraParameters)).append("\n");
         sb.append("    signedMessages: ").append(toIndentedString(signedMessages)).append("\n");
         sb.append("    numOfConfirmations: ")
@@ -2070,10 +2072,10 @@ public class TransactionResponse {
                             .toUrlQueryString(prefix + "amlScreeningResult" + suffix));
         }
 
-        // add `complianceResult` to the URL query string
-        if (getComplianceResult() != null) {
+        // add `complianceResults` to the URL query string
+        if (getComplianceResults() != null) {
             joiner.add(
-                    getComplianceResult().toUrlQueryString(prefix + "complianceResult" + suffix));
+                    getComplianceResults().toUrlQueryString(prefix + "complianceResults" + suffix));
         }
 
         // add `extraParameters` to the URL query string

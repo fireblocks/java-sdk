@@ -92,9 +92,9 @@ docs/CollectionTokenMetadataAttributeDto.md
 docs/CollectionTokenMetadataDto.md
 docs/CollectionType.md
 docs/ComplianceApi.md
-docs/ComplianceResult.md
 docs/ComplianceResultFullPayload.md
 docs/ComplianceResultStatusesEnum.md
+docs/ComplianceResults.md
 docs/ComplianceScreeningConfigurationApi.md
 docs/ComplianceScreeningResult.md
 docs/ComplianceScreeningResultFullPayload.md
@@ -301,6 +301,8 @@ docs/ListBlockchainsResponse.md
 docs/ListOwnedCollectionsResponse.md
 docs/ListOwnedTokensResponse.md
 docs/MediaEntityResponse.md
+docs/MergeStakeAccountsRequest.md
+docs/MergeStakeAccountsResponse.md
 docs/ModifySigningKeyAgentIdDto.md
 docs/ModifySigningKeyDto.md
 docs/ModifyValidationKeyDto.md
@@ -774,9 +776,9 @@ src/main/java/com/fireblocks/sdk/model/CollectionOwnershipResponse.java
 src/main/java/com/fireblocks/sdk/model/CollectionTokenMetadataAttributeDto.java
 src/main/java/com/fireblocks/sdk/model/CollectionTokenMetadataDto.java
 src/main/java/com/fireblocks/sdk/model/CollectionType.java
-src/main/java/com/fireblocks/sdk/model/ComplianceResult.java
 src/main/java/com/fireblocks/sdk/model/ComplianceResultFullPayload.java
 src/main/java/com/fireblocks/sdk/model/ComplianceResultStatusesEnum.java
+src/main/java/com/fireblocks/sdk/model/ComplianceResults.java
 src/main/java/com/fireblocks/sdk/model/ComplianceScreeningResult.java
 src/main/java/com/fireblocks/sdk/model/ComplianceScreeningResultFullPayload.java
 src/main/java/com/fireblocks/sdk/model/ConfigChangeRequestStatus.java
@@ -967,6 +969,8 @@ src/main/java/com/fireblocks/sdk/model/ListBlockchainsResponse.java
 src/main/java/com/fireblocks/sdk/model/ListOwnedCollectionsResponse.java
 src/main/java/com/fireblocks/sdk/model/ListOwnedTokensResponse.java
 src/main/java/com/fireblocks/sdk/model/MediaEntityResponse.java
+src/main/java/com/fireblocks/sdk/model/MergeStakeAccountsRequest.java
+src/main/java/com/fireblocks/sdk/model/MergeStakeAccountsResponse.java
 src/main/java/com/fireblocks/sdk/model/ModifySigningKeyAgentIdDto.java
 src/main/java/com/fireblocks/sdk/model/ModifySigningKeyDto.java
 src/main/java/com/fireblocks/sdk/model/ModifyValidationKeyDto.java
@@ -1402,7 +1406,7 @@ src/test/java/com/fireblocks/sdk/model/CollectionTokenMetadataDtoTest.java
 src/test/java/com/fireblocks/sdk/model/CollectionTypeTest.java
 src/test/java/com/fireblocks/sdk/model/ComplianceResultFullPayloadTest.java
 src/test/java/com/fireblocks/sdk/model/ComplianceResultStatusesEnumTest.java
-src/test/java/com/fireblocks/sdk/model/ComplianceResultTest.java
+src/test/java/com/fireblocks/sdk/model/ComplianceResultsTest.java
 src/test/java/com/fireblocks/sdk/model/ComplianceScreeningResultFullPayloadTest.java
 src/test/java/com/fireblocks/sdk/model/ComplianceScreeningResultTest.java
 src/test/java/com/fireblocks/sdk/model/ConfigChangeRequestStatusTest.java
@@ -1593,6 +1597,8 @@ src/test/java/com/fireblocks/sdk/model/ListBlockchainsResponseTest.java
 src/test/java/com/fireblocks/sdk/model/ListOwnedCollectionsResponseTest.java
 src/test/java/com/fireblocks/sdk/model/ListOwnedTokensResponseTest.java
 src/test/java/com/fireblocks/sdk/model/MediaEntityResponseTest.java
+src/test/java/com/fireblocks/sdk/model/MergeStakeAccountsRequestTest.java
+src/test/java/com/fireblocks/sdk/model/MergeStakeAccountsResponseTest.java
 src/test/java/com/fireblocks/sdk/model/ModifySigningKeyAgentIdDtoTest.java
 src/test/java/com/fireblocks/sdk/model/ModifySigningKeyDtoTest.java
 src/test/java/com/fireblocks/sdk/model/ModifyValidationKeyDtoTest.java

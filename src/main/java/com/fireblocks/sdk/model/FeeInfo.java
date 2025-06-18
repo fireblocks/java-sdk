@@ -13,9 +13,11 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonValue;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.Objects;
@@ -25,7 +27,11 @@ import java.util.StringJoiner;
 @JsonPropertyOrder({
     FeeInfo.JSON_PROPERTY_NETWORK_FEE,
     FeeInfo.JSON_PROPERTY_SERVICE_FEE,
-    FeeInfo.JSON_PROPERTY_GAS_PRICE
+    FeeInfo.JSON_PROPERTY_GAS_PRICE,
+    FeeInfo.JSON_PROPERTY_PAID_BY_RELAY,
+    FeeInfo.JSON_PROPERTY_RELAY_TYPE,
+    FeeInfo.JSON_PROPERTY_RELAY_ID,
+    FeeInfo.JSON_PROPERTY_RELAY_NAME
 })
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class FeeInfo {
@@ -37,6 +43,51 @@ public class FeeInfo {
 
     public static final String JSON_PROPERTY_GAS_PRICE = "gasPrice";
     private String gasPrice;
+
+    public static final String JSON_PROPERTY_PAID_BY_RELAY = "paidByRelay";
+    private Boolean paidByRelay;
+
+    /** Wether the relay is the same tenant (LOCAL) or another tenant (THIRD_PARTY) */
+    public enum RelayTypeEnum {
+        LOCAL("LOCAL"),
+
+        THIRD_PARTY("THIRD_PARTY");
+
+        private String value;
+
+        RelayTypeEnum(String value) {
+            this.value = value;
+        }
+
+        @JsonValue
+        public String getValue() {
+            return value;
+        }
+
+        @Override
+        public String toString() {
+            return String.valueOf(value);
+        }
+
+        @JsonCreator
+        public static RelayTypeEnum fromValue(String value) {
+            for (RelayTypeEnum b : RelayTypeEnum.values()) {
+                if (b.value.equals(value)) {
+                    return b;
+                }
+            }
+            throw new IllegalArgumentException("Unexpected value '" + value + "'");
+        }
+    }
+
+    public static final String JSON_PROPERTY_RELAY_TYPE = "relayType";
+    private RelayTypeEnum relayType;
+
+    public static final String JSON_PROPERTY_RELAY_ID = "relayId";
+    private String relayId;
+
+    public static final String JSON_PROPERTY_RELAY_NAME = "relayName";
+    private String relayName;
 
     public FeeInfo() {}
 
@@ -110,6 +161,98 @@ public class FeeInfo {
         this.gasPrice = gasPrice;
     }
 
+    public FeeInfo paidByRelay(Boolean paidByRelay) {
+        this.paidByRelay = paidByRelay;
+        return this;
+    }
+
+    /**
+     * Wether the fee was paid by the relay or not
+     *
+     * @return paidByRelay
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_PAID_BY_RELAY)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public Boolean getPaidByRelay() {
+        return paidByRelay;
+    }
+
+    @JsonProperty(JSON_PROPERTY_PAID_BY_RELAY)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setPaidByRelay(Boolean paidByRelay) {
+        this.paidByRelay = paidByRelay;
+    }
+
+    public FeeInfo relayType(RelayTypeEnum relayType) {
+        this.relayType = relayType;
+        return this;
+    }
+
+    /**
+     * Wether the relay is the same tenant (LOCAL) or another tenant (THIRD_PARTY)
+     *
+     * @return relayType
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_RELAY_TYPE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public RelayTypeEnum getRelayType() {
+        return relayType;
+    }
+
+    @JsonProperty(JSON_PROPERTY_RELAY_TYPE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setRelayType(RelayTypeEnum relayType) {
+        this.relayType = relayType;
+    }
+
+    public FeeInfo relayId(String relayId) {
+        this.relayId = relayId;
+        return this;
+    }
+
+    /**
+     * The vault account ID of the relay
+     *
+     * @return relayId
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_RELAY_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getRelayId() {
+        return relayId;
+    }
+
+    @JsonProperty(JSON_PROPERTY_RELAY_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setRelayId(String relayId) {
+        this.relayId = relayId;
+    }
+
+    public FeeInfo relayName(String relayName) {
+        this.relayName = relayName;
+        return this;
+    }
+
+    /**
+     * The name of the tenant, only for THIRD_PARTY relays
+     *
+     * @return relayName
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_RELAY_NAME)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getRelayName() {
+        return relayName;
+    }
+
+    @JsonProperty(JSON_PROPERTY_RELAY_NAME)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setRelayName(String relayName) {
+        this.relayName = relayName;
+    }
+
     /** Return true if this FeeInfo object is equal to o. */
     @Override
     public boolean equals(Object o) {
@@ -122,12 +265,17 @@ public class FeeInfo {
         FeeInfo feeInfo = (FeeInfo) o;
         return Objects.equals(this.networkFee, feeInfo.networkFee)
                 && Objects.equals(this.serviceFee, feeInfo.serviceFee)
-                && Objects.equals(this.gasPrice, feeInfo.gasPrice);
+                && Objects.equals(this.gasPrice, feeInfo.gasPrice)
+                && Objects.equals(this.paidByRelay, feeInfo.paidByRelay)
+                && Objects.equals(this.relayType, feeInfo.relayType)
+                && Objects.equals(this.relayId, feeInfo.relayId)
+                && Objects.equals(this.relayName, feeInfo.relayName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(networkFee, serviceFee, gasPrice);
+        return Objects.hash(
+                networkFee, serviceFee, gasPrice, paidByRelay, relayType, relayId, relayName);
     }
 
     @Override
@@ -137,6 +285,10 @@ public class FeeInfo {
         sb.append("    networkFee: ").append(toIndentedString(networkFee)).append("\n");
         sb.append("    serviceFee: ").append(toIndentedString(serviceFee)).append("\n");
         sb.append("    gasPrice: ").append(toIndentedString(gasPrice)).append("\n");
+        sb.append("    paidByRelay: ").append(toIndentedString(paidByRelay)).append("\n");
+        sb.append("    relayType: ").append(toIndentedString(relayType)).append("\n");
+        sb.append("    relayId: ").append(toIndentedString(relayId)).append("\n");
+        sb.append("    relayName: ").append(toIndentedString(relayName)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -216,6 +368,54 @@ public class FeeInfo {
                             prefix,
                             suffix,
                             URLEncoder.encode(String.valueOf(getGasPrice()), StandardCharsets.UTF_8)
+                                    .replaceAll("\\+", "%20")));
+        }
+
+        // add `paidByRelay` to the URL query string
+        if (getPaidByRelay() != null) {
+            joiner.add(
+                    String.format(
+                            "%spaidByRelay%s=%s",
+                            prefix,
+                            suffix,
+                            URLEncoder.encode(
+                                            String.valueOf(getPaidByRelay()),
+                                            StandardCharsets.UTF_8)
+                                    .replaceAll("\\+", "%20")));
+        }
+
+        // add `relayType` to the URL query string
+        if (getRelayType() != null) {
+            joiner.add(
+                    String.format(
+                            "%srelayType%s=%s",
+                            prefix,
+                            suffix,
+                            URLEncoder.encode(
+                                            String.valueOf(getRelayType()), StandardCharsets.UTF_8)
+                                    .replaceAll("\\+", "%20")));
+        }
+
+        // add `relayId` to the URL query string
+        if (getRelayId() != null) {
+            joiner.add(
+                    String.format(
+                            "%srelayId%s=%s",
+                            prefix,
+                            suffix,
+                            URLEncoder.encode(String.valueOf(getRelayId()), StandardCharsets.UTF_8)
+                                    .replaceAll("\\+", "%20")));
+        }
+
+        // add `relayName` to the URL query string
+        if (getRelayName() != null) {
+            joiner.add(
+                    String.format(
+                            "%srelayName%s=%s",
+                            prefix,
+                            suffix,
+                            URLEncoder.encode(
+                                            String.valueOf(getRelayName()), StandardCharsets.UTF_8)
                                     .replaceAll("\\+", "%20")));
         }
 

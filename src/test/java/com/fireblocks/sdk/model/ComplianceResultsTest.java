@@ -15,14 +15,14 @@ package com.fireblocks.sdk.model;
 
 import org.junit.Test;
 
-/** Model tests for ComplianceResult */
-public class ComplianceResultTest {
-    private final ComplianceResult model = new ComplianceResult();
+/** Model tests for ComplianceResults */
+public class ComplianceResultsTest {
+    private final ComplianceResults model = new ComplianceResults();
 
-    /** Model tests for ComplianceResult */
+    /** Model tests for ComplianceResults */
     @Test
-    public void testComplianceResult() {
-        // TODO: test ComplianceResult
+    public void testComplianceResults() {
+        // TODO: test ComplianceResults
     }
 
     /** Test the property 'aml' */

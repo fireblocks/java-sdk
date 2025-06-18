@@ -32,7 +32,7 @@ Add this dependency to your project's POM:
 <dependency>
   <groupId>com.fireblocks.sdk</groupId>
   <artifactId>fireblocks-sdk</artifactId>
-  <version>10.2.0</version>
+  <version>0.0.0</version>
   <scope>compile</scope>
 </dependency>
 ```
@@ -42,7 +42,7 @@ Add this dependency to your project's POM:
 Add this dependency to your project's build file:
 
 ```groovy
-compile "com.fireblocks.sdk:fireblocks-sdk:10.2.0"
+compile "com.fireblocks.sdk:fireblocks-sdk:0.0.0"
 ```
 
 ### Others
@@ -55,7 +55,7 @@ mvn clean package
 
 Then manually install the following JARs:
 
-- `target/fireblocks-sdk-10.2.0.jar`
+- `target/fireblocks-sdk-0.0.0.jar`
 - `target/lib/*.jar`
 
 
@@ -332,6 +332,7 @@ Class | Method | HTTP request | Description
 *StakingApi* | [**getProviders**](docs/StakingApi.md#getProviders) | **GET** /staking/providers | List staking providers details
 *StakingApi* | [**getSummary**](docs/StakingApi.md#getSummary) | **GET** /staking/positions/summary | Get staking summary details
 *StakingApi* | [**getSummaryByVault**](docs/StakingApi.md#getSummaryByVault) | **GET** /staking/positions/summary/vaults | Get staking summary details by vault
+*StakingApi* | [**mergeStakeAccounts**](docs/StakingApi.md#mergeStakeAccounts) | **POST** /staking/chains/{chainDescriptor}/merge | Execute a Merge operation on SOL/SOL_TEST stake accounts
 *StakingApi* | [**split**](docs/StakingApi.md#split) | **POST** /staking/chains/{chainDescriptor}/split | Execute a Split operation on SOL/SOL_TEST stake account
 *StakingApi* | [**stake**](docs/StakingApi.md#stake) | **POST** /staking/chains/{chainDescriptor}/stake | Initiate Stake Operation
 *StakingApi* | [**unstake**](docs/StakingApi.md#unstake) | **POST** /staking/chains/{chainDescriptor}/unstake | Execute an Unstake operation
@@ -504,9 +505,9 @@ Class | Method | HTTP request | Description
  - [CollectionTokenMetadataAttributeDto](docs/CollectionTokenMetadataAttributeDto.md)
  - [CollectionTokenMetadataDto](docs/CollectionTokenMetadataDto.md)
  - [CollectionType](docs/CollectionType.md)
- - [ComplianceResult](docs/ComplianceResult.md)
  - [ComplianceResultFullPayload](docs/ComplianceResultFullPayload.md)
  - [ComplianceResultStatusesEnum](docs/ComplianceResultStatusesEnum.md)
+ - [ComplianceResults](docs/ComplianceResults.md)
  - [ComplianceScreeningResult](docs/ComplianceScreeningResult.md)
  - [ComplianceScreeningResultFullPayload](docs/ComplianceScreeningResultFullPayload.md)
  - [ConfigChangeRequestStatus](docs/ConfigChangeRequestStatus.md)
@@ -697,6 +698,8 @@ Class | Method | HTTP request | Description
  - [ListOwnedCollectionsResponse](docs/ListOwnedCollectionsResponse.md)
  - [ListOwnedTokensResponse](docs/ListOwnedTokensResponse.md)
  - [MediaEntityResponse](docs/MediaEntityResponse.md)
+ - [MergeStakeAccountsRequest](docs/MergeStakeAccountsRequest.md)
+ - [MergeStakeAccountsResponse](docs/MergeStakeAccountsResponse.md)
  - [ModifySigningKeyAgentIdDto](docs/ModifySigningKeyAgentIdDto.md)
  - [ModifySigningKeyDto](docs/ModifySigningKeyDto.md)
  - [ModifyValidationKeyDto](docs/ModifyValidationKeyDto.md)
