@@ -591,6 +591,7 @@ paths:
       summary: Rename a vault account
       tags:
       - Vaults
+      x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: python
@@ -1963,6 +1964,7 @@ paths:
       summary: Assign AML customer reference ID
       tags:
       - Vaults
+      x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: python
@@ -4075,6 +4077,7 @@ paths:
       tags:
       - Workspace
       x-internal: true
+      x-rate-limit-category: write
       x-accepts: application/json
   /exchange_accounts:
     get:
@@ -4157,6 +4160,7 @@ paths:
       summary: Add an exchange account
       tags:
       - Exchange accounts
+      x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: typescript
@@ -4648,6 +4652,7 @@ paths:
       summary: List fiat accounts
       tags:
       - Fiat accounts
+      x-rate-limit-category: query
       x-readme:
         code-samples:
         - language: python
@@ -4710,6 +4715,7 @@ paths:
       summary: Find a specific fiat account
       tags:
       - Fiat accounts
+      x-rate-limit-category: query
       x-readme:
         code-samples:
         - language: python
@@ -4786,6 +4792,7 @@ paths:
       summary: Redeem funds to DDA
       tags:
       - Fiat accounts
+      x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: python
@@ -4871,6 +4878,7 @@ paths:
       summary: Deposit funds from DDA
       tags:
       - Fiat accounts
+      x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: python
@@ -5126,6 +5134,7 @@ paths:
       summary: Update network connection routing policy.
       tags:
       - Network connections
+      x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: typescript
@@ -5198,6 +5207,7 @@ paths:
       summary: Retrieve third-party network routing validation by asset type.
       tags:
       - Network connections
+      x-rate-limit-category: query
       x-readme:
         code-samples:
         - language: typescript
@@ -5275,6 +5285,7 @@ paths:
       summary: Deletes a network connection by ID
       tags:
       - Network connections
+      x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: typescript
@@ -5678,6 +5689,7 @@ paths:
       summary: "Search network IDs, both local IDs and discoverable remote IDs"
       tags:
       - Network connections
+      x-rate-limit-category: query
       x-readme:
         code-samples:
         - language: typescript
@@ -5754,6 +5766,7 @@ paths:
       summary: Deletes specific network ID.
       tags:
       - Network connections
+      x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: typescript
@@ -5828,6 +5841,7 @@ paths:
       summary: Returns specific network ID.
       tags:
       - Network connections
+      x-rate-limit-category: query
       x-readme:
         code-samples:
         - language: typescript
@@ -5908,6 +5922,7 @@ paths:
       summary: Update network id routing policy.
       tags:
       - Network connections
+      x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: typescript
@@ -5992,6 +6007,7 @@ paths:
       summary: Update network ID's discoverability.
       tags:
       - Network connections
+      x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: typescript
@@ -6076,6 +6092,7 @@ paths:
       summary: Update network ID's name.
       tags:
       - Network connections
+      x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: typescript
@@ -6145,6 +6162,7 @@ paths:
       summary: List internal wallets
       tags:
       - Internal wallets
+      x-rate-limit-category: query
       x-readme:
         code-samples:
         - language: typescript
@@ -6213,6 +6231,7 @@ paths:
       summary: Create an internal wallet
       tags:
       - Internal wallets
+      x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: python
@@ -6282,6 +6301,7 @@ paths:
       summary: Delete an internal wallet
       tags:
       - Internal wallets
+      x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: python
@@ -6351,6 +6371,7 @@ paths:
       summary: Get an asset from an internal wallet
       tags:
       - Internal wallets
+      x-rate-limit-category: query
       x-readme:
         code-samples:
         - language: python
@@ -6443,6 +6464,7 @@ paths:
       summary: List assets in an internal wallet (Paginated)
       tags:
       - Internal wallets
+      x-rate-limit-category: query
       x-readme:
         code-samples:
         - language: python
@@ -6536,6 +6558,7 @@ paths:
       summary: Set an AML/KYT customer reference ID for an internal wallet
       tags:
       - Internal wallets
+      x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: python
@@ -6618,6 +6641,7 @@ paths:
       summary: Delete a whitelisted address
       tags:
       - Internal wallets
+      x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: python
@@ -6966,6 +6990,7 @@ paths:
       summary: Get list of signing keys
       tags:
       - Key Link (Beta)
+      x-rate-limit-category: query
       x-readme:
         code-samples:
         - language: typescript
@@ -7046,6 +7071,7 @@ paths:
       summary: Add a new signing key
       tags:
       - Key Link (Beta)
+      x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: typescript
@@ -7111,6 +7137,7 @@ paths:
       summary: Get a signing key by `keyId`
       tags:
       - Key Link (Beta)
+      x-rate-limit-category: query
       x-readme:
         code-samples:
         - language: typescript
@@ -7176,6 +7203,7 @@ paths:
       summary: Modify the signing by Fireblocks provided `keyId`
       tags:
       - Key Link (Beta)
+      x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: typescript
@@ -7245,6 +7273,7 @@ paths:
         the Fireblocks provided `keyId`
       tags:
       - Key Link (Beta)
+      x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: typescript
@@ -7344,6 +7373,7 @@ paths:
       summary: Get list of registered validation keys
       tags:
       - Key Link (Beta)
+      x-rate-limit-category: query
       x-readme:
         code-samples:
         - language: typescript
@@ -7419,6 +7449,7 @@ paths:
       summary: Add a new validation key
       tags:
       - Key Link (Beta)
+      x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: typescript
@@ -7486,6 +7517,7 @@ paths:
       summary: Get a validation key by `keyId`
       tags:
       - Key Link (Beta)
+      x-rate-limit-category: query
       x-readme:
         code-samples:
         - language: typescript
@@ -7552,6 +7584,7 @@ paths:
       summary: Disables a validation key
       tags:
       - Key Link (Beta)
+      x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: typescript
@@ -7605,6 +7638,7 @@ paths:
       summary: Get list of mpc keys
       tags:
       - Keys (Beta)
+      x-rate-limit-category: query
       x-readme:
         code-samples:
         - language: typescript
@@ -7665,6 +7699,7 @@ paths:
       summary: Get list of mpc keys by `userId`
       tags:
       - Keys (Beta)
+      x-rate-limit-category: query
       x-readme:
         code-samples:
         - language: typescript
@@ -10815,6 +10850,7 @@ paths:
       summary: Create a payout instruction set
       tags:
       - Payments - Payout
+      x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: typescript
@@ -10904,6 +10940,7 @@ paths:
       summary: Execute a payout instruction set
       tags:
       - Payments - Payout
+      x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: typescript
@@ -11015,6 +11052,7 @@ paths:
       summary: Get the status of a payout instruction set
       tags:
       - Payments - Payout
+      x-rate-limit-category: query
       x-readme:
         code-samples:
         - language: typescript
@@ -11329,6 +11367,7 @@ paths:
       summary: Get gas station settings
       tags:
       - Gas stations
+      x-rate-limit-category: query
       x-readme:
         code-samples:
         - language: python
@@ -11394,6 +11433,7 @@ paths:
       summary: Get gas station settings by asset
       tags:
       - Gas stations
+      x-rate-limit-category: query
       x-readme:
         code-samples:
         - language: python
@@ -11467,6 +11507,7 @@ paths:
       summary: Edit gas station settings
       tags:
       - Gas stations
+      x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: python
@@ -11556,6 +11597,7 @@ paths:
       summary: Edit gas station settings for an asset
       tags:
       - Gas stations
+      x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: typescript
@@ -11687,6 +11729,7 @@ paths:
       summary: Create user group
       tags:
       - User groups (Beta)
+      x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: typescript
@@ -11751,6 +11794,7 @@ paths:
       summary: Delete user group
       tags:
       - User groups (Beta)
+      x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: typescript
@@ -11943,6 +11987,7 @@ paths:
       summary: List users
       tags:
       - Users
+      x-rate-limit-category: query
       x-readme:
         code-samples:
         - language: python
@@ -12078,6 +12123,7 @@ paths:
       summary: add collateral
       tags:
       - Off exchanges
+      x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: typescript
@@ -12145,6 +12191,7 @@ paths:
       summary: remove collateral
       tags:
       - Off exchanges
+      x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: typescript
@@ -12213,6 +12260,7 @@ paths:
       summary: create settlement for a trader
       tags:
       - Off exchanges
+      x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: typescript
@@ -12270,6 +12318,7 @@ paths:
       summary: get settlements transactions from exchange
       tags:
       - Off exchanges
+      x-rate-limit-category: query
       x-readme:
         code-samples:
         - language: typescript
@@ -12327,6 +12376,7 @@ paths:
       summary: Find a specific collateral exchange account
       tags:
       - Off exchanges
+      x-rate-limit-category: query
       x-readme:
         code-samples:
         - language: typescript
@@ -12565,6 +12615,7 @@ paths:
       summary: Get all webhooks
       tags:
       - Webhooks V2 (Beta)
+      x-rate-limit-category: query
       x-readme:
         code-samples:
         - language: typescript
@@ -12635,6 +12686,7 @@ paths:
       summary: Create new webhook
       tags:
       - Webhooks V2 (Beta)
+      x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: typescript
@@ -15691,6 +15743,7 @@ paths:
       summary: List staking supported chains
       tags:
       - Staking
+      x-rate-limit-category: query
       x-readme:
         code-samples:
         - language: typescript
@@ -15750,6 +15803,7 @@ paths:
       summary: Get chain-specific staking summary
       tags:
       - Staking
+      x-rate-limit-category: query
       x-readme:
         code-samples:
         - language: typescript
@@ -15825,6 +15879,7 @@ paths:
       summary: Initiate Stake Operation
       tags:
       - Staking
+      x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: typescript
@@ -15899,6 +15954,7 @@ paths:
       summary: Execute an Unstake operation
       tags:
       - Staking
+      x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: typescript
@@ -15973,6 +16029,7 @@ paths:
       summary: Execute a Withdraw operation
       tags:
       - Staking
+      x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: typescript
@@ -16051,6 +16108,7 @@ paths:
       summary: Execute a Claim Rewards operation
       tags:
       - Staking
+      x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: typescript
@@ -16132,6 +16190,7 @@ paths:
       summary: Execute a Split operation on SOL/SOL_TEST stake account
       tags:
       - Staking
+      x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: typescript
@@ -16154,6 +16213,91 @@ paths:
       - lang: Python
         source: "response = fireblocks.staking.split(split_request, chain_descriptor,\
           \ idempotency_key);"
+      x-content-type: application/json
+      x-accepts: application/json
+  /staking/chains/{chainDescriptor}/merge:
+    post:
+      description: Perform a Solana Merge of two active stake accounts into one.
+      operationId: mergeStakeAccounts
+      parameters:
+      - description: The protocol identifier (e.g. "SOL"/"SOL_TEST") to use
+        example: SOL
+        explode: false
+        in: path
+        name: chainDescriptor
+        required: true
+        schema:
+          enum:
+          - SOL
+          - SOL_TEST
+          type: string
+        style: simple
+      - description: "A unique identifier for the request. If the request is sent\
+          \ multiple times with the same idempotency key, the server will return the\
+          \ same response as the first request. The idempotency key is valid for 24\
+          \ hours."
+        explode: false
+        in: header
+        name: Idempotency-Key
+        required: false
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MergeStakeAccountsRequest'
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MergeStakeAccountsResponse'
+          description: Merge action has been executed successfully on vault and is
+            associated with 201 status code.
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorSchema'
+          description: Error Response
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+      summary: Execute a Merge operation on SOL/SOL_TEST stake accounts
+      tags:
+      - Staking
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<MergeStakeAccountsResponse>>\
+            \ = fireblocks.staking.mergeStakeAccounts(stakingApiMergeStakeAccountsRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<MergeStakeAccountsResponse>> response\
+            \ = fireblocks.staking().mergeStakeAccounts(mergeStakeAccountsRequest,\
+            \ chainDescriptor, idempotencyKey);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.staking.merge_stake_accounts(merge_stake_accounts_request,\
+            \ chain_descriptor, idempotency_key);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<MergeStakeAccountsResponse>>\
+          \ = fireblocks.staking.mergeStakeAccounts(stakingApiMergeStakeAccountsRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<MergeStakeAccountsResponse>> response\
+          \ = fireblocks.staking().mergeStakeAccounts(mergeStakeAccountsRequest, chainDescriptor,\
+          \ idempotencyKey);"
+      - lang: Python
+        source: "response = fireblocks.staking.merge_stake_accounts(merge_stake_accounts_request,\
+          \ chain_descriptor, idempotency_key);"
       x-content-type: application/json
       x-accepts: application/json
   /staking/positions:
@@ -16195,6 +16339,7 @@ paths:
       summary: List staking positions details
       tags:
       - Staking
+      x-rate-limit-category: query
       x-readme:
         code-samples:
         - language: typescript
@@ -16264,6 +16409,7 @@ paths:
       summary: Get staking summary details
       tags:
       - Staking
+      x-rate-limit-category: query
       x-readme:
         code-samples:
         - language: typescript
@@ -16347,6 +16493,7 @@ paths:
       summary: Get staking summary details by vault
       tags:
       - Staking
+      x-rate-limit-category: query
       x-readme:
         code-samples:
         - language: typescript
@@ -16407,6 +16554,7 @@ paths:
       summary: Get staking position details
       tags:
       - Staking
+      x-rate-limit-category: query
       x-readme:
         code-samples:
         - language: typescript
@@ -16452,6 +16600,7 @@ paths:
       summary: List staking providers details
       tags:
       - Staking
+      x-rate-limit-category: query
       x-readme:
         code-samples:
         - language: typescript
@@ -16519,6 +16668,7 @@ paths:
       summary: Approve staking terms of service
       tags:
       - Staking
+      x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: typescript
@@ -17450,6 +17600,7 @@ paths:
       summary: Update token ownership status
       tags:
       - NFTs
+      x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: typescript
@@ -17525,6 +17676,7 @@ paths:
       summary: Update tokens ownership status
       tags:
       - NFTs
+      x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: typescript
@@ -17601,6 +17753,7 @@ paths:
       summary: Update tokens ownership spam property
       tags:
       - NFTs
+      x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: typescript
@@ -18064,6 +18217,7 @@ paths:
       tags:
       - Travel Rule
       x-internal: true
+      x-rate-limit-category: write
       x-content-type: application/json
       x-accepts: application/json
   /screening/travel_rule/transaction/validate/full:
@@ -18120,6 +18274,7 @@ paths:
       summary: Validate Full Travel Rule Transaction
       tags:
       - Travel Rule
+      x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: typescript
@@ -18185,6 +18340,7 @@ paths:
       summary: Get VASP details
       tags:
       - Travel Rule
+      x-rate-limit-category: query
       x-readme:
         code-samples:
         - language: typescript
@@ -18302,6 +18458,7 @@ paths:
       summary: Get All VASPs
       tags:
       - Travel Rule
+      x-rate-limit-category: query
       x-readme:
         code-samples:
         - language: typescript
@@ -18368,6 +18525,7 @@ paths:
       summary: Add jsonDidKey to VASP details
       tags:
       - Travel Rule
+      x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: typescript
@@ -18513,6 +18671,7 @@ paths:
       summary: Assign VASP to vault
       tags:
       - Travel Rule
+      x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: javascript
@@ -18560,6 +18719,7 @@ paths:
       summary: Travel Rule - View Post-Screening Policy
       tags:
       - Compliance
+      x-rate-limit-category: query
       x-readme:
         code-samples:
         - language: typescript
@@ -18598,6 +18758,7 @@ paths:
       summary: Travel Rule - View Screening Policy
       tags:
       - Compliance
+      x-rate-limit-category: query
       x-readme:
         code-samples:
         - language: typescript
@@ -18636,6 +18797,7 @@ paths:
       summary: Get Travel Rule Screening Policy Configuration
       tags:
       - Compliance Screening Configuration
+      x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: typescript
@@ -18723,6 +18885,7 @@ paths:
       summary: Get AML Screening Policy Configuration
       tags:
       - Compliance Screening Configuration
+      x-rate-limit-category: query
       x-readme:
         code-samples:
         - language: typescript
@@ -18772,6 +18935,7 @@ paths:
       summary: Update AML Configuration
       tags:
       - Compliance
+      x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: typescript
@@ -18810,6 +18974,7 @@ paths:
       summary: AML - View Screening Policy
       tags:
       - Compliance
+      x-rate-limit-category: query
       x-readme:
         code-samples:
         - language: typescript
@@ -18848,6 +19013,7 @@ paths:
       summary: AML - View Post-Screening Policy
       tags:
       - Compliance
+      x-rate-limit-category: query
       x-readme:
         code-samples:
         - language: typescript
@@ -18981,6 +19147,7 @@ paths:
         \ policy check"
       tags:
       - Compliance
+      x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: typescript
@@ -19044,6 +19211,7 @@ paths:
       summary: Provides all the compliance details for the given screened transaction.
       tags:
       - Compliance
+      x-rate-limit-category: query
       x-readme:
         code-samples:
         - language: typescript
@@ -19083,6 +19251,7 @@ paths:
       summary: Returns current OTA status
       tags:
       - OTA (Beta)
+      x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: typescript
@@ -19144,6 +19313,7 @@ paths:
       summary: Enable or disable transactions to OTA
       tags:
       - OTA (Beta)
+      x-rate-limit-category: query
       x-readme:
         code-samples:
         - language: typescript
@@ -19186,6 +19356,7 @@ paths:
       summary: Returns current workspace status
       tags:
       - Workspace Status (Beta)
+      x-rate-limit-category: query
       x-readme:
         code-samples:
         - language: typescript
@@ -19238,6 +19409,7 @@ paths:
       summary: Get the active policy and its validation
       tags:
       - Policy Editor (Beta)
+      x-rate-limit-category: query
       x-readme:
         code-samples:
         - language: python
@@ -19296,6 +19468,7 @@ paths:
       summary: Get the active draft
       tags:
       - Policy Editor (Beta)
+      x-rate-limit-category: read
       x-readme:
         code-samples:
         - language: python
@@ -19371,6 +19544,7 @@ paths:
       summary: Send publish request for a certain draft id
       tags:
       - Policy Editor (Beta)
+      x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: python
@@ -19447,6 +19621,7 @@ paths:
       summary: Update the draft with a new set of rules
       tags:
       - Policy Editor (Beta)
+      x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: python
@@ -19526,6 +19701,7 @@ paths:
       summary: Send publish request for a set of policy rules
       tags:
       - Policy Editor (Beta)
+      x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: python
@@ -19610,6 +19786,7 @@ paths:
       summary: Get console users
       tags:
       - Console User
+      x-rate-limit-category: query
       x-readme:
         code-samples:
         - language: javascript
@@ -19710,6 +19887,7 @@ paths:
       summary: Create console user
       tags:
       - Console User
+      x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: javascript
@@ -19796,6 +19974,7 @@ paths:
       summary: Get Api users
       tags:
       - Api User
+      x-rate-limit-category: query
       x-readme:
         code-samples:
         - language: javascript
@@ -19894,6 +20073,7 @@ paths:
       summary: Create Api user
       tags:
       - Api User
+      x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: javascript
@@ -19997,6 +20177,7 @@ paths:
       summary: Resets device
       tags:
       - Reset device
+      x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: javascript
@@ -20087,6 +20268,7 @@ paths:
       summary: Gets whitelisted ip addresses
       tags:
       - whitelist ip addresses
+      x-rate-limit-category: read
       x-readme:
         code-samples:
         - language: javascript
@@ -20796,6 +20978,7 @@ paths:
       summary: Fund dvp ticket
       tags:
       - Smart Transfer
+      x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: typescript
@@ -22144,6 +22327,7 @@ paths:
       summary: Add cosigner
       tags:
       - Cosigners (Beta)
+      x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: typescript
@@ -22444,6 +22628,7 @@ paths:
       summary: Unpair API key
       tags:
       - Cosigners (Beta)
+      x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: typescript
@@ -22589,6 +22774,7 @@ paths:
       summary: Update API key callback handler
       tags:
       - Cosigners (Beta)
+      x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: typescript
@@ -22681,6 +22867,7 @@ paths:
       summary: Pair API key
       tags:
       - Cosigners (Beta)
+      x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: typescript
@@ -22760,6 +22947,7 @@ paths:
       summary: Get request status
       tags:
       - Cosigners (Beta)
+      x-rate-limit-category: read
       x-readme:
         code-samples:
         - language: typescript
@@ -26871,8 +27059,12 @@ components:
       description: Details of the transaction's fee.
       example:
         serviceFee: serviceFee
+        relayType: LOCAL
+        relayId: "1"
         networkFee: networkFee
+        relayName: Tenant Name
         gasPrice: gasPrice
+        paidByRelay: true
       properties:
         networkFee:
           description: The fee paid to the network
@@ -26882,6 +27074,26 @@ components:
             amount (serviceFee = amount - netAmount)
           type: string
         gasPrice:
+          type: string
+        paidByRelay:
+          description: Wether the fee was paid by the relay or not
+          example: true
+          type: boolean
+        relayType:
+          description: Wether the relay is the same tenant (LOCAL) or another tenant
+            (THIRD_PARTY)
+          enum:
+          - LOCAL
+          - THIRD_PARTY
+          example: LOCAL
+          type: string
+        relayId:
+          description: The vault account ID of the relay
+          example: "1"
+          type: string
+        relayName:
+          description: "The name of the tenant, only for THIRD_PARTY relays"
+          example: Tenant Name
           type: string
       type: object
     RewardInfo:
@@ -26999,7 +27211,7 @@ components:
         timestamp:
           type: number
       type: object
-    ComplianceResult:
+    ComplianceResults:
       description: The result of the Compliance AML/Travel Rule screening.
       example:
         aml:
@@ -27274,8 +27486,12 @@ components:
         lastUpdated: 5.962133916683182
         feeInfo:
           serviceFee: serviceFee
+          relayType: LOCAL
+          relayId: "1"
           networkFee: networkFee
+          relayName: Tenant Name
           gasPrice: gasPrice
+          paidByRelay: true
         assetId: assetId
         id: id
         tag: tag
@@ -27374,17 +27590,7 @@ components:
           message: Slow transaction processing. Outgoing transactions might be stuck.
         rejectedBy: rejectedBy
         numOfConfirmations: 3.616076749251911
-        createdBy: createdBy
-        exchangeTxId: exchangeTxId
-        rewardInfo:
-          destRewards: destRewards
-          srcRewards: srcRewards
-        amlScreeningResult:
-          provider: provider
-          payload: "{}"
-        destinationAddressDescription: destinationAddressDescription
-        requestedAmount: 4.145608029883936
-        complianceResult:
+        complianceResults:
           aml:
           - provider: provider
             payload: "{}"
@@ -27426,6 +27632,16 @@ components:
             screeningStatus: COMPLETED
             timestamp: 5.637376656633329
           status: Started
+        createdBy: createdBy
+        exchangeTxId: exchangeTxId
+        rewardInfo:
+          destRewards: destRewards
+          srcRewards: srcRewards
+        amlScreeningResult:
+          provider: provider
+          payload: "{}"
+        destinationAddressDescription: destinationAddressDescription
+        requestedAmount: 4.145608029883936
         operation: null
         status: status
       properties:
@@ -27563,8 +27779,8 @@ components:
           type: string
         amlScreeningResult:
           $ref: '#/components/schemas/AmlScreeningResult'
-        complianceResult:
-          $ref: '#/components/schemas/ComplianceResult'
+        complianceResults:
+          $ref: '#/components/schemas/ComplianceResults'
         extraParameters:
           description: |
             Additional protocol / operation specific key-value parameters:
@@ -39769,6 +39985,50 @@ components:
         id:
           description: The unique identifier of the new staking position
           example: b70701f4-d7b1-4795-a8ee-b09cdb5b850d
+          type: string
+      required:
+      - id
+      type: object
+    MergeStakeAccountsRequest:
+      example:
+        sourceId: b70701f4-d7b1-4795-a8ee-b09cdb5b850f
+        txNote: "split 20 SOL out of 100 SOL, created on 02.04.23"
+        fee: "7"
+        feeLevel: MEDIUM
+        destinationId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+      properties:
+        sourceId:
+          description: Id of the source position to merge from
+          example: b70701f4-d7b1-4795-a8ee-b09cdb5b850f
+          format: uuid
+          type: string
+        destinationId:
+          description: Id of the destination position to merge into
+          format: uuid
+          type: string
+        fee:
+          description: "Represents the fee for a transaction, which can be specified\
+            \ as a percentage value. Only one of fee/feeLevel is required."
+          example: "7"
+          type: string
+        feeLevel:
+          $ref: '#/components/schemas/FeeLevel'
+        txNote:
+          description: The note to associate with the transactions.
+          example: "split 20 SOL out of 100 SOL, created on 02.04.23"
+          type: string
+      required:
+      - destinationId
+      - sourceId
+      type: object
+    MergeStakeAccountsResponse:
+      example:
+        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+      properties:
+        id:
+          description: The unique identifier of the merge position (the id of the
+            destination position)
+          format: uuid
           type: string
       required:
       - id

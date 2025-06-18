@@ -25,6 +25,8 @@ import com.fireblocks.sdk.model.ChainInfoResponse;
 import com.fireblocks.sdk.model.ClaimRewardsRequest;
 import com.fireblocks.sdk.model.Delegation;
 import com.fireblocks.sdk.model.DelegationSummary;
+import com.fireblocks.sdk.model.MergeStakeAccountsRequest;
+import com.fireblocks.sdk.model.MergeStakeAccountsResponse;
 import com.fireblocks.sdk.model.Provider;
 import com.fireblocks.sdk.model.SplitRequest;
 import com.fireblocks.sdk.model.SplitResponse;
@@ -692,6 +694,103 @@ public class StakingApi {
         localVarRequestBuilder.header("Accept", "application/json");
 
         localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
+     * Execute a Merge operation on SOL/SOL_TEST stake accounts Perform a Solana Merge of two active
+     * stake accounts into one.
+     *
+     * @param mergeStakeAccountsRequest (required)
+     * @param chainDescriptor The protocol identifier (e.g.
+     *     \&quot;SOL\&quot;/\&quot;SOL_TEST\&quot;) to use (required)
+     * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
+     *     times with the same idempotency key, the server will return the same response as the
+     *     first request. The idempotency key is valid for 24 hours. (optional)
+     * @return CompletableFuture&lt;ApiResponse&lt;MergeStakeAccountsResponse&gt;&gt;
+     * @throws ApiException if fails to make API call
+     */
+    public CompletableFuture<ApiResponse<MergeStakeAccountsResponse>> mergeStakeAccounts(
+            MergeStakeAccountsRequest mergeStakeAccountsRequest,
+            String chainDescriptor,
+            String idempotencyKey)
+            throws ApiException {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    mergeStakeAccountsRequestBuilder(
+                            mergeStakeAccountsRequest, chainDescriptor, idempotencyKey);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException(
+                                                    "mergeStakeAccounts", localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<MergeStakeAccountsResponse>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            MergeStakeAccountsResponse>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            });
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder mergeStakeAccountsRequestBuilder(
+            MergeStakeAccountsRequest mergeStakeAccountsRequest,
+            String chainDescriptor,
+            String idempotencyKey)
+            throws ApiException {
+        ValidationUtils.assertParamExists(
+                "mergeStakeAccounts", "mergeStakeAccountsRequest", mergeStakeAccountsRequest);
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "mergeStakeAccounts", "chainDescriptor", chainDescriptor);
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath =
+                "/staking/chains/{chainDescriptor}/merge"
+                        .replace(
+                                "{chainDescriptor}",
+                                ApiClient.urlEncode(chainDescriptor.toString()));
+
+        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+        if (idempotencyKey != null) {
+            localVarRequestBuilder.header("Idempotency-Key", idempotencyKey.toString());
+        }
+        localVarRequestBuilder.header("Content-Type", "application/json");
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        try {
+            byte[] localVarPostBody =
+                    memberVarObjectMapper.writeValueAsBytes(mergeStakeAccountsRequest);
+            localVarRequestBuilder.method(
+                    "POST", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
+        } catch (IOException e) {
+            throw new ApiException(e);
+        }
         if (memberVarReadTimeout != null) {
             localVarRequestBuilder.timeout(memberVarReadTimeout);
         }

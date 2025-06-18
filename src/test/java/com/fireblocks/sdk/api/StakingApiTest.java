@@ -20,6 +20,8 @@ import com.fireblocks.sdk.model.ChainInfoResponse;
 import com.fireblocks.sdk.model.ClaimRewardsRequest;
 import com.fireblocks.sdk.model.Delegation;
 import com.fireblocks.sdk.model.DelegationSummary;
+import com.fireblocks.sdk.model.MergeStakeAccountsRequest;
+import com.fireblocks.sdk.model.MergeStakeAccountsResponse;
 import com.fireblocks.sdk.model.Provider;
 import com.fireblocks.sdk.model.SplitRequest;
 import com.fireblocks.sdk.model.SplitResponse;
@@ -167,6 +169,22 @@ public class StakingApiTest {
     public void getSummaryByVaultTest() throws ApiException {
         CompletableFuture<ApiResponse<Map<String, DelegationSummary>>> response =
                 api.getSummaryByVault();
+    }
+
+    /**
+     * Execute a Merge operation on SOL/SOL_TEST stake accounts
+     *
+     * <p>Perform a Solana Merge of two active stake accounts into one.
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void mergeStakeAccountsTest() throws ApiException {
+        MergeStakeAccountsRequest mergeStakeAccountsRequest = null;
+        String chainDescriptor = null;
+        String idempotencyKey = null;
+        CompletableFuture<ApiResponse<MergeStakeAccountsResponse>> response =
+                api.mergeStakeAccounts(mergeStakeAccountsRequest, chainDescriptor, idempotencyKey);
     }
 
     /**

@@ -27,14 +27,14 @@ import java.util.StringJoiner;
 
 /** The result of the Compliance AML/Travel Rule screening. */
 @JsonPropertyOrder({
-    ComplianceResult.JSON_PROPERTY_AML,
-    ComplianceResult.JSON_PROPERTY_TR,
-    ComplianceResult.JSON_PROPERTY_AML_LIST,
-    ComplianceResult.JSON_PROPERTY_STATUS,
-    ComplianceResult.JSON_PROPERTY_AML_REGISTRATION
+    ComplianceResults.JSON_PROPERTY_AML,
+    ComplianceResults.JSON_PROPERTY_TR,
+    ComplianceResults.JSON_PROPERTY_AML_LIST,
+    ComplianceResults.JSON_PROPERTY_STATUS,
+    ComplianceResults.JSON_PROPERTY_AML_REGISTRATION
 })
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
-public class ComplianceResult {
+public class ComplianceResults {
     public static final String JSON_PROPERTY_AML = "aml";
     private List<ComplianceScreeningResult> aml;
 
@@ -127,14 +127,14 @@ public class ComplianceResult {
     public static final String JSON_PROPERTY_AML_REGISTRATION = "amlRegistration";
     private List<AmlRegistrationResult> amlRegistration;
 
-    public ComplianceResult() {}
+    public ComplianceResults() {}
 
-    public ComplianceResult aml(List<ComplianceScreeningResult> aml) {
+    public ComplianceResults aml(List<ComplianceScreeningResult> aml) {
         this.aml = aml;
         return this;
     }
 
-    public ComplianceResult addAmlItem(ComplianceScreeningResult amlItem) {
+    public ComplianceResults addAmlItem(ComplianceScreeningResult amlItem) {
         if (this.aml == null) {
             this.aml = new ArrayList<>();
         }
@@ -160,12 +160,12 @@ public class ComplianceResult {
         this.aml = aml;
     }
 
-    public ComplianceResult tr(List<ComplianceScreeningResult> tr) {
+    public ComplianceResults tr(List<ComplianceScreeningResult> tr) {
         this.tr = tr;
         return this;
     }
 
-    public ComplianceResult addTrItem(ComplianceScreeningResult trItem) {
+    public ComplianceResults addTrItem(ComplianceScreeningResult trItem) {
         if (this.tr == null) {
             this.tr = new ArrayList<>();
         }
@@ -191,12 +191,12 @@ public class ComplianceResult {
         this.tr = tr;
     }
 
-    public ComplianceResult amlList(List<ComplianceScreeningResult> amlList) {
+    public ComplianceResults amlList(List<ComplianceScreeningResult> amlList) {
         this.amlList = amlList;
         return this;
     }
 
-    public ComplianceResult addAmlListItem(ComplianceScreeningResult amlListItem) {
+    public ComplianceResults addAmlListItem(ComplianceScreeningResult amlListItem) {
         if (this.amlList == null) {
             this.amlList = new ArrayList<>();
         }
@@ -222,7 +222,7 @@ public class ComplianceResult {
         this.amlList = amlList;
     }
 
-    public ComplianceResult status(StatusEnum status) {
+    public ComplianceResults status(StatusEnum status) {
         this.status = status;
         return this;
     }
@@ -245,12 +245,12 @@ public class ComplianceResult {
         this.status = status;
     }
 
-    public ComplianceResult amlRegistration(List<AmlRegistrationResult> amlRegistration) {
+    public ComplianceResults amlRegistration(List<AmlRegistrationResult> amlRegistration) {
         this.amlRegistration = amlRegistration;
         return this;
     }
 
-    public ComplianceResult addAmlRegistrationItem(AmlRegistrationResult amlRegistrationItem) {
+    public ComplianceResults addAmlRegistrationItem(AmlRegistrationResult amlRegistrationItem) {
         if (this.amlRegistration == null) {
             this.amlRegistration = new ArrayList<>();
         }
@@ -276,7 +276,7 @@ public class ComplianceResult {
         this.amlRegistration = amlRegistration;
     }
 
-    /** Return true if this ComplianceResult object is equal to o. */
+    /** Return true if this ComplianceResults object is equal to o. */
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -285,12 +285,12 @@ public class ComplianceResult {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        ComplianceResult complianceResult = (ComplianceResult) o;
-        return Objects.equals(this.aml, complianceResult.aml)
-                && Objects.equals(this.tr, complianceResult.tr)
-                && Objects.equals(this.amlList, complianceResult.amlList)
-                && Objects.equals(this.status, complianceResult.status)
-                && Objects.equals(this.amlRegistration, complianceResult.amlRegistration);
+        ComplianceResults complianceResults = (ComplianceResults) o;
+        return Objects.equals(this.aml, complianceResults.aml)
+                && Objects.equals(this.tr, complianceResults.tr)
+                && Objects.equals(this.amlList, complianceResults.amlList)
+                && Objects.equals(this.status, complianceResults.status)
+                && Objects.equals(this.amlRegistration, complianceResults.amlRegistration);
     }
 
     @Override
@@ -301,7 +301,7 @@ public class ComplianceResult {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("class ComplianceResult {\n");
+        sb.append("class ComplianceResults {\n");
         sb.append("    aml: ").append(toIndentedString(aml)).append("\n");
         sb.append("    tr: ").append(toIndentedString(tr)).append("\n");
         sb.append("    amlList: ").append(toIndentedString(amlList)).append("\n");

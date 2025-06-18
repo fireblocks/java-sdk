@@ -1,6 +1,6 @@
 
 
-# ComplianceResult
+# ComplianceResults
 
 The result of the Compliance AML/Travel Rule screening.
 
