@@ -13,7 +13,7 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 | [**getProviders**](StakingApi.md#getProviders) | **GET** /staking/providers | List staking providers details |
 | [**getSummary**](StakingApi.md#getSummary) | **GET** /staking/positions/summary | Get staking summary details |
 | [**getSummaryByVault**](StakingApi.md#getSummaryByVault) | **GET** /staking/positions/summary/vaults | Get staking summary details by vault |
-| [**mergeStakeAccounts**](StakingApi.md#mergeStakeAccounts) | **POST** /staking/chains/{chainDescriptor}/merge | Execute a Merge operation on SOL/SOL_TEST stake accounts |
+| [**mergeStakeAccounts**](StakingApi.md#mergeStakeAccounts) | **POST** /staking/chains/{chainDescriptor}/merge | Merge Solana on stake accounts |
 | [**split**](StakingApi.md#split) | **POST** /staking/chains/{chainDescriptor}/split | Execute a Split operation on SOL/SOL_TEST stake account |
 | [**stake**](StakingApi.md#stake) | **POST** /staking/chains/{chainDescriptor}/stake | Initiate Stake Operation |
 | [**unstake**](StakingApi.md#unstake) | **POST** /staking/chains/{chainDescriptor}/unstake | Execute an Unstake operation |
@@ -760,9 +760,9 @@ No authorization required
 
 > CompletableFuture<ApiResponse<MergeStakeAccountsResponse>> mergeStakeAccounts mergeStakeAccounts(mergeStakeAccountsRequest, chainDescriptor, idempotencyKey)
 
-Execute a Merge operation on SOL/SOL_TEST stake accounts
+Merge Solana on stake accounts
 
-Perform a Solana Merge of two active stake accounts into one.
+Perform a Solana Merge of two active stake accounts into one.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
 
 ### Example
 

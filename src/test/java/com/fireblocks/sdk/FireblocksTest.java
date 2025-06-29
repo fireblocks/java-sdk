@@ -598,6 +598,14 @@ public class FireblocksTest {
     }
 
     @Test
+    public void testGetSwapBetaApi() {
+        setupFireblocks(true, null, null);
+        SwapBetaApi swapBeta = fireblocks.swapBeta();
+        Assert.assertNotNull(swapBeta);
+        Assert.assertSame(swapBeta, fireblocks.swapBeta());
+    }
+
+    @Test
     public void testGetTokenizationApi() {
         setupFireblocks(true, null, null);
         TokenizationApi tokenization = fireblocks.tokenization();

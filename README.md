@@ -32,7 +32,7 @@ Add this dependency to your project's POM:
 <dependency>
   <groupId>com.fireblocks.sdk</groupId>
   <artifactId>fireblocks-sdk</artifactId>
-  <version>10.3.0</version>
+  <version>0.0.0</version>
   <scope>compile</scope>
 </dependency>
 ```
@@ -42,7 +42,7 @@ Add this dependency to your project's POM:
 Add this dependency to your project's build file:
 
 ```groovy
-compile "com.fireblocks.sdk:fireblocks-sdk:10.3.0"
+compile "com.fireblocks.sdk:fireblocks-sdk:0.0.0"
 ```
 
 ### Others
@@ -55,7 +55,7 @@ mvn clean package
 
 Then manually install the following JARs:
 
-- `target/fireblocks-sdk-10.3.0.jar`
+- `target/fireblocks-sdk-0.0.0.jar`
 - `target/lib/*.jar`
 
 
@@ -332,11 +332,17 @@ Class | Method | HTTP request | Description
 *StakingApi* | [**getProviders**](docs/StakingApi.md#getProviders) | **GET** /staking/providers | List staking providers details
 *StakingApi* | [**getSummary**](docs/StakingApi.md#getSummary) | **GET** /staking/positions/summary | Get staking summary details
 *StakingApi* | [**getSummaryByVault**](docs/StakingApi.md#getSummaryByVault) | **GET** /staking/positions/summary/vaults | Get staking summary details by vault
-*StakingApi* | [**mergeStakeAccounts**](docs/StakingApi.md#mergeStakeAccounts) | **POST** /staking/chains/{chainDescriptor}/merge | Execute a Merge operation on SOL/SOL_TEST stake accounts
+*StakingApi* | [**mergeStakeAccounts**](docs/StakingApi.md#mergeStakeAccounts) | **POST** /staking/chains/{chainDescriptor}/merge | Merge Solana on stake accounts
 *StakingApi* | [**split**](docs/StakingApi.md#split) | **POST** /staking/chains/{chainDescriptor}/split | Execute a Split operation on SOL/SOL_TEST stake account
 *StakingApi* | [**stake**](docs/StakingApi.md#stake) | **POST** /staking/chains/{chainDescriptor}/stake | Initiate Stake Operation
 *StakingApi* | [**unstake**](docs/StakingApi.md#unstake) | **POST** /staking/chains/{chainDescriptor}/unstake | Execute an Unstake operation
 *StakingApi* | [**withdraw**](docs/StakingApi.md#withdraw) | **POST** /staking/chains/{chainDescriptor}/withdraw | Execute a Withdraw operation
+*SwapBetaApi* | [**approveTermsOfService**](docs/SwapBetaApi.md#approveTermsOfService) | **POST** /swap/providers/{providerId}/approve_terms | Approve terms of service
+*SwapBetaApi* | [**createQuote**](docs/SwapBetaApi.md#createQuote) | **POST** /swap/providers/{providerId}/quote | Create a quote
+*SwapBetaApi* | [**createSwapOperation**](docs/SwapBetaApi.md#createSwapOperation) | **POST** /swap/operations | Create swap operation
+*SwapBetaApi* | [**getSwapOperationById**](docs/SwapBetaApi.md#getSwapOperationById) | **GET** /swap/operations/{operationId} | Get operation details
+*SwapBetaApi* | [**getSwapOperations**](docs/SwapBetaApi.md#getSwapOperations) | **GET** /swap/operations | Get Operations list
+*SwapBetaApi* | [**getSwapProviders**](docs/SwapBetaApi.md#getSwapProviders) | **GET** /swap/providers | Get Providers List
 *TokenizationApi* | [**burnCollectionToken**](docs/TokenizationApi.md#burnCollectionToken) | **POST** /tokenization/collections/{id}/tokens/burn | Burn tokens
 *TokenizationApi* | [**createNewCollection**](docs/TokenizationApi.md#createNewCollection) | **POST** /tokenization/collections | Create a new collection
 *TokenizationApi* | [**fetchCollectionTokenDetails**](docs/TokenizationApi.md#fetchCollectionTokenDetails) | **GET** /tokenization/collections/{id}/tokens/{tokenId} | Get collection token details
@@ -716,6 +722,8 @@ Class | Method | HTTP request | Description
  - [NetworkIdRoutingPolicyValue](docs/NetworkIdRoutingPolicyValue.md)
  - [NetworkRecord](docs/NetworkRecord.md)
  - [NewAddress](docs/NewAddress.md)
+ - [NonWalletQuoteFee](docs/NonWalletQuoteFee.md)
+ - [NonWalletQuoteResponse](docs/NonWalletQuoteResponse.md)
  - [NoneNetworkRoutingDest](docs/NoneNetworkRoutingDest.md)
  - [NotFoundException](docs/NotFoundException.md)
  - [Notification](docs/Notification.md)
@@ -774,9 +782,14 @@ Class | Method | HTTP request | Description
  - [PolicyValidation](docs/PolicyValidation.md)
  - [PreScreening](docs/PreScreening.md)
  - [Provider](docs/Provider.md)
+ - [ProviderAdditionalData](docs/ProviderAdditionalData.md)
+ - [ProviderCategoryEnum](docs/ProviderCategoryEnum.md)
  - [PublicKeyInformation](docs/PublicKeyInformation.md)
  - [PublishDraftRequest](docs/PublishDraftRequest.md)
  - [PublishResult](docs/PublishResult.md)
+ - [QuoteFee](docs/QuoteFee.md)
+ - [QuoteRequest](docs/QuoteRequest.md)
+ - [QuoteResponse](docs/QuoteResponse.md)
  - [ReadAbiFunction](docs/ReadAbiFunction.md)
  - [ReadCallFunctionDto](docs/ReadCallFunctionDto.md)
  - [ReadCallFunctionDtoAbiFunction](docs/ReadCallFunctionDtoAbiFunction.md)
@@ -878,6 +891,15 @@ Class | Method | HTTP request | Description
  - [StakingProvider](docs/StakingProvider.md)
  - [Status](docs/Status.md)
  - [StellarRippleCreateParamsDto](docs/StellarRippleCreateParamsDto.md)
+ - [SwapFlowError](docs/SwapFlowError.md)
+ - [SwapOperation](docs/SwapOperation.md)
+ - [SwapOperationRequest](docs/SwapOperationRequest.md)
+ - [SwapOperationsPaginatedResponse](docs/SwapOperationsPaginatedResponse.md)
+ - [SwapProvider](docs/SwapProvider.md)
+ - [SwapProviderProtocolsEnum](docs/SwapProviderProtocolsEnum.md)
+ - [SwapProvidersPaginatedResponse](docs/SwapProvidersPaginatedResponse.md)
+ - [SwapRequiredAction](docs/SwapRequiredAction.md)
+ - [SwapRequiredActionsEnum](docs/SwapRequiredActionsEnum.md)
  - [SystemMessageInfo](docs/SystemMessageInfo.md)
  - [Task](docs/Task.md)
  - [TemplatesPaginatedResponse](docs/TemplatesPaginatedResponse.md)
@@ -995,6 +1017,7 @@ Class | Method | HTTP request | Description
  - [Version](docs/Version.md)
  - [WalletAsset](docs/WalletAsset.md)
  - [WalletAssetAdditionalInfo](docs/WalletAssetAdditionalInfo.md)
+ - [WalletQuoteResponse](docs/WalletQuoteResponse.md)
  - [Webhook](docs/Webhook.md)
  - [WebhookEvent](docs/WebhookEvent.md)
  - [WebhookPaginatedResponse](docs/WebhookPaginatedResponse.md)

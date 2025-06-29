@@ -16217,7 +16217,10 @@ paths:
       x-accepts: application/json
   /staking/chains/{chainDescriptor}/merge:
     post:
-      description: Perform a Solana Merge of two active stake accounts into one.
+      description: |-
+        Perform a Solana Merge of two active stake accounts into one.
+
+        Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
       operationId: mergeStakeAccounts
       parameters:
       - description: The protocol identifier (e.g. "SOL"/"SOL_TEST") to use
@@ -16269,7 +16272,7 @@ paths:
           headers:
             X-Request-ID:
               $ref: '#/components/headers/X-Request-ID'
-      summary: Execute a Merge operation on SOL/SOL_TEST stake accounts
+      summary: Merge Solana on stake accounts
       tags:
       - Staking
       x-readme:
@@ -16691,6 +16694,440 @@ paths:
       - lang: Python
         source: "response = fireblocks.staking.approve_terms_of_service_by_provider_id(provider_id,\
           \ idempotency_key);"
+      x-accepts: application/json
+  /swap/providers:
+    get:
+      description: |-
+        Return a list of all supported swap providers.
+
+        Note: These endpoints are currently in beta and might be subject to changes.
+
+        If you want to participate and learn more about the Fireblocks Swap, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.
+
+        Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+      operationId: getSwapProviders
+      parameters:
+      - description: Cursor of the required page
+        explode: true
+        in: query
+        name: pageCursor
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: "Number of items in a page, Acceptable values are 1-100. Maximum\
+          \ value is 100"
+        example: 10
+        explode: true
+        in: query
+        name: pageSize
+        required: false
+        schema:
+          default: 10
+          maximum: 100
+          minimum: 1
+          type: number
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SwapProvidersPaginatedResponse'
+          description: A paginated response containing ProviderDto objects
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorSchema'
+          description: Error Response
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+      summary: Get Providers List
+      tags:
+      - Swap (Beta)
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<SwapProvidersPaginatedResponse>>\
+            \ = fireblocks.swapBeta.getSwapProviders(swapBetaApiGetSwapProvidersRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<SwapProvidersPaginatedResponse>> response\
+            \ = fireblocks.swapBeta().getSwapProviders(pageCursor, pageSize);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.swap_beta.get_swap_providers(page_cursor, page_size);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<SwapProvidersPaginatedResponse>>\
+          \ = fireblocks.swapBeta.getSwapProviders(swapBetaApiGetSwapProvidersRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<SwapProvidersPaginatedResponse>> response\
+          \ = fireblocks.swapBeta().getSwapProviders(pageCursor, pageSize);"
+      - lang: Python
+        source: "response = fireblocks.swap_beta.get_swap_providers(page_cursor, page_size);"
+      x-accepts: application/json
+  /swap/providers/{providerId}/approve_terms:
+    post:
+      description: |-
+        Approve the terms of service for a swap provider.
+        Some providers require this approval before performing a swap action for the first time.
+
+        Note: These endpoints are currently in beta and might be subject to changes.
+
+        If you want to participate and learn more about the Fireblocks Swap, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.
+
+        Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Editor.
+      operationId: approveTermsOfService
+      parameters:
+      - explode: false
+        in: path
+        name: providerId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: "A unique identifier for the request. If the request is sent\
+          \ multiple times with the same idempotency key, the server will return the\
+          \ same response as the first request. The idempotency key is valid for 24\
+          \ hours."
+        explode: false
+        in: header
+        name: Idempotency-Key
+        required: false
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SwapProvider'
+          description: successfully approve terms of service
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorSchema'
+          description: Error Response
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+      summary: Approve terms of service
+      tags:
+      - Swap (Beta)
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<SwapProvider>> = fireblocks.swapBeta.approveTermsOfService(swapBetaApiApproveTermsOfServiceRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<SwapProvider>> response = fireblocks.swapBeta().approveTermsOfService(providerId,\
+            \ idempotencyKey);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.swap_beta.approve_terms_of_service(provider_id,\
+            \ idempotency_key);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<SwapProvider>> = fireblocks.swapBeta.approveTermsOfService(swapBetaApiApproveTermsOfServiceRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<SwapProvider>> response = fireblocks.swapBeta().approveTermsOfService(providerId,\
+          \ idempotencyKey);"
+      - lang: Python
+        source: "response = fireblocks.swap_beta.approve_terms_of_service(provider_id,\
+          \ idempotency_key);"
+      x-accepts: application/json
+  /swap/providers/{providerId}/quote:
+    post:
+      description: |-
+        Create a quote from specific swap provider.
+
+        Note: These endpoints are currently in beta and might be subject to changes.
+
+        If you want to participate and learn more about the Fireblocks Swap, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.
+
+        Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+      operationId: createQuote
+      parameters:
+      - explode: false
+        in: path
+        name: providerId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: "A unique identifier for the request. If the request is sent\
+          \ multiple times with the same idempotency key, the server will return the\
+          \ same response as the first request. The idempotency key is valid for 24\
+          \ hours."
+        explode: false
+        in: header
+        name: Idempotency-Key
+        required: false
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/QuoteRequest'
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QuoteResponse'
+          description: "The response can be one of two possible DTOs, depending if\
+            \ the request contains the accountId property."
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorSchema'
+          description: Error Response
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+      summary: Create a quote
+      tags:
+      - Swap (Beta)
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<QuoteResponse>> = fireblocks.swapBeta.createQuote(swapBetaApiCreateQuoteRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<QuoteResponse>> response = fireblocks.swapBeta().createQuote(quoteRequest,\
+            \ providerId, idempotencyKey);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.swap_beta.create_quote(quote_request, provider_id,\
+            \ idempotency_key);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<QuoteResponse>> = fireblocks.swapBeta.createQuote(swapBetaApiCreateQuoteRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<QuoteResponse>> response = fireblocks.swapBeta().createQuote(quoteRequest,\
+          \ providerId, idempotencyKey);"
+      - lang: Python
+        source: "response = fireblocks.swap_beta.create_quote(quote_request, provider_id,\
+          \ idempotency_key);"
+      x-content-type: application/json
+      x-accepts: application/json
+  /swap/operations:
+    get:
+      description: |-
+        Return a list of swap operations for the specific workspace
+        The operations are sorted by creation date in descending order, meaning the most recent operation appears first.
+
+        Note:These endpoints are currently in beta and might be subject to changes.
+
+        If you want to participate and learn more about the Fireblocks TAP, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.
+
+        Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+      operationId: getSwapOperations
+      parameters:
+      - description: Cursor of the required page
+        explode: true
+        in: query
+        name: pageCursor
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: "Number of items in a page, Acceptable values are 1-100. Maximum\
+          \ value is 100"
+        example: 10
+        explode: true
+        in: query
+        name: pageSize
+        required: false
+        schema:
+          default: 10
+          maximum: 100
+          minimum: 1
+          type: number
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SwapOperationsPaginatedResponse'
+          description: A paginated response containing OperationDto objects
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorSchema'
+          description: Error Response
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+      summary: Get Operations list
+      tags:
+      - Swap (Beta)
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<SwapOperationsPaginatedResponse>>\
+            \ = fireblocks.swapBeta.getSwapOperations(swapBetaApiGetSwapOperationsRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<SwapOperationsPaginatedResponse>> response\
+            \ = fireblocks.swapBeta().getSwapOperations(pageCursor, pageSize);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.swap_beta.get_swap_operations(page_cursor,\
+            \ page_size);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<SwapOperationsPaginatedResponse>>\
+          \ = fireblocks.swapBeta.getSwapOperations(swapBetaApiGetSwapOperationsRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<SwapOperationsPaginatedResponse>> response\
+          \ = fireblocks.swapBeta().getSwapOperations(pageCursor, pageSize);"
+      - lang: Python
+        source: "response = fireblocks.swap_beta.get_swap_operations(page_cursor,\
+          \ page_size);"
+      x-accepts: application/json
+    post:
+      description: |-
+        Create swap operation based on a provided quote Id
+
+        Note: These endpoints are currently in beta and might be subject to changes.
+
+        If you want to participate and learn more about the Fireblocks Swap, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.
+
+        Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Editor.
+      operationId: createSwapOperation
+      parameters:
+      - description: "A unique identifier for the request. If the request is sent\
+          \ multiple times with the same idempotency key, the server will return the\
+          \ same response as the first request. The idempotency key is valid for 24\
+          \ hours."
+        explode: false
+        in: header
+        name: Idempotency-Key
+        required: false
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SwapOperationRequest'
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SwapOperation'
+          description: ""
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorSchema'
+          description: Error Response
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+      summary: Create swap operation
+      tags:
+      - Swap (Beta)
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<SwapOperation>> = fireblocks.swapBeta.createSwapOperation(swapBetaApiCreateSwapOperationRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<SwapOperation>> response = fireblocks.swapBeta().createSwapOperation(swapOperationRequest,\
+            \ idempotencyKey);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.swap_beta.create_swap_operation(swap_operation_request,\
+            \ idempotency_key);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<SwapOperation>> = fireblocks.swapBeta.createSwapOperation(swapBetaApiCreateSwapOperationRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<SwapOperation>> response = fireblocks.swapBeta().createSwapOperation(swapOperationRequest,\
+          \ idempotencyKey);"
+      - lang: Python
+        source: "response = fireblocks.swap_beta.create_swap_operation(swap_operation_request,\
+          \ idempotency_key);"
+      x-content-type: application/json
+      x-accepts: application/json
+  /swap/operations/{operationId}:
+    get:
+      description: |-
+        Get swap operation Details by ID.
+
+        Note:These endpoints are currently in beta and might be subject to changes.
+
+        If you want to participate and learn more about the Fireblocks Swap, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.
+
+        Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+      operationId: getSwapOperationById
+      parameters:
+      - explode: false
+        in: path
+        name: operationId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SwapOperation'
+          description: ""
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorSchema'
+          description: Error Response
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+      summary: Get operation details
+      tags:
+      - Swap (Beta)
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<SwapOperation>> = fireblocks.swapBeta.getSwapOperationById(swapBetaApiGetSwapOperationByIdRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: CompletableFuture<ApiResponse<SwapOperation>> response = fireblocks.swapBeta().getSwapOperationById(operationId);
+          name: Fireblocks SDK Java example
+        - language: python
+          code: response = fireblocks.swap_beta.get_swap_operation_by_id(operation_id);
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<SwapOperation>> = fireblocks.swapBeta.getSwapOperationById(swapBetaApiGetSwapOperationByIdRequest);"
+      - lang: Java
+        source: CompletableFuture<ApiResponse<SwapOperation>> response = fireblocks.swapBeta().getSwapOperationById(operationId);
+      - lang: Python
+        source: response = fireblocks.swap_beta.get_swap_operation_by_id(operation_id);
       x-accepts: application/json
   /admin_quorum:
     put:
@@ -40401,6 +40838,653 @@ components:
       items:
         $ref: '#/components/schemas/Provider'
       type: array
+    SwapProviderProtocolsEnum:
+      description: Protocol options supported by each provider. `UNISWAP` supports
+        `UNISWAP_CLASSIC` and `UNISWAPX`. `WRAP_UNWRAP` supports `WRAP` and `UNWRAP.`
+      enum:
+      - UNISWAP_CLASSIC
+      - UNISWAPX
+      - WRAP
+      - UNWRAP
+      example: UNISWAP_CLASSIC
+      type: string
+    ProviderCategoryEnum:
+      description: "Category that classify the provider, Supported categories are:\
+        \  `DEX`, `CEX`, `OTC`"
+      enum:
+      - DEX
+      - CEX
+      - OTC
+      - WRAP_UNWRAP
+      example: DEX
+      type: string
+    SwapProvider:
+      example:
+        termsOfServiceUrl: https://uniswap.org/terms-of-service
+        isTermsApprovalRequired: true
+        name: Uniswap
+        id: UNISWAP
+        protocols:
+        - UNISWAP_CLASSIC
+        - UNISWAPX
+        category: DEX
+        isTermsOfServiceApproved: true
+      properties:
+        id:
+          description: The ID of the provider
+          example: UNISWAP
+          type: string
+        name:
+          description: Name of the provider
+          example: Uniswap
+          type: string
+        protocols:
+          description: List of supported protocols. Protocols are specific per provider
+          example:
+          - UNISWAP_CLASSIC
+          - UNISWAPX
+          items:
+            $ref: '#/components/schemas/SwapProviderProtocolsEnum'
+          type: array
+        category:
+          $ref: '#/components/schemas/ProviderCategoryEnum'
+        isTermsApprovalRequired:
+          description: "Indicates whether the terms of service are required for the\
+            \ provider. if `true`, the user must approve the terms of service before\
+            \ using the provider. otherwise, `termsOfServiceUrl` and `isTermsOfServiceApproved`\
+            \ are not shown under the provider data."
+          example: true
+          type: boolean
+        termsOfServiceUrl:
+          description: URL to the terms of service
+          example: https://uniswap.org/terms-of-service
+          type: string
+        isTermsOfServiceApproved:
+          description: Indicates whether the terms of service are approved by the
+            user
+          example: true
+          type: boolean
+      required:
+      - category
+      - id
+      - isTermsApprovalRequired
+      - name
+      - protocols
+      type: object
+    SwapProvidersPaginatedResponse:
+      example:
+        next: MjAyMy0xMi0xMyA====TNjowOC4zMDI=:MTEwMA==
+        data:
+        - termsOfServiceUrl: https://uniswap.org/terms-of-service
+          isTermsApprovalRequired: true
+          name: Uniswap
+          id: UNISWAP
+          protocols:
+          - UNISWAP_CLASSIC
+          - UNISWAPX
+          category: DEX
+          isTermsOfServiceApproved: true
+        - termsOfServiceUrl: https://uniswap.org/terms-of-service
+          isTermsApprovalRequired: true
+          name: Uniswap
+          id: UNISWAP
+          protocols:
+          - UNISWAP_CLASSIC
+          - UNISWAPX
+          category: DEX
+          isTermsOfServiceApproved: true
+      properties:
+        data:
+          description: The data of the current page
+          items:
+            $ref: '#/components/schemas/SwapProvider'
+          type: array
+        next:
+          description: "The cursor to fetch the next page of results, if absent or\
+            \ null, there are no additional results."
+          example: MjAyMy0xMi0xMyA====TNjowOC4zMDI=:MTEwMA==
+          nullable: true
+          type: string
+      required:
+      - data
+      type: object
+    QuoteRequest:
+      example:
+        accountId: "1"
+        protocol: UNISWAP_CLASSIC
+        inputAsset: WETH
+        inputAmount: "10"
+        outputAsset: DAI
+        slippageTolerance: 0.5
+      properties:
+        accountId:
+          description: The id of the vault account or account id
+          example: "1"
+          type: string
+        inputAmount:
+          description: "The amount of tokens the swapper will provide, positive number,\
+            \ can be a decimal."
+          example: "10"
+          type: string
+        inputAsset:
+          description: The id of the asset the swapper will provide
+          example: WETH
+          type: string
+        outputAsset:
+          description: The id of the asset the swapper will receive
+          example: DAI
+          type: string
+        slippageTolerance:
+          description: The slippage tolerance is a percentage. The slippage tolerance
+            is the maximum amount the price can change between the time the transaction
+            is submitted and the time it is executed
+          example: 0.5
+          maximum: 100
+          minimum: 0
+          type: number
+        protocol:
+          $ref: '#/components/schemas/SwapProviderProtocolsEnum'
+      required:
+      - inputAmount
+      - inputAsset
+      - outputAsset
+      - protocol
+      - slippageTolerance
+      type: object
+    ProviderAdditionalData:
+      description: Provider specific additional data
+      example:
+        priceImpact: "0.01"
+      properties:
+        priceImpact:
+          example: "0.01"
+          type: string
+      required:
+      - priceImpact
+      type: object
+    SwapRequiredActionsEnum:
+      enum:
+      - APPROVE
+      - PERMIT
+      - CONTRACT_CALL
+      example: APPROVE
+      type: string
+    QuoteFee:
+      example:
+        networkFeeAssetId: ETH
+        providerFee: "5742266"
+        providerFeeAssetId: DAI
+        providerFeeRate: 0.25
+        networkApproveFee: "1478987585080628"
+        networkExecutionFee: "1478987585080628"
+      properties:
+        networkExecutionFee:
+          description: The gas fee in the asset unit.
+          example: "1478987585080628"
+          type: string
+        networkFeeAssetId:
+          description: The network fee in Fireblocks asset representation
+          example: ETH
+          type: string
+        providerFee:
+          description: The provider fee in the asset unit.
+          example: "5742266"
+          type: string
+        providerFeeAssetId:
+          description: The provider fee in Fireblocks asset representation
+          example: DAI
+          type: string
+        providerFeeRate:
+          description: Percentages of the provider fee out of the gross amount
+          example: 0.25
+          type: number
+        networkApproveFee:
+          description: The gas fee in the asset unit.
+          example: "1478987585080628"
+          type: string
+      required:
+      - networkExecutionFee
+      - networkFeeAssetId
+      - providerFee
+      - providerFeeAssetId
+      - providerFeeRate
+      type: object
+    WalletQuoteResponse:
+      description: Return a quote with id that can be used for swap operation.
+      example:
+        expiredAt: 2023-07-13T15:55:34.256Z
+        protocol: UNISWAP_CLASSIC
+        requiredActions:
+        - APPROVE
+        - APPROVE
+        outputMinAmount: "10"
+        inputAsset: WETH
+        inputAmount: "10"
+        slippageTolerance: 0.5
+        outputAsset: DAI
+        estimatedFees:
+          networkFeeAssetId: ETH
+          providerFee: "5742266"
+          providerFeeAssetId: DAI
+          providerFeeRate: 0.25
+          networkApproveFee: "1478987585080628"
+          networkExecutionFee: "1478987585080628"
+        additionalData:
+          priceImpact: "0.01"
+        outputMaxAmount: "20"
+        providerQuoteId: 550e8400-e29b-41d4-a716-446655440000
+      properties:
+        protocol:
+          $ref: '#/components/schemas/SwapProviderProtocolsEnum'
+        inputAmount:
+          description: The amount of tokens the swapper will provide
+          example: "10"
+          type: string
+        inputAsset:
+          description: The id of the asset the swapper will provide
+          example: WETH
+          type: string
+        slippageTolerance:
+          description: The slippage tolerance is a percentage. The slippage tolerance
+            is the maximum amount the price can change between the time the transaction
+            is submitted and the time it is executed
+          example: 0.5
+          type: number
+        outputMinAmount:
+          description: The minimum amount of tokens the swapper will receive
+          example: "10"
+          type: string
+        outputMaxAmount:
+          description: Maximum amount of tokens that the swapper will receive
+          example: "20"
+          type: string
+        outputAsset:
+          description: The id of the asset the swapper will receive
+          example: DAI
+          type: string
+        additionalData:
+          $ref: '#/components/schemas/ProviderAdditionalData'
+        providerQuoteId:
+          description: An identifier that uniquely identifies the received quote
+          example: 550e8400-e29b-41d4-a716-446655440000
+          format: uuid
+          type: string
+        expiredAt:
+          description: When was the received `providerQuoteId` is expired (ISO Date
+            time).
+          example: 2023-07-13T15:55:34.256Z
+          format: date-time
+          type: string
+        requiredActions:
+          description: The required actions for completing a swap operation
+          items:
+            $ref: '#/components/schemas/SwapRequiredActionsEnum'
+          type: array
+        estimatedFees:
+          $ref: '#/components/schemas/QuoteFee'
+      required:
+      - additionalData
+      - estimatedFees
+      - expiredAt
+      - inputAmount
+      - inputAsset
+      - outputAsset
+      - outputMaxAmount
+      - outputMinAmount
+      - protocol
+      - providerQuoteId
+      - requiredActions
+      - slippageTolerance
+      type: object
+    NonWalletQuoteFee:
+      description: The estimated fees for the swap operation.
+      properties:
+        networkExecutionFee:
+          description: The gas fee in the asset unit.
+          example: "1478987585080628"
+          type: string
+        networkFeeAssetId:
+          description: The network fee in Fireblocks asset representation
+          example: ETH
+          type: string
+        providerFee:
+          description: The provider fee in the asset unit.
+          example: "5742266"
+          type: string
+        providerFeeAssetId:
+          description: The provider fee in Fireblocks asset representation
+          example: DAI
+          type: string
+        providerFeeRate:
+          description: Percentages of the provider fee out of the gross amount
+          example: 0.25
+          type: number
+      required:
+      - networkExecutionFee
+      - networkFeeAssetId
+      - providerFee
+      - providerFeeAssetId
+      - providerFeeRate
+      type: object
+    NonWalletQuoteResponse:
+      description: Return a quote that cannot be used for a swap operation.
+      properties:
+        protocol:
+          $ref: '#/components/schemas/SwapProviderProtocolsEnum'
+        inputAmount:
+          description: The amount of tokens the swapper will provide
+          example: "10"
+          type: string
+        inputAsset:
+          description: The id of the asset the swapper will provide
+          example: WETH
+          type: string
+        slippageTolerance:
+          description: The slippage tolerance is a percentage. The slippage tolerance
+            is the maximum amount the price can change between the time the transaction
+            is submitted and the time it is executed
+          example: 0.5
+          type: number
+        outputMinAmount:
+          description: The minimum amount of tokens the swapper will receive
+          example: "10"
+          type: string
+        outputMaxAmount:
+          description: Maximum amount of tokens that the swapper will receive
+          example: "20"
+          type: string
+        outputAsset:
+          description: The id of the asset the swapper will receive
+          example: DAI
+          type: string
+        additionalData:
+          $ref: '#/components/schemas/ProviderAdditionalData'
+        estimatedFees:
+          $ref: '#/components/schemas/NonWalletQuoteFee'
+      required:
+      - additionalData
+      - estimatedFees
+      - inputAmount
+      - inputAsset
+      - outputAsset
+      - outputMaxAmount
+      - outputMinAmount
+      - protocol
+      - slippageTolerance
+      type: object
+    QuoteResponse:
+      oneOf:
+      - $ref: '#/components/schemas/WalletQuoteResponse'
+      - $ref: '#/components/schemas/NonWalletQuoteResponse'
+    SwapRequiredAction:
+      example:
+        txId: fc69381c-1e35-48c2-8415-484d1c2f55cx
+        type: APPROVE
+        status: PENDING
+      properties:
+        type:
+          $ref: '#/components/schemas/SwapRequiredActionsEnum'
+        status:
+          description: The status of the required action
+          enum:
+          - WAITING
+          - PROCESSING
+          - COMPLETED
+          - FAILED
+          - CANCELED
+          example: PENDING
+          type: string
+        txId:
+          description: The transaction id of the required action
+          example: fc69381c-1e35-48c2-8415-484d1c2f55cx
+          type: string
+      required:
+      - status
+      - type
+      type: object
+    SwapFlowError:
+      description: The error message for the swap
+      example: expired
+      nullable: true
+      properties:
+        code:
+          description: The code representing the error
+          example: "123"
+          type: string
+        message:
+          description: Error message
+          example: Failed to swap
+          type: string
+      required:
+      - code
+      - message
+      type: object
+    SwapOperation:
+      example:
+        outputFinalAmount: "15"
+        outputMinAmount: "10"
+        inputAmount: "10"
+        error: expired
+        outputMaxAmount: "20"
+        accountId: "1"
+        createdAt: 2023-07-13T15:55:34.256Z
+        protocol: UNISWAP_CLASSIC
+        requiredActions:
+        - txId: fc69381c-1e35-48c2-8415-484d1c2f55cx
+          type: APPROVE
+          status: PENDING
+        - txId: fc69381c-1e35-48c2-8415-484d1c2f55cx
+          type: APPROVE
+          status: PENDING
+        createdBy: 15a8f89f-f562-46ca-bcd3-56f8dd124816
+        providerId: UNISWAP
+        inputAsset: WETH
+        slippageTolerance: 0.5
+        outputAsset: DAI
+        id: 51cfb2c1-126d-4ff6-8512-ffba48f4b296
+        category: DEX
+        status: CREATED
+        updatedAt: 2023-07-13T15:55:34.256Z
+      properties:
+        id:
+          description: The id of the swap operation
+          example: 51cfb2c1-126d-4ff6-8512-ffba48f4b296
+          type: string
+        accountId:
+          description: The id of the vault account or account id
+          example: "1"
+          type: string
+        providerId:
+          description: The ID of the provider
+          example: UNISWAP
+          type: string
+        category:
+          $ref: '#/components/schemas/ProviderCategoryEnum'
+        protocol:
+          $ref: '#/components/schemas/SwapProviderProtocolsEnum'
+        status:
+          description: |-
+            **CREATED** – The swap request has been created but not yet started.
+            **PENDING_USER_ACTION** – Awaiting a user action (e.g. signature or approval).
+            **PENDING_PROVIDER_ACTION** – Awaiting the provider to process the request.
+            **PROCESSING** – The swap is actively being executed on‐chain.
+            **COMPLETED** – The swap has finished successfully.
+            **CANCELED** – The swap was cancelled by user or provider before completion.
+            **FAILED** – The swap attempted but encountered an error.
+          enum:
+          - CREATED
+          - TRANSACTION_IN_PROGRESS
+          - PENDING_PROVIDER_ACTION
+          - COMPLETED
+          - CANCELED
+          - FAILED
+          example: CREATED
+          type: string
+        inputAmount:
+          description: The amount of tokens the swapper will provide
+          example: "10"
+          type: string
+        inputAsset:
+          description: The id of the asset the swapper will provide
+          example: WETH
+          type: string
+        slippageTolerance:
+          description: The slippage tolerance is a percentage. The slippage tolerance
+            is the maximum amount the price can change between the time the transaction
+            is submitted and the time it is executed
+          example: 0.5
+          type: number
+        outputMinAmount:
+          description: The minimum amount of tokens the swapper will receive
+          example: "10"
+          type: string
+        outputMaxAmount:
+          description: Maximum amount of tokens that the swapper will receive
+          example: "20"
+          type: string
+        outputAsset:
+          description: The id of the asset the swapper will receive
+          example: DAI
+          type: string
+        outputFinalAmount:
+          description: Final amount of tokens that the swapper will receive
+          example: "15"
+          nullable: true
+          type: string
+        requiredActions:
+          description: "The required actions for the swap, including the type of action,\
+            \ the status of the action, and the transaction id"
+          items:
+            $ref: '#/components/schemas/SwapRequiredAction'
+          type: array
+        error:
+          $ref: '#/components/schemas/SwapFlowError'
+        createdAt:
+          description: The creation time of the swap operation (ISO Date time).
+          example: 2023-07-13T15:55:34.256Z
+          format: date-time
+          type: string
+        updatedAt:
+          description: The last update time of the swap operation (ISO Date time).
+          example: 2023-07-13T15:55:34.256Z
+          format: date-time
+          type: string
+        createdBy:
+          description: Fireblocks user id that issued the swap
+          example: 15a8f89f-f562-46ca-bcd3-56f8dd124816
+          format: uuid
+          type: string
+      required:
+      - accountId
+      - category
+      - createdAt
+      - createdBy
+      - id
+      - inputAmount
+      - inputAsset
+      - outputAsset
+      - outputMaxAmount
+      - outputMinAmount
+      - protocol
+      - providerId
+      - requiredActions
+      - slippageTolerance
+      - status
+      - updatedAt
+      type: object
+    SwapOperationsPaginatedResponse:
+      example:
+        next: MjAyMy0xMi0xMyA====TNjowOC4zMDI=:MTEwMA==
+        data:
+        - outputFinalAmount: "15"
+          outputMinAmount: "10"
+          inputAmount: "10"
+          error: expired
+          outputMaxAmount: "20"
+          accountId: "1"
+          createdAt: 2023-07-13T15:55:34.256Z
+          protocol: UNISWAP_CLASSIC
+          requiredActions:
+          - txId: fc69381c-1e35-48c2-8415-484d1c2f55cx
+            type: APPROVE
+            status: PENDING
+          - txId: fc69381c-1e35-48c2-8415-484d1c2f55cx
+            type: APPROVE
+            status: PENDING
+          createdBy: 15a8f89f-f562-46ca-bcd3-56f8dd124816
+          providerId: UNISWAP
+          inputAsset: WETH
+          slippageTolerance: 0.5
+          outputAsset: DAI
+          id: 51cfb2c1-126d-4ff6-8512-ffba48f4b296
+          category: DEX
+          status: CREATED
+          updatedAt: 2023-07-13T15:55:34.256Z
+        - outputFinalAmount: "15"
+          outputMinAmount: "10"
+          inputAmount: "10"
+          error: expired
+          outputMaxAmount: "20"
+          accountId: "1"
+          createdAt: 2023-07-13T15:55:34.256Z
+          protocol: UNISWAP_CLASSIC
+          requiredActions:
+          - txId: fc69381c-1e35-48c2-8415-484d1c2f55cx
+            type: APPROVE
+            status: PENDING
+          - txId: fc69381c-1e35-48c2-8415-484d1c2f55cx
+            type: APPROVE
+            status: PENDING
+          createdBy: 15a8f89f-f562-46ca-bcd3-56f8dd124816
+          providerId: UNISWAP
+          inputAsset: WETH
+          slippageTolerance: 0.5
+          outputAsset: DAI
+          id: 51cfb2c1-126d-4ff6-8512-ffba48f4b296
+          category: DEX
+          status: CREATED
+          updatedAt: 2023-07-13T15:55:34.256Z
+      properties:
+        data:
+          description: The data of the current page
+          items:
+            $ref: '#/components/schemas/SwapOperation'
+          type: array
+        next:
+          description: "The cursor to fetch the next page of results, if absent or\
+            \ null, there are no additional results."
+          example: MjAyMy0xMi0xMyA====TNjowOC4zMDI=:MTEwMA==
+          nullable: true
+          type: string
+      required:
+      - data
+      type: object
+    SwapOperationRequest:
+      example:
+        txNote: request id b70701f4-d7b1-4795-a8ee-b09cdb5b850d
+        feeLevel: MEDIUM
+        providerQuoteId: 550e8400-e29b-41d4-a716-446655440000
+      properties:
+        providerQuoteId:
+          description: An identifier that uniquely identifies the received quote
+          example: 550e8400-e29b-41d4-a716-446655440000
+          format: uuid
+          type: string
+        feeLevel:
+          description: The fee level of the transaction
+          enum:
+          - LOW
+          - MEDIUM
+          - HIGH
+          example: MEDIUM
+          type: string
+        txNote:
+          description: user note on the transaction
+          example: request id b70701f4-d7b1-4795-a8ee-b09cdb5b850d
+          type: string
+      required:
+      - providerQuoteId
+      type: object
     SetAdminQuorumThresholdRequest:
       properties:
         adminQuorumThreshold:

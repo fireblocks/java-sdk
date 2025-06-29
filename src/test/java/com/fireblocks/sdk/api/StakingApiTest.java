@@ -172,9 +172,10 @@ public class StakingApiTest {
     }
 
     /**
-     * Execute a Merge operation on SOL/SOL_TEST stake accounts
+     * Merge Solana on stake accounts
      *
-     * <p>Perform a Solana Merge of two active stake accounts into one.
+     * <p>Perform a Solana Merge of two active stake accounts into one. Endpoint Permission: Owner,
+     * Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
      *
      * @throws ApiException if the Api call fails
      */
