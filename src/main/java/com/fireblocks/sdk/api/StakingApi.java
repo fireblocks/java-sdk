@@ -703,8 +703,8 @@ public class StakingApi {
         return localVarRequestBuilder;
     }
     /**
-     * Execute a Merge operation on SOL/SOL_TEST stake accounts Perform a Solana Merge of two active
-     * stake accounts into one.
+     * Merge Solana on stake accounts Perform a Solana Merge of two active stake accounts into one.
+     * Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
      *
      * @param mergeStakeAccountsRequest (required)
      * @param chainDescriptor The protocol identifier (e.g.
