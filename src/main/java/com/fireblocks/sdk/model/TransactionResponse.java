@@ -1084,7 +1084,14 @@ public class TransactionResponse {
      * value set to the Ethereum smart contract Application Binary Interface (ABI) payload. The
      * Fireblocks [development
      * libraries](https://developers.fireblocks.com/docs/ethereum-development#convenience-libraries)
-     * are recommended for building contract call transactions.
+     * are recommended for building contract call transactions. For **exchange compliance (e.g.,
+     * Binance) and Travel Rule purposes**, include the key &#x60;piiData&#x60; containing a
+     * **custom JSON structure** with Personally Identifiable Information (PII) relevant to the
+     * transaction. This data must be fully **encrypted by the sender** before being submitted to
+     * the Fireblocks API. The recommended encryption method is **hybrid encryption** using
+     * AES-256-GCM for the payload and RSA-OAEP for key exchange, with the recipient exchange’s
+     * public key. [development
+     * libraries](https://developers.fireblocks.com/docs/a-developers-guide-to-constructing-encrypted-pii-messages-for-binance-via-fireblocks)
      *
      * @return extraParameters
      */

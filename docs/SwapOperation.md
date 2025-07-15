@@ -9,7 +9,7 @@
 |------------ | ------------- | ------------- | -------------|
 |**id** | **String** | The id of the swap operation |  |
 |**accountId** | **String** | The id of the vault account or account id |  |
-|**providerId** | **String** | The ID of the provider |  |
+|**providerId** | **UUID** | The uuid that identifies the provider |  |
 |**category** | **ProviderCategoryEnum** |  |  |
 |**protocol** | **SwapProviderProtocolsEnum** |  |  |
 |**status** | [**StatusEnum**](#StatusEnum) | **CREATED** – The swap request has been created but not yet started. **PENDING_USER_ACTION** – Awaiting a user action (e.g. signature or approval). **PENDING_PROVIDER_ACTION** – Awaiting the provider to process the request. **PROCESSING** – The swap is actively being executed on‐chain. **COMPLETED** – The swap has finished successfully. **CANCELED** – The swap was cancelled by user or provider before completion. **FAILED** – The swap attempted but encountered an error. |  |

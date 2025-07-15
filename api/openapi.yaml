@@ -150,210 +150,6 @@ paths:
           \ idempotency_key);"
       x-content-type: application/json
       x-accepts: application/json
-  /vault/accounts/addresses/bulk:
-    post:
-      description: |
-        Create multiple deposit address by running an async job. </br>
-        **Note**:
-        - We limit accounts to 10k per operation.
-      operationId: createMultipleDepositAddresses
-      parameters:
-      - description: "A unique identifier for the request. If the request is sent\
-          \ multiple times with the same idempotency key, the server will return the\
-          \ same response as the first request. The idempotency key is valid for 24\
-          \ hours."
-        explode: false
-        in: header
-        name: Idempotency-Key
-        required: false
-        schema:
-          type: string
-        style: simple
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/CreateMultipleDepositAddressesRequest'
-        required: true
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/JobCreated'
-          description: A JobCreated object
-          headers:
-            X-Request-ID:
-              $ref: '#/components/headers/X-Request-ID'
-        default:
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorSchema'
-          description: Error Response
-          headers:
-            X-Request-ID:
-              $ref: '#/components/headers/X-Request-ID'
-      summary: Bulk creation of new deposit addresses
-      tags:
-      - Vaults
-      x-readme:
-        code-samples:
-        - language: typescript
-          code: "const response: Promise<FireblocksResponse<JobCreated>> = fireblocks.vaults.createMultipleDepositAddresses(vaultsApiCreateMultipleDepositAddressesRequest);"
-          name: Fireblocks SDK TypeScript example
-        - language: java
-          code: "CompletableFuture<ApiResponse<JobCreated>> response = fireblocks.vaults().createMultipleDepositAddresses(createMultipleDepositAddressesRequest,\
-            \ idempotencyKey);"
-          name: Fireblocks SDK Java example
-        - language: python
-          code: "response = fireblocks.vaults.create_multiple_deposit_addresses(create_multiple_deposit_addresses_request,\
-            \ idempotency_key);"
-          name: Fireblocks SDK Python example
-      x-codeSamples:
-      - lang: TypeScript
-        source: "const response: Promise<FireblocksResponse<JobCreated>> = fireblocks.vaults.createMultipleDepositAddresses(vaultsApiCreateMultipleDepositAddressesRequest);"
-      - lang: Java
-        source: "CompletableFuture<ApiResponse<JobCreated>> response = fireblocks.vaults().createMultipleDepositAddresses(createMultipleDepositAddressesRequest,\
-          \ idempotencyKey);"
-      - lang: Python
-        source: "response = fireblocks.vaults.create_multiple_deposit_addresses(create_multiple_deposit_addresses_request,\
-          \ idempotency_key);"
-      x-content-type: application/json
-      x-accepts: application/json
-  /vault/accounts/addresses/bulk/{jobId}:
-    get:
-      description: Returns the status of bulk creation of new deposit addresses job
-        and the result or error
-      operationId: getCreateMultipleDepositAddressesJobStatus
-      parameters:
-      - description: The ID of the job to create addresses
-        example: 019681b4-107d-7243-942d-4c3c30e36fae
-        explode: false
-        in: path
-        name: jobId
-        required: true
-        schema:
-          type: string
-        style: simple
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/CreateMultipleDepositAddressesJobStatus'
-          description: A Job with status
-          headers:
-            X-Request-ID:
-              $ref: '#/components/headers/X-Request-ID'
-        default:
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorSchema'
-          description: Error Response
-          headers:
-            X-Request-ID:
-              $ref: '#/components/headers/X-Request-ID'
-      summary: Get job status of bulk creation of new deposit addresses
-      tags:
-      - Vaults
-      x-readme:
-        code-samples:
-        - language: typescript
-          code: "const response: Promise<FireblocksResponse<CreateMultipleDepositAddressesJobStatus>>\
-            \ = fireblocks.vaults.getCreateMultipleDepositAddressesJobStatus(vaultsApiGetCreateMultipleDepositAddressesJobStatusRequest);"
-          name: Fireblocks SDK TypeScript example
-        - language: java
-          code: CompletableFuture<ApiResponse<CreateMultipleDepositAddressesJobStatus>>
-            response = fireblocks.vaults().getCreateMultipleDepositAddressesJobStatus(jobId);
-          name: Fireblocks SDK Java example
-        - language: python
-          code: response = fireblocks.vaults.get_create_multiple_deposit_addresses_job_status(job_id);
-          name: Fireblocks SDK Python example
-      x-codeSamples:
-      - lang: TypeScript
-        source: "const response: Promise<FireblocksResponse<CreateMultipleDepositAddressesJobStatus>>\
-          \ = fireblocks.vaults.getCreateMultipleDepositAddressesJobStatus(vaultsApiGetCreateMultipleDepositAddressesJobStatusRequest);"
-      - lang: Java
-        source: CompletableFuture<ApiResponse<CreateMultipleDepositAddressesJobStatus>>
-          response = fireblocks.vaults().getCreateMultipleDepositAddressesJobStatus(jobId);
-      - lang: Python
-        source: response = fireblocks.vaults.get_create_multiple_deposit_addresses_job_status(job_id);
-      x-accepts: application/json
-  /vault/accounts/bulk:
-    post:
-      description: |
-        Create multiple vault accounts by running an async job. </br>
-        **Note**:
-        - These endpoints are currently in beta and might be subject to changes.
-        - We limit accounts to 10k per operation and 200k per customer during beta testing.
-      operationId: createMultipleAccounts
-      parameters:
-      - description: "A unique identifier for the request. If the request is sent\
-          \ multiple times with the same idempotency key, the server will return the\
-          \ same response as the first request. The idempotency key is valid for 24\
-          \ hours."
-        explode: false
-        in: header
-        name: Idempotency-Key
-        required: false
-        schema:
-          type: string
-        style: simple
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/CreateMultipleAccountsRequest'
-        required: true
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/JobCreated'
-          description: A JobCreated object
-          headers:
-            X-Request-ID:
-              $ref: '#/components/headers/X-Request-ID'
-        default:
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorSchema'
-          description: Error Response
-          headers:
-            X-Request-ID:
-              $ref: '#/components/headers/X-Request-ID'
-      summary: Bulk creation of new vault accounts
-      tags:
-      - Vaults
-      x-rate-limit-category: write
-      x-readme:
-        code-samples:
-        - language: typescript
-          code: "const response: Promise<FireblocksResponse<JobCreated>> = fireblocks.vaults.createMultipleAccounts(vaultsApiCreateMultipleAccountsRequest);"
-          name: Fireblocks SDK TypeScript example
-        - language: java
-          code: "CompletableFuture<ApiResponse<JobCreated>> response = fireblocks.vaults().createMultipleAccounts(createMultipleAccountsRequest,\
-            \ idempotencyKey);"
-          name: Fireblocks SDK Java example
-        - language: python
-          code: "response = fireblocks.vaults.create_multiple_accounts(create_multiple_accounts_request,\
-            \ idempotency_key);"
-          name: Fireblocks SDK Python example
-      x-codeSamples:
-      - lang: TypeScript
-        source: "const response: Promise<FireblocksResponse<JobCreated>> = fireblocks.vaults.createMultipleAccounts(vaultsApiCreateMultipleAccountsRequest);"
-      - lang: Java
-        source: "CompletableFuture<ApiResponse<JobCreated>> response = fireblocks.vaults().createMultipleAccounts(createMultipleAccountsRequest,\
-          \ idempotencyKey);"
-      - lang: Python
-        source: "response = fireblocks.vaults.create_multiple_accounts(create_multiple_accounts_request,\
-          \ idempotency_key);"
-      x-content-type: application/json
-      x-accepts: application/json
   /vault/accounts_paged:
     get:
       description: Gets all vault accounts in your workspace. This endpoint returns
@@ -426,6 +222,18 @@ paths:
           minimum: 1
           type: number
         style: form
+      - description: List of tag IDs to filter vault accounts.
+        explode: true
+        in: query
+        name: tagIds
+        required: false
+        schema:
+          items:
+            format: uuid
+            type: string
+          maxItems: 100
+          type: array
+        style: form
       responses:
         "200":
           content:
@@ -455,12 +263,12 @@ paths:
         - language: java
           code: "CompletableFuture<ApiResponse<VaultAccountsPagedResponse>> response\
             \ = fireblocks.vaults().getPagedVaultAccounts(namePrefix, nameSuffix,\
-            \ minAmountThreshold, assetId, orderBy, before, after, limit);"
+            \ minAmountThreshold, assetId, orderBy, before, after, limit, tagIds);"
           name: Fireblocks SDK Java example
         - language: python
           code: "response = fireblocks.vaults.get_paged_vault_accounts(name_prefix,\
             \ name_suffix, min_amount_threshold, asset_id, order_by, before, after,\
-            \ limit);"
+            \ limit, tag_ids);"
           name: Fireblocks SDK Python example
       x-codeSamples:
       - lang: TypeScript
@@ -469,11 +277,11 @@ paths:
       - lang: Java
         source: "CompletableFuture<ApiResponse<VaultAccountsPagedResponse>> response\
           \ = fireblocks.vaults().getPagedVaultAccounts(namePrefix, nameSuffix, minAmountThreshold,\
-          \ assetId, orderBy, before, after, limit);"
+          \ assetId, orderBy, before, after, limit, tagIds);"
       - lang: Python
         source: "response = fireblocks.vaults.get_paged_vault_accounts(name_prefix,\
           \ name_suffix, min_amount_threshold, asset_id, order_by, before, after,\
-          \ limit);"
+          \ limit, tag_ids);"
       x-accepts: application/json
   /vault/accounts/{vaultAccountId}:
     get:
@@ -2171,6 +1979,383 @@ paths:
         source: "response = fireblocks.vaults.get_unspent_inputs(vault_account_id,\
           \ asset_id);"
       x-accepts: application/json
+  /vault/accounts/bulk:
+    post:
+      description: |
+        Create multiple vault accounts by running an async job. </br>
+        **Note**:
+        - These endpoints are currently in beta and might be subject to changes.
+        - We limit accounts to 10k per operation and 200k per customer during beta testing.
+        Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+      operationId: createMultipleAccounts
+      parameters:
+      - description: "A unique identifier for the request. If the request is sent\
+          \ multiple times with the same idempotency key, the server will return the\
+          \ same response as the first request. The idempotency key is valid for 24\
+          \ hours."
+        explode: false
+        in: header
+        name: Idempotency-Key
+        required: false
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateMultipleAccountsRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JobCreated'
+          description: A JobCreated object
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorSchema'
+          description: Error Response
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+      summary: Bulk creation of new vault accounts
+      tags:
+      - Vaults
+      x-rate-limit-category: write
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<JobCreated>> = fireblocks.vaults.createMultipleAccounts(vaultsApiCreateMultipleAccountsRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<JobCreated>> response = fireblocks.vaults().createMultipleAccounts(createMultipleAccountsRequest,\
+            \ idempotencyKey);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.vaults.create_multiple_accounts(create_multiple_accounts_request,\
+            \ idempotency_key);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<JobCreated>> = fireblocks.vaults.createMultipleAccounts(vaultsApiCreateMultipleAccountsRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<JobCreated>> response = fireblocks.vaults().createMultipleAccounts(createMultipleAccountsRequest,\
+          \ idempotencyKey);"
+      - lang: Python
+        source: "response = fireblocks.vaults.create_multiple_accounts(create_multiple_accounts_request,\
+          \ idempotency_key);"
+      x-content-type: application/json
+      x-accepts: application/json
+  /vault/accounts/bulk/{jobId}:
+    get:
+      description: |
+        Returns the status of bulk creation of new vault accounts job and the result or error
+        Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+      operationId: getCreateMultipleVaultAccountsJobStatus
+      parameters:
+      - description: The ID of the job to create addresses
+        example: 019681b4-107d-7243-942d-4c3c30e36fae
+        explode: false
+        in: path
+        name: jobId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateMultipleVaultAccountsJobStatus'
+          description: A Job with status
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorSchema'
+          description: Error Response
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+      summary: Get job status of bulk creation of new vault accounts
+      tags:
+      - Vaults
+      x-rate-limit-category: async
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<CreateMultipleVaultAccountsJobStatus>>\
+            \ = fireblocks.vaults.getCreateMultipleVaultAccountsJobStatus(vaultsApiGetCreateMultipleVaultAccountsJobStatusRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: CompletableFuture<ApiResponse<CreateMultipleVaultAccountsJobStatus>>
+            response = fireblocks.vaults().getCreateMultipleVaultAccountsJobStatus(jobId);
+          name: Fireblocks SDK Java example
+        - language: python
+          code: response = fireblocks.vaults.get_create_multiple_vault_accounts_job_status(job_id);
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<CreateMultipleVaultAccountsJobStatus>>\
+          \ = fireblocks.vaults.getCreateMultipleVaultAccountsJobStatus(vaultsApiGetCreateMultipleVaultAccountsJobStatusRequest);"
+      - lang: Java
+        source: CompletableFuture<ApiResponse<CreateMultipleVaultAccountsJobStatus>>
+          response = fireblocks.vaults().getCreateMultipleVaultAccountsJobStatus(jobId);
+      - lang: Python
+        source: response = fireblocks.vaults.get_create_multiple_vault_accounts_job_status(job_id);
+      x-accepts: application/json
+  /vault/accounts/addresses/bulk:
+    post:
+      description: |
+        Create multiple deposit address by running an async job. </br>
+        **Note**:
+        - We limit accounts to 10k per operation.
+        Endpoint Permission: Admin, Non-Signing Admin.
+      operationId: createMultipleDepositAddresses
+      parameters:
+      - description: "A unique identifier for the request. If the request is sent\
+          \ multiple times with the same idempotency key, the server will return the\
+          \ same response as the first request. The idempotency key is valid for 24\
+          \ hours."
+        explode: false
+        in: header
+        name: Idempotency-Key
+        required: false
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateMultipleDepositAddressesRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JobCreated'
+          description: A JobCreated object
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorSchema'
+          description: Error Response
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+      summary: Bulk creation of new deposit addresses
+      tags:
+      - Vaults
+      x-rate-limit-category: async
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<JobCreated>> = fireblocks.vaults.createMultipleDepositAddresses(vaultsApiCreateMultipleDepositAddressesRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<JobCreated>> response = fireblocks.vaults().createMultipleDepositAddresses(createMultipleDepositAddressesRequest,\
+            \ idempotencyKey);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.vaults.create_multiple_deposit_addresses(create_multiple_deposit_addresses_request,\
+            \ idempotency_key);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<JobCreated>> = fireblocks.vaults.createMultipleDepositAddresses(vaultsApiCreateMultipleDepositAddressesRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<JobCreated>> response = fireblocks.vaults().createMultipleDepositAddresses(createMultipleDepositAddressesRequest,\
+          \ idempotencyKey);"
+      - lang: Python
+        source: "response = fireblocks.vaults.create_multiple_deposit_addresses(create_multiple_deposit_addresses_request,\
+          \ idempotency_key);"
+      x-content-type: application/json
+      x-accepts: application/json
+  /vault/accounts/attached_tags/attach:
+    post:
+      description: Attach one or more tags to the requested vault accounts.
+      operationId: attachTagsToVaultAccounts
+      parameters:
+      - description: "A unique identifier for the request. If the request is sent\
+          \ multiple times with the same idempotency key, the server will return the\
+          \ same response as the first request. The idempotency key is valid for 24\
+          \ hours."
+        explode: false
+        in: header
+        name: Idempotency-Key
+        required: false
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VaultAccountsTagAttachmentsRequest'
+        required: true
+      responses:
+        "204":
+          description: Tags were attached successfully
+      summary: Attach tags to a vault accounts
+      tags:
+      - Vaults
+      x-rate-limit-category: write
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<void>> = fireblocks.vaults.attachTagsToVaultAccounts(vaultsApiAttachTagsToVaultAccountsRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<Void>> response = fireblocks.vaults().attachTagsToVaultAccounts(vaultAccountsTagAttachmentsRequest,\
+            \ idempotencyKey);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.vaults.attach_tags_to_vault_accounts(vault_accounts_tag_attachments_request,\
+            \ idempotency_key);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<void>> = fireblocks.vaults.attachTagsToVaultAccounts(vaultsApiAttachTagsToVaultAccountsRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<Void>> response = fireblocks.vaults().attachTagsToVaultAccounts(vaultAccountsTagAttachmentsRequest,\
+          \ idempotencyKey);"
+      - lang: Python
+        source: "response = fireblocks.vaults.attach_tags_to_vault_accounts(vault_accounts_tag_attachments_request,\
+          \ idempotency_key);"
+      x-content-type: application/json
+      x-accepts: application/json
+  /vault/accounts/attached_tags/detach:
+    post:
+      description: Detach one or more tags from the requested vault account.
+      operationId: detachTagsFromVaultAccounts
+      parameters:
+      - description: "A unique identifier for the request. If the request is sent\
+          \ multiple times with the same idempotency key, the server will return the\
+          \ same response as the first request. The idempotency key is valid for 24\
+          \ hours."
+        explode: false
+        in: header
+        name: Idempotency-Key
+        required: false
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VaultAccountsTagAttachmentsRequest'
+        required: true
+      responses:
+        "204":
+          description: Tags were detached successfully
+      summary: Detach tags from a vault accounts
+      tags:
+      - Vaults
+      x-rate-limit-category: write
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<void>> = fireblocks.vaults.detachTagsFromVaultAccounts(vaultsApiDetachTagsFromVaultAccountsRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<Void>> response = fireblocks.vaults().detachTagsFromVaultAccounts(vaultAccountsTagAttachmentsRequest,\
+            \ idempotencyKey);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.vaults.detach_tags_from_vault_accounts(vault_accounts_tag_attachments_request,\
+            \ idempotency_key);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<void>> = fireblocks.vaults.detachTagsFromVaultAccounts(vaultsApiDetachTagsFromVaultAccountsRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<Void>> response = fireblocks.vaults().detachTagsFromVaultAccounts(vaultAccountsTagAttachmentsRequest,\
+          \ idempotencyKey);"
+      - lang: Python
+        source: "response = fireblocks.vaults.detach_tags_from_vault_accounts(vault_accounts_tag_attachments_request,\
+          \ idempotency_key);"
+      x-content-type: application/json
+      x-accepts: application/json
+  /vault/accounts/addresses/bulk/{jobId}:
+    get:
+      description: |
+        Returns the status of bulk creation of new deposit addresses job and the result or error
+        Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+      operationId: getCreateMultipleDepositAddressesJobStatus
+      parameters:
+      - description: The ID of the job to create addresses
+        example: 019681b4-107d-7243-942d-4c3c30e36fae
+        explode: false
+        in: path
+        name: jobId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateMultipleDepositAddressesJobStatus'
+          description: A Job with status
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorSchema'
+          description: Error Response
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+      summary: Get job status of bulk creation of new deposit addresses
+      tags:
+      - Vaults
+      x-rate-limit-category: read
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<CreateMultipleDepositAddressesJobStatus>>\
+            \ = fireblocks.vaults.getCreateMultipleDepositAddressesJobStatus(vaultsApiGetCreateMultipleDepositAddressesJobStatusRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: CompletableFuture<ApiResponse<CreateMultipleDepositAddressesJobStatus>>
+            response = fireblocks.vaults().getCreateMultipleDepositAddressesJobStatus(jobId);
+          name: Fireblocks SDK Java example
+        - language: python
+          code: response = fireblocks.vaults.get_create_multiple_deposit_addresses_job_status(job_id);
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<CreateMultipleDepositAddressesJobStatus>>\
+          \ = fireblocks.vaults.getCreateMultipleDepositAddressesJobStatus(vaultsApiGetCreateMultipleDepositAddressesJobStatusRequest);"
+      - lang: Java
+        source: CompletableFuture<ApiResponse<CreateMultipleDepositAddressesJobStatus>>
+          response = fireblocks.vaults().getCreateMultipleDepositAddressesJobStatus(jobId);
+      - lang: Python
+        source: response = fireblocks.vaults.get_create_multiple_deposit_addresses_job_status(job_id);
+      x-accepts: application/json
   /vault/public_key_info:
     get:
       description: Gets the public key information based on derivation path and signing
@@ -2619,6 +2804,7 @@ paths:
       summary: Retrieve supported assets
       tags:
       - Embedded Wallets
+      x-rate-limit-category: query
       x-readme:
         code-samples:
         - language: typescript
@@ -2727,6 +2913,7 @@ paths:
       summary: List wallets
       tags:
       - Embedded Wallets
+      x-rate-limit-category: query
       x-readme:
         code-samples:
         - language: typescript
@@ -2791,6 +2978,7 @@ paths:
       summary: Create a new wallet
       tags:
       - Embedded Wallets
+      x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: typescript
@@ -2846,6 +3034,7 @@ paths:
       summary: Get a wallet
       tags:
       - Embedded Wallets
+      x-rate-limit-category: read
       x-readme:
         code-samples:
         - language: typescript
@@ -2921,6 +3110,7 @@ paths:
       summary: Retrieve asset
       tags:
       - Embedded Wallets
+      x-rate-limit-category: read
       x-readme:
         code-samples:
         - language: typescript
@@ -3011,6 +3201,7 @@ paths:
       summary: Add asset to account
       tags:
       - Embedded Wallets
+      x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: typescript
@@ -3090,6 +3281,7 @@ paths:
       summary: Retrieve asset balance
       tags:
       - Embedded Wallets
+      x-rate-limit-category: read
       x-readme:
         code-samples:
         - language: typescript
@@ -3182,6 +3374,7 @@ paths:
       summary: Refresh asset balance
       tags:
       - Embedded Wallets
+      x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: typescript
@@ -3316,6 +3509,7 @@ paths:
       summary: Retrieve asset addresses
       tags:
       - Embedded Wallets
+      x-rate-limit-category: query
       x-readme:
         code-samples:
         - language: typescript
@@ -3391,6 +3585,7 @@ paths:
       summary: Create a new account
       tags:
       - Embedded Wallets
+      x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: typescript
@@ -3461,6 +3656,7 @@ paths:
       summary: Get a account
       tags:
       - Embedded Wallets
+      x-rate-limit-category: read
       x-readme:
         code-samples:
         - language: typescript
@@ -3523,6 +3719,7 @@ paths:
       summary: Get wallet Latest Backup details
       tags:
       - Embedded Wallets
+      x-rate-limit-category: read
       x-readme:
         code-samples:
         - language: typescript
@@ -3591,6 +3788,7 @@ paths:
       summary: Get Embedded Wallet Device
       tags:
       - Embedded Wallets
+      x-rate-limit-category: read
       x-readme:
         code-samples:
         - language: typescript
@@ -3662,6 +3860,7 @@ paths:
       summary: Get device key setup state
       tags:
       - Embedded Wallets
+      x-rate-limit-category: read
       x-readme:
         code-samples:
         - language: typescript
@@ -3774,6 +3973,7 @@ paths:
       summary: Get the public key for a derivation path
       tags:
       - Embedded Wallets
+      x-rate-limit-category: read
       x-readme:
         code-samples:
         - language: javascript
@@ -3898,6 +4098,7 @@ paths:
       summary: Get the public key of an asset
       tags:
       - Embedded Wallets
+      x-rate-limit-category: read
       x-readme:
         code-samples:
         - language: javascript
@@ -4024,6 +4225,7 @@ paths:
       tags:
       - Embedded Wallets
       x-internal: true
+      x-rate-limit-category: read
       x-readme:
         code-samples:
         - language: python
@@ -5360,6 +5562,7 @@ paths:
       summary: Get a network connection
       tags:
       - Network connections
+      x-rate-limit-category: read
       x-readme:
         code-samples:
         - language: python
@@ -5572,6 +5775,7 @@ paths:
       summary: Returns all enabled routing policy asset groups
       tags:
       - Network connections
+      x-rate-limit-category: query
       x-readme:
         code-samples:
         - language: typescript
@@ -6725,6 +6929,7 @@ paths:
       summary: Get an asset from an internal wallet
       tags:
       - Internal wallets
+      x-rate-limit-category: read
       x-readme:
         code-samples:
         - language: python
@@ -6826,6 +7031,7 @@ paths:
       summary: Add an asset to an internal wallet
       tags:
       - Internal wallets
+      x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: python
@@ -8913,6 +9119,7 @@ paths:
       summary: List assets
       tags:
       - Blockchains & assets
+      x-rate-limit-category: query
       x-readme:
         code-samples:
         - language: python
@@ -9168,6 +9375,105 @@ paths:
       - lang: Python
         source: "response = fireblocks.blockchains_&_assets.get_asset(id, idempotency_key);"
       x-accepts: application/json
+    patch:
+      description: |-
+        Update the user’s metadata for an asset.
+
+        Endpoint Permission: Owner, Admin, Non-Signing Admin, NCW Admin, Signer, Editor.
+      operationId: updateAssetUserMetadata
+      parameters:
+      - description: The ID or legacyId of the asset
+        example: ETH
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+          x-fb-entity: asset
+        style: simple
+      - description: "A unique identifier for the request. If the request is sent\
+          \ multiple times with the same idempotency key, the server will return the\
+          \ same response as the first request. The idempotency key is valid for 24\
+          \ hours."
+        explode: false
+        in: header
+        name: Idempotency-Key
+        required: false
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateAssetUserMetadataRequest'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Asset'
+          description: Updated asset user metadata
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AssetNotFoundErrorResponse'
+          description: |
+            - Asset with specified ID or legacy ID is not found. Error code 1504
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AssetInternalServerErrorResponse'
+          description: Error occurred while updating asset user metadata
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorSchema'
+          description: Error Response
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+      summary: Update the user’s metadata for an asset
+      tags:
+      - Blockchains & assets
+      x-rate-limit-category: write
+      x-readme:
+        code-samples:
+        - language: python
+          code: "asset = fireblocks.update_asset_user_metadata(asset_id, update_asset_user_metadata_request)"
+          name: Fireblocks SDK Python example (Legacy)
+        - language: javascript
+          code: "const asset = await fireblocks.updateAssetUserMetadata(assetId, updateAssetUserMetadataRequest);"
+          name: Fireblocks SDK Javascript example
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<Asset>> = fireblocks.blockchainsAssets.updateAssetUserMetadata(blockchainsAssetsApiUpdateAssetUserMetadataRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<Asset>> response = fireblocks.blockchainsAssets().updateAssetUserMetadata(id,\
+            \ updateAssetUserMetadataRequest, idempotencyKey);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.blockchains_&_assets.update_asset_user_metadata(id,\
+            \ update_asset_user_metadata_request, idempotency_key);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<Asset>> = fireblocks.blockchainsAssets.updateAssetUserMetadata(blockchainsAssetsApiUpdateAssetUserMetadataRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<Asset>> response = fireblocks.blockchainsAssets().updateAssetUserMetadata(id,\
+          \ updateAssetUserMetadataRequest, idempotencyKey);"
+      - lang: Python
+        source: "response = fireblocks.blockchains_&_assets.update_asset_user_metadata(id,\
+          \ update_asset_user_metadata_request, idempotency_key);"
+      x-content-type: application/json
+      x-accepts: application/json
   /assets/prices/{id}:
     post:
       description: |
@@ -9232,6 +9538,7 @@ paths:
       summary: Set asset price
       tags:
       - Blockchains & assets
+      x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: python
@@ -9358,6 +9665,7 @@ paths:
       summary: List blockchains
       tags:
       - Blockchains & assets
+      x-rate-limit-category: query
       x-readme:
         code-samples:
         - language: python
@@ -9441,6 +9749,7 @@ paths:
       summary: Get an blockchain
       tags:
       - Blockchains & assets
+      x-rate-limit-category: read
       x-readme:
         code-samples:
         - language: python
@@ -11121,6 +11430,7 @@ paths:
       tags:
       - Payments - Flows
       x-internal: true
+      x-rate-limit-category: write
       x-content-type: application/json
       x-accepts: application/json
   /payments/workflow_config/{configId}:
@@ -11159,6 +11469,7 @@ paths:
       tags:
       - Payments - Flows
       x-internal: true
+      x-rate-limit-category: write
       x-accepts: application/json
     get:
       description: Retrieve a previously created workflow configuration using the
@@ -11196,6 +11507,7 @@ paths:
       tags:
       - Payments - Flows
       x-internal: true
+      x-rate-limit-category: read
       x-accepts: application/json
   /payments/workflow_execution:
     post:
@@ -11249,6 +11561,7 @@ paths:
       tags:
       - Payments - Flows
       x-internal: true
+      x-rate-limit-category: write
       x-content-type: application/json
       x-accepts: application/json
   /payments/workflow_execution/{workflowExecutionId}:
@@ -11288,6 +11601,7 @@ paths:
       tags:
       - Payments - Flows
       x-internal: true
+      x-rate-limit-category: read
       x-accepts: application/json
   /payments/workflow_execution/{workflowExecutionId}/actions/execute:
     post:
@@ -11340,6 +11654,7 @@ paths:
       tags:
       - Payments - Flows
       x-internal: true
+      x-rate-limit-category: write
       x-accepts: application/json
   /gas_station:
     get:
@@ -11853,6 +12168,7 @@ paths:
       summary: Get user group
       tags:
       - User groups (Beta)
+      x-rate-limit-category: read
       x-readme:
         code-samples:
         - language: typescript
@@ -11930,6 +12246,7 @@ paths:
       summary: Update user group
       tags:
       - User groups (Beta)
+      x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: typescript
@@ -13370,6 +13687,7 @@ paths:
       summary: List all contract templates
       tags:
       - Contract Templates
+      x-rate-limit-category: query
       x-readme:
         code-samples:
         - language: python
@@ -13444,6 +13762,7 @@ paths:
       summary: Upload contract template
       tags:
       - Contract Templates
+      x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: python
@@ -13512,6 +13831,7 @@ paths:
       summary: Delete a contract template by id
       tags:
       - Contract Templates
+      x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: python
@@ -13575,6 +13895,7 @@ paths:
       summary: Return contract template by id
       tags:
       - Contract Templates
+      x-rate-limit-category: read
       x-readme:
         code-samples:
         - language: python
@@ -13650,6 +13971,7 @@ paths:
       summary: Return contract template's constructor
       tags:
       - Contract Templates
+      x-rate-limit-category: read
       x-readme:
         code-samples:
         - language: python
@@ -13725,6 +14047,7 @@ paths:
       summary: Return contract template's function
       tags:
       - Contract Templates
+      x-rate-limit-category: read
       x-readme:
         code-samples:
         - language: typescript
@@ -13805,6 +14128,7 @@ paths:
       summary: Deploy contract
       tags:
       - Contract Templates
+      x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: python
@@ -13908,6 +14232,7 @@ paths:
       summary: List deployed contracts data
       tags:
       - Deployed Contracts
+      x-rate-limit-category: query
       x-readme:
         code-samples:
         - language: python
@@ -13974,6 +14299,7 @@ paths:
       summary: Return deployed contract data by id
       tags:
       - Deployed Contracts
+      x-rate-limit-category: read
       x-readme:
         code-samples:
         - language: python
@@ -14044,6 +14370,7 @@ paths:
       summary: Return deployed contract data
       tags:
       - Deployed Contracts
+      x-rate-limit-category: read
       x-readme:
         code-samples:
         - language: python
@@ -14122,6 +14449,7 @@ paths:
       summary: Fetch the contract ABI
       tags:
       - Deployed Contracts
+      x-rate-limit-category: read
       x-readme:
         code-samples:
         - language: typescript
@@ -14191,6 +14519,7 @@ paths:
       summary: Save contract ABI
       tags:
       - Deployed Contracts
+      x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: typescript
@@ -15412,6 +15741,7 @@ paths:
       summary: Return deployed contract's ABI
       tags:
       - Contract Interactions
+      x-rate-limit-category: read
       x-readme:
         code-samples:
         - language: python
@@ -15682,6 +16012,7 @@ paths:
       summary: Get transaction receipt
       tags:
       - Contract Interactions
+      x-rate-limit-category: read
       x-readme:
         code-samples:
         - language: python
@@ -15716,6 +16047,108 @@ paths:
       - lang: Python
         source: "response = fireblocks.contract_interactions.get_transaction_receipt(base_asset_id,\
           \ tx_hash);"
+      x-accepts: application/json
+  /contract_interactions/base_asset_id/{baseAssetId}/contract_address/{contractAddress}/decode:
+    post:
+      description: "Decode a function call data, error, or event log from a deployed\
+        \ contract by blockchain native asset id and contract address."
+      operationId: decodeContractData
+      parameters:
+      - description: "A unique identifier for the request. If the request is sent\
+          \ multiple times with the same idempotency key, the server will return the\
+          \ same response as the first request. The idempotency key is valid for 24\
+          \ hours."
+        explode: false
+        in: header
+        name: Idempotency-Key
+        required: false
+        schema:
+          type: string
+        style: simple
+      - description: The contract's onchain address
+        example: 0xC2c4e1Db41F0bB97996D0eD0542D2170d146FB66
+        explode: false
+        in: path
+        name: contractAddress
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: The blockchain native asset identifier
+        example: ETH
+        explode: false
+        in: path
+        name: baseAssetId
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ContractDataDecodeRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContractDataDecodedResponse'
+          description: Decoded data retrieved successfully
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContractDataDecodeError'
+          description: "Bad request, invalid input data or parameters"
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorSchema'
+          description: Error Response
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+      summary: "Decode a function call data, error, or event log"
+      tags:
+      - Contract Interactions
+      x-rate-limit-category: read
+      x-readme:
+        code-samples:
+        - language: javascript
+          code: |-
+            const payload = {
+              "data": "0xcd21db4f000000000000000000000000000000000000000000000000000000006790c645",
+              "dataType": "ERROR"
+            } const decodeResponse = await fireblocks.decodeContractData(baseAssetId, contractAddress, payload);
+          name: Fireblocks SDK Javascript example
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<ContractDataDecodedResponse>>\
+            \ = fireblocks.contractInteractions.decodeContractData(contractInteractionsApiDecodeContractDataRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<ContractDataDecodedResponse>> response\
+            \ = fireblocks.contractInteractions().decodeContractData(contractDataDecodeRequest,\
+            \ contractAddress, baseAssetId, idempotencyKey);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.contract_interactions.decode_contract_data(contract_data_decode_request,\
+            \ contract_address, base_asset_id, idempotency_key);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<ContractDataDecodedResponse>>\
+          \ = fireblocks.contractInteractions.decodeContractData(contractInteractionsApiDecodeContractDataRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<ContractDataDecodedResponse>> response\
+          \ = fireblocks.contractInteractions().decodeContractData(contractDataDecodeRequest,\
+          \ contractAddress, baseAssetId, idempotencyKey);"
+      - lang: Python
+        source: "response = fireblocks.contract_interactions.decode_contract_data(contract_data_decode_request,\
+          \ contract_address, base_asset_id, idempotency_key);"
+      x-content-type: application/json
       x-accepts: application/json
   /staking/chains:
     get:
@@ -16275,6 +16708,7 @@ paths:
       summary: Merge Solana on stake accounts
       tags:
       - Staking
+      x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: typescript
@@ -16747,6 +17181,7 @@ paths:
       summary: Get Providers List
       tags:
       - Swap (Beta)
+      x-rate-limit-category: query
       x-readme:
         code-samples:
         - language: typescript
@@ -16788,6 +17223,7 @@ paths:
         name: providerId
         required: true
         schema:
+          format: uuid
           type: string
         style: simple
       - description: "A unique identifier for the request. If the request is sent\
@@ -16820,6 +17256,7 @@ paths:
       summary: Approve terms of service
       tags:
       - Swap (Beta)
+      x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: typescript
@@ -16860,6 +17297,7 @@ paths:
         name: providerId
         required: true
         schema:
+          format: uuid
           type: string
         style: simple
       - description: "A unique identifier for the request. If the request is sent\
@@ -16899,6 +17337,7 @@ paths:
       summary: Create a quote
       tags:
       - Swap (Beta)
+      x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: typescript
@@ -16976,6 +17415,7 @@ paths:
       summary: Get Operations list
       tags:
       - Swap (Beta)
+      x-rate-limit-category: read
       x-readme:
         code-samples:
         - language: typescript
@@ -17048,6 +17488,7 @@ paths:
       summary: Create swap operation
       tags:
       - Swap (Beta)
+      x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: typescript
@@ -17110,6 +17551,7 @@ paths:
       summary: Get operation details
       tags:
       - Swap (Beta)
+      x-rate-limit-category: read
       x-readme:
         code-samples:
         - language: typescript
@@ -17473,6 +17915,7 @@ paths:
       summary: Refresh vault account tokens
       tags:
       - NFTs
+      x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: typescript
@@ -17865,6 +18308,7 @@ paths:
       summary: Refresh token metadata
       tags:
       - NFTs
+      x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: typescript
@@ -19028,6 +19472,7 @@ paths:
       summary: Get assigned VASP to vault
       tags:
       - Travel Rule
+      x-rate-limit-category: read
       x-readme:
         code-samples:
         - language: javascript
@@ -19284,6 +19729,7 @@ paths:
       summary: Update Travel Rule Configuration
       tags:
       - Compliance
+      x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: typescript
@@ -19506,6 +19952,7 @@ paths:
       summary: Tenant - Screening Configuration
       tags:
       - Compliance
+      x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: typescript
@@ -22632,6 +23079,305 @@ paths:
       - lang: Python
         source: response = fireblocks.job_management.get_job_tasks(job_id);
       x-accepts: application/json
+  /tags:
+    get:
+      description: Retrieve a paged list of all tags according to filters.
+      operationId: getTags
+      parameters:
+      - description: Page cursor to get the next page.
+        example: MjAyMy0xMi0xMyAyMDozNjowOC4zMDI=:MTEwMA==
+        explode: true
+        in: query
+        name: pageCursor
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: Maximum number of items in the page
+        explode: true
+        in: query
+        name: pageSize
+        required: false
+        schema:
+          default: 100
+          maximum: 100
+          minimum: 1
+          type: number
+        style: form
+      - description: Label prefix to filter by.
+        example: VIP
+        explode: true
+        in: query
+        name: label
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: List of tag IDs to filter by.
+        explode: true
+        in: query
+        name: tagIds
+        required: false
+        schema:
+          items:
+            format: uuid
+            type: string
+          maxItems: 100
+          type: array
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TagsPagedResponse'
+          description: A TagsPagedResponse object
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+      summary: Get list of tags
+      tags:
+      - Tags
+      x-rate-limit-category: query
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<TagsPagedResponse>> =\
+            \ fireblocks.tags.getTags(tagsApiGetTagsRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<TagsPagedResponse>> response = fireblocks.tags().getTags(pageCursor,\
+            \ pageSize, label, tagIds);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.tags.get_tags(page_cursor, page_size, label,\
+            \ tag_ids);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<TagsPagedResponse>> =\
+          \ fireblocks.tags.getTags(tagsApiGetTagsRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<TagsPagedResponse>> response = fireblocks.tags().getTags(pageCursor,\
+          \ pageSize, label, tagIds);"
+      - lang: Python
+        source: "response = fireblocks.tags.get_tags(page_cursor, page_size, label,\
+          \ tag_ids);"
+      x-accepts: application/json
+    post:
+      description: Create a new tag.
+      operationId: createTag
+      parameters:
+      - description: "A unique identifier for the request. If the request is sent\
+          \ multiple times with the same idempotency key, the server will return the\
+          \ same response as the first request. The idempotency key is valid for 24\
+          \ hours."
+        explode: false
+        in: header
+        name: Idempotency-Key
+        required: false
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateTagRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tag'
+          description: A tag object
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+      summary: Create a tag
+      tags:
+      - Tags
+      x-rate-limit-category: write
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<Tag>> = fireblocks.tags.createTag(tagsApiCreateTagRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<Tag>> response = fireblocks.tags().createTag(createTagRequest,\
+            \ idempotencyKey);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.tags.create_tag(create_tag_request, idempotency_key);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<Tag>> = fireblocks.tags.createTag(tagsApiCreateTagRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<Tag>> response = fireblocks.tags().createTag(createTagRequest,\
+          \ idempotencyKey);"
+      - lang: Python
+        source: "response = fireblocks.tags.create_tag(create_tag_request, idempotency_key);"
+      x-content-type: application/json
+      x-accepts: application/json
+  /tags/{tagId}:
+    delete:
+      description: Delete the specified tag.
+      operationId: deleteTag
+      parameters:
+      - description: The ID of the tag to retrieve
+        explode: false
+        in: path
+        name: tagId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      responses:
+        "204":
+          description: Tag was deleted successfully
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+      summary: Delete a tag
+      tags:
+      - Tags
+      x-rate-limit-category: write
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<void>> = fireblocks.tags.deleteTag(tagsApiDeleteTagRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: CompletableFuture<ApiResponse<Void>> response = fireblocks.tags().deleteTag(tagId);
+          name: Fireblocks SDK Java example
+        - language: python
+          code: response = fireblocks.tags.delete_tag(tag_id);
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<void>> = fireblocks.tags.deleteTag(tagsApiDeleteTagRequest);"
+      - lang: Java
+        source: CompletableFuture<ApiResponse<Void>> response = fireblocks.tags().deleteTag(tagId);
+      - lang: Python
+        source: response = fireblocks.tags.delete_tag(tag_id);
+      x-accepts: application/json
+    get:
+      description: Retrieve an existing tag by ID.
+      operationId: getTag
+      parameters:
+      - description: The ID of the tag to retrieve
+        explode: false
+        in: path
+        name: tagId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tag'
+          description: A tag object
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+      summary: Get a tag
+      tags:
+      - Tags
+      x-rate-limit-category: read
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<Tag>> = fireblocks.tags.getTag(tagsApiGetTagRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: CompletableFuture<ApiResponse<Tag>> response = fireblocks.tags().getTag(tagId);
+          name: Fireblocks SDK Java example
+        - language: python
+          code: response = fireblocks.tags.get_tag(tag_id);
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<Tag>> = fireblocks.tags.getTag(tagsApiGetTagRequest);"
+      - lang: Java
+        source: CompletableFuture<ApiResponse<Tag>> response = fireblocks.tags().getTag(tagId);
+      - lang: Python
+        source: response = fireblocks.tags.get_tag(tag_id);
+      x-accepts: application/json
+    patch:
+      description: Update an existing specified tag.
+      operationId: updateTag
+      parameters:
+      - description: The ID of the tag to update
+        explode: false
+        in: path
+        name: tagId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: "A unique identifier for the request. If the request is sent\
+          \ multiple times with the same idempotency key, the server will return the\
+          \ same response as the first request. The idempotency key is valid for 24\
+          \ hours."
+        explode: false
+        in: header
+        name: Idempotency-Key
+        required: false
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateTagRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tag'
+          description: A tag object
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+      summary: Update a tag
+      tags:
+      - Tags
+      x-rate-limit-category: write
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<Tag>> = fireblocks.tags.updateTag(tagsApiUpdateTagRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<Tag>> response = fireblocks.tags().updateTag(updateTagRequest,\
+            \ tagId, idempotencyKey);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.tags.update_tag(update_tag_request, tag_id,\
+            \ idempotency_key);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<Tag>> = fireblocks.tags.updateTag(tagsApiUpdateTagRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<Tag>> response = fireblocks.tags().updateTag(updateTagRequest,\
+          \ tagId, idempotencyKey);"
+      - lang: Python
+        source: "response = fireblocks.tags.update_tag(update_tag_request, tag_id,\
+          \ idempotency_key);"
+      x-content-type: application/json
+      x-accepts: application/json
   /cosigners:
     get:
       description: |
@@ -23575,6 +24321,29 @@ components:
         rewardsInfo:
           $ref: '#/components/schemas/RewardsInfo'
       type: object
+    Tag:
+      example:
+        description: Tag for VIP customers
+        id: df4c0987-30da-4976-8dcf-bc2dd41ae331
+        label: VIP
+      properties:
+        id:
+          description: The unique identifier of the tag
+          example: df4c0987-30da-4976-8dcf-bc2dd41ae331
+          format: uuid
+          type: string
+        label:
+          description: The tag label
+          example: VIP
+          type: string
+        description:
+          description: Description for the tag
+          example: Tag for VIP customers
+          type: string
+      required:
+      - id
+      - label
+      type: object
     VaultAccount:
       example:
         assets:
@@ -23619,6 +24388,13 @@ components:
         id: id
         customerRefId: customerRefId
         autoFuel: true
+        tags:
+        - description: Tag for VIP customers
+          id: df4c0987-30da-4976-8dcf-bc2dd41ae331
+          label: VIP
+        - description: Tag for VIP customers
+          id: df4c0987-30da-4976-8dcf-bc2dd41ae331
+          label: VIP
       properties:
         id:
           type: string
@@ -23634,6 +24410,11 @@ components:
           type: string
         autoFuel:
           type: boolean
+        tags:
+          description: List of tags attached to the vault account
+          items:
+            $ref: '#/components/schemas/Tag'
+          type: array
       type: object
     GetVaultAccountsResponse:
       items:
@@ -23679,122 +24460,6 @@ components:
             \ it will return an error.<br/> If set to false, the vault account will\
             \ be created without any keys."
           type: boolean
-      type: object
-    CreateMultipleDepositAddressesRequest:
-      example:
-        assetId: ADA
-        vaultAccountToCopyDescFrom: 0
-        vaultAccountToCopyDescFromIndex: 1000
-        count: 10
-        vaultAccountId: 5
-        descriptions:
-        - First address
-        - Second address
-        - df4c0987-30da-4976-8dcf-bc2dd41ae331
-      properties:
-        vaultAccountId:
-          description: Existing Vault account ID to add deposit addresses to
-          example: 5
-          type: integer
-        assetId:
-          description: asset ID
-          example: ADA
-          type: string
-        count:
-          description: Count of deposit addresses to issue
-          example: 10
-          type: integer
-        descriptions:
-          description: Desctiptions of the newly created addresses
-          example:
-          - First address
-          - Second address
-          - df4c0987-30da-4976-8dcf-bc2dd41ae331
-          items:
-            type: string
-          type: array
-        vaultAccountToCopyDescFrom:
-          description: Existing Vault Account ID to copy deposit addresses descriptions
-            from in case no descriptions were provided
-          example: 0
-          type: integer
-        vaultAccountToCopyDescFromIndex:
-          description: Existing length within the vault account to copy deposit addresses
-            descriptions from
-          example: 1000
-          type: integer
-      required:
-      - assetId
-      - count
-      - vaultAccountId
-      type: object
-    JobCreated:
-      example:
-        jobId: jobId
-      properties:
-        jobId:
-          type: string
-      type: object
-    NewAddress:
-      properties:
-        address:
-          description: The address string.
-          example: addr_test1qp07k5kdwdfx4rpfqud8ry65acxgtgfgrxw0t35cwvl4uasjneqjdc868eqlex5p2f0nyekyyk4ze5xuanvj50ysrj3qqxqhsn
-          type: string
-        index:
-          description: The index of the address in the list.
-          example: 0
-          type: integer
-        description:
-          description: A description of the address.
-          example: Address one
-          type: string
-      required:
-      - address
-      - description
-      - index
-      type: object
-    CreateMultipleDepositAddressesJobStatus:
-      example:
-        addresses:
-        - address: addr_test1qp07k5kdwdfx4rpfqud8ry65acxgtgfgrxw0t35cwvl4uasjneqjdc868eqlex5p2f0nyekyyk4ze5xuanvj50ysrj3qqxqhsn
-          index: 0
-          descriptio: Address one
-        errorMessage: Asset not supported
-        status: Success
-      properties:
-        status:
-          example: Success
-          type: string
-        addresses:
-          example:
-          - address: addr_test1qp07k5kdwdfx4rpfqud8ry65acxgtgfgrxw0t35cwvl4uasjneqjdc868eqlex5p2f0nyekyyk4ze5xuanvj50ysrj3qqxqhsn
-            index: 0
-            descriptio: Address one
-          items:
-            $ref: '#/components/schemas/NewAddress'
-          type: array
-        errorMessage:
-          example: Asset not supported
-          type: string
-      required:
-      - status
-      type: object
-    CreateMultipleAccountsRequest:
-      example:
-        count: 0
-        assetIds:
-        - assetIds
-        - assetIds
-      properties:
-        count:
-          description: Count
-          type: integer
-        assetIds:
-          description: Array of asset IDs
-          items:
-            type: string
-          type: array
       type: object
     VaultAccountsPagedResponse:
       example:
@@ -23845,6 +24510,13 @@ components:
           id: id
           customerRefId: customerRefId
           autoFuel: true
+          tags:
+          - description: Tag for VIP customers
+            id: df4c0987-30da-4976-8dcf-bc2dd41ae331
+            label: VIP
+          - description: Tag for VIP customers
+            id: df4c0987-30da-4976-8dcf-bc2dd41ae331
+            label: VIP
         - assets:
           - totalStakedCPU: totalStakedCPU
             blockHash: blockHash
@@ -23887,6 +24559,13 @@ components:
           id: id
           customerRefId: customerRefId
           autoFuel: true
+          tags:
+          - description: Tag for VIP customers
+            id: df4c0987-30da-4976-8dcf-bc2dd41ae331
+            label: VIP
+          - description: Tag for VIP customers
+            id: df4c0987-30da-4976-8dcf-bc2dd41ae331
+            label: VIP
         nextUrl: nextUrl
       properties:
         accounts:
@@ -24244,6 +24923,220 @@ components:
       items:
         $ref: '#/components/schemas/UnspentInputsResponse'
       type: array
+    CreateMultipleAccountsRequest:
+      example:
+        names:
+        - first va
+        - client 65502e71-ecdf-48da-a074-c1753befc7fb
+        prefix: "Copied from: "
+        count: 1000
+        baseAssetIds:
+        - BTC
+        - ETH
+        - SOL
+        vaultAccountNamesStartingIndex: 0
+      properties:
+        count:
+          description: Count
+          example: 1000
+          type: integer
+        baseAssetIds:
+          description: Array of base asset IDs
+          example:
+          - BTC
+          - ETH
+          - SOL
+          items:
+            type: string
+          type: array
+        names:
+          description: Names to assign to vault accounts. if vaultAccountNamesStartingIndex
+            or prefix is used it'll fail
+          example:
+          - first va
+          - client 65502e71-ecdf-48da-a074-c1753befc7fb
+          items:
+            type: string
+          type: array
+        vaultAccountNamesStartingIndex:
+          description: Copy vault accounts names starting from this index. If names
+            array is used it'll fail
+          example: 0
+          type: integer
+        prefix:
+          description: When copying from existing vault accounts (vaultAccountNamesStartingIndex)
+            then adding a prefix to the names. If names array is used it'll fail
+          example: "Copied from: "
+          type: string
+      required:
+      - baseAssetIds
+      - count
+      type: object
+    JobCreated:
+      example:
+        jobId: jobId
+      properties:
+        jobId:
+          type: string
+      type: object
+    CreateMultipleVaultAccountsJobStatus:
+      example:
+        vaultAccounts:
+          "0":
+            BTC_TEST: bcrt1qs0zzqytuw49w2jqkmfhzgdh2lylzde2uw4zncz
+            ETH_TEST: 0x460395Edb2338023c6f137259C6e20B6C37dDE95
+        errorMessage: Asset not supported
+        status: Success
+      properties:
+        status:
+          example: Success
+          type: string
+        vaultAccounts:
+          additionalProperties:
+            additionalProperties:
+              type: string
+            description: Mapping between asset (key) to address (value)
+            type: object
+          description: Mapping between VaultAccountId to a mapping of asset to address
+          example:
+            "0":
+              BTC_TEST: bcrt1qs0zzqytuw49w2jqkmfhzgdh2lylzde2uw4zncz
+              ETH_TEST: 0x460395Edb2338023c6f137259C6e20B6C37dDE95
+          type: object
+        errorMessage:
+          example: Asset not supported
+          type: string
+      required:
+      - status
+      type: object
+    CreateMultipleDepositAddressesRequest:
+      example:
+        assetId: ADA
+        vaultAccountToCopyDescFrom: 0
+        vaultAccountToCopyDescFromIndex: 1000
+        count: 10
+        vaultAccountId: 5
+        descriptions:
+        - First address
+        - Second address
+        - df4c0987-30da-4976-8dcf-bc2dd41ae331
+      properties:
+        vaultAccountId:
+          description: Existing Vault account ID to add deposit addresses to
+          example: 5
+          type: integer
+        assetId:
+          description: asset ID
+          example: ADA
+          type: string
+        count:
+          description: Count of deposit addresses to issue
+          example: 10
+          type: integer
+        descriptions:
+          description: Desctiptions of the newly created addresses
+          example:
+          - First address
+          - Second address
+          - df4c0987-30da-4976-8dcf-bc2dd41ae331
+          items:
+            type: string
+          type: array
+        vaultAccountToCopyDescFrom:
+          description: Existing Vault Account ID to copy deposit addresses descriptions
+            from in case no descriptions were provided
+          example: 0
+          type: integer
+        vaultAccountToCopyDescFromIndex:
+          description: Existing length within the vault account to copy deposit addresses
+            descriptions from
+          example: 1000
+          type: integer
+      required:
+      - assetId
+      - count
+      - vaultAccountId
+      type: object
+    VaultAccountsTagAttachmentsRequest:
+      example:
+        tagIds:
+        - df4c0987-30da-4976-8dcf-bc2dd41ae331
+        - a1b2c3d4-e5f6-7890-abcd-ef1234567890
+        vaultAccountIds:
+        - "0"
+        - "1"
+      properties:
+        tagIds:
+          description: The IDs of the tags to attach
+          example:
+          - df4c0987-30da-4976-8dcf-bc2dd41ae331
+          - a1b2c3d4-e5f6-7890-abcd-ef1234567890
+          items:
+            format: uuid
+            type: string
+          maxItems: 200
+          minItems: 1
+          type: array
+        vaultAccountIds:
+          description: The IDs of the vault accounts to attach tags to
+          example:
+          - "0"
+          - "1"
+          items:
+            format: numeric
+            type: string
+          maxItems: 200
+          minItems: 1
+          type: array
+      required:
+      - tagIds
+      - vaultAccountIds
+      type: object
+    NewAddress:
+      properties:
+        address:
+          description: The address string.
+          example: addr_test1qp07k5kdwdfx4rpfqud8ry65acxgtgfgrxw0t35cwvl4uasjneqjdc868eqlex5p2f0nyekyyk4ze5xuanvj50ysrj3qqxqhsn
+          type: string
+        index:
+          description: The index of the address in the list.
+          example: 0
+          type: integer
+        description:
+          description: A description of the address.
+          example: Address one
+          type: string
+      required:
+      - address
+      - description
+      - index
+      type: object
+    CreateMultipleDepositAddressesJobStatus:
+      example:
+        addresses:
+        - address: addr_test1qp07k5kdwdfx4rpfqud8ry65acxgtgfgrxw0t35cwvl4uasjneqjdc868eqlex5p2f0nyekyyk4ze5xuanvj50ysrj3qqxqhsn
+          index: 0
+          description: Address one
+        errorMessage: Asset not supported
+        status: Success
+      properties:
+        status:
+          example: Success
+          type: string
+        addresses:
+          example:
+          - address: addr_test1qp07k5kdwdfx4rpfqud8ry65acxgtgfgrxw0t35cwvl4uasjneqjdc868eqlex5p2f0nyekyyk4ze5xuanvj50ysrj3qqxqhsn
+            index: 0
+            description: Address one
+          items:
+            $ref: '#/components/schemas/NewAddress'
+          type: array
+        errorMessage:
+          example: Asset not supported
+          type: string
+      required:
+      - status
+      type: object
     PublicKeyInformation:
       example:
         derivationPath:
@@ -26504,11 +27397,48 @@ components:
       - type
       - url
       type: object
+    AssetNote:
+      example:
+        text: Pay attention to gas fees
+        userName: Test test
+        userId: 056776ab-9efa-4219-9820-9ece0cc4d90d
+        updatedAt: 2025-06-08T19:42:49Z
+      properties:
+        text:
+          description: Note content
+          example: Pay attention to gas fees
+          type: string
+        userId:
+          description: Who updated the note (uuid)
+          example: 056776ab-9efa-4219-9820-9ece0cc4d90d
+          format: uuid
+          type: string
+        userName:
+          description: User name
+          example: Test test
+          type: string
+        updatedAt:
+          description: ISO Timestamp when last updated
+          example: 2025-06-08T19:42:49Z
+          format: date-time
+          type: string
+      required:
+      - text
+      - updatedAt
+      - userId
+      - userName
+      type: object
     AssetDetailsMetadata:
       example:
+        note:
+          text: Pay attention to gas fees
+          userName: Test test
+          userId: 056776ab-9efa-4219-9820-9ece0cc4d90d
+          updatedAt: 2025-06-08T19:42:49Z
         website: https://example.org
         scope: GLOBAL
         deprecated: false
+        verified: false
         deprecationReferralId: 056776ab-9efa-4219-9820-9ece0cc4d90d
         media:
         - attributes:
@@ -26522,6 +27452,10 @@ components:
       properties:
         scope:
           $ref: '#/components/schemas/AssetScope'
+        verified:
+          description: Is asset verified by Fireblocks
+          example: false
+          type: boolean
         deprecated:
           description: Is asset deprecated
           example: false
@@ -26539,17 +27473,26 @@ components:
           items:
             $ref: '#/components/schemas/AssetMedia'
           type: array
+        note:
+          $ref: '#/components/schemas/AssetNote'
       required:
       - deprecated
       - scope
+      - verified
       type: object
     Asset:
       example:
         displaySymbol: USDT
         metadata:
+          note:
+            text: Pay attention to gas fees
+            userName: Test test
+            userId: 056776ab-9efa-4219-9820-9ece0cc4d90d
+            updatedAt: 2025-06-08T19:42:49Z
           website: https://example.org
           scope: GLOBAL
           deprecated: false
+          verified: false
           deprecationReferralId: 056776ab-9efa-4219-9820-9ece0cc4d90d
           media:
           - attributes:
@@ -26613,9 +27556,15 @@ components:
         data:
         - displaySymbol: USDT
           metadata:
+            note:
+              text: Pay attention to gas fees
+              userName: Test test
+              userId: 056776ab-9efa-4219-9820-9ece0cc4d90d
+              updatedAt: 2025-06-08T19:42:49Z
             website: https://example.org
             scope: GLOBAL
             deprecated: false
+            verified: false
             deprecationReferralId: 056776ab-9efa-4219-9820-9ece0cc4d90d
             media:
             - attributes:
@@ -26640,9 +27589,15 @@ components:
             name: Tether USD
         - displaySymbol: USDT
           metadata:
+            note:
+              text: Pay attention to gas fees
+              userName: Test test
+              userId: 056776ab-9efa-4219-9820-9ece0cc4d90d
+              updatedAt: 2025-06-08T19:42:49Z
             website: https://example.org
             scope: GLOBAL
             deprecated: false
+            verified: false
             deprecationReferralId: 056776ab-9efa-4219-9820-9ece0cc4d90d
             media:
             - attributes:
@@ -26898,6 +27853,32 @@ components:
       required:
       - code
       - message
+      type: object
+    AssetNoteRequest:
+      example:
+        text: Pay attention to ETH gas fees
+      properties:
+        text:
+          description: Asset user note
+          example: Pay attention to ETH gas fees
+          type: string
+      type: object
+    AssetMetadataRequest:
+      example:
+        note:
+          text: Pay attention to ETH gas fees
+      properties:
+        note:
+          $ref: '#/components/schemas/AssetNoteRequest'
+      type: object
+    UpdateAssetUserMetadataRequest:
+      example:
+        metadata:
+          note:
+            text: Pay attention to ETH gas fees
+      properties:
+        metadata:
+          $ref: '#/components/schemas/AssetMetadataRequest'
       type: object
     SetAssetPriceRequest:
       example:
@@ -27635,6 +28616,33 @@ components:
           format: date-time
           type: number
       type: object
+    ComplianceResultStatusesEnum:
+      description: Status of compliance result screening.
+      enum:
+      - Started
+      - NetworkConnectionAddressResolve
+      - ScreeningPrepare
+      - AMLStarted
+      - AMLCompleted
+      - AMLFailed
+      - AMLInBackground
+      - TRPreconditionChecks
+      - TRStarted
+      - TRCompleted
+      - TRFailed
+      - Completed
+      - IncomingStarted
+      - IncomingScreeningPrepare
+      - IncomingWaitForFirstConfirmation
+      - AMLIncomingStarted
+      - AMLIncomingCompleted
+      - AMLIncomingFailed
+      - AMLIncomingInBackground
+      - TRIncomingStarted
+      - TRIncomingCompleted
+      - TRIncomingFailed
+      - IncomingCompleted
+      type: string
     AmlRegistrationResult:
       example:
         provider: provider
@@ -27652,21 +28660,13 @@ components:
       description: The result of the Compliance AML/Travel Rule screening.
       example:
         aml:
-        - provider: provider
-          payload: "{}"
-          bypassReason: bypassReason
-          screeningStatus: COMPLETED
-          timestamp: 5.637376656633329
-        - provider: provider
+          provider: provider
           payload: "{}"
           bypassReason: bypassReason
           screeningStatus: COMPLETED
           timestamp: 5.637376656633329
         amlRegistration:
-        - provider: provider
-          success: true
-          timestamp: 2.3021358869347655
-        - provider: provider
+          provider: provider
           success: true
           timestamp: 2.3021358869347655
         amlList:
@@ -27681,66 +28681,26 @@ components:
           screeningStatus: COMPLETED
           timestamp: 5.637376656633329
         tr:
-        - provider: provider
+          provider: provider
           payload: "{}"
           bypassReason: bypassReason
           screeningStatus: COMPLETED
           timestamp: 5.637376656633329
-        - provider: provider
-          payload: "{}"
-          bypassReason: bypassReason
-          screeningStatus: COMPLETED
-          timestamp: 5.637376656633329
-        status: Started
+        status: null
       properties:
         aml:
-          description: The end result of the AML screening.
-          items:
-            $ref: '#/components/schemas/ComplianceScreeningResult'
-          type: array
+          $ref: '#/components/schemas/ComplianceScreeningResult'
         tr:
-          description: The result of the Travel Rule screening.
-          items:
-            $ref: '#/components/schemas/ComplianceScreeningResult'
-          type: array
+          $ref: '#/components/schemas/ComplianceScreeningResult'
         amlList:
           description: The list of all results of the AML screening.
           items:
             $ref: '#/components/schemas/ComplianceScreeningResult'
           type: array
         status:
-          description: Status of compliance result screening.
-          enum:
-          - Started
-          - AMLStarted
-          - AMLCompleted
-          - AMLFailed
-          - AMLInBackground
-          - TRStarted
-          - TRCompleted
-          - TRFailed
-          - Completed
-          - RegistrationStarted
-          - AMLRegistrationStarted
-          - AMLRegistrationCompleted
-          - TRUpdateStarted
-          - TRUpdateCompleted
-          - UpdateCompleted
-          - IncomingStarted
-          - AMLIncomingStarted
-          - AMLIncomingCompleted
-          - AMLIncomingFailed
-          - AMLIncomingInBackground
-          - TRIncomingStarted
-          - TRIncomingCompleted
-          - TRIncomingFailed
-          - IncomingCompleted
-          type: string
+          $ref: '#/components/schemas/ComplianceResultStatusesEnum'
         amlRegistration:
-          description: The results of the AML address registration.
-          items:
-            $ref: '#/components/schemas/AmlRegistrationResult'
-          type: array
+          $ref: '#/components/schemas/AmlRegistrationResult'
       type: object
     ExtraParameters:
       description: |
@@ -27751,6 +28711,7 @@ components:
         For `RAW` operations, add the key `rawMessageData` with the value set to the [raw message data structure.](https://developers.fireblocks.com/reference/raw-signing-objects#rawmessagedata)
 
         For `CONTRACT_CALL` operations, add the key `contractCallData` with the value set to the Ethereum smart contract Application Binary Interface (ABI) payload. The Fireblocks [development libraries](https://developers.fireblocks.com/docs/ethereum-development#convenience-libraries) are recommended for building contract call transactions.
+        For **exchange compliance (e.g., Binance) and Travel Rule purposes**, include the key `piiData` containing a **custom JSON structure** with Personally Identifiable Information (PII) relevant to the transaction. This data must be fully **encrypted by the sender** before being submitted to the Fireblocks API. The recommended encryption method is **hybrid encryption** using AES-256-GCM for the payload and RSA-OAEP for key exchange, with the recipient exchange’s public key. [development libraries](https://developers.fireblocks.com/docs/a-developers-guide-to-constructing-encrypted-pii-messages-for-binance-via-fireblocks)
       properties: {}
       type: object
     SignedMessage:
@@ -28029,21 +28990,13 @@ components:
         numOfConfirmations: 3.616076749251911
         complianceResults:
           aml:
-          - provider: provider
-            payload: "{}"
-            bypassReason: bypassReason
-            screeningStatus: COMPLETED
-            timestamp: 5.637376656633329
-          - provider: provider
+            provider: provider
             payload: "{}"
             bypassReason: bypassReason
             screeningStatus: COMPLETED
             timestamp: 5.637376656633329
           amlRegistration:
-          - provider: provider
-            success: true
-            timestamp: 2.3021358869347655
-          - provider: provider
+            provider: provider
             success: true
             timestamp: 2.3021358869347655
           amlList:
@@ -28058,17 +29011,12 @@ components:
             screeningStatus: COMPLETED
             timestamp: 5.637376656633329
           tr:
-          - provider: provider
+            provider: provider
             payload: "{}"
             bypassReason: bypassReason
             screeningStatus: COMPLETED
             timestamp: 5.637376656633329
-          - provider: provider
-            payload: "{}"
-            bypassReason: bypassReason
-            screeningStatus: COMPLETED
-            timestamp: 5.637376656633329
-          status: Started
+          status: null
         createdBy: createdBy
         exchangeTxId: exchangeTxId
         rewardInfo:
@@ -28227,6 +29175,7 @@ components:
             For `RAW` operations, add the key `rawMessageData` with the value set to the [raw message data structure.](https://developers.fireblocks.com/reference/raw-signing-objects#rawmessagedata)
 
             For `CONTRACT_CALL` operations, add the key `contractCallData` with the value set to the Ethereum smart contract Application Binary Interface (ABI) payload. The Fireblocks [development libraries](https://developers.fireblocks.com/docs/ethereum-development#convenience-libraries) are recommended for building contract call transactions.
+            For **exchange compliance (e.g., Binance) and Travel Rule purposes**, include the key `piiData` containing a **custom JSON structure** with Personally Identifiable Information (PII) relevant to the transaction. This data must be fully **encrypted by the sender** before being submitted to the Fireblocks API. The recommended encryption method is **hybrid encryption** using AES-256-GCM for the payload and RSA-OAEP for key exchange, with the recipient exchange’s public key. [development libraries](https://developers.fireblocks.com/docs/a-developers-guide-to-constructing-encrypted-pii-messages-for-binance-via-fireblocks)
           properties: {}
           type: object
         signedMessages:
@@ -30234,6 +31183,7 @@ components:
           accountNumber:
           - QmNkEt9VdnhjefQMXo3ZaZAs765ugoWiazaqcY9skHMjCt
           - QmNkEt9VdnhjefQMXo3ZaZAs765ugoWiazaqcY9skHMjCt
+        targetProtocol: GTR
         originatorVASPname: Originator VASP Ltd.
         beneficiaryVASPname: Beneficiary VASP Inc.
         protocol: IVMS101
@@ -30850,7 +31800,17 @@ components:
           type: string
         protocol:
           description: The protocol used to perform the travel rule.
+          enum:
+          - IVMS101
+          - TRLight
+          - TRP
+          - OpenVASP
+          - GTR
           example: IVMS101
+          type: string
+        targetProtocol:
+          description: The target protocol for GTR (Global Travel Rule) transfers.
+          example: GTR
           type: string
         skipBeneficiaryDataValidation:
           description: Whether to skip validation of beneficiary data.
@@ -31529,6 +32489,7 @@ components:
             accountNumber:
             - QmNkEt9VdnhjefQMXo3ZaZAs765ugoWiazaqcY9skHMjCt
             - QmNkEt9VdnhjefQMXo3ZaZAs765ugoWiazaqcY9skHMjCt
+          targetProtocol: GTR
           originatorVASPname: Originator VASP Ltd.
           beneficiaryVASPname: Beneficiary VASP Inc.
           protocol: IVMS101
@@ -32218,6 +33179,7 @@ components:
             For `RAW` operations, add the key `rawMessageData` with the value set to the [raw message data structure.](https://developers.fireblocks.com/reference/raw-signing-objects#rawmessagedata)
 
             For `CONTRACT_CALL` operations, add the key `contractCallData` with the value set to the Ethereum smart contract Application Binary Interface (ABI) payload. The Fireblocks [development libraries](https://developers.fireblocks.com/docs/ethereum-development#convenience-libraries) are recommended for building contract call transactions.
+            For **exchange compliance (e.g., Binance) and Travel Rule purposes**, include the key `piiData` containing a **custom JSON structure** with Personally Identifiable Information (PII) relevant to the transaction. This data must be fully **encrypted by the sender** before being submitted to the Fireblocks API. The recommended encryption method is **hybrid encryption** using AES-256-GCM for the payload and RSA-OAEP for key exchange, with the recipient exchange’s public key. [development libraries](https://developers.fireblocks.com/docs/a-developers-guide-to-constructing-encrypted-pii-messages-for-binance-via-fireblocks)
           properties: {}
           type: object
         customerRefId:
@@ -34662,6 +35624,7 @@ components:
               accountNumber:
               - QmNkEt9VdnhjefQMXo3ZaZAs765ugoWiazaqcY9skHMjCt
               - QmNkEt9VdnhjefQMXo3ZaZAs765ugoWiazaqcY9skHMjCt
+            targetProtocol: GTR
             originatorVASPname: Originator VASP Ltd.
             beneficiaryVASPname: Beneficiary VASP Inc.
             protocol: IVMS101
@@ -35879,6 +36842,7 @@ components:
               accountNumber:
               - QmNkEt9VdnhjefQMXo3ZaZAs765ugoWiazaqcY9skHMjCt
               - QmNkEt9VdnhjefQMXo3ZaZAs765ugoWiazaqcY9skHMjCt
+            targetProtocol: GTR
             originatorVASPname: Originator VASP Ltd.
             beneficiaryVASPname: Beneficiary VASP Inc.
             protocol: IVMS101
@@ -40158,11 +41122,267 @@ components:
       - transactionIndex
       - type
       type: object
+    ContractDataEncodedDataString:
+      description: The encoded data to decode
+      example: 0x1234567890abcdef
+      type: string
+    ContractDataLogDataParam:
+      properties:
+        data:
+          description: "The data to decode, which can be a string or an object containing\
+            \ the data and its type."
+          example: 0x1234567890abcdef
+          type: string
+        topics:
+          description: "The topics of the log, which is an array of strings."
+          example:
+          - 1311768467294899700
+          - 12379813812177893000
+          items:
+            type: string
+          type: array
+      required:
+      - data
+      - topics
+      type: object
+    ContractDataDecodeDataType:
+      description: The type of the data to decode.
+      enum:
+      - ERROR
+      - LOG
+      - FUNCTION
+      example: FUNCTION
+      type: string
+    ContractDataDecodeRequest:
+      example:
+        data: 0x1234567890abcdef
+        dataType: FUNCTION
+        abi:
+        - inputs:
+          - name: to
+            type: address
+          - name: amount
+            type: uint256
+          stateMutability: nonpayable
+          type: function
+          name: transfer
+      properties:
+        data:
+          $ref: '#/components/schemas/ContractDataDecodeRequest_data'
+        dataType:
+          $ref: '#/components/schemas/ContractDataDecodeDataType'
+        abi:
+          description: The abi of the function/error/log to decode.
+          example:
+          - inputs:
+            - name: to
+              type: address
+            - name: amount
+              type: uint256
+            stateMutability: nonpayable
+            type: function
+            name: transfer
+          items:
+            $ref: '#/components/schemas/AbiFunction'
+          type: array
+      required:
+      - data
+      - dataType
+      type: object
+    ContractDataDecodeResponseParams:
+      example:
+        args:
+        - components:
+          - components:
+            - null
+            - null
+            name: _name
+            description: The name of the token
+            internalType: string
+            type: string
+          - components:
+            - null
+            - null
+            name: _name
+            description: The name of the token
+            internalType: string
+            type: string
+          name: _name
+          description: The name of the token
+          functionValue: ""
+          internalType: string
+          type: string
+          value: "true"
+        - components:
+          - components:
+            - null
+            - null
+            name: _name
+            description: The name of the token
+            internalType: string
+            type: string
+          - components:
+            - null
+            - null
+            name: _name
+            description: The name of the token
+            internalType: string
+            type: string
+          name: _name
+          description: The name of the token
+          functionValue: ""
+          internalType: string
+          type: string
+          value: "true"
+        signature: "transfer(address,uint256)"
+        name: transfer
+      properties:
+        name:
+          description: The name of the contract function.
+          example: transfer
+          type: string
+        signature:
+          description: The signature of the contract function.
+          example: "transfer(address,uint256)"
+          type: string
+        args:
+          items:
+            $ref: '#/components/schemas/ParameterWithValue'
+          type: array
+      required:
+      - args
+      - name
+      - signature
+      type: object
+    ContractDataDecodedResponse:
+      example:
+        result:
+        - args:
+          - components:
+            - components:
+              - null
+              - null
+              name: _name
+              description: The name of the token
+              internalType: string
+              type: string
+            - components:
+              - null
+              - null
+              name: _name
+              description: The name of the token
+              internalType: string
+              type: string
+            name: _name
+            description: The name of the token
+            functionValue: ""
+            internalType: string
+            type: string
+            value: "true"
+          - components:
+            - components:
+              - null
+              - null
+              name: _name
+              description: The name of the token
+              internalType: string
+              type: string
+            - components:
+              - null
+              - null
+              name: _name
+              description: The name of the token
+              internalType: string
+              type: string
+            name: _name
+            description: The name of the token
+            functionValue: ""
+            internalType: string
+            type: string
+            value: "true"
+          signature: "transfer(address,uint256)"
+          name: transfer
+        - args:
+          - components:
+            - components:
+              - null
+              - null
+              name: _name
+              description: The name of the token
+              internalType: string
+              type: string
+            - components:
+              - null
+              - null
+              name: _name
+              description: The name of the token
+              internalType: string
+              type: string
+            name: _name
+            description: The name of the token
+            functionValue: ""
+            internalType: string
+            type: string
+            value: "true"
+          - components:
+            - components:
+              - null
+              - null
+              name: _name
+              description: The name of the token
+              internalType: string
+              type: string
+            - components:
+              - null
+              - null
+              name: _name
+              description: The name of the token
+              internalType: string
+              type: string
+            name: _name
+            description: The name of the token
+            functionValue: ""
+            internalType: string
+            type: string
+            value: "true"
+          signature: "transfer(address,uint256)"
+          name: transfer
+        type: FUNCTION
+      properties:
+        result:
+          description: The decoded parameters of the contract function call.
+          items:
+            $ref: '#/components/schemas/ContractDataDecodeResponseParams'
+          type: array
+        type:
+          $ref: '#/components/schemas/ContractDataDecodeDataType'
+      required:
+      - result
+      - type
+      type: object
+    ContractDataDecodeError:
+      example:
+        code: 400
+        message: "Error decoding data: Invalid ABI"
+      properties:
+        message:
+          description: Bad request error message
+          example: "Error decoding data: Invalid ABI"
+          type: string
+        code:
+          description: Error code
+          example: 400
+          type: number
+      required:
+      - code
+      - message
+      type: object
     ChainDescriptor:
       enum:
       - ETH
       - SOL
       - MATIC
+      - ETH_TEST_HOODI
       - ETH_TEST6
       - SOL_TEST
       type: string
@@ -40170,6 +41390,7 @@ components:
       example:
       - ETH
       - ETH_TEST6
+      - ETH_TEST_HOODI
       - SOL
       - SOL_TEST
       - MATIC
@@ -40863,7 +42084,7 @@ components:
         termsOfServiceUrl: https://uniswap.org/terms-of-service
         isTermsApprovalRequired: true
         name: Uniswap
-        id: UNISWAP
+        id: 3e2efee1-0d69-4276-a6e6-711531185e4f
         protocols:
         - UNISWAP_CLASSIC
         - UNISWAPX
@@ -40871,8 +42092,9 @@ components:
         isTermsOfServiceApproved: true
       properties:
         id:
-          description: The ID of the provider
-          example: UNISWAP
+          description: The uuid that identifies the provider
+          example: 3e2efee1-0d69-4276-a6e6-711531185e4f
+          format: uuid
           type: string
         name:
           description: Name of the provider
@@ -40918,7 +42140,7 @@ components:
         - termsOfServiceUrl: https://uniswap.org/terms-of-service
           isTermsApprovalRequired: true
           name: Uniswap
-          id: UNISWAP
+          id: 3e2efee1-0d69-4276-a6e6-711531185e4f
           protocols:
           - UNISWAP_CLASSIC
           - UNISWAPX
@@ -40927,7 +42149,7 @@ components:
         - termsOfServiceUrl: https://uniswap.org/terms-of-service
           isTermsApprovalRequired: true
           name: Uniswap
-          id: UNISWAP
+          id: 3e2efee1-0d69-4276-a6e6-711531185e4f
           protocols:
           - UNISWAP_CLASSIC
           - UNISWAPX
@@ -41277,7 +42499,7 @@ components:
           type: APPROVE
           status: PENDING
         createdBy: 15a8f89f-f562-46ca-bcd3-56f8dd124816
-        providerId: UNISWAP
+        providerId: 3e2efee1-0d69-4276-a6e6-711531185e4f
         inputAsset: WETH
         slippageTolerance: 0.5
         outputAsset: DAI
@@ -41295,8 +42517,9 @@ components:
           example: "1"
           type: string
         providerId:
-          description: The ID of the provider
-          example: UNISWAP
+          description: The uuid that identifies the provider
+          example: 3e2efee1-0d69-4276-a6e6-711531185e4f
+          format: uuid
           type: string
         category:
           $ref: '#/components/schemas/ProviderCategoryEnum'
@@ -41412,7 +42635,7 @@ components:
             type: APPROVE
             status: PENDING
           createdBy: 15a8f89f-f562-46ca-bcd3-56f8dd124816
-          providerId: UNISWAP
+          providerId: 3e2efee1-0d69-4276-a6e6-711531185e4f
           inputAsset: WETH
           slippageTolerance: 0.5
           outputAsset: DAI
@@ -41436,7 +42659,7 @@ components:
             type: APPROVE
             status: PENDING
           createdBy: 15a8f89f-f562-46ca-bcd3-56f8dd124816
-          providerId: UNISWAP
+          providerId: 3e2efee1-0d69-4276-a6e6-711531185e4f
           inputAsset: WETH
           slippageTolerance: 0.5
           outputAsset: DAI
@@ -45474,6 +46697,7 @@ components:
           - TRLight
           - TRP
           - OpenVASP
+          - GTR
           example: TRLight
           type: string
         skipBeneficiaryDataValidation:
@@ -46350,33 +47574,6 @@ components:
           format: date-time
           type: number
       type: object
-    ComplianceResultStatusesEnum:
-      description: Status of compliance result screening.
-      enum:
-      - Started
-      - NetworkConnectionAddressResolve
-      - ScreeningPrepare
-      - AMLStarted
-      - AMLCompleted
-      - AMLFailed
-      - AMLInBackground
-      - TRPreconditionChecks
-      - TRStarted
-      - TRCompleted
-      - TRFailed
-      - Completed
-      - IncomingStarted
-      - IncomingScreeningPrepare
-      - IncomingWaitForFirstConfirmation
-      - AMLIncomingStarted
-      - AMLIncomingCompleted
-      - AMLIncomingFailed
-      - AMLIncomingInBackground
-      - TRIncomingStarted
-      - TRIncomingCompleted
-      - TRIncomingFailed
-      - IncomingCompleted
-      type: string
     AmlRegistrationResultFullPayload:
       description: The results of the AML address registration.
       example:
@@ -49453,6 +50650,60 @@ components:
       items:
         $ref: '#/components/schemas/Task'
       type: array
+    TagsPagedResponse:
+      example:
+        next: MjAyNS0wNy0wOSAxMDo1MzoxMy40NTI=:NA==
+        data:
+        - description: Tag for VIP customers
+          id: df4c0987-30da-4976-8dcf-bc2dd41ae331
+          label: VIP
+        - description: Tag for VIP customers
+          id: df4c0987-30da-4976-8dcf-bc2dd41ae331
+          label: VIP
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/Tag'
+          type: array
+        next:
+          description: Cursor to the next page
+          example: MjAyNS0wNy0wOSAxMDo1MzoxMy40NTI=:NA==
+          nullable: true
+          type: string
+      required:
+      - data
+      - next
+      type: object
+    CreateTagRequest:
+      example:
+        description: Tag for VIP customers
+        label: VIP
+      properties:
+        label:
+          description: The tag label
+          example: VIP
+          type: string
+        description:
+          description: Description for the tag
+          example: Tag for VIP customers
+          type: string
+      required:
+      - label
+      type: object
+    UpdateTagRequest:
+      example:
+        description: Tag for VIP customers
+        label: VIP
+      properties:
+        label:
+          description: The tag label
+          example: VIP
+          type: string
+        description:
+          description: Description for the tag
+          example: Tag for VIP customers
+          type: string
+      type: object
     Version:
       example:
         hash: a1b2c3d4
@@ -50298,6 +51549,13 @@ components:
       oneOf:
       - $ref: '#/components/schemas/WriteAbiFunction'
       - $ref: '#/components/schemas/SolanaInstructionWithValue'
+    ContractDataDecodeRequest_data:
+      description: "The data to decode, which can be a string or an object containing\
+        \ the data and its type."
+      example: 0x1234567890abcdef
+      oneOf:
+      - $ref: '#/components/schemas/ContractDataEncodedDataString'
+      - $ref: '#/components/schemas/ContractDataLogDataParam'
     SetOtaStatusResponse_oneOf:
       example:
         message: No change needed. The current status is false

@@ -16,7 +16,8 @@
 |**originator** | [**TravelRulePiiIVMS**](TravelRulePiiIVMS.md) |  |  |
 |**beneficiary** | [**TravelRulePiiIVMS**](TravelRulePiiIVMS.md) |  |  |
 |**encrypted** | **String** | Encrypted data related to the transaction. |  [optional] |
-|**protocol** | **String** | The protocol used to perform the travel rule. |  [optional] |
+|**protocol** | [**ProtocolEnum**](#ProtocolEnum) | The protocol used to perform the travel rule. |  [optional] |
+|**targetProtocol** | **String** | The target protocol for GTR (Global Travel Rule) transfers. |  [optional] |
 |**skipBeneficiaryDataValidation** | **Boolean** | Whether to skip validation of beneficiary data. |  [optional] |
 |**travelRuleBehavior** | **Boolean** | Whether to check if the transaction complies with the travel rule in the beneficiary VASP&#39;s jurisdiction. |  [optional] |
 |**originatorRef** | **String** | A reference ID related to the originator of the transaction. |  [optional] |
@@ -27,6 +28,18 @@
 |**beneficiaryDid** | **String** | The Decentralized Identifier (DID) of the person at the receiving exchange (VASP).  This identifier is generated when the customer is registered in the Notabene network,  or automatically created based on the &#x60;beneficiaryRef&#x60;.  - If neither &#x60;beneficiaryRef&#x60; nor &#x60;beneficiaryDid&#x60; is provided in the &#x60;txCreate&#x60; payload,    a new random DID is generated for every transaction. |  [optional] |
 |**originatorDid** | **String** | The Decentralized Identifier (DID) of the person at the exchange (VASP) who is requesting the withdrawal. This identifier is generated when the customer is registered in the Notabene network or automatically created based on the &#x60;originatorRef&#x60;.  - If neither &#x60;originatorRef&#x60; nor &#x60;originatorDid&#x60; is provided in the &#x60;txCreate&#x60; payload,    a new random DID is generated for every transaction. |  [optional] |
 |**isNonCustodial** | **Boolean** | Indicates if the transaction involves a non-custodial wallet. |  [optional] |
+
+
+
+## Enum: ProtocolEnum
+
+| Name | Value |
+|---- | -----|
+| IVMS101 | &quot;IVMS101&quot; |
+| TRLIGHT | &quot;TRLight&quot; |
+| TRP | &quot;TRP&quot; |
+| OPENVASP | &quot;OpenVASP&quot; |
+| GTR | &quot;GTR&quot; |
 
 
 

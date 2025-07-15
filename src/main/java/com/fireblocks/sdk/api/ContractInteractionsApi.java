@@ -20,6 +20,8 @@ import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.ValidationUtils;
 import com.fireblocks.sdk.model.ContractAbiResponseDto;
+import com.fireblocks.sdk.model.ContractDataDecodeRequest;
+import com.fireblocks.sdk.model.ContractDataDecodedResponse;
 import com.fireblocks.sdk.model.ParameterWithValue;
 import com.fireblocks.sdk.model.ReadCallFunctionDto;
 import com.fireblocks.sdk.model.TransactionReceiptResponse;
@@ -74,6 +76,111 @@ public class ContractInteractionsApi {
         return operationId + " call failed with: " + statusCode + " - " + body;
     }
 
+    /**
+     * Decode a function call data, error, or event log Decode a function call data, error, or event
+     * log from a deployed contract by blockchain native asset id and contract address.
+     *
+     * @param contractDataDecodeRequest (required)
+     * @param contractAddress The contract&#39;s onchain address (required)
+     * @param baseAssetId The blockchain native asset identifier (required)
+     * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
+     *     times with the same idempotency key, the server will return the same response as the
+     *     first request. The idempotency key is valid for 24 hours. (optional)
+     * @return CompletableFuture&lt;ApiResponse&lt;ContractDataDecodedResponse&gt;&gt;
+     * @throws ApiException if fails to make API call
+     */
+    public CompletableFuture<ApiResponse<ContractDataDecodedResponse>> decodeContractData(
+            ContractDataDecodeRequest contractDataDecodeRequest,
+            String contractAddress,
+            String baseAssetId,
+            String idempotencyKey)
+            throws ApiException {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    decodeContractDataRequestBuilder(
+                            contractDataDecodeRequest,
+                            contractAddress,
+                            baseAssetId,
+                            idempotencyKey);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException(
+                                                    "decodeContractData", localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<ContractDataDecodedResponse>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            ContractDataDecodedResponse>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            });
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder decodeContractDataRequestBuilder(
+            ContractDataDecodeRequest contractDataDecodeRequest,
+            String contractAddress,
+            String baseAssetId,
+            String idempotencyKey)
+            throws ApiException {
+        ValidationUtils.assertParamExists(
+                "decodeContractData", "contractDataDecodeRequest", contractDataDecodeRequest);
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "decodeContractData", "contractAddress", contractAddress);
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "decodeContractData", "baseAssetId", baseAssetId);
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath =
+                "/contract_interactions/base_asset_id/{baseAssetId}/contract_address/{contractAddress}/decode"
+                        .replace(
+                                "{contractAddress}",
+                                ApiClient.urlEncode(contractAddress.toString()))
+                        .replace("{baseAssetId}", ApiClient.urlEncode(baseAssetId.toString()));
+
+        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+        if (idempotencyKey != null) {
+            localVarRequestBuilder.header("Idempotency-Key", idempotencyKey.toString());
+        }
+        localVarRequestBuilder.header("Content-Type", "application/json");
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        try {
+            byte[] localVarPostBody =
+                    memberVarObjectMapper.writeValueAsBytes(contractDataDecodeRequest);
+            localVarRequestBuilder.method(
+                    "POST", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
+        } catch (IOException e) {
+            throw new ApiException(e);
+        }
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
     /**
      * Return deployed contract&#39;s ABI Return deployed contract&#39;s ABI by blockchain native
      * asset id and contract address

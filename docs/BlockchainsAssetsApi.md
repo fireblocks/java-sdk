@@ -11,6 +11,7 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 | [**listBlockchains**](BlockchainsAssetsApi.md#listBlockchains) | **GET** /blockchains | List blockchains |
 | [**registerNewAsset**](BlockchainsAssetsApi.md#registerNewAsset) | **POST** /assets | Register an asset |
 | [**setAssetPrice**](BlockchainsAssetsApi.md#setAssetPrice) | **POST** /assets/prices/{id} | Set asset price |
+| [**updateAssetUserMetadata**](BlockchainsAssetsApi.md#updateAssetUserMetadata) | **PATCH** /assets/{id} | Update the user’s metadata for an asset |
 
 
 
@@ -635,5 +636,94 @@ No authorization required
 | **200** | Asset price has been set successfully. |  -  |
 | **403** | - Tenant is not allowed to set rate. Error code: 1002.  |  -  |
 | **404** | - Currency not found. Error code 1001  |  -  |
+| **0** | Error Response |  * X-Request-ID -  <br>  |
+
+
+## updateAssetUserMetadata
+
+> CompletableFuture<ApiResponse<Asset>> updateAssetUserMetadata updateAssetUserMetadata(id, updateAssetUserMetadataRequest, idempotencyKey)
+
+Update the user’s metadata for an asset
+
+Update the user’s metadata for an asset.  Endpoint Permission: Owner, Admin, Non-Signing Admin, NCW Admin, Signer, Editor.
+
+### Example
+
+```java
+// Import classes:
+import com.fireblocks.sdk.ApiClient;
+import com.fireblocks.sdk.ApiException;
+import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
+import com.fireblocks.sdk.api.BlockchainsAssetsApi;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+
+public class Example {
+    public static void main(String[] args) {
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
+
+        String id = "ETH"; // String | The ID or legacyId of the asset
+        UpdateAssetUserMetadataRequest updateAssetUserMetadataRequest = new UpdateAssetUserMetadataRequest(); // UpdateAssetUserMetadataRequest | 
+        String idempotencyKey = "idempotencyKey_example"; // String | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+        try {
+            CompletableFuture<ApiResponse<Asset>> response = fireblocks.blockchainsAssets().updateAssetUserMetadata(id, updateAssetUserMetadataRequest, idempotencyKey);
+            System.out.println("Status code: " + response.get().getStatusCode());
+            System.out.println("Response headers: " + response.get().getHeaders());
+            System.out.println("Response body: " + response.get().getData());
+        } catch (InterruptedException | ExecutionException e) {
+            ApiException apiException = (ApiException)e.getCause();
+            System.err.println("Exception when calling BlockchainsAssetsApi#updateAssetUserMetadata");
+            System.err.println("Status code: " + apiException.getCode());
+            System.err.println("Response headers: " + apiException.getResponseHeaders());
+            System.err.println("Reason: " + apiException.getResponseBody());
+            e.printStackTrace();
+        } catch (ApiException e) {
+            System.err.println("Exception when calling BlockchainsAssetsApi#updateAssetUserMetadata");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            System.err.println("Reason: " + e.getResponseBody());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **id** | **String**| The ID or legacyId of the asset | |
+| **updateAssetUserMetadataRequest** | [**UpdateAssetUserMetadataRequest**](UpdateAssetUserMetadataRequest.md)|  | [optional] |
+| **idempotencyKey** | **String**| A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | [optional] |
+
+### Return type
+
+CompletableFuture<ApiResponse<[**Asset**](Asset.md)>>
+
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Updated asset user metadata |  * X-Request-ID -  <br>  |
+| **404** | - Asset with specified ID or legacy ID is not found. Error code 1504  |  -  |
+| **500** | Error occurred while updating asset user metadata |  -  |
 | **0** | Error Response |  * X-Request-ID -  <br>  |
 

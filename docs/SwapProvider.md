@@ -7,7 +7,7 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**id** | **String** | The ID of the provider |  |
+|**id** | **UUID** | The uuid that identifies the provider |  |
 |**name** | **String** | Name of the provider |  |
 |**protocols** | **List&lt;SwapProviderProtocolsEnum&gt;** | List of supported protocols. Protocols are specific per provider |  |
 |**category** | **ProviderCategoryEnum** |  |  |

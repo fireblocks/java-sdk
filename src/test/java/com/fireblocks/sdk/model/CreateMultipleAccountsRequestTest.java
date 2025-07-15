@@ -31,9 +31,27 @@ public class CreateMultipleAccountsRequestTest {
         // TODO: test count
     }
 
-    /** Test the property 'assetIds' */
+    /** Test the property 'baseAssetIds' */
     @Test
-    public void assetIdsTest() {
-        // TODO: test assetIds
+    public void baseAssetIdsTest() {
+        // TODO: test baseAssetIds
+    }
+
+    /** Test the property 'names' */
+    @Test
+    public void namesTest() {
+        // TODO: test names
+    }
+
+    /** Test the property 'vaultAccountNamesStartingIndex' */
+    @Test
+    public void vaultAccountNamesStartingIndexTest() {
+        // TODO: test vaultAccountNamesStartingIndex
+    }
+
+    /** Test the property 'prefix' */
+    @Test
+    public void prefixTest() {
+        // TODO: test prefix
     }
 }

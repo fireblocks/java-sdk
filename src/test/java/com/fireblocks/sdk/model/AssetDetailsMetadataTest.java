@@ -31,6 +31,12 @@ public class AssetDetailsMetadataTest {
         // TODO: test scope
     }
 
+    /** Test the property 'verified' */
+    @Test
+    public void verifiedTest() {
+        // TODO: test verified
+    }
+
     /** Test the property 'deprecated' */
     @Test
     public void deprecatedTest() {
@@ -53,5 +59,11 @@ public class AssetDetailsMetadataTest {
     @Test
     public void mediaTest() {
         // TODO: test media
+    }
+
+    /** Test the property 'note' */
+    @Test
+    public void noteTest() {
+        // TODO: test note
     }
 }

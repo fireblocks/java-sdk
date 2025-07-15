@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.StringJoiner;
+import java.util.UUID;
 
 /** SwapProvider */
 @JsonPropertyOrder({
@@ -36,7 +37,7 @@ import java.util.StringJoiner;
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class SwapProvider {
     public static final String JSON_PROPERTY_ID = "id";
-    private String id;
+    private UUID id;
 
     public static final String JSON_PROPERTY_NAME = "name";
     private String name;
@@ -59,26 +60,26 @@ public class SwapProvider {
 
     public SwapProvider() {}
 
-    public SwapProvider id(String id) {
+    public SwapProvider id(UUID id) {
         this.id = id;
         return this;
     }
 
     /**
-     * The ID of the provider
+     * The uuid that identifies the provider
      *
      * @return id
      */
     @jakarta.annotation.Nonnull
     @JsonProperty(JSON_PROPERTY_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public String getId() {
+    public UUID getId() {
         return id;
     }
 
     @JsonProperty(JSON_PROPERTY_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setId(String id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 

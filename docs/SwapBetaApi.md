@@ -44,7 +44,7 @@ public class Example {
             .secretKey("my-secret-key");
         Fireblocks fireblocks = new Fireblocks(configurationOptions);
 
-        String providerId = "providerId_example"; // String | 
+        UUID providerId = UUID.randomUUID(); // UUID | 
         String idempotencyKey = "idempotencyKey_example"; // String | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
         try {
             CompletableFuture<ApiResponse<SwapProvider>> response = fireblocks.swapBeta().approveTermsOfService(providerId, idempotencyKey);
@@ -74,7 +74,7 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **providerId** | **String**|  | |
+| **providerId** | **UUID**|  | |
 | **idempotencyKey** | **String**| A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | [optional] |
 
 ### Return type
@@ -130,7 +130,7 @@ public class Example {
         Fireblocks fireblocks = new Fireblocks(configurationOptions);
 
         QuoteRequest quoteRequest = new QuoteRequest(); // QuoteRequest | 
-        String providerId = "providerId_example"; // String | 
+        UUID providerId = UUID.randomUUID(); // UUID | 
         String idempotencyKey = "idempotencyKey_example"; // String | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
         try {
             CompletableFuture<ApiResponse<QuoteResponse>> response = fireblocks.swapBeta().createQuote(quoteRequest, providerId, idempotencyKey);
@@ -161,7 +161,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **quoteRequest** | [**QuoteRequest**](QuoteRequest.md)|  | |
-| **providerId** | **String**|  | |
+| **providerId** | **UUID**|  | |
 | **idempotencyKey** | **String**| A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | [optional] |
 
 ### Return type

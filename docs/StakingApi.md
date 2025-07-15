@@ -251,7 +251,7 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **chainDescriptor** | [**ChainDescriptor**](.md)| Use \&quot;ETH\&quot; / \&quot;SOL\&quot; / \&quot;MATIC\&quot; / \&quot;STETH_ETH\&quot; in order to obtain information related to the specific blockchain network or retrieve information about all chains that have data available by providing no argument. | [optional] [enum: ETH, SOL, MATIC, ETH_TEST6, SOL_TEST] |
+| **chainDescriptor** | [**ChainDescriptor**](.md)| Use \&quot;ETH\&quot; / \&quot;SOL\&quot; / \&quot;MATIC\&quot; / \&quot;STETH_ETH\&quot; in order to obtain information related to the specific blockchain network or retrieve information about all chains that have data available by providing no argument. | [optional] [enum: ETH, SOL, MATIC, ETH_TEST_HOODI, ETH_TEST6, SOL_TEST] |
 
 ### Return type
 
@@ -334,7 +334,7 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **chainDescriptor** | [**ChainDescriptor**](.md)| The protocol identifier (e.g. \&quot;ETH\&quot;/\&quot;SOL\&quot;/\&quot;MATIC\&quot;/\&quot;STETH_ETH\&quot;) to use | [enum: ETH, SOL, MATIC, ETH_TEST6, SOL_TEST] |
+| **chainDescriptor** | [**ChainDescriptor**](.md)| The protocol identifier (e.g. \&quot;ETH\&quot;/\&quot;SOL\&quot;/\&quot;MATIC\&quot;/\&quot;STETH_ETH\&quot;) to use | [enum: ETH, SOL, MATIC, ETH_TEST_HOODI, ETH_TEST6, SOL_TEST] |
 
 ### Return type
 
@@ -993,7 +993,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **stakeRequest** | [**StakeRequest**](StakeRequest.md)|  | |
-| **chainDescriptor** | [**ChainDescriptor**](.md)| The protocol identifier (e.g. \&quot;ETH\&quot;/\&quot;SOL\&quot;/\&quot;MATIC\&quot;) to use | [enum: ETH, SOL, MATIC, ETH_TEST6, SOL_TEST] |
+| **chainDescriptor** | [**ChainDescriptor**](.md)| The protocol identifier (e.g. \&quot;ETH\&quot;/\&quot;SOL\&quot;/\&quot;MATIC\&quot;) to use | [enum: ETH, SOL, MATIC, ETH_TEST_HOODI, ETH_TEST6, SOL_TEST] |
 | **idempotencyKey** | **String**| A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | [optional] |
 
 ### Return type
@@ -1079,7 +1079,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **unstakeRequest** | [**UnstakeRequest**](UnstakeRequest.md)|  | |
-| **chainDescriptor** | [**ChainDescriptor**](.md)| The protocol identifier (e.g. \&quot;ETH\&quot;/\&quot;SOL\&quot;/\&quot;MATIC\&quot;) to use | [enum: ETH, SOL, MATIC, ETH_TEST6, SOL_TEST] |
+| **chainDescriptor** | [**ChainDescriptor**](.md)| The protocol identifier (e.g. \&quot;ETH\&quot;/\&quot;SOL\&quot;/\&quot;MATIC\&quot;) to use | [enum: ETH, SOL, MATIC, ETH_TEST_HOODI, ETH_TEST6, SOL_TEST] |
 | **idempotencyKey** | **String**| A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | [optional] |
 
 ### Return type
@@ -1165,7 +1165,7 @@ public class Example {
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **withdrawRequest** | [**WithdrawRequest**](WithdrawRequest.md)|  | |
-| **chainDescriptor** | [**ChainDescriptor**](.md)| The protocol identifier (e.g. \&quot;ETH\&quot;/\&quot;SOL\&quot;/\&quot;MATIC\&quot;) to use | [enum: ETH, SOL, MATIC, ETH_TEST6, SOL_TEST] |
+| **chainDescriptor** | [**ChainDescriptor**](.md)| The protocol identifier (e.g. \&quot;ETH\&quot;/\&quot;SOL\&quot;/\&quot;MATIC\&quot;) to use | [enum: ETH, SOL, MATIC, ETH_TEST_HOODI, ETH_TEST6, SOL_TEST] |
 | **idempotencyKey** | **String**| A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | [optional] |
 
 ### Return type
