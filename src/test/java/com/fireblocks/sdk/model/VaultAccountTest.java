@@ -60,4 +60,10 @@ public class VaultAccountTest {
     public void autoFuelTest() {
         // TODO: test autoFuel
     }
+
+    /** Test the property 'tags' */
+    @Test
+    public void tagsTest() {
+        // TODO: test tags
+    }
 }

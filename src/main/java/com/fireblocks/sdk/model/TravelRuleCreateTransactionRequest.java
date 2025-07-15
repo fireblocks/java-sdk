@@ -13,9 +13,11 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonValue;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.Objects;
@@ -33,6 +35,7 @@ import java.util.StringJoiner;
     TravelRuleCreateTransactionRequest.JSON_PROPERTY_BENEFICIARY,
     TravelRuleCreateTransactionRequest.JSON_PROPERTY_ENCRYPTED,
     TravelRuleCreateTransactionRequest.JSON_PROPERTY_PROTOCOL,
+    TravelRuleCreateTransactionRequest.JSON_PROPERTY_TARGET_PROTOCOL,
     TravelRuleCreateTransactionRequest.JSON_PROPERTY_SKIP_BENEFICIARY_DATA_VALIDATION,
     TravelRuleCreateTransactionRequest.JSON_PROPERTY_TRAVEL_RULE_BEHAVIOR,
     TravelRuleCreateTransactionRequest.JSON_PROPERTY_ORIGINATOR_REF,
@@ -74,8 +77,50 @@ public class TravelRuleCreateTransactionRequest {
     public static final String JSON_PROPERTY_ENCRYPTED = "encrypted";
     private String encrypted;
 
+    /** The protocol used to perform the travel rule. */
+    public enum ProtocolEnum {
+        IVMS101("IVMS101"),
+
+        TRLIGHT("TRLight"),
+
+        TRP("TRP"),
+
+        OPENVASP("OpenVASP"),
+
+        GTR("GTR");
+
+        private String value;
+
+        ProtocolEnum(String value) {
+            this.value = value;
+        }
+
+        @JsonValue
+        public String getValue() {
+            return value;
+        }
+
+        @Override
+        public String toString() {
+            return String.valueOf(value);
+        }
+
+        @JsonCreator
+        public static ProtocolEnum fromValue(String value) {
+            for (ProtocolEnum b : ProtocolEnum.values()) {
+                if (b.value.equals(value)) {
+                    return b;
+                }
+            }
+            throw new IllegalArgumentException("Unexpected value '" + value + "'");
+        }
+    }
+
     public static final String JSON_PROPERTY_PROTOCOL = "protocol";
-    private String protocol;
+    private ProtocolEnum protocol;
+
+    public static final String JSON_PROPERTY_TARGET_PROTOCOL = "targetProtocol";
+    private String targetProtocol;
 
     public static final String JSON_PROPERTY_SKIP_BENEFICIARY_DATA_VALIDATION =
             "skipBeneficiaryDataValidation";
@@ -324,7 +369,7 @@ public class TravelRuleCreateTransactionRequest {
         this.encrypted = encrypted;
     }
 
-    public TravelRuleCreateTransactionRequest protocol(String protocol) {
+    public TravelRuleCreateTransactionRequest protocol(ProtocolEnum protocol) {
         this.protocol = protocol;
         return this;
     }
@@ -337,14 +382,37 @@ public class TravelRuleCreateTransactionRequest {
     @jakarta.annotation.Nullable
     @JsonProperty(JSON_PROPERTY_PROTOCOL)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public String getProtocol() {
+    public ProtocolEnum getProtocol() {
         return protocol;
     }
 
     @JsonProperty(JSON_PROPERTY_PROTOCOL)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setProtocol(String protocol) {
+    public void setProtocol(ProtocolEnum protocol) {
         this.protocol = protocol;
+    }
+
+    public TravelRuleCreateTransactionRequest targetProtocol(String targetProtocol) {
+        this.targetProtocol = targetProtocol;
+        return this;
+    }
+
+    /**
+     * The target protocol for GTR (Global Travel Rule) transfers.
+     *
+     * @return targetProtocol
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_TARGET_PROTOCOL)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getTargetProtocol() {
+        return targetProtocol;
+    }
+
+    @JsonProperty(JSON_PROPERTY_TARGET_PROTOCOL)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setTargetProtocol(String targetProtocol) {
+        this.targetProtocol = targetProtocol;
     }
 
     public TravelRuleCreateTransactionRequest skipBeneficiaryDataValidation(
@@ -623,6 +691,8 @@ public class TravelRuleCreateTransactionRequest {
                 && Objects.equals(this.encrypted, travelRuleCreateTransactionRequest.encrypted)
                 && Objects.equals(this.protocol, travelRuleCreateTransactionRequest.protocol)
                 && Objects.equals(
+                        this.targetProtocol, travelRuleCreateTransactionRequest.targetProtocol)
+                && Objects.equals(
                         this.skipBeneficiaryDataValidation,
                         travelRuleCreateTransactionRequest.skipBeneficiaryDataValidation)
                 && Objects.equals(
@@ -660,6 +730,7 @@ public class TravelRuleCreateTransactionRequest {
                 beneficiary,
                 encrypted,
                 protocol,
+                targetProtocol,
                 skipBeneficiaryDataValidation,
                 travelRuleBehavior,
                 originatorRef,
@@ -698,6 +769,7 @@ public class TravelRuleCreateTransactionRequest {
         sb.append("    beneficiary: ").append(toIndentedString(beneficiary)).append("\n");
         sb.append("    encrypted: ").append(toIndentedString(encrypted)).append("\n");
         sb.append("    protocol: ").append(toIndentedString(protocol)).append("\n");
+        sb.append("    targetProtocol: ").append(toIndentedString(targetProtocol)).append("\n");
         sb.append("    skipBeneficiaryDataValidation: ")
                 .append(toIndentedString(skipBeneficiaryDataValidation))
                 .append("\n");
@@ -863,6 +935,19 @@ public class TravelRuleCreateTransactionRequest {
                             prefix,
                             suffix,
                             URLEncoder.encode(String.valueOf(getProtocol()), StandardCharsets.UTF_8)
+                                    .replaceAll("\\+", "%20")));
+        }
+
+        // add `targetProtocol` to the URL query string
+        if (getTargetProtocol() != null) {
+            joiner.add(
+                    String.format(
+                            "%stargetProtocol%s=%s",
+                            prefix,
+                            suffix,
+                            URLEncoder.encode(
+                                            String.valueOf(getTargetProtocol()),
+                                            StandardCharsets.UTF_8)
                                     .replaceAll("\\+", "%20")));
         }
 

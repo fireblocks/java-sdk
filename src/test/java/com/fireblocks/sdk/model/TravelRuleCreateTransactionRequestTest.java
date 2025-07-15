@@ -86,6 +86,12 @@ public class TravelRuleCreateTransactionRequestTest {
         // TODO: test protocol
     }
 
+    /** Test the property 'targetProtocol' */
+    @Test
+    public void targetProtocolTest() {
+        // TODO: test targetProtocol
+    }
+
     /** Test the property 'skipBeneficiaryDataValidation' */
     @Test
     public void skipBeneficiaryDataValidationTest() {

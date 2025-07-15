@@ -13,11 +13,9 @@
 package com.fireblocks.sdk.model;
 
 
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.fasterxml.jackson.annotation.JsonValue;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -36,158 +34,65 @@ import java.util.StringJoiner;
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class ComplianceResults {
     public static final String JSON_PROPERTY_AML = "aml";
-    private List<ComplianceScreeningResult> aml;
+    private ComplianceScreeningResult aml;
 
     public static final String JSON_PROPERTY_TR = "tr";
-    private List<ComplianceScreeningResult> tr;
+    private ComplianceScreeningResult tr;
 
     public static final String JSON_PROPERTY_AML_LIST = "amlList";
     private List<ComplianceScreeningResult> amlList;
 
-    /** Status of compliance result screening. */
-    public enum StatusEnum {
-        STARTED("Started"),
-
-        AMLSTARTED("AMLStarted"),
-
-        AMLCOMPLETED("AMLCompleted"),
-
-        AMLFAILED("AMLFailed"),
-
-        AMLINBACKGROUND("AMLInBackground"),
-
-        TRSTARTED("TRStarted"),
-
-        TRCOMPLETED("TRCompleted"),
-
-        TRFAILED("TRFailed"),
-
-        COMPLETED("Completed"),
-
-        REGISTRATIONSTARTED("RegistrationStarted"),
-
-        AMLREGISTRATIONSTARTED("AMLRegistrationStarted"),
-
-        AMLREGISTRATIONCOMPLETED("AMLRegistrationCompleted"),
-
-        TRUPDATESTARTED("TRUpdateStarted"),
-
-        TRUPDATECOMPLETED("TRUpdateCompleted"),
-
-        UPDATECOMPLETED("UpdateCompleted"),
-
-        INCOMINGSTARTED("IncomingStarted"),
-
-        AMLINCOMINGSTARTED("AMLIncomingStarted"),
-
-        AMLINCOMINGCOMPLETED("AMLIncomingCompleted"),
-
-        AMLINCOMINGFAILED("AMLIncomingFailed"),
-
-        AMLINCOMINGINBACKGROUND("AMLIncomingInBackground"),
-
-        TRINCOMINGSTARTED("TRIncomingStarted"),
-
-        TRINCOMINGCOMPLETED("TRIncomingCompleted"),
-
-        TRINCOMINGFAILED("TRIncomingFailed"),
-
-        INCOMINGCOMPLETED("IncomingCompleted");
-
-        private String value;
-
-        StatusEnum(String value) {
-            this.value = value;
-        }
-
-        @JsonValue
-        public String getValue() {
-            return value;
-        }
-
-        @Override
-        public String toString() {
-            return String.valueOf(value);
-        }
-
-        @JsonCreator
-        public static StatusEnum fromValue(String value) {
-            for (StatusEnum b : StatusEnum.values()) {
-                if (b.value.equals(value)) {
-                    return b;
-                }
-            }
-            throw new IllegalArgumentException("Unexpected value '" + value + "'");
-        }
-    }
-
     public static final String JSON_PROPERTY_STATUS = "status";
-    private StatusEnum status;
+    private ComplianceResultStatusesEnum status;
 
     public static final String JSON_PROPERTY_AML_REGISTRATION = "amlRegistration";
-    private List<AmlRegistrationResult> amlRegistration;
+    private AmlRegistrationResult amlRegistration;
 
     public ComplianceResults() {}
 
-    public ComplianceResults aml(List<ComplianceScreeningResult> aml) {
+    public ComplianceResults aml(ComplianceScreeningResult aml) {
         this.aml = aml;
         return this;
     }
 
-    public ComplianceResults addAmlItem(ComplianceScreeningResult amlItem) {
-        if (this.aml == null) {
-            this.aml = new ArrayList<>();
-        }
-        this.aml.add(amlItem);
-        return this;
-    }
-
     /**
-     * The end result of the AML screening.
+     * Get aml
      *
      * @return aml
      */
     @jakarta.annotation.Nullable
     @JsonProperty(JSON_PROPERTY_AML)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public List<ComplianceScreeningResult> getAml() {
+    public ComplianceScreeningResult getAml() {
         return aml;
     }
 
     @JsonProperty(JSON_PROPERTY_AML)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAml(List<ComplianceScreeningResult> aml) {
+    public void setAml(ComplianceScreeningResult aml) {
         this.aml = aml;
     }
 
-    public ComplianceResults tr(List<ComplianceScreeningResult> tr) {
+    public ComplianceResults tr(ComplianceScreeningResult tr) {
         this.tr = tr;
         return this;
     }
 
-    public ComplianceResults addTrItem(ComplianceScreeningResult trItem) {
-        if (this.tr == null) {
-            this.tr = new ArrayList<>();
-        }
-        this.tr.add(trItem);
-        return this;
-    }
-
     /**
-     * The result of the Travel Rule screening.
+     * Get tr
      *
      * @return tr
      */
     @jakarta.annotation.Nullable
     @JsonProperty(JSON_PROPERTY_TR)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public List<ComplianceScreeningResult> getTr() {
+    public ComplianceScreeningResult getTr() {
         return tr;
     }
 
     @JsonProperty(JSON_PROPERTY_TR)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setTr(List<ComplianceScreeningResult> tr) {
+    public void setTr(ComplianceScreeningResult tr) {
         this.tr = tr;
     }
 
@@ -222,57 +127,49 @@ public class ComplianceResults {
         this.amlList = amlList;
     }
 
-    public ComplianceResults status(StatusEnum status) {
+    public ComplianceResults status(ComplianceResultStatusesEnum status) {
         this.status = status;
         return this;
     }
 
     /**
-     * Status of compliance result screening.
+     * Get status
      *
      * @return status
      */
     @jakarta.annotation.Nullable
     @JsonProperty(JSON_PROPERTY_STATUS)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public StatusEnum getStatus() {
+    public ComplianceResultStatusesEnum getStatus() {
         return status;
     }
 
     @JsonProperty(JSON_PROPERTY_STATUS)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setStatus(StatusEnum status) {
+    public void setStatus(ComplianceResultStatusesEnum status) {
         this.status = status;
     }
 
-    public ComplianceResults amlRegistration(List<AmlRegistrationResult> amlRegistration) {
+    public ComplianceResults amlRegistration(AmlRegistrationResult amlRegistration) {
         this.amlRegistration = amlRegistration;
         return this;
     }
 
-    public ComplianceResults addAmlRegistrationItem(AmlRegistrationResult amlRegistrationItem) {
-        if (this.amlRegistration == null) {
-            this.amlRegistration = new ArrayList<>();
-        }
-        this.amlRegistration.add(amlRegistrationItem);
-        return this;
-    }
-
     /**
-     * The results of the AML address registration.
+     * Get amlRegistration
      *
      * @return amlRegistration
      */
     @jakarta.annotation.Nullable
     @JsonProperty(JSON_PROPERTY_AML_REGISTRATION)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public List<AmlRegistrationResult> getAmlRegistration() {
+    public AmlRegistrationResult getAmlRegistration() {
         return amlRegistration;
     }
 
     @JsonProperty(JSON_PROPERTY_AML_REGISTRATION)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAmlRegistration(List<AmlRegistrationResult> amlRegistration) {
+    public void setAmlRegistration(AmlRegistrationResult amlRegistration) {
         this.amlRegistration = amlRegistration;
     }
 
@@ -356,46 +253,12 @@ public class ComplianceResults {
 
         // add `aml` to the URL query string
         if (getAml() != null) {
-            for (int i = 0; i < getAml().size(); i++) {
-                if (getAml().get(i) != null) {
-                    joiner.add(
-                            getAml().get(i)
-                                    .toUrlQueryString(
-                                            String.format(
-                                                    "%saml%s%s",
-                                                    prefix,
-                                                    suffix,
-                                                    "".equals(suffix)
-                                                            ? ""
-                                                            : String.format(
-                                                                    "%s%d%s",
-                                                                    containerPrefix,
-                                                                    i,
-                                                                    containerSuffix))));
-                }
-            }
+            joiner.add(getAml().toUrlQueryString(prefix + "aml" + suffix));
         }
 
         // add `tr` to the URL query string
         if (getTr() != null) {
-            for (int i = 0; i < getTr().size(); i++) {
-                if (getTr().get(i) != null) {
-                    joiner.add(
-                            getTr().get(i)
-                                    .toUrlQueryString(
-                                            String.format(
-                                                    "%str%s%s",
-                                                    prefix,
-                                                    suffix,
-                                                    "".equals(suffix)
-                                                            ? ""
-                                                            : String.format(
-                                                                    "%s%d%s",
-                                                                    containerPrefix,
-                                                                    i,
-                                                                    containerSuffix))));
-                }
-            }
+            joiner.add(getTr().toUrlQueryString(prefix + "tr" + suffix));
         }
 
         // add `amlList` to the URL query string
@@ -434,25 +297,7 @@ public class ComplianceResults {
 
         // add `amlRegistration` to the URL query string
         if (getAmlRegistration() != null) {
-            for (int i = 0; i < getAmlRegistration().size(); i++) {
-                if (getAmlRegistration().get(i) != null) {
-                    joiner.add(
-                            getAmlRegistration()
-                                    .get(i)
-                                    .toUrlQueryString(
-                                            String.format(
-                                                    "%samlRegistration%s%s",
-                                                    prefix,
-                                                    suffix,
-                                                    "".equals(suffix)
-                                                            ? ""
-                                                            : String.format(
-                                                                    "%s%d%s",
-                                                                    containerPrefix,
-                                                                    i,
-                                                                    containerSuffix))));
-                }
-            }
+            joiner.add(getAmlRegistration().toUrlQueryString(prefix + "amlRegistration" + suffix));
         }
 
         return joiner.toString();

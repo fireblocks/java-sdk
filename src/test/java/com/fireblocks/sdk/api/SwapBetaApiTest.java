@@ -23,6 +23,7 @@ import com.fireblocks.sdk.model.SwapOperationsPaginatedResponse;
 import com.fireblocks.sdk.model.SwapProvider;
 import com.fireblocks.sdk.model.SwapProvidersPaginatedResponse;
 import java.math.BigDecimal;
+import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -46,7 +47,7 @@ public class SwapBetaApiTest {
      */
     @Test
     public void approveTermsOfServiceTest() throws ApiException {
-        String providerId = null;
+        UUID providerId = null;
         String idempotencyKey = null;
         CompletableFuture<ApiResponse<SwapProvider>> response =
                 api.approveTermsOfService(providerId, idempotencyKey);
@@ -66,7 +67,7 @@ public class SwapBetaApiTest {
     @Test
     public void createQuoteTest() throws ApiException {
         QuoteRequest quoteRequest = null;
-        String providerId = null;
+        UUID providerId = null;
         String idempotencyKey = null;
         CompletableFuture<ApiResponse<QuoteResponse>> response =
                 api.createQuote(quoteRequest, providerId, idempotencyKey);

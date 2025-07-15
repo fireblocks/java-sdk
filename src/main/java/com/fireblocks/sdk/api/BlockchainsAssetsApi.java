@@ -31,6 +31,7 @@ import com.fireblocks.sdk.model.ListAssetsResponse;
 import com.fireblocks.sdk.model.ListBlockchainsResponse;
 import com.fireblocks.sdk.model.RegisterNewAssetRequest;
 import com.fireblocks.sdk.model.SetAssetPriceRequest;
+import com.fireblocks.sdk.model.UpdateAssetUserMetadataRequest;
 import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigDecimal;
@@ -686,6 +687,95 @@ public class BlockchainsAssetsApi {
             byte[] localVarPostBody = memberVarObjectMapper.writeValueAsBytes(setAssetPriceRequest);
             localVarRequestBuilder.method(
                     "POST", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
+        } catch (IOException e) {
+            throw new ApiException(e);
+        }
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
+     * Update the user’s metadata for an asset Update the user’s metadata for an asset. Endpoint
+     * Permission: Owner, Admin, Non-Signing Admin, NCW Admin, Signer, Editor.
+     *
+     * @param id The ID or legacyId of the asset (required)
+     * @param updateAssetUserMetadataRequest (optional)
+     * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
+     *     times with the same idempotency key, the server will return the same response as the
+     *     first request. The idempotency key is valid for 24 hours. (optional)
+     * @return CompletableFuture&lt;ApiResponse&lt;Asset&gt;&gt;
+     * @throws ApiException if fails to make API call
+     */
+    public CompletableFuture<ApiResponse<Asset>> updateAssetUserMetadata(
+            String id,
+            UpdateAssetUserMetadataRequest updateAssetUserMetadataRequest,
+            String idempotencyKey)
+            throws ApiException {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    updateAssetUserMetadataRequestBuilder(
+                            id, updateAssetUserMetadataRequest, idempotencyKey);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException(
+                                                    "updateAssetUserMetadata", localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<Asset>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            Asset>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            });
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder updateAssetUserMetadataRequestBuilder(
+            String id,
+            UpdateAssetUserMetadataRequest updateAssetUserMetadataRequest,
+            String idempotencyKey)
+            throws ApiException {
+        ValidationUtils.assertParamExistsAndNotEmpty("updateAssetUserMetadata", "id", id);
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath = "/assets/{id}".replace("{id}", ApiClient.urlEncode(id.toString()));
+
+        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+        if (idempotencyKey != null) {
+            localVarRequestBuilder.header("Idempotency-Key", idempotencyKey.toString());
+        }
+        localVarRequestBuilder.header("Content-Type", "application/json");
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        try {
+            byte[] localVarPostBody =
+                    memberVarObjectMapper.writeValueAsBytes(updateAssetUserMetadataRequest);
+            localVarRequestBuilder.method(
+                    "PATCH", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
         } catch (IOException e) {
             throw new ApiException(e);
         }

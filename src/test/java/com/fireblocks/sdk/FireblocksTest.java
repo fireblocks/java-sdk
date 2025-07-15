@@ -606,6 +606,14 @@ public class FireblocksTest {
     }
 
     @Test
+    public void testGetTagsApi() {
+        setupFireblocks(true, null, null);
+        TagsApi tags = fireblocks.tags();
+        Assert.assertNotNull(tags);
+        Assert.assertSame(tags, fireblocks.tags());
+    }
+
+    @Test
     public void testGetTokenizationApi() {
         setupFireblocks(true, null, null);
         TokenizationApi tokenization = fireblocks.tokenization();

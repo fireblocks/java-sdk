@@ -26,15 +26,28 @@ import java.util.StringJoiner;
 /** CreateMultipleAccountsRequest */
 @JsonPropertyOrder({
     CreateMultipleAccountsRequest.JSON_PROPERTY_COUNT,
-    CreateMultipleAccountsRequest.JSON_PROPERTY_ASSET_IDS
+    CreateMultipleAccountsRequest.JSON_PROPERTY_BASE_ASSET_IDS,
+    CreateMultipleAccountsRequest.JSON_PROPERTY_NAMES,
+    CreateMultipleAccountsRequest.JSON_PROPERTY_VAULT_ACCOUNT_NAMES_STARTING_INDEX,
+    CreateMultipleAccountsRequest.JSON_PROPERTY_PREFIX
 })
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class CreateMultipleAccountsRequest {
     public static final String JSON_PROPERTY_COUNT = "count";
     private Integer count;
 
-    public static final String JSON_PROPERTY_ASSET_IDS = "assetIds";
-    private List<String> assetIds;
+    public static final String JSON_PROPERTY_BASE_ASSET_IDS = "baseAssetIds";
+    private List<String> baseAssetIds = new ArrayList<>();
+
+    public static final String JSON_PROPERTY_NAMES = "names";
+    private List<String> names;
+
+    public static final String JSON_PROPERTY_VAULT_ACCOUNT_NAMES_STARTING_INDEX =
+            "vaultAccountNamesStartingIndex";
+    private Integer vaultAccountNamesStartingIndex;
+
+    public static final String JSON_PROPERTY_PREFIX = "prefix";
+    private String prefix;
 
     public CreateMultipleAccountsRequest() {}
 
@@ -48,48 +61,128 @@ public class CreateMultipleAccountsRequest {
      *
      * @return count
      */
-    @jakarta.annotation.Nullable
+    @jakarta.annotation.Nonnull
     @JsonProperty(JSON_PROPERTY_COUNT)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
     public Integer getCount() {
         return count;
     }
 
     @JsonProperty(JSON_PROPERTY_COUNT)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
     public void setCount(Integer count) {
         this.count = count;
     }
 
-    public CreateMultipleAccountsRequest assetIds(List<String> assetIds) {
-        this.assetIds = assetIds;
+    public CreateMultipleAccountsRequest baseAssetIds(List<String> baseAssetIds) {
+        this.baseAssetIds = baseAssetIds;
         return this;
     }
 
-    public CreateMultipleAccountsRequest addAssetIdsItem(String assetIdsItem) {
-        if (this.assetIds == null) {
-            this.assetIds = new ArrayList<>();
+    public CreateMultipleAccountsRequest addBaseAssetIdsItem(String baseAssetIdsItem) {
+        if (this.baseAssetIds == null) {
+            this.baseAssetIds = new ArrayList<>();
         }
-        this.assetIds.add(assetIdsItem);
+        this.baseAssetIds.add(baseAssetIdsItem);
         return this;
     }
 
     /**
-     * Array of asset IDs
+     * Array of base asset IDs
      *
-     * @return assetIds
+     * @return baseAssetIds
      */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_ASSET_IDS)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public List<String> getAssetIds() {
-        return assetIds;
+    @jakarta.annotation.Nonnull
+    @JsonProperty(JSON_PROPERTY_BASE_ASSET_IDS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public List<String> getBaseAssetIds() {
+        return baseAssetIds;
     }
 
-    @JsonProperty(JSON_PROPERTY_ASSET_IDS)
+    @JsonProperty(JSON_PROPERTY_BASE_ASSET_IDS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setBaseAssetIds(List<String> baseAssetIds) {
+        this.baseAssetIds = baseAssetIds;
+    }
+
+    public CreateMultipleAccountsRequest names(List<String> names) {
+        this.names = names;
+        return this;
+    }
+
+    public CreateMultipleAccountsRequest addNamesItem(String namesItem) {
+        if (this.names == null) {
+            this.names = new ArrayList<>();
+        }
+        this.names.add(namesItem);
+        return this;
+    }
+
+    /**
+     * Names to assign to vault accounts. if vaultAccountNamesStartingIndex or prefix is used
+     * it&#39;ll fail
+     *
+     * @return names
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_NAMES)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAssetIds(List<String> assetIds) {
-        this.assetIds = assetIds;
+    public List<String> getNames() {
+        return names;
+    }
+
+    @JsonProperty(JSON_PROPERTY_NAMES)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setNames(List<String> names) {
+        this.names = names;
+    }
+
+    public CreateMultipleAccountsRequest vaultAccountNamesStartingIndex(
+            Integer vaultAccountNamesStartingIndex) {
+        this.vaultAccountNamesStartingIndex = vaultAccountNamesStartingIndex;
+        return this;
+    }
+
+    /**
+     * Copy vault accounts names starting from this index. If names array is used it&#39;ll fail
+     *
+     * @return vaultAccountNamesStartingIndex
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_VAULT_ACCOUNT_NAMES_STARTING_INDEX)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public Integer getVaultAccountNamesStartingIndex() {
+        return vaultAccountNamesStartingIndex;
+    }
+
+    @JsonProperty(JSON_PROPERTY_VAULT_ACCOUNT_NAMES_STARTING_INDEX)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setVaultAccountNamesStartingIndex(Integer vaultAccountNamesStartingIndex) {
+        this.vaultAccountNamesStartingIndex = vaultAccountNamesStartingIndex;
+    }
+
+    public CreateMultipleAccountsRequest prefix(String prefix) {
+        this.prefix = prefix;
+        return this;
+    }
+
+    /**
+     * When copying from existing vault accounts (vaultAccountNamesStartingIndex) then adding a
+     * prefix to the names. If names array is used it&#39;ll fail
+     *
+     * @return prefix
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_PREFIX)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getPrefix() {
+        return prefix;
+    }
+
+    @JsonProperty(JSON_PROPERTY_PREFIX)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setPrefix(String prefix) {
+        this.prefix = prefix;
     }
 
     /** Return true if this CreateMultipleAccountsRequest object is equal to o. */
@@ -104,12 +197,17 @@ public class CreateMultipleAccountsRequest {
         CreateMultipleAccountsRequest createMultipleAccountsRequest =
                 (CreateMultipleAccountsRequest) o;
         return Objects.equals(this.count, createMultipleAccountsRequest.count)
-                && Objects.equals(this.assetIds, createMultipleAccountsRequest.assetIds);
+                && Objects.equals(this.baseAssetIds, createMultipleAccountsRequest.baseAssetIds)
+                && Objects.equals(this.names, createMultipleAccountsRequest.names)
+                && Objects.equals(
+                        this.vaultAccountNamesStartingIndex,
+                        createMultipleAccountsRequest.vaultAccountNamesStartingIndex)
+                && Objects.equals(this.prefix, createMultipleAccountsRequest.prefix);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(count, assetIds);
+        return Objects.hash(count, baseAssetIds, names, vaultAccountNamesStartingIndex, prefix);
     }
 
     @Override
@@ -117,7 +215,12 @@ public class CreateMultipleAccountsRequest {
         StringBuilder sb = new StringBuilder();
         sb.append("class CreateMultipleAccountsRequest {\n");
         sb.append("    count: ").append(toIndentedString(count)).append("\n");
-        sb.append("    assetIds: ").append(toIndentedString(assetIds)).append("\n");
+        sb.append("    baseAssetIds: ").append(toIndentedString(baseAssetIds)).append("\n");
+        sb.append("    names: ").append(toIndentedString(names)).append("\n");
+        sb.append("    vaultAccountNamesStartingIndex: ")
+                .append(toIndentedString(vaultAccountNamesStartingIndex))
+                .append("\n");
+        sb.append("    prefix: ").append(toIndentedString(prefix)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -176,12 +279,12 @@ public class CreateMultipleAccountsRequest {
                                     .replaceAll("\\+", "%20")));
         }
 
-        // add `assetIds` to the URL query string
-        if (getAssetIds() != null) {
-            for (int i = 0; i < getAssetIds().size(); i++) {
+        // add `baseAssetIds` to the URL query string
+        if (getBaseAssetIds() != null) {
+            for (int i = 0; i < getBaseAssetIds().size(); i++) {
                 joiner.add(
                         String.format(
-                                "%sassetIds%s%s=%s",
+                                "%sbaseAssetIds%s%s=%s",
                                 prefix,
                                 suffix,
                                 "".equals(suffix)
@@ -189,10 +292,53 @@ public class CreateMultipleAccountsRequest {
                                         : String.format(
                                                 "%s%d%s", containerPrefix, i, containerSuffix),
                                 URLEncoder.encode(
-                                                String.valueOf(getAssetIds().get(i)),
+                                                String.valueOf(getBaseAssetIds().get(i)),
                                                 StandardCharsets.UTF_8)
                                         .replaceAll("\\+", "%20")));
             }
+        }
+
+        // add `names` to the URL query string
+        if (getNames() != null) {
+            for (int i = 0; i < getNames().size(); i++) {
+                joiner.add(
+                        String.format(
+                                "%snames%s%s=%s",
+                                prefix,
+                                suffix,
+                                "".equals(suffix)
+                                        ? ""
+                                        : String.format(
+                                                "%s%d%s", containerPrefix, i, containerSuffix),
+                                URLEncoder.encode(
+                                                String.valueOf(getNames().get(i)),
+                                                StandardCharsets.UTF_8)
+                                        .replaceAll("\\+", "%20")));
+            }
+        }
+
+        // add `vaultAccountNamesStartingIndex` to the URL query string
+        if (getVaultAccountNamesStartingIndex() != null) {
+            joiner.add(
+                    String.format(
+                            "%svaultAccountNamesStartingIndex%s=%s",
+                            prefix,
+                            suffix,
+                            URLEncoder.encode(
+                                            String.valueOf(getVaultAccountNamesStartingIndex()),
+                                            StandardCharsets.UTF_8)
+                                    .replaceAll("\\+", "%20")));
+        }
+
+        // add `prefix` to the URL query string
+        if (getPrefix() != null) {
+            joiner.add(
+                    String.format(
+                            "%sprefix%s=%s",
+                            prefix,
+                            suffix,
+                            URLEncoder.encode(String.valueOf(getPrefix()), StandardCharsets.UTF_8)
+                                    .replaceAll("\\+", "%20")));
         }
 
         return joiner.toString();

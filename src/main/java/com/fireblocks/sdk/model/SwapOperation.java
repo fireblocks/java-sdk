@@ -58,7 +58,7 @@ public class SwapOperation {
     private String accountId;
 
     public static final String JSON_PROPERTY_PROVIDER_ID = "providerId";
-    private String providerId;
+    private UUID providerId;
 
     public static final String JSON_PROPERTY_CATEGORY = "category";
     private ProviderCategoryEnum category;
@@ -201,26 +201,26 @@ public class SwapOperation {
         this.accountId = accountId;
     }
 
-    public SwapOperation providerId(String providerId) {
+    public SwapOperation providerId(UUID providerId) {
         this.providerId = providerId;
         return this;
     }
 
     /**
-     * The ID of the provider
+     * The uuid that identifies the provider
      *
      * @return providerId
      */
     @jakarta.annotation.Nonnull
     @JsonProperty(JSON_PROPERTY_PROVIDER_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public String getProviderId() {
+    public UUID getProviderId() {
         return providerId;
     }
 
     @JsonProperty(JSON_PROPERTY_PROVIDER_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setProviderId(String providerId) {
+    public void setProviderId(UUID providerId) {
         this.providerId = providerId;
     }
 

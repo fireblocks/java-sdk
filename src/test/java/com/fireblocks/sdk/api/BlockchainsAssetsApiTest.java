@@ -26,6 +26,7 @@ import com.fireblocks.sdk.model.ListAssetsResponse;
 import com.fireblocks.sdk.model.ListBlockchainsResponse;
 import com.fireblocks.sdk.model.RegisterNewAssetRequest;
 import com.fireblocks.sdk.model.SetAssetPriceRequest;
+import com.fireblocks.sdk.model.UpdateAssetUserMetadataRequest;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -168,5 +169,22 @@ public class BlockchainsAssetsApiTest {
         String idempotencyKey = null;
         CompletableFuture<ApiResponse<AssetPriceResponse>> response =
                 api.setAssetPrice(id, setAssetPriceRequest, idempotencyKey);
+    }
+
+    /**
+     * Update the user’s metadata for an asset
+     *
+     * <p>Update the user’s metadata for an asset. Endpoint Permission: Owner, Admin, Non-Signing
+     * Admin, NCW Admin, Signer, Editor.
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void updateAssetUserMetadataTest() throws ApiException {
+        String id = null;
+        UpdateAssetUserMetadataRequest updateAssetUserMetadataRequest = null;
+        String idempotencyKey = null;
+        CompletableFuture<ApiResponse<Asset>> response =
+                api.updateAssetUserMetadata(id, updateAssetUserMetadataRequest, idempotencyKey);
     }
 }

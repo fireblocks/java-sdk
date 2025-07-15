@@ -16,6 +16,8 @@ package com.fireblocks.sdk.api;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.model.ContractAbiResponseDto;
+import com.fireblocks.sdk.model.ContractDataDecodeRequest;
+import com.fireblocks.sdk.model.ContractDataDecodedResponse;
 import com.fireblocks.sdk.model.ParameterWithValue;
 import com.fireblocks.sdk.model.ReadCallFunctionDto;
 import com.fireblocks.sdk.model.TransactionReceiptResponse;
@@ -31,6 +33,25 @@ import org.junit.Test;
 public class ContractInteractionsApiTest {
 
     private final ContractInteractionsApi api = new ContractInteractionsApi();
+
+    /**
+     * Decode a function call data, error, or event log
+     *
+     * <p>Decode a function call data, error, or event log from a deployed contract by blockchain
+     * native asset id and contract address.
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void decodeContractDataTest() throws ApiException {
+        ContractDataDecodeRequest contractDataDecodeRequest = null;
+        String contractAddress = null;
+        String baseAssetId = null;
+        String idempotencyKey = null;
+        CompletableFuture<ApiResponse<ContractDataDecodedResponse>> response =
+                api.decodeContractData(
+                        contractDataDecodeRequest, contractAddress, baseAssetId, idempotencyKey);
+    }
 
     /**
      * Return deployed contract&#39;s ABI

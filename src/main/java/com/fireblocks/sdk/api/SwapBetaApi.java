@@ -38,6 +38,7 @@ import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringJoiner;
+import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 
@@ -95,7 +96,7 @@ public class SwapBetaApi {
      * @throws ApiException if fails to make API call
      */
     public CompletableFuture<ApiResponse<SwapProvider>> approveTermsOfService(
-            String providerId, String idempotencyKey) throws ApiException {
+            UUID providerId, String idempotencyKey) throws ApiException {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     approveTermsOfServiceRequestBuilder(providerId, idempotencyKey);
@@ -133,9 +134,9 @@ public class SwapBetaApi {
     }
 
     private HttpRequest.Builder approveTermsOfServiceRequestBuilder(
-            String providerId, String idempotencyKey) throws ApiException {
+            UUID providerId, String idempotencyKey) throws ApiException {
         ValidationUtils.assertParamExistsAndNotEmpty(
-                "approveTermsOfService", "providerId", providerId);
+                "approveTermsOfService", "providerId", providerId.toString());
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
@@ -175,8 +176,7 @@ public class SwapBetaApi {
      * @throws ApiException if fails to make API call
      */
     public CompletableFuture<ApiResponse<QuoteResponse>> createQuote(
-            QuoteRequest quoteRequest, String providerId, String idempotencyKey)
-            throws ApiException {
+            QuoteRequest quoteRequest, UUID providerId, String idempotencyKey) throws ApiException {
         try {
             HttpRequest.Builder localVarRequestBuilder =
                     createQuoteRequestBuilder(quoteRequest, providerId, idempotencyKey);
@@ -213,10 +213,10 @@ public class SwapBetaApi {
     }
 
     private HttpRequest.Builder createQuoteRequestBuilder(
-            QuoteRequest quoteRequest, String providerId, String idempotencyKey)
-            throws ApiException {
+            QuoteRequest quoteRequest, UUID providerId, String idempotencyKey) throws ApiException {
         ValidationUtils.assertParamExists("createQuote", "quoteRequest", quoteRequest);
-        ValidationUtils.assertParamExistsAndNotEmpty("createQuote", "providerId", providerId);
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "createQuote", "providerId", providerId.toString());
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 

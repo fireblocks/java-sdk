@@ -89,7 +89,9 @@ public class TravelRuleValidateFullTransactionRequest {
 
         TRP("TRP"),
 
-        OPENVASP("OpenVASP");
+        OPENVASP("OpenVASP"),
+
+        GTR("GTR");
 
         private String value;
 

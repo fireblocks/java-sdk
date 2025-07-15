@@ -67,6 +67,7 @@ public class Fireblocks {
     private SmartTransferApi smartTransfer;
     private StakingApi staking;
     private SwapBetaApi swapBeta;
+    private TagsApi tags;
     private TokenizationApi tokenization;
     private TransactionsApi transactions;
     private TravelRuleApi travelRule;
@@ -432,6 +433,13 @@ public class Fireblocks {
             swapBeta = new SwapBetaApi(apiClient);
         }
         return swapBeta;
+    }
+
+    public TagsApi tags() {
+        if (tags == null) {
+            tags = new TagsApi(apiClient);
+        }
+        return tags;
     }
 
     public TokenizationApi tokenization() {
