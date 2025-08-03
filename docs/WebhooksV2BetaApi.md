@@ -7,6 +7,7 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 | [**createWebhook**](WebhooksV2BetaApi.md#createWebhook) | **POST** /webhooks | Create new webhook |
 | [**deleteWebhook**](WebhooksV2BetaApi.md#deleteWebhook) | **DELETE** /webhooks/{webhookId} | Delete webhook |
 | [**getNotification**](WebhooksV2BetaApi.md#getNotification) | **GET** /webhooks/{webhookId}/notifications/{notificationId} | Get notification by id |
+| [**getNotificationAttempts**](WebhooksV2BetaApi.md#getNotificationAttempts) | **GET** /webhooks/{webhookId}/notifications/{notificationId}/attempts | Get notification attempts |
 | [**getNotifications**](WebhooksV2BetaApi.md#getNotifications) | **GET** /webhooks/{webhookId}/notifications | Get all notifications by webhook id |
 | [**getWebhook**](WebhooksV2BetaApi.md#getWebhook) | **GET** /webhooks/{webhookId} | Get webhook by id |
 | [**getWebhooks**](WebhooksV2BetaApi.md#getWebhooks) | **GET** /webhooks | Get all webhooks |
@@ -253,6 +254,95 @@ public class Example {
 ### Return type
 
 CompletableFuture<ApiResponse<[**NotificationWithData**](NotificationWithData.md)>>
+
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | OK |  * X-Request-ID -  <br>  |
+| **0** | Error Response |  * X-Request-ID -  <br>  |
+
+
+## getNotificationAttempts
+
+> CompletableFuture<ApiResponse<NotificationAttemptsPaginatedResponse>> getNotificationAttempts getNotificationAttempts(webhookId, notificationId, pageCursor, pageSize)
+
+Get notification attempts
+
+Get notification attempts by notification id **Note:** These endpoints are currently in beta and might be subject to changes. 
+
+### Example
+
+```java
+// Import classes:
+import com.fireblocks.sdk.ApiClient;
+import com.fireblocks.sdk.ApiException;
+import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
+import com.fireblocks.sdk.api.WebhooksV2BetaApi;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+
+public class Example {
+    public static void main(String[] args) {
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
+
+        String webhookId = "webhookId_example"; // String | The ID of the webhook to fetch
+        String notificationId = "notificationId_example"; // String | The ID of the notification to fetch
+        String pageCursor = "pageCursor_example"; // String | Cursor of the required page
+        BigDecimal pageSize = new BigDecimal("10"); // BigDecimal | Maximum number of items in the page
+        try {
+            CompletableFuture<ApiResponse<NotificationAttemptsPaginatedResponse>> response = fireblocks.webhooksV2Beta().getNotificationAttempts(webhookId, notificationId, pageCursor, pageSize);
+            System.out.println("Status code: " + response.get().getStatusCode());
+            System.out.println("Response headers: " + response.get().getHeaders());
+            System.out.println("Response body: " + response.get().getData());
+        } catch (InterruptedException | ExecutionException e) {
+            ApiException apiException = (ApiException)e.getCause();
+            System.err.println("Exception when calling WebhooksV2BetaApi#getNotificationAttempts");
+            System.err.println("Status code: " + apiException.getCode());
+            System.err.println("Response headers: " + apiException.getResponseHeaders());
+            System.err.println("Reason: " + apiException.getResponseBody());
+            e.printStackTrace();
+        } catch (ApiException e) {
+            System.err.println("Exception when calling WebhooksV2BetaApi#getNotificationAttempts");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            System.err.println("Reason: " + e.getResponseBody());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **webhookId** | **String**| The ID of the webhook to fetch | |
+| **notificationId** | **String**| The ID of the notification to fetch | |
+| **pageCursor** | **String**| Cursor of the required page | [optional] |
+| **pageSize** | **BigDecimal**| Maximum number of items in the page | [optional] [default to 10] |
+
+### Return type
+
+CompletableFuture<ApiResponse<[**NotificationAttemptsPaginatedResponse**](NotificationAttemptsPaginatedResponse.md)>>
 
 
 ### Authorization

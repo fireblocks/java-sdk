@@ -25,7 +25,7 @@
 
 * `VAULT_ACCOUNT_CREATED` (value: `"vault_account.created"`)
 
-* `VAULT_ACCOUNT_ASSET_LISTED` (value: `"vault_account.asset.listed"`)
+* `VAULT_ACCOUNT_ASSET_ADDED` (value: `"vault_account.asset.added"`)
 
 * `VAULT_ACCOUNT_ASSET_BALANCE_UPDATED` (value: `"vault_account.asset.balance_updated"`)
 
@@ -35,11 +35,21 @@
 
 * `EMBEDDED_WALLET_ASSET_BALANCE_UPDATED` (value: `"embedded_wallet.asset.balance_updated"`)
 
-* `EMBEDDED_WALLET_ASSET_LISTED` (value: `"embedded_wallet.asset.listed"`)
+* `EMBEDDED_WALLET_ASSET_ADDED` (value: `"embedded_wallet.asset.added"`)
 
 * `EMBEDDED_WALLET_ACCOUNT_CREATED` (value: `"embedded_wallet.account.created"`)
 
 * `EMBEDDED_WALLET_DEVICE_ADDED` (value: `"embedded_wallet.device.added"`)
+
+* `ONCHAIN_DATA_UPDATED` (value: `"onchain_data.updated"`)
+
+* `CONNECTION_ADDED` (value: `"connection.added"`)
+
+* `CONNECTION_REMOVED` (value: `"connection.removed"`)
+
+* `CONNECTION_REQUEST_WAITING_PEER_APPROVAL` (value: `"connection.request.waiting_peer_approval"`)
+
+* `CONNECTION_REQUEST_REJECTED_BY_PEER` (value: `"connection.request.rejected_by_peer"`)
 
 
 

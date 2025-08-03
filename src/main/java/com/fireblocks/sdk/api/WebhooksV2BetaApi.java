@@ -21,6 +21,7 @@ import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.Pair;
 import com.fireblocks.sdk.ValidationUtils;
 import com.fireblocks.sdk.model.CreateWebhookRequest;
+import com.fireblocks.sdk.model.NotificationAttemptsPaginatedResponse;
 import com.fireblocks.sdk.model.NotificationPaginatedResponse;
 import com.fireblocks.sdk.model.NotificationStatus;
 import com.fireblocks.sdk.model.NotificationWithData;
@@ -295,6 +296,105 @@ public class WebhooksV2BetaApi {
         String localVarQueryParameterBaseName;
         localVarQueryParameterBaseName = "includeData";
         localVarQueryParams.addAll(ApiClient.parameterToPairs("includeData", includeData));
+
+        if (!localVarQueryParams.isEmpty() || localVarQueryStringJoiner.length() != 0) {
+            StringJoiner queryJoiner = new StringJoiner("&");
+            localVarQueryParams.forEach(p -> queryJoiner.add(p.getName() + '=' + p.getValue()));
+            if (localVarQueryStringJoiner.length() != 0) {
+                queryJoiner.add(localVarQueryStringJoiner.toString());
+            }
+            localVarRequestBuilder.uri(
+                    URI.create(memberVarBaseUri + localVarPath + '?' + queryJoiner.toString()));
+        } else {
+            localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+        }
+
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
+     * Get notification attempts Get notification attempts by notification id **Note:** These
+     * endpoints are currently in beta and might be subject to changes.
+     *
+     * @param webhookId The ID of the webhook to fetch (required)
+     * @param notificationId The ID of the notification to fetch (required)
+     * @param pageCursor Cursor of the required page (optional)
+     * @param pageSize Maximum number of items in the page (optional, default to 10)
+     * @return CompletableFuture&lt;ApiResponse&lt;NotificationAttemptsPaginatedResponse&gt;&gt;
+     * @throws ApiException if fails to make API call
+     */
+    public CompletableFuture<ApiResponse<NotificationAttemptsPaginatedResponse>>
+            getNotificationAttempts(
+                    String webhookId, String notificationId, String pageCursor, BigDecimal pageSize)
+                    throws ApiException {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    getNotificationAttemptsRequestBuilder(
+                            webhookId, notificationId, pageCursor, pageSize);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException(
+                                                    "getNotificationAttempts", localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<NotificationAttemptsPaginatedResponse>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            NotificationAttemptsPaginatedResponse>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            });
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder getNotificationAttemptsRequestBuilder(
+            String webhookId, String notificationId, String pageCursor, BigDecimal pageSize)
+            throws ApiException {
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "getNotificationAttempts", "webhookId", webhookId);
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "getNotificationAttempts", "notificationId", notificationId);
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath =
+                "/webhooks/{webhookId}/notifications/{notificationId}/attempts"
+                        .replace("{webhookId}", ApiClient.urlEncode(webhookId.toString()))
+                        .replace(
+                                "{notificationId}", ApiClient.urlEncode(notificationId.toString()));
+
+        List<Pair> localVarQueryParams = new ArrayList<>();
+        StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
+        String localVarQueryParameterBaseName;
+        localVarQueryParameterBaseName = "pageCursor";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("pageCursor", pageCursor));
+        localVarQueryParameterBaseName = "pageSize";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("pageSize", pageSize));
 
         if (!localVarQueryParams.isEmpty() || localVarQueryStringJoiner.length() != 0) {
             StringJoiner queryJoiner = new StringJoiner("&");

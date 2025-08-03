@@ -16,6 +16,7 @@ package com.fireblocks.sdk.api;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.model.CreateWebhookRequest;
+import com.fireblocks.sdk.model.NotificationAttemptsPaginatedResponse;
 import com.fireblocks.sdk.model.NotificationPaginatedResponse;
 import com.fireblocks.sdk.model.NotificationStatus;
 import com.fireblocks.sdk.model.NotificationWithData;
@@ -82,6 +83,24 @@ public class WebhooksV2BetaApiTest {
         Boolean includeData = null;
         CompletableFuture<ApiResponse<NotificationWithData>> response =
                 api.getNotification(webhookId, notificationId, includeData);
+    }
+
+    /**
+     * Get notification attempts
+     *
+     * <p>Get notification attempts by notification id **Note:** These endpoints are currently in
+     * beta and might be subject to changes.
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void getNotificationAttemptsTest() throws ApiException {
+        String webhookId = null;
+        String notificationId = null;
+        String pageCursor = null;
+        BigDecimal pageSize = null;
+        CompletableFuture<ApiResponse<NotificationAttemptsPaginatedResponse>> response =
+                api.getNotificationAttempts(webhookId, notificationId, pageCursor, pageSize);
     }
 
     /**

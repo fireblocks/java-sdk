@@ -13444,6 +13444,99 @@ paths:
         source: "response = fireblocks.webhooks_v2_beta.get_notification(webhook_id,\
           \ notification_id, include_data);"
       x-accepts: application/json
+  /webhooks/{webhookId}/notifications/{notificationId}/attempts:
+    get:
+      description: |
+        Get notification attempts by notification id
+        **Note:** These endpoints are currently in beta and might be subject to changes.
+      operationId: getNotificationAttempts
+      parameters:
+      - description: The ID of the webhook to fetch
+        explode: false
+        in: path
+        name: webhookId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: The ID of the notification to fetch
+        explode: false
+        in: path
+        name: notificationId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: Cursor of the required page
+        explode: true
+        in: query
+        name: pageCursor
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: Maximum number of items in the page
+        explode: true
+        in: query
+        name: pageSize
+        required: false
+        schema:
+          default: 10
+          example: 10
+          maximum: 100
+          minimum: 1
+          type: number
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotificationAttemptsPaginatedResponse'
+          description: OK
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorSchema'
+          description: Error Response
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+      summary: Get notification attempts
+      tags:
+      - Webhooks V2 (Beta)
+      x-rate-limit-category: query
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<NotificationAttemptsPaginatedResponse>>\
+            \ = fireblocks.webhooksV2Beta.getNotificationAttempts(webhooksV2BetaApiGetNotificationAttemptsRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<NotificationAttemptsPaginatedResponse>>\
+            \ response = fireblocks.webhooksV2Beta().getNotificationAttempts(webhookId,\
+            \ notificationId, pageCursor, pageSize);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.webhooks_v2_beta.get_notification_attempts(webhook_id,\
+            \ notification_id, page_cursor, page_size);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<NotificationAttemptsPaginatedResponse>>\
+          \ = fireblocks.webhooksV2Beta.getNotificationAttempts(webhooksV2BetaApiGetNotificationAttemptsRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<NotificationAttemptsPaginatedResponse>>\
+          \ response = fireblocks.webhooksV2Beta().getNotificationAttempts(webhookId,\
+          \ notificationId, pageCursor, pageSize);"
+      - lang: Python
+        source: "response = fireblocks.webhooks_v2_beta.get_notification_attempts(webhook_id,\
+          \ notification_id, page_cursor, page_size);"
+      x-accepts: application/json
   /webhooks/{webhookId}/notifications/{notificationId}/resend:
     post:
       description: |
@@ -37589,14 +37682,19 @@ components:
       - contract_wallet.asset.added
       - contract_wallet.asset.removed
       - vault_account.created
-      - vault_account.asset.listed
+      - vault_account.asset.added
       - vault_account.asset.balance_updated
       - embedded_wallet.status.updated
       - embedded_wallet.created
       - embedded_wallet.asset.balance_updated
-      - embedded_wallet.asset.listed
+      - embedded_wallet.asset.added
       - embedded_wallet.account.created
       - embedded_wallet.device.added
+      - onchain_data.updated
+      - connection.added
+      - connection.removed
+      - connection.request.waiting_peer_approval
+      - connection.request.rejected_by_peer
       type: string
     Webhook:
       example:
@@ -37974,6 +38072,32 @@ components:
       - id
       - status
       - updatedAt
+      type: object
+    NotificationAttemptsPaginatedResponse:
+      example:
+        next: eJ0eXAiOiJKV1QiLCJhbGcOiJIUzI1NiJ9
+        data:
+        - duration: 130
+          failureReason: TIMED_OUT
+          sentTime: 1625126400000
+          responseCode: 200
+        - duration: 130
+          failureReason: TIMED_OUT
+          sentTime: 1625126400000
+          responseCode: 200
+      properties:
+        data:
+          description: The data of the current page
+          items:
+            $ref: '#/components/schemas/NotificationAttempt'
+          type: array
+        next:
+          description: The ID of the next page
+          example: eJ0eXAiOiJKV1QiLCJhbGcOiJIUzI1NiJ9
+          nullable: true
+          type: string
+      required:
+      - data
       type: object
     ResendNotificationsByResourceIdRequest:
       example:

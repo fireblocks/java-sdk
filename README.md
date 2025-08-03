@@ -32,7 +32,7 @@ Add this dependency to your project's POM:
 <dependency>
   <groupId>com.fireblocks.sdk</groupId>
   <artifactId>fireblocks-sdk</artifactId>
-  <version>11.0.0</version>
+  <version>0.0.0</version>
   <scope>compile</scope>
 </dependency>
 ```
@@ -42,7 +42,7 @@ Add this dependency to your project's POM:
 Add this dependency to your project's build file:
 
 ```groovy
-compile "com.fireblocks.sdk:fireblocks-sdk:11.0.0"
+compile "com.fireblocks.sdk:fireblocks-sdk:0.0.0"
 ```
 
 ### Others
@@ -55,7 +55,7 @@ mvn clean package
 
 Then manually install the following JARs:
 
-- `target/fireblocks-sdk-11.0.0.jar`
+- `target/fireblocks-sdk-0.0.0.jar`
 - `target/lib/*.jar`
 
 
@@ -430,6 +430,7 @@ Class | Method | HTTP request | Description
 *WebhooksV2BetaApi* | [**createWebhook**](docs/WebhooksV2BetaApi.md#createWebhook) | **POST** /webhooks | Create new webhook
 *WebhooksV2BetaApi* | [**deleteWebhook**](docs/WebhooksV2BetaApi.md#deleteWebhook) | **DELETE** /webhooks/{webhookId} | Delete webhook
 *WebhooksV2BetaApi* | [**getNotification**](docs/WebhooksV2BetaApi.md#getNotification) | **GET** /webhooks/{webhookId}/notifications/{notificationId} | Get notification by id
+*WebhooksV2BetaApi* | [**getNotificationAttempts**](docs/WebhooksV2BetaApi.md#getNotificationAttempts) | **GET** /webhooks/{webhookId}/notifications/{notificationId}/attempts | Get notification attempts
 *WebhooksV2BetaApi* | [**getNotifications**](docs/WebhooksV2BetaApi.md#getNotifications) | **GET** /webhooks/{webhookId}/notifications | Get all notifications by webhook id
 *WebhooksV2BetaApi* | [**getWebhook**](docs/WebhooksV2BetaApi.md#getWebhook) | **GET** /webhooks/{webhookId} | Get webhook by id
 *WebhooksV2BetaApi* | [**getWebhooks**](docs/WebhooksV2BetaApi.md#getWebhooks) | **GET** /webhooks | Get all webhooks
@@ -750,6 +751,7 @@ Class | Method | HTTP request | Description
  - [NotFoundException](docs/NotFoundException.md)
  - [Notification](docs/Notification.md)
  - [NotificationAttempt](docs/NotificationAttempt.md)
+ - [NotificationAttemptsPaginatedResponse](docs/NotificationAttemptsPaginatedResponse.md)
  - [NotificationPaginatedResponse](docs/NotificationPaginatedResponse.md)
  - [NotificationStatus](docs/NotificationStatus.md)
  - [NotificationWithData](docs/NotificationWithData.md)
