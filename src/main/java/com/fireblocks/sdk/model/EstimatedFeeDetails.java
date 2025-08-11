@@ -19,30 +19,26 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import java.util.Objects;
 import java.util.StringJoiner;
 
-/** EstimatedTransactionFeeResponse */
+/** Optional detailed fee breakdown for high/medium/low estimates */
 @JsonPropertyOrder({
-    EstimatedTransactionFeeResponse.JSON_PROPERTY_LOW,
-    EstimatedTransactionFeeResponse.JSON_PROPERTY_MEDIUM,
-    EstimatedTransactionFeeResponse.JSON_PROPERTY_HIGH,
-    EstimatedTransactionFeeResponse.JSON_PROPERTY_FEE_DETAILS
+    EstimatedFeeDetails.JSON_PROPERTY_LOW,
+    EstimatedFeeDetails.JSON_PROPERTY_MEDIUM,
+    EstimatedFeeDetails.JSON_PROPERTY_HIGH
 })
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
-public class EstimatedTransactionFeeResponse {
+public class EstimatedFeeDetails {
     public static final String JSON_PROPERTY_LOW = "low";
-    private TransactionFee low;
+    private FeeBreakdown low;
 
     public static final String JSON_PROPERTY_MEDIUM = "medium";
-    private TransactionFee medium;
+    private FeeBreakdown medium;
 
     public static final String JSON_PROPERTY_HIGH = "high";
-    private TransactionFee high;
+    private FeeBreakdown high;
 
-    public static final String JSON_PROPERTY_FEE_DETAILS = "feeDetails";
-    private EstimatedFeeDetails feeDetails;
+    public EstimatedFeeDetails() {}
 
-    public EstimatedTransactionFeeResponse() {}
-
-    public EstimatedTransactionFeeResponse low(TransactionFee low) {
+    public EstimatedFeeDetails low(FeeBreakdown low) {
         this.low = low;
         return this;
     }
@@ -52,20 +48,20 @@ public class EstimatedTransactionFeeResponse {
      *
      * @return low
      */
-    @jakarta.annotation.Nonnull
+    @jakarta.annotation.Nullable
     @JsonProperty(JSON_PROPERTY_LOW)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public TransactionFee getLow() {
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public FeeBreakdown getLow() {
         return low;
     }
 
     @JsonProperty(JSON_PROPERTY_LOW)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setLow(TransactionFee low) {
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setLow(FeeBreakdown low) {
         this.low = low;
     }
 
-    public EstimatedTransactionFeeResponse medium(TransactionFee medium) {
+    public EstimatedFeeDetails medium(FeeBreakdown medium) {
         this.medium = medium;
         return this;
     }
@@ -75,20 +71,20 @@ public class EstimatedTransactionFeeResponse {
      *
      * @return medium
      */
-    @jakarta.annotation.Nonnull
+    @jakarta.annotation.Nullable
     @JsonProperty(JSON_PROPERTY_MEDIUM)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public TransactionFee getMedium() {
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public FeeBreakdown getMedium() {
         return medium;
     }
 
     @JsonProperty(JSON_PROPERTY_MEDIUM)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setMedium(TransactionFee medium) {
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setMedium(FeeBreakdown medium) {
         this.medium = medium;
     }
 
-    public EstimatedTransactionFeeResponse high(TransactionFee high) {
+    public EstimatedFeeDetails high(FeeBreakdown high) {
         this.high = high;
         return this;
     }
@@ -98,43 +94,20 @@ public class EstimatedTransactionFeeResponse {
      *
      * @return high
      */
-    @jakarta.annotation.Nonnull
+    @jakarta.annotation.Nullable
     @JsonProperty(JSON_PROPERTY_HIGH)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public TransactionFee getHigh() {
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public FeeBreakdown getHigh() {
         return high;
     }
 
     @JsonProperty(JSON_PROPERTY_HIGH)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setHigh(TransactionFee high) {
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setHigh(FeeBreakdown high) {
         this.high = high;
     }
 
-    public EstimatedTransactionFeeResponse feeDetails(EstimatedFeeDetails feeDetails) {
-        this.feeDetails = feeDetails;
-        return this;
-    }
-
-    /**
-     * Get feeDetails
-     *
-     * @return feeDetails
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_FEE_DETAILS)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public EstimatedFeeDetails getFeeDetails() {
-        return feeDetails;
-    }
-
-    @JsonProperty(JSON_PROPERTY_FEE_DETAILS)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setFeeDetails(EstimatedFeeDetails feeDetails) {
-        this.feeDetails = feeDetails;
-    }
-
-    /** Return true if this EstimatedTransactionFeeResponse object is equal to o. */
+    /** Return true if this EstimatedFeeDetails object is equal to o. */
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -143,27 +116,24 @@ public class EstimatedTransactionFeeResponse {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        EstimatedTransactionFeeResponse estimatedTransactionFeeResponse =
-                (EstimatedTransactionFeeResponse) o;
-        return Objects.equals(this.low, estimatedTransactionFeeResponse.low)
-                && Objects.equals(this.medium, estimatedTransactionFeeResponse.medium)
-                && Objects.equals(this.high, estimatedTransactionFeeResponse.high)
-                && Objects.equals(this.feeDetails, estimatedTransactionFeeResponse.feeDetails);
+        EstimatedFeeDetails estimatedFeeDetails = (EstimatedFeeDetails) o;
+        return Objects.equals(this.low, estimatedFeeDetails.low)
+                && Objects.equals(this.medium, estimatedFeeDetails.medium)
+                && Objects.equals(this.high, estimatedFeeDetails.high);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(low, medium, high, feeDetails);
+        return Objects.hash(low, medium, high);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("class EstimatedTransactionFeeResponse {\n");
+        sb.append("class EstimatedFeeDetails {\n");
         sb.append("    low: ").append(toIndentedString(low)).append("\n");
         sb.append("    medium: ").append(toIndentedString(medium)).append("\n");
         sb.append("    high: ").append(toIndentedString(high)).append("\n");
-        sb.append("    feeDetails: ").append(toIndentedString(feeDetails)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -224,11 +194,6 @@ public class EstimatedTransactionFeeResponse {
         // add `high` to the URL query string
         if (getHigh() != null) {
             joiner.add(getHigh().toUrlQueryString(prefix + "high" + suffix));
-        }
-
-        // add `feeDetails` to the URL query string
-        if (getFeeDetails() != null) {
-            joiner.add(getFeeDetails().toUrlQueryString(prefix + "feeDetails" + suffix));
         }
 
         return joiner.toString();

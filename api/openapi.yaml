@@ -12874,7 +12874,6 @@ paths:
     get:
       description: |
         Get all webhooks (paginated)
-        **Note:** These endpoints are currently in beta and might be subject to changes.
       operationId: getWebhooks
       parameters:
       - description: ASC / DESC ordering (default DESC)
@@ -12931,37 +12930,38 @@ paths:
               $ref: '#/components/headers/X-Request-ID'
       summary: Get all webhooks
       tags:
-      - Webhooks V2 (Beta)
+      - Webhooks V2
       x-rate-limit-category: query
       x-readme:
         code-samples:
         - language: typescript
           code: "const response: Promise<FireblocksResponse<WebhookPaginatedResponse>>\
-            \ = fireblocks.webhooksV2Beta.getWebhooks(webhooksV2BetaApiGetWebhooksRequest);"
+            \ = fireblocks.webhooksV2.getWebhooks(webhooksV2ApiGetWebhooksRequest);"
           name: Fireblocks SDK TypeScript example
         - language: java
           code: "CompletableFuture<ApiResponse<WebhookPaginatedResponse>> response\
-            \ = fireblocks.webhooksV2Beta().getWebhooks(order, pageCursor, pageSize);"
+            \ = fireblocks.webhooksV2().getWebhooks(order, pageCursor, pageSize);"
           name: Fireblocks SDK Java example
         - language: python
-          code: "response = fireblocks.webhooks_v2_beta.get_webhooks(order, page_cursor,\
+          code: "response = fireblocks.webhooks_v2.get_webhooks(order, page_cursor,\
             \ page_size);"
           name: Fireblocks SDK Python example
       x-codeSamples:
       - lang: TypeScript
         source: "const response: Promise<FireblocksResponse<WebhookPaginatedResponse>>\
-          \ = fireblocks.webhooksV2Beta.getWebhooks(webhooksV2BetaApiGetWebhooksRequest);"
+          \ = fireblocks.webhooksV2.getWebhooks(webhooksV2ApiGetWebhooksRequest);"
       - lang: Java
         source: "CompletableFuture<ApiResponse<WebhookPaginatedResponse>> response\
-          \ = fireblocks.webhooksV2Beta().getWebhooks(order, pageCursor, pageSize);"
+          \ = fireblocks.webhooksV2().getWebhooks(order, pageCursor, pageSize);"
       - lang: Python
-        source: "response = fireblocks.webhooks_v2_beta.get_webhooks(order, page_cursor,\
+        source: "response = fireblocks.webhooks_v2.get_webhooks(order, page_cursor,\
           \ page_size);"
       x-accepts: application/json
     post:
       description: |
         Creates a new webhook, which will be triggered on the specified events
-        **Note:** These endpoints are currently in beta and might be subject to changes.
+
+        Endpoint Permission: Owner, Admin, Non-Signing Admin.
       operationId: createWebhook
       parameters:
       - description: "A unique identifier for the request. If the request is sent\
@@ -13002,29 +13002,29 @@ paths:
               $ref: '#/components/headers/X-Request-ID'
       summary: Create new webhook
       tags:
-      - Webhooks V2 (Beta)
+      - Webhooks V2
       x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: typescript
-          code: "const response: Promise<FireblocksResponse<Webhook>> = fireblocks.webhooksV2Beta.createWebhook(webhooksV2BetaApiCreateWebhookRequest);"
+          code: "const response: Promise<FireblocksResponse<Webhook>> = fireblocks.webhooksV2.createWebhook(webhooksV2ApiCreateWebhookRequest);"
           name: Fireblocks SDK TypeScript example
         - language: java
-          code: "CompletableFuture<ApiResponse<Webhook>> response = fireblocks.webhooksV2Beta().createWebhook(createWebhookRequest,\
+          code: "CompletableFuture<ApiResponse<Webhook>> response = fireblocks.webhooksV2().createWebhook(createWebhookRequest,\
             \ idempotencyKey);"
           name: Fireblocks SDK Java example
         - language: python
-          code: "response = fireblocks.webhooks_v2_beta.create_webhook(create_webhook_request,\
+          code: "response = fireblocks.webhooks_v2.create_webhook(create_webhook_request,\
             \ idempotency_key);"
           name: Fireblocks SDK Python example
       x-codeSamples:
       - lang: TypeScript
-        source: "const response: Promise<FireblocksResponse<Webhook>> = fireblocks.webhooksV2Beta.createWebhook(webhooksV2BetaApiCreateWebhookRequest);"
+        source: "const response: Promise<FireblocksResponse<Webhook>> = fireblocks.webhooksV2.createWebhook(webhooksV2ApiCreateWebhookRequest);"
       - lang: Java
-        source: "CompletableFuture<ApiResponse<Webhook>> response = fireblocks.webhooksV2Beta().createWebhook(createWebhookRequest,\
+        source: "CompletableFuture<ApiResponse<Webhook>> response = fireblocks.webhooksV2().createWebhook(createWebhookRequest,\
           \ idempotencyKey);"
       - lang: Python
-        source: "response = fireblocks.webhooks_v2_beta.create_webhook(create_webhook_request,\
+        source: "response = fireblocks.webhooks_v2.create_webhook(create_webhook_request,\
           \ idempotency_key);"
       x-content-type: application/json
       x-accepts: application/json
@@ -13032,7 +13032,8 @@ paths:
     delete:
       description: |
         Delete a webhook by its id
-        **Note:** These endpoints are currently in beta and might be subject to changes.
+
+        Endpoint Permission: Owner, Admin, Non-Signing Admin.
       operationId: deleteWebhook
       parameters:
       - description: The unique identifier of the webhook
@@ -13066,31 +13067,30 @@ paths:
               $ref: '#/components/headers/X-Request-ID'
       summary: Delete webhook
       tags:
-      - Webhooks V2 (Beta)
+      - Webhooks V2
       x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: typescript
-          code: "const response: Promise<FireblocksResponse<Webhook>> = fireblocks.webhooksV2Beta.deleteWebhook(webhooksV2BetaApiDeleteWebhookRequest);"
+          code: "const response: Promise<FireblocksResponse<Webhook>> = fireblocks.webhooksV2.deleteWebhook(webhooksV2ApiDeleteWebhookRequest);"
           name: Fireblocks SDK TypeScript example
         - language: java
-          code: CompletableFuture<ApiResponse<Webhook>> response = fireblocks.webhooksV2Beta().deleteWebhook(webhookId);
+          code: CompletableFuture<ApiResponse<Webhook>> response = fireblocks.webhooksV2().deleteWebhook(webhookId);
           name: Fireblocks SDK Java example
         - language: python
-          code: response = fireblocks.webhooks_v2_beta.delete_webhook(webhook_id);
+          code: response = fireblocks.webhooks_v2.delete_webhook(webhook_id);
           name: Fireblocks SDK Python example
       x-codeSamples:
       - lang: TypeScript
-        source: "const response: Promise<FireblocksResponse<Webhook>> = fireblocks.webhooksV2Beta.deleteWebhook(webhooksV2BetaApiDeleteWebhookRequest);"
+        source: "const response: Promise<FireblocksResponse<Webhook>> = fireblocks.webhooksV2.deleteWebhook(webhooksV2ApiDeleteWebhookRequest);"
       - lang: Java
-        source: CompletableFuture<ApiResponse<Webhook>> response = fireblocks.webhooksV2Beta().deleteWebhook(webhookId);
+        source: CompletableFuture<ApiResponse<Webhook>> response = fireblocks.webhooksV2().deleteWebhook(webhookId);
       - lang: Python
-        source: response = fireblocks.webhooks_v2_beta.delete_webhook(webhook_id);
+        source: response = fireblocks.webhooks_v2.delete_webhook(webhook_id);
       x-accepts: application/json
     get:
       description: |
         Retrieve a webhook by its id
-        **Note:** These endpoints are currently in beta and might be subject to changes.
       operationId: getWebhook
       parameters:
       - description: The unique identifier of the webhook
@@ -13124,31 +13124,32 @@ paths:
               $ref: '#/components/headers/X-Request-ID'
       summary: Get webhook by id
       tags:
-      - Webhooks V2 (Beta)
+      - Webhooks V2
       x-rate-limit-category: read
       x-readme:
         code-samples:
         - language: typescript
-          code: "const response: Promise<FireblocksResponse<Webhook>> = fireblocks.webhooksV2Beta.getWebhook(webhooksV2BetaApiGetWebhookRequest);"
+          code: "const response: Promise<FireblocksResponse<Webhook>> = fireblocks.webhooksV2.getWebhook(webhooksV2ApiGetWebhookRequest);"
           name: Fireblocks SDK TypeScript example
         - language: java
-          code: CompletableFuture<ApiResponse<Webhook>> response = fireblocks.webhooksV2Beta().getWebhook(webhookId);
+          code: CompletableFuture<ApiResponse<Webhook>> response = fireblocks.webhooksV2().getWebhook(webhookId);
           name: Fireblocks SDK Java example
         - language: python
-          code: response = fireblocks.webhooks_v2_beta.get_webhook(webhook_id);
+          code: response = fireblocks.webhooks_v2.get_webhook(webhook_id);
           name: Fireblocks SDK Python example
       x-codeSamples:
       - lang: TypeScript
-        source: "const response: Promise<FireblocksResponse<Webhook>> = fireblocks.webhooksV2Beta.getWebhook(webhooksV2BetaApiGetWebhookRequest);"
+        source: "const response: Promise<FireblocksResponse<Webhook>> = fireblocks.webhooksV2.getWebhook(webhooksV2ApiGetWebhookRequest);"
       - lang: Java
-        source: CompletableFuture<ApiResponse<Webhook>> response = fireblocks.webhooksV2Beta().getWebhook(webhookId);
+        source: CompletableFuture<ApiResponse<Webhook>> response = fireblocks.webhooksV2().getWebhook(webhookId);
       - lang: Python
-        source: response = fireblocks.webhooks_v2_beta.get_webhook(webhook_id);
+        source: response = fireblocks.webhooks_v2.get_webhook(webhook_id);
       x-accepts: application/json
     patch:
       description: |
         Update a webhook by its id
-        **Note:** These endpoints are currently in beta and might be subject to changes.
+
+        Endpoint Permission: Owner, Admin, Non-Signing Admin.
       operationId: updateWebhook
       parameters:
       - description: The unique identifier of the webhook
@@ -13188,29 +13189,29 @@ paths:
               $ref: '#/components/headers/X-Request-ID'
       summary: Update webhook
       tags:
-      - Webhooks V2 (Beta)
+      - Webhooks V2
       x-rate-limit-category: write
       x-readme:
         code-samples:
         - language: typescript
-          code: "const response: Promise<FireblocksResponse<Webhook>> = fireblocks.webhooksV2Beta.updateWebhook(webhooksV2BetaApiUpdateWebhookRequest);"
+          code: "const response: Promise<FireblocksResponse<Webhook>> = fireblocks.webhooksV2.updateWebhook(webhooksV2ApiUpdateWebhookRequest);"
           name: Fireblocks SDK TypeScript example
         - language: java
-          code: "CompletableFuture<ApiResponse<Webhook>> response = fireblocks.webhooksV2Beta().updateWebhook(updateWebhookRequest,\
+          code: "CompletableFuture<ApiResponse<Webhook>> response = fireblocks.webhooksV2().updateWebhook(updateWebhookRequest,\
             \ webhookId);"
           name: Fireblocks SDK Java example
         - language: python
-          code: "response = fireblocks.webhooks_v2_beta.update_webhook(update_webhook_request,\
+          code: "response = fireblocks.webhooks_v2.update_webhook(update_webhook_request,\
             \ webhook_id);"
           name: Fireblocks SDK Python example
       x-codeSamples:
       - lang: TypeScript
-        source: "const response: Promise<FireblocksResponse<Webhook>> = fireblocks.webhooksV2Beta.updateWebhook(webhooksV2BetaApiUpdateWebhookRequest);"
+        source: "const response: Promise<FireblocksResponse<Webhook>> = fireblocks.webhooksV2.updateWebhook(webhooksV2ApiUpdateWebhookRequest);"
       - lang: Java
-        source: "CompletableFuture<ApiResponse<Webhook>> response = fireblocks.webhooksV2Beta().updateWebhook(updateWebhookRequest,\
+        source: "CompletableFuture<ApiResponse<Webhook>> response = fireblocks.webhooksV2().updateWebhook(updateWebhookRequest,\
           \ webhookId);"
       - lang: Python
-        source: "response = fireblocks.webhooks_v2_beta.update_webhook(update_webhook_request,\
+        source: "response = fireblocks.webhooks_v2.update_webhook(update_webhook_request,\
           \ webhook_id);"
       x-content-type: application/json
       x-accepts: application/json
@@ -13218,7 +13219,6 @@ paths:
     get:
       description: |
         Get all notifications by webhook id (paginated)
-        **Note:** These endpoints are currently in beta and might be subject to changes.
       operationId: getNotifications
       parameters:
       - explode: false
@@ -13243,6 +13243,23 @@ paths:
           example: ASC
           type: string
         style: form
+      - description: Sort by field
+        explode: true
+        in: query
+        name: sortBy
+        required: false
+        schema:
+          default: updatedAt
+          enum:
+          - id
+          - createdAt
+          - updatedAt
+          - status
+          - eventType
+          - resourceId
+          example: id
+          type: string
+        style: form
       - description: Cursor of the required page
         explode: true
         in: query
@@ -13262,56 +13279,6 @@ paths:
           maximum: 100
           minimum: 1
           type: number
-        style: form
-      - description: sort by start date
-        explode: true
-        in: query
-        name: createdStartDate
-        required: false
-        schema:
-          example: 2024-09-24T09:14:38.356Z
-          type: string
-        style: form
-      - description: sort by end date
-        explode: true
-        in: query
-        name: createdEndDate
-        required: false
-        schema:
-          example: 2024-09-24T09:14:38.356Z
-          type: string
-        style: form
-      - description: Filter by Notification statues
-        explode: true
-        in: query
-        name: statuses
-        required: false
-        schema:
-          example: COMPLETED
-          items:
-            $ref: '#/components/schemas/NotificationStatus'
-          type: array
-        style: form
-      - description: Filter by Notification eventTypes
-        explode: true
-        in: query
-        name: eventTypes
-        required: false
-        schema:
-          example:
-          - transaction.created
-          - transaction.status.updated
-          items:
-            $ref: '#/components/schemas/WebhookEvent'
-          type: array
-        style: form
-      - description: Filter by resourceId
-        explode: true
-        in: query
-        name: resourceId
-        required: false
-        schema:
-          type: string
         style: form
       responses:
         "200":
@@ -13334,42 +13301,39 @@ paths:
               $ref: '#/components/headers/X-Request-ID'
       summary: Get all notifications by webhook id
       tags:
-      - Webhooks V2 (Beta)
+      - Webhooks V2
       x-rate-limit-category: query
       x-readme:
         code-samples:
         - language: typescript
           code: "const response: Promise<FireblocksResponse<NotificationPaginatedResponse>>\
-            \ = fireblocks.webhooksV2Beta.getNotifications(webhooksV2BetaApiGetNotificationsRequest);"
+            \ = fireblocks.webhooksV2.getNotifications(webhooksV2ApiGetNotificationsRequest);"
           name: Fireblocks SDK TypeScript example
         - language: java
           code: "CompletableFuture<ApiResponse<NotificationPaginatedResponse>> response\
-            \ = fireblocks.webhooksV2Beta().getNotifications(webhookId, order, pageCursor,\
-            \ pageSize, createdStartDate, createdEndDate, statuses, eventTypes, resourceId);"
+            \ = fireblocks.webhooksV2().getNotifications(webhookId, order, sortBy,\
+            \ pageCursor, pageSize);"
           name: Fireblocks SDK Java example
         - language: python
-          code: "response = fireblocks.webhooks_v2_beta.get_notifications(webhook_id,\
-            \ order, page_cursor, page_size, created_start_date, created_end_date,\
-            \ statuses, event_types, resource_id);"
+          code: "response = fireblocks.webhooks_v2.get_notifications(webhook_id, order,\
+            \ sort_by, page_cursor, page_size);"
           name: Fireblocks SDK Python example
       x-codeSamples:
       - lang: TypeScript
         source: "const response: Promise<FireblocksResponse<NotificationPaginatedResponse>>\
-          \ = fireblocks.webhooksV2Beta.getNotifications(webhooksV2BetaApiGetNotificationsRequest);"
+          \ = fireblocks.webhooksV2.getNotifications(webhooksV2ApiGetNotificationsRequest);"
       - lang: Java
         source: "CompletableFuture<ApiResponse<NotificationPaginatedResponse>> response\
-          \ = fireblocks.webhooksV2Beta().getNotifications(webhookId, order, pageCursor,\
-          \ pageSize, createdStartDate, createdEndDate, statuses, eventTypes, resourceId);"
+          \ = fireblocks.webhooksV2().getNotifications(webhookId, order, sortBy, pageCursor,\
+          \ pageSize);"
       - lang: Python
-        source: "response = fireblocks.webhooks_v2_beta.get_notifications(webhook_id,\
-          \ order, page_cursor, page_size, created_start_date, created_end_date, statuses,\
-          \ event_types, resource_id);"
+        source: "response = fireblocks.webhooks_v2.get_notifications(webhook_id, order,\
+          \ sort_by, page_cursor, page_size);"
       x-accepts: application/json
   /webhooks/{webhookId}/notifications/{notificationId}:
     get:
       description: |
         Get notification by id
-        **Note:** These endpoints are currently in beta and might be subject to changes.
       operationId: getNotification
       parameters:
       - description: Include the data of the notification
@@ -13417,38 +13381,131 @@ paths:
               $ref: '#/components/headers/X-Request-ID'
       summary: Get notification by id
       tags:
-      - Webhooks V2 (Beta)
+      - Webhooks V2
       x-rate-limit-category: read
       x-readme:
         code-samples:
         - language: typescript
           code: "const response: Promise<FireblocksResponse<NotificationWithData>>\
-            \ = fireblocks.webhooksV2Beta.getNotification(webhooksV2BetaApiGetNotificationRequest);"
+            \ = fireblocks.webhooksV2.getNotification(webhooksV2ApiGetNotificationRequest);"
           name: Fireblocks SDK TypeScript example
         - language: java
-          code: "CompletableFuture<ApiResponse<NotificationWithData>> response = fireblocks.webhooksV2Beta().getNotification(webhookId,\
+          code: "CompletableFuture<ApiResponse<NotificationWithData>> response = fireblocks.webhooksV2().getNotification(webhookId,\
             \ notificationId, includeData);"
           name: Fireblocks SDK Java example
         - language: python
-          code: "response = fireblocks.webhooks_v2_beta.get_notification(webhook_id,\
-            \ notification_id, include_data);"
+          code: "response = fireblocks.webhooks_v2.get_notification(webhook_id, notification_id,\
+            \ include_data);"
           name: Fireblocks SDK Python example
       x-codeSamples:
       - lang: TypeScript
         source: "const response: Promise<FireblocksResponse<NotificationWithData>>\
-          \ = fireblocks.webhooksV2Beta.getNotification(webhooksV2BetaApiGetNotificationRequest);"
+          \ = fireblocks.webhooksV2.getNotification(webhooksV2ApiGetNotificationRequest);"
       - lang: Java
-        source: "CompletableFuture<ApiResponse<NotificationWithData>> response = fireblocks.webhooksV2Beta().getNotification(webhookId,\
+        source: "CompletableFuture<ApiResponse<NotificationWithData>> response = fireblocks.webhooksV2().getNotification(webhookId,\
           \ notificationId, includeData);"
       - lang: Python
-        source: "response = fireblocks.webhooks_v2_beta.get_notification(webhook_id,\
-          \ notification_id, include_data);"
+        source: "response = fireblocks.webhooks_v2.get_notification(webhook_id, notification_id,\
+          \ include_data);"
+      x-accepts: application/json
+  /webhooks/{webhookId}/notifications/{notificationId}/attempts:
+    get:
+      description: |
+        Get notification attempts by notification id
+      operationId: getNotificationAttempts
+      parameters:
+      - description: The ID of the webhook to fetch
+        explode: false
+        in: path
+        name: webhookId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: The ID of the notification to fetch
+        explode: false
+        in: path
+        name: notificationId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: Cursor of the required page
+        explode: true
+        in: query
+        name: pageCursor
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: Maximum number of items in the page
+        explode: true
+        in: query
+        name: pageSize
+        required: false
+        schema:
+          default: 10
+          example: 10
+          maximum: 100
+          minimum: 1
+          type: number
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotificationAttemptsPaginatedResponse'
+          description: OK
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorSchema'
+          description: Error Response
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+      summary: Get notification attempts
+      tags:
+      - Webhooks V2
+      x-rate-limit-category: query
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<NotificationAttemptsPaginatedResponse>>\
+            \ = fireblocks.webhooksV2.getNotificationAttempts(webhooksV2ApiGetNotificationAttemptsRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<NotificationAttemptsPaginatedResponse>>\
+            \ response = fireblocks.webhooksV2().getNotificationAttempts(webhookId,\
+            \ notificationId, pageCursor, pageSize);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.webhooks_v2.get_notification_attempts(webhook_id,\
+            \ notification_id, page_cursor, page_size);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<NotificationAttemptsPaginatedResponse>>\
+          \ = fireblocks.webhooksV2.getNotificationAttempts(webhooksV2ApiGetNotificationAttemptsRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<NotificationAttemptsPaginatedResponse>>\
+          \ response = fireblocks.webhooksV2().getNotificationAttempts(webhookId,\
+          \ notificationId, pageCursor, pageSize);"
+      - lang: Python
+        source: "response = fireblocks.webhooks_v2.get_notification_attempts(webhook_id,\
+          \ notification_id, page_cursor, page_size);"
       x-accepts: application/json
   /webhooks/{webhookId}/notifications/{notificationId}/resend:
     post:
       description: |
         Resend notification by ID
-        **Note:** These endpoints are currently in beta and might be subject to changes.
+
+        Endpoint Permission: Owner, Admin, Non-Signing Admin.
       operationId: resendNotificationById
       parameters:
       - description: The ID of the webhook
@@ -13495,36 +13552,37 @@ paths:
               $ref: '#/components/headers/X-Request-ID'
       summary: Resend notification by id
       tags:
-      - Webhooks V2 (Beta)
+      - Webhooks V2
       x-rate-limit-category: async
       x-readme:
         code-samples:
         - language: typescript
-          code: "const response: Promise<FireblocksResponse<void>> = fireblocks.webhooksV2Beta.resendNotificationById(webhooksV2BetaApiResendNotificationByIdRequest);"
+          code: "const response: Promise<FireblocksResponse<void>> = fireblocks.webhooksV2.resendNotificationById(webhooksV2ApiResendNotificationByIdRequest);"
           name: Fireblocks SDK TypeScript example
         - language: java
-          code: "CompletableFuture<ApiResponse<Void>> response = fireblocks.webhooksV2Beta().resendNotificationById(webhookId,\
+          code: "CompletableFuture<ApiResponse<Void>> response = fireblocks.webhooksV2().resendNotificationById(webhookId,\
             \ notificationId, idempotencyKey);"
           name: Fireblocks SDK Java example
         - language: python
-          code: "response = fireblocks.webhooks_v2_beta.resend_notification_by_id(webhook_id,\
+          code: "response = fireblocks.webhooks_v2.resend_notification_by_id(webhook_id,\
             \ notification_id, idempotency_key);"
           name: Fireblocks SDK Python example
       x-codeSamples:
       - lang: TypeScript
-        source: "const response: Promise<FireblocksResponse<void>> = fireblocks.webhooksV2Beta.resendNotificationById(webhooksV2BetaApiResendNotificationByIdRequest);"
+        source: "const response: Promise<FireblocksResponse<void>> = fireblocks.webhooksV2.resendNotificationById(webhooksV2ApiResendNotificationByIdRequest);"
       - lang: Java
-        source: "CompletableFuture<ApiResponse<Void>> response = fireblocks.webhooksV2Beta().resendNotificationById(webhookId,\
+        source: "CompletableFuture<ApiResponse<Void>> response = fireblocks.webhooksV2().resendNotificationById(webhookId,\
           \ notificationId, idempotencyKey);"
       - lang: Python
-        source: "response = fireblocks.webhooks_v2_beta.resend_notification_by_id(webhook_id,\
+        source: "response = fireblocks.webhooks_v2.resend_notification_by_id(webhook_id,\
           \ notification_id, idempotency_key);"
       x-accepts: application/json
   /webhooks/{webhookId}/notifications/resend_by_resource:
     post:
       description: |
         Resend notifications by resource Id
-        **Note:** These endpoints are currently in beta and might be subject to changes.
+
+        Endpoint Permission: Owner, Admin, Non-Signing Admin.
       operationId: resendNotificationsByResourceId
       parameters:
       - description: "A unique identifier for the request. If the request is sent\
@@ -13570,31 +13628,197 @@ paths:
               $ref: '#/components/headers/X-Request-ID'
       summary: Resend notifications by resource Id
       tags:
-      - Webhooks V2 (Beta)
+      - Webhooks V2
       x-rate-limit-category: async
       x-readme:
         code-samples:
         - language: typescript
-          code: "const response: Promise<FireblocksResponse<void>> = fireblocks.webhooksV2Beta.resendNotificationsByResourceId(webhooksV2BetaApiResendNotificationsByResourceIdRequest);"
+          code: "const response: Promise<FireblocksResponse<void>> = fireblocks.webhooksV2.resendNotificationsByResourceId(webhooksV2ApiResendNotificationsByResourceIdRequest);"
           name: Fireblocks SDK TypeScript example
         - language: java
-          code: "CompletableFuture<ApiResponse<Void>> response = fireblocks.webhooksV2Beta().resendNotificationsByResourceId(resendNotificationsByResourceIdRequest,\
+          code: "CompletableFuture<ApiResponse<Void>> response = fireblocks.webhooksV2().resendNotificationsByResourceId(resendNotificationsByResourceIdRequest,\
             \ webhookId, idempotencyKey);"
           name: Fireblocks SDK Java example
         - language: python
-          code: "response = fireblocks.webhooks_v2_beta.resend_notifications_by_resource_id(resend_notifications_by_resource_id_request,\
+          code: "response = fireblocks.webhooks_v2.resend_notifications_by_resource_id(resend_notifications_by_resource_id_request,\
             \ webhook_id, idempotency_key);"
           name: Fireblocks SDK Python example
       x-codeSamples:
       - lang: TypeScript
-        source: "const response: Promise<FireblocksResponse<void>> = fireblocks.webhooksV2Beta.resendNotificationsByResourceId(webhooksV2BetaApiResendNotificationsByResourceIdRequest);"
+        source: "const response: Promise<FireblocksResponse<void>> = fireblocks.webhooksV2.resendNotificationsByResourceId(webhooksV2ApiResendNotificationsByResourceIdRequest);"
       - lang: Java
-        source: "CompletableFuture<ApiResponse<Void>> response = fireblocks.webhooksV2Beta().resendNotificationsByResourceId(resendNotificationsByResourceIdRequest,\
+        source: "CompletableFuture<ApiResponse<Void>> response = fireblocks.webhooksV2().resendNotificationsByResourceId(resendNotificationsByResourceIdRequest,\
           \ webhookId, idempotencyKey);"
       - lang: Python
-        source: "response = fireblocks.webhooks_v2_beta.resend_notifications_by_resource_id(resend_notifications_by_resource_id_request,\
+        source: "response = fireblocks.webhooks_v2.resend_notifications_by_resource_id(resend_notifications_by_resource_id_request,\
           \ webhook_id, idempotency_key);"
       x-content-type: application/json
+      x-accepts: application/json
+  /webhooks/{webhookId}/notifications/resend_failed:
+    post:
+      description: |
+        Resend all failed notifications for a webhook in the last 24 hours
+
+        Endpoint Permission: Owner, Admin, Non-Signing Admin.
+      operationId: resendFailedNotifications
+      parameters:
+      - description: "A unique identifier for the request. If the request is sent\
+          \ multiple times with the same idempotency key, the server will return the\
+          \ same response as the first request. The idempotency key is valid for 24\
+          \ hours."
+        explode: false
+        in: header
+        name: Idempotency-Key
+        required: false
+        schema:
+          type: string
+        style: simple
+      - description: The ID of the webhook
+        explode: false
+        in: path
+        name: webhookId
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ResendFailedNotificationsRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResendFailedNotificationsResponse'
+          description: No failed notifications to resend
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+        "202":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResendFailedNotificationsResponse'
+          description: Resend failed notifications request was accepted and is being
+            processed
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+            Location:
+              $ref: '#/components/headers/Location'
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorSchema'
+          description: Error Response
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+      summary: Resend failed notifications
+      tags:
+      - Webhooks V2
+      x-rate-limit-category: high_compute
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<ResendFailedNotificationsResponse>>\
+            \ = fireblocks.webhooksV2.resendFailedNotifications(webhooksV2ApiResendFailedNotificationsRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<ResendFailedNotificationsResponse>>\
+            \ response = fireblocks.webhooksV2().resendFailedNotifications(resendFailedNotificationsRequest,\
+            \ webhookId, idempotencyKey);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.webhooks_v2.resend_failed_notifications(resend_failed_notifications_request,\
+            \ webhook_id, idempotency_key);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<ResendFailedNotificationsResponse>>\
+          \ = fireblocks.webhooksV2.resendFailedNotifications(webhooksV2ApiResendFailedNotificationsRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<ResendFailedNotificationsResponse>>\
+          \ response = fireblocks.webhooksV2().resendFailedNotifications(resendFailedNotificationsRequest,\
+          \ webhookId, idempotencyKey);"
+      - lang: Python
+        source: "response = fireblocks.webhooks_v2.resend_failed_notifications(resend_failed_notifications_request,\
+          \ webhook_id, idempotency_key);"
+      x-content-type: application/json
+      x-accepts: application/json
+  /webhooks/{webhookId}/notifications/resend_failed/jobs/{jobId}:
+    get:
+      description: |
+        Get the status of a resend job
+      operationId: getResendJobStatus
+      parameters:
+      - description: The ID of the webhook
+        explode: false
+        in: path
+        name: webhookId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: The ID of the resend job
+        explode: false
+        in: path
+        name: jobId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResendFailedNotificationsJobStatusResponse'
+          description: Job status
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorSchema'
+          description: Error Response
+          headers:
+            X-Request-ID:
+              $ref: '#/components/headers/X-Request-ID'
+      summary: Get resend job status
+      tags:
+      - Webhooks V2
+      x-rate-limit-category: read
+      x-readme:
+        code-samples:
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<ResendFailedNotificationsJobStatusResponse>>\
+            \ = fireblocks.webhooksV2.getResendJobStatus(webhooksV2ApiGetResendJobStatusRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<ResendFailedNotificationsJobStatusResponse>>\
+            \ response = fireblocks.webhooksV2().getResendJobStatus(webhookId, jobId);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.webhooks_v2.get_resend_job_status(webhook_id,\
+            \ job_id);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<ResendFailedNotificationsJobStatusResponse>>\
+          \ = fireblocks.webhooksV2.getResendJobStatus(webhooksV2ApiGetResendJobStatusRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<ResendFailedNotificationsJobStatusResponse>>\
+          \ response = fireblocks.webhooksV2().getResendJobStatus(webhookId, jobId);"
+      - lang: Python
+        source: "response = fireblocks.webhooks_v2.get_resend_job_status(webhook_id,\
+          \ job_id);"
       x-accepts: application/json
   /tokenization/templates:
     get:
@@ -24179,7 +24403,6 @@ components:
       style: simple
     Location:
       description: The location URL of the request status
-      example: /v1/cosigners/7cd3c3d2-611b-43fe-98da-1e0bfe893e2f/api_keys/ec1ca5d4-3824-4c67-9bea-7f3f636b9f40/123456789
       explode: false
       schema:
         type: string
@@ -28283,12 +28506,12 @@ components:
           type: string
         id:
           description: "The ID of the peer. You can retrieve the ID of each venue\
-            \ object using the endpoints for [listing vault accounts](https://developers.fireblocks.com/reference/get_vault-accounts-paged),\
-            \ [listing exchange account](https://developers.fireblocks.com/reference/get_exchange-accounts),\
-            \ [listing fiat accounts](https://developers.fireblocks.com/reference/get_fiat-accounts),\
-            \ [listing internal wallets](https://developers.fireblocks.com/reference/get_internal-wallets),\
-            \ [listing external wallets](https://developers.fireblocks.com/reference/get_external-wallets),\
-            \ [listing network connections](https://developers.fireblocks.com/reference/get_network-connections).\
+            \ object using the endpoints for [listing vault accounts](https://developers.fireblocks.com/reference/getpagedvaultaccounts),\
+            \ [listing exchange account](https://developers.fireblocks.com/reference/getexchangeaccounts),\
+            \ [listing fiat accounts](https://developers.fireblocks.com/reference/getfiataccounts),\
+            \ [listing internal wallets](https://developers.fireblocks.com/reference/getinternalwallets),\
+            \ [listing external wallets](https://developers.fireblocks.com/reference/getexternalwallets),\
+            \ [listing network connections](https://developers.fireblocks.com/reference/getnetworkconnections).\
             \ For the other types, this parameter is not needed."
           nullable: true
           type: string
@@ -28329,12 +28552,12 @@ components:
           type: string
         id:
           description: "The ID of the peer. You can retrieve the ID of each venue\
-            \ object using the endpoints for [listing vault accounts](https://developers.fireblocks.com/reference/get_vault-accounts-paged),\
-            \ [listing exchange account](https://developers.fireblocks.com/reference/get_exchange-accounts),\
-            \ [listing fiat accounts](https://developers.fireblocks.com/reference/get_fiat-accounts),\
-            \ [listing internal wallets](https://developers.fireblocks.com/reference/get_internal-wallets),\
-            \ [listing external wallets](https://developers.fireblocks.com/reference/get_external-wallets),\
-            \ [listing network connections](https://developers.fireblocks.com/reference/get_network-connections).\
+            \ object using the endpoints for [listing vault accounts](https://developers.fireblocks.com/reference/getpagedvaultaccounts),\
+            \ [listing exchange account](https://developers.fireblocks.com/reference/getexchangeaccounts),\
+            \ [listing fiat accounts](https://developers.fireblocks.com/reference/getfiataccounts),\
+            \ [listing internal wallets](https://developers.fireblocks.com/reference/getinternalwallets),\
+            \ [listing external wallets](https://developers.fireblocks.com/reference/getexternalwallets),\
+            \ [listing network connections](https://developers.fireblocks.com/reference/getnetworkconnections).\
             \ For the other types, this parameter is not needed."
           nullable: true
           type: string
@@ -29394,11 +29617,24 @@ components:
           subType: null
           id: id
           type: null
+        customerRefId: abcdef
+        travelRuleMessageId: trm_12345678-1234-1234-1234-123456789012
       properties:
         amount:
           type: string
         destination:
           $ref: '#/components/schemas/DestinationTransferPeerPath'
+        travelRuleMessageId:
+          description: The ID of the travel rule message from any travel rule provider.
+            Used for travel rule linking functionality to associate transactions with
+            existing travel rule messages.
+          example: trm_12345678-1234-1234-1234-123456789012
+          type: string
+        customerRefId:
+          description: The ID for AML providers to associate the owner of funds with
+            transactions.
+          example: abcdef
+          type: string
       type: object
     TravelRuleTransactionBlockchainInfo:
       description: Information about the blockchain transaction.
@@ -31888,6 +32124,7 @@ components:
           id: id
           type: null
         maxFee: "120"
+        travelRuleMessageId: trm_12345678-1234-1234-1234-123456789012
         externalTxId: 00000000-0000-0000-0000-000000000000
         cpuStaking: null
         gasLimit: "21000"
@@ -31910,6 +32147,8 @@ components:
             subType: null
             id: id
             type: null
+          customerRefId: abcdef
+          travelRuleMessageId: trm_12345678-1234-1234-1234-123456789012
         - amount: amount
           destination:
             oneTimeAddress:
@@ -31921,6 +32160,8 @@ components:
             subType: null
             id: id
             type: null
+          customerRefId: abcdef
+          travelRuleMessageId: trm_12345678-1234-1234-1234-123456789012
         useGasless: true
         travelRuleMessage:
           originatorRef: ORG123456
@@ -33189,6 +33430,12 @@ components:
           type: string
         travelRuleMessage:
           $ref: '#/components/schemas/TravelRuleCreateTransactionRequest'
+        travelRuleMessageId:
+          description: The ID of the travel rule message from any travel rule provider.
+            Used for travel rule linking functionality to associate transactions with
+            existing travel rule messages.
+          example: trm_12345678-1234-1234-1234-123456789012
+          type: string
         autoStaking:
           deprecated: true
           description: This feature is no longer supported.
@@ -33251,6 +33498,28 @@ components:
           description: Layer 1 fee for Layer 2 chains
           type: string
       type: object
+    FeeBreakdown:
+      oneOf:
+      - $ref: '#/components/schemas/FeeBreakdown_oneOf'
+      - $ref: '#/components/schemas/FeeBreakdown_oneOf_1'
+    EstimatedFeeDetails:
+      description: Optional detailed fee breakdown for high/medium/low estimates
+      example:
+        high: null
+        low:
+          totalFee: totalFee
+          priorityFee: priorityFee
+          baseFee: baseFee
+          rent: rent
+        medium: null
+      properties:
+        low:
+          $ref: '#/components/schemas/FeeBreakdown'
+        medium:
+          $ref: '#/components/schemas/FeeBreakdown'
+        high:
+          $ref: '#/components/schemas/FeeBreakdown'
+      type: object
     EstimatedTransactionFeeResponse:
       example:
         high:
@@ -33271,6 +33540,14 @@ components:
           baseFee: 6.027456183070403
           gasPrice: 0.8008281904610115
           maxFeePerGasDelta: maxFeePerGasDelta
+        feeDetails:
+          high: null
+          low:
+            totalFee: totalFee
+            priorityFee: priorityFee
+            baseFee: baseFee
+            rent: rent
+          medium: null
         medium:
           gasLimit: gasLimit
           feePerByte: feePerByte
@@ -33287,6 +33564,8 @@ components:
           $ref: '#/components/schemas/TransactionFee'
         high:
           $ref: '#/components/schemas/TransactionFee'
+        feeDetails:
+          $ref: '#/components/schemas/EstimatedFeeDetails'
       required:
       - high
       - low
@@ -35023,6 +35302,7 @@ components:
             id: id
             type: null
           maxFee: "120"
+          travelRuleMessageId: trm_12345678-1234-1234-1234-123456789012
           externalTxId: 00000000-0000-0000-0000-000000000000
           cpuStaking: null
           gasLimit: "21000"
@@ -35045,6 +35325,8 @@ components:
               subType: null
               id: id
               type: null
+            customerRefId: abcdef
+            travelRuleMessageId: trm_12345678-1234-1234-1234-123456789012
           - amount: amount
             destination:
               oneTimeAddress:
@@ -35056,6 +35338,8 @@ components:
               subType: null
               id: id
               type: null
+            customerRefId: abcdef
+            travelRuleMessageId: trm_12345678-1234-1234-1234-123456789012
           useGasless: true
           travelRuleMessage:
             originatorRef: ORG123456
@@ -36241,6 +36525,7 @@ components:
             id: id
             type: null
           maxFee: "120"
+          travelRuleMessageId: trm_12345678-1234-1234-1234-123456789012
           externalTxId: 00000000-0000-0000-0000-000000000000
           cpuStaking: null
           gasLimit: "21000"
@@ -36263,6 +36548,8 @@ components:
               subType: null
               id: id
               type: null
+            customerRefId: abcdef
+            travelRuleMessageId: trm_12345678-1234-1234-1234-123456789012
           - amount: amount
             destination:
               oneTimeAddress:
@@ -36274,6 +36561,8 @@ components:
               subType: null
               id: id
               type: null
+            customerRefId: abcdef
+            travelRuleMessageId: trm_12345678-1234-1234-1234-123456789012
           useGasless: true
           travelRuleMessage:
             originatorRef: ORG123456
@@ -37582,6 +37871,7 @@ components:
       - transaction.created
       - transaction.status.updated
       - transaction.approval_status.updated
+      - transaction.network_records.processing_completed
       - external_wallet.asset.added
       - external_wallet.asset.removed
       - internal_wallet.asset.added
@@ -37589,14 +37879,19 @@ components:
       - contract_wallet.asset.added
       - contract_wallet.asset.removed
       - vault_account.created
-      - vault_account.asset.listed
+      - vault_account.asset.added
       - vault_account.asset.balance_updated
       - embedded_wallet.status.updated
       - embedded_wallet.created
       - embedded_wallet.asset.balance_updated
-      - embedded_wallet.asset.listed
+      - embedded_wallet.asset.added
       - embedded_wallet.account.created
       - embedded_wallet.device.added
+      - onchain_data.updated
+      - connection.added
+      - connection.removed
+      - connection.request.waiting_peer_approval
+      - connection.request.rejected_by_peer
       type: string
     Webhook:
       example:
@@ -37777,6 +38072,123 @@ components:
       - ON_HOLD
       example: COMPLETED
       type: string
+    Notification:
+      example:
+        createdAt: 1625126400000
+        resourceId: 44fcead0-7053-4831-a53a-df7fb90d440f
+        id: 44fcead0-7053-4831-a53a-df7fb90d440f
+        eventType: null
+        updatedAt: 1625126400000
+        status: COMPLETED
+      properties:
+        id:
+          description: The id of the Notification
+          example: 44fcead0-7053-4831-a53a-df7fb90d440f
+          format: uuid
+          type: string
+        createdAt:
+          description: The creation date of the notification in milliseconds
+          example: 1625126400000
+          format: int64
+          type: integer
+        updatedAt:
+          description: The date when the notification was updated in milliseconds
+          example: 1625126400000
+          format: int64
+          type: integer
+        status:
+          $ref: '#/components/schemas/NotificationStatus'
+        eventType:
+          $ref: '#/components/schemas/WebhookEvent'
+        resourceId:
+          description: The resource id of the event which the Notification is listen
+            to
+          example: 44fcead0-7053-4831-a53a-df7fb90d440f
+          format: uuid
+          nullable: true
+          type: string
+      required:
+      - createdAt
+      - eventType
+      - id
+      - status
+      - updatedAt
+      type: object
+    NotificationPaginatedResponse:
+      example:
+        next: eJ0eXAiOiJKV1QiLCJhbGcOiJIUzI1NiJ9
+        data:
+        - createdAt: 1625126400000
+          resourceId: 44fcead0-7053-4831-a53a-df7fb90d440f
+          id: 44fcead0-7053-4831-a53a-df7fb90d440f
+          eventType: null
+          updatedAt: 1625126400000
+          status: COMPLETED
+        - createdAt: 1625126400000
+          resourceId: 44fcead0-7053-4831-a53a-df7fb90d440f
+          id: 44fcead0-7053-4831-a53a-df7fb90d440f
+          eventType: null
+          updatedAt: 1625126400000
+          status: COMPLETED
+      properties:
+        data:
+          description: The data of the current page
+          items:
+            $ref: '#/components/schemas/Notification'
+          type: array
+        next:
+          description: The ID of the next page
+          example: eJ0eXAiOiJKV1QiLCJhbGcOiJIUzI1NiJ9
+          nullable: true
+          type: string
+      required:
+      - data
+      type: object
+    NotificationWithData:
+      example:
+        createdAt: 1625126400000
+        resourceId: 44fcead0-7053-4831-a53a-df7fb90d440f
+        data: "{}"
+        id: 44fcead0-7053-4831-a53a-df7fb90d440f
+        eventType: null
+        updatedAt: 1625126400000
+        status: COMPLETED
+      properties:
+        id:
+          example: 44fcead0-7053-4831-a53a-df7fb90d440f
+          format: uuid
+          type: string
+        createdAt:
+          description: The creation date of the notification in milliseconds
+          example: 1625126400000
+          format: int64
+          type: integer
+        updatedAt:
+          description: The date when the notification was updated in milliseconds
+          example: 1625126400000
+          format: int64
+          type: integer
+        status:
+          $ref: '#/components/schemas/NotificationStatus'
+        eventType:
+          $ref: '#/components/schemas/WebhookEvent'
+        resourceId:
+          description: The resource id of the event which the Notification is listen
+            to
+          example: 44fcead0-7053-4831-a53a-df7fb90d440f
+          format: uuid
+          nullable: true
+          type: string
+        data:
+          description: notification data
+          type: object
+      required:
+      - createdAt
+      - eventType
+      - id
+      - status
+      - updatedAt
+      type: object
     NotificationAttempt:
       example:
         duration: 130
@@ -37808,103 +38220,23 @@ components:
       - duration
       - sentTime
       type: object
-    Notification:
-      example:
-        createdAt: 1625126400000
-        resourceId: 44fcead0-7053-4831-a53a-df7fb90d440f
-        id: 44fcead0-7053-4831-a53a-df7fb90d440f
-        eventType: null
-        updatedAt: 1625126400000
-        status: COMPLETED
-        attempts:
-        - duration: 130
-          failureReason: TIMED_OUT
-          sentTime: 1625126400000
-          responseCode: 200
-        - duration: 130
-          failureReason: TIMED_OUT
-          sentTime: 1625126400000
-          responseCode: 200
-      properties:
-        id:
-          description: The id of the Notification
-          example: 44fcead0-7053-4831-a53a-df7fb90d440f
-          format: uuid
-          type: string
-        createdAt:
-          description: The creation date of the notification in milliseconds
-          example: 1625126400000
-          format: int64
-          type: integer
-        updatedAt:
-          description: The date when the notification was updated in milliseconds
-          example: 1625126400000
-          format: int64
-          type: integer
-        status:
-          $ref: '#/components/schemas/NotificationStatus'
-        eventType:
-          $ref: '#/components/schemas/WebhookEvent'
-        resourceId:
-          description: The resource id of the event which the Notification is listen
-            to
-          example: 44fcead0-7053-4831-a53a-df7fb90d440f
-          format: uuid
-          nullable: true
-          type: string
-        attempts:
-          default: []
-          description: The attempts related to Notification
-          items:
-            $ref: '#/components/schemas/NotificationAttempt'
-          type: array
-      required:
-      - attempts
-      - createdAt
-      - eventType
-      - id
-      - status
-      - updatedAt
-      type: object
-    NotificationPaginatedResponse:
+    NotificationAttemptsPaginatedResponse:
       example:
         next: eJ0eXAiOiJKV1QiLCJhbGcOiJIUzI1NiJ9
         data:
-        - createdAt: 1625126400000
-          resourceId: 44fcead0-7053-4831-a53a-df7fb90d440f
-          id: 44fcead0-7053-4831-a53a-df7fb90d440f
-          eventType: null
-          updatedAt: 1625126400000
-          status: COMPLETED
-          attempts:
-          - duration: 130
-            failureReason: TIMED_OUT
-            sentTime: 1625126400000
-            responseCode: 200
-          - duration: 130
-            failureReason: TIMED_OUT
-            sentTime: 1625126400000
-            responseCode: 200
-        - createdAt: 1625126400000
-          resourceId: 44fcead0-7053-4831-a53a-df7fb90d440f
-          id: 44fcead0-7053-4831-a53a-df7fb90d440f
-          eventType: null
-          updatedAt: 1625126400000
-          status: COMPLETED
-          attempts:
-          - duration: 130
-            failureReason: TIMED_OUT
-            sentTime: 1625126400000
-            responseCode: 200
-          - duration: 130
-            failureReason: TIMED_OUT
-            sentTime: 1625126400000
-            responseCode: 200
+        - duration: 130
+          failureReason: TIMED_OUT
+          sentTime: 1625126400000
+          responseCode: 200
+        - duration: 130
+          failureReason: TIMED_OUT
+          sentTime: 1625126400000
+          responseCode: 200
       properties:
         data:
           description: The data of the current page
           items:
-            $ref: '#/components/schemas/Notification'
+            $ref: '#/components/schemas/NotificationAttempt'
           type: array
         next:
           description: The ID of the next page
@@ -37913,67 +38245,6 @@ components:
           type: string
       required:
       - data
-      type: object
-    NotificationWithData:
-      example:
-        createdAt: 1625126400000
-        resourceId: 44fcead0-7053-4831-a53a-df7fb90d440f
-        data: "{}"
-        id: 44fcead0-7053-4831-a53a-df7fb90d440f
-        eventType: null
-        updatedAt: 1625126400000
-        status: COMPLETED
-        attempts:
-        - duration: 130
-          failureReason: TIMED_OUT
-          sentTime: 1625126400000
-          responseCode: 200
-        - duration: 130
-          failureReason: TIMED_OUT
-          sentTime: 1625126400000
-          responseCode: 200
-      properties:
-        id:
-          example: 44fcead0-7053-4831-a53a-df7fb90d440f
-          format: uuid
-          type: string
-        createdAt:
-          description: The creation date of the notification in milliseconds
-          example: 1625126400000
-          format: int64
-          type: integer
-        updatedAt:
-          description: The date when the notification was updated in milliseconds
-          example: 1625126400000
-          format: int64
-          type: integer
-        status:
-          $ref: '#/components/schemas/NotificationStatus'
-        eventType:
-          $ref: '#/components/schemas/WebhookEvent'
-        resourceId:
-          description: The resource id of the event which the Notification is listen
-            to
-          example: 44fcead0-7053-4831-a53a-df7fb90d440f
-          format: uuid
-          nullable: true
-          type: string
-        attempts:
-          default: []
-          description: The attempts related to Notification
-          items:
-            $ref: '#/components/schemas/NotificationAttempt'
-          type: array
-        data:
-          description: notification data
-          type: object
-      required:
-      - attempts
-      - createdAt
-      - eventType
-      - id
-      - status
-      - updatedAt
       type: object
     ResendNotificationsByResourceIdRequest:
       example:
@@ -38001,6 +38272,74 @@ components:
           type: array
       required:
       - resourceId
+      type: object
+    ResendFailedNotificationsRequest:
+      example:
+        startTime: 1625097600000
+        events:
+        - transaction.created
+        - transaction.status.updated
+      properties:
+        startTime:
+          description: |
+            (optional) Start time for the resend window in milliseconds since epoch up to 24 hours before the current time - Default if missing means 24 hours before the current time in milliseconds since epoch - Maximum value is current time in milliseconds since epoch - Minimum value is 24 hours before the current time in milliseconds since epoch
+          example: 1625097600000
+          type: number
+        events:
+          description: |
+            (optional) Event types to resend, default is all event types
+                - Default if missing means all events will be included
+                - Empty array means all events will be included
+          example:
+          - transaction.created
+          - transaction.status.updated
+          items:
+            $ref: '#/components/schemas/WebhookEvent'
+          type: array
+      type: object
+    ResendFailedNotificationsResponse:
+      example:
+        total: 10
+      properties:
+        total:
+          description: The total number of failed notifications that are scheduled
+            to be resent.
+          example: 10
+          type: number
+      type: object
+    ResendFailedNotificationsJobStatusResponse:
+      example:
+        jobId: 123e4567-e89b-12d3-a456-426614174000
+        processed: 100
+        total: 1000
+        status: COMPLETED
+      properties:
+        jobId:
+          description: Bulk resend job ID
+          example: 123e4567-e89b-12d3-a456-426614174000
+          type: string
+        status:
+          description: Bulk resend job status
+          enum:
+          - QUEUED
+          - IN_PROGRESS
+          - COMPLETED
+          - FAILED
+          example: COMPLETED
+          type: string
+        processed:
+          description: Number of notifications processed
+          example: 100
+          type: number
+        total:
+          description: Total number of notifications to process
+          example: 1000
+          type: number
+      required:
+      - jobId
+      - processed
+      - status
+      - total
       type: object
     AuditorData:
       properties:
@@ -51413,6 +51752,40 @@ components:
         type: string
       - description: Number (deprecated)
         type: number
+    FeeBreakdown_oneOf:
+      description: Solana-specific fee breakdown
+      example:
+        totalFee: totalFee
+        priorityFee: priorityFee
+        baseFee: baseFee
+        rent: rent
+      properties:
+        baseFee:
+          description: Base fee for Solana transaction
+          type: string
+        priorityFee:
+          description: Priority fee for Solana transaction
+          type: string
+        rent:
+          description: Rent fee for Solana account creation/storage
+          type: string
+        totalFee:
+          description: Total fee amount
+          type: string
+      type: object
+    FeeBreakdown_oneOf_1:
+      description: Generic fee breakdown for other blockchains
+      properties:
+        baseFee:
+          description: Base fee component
+          type: string
+        priorityFee:
+          description: Priority fee component
+          type: string
+        totalFee:
+          description: Total fee amount
+          type: string
+      type: object
     ErrorResponse_error:
       example:
         type: INTERNAL

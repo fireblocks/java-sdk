@@ -163,6 +163,12 @@ public class TransactionRequestTest {
         // TODO: test travelRuleMessage
     }
 
+    /** Test the property 'travelRuleMessageId' */
+    @Test
+    public void travelRuleMessageIdTest() {
+        // TODO: test travelRuleMessageId
+    }
+
     /** Test the property 'autoStaking' */
     @Test
     public void autoStakingTest() {

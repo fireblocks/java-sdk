@@ -76,7 +76,7 @@ public class Fireblocks {
     private VaultsApi vaults;
     private Web3ConnectionsApi web3Connections;
     private WebhooksApi webhooks;
-    private WebhooksV2BetaApi webhooksV2Beta;
+    private WebhooksV2Api webhooksV2;
     private WhitelistIpAddressesApi whitelistIpAddresses;
     private WorkspaceStatusBetaApi workspaceStatusBeta;
 
@@ -498,11 +498,11 @@ public class Fireblocks {
         return webhooks;
     }
 
-    public WebhooksV2BetaApi webhooksV2Beta() {
-        if (webhooksV2Beta == null) {
-            webhooksV2Beta = new WebhooksV2BetaApi(apiClient);
+    public WebhooksV2Api webhooksV2() {
+        if (webhooksV2 == null) {
+            webhooksV2 = new WebhooksV2Api(apiClient);
         }
-        return webhooksV2Beta;
+        return webhooksV2;
     }
 
     public WhitelistIpAddressesApi whitelistIpAddresses() {

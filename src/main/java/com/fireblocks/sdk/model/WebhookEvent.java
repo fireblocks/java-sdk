@@ -24,6 +24,9 @@ public enum WebhookEvent {
 
     TRANSACTION_APPROVAL_STATUS_UPDATED("transaction.approval_status.updated"),
 
+    TRANSACTION_NETWORK_RECORDS_PROCESSING_COMPLETED(
+            "transaction.network_records.processing_completed"),
+
     EXTERNAL_WALLET_ASSET_ADDED("external_wallet.asset.added"),
 
     EXTERNAL_WALLET_ASSET_REMOVED("external_wallet.asset.removed"),
@@ -38,7 +41,7 @@ public enum WebhookEvent {
 
     VAULT_ACCOUNT_CREATED("vault_account.created"),
 
-    VAULT_ACCOUNT_ASSET_LISTED("vault_account.asset.listed"),
+    VAULT_ACCOUNT_ASSET_ADDED("vault_account.asset.added"),
 
     VAULT_ACCOUNT_ASSET_BALANCE_UPDATED("vault_account.asset.balance_updated"),
 
@@ -48,11 +51,21 @@ public enum WebhookEvent {
 
     EMBEDDED_WALLET_ASSET_BALANCE_UPDATED("embedded_wallet.asset.balance_updated"),
 
-    EMBEDDED_WALLET_ASSET_LISTED("embedded_wallet.asset.listed"),
+    EMBEDDED_WALLET_ASSET_ADDED("embedded_wallet.asset.added"),
 
     EMBEDDED_WALLET_ACCOUNT_CREATED("embedded_wallet.account.created"),
 
-    EMBEDDED_WALLET_DEVICE_ADDED("embedded_wallet.device.added");
+    EMBEDDED_WALLET_DEVICE_ADDED("embedded_wallet.device.added"),
+
+    ONCHAIN_DATA_UPDATED("onchain_data.updated"),
+
+    CONNECTION_ADDED("connection.added"),
+
+    CONNECTION_REMOVED("connection.removed"),
+
+    CONNECTION_REQUEST_WAITING_PEER_APPROVAL("connection.request.waiting_peer_approval"),
+
+    CONNECTION_REQUEST_REJECTED_BY_PEER("connection.request.rejected_by_peer");
 
     private String value;
 

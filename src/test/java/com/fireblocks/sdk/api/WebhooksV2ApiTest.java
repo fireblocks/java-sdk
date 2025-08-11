@@ -16,32 +16,33 @@ package com.fireblocks.sdk.api;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.model.CreateWebhookRequest;
+import com.fireblocks.sdk.model.NotificationAttemptsPaginatedResponse;
 import com.fireblocks.sdk.model.NotificationPaginatedResponse;
-import com.fireblocks.sdk.model.NotificationStatus;
 import com.fireblocks.sdk.model.NotificationWithData;
+import com.fireblocks.sdk.model.ResendFailedNotificationsJobStatusResponse;
+import com.fireblocks.sdk.model.ResendFailedNotificationsRequest;
+import com.fireblocks.sdk.model.ResendFailedNotificationsResponse;
 import com.fireblocks.sdk.model.ResendNotificationsByResourceIdRequest;
 import com.fireblocks.sdk.model.UpdateWebhookRequest;
 import com.fireblocks.sdk.model.Webhook;
-import com.fireblocks.sdk.model.WebhookEvent;
 import com.fireblocks.sdk.model.WebhookPaginatedResponse;
 import java.math.BigDecimal;
-import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 import org.junit.Ignore;
 import org.junit.Test;
 
-/** API tests for WebhooksV2BetaApi */
+/** API tests for WebhooksV2Api */
 @Ignore
-public class WebhooksV2BetaApiTest {
+public class WebhooksV2ApiTest {
 
-    private final WebhooksV2BetaApi api = new WebhooksV2BetaApi();
+    private final WebhooksV2Api api = new WebhooksV2Api();
 
     /**
      * Create new webhook
      *
-     * <p>Creates a new webhook, which will be triggered on the specified events **Note:** These
-     * endpoints are currently in beta and might be subject to changes.
+     * <p>Creates a new webhook, which will be triggered on the specified events Endpoint
+     * Permission: Owner, Admin, Non-Signing Admin.
      *
      * @throws ApiException if the Api call fails
      */
@@ -56,8 +57,7 @@ public class WebhooksV2BetaApiTest {
     /**
      * Delete webhook
      *
-     * <p>Delete a webhook by its id **Note:** These endpoints are currently in beta and might be
-     * subject to changes.
+     * <p>Delete a webhook by its id Endpoint Permission: Owner, Admin, Non-Signing Admin.
      *
      * @throws ApiException if the Api call fails
      */
@@ -70,8 +70,7 @@ public class WebhooksV2BetaApiTest {
     /**
      * Get notification by id
      *
-     * <p>Get notification by id **Note:** These endpoints are currently in beta and might be
-     * subject to changes.
+     * <p>Get notification by id
      *
      * @throws ApiException if the Api call fails
      */
@@ -85,10 +84,26 @@ public class WebhooksV2BetaApiTest {
     }
 
     /**
+     * Get notification attempts
+     *
+     * <p>Get notification attempts by notification id
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void getNotificationAttemptsTest() throws ApiException {
+        String webhookId = null;
+        String notificationId = null;
+        String pageCursor = null;
+        BigDecimal pageSize = null;
+        CompletableFuture<ApiResponse<NotificationAttemptsPaginatedResponse>> response =
+                api.getNotificationAttempts(webhookId, notificationId, pageCursor, pageSize);
+    }
+
+    /**
      * Get all notifications by webhook id
      *
-     * <p>Get all notifications by webhook id (paginated) **Note:** These endpoints are currently in
-     * beta and might be subject to changes.
+     * <p>Get all notifications by webhook id (paginated)
      *
      * @throws ApiException if the Api call fails
      */
@@ -96,31 +111,32 @@ public class WebhooksV2BetaApiTest {
     public void getNotificationsTest() throws ApiException {
         UUID webhookId = null;
         String order = null;
+        String sortBy = null;
         String pageCursor = null;
         BigDecimal pageSize = null;
-        String createdStartDate = null;
-        String createdEndDate = null;
-        List<NotificationStatus> statuses = null;
-        List<WebhookEvent> eventTypes = null;
-        String resourceId = null;
         CompletableFuture<ApiResponse<NotificationPaginatedResponse>> response =
-                api.getNotifications(
-                        webhookId,
-                        order,
-                        pageCursor,
-                        pageSize,
-                        createdStartDate,
-                        createdEndDate,
-                        statuses,
-                        eventTypes,
-                        resourceId);
+                api.getNotifications(webhookId, order, sortBy, pageCursor, pageSize);
+    }
+
+    /**
+     * Get resend job status
+     *
+     * <p>Get the status of a resend job
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void getResendJobStatusTest() throws ApiException {
+        String webhookId = null;
+        String jobId = null;
+        CompletableFuture<ApiResponse<ResendFailedNotificationsJobStatusResponse>> response =
+                api.getResendJobStatus(webhookId, jobId);
     }
 
     /**
      * Get webhook by id
      *
-     * <p>Retrieve a webhook by its id **Note:** These endpoints are currently in beta and might be
-     * subject to changes.
+     * <p>Retrieve a webhook by its id
      *
      * @throws ApiException if the Api call fails
      */
@@ -133,8 +149,7 @@ public class WebhooksV2BetaApiTest {
     /**
      * Get all webhooks
      *
-     * <p>Get all webhooks (paginated) **Note:** These endpoints are currently in beta and might be
-     * subject to changes.
+     * <p>Get all webhooks (paginated)
      *
      * @throws ApiException if the Api call fails
      */
@@ -148,10 +163,27 @@ public class WebhooksV2BetaApiTest {
     }
 
     /**
+     * Resend failed notifications
+     *
+     * <p>Resend all failed notifications for a webhook in the last 24 hours Endpoint Permission:
+     * Owner, Admin, Non-Signing Admin.
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void resendFailedNotificationsTest() throws ApiException {
+        ResendFailedNotificationsRequest resendFailedNotificationsRequest = null;
+        String webhookId = null;
+        String idempotencyKey = null;
+        CompletableFuture<ApiResponse<ResendFailedNotificationsResponse>> response =
+                api.resendFailedNotifications(
+                        resendFailedNotificationsRequest, webhookId, idempotencyKey);
+    }
+
+    /**
      * Resend notification by id
      *
-     * <p>Resend notification by ID **Note:** These endpoints are currently in beta and might be
-     * subject to changes.
+     * <p>Resend notification by ID Endpoint Permission: Owner, Admin, Non-Signing Admin.
      *
      * @throws ApiException if the Api call fails
      */
@@ -168,8 +200,7 @@ public class WebhooksV2BetaApiTest {
     /**
      * Resend notifications by resource Id
      *
-     * <p>Resend notifications by resource Id **Note:** These endpoints are currently in beta and
-     * might be subject to changes.
+     * <p>Resend notifications by resource Id Endpoint Permission: Owner, Admin, Non-Signing Admin.
      *
      * @throws ApiException if the Api call fails
      */
@@ -187,8 +218,7 @@ public class WebhooksV2BetaApiTest {
     /**
      * Update webhook
      *
-     * <p>Update a webhook by its id **Note:** These endpoints are currently in beta and might be
-     * subject to changes.
+     * <p>Update a webhook by its id Endpoint Permission: Owner, Admin, Non-Signing Admin.
      *
      * @throws ApiException if the Api call fails
      */

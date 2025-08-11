@@ -18,8 +18,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 import java.util.StringJoiner;
 import java.util.UUID;
@@ -32,7 +30,6 @@ import java.util.UUID;
     NotificationWithData.JSON_PROPERTY_STATUS,
     NotificationWithData.JSON_PROPERTY_EVENT_TYPE,
     NotificationWithData.JSON_PROPERTY_RESOURCE_ID,
-    NotificationWithData.JSON_PROPERTY_ATTEMPTS,
     NotificationWithData.JSON_PROPERTY_DATA
 })
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
@@ -54,9 +51,6 @@ public class NotificationWithData {
 
     public static final String JSON_PROPERTY_RESOURCE_ID = "resourceId";
     private UUID resourceId;
-
-    public static final String JSON_PROPERTY_ATTEMPTS = "attempts";
-    private List<NotificationAttempt> attempts = new ArrayList<>();
 
     public static final String JSON_PROPERTY_DATA = "data";
     private Object data;
@@ -201,37 +195,6 @@ public class NotificationWithData {
         this.resourceId = resourceId;
     }
 
-    public NotificationWithData attempts(List<NotificationAttempt> attempts) {
-        this.attempts = attempts;
-        return this;
-    }
-
-    public NotificationWithData addAttemptsItem(NotificationAttempt attemptsItem) {
-        if (this.attempts == null) {
-            this.attempts = new ArrayList<>();
-        }
-        this.attempts.add(attemptsItem);
-        return this;
-    }
-
-    /**
-     * The attempts related to Notification
-     *
-     * @return attempts
-     */
-    @jakarta.annotation.Nonnull
-    @JsonProperty(JSON_PROPERTY_ATTEMPTS)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public List<NotificationAttempt> getAttempts() {
-        return attempts;
-    }
-
-    @JsonProperty(JSON_PROPERTY_ATTEMPTS)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setAttempts(List<NotificationAttempt> attempts) {
-        this.attempts = attempts;
-    }
-
     public NotificationWithData data(Object data) {
         this.data = data;
         return this;
@@ -271,14 +234,12 @@ public class NotificationWithData {
                 && Objects.equals(this.status, notificationWithData.status)
                 && Objects.equals(this.eventType, notificationWithData.eventType)
                 && Objects.equals(this.resourceId, notificationWithData.resourceId)
-                && Objects.equals(this.attempts, notificationWithData.attempts)
                 && Objects.equals(this.data, notificationWithData.data);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(
-                id, createdAt, updatedAt, status, eventType, resourceId, attempts, data);
+        return Objects.hash(id, createdAt, updatedAt, status, eventType, resourceId, data);
     }
 
     @Override
@@ -291,7 +252,6 @@ public class NotificationWithData {
         sb.append("    status: ").append(toIndentedString(status)).append("\n");
         sb.append("    eventType: ").append(toIndentedString(eventType)).append("\n");
         sb.append("    resourceId: ").append(toIndentedString(resourceId)).append("\n");
-        sb.append("    attempts: ").append(toIndentedString(attempts)).append("\n");
         sb.append("    data: ").append(toIndentedString(data)).append("\n");
         sb.append("}");
         return sb.toString();
@@ -408,29 +368,6 @@ public class NotificationWithData {
                             URLEncoder.encode(
                                             String.valueOf(getResourceId()), StandardCharsets.UTF_8)
                                     .replaceAll("\\+", "%20")));
-        }
-
-        // add `attempts` to the URL query string
-        if (getAttempts() != null) {
-            for (int i = 0; i < getAttempts().size(); i++) {
-                if (getAttempts().get(i) != null) {
-                    joiner.add(
-                            getAttempts()
-                                    .get(i)
-                                    .toUrlQueryString(
-                                            String.format(
-                                                    "%sattempts%s%s",
-                                                    prefix,
-                                                    suffix,
-                                                    "".equals(suffix)
-                                                            ? ""
-                                                            : String.format(
-                                                                    "%s%d%s",
-                                                                    containerPrefix,
-                                                                    i,
-                                                                    containerSuffix))));
-                }
-            }
         }
 
         // add `data` to the URL query string

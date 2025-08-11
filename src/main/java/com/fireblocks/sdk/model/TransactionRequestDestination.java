@@ -24,7 +24,9 @@ import java.util.StringJoiner;
 /** TransactionRequestDestination */
 @JsonPropertyOrder({
     TransactionRequestDestination.JSON_PROPERTY_AMOUNT,
-    TransactionRequestDestination.JSON_PROPERTY_DESTINATION
+    TransactionRequestDestination.JSON_PROPERTY_DESTINATION,
+    TransactionRequestDestination.JSON_PROPERTY_TRAVEL_RULE_MESSAGE_ID,
+    TransactionRequestDestination.JSON_PROPERTY_CUSTOMER_REF_ID
 })
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class TransactionRequestDestination {
@@ -33,6 +35,12 @@ public class TransactionRequestDestination {
 
     public static final String JSON_PROPERTY_DESTINATION = "destination";
     private DestinationTransferPeerPath destination;
+
+    public static final String JSON_PROPERTY_TRAVEL_RULE_MESSAGE_ID = "travelRuleMessageId";
+    private String travelRuleMessageId;
+
+    public static final String JSON_PROPERTY_CUSTOMER_REF_ID = "customerRefId";
+    private String customerRefId;
 
     public TransactionRequestDestination() {}
 
@@ -82,6 +90,53 @@ public class TransactionRequestDestination {
         this.destination = destination;
     }
 
+    public TransactionRequestDestination travelRuleMessageId(String travelRuleMessageId) {
+        this.travelRuleMessageId = travelRuleMessageId;
+        return this;
+    }
+
+    /**
+     * The ID of the travel rule message from any travel rule provider. Used for travel rule linking
+     * functionality to associate transactions with existing travel rule messages.
+     *
+     * @return travelRuleMessageId
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_TRAVEL_RULE_MESSAGE_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getTravelRuleMessageId() {
+        return travelRuleMessageId;
+    }
+
+    @JsonProperty(JSON_PROPERTY_TRAVEL_RULE_MESSAGE_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setTravelRuleMessageId(String travelRuleMessageId) {
+        this.travelRuleMessageId = travelRuleMessageId;
+    }
+
+    public TransactionRequestDestination customerRefId(String customerRefId) {
+        this.customerRefId = customerRefId;
+        return this;
+    }
+
+    /**
+     * The ID for AML providers to associate the owner of funds with transactions.
+     *
+     * @return customerRefId
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_CUSTOMER_REF_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getCustomerRefId() {
+        return customerRefId;
+    }
+
+    @JsonProperty(JSON_PROPERTY_CUSTOMER_REF_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setCustomerRefId(String customerRefId) {
+        this.customerRefId = customerRefId;
+    }
+
     /** Return true if this TransactionRequestDestination object is equal to o. */
     @Override
     public boolean equals(Object o) {
@@ -94,12 +149,15 @@ public class TransactionRequestDestination {
         TransactionRequestDestination transactionRequestDestination =
                 (TransactionRequestDestination) o;
         return Objects.equals(this.amount, transactionRequestDestination.amount)
-                && Objects.equals(this.destination, transactionRequestDestination.destination);
+                && Objects.equals(this.destination, transactionRequestDestination.destination)
+                && Objects.equals(
+                        this.travelRuleMessageId, transactionRequestDestination.travelRuleMessageId)
+                && Objects.equals(this.customerRefId, transactionRequestDestination.customerRefId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(amount, destination);
+        return Objects.hash(amount, destination, travelRuleMessageId, customerRefId);
     }
 
     @Override
@@ -108,6 +166,10 @@ public class TransactionRequestDestination {
         sb.append("class TransactionRequestDestination {\n");
         sb.append("    amount: ").append(toIndentedString(amount)).append("\n");
         sb.append("    destination: ").append(toIndentedString(destination)).append("\n");
+        sb.append("    travelRuleMessageId: ")
+                .append(toIndentedString(travelRuleMessageId))
+                .append("\n");
+        sb.append("    customerRefId: ").append(toIndentedString(customerRefId)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -169,6 +231,32 @@ public class TransactionRequestDestination {
         // add `destination` to the URL query string
         if (getDestination() != null) {
             joiner.add(getDestination().toUrlQueryString(prefix + "destination" + suffix));
+        }
+
+        // add `travelRuleMessageId` to the URL query string
+        if (getTravelRuleMessageId() != null) {
+            joiner.add(
+                    String.format(
+                            "%stravelRuleMessageId%s=%s",
+                            prefix,
+                            suffix,
+                            URLEncoder.encode(
+                                            String.valueOf(getTravelRuleMessageId()),
+                                            StandardCharsets.UTF_8)
+                                    .replaceAll("\\+", "%20")));
+        }
+
+        // add `customerRefId` to the URL query string
+        if (getCustomerRefId() != null) {
+            joiner.add(
+                    String.format(
+                            "%scustomerRefId%s=%s",
+                            prefix,
+                            suffix,
+                            URLEncoder.encode(
+                                            String.valueOf(getCustomerRefId()),
+                                            StandardCharsets.UTF_8)
+                                    .replaceAll("\\+", "%20")));
         }
 
         return joiner.toString();

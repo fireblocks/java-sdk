@@ -50,6 +50,7 @@ import java.util.StringJoiner;
     TransactionRequest.JSON_PROPERTY_EXTRA_PARAMETERS,
     TransactionRequest.JSON_PROPERTY_CUSTOMER_REF_ID,
     TransactionRequest.JSON_PROPERTY_TRAVEL_RULE_MESSAGE,
+    TransactionRequest.JSON_PROPERTY_TRAVEL_RULE_MESSAGE_ID,
     TransactionRequest.JSON_PROPERTY_AUTO_STAKING,
     TransactionRequest.JSON_PROPERTY_NETWORK_STAKING,
     TransactionRequest.JSON_PROPERTY_CPU_STAKING,
@@ -163,6 +164,9 @@ public class TransactionRequest {
 
     public static final String JSON_PROPERTY_TRAVEL_RULE_MESSAGE = "travelRuleMessage";
     private TravelRuleCreateTransactionRequest travelRuleMessage;
+
+    public static final String JSON_PROPERTY_TRAVEL_RULE_MESSAGE_ID = "travelRuleMessageId";
+    private String travelRuleMessageId;
 
     public static final String JSON_PROPERTY_AUTO_STAKING = "autoStaking";
     private Boolean autoStaking;
@@ -761,6 +765,30 @@ public class TransactionRequest {
         this.travelRuleMessage = travelRuleMessage;
     }
 
+    public TransactionRequest travelRuleMessageId(String travelRuleMessageId) {
+        this.travelRuleMessageId = travelRuleMessageId;
+        return this;
+    }
+
+    /**
+     * The ID of the travel rule message from any travel rule provider. Used for travel rule linking
+     * functionality to associate transactions with existing travel rule messages.
+     *
+     * @return travelRuleMessageId
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_TRAVEL_RULE_MESSAGE_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getTravelRuleMessageId() {
+        return travelRuleMessageId;
+    }
+
+    @JsonProperty(JSON_PROPERTY_TRAVEL_RULE_MESSAGE_ID)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setTravelRuleMessageId(String travelRuleMessageId) {
+        this.travelRuleMessageId = travelRuleMessageId;
+    }
+
     public TransactionRequest autoStaking(Boolean autoStaking) {
         this.autoStaking = autoStaking;
         return this;
@@ -892,6 +920,7 @@ public class TransactionRequest {
                 && Objects.equals(this.extraParameters, transactionRequest.extraParameters)
                 && Objects.equals(this.customerRefId, transactionRequest.customerRefId)
                 && Objects.equals(this.travelRuleMessage, transactionRequest.travelRuleMessage)
+                && Objects.equals(this.travelRuleMessageId, transactionRequest.travelRuleMessageId)
                 && Objects.equals(this.autoStaking, transactionRequest.autoStaking)
                 && Objects.equals(this.networkStaking, transactionRequest.networkStaking)
                 && Objects.equals(this.cpuStaking, transactionRequest.cpuStaking)
@@ -924,6 +953,7 @@ public class TransactionRequest {
                 extraParameters,
                 customerRefId,
                 travelRuleMessage,
+                travelRuleMessageId,
                 autoStaking,
                 networkStaking,
                 cpuStaking,
@@ -960,6 +990,9 @@ public class TransactionRequest {
         sb.append("    customerRefId: ").append(toIndentedString(customerRefId)).append("\n");
         sb.append("    travelRuleMessage: ")
                 .append(toIndentedString(travelRuleMessage))
+                .append("\n");
+        sb.append("    travelRuleMessageId: ")
+                .append(toIndentedString(travelRuleMessageId))
                 .append("\n");
         sb.append("    autoStaking: ").append(toIndentedString(autoStaking)).append("\n");
         sb.append("    networkStaking: ").append(toIndentedString(networkStaking)).append("\n");
@@ -1238,6 +1271,19 @@ public class TransactionRequest {
         if (getTravelRuleMessage() != null) {
             joiner.add(
                     getTravelRuleMessage().toUrlQueryString(prefix + "travelRuleMessage" + suffix));
+        }
+
+        // add `travelRuleMessageId` to the URL query string
+        if (getTravelRuleMessageId() != null) {
+            joiner.add(
+                    String.format(
+                            "%stravelRuleMessageId%s=%s",
+                            prefix,
+                            suffix,
+                            URLEncoder.encode(
+                                            String.valueOf(getTravelRuleMessageId()),
+                                            StandardCharsets.UTF_8)
+                                    .replaceAll("\\+", "%20")));
         }
 
         // add `autoStaking` to the URL query string

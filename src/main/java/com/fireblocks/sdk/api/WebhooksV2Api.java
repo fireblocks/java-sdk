@@ -21,13 +21,15 @@ import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.Pair;
 import com.fireblocks.sdk.ValidationUtils;
 import com.fireblocks.sdk.model.CreateWebhookRequest;
+import com.fireblocks.sdk.model.NotificationAttemptsPaginatedResponse;
 import com.fireblocks.sdk.model.NotificationPaginatedResponse;
-import com.fireblocks.sdk.model.NotificationStatus;
 import com.fireblocks.sdk.model.NotificationWithData;
+import com.fireblocks.sdk.model.ResendFailedNotificationsJobStatusResponse;
+import com.fireblocks.sdk.model.ResendFailedNotificationsRequest;
+import com.fireblocks.sdk.model.ResendFailedNotificationsResponse;
 import com.fireblocks.sdk.model.ResendNotificationsByResourceIdRequest;
 import com.fireblocks.sdk.model.UpdateWebhookRequest;
 import com.fireblocks.sdk.model.Webhook;
-import com.fireblocks.sdk.model.WebhookEvent;
 import com.fireblocks.sdk.model.WebhookPaginatedResponse;
 import java.io.IOException;
 import java.io.InputStream;
@@ -45,7 +47,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
-public class WebhooksV2BetaApi {
+public class WebhooksV2Api {
     private final HttpClient memberVarHttpClient;
     private final ObjectMapper memberVarObjectMapper;
     private final String memberVarBaseUri;
@@ -54,11 +56,11 @@ public class WebhooksV2BetaApi {
     private final Consumer<HttpResponse<InputStream>> memberVarResponseInterceptor;
     private final Consumer<HttpResponse<String>> memberVarAsyncResponseInterceptor;
 
-    public WebhooksV2BetaApi() {
+    public WebhooksV2Api() {
         this(new ApiClient());
     }
 
-    public WebhooksV2BetaApi(ApiClient apiClient) {
+    public WebhooksV2Api(ApiClient apiClient) {
         memberVarHttpClient = apiClient.getHttpClient();
         memberVarObjectMapper = apiClient.getObjectMapper();
         memberVarBaseUri = apiClient.getBaseUri();
@@ -84,7 +86,7 @@ public class WebhooksV2BetaApi {
 
     /**
      * Create new webhook Creates a new webhook, which will be triggered on the specified events
-     * **Note:** These endpoints are currently in beta and might be subject to changes.
+     * Endpoint Permission: Owner, Admin, Non-Signing Admin.
      *
      * @param createWebhookRequest (required)
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
@@ -163,8 +165,8 @@ public class WebhooksV2BetaApi {
         return localVarRequestBuilder;
     }
     /**
-     * Delete webhook Delete a webhook by its id **Note:** These endpoints are currently in beta and
-     * might be subject to changes.
+     * Delete webhook Delete a webhook by its id Endpoint Permission: Owner, Admin, Non-Signing
+     * Admin.
      *
      * @param webhookId The unique identifier of the webhook (required)
      * @return CompletableFuture&lt;ApiResponse&lt;Webhook&gt;&gt;
@@ -230,8 +232,7 @@ public class WebhooksV2BetaApi {
         return localVarRequestBuilder;
     }
     /**
-     * Get notification by id Get notification by id **Note:** These endpoints are currently in beta
-     * and might be subject to changes.
+     * Get notification by id Get notification by id
      *
      * @param webhookId The ID of the webhook to fetch (required)
      * @param notificationId The ID of the notification to fetch (required)
@@ -320,44 +321,120 @@ public class WebhooksV2BetaApi {
         return localVarRequestBuilder;
     }
     /**
-     * Get all notifications by webhook id Get all notifications by webhook id (paginated) **Note:**
-     * These endpoints are currently in beta and might be subject to changes.
+     * Get notification attempts Get notification attempts by notification id
+     *
+     * @param webhookId The ID of the webhook to fetch (required)
+     * @param notificationId The ID of the notification to fetch (required)
+     * @param pageCursor Cursor of the required page (optional)
+     * @param pageSize Maximum number of items in the page (optional, default to 10)
+     * @return CompletableFuture&lt;ApiResponse&lt;NotificationAttemptsPaginatedResponse&gt;&gt;
+     * @throws ApiException if fails to make API call
+     */
+    public CompletableFuture<ApiResponse<NotificationAttemptsPaginatedResponse>>
+            getNotificationAttempts(
+                    String webhookId, String notificationId, String pageCursor, BigDecimal pageSize)
+                    throws ApiException {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    getNotificationAttemptsRequestBuilder(
+                            webhookId, notificationId, pageCursor, pageSize);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException(
+                                                    "getNotificationAttempts", localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<NotificationAttemptsPaginatedResponse>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            NotificationAttemptsPaginatedResponse>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            });
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder getNotificationAttemptsRequestBuilder(
+            String webhookId, String notificationId, String pageCursor, BigDecimal pageSize)
+            throws ApiException {
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "getNotificationAttempts", "webhookId", webhookId);
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "getNotificationAttempts", "notificationId", notificationId);
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath =
+                "/webhooks/{webhookId}/notifications/{notificationId}/attempts"
+                        .replace("{webhookId}", ApiClient.urlEncode(webhookId.toString()))
+                        .replace(
+                                "{notificationId}", ApiClient.urlEncode(notificationId.toString()));
+
+        List<Pair> localVarQueryParams = new ArrayList<>();
+        StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
+        String localVarQueryParameterBaseName;
+        localVarQueryParameterBaseName = "pageCursor";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("pageCursor", pageCursor));
+        localVarQueryParameterBaseName = "pageSize";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("pageSize", pageSize));
+
+        if (!localVarQueryParams.isEmpty() || localVarQueryStringJoiner.length() != 0) {
+            StringJoiner queryJoiner = new StringJoiner("&");
+            localVarQueryParams.forEach(p -> queryJoiner.add(p.getName() + '=' + p.getValue()));
+            if (localVarQueryStringJoiner.length() != 0) {
+                queryJoiner.add(localVarQueryStringJoiner.toString());
+            }
+            localVarRequestBuilder.uri(
+                    URI.create(memberVarBaseUri + localVarPath + '?' + queryJoiner.toString()));
+        } else {
+            localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+        }
+
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
+     * Get all notifications by webhook id Get all notifications by webhook id (paginated)
      *
      * @param webhookId (required)
      * @param order ASC / DESC ordering (default DESC) (optional, default to DESC)
+     * @param sortBy Sort by field (optional, default to updatedAt)
      * @param pageCursor Cursor of the required page (optional)
      * @param pageSize Maximum number of items in the page (optional, default to 100)
-     * @param createdStartDate sort by start date (optional)
-     * @param createdEndDate sort by end date (optional)
-     * @param statuses Filter by Notification statues (optional
-     * @param eventTypes Filter by Notification eventTypes (optional
-     * @param resourceId Filter by resourceId (optional)
      * @return CompletableFuture&lt;ApiResponse&lt;NotificationPaginatedResponse&gt;&gt;
      * @throws ApiException if fails to make API call
      */
     public CompletableFuture<ApiResponse<NotificationPaginatedResponse>> getNotifications(
-            UUID webhookId,
-            String order,
-            String pageCursor,
-            BigDecimal pageSize,
-            String createdStartDate,
-            String createdEndDate,
-            List<NotificationStatus> statuses,
-            List<WebhookEvent> eventTypes,
-            String resourceId)
+            UUID webhookId, String order, String sortBy, String pageCursor, BigDecimal pageSize)
             throws ApiException {
         try {
             HttpRequest.Builder localVarRequestBuilder =
-                    getNotificationsRequestBuilder(
-                            webhookId,
-                            order,
-                            pageCursor,
-                            pageSize,
-                            createdStartDate,
-                            createdEndDate,
-                            statuses,
-                            eventTypes,
-                            resourceId);
+                    getNotificationsRequestBuilder(webhookId, order, sortBy, pageCursor, pageSize);
             return memberVarHttpClient
                     .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
                     .thenComposeAsync(
@@ -391,15 +468,7 @@ public class WebhooksV2BetaApi {
     }
 
     private HttpRequest.Builder getNotificationsRequestBuilder(
-            UUID webhookId,
-            String order,
-            String pageCursor,
-            BigDecimal pageSize,
-            String createdStartDate,
-            String createdEndDate,
-            List<NotificationStatus> statuses,
-            List<WebhookEvent> eventTypes,
-            String resourceId)
+            UUID webhookId, String order, String sortBy, String pageCursor, BigDecimal pageSize)
             throws ApiException {
         ValidationUtils.assertParamExistsAndNotEmpty(
                 "getNotifications", "webhookId", webhookId.toString());
@@ -415,21 +484,12 @@ public class WebhooksV2BetaApi {
         String localVarQueryParameterBaseName;
         localVarQueryParameterBaseName = "order";
         localVarQueryParams.addAll(ApiClient.parameterToPairs("order", order));
+        localVarQueryParameterBaseName = "sortBy";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("sortBy", sortBy));
         localVarQueryParameterBaseName = "pageCursor";
         localVarQueryParams.addAll(ApiClient.parameterToPairs("pageCursor", pageCursor));
         localVarQueryParameterBaseName = "pageSize";
         localVarQueryParams.addAll(ApiClient.parameterToPairs("pageSize", pageSize));
-        localVarQueryParameterBaseName = "createdStartDate";
-        localVarQueryParams.addAll(
-                ApiClient.parameterToPairs("createdStartDate", createdStartDate));
-        localVarQueryParameterBaseName = "createdEndDate";
-        localVarQueryParams.addAll(ApiClient.parameterToPairs("createdEndDate", createdEndDate));
-        localVarQueryParameterBaseName = "statuses";
-        localVarQueryParams.addAll(ApiClient.parameterToPairs("multi", "statuses", statuses));
-        localVarQueryParameterBaseName = "eventTypes";
-        localVarQueryParams.addAll(ApiClient.parameterToPairs("multi", "eventTypes", eventTypes));
-        localVarQueryParameterBaseName = "resourceId";
-        localVarQueryParams.addAll(ApiClient.parameterToPairs("resourceId", resourceId));
 
         if (!localVarQueryParams.isEmpty() || localVarQueryStringJoiner.length() != 0) {
             StringJoiner queryJoiner = new StringJoiner("&");
@@ -455,8 +515,80 @@ public class WebhooksV2BetaApi {
         return localVarRequestBuilder;
     }
     /**
-     * Get webhook by id Retrieve a webhook by its id **Note:** These endpoints are currently in
-     * beta and might be subject to changes.
+     * Get resend job status Get the status of a resend job
+     *
+     * @param webhookId The ID of the webhook (required)
+     * @param jobId The ID of the resend job (required)
+     * @return
+     *     CompletableFuture&lt;ApiResponse&lt;ResendFailedNotificationsJobStatusResponse&gt;&gt;
+     * @throws ApiException if fails to make API call
+     */
+    public CompletableFuture<ApiResponse<ResendFailedNotificationsJobStatusResponse>>
+            getResendJobStatus(String webhookId, String jobId) throws ApiException {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    getResendJobStatusRequestBuilder(webhookId, jobId);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException(
+                                                    "getResendJobStatus", localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<
+                                                    ResendFailedNotificationsJobStatusResponse>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            ResendFailedNotificationsJobStatusResponse>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            });
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder getResendJobStatusRequestBuilder(String webhookId, String jobId)
+            throws ApiException {
+        ValidationUtils.assertParamExistsAndNotEmpty("getResendJobStatus", "webhookId", webhookId);
+        ValidationUtils.assertParamExistsAndNotEmpty("getResendJobStatus", "jobId", jobId);
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath =
+                "/webhooks/{webhookId}/notifications/resend_failed/jobs/{jobId}"
+                        .replace("{webhookId}", ApiClient.urlEncode(webhookId.toString()))
+                        .replace("{jobId}", ApiClient.urlEncode(jobId.toString()));
+
+        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
+     * Get webhook by id Retrieve a webhook by its id
      *
      * @param webhookId The unique identifier of the webhook (required)
      * @return CompletableFuture&lt;ApiResponse&lt;Webhook&gt;&gt;
@@ -521,8 +653,7 @@ public class WebhooksV2BetaApi {
         return localVarRequestBuilder;
     }
     /**
-     * Get all webhooks Get all webhooks (paginated) **Note:** These endpoints are currently in beta
-     * and might be subject to changes.
+     * Get all webhooks Get all webhooks (paginated)
      *
      * @param order ASC / DESC ordering (default DESC) (optional, default to DESC)
      * @param pageCursor Cursor of the required page (optional)
@@ -608,8 +739,105 @@ public class WebhooksV2BetaApi {
         return localVarRequestBuilder;
     }
     /**
-     * Resend notification by id Resend notification by ID **Note:** These endpoints are currently
-     * in beta and might be subject to changes.
+     * Resend failed notifications Resend all failed notifications for a webhook in the last 24
+     * hours Endpoint Permission: Owner, Admin, Non-Signing Admin.
+     *
+     * @param resendFailedNotificationsRequest (required)
+     * @param webhookId The ID of the webhook (required)
+     * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
+     *     times with the same idempotency key, the server will return the same response as the
+     *     first request. The idempotency key is valid for 24 hours. (optional)
+     * @return CompletableFuture&lt;ApiResponse&lt;ResendFailedNotificationsResponse&gt;&gt;
+     * @throws ApiException if fails to make API call
+     */
+    public CompletableFuture<ApiResponse<ResendFailedNotificationsResponse>>
+            resendFailedNotifications(
+                    ResendFailedNotificationsRequest resendFailedNotificationsRequest,
+                    String webhookId,
+                    String idempotencyKey)
+                    throws ApiException {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    resendFailedNotificationsRequestBuilder(
+                            resendFailedNotificationsRequest, webhookId, idempotencyKey);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException(
+                                                    "resendFailedNotifications", localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<ResendFailedNotificationsResponse>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            ResendFailedNotificationsResponse>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            });
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder resendFailedNotificationsRequestBuilder(
+            ResendFailedNotificationsRequest resendFailedNotificationsRequest,
+            String webhookId,
+            String idempotencyKey)
+            throws ApiException {
+        ValidationUtils.assertParamExists(
+                "resendFailedNotifications",
+                "resendFailedNotificationsRequest",
+                resendFailedNotificationsRequest);
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "resendFailedNotifications", "webhookId", webhookId);
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath =
+                "/webhooks/{webhookId}/notifications/resend_failed"
+                        .replace("{webhookId}", ApiClient.urlEncode(webhookId.toString()));
+
+        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+        if (idempotencyKey != null) {
+            localVarRequestBuilder.header("Idempotency-Key", idempotencyKey.toString());
+        }
+        localVarRequestBuilder.header("Content-Type", "application/json");
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        try {
+            byte[] localVarPostBody =
+                    memberVarObjectMapper.writeValueAsBytes(resendFailedNotificationsRequest);
+            localVarRequestBuilder.method(
+                    "POST", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
+        } catch (IOException e) {
+            throw new ApiException(e);
+        }
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
+     * Resend notification by id Resend notification by ID Endpoint Permission: Owner, Admin,
+     * Non-Signing Admin.
      *
      * @param webhookId The ID of the webhook (required)
      * @param notificationId The ID of the notification (required)
@@ -679,8 +907,8 @@ public class WebhooksV2BetaApi {
         return localVarRequestBuilder;
     }
     /**
-     * Resend notifications by resource Id Resend notifications by resource Id **Note:** These
-     * endpoints are currently in beta and might be subject to changes.
+     * Resend notifications by resource Id Resend notifications by resource Id Endpoint Permission:
+     * Owner, Admin, Non-Signing Admin.
      *
      * @param resendNotificationsByResourceIdRequest (required)
      * @param webhookId The ID of the webhook (required)
@@ -766,8 +994,8 @@ public class WebhooksV2BetaApi {
         return localVarRequestBuilder;
     }
     /**
-     * Update webhook Update a webhook by its id **Note:** These endpoints are currently in beta and
-     * might be subject to changes.
+     * Update webhook Update a webhook by its id Endpoint Permission: Owner, Admin, Non-Signing
+     * Admin.
      *
      * @param updateWebhookRequest (required)
      * @param webhookId The unique identifier of the webhook (required)
