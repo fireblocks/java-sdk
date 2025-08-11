@@ -60,10 +60,4 @@ public class NotificationTest {
     public void resourceIdTest() {
         // TODO: test resourceId
     }
-
-    /** Test the property 'attempts' */
-    @Test
-    public void attemptsTest() {
-        // TODO: test attempts
-    }
 }

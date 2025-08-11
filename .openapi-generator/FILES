@@ -243,6 +243,7 @@ docs/EmbeddedWalletsApi.md
 docs/ErrorResponse.md
 docs/ErrorResponseError.md
 docs/ErrorSchema.md
+docs/EstimatedFeeDetails.md
 docs/EstimatedNetworkFeeResponse.md
 docs/EstimatedTransactionFeeResponse.md
 docs/ExchangeAccount.md
@@ -260,6 +261,9 @@ docs/ExecutionScreeningOperation.md
 docs/ExecutionTransferOperation.md
 docs/ExternalWalletAsset.md
 docs/ExternalWalletsApi.md
+docs/FeeBreakdown.md
+docs/FeeBreakdownOneOf.md
+docs/FeeBreakdownOneOf1.md
 docs/FeeInfo.md
 docs/FeeLevel.md
 docs/FetchAbiRequestDto.md
@@ -339,6 +343,7 @@ docs/NoneNetworkRoutingDest.md
 docs/NotFoundException.md
 docs/Notification.md
 docs/NotificationAttempt.md
+docs/NotificationAttemptsPaginatedResponse.md
 docs/NotificationPaginatedResponse.md
 docs/NotificationStatus.md
 docs/NotificationWithData.md
@@ -417,6 +422,9 @@ docs/RemoveCollateralRequestBody.md
 docs/RenameCosigner.md
 docs/RenameVaultAccountResponse.md
 docs/RescanTransaction.md
+docs/ResendFailedNotificationsJobStatusResponse.md
+docs/ResendFailedNotificationsRequest.md
+docs/ResendFailedNotificationsResponse.md
 docs/ResendNotificationsByResourceIdRequest.md
 docs/ResendTransactionWebhooksRequest.md
 docs/ResendWebhooksByTransactionIdResponse.md
@@ -654,7 +662,7 @@ docs/Webhook.md
 docs/WebhookEvent.md
 docs/WebhookPaginatedResponse.md
 docs/WebhooksApi.md
-docs/WebhooksV2BetaApi.md
+docs/WebhooksV2Api.md
 docs/WhitelistIpAddressesApi.md
 docs/WithdrawRequest.md
 docs/WorkflowConfigStatus.md
@@ -731,7 +739,7 @@ src/main/java/com/fireblocks/sdk/api/UsersApi.java
 src/main/java/com/fireblocks/sdk/api/VaultsApi.java
 src/main/java/com/fireblocks/sdk/api/Web3ConnectionsApi.java
 src/main/java/com/fireblocks/sdk/api/WebhooksApi.java
-src/main/java/com/fireblocks/sdk/api/WebhooksV2BetaApi.java
+src/main/java/com/fireblocks/sdk/api/WebhooksV2Api.java
 src/main/java/com/fireblocks/sdk/api/WhitelistIpAddressesApi.java
 src/main/java/com/fireblocks/sdk/api/WorkspaceStatusBetaApi.java
 src/main/java/com/fireblocks/sdk/model/APIUser.java
@@ -957,6 +965,7 @@ src/main/java/com/fireblocks/sdk/model/EmbeddedWalletSetUpStatus.java
 src/main/java/com/fireblocks/sdk/model/ErrorResponse.java
 src/main/java/com/fireblocks/sdk/model/ErrorResponseError.java
 src/main/java/com/fireblocks/sdk/model/ErrorSchema.java
+src/main/java/com/fireblocks/sdk/model/EstimatedFeeDetails.java
 src/main/java/com/fireblocks/sdk/model/EstimatedNetworkFeeResponse.java
 src/main/java/com/fireblocks/sdk/model/EstimatedTransactionFeeResponse.java
 src/main/java/com/fireblocks/sdk/model/ExchangeAccount.java
@@ -972,6 +981,9 @@ src/main/java/com/fireblocks/sdk/model/ExecutionOperationStatus.java
 src/main/java/com/fireblocks/sdk/model/ExecutionScreeningOperation.java
 src/main/java/com/fireblocks/sdk/model/ExecutionTransferOperation.java
 src/main/java/com/fireblocks/sdk/model/ExternalWalletAsset.java
+src/main/java/com/fireblocks/sdk/model/FeeBreakdown.java
+src/main/java/com/fireblocks/sdk/model/FeeBreakdownOneOf.java
+src/main/java/com/fireblocks/sdk/model/FeeBreakdownOneOf1.java
 src/main/java/com/fireblocks/sdk/model/FeeInfo.java
 src/main/java/com/fireblocks/sdk/model/FeeLevel.java
 src/main/java/com/fireblocks/sdk/model/FetchAbiRequestDto.java
@@ -1043,6 +1055,7 @@ src/main/java/com/fireblocks/sdk/model/NoneNetworkRoutingDest.java
 src/main/java/com/fireblocks/sdk/model/NotFoundException.java
 src/main/java/com/fireblocks/sdk/model/Notification.java
 src/main/java/com/fireblocks/sdk/model/NotificationAttempt.java
+src/main/java/com/fireblocks/sdk/model/NotificationAttemptsPaginatedResponse.java
 src/main/java/com/fireblocks/sdk/model/NotificationPaginatedResponse.java
 src/main/java/com/fireblocks/sdk/model/NotificationStatus.java
 src/main/java/com/fireblocks/sdk/model/NotificationWithData.java
@@ -1117,6 +1130,9 @@ src/main/java/com/fireblocks/sdk/model/RemoveCollateralRequestBody.java
 src/main/java/com/fireblocks/sdk/model/RenameCosigner.java
 src/main/java/com/fireblocks/sdk/model/RenameVaultAccountResponse.java
 src/main/java/com/fireblocks/sdk/model/RescanTransaction.java
+src/main/java/com/fireblocks/sdk/model/ResendFailedNotificationsJobStatusResponse.java
+src/main/java/com/fireblocks/sdk/model/ResendFailedNotificationsRequest.java
+src/main/java/com/fireblocks/sdk/model/ResendFailedNotificationsResponse.java
 src/main/java/com/fireblocks/sdk/model/ResendNotificationsByResourceIdRequest.java
 src/main/java/com/fireblocks/sdk/model/ResendTransactionWebhooksRequest.java
 src/main/java/com/fireblocks/sdk/model/ResendWebhooksByTransactionIdResponse.java
@@ -1396,7 +1412,7 @@ src/test/java/com/fireblocks/sdk/api/UsersApiTest.java
 src/test/java/com/fireblocks/sdk/api/VaultsApiTest.java
 src/test/java/com/fireblocks/sdk/api/Web3ConnectionsApiTest.java
 src/test/java/com/fireblocks/sdk/api/WebhooksApiTest.java
-src/test/java/com/fireblocks/sdk/api/WebhooksV2BetaApiTest.java
+src/test/java/com/fireblocks/sdk/api/WebhooksV2ApiTest.java
 src/test/java/com/fireblocks/sdk/api/WhitelistIpAddressesApiTest.java
 src/test/java/com/fireblocks/sdk/api/WorkspaceStatusBetaApiTest.java
 src/test/java/com/fireblocks/sdk/model/APIUserTest.java
@@ -1621,6 +1637,7 @@ src/test/java/com/fireblocks/sdk/model/EmbeddedWalletTest.java
 src/test/java/com/fireblocks/sdk/model/ErrorResponseErrorTest.java
 src/test/java/com/fireblocks/sdk/model/ErrorResponseTest.java
 src/test/java/com/fireblocks/sdk/model/ErrorSchemaTest.java
+src/test/java/com/fireblocks/sdk/model/EstimatedFeeDetailsTest.java
 src/test/java/com/fireblocks/sdk/model/EstimatedNetworkFeeResponseTest.java
 src/test/java/com/fireblocks/sdk/model/EstimatedTransactionFeeResponseTest.java
 src/test/java/com/fireblocks/sdk/model/ExchangeAccountTest.java
@@ -1636,6 +1653,9 @@ src/test/java/com/fireblocks/sdk/model/ExecutionOperationStatusTest.java
 src/test/java/com/fireblocks/sdk/model/ExecutionScreeningOperationTest.java
 src/test/java/com/fireblocks/sdk/model/ExecutionTransferOperationTest.java
 src/test/java/com/fireblocks/sdk/model/ExternalWalletAssetTest.java
+src/test/java/com/fireblocks/sdk/model/FeeBreakdownOneOf1Test.java
+src/test/java/com/fireblocks/sdk/model/FeeBreakdownOneOfTest.java
+src/test/java/com/fireblocks/sdk/model/FeeBreakdownTest.java
 src/test/java/com/fireblocks/sdk/model/FeeInfoTest.java
 src/test/java/com/fireblocks/sdk/model/FeeLevelTest.java
 src/test/java/com/fireblocks/sdk/model/FetchAbiRequestDtoTest.java
@@ -1706,6 +1726,7 @@ src/test/java/com/fireblocks/sdk/model/NonWalletQuoteResponseTest.java
 src/test/java/com/fireblocks/sdk/model/NoneNetworkRoutingDestTest.java
 src/test/java/com/fireblocks/sdk/model/NotFoundExceptionTest.java
 src/test/java/com/fireblocks/sdk/model/NotificationAttemptTest.java
+src/test/java/com/fireblocks/sdk/model/NotificationAttemptsPaginatedResponseTest.java
 src/test/java/com/fireblocks/sdk/model/NotificationPaginatedResponseTest.java
 src/test/java/com/fireblocks/sdk/model/NotificationStatusTest.java
 src/test/java/com/fireblocks/sdk/model/NotificationTest.java
@@ -1781,6 +1802,9 @@ src/test/java/com/fireblocks/sdk/model/RemoveCollateralRequestBodyTest.java
 src/test/java/com/fireblocks/sdk/model/RenameCosignerTest.java
 src/test/java/com/fireblocks/sdk/model/RenameVaultAccountResponseTest.java
 src/test/java/com/fireblocks/sdk/model/RescanTransactionTest.java
+src/test/java/com/fireblocks/sdk/model/ResendFailedNotificationsJobStatusResponseTest.java
+src/test/java/com/fireblocks/sdk/model/ResendFailedNotificationsRequestTest.java
+src/test/java/com/fireblocks/sdk/model/ResendFailedNotificationsResponseTest.java
 src/test/java/com/fireblocks/sdk/model/ResendNotificationsByResourceIdRequestTest.java
 src/test/java/com/fireblocks/sdk/model/ResendTransactionWebhooksRequestTest.java
 src/test/java/com/fireblocks/sdk/model/ResendWebhooksByTransactionIdResponseTest.java

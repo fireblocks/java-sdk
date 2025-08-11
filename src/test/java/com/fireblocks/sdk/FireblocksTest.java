@@ -678,11 +678,11 @@ public class FireblocksTest {
     }
 
     @Test
-    public void testGetWebhooksV2BetaApi() {
+    public void testGetWebhooksV2Api() {
         setupFireblocks(true, null, null);
-        WebhooksV2BetaApi webhooksV2Beta = fireblocks.webhooksV2Beta();
-        Assert.assertNotNull(webhooksV2Beta);
-        Assert.assertSame(webhooksV2Beta, fireblocks.webhooksV2Beta());
+        WebhooksV2Api webhooksV2 = fireblocks.webhooksV2();
+        Assert.assertNotNull(webhooksV2);
+        Assert.assertSame(webhooksV2, fireblocks.webhooksV2());
     }
 
     @Test

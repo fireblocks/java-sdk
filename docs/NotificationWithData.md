@@ -13,7 +13,6 @@
 |**status** | **NotificationStatus** |  |  |
 |**eventType** | **WebhookEvent** |  |  |
 |**resourceId** | **UUID** | The resource id of the event which the Notification is listen to |  [optional] |
-|**attempts** | [**List&lt;NotificationAttempt&gt;**](NotificationAttempt.md) | The attempts related to Notification |  |
 |**data** | **Object** | notification data |  [optional] |
 
 

@@ -61,12 +61,6 @@ public class NotificationWithDataTest {
         // TODO: test resourceId
     }
 
-    /** Test the property 'attempts' */
-    @Test
-    public void attemptsTest() {
-        // TODO: test attempts
-    }
-
     /** Test the property 'data' */
     @Test
     public void dataTest() {

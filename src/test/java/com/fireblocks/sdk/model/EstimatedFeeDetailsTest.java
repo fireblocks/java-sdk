@@ -15,14 +15,14 @@ package com.fireblocks.sdk.model;
 
 import org.junit.Test;
 
-/** Model tests for EstimatedTransactionFeeResponse */
-public class EstimatedTransactionFeeResponseTest {
-    private final EstimatedTransactionFeeResponse model = new EstimatedTransactionFeeResponse();
+/** Model tests for EstimatedFeeDetails */
+public class EstimatedFeeDetailsTest {
+    private final EstimatedFeeDetails model = new EstimatedFeeDetails();
 
-    /** Model tests for EstimatedTransactionFeeResponse */
+    /** Model tests for EstimatedFeeDetails */
     @Test
-    public void testEstimatedTransactionFeeResponse() {
-        // TODO: test EstimatedTransactionFeeResponse
+    public void testEstimatedFeeDetails() {
+        // TODO: test EstimatedFeeDetails
     }
 
     /** Test the property 'low' */
@@ -41,11 +41,5 @@ public class EstimatedTransactionFeeResponseTest {
     @Test
     public void highTest() {
         // TODO: test high
-    }
-
-    /** Test the property 'feeDetails' */
-    @Test
-    public void feeDetailsTest() {
-        // TODO: test feeDetails
     }
 }

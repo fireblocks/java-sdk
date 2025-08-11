@@ -20,6 +20,6 @@ jobs:
             --body "This PR was automatically generated." \
             --base master \
             --head ${{ github.ref }} \
-            --reviewer asafs932,zoharsf,YoavBZ
+            --reviewer asafs932,sharonasw,YoavBZ
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
