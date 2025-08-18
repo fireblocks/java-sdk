@@ -15,6 +15,7 @@ package com.fireblocks.sdk.api;
 
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.model.AdapterProcessingResult;
 import com.fireblocks.sdk.model.CollectionBurnRequestDto;
 import com.fireblocks.sdk.model.CollectionBurnResponseDto;
 import com.fireblocks.sdk.model.CollectionDeployRequestDto;
@@ -23,15 +24,28 @@ import com.fireblocks.sdk.model.CollectionMintRequestDto;
 import com.fireblocks.sdk.model.CollectionMintResponseDto;
 import com.fireblocks.sdk.model.CreateMultichainTokenRequest;
 import com.fireblocks.sdk.model.CreateTokenRequestDto;
+import com.fireblocks.sdk.model.DeployLayerZeroAdaptersRequest;
 import com.fireblocks.sdk.model.DeployableAddressResponse;
 import com.fireblocks.sdk.model.GetDeployableAddressRequest;
+import com.fireblocks.sdk.model.GetLayerZeroDvnConfigResponse;
+import com.fireblocks.sdk.model.GetLayerZeroPeersResponse;
 import com.fireblocks.sdk.model.GetLinkedCollectionsPaginatedResponse;
 import com.fireblocks.sdk.model.ReissueMultichainTokenRequest;
+import com.fireblocks.sdk.model.RemoveLayerZeroAdaptersRequest;
+import com.fireblocks.sdk.model.RemoveLayerZeroAdaptersResponse;
+import com.fireblocks.sdk.model.RemoveLayerZeroPeersRequest;
+import com.fireblocks.sdk.model.RemoveLayerZeroPeersResponse;
+import com.fireblocks.sdk.model.SetLayerZeroDvnConfigRequest;
+import com.fireblocks.sdk.model.SetLayerZeroDvnConfigResponse;
+import com.fireblocks.sdk.model.SetLayerZeroPeersRequest;
+import com.fireblocks.sdk.model.SetLayerZeroPeersResponse;
 import com.fireblocks.sdk.model.TokenLinkDto;
 import com.fireblocks.sdk.model.TokenLinkRequestDto;
 import com.fireblocks.sdk.model.TokensPaginatedResponse;
+import com.fireblocks.sdk.model.ValidateLayerZeroChannelResponse;
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -71,6 +85,38 @@ public class TokenizationApiTest {
         String idempotencyKey = null;
         CompletableFuture<ApiResponse<CollectionLinkDto>> response =
                 api.createNewCollection(collectionDeployRequestDto, idempotencyKey);
+    }
+
+    /**
+     * Remove LayerZero adapters
+     *
+     * <p>Remove LayerZero adapters by deactivating and unlinking them. This endpoint revokes roles
+     * and deactivates the specified adapter contracts.
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void deactivateAndUnlinkAdaptersTest() throws ApiException {
+        RemoveLayerZeroAdaptersRequest removeLayerZeroAdaptersRequest = null;
+        String idempotencyKey = null;
+        CompletableFuture<ApiResponse<RemoveLayerZeroAdaptersResponse>> response =
+                api.deactivateAndUnlinkAdapters(removeLayerZeroAdaptersRequest, idempotencyKey);
+    }
+
+    /**
+     * Deploy LayerZero adapters
+     *
+     * <p>Deploy LayerZero adapters for multichain token bridging functionality. This endpoint
+     * creates adapter contracts that enable cross-chain token transfers.
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void deployAndLinkAdaptersTest() throws ApiException {
+        DeployLayerZeroAdaptersRequest deployLayerZeroAdaptersRequest = null;
+        String idempotencyKey = null;
+        CompletableFuture<ApiResponse<List<AdapterProcessingResult>>> response =
+                api.deployAndLinkAdapters(deployLayerZeroAdaptersRequest, idempotencyKey);
     }
 
     /**
@@ -116,6 +162,37 @@ public class TokenizationApiTest {
         String idempotencyKey = null;
         CompletableFuture<ApiResponse<DeployableAddressResponse>> response =
                 api.getDeployableAddress(getDeployableAddressRequest, idempotencyKey);
+    }
+
+    /**
+     * Get LayerZero DVN configuration
+     *
+     * <p>Retrieve the DVN (Data Verification Network) configuration for a specific adapter. Returns
+     * DVN configurations for channels between the source adapter and its peers.
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void getLayerZeroDvnConfigTest() throws ApiException {
+        UUID adapterTokenLinkId = null;
+        UUID peerAdapterTokenLinkId = null;
+        CompletableFuture<ApiResponse<GetLayerZeroDvnConfigResponse>> response =
+                api.getLayerZeroDvnConfig(adapterTokenLinkId, peerAdapterTokenLinkId);
+    }
+
+    /**
+     * Get LayerZero peers
+     *
+     * <p>Retrieve the LayerZero peers configured for a specific adapter. Returns information about
+     * peer relationships for cross-chain communication.
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void getLayerZeroPeersTest() throws ApiException {
+        UUID adapterTokenLinkId = null;
+        CompletableFuture<ApiResponse<GetLayerZeroPeersResponse>> response =
+                api.getLayerZeroPeers(adapterTokenLinkId);
     }
 
     /**
@@ -248,6 +325,56 @@ public class TokenizationApiTest {
     }
 
     /**
+     * Remove LayerZero peers
+     *
+     * <p>Remove LayerZero peers to disconnect adapter contracts. This endpoint removes peer
+     * relationships between LayerZero adapters.
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void removeLayerZeroPeersTest() throws ApiException {
+        RemoveLayerZeroPeersRequest removeLayerZeroPeersRequest = null;
+        String idempotencyKey = null;
+        CompletableFuture<ApiResponse<RemoveLayerZeroPeersResponse>> response =
+                api.removeLayerZeroPeers(removeLayerZeroPeersRequest, idempotencyKey);
+    }
+
+    /**
+     * Set LayerZero DVN configuration
+     *
+     * <p>Configure DVN settings for LayerZero adapters. This endpoint sets up the DVN configuration
+     * for message verification between source and destination adapters.
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void setLayerZeroDvnConfigTest() throws ApiException {
+        SetLayerZeroDvnConfigRequest setLayerZeroDvnConfigRequest = null;
+        String idempotencyKey = null;
+        CompletableFuture<ApiResponse<SetLayerZeroDvnConfigResponse>> response =
+                api.setLayerZeroDvnConfig(setLayerZeroDvnConfigRequest, idempotencyKey);
+    }
+
+    /**
+     * Set LayerZero peers
+     *
+     * <p>Set LayerZero peers to establish connections between adapter contracts. This endpoint
+     * creates peer relationships that enable cross-chain communication. It sets the destination
+     * adapter as a peer of the source adapter. If &#x60;bidirectional&#x60; is true, it also sets
+     * the source adapter as a peer of the destination adapter(s).
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void setLayerZeroPeersTest() throws ApiException {
+        SetLayerZeroPeersRequest setLayerZeroPeersRequest = null;
+        String idempotencyKey = null;
+        CompletableFuture<ApiResponse<SetLayerZeroPeersResponse>> response =
+                api.setLayerZeroPeers(setLayerZeroPeersRequest, idempotencyKey);
+    }
+
+    /**
      * Unlink a token
      *
      * <p>Unlink a token. The token will be unlinked from the workspace. The token will not be
@@ -274,5 +401,21 @@ public class TokenizationApiTest {
         String id = null;
 
         CompletableFuture<ApiResponse<Void>> response = api.unlinkCollection(id);
+    }
+
+    /**
+     * Validate LayerZero channel configuration
+     *
+     * <p>Validate the LayerZero channel configuration between adapters. This endpoint checks if the
+     * channel configuration is correct and returns any validation errors.
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void validateLayerZeroChannelConfigTest() throws ApiException {
+        UUID adapterTokenLinkId = null;
+        UUID peerAdapterTokenLinkId = null;
+        CompletableFuture<ApiResponse<ValidateLayerZeroChannelResponse>> response =
+                api.validateLayerZeroChannelConfig(adapterTokenLinkId, peerAdapterTokenLinkId);
     }
 }

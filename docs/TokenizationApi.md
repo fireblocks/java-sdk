@@ -6,9 +6,13 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 |------------- | ------------- | -------------|
 | [**burnCollectionToken**](TokenizationApi.md#burnCollectionToken) | **POST** /tokenization/collections/{id}/tokens/burn | Burn tokens |
 | [**createNewCollection**](TokenizationApi.md#createNewCollection) | **POST** /tokenization/collections | Create a new collection |
+| [**deactivateAndUnlinkAdapters**](TokenizationApi.md#deactivateAndUnlinkAdapters) | **DELETE** /tokenization/multichain/bridge/layerzero | Remove LayerZero adapters |
+| [**deployAndLinkAdapters**](TokenizationApi.md#deployAndLinkAdapters) | **POST** /tokenization/multichain/bridge/layerzero | Deploy LayerZero adapters |
 | [**fetchCollectionTokenDetails**](TokenizationApi.md#fetchCollectionTokenDetails) | **GET** /tokenization/collections/{id}/tokens/{tokenId} | Get collection token details |
 | [**getCollectionById**](TokenizationApi.md#getCollectionById) | **GET** /tokenization/collections/{id} | Get a collection by id |
 | [**getDeployableAddress**](TokenizationApi.md#getDeployableAddress) | **POST** /tokenization/multichain/deterministic_address | Get deterministic address for contract deployment |
+| [**getLayerZeroDvnConfig**](TokenizationApi.md#getLayerZeroDvnConfig) | **GET** /tokenization/multichain/bridge/layerzero/config/{adapterTokenLinkId}/dvns | Get LayerZero DVN configuration |
+| [**getLayerZeroPeers**](TokenizationApi.md#getLayerZeroPeers) | **GET** /tokenization/multichain/bridge/layerzero/config/{adapterTokenLinkId}/peers | Get LayerZero peers |
 | [**getLinkedCollections**](TokenizationApi.md#getLinkedCollections) | **GET** /tokenization/collections | Get collections |
 | [**getLinkedToken**](TokenizationApi.md#getLinkedToken) | **GET** /tokenization/tokens/{id} | Return a linked token |
 | [**getLinkedTokens**](TokenizationApi.md#getLinkedTokens) | **GET** /tokenization/tokens | List all linked tokens |
@@ -17,8 +21,12 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 | [**link**](TokenizationApi.md#link) | **POST** /tokenization/tokens/link | Link a contract |
 | [**mintCollectionToken**](TokenizationApi.md#mintCollectionToken) | **POST** /tokenization/collections/{id}/tokens/mint | Mint tokens |
 | [**reIssueTokenMultiChain**](TokenizationApi.md#reIssueTokenMultiChain) | **POST** /tokenization/multichain/reissue/token/{tokenLinkId} | Reissue a multichain token |
+| [**removeLayerZeroPeers**](TokenizationApi.md#removeLayerZeroPeers) | **DELETE** /tokenization/multichain/bridge/layerzero/config/peers | Remove LayerZero peers |
+| [**setLayerZeroDvnConfig**](TokenizationApi.md#setLayerZeroDvnConfig) | **POST** /tokenization/multichain/bridge/layerzero/config/dvns | Set LayerZero DVN configuration |
+| [**setLayerZeroPeers**](TokenizationApi.md#setLayerZeroPeers) | **POST** /tokenization/multichain/bridge/layerzero/config/peers | Set LayerZero peers |
 | [**unlink**](TokenizationApi.md#unlink) | **DELETE** /tokenization/tokens/{id} | Unlink a token |
 | [**unlinkCollection**](TokenizationApi.md#unlinkCollection) | **DELETE** /tokenization/collections/{id} | Delete a collection link |
+| [**validateLayerZeroChannelConfig**](TokenizationApi.md#validateLayerZeroChannelConfig) | **GET** /tokenization/multichain/bridge/layerzero/validate | Validate LayerZero channel configuration |
 
 
 
@@ -192,6 +200,183 @@ No authorization required
 |-------------|-------------|------------------|
 | **201** | Collection was created successfully |  -  |
 | **0** | Error Response |  * X-Request-ID -  <br>  |
+
+
+## deactivateAndUnlinkAdapters
+
+> CompletableFuture<ApiResponse<RemoveLayerZeroAdaptersResponse>> deactivateAndUnlinkAdapters deactivateAndUnlinkAdapters(removeLayerZeroAdaptersRequest, idempotencyKey)
+
+Remove LayerZero adapters
+
+Remove LayerZero adapters by deactivating and unlinking them. This endpoint revokes roles and deactivates the specified adapter contracts.
+
+### Example
+
+```java
+// Import classes:
+import com.fireblocks.sdk.ApiClient;
+import com.fireblocks.sdk.ApiException;
+import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
+import com.fireblocks.sdk.api.TokenizationApi;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+
+public class Example {
+    public static void main(String[] args) {
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
+
+        RemoveLayerZeroAdaptersRequest removeLayerZeroAdaptersRequest = new RemoveLayerZeroAdaptersRequest(); // RemoveLayerZeroAdaptersRequest | 
+        String idempotencyKey = "idempotencyKey_example"; // String | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+        try {
+            CompletableFuture<ApiResponse<RemoveLayerZeroAdaptersResponse>> response = fireblocks.tokenization().deactivateAndUnlinkAdapters(removeLayerZeroAdaptersRequest, idempotencyKey);
+            System.out.println("Status code: " + response.get().getStatusCode());
+            System.out.println("Response headers: " + response.get().getHeaders());
+            System.out.println("Response body: " + response.get().getData());
+        } catch (InterruptedException | ExecutionException e) {
+            ApiException apiException = (ApiException)e.getCause();
+            System.err.println("Exception when calling TokenizationApi#deactivateAndUnlinkAdapters");
+            System.err.println("Status code: " + apiException.getCode());
+            System.err.println("Response headers: " + apiException.getResponseHeaders());
+            System.err.println("Reason: " + apiException.getResponseBody());
+            e.printStackTrace();
+        } catch (ApiException e) {
+            System.err.println("Exception when calling TokenizationApi#deactivateAndUnlinkAdapters");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            System.err.println("Reason: " + e.getResponseBody());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **removeLayerZeroAdaptersRequest** | [**RemoveLayerZeroAdaptersRequest**](RemoveLayerZeroAdaptersRequest.md)|  | |
+| **idempotencyKey** | **String**| A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | [optional] |
+
+### Return type
+
+CompletableFuture<ApiResponse<[**RemoveLayerZeroAdaptersResponse**](RemoveLayerZeroAdaptersResponse.md)>>
+
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | LayerZero adapters removal process completed |  -  |
+| **400** | Bad request, invalid input data or parameters |  -  |
+| **404** | Token link not found |  -  |
+| **409** | Token link processing error |  -  |
+| **500** | Internal server error |  -  |
+
+
+## deployAndLinkAdapters
+
+> CompletableFuture<ApiResponse<List<AdapterProcessingResult>>> deployAndLinkAdapters deployAndLinkAdapters(deployLayerZeroAdaptersRequest, idempotencyKey)
+
+Deploy LayerZero adapters
+
+Deploy LayerZero adapters for multichain token bridging functionality. This endpoint creates adapter contracts that enable cross-chain token transfers.
+
+### Example
+
+```java
+// Import classes:
+import com.fireblocks.sdk.ApiClient;
+import com.fireblocks.sdk.ApiException;
+import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
+import com.fireblocks.sdk.api.TokenizationApi;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+
+public class Example {
+    public static void main(String[] args) {
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
+
+        DeployLayerZeroAdaptersRequest deployLayerZeroAdaptersRequest = new DeployLayerZeroAdaptersRequest(); // DeployLayerZeroAdaptersRequest | 
+        String idempotencyKey = "idempotencyKey_example"; // String | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+        try {
+            CompletableFuture<ApiResponse<List<AdapterProcessingResult>>> response = fireblocks.tokenization().deployAndLinkAdapters(deployLayerZeroAdaptersRequest, idempotencyKey);
+            System.out.println("Status code: " + response.get().getStatusCode());
+            System.out.println("Response headers: " + response.get().getHeaders());
+            System.out.println("Response body: " + response.get().getData());
+        } catch (InterruptedException | ExecutionException e) {
+            ApiException apiException = (ApiException)e.getCause();
+            System.err.println("Exception when calling TokenizationApi#deployAndLinkAdapters");
+            System.err.println("Status code: " + apiException.getCode());
+            System.err.println("Response headers: " + apiException.getResponseHeaders());
+            System.err.println("Reason: " + apiException.getResponseBody());
+            e.printStackTrace();
+        } catch (ApiException e) {
+            System.err.println("Exception when calling TokenizationApi#deployAndLinkAdapters");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            System.err.println("Reason: " + e.getResponseBody());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **deployLayerZeroAdaptersRequest** | [**DeployLayerZeroAdaptersRequest**](DeployLayerZeroAdaptersRequest.md)|  | |
+| **idempotencyKey** | **String**| A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | [optional] |
+
+### Return type
+
+CompletableFuture<ApiResponse<[**List&lt;AdapterProcessingResult&gt;**](AdapterProcessingResult.md)>>
+
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | LayerZero adapters deployed successfully |  -  |
+| **400** | Bad request, invalid input data or parameters |  -  |
+| **404** | Token link not found |  -  |
+| **409** | Token link preparation error |  -  |
+| **422** | Token link is not fungible |  -  |
+| **500** | Internal server error |  -  |
 
 
 ## fetchCollectionTokenDetails
@@ -447,6 +632,178 @@ No authorization required
 | **400** | Invalid parameters or template has no bytecode |  -  |
 | **409** | Address is already taken |  -  |
 | **0** | Error Response |  * X-Request-ID -  <br>  |
+
+
+## getLayerZeroDvnConfig
+
+> CompletableFuture<ApiResponse<GetLayerZeroDvnConfigResponse>> getLayerZeroDvnConfig getLayerZeroDvnConfig(adapterTokenLinkId, peerAdapterTokenLinkId)
+
+Get LayerZero DVN configuration
+
+Retrieve the DVN (Data Verification Network) configuration for a specific adapter. Returns DVN configurations for channels between the source adapter and its peers.
+
+### Example
+
+```java
+// Import classes:
+import com.fireblocks.sdk.ApiClient;
+import com.fireblocks.sdk.ApiException;
+import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
+import com.fireblocks.sdk.api.TokenizationApi;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+
+public class Example {
+    public static void main(String[] args) {
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
+
+        UUID adapterTokenLinkId = UUID.fromString("b70701f4-d7b1-4795-a8ee-b09cdb5b850d"); // UUID | The token link id of the adapter token link
+        UUID peerAdapterTokenLinkId = UUID.fromString("6add4f2a-b206-4114-8f94-2882618ffbb4"); // UUID | Optional peer adapter token link ID to filter results
+        try {
+            CompletableFuture<ApiResponse<GetLayerZeroDvnConfigResponse>> response = fireblocks.tokenization().getLayerZeroDvnConfig(adapterTokenLinkId, peerAdapterTokenLinkId);
+            System.out.println("Status code: " + response.get().getStatusCode());
+            System.out.println("Response headers: " + response.get().getHeaders());
+            System.out.println("Response body: " + response.get().getData());
+        } catch (InterruptedException | ExecutionException e) {
+            ApiException apiException = (ApiException)e.getCause();
+            System.err.println("Exception when calling TokenizationApi#getLayerZeroDvnConfig");
+            System.err.println("Status code: " + apiException.getCode());
+            System.err.println("Response headers: " + apiException.getResponseHeaders());
+            System.err.println("Reason: " + apiException.getResponseBody());
+            e.printStackTrace();
+        } catch (ApiException e) {
+            System.err.println("Exception when calling TokenizationApi#getLayerZeroDvnConfig");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            System.err.println("Reason: " + e.getResponseBody());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **adapterTokenLinkId** | **UUID**| The token link id of the adapter token link | |
+| **peerAdapterTokenLinkId** | **UUID**| Optional peer adapter token link ID to filter results | [optional] |
+
+### Return type
+
+CompletableFuture<ApiResponse<[**GetLayerZeroDvnConfigResponse**](GetLayerZeroDvnConfigResponse.md)>>
+
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | LayerZero DVN configuration retrieved successfully |  -  |
+| **400** | Bad request, invalid input data or parameters |  -  |
+| **404** | Token link not found |  -  |
+| **500** | Internal server error |  -  |
+
+
+## getLayerZeroPeers
+
+> CompletableFuture<ApiResponse<GetLayerZeroPeersResponse>> getLayerZeroPeers getLayerZeroPeers(adapterTokenLinkId)
+
+Get LayerZero peers
+
+Retrieve the LayerZero peers configured for a specific adapter. Returns information about peer relationships for cross-chain communication.
+
+### Example
+
+```java
+// Import classes:
+import com.fireblocks.sdk.ApiClient;
+import com.fireblocks.sdk.ApiException;
+import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
+import com.fireblocks.sdk.api.TokenizationApi;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+
+public class Example {
+    public static void main(String[] args) {
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
+
+        UUID adapterTokenLinkId = UUID.fromString("b70701f4-d7b1-4795-a8ee-b09cdb5b850d"); // UUID | The token link id of the adapter token link
+        try {
+            CompletableFuture<ApiResponse<GetLayerZeroPeersResponse>> response = fireblocks.tokenization().getLayerZeroPeers(adapterTokenLinkId);
+            System.out.println("Status code: " + response.get().getStatusCode());
+            System.out.println("Response headers: " + response.get().getHeaders());
+            System.out.println("Response body: " + response.get().getData());
+        } catch (InterruptedException | ExecutionException e) {
+            ApiException apiException = (ApiException)e.getCause();
+            System.err.println("Exception when calling TokenizationApi#getLayerZeroPeers");
+            System.err.println("Status code: " + apiException.getCode());
+            System.err.println("Response headers: " + apiException.getResponseHeaders());
+            System.err.println("Reason: " + apiException.getResponseBody());
+            e.printStackTrace();
+        } catch (ApiException e) {
+            System.err.println("Exception when calling TokenizationApi#getLayerZeroPeers");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            System.err.println("Reason: " + e.getResponseBody());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **adapterTokenLinkId** | **UUID**| The token link id of the adapter token link | |
+
+### Return type
+
+CompletableFuture<ApiResponse<[**GetLayerZeroPeersResponse**](GetLayerZeroPeersResponse.md)>>
+
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | LayerZero peers retrieved successfully |  -  |
+| **400** | Bad request, invalid input data or parameters |  -  |
+| **404** | Token link not found |  -  |
+| **500** | Internal server error |  -  |
 
 
 ## getLinkedCollections
@@ -1142,6 +1499,272 @@ No authorization required
 | **0** | Error Response |  * X-Request-ID -  <br>  |
 
 
+## removeLayerZeroPeers
+
+> CompletableFuture<ApiResponse<RemoveLayerZeroPeersResponse>> removeLayerZeroPeers removeLayerZeroPeers(removeLayerZeroPeersRequest, idempotencyKey)
+
+Remove LayerZero peers
+
+Remove LayerZero peers to disconnect adapter contracts. This endpoint removes peer relationships between LayerZero adapters.
+
+### Example
+
+```java
+// Import classes:
+import com.fireblocks.sdk.ApiClient;
+import com.fireblocks.sdk.ApiException;
+import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
+import com.fireblocks.sdk.api.TokenizationApi;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+
+public class Example {
+    public static void main(String[] args) {
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
+
+        RemoveLayerZeroPeersRequest removeLayerZeroPeersRequest = new RemoveLayerZeroPeersRequest(); // RemoveLayerZeroPeersRequest | 
+        String idempotencyKey = "idempotencyKey_example"; // String | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+        try {
+            CompletableFuture<ApiResponse<RemoveLayerZeroPeersResponse>> response = fireblocks.tokenization().removeLayerZeroPeers(removeLayerZeroPeersRequest, idempotencyKey);
+            System.out.println("Status code: " + response.get().getStatusCode());
+            System.out.println("Response headers: " + response.get().getHeaders());
+            System.out.println("Response body: " + response.get().getData());
+        } catch (InterruptedException | ExecutionException e) {
+            ApiException apiException = (ApiException)e.getCause();
+            System.err.println("Exception when calling TokenizationApi#removeLayerZeroPeers");
+            System.err.println("Status code: " + apiException.getCode());
+            System.err.println("Response headers: " + apiException.getResponseHeaders());
+            System.err.println("Reason: " + apiException.getResponseBody());
+            e.printStackTrace();
+        } catch (ApiException e) {
+            System.err.println("Exception when calling TokenizationApi#removeLayerZeroPeers");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            System.err.println("Reason: " + e.getResponseBody());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **removeLayerZeroPeersRequest** | [**RemoveLayerZeroPeersRequest**](RemoveLayerZeroPeersRequest.md)|  | |
+| **idempotencyKey** | **String**| A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | [optional] |
+
+### Return type
+
+CompletableFuture<ApiResponse<[**RemoveLayerZeroPeersResponse**](RemoveLayerZeroPeersResponse.md)>>
+
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | LayerZero peers removal process completed |  -  |
+| **400** | Bad request, invalid input data or parameters |  -  |
+| **404** | Token link not found |  -  |
+| **409** | Token link processing error |  -  |
+| **500** | Internal server error |  -  |
+
+
+## setLayerZeroDvnConfig
+
+> CompletableFuture<ApiResponse<SetLayerZeroDvnConfigResponse>> setLayerZeroDvnConfig setLayerZeroDvnConfig(setLayerZeroDvnConfigRequest, idempotencyKey)
+
+Set LayerZero DVN configuration
+
+Configure DVN settings for LayerZero adapters. This endpoint sets up the DVN configuration for message verification between source and destination adapters.
+
+### Example
+
+```java
+// Import classes:
+import com.fireblocks.sdk.ApiClient;
+import com.fireblocks.sdk.ApiException;
+import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
+import com.fireblocks.sdk.api.TokenizationApi;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+
+public class Example {
+    public static void main(String[] args) {
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
+
+        SetLayerZeroDvnConfigRequest setLayerZeroDvnConfigRequest = new SetLayerZeroDvnConfigRequest(); // SetLayerZeroDvnConfigRequest | 
+        String idempotencyKey = "idempotencyKey_example"; // String | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+        try {
+            CompletableFuture<ApiResponse<SetLayerZeroDvnConfigResponse>> response = fireblocks.tokenization().setLayerZeroDvnConfig(setLayerZeroDvnConfigRequest, idempotencyKey);
+            System.out.println("Status code: " + response.get().getStatusCode());
+            System.out.println("Response headers: " + response.get().getHeaders());
+            System.out.println("Response body: " + response.get().getData());
+        } catch (InterruptedException | ExecutionException e) {
+            ApiException apiException = (ApiException)e.getCause();
+            System.err.println("Exception when calling TokenizationApi#setLayerZeroDvnConfig");
+            System.err.println("Status code: " + apiException.getCode());
+            System.err.println("Response headers: " + apiException.getResponseHeaders());
+            System.err.println("Reason: " + apiException.getResponseBody());
+            e.printStackTrace();
+        } catch (ApiException e) {
+            System.err.println("Exception when calling TokenizationApi#setLayerZeroDvnConfig");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            System.err.println("Reason: " + e.getResponseBody());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **setLayerZeroDvnConfigRequest** | [**SetLayerZeroDvnConfigRequest**](SetLayerZeroDvnConfigRequest.md)|  | |
+| **idempotencyKey** | **String**| A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | [optional] |
+
+### Return type
+
+CompletableFuture<ApiResponse<[**SetLayerZeroDvnConfigResponse**](SetLayerZeroDvnConfigResponse.md)>>
+
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | LayerZero DVN configuration set successfully |  -  |
+| **400** | Bad request, invalid input data or parameters |  -  |
+| **404** | Token link not found |  -  |
+| **409** | Token link preparation error |  -  |
+| **422** | Bridging protocol blockchain metadata not found |  -  |
+| **500** | Internal server error |  -  |
+
+
+## setLayerZeroPeers
+
+> CompletableFuture<ApiResponse<SetLayerZeroPeersResponse>> setLayerZeroPeers setLayerZeroPeers(setLayerZeroPeersRequest, idempotencyKey)
+
+Set LayerZero peers
+
+Set LayerZero peers to establish connections between adapter contracts. This endpoint creates peer relationships that enable cross-chain communication. It sets the destination adapter as a peer of the source adapter. If &#x60;bidirectional&#x60; is true, it also sets the source adapter as a peer of the destination adapter(s).
+
+### Example
+
+```java
+// Import classes:
+import com.fireblocks.sdk.ApiClient;
+import com.fireblocks.sdk.ApiException;
+import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
+import com.fireblocks.sdk.api.TokenizationApi;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+
+public class Example {
+    public static void main(String[] args) {
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
+
+        SetLayerZeroPeersRequest setLayerZeroPeersRequest = new SetLayerZeroPeersRequest(); // SetLayerZeroPeersRequest | 
+        String idempotencyKey = "idempotencyKey_example"; // String | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+        try {
+            CompletableFuture<ApiResponse<SetLayerZeroPeersResponse>> response = fireblocks.tokenization().setLayerZeroPeers(setLayerZeroPeersRequest, idempotencyKey);
+            System.out.println("Status code: " + response.get().getStatusCode());
+            System.out.println("Response headers: " + response.get().getHeaders());
+            System.out.println("Response body: " + response.get().getData());
+        } catch (InterruptedException | ExecutionException e) {
+            ApiException apiException = (ApiException)e.getCause();
+            System.err.println("Exception when calling TokenizationApi#setLayerZeroPeers");
+            System.err.println("Status code: " + apiException.getCode());
+            System.err.println("Response headers: " + apiException.getResponseHeaders());
+            System.err.println("Reason: " + apiException.getResponseBody());
+            e.printStackTrace();
+        } catch (ApiException e) {
+            System.err.println("Exception when calling TokenizationApi#setLayerZeroPeers");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            System.err.println("Reason: " + e.getResponseBody());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **setLayerZeroPeersRequest** | [**SetLayerZeroPeersRequest**](SetLayerZeroPeersRequest.md)|  | |
+| **idempotencyKey** | **String**| A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | [optional] |
+
+### Return type
+
+CompletableFuture<ApiResponse<[**SetLayerZeroPeersResponse**](SetLayerZeroPeersResponse.md)>>
+
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | LayerZero peers set successfully |  -  |
+| **400** | Bad request, invalid input data or parameters |  -  |
+| **404** | Token link not found |  -  |
+| **409** | Token link preparation error |  -  |
+| **422** | Token link is not fungible |  -  |
+| **500** | Internal server error |  -  |
+
+
 ## unlink
 
 > CompletableFuture<ApiResponse<Void>> unlink unlink(id)
@@ -1307,4 +1930,92 @@ No authorization required
 | **204** | Collection unlinked successfully |  -  |
 | **404** | Link for collection does not exist |  -  |
 | **0** | Error Response |  * X-Request-ID -  <br>  |
+
+
+## validateLayerZeroChannelConfig
+
+> CompletableFuture<ApiResponse<ValidateLayerZeroChannelResponse>> validateLayerZeroChannelConfig validateLayerZeroChannelConfig(adapterTokenLinkId, peerAdapterTokenLinkId)
+
+Validate LayerZero channel configuration
+
+Validate the LayerZero channel configuration between adapters. This endpoint checks if the channel configuration is correct and returns any validation errors.
+
+### Example
+
+```java
+// Import classes:
+import com.fireblocks.sdk.ApiClient;
+import com.fireblocks.sdk.ApiException;
+import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.BasePath;
+import com.fireblocks.sdk.Fireblocks;
+import com.fireblocks.sdk.ConfigurationOptions;
+import com.fireblocks.sdk.model.*;
+import com.fireblocks.sdk.api.TokenizationApi;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+
+public class Example {
+    public static void main(String[] args) {
+        ConfigurationOptions configurationOptions = new ConfigurationOptions()
+            .basePath(BasePath.Sandbox)
+            .apiKey("my-api-key")
+            .secretKey("my-secret-key");
+        Fireblocks fireblocks = new Fireblocks(configurationOptions);
+
+        UUID adapterTokenLinkId = UUID.fromString("b70701f4-d7b1-4795-a8ee-b09cdb5b850d"); // UUID | The token link ID of the adapter
+        UUID peerAdapterTokenLinkId = UUID.fromString("6add4f2a-b206-4114-8f94-2882618ffbb4"); // UUID | Peer adapter token link ID to validate against
+        try {
+            CompletableFuture<ApiResponse<ValidateLayerZeroChannelResponse>> response = fireblocks.tokenization().validateLayerZeroChannelConfig(adapterTokenLinkId, peerAdapterTokenLinkId);
+            System.out.println("Status code: " + response.get().getStatusCode());
+            System.out.println("Response headers: " + response.get().getHeaders());
+            System.out.println("Response body: " + response.get().getData());
+        } catch (InterruptedException | ExecutionException e) {
+            ApiException apiException = (ApiException)e.getCause();
+            System.err.println("Exception when calling TokenizationApi#validateLayerZeroChannelConfig");
+            System.err.println("Status code: " + apiException.getCode());
+            System.err.println("Response headers: " + apiException.getResponseHeaders());
+            System.err.println("Reason: " + apiException.getResponseBody());
+            e.printStackTrace();
+        } catch (ApiException e) {
+            System.err.println("Exception when calling TokenizationApi#validateLayerZeroChannelConfig");
+            System.err.println("Status code: " + e.getCode());
+            System.err.println("Response headers: " + e.getResponseHeaders());
+            System.err.println("Reason: " + e.getResponseBody());
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **adapterTokenLinkId** | **UUID**| The token link ID of the adapter | |
+| **peerAdapterTokenLinkId** | **UUID**| Peer adapter token link ID to validate against | |
+
+### Return type
+
+CompletableFuture<ApiResponse<[**ValidateLayerZeroChannelResponse**](ValidateLayerZeroChannelResponse.md)>>
+
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | LayerZero channel configuration validation completed |  -  |
+| **400** | Bad request, invalid input data or parameters |  -  |
+| **404** | Token link not found |  -  |
+| **422** | Bridging protocol blockchain metadata not found |  -  |
+| **500** | Internal server error |  -  |
 
