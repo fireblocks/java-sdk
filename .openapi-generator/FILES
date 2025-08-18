@@ -12,6 +12,7 @@ docs/APIUser.md
 docs/AbiFunction.md
 docs/Account.md
 docs/AccountType.md
+docs/AdapterProcessingResult.md
 docs/AddAbiRequestDto.md
 docs/AddAssetToExternalWalletRequest.md
 docs/AddAssetToExternalWalletRequestOneOf.md
@@ -82,6 +83,9 @@ docs/CallbackHandlerRequest.md
 docs/CancelTransactionResponse.md
 docs/ChainDescriptor.md
 docs/ChainInfoResponse.md
+docs/ChannelDvnConfigWithConfirmations.md
+docs/ChannelDvnConfigWithConfirmationsReceiveConfig.md
+docs/ChannelDvnConfigWithConfirmationsSendConfig.md
 docs/ClaimRewardsRequest.md
 docs/CollectionBurnRequestDto.md
 docs/CollectionBurnResponseDto.md
@@ -191,6 +195,7 @@ docs/Delegation.md
 docs/DelegationSummary.md
 docs/DeleteNetworkConnectionResponse.md
 docs/DeleteNetworkIdResponse.md
+docs/DeployLayerZeroAdaptersRequest.md
 docs/DeployableAddressResponse.md
 docs/DeployedContractNotFoundError.md
 docs/DeployedContractResponseDto.md
@@ -221,6 +226,8 @@ docs/DraftResponse.md
 docs/DraftReviewAndValidationResponse.md
 docs/DropTransactionRequest.md
 docs/DropTransactionResponse.md
+docs/DvnConfig.md
+docs/DvnConfigWithConfirmations.md
 docs/EVMTokenCreateParamsDto.md
 docs/EditGasStationConfigurationResponse.md
 docs/EmbeddedWallet.md
@@ -287,6 +294,8 @@ docs/GetConsoleUsersResponse.md
 docs/GetDeployableAddressRequest.md
 docs/GetExchangeAccountsCredentialsPublicKeyResponse.md
 docs/GetFilterParameter.md
+docs/GetLayerZeroDvnConfigResponse.md
+docs/GetLayerZeroPeersResponse.md
 docs/GetLinkedCollectionsPaginatedResponse.md
 docs/GetMaxSpendableAmountResponse.md
 docs/GetMpcKeysResponse.md
@@ -309,6 +318,7 @@ docs/JobCreated.md
 docs/JobManagementApi.md
 docs/KeyLinkBetaApi.md
 docs/KeysBetaApi.md
+docs/LayerZeroAdapterCreateParams.md
 docs/LeanAbiFunction.md
 docs/LeanContractDto.md
 docs/LeanDeployedContractResponseDto.md
@@ -376,6 +386,7 @@ docs/PayoutInstructionState.md
 docs/PayoutResponse.md
 docs/PayoutState.md
 docs/PayoutStatus.md
+docs/PeerAdapterInfo.md
 docs/Players.md
 docs/PolicyAndValidationResponse.md
 docs/PolicyCheckResult.md
@@ -419,6 +430,11 @@ docs/ReissueMultichainTokenRequest.md
 docs/RelatedRequest.md
 docs/RelatedTransaction.md
 docs/RemoveCollateralRequestBody.md
+docs/RemoveLayerZeroAdapterFailedResult.md
+docs/RemoveLayerZeroAdaptersRequest.md
+docs/RemoveLayerZeroAdaptersResponse.md
+docs/RemoveLayerZeroPeersRequest.md
+docs/RemoveLayerZeroPeersResponse.md
 docs/RenameCosigner.md
 docs/RenameVaultAccountResponse.md
 docs/RescanTransaction.md
@@ -457,6 +473,10 @@ docs/SetConfirmationsThresholdRequest.md
 docs/SetConfirmationsThresholdResponse.md
 docs/SetCustomerRefIdForAddressRequest.md
 docs/SetCustomerRefIdRequest.md
+docs/SetLayerZeroDvnConfigRequest.md
+docs/SetLayerZeroDvnConfigResponse.md
+docs/SetLayerZeroPeersRequest.md
+docs/SetLayerZeroPeersResponse.md
 docs/SetNetworkIdDiscoverabilityRequest.md
 docs/SetNetworkIdNameRequest.md
 docs/SetNetworkIdResponse.md
@@ -641,6 +661,7 @@ docs/UserStatus.md
 docs/UserType.md
 docs/UsersApi.md
 docs/ValidateAddressResponse.md
+docs/ValidateLayerZeroChannelResponse.md
 docs/ValidatedTransactionsForRescan.md
 docs/ValidationKeyDto.md
 docs/Validator.md
@@ -747,6 +768,7 @@ src/main/java/com/fireblocks/sdk/model/AbiFunction.java
 src/main/java/com/fireblocks/sdk/model/AbstractOpenApiSchema.java
 src/main/java/com/fireblocks/sdk/model/Account.java
 src/main/java/com/fireblocks/sdk/model/AccountType.java
+src/main/java/com/fireblocks/sdk/model/AdapterProcessingResult.java
 src/main/java/com/fireblocks/sdk/model/AddAbiRequestDto.java
 src/main/java/com/fireblocks/sdk/model/AddAssetToExternalWalletRequest.java
 src/main/java/com/fireblocks/sdk/model/AddAssetToExternalWalletRequestOneOf.java
@@ -813,6 +835,9 @@ src/main/java/com/fireblocks/sdk/model/CallbackHandlerRequest.java
 src/main/java/com/fireblocks/sdk/model/CancelTransactionResponse.java
 src/main/java/com/fireblocks/sdk/model/ChainDescriptor.java
 src/main/java/com/fireblocks/sdk/model/ChainInfoResponse.java
+src/main/java/com/fireblocks/sdk/model/ChannelDvnConfigWithConfirmations.java
+src/main/java/com/fireblocks/sdk/model/ChannelDvnConfigWithConfirmationsReceiveConfig.java
+src/main/java/com/fireblocks/sdk/model/ChannelDvnConfigWithConfirmationsSendConfig.java
 src/main/java/com/fireblocks/sdk/model/ClaimRewardsRequest.java
 src/main/java/com/fireblocks/sdk/model/CollectionBurnRequestDto.java
 src/main/java/com/fireblocks/sdk/model/CollectionBurnResponseDto.java
@@ -915,6 +940,7 @@ src/main/java/com/fireblocks/sdk/model/Delegation.java
 src/main/java/com/fireblocks/sdk/model/DelegationSummary.java
 src/main/java/com/fireblocks/sdk/model/DeleteNetworkConnectionResponse.java
 src/main/java/com/fireblocks/sdk/model/DeleteNetworkIdResponse.java
+src/main/java/com/fireblocks/sdk/model/DeployLayerZeroAdaptersRequest.java
 src/main/java/com/fireblocks/sdk/model/DeployableAddressResponse.java
 src/main/java/com/fireblocks/sdk/model/DeployedContractNotFoundError.java
 src/main/java/com/fireblocks/sdk/model/DeployedContractResponseDto.java
@@ -944,6 +970,8 @@ src/main/java/com/fireblocks/sdk/model/DraftResponse.java
 src/main/java/com/fireblocks/sdk/model/DraftReviewAndValidationResponse.java
 src/main/java/com/fireblocks/sdk/model/DropTransactionRequest.java
 src/main/java/com/fireblocks/sdk/model/DropTransactionResponse.java
+src/main/java/com/fireblocks/sdk/model/DvnConfig.java
+src/main/java/com/fireblocks/sdk/model/DvnConfigWithConfirmations.java
 src/main/java/com/fireblocks/sdk/model/EVMTokenCreateParamsDto.java
 src/main/java/com/fireblocks/sdk/model/EditGasStationConfigurationResponse.java
 src/main/java/com/fireblocks/sdk/model/EmbeddedWallet.java
@@ -1005,6 +1033,8 @@ src/main/java/com/fireblocks/sdk/model/GetConsoleUsersResponse.java
 src/main/java/com/fireblocks/sdk/model/GetDeployableAddressRequest.java
 src/main/java/com/fireblocks/sdk/model/GetExchangeAccountsCredentialsPublicKeyResponse.java
 src/main/java/com/fireblocks/sdk/model/GetFilterParameter.java
+src/main/java/com/fireblocks/sdk/model/GetLayerZeroDvnConfigResponse.java
+src/main/java/com/fireblocks/sdk/model/GetLayerZeroPeersResponse.java
 src/main/java/com/fireblocks/sdk/model/GetLinkedCollectionsPaginatedResponse.java
 src/main/java/com/fireblocks/sdk/model/GetMaxSpendableAmountResponse.java
 src/main/java/com/fireblocks/sdk/model/GetMpcKeysResponse.java
@@ -1023,6 +1053,7 @@ src/main/java/com/fireblocks/sdk/model/InternalTransferResponse.java
 src/main/java/com/fireblocks/sdk/model/InvalidParamaterValueError.java
 src/main/java/com/fireblocks/sdk/model/Job.java
 src/main/java/com/fireblocks/sdk/model/JobCreated.java
+src/main/java/com/fireblocks/sdk/model/LayerZeroAdapterCreateParams.java
 src/main/java/com/fireblocks/sdk/model/LeanAbiFunction.java
 src/main/java/com/fireblocks/sdk/model/LeanContractDto.java
 src/main/java/com/fireblocks/sdk/model/LeanDeployedContractResponseDto.java
@@ -1085,6 +1116,7 @@ src/main/java/com/fireblocks/sdk/model/PayoutInstructionState.java
 src/main/java/com/fireblocks/sdk/model/PayoutResponse.java
 src/main/java/com/fireblocks/sdk/model/PayoutState.java
 src/main/java/com/fireblocks/sdk/model/PayoutStatus.java
+src/main/java/com/fireblocks/sdk/model/PeerAdapterInfo.java
 src/main/java/com/fireblocks/sdk/model/Players.java
 src/main/java/com/fireblocks/sdk/model/PolicyAndValidationResponse.java
 src/main/java/com/fireblocks/sdk/model/PolicyCheckResult.java
@@ -1127,6 +1159,11 @@ src/main/java/com/fireblocks/sdk/model/ReissueMultichainTokenRequest.java
 src/main/java/com/fireblocks/sdk/model/RelatedRequest.java
 src/main/java/com/fireblocks/sdk/model/RelatedTransaction.java
 src/main/java/com/fireblocks/sdk/model/RemoveCollateralRequestBody.java
+src/main/java/com/fireblocks/sdk/model/RemoveLayerZeroAdapterFailedResult.java
+src/main/java/com/fireblocks/sdk/model/RemoveLayerZeroAdaptersRequest.java
+src/main/java/com/fireblocks/sdk/model/RemoveLayerZeroAdaptersResponse.java
+src/main/java/com/fireblocks/sdk/model/RemoveLayerZeroPeersRequest.java
+src/main/java/com/fireblocks/sdk/model/RemoveLayerZeroPeersResponse.java
 src/main/java/com/fireblocks/sdk/model/RenameCosigner.java
 src/main/java/com/fireblocks/sdk/model/RenameVaultAccountResponse.java
 src/main/java/com/fireblocks/sdk/model/RescanTransaction.java
@@ -1164,6 +1201,10 @@ src/main/java/com/fireblocks/sdk/model/SetConfirmationsThresholdRequest.java
 src/main/java/com/fireblocks/sdk/model/SetConfirmationsThresholdResponse.java
 src/main/java/com/fireblocks/sdk/model/SetCustomerRefIdForAddressRequest.java
 src/main/java/com/fireblocks/sdk/model/SetCustomerRefIdRequest.java
+src/main/java/com/fireblocks/sdk/model/SetLayerZeroDvnConfigRequest.java
+src/main/java/com/fireblocks/sdk/model/SetLayerZeroDvnConfigResponse.java
+src/main/java/com/fireblocks/sdk/model/SetLayerZeroPeersRequest.java
+src/main/java/com/fireblocks/sdk/model/SetLayerZeroPeersResponse.java
 src/main/java/com/fireblocks/sdk/model/SetNetworkIdDiscoverabilityRequest.java
 src/main/java/com/fireblocks/sdk/model/SetNetworkIdNameRequest.java
 src/main/java/com/fireblocks/sdk/model/SetNetworkIdResponse.java
@@ -1339,6 +1380,7 @@ src/main/java/com/fireblocks/sdk/model/UserRole.java
 src/main/java/com/fireblocks/sdk/model/UserStatus.java
 src/main/java/com/fireblocks/sdk/model/UserType.java
 src/main/java/com/fireblocks/sdk/model/ValidateAddressResponse.java
+src/main/java/com/fireblocks/sdk/model/ValidateLayerZeroChannelResponse.java
 src/main/java/com/fireblocks/sdk/model/ValidatedTransactionsForRescan.java
 src/main/java/com/fireblocks/sdk/model/ValidationKeyDto.java
 src/main/java/com/fireblocks/sdk/model/Validator.java
@@ -1419,6 +1461,7 @@ src/test/java/com/fireblocks/sdk/model/APIUserTest.java
 src/test/java/com/fireblocks/sdk/model/AbiFunctionTest.java
 src/test/java/com/fireblocks/sdk/model/AccountTest.java
 src/test/java/com/fireblocks/sdk/model/AccountTypeTest.java
+src/test/java/com/fireblocks/sdk/model/AdapterProcessingResultTest.java
 src/test/java/com/fireblocks/sdk/model/AddAbiRequestDtoTest.java
 src/test/java/com/fireblocks/sdk/model/AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf1Test.java
 src/test/java/com/fireblocks/sdk/model/AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf2Test.java
@@ -1485,6 +1528,9 @@ src/test/java/com/fireblocks/sdk/model/CallbackHandlerTest.java
 src/test/java/com/fireblocks/sdk/model/CancelTransactionResponseTest.java
 src/test/java/com/fireblocks/sdk/model/ChainDescriptorTest.java
 src/test/java/com/fireblocks/sdk/model/ChainInfoResponseTest.java
+src/test/java/com/fireblocks/sdk/model/ChannelDvnConfigWithConfirmationsReceiveConfigTest.java
+src/test/java/com/fireblocks/sdk/model/ChannelDvnConfigWithConfirmationsSendConfigTest.java
+src/test/java/com/fireblocks/sdk/model/ChannelDvnConfigWithConfirmationsTest.java
 src/test/java/com/fireblocks/sdk/model/ClaimRewardsRequestTest.java
 src/test/java/com/fireblocks/sdk/model/CollectionBurnRequestDtoTest.java
 src/test/java/com/fireblocks/sdk/model/CollectionBurnResponseDtoTest.java
@@ -1587,6 +1633,7 @@ src/test/java/com/fireblocks/sdk/model/DelegationSummaryTest.java
 src/test/java/com/fireblocks/sdk/model/DelegationTest.java
 src/test/java/com/fireblocks/sdk/model/DeleteNetworkConnectionResponseTest.java
 src/test/java/com/fireblocks/sdk/model/DeleteNetworkIdResponseTest.java
+src/test/java/com/fireblocks/sdk/model/DeployLayerZeroAdaptersRequestTest.java
 src/test/java/com/fireblocks/sdk/model/DeployableAddressResponseTest.java
 src/test/java/com/fireblocks/sdk/model/DeployedContractNotFoundErrorTest.java
 src/test/java/com/fireblocks/sdk/model/DeployedContractResponseDtoTest.java
@@ -1616,6 +1663,8 @@ src/test/java/com/fireblocks/sdk/model/DraftResponseTest.java
 src/test/java/com/fireblocks/sdk/model/DraftReviewAndValidationResponseTest.java
 src/test/java/com/fireblocks/sdk/model/DropTransactionRequestTest.java
 src/test/java/com/fireblocks/sdk/model/DropTransactionResponseTest.java
+src/test/java/com/fireblocks/sdk/model/DvnConfigTest.java
+src/test/java/com/fireblocks/sdk/model/DvnConfigWithConfirmationsTest.java
 src/test/java/com/fireblocks/sdk/model/EVMTokenCreateParamsDtoTest.java
 src/test/java/com/fireblocks/sdk/model/EditGasStationConfigurationResponseTest.java
 src/test/java/com/fireblocks/sdk/model/EmbeddedWalletAccountTest.java
@@ -1677,6 +1726,8 @@ src/test/java/com/fireblocks/sdk/model/GetConsoleUsersResponseTest.java
 src/test/java/com/fireblocks/sdk/model/GetDeployableAddressRequestTest.java
 src/test/java/com/fireblocks/sdk/model/GetExchangeAccountsCredentialsPublicKeyResponseTest.java
 src/test/java/com/fireblocks/sdk/model/GetFilterParameterTest.java
+src/test/java/com/fireblocks/sdk/model/GetLayerZeroDvnConfigResponseTest.java
+src/test/java/com/fireblocks/sdk/model/GetLayerZeroPeersResponseTest.java
 src/test/java/com/fireblocks/sdk/model/GetLinkedCollectionsPaginatedResponseTest.java
 src/test/java/com/fireblocks/sdk/model/GetMaxSpendableAmountResponseTest.java
 src/test/java/com/fireblocks/sdk/model/GetMpcKeysResponseTest.java
@@ -1695,6 +1746,7 @@ src/test/java/com/fireblocks/sdk/model/InternalTransferResponseTest.java
 src/test/java/com/fireblocks/sdk/model/InvalidParamaterValueErrorTest.java
 src/test/java/com/fireblocks/sdk/model/JobCreatedTest.java
 src/test/java/com/fireblocks/sdk/model/JobTest.java
+src/test/java/com/fireblocks/sdk/model/LayerZeroAdapterCreateParamsTest.java
 src/test/java/com/fireblocks/sdk/model/LeanAbiFunctionTest.java
 src/test/java/com/fireblocks/sdk/model/LeanContractDtoTest.java
 src/test/java/com/fireblocks/sdk/model/LeanDeployedContractResponseDtoTest.java
@@ -1757,6 +1809,7 @@ src/test/java/com/fireblocks/sdk/model/PayoutInstructionTest.java
 src/test/java/com/fireblocks/sdk/model/PayoutResponseTest.java
 src/test/java/com/fireblocks/sdk/model/PayoutStateTest.java
 src/test/java/com/fireblocks/sdk/model/PayoutStatusTest.java
+src/test/java/com/fireblocks/sdk/model/PeerAdapterInfoTest.java
 src/test/java/com/fireblocks/sdk/model/PlayersTest.java
 src/test/java/com/fireblocks/sdk/model/PolicyAndValidationResponseTest.java
 src/test/java/com/fireblocks/sdk/model/PolicyCheckResultTest.java
@@ -1799,6 +1852,11 @@ src/test/java/com/fireblocks/sdk/model/ReissueMultichainTokenRequestTest.java
 src/test/java/com/fireblocks/sdk/model/RelatedRequestTest.java
 src/test/java/com/fireblocks/sdk/model/RelatedTransactionTest.java
 src/test/java/com/fireblocks/sdk/model/RemoveCollateralRequestBodyTest.java
+src/test/java/com/fireblocks/sdk/model/RemoveLayerZeroAdapterFailedResultTest.java
+src/test/java/com/fireblocks/sdk/model/RemoveLayerZeroAdaptersRequestTest.java
+src/test/java/com/fireblocks/sdk/model/RemoveLayerZeroAdaptersResponseTest.java
+src/test/java/com/fireblocks/sdk/model/RemoveLayerZeroPeersRequestTest.java
+src/test/java/com/fireblocks/sdk/model/RemoveLayerZeroPeersResponseTest.java
 src/test/java/com/fireblocks/sdk/model/RenameCosignerTest.java
 src/test/java/com/fireblocks/sdk/model/RenameVaultAccountResponseTest.java
 src/test/java/com/fireblocks/sdk/model/RescanTransactionTest.java
@@ -1836,6 +1894,10 @@ src/test/java/com/fireblocks/sdk/model/SetConfirmationsThresholdRequestTest.java
 src/test/java/com/fireblocks/sdk/model/SetConfirmationsThresholdResponseTest.java
 src/test/java/com/fireblocks/sdk/model/SetCustomerRefIdForAddressRequestTest.java
 src/test/java/com/fireblocks/sdk/model/SetCustomerRefIdRequestTest.java
+src/test/java/com/fireblocks/sdk/model/SetLayerZeroDvnConfigRequestTest.java
+src/test/java/com/fireblocks/sdk/model/SetLayerZeroDvnConfigResponseTest.java
+src/test/java/com/fireblocks/sdk/model/SetLayerZeroPeersRequestTest.java
+src/test/java/com/fireblocks/sdk/model/SetLayerZeroPeersResponseTest.java
 src/test/java/com/fireblocks/sdk/model/SetNetworkIdDiscoverabilityRequestTest.java
 src/test/java/com/fireblocks/sdk/model/SetNetworkIdNameRequestTest.java
 src/test/java/com/fireblocks/sdk/model/SetNetworkIdResponseTest.java
@@ -2011,6 +2073,7 @@ src/test/java/com/fireblocks/sdk/model/UserRoleTest.java
 src/test/java/com/fireblocks/sdk/model/UserStatusTest.java
 src/test/java/com/fireblocks/sdk/model/UserTypeTest.java
 src/test/java/com/fireblocks/sdk/model/ValidateAddressResponseTest.java
+src/test/java/com/fireblocks/sdk/model/ValidateLayerZeroChannelResponseTest.java
 src/test/java/com/fireblocks/sdk/model/ValidatedTransactionsForRescanTest.java
 src/test/java/com/fireblocks/sdk/model/ValidationKeyDtoTest.java
 src/test/java/com/fireblocks/sdk/model/ValidatorTest.java

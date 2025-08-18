@@ -15434,6 +15434,907 @@ paths:
           \ token_link_id, idempotency_key);"
       x-content-type: application/json
       x-accepts: application/json
+  /tokenization/multichain/bridge/layerzero:
+    delete:
+      description: Remove LayerZero adapters by deactivating and unlinking them. This
+        endpoint revokes roles and deactivates the specified adapter contracts.
+      operationId: deactivateAndUnlinkAdapters
+      parameters:
+      - description: "A unique identifier for the request. If the request is sent\
+          \ multiple times with the same idempotency key, the server will return the\
+          \ same response as the first request. The idempotency key is valid for 24\
+          \ hours."
+        explode: false
+        in: header
+        name: Idempotency-Key
+        required: false
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RemoveLayerZeroAdaptersRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RemoveLayerZeroAdaptersResponse'
+          description: LayerZero adapters removal process completed
+        "400":
+          content:
+            application/json:
+              example:
+                error:
+                  type: VALIDATION
+                  message: Invalid input data or parameters
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: "Bad request, invalid input data or parameters"
+        "404":
+          content:
+            application/json:
+              example:
+                error:
+                  type: NOT_FOUND
+                  message: The specified token link was not found
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Token link not found
+        "409":
+          content:
+            application/json:
+              example:
+                error:
+                  type: UNPROCESSABLE_ENTITY
+                  message: An error occurred during token link processing
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Token link processing error
+        "500":
+          content:
+            application/json:
+              example:
+                error:
+                  type: INTERNAL
+                  message: An unexpected error occurred during execution. Please try
+                    again later.
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Internal server error
+      summary: Remove LayerZero adapters
+      tags:
+      - Tokenization
+      x-rate-limit-category: write
+      x-readme:
+        code-samples:
+        - language: javascript
+          code: |-
+            const payload = {
+              "vaultAccountId": "1",
+              "adapterTokenLinkIds": ["d290f1ee-6c54-4b01-90e6-d701748f0851", "e290f1ee-6c54-4b01-90e6-d701748f0852"]
+            } const removeResponse = await fireblocks.deactivateAndUnlinkAdapters(payload);
+          name: Fireblocks SDK Javascript example
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<RemoveLayerZeroAdaptersResponse>>\
+            \ = fireblocks.tokenization.deactivateAndUnlinkAdapters(tokenizationApiDeactivateAndUnlinkAdaptersRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<RemoveLayerZeroAdaptersResponse>> response\
+            \ = fireblocks.tokenization().deactivateAndUnlinkAdapters(removeLayerZeroAdaptersRequest,\
+            \ idempotencyKey);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.tokenization.deactivate_and_unlink_adapters(remove_layer_zero_adapters_request,\
+            \ idempotency_key);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<RemoveLayerZeroAdaptersResponse>>\
+          \ = fireblocks.tokenization.deactivateAndUnlinkAdapters(tokenizationApiDeactivateAndUnlinkAdaptersRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<RemoveLayerZeroAdaptersResponse>> response\
+          \ = fireblocks.tokenization().deactivateAndUnlinkAdapters(removeLayerZeroAdaptersRequest,\
+          \ idempotencyKey);"
+      - lang: Python
+        source: "response = fireblocks.tokenization.deactivate_and_unlink_adapters(remove_layer_zero_adapters_request,\
+          \ idempotency_key);"
+      x-content-type: application/json
+      x-accepts: application/json
+    post:
+      description: Deploy LayerZero adapters for multichain token bridging functionality.
+        This endpoint creates adapter contracts that enable cross-chain token transfers.
+      operationId: deployAndLinkAdapters
+      parameters:
+      - description: "A unique identifier for the request. If the request is sent\
+          \ multiple times with the same idempotency key, the server will return the\
+          \ same response as the first request. The idempotency key is valid for 24\
+          \ hours."
+        explode: false
+        in: header
+        name: Idempotency-Key
+        required: false
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeployLayerZeroAdaptersRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeployLayerZeroAdaptersResponse'
+          description: LayerZero adapters deployed successfully
+        "400":
+          content:
+            application/json:
+              example:
+                error:
+                  type: VALIDATION
+                  message: Invalid input data or parameters
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: "Bad request, invalid input data or parameters"
+        "404":
+          content:
+            application/json:
+              example:
+                error:
+                  type: NOT_FOUND
+                  message: The specified token link was not found
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Token link not found
+        "409":
+          content:
+            application/json:
+              example:
+                error:
+                  type: UNPROCESSABLE_ENTITY
+                  message: An error occurred during token link preparation
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Token link preparation error
+        "422":
+          content:
+            application/json:
+              example:
+                error:
+                  type: UNPROCESSABLE_ENTITY
+                  message: The token link is not of fungible type
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Token link is not fungible
+        "500":
+          content:
+            application/json:
+              example:
+                error:
+                  type: INTERNAL
+                  message: An unexpected error occurred during execution. Please try
+                    again later.
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Internal server error
+      summary: Deploy LayerZero adapters
+      tags:
+      - Tokenization
+      x-rate-limit-category: write
+      x-readme:
+        code-samples:
+        - language: javascript
+          code: |-
+            const payload = {
+              "vaultAccountId": "0",
+              "createParams": [{
+                "tokenLinkId": "123-432-1234-1234-123456789012",
+                "delegateAddress": "0xABCDEF123456789abcdef1234567890abcdef12345678",
+                "defaultAdminAddress": "0xABC123456789abcdef1234567890abcdef12345678",
+                "pauserAddress": "0xDEFABC123456789abcdef1234567890abcdef12345678"
+              }],
+              "displayName": "LayerZero",
+              "useGasless": true
+            } const deployResponse = await fireblocks.deployAndLinkAdapters(payload);
+          name: Fireblocks SDK Javascript example
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<DeployLayerZeroAdaptersResponse>>\
+            \ = fireblocks.tokenization.deployAndLinkAdapters(tokenizationApiDeployAndLinkAdaptersRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<List<AdapterProcessingResult>>> response\
+            \ = fireblocks.tokenization().deployAndLinkAdapters(deployLayerZeroAdaptersRequest,\
+            \ idempotencyKey);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.tokenization.deploy_and_link_adapters(deploy_layer_zero_adapters_request,\
+            \ idempotency_key);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<DeployLayerZeroAdaptersResponse>>\
+          \ = fireblocks.tokenization.deployAndLinkAdapters(tokenizationApiDeployAndLinkAdaptersRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<List<AdapterProcessingResult>>> response\
+          \ = fireblocks.tokenization().deployAndLinkAdapters(deployLayerZeroAdaptersRequest,\
+          \ idempotencyKey);"
+      - lang: Python
+        source: "response = fireblocks.tokenization.deploy_and_link_adapters(deploy_layer_zero_adapters_request,\
+          \ idempotency_key);"
+      x-content-type: application/json
+      x-accepts: application/json
+  /tokenization/multichain/bridge/layerzero/config/peers:
+    delete:
+      description: Remove LayerZero peers to disconnect adapter contracts. This endpoint
+        removes peer relationships between LayerZero adapters.
+      operationId: removeLayerZeroPeers
+      parameters:
+      - description: "A unique identifier for the request. If the request is sent\
+          \ multiple times with the same idempotency key, the server will return the\
+          \ same response as the first request. The idempotency key is valid for 24\
+          \ hours."
+        explode: false
+        in: header
+        name: Idempotency-Key
+        required: false
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RemoveLayerZeroPeersRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RemoveLayerZeroPeersResponse'
+          description: LayerZero peers removal process completed
+        "400":
+          content:
+            application/json:
+              example:
+                error:
+                  type: VALIDATION
+                  message: Invalid input data or parameters
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: "Bad request, invalid input data or parameters"
+        "404":
+          content:
+            application/json:
+              example:
+                error:
+                  type: NOT_FOUND
+                  message: The specified token link was not found
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Token link not found
+        "409":
+          content:
+            application/json:
+              example:
+                error:
+                  type: UNPROCESSABLE_ENTITY
+                  message: An error occurred during token link processing
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Token link processing error
+        "500":
+          content:
+            application/json:
+              example:
+                error:
+                  type: INTERNAL
+                  message: An unexpected error occurred during execution. Please try
+                    again later.
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Internal server error
+      summary: Remove LayerZero peers
+      tags:
+      - Tokenization
+      x-rate-limit-category: write
+      x-readme:
+        code-samples:
+        - language: javascript
+          code: |-
+            const payload = {
+              "vaultAccountId": "0",
+              "sourceAdapterTokenLinkId": "123-432-1234-1234-123456789012",
+              "destinationAdapterTokenLinkIds": ["123-432-1234-1234-123456789012", "123-432-1234-1234-123456789012"],
+              "bidirectional": true
+            } const removePeersResponse = await fireblocks.removeLayerZeroPeers(payload);
+          name: Fireblocks SDK Javascript example
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<RemoveLayerZeroPeersResponse>>\
+            \ = fireblocks.tokenization.removeLayerZeroPeers(tokenizationApiRemoveLayerZeroPeersRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<RemoveLayerZeroPeersResponse>> response\
+            \ = fireblocks.tokenization().removeLayerZeroPeers(removeLayerZeroPeersRequest,\
+            \ idempotencyKey);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.tokenization.remove_layer_zero_peers(remove_layer_zero_peers_request,\
+            \ idempotency_key);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<RemoveLayerZeroPeersResponse>>\
+          \ = fireblocks.tokenization.removeLayerZeroPeers(tokenizationApiRemoveLayerZeroPeersRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<RemoveLayerZeroPeersResponse>> response\
+          \ = fireblocks.tokenization().removeLayerZeroPeers(removeLayerZeroPeersRequest,\
+          \ idempotencyKey);"
+      - lang: Python
+        source: "response = fireblocks.tokenization.remove_layer_zero_peers(remove_layer_zero_peers_request,\
+          \ idempotency_key);"
+      x-content-type: application/json
+      x-accepts: application/json
+    post:
+      description: "Set LayerZero peers to establish connections between adapter contracts.\
+        \ This endpoint creates peer relationships that enable cross-chain communication.\
+        \ It sets the destination adapter as a peer of the source adapter. If `bidirectional`\
+        \ is true, it also sets the source adapter as a peer of the destination adapter(s)."
+      operationId: setLayerZeroPeers
+      parameters:
+      - description: "A unique identifier for the request. If the request is sent\
+          \ multiple times with the same idempotency key, the server will return the\
+          \ same response as the first request. The idempotency key is valid for 24\
+          \ hours."
+        explode: false
+        in: header
+        name: Idempotency-Key
+        required: false
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SetLayerZeroPeersRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SetLayerZeroPeersResponse'
+          description: LayerZero peers set successfully
+        "400":
+          content:
+            application/json:
+              example:
+                error:
+                  type: VALIDATION
+                  message: Invalid input data or parameters
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: "Bad request, invalid input data or parameters"
+        "404":
+          content:
+            application/json:
+              example:
+                error:
+                  type: NOT_FOUND
+                  message: The specified token link was not found
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Token link not found
+        "409":
+          content:
+            application/json:
+              example:
+                error:
+                  type: UNPROCESSABLE_ENTITY
+                  message: An error occurred during token link preparation
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Token link preparation error
+        "422":
+          content:
+            application/json:
+              example:
+                error:
+                  type: UNPROCESSABLE_ENTITY
+                  message: The token link is not of fungible type
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Token link is not fungible
+        "500":
+          content:
+            application/json:
+              example:
+                error:
+                  type: INTERNAL
+                  message: An unexpected error occurred during execution. Please try
+                    again later.
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Internal server error
+      summary: Set LayerZero peers
+      tags:
+      - Tokenization
+      x-rate-limit-category: write
+      x-readme:
+        code-samples:
+        - language: javascript
+          code: |-
+            const payload = {
+              "vaultAccountId": "0",
+              "sourceAdapterTokenLinkId": "123-432-1234-1234-123456789012",
+              "destinationAdapterTokenLinkIds": ["123-432-1234-1234-123456789012", "123-432-1234-1234-123456789012"],
+              "bidirectional": true
+            } const setPeersResponse = await fireblocks.setLayerZeroPeers(payload);
+          name: Fireblocks SDK Javascript example
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<SetLayerZeroPeersResponse>>\
+            \ = fireblocks.tokenization.setLayerZeroPeers(tokenizationApiSetLayerZeroPeersRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<SetLayerZeroPeersResponse>> response\
+            \ = fireblocks.tokenization().setLayerZeroPeers(setLayerZeroPeersRequest,\
+            \ idempotencyKey);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.tokenization.set_layer_zero_peers(set_layer_zero_peers_request,\
+            \ idempotency_key);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<SetLayerZeroPeersResponse>>\
+          \ = fireblocks.tokenization.setLayerZeroPeers(tokenizationApiSetLayerZeroPeersRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<SetLayerZeroPeersResponse>> response\
+          \ = fireblocks.tokenization().setLayerZeroPeers(setLayerZeroPeersRequest,\
+          \ idempotencyKey);"
+      - lang: Python
+        source: "response = fireblocks.tokenization.set_layer_zero_peers(set_layer_zero_peers_request,\
+          \ idempotency_key);"
+      x-content-type: application/json
+      x-accepts: application/json
+  /tokenization/multichain/bridge/layerzero/config/{adapterTokenLinkId}/peers:
+    get:
+      description: Retrieve the LayerZero peers configured for a specific adapter.
+        Returns information about peer relationships for cross-chain communication.
+      operationId: getLayerZeroPeers
+      parameters:
+      - description: The token link id of the adapter token link
+        example: b70701f4-d7b1-4795-a8ee-b09cdb5b850d
+        explode: false
+        in: path
+        name: adapterTokenLinkId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetLayerZeroPeersResponse'
+          description: LayerZero peers retrieved successfully
+        "400":
+          content:
+            application/json:
+              example:
+                error:
+                  type: VALIDATION
+                  message: Invalid input data or parameters
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: "Bad request, invalid input data or parameters"
+        "404":
+          content:
+            application/json:
+              example:
+                error:
+                  type: NOT_FOUND
+                  message: The specified token link was not found
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Token link not found
+        "500":
+          content:
+            application/json:
+              example:
+                error:
+                  type: INTERNAL
+                  message: An unexpected error occurred during execution. Please try
+                    again later.
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Internal server error
+      summary: Get LayerZero peers
+      tags:
+      - Tokenization
+      x-rate-limit-category: read
+      x-readme:
+        code-samples:
+        - language: javascript
+          code: const adapterTokenLinkId = "b70701f4-d7b1-4795-a8ee-b09cdb5b850d";
+            const peersResponse = await fireblocks.getLayerZeroPeers(adapterTokenLinkId);
+          name: Fireblocks SDK Javascript example
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<GetLayerZeroPeersResponse>>\
+            \ = fireblocks.tokenization.getLayerZeroPeers(tokenizationApiGetLayerZeroPeersRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: CompletableFuture<ApiResponse<GetLayerZeroPeersResponse>> response
+            = fireblocks.tokenization().getLayerZeroPeers(adapterTokenLinkId);
+          name: Fireblocks SDK Java example
+        - language: python
+          code: response = fireblocks.tokenization.get_layer_zero_peers(adapter_token_link_id);
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<GetLayerZeroPeersResponse>>\
+          \ = fireblocks.tokenization.getLayerZeroPeers(tokenizationApiGetLayerZeroPeersRequest);"
+      - lang: Java
+        source: CompletableFuture<ApiResponse<GetLayerZeroPeersResponse>> response
+          = fireblocks.tokenization().getLayerZeroPeers(adapterTokenLinkId);
+      - lang: Python
+        source: response = fireblocks.tokenization.get_layer_zero_peers(adapter_token_link_id);
+      x-accepts: application/json
+  /tokenization/multichain/bridge/layerzero/config/dvns:
+    post:
+      description: Configure DVN settings for LayerZero adapters. This endpoint sets
+        up the DVN configuration for message verification between source and destination
+        adapters.
+      operationId: setLayerZeroDvnConfig
+      parameters:
+      - description: "A unique identifier for the request. If the request is sent\
+          \ multiple times with the same idempotency key, the server will return the\
+          \ same response as the first request. The idempotency key is valid for 24\
+          \ hours."
+        explode: false
+        in: header
+        name: Idempotency-Key
+        required: false
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SetLayerZeroDvnConfigRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SetLayerZeroDvnConfigResponse'
+          description: LayerZero DVN configuration set successfully
+        "400":
+          content:
+            application/json:
+              example:
+                error:
+                  type: VALIDATION
+                  message: Invalid input data or parameters
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: "Bad request, invalid input data or parameters"
+        "404":
+          content:
+            application/json:
+              example:
+                error:
+                  type: NOT_FOUND
+                  message: The specified token link was not found
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Token link not found
+        "409":
+          content:
+            application/json:
+              example:
+                error:
+                  type: UNPROCESSABLE_ENTITY
+                  message: An error occurred during token link preparation
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Token link preparation error
+        "422":
+          content:
+            application/json:
+              example:
+                error:
+                  type: NOT_FOUND
+                  message: Bridging to the specified blockchain is not supported
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Bridging protocol blockchain metadata not found
+        "500":
+          content:
+            application/json:
+              example:
+                error:
+                  type: INTERNAL
+                  message: An unexpected error occurred during execution. Please try
+                    again later.
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Internal server error
+      summary: Set LayerZero DVN configuration
+      tags:
+      - Tokenization
+      x-rate-limit-category: write
+      x-readme:
+        code-samples:
+        - language: javascript
+          code: |-
+            const payload = {
+              "vaultAccountId": "0",
+              "sourceAdapterTokenLinkId": "b70701f4-d7b1-4795-a8ee-b09cdb5b850d",
+              "destinationAdapterTokenLinkId": "6add4f2a-b206-4114-8f94-2882618ffbb4",
+              "sendConfig": {
+                "dvnAddresses": ["0xABCDEF123456789abcdef1234567890abcdef12345678", "0xABC123456789abcdef1234567890abcdef12345678"],
+                "optionalDVNAddresses": ["0xDEFABC123456789abcdef1234567890abcdef12345678"],
+                "optionalThreshold": 2
+              },
+              "receiveConfig": {
+                "dvnAddresses": ["0xABCDEF123456789abcdef1234567890abcdef12345678", "0xABC123456789abcdef1234567890abcdef12345678"],
+                "optionalThreshold": 1
+              }
+            } const dvnConfigResponse = await fireblocks.setLayerZeroDvnConfig(payload);
+          name: Fireblocks SDK Javascript example
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<SetLayerZeroDvnConfigResponse>>\
+            \ = fireblocks.tokenization.setLayerZeroDvnConfig(tokenizationApiSetLayerZeroDvnConfigRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<SetLayerZeroDvnConfigResponse>> response\
+            \ = fireblocks.tokenization().setLayerZeroDvnConfig(setLayerZeroDvnConfigRequest,\
+            \ idempotencyKey);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.tokenization.set_layer_zero_dvn_config(set_layer_zero_dvn_config_request,\
+            \ idempotency_key);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<SetLayerZeroDvnConfigResponse>>\
+          \ = fireblocks.tokenization.setLayerZeroDvnConfig(tokenizationApiSetLayerZeroDvnConfigRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<SetLayerZeroDvnConfigResponse>> response\
+          \ = fireblocks.tokenization().setLayerZeroDvnConfig(setLayerZeroDvnConfigRequest,\
+          \ idempotencyKey);"
+      - lang: Python
+        source: "response = fireblocks.tokenization.set_layer_zero_dvn_config(set_layer_zero_dvn_config_request,\
+          \ idempotency_key);"
+      x-content-type: application/json
+      x-accepts: application/json
+  /tokenization/multichain/bridge/layerzero/config/{adapterTokenLinkId}/dvns:
+    get:
+      description: Retrieve the DVN (Data Verification Network) configuration for
+        a specific adapter. Returns DVN configurations for channels between the source
+        adapter and its peers.
+      operationId: getLayerZeroDvnConfig
+      parameters:
+      - description: The token link id of the adapter token link
+        example: b70701f4-d7b1-4795-a8ee-b09cdb5b850d
+        explode: false
+        in: path
+        name: adapterTokenLinkId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: Optional peer adapter token link ID to filter results
+        example: 6add4f2a-b206-4114-8f94-2882618ffbb4
+        explode: true
+        in: query
+        name: peerAdapterTokenLinkId
+        required: false
+        schema:
+          format: uuid
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetLayerZeroDvnConfigResponse'
+          description: LayerZero DVN configuration retrieved successfully
+        "400":
+          content:
+            application/json:
+              example:
+                error:
+                  type: VALIDATION
+                  message: Invalid input data or parameters
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: "Bad request, invalid input data or parameters"
+        "404":
+          content:
+            application/json:
+              example:
+                error:
+                  type: NOT_FOUND
+                  message: The specified token link was not found
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Token link not found
+        "500":
+          content:
+            application/json:
+              example:
+                error:
+                  type: INTERNAL
+                  message: An unexpected error occurred during execution. Please try
+                    again later.
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Internal server error
+      summary: Get LayerZero DVN configuration
+      tags:
+      - Tokenization
+      x-rate-limit-category: read
+      x-readme:
+        code-samples:
+        - language: javascript
+          code: "const adapterTokenLinkId = \"b70701f4-d7b1-4795-a8ee-b09cdb5b850d\"\
+            ; const peerAdapterTokenLinkId = \"6add4f2a-b206-4114-8f94-2882618ffbb4\"\
+            ; // optional const dvnConfigResponse = await fireblocks.getLayerZeroDvnConfig(adapterTokenLinkId,\
+            \ { peerAdapterTokenLinkId });"
+          name: Fireblocks SDK Javascript example
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<GetLayerZeroDvnConfigResponse>>\
+            \ = fireblocks.tokenization.getLayerZeroDvnConfig(tokenizationApiGetLayerZeroDvnConfigRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<GetLayerZeroDvnConfigResponse>> response\
+            \ = fireblocks.tokenization().getLayerZeroDvnConfig(adapterTokenLinkId,\
+            \ peerAdapterTokenLinkId);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.tokenization.get_layer_zero_dvn_config(adapter_token_link_id,\
+            \ peer_adapter_token_link_id);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<GetLayerZeroDvnConfigResponse>>\
+          \ = fireblocks.tokenization.getLayerZeroDvnConfig(tokenizationApiGetLayerZeroDvnConfigRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<GetLayerZeroDvnConfigResponse>> response\
+          \ = fireblocks.tokenization().getLayerZeroDvnConfig(adapterTokenLinkId,\
+          \ peerAdapterTokenLinkId);"
+      - lang: Python
+        source: "response = fireblocks.tokenization.get_layer_zero_dvn_config(adapter_token_link_id,\
+          \ peer_adapter_token_link_id);"
+      x-accepts: application/json
+  /tokenization/multichain/bridge/layerzero/validate:
+    get:
+      description: Validate the LayerZero channel configuration between adapters.
+        This endpoint checks if the channel configuration is correct and returns any
+        validation errors.
+      operationId: validateLayerZeroChannelConfig
+      parameters:
+      - description: The token link ID of the adapter
+        example: b70701f4-d7b1-4795-a8ee-b09cdb5b850d
+        explode: true
+        in: query
+        name: adapterTokenLinkId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: form
+      - description: Peer adapter token link ID to validate against
+        example: 6add4f2a-b206-4114-8f94-2882618ffbb4
+        explode: true
+        in: query
+        name: peerAdapterTokenLinkId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidateLayerZeroChannelResponse'
+          description: LayerZero channel configuration validation completed
+        "400":
+          content:
+            application/json:
+              example:
+                error:
+                  type: VALIDATION
+                  message: Invalid input data or parameters
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: "Bad request, invalid input data or parameters"
+        "404":
+          content:
+            application/json:
+              example:
+                error:
+                  type: NOT_FOUND
+                  message: The specified token link was not found
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Token link not found
+        "422":
+          content:
+            application/json:
+              example:
+                error:
+                  type: NOT_FOUND
+                  message: Bridging to the specified blockchain is not supported
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Bridging protocol blockchain metadata not found
+        "500":
+          content:
+            application/json:
+              example:
+                error:
+                  type: INTERNAL
+                  message: An unexpected error occurred during execution. Please try
+                    again later.
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Internal server error
+      summary: Validate LayerZero channel configuration
+      tags:
+      - Tokenization
+      x-rate-limit-category: read
+      x-readme:
+        code-samples:
+        - language: javascript
+          code: "const adapterTokenLinkId = \"b70701f4-d7b1-4795-a8ee-b09cdb5b850d\"\
+            ; const peerAdapterTokenLinkId = \"6add4f2a-b206-4114-8f94-2882618ffbb4\"\
+            ; const validationResponse = await fireblocks.validateLayerZeroChannelConfig({\
+            \ \n  adapterTokenLinkId,\n  peerAdapterTokenLinkId \n});"
+          name: Fireblocks SDK Javascript example
+        - language: typescript
+          code: "const response: Promise<FireblocksResponse<ValidateLayerZeroChannelResponse>>\
+            \ = fireblocks.tokenization.validateLayerZeroChannelConfig(tokenizationApiValidateLayerZeroChannelConfigRequest);"
+          name: Fireblocks SDK TypeScript example
+        - language: java
+          code: "CompletableFuture<ApiResponse<ValidateLayerZeroChannelResponse>>\
+            \ response = fireblocks.tokenization().validateLayerZeroChannelConfig(adapterTokenLinkId,\
+            \ peerAdapterTokenLinkId);"
+          name: Fireblocks SDK Java example
+        - language: python
+          code: "response = fireblocks.tokenization.validate_layer_zero_channel_config(adapter_token_link_id,\
+            \ peer_adapter_token_link_id);"
+          name: Fireblocks SDK Python example
+      x-codeSamples:
+      - lang: TypeScript
+        source: "const response: Promise<FireblocksResponse<ValidateLayerZeroChannelResponse>>\
+          \ = fireblocks.tokenization.validateLayerZeroChannelConfig(tokenizationApiValidateLayerZeroChannelConfigRequest);"
+      - lang: Java
+        source: "CompletableFuture<ApiResponse<ValidateLayerZeroChannelResponse>>\
+          \ response = fireblocks.tokenization().validateLayerZeroChannelConfig(adapterTokenLinkId,\
+          \ peerAdapterTokenLinkId);"
+      - lang: Python
+        source: "response = fireblocks.tokenization.validate_layer_zero_channel_config(adapter_token_link_id,\
+          \ peer_adapter_token_link_id);"
+      x-accepts: application/json
   /tokenization/collections:
     get:
       description: Get collections (paginated)
@@ -24451,6 +25352,77 @@ components:
       headers:
         X-Request-ID:
           $ref: '#/components/headers/X-Request-ID'
+    BadRequestError:
+      content:
+        application/json:
+          example:
+            error:
+              type: VALIDATION
+              message: Invalid input data or parameters
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+      description: "Bad request, invalid input data or parameters"
+    OriginalTokenLinkNotFoundError:
+      content:
+        application/json:
+          example:
+            error:
+              type: NOT_FOUND
+              message: The specified token link was not found
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+      description: Token link not found
+    TokenLinkPreparationError:
+      content:
+        application/json:
+          example:
+            error:
+              type: UNPROCESSABLE_ENTITY
+              message: An error occurred during token link preparation
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+      description: Token link preparation error
+    OriginalTokenLinkNotFungibleError:
+      content:
+        application/json:
+          example:
+            error:
+              type: UNPROCESSABLE_ENTITY
+              message: The token link is not of fungible type
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+      description: Token link is not fungible
+    InternalServerError:
+      content:
+        application/json:
+          example:
+            error:
+              type: INTERNAL
+              message: An unexpected error occurred during execution. Please try again
+                later.
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+      description: Internal server error
+    TokenLinkProcessingError:
+      content:
+        application/json:
+          example:
+            error:
+              type: UNPROCESSABLE_ENTITY
+              message: An error occurred during token link processing
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+      description: Token link processing error
+    BridgingProtocolBlockchainMetadataNotFoundError:
+      content:
+        application/json:
+          example:
+            error:
+              type: NOT_FOUND
+              message: Bridging to the specified blockchain is not supported
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+      description: Bridging protocol blockchain metadata not found
   schemas:
     ErrorSchema:
       example:
@@ -28704,6 +29676,7 @@ components:
         relayId: "1"
         networkFee: networkFee
         relayName: Tenant Name
+        feeUSD: "0.0013"
         gasPrice: gasPrice
         paidByRelay: true
       properties:
@@ -28735,6 +29708,10 @@ components:
         relayName:
           description: "The name of the tenant, only for THIRD_PARTY relays"
           example: Tenant Name
+          type: string
+        feeUSD:
+          description: The USD value of the fee
+          example: "0.0013"
           type: string
       type: object
     RewardInfo:
@@ -29111,6 +30088,7 @@ components:
           relayId: "1"
           networkFee: networkFee
           relayName: Tenant Name
+          feeUSD: "0.0013"
           gasPrice: gasPrice
           paidByRelay: true
         assetId: assetId
@@ -40429,6 +41407,537 @@ components:
       required:
       - code
       - message
+      type: object
+    LayerZeroAdapterCreateParams:
+      example:
+        pauserAddress: 0xDEFABC123456789abcdef1234567890abcdef12345678
+        defaultAdminAddress: 0xABC123456789abcdef1234567890abcdef12345678
+        delegateAddress: 0xABCDEF123456789abcdef1234567890abcdef12345678
+        tokenLinkId: 123-432-1234-1234-123456789012
+      properties:
+        tokenLinkId:
+          description: The token link id of the base token to deploy the adapters
+            for
+          example: 123-432-1234-1234-123456789012
+          type: string
+        delegateAddress:
+          description: Address that will receive `CONTRACT_ADMIN_ROLE`.
+          example: 0xABCDEF123456789abcdef1234567890abcdef12345678
+          type: string
+        defaultAdminAddress:
+          description: Address that will receive `DEFAULT_ADMIN_ROLE` on the adapter
+            contract.
+          example: 0xABC123456789abcdef1234567890abcdef12345678
+          type: string
+        pauserAddress:
+          description: Address that will receive `PAUSER_ROLE`.
+          example: 0xDEFABC123456789abcdef1234567890abcdef12345678
+          type: string
+      required:
+      - defaultAdminAddress
+      - delegateAddress
+      - pauserAddress
+      - tokenLinkId
+      type: object
+    DeployLayerZeroAdaptersRequest:
+      example:
+        salt: "123456789"
+        displayName: LayerZero Adapter
+        useGasless: false
+        fee: "2000"
+        vaultAccountId: "0"
+        feeLevel: MEDIUM
+        createParams:
+        - pauserAddress: 0xDEFABC123456789abcdef1234567890abcdef12345678
+          defaultAdminAddress: 0xABC123456789abcdef1234567890abcdef12345678
+          delegateAddress: 0xABCDEF123456789abcdef1234567890abcdef12345678
+          tokenLinkId: 123-432-1234-1234-123456789012
+        - pauserAddress: 0xDEFABC123456789abcdef1234567890abcdef12345678
+          defaultAdminAddress: 0xABC123456789abcdef1234567890abcdef12345678
+          delegateAddress: 0xABCDEF123456789abcdef1234567890abcdef12345678
+          tokenLinkId: 123-432-1234-1234-123456789012
+      properties:
+        vaultAccountId:
+          description: The id of the vault account that initiated the request to deploy
+            adapter for the token
+          example: "0"
+          type: string
+        createParams:
+          description: "Array of creation parameters for LayerZero adapters, one per\
+            \ tokenLink."
+          items:
+            $ref: '#/components/schemas/LayerZeroAdapterCreateParams'
+          minItems: 1
+          type: array
+        displayName:
+          description: The display name of the contract
+          example: LayerZero Adapter
+          type: string
+        useGasless:
+          description: Whether to use gasless deployment or not
+          example: false
+          type: boolean
+        feeLevel:
+          description: Fee level for the write function transaction. interchangeable
+            with the 'fee' field
+          enum:
+          - LOW
+          - MEDIUM
+          - HIGH
+          example: MEDIUM
+          type: string
+        fee:
+          description: Max fee amount for the write function transaction. interchangeable
+            with the 'feeLevel' field
+          example: "2000"
+          type: string
+        salt:
+          description: "The salt to calculate the deterministic address. Must be a\
+            \ number between 0 and 2^256 -1, for it to fit in the bytes32 parameter"
+          example: "123456789"
+          type: string
+      required:
+      - createParams
+      - vaultAccountId
+      type: object
+    AdapterProcessingResult:
+      example:
+        inputTokenLinkId: inputTokenLinkId
+        adapterLinkId: adapterLinkId
+      properties:
+        inputTokenLinkId:
+          description: The input token link ID
+          type: string
+        adapterLinkId:
+          description: The adapter link ID
+          type: string
+      required:
+      - adapterLinkId
+      - inputTokenLinkId
+      type: object
+    DeployLayerZeroAdaptersResponse:
+      description: Array of adapter processing results
+      items:
+        $ref: '#/components/schemas/AdapterProcessingResult'
+      type: array
+    RemoveLayerZeroAdaptersRequest:
+      example:
+        adapterTokenLinkIds:
+        - d290f1ee-6c54-4b01-90e6-d701748f0851
+        - e290f1ee-6c54-4b01-90e6-d701748f0852
+        vaultAccountId: "1"
+      properties:
+        vaultAccountId:
+          description: The vault account ID to use for signing the role revocation
+            transactions.
+          example: "1"
+          type: string
+        adapterTokenLinkIds:
+          description: A list of adapter token link IDs to be deactivated and unlinked.
+          example:
+          - d290f1ee-6c54-4b01-90e6-d701748f0851
+          - e290f1ee-6c54-4b01-90e6-d701748f0852
+          items:
+            format: uuid
+            type: string
+          minItems: 1
+          type: array
+      required:
+      - adapterTokenLinkIds
+      - vaultAccountId
+      type: object
+    RemoveLayerZeroAdapterFailedResult:
+      example:
+        adapterTokenLinkId: adapterTokenLinkId
+      properties:
+        adapterTokenLinkId:
+          description: The adapter token link ID that failed to be removed
+          type: string
+      required:
+      - adapterTokenLinkId
+      type: object
+    RemoveLayerZeroAdaptersResponse:
+      example:
+        failed:
+        - adapterTokenLinkId: adapterTokenLinkId
+        - adapterTokenLinkId: adapterTokenLinkId
+        deactivated:
+        - deactivated
+        - deactivated
+      properties:
+        deactivated:
+          description: List of successfully deactivated adapter token link IDs
+          items:
+            type: string
+          type: array
+        failed:
+          description: List of adapter token link IDs that failed to be removed
+          items:
+            $ref: '#/components/schemas/RemoveLayerZeroAdapterFailedResult'
+          type: array
+      required:
+      - deactivated
+      - failed
+      type: object
+    SetLayerZeroPeersRequest:
+      example:
+        bidirectional: true
+        destinationAdapterTokenLinkIds:
+        - 123-432-1234-1234-123456789012
+        - 123-432-1234-1234-123456789012
+        vaultAccountId: "0"
+        sourceAdapterTokenLinkId: 00000123-0432-1234-1234-123456789012
+      properties:
+        vaultAccountId:
+          description: The id of the vault account that will be used to inititate
+            transactions ot set peers
+          example: "0"
+          type: string
+        sourceAdapterTokenLinkId:
+          description: '`token_link` ID of the source adapter contract'
+          example: 00000123-0432-1234-1234-123456789012
+          format: uuid
+          type: string
+        destinationAdapterTokenLinkIds:
+          description: Array of `token_link` IDs for destination adapter contracts
+          example:
+          - 123-432-1234-1234-123456789012
+          - 123-432-1234-1234-123456789012
+          items:
+            format: uuid
+            type: string
+          minItems: 1
+          type: array
+        bidirectional:
+          description: "If true, also sets peers from destination(s) back to source"
+          example: true
+          type: boolean
+      required:
+      - bidirectional
+      - destinationAdapterTokenLinkIds
+      - sourceAdapterTokenLinkId
+      - vaultAccountId
+      type: object
+    SetLayerZeroPeersResponse:
+      example:
+        txnIds:
+        - 123-432-1234-1234-123456789012
+        - 123-432-1234-1234-123456789012
+      properties:
+        txnIds:
+          description: "Array of fireblocks transaction IDs, each corresponding to\
+            \ an on-chain transaction to set peers"
+          example:
+          - 123-432-1234-1234-123456789012
+          - 123-432-1234-1234-123456789012
+          items:
+            format: uuid
+            type: string
+          minItems: 1
+          type: array
+      required:
+      - txnIds
+      type: object
+    RemoveLayerZeroPeersRequest:
+      allOf:
+      - $ref: '#/components/schemas/SetLayerZeroPeersRequest'
+      example:
+        bidirectional: true
+        destinationAdapterTokenLinkIds:
+        - 123-432-1234-1234-123456789012
+        - 123-432-1234-1234-123456789012
+        vaultAccountId: "0"
+        sourceAdapterTokenLinkId: 00000123-0432-1234-1234-123456789012
+    RemoveLayerZeroPeersResponse:
+      allOf:
+      - $ref: '#/components/schemas/SetLayerZeroPeersResponse'
+      example:
+        txnIds:
+        - 123-432-1234-1234-123456789012
+        - 123-432-1234-1234-123456789012
+    PeerAdapterInfo:
+      properties:
+        adapterTokenLinkId:
+          description: The token link id of the adapter
+          example: b70701f4-d7b1-4795-a8ee-b09cdb5b850d
+          format: uuid
+          type: string
+        adapterAddress:
+          description: The adapter address
+          example: 0x1234567890abcdef1234567890abcdef12345678
+          type: string
+        baseAssetId:
+          description: The base asset id for the base asset that the adapter is deployed
+            on
+          example: ETH_TEST6
+          type: string
+      required:
+      - adapterAddress
+      - adapterTokenLinkId
+      - baseAssetId
+      type: object
+    GetLayerZeroPeersResponse:
+      example:
+        adapterTokenLinkId: b70701f4-d7b1-4795-a8ee-b09cdb5b850d
+        adapterAddress: 0x1234567890abcdef1234567890abcdef12345678
+        peers:
+        - adapterTokenLinkId: b70701f4-d7b1-4795-a8ee-b09cdb5b850d
+          adapterAddress: 0x1234567890abcdef1234567890abcdef12345678
+          baseAssetId: ETH_TEST6
+        - adapterTokenLinkId: b70701f4-d7b1-4795-a8ee-b09cdb5b850d
+          adapterAddress: 0x1234567890abcdef1234567890abcdef12345678
+          baseAssetId: ETH_TEST5
+      properties:
+        adapterTokenLinkId:
+          description: The token link id of the adapter
+          example: b70701f4-d7b1-4795-a8ee-b09cdb5b850d
+          format: uuid
+          type: string
+        adapterAddress:
+          description: The adapter address
+          example: 0x1234567890abcdef1234567890abcdef12345678
+          type: string
+        peers:
+          description: The peers for the adapter
+          example:
+          - adapterTokenLinkId: b70701f4-d7b1-4795-a8ee-b09cdb5b850d
+            adapterAddress: 0x1234567890abcdef1234567890abcdef12345678
+            baseAssetId: ETH_TEST6
+          - adapterTokenLinkId: b70701f4-d7b1-4795-a8ee-b09cdb5b850d
+            adapterAddress: 0x1234567890abcdef1234567890abcdef12345678
+            baseAssetId: ETH_TEST5
+          items:
+            $ref: '#/components/schemas/PeerAdapterInfo'
+          type: array
+      required:
+      - adapterAddress
+      - adapterTokenLinkId
+      - peers
+      type: object
+    DvnConfig:
+      example:
+        optionalThreshold: 2
+        dvnAddresses:
+        - 1.0284746938594775E54
+        - 2.5101940177441514E50
+        optionalDVNAddresses:
+        - 1.334824162533763E54
+      properties:
+        dvnAddresses:
+          description: Array of required DVN Ethereum addresses that sign ULN messages.
+          example:
+          - 1.0284746938594775E54
+          - 2.5101940177441514E50
+          items:
+            type: string
+          minItems: 1
+          type: array
+        optionalDVNAddresses:
+          description: Array of optional DVN Ethereum addresses that sign ULN messages.
+          example:
+          - 1.334824162533763E54
+          items:
+            type: string
+          type: array
+        optionalThreshold:
+          description: Minimum number of DVN signatures required (M-of-N).
+          example: 2
+          type: number
+      required:
+      - dvnAddresses
+      - optionalThreshold
+      type: object
+    SetLayerZeroDvnConfigRequest:
+      example:
+        sendConfig:
+          optionalThreshold: 2
+          dvnAddresses:
+          - 1.0284746938594775E54
+          - 2.5101940177441514E50
+          optionalDVNAddresses:
+          - 1.334824162533763E54
+        vaultAccountId: "0"
+        sourceAdapterTokenLinkId: b70701f4-d7b1-4795-a8ee-b09cdb5b850d
+        receiveConfig:
+          optionalThreshold: 2
+          dvnAddresses:
+          - 1.0284746938594775E54
+          - 2.5101940177441514E50
+          optionalDVNAddresses:
+          - 1.334824162533763E54
+        destinationAdapterTokenLinkId: 6add4f2a-b206-4114-8f94-2882618ffbb4
+      properties:
+        vaultAccountId:
+          description: Vault account that pays gas
+          example: "0"
+          type: string
+        sourceAdapterTokenLinkId:
+          description: Source adapter TokenLink ID
+          example: b70701f4-d7b1-4795-a8ee-b09cdb5b850d
+          type: string
+        destinationAdapterTokenLinkId:
+          description: Destination adapter TokenLink ID
+          example: 6add4f2a-b206-4114-8f94-2882618ffbb4
+          type: string
+        sendConfig:
+          $ref: '#/components/schemas/DvnConfig'
+        receiveConfig:
+          $ref: '#/components/schemas/DvnConfig'
+      required:
+      - destinationAdapterTokenLinkId
+      - receiveConfig
+      - sendConfig
+      - sourceAdapterTokenLinkId
+      - vaultAccountId
+      type: object
+    SetLayerZeroDvnConfigResponse:
+      example:
+        txnIds:
+        - txnIds
+        - txnIds
+      properties:
+        txnIds:
+          description: Transaction IDs submitted to the network
+          items:
+            type: string
+          type: array
+      required:
+      - txnIds
+      type: object
+    DvnConfigWithConfirmations:
+      properties:
+        dvnAddresses:
+          description: Array of required DVN Ethereum addresses that sign ULN messages.
+          example:
+          - 1.0284746938594775E54
+          - 2.5101940177441514E50
+          items:
+            type: string
+          minItems: 1
+          type: array
+        optionalDVNAddresses:
+          description: Array of optional DVN Ethereum addresses that sign ULN messages.
+          example:
+          - 1.334824162533763E54
+          items:
+            type: string
+          type: array
+        optionalThreshold:
+          description: Minimum number of DVN signatures required (M-of-N).
+          example: 2
+          type: number
+        confirmations:
+          description: Number of block confirmations required
+          example: 12
+          type: number
+      required:
+      - confirmations
+      - dvnAddresses
+      - optionalThreshold
+      type: object
+    ChannelDvnConfigWithConfirmations:
+      example:
+        sendConfig:
+          optionalThreshold: 2
+          dvnAddresses:
+          - 1.0284746938594775E54
+          - 2.5101940177441514E50
+          confirmations: 12
+          optionalDVNAddresses:
+          - 1.334824162533763E54
+        receiveConfig:
+          optionalThreshold: 2
+          dvnAddresses:
+          - 1.0284746938594775E54
+          - 2.5101940177441514E50
+          confirmations: 12
+          optionalDVNAddresses:
+          - 1.334824162533763E54
+      properties:
+        sendConfig:
+          $ref: '#/components/schemas/ChannelDvnConfigWithConfirmations_sendConfig'
+        receiveConfig:
+          $ref: '#/components/schemas/ChannelDvnConfigWithConfirmations_receiveConfig'
+      type: object
+    GetLayerZeroDvnConfigResponse:
+      example:
+        channelConfigs:
+        - sendConfig:
+            optionalThreshold: 2
+            dvnAddresses:
+            - 1.0284746938594775E54
+            - 2.5101940177441514E50
+            confirmations: 12
+            optionalDVNAddresses:
+            - 1.334824162533763E54
+          receiveConfig:
+            optionalThreshold: 2
+            dvnAddresses:
+            - 1.0284746938594775E54
+            - 2.5101940177441514E50
+            confirmations: 12
+            optionalDVNAddresses:
+            - 1.334824162533763E54
+        - sendConfig:
+            optionalThreshold: 2
+            dvnAddresses:
+            - 1.0284746938594775E54
+            - 2.5101940177441514E50
+            confirmations: 12
+            optionalDVNAddresses:
+            - 1.334824162533763E54
+          receiveConfig:
+            optionalThreshold: 2
+            dvnAddresses:
+            - 1.0284746938594775E54
+            - 2.5101940177441514E50
+            confirmations: 12
+            optionalDVNAddresses:
+            - 1.334824162533763E54
+        sourceAdapterTokenLinkId: b70701f4-d7b1-4795-a8ee-b09cdb5b850d
+      properties:
+        sourceAdapterTokenLinkId:
+          description: Token-link ID of the adapter for which DVN configuration was
+            queried.
+          example: b70701f4-d7b1-4795-a8ee-b09cdb5b850d
+          format: uuid
+          type: string
+        channelConfigs:
+          description: DVN configurations for each discovered (or explicitly requested)
+            channel between the source adapter and its peers.
+          items:
+            $ref: '#/components/schemas/ChannelDvnConfigWithConfirmations'
+          minItems: 1
+          type: array
+      required:
+      - channelConfigs
+      - sourceAdapterTokenLinkId
+      type: object
+    ValidateLayerZeroChannelResponse:
+      example:
+        correct: true
+        errors:
+        - Adapter not found
+        - Adapter missing role
+        - Adapter is not a peer
+      properties:
+        correct:
+          description: Indicates whether the LayerZero channel configuration is valid.
+          example: true
+          type: boolean
+        errors:
+          description: List of errors found during validation. An empty array indicates
+            no errors.
+          example:
+          - Adapter not found
+          - Adapter missing role
+          - Adapter is not a peer
+          items:
+            type: string
+          type: array
+      required:
+      - correct
+      - errors
       type: object
     CollectionType:
       description: The type of collection
@@ -51910,6 +53419,30 @@ components:
     CreateMultichainTokenRequest_createParams:
       oneOf:
       - $ref: '#/components/schemas/EVMTokenCreateParamsDto'
+    ChannelDvnConfigWithConfirmations_sendConfig:
+      allOf:
+      - $ref: '#/components/schemas/DvnConfigWithConfirmations'
+      - description: Outbound (source → peer) DVN config with confirmations.
+      example:
+        optionalThreshold: 2
+        dvnAddresses:
+        - 1.0284746938594775E54
+        - 2.5101940177441514E50
+        confirmations: 12
+        optionalDVNAddresses:
+        - 1.334824162533763E54
+    ChannelDvnConfigWithConfirmations_receiveConfig:
+      allOf:
+      - $ref: '#/components/schemas/DvnConfigWithConfirmations'
+      - description: Inbound (peer → source) DVN config with confirmations.
+      example:
+        optionalThreshold: 2
+        dvnAddresses:
+        - 1.0284746938594775E54
+        - 2.5101940177441514E50
+        confirmations: 12
+        optionalDVNAddresses:
+        - 1.334824162533763E54
     ContractAbiResponseDto_abi_inner:
       oneOf:
       - $ref: '#/components/schemas/AbiFunction'

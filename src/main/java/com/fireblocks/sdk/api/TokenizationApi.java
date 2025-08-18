@@ -20,6 +20,7 @@ import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.Pair;
 import com.fireblocks.sdk.ValidationUtils;
+import com.fireblocks.sdk.model.AdapterProcessingResult;
 import com.fireblocks.sdk.model.CollectionBurnRequestDto;
 import com.fireblocks.sdk.model.CollectionBurnResponseDto;
 import com.fireblocks.sdk.model.CollectionDeployRequestDto;
@@ -28,13 +29,25 @@ import com.fireblocks.sdk.model.CollectionMintRequestDto;
 import com.fireblocks.sdk.model.CollectionMintResponseDto;
 import com.fireblocks.sdk.model.CreateMultichainTokenRequest;
 import com.fireblocks.sdk.model.CreateTokenRequestDto;
+import com.fireblocks.sdk.model.DeployLayerZeroAdaptersRequest;
 import com.fireblocks.sdk.model.DeployableAddressResponse;
 import com.fireblocks.sdk.model.GetDeployableAddressRequest;
+import com.fireblocks.sdk.model.GetLayerZeroDvnConfigResponse;
+import com.fireblocks.sdk.model.GetLayerZeroPeersResponse;
 import com.fireblocks.sdk.model.GetLinkedCollectionsPaginatedResponse;
 import com.fireblocks.sdk.model.ReissueMultichainTokenRequest;
+import com.fireblocks.sdk.model.RemoveLayerZeroAdaptersRequest;
+import com.fireblocks.sdk.model.RemoveLayerZeroAdaptersResponse;
+import com.fireblocks.sdk.model.RemoveLayerZeroPeersRequest;
+import com.fireblocks.sdk.model.RemoveLayerZeroPeersResponse;
+import com.fireblocks.sdk.model.SetLayerZeroDvnConfigRequest;
+import com.fireblocks.sdk.model.SetLayerZeroDvnConfigResponse;
+import com.fireblocks.sdk.model.SetLayerZeroPeersRequest;
+import com.fireblocks.sdk.model.SetLayerZeroPeersResponse;
 import com.fireblocks.sdk.model.TokenLinkDto;
 import com.fireblocks.sdk.model.TokenLinkRequestDto;
 import com.fireblocks.sdk.model.TokensPaginatedResponse;
+import com.fireblocks.sdk.model.ValidateLayerZeroChannelResponse;
 import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigDecimal;
@@ -46,6 +59,7 @@ import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringJoiner;
+import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 
@@ -244,6 +258,185 @@ public class TokenizationApi {
         try {
             byte[] localVarPostBody =
                     memberVarObjectMapper.writeValueAsBytes(collectionDeployRequestDto);
+            localVarRequestBuilder.method(
+                    "POST", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
+        } catch (IOException e) {
+            throw new ApiException(e);
+        }
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
+     * Remove LayerZero adapters Remove LayerZero adapters by deactivating and unlinking them. This
+     * endpoint revokes roles and deactivates the specified adapter contracts.
+     *
+     * @param removeLayerZeroAdaptersRequest (required)
+     * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
+     *     times with the same idempotency key, the server will return the same response as the
+     *     first request. The idempotency key is valid for 24 hours. (optional)
+     * @return CompletableFuture&lt;ApiResponse&lt;RemoveLayerZeroAdaptersResponse&gt;&gt;
+     * @throws ApiException if fails to make API call
+     */
+    public CompletableFuture<ApiResponse<RemoveLayerZeroAdaptersResponse>>
+            deactivateAndUnlinkAdapters(
+                    RemoveLayerZeroAdaptersRequest removeLayerZeroAdaptersRequest,
+                    String idempotencyKey)
+                    throws ApiException {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    deactivateAndUnlinkAdaptersRequestBuilder(
+                            removeLayerZeroAdaptersRequest, idempotencyKey);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException(
+                                                    "deactivateAndUnlinkAdapters",
+                                                    localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<RemoveLayerZeroAdaptersResponse>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            RemoveLayerZeroAdaptersResponse>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            });
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder deactivateAndUnlinkAdaptersRequestBuilder(
+            RemoveLayerZeroAdaptersRequest removeLayerZeroAdaptersRequest, String idempotencyKey)
+            throws ApiException {
+        ValidationUtils.assertParamExists(
+                "deactivateAndUnlinkAdapters",
+                "removeLayerZeroAdaptersRequest",
+                removeLayerZeroAdaptersRequest);
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath = "/tokenization/multichain/bridge/layerzero";
+
+        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+        if (idempotencyKey != null) {
+            localVarRequestBuilder.header("Idempotency-Key", idempotencyKey.toString());
+        }
+        localVarRequestBuilder.header("Content-Type", "application/json");
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        try {
+            byte[] localVarPostBody =
+                    memberVarObjectMapper.writeValueAsBytes(removeLayerZeroAdaptersRequest);
+            localVarRequestBuilder.method(
+                    "DELETE", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
+        } catch (IOException e) {
+            throw new ApiException(e);
+        }
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
+     * Deploy LayerZero adapters Deploy LayerZero adapters for multichain token bridging
+     * functionality. This endpoint creates adapter contracts that enable cross-chain token
+     * transfers.
+     *
+     * @param deployLayerZeroAdaptersRequest (required)
+     * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
+     *     times with the same idempotency key, the server will return the same response as the
+     *     first request. The idempotency key is valid for 24 hours. (optional)
+     * @return CompletableFuture&lt;ApiResponse&lt;List&lt;AdapterProcessingResult&gt;&gt;&gt;
+     * @throws ApiException if fails to make API call
+     */
+    public CompletableFuture<ApiResponse<List<AdapterProcessingResult>>> deployAndLinkAdapters(
+            DeployLayerZeroAdaptersRequest deployLayerZeroAdaptersRequest, String idempotencyKey)
+            throws ApiException {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    deployAndLinkAdaptersRequestBuilder(
+                            deployLayerZeroAdaptersRequest, idempotencyKey);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException(
+                                                    "deployAndLinkAdapters", localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<List<AdapterProcessingResult>>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            List<
+                                                                                    AdapterProcessingResult>>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            });
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder deployAndLinkAdaptersRequestBuilder(
+            DeployLayerZeroAdaptersRequest deployLayerZeroAdaptersRequest, String idempotencyKey)
+            throws ApiException {
+        ValidationUtils.assertParamExists(
+                "deployAndLinkAdapters",
+                "deployLayerZeroAdaptersRequest",
+                deployLayerZeroAdaptersRequest);
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath = "/tokenization/multichain/bridge/layerzero";
+
+        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+        if (idempotencyKey != null) {
+            localVarRequestBuilder.header("Idempotency-Key", idempotencyKey.toString());
+        }
+        localVarRequestBuilder.header("Content-Type", "application/json");
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        try {
+            byte[] localVarPostBody =
+                    memberVarObjectMapper.writeValueAsBytes(deployLayerZeroAdaptersRequest);
             localVarRequestBuilder.method(
                     "POST", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
         } catch (IOException e) {
@@ -472,6 +665,169 @@ public class TokenizationApi {
         } catch (IOException e) {
             throw new ApiException(e);
         }
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
+     * Get LayerZero DVN configuration Retrieve the DVN (Data Verification Network) configuration
+     * for a specific adapter. Returns DVN configurations for channels between the source adapter
+     * and its peers.
+     *
+     * @param adapterTokenLinkId The token link id of the adapter token link (required)
+     * @param peerAdapterTokenLinkId Optional peer adapter token link ID to filter results
+     *     (optional)
+     * @return CompletableFuture&lt;ApiResponse&lt;GetLayerZeroDvnConfigResponse&gt;&gt;
+     * @throws ApiException if fails to make API call
+     */
+    public CompletableFuture<ApiResponse<GetLayerZeroDvnConfigResponse>> getLayerZeroDvnConfig(
+            UUID adapterTokenLinkId, UUID peerAdapterTokenLinkId) throws ApiException {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    getLayerZeroDvnConfigRequestBuilder(adapterTokenLinkId, peerAdapterTokenLinkId);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException(
+                                                    "getLayerZeroDvnConfig", localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<GetLayerZeroDvnConfigResponse>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            GetLayerZeroDvnConfigResponse>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            });
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder getLayerZeroDvnConfigRequestBuilder(
+            UUID adapterTokenLinkId, UUID peerAdapterTokenLinkId) throws ApiException {
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "getLayerZeroDvnConfig", "adapterTokenLinkId", adapterTokenLinkId.toString());
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath =
+                "/tokenization/multichain/bridge/layerzero/config/{adapterTokenLinkId}/dvns"
+                        .replace(
+                                "{adapterTokenLinkId}",
+                                ApiClient.urlEncode(adapterTokenLinkId.toString()));
+
+        List<Pair> localVarQueryParams = new ArrayList<>();
+        StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
+        String localVarQueryParameterBaseName;
+        localVarQueryParameterBaseName = "peerAdapterTokenLinkId";
+        localVarQueryParams.addAll(
+                ApiClient.parameterToPairs("peerAdapterTokenLinkId", peerAdapterTokenLinkId));
+
+        if (!localVarQueryParams.isEmpty() || localVarQueryStringJoiner.length() != 0) {
+            StringJoiner queryJoiner = new StringJoiner("&");
+            localVarQueryParams.forEach(p -> queryJoiner.add(p.getName() + '=' + p.getValue()));
+            if (localVarQueryStringJoiner.length() != 0) {
+                queryJoiner.add(localVarQueryStringJoiner.toString());
+            }
+            localVarRequestBuilder.uri(
+                    URI.create(memberVarBaseUri + localVarPath + '?' + queryJoiner.toString()));
+        } else {
+            localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+        }
+
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
+     * Get LayerZero peers Retrieve the LayerZero peers configured for a specific adapter. Returns
+     * information about peer relationships for cross-chain communication.
+     *
+     * @param adapterTokenLinkId The token link id of the adapter token link (required)
+     * @return CompletableFuture&lt;ApiResponse&lt;GetLayerZeroPeersResponse&gt;&gt;
+     * @throws ApiException if fails to make API call
+     */
+    public CompletableFuture<ApiResponse<GetLayerZeroPeersResponse>> getLayerZeroPeers(
+            UUID adapterTokenLinkId) throws ApiException {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    getLayerZeroPeersRequestBuilder(adapterTokenLinkId);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException("getLayerZeroPeers", localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<GetLayerZeroPeersResponse>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            GetLayerZeroPeersResponse>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            });
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder getLayerZeroPeersRequestBuilder(UUID adapterTokenLinkId)
+            throws ApiException {
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "getLayerZeroPeers", "adapterTokenLinkId", adapterTokenLinkId.toString());
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath =
+                "/tokenization/multichain/bridge/layerzero/config/{adapterTokenLinkId}/peers"
+                        .replace(
+                                "{adapterTokenLinkId}",
+                                ApiClient.urlEncode(adapterTokenLinkId.toString()));
+
+        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
         if (memberVarReadTimeout != null) {
             localVarRequestBuilder.timeout(memberVarReadTimeout);
         }
@@ -1162,6 +1518,263 @@ public class TokenizationApi {
         return localVarRequestBuilder;
     }
     /**
+     * Remove LayerZero peers Remove LayerZero peers to disconnect adapter contracts. This endpoint
+     * removes peer relationships between LayerZero adapters.
+     *
+     * @param removeLayerZeroPeersRequest (required)
+     * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
+     *     times with the same idempotency key, the server will return the same response as the
+     *     first request. The idempotency key is valid for 24 hours. (optional)
+     * @return CompletableFuture&lt;ApiResponse&lt;RemoveLayerZeroPeersResponse&gt;&gt;
+     * @throws ApiException if fails to make API call
+     */
+    public CompletableFuture<ApiResponse<RemoveLayerZeroPeersResponse>> removeLayerZeroPeers(
+            RemoveLayerZeroPeersRequest removeLayerZeroPeersRequest, String idempotencyKey)
+            throws ApiException {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    removeLayerZeroPeersRequestBuilder(removeLayerZeroPeersRequest, idempotencyKey);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException(
+                                                    "removeLayerZeroPeers", localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<RemoveLayerZeroPeersResponse>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            RemoveLayerZeroPeersResponse>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            });
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder removeLayerZeroPeersRequestBuilder(
+            RemoveLayerZeroPeersRequest removeLayerZeroPeersRequest, String idempotencyKey)
+            throws ApiException {
+        ValidationUtils.assertParamExists(
+                "removeLayerZeroPeers", "removeLayerZeroPeersRequest", removeLayerZeroPeersRequest);
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath = "/tokenization/multichain/bridge/layerzero/config/peers";
+
+        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+        if (idempotencyKey != null) {
+            localVarRequestBuilder.header("Idempotency-Key", idempotencyKey.toString());
+        }
+        localVarRequestBuilder.header("Content-Type", "application/json");
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        try {
+            byte[] localVarPostBody =
+                    memberVarObjectMapper.writeValueAsBytes(removeLayerZeroPeersRequest);
+            localVarRequestBuilder.method(
+                    "DELETE", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
+        } catch (IOException e) {
+            throw new ApiException(e);
+        }
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
+     * Set LayerZero DVN configuration Configure DVN settings for LayerZero adapters. This endpoint
+     * sets up the DVN configuration for message verification between source and destination
+     * adapters.
+     *
+     * @param setLayerZeroDvnConfigRequest (required)
+     * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
+     *     times with the same idempotency key, the server will return the same response as the
+     *     first request. The idempotency key is valid for 24 hours. (optional)
+     * @return CompletableFuture&lt;ApiResponse&lt;SetLayerZeroDvnConfigResponse&gt;&gt;
+     * @throws ApiException if fails to make API call
+     */
+    public CompletableFuture<ApiResponse<SetLayerZeroDvnConfigResponse>> setLayerZeroDvnConfig(
+            SetLayerZeroDvnConfigRequest setLayerZeroDvnConfigRequest, String idempotencyKey)
+            throws ApiException {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    setLayerZeroDvnConfigRequestBuilder(
+                            setLayerZeroDvnConfigRequest, idempotencyKey);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException(
+                                                    "setLayerZeroDvnConfig", localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<SetLayerZeroDvnConfigResponse>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            SetLayerZeroDvnConfigResponse>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            });
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder setLayerZeroDvnConfigRequestBuilder(
+            SetLayerZeroDvnConfigRequest setLayerZeroDvnConfigRequest, String idempotencyKey)
+            throws ApiException {
+        ValidationUtils.assertParamExists(
+                "setLayerZeroDvnConfig",
+                "setLayerZeroDvnConfigRequest",
+                setLayerZeroDvnConfigRequest);
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath = "/tokenization/multichain/bridge/layerzero/config/dvns";
+
+        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+        if (idempotencyKey != null) {
+            localVarRequestBuilder.header("Idempotency-Key", idempotencyKey.toString());
+        }
+        localVarRequestBuilder.header("Content-Type", "application/json");
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        try {
+            byte[] localVarPostBody =
+                    memberVarObjectMapper.writeValueAsBytes(setLayerZeroDvnConfigRequest);
+            localVarRequestBuilder.method(
+                    "POST", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
+        } catch (IOException e) {
+            throw new ApiException(e);
+        }
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
+     * Set LayerZero peers Set LayerZero peers to establish connections between adapter contracts.
+     * This endpoint creates peer relationships that enable cross-chain communication. It sets the
+     * destination adapter as a peer of the source adapter. If &#x60;bidirectional&#x60; is true, it
+     * also sets the source adapter as a peer of the destination adapter(s).
+     *
+     * @param setLayerZeroPeersRequest (required)
+     * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
+     *     times with the same idempotency key, the server will return the same response as the
+     *     first request. The idempotency key is valid for 24 hours. (optional)
+     * @return CompletableFuture&lt;ApiResponse&lt;SetLayerZeroPeersResponse&gt;&gt;
+     * @throws ApiException if fails to make API call
+     */
+    public CompletableFuture<ApiResponse<SetLayerZeroPeersResponse>> setLayerZeroPeers(
+            SetLayerZeroPeersRequest setLayerZeroPeersRequest, String idempotencyKey)
+            throws ApiException {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    setLayerZeroPeersRequestBuilder(setLayerZeroPeersRequest, idempotencyKey);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException("setLayerZeroPeers", localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<SetLayerZeroPeersResponse>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            SetLayerZeroPeersResponse>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            });
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder setLayerZeroPeersRequestBuilder(
+            SetLayerZeroPeersRequest setLayerZeroPeersRequest, String idempotencyKey)
+            throws ApiException {
+        ValidationUtils.assertParamExists(
+                "setLayerZeroPeers", "setLayerZeroPeersRequest", setLayerZeroPeersRequest);
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath = "/tokenization/multichain/bridge/layerzero/config/peers";
+
+        localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+
+        if (idempotencyKey != null) {
+            localVarRequestBuilder.header("Idempotency-Key", idempotencyKey.toString());
+        }
+        localVarRequestBuilder.header("Content-Type", "application/json");
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        try {
+            byte[] localVarPostBody =
+                    memberVarObjectMapper.writeValueAsBytes(setLayerZeroPeersRequest);
+            localVarRequestBuilder.method(
+                    "POST", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
+        } catch (IOException e) {
+            throw new ApiException(e);
+        }
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
      * Unlink a token Unlink a token. The token will be unlinked from the workspace. The token will
      * not be deleted on chain nor the refId, only the link to the workspace will be removed.
      *
@@ -1261,6 +1874,105 @@ public class TokenizationApi {
         localVarRequestBuilder.header("Accept", "application/json");
 
         localVarRequestBuilder.method("DELETE", HttpRequest.BodyPublishers.noBody());
+        if (memberVarReadTimeout != null) {
+            localVarRequestBuilder.timeout(memberVarReadTimeout);
+        }
+        if (memberVarInterceptor != null) {
+            memberVarInterceptor.accept(localVarRequestBuilder);
+        }
+        return localVarRequestBuilder;
+    }
+    /**
+     * Validate LayerZero channel configuration Validate the LayerZero channel configuration between
+     * adapters. This endpoint checks if the channel configuration is correct and returns any
+     * validation errors.
+     *
+     * @param adapterTokenLinkId The token link ID of the adapter (required)
+     * @param peerAdapterTokenLinkId Peer adapter token link ID to validate against (required)
+     * @return CompletableFuture&lt;ApiResponse&lt;ValidateLayerZeroChannelResponse&gt;&gt;
+     * @throws ApiException if fails to make API call
+     */
+    public CompletableFuture<ApiResponse<ValidateLayerZeroChannelResponse>>
+            validateLayerZeroChannelConfig(UUID adapterTokenLinkId, UUID peerAdapterTokenLinkId)
+                    throws ApiException {
+        try {
+            HttpRequest.Builder localVarRequestBuilder =
+                    validateLayerZeroChannelConfigRequestBuilder(
+                            adapterTokenLinkId, peerAdapterTokenLinkId);
+            return memberVarHttpClient
+                    .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+                    .thenComposeAsync(
+                            localVarResponse -> {
+                                if (memberVarAsyncResponseInterceptor != null) {
+                                    memberVarAsyncResponseInterceptor.accept(localVarResponse);
+                                }
+                                if (localVarResponse.statusCode() / 100 != 2) {
+                                    return CompletableFuture.failedFuture(
+                                            getApiException(
+                                                    "validateLayerZeroChannelConfig",
+                                                    localVarResponse));
+                                }
+                                try {
+                                    String responseBody = localVarResponse.body();
+                                    return CompletableFuture.completedFuture(
+                                            new ApiResponse<ValidateLayerZeroChannelResponse>(
+                                                    localVarResponse.statusCode(),
+                                                    localVarResponse.headers().map(),
+                                                    responseBody == null || responseBody.isBlank()
+                                                            ? null
+                                                            : memberVarObjectMapper.readValue(
+                                                                    responseBody,
+                                                                    new TypeReference<
+                                                                            ValidateLayerZeroChannelResponse>() {})));
+                                } catch (IOException e) {
+                                    return CompletableFuture.failedFuture(new ApiException(e));
+                                }
+                            });
+        } catch (ApiException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+    }
+
+    private HttpRequest.Builder validateLayerZeroChannelConfigRequestBuilder(
+            UUID adapterTokenLinkId, UUID peerAdapterTokenLinkId) throws ApiException {
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "validateLayerZeroChannelConfig",
+                "adapterTokenLinkId",
+                adapterTokenLinkId.toString());
+        ValidationUtils.assertParamExistsAndNotEmpty(
+                "validateLayerZeroChannelConfig",
+                "peerAdapterTokenLinkId",
+                peerAdapterTokenLinkId.toString());
+
+        HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
+
+        String localVarPath = "/tokenization/multichain/bridge/layerzero/validate";
+
+        List<Pair> localVarQueryParams = new ArrayList<>();
+        StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
+        String localVarQueryParameterBaseName;
+        localVarQueryParameterBaseName = "adapterTokenLinkId";
+        localVarQueryParams.addAll(
+                ApiClient.parameterToPairs("adapterTokenLinkId", adapterTokenLinkId));
+        localVarQueryParameterBaseName = "peerAdapterTokenLinkId";
+        localVarQueryParams.addAll(
+                ApiClient.parameterToPairs("peerAdapterTokenLinkId", peerAdapterTokenLinkId));
+
+        if (!localVarQueryParams.isEmpty() || localVarQueryStringJoiner.length() != 0) {
+            StringJoiner queryJoiner = new StringJoiner("&");
+            localVarQueryParams.forEach(p -> queryJoiner.add(p.getName() + '=' + p.getValue()));
+            if (localVarQueryStringJoiner.length() != 0) {
+                queryJoiner.add(localVarQueryStringJoiner.toString());
+            }
+            localVarRequestBuilder.uri(
+                    URI.create(memberVarBaseUri + localVarPath + '?' + queryJoiner.toString()));
+        } else {
+            localVarRequestBuilder.uri(URI.create(memberVarBaseUri + localVarPath));
+        }
+
+        localVarRequestBuilder.header("Accept", "application/json");
+
+        localVarRequestBuilder.method("GET", HttpRequest.BodyPublishers.noBody());
         if (memberVarReadTimeout != null) {
             localVarRequestBuilder.timeout(memberVarReadTimeout);
         }

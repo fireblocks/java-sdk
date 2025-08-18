@@ -31,7 +31,8 @@ import java.util.StringJoiner;
     FeeInfo.JSON_PROPERTY_PAID_BY_RELAY,
     FeeInfo.JSON_PROPERTY_RELAY_TYPE,
     FeeInfo.JSON_PROPERTY_RELAY_ID,
-    FeeInfo.JSON_PROPERTY_RELAY_NAME
+    FeeInfo.JSON_PROPERTY_RELAY_NAME,
+    FeeInfo.JSON_PROPERTY_FEE_U_S_D
 })
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
 public class FeeInfo {
@@ -88,6 +89,9 @@ public class FeeInfo {
 
     public static final String JSON_PROPERTY_RELAY_NAME = "relayName";
     private String relayName;
+
+    public static final String JSON_PROPERTY_FEE_U_S_D = "feeUSD";
+    private String feeUSD;
 
     public FeeInfo() {}
 
@@ -253,6 +257,29 @@ public class FeeInfo {
         this.relayName = relayName;
     }
 
+    public FeeInfo feeUSD(String feeUSD) {
+        this.feeUSD = feeUSD;
+        return this;
+    }
+
+    /**
+     * The USD value of the fee
+     *
+     * @return feeUSD
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_FEE_U_S_D)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public String getFeeUSD() {
+        return feeUSD;
+    }
+
+    @JsonProperty(JSON_PROPERTY_FEE_U_S_D)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setFeeUSD(String feeUSD) {
+        this.feeUSD = feeUSD;
+    }
+
     /** Return true if this FeeInfo object is equal to o. */
     @Override
     public boolean equals(Object o) {
@@ -269,13 +296,21 @@ public class FeeInfo {
                 && Objects.equals(this.paidByRelay, feeInfo.paidByRelay)
                 && Objects.equals(this.relayType, feeInfo.relayType)
                 && Objects.equals(this.relayId, feeInfo.relayId)
-                && Objects.equals(this.relayName, feeInfo.relayName);
+                && Objects.equals(this.relayName, feeInfo.relayName)
+                && Objects.equals(this.feeUSD, feeInfo.feeUSD);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-                networkFee, serviceFee, gasPrice, paidByRelay, relayType, relayId, relayName);
+                networkFee,
+                serviceFee,
+                gasPrice,
+                paidByRelay,
+                relayType,
+                relayId,
+                relayName,
+                feeUSD);
     }
 
     @Override
@@ -289,6 +324,7 @@ public class FeeInfo {
         sb.append("    relayType: ").append(toIndentedString(relayType)).append("\n");
         sb.append("    relayId: ").append(toIndentedString(relayId)).append("\n");
         sb.append("    relayName: ").append(toIndentedString(relayName)).append("\n");
+        sb.append("    feeUSD: ").append(toIndentedString(feeUSD)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -416,6 +452,17 @@ public class FeeInfo {
                             suffix,
                             URLEncoder.encode(
                                             String.valueOf(getRelayName()), StandardCharsets.UTF_8)
+                                    .replaceAll("\\+", "%20")));
+        }
+
+        // add `feeUSD` to the URL query string
+        if (getFeeUSD() != null) {
+            joiner.add(
+                    String.format(
+                            "%sfeeUSD%s=%s",
+                            prefix,
+                            suffix,
+                            URLEncoder.encode(String.valueOf(getFeeUSD()), StandardCharsets.UTF_8)
                                     .replaceAll("\\+", "%20")));
         }
 

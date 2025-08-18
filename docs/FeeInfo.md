@@ -15,6 +15,7 @@ Details of the transaction's fee.
 |**relayType** | [**RelayTypeEnum**](#RelayTypeEnum) | Wether the relay is the same tenant (LOCAL) or another tenant (THIRD_PARTY) |  [optional] |
 |**relayId** | **String** | The vault account ID of the relay |  [optional] |
 |**relayName** | **String** | The name of the tenant, only for THIRD_PARTY relays |  [optional] |
+|**feeUSD** | **String** | The USD value of the fee |  [optional] |
 
 
 

@@ -66,4 +66,10 @@ public class FeeInfoTest {
     public void relayNameTest() {
         // TODO: test relayName
     }
+
+    /** Test the property 'feeUSD' */
+    @Test
+    public void feeUSDTest() {
+        // TODO: test feeUSD
+    }
 }
