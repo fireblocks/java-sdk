@@ -8,8 +8,8 @@
     <version>11.2.0</version>
     <url>https://github.com/fireblocks/java-sdk</url>
     <description>The Fireblocks Official SDK is a comprehensive software development kit that enables seamless integration and interaction with the Fireblocks platform. Fireblocks is a cutting-edge blockchain infrastructure platform that provides secure and scalable solutions for managing digital assets and transactions.
-This SDK empowers developers to build robust applications that can interact with the Fireblocks platform&#39;s features, including creating and managing vault accounts, initiating secure transactions, managing assets, and more. It abstracts complex interactions with the Fireblocks API, making it easier for developers to leverage the platform&#39;s capabilities while adhering to best practices in security and efficiency.
-Whether you&#39;re working on a cryptocurrency exchange, wallet application, or any other financial platform involving digital assets, the Fireblocks Official SDK simplifies the integration process and allows you to harness the power of Fireblocks&#39; secure infrastructure. Stay ahead in the world of digital assets with this powerful SDK at your fingertips.&lt;/description&gt;</description>
+This SDK empowers developers to build robust applications that can interact with the Fireblocks platform's features, including creating and managing vault accounts, initiating secure transactions, managing assets, and more. It abstracts complex interactions with the Fireblocks API, making it easier for developers to leverage the platform's capabilities while adhering to best practices in security and efficiency.
+Whether you're working on a cryptocurrency exchange, wallet application, or any other financial platform involving digital assets, the Fireblocks Official SDK simplifies the integration process and allows you to harness the power of Fireblocks' secure infrastructure. Stay ahead in the world of digital assets with this powerful SDK at your fingertips.&lt;/description&gt;</description>
     <scm>
         <connection>scm:git:git@github.com:fireblocks/java-sdk.git</connection>
         <developerConnection>scm:git:git@github.com:fireblocks/java-sdk.git</developerConnection>
@@ -272,7 +272,7 @@ Whether you&#39;re working on a cryptocurrency exchange, wallet application, or 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
-        <jackson-version>2.15.2</jackson-version>
+        <jackson-version>2.18.2</jackson-version>
         <jackson-databind-nullable-version>0.2.6</jackson-databind-nullable-version>
             <jakarta-annotation-version>2.1.1</jakarta-annotation-version>
         <junit-version>4.13.2</junit-version>
