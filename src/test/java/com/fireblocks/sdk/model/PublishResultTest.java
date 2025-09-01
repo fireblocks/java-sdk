@@ -13,39 +13,39 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for PublishResult */
-public class PublishResultTest {
+class PublishResultTest {
     private final PublishResult model = new PublishResult();
 
     /** Model tests for PublishResult */
     @Test
-    public void testPublishResult() {
+    void testPublishResult() {
         // TODO: test PublishResult
     }
 
     /** Test the property 'status' */
     @Test
-    public void statusTest() {
+    void statusTest() {
         // TODO: test status
     }
 
     /** Test the property 'rules' */
     @Test
-    public void rulesTest() {
+    void rulesTest() {
         // TODO: test rules
     }
 
     /** Test the property 'checkResult' */
     @Test
-    public void checkResultTest() {
+    void checkResultTest() {
         // TODO: test checkResult
     }
 
     /** Test the property 'metadata' */
     @Test
-    public void metadataTest() {
+    void metadataTest() {
         // TODO: test metadata
     }
 }

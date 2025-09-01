@@ -13,33 +13,33 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for TravelRulePiiIVMS */
-public class TravelRulePiiIVMSTest {
+class TravelRulePiiIVMSTest {
     private final TravelRulePiiIVMS model = new TravelRulePiiIVMS();
 
     /** Model tests for TravelRulePiiIVMS */
     @Test
-    public void testTravelRulePiiIVMS() {
+    void testTravelRulePiiIVMS() {
         // TODO: test TravelRulePiiIVMS
     }
 
     /** Test the property 'originatorPersons' */
     @Test
-    public void originatorPersonsTest() {
+    void originatorPersonsTest() {
         // TODO: test originatorPersons
     }
 
     /** Test the property 'beneficiaryPersons' */
     @Test
-    public void beneficiaryPersonsTest() {
+    void beneficiaryPersonsTest() {
         // TODO: test beneficiaryPersons
     }
 
     /** Test the property 'accountNumber' */
     @Test
-    public void accountNumberTest() {
+    void accountNumberTest() {
         // TODO: test accountNumber
     }
 }

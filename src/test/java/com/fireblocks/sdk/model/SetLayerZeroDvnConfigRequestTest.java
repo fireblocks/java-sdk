@@ -13,45 +13,45 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for SetLayerZeroDvnConfigRequest */
-public class SetLayerZeroDvnConfigRequestTest {
+class SetLayerZeroDvnConfigRequestTest {
     private final SetLayerZeroDvnConfigRequest model = new SetLayerZeroDvnConfigRequest();
 
     /** Model tests for SetLayerZeroDvnConfigRequest */
     @Test
-    public void testSetLayerZeroDvnConfigRequest() {
+    void testSetLayerZeroDvnConfigRequest() {
         // TODO: test SetLayerZeroDvnConfigRequest
     }
 
     /** Test the property 'vaultAccountId' */
     @Test
-    public void vaultAccountIdTest() {
+    void vaultAccountIdTest() {
         // TODO: test vaultAccountId
     }
 
     /** Test the property 'sourceAdapterTokenLinkId' */
     @Test
-    public void sourceAdapterTokenLinkIdTest() {
+    void sourceAdapterTokenLinkIdTest() {
         // TODO: test sourceAdapterTokenLinkId
     }
 
     /** Test the property 'destinationAdapterTokenLinkId' */
     @Test
-    public void destinationAdapterTokenLinkIdTest() {
+    void destinationAdapterTokenLinkIdTest() {
         // TODO: test destinationAdapterTokenLinkId
     }
 
     /** Test the property 'sendConfig' */
     @Test
-    public void sendConfigTest() {
+    void sendConfigTest() {
         // TODO: test sendConfig
     }
 
     /** Test the property 'receiveConfig' */
     @Test
-    public void receiveConfigTest() {
+    void receiveConfigTest() {
         // TODO: test receiveConfig
     }
 }

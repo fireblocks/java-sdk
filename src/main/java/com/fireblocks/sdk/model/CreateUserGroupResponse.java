@@ -16,8 +16,7 @@ package com.fireblocks.sdk.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -30,23 +29,25 @@ import java.util.StringJoiner;
     CreateUserGroupResponse.JSON_PROPERTY_MEMBER_IDS,
     CreateUserGroupResponse.JSON_PROPERTY_STATUS
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class CreateUserGroupResponse {
     public static final String JSON_PROPERTY_ID = "id";
-    private String id;
+    @jakarta.annotation.Nullable private String id;
 
     public static final String JSON_PROPERTY_NAME = "name";
-    private String name;
+    @jakarta.annotation.Nullable private String name;
 
     public static final String JSON_PROPERTY_MEMBER_IDS = "memberIds";
-    private List<String> memberIds;
+    @jakarta.annotation.Nullable private List<String> memberIds = new ArrayList<>();
 
     public static final String JSON_PROPERTY_STATUS = "status";
-    private String status;
+    @jakarta.annotation.Nullable private String status;
 
     public CreateUserGroupResponse() {}
 
-    public CreateUserGroupResponse id(String id) {
+    public CreateUserGroupResponse id(@jakarta.annotation.Nullable String id) {
         this.id = id;
         return this;
     }
@@ -65,11 +66,11 @@ public class CreateUserGroupResponse {
 
     @JsonProperty(JSON_PROPERTY_ID)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setId(String id) {
+    public void setId(@jakarta.annotation.Nullable String id) {
         this.id = id;
     }
 
-    public CreateUserGroupResponse name(String name) {
+    public CreateUserGroupResponse name(@jakarta.annotation.Nullable String name) {
         this.name = name;
         return this;
     }
@@ -88,11 +89,11 @@ public class CreateUserGroupResponse {
 
     @JsonProperty(JSON_PROPERTY_NAME)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setName(String name) {
+    public void setName(@jakarta.annotation.Nullable String name) {
         this.name = name;
     }
 
-    public CreateUserGroupResponse memberIds(List<String> memberIds) {
+    public CreateUserGroupResponse memberIds(@jakarta.annotation.Nullable List<String> memberIds) {
         this.memberIds = memberIds;
         return this;
     }
@@ -119,11 +120,11 @@ public class CreateUserGroupResponse {
 
     @JsonProperty(JSON_PROPERTY_MEMBER_IDS)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setMemberIds(List<String> memberIds) {
+    public void setMemberIds(@jakarta.annotation.Nullable List<String> memberIds) {
         this.memberIds = memberIds;
     }
 
-    public CreateUserGroupResponse status(String status) {
+    public CreateUserGroupResponse status(@jakarta.annotation.Nullable String status) {
         this.status = status;
         return this;
     }
@@ -142,7 +143,7 @@ public class CreateUserGroupResponse {
 
     @JsonProperty(JSON_PROPERTY_STATUS)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setStatus(String status) {
+    public void setStatus(@jakarta.annotation.Nullable String status) {
         this.status = status;
     }
 
@@ -227,10 +228,7 @@ public class CreateUserGroupResponse {
             joiner.add(
                     String.format(
                             "%sid%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(String.valueOf(getId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getId()))));
         }
 
         // add `name` to the URL query string
@@ -240,8 +238,7 @@ public class CreateUserGroupResponse {
                             "%sname%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getName()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getName()))));
         }
 
         // add `memberIds` to the URL query string
@@ -256,10 +253,8 @@ public class CreateUserGroupResponse {
                                         ? ""
                                         : String.format(
                                                 "%s%d%s", containerPrefix, i, containerSuffix),
-                                URLEncoder.encode(
-                                                String.valueOf(getMemberIds().get(i)),
-                                                StandardCharsets.UTF_8)
-                                        .replaceAll("\\+", "%20")));
+                                ApiClient.urlEncode(
+                                        ApiClient.valueToString(getMemberIds().get(i)))));
             }
         }
 
@@ -270,8 +265,7 @@ public class CreateUserGroupResponse {
                             "%sstatus%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getStatus()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getStatus()))));
         }
 
         return joiner.toString();

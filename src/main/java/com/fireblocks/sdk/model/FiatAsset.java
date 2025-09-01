@@ -16,24 +16,25 @@ package com.fireblocks.sdk.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
 /** FiatAsset */
 @JsonPropertyOrder({FiatAsset.JSON_PROPERTY_ID, FiatAsset.JSON_PROPERTY_BALANCE})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class FiatAsset {
     public static final String JSON_PROPERTY_ID = "id";
-    private String id;
+    @jakarta.annotation.Nullable private String id;
 
     public static final String JSON_PROPERTY_BALANCE = "balance";
-    private String balance;
+    @jakarta.annotation.Nullable private String balance;
 
     public FiatAsset() {}
 
-    public FiatAsset id(String id) {
+    public FiatAsset id(@jakarta.annotation.Nullable String id) {
         this.id = id;
         return this;
     }
@@ -52,11 +53,11 @@ public class FiatAsset {
 
     @JsonProperty(JSON_PROPERTY_ID)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setId(String id) {
+    public void setId(@jakarta.annotation.Nullable String id) {
         this.id = id;
     }
 
-    public FiatAsset balance(String balance) {
+    public FiatAsset balance(@jakarta.annotation.Nullable String balance) {
         this.balance = balance;
         return this;
     }
@@ -75,7 +76,7 @@ public class FiatAsset {
 
     @JsonProperty(JSON_PROPERTY_BALANCE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setBalance(String balance) {
+    public void setBalance(@jakarta.annotation.Nullable String balance) {
         this.balance = balance;
     }
 
@@ -156,10 +157,7 @@ public class FiatAsset {
             joiner.add(
                     String.format(
                             "%sid%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(String.valueOf(getId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getId()))));
         }
 
         // add `balance` to the URL query string
@@ -169,8 +167,7 @@ public class FiatAsset {
                             "%sbalance%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getBalance()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getBalance()))));
         }
 
         return joiner.toString();

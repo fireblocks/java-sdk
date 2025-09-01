@@ -16,21 +16,22 @@ package com.fireblocks.sdk.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
 /** Media attributes */
 @JsonPropertyOrder({AssetMediaAttributes.JSON_PROPERTY_MONOCHROME})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class AssetMediaAttributes {
     public static final String JSON_PROPERTY_MONOCHROME = "monochrome";
-    private Boolean monochrome;
+    @jakarta.annotation.Nullable private Boolean monochrome;
 
     public AssetMediaAttributes() {}
 
-    public AssetMediaAttributes monochrome(Boolean monochrome) {
+    public AssetMediaAttributes monochrome(@jakarta.annotation.Nullable Boolean monochrome) {
         this.monochrome = monochrome;
         return this;
     }
@@ -49,7 +50,7 @@ public class AssetMediaAttributes {
 
     @JsonProperty(JSON_PROPERTY_MONOCHROME)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setMonochrome(Boolean monochrome) {
+    public void setMonochrome(@jakarta.annotation.Nullable Boolean monochrome) {
         this.monochrome = monochrome;
     }
 
@@ -130,9 +131,7 @@ public class AssetMediaAttributes {
                             "%smonochrome%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getMonochrome()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getMonochrome()))));
         }
 
         return joiner.toString();

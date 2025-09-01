@@ -13,27 +13,27 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for BlockInfo */
-public class BlockInfoTest {
+class BlockInfoTest {
     private final BlockInfo model = new BlockInfo();
 
     /** Model tests for BlockInfo */
     @Test
-    public void testBlockInfo() {
+    void testBlockInfo() {
         // TODO: test BlockInfo
     }
 
     /** Test the property 'blockHeight' */
     @Test
-    public void blockHeightTest() {
+    void blockHeightTest() {
         // TODO: test blockHeight
     }
 
     /** Test the property 'blockHash' */
     @Test
-    public void blockHashTest() {
+    void blockHashTest() {
         // TODO: test blockHash
     }
 }

@@ -13,57 +13,57 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for TransactionResponseDestination */
-public class TransactionResponseDestinationTest {
+class TransactionResponseDestinationTest {
     private final TransactionResponseDestination model = new TransactionResponseDestination();
 
     /** Model tests for TransactionResponseDestination */
     @Test
-    public void testTransactionResponseDestination() {
+    void testTransactionResponseDestination() {
         // TODO: test TransactionResponseDestination
     }
 
     /** Test the property 'destinationAddress' */
     @Test
-    public void destinationAddressTest() {
+    void destinationAddressTest() {
         // TODO: test destinationAddress
     }
 
     /** Test the property 'destinationAddressDescription' */
     @Test
-    public void destinationAddressDescriptionTest() {
+    void destinationAddressDescriptionTest() {
         // TODO: test destinationAddressDescription
     }
 
     /** Test the property 'amount' */
     @Test
-    public void amountTest() {
+    void amountTest() {
         // TODO: test amount
     }
 
     /** Test the property 'amountUSD' */
     @Test
-    public void amountUSDTest() {
+    void amountUSDTest() {
         // TODO: test amountUSD
     }
 
     /** Test the property 'amlScreeningResult' */
     @Test
-    public void amlScreeningResultTest() {
+    void amlScreeningResultTest() {
         // TODO: test amlScreeningResult
     }
 
     /** Test the property 'destination' */
     @Test
-    public void destinationTest() {
+    void destinationTest() {
         // TODO: test destination
     }
 
     /** Test the property 'authorizationInfo' */
     @Test
-    public void authorizationInfoTest() {
+    void authorizationInfoTest() {
         // TODO: test authorizationInfo
     }
 }

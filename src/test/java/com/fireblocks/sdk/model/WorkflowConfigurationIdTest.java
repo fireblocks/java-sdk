@@ -13,21 +13,21 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for WorkflowConfigurationId */
-public class WorkflowConfigurationIdTest {
+class WorkflowConfigurationIdTest {
     private final WorkflowConfigurationId model = new WorkflowConfigurationId();
 
     /** Model tests for WorkflowConfigurationId */
     @Test
-    public void testWorkflowConfigurationId() {
+    void testWorkflowConfigurationId() {
         // TODO: test WorkflowConfigurationId
     }
 
     /** Test the property 'configId' */
     @Test
-    public void configIdTest() {
+    void configIdTest() {
         // TODO: test configId
     }
 }

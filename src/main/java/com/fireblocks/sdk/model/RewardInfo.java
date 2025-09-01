@@ -16,8 +16,7 @@ package com.fireblocks.sdk.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -27,17 +26,19 @@ import java.util.StringJoiner;
  * receive only the Fireblocks’ side of the transaction.
  */
 @JsonPropertyOrder({RewardInfo.JSON_PROPERTY_SRC_REWARDS, RewardInfo.JSON_PROPERTY_DEST_REWARDS})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class RewardInfo {
     public static final String JSON_PROPERTY_SRC_REWARDS = "srcRewards";
-    private String srcRewards;
+    @jakarta.annotation.Nullable private String srcRewards;
 
     public static final String JSON_PROPERTY_DEST_REWARDS = "destRewards";
-    private String destRewards;
+    @jakarta.annotation.Nullable private String destRewards;
 
     public RewardInfo() {}
 
-    public RewardInfo srcRewards(String srcRewards) {
+    public RewardInfo srcRewards(@jakarta.annotation.Nullable String srcRewards) {
         this.srcRewards = srcRewards;
         return this;
     }
@@ -56,11 +57,11 @@ public class RewardInfo {
 
     @JsonProperty(JSON_PROPERTY_SRC_REWARDS)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setSrcRewards(String srcRewards) {
+    public void setSrcRewards(@jakarta.annotation.Nullable String srcRewards) {
         this.srcRewards = srcRewards;
     }
 
-    public RewardInfo destRewards(String destRewards) {
+    public RewardInfo destRewards(@jakarta.annotation.Nullable String destRewards) {
         this.destRewards = destRewards;
         return this;
     }
@@ -79,7 +80,7 @@ public class RewardInfo {
 
     @JsonProperty(JSON_PROPERTY_DEST_REWARDS)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setDestRewards(String destRewards) {
+    public void setDestRewards(@jakarta.annotation.Nullable String destRewards) {
         this.destRewards = destRewards;
     }
 
@@ -162,9 +163,7 @@ public class RewardInfo {
                             "%ssrcRewards%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getSrcRewards()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getSrcRewards()))));
         }
 
         // add `destRewards` to the URL query string
@@ -174,10 +173,7 @@ public class RewardInfo {
                             "%sdestRewards%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getDestRewards()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getDestRewards()))));
         }
 
         return joiner.toString();

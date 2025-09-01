@@ -13,11 +13,11 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -32,35 +32,55 @@ import java.util.StringJoiner;
     Asset.JSON_PROPERTY_ONCHAIN,
     Asset.JSON_PROPERTY_METADATA
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class Asset {
     public static final String JSON_PROPERTY_ID = "id";
-    private String id;
+    @jakarta.annotation.Nonnull private String id;
 
     public static final String JSON_PROPERTY_LEGACY_ID = "legacyId";
-    private String legacyId;
+    @jakarta.annotation.Nonnull private String legacyId;
 
     public static final String JSON_PROPERTY_BLOCKCHAIN_ID = "blockchainId";
-    private String blockchainId;
+    @jakarta.annotation.Nullable private String blockchainId;
 
     public static final String JSON_PROPERTY_DISPLAY_NAME = "displayName";
-    private String displayName;
+    @jakarta.annotation.Nonnull private String displayName;
 
     public static final String JSON_PROPERTY_DISPLAY_SYMBOL = "displaySymbol";
-    private String displaySymbol;
+    @jakarta.annotation.Nonnull private String displaySymbol;
 
     public static final String JSON_PROPERTY_ASSET_CLASS = "assetClass";
-    private AssetClass assetClass;
+    @jakarta.annotation.Nonnull private AssetClass assetClass;
 
     public static final String JSON_PROPERTY_ONCHAIN = "onchain";
-    private AssetDetailsOnchain onchain;
+    @jakarta.annotation.Nullable private AssetDetailsOnchain onchain;
 
     public static final String JSON_PROPERTY_METADATA = "metadata";
-    private AssetDetailsMetadata metadata;
+    @jakarta.annotation.Nonnull private AssetDetailsMetadata metadata;
 
     public Asset() {}
 
-    public Asset id(String id) {
+    @JsonCreator
+    public Asset(
+            @JsonProperty(value = JSON_PROPERTY_ID, required = true) String id,
+            @JsonProperty(value = JSON_PROPERTY_LEGACY_ID, required = true) String legacyId,
+            @JsonProperty(value = JSON_PROPERTY_DISPLAY_NAME, required = true) String displayName,
+            @JsonProperty(value = JSON_PROPERTY_DISPLAY_SYMBOL, required = true)
+                    String displaySymbol,
+            @JsonProperty(value = JSON_PROPERTY_ASSET_CLASS, required = true) AssetClass assetClass,
+            @JsonProperty(value = JSON_PROPERTY_METADATA, required = true)
+                    AssetDetailsMetadata metadata) {
+        this.id = id;
+        this.legacyId = legacyId;
+        this.displayName = displayName;
+        this.displaySymbol = displaySymbol;
+        this.assetClass = assetClass;
+        this.metadata = metadata;
+    }
+
+    public Asset id(@jakarta.annotation.Nonnull String id) {
         this.id = id;
         return this;
     }
@@ -79,11 +99,11 @@ public class Asset {
 
     @JsonProperty(JSON_PROPERTY_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setId(String id) {
+    public void setId(@jakarta.annotation.Nonnull String id) {
         this.id = id;
     }
 
-    public Asset legacyId(String legacyId) {
+    public Asset legacyId(@jakarta.annotation.Nonnull String legacyId) {
         this.legacyId = legacyId;
         return this;
     }
@@ -102,11 +122,11 @@ public class Asset {
 
     @JsonProperty(JSON_PROPERTY_LEGACY_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setLegacyId(String legacyId) {
+    public void setLegacyId(@jakarta.annotation.Nonnull String legacyId) {
         this.legacyId = legacyId;
     }
 
-    public Asset blockchainId(String blockchainId) {
+    public Asset blockchainId(@jakarta.annotation.Nullable String blockchainId) {
         this.blockchainId = blockchainId;
         return this;
     }
@@ -125,11 +145,11 @@ public class Asset {
 
     @JsonProperty(JSON_PROPERTY_BLOCKCHAIN_ID)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setBlockchainId(String blockchainId) {
+    public void setBlockchainId(@jakarta.annotation.Nullable String blockchainId) {
         this.blockchainId = blockchainId;
     }
 
-    public Asset displayName(String displayName) {
+    public Asset displayName(@jakarta.annotation.Nonnull String displayName) {
         this.displayName = displayName;
         return this;
     }
@@ -148,11 +168,11 @@ public class Asset {
 
     @JsonProperty(JSON_PROPERTY_DISPLAY_NAME)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setDisplayName(String displayName) {
+    public void setDisplayName(@jakarta.annotation.Nonnull String displayName) {
         this.displayName = displayName;
     }
 
-    public Asset displaySymbol(String displaySymbol) {
+    public Asset displaySymbol(@jakarta.annotation.Nonnull String displaySymbol) {
         this.displaySymbol = displaySymbol;
         return this;
     }
@@ -171,11 +191,11 @@ public class Asset {
 
     @JsonProperty(JSON_PROPERTY_DISPLAY_SYMBOL)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setDisplaySymbol(String displaySymbol) {
+    public void setDisplaySymbol(@jakarta.annotation.Nonnull String displaySymbol) {
         this.displaySymbol = displaySymbol;
     }
 
-    public Asset assetClass(AssetClass assetClass) {
+    public Asset assetClass(@jakarta.annotation.Nonnull AssetClass assetClass) {
         this.assetClass = assetClass;
         return this;
     }
@@ -194,11 +214,11 @@ public class Asset {
 
     @JsonProperty(JSON_PROPERTY_ASSET_CLASS)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setAssetClass(AssetClass assetClass) {
+    public void setAssetClass(@jakarta.annotation.Nonnull AssetClass assetClass) {
         this.assetClass = assetClass;
     }
 
-    public Asset onchain(AssetDetailsOnchain onchain) {
+    public Asset onchain(@jakarta.annotation.Nullable AssetDetailsOnchain onchain) {
         this.onchain = onchain;
         return this;
     }
@@ -217,11 +237,11 @@ public class Asset {
 
     @JsonProperty(JSON_PROPERTY_ONCHAIN)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setOnchain(AssetDetailsOnchain onchain) {
+    public void setOnchain(@jakarta.annotation.Nullable AssetDetailsOnchain onchain) {
         this.onchain = onchain;
     }
 
-    public Asset metadata(AssetDetailsMetadata metadata) {
+    public Asset metadata(@jakarta.annotation.Nonnull AssetDetailsMetadata metadata) {
         this.metadata = metadata;
         return this;
     }
@@ -240,7 +260,7 @@ public class Asset {
 
     @JsonProperty(JSON_PROPERTY_METADATA)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setMetadata(AssetDetailsMetadata metadata) {
+    public void setMetadata(@jakarta.annotation.Nonnull AssetDetailsMetadata metadata) {
         this.metadata = metadata;
     }
 
@@ -341,10 +361,7 @@ public class Asset {
             joiner.add(
                     String.format(
                             "%sid%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(String.valueOf(getId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getId()))));
         }
 
         // add `legacyId` to the URL query string
@@ -354,8 +371,7 @@ public class Asset {
                             "%slegacyId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getLegacyId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getLegacyId()))));
         }
 
         // add `blockchainId` to the URL query string
@@ -365,10 +381,7 @@ public class Asset {
                             "%sblockchainId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getBlockchainId()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getBlockchainId()))));
         }
 
         // add `displayName` to the URL query string
@@ -378,10 +391,7 @@ public class Asset {
                             "%sdisplayName%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getDisplayName()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getDisplayName()))));
         }
 
         // add `displaySymbol` to the URL query string
@@ -391,10 +401,7 @@ public class Asset {
                             "%sdisplaySymbol%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getDisplaySymbol()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getDisplaySymbol()))));
         }
 
         // add `assetClass` to the URL query string
@@ -404,9 +411,7 @@ public class Asset {
                             "%sassetClass%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getAssetClass()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getAssetClass()))));
         }
 
         // add `onchain` to the URL query string

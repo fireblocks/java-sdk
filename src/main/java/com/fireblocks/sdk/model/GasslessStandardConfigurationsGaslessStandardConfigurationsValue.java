@@ -16,8 +16,7 @@ package com.fireblocks.sdk.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,18 +30,20 @@ import java.util.StringJoiner;
     GasslessStandardConfigurationsGaslessStandardConfigurationsValue
             .JSON_PROPERTY_FORWARDER_ADDRESSES
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class GasslessStandardConfigurationsGaslessStandardConfigurationsValue {
     public static final String JSON_PROPERTY_LAST_ON_CHAIN_CHECK = "lastOnChainCheck";
-    private OffsetDateTime lastOnChainCheck;
+    @jakarta.annotation.Nullable private OffsetDateTime lastOnChainCheck;
 
     public static final String JSON_PROPERTY_FORWARDER_ADDRESSES = "forwarderAddresses";
-    private List<String> forwarderAddresses;
+    @jakarta.annotation.Nullable private List<String> forwarderAddresses = new ArrayList<>();
 
     public GasslessStandardConfigurationsGaslessStandardConfigurationsValue() {}
 
     public GasslessStandardConfigurationsGaslessStandardConfigurationsValue lastOnChainCheck(
-            OffsetDateTime lastOnChainCheck) {
+            @jakarta.annotation.Nullable OffsetDateTime lastOnChainCheck) {
         this.lastOnChainCheck = lastOnChainCheck;
         return this;
     }
@@ -61,12 +62,12 @@ public class GasslessStandardConfigurationsGaslessStandardConfigurationsValue {
 
     @JsonProperty(JSON_PROPERTY_LAST_ON_CHAIN_CHECK)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setLastOnChainCheck(OffsetDateTime lastOnChainCheck) {
+    public void setLastOnChainCheck(@jakarta.annotation.Nullable OffsetDateTime lastOnChainCheck) {
         this.lastOnChainCheck = lastOnChainCheck;
     }
 
     public GasslessStandardConfigurationsGaslessStandardConfigurationsValue forwarderAddresses(
-            List<String> forwarderAddresses) {
+            @jakarta.annotation.Nullable List<String> forwarderAddresses) {
         this.forwarderAddresses = forwarderAddresses;
         return this;
     }
@@ -94,7 +95,8 @@ public class GasslessStandardConfigurationsGaslessStandardConfigurationsValue {
 
     @JsonProperty(JSON_PROPERTY_FORWARDER_ADDRESSES)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setForwarderAddresses(List<String> forwarderAddresses) {
+    public void setForwarderAddresses(
+            @jakarta.annotation.Nullable List<String> forwarderAddresses) {
         this.forwarderAddresses = forwarderAddresses;
     }
 
@@ -190,10 +192,7 @@ public class GasslessStandardConfigurationsGaslessStandardConfigurationsValue {
                             "%slastOnChainCheck%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getLastOnChainCheck()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getLastOnChainCheck()))));
         }
 
         // add `forwarderAddresses` to the URL query string
@@ -208,10 +207,8 @@ public class GasslessStandardConfigurationsGaslessStandardConfigurationsValue {
                                         ? ""
                                         : String.format(
                                                 "%s%d%s", containerPrefix, i, containerSuffix),
-                                URLEncoder.encode(
-                                                String.valueOf(getForwarderAddresses().get(i)),
-                                                StandardCharsets.UTF_8)
-                                        .replaceAll("\\+", "%20")));
+                                ApiClient.urlEncode(
+                                        ApiClient.valueToString(getForwarderAddresses().get(i)))));
             }
         }
 

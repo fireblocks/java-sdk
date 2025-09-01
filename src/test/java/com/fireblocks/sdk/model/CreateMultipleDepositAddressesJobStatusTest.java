@@ -13,34 +13,34 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for CreateMultipleDepositAddressesJobStatus */
-public class CreateMultipleDepositAddressesJobStatusTest {
+class CreateMultipleDepositAddressesJobStatusTest {
     private final CreateMultipleDepositAddressesJobStatus model =
             new CreateMultipleDepositAddressesJobStatus();
 
     /** Model tests for CreateMultipleDepositAddressesJobStatus */
     @Test
-    public void testCreateMultipleDepositAddressesJobStatus() {
+    void testCreateMultipleDepositAddressesJobStatus() {
         // TODO: test CreateMultipleDepositAddressesJobStatus
     }
 
     /** Test the property 'status' */
     @Test
-    public void statusTest() {
+    void statusTest() {
         // TODO: test status
     }
 
     /** Test the property 'addresses' */
     @Test
-    public void addressesTest() {
+    void addressesTest() {
         // TODO: test addresses
     }
 
     /** Test the property 'errorMessage' */
     @Test
-    public void errorMessageTest() {
+    void errorMessageTest() {
         // TODO: test errorMessage
     }
 }

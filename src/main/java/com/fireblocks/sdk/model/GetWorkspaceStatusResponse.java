@@ -16,21 +16,22 @@ package com.fireblocks.sdk.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
 /** GetWorkspaceStatusResponse */
 @JsonPropertyOrder({GetWorkspaceStatusResponse.JSON_PROPERTY_STATUS})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class GetWorkspaceStatusResponse {
     public static final String JSON_PROPERTY_STATUS = "status";
-    private String status;
+    @jakarta.annotation.Nullable private String status;
 
     public GetWorkspaceStatusResponse() {}
 
-    public GetWorkspaceStatusResponse status(String status) {
+    public GetWorkspaceStatusResponse status(@jakarta.annotation.Nullable String status) {
         this.status = status;
         return this;
     }
@@ -49,7 +50,7 @@ public class GetWorkspaceStatusResponse {
 
     @JsonProperty(JSON_PROPERTY_STATUS)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setStatus(String status) {
+    public void setStatus(@jakarta.annotation.Nullable String status) {
         this.status = status;
     }
 
@@ -130,8 +131,7 @@ public class GetWorkspaceStatusResponse {
                             "%sstatus%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getStatus()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getStatus()))));
         }
 
         return joiner.toString();

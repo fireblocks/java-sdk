@@ -13,39 +13,39 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for DisbursementInstruction */
-public class DisbursementInstructionTest {
+class DisbursementInstructionTest {
     private final DisbursementInstruction model = new DisbursementInstruction();
 
     /** Model tests for DisbursementInstruction */
     @Test
-    public void testDisbursementInstruction() {
+    void testDisbursementInstruction() {
         // TODO: test DisbursementInstruction
     }
 
     /** Test the property 'payeeAccount' */
     @Test
-    public void payeeAccountTest() {
+    void payeeAccountTest() {
         // TODO: test payeeAccount
     }
 
     /** Test the property 'assetId' */
     @Test
-    public void assetIdTest() {
+    void assetIdTest() {
         // TODO: test assetId
     }
 
     /** Test the property 'amount' */
     @Test
-    public void amountTest() {
+    void amountTest() {
         // TODO: test amount
     }
 
     /** Test the property 'percentage' */
     @Test
-    public void percentageTest() {
+    void percentageTest() {
         // TODO: test percentage
     }
 }

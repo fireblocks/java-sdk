@@ -13,24 +13,32 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
 /** DepositFundsFromLinkedDDAResponse */
 @JsonPropertyOrder({DepositFundsFromLinkedDDAResponse.JSON_PROPERTY_SUCCESS})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class DepositFundsFromLinkedDDAResponse {
     public static final String JSON_PROPERTY_SUCCESS = "success";
-    private Boolean success;
+    @jakarta.annotation.Nonnull private Boolean success;
 
     public DepositFundsFromLinkedDDAResponse() {}
 
-    public DepositFundsFromLinkedDDAResponse success(Boolean success) {
+    @JsonCreator
+    public DepositFundsFromLinkedDDAResponse(
+            @JsonProperty(value = JSON_PROPERTY_SUCCESS, required = true) Boolean success) {
+        this.success = success;
+    }
+
+    public DepositFundsFromLinkedDDAResponse success(@jakarta.annotation.Nonnull Boolean success) {
         this.success = success;
         return this;
     }
@@ -49,7 +57,7 @@ public class DepositFundsFromLinkedDDAResponse {
 
     @JsonProperty(JSON_PROPERTY_SUCCESS)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setSuccess(Boolean success) {
+    public void setSuccess(@jakarta.annotation.Nonnull Boolean success) {
         this.success = success;
     }
 
@@ -131,8 +139,7 @@ public class DepositFundsFromLinkedDDAResponse {
                             "%ssuccess%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getSuccess()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getSuccess()))));
         }
 
         return joiner.toString();

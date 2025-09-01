@@ -13,12 +13,12 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fireblocks.sdk.ApiClient;
 import java.math.BigDecimal;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -29,23 +29,39 @@ import java.util.StringJoiner;
     ConversionOperationPreviewOutput.JSON_PROPERTY_CONVERSION_RATE,
     ConversionOperationPreviewOutput.JSON_PROPERTY_TIME_SECONDS
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class ConversionOperationPreviewOutput {
     public static final String JSON_PROPERTY_AMOUNT = "amount";
-    private AssetAmount amount;
+    @jakarta.annotation.Nonnull private AssetAmount amount;
 
     public static final String JSON_PROPERTY_FEE = "fee";
-    private AssetAmount fee;
+    @jakarta.annotation.Nonnull private AssetAmount fee;
 
     public static final String JSON_PROPERTY_CONVERSION_RATE = "conversionRate";
-    private String conversionRate;
+    @jakarta.annotation.Nonnull private String conversionRate;
 
     public static final String JSON_PROPERTY_TIME_SECONDS = "timeSeconds";
-    private BigDecimal timeSeconds;
+    @jakarta.annotation.Nonnull private BigDecimal timeSeconds;
 
     public ConversionOperationPreviewOutput() {}
 
-    public ConversionOperationPreviewOutput amount(AssetAmount amount) {
+    @JsonCreator
+    public ConversionOperationPreviewOutput(
+            @JsonProperty(value = JSON_PROPERTY_AMOUNT, required = true) AssetAmount amount,
+            @JsonProperty(value = JSON_PROPERTY_FEE, required = true) AssetAmount fee,
+            @JsonProperty(value = JSON_PROPERTY_CONVERSION_RATE, required = true)
+                    String conversionRate,
+            @JsonProperty(value = JSON_PROPERTY_TIME_SECONDS, required = true)
+                    BigDecimal timeSeconds) {
+        this.amount = amount;
+        this.fee = fee;
+        this.conversionRate = conversionRate;
+        this.timeSeconds = timeSeconds;
+    }
+
+    public ConversionOperationPreviewOutput amount(@jakarta.annotation.Nonnull AssetAmount amount) {
         this.amount = amount;
         return this;
     }
@@ -64,11 +80,11 @@ public class ConversionOperationPreviewOutput {
 
     @JsonProperty(JSON_PROPERTY_AMOUNT)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setAmount(AssetAmount amount) {
+    public void setAmount(@jakarta.annotation.Nonnull AssetAmount amount) {
         this.amount = amount;
     }
 
-    public ConversionOperationPreviewOutput fee(AssetAmount fee) {
+    public ConversionOperationPreviewOutput fee(@jakarta.annotation.Nonnull AssetAmount fee) {
         this.fee = fee;
         return this;
     }
@@ -87,11 +103,12 @@ public class ConversionOperationPreviewOutput {
 
     @JsonProperty(JSON_PROPERTY_FEE)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setFee(AssetAmount fee) {
+    public void setFee(@jakarta.annotation.Nonnull AssetAmount fee) {
         this.fee = fee;
     }
 
-    public ConversionOperationPreviewOutput conversionRate(String conversionRate) {
+    public ConversionOperationPreviewOutput conversionRate(
+            @jakarta.annotation.Nonnull String conversionRate) {
         this.conversionRate = conversionRate;
         return this;
     }
@@ -110,11 +127,12 @@ public class ConversionOperationPreviewOutput {
 
     @JsonProperty(JSON_PROPERTY_CONVERSION_RATE)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setConversionRate(String conversionRate) {
+    public void setConversionRate(@jakarta.annotation.Nonnull String conversionRate) {
         this.conversionRate = conversionRate;
     }
 
-    public ConversionOperationPreviewOutput timeSeconds(BigDecimal timeSeconds) {
+    public ConversionOperationPreviewOutput timeSeconds(
+            @jakarta.annotation.Nonnull BigDecimal timeSeconds) {
         this.timeSeconds = timeSeconds;
         return this;
     }
@@ -133,7 +151,7 @@ public class ConversionOperationPreviewOutput {
 
     @JsonProperty(JSON_PROPERTY_TIME_SECONDS)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setTimeSeconds(BigDecimal timeSeconds) {
+    public void setTimeSeconds(@jakarta.annotation.Nonnull BigDecimal timeSeconds) {
         this.timeSeconds = timeSeconds;
     }
 
@@ -232,10 +250,7 @@ public class ConversionOperationPreviewOutput {
                             "%sconversionRate%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getConversionRate()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getConversionRate()))));
         }
 
         // add `timeSeconds` to the URL query string
@@ -245,10 +260,7 @@ public class ConversionOperationPreviewOutput {
                             "%stimeSeconds%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getTimeSeconds()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getTimeSeconds()))));
         }
 
         return joiner.toString();

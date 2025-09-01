@@ -13,111 +13,111 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for EmbeddedWalletAddressDetails */
-public class EmbeddedWalletAddressDetailsTest {
+class EmbeddedWalletAddressDetailsTest {
     private final EmbeddedWalletAddressDetails model = new EmbeddedWalletAddressDetails();
 
     /** Model tests for EmbeddedWalletAddressDetails */
     @Test
-    public void testEmbeddedWalletAddressDetails() {
+    void testEmbeddedWalletAddressDetails() {
         // TODO: test EmbeddedWalletAddressDetails
     }
 
     /** Test the property 'accountName' */
     @Test
-    public void accountNameTest() {
+    void accountNameTest() {
         // TODO: test accountName
     }
 
     /** Test the property 'accountId' */
     @Test
-    public void accountIdTest() {
+    void accountIdTest() {
         // TODO: test accountId
     }
 
     /** Test the property 'asset' */
     @Test
-    public void assetTest() {
+    void assetTest() {
         // TODO: test asset
     }
 
     /** Test the property 'address' */
     @Test
-    public void addressTest() {
+    void addressTest() {
         // TODO: test address
     }
 
     /** Test the property 'addressType' */
     @Test
-    public void addressTypeTest() {
+    void addressTypeTest() {
         // TODO: test addressType
     }
 
     /** Test the property 'addressDescription' */
     @Test
-    public void addressDescriptionTest() {
+    void addressDescriptionTest() {
         // TODO: test addressDescription
     }
 
     /** Test the property 'tag' */
     @Test
-    public void tagTest() {
+    void tagTest() {
         // TODO: test tag
     }
 
     /** Test the property 'addressIndex' */
     @Test
-    public void addressIndexTest() {
+    void addressIndexTest() {
         // TODO: test addressIndex
     }
 
     /** Test the property 'change' */
     @Test
-    public void changeTest() {
+    void changeTest() {
         // TODO: test change
     }
 
     /** Test the property 'coinType' */
     @Test
-    public void coinTypeTest() {
+    void coinTypeTest() {
         // TODO: test coinType
     }
 
     /** Test the property 'customerRefId' */
     @Test
-    public void customerRefIdTest() {
+    void customerRefIdTest() {
         // TODO: test customerRefId
     }
 
     /** Test the property 'addressFormat' */
     @Test
-    public void addressFormatTest() {
+    void addressFormatTest() {
         // TODO: test addressFormat
     }
 
     /** Test the property 'legacyAddress' */
     @Test
-    public void legacyAddressTest() {
+    void legacyAddressTest() {
         // TODO: test legacyAddress
     }
 
     /** Test the property 'paymentAddress' */
     @Test
-    public void paymentAddressTest() {
+    void paymentAddressTest() {
         // TODO: test paymentAddress
     }
 
     /** Test the property 'userDefined' */
     @Test
-    public void userDefinedTest() {
+    void userDefinedTest() {
         // TODO: test userDefined
     }
 
     /** Test the property 'state' */
     @Test
-    public void stateTest() {
+    void stateTest() {
         // TODO: test state
     }
 }

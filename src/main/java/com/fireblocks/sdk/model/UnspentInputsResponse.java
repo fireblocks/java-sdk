@@ -16,9 +16,8 @@ package com.fireblocks.sdk.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fireblocks.sdk.ApiClient;
 import java.math.BigDecimal;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -30,26 +29,28 @@ import java.util.StringJoiner;
     UnspentInputsResponse.JSON_PROPERTY_CONFIRMATIONS,
     UnspentInputsResponse.JSON_PROPERTY_STATUS
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class UnspentInputsResponse {
     public static final String JSON_PROPERTY_INPUT = "input";
-    private UnspentInput input;
+    @jakarta.annotation.Nullable private UnspentInput input;
 
     public static final String JSON_PROPERTY_ADDRESS = "address";
-    private String address;
+    @jakarta.annotation.Nullable private String address;
 
     public static final String JSON_PROPERTY_AMOUNT = "amount";
-    private String amount;
+    @jakarta.annotation.Nullable private String amount;
 
     public static final String JSON_PROPERTY_CONFIRMATIONS = "confirmations";
-    private BigDecimal confirmations;
+    @jakarta.annotation.Nullable private BigDecimal confirmations;
 
     public static final String JSON_PROPERTY_STATUS = "status";
-    private String status;
+    @jakarta.annotation.Nullable private String status;
 
     public UnspentInputsResponse() {}
 
-    public UnspentInputsResponse input(UnspentInput input) {
+    public UnspentInputsResponse input(@jakarta.annotation.Nullable UnspentInput input) {
         this.input = input;
         return this;
     }
@@ -68,11 +69,11 @@ public class UnspentInputsResponse {
 
     @JsonProperty(JSON_PROPERTY_INPUT)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setInput(UnspentInput input) {
+    public void setInput(@jakarta.annotation.Nullable UnspentInput input) {
         this.input = input;
     }
 
-    public UnspentInputsResponse address(String address) {
+    public UnspentInputsResponse address(@jakarta.annotation.Nullable String address) {
         this.address = address;
         return this;
     }
@@ -91,11 +92,11 @@ public class UnspentInputsResponse {
 
     @JsonProperty(JSON_PROPERTY_ADDRESS)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAddress(String address) {
+    public void setAddress(@jakarta.annotation.Nullable String address) {
         this.address = address;
     }
 
-    public UnspentInputsResponse amount(String amount) {
+    public UnspentInputsResponse amount(@jakarta.annotation.Nullable String amount) {
         this.amount = amount;
         return this;
     }
@@ -114,11 +115,12 @@ public class UnspentInputsResponse {
 
     @JsonProperty(JSON_PROPERTY_AMOUNT)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAmount(String amount) {
+    public void setAmount(@jakarta.annotation.Nullable String amount) {
         this.amount = amount;
     }
 
-    public UnspentInputsResponse confirmations(BigDecimal confirmations) {
+    public UnspentInputsResponse confirmations(
+            @jakarta.annotation.Nullable BigDecimal confirmations) {
         this.confirmations = confirmations;
         return this;
     }
@@ -137,11 +139,11 @@ public class UnspentInputsResponse {
 
     @JsonProperty(JSON_PROPERTY_CONFIRMATIONS)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setConfirmations(BigDecimal confirmations) {
+    public void setConfirmations(@jakarta.annotation.Nullable BigDecimal confirmations) {
         this.confirmations = confirmations;
     }
 
-    public UnspentInputsResponse status(String status) {
+    public UnspentInputsResponse status(@jakarta.annotation.Nullable String status) {
         this.status = status;
         return this;
     }
@@ -160,7 +162,7 @@ public class UnspentInputsResponse {
 
     @JsonProperty(JSON_PROPERTY_STATUS)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setStatus(String status) {
+    public void setStatus(@jakarta.annotation.Nullable String status) {
         this.status = status;
     }
 
@@ -254,8 +256,7 @@ public class UnspentInputsResponse {
                             "%saddress%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getAddress()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getAddress()))));
         }
 
         // add `amount` to the URL query string
@@ -265,8 +266,7 @@ public class UnspentInputsResponse {
                             "%samount%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getAmount()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getAmount()))));
         }
 
         // add `confirmations` to the URL query string
@@ -276,10 +276,7 @@ public class UnspentInputsResponse {
                             "%sconfirmations%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getConfirmations()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getConfirmations()))));
         }
 
         // add `status` to the URL query string
@@ -289,8 +286,7 @@ public class UnspentInputsResponse {
                             "%sstatus%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getStatus()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getStatus()))));
         }
 
         return joiner.toString();

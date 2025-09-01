@@ -16,8 +16,7 @@ package com.fireblocks.sdk.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -27,20 +26,22 @@ import java.util.StringJoiner;
     CreateAssetsBulkRequest.JSON_PROPERTY_VAULT_ACCOUNT_ID_FROM,
     CreateAssetsBulkRequest.JSON_PROPERTY_VAULT_ACCOUNT_ID_TO
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class CreateAssetsBulkRequest {
     public static final String JSON_PROPERTY_ASSET_ID = "assetId";
-    private String assetId;
+    @jakarta.annotation.Nullable private String assetId;
 
     public static final String JSON_PROPERTY_VAULT_ACCOUNT_ID_FROM = "vaultAccountIdFrom";
-    private String vaultAccountIdFrom;
+    @jakarta.annotation.Nullable private String vaultAccountIdFrom;
 
     public static final String JSON_PROPERTY_VAULT_ACCOUNT_ID_TO = "vaultAccountIdTo";
-    private String vaultAccountIdTo;
+    @jakarta.annotation.Nullable private String vaultAccountIdTo;
 
     public CreateAssetsBulkRequest() {}
 
-    public CreateAssetsBulkRequest assetId(String assetId) {
+    public CreateAssetsBulkRequest assetId(@jakarta.annotation.Nullable String assetId) {
         this.assetId = assetId;
         return this;
     }
@@ -59,11 +60,12 @@ public class CreateAssetsBulkRequest {
 
     @JsonProperty(JSON_PROPERTY_ASSET_ID)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAssetId(String assetId) {
+    public void setAssetId(@jakarta.annotation.Nullable String assetId) {
         this.assetId = assetId;
     }
 
-    public CreateAssetsBulkRequest vaultAccountIdFrom(String vaultAccountIdFrom) {
+    public CreateAssetsBulkRequest vaultAccountIdFrom(
+            @jakarta.annotation.Nullable String vaultAccountIdFrom) {
         this.vaultAccountIdFrom = vaultAccountIdFrom;
         return this;
     }
@@ -82,11 +84,12 @@ public class CreateAssetsBulkRequest {
 
     @JsonProperty(JSON_PROPERTY_VAULT_ACCOUNT_ID_FROM)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setVaultAccountIdFrom(String vaultAccountIdFrom) {
+    public void setVaultAccountIdFrom(@jakarta.annotation.Nullable String vaultAccountIdFrom) {
         this.vaultAccountIdFrom = vaultAccountIdFrom;
     }
 
-    public CreateAssetsBulkRequest vaultAccountIdTo(String vaultAccountIdTo) {
+    public CreateAssetsBulkRequest vaultAccountIdTo(
+            @jakarta.annotation.Nullable String vaultAccountIdTo) {
         this.vaultAccountIdTo = vaultAccountIdTo;
         return this;
     }
@@ -105,7 +108,7 @@ public class CreateAssetsBulkRequest {
 
     @JsonProperty(JSON_PROPERTY_VAULT_ACCOUNT_ID_TO)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setVaultAccountIdTo(String vaultAccountIdTo) {
+    public void setVaultAccountIdTo(@jakarta.annotation.Nullable String vaultAccountIdTo) {
         this.vaultAccountIdTo = vaultAccountIdTo;
     }
 
@@ -193,8 +196,7 @@ public class CreateAssetsBulkRequest {
                             "%sassetId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getAssetId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getAssetId()))));
         }
 
         // add `vaultAccountIdFrom` to the URL query string
@@ -204,10 +206,7 @@ public class CreateAssetsBulkRequest {
                             "%svaultAccountIdFrom%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getVaultAccountIdFrom()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getVaultAccountIdFrom()))));
         }
 
         // add `vaultAccountIdTo` to the URL query string
@@ -217,10 +216,7 @@ public class CreateAssetsBulkRequest {
                             "%svaultAccountIdTo%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getVaultAccountIdTo()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getVaultAccountIdTo()))));
         }
 
         return joiner.toString();

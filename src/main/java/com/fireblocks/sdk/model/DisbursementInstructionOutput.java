@@ -13,6 +13,7 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -25,20 +26,33 @@ import java.util.StringJoiner;
     DisbursementInstructionOutput.JSON_PROPERTY_FEE,
     DisbursementInstructionOutput.JSON_PROPERTY_PAYEE_ACCOUNT
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class DisbursementInstructionOutput {
     public static final String JSON_PROPERTY_AMOUNT = "amount";
-    private AssetAmount amount;
+    @jakarta.annotation.Nonnull private AssetAmount amount;
 
     public static final String JSON_PROPERTY_FEE = "fee";
-    private AssetAmount fee;
+    @jakarta.annotation.Nonnull private AssetAmount fee;
 
     public static final String JSON_PROPERTY_PAYEE_ACCOUNT = "payeeAccount";
-    private Destination payeeAccount;
+    @jakarta.annotation.Nonnull private Destination payeeAccount;
 
     public DisbursementInstructionOutput() {}
 
-    public DisbursementInstructionOutput amount(AssetAmount amount) {
+    @JsonCreator
+    public DisbursementInstructionOutput(
+            @JsonProperty(value = JSON_PROPERTY_AMOUNT, required = true) AssetAmount amount,
+            @JsonProperty(value = JSON_PROPERTY_FEE, required = true) AssetAmount fee,
+            @JsonProperty(value = JSON_PROPERTY_PAYEE_ACCOUNT, required = true)
+                    Destination payeeAccount) {
+        this.amount = amount;
+        this.fee = fee;
+        this.payeeAccount = payeeAccount;
+    }
+
+    public DisbursementInstructionOutput amount(@jakarta.annotation.Nonnull AssetAmount amount) {
         this.amount = amount;
         return this;
     }
@@ -57,11 +71,11 @@ public class DisbursementInstructionOutput {
 
     @JsonProperty(JSON_PROPERTY_AMOUNT)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setAmount(AssetAmount amount) {
+    public void setAmount(@jakarta.annotation.Nonnull AssetAmount amount) {
         this.amount = amount;
     }
 
-    public DisbursementInstructionOutput fee(AssetAmount fee) {
+    public DisbursementInstructionOutput fee(@jakarta.annotation.Nonnull AssetAmount fee) {
         this.fee = fee;
         return this;
     }
@@ -80,11 +94,12 @@ public class DisbursementInstructionOutput {
 
     @JsonProperty(JSON_PROPERTY_FEE)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setFee(AssetAmount fee) {
+    public void setFee(@jakarta.annotation.Nonnull AssetAmount fee) {
         this.fee = fee;
     }
 
-    public DisbursementInstructionOutput payeeAccount(Destination payeeAccount) {
+    public DisbursementInstructionOutput payeeAccount(
+            @jakarta.annotation.Nonnull Destination payeeAccount) {
         this.payeeAccount = payeeAccount;
         return this;
     }
@@ -103,7 +118,7 @@ public class DisbursementInstructionOutput {
 
     @JsonProperty(JSON_PROPERTY_PAYEE_ACCOUNT)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setPayeeAccount(Destination payeeAccount) {
+    public void setPayeeAccount(@jakarta.annotation.Nonnull Destination payeeAccount) {
         this.payeeAccount = payeeAccount;
     }
 

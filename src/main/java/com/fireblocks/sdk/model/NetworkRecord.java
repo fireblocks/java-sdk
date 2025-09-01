@@ -16,9 +16,8 @@ package com.fireblocks.sdk.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fireblocks.sdk.ApiClient;
 import java.math.BigDecimal;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -38,50 +37,53 @@ import java.util.StringJoiner;
     NetworkRecord.JSON_PROPERTY_INDEX,
     NetworkRecord.JSON_PROPERTY_REWARD_INFO
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class NetworkRecord {
     public static final String JSON_PROPERTY_SOURCE = "source";
-    private SourceTransferPeerPathResponse source;
+    @jakarta.annotation.Nullable private SourceTransferPeerPathResponse source;
 
     public static final String JSON_PROPERTY_DESTINATION = "destination";
-    private DestinationTransferPeerPathResponse destination;
+    @jakarta.annotation.Nullable private DestinationTransferPeerPathResponse destination;
 
     public static final String JSON_PROPERTY_TX_HASH = "txHash";
-    private String txHash;
+    @jakarta.annotation.Nullable private String txHash;
 
     public static final String JSON_PROPERTY_NETWORK_FEE = "networkFee";
-    private String networkFee;
+    @jakarta.annotation.Nullable private String networkFee;
 
     public static final String JSON_PROPERTY_ASSET_ID = "assetId";
-    private String assetId;
+    @jakarta.annotation.Nullable private String assetId;
 
     public static final String JSON_PROPERTY_NET_AMOUNT = "netAmount";
-    private String netAmount;
+    @jakarta.annotation.Nullable private String netAmount;
 
     public static final String JSON_PROPERTY_IS_DROPPED = "isDropped";
-    private Boolean isDropped;
+    @jakarta.annotation.Nullable private Boolean isDropped;
 
     public static final String JSON_PROPERTY_TYPE = "type";
-    private String type;
+    @jakarta.annotation.Nullable private String type;
 
     public static final String JSON_PROPERTY_DESTINATION_ADDRESS = "destinationAddress";
-    private String destinationAddress;
+    @jakarta.annotation.Nullable private String destinationAddress;
 
     public static final String JSON_PROPERTY_SOURCE_ADDRESS = "sourceAddress";
-    private String sourceAddress;
+    @jakarta.annotation.Nullable private String sourceAddress;
 
     public static final String JSON_PROPERTY_AMOUNT_U_S_D = "amountUSD";
-    private String amountUSD;
+    @jakarta.annotation.Nullable private String amountUSD;
 
     public static final String JSON_PROPERTY_INDEX = "index";
-    private BigDecimal index;
+    @jakarta.annotation.Nullable private BigDecimal index;
 
     public static final String JSON_PROPERTY_REWARD_INFO = "rewardInfo";
-    private RewardInfo rewardInfo;
+    @jakarta.annotation.Nullable private RewardInfo rewardInfo;
 
     public NetworkRecord() {}
 
-    public NetworkRecord source(SourceTransferPeerPathResponse source) {
+    public NetworkRecord source(
+            @jakarta.annotation.Nullable SourceTransferPeerPathResponse source) {
         this.source = source;
         return this;
     }
@@ -100,11 +102,12 @@ public class NetworkRecord {
 
     @JsonProperty(JSON_PROPERTY_SOURCE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setSource(SourceTransferPeerPathResponse source) {
+    public void setSource(@jakarta.annotation.Nullable SourceTransferPeerPathResponse source) {
         this.source = source;
     }
 
-    public NetworkRecord destination(DestinationTransferPeerPathResponse destination) {
+    public NetworkRecord destination(
+            @jakarta.annotation.Nullable DestinationTransferPeerPathResponse destination) {
         this.destination = destination;
         return this;
     }
@@ -123,11 +126,12 @@ public class NetworkRecord {
 
     @JsonProperty(JSON_PROPERTY_DESTINATION)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setDestination(DestinationTransferPeerPathResponse destination) {
+    public void setDestination(
+            @jakarta.annotation.Nullable DestinationTransferPeerPathResponse destination) {
         this.destination = destination;
     }
 
-    public NetworkRecord txHash(String txHash) {
+    public NetworkRecord txHash(@jakarta.annotation.Nullable String txHash) {
         this.txHash = txHash;
         return this;
     }
@@ -146,11 +150,11 @@ public class NetworkRecord {
 
     @JsonProperty(JSON_PROPERTY_TX_HASH)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setTxHash(String txHash) {
+    public void setTxHash(@jakarta.annotation.Nullable String txHash) {
         this.txHash = txHash;
     }
 
-    public NetworkRecord networkFee(String networkFee) {
+    public NetworkRecord networkFee(@jakarta.annotation.Nullable String networkFee) {
         this.networkFee = networkFee;
         return this;
     }
@@ -169,11 +173,11 @@ public class NetworkRecord {
 
     @JsonProperty(JSON_PROPERTY_NETWORK_FEE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setNetworkFee(String networkFee) {
+    public void setNetworkFee(@jakarta.annotation.Nullable String networkFee) {
         this.networkFee = networkFee;
     }
 
-    public NetworkRecord assetId(String assetId) {
+    public NetworkRecord assetId(@jakarta.annotation.Nullable String assetId) {
         this.assetId = assetId;
         return this;
     }
@@ -192,11 +196,11 @@ public class NetworkRecord {
 
     @JsonProperty(JSON_PROPERTY_ASSET_ID)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAssetId(String assetId) {
+    public void setAssetId(@jakarta.annotation.Nullable String assetId) {
         this.assetId = assetId;
     }
 
-    public NetworkRecord netAmount(String netAmount) {
+    public NetworkRecord netAmount(@jakarta.annotation.Nullable String netAmount) {
         this.netAmount = netAmount;
         return this;
     }
@@ -215,11 +219,11 @@ public class NetworkRecord {
 
     @JsonProperty(JSON_PROPERTY_NET_AMOUNT)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setNetAmount(String netAmount) {
+    public void setNetAmount(@jakarta.annotation.Nullable String netAmount) {
         this.netAmount = netAmount;
     }
 
-    public NetworkRecord isDropped(Boolean isDropped) {
+    public NetworkRecord isDropped(@jakarta.annotation.Nullable Boolean isDropped) {
         this.isDropped = isDropped;
         return this;
     }
@@ -238,11 +242,11 @@ public class NetworkRecord {
 
     @JsonProperty(JSON_PROPERTY_IS_DROPPED)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setIsDropped(Boolean isDropped) {
+    public void setIsDropped(@jakarta.annotation.Nullable Boolean isDropped) {
         this.isDropped = isDropped;
     }
 
-    public NetworkRecord type(String type) {
+    public NetworkRecord type(@jakarta.annotation.Nullable String type) {
         this.type = type;
         return this;
     }
@@ -261,11 +265,12 @@ public class NetworkRecord {
 
     @JsonProperty(JSON_PROPERTY_TYPE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setType(String type) {
+    public void setType(@jakarta.annotation.Nullable String type) {
         this.type = type;
     }
 
-    public NetworkRecord destinationAddress(String destinationAddress) {
+    public NetworkRecord destinationAddress(
+            @jakarta.annotation.Nullable String destinationAddress) {
         this.destinationAddress = destinationAddress;
         return this;
     }
@@ -284,11 +289,11 @@ public class NetworkRecord {
 
     @JsonProperty(JSON_PROPERTY_DESTINATION_ADDRESS)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setDestinationAddress(String destinationAddress) {
+    public void setDestinationAddress(@jakarta.annotation.Nullable String destinationAddress) {
         this.destinationAddress = destinationAddress;
     }
 
-    public NetworkRecord sourceAddress(String sourceAddress) {
+    public NetworkRecord sourceAddress(@jakarta.annotation.Nullable String sourceAddress) {
         this.sourceAddress = sourceAddress;
         return this;
     }
@@ -307,11 +312,11 @@ public class NetworkRecord {
 
     @JsonProperty(JSON_PROPERTY_SOURCE_ADDRESS)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setSourceAddress(String sourceAddress) {
+    public void setSourceAddress(@jakarta.annotation.Nullable String sourceAddress) {
         this.sourceAddress = sourceAddress;
     }
 
-    public NetworkRecord amountUSD(String amountUSD) {
+    public NetworkRecord amountUSD(@jakarta.annotation.Nullable String amountUSD) {
         this.amountUSD = amountUSD;
         return this;
     }
@@ -330,11 +335,11 @@ public class NetworkRecord {
 
     @JsonProperty(JSON_PROPERTY_AMOUNT_U_S_D)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAmountUSD(String amountUSD) {
+    public void setAmountUSD(@jakarta.annotation.Nullable String amountUSD) {
         this.amountUSD = amountUSD;
     }
 
-    public NetworkRecord index(BigDecimal index) {
+    public NetworkRecord index(@jakarta.annotation.Nullable BigDecimal index) {
         this.index = index;
         return this;
     }
@@ -353,11 +358,11 @@ public class NetworkRecord {
 
     @JsonProperty(JSON_PROPERTY_INDEX)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setIndex(BigDecimal index) {
+    public void setIndex(@jakarta.annotation.Nullable BigDecimal index) {
         this.index = index;
     }
 
-    public NetworkRecord rewardInfo(RewardInfo rewardInfo) {
+    public NetworkRecord rewardInfo(@jakarta.annotation.Nullable RewardInfo rewardInfo) {
         this.rewardInfo = rewardInfo;
         return this;
     }
@@ -376,7 +381,7 @@ public class NetworkRecord {
 
     @JsonProperty(JSON_PROPERTY_REWARD_INFO)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setRewardInfo(RewardInfo rewardInfo) {
+    public void setRewardInfo(@jakarta.annotation.Nullable RewardInfo rewardInfo) {
         this.rewardInfo = rewardInfo;
     }
 
@@ -506,8 +511,7 @@ public class NetworkRecord {
                             "%stxHash%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getTxHash()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getTxHash()))));
         }
 
         // add `networkFee` to the URL query string
@@ -517,9 +521,7 @@ public class NetworkRecord {
                             "%snetworkFee%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getNetworkFee()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getNetworkFee()))));
         }
 
         // add `assetId` to the URL query string
@@ -529,8 +531,7 @@ public class NetworkRecord {
                             "%sassetId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getAssetId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getAssetId()))));
         }
 
         // add `netAmount` to the URL query string
@@ -540,9 +541,7 @@ public class NetworkRecord {
                             "%snetAmount%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getNetAmount()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getNetAmount()))));
         }
 
         // add `isDropped` to the URL query string
@@ -552,9 +551,7 @@ public class NetworkRecord {
                             "%sisDropped%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getIsDropped()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getIsDropped()))));
         }
 
         // add `type` to the URL query string
@@ -564,8 +561,7 @@ public class NetworkRecord {
                             "%stype%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getType()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getType()))));
         }
 
         // add `destinationAddress` to the URL query string
@@ -575,10 +571,7 @@ public class NetworkRecord {
                             "%sdestinationAddress%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getDestinationAddress()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getDestinationAddress()))));
         }
 
         // add `sourceAddress` to the URL query string
@@ -588,10 +581,7 @@ public class NetworkRecord {
                             "%ssourceAddress%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getSourceAddress()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getSourceAddress()))));
         }
 
         // add `amountUSD` to the URL query string
@@ -601,9 +591,7 @@ public class NetworkRecord {
                             "%samountUSD%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getAmountUSD()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getAmountUSD()))));
         }
 
         // add `index` to the URL query string
@@ -613,8 +601,7 @@ public class NetworkRecord {
                             "%sindex%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getIndex()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getIndex()))));
         }
 
         // add `rewardInfo` to the URL query string

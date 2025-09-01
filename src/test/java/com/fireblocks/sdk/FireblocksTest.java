@@ -574,6 +574,14 @@ public class FireblocksTest {
     }
 
     @Test
+    public void testGetPolicyEditorV2BetaApi() {
+        setupFireblocks(true, null, null);
+        PolicyEditorV2BetaApi policyEditorV2Beta = fireblocks.policyEditorV2Beta();
+        Assert.assertNotNull(policyEditorV2Beta);
+        Assert.assertSame(policyEditorV2Beta, fireblocks.policyEditorV2Beta());
+    }
+
+    @Test
     public void testGetResetDeviceApi() {
         setupFireblocks(true, null, null);
         ResetDeviceApi resetDevice = fireblocks.resetDevice();

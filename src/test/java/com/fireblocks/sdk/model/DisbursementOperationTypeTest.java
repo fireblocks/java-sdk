@@ -13,13 +13,13 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for DisbursementOperationType */
-public class DisbursementOperationTypeTest {
+class DisbursementOperationTypeTest {
     /** Model tests for DisbursementOperationType */
     @Test
-    public void testDisbursementOperationType() {
+    void testDisbursementOperationType() {
         // TODO: test DisbursementOperationType
     }
 }

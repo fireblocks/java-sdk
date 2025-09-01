@@ -16,8 +16,7 @@ package com.fireblocks.sdk.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -27,20 +26,22 @@ import java.util.StringJoiner;
     ValidateAddressResponse.JSON_PROPERTY_IS_ACTIVE,
     ValidateAddressResponse.JSON_PROPERTY_REQUIRES_TAG
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class ValidateAddressResponse {
     public static final String JSON_PROPERTY_IS_VALID = "isValid";
-    private Boolean isValid;
+    @jakarta.annotation.Nullable private Boolean isValid;
 
     public static final String JSON_PROPERTY_IS_ACTIVE = "isActive";
-    private Boolean isActive;
+    @jakarta.annotation.Nullable private Boolean isActive;
 
     public static final String JSON_PROPERTY_REQUIRES_TAG = "requiresTag";
-    private Boolean requiresTag;
+    @jakarta.annotation.Nullable private Boolean requiresTag;
 
     public ValidateAddressResponse() {}
 
-    public ValidateAddressResponse isValid(Boolean isValid) {
+    public ValidateAddressResponse isValid(@jakarta.annotation.Nullable Boolean isValid) {
         this.isValid = isValid;
         return this;
     }
@@ -59,11 +60,11 @@ public class ValidateAddressResponse {
 
     @JsonProperty(JSON_PROPERTY_IS_VALID)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setIsValid(Boolean isValid) {
+    public void setIsValid(@jakarta.annotation.Nullable Boolean isValid) {
         this.isValid = isValid;
     }
 
-    public ValidateAddressResponse isActive(Boolean isActive) {
+    public ValidateAddressResponse isActive(@jakarta.annotation.Nullable Boolean isActive) {
         this.isActive = isActive;
         return this;
     }
@@ -82,11 +83,11 @@ public class ValidateAddressResponse {
 
     @JsonProperty(JSON_PROPERTY_IS_ACTIVE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setIsActive(Boolean isActive) {
+    public void setIsActive(@jakarta.annotation.Nullable Boolean isActive) {
         this.isActive = isActive;
     }
 
-    public ValidateAddressResponse requiresTag(Boolean requiresTag) {
+    public ValidateAddressResponse requiresTag(@jakarta.annotation.Nullable Boolean requiresTag) {
         this.requiresTag = requiresTag;
         return this;
     }
@@ -105,7 +106,7 @@ public class ValidateAddressResponse {
 
     @JsonProperty(JSON_PROPERTY_REQUIRES_TAG)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setRequiresTag(Boolean requiresTag) {
+    public void setRequiresTag(@jakarta.annotation.Nullable Boolean requiresTag) {
         this.requiresTag = requiresTag;
     }
 
@@ -190,8 +191,7 @@ public class ValidateAddressResponse {
                             "%sisValid%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getIsValid()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getIsValid()))));
         }
 
         // add `isActive` to the URL query string
@@ -201,8 +201,7 @@ public class ValidateAddressResponse {
                             "%sisActive%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getIsActive()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getIsActive()))));
         }
 
         // add `requiresTag` to the URL query string
@@ -212,10 +211,7 @@ public class ValidateAddressResponse {
                             "%srequiresTag%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getRequiresTag()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getRequiresTag()))));
         }
 
         return joiner.toString();

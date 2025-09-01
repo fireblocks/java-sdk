@@ -13,22 +13,22 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for SetNetworkIdDiscoverabilityRequest */
-public class SetNetworkIdDiscoverabilityRequestTest {
+class SetNetworkIdDiscoverabilityRequestTest {
     private final SetNetworkIdDiscoverabilityRequest model =
             new SetNetworkIdDiscoverabilityRequest();
 
     /** Model tests for SetNetworkIdDiscoverabilityRequest */
     @Test
-    public void testSetNetworkIdDiscoverabilityRequest() {
+    void testSetNetworkIdDiscoverabilityRequest() {
         // TODO: test SetNetworkIdDiscoverabilityRequest
     }
 
     /** Test the property 'isDiscoverable' */
     @Test
-    public void isDiscoverableTest() {
+    void isDiscoverableTest() {
         // TODO: test isDiscoverable
     }
 }

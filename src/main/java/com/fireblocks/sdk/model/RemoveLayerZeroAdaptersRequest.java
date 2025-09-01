@@ -13,11 +13,11 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -29,17 +29,30 @@ import java.util.UUID;
     RemoveLayerZeroAdaptersRequest.JSON_PROPERTY_VAULT_ACCOUNT_ID,
     RemoveLayerZeroAdaptersRequest.JSON_PROPERTY_ADAPTER_TOKEN_LINK_IDS
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class RemoveLayerZeroAdaptersRequest {
     public static final String JSON_PROPERTY_VAULT_ACCOUNT_ID = "vaultAccountId";
-    private String vaultAccountId;
+    @jakarta.annotation.Nonnull private String vaultAccountId;
 
     public static final String JSON_PROPERTY_ADAPTER_TOKEN_LINK_IDS = "adapterTokenLinkIds";
-    private List<UUID> adapterTokenLinkIds = new ArrayList<>();
+    @jakarta.annotation.Nonnull private List<UUID> adapterTokenLinkIds = new ArrayList<>();
 
     public RemoveLayerZeroAdaptersRequest() {}
 
-    public RemoveLayerZeroAdaptersRequest vaultAccountId(String vaultAccountId) {
+    @JsonCreator
+    public RemoveLayerZeroAdaptersRequest(
+            @JsonProperty(value = JSON_PROPERTY_VAULT_ACCOUNT_ID, required = true)
+                    String vaultAccountId,
+            @JsonProperty(value = JSON_PROPERTY_ADAPTER_TOKEN_LINK_IDS, required = true)
+                    List<UUID> adapterTokenLinkIds) {
+        this.vaultAccountId = vaultAccountId;
+        this.adapterTokenLinkIds = adapterTokenLinkIds;
+    }
+
+    public RemoveLayerZeroAdaptersRequest vaultAccountId(
+            @jakarta.annotation.Nonnull String vaultAccountId) {
         this.vaultAccountId = vaultAccountId;
         return this;
     }
@@ -58,11 +71,12 @@ public class RemoveLayerZeroAdaptersRequest {
 
     @JsonProperty(JSON_PROPERTY_VAULT_ACCOUNT_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setVaultAccountId(String vaultAccountId) {
+    public void setVaultAccountId(@jakarta.annotation.Nonnull String vaultAccountId) {
         this.vaultAccountId = vaultAccountId;
     }
 
-    public RemoveLayerZeroAdaptersRequest adapterTokenLinkIds(List<UUID> adapterTokenLinkIds) {
+    public RemoveLayerZeroAdaptersRequest adapterTokenLinkIds(
+            @jakarta.annotation.Nonnull List<UUID> adapterTokenLinkIds) {
         this.adapterTokenLinkIds = adapterTokenLinkIds;
         return this;
     }
@@ -89,7 +103,7 @@ public class RemoveLayerZeroAdaptersRequest {
 
     @JsonProperty(JSON_PROPERTY_ADAPTER_TOKEN_LINK_IDS)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setAdapterTokenLinkIds(List<UUID> adapterTokenLinkIds) {
+    public void setAdapterTokenLinkIds(@jakarta.annotation.Nonnull List<UUID> adapterTokenLinkIds) {
         this.adapterTokenLinkIds = adapterTokenLinkIds;
     }
 
@@ -177,10 +191,7 @@ public class RemoveLayerZeroAdaptersRequest {
                             "%svaultAccountId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getVaultAccountId()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getVaultAccountId()))));
         }
 
         // add `adapterTokenLinkIds` to the URL query string
@@ -196,10 +207,9 @@ public class RemoveLayerZeroAdaptersRequest {
                                             ? ""
                                             : String.format(
                                                     "%s%d%s", containerPrefix, i, containerSuffix),
-                                    URLEncoder.encode(
-                                                    String.valueOf(getAdapterTokenLinkIds().get(i)),
-                                                    StandardCharsets.UTF_8)
-                                            .replaceAll("\\+", "%20")));
+                                    ApiClient.urlEncode(
+                                            ApiClient.valueToString(
+                                                    getAdapterTokenLinkIds().get(i)))));
                 }
             }
         }

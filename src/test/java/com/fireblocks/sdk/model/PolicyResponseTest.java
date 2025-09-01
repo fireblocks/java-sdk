@@ -13,27 +13,27 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for PolicyResponse */
-public class PolicyResponseTest {
+class PolicyResponseTest {
     private final PolicyResponse model = new PolicyResponse();
 
     /** Model tests for PolicyResponse */
     @Test
-    public void testPolicyResponse() {
+    void testPolicyResponse() {
         // TODO: test PolicyResponse
     }
 
     /** Test the property 'rules' */
     @Test
-    public void rulesTest() {
+    void rulesTest() {
         // TODO: test rules
     }
 
     /** Test the property 'metadata' */
     @Test
-    public void metadataTest() {
+    void metadataTest() {
         // TODO: test metadata
     }
 }

@@ -13,28 +13,28 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for PaginatedAssetWalletResponsePaging */
-public class PaginatedAssetWalletResponsePagingTest {
+class PaginatedAssetWalletResponsePagingTest {
     private final PaginatedAssetWalletResponsePaging model =
             new PaginatedAssetWalletResponsePaging();
 
     /** Model tests for PaginatedAssetWalletResponsePaging */
     @Test
-    public void testPaginatedAssetWalletResponsePaging() {
+    void testPaginatedAssetWalletResponsePaging() {
         // TODO: test PaginatedAssetWalletResponsePaging
     }
 
     /** Test the property 'before' */
     @Test
-    public void beforeTest() {
+    void beforeTest() {
         // TODO: test before
     }
 
     /** Test the property 'after' */
     @Test
-    public void afterTest() {
+    void afterTest() {
         // TODO: test after
     }
 }

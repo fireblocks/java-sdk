@@ -16,8 +16,7 @@ package com.fireblocks.sdk.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -26,17 +25,19 @@ import java.util.StringJoiner;
     ExchangeAccountsPagedPaging.JSON_PROPERTY_AFTER,
     ExchangeAccountsPagedPaging.JSON_PROPERTY_BEFORE
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class ExchangeAccountsPagedPaging {
     public static final String JSON_PROPERTY_AFTER = "after";
-    private String after;
+    @jakarta.annotation.Nullable private String after;
 
     public static final String JSON_PROPERTY_BEFORE = "before";
-    private String before;
+    @jakarta.annotation.Nullable private String before;
 
     public ExchangeAccountsPagedPaging() {}
 
-    public ExchangeAccountsPagedPaging after(String after) {
+    public ExchangeAccountsPagedPaging after(@jakarta.annotation.Nullable String after) {
         this.after = after;
         return this;
     }
@@ -55,11 +56,11 @@ public class ExchangeAccountsPagedPaging {
 
     @JsonProperty(JSON_PROPERTY_AFTER)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAfter(String after) {
+    public void setAfter(@jakarta.annotation.Nullable String after) {
         this.after = after;
     }
 
-    public ExchangeAccountsPagedPaging before(String before) {
+    public ExchangeAccountsPagedPaging before(@jakarta.annotation.Nullable String before) {
         this.before = before;
         return this;
     }
@@ -78,7 +79,7 @@ public class ExchangeAccountsPagedPaging {
 
     @JsonProperty(JSON_PROPERTY_BEFORE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setBefore(String before) {
+    public void setBefore(@jakarta.annotation.Nullable String before) {
         this.before = before;
     }
 
@@ -161,8 +162,7 @@ public class ExchangeAccountsPagedPaging {
                             "%safter%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getAfter()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getAfter()))));
         }
 
         // add `before` to the URL query string
@@ -172,8 +172,7 @@ public class ExchangeAccountsPagedPaging {
                             "%sbefore%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getBefore()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getBefore()))));
         }
 
         return joiner.toString();

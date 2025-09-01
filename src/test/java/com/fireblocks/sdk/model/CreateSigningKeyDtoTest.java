@@ -13,39 +13,39 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for CreateSigningKeyDto */
-public class CreateSigningKeyDtoTest {
+class CreateSigningKeyDtoTest {
     private final CreateSigningKeyDto model = new CreateSigningKeyDto();
 
     /** Model tests for CreateSigningKeyDto */
     @Test
-    public void testCreateSigningKeyDto() {
+    void testCreateSigningKeyDto() {
         // TODO: test CreateSigningKeyDto
     }
 
     /** Test the property 'signingDeviceKeyId' */
     @Test
-    public void signingDeviceKeyIdTest() {
+    void signingDeviceKeyIdTest() {
         // TODO: test signingDeviceKeyId
     }
 
     /** Test the property 'signedCertPem' */
     @Test
-    public void signedCertPemTest() {
+    void signedCertPemTest() {
         // TODO: test signedCertPem
     }
 
     /** Test the property 'agentUserId' */
     @Test
-    public void agentUserIdTest() {
+    void agentUserIdTest() {
         // TODO: test agentUserId
     }
 
     /** Test the property 'proofOfOwnership' */
     @Test
-    public void proofOfOwnershipTest() {
+    void proofOfOwnershipTest() {
         // TODO: test proofOfOwnership
     }
 }

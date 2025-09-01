@@ -24,17 +24,20 @@ import java.util.StringJoiner;
     TravelRulePerson.JSON_PROPERTY_NATURAL_PERSON,
     TravelRulePerson.JSON_PROPERTY_LEGAL_PERSON
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class TravelRulePerson {
     public static final String JSON_PROPERTY_NATURAL_PERSON = "naturalPerson";
-    private TravelRuleNaturalPerson naturalPerson;
+    @jakarta.annotation.Nullable private TravelRuleNaturalPerson naturalPerson;
 
     public static final String JSON_PROPERTY_LEGAL_PERSON = "legalPerson";
-    private TravelRuleLegalPerson legalPerson;
+    @jakarta.annotation.Nullable private TravelRuleLegalPerson legalPerson;
 
     public TravelRulePerson() {}
 
-    public TravelRulePerson naturalPerson(TravelRuleNaturalPerson naturalPerson) {
+    public TravelRulePerson naturalPerson(
+            @jakarta.annotation.Nullable TravelRuleNaturalPerson naturalPerson) {
         this.naturalPerson = naturalPerson;
         return this;
     }
@@ -53,11 +56,13 @@ public class TravelRulePerson {
 
     @JsonProperty(JSON_PROPERTY_NATURAL_PERSON)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setNaturalPerson(TravelRuleNaturalPerson naturalPerson) {
+    public void setNaturalPerson(
+            @jakarta.annotation.Nullable TravelRuleNaturalPerson naturalPerson) {
         this.naturalPerson = naturalPerson;
     }
 
-    public TravelRulePerson legalPerson(TravelRuleLegalPerson legalPerson) {
+    public TravelRulePerson legalPerson(
+            @jakarta.annotation.Nullable TravelRuleLegalPerson legalPerson) {
         this.legalPerson = legalPerson;
         return this;
     }
@@ -76,7 +81,7 @@ public class TravelRulePerson {
 
     @JsonProperty(JSON_PROPERTY_LEGAL_PERSON)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setLegalPerson(TravelRuleLegalPerson legalPerson) {
+    public void setLegalPerson(@jakarta.annotation.Nullable TravelRuleLegalPerson legalPerson) {
         this.legalPerson = legalPerson;
     }
 

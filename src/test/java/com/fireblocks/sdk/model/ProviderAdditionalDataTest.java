@@ -13,21 +13,21 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for ProviderAdditionalData */
-public class ProviderAdditionalDataTest {
+class ProviderAdditionalDataTest {
     private final ProviderAdditionalData model = new ProviderAdditionalData();
 
     /** Model tests for ProviderAdditionalData */
     @Test
-    public void testProviderAdditionalData() {
+    void testProviderAdditionalData() {
         // TODO: test ProviderAdditionalData
     }
 
     /** Test the property 'priceImpact' */
     @Test
-    public void priceImpactTest() {
+    void priceImpactTest() {
         // TODO: test priceImpact
     }
 }

@@ -16,8 +16,7 @@ package com.fireblocks.sdk.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -32,35 +31,37 @@ import java.util.StringJoiner;
     CreateVaultAssetResponse.JSON_PROPERTY_STATUS,
     CreateVaultAssetResponse.JSON_PROPERTY_ACTIVATION_TX_ID
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class CreateVaultAssetResponse {
     public static final String JSON_PROPERTY_ID = "id";
-    private String id;
+    @jakarta.annotation.Nullable private String id;
 
     public static final String JSON_PROPERTY_ADDRESS = "address";
-    private String address;
+    @jakarta.annotation.Nullable private String address;
 
     public static final String JSON_PROPERTY_LEGACY_ADDRESS = "legacyAddress";
-    private String legacyAddress;
+    @jakarta.annotation.Nullable private String legacyAddress;
 
     public static final String JSON_PROPERTY_ENTERPRISE_ADDRESS = "enterpriseAddress";
-    private String enterpriseAddress;
+    @jakarta.annotation.Nullable private String enterpriseAddress;
 
     public static final String JSON_PROPERTY_TAG = "tag";
-    private String tag;
+    @jakarta.annotation.Nullable private String tag;
 
     public static final String JSON_PROPERTY_EOS_ACCOUNT_NAME = "eosAccountName";
-    private String eosAccountName;
+    @jakarta.annotation.Nullable private String eosAccountName;
 
     public static final String JSON_PROPERTY_STATUS = "status";
-    private String status;
+    @jakarta.annotation.Nullable private String status;
 
     public static final String JSON_PROPERTY_ACTIVATION_TX_ID = "activationTxId";
-    private String activationTxId;
+    @jakarta.annotation.Nullable private String activationTxId;
 
     public CreateVaultAssetResponse() {}
 
-    public CreateVaultAssetResponse id(String id) {
+    public CreateVaultAssetResponse id(@jakarta.annotation.Nullable String id) {
         this.id = id;
         return this;
     }
@@ -79,11 +80,11 @@ public class CreateVaultAssetResponse {
 
     @JsonProperty(JSON_PROPERTY_ID)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setId(String id) {
+    public void setId(@jakarta.annotation.Nullable String id) {
         this.id = id;
     }
 
-    public CreateVaultAssetResponse address(String address) {
+    public CreateVaultAssetResponse address(@jakarta.annotation.Nullable String address) {
         this.address = address;
         return this;
     }
@@ -102,11 +103,12 @@ public class CreateVaultAssetResponse {
 
     @JsonProperty(JSON_PROPERTY_ADDRESS)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAddress(String address) {
+    public void setAddress(@jakarta.annotation.Nullable String address) {
         this.address = address;
     }
 
-    public CreateVaultAssetResponse legacyAddress(String legacyAddress) {
+    public CreateVaultAssetResponse legacyAddress(
+            @jakarta.annotation.Nullable String legacyAddress) {
         this.legacyAddress = legacyAddress;
         return this;
     }
@@ -125,11 +127,12 @@ public class CreateVaultAssetResponse {
 
     @JsonProperty(JSON_PROPERTY_LEGACY_ADDRESS)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setLegacyAddress(String legacyAddress) {
+    public void setLegacyAddress(@jakarta.annotation.Nullable String legacyAddress) {
         this.legacyAddress = legacyAddress;
     }
 
-    public CreateVaultAssetResponse enterpriseAddress(String enterpriseAddress) {
+    public CreateVaultAssetResponse enterpriseAddress(
+            @jakarta.annotation.Nullable String enterpriseAddress) {
         this.enterpriseAddress = enterpriseAddress;
         return this;
     }
@@ -148,11 +151,11 @@ public class CreateVaultAssetResponse {
 
     @JsonProperty(JSON_PROPERTY_ENTERPRISE_ADDRESS)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setEnterpriseAddress(String enterpriseAddress) {
+    public void setEnterpriseAddress(@jakarta.annotation.Nullable String enterpriseAddress) {
         this.enterpriseAddress = enterpriseAddress;
     }
 
-    public CreateVaultAssetResponse tag(String tag) {
+    public CreateVaultAssetResponse tag(@jakarta.annotation.Nullable String tag) {
         this.tag = tag;
         return this;
     }
@@ -171,11 +174,12 @@ public class CreateVaultAssetResponse {
 
     @JsonProperty(JSON_PROPERTY_TAG)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setTag(String tag) {
+    public void setTag(@jakarta.annotation.Nullable String tag) {
         this.tag = tag;
     }
 
-    public CreateVaultAssetResponse eosAccountName(String eosAccountName) {
+    public CreateVaultAssetResponse eosAccountName(
+            @jakarta.annotation.Nullable String eosAccountName) {
         this.eosAccountName = eosAccountName;
         return this;
     }
@@ -194,11 +198,11 @@ public class CreateVaultAssetResponse {
 
     @JsonProperty(JSON_PROPERTY_EOS_ACCOUNT_NAME)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setEosAccountName(String eosAccountName) {
+    public void setEosAccountName(@jakarta.annotation.Nullable String eosAccountName) {
         this.eosAccountName = eosAccountName;
     }
 
-    public CreateVaultAssetResponse status(String status) {
+    public CreateVaultAssetResponse status(@jakarta.annotation.Nullable String status) {
         this.status = status;
         return this;
     }
@@ -217,11 +221,12 @@ public class CreateVaultAssetResponse {
 
     @JsonProperty(JSON_PROPERTY_STATUS)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setStatus(String status) {
+    public void setStatus(@jakarta.annotation.Nullable String status) {
         this.status = status;
     }
 
-    public CreateVaultAssetResponse activationTxId(String activationTxId) {
+    public CreateVaultAssetResponse activationTxId(
+            @jakarta.annotation.Nullable String activationTxId) {
         this.activationTxId = activationTxId;
         return this;
     }
@@ -240,7 +245,7 @@ public class CreateVaultAssetResponse {
 
     @JsonProperty(JSON_PROPERTY_ACTIVATION_TX_ID)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setActivationTxId(String activationTxId) {
+    public void setActivationTxId(@jakarta.annotation.Nullable String activationTxId) {
         this.activationTxId = activationTxId;
     }
 
@@ -344,10 +349,7 @@ public class CreateVaultAssetResponse {
             joiner.add(
                     String.format(
                             "%sid%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(String.valueOf(getId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getId()))));
         }
 
         // add `address` to the URL query string
@@ -357,8 +359,7 @@ public class CreateVaultAssetResponse {
                             "%saddress%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getAddress()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getAddress()))));
         }
 
         // add `legacyAddress` to the URL query string
@@ -368,10 +369,7 @@ public class CreateVaultAssetResponse {
                             "%slegacyAddress%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getLegacyAddress()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getLegacyAddress()))));
         }
 
         // add `enterpriseAddress` to the URL query string
@@ -381,10 +379,7 @@ public class CreateVaultAssetResponse {
                             "%senterpriseAddress%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getEnterpriseAddress()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getEnterpriseAddress()))));
         }
 
         // add `tag` to the URL query string
@@ -394,8 +389,7 @@ public class CreateVaultAssetResponse {
                             "%stag%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getTag()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getTag()))));
         }
 
         // add `eosAccountName` to the URL query string
@@ -405,10 +399,7 @@ public class CreateVaultAssetResponse {
                             "%seosAccountName%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getEosAccountName()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getEosAccountName()))));
         }
 
         // add `status` to the URL query string
@@ -418,8 +409,7 @@ public class CreateVaultAssetResponse {
                             "%sstatus%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getStatus()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getStatus()))));
         }
 
         // add `activationTxId` to the URL query string
@@ -429,10 +419,7 @@ public class CreateVaultAssetResponse {
                             "%sactivationTxId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getActivationTxId()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getActivationTxId()))));
         }
 
         return joiner.toString();

@@ -23,6 +23,7 @@ import com.fireblocks.sdk.ValidationUtils;
 import com.fireblocks.sdk.model.CreateWebhookRequest;
 import com.fireblocks.sdk.model.NotificationAttemptsPaginatedResponse;
 import com.fireblocks.sdk.model.NotificationPaginatedResponse;
+import com.fireblocks.sdk.model.NotificationStatus;
 import com.fireblocks.sdk.model.NotificationWithData;
 import com.fireblocks.sdk.model.ResendFailedNotificationsJobStatusResponse;
 import com.fireblocks.sdk.model.ResendFailedNotificationsRequest;
@@ -30,6 +31,7 @@ import com.fireblocks.sdk.model.ResendFailedNotificationsResponse;
 import com.fireblocks.sdk.model.ResendNotificationsByResourceIdRequest;
 import com.fireblocks.sdk.model.UpdateWebhookRequest;
 import com.fireblocks.sdk.model.Webhook;
+import com.fireblocks.sdk.model.WebhookEvent;
 import com.fireblocks.sdk.model.WebhookPaginatedResponse;
 import java.io.IOException;
 import java.io.InputStream;
@@ -46,7 +48,9 @@ import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class WebhooksV2Api {
     private final HttpClient memberVarHttpClient;
     private final ObjectMapper memberVarObjectMapper;
@@ -426,15 +430,41 @@ public class WebhooksV2Api {
      * @param sortBy Sort by field (optional, default to updatedAt)
      * @param pageCursor Cursor of the required page (optional)
      * @param pageSize Maximum number of items in the page (optional, default to 100)
+     * @param startTime Start time in milliseconds since epoch to filter by notifications created
+     *     after this time (default 31 days ago) (optional)
+     * @param endTime End time in milliseconds since epoch to filter by notifications created before
+     *     this time (default current time) (optional)
+     * @param statuses List of notification statuses to filter by (optional
+     * @param events List of webhook event types to filter by (optional
+     * @param resourceId Resource ID to filter by (optional)
      * @return CompletableFuture&lt;ApiResponse&lt;NotificationPaginatedResponse&gt;&gt;
      * @throws ApiException if fails to make API call
      */
     public CompletableFuture<ApiResponse<NotificationPaginatedResponse>> getNotifications(
-            UUID webhookId, String order, String sortBy, String pageCursor, BigDecimal pageSize)
+            UUID webhookId,
+            String order,
+            String sortBy,
+            String pageCursor,
+            BigDecimal pageSize,
+            BigDecimal startTime,
+            BigDecimal endTime,
+            List<NotificationStatus> statuses,
+            List<WebhookEvent> events,
+            String resourceId)
             throws ApiException {
         try {
             HttpRequest.Builder localVarRequestBuilder =
-                    getNotificationsRequestBuilder(webhookId, order, sortBy, pageCursor, pageSize);
+                    getNotificationsRequestBuilder(
+                            webhookId,
+                            order,
+                            sortBy,
+                            pageCursor,
+                            pageSize,
+                            startTime,
+                            endTime,
+                            statuses,
+                            events,
+                            resourceId);
             return memberVarHttpClient
                     .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
                     .thenComposeAsync(
@@ -468,7 +498,16 @@ public class WebhooksV2Api {
     }
 
     private HttpRequest.Builder getNotificationsRequestBuilder(
-            UUID webhookId, String order, String sortBy, String pageCursor, BigDecimal pageSize)
+            UUID webhookId,
+            String order,
+            String sortBy,
+            String pageCursor,
+            BigDecimal pageSize,
+            BigDecimal startTime,
+            BigDecimal endTime,
+            List<NotificationStatus> statuses,
+            List<WebhookEvent> events,
+            String resourceId)
             throws ApiException {
         ValidationUtils.assertParamExistsAndNotEmpty(
                 "getNotifications", "webhookId", webhookId.toString());
@@ -490,6 +529,16 @@ public class WebhooksV2Api {
         localVarQueryParams.addAll(ApiClient.parameterToPairs("pageCursor", pageCursor));
         localVarQueryParameterBaseName = "pageSize";
         localVarQueryParams.addAll(ApiClient.parameterToPairs("pageSize", pageSize));
+        localVarQueryParameterBaseName = "startTime";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("startTime", startTime));
+        localVarQueryParameterBaseName = "endTime";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("endTime", endTime));
+        localVarQueryParameterBaseName = "statuses";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("multi", "statuses", statuses));
+        localVarQueryParameterBaseName = "events";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("multi", "events", events));
+        localVarQueryParameterBaseName = "resourceId";
+        localVarQueryParams.addAll(ApiClient.parameterToPairs("resourceId", resourceId));
 
         if (!localVarQueryParams.isEmpty() || localVarQueryStringJoiner.length() != 0) {
             StringJoiner queryJoiner = new StringJoiner("&");

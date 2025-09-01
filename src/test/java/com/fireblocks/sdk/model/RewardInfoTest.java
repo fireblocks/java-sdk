@@ -13,27 +13,27 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for RewardInfo */
-public class RewardInfoTest {
+class RewardInfoTest {
     private final RewardInfo model = new RewardInfo();
 
     /** Model tests for RewardInfo */
     @Test
-    public void testRewardInfo() {
+    void testRewardInfo() {
         // TODO: test RewardInfo
     }
 
     /** Test the property 'srcRewards' */
     @Test
-    public void srcRewardsTest() {
+    void srcRewardsTest() {
         // TODO: test srcRewards
     }
 
     /** Test the property 'destRewards' */
     @Test
-    public void destRewardsTest() {
+    void destRewardsTest() {
         // TODO: test destRewards
     }
 }

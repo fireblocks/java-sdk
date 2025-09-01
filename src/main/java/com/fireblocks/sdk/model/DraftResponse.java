@@ -13,11 +13,11 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -30,23 +30,38 @@ import java.util.StringJoiner;
     DraftResponse.JSON_PROPERTY_DRAFT_ID,
     DraftResponse.JSON_PROPERTY_METADATA
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class DraftResponse {
     public static final String JSON_PROPERTY_STATUS = "status";
-    private String status;
+    @jakarta.annotation.Nonnull private String status;
 
     public static final String JSON_PROPERTY_RULES = "rules";
-    private List<PolicyRule> rules = new ArrayList<>();
+    @jakarta.annotation.Nonnull private List<PolicyRule> rules = new ArrayList<>();
 
     public static final String JSON_PROPERTY_DRAFT_ID = "draftId";
-    private String draftId;
+    @jakarta.annotation.Nonnull private String draftId;
 
     public static final String JSON_PROPERTY_METADATA = "metadata";
-    private PolicyMetadata metadata;
+    @jakarta.annotation.Nonnull private PolicyMetadata metadata;
 
     public DraftResponse() {}
 
-    public DraftResponse status(String status) {
+    @JsonCreator
+    public DraftResponse(
+            @JsonProperty(value = JSON_PROPERTY_STATUS, required = true) String status,
+            @JsonProperty(value = JSON_PROPERTY_RULES, required = true) List<PolicyRule> rules,
+            @JsonProperty(value = JSON_PROPERTY_DRAFT_ID, required = true) String draftId,
+            @JsonProperty(value = JSON_PROPERTY_METADATA, required = true)
+                    PolicyMetadata metadata) {
+        this.status = status;
+        this.rules = rules;
+        this.draftId = draftId;
+        this.metadata = metadata;
+    }
+
+    public DraftResponse status(@jakarta.annotation.Nonnull String status) {
         this.status = status;
         return this;
     }
@@ -65,11 +80,11 @@ public class DraftResponse {
 
     @JsonProperty(JSON_PROPERTY_STATUS)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setStatus(String status) {
+    public void setStatus(@jakarta.annotation.Nonnull String status) {
         this.status = status;
     }
 
-    public DraftResponse rules(List<PolicyRule> rules) {
+    public DraftResponse rules(@jakarta.annotation.Nonnull List<PolicyRule> rules) {
         this.rules = rules;
         return this;
     }
@@ -96,11 +111,11 @@ public class DraftResponse {
 
     @JsonProperty(JSON_PROPERTY_RULES)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setRules(List<PolicyRule> rules) {
+    public void setRules(@jakarta.annotation.Nonnull List<PolicyRule> rules) {
         this.rules = rules;
     }
 
-    public DraftResponse draftId(String draftId) {
+    public DraftResponse draftId(@jakarta.annotation.Nonnull String draftId) {
         this.draftId = draftId;
         return this;
     }
@@ -119,11 +134,11 @@ public class DraftResponse {
 
     @JsonProperty(JSON_PROPERTY_DRAFT_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setDraftId(String draftId) {
+    public void setDraftId(@jakarta.annotation.Nonnull String draftId) {
         this.draftId = draftId;
     }
 
-    public DraftResponse metadata(PolicyMetadata metadata) {
+    public DraftResponse metadata(@jakarta.annotation.Nonnull PolicyMetadata metadata) {
         this.metadata = metadata;
         return this;
     }
@@ -142,7 +157,7 @@ public class DraftResponse {
 
     @JsonProperty(JSON_PROPERTY_METADATA)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setMetadata(PolicyMetadata metadata) {
+    public void setMetadata(@jakarta.annotation.Nonnull PolicyMetadata metadata) {
         this.metadata = metadata;
     }
 
@@ -229,8 +244,7 @@ public class DraftResponse {
                             "%sstatus%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getStatus()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getStatus()))));
         }
 
         // add `rules` to the URL query string
@@ -263,8 +277,7 @@ public class DraftResponse {
                             "%sdraftId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getDraftId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getDraftId()))));
         }
 
         // add `metadata` to the URL query string

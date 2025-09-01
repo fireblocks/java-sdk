@@ -13,27 +13,27 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for ResendFailedNotificationsRequest */
-public class ResendFailedNotificationsRequestTest {
+class ResendFailedNotificationsRequestTest {
     private final ResendFailedNotificationsRequest model = new ResendFailedNotificationsRequest();
 
     /** Model tests for ResendFailedNotificationsRequest */
     @Test
-    public void testResendFailedNotificationsRequest() {
+    void testResendFailedNotificationsRequest() {
         // TODO: test ResendFailedNotificationsRequest
     }
 
     /** Test the property 'startTime' */
     @Test
-    public void startTimeTest() {
+    void startTimeTest() {
         // TODO: test startTime
     }
 
     /** Test the property 'events' */
     @Test
-    public void eventsTest() {
+    void eventsTest() {
         // TODO: test events
     }
 }

@@ -13,11 +13,11 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -30,29 +30,43 @@ import java.util.StringJoiner;
     CollectionMintRequestDto.JSON_PROPERTY_METADATA_U_R_I,
     CollectionMintRequestDto.JSON_PROPERTY_METADATA
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class CollectionMintRequestDto {
     public static final String JSON_PROPERTY_VAULT_ACCOUNT_ID = "vaultAccountId";
-    private String vaultAccountId;
+    @jakarta.annotation.Nonnull private String vaultAccountId;
 
     public static final String JSON_PROPERTY_TO = "to";
-    private String to;
+    @jakarta.annotation.Nonnull private String to;
 
     public static final String JSON_PROPERTY_TOKEN_ID = "tokenId";
-    private String tokenId;
+    @jakarta.annotation.Nonnull private String tokenId;
 
     public static final String JSON_PROPERTY_AMOUNT = "amount";
-    private String amount;
+    @jakarta.annotation.Nullable private String amount;
 
     public static final String JSON_PROPERTY_METADATA_U_R_I = "metadataURI";
-    private String metadataURI;
+    @jakarta.annotation.Nullable private String metadataURI;
 
     public static final String JSON_PROPERTY_METADATA = "metadata";
-    private CollectionTokenMetadataDto metadata;
+    @jakarta.annotation.Nullable private CollectionTokenMetadataDto metadata;
 
     public CollectionMintRequestDto() {}
 
-    public CollectionMintRequestDto vaultAccountId(String vaultAccountId) {
+    @JsonCreator
+    public CollectionMintRequestDto(
+            @JsonProperty(value = JSON_PROPERTY_VAULT_ACCOUNT_ID, required = true)
+                    String vaultAccountId,
+            @JsonProperty(value = JSON_PROPERTY_TO, required = true) String to,
+            @JsonProperty(value = JSON_PROPERTY_TOKEN_ID, required = true) String tokenId) {
+        this.vaultAccountId = vaultAccountId;
+        this.to = to;
+        this.tokenId = tokenId;
+    }
+
+    public CollectionMintRequestDto vaultAccountId(
+            @jakarta.annotation.Nonnull String vaultAccountId) {
         this.vaultAccountId = vaultAccountId;
         return this;
     }
@@ -71,11 +85,11 @@ public class CollectionMintRequestDto {
 
     @JsonProperty(JSON_PROPERTY_VAULT_ACCOUNT_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setVaultAccountId(String vaultAccountId) {
+    public void setVaultAccountId(@jakarta.annotation.Nonnull String vaultAccountId) {
         this.vaultAccountId = vaultAccountId;
     }
 
-    public CollectionMintRequestDto to(String to) {
+    public CollectionMintRequestDto to(@jakarta.annotation.Nonnull String to) {
         this.to = to;
         return this;
     }
@@ -94,11 +108,11 @@ public class CollectionMintRequestDto {
 
     @JsonProperty(JSON_PROPERTY_TO)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setTo(String to) {
+    public void setTo(@jakarta.annotation.Nonnull String to) {
         this.to = to;
     }
 
-    public CollectionMintRequestDto tokenId(String tokenId) {
+    public CollectionMintRequestDto tokenId(@jakarta.annotation.Nonnull String tokenId) {
         this.tokenId = tokenId;
         return this;
     }
@@ -117,11 +131,11 @@ public class CollectionMintRequestDto {
 
     @JsonProperty(JSON_PROPERTY_TOKEN_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setTokenId(String tokenId) {
+    public void setTokenId(@jakarta.annotation.Nonnull String tokenId) {
         this.tokenId = tokenId;
     }
 
-    public CollectionMintRequestDto amount(String amount) {
+    public CollectionMintRequestDto amount(@jakarta.annotation.Nullable String amount) {
         this.amount = amount;
         return this;
     }
@@ -141,11 +155,11 @@ public class CollectionMintRequestDto {
 
     @JsonProperty(JSON_PROPERTY_AMOUNT)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAmount(String amount) {
+    public void setAmount(@jakarta.annotation.Nullable String amount) {
         this.amount = amount;
     }
 
-    public CollectionMintRequestDto metadataURI(String metadataURI) {
+    public CollectionMintRequestDto metadataURI(@jakarta.annotation.Nullable String metadataURI) {
         this.metadataURI = metadataURI;
         return this;
     }
@@ -164,11 +178,12 @@ public class CollectionMintRequestDto {
 
     @JsonProperty(JSON_PROPERTY_METADATA_U_R_I)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setMetadataURI(String metadataURI) {
+    public void setMetadataURI(@jakarta.annotation.Nullable String metadataURI) {
         this.metadataURI = metadataURI;
     }
 
-    public CollectionMintRequestDto metadata(CollectionTokenMetadataDto metadata) {
+    public CollectionMintRequestDto metadata(
+            @jakarta.annotation.Nullable CollectionTokenMetadataDto metadata) {
         this.metadata = metadata;
         return this;
     }
@@ -187,7 +202,7 @@ public class CollectionMintRequestDto {
 
     @JsonProperty(JSON_PROPERTY_METADATA)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setMetadata(CollectionTokenMetadataDto metadata) {
+    public void setMetadata(@jakarta.annotation.Nullable CollectionTokenMetadataDto metadata) {
         this.metadata = metadata;
     }
 
@@ -278,10 +293,7 @@ public class CollectionMintRequestDto {
                             "%svaultAccountId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getVaultAccountId()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getVaultAccountId()))));
         }
 
         // add `to` to the URL query string
@@ -289,10 +301,7 @@ public class CollectionMintRequestDto {
             joiner.add(
                     String.format(
                             "%sto%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(String.valueOf(getTo()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getTo()))));
         }
 
         // add `tokenId` to the URL query string
@@ -302,8 +311,7 @@ public class CollectionMintRequestDto {
                             "%stokenId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getTokenId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getTokenId()))));
         }
 
         // add `amount` to the URL query string
@@ -313,8 +321,7 @@ public class CollectionMintRequestDto {
                             "%samount%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getAmount()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getAmount()))));
         }
 
         // add `metadataURI` to the URL query string
@@ -324,10 +331,7 @@ public class CollectionMintRequestDto {
                             "%smetadataURI%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getMetadataURI()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getMetadataURI()))));
         }
 
         // add `metadata` to the URL query string

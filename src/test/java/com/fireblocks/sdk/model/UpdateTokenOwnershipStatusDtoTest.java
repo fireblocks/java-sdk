@@ -13,21 +13,21 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for UpdateTokenOwnershipStatusDto */
-public class UpdateTokenOwnershipStatusDtoTest {
+class UpdateTokenOwnershipStatusDtoTest {
     private final UpdateTokenOwnershipStatusDto model = new UpdateTokenOwnershipStatusDto();
 
     /** Model tests for UpdateTokenOwnershipStatusDto */
     @Test
-    public void testUpdateTokenOwnershipStatusDto() {
+    void testUpdateTokenOwnershipStatusDto() {
         // TODO: test UpdateTokenOwnershipStatusDto
     }
 
     /** Test the property 'status' */
     @Test
-    public void statusTest() {
+    void statusTest() {
         // TODO: test status
     }
 }

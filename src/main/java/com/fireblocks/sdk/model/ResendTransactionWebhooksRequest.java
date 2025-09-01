@@ -16,8 +16,7 @@ package com.fireblocks.sdk.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -26,17 +25,20 @@ import java.util.StringJoiner;
     ResendTransactionWebhooksRequest.JSON_PROPERTY_RESEND_CREATED,
     ResendTransactionWebhooksRequest.JSON_PROPERTY_RESEND_STATUS_UPDATED
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class ResendTransactionWebhooksRequest {
     public static final String JSON_PROPERTY_RESEND_CREATED = "resendCreated";
-    private Boolean resendCreated;
+    @jakarta.annotation.Nullable private Boolean resendCreated;
 
     public static final String JSON_PROPERTY_RESEND_STATUS_UPDATED = "resendStatusUpdated";
-    private Boolean resendStatusUpdated;
+    @jakarta.annotation.Nullable private Boolean resendStatusUpdated;
 
     public ResendTransactionWebhooksRequest() {}
 
-    public ResendTransactionWebhooksRequest resendCreated(Boolean resendCreated) {
+    public ResendTransactionWebhooksRequest resendCreated(
+            @jakarta.annotation.Nullable Boolean resendCreated) {
         this.resendCreated = resendCreated;
         return this;
     }
@@ -55,11 +57,12 @@ public class ResendTransactionWebhooksRequest {
 
     @JsonProperty(JSON_PROPERTY_RESEND_CREATED)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setResendCreated(Boolean resendCreated) {
+    public void setResendCreated(@jakarta.annotation.Nullable Boolean resendCreated) {
         this.resendCreated = resendCreated;
     }
 
-    public ResendTransactionWebhooksRequest resendStatusUpdated(Boolean resendStatusUpdated) {
+    public ResendTransactionWebhooksRequest resendStatusUpdated(
+            @jakarta.annotation.Nullable Boolean resendStatusUpdated) {
         this.resendStatusUpdated = resendStatusUpdated;
         return this;
     }
@@ -78,7 +81,7 @@ public class ResendTransactionWebhooksRequest {
 
     @JsonProperty(JSON_PROPERTY_RESEND_STATUS_UPDATED)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setResendStatusUpdated(Boolean resendStatusUpdated) {
+    public void setResendStatusUpdated(@jakarta.annotation.Nullable Boolean resendStatusUpdated) {
         this.resendStatusUpdated = resendStatusUpdated;
     }
 
@@ -166,10 +169,7 @@ public class ResendTransactionWebhooksRequest {
                             "%sresendCreated%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getResendCreated()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getResendCreated()))));
         }
 
         // add `resendStatusUpdated` to the URL query string
@@ -179,10 +179,8 @@ public class ResendTransactionWebhooksRequest {
                             "%sresendStatusUpdated%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getResendStatusUpdated()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(
+                                    ApiClient.valueToString(getResendStatusUpdated()))));
         }
 
         return joiner.toString();

@@ -13,21 +13,21 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for UnfreezeTransactionResponse */
-public class UnfreezeTransactionResponseTest {
+class UnfreezeTransactionResponseTest {
     private final UnfreezeTransactionResponse model = new UnfreezeTransactionResponse();
 
     /** Model tests for UnfreezeTransactionResponse */
     @Test
-    public void testUnfreezeTransactionResponse() {
+    void testUnfreezeTransactionResponse() {
         // TODO: test UnfreezeTransactionResponse
     }
 
     /** Test the property 'success' */
     @Test
-    public void successTest() {
+    void successTest() {
         // TODO: test success
     }
 }

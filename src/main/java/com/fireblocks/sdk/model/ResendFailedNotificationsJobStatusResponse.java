@@ -18,9 +18,8 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.fireblocks.sdk.ApiClient;
 import java.math.BigDecimal;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -31,20 +30,22 @@ import java.util.StringJoiner;
     ResendFailedNotificationsJobStatusResponse.JSON_PROPERTY_PROCESSED,
     ResendFailedNotificationsJobStatusResponse.JSON_PROPERTY_TOTAL
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class ResendFailedNotificationsJobStatusResponse {
     public static final String JSON_PROPERTY_JOB_ID = "jobId";
-    private String jobId;
+    @jakarta.annotation.Nonnull private String jobId;
 
     /** Bulk resend job status */
     public enum StatusEnum {
-        QUEUED("QUEUED"),
+        QUEUED(String.valueOf("QUEUED")),
 
-        IN_PROGRESS("IN_PROGRESS"),
+        IN_PROGRESS(String.valueOf("IN_PROGRESS")),
 
-        COMPLETED("COMPLETED"),
+        COMPLETED(String.valueOf("COMPLETED")),
 
-        FAILED("FAILED");
+        FAILED(String.valueOf("FAILED"));
 
         private String value;
 
@@ -74,17 +75,30 @@ public class ResendFailedNotificationsJobStatusResponse {
     }
 
     public static final String JSON_PROPERTY_STATUS = "status";
-    private StatusEnum status;
+    @jakarta.annotation.Nonnull private StatusEnum status;
 
     public static final String JSON_PROPERTY_PROCESSED = "processed";
-    private BigDecimal processed;
+    @jakarta.annotation.Nonnull private BigDecimal processed;
 
     public static final String JSON_PROPERTY_TOTAL = "total";
-    private BigDecimal total;
+    @jakarta.annotation.Nonnull private BigDecimal total;
 
     public ResendFailedNotificationsJobStatusResponse() {}
 
-    public ResendFailedNotificationsJobStatusResponse jobId(String jobId) {
+    @JsonCreator
+    public ResendFailedNotificationsJobStatusResponse(
+            @JsonProperty(value = JSON_PROPERTY_JOB_ID, required = true) String jobId,
+            @JsonProperty(value = JSON_PROPERTY_STATUS, required = true) StatusEnum status,
+            @JsonProperty(value = JSON_PROPERTY_PROCESSED, required = true) BigDecimal processed,
+            @JsonProperty(value = JSON_PROPERTY_TOTAL, required = true) BigDecimal total) {
+        this.jobId = jobId;
+        this.status = status;
+        this.processed = processed;
+        this.total = total;
+    }
+
+    public ResendFailedNotificationsJobStatusResponse jobId(
+            @jakarta.annotation.Nonnull String jobId) {
         this.jobId = jobId;
         return this;
     }
@@ -103,11 +117,12 @@ public class ResendFailedNotificationsJobStatusResponse {
 
     @JsonProperty(JSON_PROPERTY_JOB_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setJobId(String jobId) {
+    public void setJobId(@jakarta.annotation.Nonnull String jobId) {
         this.jobId = jobId;
     }
 
-    public ResendFailedNotificationsJobStatusResponse status(StatusEnum status) {
+    public ResendFailedNotificationsJobStatusResponse status(
+            @jakarta.annotation.Nonnull StatusEnum status) {
         this.status = status;
         return this;
     }
@@ -126,11 +141,12 @@ public class ResendFailedNotificationsJobStatusResponse {
 
     @JsonProperty(JSON_PROPERTY_STATUS)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setStatus(StatusEnum status) {
+    public void setStatus(@jakarta.annotation.Nonnull StatusEnum status) {
         this.status = status;
     }
 
-    public ResendFailedNotificationsJobStatusResponse processed(BigDecimal processed) {
+    public ResendFailedNotificationsJobStatusResponse processed(
+            @jakarta.annotation.Nonnull BigDecimal processed) {
         this.processed = processed;
         return this;
     }
@@ -149,11 +165,12 @@ public class ResendFailedNotificationsJobStatusResponse {
 
     @JsonProperty(JSON_PROPERTY_PROCESSED)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setProcessed(BigDecimal processed) {
+    public void setProcessed(@jakarta.annotation.Nonnull BigDecimal processed) {
         this.processed = processed;
     }
 
-    public ResendFailedNotificationsJobStatusResponse total(BigDecimal total) {
+    public ResendFailedNotificationsJobStatusResponse total(
+            @jakarta.annotation.Nonnull BigDecimal total) {
         this.total = total;
         return this;
     }
@@ -172,7 +189,7 @@ public class ResendFailedNotificationsJobStatusResponse {
 
     @JsonProperty(JSON_PROPERTY_TOTAL)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setTotal(BigDecimal total) {
+    public void setTotal(@jakarta.annotation.Nonnull BigDecimal total) {
         this.total = total;
     }
 
@@ -261,8 +278,7 @@ public class ResendFailedNotificationsJobStatusResponse {
                             "%sjobId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getJobId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getJobId()))));
         }
 
         // add `status` to the URL query string
@@ -272,8 +288,7 @@ public class ResendFailedNotificationsJobStatusResponse {
                             "%sstatus%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getStatus()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getStatus()))));
         }
 
         // add `processed` to the URL query string
@@ -283,9 +298,7 @@ public class ResendFailedNotificationsJobStatusResponse {
                             "%sprocessed%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getProcessed()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getProcessed()))));
         }
 
         // add `total` to the URL query string
@@ -295,8 +308,7 @@ public class ResendFailedNotificationsJobStatusResponse {
                             "%stotal%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getTotal()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getTotal()))));
         }
 
         return joiner.toString();

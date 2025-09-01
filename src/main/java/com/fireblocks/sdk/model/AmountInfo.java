@@ -16,8 +16,7 @@ package com.fireblocks.sdk.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -28,23 +27,25 @@ import java.util.StringJoiner;
     AmountInfo.JSON_PROPERTY_NET_AMOUNT,
     AmountInfo.JSON_PROPERTY_AMOUNT_U_S_D
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class AmountInfo {
     public static final String JSON_PROPERTY_AMOUNT = "amount";
-    private String amount;
+    @jakarta.annotation.Nullable private String amount;
 
     public static final String JSON_PROPERTY_REQUESTED_AMOUNT = "requestedAmount";
-    private String requestedAmount;
+    @jakarta.annotation.Nullable private String requestedAmount;
 
     public static final String JSON_PROPERTY_NET_AMOUNT = "netAmount";
-    private String netAmount;
+    @jakarta.annotation.Nullable private String netAmount;
 
     public static final String JSON_PROPERTY_AMOUNT_U_S_D = "amountUSD";
-    private String amountUSD;
+    @jakarta.annotation.Nullable private String amountUSD;
 
     public AmountInfo() {}
 
-    public AmountInfo amount(String amount) {
+    public AmountInfo amount(@jakarta.annotation.Nullable String amount) {
         this.amount = amount;
         return this;
     }
@@ -64,11 +65,11 @@ public class AmountInfo {
 
     @JsonProperty(JSON_PROPERTY_AMOUNT)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAmount(String amount) {
+    public void setAmount(@jakarta.annotation.Nullable String amount) {
         this.amount = amount;
     }
 
-    public AmountInfo requestedAmount(String requestedAmount) {
+    public AmountInfo requestedAmount(@jakarta.annotation.Nullable String requestedAmount) {
         this.requestedAmount = requestedAmount;
         return this;
     }
@@ -87,11 +88,11 @@ public class AmountInfo {
 
     @JsonProperty(JSON_PROPERTY_REQUESTED_AMOUNT)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setRequestedAmount(String requestedAmount) {
+    public void setRequestedAmount(@jakarta.annotation.Nullable String requestedAmount) {
         this.requestedAmount = requestedAmount;
     }
 
-    public AmountInfo netAmount(String netAmount) {
+    public AmountInfo netAmount(@jakarta.annotation.Nullable String netAmount) {
         this.netAmount = netAmount;
         return this;
     }
@@ -110,11 +111,11 @@ public class AmountInfo {
 
     @JsonProperty(JSON_PROPERTY_NET_AMOUNT)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setNetAmount(String netAmount) {
+    public void setNetAmount(@jakarta.annotation.Nullable String netAmount) {
         this.netAmount = netAmount;
     }
 
-    public AmountInfo amountUSD(String amountUSD) {
+    public AmountInfo amountUSD(@jakarta.annotation.Nullable String amountUSD) {
         this.amountUSD = amountUSD;
         return this;
     }
@@ -133,7 +134,7 @@ public class AmountInfo {
 
     @JsonProperty(JSON_PROPERTY_AMOUNT_U_S_D)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAmountUSD(String amountUSD) {
+    public void setAmountUSD(@jakarta.annotation.Nullable String amountUSD) {
         this.amountUSD = amountUSD;
     }
 
@@ -220,8 +221,7 @@ public class AmountInfo {
                             "%samount%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getAmount()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getAmount()))));
         }
 
         // add `requestedAmount` to the URL query string
@@ -231,10 +231,7 @@ public class AmountInfo {
                             "%srequestedAmount%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getRequestedAmount()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getRequestedAmount()))));
         }
 
         // add `netAmount` to the URL query string
@@ -244,9 +241,7 @@ public class AmountInfo {
                             "%snetAmount%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getNetAmount()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getNetAmount()))));
         }
 
         // add `amountUSD` to the URL query string
@@ -256,9 +251,7 @@ public class AmountInfo {
                             "%samountUSD%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getAmountUSD()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getAmountUSD()))));
         }
 
         return joiner.toString();

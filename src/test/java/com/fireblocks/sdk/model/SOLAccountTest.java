@@ -13,39 +13,39 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for SOLAccount */
-public class SOLAccountTest {
+class SOLAccountTest {
     private final SOLAccount model = new SOLAccount();
 
     /** Model tests for SOLAccount */
     @Test
-    public void testSOLAccount() {
+    void testSOLAccount() {
         // TODO: test SOLAccount
     }
 
     /** Test the property 'name' */
     @Test
-    public void nameTest() {
+    void nameTest() {
         // TODO: test name
     }
 
     /** Test the property 'signer' */
     @Test
-    public void signerTest() {
+    void signerTest() {
         // TODO: test signer
     }
 
     /** Test the property 'writable' */
     @Test
-    public void writableTest() {
+    void writableTest() {
         // TODO: test writable
     }
 
     /** Test the property 'address' */
     @Test
-    public void addressTest() {
+    void addressTest() {
         // TODO: test address
     }
 }

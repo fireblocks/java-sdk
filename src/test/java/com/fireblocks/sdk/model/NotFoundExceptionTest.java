@@ -13,33 +13,33 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for NotFoundException */
-public class NotFoundExceptionTest {
+class NotFoundExceptionTest {
     private final NotFoundException model = new NotFoundException();
 
     /** Model tests for NotFoundException */
     @Test
-    public void testNotFoundException() {
+    void testNotFoundException() {
         // TODO: test NotFoundException
     }
 
     /** Test the property 'statusCode' */
     @Test
-    public void statusCodeTest() {
+    void statusCodeTest() {
         // TODO: test statusCode
     }
 
     /** Test the property 'message' */
     @Test
-    public void messageTest() {
+    void messageTest() {
         // TODO: test message
     }
 
     /** Test the property 'error' */
     @Test
-    public void errorTest() {
+    void errorTest() {
         // TODO: test error
     }
 }

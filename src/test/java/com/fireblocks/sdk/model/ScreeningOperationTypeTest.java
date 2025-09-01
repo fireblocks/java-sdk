@@ -13,13 +13,13 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for ScreeningOperationType */
-public class ScreeningOperationTypeTest {
+class ScreeningOperationTypeTest {
     /** Model tests for ScreeningOperationType */
     @Test
-    public void testScreeningOperationType() {
+    void testScreeningOperationType() {
         // TODO: test ScreeningOperationType
     }
 }

@@ -13,27 +13,27 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for AssetConflictErrorResponse */
-public class AssetConflictErrorResponseTest {
+class AssetConflictErrorResponseTest {
     private final AssetConflictErrorResponse model = new AssetConflictErrorResponse();
 
     /** Model tests for AssetConflictErrorResponse */
     @Test
-    public void testAssetConflictErrorResponse() {
+    void testAssetConflictErrorResponse() {
         // TODO: test AssetConflictErrorResponse
     }
 
     /** Test the property 'message' */
     @Test
-    public void messageTest() {
+    void messageTest() {
         // TODO: test message
     }
 
     /** Test the property 'code' */
     @Test
-    public void codeTest() {
+    void codeTest() {
         // TODO: test code
     }
 }

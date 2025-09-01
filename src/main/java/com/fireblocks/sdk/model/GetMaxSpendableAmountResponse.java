@@ -16,21 +16,23 @@ package com.fireblocks.sdk.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
 /** GetMaxSpendableAmountResponse */
 @JsonPropertyOrder({GetMaxSpendableAmountResponse.JSON_PROPERTY_MAX_SPENDABLE_AMOUNT})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class GetMaxSpendableAmountResponse {
     public static final String JSON_PROPERTY_MAX_SPENDABLE_AMOUNT = "maxSpendableAmount";
-    private String maxSpendableAmount;
+    @jakarta.annotation.Nullable private String maxSpendableAmount;
 
     public GetMaxSpendableAmountResponse() {}
 
-    public GetMaxSpendableAmountResponse maxSpendableAmount(String maxSpendableAmount) {
+    public GetMaxSpendableAmountResponse maxSpendableAmount(
+            @jakarta.annotation.Nullable String maxSpendableAmount) {
         this.maxSpendableAmount = maxSpendableAmount;
         return this;
     }
@@ -49,7 +51,7 @@ public class GetMaxSpendableAmountResponse {
 
     @JsonProperty(JSON_PROPERTY_MAX_SPENDABLE_AMOUNT)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setMaxSpendableAmount(String maxSpendableAmount) {
+    public void setMaxSpendableAmount(@jakarta.annotation.Nullable String maxSpendableAmount) {
         this.maxSpendableAmount = maxSpendableAmount;
     }
 
@@ -134,10 +136,7 @@ public class GetMaxSpendableAmountResponse {
                             "%smaxSpendableAmount%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getMaxSpendableAmount()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getMaxSpendableAmount()))));
         }
 
         return joiner.toString();

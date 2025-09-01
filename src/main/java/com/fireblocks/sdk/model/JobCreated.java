@@ -16,21 +16,22 @@ package com.fireblocks.sdk.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
 /** JobCreated */
 @JsonPropertyOrder({JobCreated.JSON_PROPERTY_JOB_ID})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class JobCreated {
     public static final String JSON_PROPERTY_JOB_ID = "jobId";
-    private String jobId;
+    @jakarta.annotation.Nullable private String jobId;
 
     public JobCreated() {}
 
-    public JobCreated jobId(String jobId) {
+    public JobCreated jobId(@jakarta.annotation.Nullable String jobId) {
         this.jobId = jobId;
         return this;
     }
@@ -49,7 +50,7 @@ public class JobCreated {
 
     @JsonProperty(JSON_PROPERTY_JOB_ID)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setJobId(String jobId) {
+    public void setJobId(@jakarta.annotation.Nullable String jobId) {
         this.jobId = jobId;
     }
 
@@ -130,8 +131,7 @@ public class JobCreated {
                             "%sjobId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getJobId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getJobId()))));
         }
 
         return joiner.toString();

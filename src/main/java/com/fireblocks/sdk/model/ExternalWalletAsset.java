@@ -16,8 +16,7 @@ package com.fireblocks.sdk.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -34,35 +33,39 @@ import java.util.StringJoiner;
     ExternalWalletAsset.JSON_PROPERTY_ACTIVATION_TIME,
     ExternalWalletAsset.JSON_PROPERTY_ADDITIONAL_INFO
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class ExternalWalletAsset {
     public static final String JSON_PROPERTY_ID = "id";
-    private String id;
+    @jakarta.annotation.Nullable private String id;
 
     public static final String JSON_PROPERTY_STATUS = "status";
-    private ConfigChangeRequestStatus status;
+    @jakarta.annotation.Nullable private ConfigChangeRequestStatus status;
 
     public static final String JSON_PROPERTY_ADDRESS = "address";
-    private String address;
+    @jakarta.annotation.Nullable private String address;
 
     public static final String JSON_PROPERTY_BALANCE = "balance";
-    private String balance;
+    @jakarta.annotation.Nullable private String balance;
 
     public static final String JSON_PROPERTY_LOCKED_AMOUNT = "lockedAmount";
-    private String lockedAmount;
+    @jakarta.annotation.Nullable private String lockedAmount;
 
     public static final String JSON_PROPERTY_TAG = "tag";
-    private String tag;
+    @jakarta.annotation.Nullable private String tag;
 
     public static final String JSON_PROPERTY_ACTIVATION_TIME = "activationTime";
-    private String activationTime;
+    @jakarta.annotation.Nullable private String activationTime;
 
     public static final String JSON_PROPERTY_ADDITIONAL_INFO = "additionalInfo";
-    private List<WalletAssetAdditionalInfo> additionalInfo;
+
+    @jakarta.annotation.Nullable
+    private List<WalletAssetAdditionalInfo> additionalInfo = new ArrayList<>();
 
     public ExternalWalletAsset() {}
 
-    public ExternalWalletAsset id(String id) {
+    public ExternalWalletAsset id(@jakarta.annotation.Nullable String id) {
         this.id = id;
         return this;
     }
@@ -81,11 +84,12 @@ public class ExternalWalletAsset {
 
     @JsonProperty(JSON_PROPERTY_ID)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setId(String id) {
+    public void setId(@jakarta.annotation.Nullable String id) {
         this.id = id;
     }
 
-    public ExternalWalletAsset status(ConfigChangeRequestStatus status) {
+    public ExternalWalletAsset status(
+            @jakarta.annotation.Nullable ConfigChangeRequestStatus status) {
         this.status = status;
         return this;
     }
@@ -104,11 +108,11 @@ public class ExternalWalletAsset {
 
     @JsonProperty(JSON_PROPERTY_STATUS)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setStatus(ConfigChangeRequestStatus status) {
+    public void setStatus(@jakarta.annotation.Nullable ConfigChangeRequestStatus status) {
         this.status = status;
     }
 
-    public ExternalWalletAsset address(String address) {
+    public ExternalWalletAsset address(@jakarta.annotation.Nullable String address) {
         this.address = address;
         return this;
     }
@@ -127,11 +131,11 @@ public class ExternalWalletAsset {
 
     @JsonProperty(JSON_PROPERTY_ADDRESS)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAddress(String address) {
+    public void setAddress(@jakarta.annotation.Nullable String address) {
         this.address = address;
     }
 
-    public ExternalWalletAsset balance(String balance) {
+    public ExternalWalletAsset balance(@jakarta.annotation.Nullable String balance) {
         this.balance = balance;
         return this;
     }
@@ -150,11 +154,11 @@ public class ExternalWalletAsset {
 
     @JsonProperty(JSON_PROPERTY_BALANCE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setBalance(String balance) {
+    public void setBalance(@jakarta.annotation.Nullable String balance) {
         this.balance = balance;
     }
 
-    public ExternalWalletAsset lockedAmount(String lockedAmount) {
+    public ExternalWalletAsset lockedAmount(@jakarta.annotation.Nullable String lockedAmount) {
         this.lockedAmount = lockedAmount;
         return this;
     }
@@ -173,11 +177,11 @@ public class ExternalWalletAsset {
 
     @JsonProperty(JSON_PROPERTY_LOCKED_AMOUNT)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setLockedAmount(String lockedAmount) {
+    public void setLockedAmount(@jakarta.annotation.Nullable String lockedAmount) {
         this.lockedAmount = lockedAmount;
     }
 
-    public ExternalWalletAsset tag(String tag) {
+    public ExternalWalletAsset tag(@jakarta.annotation.Nullable String tag) {
         this.tag = tag;
         return this;
     }
@@ -196,11 +200,11 @@ public class ExternalWalletAsset {
 
     @JsonProperty(JSON_PROPERTY_TAG)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setTag(String tag) {
+    public void setTag(@jakarta.annotation.Nullable String tag) {
         this.tag = tag;
     }
 
-    public ExternalWalletAsset activationTime(String activationTime) {
+    public ExternalWalletAsset activationTime(@jakarta.annotation.Nullable String activationTime) {
         this.activationTime = activationTime;
         return this;
     }
@@ -219,11 +223,12 @@ public class ExternalWalletAsset {
 
     @JsonProperty(JSON_PROPERTY_ACTIVATION_TIME)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setActivationTime(String activationTime) {
+    public void setActivationTime(@jakarta.annotation.Nullable String activationTime) {
         this.activationTime = activationTime;
     }
 
-    public ExternalWalletAsset additionalInfo(List<WalletAssetAdditionalInfo> additionalInfo) {
+    public ExternalWalletAsset additionalInfo(
+            @jakarta.annotation.Nullable List<WalletAssetAdditionalInfo> additionalInfo) {
         this.additionalInfo = additionalInfo;
         return this;
     }
@@ -250,7 +255,8 @@ public class ExternalWalletAsset {
 
     @JsonProperty(JSON_PROPERTY_ADDITIONAL_INFO)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAdditionalInfo(List<WalletAssetAdditionalInfo> additionalInfo) {
+    public void setAdditionalInfo(
+            @jakarta.annotation.Nullable List<WalletAssetAdditionalInfo> additionalInfo) {
         this.additionalInfo = additionalInfo;
     }
 
@@ -344,10 +350,7 @@ public class ExternalWalletAsset {
             joiner.add(
                     String.format(
                             "%sid%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(String.valueOf(getId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getId()))));
         }
 
         // add `status` to the URL query string
@@ -357,8 +360,7 @@ public class ExternalWalletAsset {
                             "%sstatus%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getStatus()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getStatus()))));
         }
 
         // add `address` to the URL query string
@@ -368,8 +370,7 @@ public class ExternalWalletAsset {
                             "%saddress%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getAddress()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getAddress()))));
         }
 
         // add `balance` to the URL query string
@@ -379,8 +380,7 @@ public class ExternalWalletAsset {
                             "%sbalance%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getBalance()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getBalance()))));
         }
 
         // add `lockedAmount` to the URL query string
@@ -390,10 +390,7 @@ public class ExternalWalletAsset {
                             "%slockedAmount%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getLockedAmount()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getLockedAmount()))));
         }
 
         // add `tag` to the URL query string
@@ -403,8 +400,7 @@ public class ExternalWalletAsset {
                             "%stag%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getTag()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getTag()))));
         }
 
         // add `activationTime` to the URL query string
@@ -414,10 +410,7 @@ public class ExternalWalletAsset {
                             "%sactivationTime%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getActivationTime()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getActivationTime()))));
         }
 
         // add `additionalInfo` to the URL query string

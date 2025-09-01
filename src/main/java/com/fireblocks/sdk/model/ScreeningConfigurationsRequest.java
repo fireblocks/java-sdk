@@ -16,9 +16,8 @@ package com.fireblocks.sdk.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fireblocks.sdk.ApiClient;
 import java.math.BigDecimal;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -28,23 +27,25 @@ import java.util.StringJoiner;
     ScreeningConfigurationsRequest.JSON_PROPERTY_INBOUND_TRANSACTION_DELAY,
     ScreeningConfigurationsRequest.JSON_PROPERTY_OUTBOUND_TRANSACTION_DELAY
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class ScreeningConfigurationsRequest {
     public static final String JSON_PROPERTY_BYPASS_SCREENING_DURING_SERVICE_OUTAGES =
             "bypassScreeningDuringServiceOutages";
-    private Boolean bypassScreeningDuringServiceOutages;
+    @jakarta.annotation.Nullable private Boolean bypassScreeningDuringServiceOutages;
 
     public static final String JSON_PROPERTY_INBOUND_TRANSACTION_DELAY = "inboundTransactionDelay";
-    private BigDecimal inboundTransactionDelay;
+    @jakarta.annotation.Nullable private BigDecimal inboundTransactionDelay;
 
     public static final String JSON_PROPERTY_OUTBOUND_TRANSACTION_DELAY =
             "outboundTransactionDelay";
-    private BigDecimal outboundTransactionDelay;
+    @jakarta.annotation.Nullable private BigDecimal outboundTransactionDelay;
 
     public ScreeningConfigurationsRequest() {}
 
     public ScreeningConfigurationsRequest bypassScreeningDuringServiceOutages(
-            Boolean bypassScreeningDuringServiceOutages) {
+            @jakarta.annotation.Nullable Boolean bypassScreeningDuringServiceOutages) {
         this.bypassScreeningDuringServiceOutages = bypassScreeningDuringServiceOutages;
         return this;
     }
@@ -64,12 +65,12 @@ public class ScreeningConfigurationsRequest {
     @JsonProperty(JSON_PROPERTY_BYPASS_SCREENING_DURING_SERVICE_OUTAGES)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
     public void setBypassScreeningDuringServiceOutages(
-            Boolean bypassScreeningDuringServiceOutages) {
+            @jakarta.annotation.Nullable Boolean bypassScreeningDuringServiceOutages) {
         this.bypassScreeningDuringServiceOutages = bypassScreeningDuringServiceOutages;
     }
 
     public ScreeningConfigurationsRequest inboundTransactionDelay(
-            BigDecimal inboundTransactionDelay) {
+            @jakarta.annotation.Nullable BigDecimal inboundTransactionDelay) {
         this.inboundTransactionDelay = inboundTransactionDelay;
         return this;
     }
@@ -88,12 +89,13 @@ public class ScreeningConfigurationsRequest {
 
     @JsonProperty(JSON_PROPERTY_INBOUND_TRANSACTION_DELAY)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setInboundTransactionDelay(BigDecimal inboundTransactionDelay) {
+    public void setInboundTransactionDelay(
+            @jakarta.annotation.Nullable BigDecimal inboundTransactionDelay) {
         this.inboundTransactionDelay = inboundTransactionDelay;
     }
 
     public ScreeningConfigurationsRequest outboundTransactionDelay(
-            BigDecimal outboundTransactionDelay) {
+            @jakarta.annotation.Nullable BigDecimal outboundTransactionDelay) {
         this.outboundTransactionDelay = outboundTransactionDelay;
         return this;
     }
@@ -112,7 +114,8 @@ public class ScreeningConfigurationsRequest {
 
     @JsonProperty(JSON_PROPERTY_OUTBOUND_TRANSACTION_DELAY)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setOutboundTransactionDelay(BigDecimal outboundTransactionDelay) {
+    public void setOutboundTransactionDelay(
+            @jakarta.annotation.Nullable BigDecimal outboundTransactionDelay) {
         this.outboundTransactionDelay = outboundTransactionDelay;
     }
 
@@ -213,11 +216,9 @@ public class ScreeningConfigurationsRequest {
                             "%sbypassScreeningDuringServiceOutages%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(
-                                                    getBypassScreeningDuringServiceOutages()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(
+                                    ApiClient.valueToString(
+                                            getBypassScreeningDuringServiceOutages()))));
         }
 
         // add `inboundTransactionDelay` to the URL query string
@@ -227,10 +228,8 @@ public class ScreeningConfigurationsRequest {
                             "%sinboundTransactionDelay%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getInboundTransactionDelay()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(
+                                    ApiClient.valueToString(getInboundTransactionDelay()))));
         }
 
         // add `outboundTransactionDelay` to the URL query string
@@ -240,10 +239,8 @@ public class ScreeningConfigurationsRequest {
                             "%soutboundTransactionDelay%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getOutboundTransactionDelay()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(
+                                    ApiClient.valueToString(getOutboundTransactionDelay()))));
         }
 
         return joiner.toString();

@@ -16,8 +16,7 @@ package com.fireblocks.sdk.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -29,20 +28,22 @@ import java.util.StringJoiner;
     FunctionDoc.JSON_PROPERTY_PARAMS,
     FunctionDoc.JSON_PROPERTY_RETURNS
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class FunctionDoc {
     public static final String JSON_PROPERTY_DETAILS = "details";
-    private String details;
+    @jakarta.annotation.Nullable private String details;
 
     public static final String JSON_PROPERTY_PARAMS = "params";
-    private Map<String, String> params = new HashMap<>();
+    @jakarta.annotation.Nullable private Map<String, String> params = new HashMap<>();
 
     public static final String JSON_PROPERTY_RETURNS = "returns";
-    private Map<String, String> returns = new HashMap<>();
+    @jakarta.annotation.Nullable private Map<String, String> returns = new HashMap<>();
 
     public FunctionDoc() {}
 
-    public FunctionDoc details(String details) {
+    public FunctionDoc details(@jakarta.annotation.Nullable String details) {
         this.details = details;
         return this;
     }
@@ -61,11 +62,11 @@ public class FunctionDoc {
 
     @JsonProperty(JSON_PROPERTY_DETAILS)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setDetails(String details) {
+    public void setDetails(@jakarta.annotation.Nullable String details) {
         this.details = details;
     }
 
-    public FunctionDoc params(Map<String, String> params) {
+    public FunctionDoc params(@jakarta.annotation.Nullable Map<String, String> params) {
         this.params = params;
         return this;
     }
@@ -92,11 +93,11 @@ public class FunctionDoc {
 
     @JsonProperty(JSON_PROPERTY_PARAMS)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setParams(Map<String, String> params) {
+    public void setParams(@jakarta.annotation.Nullable Map<String, String> params) {
         this.params = params;
     }
 
-    public FunctionDoc returns(Map<String, String> returns) {
+    public FunctionDoc returns(@jakarta.annotation.Nullable Map<String, String> returns) {
         this.returns = returns;
         return this;
     }
@@ -123,7 +124,7 @@ public class FunctionDoc {
 
     @JsonProperty(JSON_PROPERTY_RETURNS)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setReturns(Map<String, String> returns) {
+    public void setReturns(@jakarta.annotation.Nullable Map<String, String> returns) {
         this.returns = returns;
     }
 
@@ -208,8 +209,7 @@ public class FunctionDoc {
                             "%sdetails%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getDetails()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getDetails()))));
         }
 
         // add `params` to the URL query string
@@ -225,10 +225,8 @@ public class FunctionDoc {
                                         : String.format(
                                                 "%s%d%s", containerPrefix, _key, containerSuffix),
                                 getParams().get(_key),
-                                URLEncoder.encode(
-                                                String.valueOf(getParams().get(_key)),
-                                                StandardCharsets.UTF_8)
-                                        .replaceAll("\\+", "%20")));
+                                ApiClient.urlEncode(
+                                        ApiClient.valueToString(getParams().get(_key)))));
             }
         }
 
@@ -245,10 +243,8 @@ public class FunctionDoc {
                                         : String.format(
                                                 "%s%d%s", containerPrefix, _key, containerSuffix),
                                 getReturns().get(_key),
-                                URLEncoder.encode(
-                                                String.valueOf(getReturns().get(_key)),
-                                                StandardCharsets.UTF_8)
-                                        .replaceAll("\\+", "%20")));
+                                ApiClient.urlEncode(
+                                        ApiClient.valueToString(getReturns().get(_key)))));
             }
         }
 

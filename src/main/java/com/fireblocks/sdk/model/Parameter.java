@@ -13,11 +13,11 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -31,26 +31,36 @@ import java.util.StringJoiner;
     Parameter.JSON_PROPERTY_TYPE,
     Parameter.JSON_PROPERTY_COMPONENTS
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class Parameter {
     public static final String JSON_PROPERTY_NAME = "name";
-    private String name;
+    @jakarta.annotation.Nonnull private String name;
 
     public static final String JSON_PROPERTY_DESCRIPTION = "description";
-    private String description;
+    @jakarta.annotation.Nullable private String description;
 
     public static final String JSON_PROPERTY_INTERNAL_TYPE = "internalType";
-    private String internalType;
+    @jakarta.annotation.Nullable private String internalType;
 
     public static final String JSON_PROPERTY_TYPE = "type";
-    private String type;
+    @jakarta.annotation.Nonnull private String type;
 
     public static final String JSON_PROPERTY_COMPONENTS = "components";
-    private List<Parameter> components;
+    @jakarta.annotation.Nullable private List<Parameter> components = new ArrayList<>();
 
     public Parameter() {}
 
-    public Parameter name(String name) {
+    @JsonCreator
+    public Parameter(
+            @JsonProperty(value = JSON_PROPERTY_NAME, required = true) String name,
+            @JsonProperty(value = JSON_PROPERTY_TYPE, required = true) String type) {
+        this.name = name;
+        this.type = type;
+    }
+
+    public Parameter name(@jakarta.annotation.Nonnull String name) {
         this.name = name;
         return this;
     }
@@ -69,11 +79,11 @@ public class Parameter {
 
     @JsonProperty(JSON_PROPERTY_NAME)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setName(String name) {
+    public void setName(@jakarta.annotation.Nonnull String name) {
         this.name = name;
     }
 
-    public Parameter description(String description) {
+    public Parameter description(@jakarta.annotation.Nullable String description) {
         this.description = description;
         return this;
     }
@@ -92,11 +102,11 @@ public class Parameter {
 
     @JsonProperty(JSON_PROPERTY_DESCRIPTION)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setDescription(String description) {
+    public void setDescription(@jakarta.annotation.Nullable String description) {
         this.description = description;
     }
 
-    public Parameter internalType(String internalType) {
+    public Parameter internalType(@jakarta.annotation.Nullable String internalType) {
         this.internalType = internalType;
         return this;
     }
@@ -115,11 +125,11 @@ public class Parameter {
 
     @JsonProperty(JSON_PROPERTY_INTERNAL_TYPE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setInternalType(String internalType) {
+    public void setInternalType(@jakarta.annotation.Nullable String internalType) {
         this.internalType = internalType;
     }
 
-    public Parameter type(String type) {
+    public Parameter type(@jakarta.annotation.Nonnull String type) {
         this.type = type;
         return this;
     }
@@ -138,11 +148,11 @@ public class Parameter {
 
     @JsonProperty(JSON_PROPERTY_TYPE)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setType(String type) {
+    public void setType(@jakarta.annotation.Nonnull String type) {
         this.type = type;
     }
 
-    public Parameter components(List<Parameter> components) {
+    public Parameter components(@jakarta.annotation.Nullable List<Parameter> components) {
         this.components = components;
         return this;
     }
@@ -169,7 +179,7 @@ public class Parameter {
 
     @JsonProperty(JSON_PROPERTY_COMPONENTS)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setComponents(List<Parameter> components) {
+    public void setComponents(@jakarta.annotation.Nullable List<Parameter> components) {
         this.components = components;
     }
 
@@ -258,8 +268,7 @@ public class Parameter {
                             "%sname%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getName()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getName()))));
         }
 
         // add `description` to the URL query string
@@ -269,10 +278,7 @@ public class Parameter {
                             "%sdescription%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getDescription()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getDescription()))));
         }
 
         // add `internalType` to the URL query string
@@ -282,10 +288,7 @@ public class Parameter {
                             "%sinternalType%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getInternalType()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getInternalType()))));
         }
 
         // add `type` to the URL query string
@@ -295,8 +298,7 @@ public class Parameter {
                             "%stype%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getType()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getType()))));
         }
 
         // add `components` to the URL query string

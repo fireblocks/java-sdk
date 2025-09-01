@@ -18,8 +18,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonValue;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -29,18 +28,20 @@ import java.util.StringJoiner;
     SmartTransferFundDvpTicket.JSON_PROPERTY_FEE_LEVEL,
     SmartTransferFundDvpTicket.JSON_PROPERTY_NOTE
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class SmartTransferFundDvpTicket {
     public static final String JSON_PROPERTY_FEE = "fee";
-    private String fee;
+    @jakarta.annotation.Nullable private String fee;
 
     /** Transaction fee level. */
     public enum FeeLevelEnum {
-        LOW("LOW"),
+        LOW(String.valueOf("LOW")),
 
-        MEDIUM("MEDIUM"),
+        MEDIUM(String.valueOf("MEDIUM")),
 
-        HIGH("HIGH");
+        HIGH(String.valueOf("HIGH"));
 
         private String value;
 
@@ -70,14 +71,14 @@ public class SmartTransferFundDvpTicket {
     }
 
     public static final String JSON_PROPERTY_FEE_LEVEL = "feeLevel";
-    private FeeLevelEnum feeLevel;
+    @jakarta.annotation.Nullable private FeeLevelEnum feeLevel;
 
     public static final String JSON_PROPERTY_NOTE = "note";
-    private String note;
+    @jakarta.annotation.Nullable private String note;
 
     public SmartTransferFundDvpTicket() {}
 
-    public SmartTransferFundDvpTicket fee(String fee) {
+    public SmartTransferFundDvpTicket fee(@jakarta.annotation.Nullable String fee) {
         this.fee = fee;
         return this;
     }
@@ -96,11 +97,11 @@ public class SmartTransferFundDvpTicket {
 
     @JsonProperty(JSON_PROPERTY_FEE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setFee(String fee) {
+    public void setFee(@jakarta.annotation.Nullable String fee) {
         this.fee = fee;
     }
 
-    public SmartTransferFundDvpTicket feeLevel(FeeLevelEnum feeLevel) {
+    public SmartTransferFundDvpTicket feeLevel(@jakarta.annotation.Nullable FeeLevelEnum feeLevel) {
         this.feeLevel = feeLevel;
         return this;
     }
@@ -119,11 +120,11 @@ public class SmartTransferFundDvpTicket {
 
     @JsonProperty(JSON_PROPERTY_FEE_LEVEL)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setFeeLevel(FeeLevelEnum feeLevel) {
+    public void setFeeLevel(@jakarta.annotation.Nullable FeeLevelEnum feeLevel) {
         this.feeLevel = feeLevel;
     }
 
-    public SmartTransferFundDvpTicket note(String note) {
+    public SmartTransferFundDvpTicket note(@jakarta.annotation.Nullable String note) {
         this.note = note;
         return this;
     }
@@ -142,7 +143,7 @@ public class SmartTransferFundDvpTicket {
 
     @JsonProperty(JSON_PROPERTY_NOTE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setNote(String note) {
+    public void setNote(@jakarta.annotation.Nullable String note) {
         this.note = note;
     }
 
@@ -227,8 +228,7 @@ public class SmartTransferFundDvpTicket {
                             "%sfee%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getFee()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getFee()))));
         }
 
         // add `feeLevel` to the URL query string
@@ -238,8 +238,7 @@ public class SmartTransferFundDvpTicket {
                             "%sfeeLevel%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getFeeLevel()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getFeeLevel()))));
         }
 
         // add `note` to the URL query string
@@ -249,8 +248,7 @@ public class SmartTransferFundDvpTicket {
                             "%snote%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getNote()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getNote()))));
         }
 
         return joiner.toString();

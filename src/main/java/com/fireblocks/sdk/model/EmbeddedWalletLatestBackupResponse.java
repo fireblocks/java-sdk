@@ -13,12 +13,12 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fireblocks.sdk.ApiClient;
 import java.math.BigDecimal;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -30,20 +30,36 @@ import java.util.StringJoiner;
     EmbeddedWalletLatestBackupResponse.JSON_PROPERTY_CREATED_AT,
     EmbeddedWalletLatestBackupResponse.JSON_PROPERTY_KEYS
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class EmbeddedWalletLatestBackupResponse {
     public static final String JSON_PROPERTY_PASSPHRASE_ID = "passphraseId";
-    private String passphraseId;
+    @jakarta.annotation.Nonnull private String passphraseId;
 
     public static final String JSON_PROPERTY_CREATED_AT = "createdAt";
-    private BigDecimal createdAt;
+    @jakarta.annotation.Nonnull private BigDecimal createdAt;
 
     public static final String JSON_PROPERTY_KEYS = "keys";
+
+    @jakarta.annotation.Nonnull
     private List<EmbeddedWalletLatestBackupKey> keys = new ArrayList<>();
 
     public EmbeddedWalletLatestBackupResponse() {}
 
-    public EmbeddedWalletLatestBackupResponse passphraseId(String passphraseId) {
+    @JsonCreator
+    public EmbeddedWalletLatestBackupResponse(
+            @JsonProperty(value = JSON_PROPERTY_PASSPHRASE_ID, required = true) String passphraseId,
+            @JsonProperty(value = JSON_PROPERTY_CREATED_AT, required = true) BigDecimal createdAt,
+            @JsonProperty(value = JSON_PROPERTY_KEYS, required = true)
+                    List<EmbeddedWalletLatestBackupKey> keys) {
+        this.passphraseId = passphraseId;
+        this.createdAt = createdAt;
+        this.keys = keys;
+    }
+
+    public EmbeddedWalletLatestBackupResponse passphraseId(
+            @jakarta.annotation.Nonnull String passphraseId) {
         this.passphraseId = passphraseId;
         return this;
     }
@@ -62,11 +78,12 @@ public class EmbeddedWalletLatestBackupResponse {
 
     @JsonProperty(JSON_PROPERTY_PASSPHRASE_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setPassphraseId(String passphraseId) {
+    public void setPassphraseId(@jakarta.annotation.Nonnull String passphraseId) {
         this.passphraseId = passphraseId;
     }
 
-    public EmbeddedWalletLatestBackupResponse createdAt(BigDecimal createdAt) {
+    public EmbeddedWalletLatestBackupResponse createdAt(
+            @jakarta.annotation.Nonnull BigDecimal createdAt) {
         this.createdAt = createdAt;
         return this;
     }
@@ -85,11 +102,12 @@ public class EmbeddedWalletLatestBackupResponse {
 
     @JsonProperty(JSON_PROPERTY_CREATED_AT)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setCreatedAt(BigDecimal createdAt) {
+    public void setCreatedAt(@jakarta.annotation.Nonnull BigDecimal createdAt) {
         this.createdAt = createdAt;
     }
 
-    public EmbeddedWalletLatestBackupResponse keys(List<EmbeddedWalletLatestBackupKey> keys) {
+    public EmbeddedWalletLatestBackupResponse keys(
+            @jakarta.annotation.Nonnull List<EmbeddedWalletLatestBackupKey> keys) {
         this.keys = keys;
         return this;
     }
@@ -116,7 +134,7 @@ public class EmbeddedWalletLatestBackupResponse {
 
     @JsonProperty(JSON_PROPERTY_KEYS)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setKeys(List<EmbeddedWalletLatestBackupKey> keys) {
+    public void setKeys(@jakarta.annotation.Nonnull List<EmbeddedWalletLatestBackupKey> keys) {
         this.keys = keys;
     }
 
@@ -202,10 +220,7 @@ public class EmbeddedWalletLatestBackupResponse {
                             "%spassphraseId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getPassphraseId()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getPassphraseId()))));
         }
 
         // add `createdAt` to the URL query string
@@ -215,9 +230,7 @@ public class EmbeddedWalletLatestBackupResponse {
                             "%screatedAt%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getCreatedAt()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getCreatedAt()))));
         }
 
         // add `keys` to the URL query string

@@ -13,27 +13,27 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for TokenOwnershipStatusUpdatePayload */
-public class TokenOwnershipStatusUpdatePayloadTest {
+class TokenOwnershipStatusUpdatePayloadTest {
     private final TokenOwnershipStatusUpdatePayload model = new TokenOwnershipStatusUpdatePayload();
 
     /** Model tests for TokenOwnershipStatusUpdatePayload */
     @Test
-    public void testTokenOwnershipStatusUpdatePayload() {
+    void testTokenOwnershipStatusUpdatePayload() {
         // TODO: test TokenOwnershipStatusUpdatePayload
     }
 
     /** Test the property 'assetId' */
     @Test
-    public void assetIdTest() {
+    void assetIdTest() {
         // TODO: test assetId
     }
 
     /** Test the property 'status' */
     @Test
-    public void statusTest() {
+    void statusTest() {
         // TODO: test status
     }
 }

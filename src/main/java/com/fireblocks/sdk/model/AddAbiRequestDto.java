@@ -13,11 +13,11 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -30,23 +30,36 @@ import java.util.StringJoiner;
     AddAbiRequestDto.JSON_PROPERTY_ABI,
     AddAbiRequestDto.JSON_PROPERTY_NAME
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class AddAbiRequestDto {
     public static final String JSON_PROPERTY_CONTRACT_ADDRESS = "contractAddress";
-    private String contractAddress;
+    @jakarta.annotation.Nonnull private String contractAddress;
 
     public static final String JSON_PROPERTY_BASE_ASSET_ID = "baseAssetId";
-    private String baseAssetId;
+    @jakarta.annotation.Nonnull private String baseAssetId;
 
     public static final String JSON_PROPERTY_ABI = "abi";
-    private List<AbiFunction> abi = new ArrayList<>();
+    @jakarta.annotation.Nonnull private List<AbiFunction> abi = new ArrayList<>();
 
     public static final String JSON_PROPERTY_NAME = "name";
-    private String name;
+    @jakarta.annotation.Nullable private String name;
 
     public AddAbiRequestDto() {}
 
-    public AddAbiRequestDto contractAddress(String contractAddress) {
+    @JsonCreator
+    public AddAbiRequestDto(
+            @JsonProperty(value = JSON_PROPERTY_CONTRACT_ADDRESS, required = true)
+                    String contractAddress,
+            @JsonProperty(value = JSON_PROPERTY_BASE_ASSET_ID, required = true) String baseAssetId,
+            @JsonProperty(value = JSON_PROPERTY_ABI, required = true) List<AbiFunction> abi) {
+        this.contractAddress = contractAddress;
+        this.baseAssetId = baseAssetId;
+        this.abi = abi;
+    }
+
+    public AddAbiRequestDto contractAddress(@jakarta.annotation.Nonnull String contractAddress) {
         this.contractAddress = contractAddress;
         return this;
     }
@@ -65,11 +78,11 @@ public class AddAbiRequestDto {
 
     @JsonProperty(JSON_PROPERTY_CONTRACT_ADDRESS)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setContractAddress(String contractAddress) {
+    public void setContractAddress(@jakarta.annotation.Nonnull String contractAddress) {
         this.contractAddress = contractAddress;
     }
 
-    public AddAbiRequestDto baseAssetId(String baseAssetId) {
+    public AddAbiRequestDto baseAssetId(@jakarta.annotation.Nonnull String baseAssetId) {
         this.baseAssetId = baseAssetId;
         return this;
     }
@@ -88,11 +101,11 @@ public class AddAbiRequestDto {
 
     @JsonProperty(JSON_PROPERTY_BASE_ASSET_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setBaseAssetId(String baseAssetId) {
+    public void setBaseAssetId(@jakarta.annotation.Nonnull String baseAssetId) {
         this.baseAssetId = baseAssetId;
     }
 
-    public AddAbiRequestDto abi(List<AbiFunction> abi) {
+    public AddAbiRequestDto abi(@jakarta.annotation.Nonnull List<AbiFunction> abi) {
         this.abi = abi;
         return this;
     }
@@ -119,11 +132,11 @@ public class AddAbiRequestDto {
 
     @JsonProperty(JSON_PROPERTY_ABI)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setAbi(List<AbiFunction> abi) {
+    public void setAbi(@jakarta.annotation.Nonnull List<AbiFunction> abi) {
         this.abi = abi;
     }
 
-    public AddAbiRequestDto name(String name) {
+    public AddAbiRequestDto name(@jakarta.annotation.Nullable String name) {
         this.name = name;
         return this;
     }
@@ -142,7 +155,7 @@ public class AddAbiRequestDto {
 
     @JsonProperty(JSON_PROPERTY_NAME)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setName(String name) {
+    public void setName(@jakarta.annotation.Nullable String name) {
         this.name = name;
     }
 
@@ -229,10 +242,7 @@ public class AddAbiRequestDto {
                             "%scontractAddress%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getContractAddress()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getContractAddress()))));
         }
 
         // add `baseAssetId` to the URL query string
@@ -242,10 +252,7 @@ public class AddAbiRequestDto {
                             "%sbaseAssetId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getBaseAssetId()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getBaseAssetId()))));
         }
 
         // add `abi` to the URL query string
@@ -277,8 +284,7 @@ public class AddAbiRequestDto {
                             "%sname%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getName()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getName()))));
         }
 
         return joiner.toString();

@@ -18,20 +18,21 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonValue;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
 /** AssetMetadata */
 @JsonPropertyOrder({AssetMetadata.JSON_PROPERTY_SCOPE, AssetMetadata.JSON_PROPERTY_DEPRECATED})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class AssetMetadata {
     /** The scope of the asset */
     public enum ScopeEnum {
-        GLOBAL("Global"),
+        GLOBAL(String.valueOf("Global")),
 
-        LOCAL("Local");
+        LOCAL(String.valueOf("Local"));
 
         private String value;
 
@@ -61,14 +62,22 @@ public class AssetMetadata {
     }
 
     public static final String JSON_PROPERTY_SCOPE = "scope";
-    private ScopeEnum scope;
+    @jakarta.annotation.Nonnull private ScopeEnum scope;
 
     public static final String JSON_PROPERTY_DEPRECATED = "deprecated";
-    private Boolean deprecated;
+    @jakarta.annotation.Nonnull private Boolean deprecated;
 
     public AssetMetadata() {}
 
-    public AssetMetadata scope(ScopeEnum scope) {
+    @JsonCreator
+    public AssetMetadata(
+            @JsonProperty(value = JSON_PROPERTY_SCOPE, required = true) ScopeEnum scope,
+            @JsonProperty(value = JSON_PROPERTY_DEPRECATED, required = true) Boolean deprecated) {
+        this.scope = scope;
+        this.deprecated = deprecated;
+    }
+
+    public AssetMetadata scope(@jakarta.annotation.Nonnull ScopeEnum scope) {
         this.scope = scope;
         return this;
     }
@@ -87,11 +96,11 @@ public class AssetMetadata {
 
     @JsonProperty(JSON_PROPERTY_SCOPE)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setScope(ScopeEnum scope) {
+    public void setScope(@jakarta.annotation.Nonnull ScopeEnum scope) {
         this.scope = scope;
     }
 
-    public AssetMetadata deprecated(Boolean deprecated) {
+    public AssetMetadata deprecated(@jakarta.annotation.Nonnull Boolean deprecated) {
         this.deprecated = deprecated;
         return this;
     }
@@ -110,7 +119,7 @@ public class AssetMetadata {
 
     @JsonProperty(JSON_PROPERTY_DEPRECATED)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setDeprecated(Boolean deprecated) {
+    public void setDeprecated(@jakarta.annotation.Nonnull Boolean deprecated) {
         this.deprecated = deprecated;
     }
 
@@ -193,8 +202,7 @@ public class AssetMetadata {
                             "%sscope%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getScope()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getScope()))));
         }
 
         // add `deprecated` to the URL query string
@@ -204,9 +212,7 @@ public class AssetMetadata {
                             "%sdeprecated%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getDeprecated()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getDeprecated()))));
         }
 
         return joiner.toString();

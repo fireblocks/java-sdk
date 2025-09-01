@@ -13,81 +13,81 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for AssetWallet */
-public class AssetWalletTest {
+class AssetWalletTest {
     private final AssetWallet model = new AssetWallet();
 
     /** Model tests for AssetWallet */
     @Test
-    public void testAssetWallet() {
+    void testAssetWallet() {
         // TODO: test AssetWallet
     }
 
     /** Test the property 'vaultId' */
     @Test
-    public void vaultIdTest() {
+    void vaultIdTest() {
         // TODO: test vaultId
     }
 
     /** Test the property 'assetId' */
     @Test
-    public void assetIdTest() {
+    void assetIdTest() {
         // TODO: test assetId
     }
 
     /** Test the property 'available' */
     @Test
-    public void availableTest() {
+    void availableTest() {
         // TODO: test available
     }
 
     /** Test the property 'total' */
     @Test
-    public void totalTest() {
+    void totalTest() {
         // TODO: test total
     }
 
     /** Test the property 'pending' */
     @Test
-    public void pendingTest() {
+    void pendingTest() {
         // TODO: test pending
     }
 
     /** Test the property 'staked' */
     @Test
-    public void stakedTest() {
+    void stakedTest() {
         // TODO: test staked
     }
 
     /** Test the property 'frozen' */
     @Test
-    public void frozenTest() {
+    void frozenTest() {
         // TODO: test frozen
     }
 
     /** Test the property 'lockedAmount' */
     @Test
-    public void lockedAmountTest() {
+    void lockedAmountTest() {
         // TODO: test lockedAmount
     }
 
     /** Test the property 'blockHeight' */
     @Test
-    public void blockHeightTest() {
+    void blockHeightTest() {
         // TODO: test blockHeight
     }
 
     /** Test the property 'blockHash' */
     @Test
-    public void blockHashTest() {
+    void blockHashTest() {
         // TODO: test blockHash
     }
 
     /** Test the property 'creationTimestamp' */
     @Test
-    public void creationTimestampTest() {
+    void creationTimestampTest() {
         // TODO: test creationTimestamp
     }
 }

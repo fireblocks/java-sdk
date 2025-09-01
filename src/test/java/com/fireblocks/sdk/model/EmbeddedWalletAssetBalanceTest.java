@@ -13,69 +13,69 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for EmbeddedWalletAssetBalance */
-public class EmbeddedWalletAssetBalanceTest {
+class EmbeddedWalletAssetBalanceTest {
     private final EmbeddedWalletAssetBalance model = new EmbeddedWalletAssetBalance();
 
     /** Model tests for EmbeddedWalletAssetBalance */
     @Test
-    public void testEmbeddedWalletAssetBalance() {
+    void testEmbeddedWalletAssetBalance() {
         // TODO: test EmbeddedWalletAssetBalance
     }
 
     /** Test the property 'id' */
     @Test
-    public void idTest() {
+    void idTest() {
         // TODO: test id
     }
 
     /** Test the property 'total' */
     @Test
-    public void totalTest() {
+    void totalTest() {
         // TODO: test total
     }
 
     /** Test the property 'available' */
     @Test
-    public void availableTest() {
+    void availableTest() {
         // TODO: test available
     }
 
     /** Test the property 'pending' */
     @Test
-    public void pendingTest() {
+    void pendingTest() {
         // TODO: test pending
     }
 
     /** Test the property 'frozen' */
     @Test
-    public void frozenTest() {
+    void frozenTest() {
         // TODO: test frozen
     }
 
     /** Test the property 'lockedAmount' */
     @Test
-    public void lockedAmountTest() {
+    void lockedAmountTest() {
         // TODO: test lockedAmount
     }
 
     /** Test the property 'blockHeight' */
     @Test
-    public void blockHeightTest() {
+    void blockHeightTest() {
         // TODO: test blockHeight
     }
 
     /** Test the property 'blockHash' */
     @Test
-    public void blockHashTest() {
+    void blockHashTest() {
         // TODO: test blockHash
     }
 
     /** Test the property 'rewardInfo' */
     @Test
-    public void rewardInfoTest() {
+    void rewardInfoTest() {
         // TODO: test rewardInfo
     }
 }

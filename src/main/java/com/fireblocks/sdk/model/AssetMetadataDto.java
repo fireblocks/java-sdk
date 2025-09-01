@@ -13,12 +13,12 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fireblocks.sdk.ApiClient;
 import java.math.BigDecimal;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -38,50 +38,58 @@ import java.util.StringJoiner;
     AssetMetadataDto.JSON_PROPERTY_DECIMALS,
     AssetMetadataDto.JSON_PROPERTY_VAULT_ACCOUNT_ID
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class AssetMetadataDto {
     public static final String JSON_PROPERTY_ASSET_ID = "assetId";
-    private String assetId;
+    @jakarta.annotation.Nonnull private String assetId;
 
     public static final String JSON_PROPERTY_NAME = "name";
-    private String name;
+    @jakarta.annotation.Nullable private String name;
 
     public static final String JSON_PROPERTY_SYMBOL = "symbol";
-    private String symbol;
+    @jakarta.annotation.Nullable private String symbol;
 
     public static final String JSON_PROPERTY_NETWORK_PROTOCOL = "networkProtocol";
-    private String networkProtocol;
+    @jakarta.annotation.Nullable private String networkProtocol;
 
     public static final String JSON_PROPERTY_TOTAL_SUPPLY = "totalSupply";
-    private String totalSupply;
+    @jakarta.annotation.Nullable private String totalSupply;
 
     public static final String JSON_PROPERTY_HOLDERS_COUNT = "holdersCount";
-    private BigDecimal holdersCount;
+    @jakarta.annotation.Nullable private BigDecimal holdersCount;
 
     public static final String JSON_PROPERTY_TYPE = "type";
-    private String type;
+    @jakarta.annotation.Nullable private String type;
 
     public static final String JSON_PROPERTY_CONTRACT_ADDRESS = "contractAddress";
-    private String contractAddress;
+    @jakarta.annotation.Nullable private String contractAddress;
 
     public static final String JSON_PROPERTY_ISSUER_ADDRESS = "issuerAddress";
-    private String issuerAddress;
+    @jakarta.annotation.Nullable private String issuerAddress;
 
     public static final String JSON_PROPERTY_TESTNET = "testnet";
-    private Boolean testnet;
+    @jakarta.annotation.Nullable private Boolean testnet;
 
     public static final String JSON_PROPERTY_BLOCKCHAIN = "blockchain";
-    private String blockchain;
+    @jakarta.annotation.Nullable private String blockchain;
 
     public static final String JSON_PROPERTY_DECIMALS = "decimals";
-    private BigDecimal decimals;
+    @jakarta.annotation.Nullable private BigDecimal decimals;
 
     public static final String JSON_PROPERTY_VAULT_ACCOUNT_ID = "vaultAccountId";
-    private String vaultAccountId;
+    @jakarta.annotation.Nullable private String vaultAccountId;
 
     public AssetMetadataDto() {}
 
-    public AssetMetadataDto assetId(String assetId) {
+    @JsonCreator
+    public AssetMetadataDto(
+            @JsonProperty(value = JSON_PROPERTY_ASSET_ID, required = true) String assetId) {
+        this.assetId = assetId;
+    }
+
+    public AssetMetadataDto assetId(@jakarta.annotation.Nonnull String assetId) {
         this.assetId = assetId;
         return this;
     }
@@ -100,11 +108,11 @@ public class AssetMetadataDto {
 
     @JsonProperty(JSON_PROPERTY_ASSET_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setAssetId(String assetId) {
+    public void setAssetId(@jakarta.annotation.Nonnull String assetId) {
         this.assetId = assetId;
     }
 
-    public AssetMetadataDto name(String name) {
+    public AssetMetadataDto name(@jakarta.annotation.Nullable String name) {
         this.name = name;
         return this;
     }
@@ -123,11 +131,11 @@ public class AssetMetadataDto {
 
     @JsonProperty(JSON_PROPERTY_NAME)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setName(String name) {
+    public void setName(@jakarta.annotation.Nullable String name) {
         this.name = name;
     }
 
-    public AssetMetadataDto symbol(String symbol) {
+    public AssetMetadataDto symbol(@jakarta.annotation.Nullable String symbol) {
         this.symbol = symbol;
         return this;
     }
@@ -146,11 +154,11 @@ public class AssetMetadataDto {
 
     @JsonProperty(JSON_PROPERTY_SYMBOL)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setSymbol(String symbol) {
+    public void setSymbol(@jakarta.annotation.Nullable String symbol) {
         this.symbol = symbol;
     }
 
-    public AssetMetadataDto networkProtocol(String networkProtocol) {
+    public AssetMetadataDto networkProtocol(@jakarta.annotation.Nullable String networkProtocol) {
         this.networkProtocol = networkProtocol;
         return this;
     }
@@ -169,11 +177,11 @@ public class AssetMetadataDto {
 
     @JsonProperty(JSON_PROPERTY_NETWORK_PROTOCOL)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setNetworkProtocol(String networkProtocol) {
+    public void setNetworkProtocol(@jakarta.annotation.Nullable String networkProtocol) {
         this.networkProtocol = networkProtocol;
     }
 
-    public AssetMetadataDto totalSupply(String totalSupply) {
+    public AssetMetadataDto totalSupply(@jakarta.annotation.Nullable String totalSupply) {
         this.totalSupply = totalSupply;
         return this;
     }
@@ -192,11 +200,11 @@ public class AssetMetadataDto {
 
     @JsonProperty(JSON_PROPERTY_TOTAL_SUPPLY)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setTotalSupply(String totalSupply) {
+    public void setTotalSupply(@jakarta.annotation.Nullable String totalSupply) {
         this.totalSupply = totalSupply;
     }
 
-    public AssetMetadataDto holdersCount(BigDecimal holdersCount) {
+    public AssetMetadataDto holdersCount(@jakarta.annotation.Nullable BigDecimal holdersCount) {
         this.holdersCount = holdersCount;
         return this;
     }
@@ -215,11 +223,11 @@ public class AssetMetadataDto {
 
     @JsonProperty(JSON_PROPERTY_HOLDERS_COUNT)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setHoldersCount(BigDecimal holdersCount) {
+    public void setHoldersCount(@jakarta.annotation.Nullable BigDecimal holdersCount) {
         this.holdersCount = holdersCount;
     }
 
-    public AssetMetadataDto type(String type) {
+    public AssetMetadataDto type(@jakarta.annotation.Nullable String type) {
         this.type = type;
         return this;
     }
@@ -238,11 +246,11 @@ public class AssetMetadataDto {
 
     @JsonProperty(JSON_PROPERTY_TYPE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setType(String type) {
+    public void setType(@jakarta.annotation.Nullable String type) {
         this.type = type;
     }
 
-    public AssetMetadataDto contractAddress(String contractAddress) {
+    public AssetMetadataDto contractAddress(@jakarta.annotation.Nullable String contractAddress) {
         this.contractAddress = contractAddress;
         return this;
     }
@@ -261,11 +269,11 @@ public class AssetMetadataDto {
 
     @JsonProperty(JSON_PROPERTY_CONTRACT_ADDRESS)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setContractAddress(String contractAddress) {
+    public void setContractAddress(@jakarta.annotation.Nullable String contractAddress) {
         this.contractAddress = contractAddress;
     }
 
-    public AssetMetadataDto issuerAddress(String issuerAddress) {
+    public AssetMetadataDto issuerAddress(@jakarta.annotation.Nullable String issuerAddress) {
         this.issuerAddress = issuerAddress;
         return this;
     }
@@ -284,11 +292,11 @@ public class AssetMetadataDto {
 
     @JsonProperty(JSON_PROPERTY_ISSUER_ADDRESS)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setIssuerAddress(String issuerAddress) {
+    public void setIssuerAddress(@jakarta.annotation.Nullable String issuerAddress) {
         this.issuerAddress = issuerAddress;
     }
 
-    public AssetMetadataDto testnet(Boolean testnet) {
+    public AssetMetadataDto testnet(@jakarta.annotation.Nullable Boolean testnet) {
         this.testnet = testnet;
         return this;
     }
@@ -307,11 +315,11 @@ public class AssetMetadataDto {
 
     @JsonProperty(JSON_PROPERTY_TESTNET)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setTestnet(Boolean testnet) {
+    public void setTestnet(@jakarta.annotation.Nullable Boolean testnet) {
         this.testnet = testnet;
     }
 
-    public AssetMetadataDto blockchain(String blockchain) {
+    public AssetMetadataDto blockchain(@jakarta.annotation.Nullable String blockchain) {
         this.blockchain = blockchain;
         return this;
     }
@@ -330,11 +338,11 @@ public class AssetMetadataDto {
 
     @JsonProperty(JSON_PROPERTY_BLOCKCHAIN)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setBlockchain(String blockchain) {
+    public void setBlockchain(@jakarta.annotation.Nullable String blockchain) {
         this.blockchain = blockchain;
     }
 
-    public AssetMetadataDto decimals(BigDecimal decimals) {
+    public AssetMetadataDto decimals(@jakarta.annotation.Nullable BigDecimal decimals) {
         this.decimals = decimals;
         return this;
     }
@@ -353,11 +361,11 @@ public class AssetMetadataDto {
 
     @JsonProperty(JSON_PROPERTY_DECIMALS)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setDecimals(BigDecimal decimals) {
+    public void setDecimals(@jakarta.annotation.Nullable BigDecimal decimals) {
         this.decimals = decimals;
     }
 
-    public AssetMetadataDto vaultAccountId(String vaultAccountId) {
+    public AssetMetadataDto vaultAccountId(@jakarta.annotation.Nullable String vaultAccountId) {
         this.vaultAccountId = vaultAccountId;
         return this;
     }
@@ -377,7 +385,7 @@ public class AssetMetadataDto {
 
     @JsonProperty(JSON_PROPERTY_VAULT_ACCOUNT_ID)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setVaultAccountId(String vaultAccountId) {
+    public void setVaultAccountId(@jakarta.annotation.Nullable String vaultAccountId) {
         this.vaultAccountId = vaultAccountId;
     }
 
@@ -495,8 +503,7 @@ public class AssetMetadataDto {
                             "%sassetId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getAssetId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getAssetId()))));
         }
 
         // add `name` to the URL query string
@@ -506,8 +513,7 @@ public class AssetMetadataDto {
                             "%sname%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getName()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getName()))));
         }
 
         // add `symbol` to the URL query string
@@ -517,8 +523,7 @@ public class AssetMetadataDto {
                             "%ssymbol%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getSymbol()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getSymbol()))));
         }
 
         // add `networkProtocol` to the URL query string
@@ -528,10 +533,7 @@ public class AssetMetadataDto {
                             "%snetworkProtocol%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getNetworkProtocol()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getNetworkProtocol()))));
         }
 
         // add `totalSupply` to the URL query string
@@ -541,10 +543,7 @@ public class AssetMetadataDto {
                             "%stotalSupply%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getTotalSupply()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getTotalSupply()))));
         }
 
         // add `holdersCount` to the URL query string
@@ -554,10 +553,7 @@ public class AssetMetadataDto {
                             "%sholdersCount%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getHoldersCount()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getHoldersCount()))));
         }
 
         // add `type` to the URL query string
@@ -567,8 +563,7 @@ public class AssetMetadataDto {
                             "%stype%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getType()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getType()))));
         }
 
         // add `contractAddress` to the URL query string
@@ -578,10 +573,7 @@ public class AssetMetadataDto {
                             "%scontractAddress%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getContractAddress()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getContractAddress()))));
         }
 
         // add `issuerAddress` to the URL query string
@@ -591,10 +583,7 @@ public class AssetMetadataDto {
                             "%sissuerAddress%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getIssuerAddress()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getIssuerAddress()))));
         }
 
         // add `testnet` to the URL query string
@@ -604,8 +593,7 @@ public class AssetMetadataDto {
                             "%stestnet%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getTestnet()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getTestnet()))));
         }
 
         // add `blockchain` to the URL query string
@@ -615,9 +603,7 @@ public class AssetMetadataDto {
                             "%sblockchain%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getBlockchain()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getBlockchain()))));
         }
 
         // add `decimals` to the URL query string
@@ -627,8 +613,7 @@ public class AssetMetadataDto {
                             "%sdecimals%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getDecimals()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getDecimals()))));
         }
 
         // add `vaultAccountId` to the URL query string
@@ -638,10 +623,7 @@ public class AssetMetadataDto {
                             "%svaultAccountId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getVaultAccountId()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getVaultAccountId()))));
         }
 
         return joiner.toString();

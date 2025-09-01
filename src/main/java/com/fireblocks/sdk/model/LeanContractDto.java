@@ -18,8 +18,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonValue;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -35,43 +34,45 @@ import java.util.StringJoiner;
     LeanContractDto.JSON_PROPERTY_VENDOR,
     LeanContractDto.JSON_PROPERTY_TYPE
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class LeanContractDto {
     public static final String JSON_PROPERTY_ID = "id";
-    private String id;
+    @jakarta.annotation.Nonnull private String id;
 
     public static final String JSON_PROPERTY_NAME = "name";
-    private String name;
+    @jakarta.annotation.Nonnull private String name;
 
     public static final String JSON_PROPERTY_DESCRIPTION = "description";
-    private String description;
+    @jakarta.annotation.Nonnull private String description;
 
     public static final String JSON_PROPERTY_ATTRIBUTES = "attributes";
-    private ContractAttributes attributes;
+    @jakarta.annotation.Nullable private ContractAttributes attributes;
 
     public static final String JSON_PROPERTY_IS_PUBLIC = "isPublic";
-    private Boolean isPublic;
+    @jakarta.annotation.Nonnull private Boolean isPublic;
 
     public static final String JSON_PROPERTY_CAN_DEPLOY = "canDeploy";
-    private Boolean canDeploy;
+    @jakarta.annotation.Nullable private Boolean canDeploy;
 
     public static final String JSON_PROPERTY_OWNER = "owner";
-    private String owner;
+    @jakarta.annotation.Nullable private String owner;
 
     public static final String JSON_PROPERTY_VENDOR = "vendor";
-    private VendorDto vendor;
+    @jakarta.annotation.Nullable private VendorDto vendor;
 
     /** Gets or Sets type */
     public enum TypeEnum {
-        FUNGIBLE_TOKEN("FUNGIBLE_TOKEN"),
+        FUNGIBLE_TOKEN(String.valueOf("FUNGIBLE_TOKEN")),
 
-        NON_FUNGIBLE_TOKEN("NON_FUNGIBLE_TOKEN"),
+        NON_FUNGIBLE_TOKEN(String.valueOf("NON_FUNGIBLE_TOKEN")),
 
-        NON_TOKEN("NON_TOKEN"),
+        NON_TOKEN(String.valueOf("NON_TOKEN")),
 
-        TOKEN_EXTENSION("TOKEN_EXTENSION"),
+        TOKEN_EXTENSION(String.valueOf("TOKEN_EXTENSION")),
 
-        TOKEN_UTILITY("TOKEN_UTILITY");
+        TOKEN_UTILITY(String.valueOf("TOKEN_UTILITY"));
 
         private String value;
 
@@ -101,11 +102,23 @@ public class LeanContractDto {
     }
 
     public static final String JSON_PROPERTY_TYPE = "type";
-    private TypeEnum type;
+    @jakarta.annotation.Nullable private TypeEnum type;
 
     public LeanContractDto() {}
 
-    public LeanContractDto id(String id) {
+    @JsonCreator
+    public LeanContractDto(
+            @JsonProperty(value = JSON_PROPERTY_ID, required = true) String id,
+            @JsonProperty(value = JSON_PROPERTY_NAME, required = true) String name,
+            @JsonProperty(value = JSON_PROPERTY_DESCRIPTION, required = true) String description,
+            @JsonProperty(value = JSON_PROPERTY_IS_PUBLIC, required = true) Boolean isPublic) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.isPublic = isPublic;
+    }
+
+    public LeanContractDto id(@jakarta.annotation.Nonnull String id) {
         this.id = id;
         return this;
     }
@@ -124,11 +137,11 @@ public class LeanContractDto {
 
     @JsonProperty(JSON_PROPERTY_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setId(String id) {
+    public void setId(@jakarta.annotation.Nonnull String id) {
         this.id = id;
     }
 
-    public LeanContractDto name(String name) {
+    public LeanContractDto name(@jakarta.annotation.Nonnull String name) {
         this.name = name;
         return this;
     }
@@ -147,11 +160,11 @@ public class LeanContractDto {
 
     @JsonProperty(JSON_PROPERTY_NAME)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setName(String name) {
+    public void setName(@jakarta.annotation.Nonnull String name) {
         this.name = name;
     }
 
-    public LeanContractDto description(String description) {
+    public LeanContractDto description(@jakarta.annotation.Nonnull String description) {
         this.description = description;
         return this;
     }
@@ -170,11 +183,11 @@ public class LeanContractDto {
 
     @JsonProperty(JSON_PROPERTY_DESCRIPTION)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setDescription(String description) {
+    public void setDescription(@jakarta.annotation.Nonnull String description) {
         this.description = description;
     }
 
-    public LeanContractDto attributes(ContractAttributes attributes) {
+    public LeanContractDto attributes(@jakarta.annotation.Nullable ContractAttributes attributes) {
         this.attributes = attributes;
         return this;
     }
@@ -194,11 +207,11 @@ public class LeanContractDto {
 
     @JsonProperty(JSON_PROPERTY_ATTRIBUTES)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAttributes(ContractAttributes attributes) {
+    public void setAttributes(@jakarta.annotation.Nullable ContractAttributes attributes) {
         this.attributes = attributes;
     }
 
-    public LeanContractDto isPublic(Boolean isPublic) {
+    public LeanContractDto isPublic(@jakarta.annotation.Nonnull Boolean isPublic) {
         this.isPublic = isPublic;
         return this;
     }
@@ -218,11 +231,11 @@ public class LeanContractDto {
 
     @JsonProperty(JSON_PROPERTY_IS_PUBLIC)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setIsPublic(Boolean isPublic) {
+    public void setIsPublic(@jakarta.annotation.Nonnull Boolean isPublic) {
         this.isPublic = isPublic;
     }
 
-    public LeanContractDto canDeploy(Boolean canDeploy) {
+    public LeanContractDto canDeploy(@jakarta.annotation.Nullable Boolean canDeploy) {
         this.canDeploy = canDeploy;
         return this;
     }
@@ -241,11 +254,11 @@ public class LeanContractDto {
 
     @JsonProperty(JSON_PROPERTY_CAN_DEPLOY)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setCanDeploy(Boolean canDeploy) {
+    public void setCanDeploy(@jakarta.annotation.Nullable Boolean canDeploy) {
         this.canDeploy = canDeploy;
     }
 
-    public LeanContractDto owner(String owner) {
+    public LeanContractDto owner(@jakarta.annotation.Nullable String owner) {
         this.owner = owner;
         return this;
     }
@@ -265,11 +278,11 @@ public class LeanContractDto {
 
     @JsonProperty(JSON_PROPERTY_OWNER)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setOwner(String owner) {
+    public void setOwner(@jakarta.annotation.Nullable String owner) {
         this.owner = owner;
     }
 
-    public LeanContractDto vendor(VendorDto vendor) {
+    public LeanContractDto vendor(@jakarta.annotation.Nullable VendorDto vendor) {
         this.vendor = vendor;
         return this;
     }
@@ -289,11 +302,11 @@ public class LeanContractDto {
 
     @JsonProperty(JSON_PROPERTY_VENDOR)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setVendor(VendorDto vendor) {
+    public void setVendor(@jakarta.annotation.Nullable VendorDto vendor) {
         this.vendor = vendor;
     }
 
-    public LeanContractDto type(TypeEnum type) {
+    public LeanContractDto type(@jakarta.annotation.Nullable TypeEnum type) {
         this.type = type;
         return this;
     }
@@ -312,7 +325,7 @@ public class LeanContractDto {
 
     @JsonProperty(JSON_PROPERTY_TYPE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setType(TypeEnum type) {
+    public void setType(@jakarta.annotation.Nullable TypeEnum type) {
         this.type = type;
     }
 
@@ -408,10 +421,7 @@ public class LeanContractDto {
             joiner.add(
                     String.format(
                             "%sid%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(String.valueOf(getId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getId()))));
         }
 
         // add `name` to the URL query string
@@ -421,8 +431,7 @@ public class LeanContractDto {
                             "%sname%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getName()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getName()))));
         }
 
         // add `description` to the URL query string
@@ -432,10 +441,7 @@ public class LeanContractDto {
                             "%sdescription%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getDescription()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getDescription()))));
         }
 
         // add `attributes` to the URL query string
@@ -450,8 +456,7 @@ public class LeanContractDto {
                             "%sisPublic%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getIsPublic()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getIsPublic()))));
         }
 
         // add `canDeploy` to the URL query string
@@ -461,9 +466,7 @@ public class LeanContractDto {
                             "%scanDeploy%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getCanDeploy()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getCanDeploy()))));
         }
 
         // add `owner` to the URL query string
@@ -473,8 +476,7 @@ public class LeanContractDto {
                             "%sowner%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getOwner()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getOwner()))));
         }
 
         // add `vendor` to the URL query string
@@ -489,8 +491,7 @@ public class LeanContractDto {
                             "%stype%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getType()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getType()))));
         }
 
         return joiner.toString();

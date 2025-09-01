@@ -13,27 +13,27 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for UnspentInput */
-public class UnspentInputTest {
+class UnspentInputTest {
     private final UnspentInput model = new UnspentInput();
 
     /** Model tests for UnspentInput */
     @Test
-    public void testUnspentInput() {
+    void testUnspentInput() {
         // TODO: test UnspentInput
     }
 
     /** Test the property 'txHash' */
     @Test
-    public void txHashTest() {
+    void txHashTest() {
         // TODO: test txHash
     }
 
     /** Test the property 'index' */
     @Test
-    public void indexTest() {
+    void indexTest() {
         // TODO: test index
     }
 }

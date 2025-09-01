@@ -13,11 +13,11 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -26,17 +26,30 @@ import java.util.StringJoiner;
     AdapterProcessingResult.JSON_PROPERTY_INPUT_TOKEN_LINK_ID,
     AdapterProcessingResult.JSON_PROPERTY_ADAPTER_LINK_ID
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class AdapterProcessingResult {
     public static final String JSON_PROPERTY_INPUT_TOKEN_LINK_ID = "inputTokenLinkId";
-    private String inputTokenLinkId;
+    @jakarta.annotation.Nonnull private String inputTokenLinkId;
 
     public static final String JSON_PROPERTY_ADAPTER_LINK_ID = "adapterLinkId";
-    private String adapterLinkId;
+    @jakarta.annotation.Nonnull private String adapterLinkId;
 
     public AdapterProcessingResult() {}
 
-    public AdapterProcessingResult inputTokenLinkId(String inputTokenLinkId) {
+    @JsonCreator
+    public AdapterProcessingResult(
+            @JsonProperty(value = JSON_PROPERTY_INPUT_TOKEN_LINK_ID, required = true)
+                    String inputTokenLinkId,
+            @JsonProperty(value = JSON_PROPERTY_ADAPTER_LINK_ID, required = true)
+                    String adapterLinkId) {
+        this.inputTokenLinkId = inputTokenLinkId;
+        this.adapterLinkId = adapterLinkId;
+    }
+
+    public AdapterProcessingResult inputTokenLinkId(
+            @jakarta.annotation.Nonnull String inputTokenLinkId) {
         this.inputTokenLinkId = inputTokenLinkId;
         return this;
     }
@@ -55,11 +68,11 @@ public class AdapterProcessingResult {
 
     @JsonProperty(JSON_PROPERTY_INPUT_TOKEN_LINK_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setInputTokenLinkId(String inputTokenLinkId) {
+    public void setInputTokenLinkId(@jakarta.annotation.Nonnull String inputTokenLinkId) {
         this.inputTokenLinkId = inputTokenLinkId;
     }
 
-    public AdapterProcessingResult adapterLinkId(String adapterLinkId) {
+    public AdapterProcessingResult adapterLinkId(@jakarta.annotation.Nonnull String adapterLinkId) {
         this.adapterLinkId = adapterLinkId;
         return this;
     }
@@ -78,7 +91,7 @@ public class AdapterProcessingResult {
 
     @JsonProperty(JSON_PROPERTY_ADAPTER_LINK_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setAdapterLinkId(String adapterLinkId) {
+    public void setAdapterLinkId(@jakarta.annotation.Nonnull String adapterLinkId) {
         this.adapterLinkId = adapterLinkId;
     }
 
@@ -161,10 +174,7 @@ public class AdapterProcessingResult {
                             "%sinputTokenLinkId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getInputTokenLinkId()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getInputTokenLinkId()))));
         }
 
         // add `adapterLinkId` to the URL query string
@@ -174,10 +184,7 @@ public class AdapterProcessingResult {
                             "%sadapterLinkId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getAdapterLinkId()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getAdapterLinkId()))));
         }
 
         return joiner.toString();

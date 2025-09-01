@@ -13,27 +13,27 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for SmartTransferBadRequestResponse */
-public class SmartTransferBadRequestResponseTest {
+class SmartTransferBadRequestResponseTest {
     private final SmartTransferBadRequestResponse model = new SmartTransferBadRequestResponse();
 
     /** Model tests for SmartTransferBadRequestResponse */
     @Test
-    public void testSmartTransferBadRequestResponse() {
+    void testSmartTransferBadRequestResponse() {
         // TODO: test SmartTransferBadRequestResponse
     }
 
     /** Test the property 'message' */
     @Test
-    public void messageTest() {
+    void messageTest() {
         // TODO: test message
     }
 
     /** Test the property 'code' */
     @Test
-    public void codeTest() {
+    void codeTest() {
         // TODO: test code
     }
 }

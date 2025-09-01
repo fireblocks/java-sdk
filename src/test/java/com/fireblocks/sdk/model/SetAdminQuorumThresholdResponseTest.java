@@ -13,21 +13,21 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for SetAdminQuorumThresholdResponse */
-public class SetAdminQuorumThresholdResponseTest {
+class SetAdminQuorumThresholdResponseTest {
     private final SetAdminQuorumThresholdResponse model = new SetAdminQuorumThresholdResponse();
 
     /** Model tests for SetAdminQuorumThresholdResponse */
     @Test
-    public void testSetAdminQuorumThresholdResponse() {
+    void testSetAdminQuorumThresholdResponse() {
         // TODO: test SetAdminQuorumThresholdResponse
     }
 
     /** Test the property 'message' */
     @Test
-    public void messageTest() {
+    void messageTest() {
         // TODO: test message
     }
 }

@@ -13,33 +13,33 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for CreateTransactionResponse */
-public class CreateTransactionResponseTest {
+class CreateTransactionResponseTest {
     private final CreateTransactionResponse model = new CreateTransactionResponse();
 
     /** Model tests for CreateTransactionResponse */
     @Test
-    public void testCreateTransactionResponse() {
+    void testCreateTransactionResponse() {
         // TODO: test CreateTransactionResponse
     }
 
     /** Test the property 'id' */
     @Test
-    public void idTest() {
+    void idTest() {
         // TODO: test id
     }
 
     /** Test the property 'status' */
     @Test
-    public void statusTest() {
+    void statusTest() {
         // TODO: test status
     }
 
     /** Test the property 'systemMessages' */
     @Test
-    public void systemMessagesTest() {
+    void systemMessagesTest() {
         // TODO: test systemMessages
     }
 }

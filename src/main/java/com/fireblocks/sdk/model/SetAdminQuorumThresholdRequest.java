@@ -16,22 +16,24 @@ package com.fireblocks.sdk.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fireblocks.sdk.ApiClient;
 import java.math.BigDecimal;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 import java.util.StringJoiner;
 
 /** SetAdminQuorumThresholdRequest */
 @JsonPropertyOrder({SetAdminQuorumThresholdRequest.JSON_PROPERTY_ADMIN_QUORUM_THRESHOLD})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class SetAdminQuorumThresholdRequest {
     public static final String JSON_PROPERTY_ADMIN_QUORUM_THRESHOLD = "adminQuorumThreshold";
-    private BigDecimal adminQuorumThreshold;
+    @jakarta.annotation.Nullable private BigDecimal adminQuorumThreshold;
 
     public SetAdminQuorumThresholdRequest() {}
 
-    public SetAdminQuorumThresholdRequest adminQuorumThreshold(BigDecimal adminQuorumThreshold) {
+    public SetAdminQuorumThresholdRequest adminQuorumThreshold(
+            @jakarta.annotation.Nullable BigDecimal adminQuorumThreshold) {
         this.adminQuorumThreshold = adminQuorumThreshold;
         return this;
     }
@@ -50,7 +52,8 @@ public class SetAdminQuorumThresholdRequest {
 
     @JsonProperty(JSON_PROPERTY_ADMIN_QUORUM_THRESHOLD)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAdminQuorumThreshold(BigDecimal adminQuorumThreshold) {
+    public void setAdminQuorumThreshold(
+            @jakarta.annotation.Nullable BigDecimal adminQuorumThreshold) {
         this.adminQuorumThreshold = adminQuorumThreshold;
     }
 
@@ -135,10 +138,8 @@ public class SetAdminQuorumThresholdRequest {
                             "%sadminQuorumThreshold%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getAdminQuorumThreshold()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(
+                                    ApiClient.valueToString(getAdminQuorumThreshold()))));
         }
 
         return joiner.toString();

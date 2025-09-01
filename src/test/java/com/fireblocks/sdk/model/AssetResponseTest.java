@@ -13,39 +13,39 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for AssetResponse */
-public class AssetResponseTest {
+class AssetResponseTest {
     private final AssetResponse model = new AssetResponse();
 
     /** Model tests for AssetResponse */
     @Test
-    public void testAssetResponse() {
+    void testAssetResponse() {
         // TODO: test AssetResponse
     }
 
     /** Test the property 'legacyId' */
     @Test
-    public void legacyIdTest() {
+    void legacyIdTest() {
         // TODO: test legacyId
     }
 
     /** Test the property 'assetClass' */
     @Test
-    public void assetClassTest() {
+    void assetClassTest() {
         // TODO: test assetClass
     }
 
     /** Test the property 'onchain' */
     @Test
-    public void onchainTest() {
+    void onchainTest() {
         // TODO: test onchain
     }
 
     /** Test the property 'metadata' */
     @Test
-    public void metadataTest() {
+    void metadataTest() {
         // TODO: test metadata
     }
 }

@@ -13,11 +13,11 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -26,17 +26,25 @@ import java.util.StringJoiner;
     CreateTagRequest.JSON_PROPERTY_LABEL,
     CreateTagRequest.JSON_PROPERTY_DESCRIPTION
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class CreateTagRequest {
     public static final String JSON_PROPERTY_LABEL = "label";
-    private String label;
+    @jakarta.annotation.Nonnull private String label;
 
     public static final String JSON_PROPERTY_DESCRIPTION = "description";
-    private String description;
+    @jakarta.annotation.Nullable private String description;
 
     public CreateTagRequest() {}
 
-    public CreateTagRequest label(String label) {
+    @JsonCreator
+    public CreateTagRequest(
+            @JsonProperty(value = JSON_PROPERTY_LABEL, required = true) String label) {
+        this.label = label;
+    }
+
+    public CreateTagRequest label(@jakarta.annotation.Nonnull String label) {
         this.label = label;
         return this;
     }
@@ -55,11 +63,11 @@ public class CreateTagRequest {
 
     @JsonProperty(JSON_PROPERTY_LABEL)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setLabel(String label) {
+    public void setLabel(@jakarta.annotation.Nonnull String label) {
         this.label = label;
     }
 
-    public CreateTagRequest description(String description) {
+    public CreateTagRequest description(@jakarta.annotation.Nullable String description) {
         this.description = description;
         return this;
     }
@@ -78,7 +86,7 @@ public class CreateTagRequest {
 
     @JsonProperty(JSON_PROPERTY_DESCRIPTION)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setDescription(String description) {
+    public void setDescription(@jakarta.annotation.Nullable String description) {
         this.description = description;
     }
 
@@ -161,8 +169,7 @@ public class CreateTagRequest {
                             "%slabel%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getLabel()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getLabel()))));
         }
 
         // add `description` to the URL query string
@@ -172,10 +179,7 @@ public class CreateTagRequest {
                             "%sdescription%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getDescription()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getDescription()))));
         }
 
         return joiner.toString();

@@ -13,21 +13,21 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for Paging */
-public class PagingTest {
+class PagingTest {
     private final Paging model = new Paging();
 
     /** Model tests for Paging */
     @Test
-    public void testPaging() {
+    void testPaging() {
         // TODO: test Paging
     }
 
     /** Test the property 'next' */
     @Test
-    public void nextTest() {
+    void nextTest() {
         // TODO: test next
     }
 }

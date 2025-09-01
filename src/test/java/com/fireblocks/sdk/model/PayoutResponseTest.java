@@ -13,69 +13,69 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for PayoutResponse */
-public class PayoutResponseTest {
+class PayoutResponseTest {
     private final PayoutResponse model = new PayoutResponse();
 
     /** Model tests for PayoutResponse */
     @Test
-    public void testPayoutResponse() {
+    void testPayoutResponse() {
         // TODO: test PayoutResponse
     }
 
     /** Test the property 'payoutId' */
     @Test
-    public void payoutIdTest() {
+    void payoutIdTest() {
         // TODO: test payoutId
     }
 
     /** Test the property 'paymentAccount' */
     @Test
-    public void paymentAccountTest() {
+    void paymentAccountTest() {
         // TODO: test paymentAccount
     }
 
     /** Test the property 'createdAt' */
     @Test
-    public void createdAtTest() {
+    void createdAtTest() {
         // TODO: test createdAt
     }
 
     /** Test the property 'state' */
     @Test
-    public void stateTest() {
+    void stateTest() {
         // TODO: test state
     }
 
     /** Test the property 'status' */
     @Test
-    public void statusTest() {
+    void statusTest() {
         // TODO: test status
     }
 
     /** Test the property 'reasonOfFailure' */
     @Test
-    public void reasonOfFailureTest() {
+    void reasonOfFailureTest() {
         // TODO: test reasonOfFailure
     }
 
     /** Test the property 'initMethod' */
     @Test
-    public void initMethodTest() {
+    void initMethodTest() {
         // TODO: test initMethod
     }
 
     /** Test the property 'instructionSet' */
     @Test
-    public void instructionSetTest() {
+    void instructionSetTest() {
         // TODO: test instructionSet
     }
 
     /** Test the property 'reportUrl' */
     @Test
-    public void reportUrlTest() {
+    void reportUrlTest() {
         // TODO: test reportUrl
     }
 }

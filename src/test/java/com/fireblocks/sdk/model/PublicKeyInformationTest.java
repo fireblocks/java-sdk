@@ -13,33 +13,33 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for PublicKeyInformation */
-public class PublicKeyInformationTest {
+class PublicKeyInformationTest {
     private final PublicKeyInformation model = new PublicKeyInformation();
 
     /** Model tests for PublicKeyInformation */
     @Test
-    public void testPublicKeyInformation() {
+    void testPublicKeyInformation() {
         // TODO: test PublicKeyInformation
     }
 
     /** Test the property 'algorithm' */
     @Test
-    public void algorithmTest() {
+    void algorithmTest() {
         // TODO: test algorithm
     }
 
     /** Test the property 'derivationPath' */
     @Test
-    public void derivationPathTest() {
+    void derivationPathTest() {
         // TODO: test derivationPath
     }
 
     /** Test the property 'publicKey' */
     @Test
-    public void publicKeyTest() {
+    void publicKeyTest() {
         // TODO: test publicKey
     }
 }

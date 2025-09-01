@@ -13,11 +13,11 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.time.OffsetDateTime;
 import java.util.Objects;
 import java.util.StringJoiner;
@@ -30,26 +30,41 @@ import java.util.StringJoiner;
     ScreeningPolicyResponse.JSON_PROPERTY_CREATE_DATE,
     ScreeningPolicyResponse.JSON_PROPERTY_LAST_UPDATE
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class ScreeningPolicyResponse {
     public static final String JSON_PROPERTY_POLICY = "policy";
-    private TravelRulePolicyRuleResponse policy;
+    @jakarta.annotation.Nonnull private TravelRulePolicyRuleResponse policy;
 
     public static final String JSON_PROPERTY_POLICY_STATUS = "policyStatus";
-    private String policyStatus;
+    @jakarta.annotation.Nullable private String policyStatus;
 
     public static final String JSON_PROPERTY_IS_DEFAULT = "isDefault";
-    private Boolean isDefault;
+    @jakarta.annotation.Nonnull private Boolean isDefault;
 
     public static final String JSON_PROPERTY_CREATE_DATE = "createDate";
-    private OffsetDateTime createDate;
+    @jakarta.annotation.Nullable private OffsetDateTime createDate;
 
     public static final String JSON_PROPERTY_LAST_UPDATE = "lastUpdate";
-    private OffsetDateTime lastUpdate;
+    @jakarta.annotation.Nonnull private OffsetDateTime lastUpdate;
 
     public ScreeningPolicyResponse() {}
 
-    public ScreeningPolicyResponse policy(TravelRulePolicyRuleResponse policy) {
+    @JsonCreator
+    public ScreeningPolicyResponse(
+            @JsonProperty(value = JSON_PROPERTY_POLICY, required = true)
+                    TravelRulePolicyRuleResponse policy,
+            @JsonProperty(value = JSON_PROPERTY_IS_DEFAULT, required = true) Boolean isDefault,
+            @JsonProperty(value = JSON_PROPERTY_LAST_UPDATE, required = true)
+                    OffsetDateTime lastUpdate) {
+        this.policy = policy;
+        this.isDefault = isDefault;
+        this.lastUpdate = lastUpdate;
+    }
+
+    public ScreeningPolicyResponse policy(
+            @jakarta.annotation.Nonnull TravelRulePolicyRuleResponse policy) {
         this.policy = policy;
         return this;
     }
@@ -68,11 +83,11 @@ public class ScreeningPolicyResponse {
 
     @JsonProperty(JSON_PROPERTY_POLICY)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setPolicy(TravelRulePolicyRuleResponse policy) {
+    public void setPolicy(@jakarta.annotation.Nonnull TravelRulePolicyRuleResponse policy) {
         this.policy = policy;
     }
 
-    public ScreeningPolicyResponse policyStatus(String policyStatus) {
+    public ScreeningPolicyResponse policyStatus(@jakarta.annotation.Nullable String policyStatus) {
         this.policyStatus = policyStatus;
         return this;
     }
@@ -91,11 +106,11 @@ public class ScreeningPolicyResponse {
 
     @JsonProperty(JSON_PROPERTY_POLICY_STATUS)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setPolicyStatus(String policyStatus) {
+    public void setPolicyStatus(@jakarta.annotation.Nullable String policyStatus) {
         this.policyStatus = policyStatus;
     }
 
-    public ScreeningPolicyResponse isDefault(Boolean isDefault) {
+    public ScreeningPolicyResponse isDefault(@jakarta.annotation.Nonnull Boolean isDefault) {
         this.isDefault = isDefault;
         return this;
     }
@@ -114,11 +129,12 @@ public class ScreeningPolicyResponse {
 
     @JsonProperty(JSON_PROPERTY_IS_DEFAULT)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setIsDefault(Boolean isDefault) {
+    public void setIsDefault(@jakarta.annotation.Nonnull Boolean isDefault) {
         this.isDefault = isDefault;
     }
 
-    public ScreeningPolicyResponse createDate(OffsetDateTime createDate) {
+    public ScreeningPolicyResponse createDate(
+            @jakarta.annotation.Nullable OffsetDateTime createDate) {
         this.createDate = createDate;
         return this;
     }
@@ -137,11 +153,12 @@ public class ScreeningPolicyResponse {
 
     @JsonProperty(JSON_PROPERTY_CREATE_DATE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setCreateDate(OffsetDateTime createDate) {
+    public void setCreateDate(@jakarta.annotation.Nullable OffsetDateTime createDate) {
         this.createDate = createDate;
     }
 
-    public ScreeningPolicyResponse lastUpdate(OffsetDateTime lastUpdate) {
+    public ScreeningPolicyResponse lastUpdate(
+            @jakarta.annotation.Nonnull OffsetDateTime lastUpdate) {
         this.lastUpdate = lastUpdate;
         return this;
     }
@@ -160,7 +177,7 @@ public class ScreeningPolicyResponse {
 
     @JsonProperty(JSON_PROPERTY_LAST_UPDATE)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setLastUpdate(OffsetDateTime lastUpdate) {
+    public void setLastUpdate(@jakarta.annotation.Nonnull OffsetDateTime lastUpdate) {
         this.lastUpdate = lastUpdate;
     }
 
@@ -254,10 +271,7 @@ public class ScreeningPolicyResponse {
                             "%spolicyStatus%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getPolicyStatus()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getPolicyStatus()))));
         }
 
         // add `isDefault` to the URL query string
@@ -267,9 +281,7 @@ public class ScreeningPolicyResponse {
                             "%sisDefault%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getIsDefault()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getIsDefault()))));
         }
 
         // add `createDate` to the URL query string
@@ -279,9 +291,7 @@ public class ScreeningPolicyResponse {
                             "%screateDate%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getCreateDate()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getCreateDate()))));
         }
 
         // add `lastUpdate` to the URL query string
@@ -291,9 +301,7 @@ public class ScreeningPolicyResponse {
                             "%slastUpdate%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getLastUpdate()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getLastUpdate()))));
         }
 
         return joiner.toString();

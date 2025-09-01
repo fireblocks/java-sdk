@@ -16,9 +16,8 @@ package com.fireblocks.sdk.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fireblocks.sdk.ApiClient;
 import java.math.BigDecimal;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -32,32 +31,34 @@ import java.util.StringJoiner;
     Task.JSON_PROPERTY_UPDATED,
     Task.JSON_PROPERTY_STATE
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class Task {
     public static final String JSON_PROPERTY_ID = "id";
-    private String id;
+    @jakarta.annotation.Nullable private String id;
 
     public static final String JSON_PROPERTY_JOB_ID = "jobId";
-    private String jobId;
+    @jakarta.annotation.Nullable private String jobId;
 
     public static final String JSON_PROPERTY_TYPE = "type";
-    private String type;
+    @jakarta.annotation.Nullable private String type;
 
     public static final String JSON_PROPERTY_TENANT_ID = "tenantId";
-    private String tenantId;
+    @jakarta.annotation.Nullable private String tenantId;
 
     public static final String JSON_PROPERTY_CREATED = "created";
-    private BigDecimal created;
+    @jakarta.annotation.Nullable private BigDecimal created;
 
     public static final String JSON_PROPERTY_UPDATED = "updated";
-    private BigDecimal updated;
+    @jakarta.annotation.Nullable private BigDecimal updated;
 
     public static final String JSON_PROPERTY_STATE = "state";
-    private String state;
+    @jakarta.annotation.Nullable private String state;
 
     public Task() {}
 
-    public Task id(String id) {
+    public Task id(@jakarta.annotation.Nullable String id) {
         this.id = id;
         return this;
     }
@@ -76,11 +77,11 @@ public class Task {
 
     @JsonProperty(JSON_PROPERTY_ID)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setId(String id) {
+    public void setId(@jakarta.annotation.Nullable String id) {
         this.id = id;
     }
 
-    public Task jobId(String jobId) {
+    public Task jobId(@jakarta.annotation.Nullable String jobId) {
         this.jobId = jobId;
         return this;
     }
@@ -99,11 +100,11 @@ public class Task {
 
     @JsonProperty(JSON_PROPERTY_JOB_ID)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setJobId(String jobId) {
+    public void setJobId(@jakarta.annotation.Nullable String jobId) {
         this.jobId = jobId;
     }
 
-    public Task type(String type) {
+    public Task type(@jakarta.annotation.Nullable String type) {
         this.type = type;
         return this;
     }
@@ -122,11 +123,11 @@ public class Task {
 
     @JsonProperty(JSON_PROPERTY_TYPE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setType(String type) {
+    public void setType(@jakarta.annotation.Nullable String type) {
         this.type = type;
     }
 
-    public Task tenantId(String tenantId) {
+    public Task tenantId(@jakarta.annotation.Nullable String tenantId) {
         this.tenantId = tenantId;
         return this;
     }
@@ -145,11 +146,11 @@ public class Task {
 
     @JsonProperty(JSON_PROPERTY_TENANT_ID)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setTenantId(String tenantId) {
+    public void setTenantId(@jakarta.annotation.Nullable String tenantId) {
         this.tenantId = tenantId;
     }
 
-    public Task created(BigDecimal created) {
+    public Task created(@jakarta.annotation.Nullable BigDecimal created) {
         this.created = created;
         return this;
     }
@@ -168,11 +169,11 @@ public class Task {
 
     @JsonProperty(JSON_PROPERTY_CREATED)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setCreated(BigDecimal created) {
+    public void setCreated(@jakarta.annotation.Nullable BigDecimal created) {
         this.created = created;
     }
 
-    public Task updated(BigDecimal updated) {
+    public Task updated(@jakarta.annotation.Nullable BigDecimal updated) {
         this.updated = updated;
         return this;
     }
@@ -191,11 +192,11 @@ public class Task {
 
     @JsonProperty(JSON_PROPERTY_UPDATED)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setUpdated(BigDecimal updated) {
+    public void setUpdated(@jakarta.annotation.Nullable BigDecimal updated) {
         this.updated = updated;
     }
 
-    public Task state(String state) {
+    public Task state(@jakarta.annotation.Nullable String state) {
         this.state = state;
         return this;
     }
@@ -214,7 +215,7 @@ public class Task {
 
     @JsonProperty(JSON_PROPERTY_STATE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setState(String state) {
+    public void setState(@jakarta.annotation.Nullable String state) {
         this.state = state;
     }
 
@@ -305,10 +306,7 @@ public class Task {
             joiner.add(
                     String.format(
                             "%sid%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(String.valueOf(getId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getId()))));
         }
 
         // add `jobId` to the URL query string
@@ -318,8 +316,7 @@ public class Task {
                             "%sjobId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getJobId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getJobId()))));
         }
 
         // add `type` to the URL query string
@@ -329,8 +326,7 @@ public class Task {
                             "%stype%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getType()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getType()))));
         }
 
         // add `tenantId` to the URL query string
@@ -340,8 +336,7 @@ public class Task {
                             "%stenantId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getTenantId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getTenantId()))));
         }
 
         // add `created` to the URL query string
@@ -351,8 +346,7 @@ public class Task {
                             "%screated%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getCreated()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getCreated()))));
         }
 
         // add `updated` to the URL query string
@@ -362,8 +356,7 @@ public class Task {
                             "%supdated%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getUpdated()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getUpdated()))));
         }
 
         // add `state` to the URL query string
@@ -373,8 +366,7 @@ public class Task {
                             "%sstate%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getState()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getState()))));
         }
 
         return joiner.toString();

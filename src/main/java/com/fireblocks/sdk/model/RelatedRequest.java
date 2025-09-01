@@ -18,8 +18,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonValue;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -30,11 +29,13 @@ import java.util.StringJoiner;
     RelatedRequest.JSON_PROPERTY_AMOUNT,
     RelatedRequest.JSON_PROPERTY_TX_ID
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class RelatedRequest {
     /** The status of the request */
     public enum StatusEnum {
-        DEACTIVATING("deactivating");
+        DEACTIVATING(String.valueOf("deactivating"));
 
         private String value;
 
@@ -64,20 +65,30 @@ public class RelatedRequest {
     }
 
     public static final String JSON_PROPERTY_STATUS = "status";
-    private StatusEnum status;
+    @jakarta.annotation.Nonnull private StatusEnum status;
 
     public static final String JSON_PROPERTY_IN_PROGRESS = "inProgress";
-    private Boolean inProgress;
+    @jakarta.annotation.Nonnull private Boolean inProgress;
 
     public static final String JSON_PROPERTY_AMOUNT = "amount";
-    private String amount;
+    @jakarta.annotation.Nonnull private String amount;
 
     public static final String JSON_PROPERTY_TX_ID = "txId";
-    private String txId;
+    @jakarta.annotation.Nullable private String txId;
 
     public RelatedRequest() {}
 
-    public RelatedRequest status(StatusEnum status) {
+    @JsonCreator
+    public RelatedRequest(
+            @JsonProperty(value = JSON_PROPERTY_STATUS, required = true) StatusEnum status,
+            @JsonProperty(value = JSON_PROPERTY_IN_PROGRESS, required = true) Boolean inProgress,
+            @JsonProperty(value = JSON_PROPERTY_AMOUNT, required = true) String amount) {
+        this.status = status;
+        this.inProgress = inProgress;
+        this.amount = amount;
+    }
+
+    public RelatedRequest status(@jakarta.annotation.Nonnull StatusEnum status) {
         this.status = status;
         return this;
     }
@@ -96,11 +107,11 @@ public class RelatedRequest {
 
     @JsonProperty(JSON_PROPERTY_STATUS)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setStatus(StatusEnum status) {
+    public void setStatus(@jakarta.annotation.Nonnull StatusEnum status) {
         this.status = status;
     }
 
-    public RelatedRequest inProgress(Boolean inProgress) {
+    public RelatedRequest inProgress(@jakarta.annotation.Nonnull Boolean inProgress) {
         this.inProgress = inProgress;
         return this;
     }
@@ -119,11 +130,11 @@ public class RelatedRequest {
 
     @JsonProperty(JSON_PROPERTY_IN_PROGRESS)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setInProgress(Boolean inProgress) {
+    public void setInProgress(@jakarta.annotation.Nonnull Boolean inProgress) {
         this.inProgress = inProgress;
     }
 
-    public RelatedRequest amount(String amount) {
+    public RelatedRequest amount(@jakarta.annotation.Nonnull String amount) {
         this.amount = amount;
         return this;
     }
@@ -142,11 +153,11 @@ public class RelatedRequest {
 
     @JsonProperty(JSON_PROPERTY_AMOUNT)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setAmount(String amount) {
+    public void setAmount(@jakarta.annotation.Nonnull String amount) {
         this.amount = amount;
     }
 
-    public RelatedRequest txId(String txId) {
+    public RelatedRequest txId(@jakarta.annotation.Nullable String txId) {
         this.txId = txId;
         return this;
     }
@@ -165,7 +176,7 @@ public class RelatedRequest {
 
     @JsonProperty(JSON_PROPERTY_TX_ID)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setTxId(String txId) {
+    public void setTxId(@jakarta.annotation.Nullable String txId) {
         this.txId = txId;
     }
 
@@ -252,8 +263,7 @@ public class RelatedRequest {
                             "%sstatus%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getStatus()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getStatus()))));
         }
 
         // add `inProgress` to the URL query string
@@ -263,9 +273,7 @@ public class RelatedRequest {
                             "%sinProgress%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getInProgress()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getInProgress()))));
         }
 
         // add `amount` to the URL query string
@@ -275,8 +283,7 @@ public class RelatedRequest {
                             "%samount%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getAmount()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getAmount()))));
         }
 
         // add `txId` to the URL query string
@@ -286,8 +293,7 @@ public class RelatedRequest {
                             "%stxId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getTxId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getTxId()))));
         }
 
         return joiner.toString();

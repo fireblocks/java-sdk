@@ -25,20 +25,22 @@ import java.util.StringJoiner;
     EstimatedFeeDetails.JSON_PROPERTY_MEDIUM,
     EstimatedFeeDetails.JSON_PROPERTY_HIGH
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class EstimatedFeeDetails {
     public static final String JSON_PROPERTY_LOW = "low";
-    private FeeBreakdown low;
+    @jakarta.annotation.Nullable private FeeBreakdown low;
 
     public static final String JSON_PROPERTY_MEDIUM = "medium";
-    private FeeBreakdown medium;
+    @jakarta.annotation.Nullable private FeeBreakdown medium;
 
     public static final String JSON_PROPERTY_HIGH = "high";
-    private FeeBreakdown high;
+    @jakarta.annotation.Nullable private FeeBreakdown high;
 
     public EstimatedFeeDetails() {}
 
-    public EstimatedFeeDetails low(FeeBreakdown low) {
+    public EstimatedFeeDetails low(@jakarta.annotation.Nullable FeeBreakdown low) {
         this.low = low;
         return this;
     }
@@ -57,11 +59,11 @@ public class EstimatedFeeDetails {
 
     @JsonProperty(JSON_PROPERTY_LOW)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setLow(FeeBreakdown low) {
+    public void setLow(@jakarta.annotation.Nullable FeeBreakdown low) {
         this.low = low;
     }
 
-    public EstimatedFeeDetails medium(FeeBreakdown medium) {
+    public EstimatedFeeDetails medium(@jakarta.annotation.Nullable FeeBreakdown medium) {
         this.medium = medium;
         return this;
     }
@@ -80,11 +82,11 @@ public class EstimatedFeeDetails {
 
     @JsonProperty(JSON_PROPERTY_MEDIUM)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setMedium(FeeBreakdown medium) {
+    public void setMedium(@jakarta.annotation.Nullable FeeBreakdown medium) {
         this.medium = medium;
     }
 
-    public EstimatedFeeDetails high(FeeBreakdown high) {
+    public EstimatedFeeDetails high(@jakarta.annotation.Nullable FeeBreakdown high) {
         this.high = high;
         return this;
     }
@@ -103,7 +105,7 @@ public class EstimatedFeeDetails {
 
     @JsonProperty(JSON_PROPERTY_HIGH)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setHigh(FeeBreakdown high) {
+    public void setHigh(@jakarta.annotation.Nullable FeeBreakdown high) {
         this.high = high;
     }
 

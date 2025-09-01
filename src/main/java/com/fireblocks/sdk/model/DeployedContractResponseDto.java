@@ -13,11 +13,11 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -33,39 +33,56 @@ import java.util.StringJoiner;
     DeployedContractResponseDto.JSON_PROPERTY_MULTICHAIN_DEPLOYMENT_METADATA,
     DeployedContractResponseDto.JSON_PROPERTY_SOLANA_CONFIG
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class DeployedContractResponseDto {
     public static final String JSON_PROPERTY_ID = "id";
-    private String id;
+    @jakarta.annotation.Nonnull private String id;
 
     public static final String JSON_PROPERTY_CONTRACT_ADDRESS = "contractAddress";
-    private String contractAddress;
+    @jakarta.annotation.Nonnull private String contractAddress;
 
     public static final String JSON_PROPERTY_CONTRACT_TEMPLATE_ID = "contractTemplateId";
-    private String contractTemplateId;
+    @jakarta.annotation.Nonnull private String contractTemplateId;
 
     public static final String JSON_PROPERTY_VAULT_ACCOUNT_ID = "vaultAccountId";
-    private String vaultAccountId;
+    @jakarta.annotation.Nullable private String vaultAccountId;
 
     public static final String JSON_PROPERTY_BLOCKCHAIN_ID = "blockchainId";
-    private String blockchainId;
+    @jakarta.annotation.Nonnull private String blockchainId;
 
     public static final String JSON_PROPERTY_BASE_ASSET_ID = "baseAssetId";
-    private String baseAssetId;
+    @jakarta.annotation.Nullable private String baseAssetId;
 
     public static final String JSON_PROPERTY_GASLESS_CONFIG = "gaslessConfig";
-    private GasslessStandardConfigurations gaslessConfig;
+    @jakarta.annotation.Nullable private GasslessStandardConfigurations gaslessConfig;
 
     public static final String JSON_PROPERTY_MULTICHAIN_DEPLOYMENT_METADATA =
             "multichainDeploymentMetadata";
-    private MultichainDeploymentMetadata multichainDeploymentMetadata;
+    @jakarta.annotation.Nullable private MultichainDeploymentMetadata multichainDeploymentMetadata;
 
     public static final String JSON_PROPERTY_SOLANA_CONFIG = "solanaConfig";
-    private SolanaConfig solanaConfig;
+    @jakarta.annotation.Nullable private SolanaConfig solanaConfig;
 
     public DeployedContractResponseDto() {}
 
-    public DeployedContractResponseDto id(String id) {
+    @JsonCreator
+    public DeployedContractResponseDto(
+            @JsonProperty(value = JSON_PROPERTY_ID, required = true) String id,
+            @JsonProperty(value = JSON_PROPERTY_CONTRACT_ADDRESS, required = true)
+                    String contractAddress,
+            @JsonProperty(value = JSON_PROPERTY_CONTRACT_TEMPLATE_ID, required = true)
+                    String contractTemplateId,
+            @JsonProperty(value = JSON_PROPERTY_BLOCKCHAIN_ID, required = true)
+                    String blockchainId) {
+        this.id = id;
+        this.contractAddress = contractAddress;
+        this.contractTemplateId = contractTemplateId;
+        this.blockchainId = blockchainId;
+    }
+
+    public DeployedContractResponseDto id(@jakarta.annotation.Nonnull String id) {
         this.id = id;
         return this;
     }
@@ -84,11 +101,12 @@ public class DeployedContractResponseDto {
 
     @JsonProperty(JSON_PROPERTY_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setId(String id) {
+    public void setId(@jakarta.annotation.Nonnull String id) {
         this.id = id;
     }
 
-    public DeployedContractResponseDto contractAddress(String contractAddress) {
+    public DeployedContractResponseDto contractAddress(
+            @jakarta.annotation.Nonnull String contractAddress) {
         this.contractAddress = contractAddress;
         return this;
     }
@@ -107,11 +125,12 @@ public class DeployedContractResponseDto {
 
     @JsonProperty(JSON_PROPERTY_CONTRACT_ADDRESS)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setContractAddress(String contractAddress) {
+    public void setContractAddress(@jakarta.annotation.Nonnull String contractAddress) {
         this.contractAddress = contractAddress;
     }
 
-    public DeployedContractResponseDto contractTemplateId(String contractTemplateId) {
+    public DeployedContractResponseDto contractTemplateId(
+            @jakarta.annotation.Nonnull String contractTemplateId) {
         this.contractTemplateId = contractTemplateId;
         return this;
     }
@@ -130,11 +149,12 @@ public class DeployedContractResponseDto {
 
     @JsonProperty(JSON_PROPERTY_CONTRACT_TEMPLATE_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setContractTemplateId(String contractTemplateId) {
+    public void setContractTemplateId(@jakarta.annotation.Nonnull String contractTemplateId) {
         this.contractTemplateId = contractTemplateId;
     }
 
-    public DeployedContractResponseDto vaultAccountId(String vaultAccountId) {
+    public DeployedContractResponseDto vaultAccountId(
+            @jakarta.annotation.Nullable String vaultAccountId) {
         this.vaultAccountId = vaultAccountId;
         return this;
     }
@@ -153,11 +173,12 @@ public class DeployedContractResponseDto {
 
     @JsonProperty(JSON_PROPERTY_VAULT_ACCOUNT_ID)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setVaultAccountId(String vaultAccountId) {
+    public void setVaultAccountId(@jakarta.annotation.Nullable String vaultAccountId) {
         this.vaultAccountId = vaultAccountId;
     }
 
-    public DeployedContractResponseDto blockchainId(String blockchainId) {
+    public DeployedContractResponseDto blockchainId(
+            @jakarta.annotation.Nonnull String blockchainId) {
         this.blockchainId = blockchainId;
         return this;
     }
@@ -176,11 +197,12 @@ public class DeployedContractResponseDto {
 
     @JsonProperty(JSON_PROPERTY_BLOCKCHAIN_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setBlockchainId(String blockchainId) {
+    public void setBlockchainId(@jakarta.annotation.Nonnull String blockchainId) {
         this.blockchainId = blockchainId;
     }
 
-    public DeployedContractResponseDto baseAssetId(String baseAssetId) {
+    public DeployedContractResponseDto baseAssetId(
+            @jakarta.annotation.Nullable String baseAssetId) {
         this.baseAssetId = baseAssetId;
         return this;
     }
@@ -199,11 +221,12 @@ public class DeployedContractResponseDto {
 
     @JsonProperty(JSON_PROPERTY_BASE_ASSET_ID)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setBaseAssetId(String baseAssetId) {
+    public void setBaseAssetId(@jakarta.annotation.Nullable String baseAssetId) {
         this.baseAssetId = baseAssetId;
     }
 
-    public DeployedContractResponseDto gaslessConfig(GasslessStandardConfigurations gaslessConfig) {
+    public DeployedContractResponseDto gaslessConfig(
+            @jakarta.annotation.Nullable GasslessStandardConfigurations gaslessConfig) {
         this.gaslessConfig = gaslessConfig;
         return this;
     }
@@ -222,12 +245,14 @@ public class DeployedContractResponseDto {
 
     @JsonProperty(JSON_PROPERTY_GASLESS_CONFIG)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setGaslessConfig(GasslessStandardConfigurations gaslessConfig) {
+    public void setGaslessConfig(
+            @jakarta.annotation.Nullable GasslessStandardConfigurations gaslessConfig) {
         this.gaslessConfig = gaslessConfig;
     }
 
     public DeployedContractResponseDto multichainDeploymentMetadata(
-            MultichainDeploymentMetadata multichainDeploymentMetadata) {
+            @jakarta.annotation.Nullable
+                    MultichainDeploymentMetadata multichainDeploymentMetadata) {
         this.multichainDeploymentMetadata = multichainDeploymentMetadata;
         return this;
     }
@@ -247,11 +272,13 @@ public class DeployedContractResponseDto {
     @JsonProperty(JSON_PROPERTY_MULTICHAIN_DEPLOYMENT_METADATA)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
     public void setMultichainDeploymentMetadata(
-            MultichainDeploymentMetadata multichainDeploymentMetadata) {
+            @jakarta.annotation.Nullable
+                    MultichainDeploymentMetadata multichainDeploymentMetadata) {
         this.multichainDeploymentMetadata = multichainDeploymentMetadata;
     }
 
-    public DeployedContractResponseDto solanaConfig(SolanaConfig solanaConfig) {
+    public DeployedContractResponseDto solanaConfig(
+            @jakarta.annotation.Nullable SolanaConfig solanaConfig) {
         this.solanaConfig = solanaConfig;
         return this;
     }
@@ -270,7 +297,7 @@ public class DeployedContractResponseDto {
 
     @JsonProperty(JSON_PROPERTY_SOLANA_CONFIG)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setSolanaConfig(SolanaConfig solanaConfig) {
+    public void setSolanaConfig(@jakarta.annotation.Nullable SolanaConfig solanaConfig) {
         this.solanaConfig = solanaConfig;
     }
 
@@ -381,10 +408,7 @@ public class DeployedContractResponseDto {
             joiner.add(
                     String.format(
                             "%sid%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(String.valueOf(getId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getId()))));
         }
 
         // add `contractAddress` to the URL query string
@@ -394,10 +418,7 @@ public class DeployedContractResponseDto {
                             "%scontractAddress%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getContractAddress()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getContractAddress()))));
         }
 
         // add `contractTemplateId` to the URL query string
@@ -407,10 +428,7 @@ public class DeployedContractResponseDto {
                             "%scontractTemplateId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getContractTemplateId()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getContractTemplateId()))));
         }
 
         // add `vaultAccountId` to the URL query string
@@ -420,10 +438,7 @@ public class DeployedContractResponseDto {
                             "%svaultAccountId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getVaultAccountId()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getVaultAccountId()))));
         }
 
         // add `blockchainId` to the URL query string
@@ -433,10 +448,7 @@ public class DeployedContractResponseDto {
                             "%sblockchainId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getBlockchainId()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getBlockchainId()))));
         }
 
         // add `baseAssetId` to the URL query string
@@ -446,10 +458,7 @@ public class DeployedContractResponseDto {
                             "%sbaseAssetId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getBaseAssetId()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getBaseAssetId()))));
         }
 
         // add `gaslessConfig` to the URL query string

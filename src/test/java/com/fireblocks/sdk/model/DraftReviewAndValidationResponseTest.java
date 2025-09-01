@@ -13,27 +13,27 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for DraftReviewAndValidationResponse */
-public class DraftReviewAndValidationResponseTest {
+class DraftReviewAndValidationResponseTest {
     private final DraftReviewAndValidationResponse model = new DraftReviewAndValidationResponse();
 
     /** Model tests for DraftReviewAndValidationResponse */
     @Test
-    public void testDraftReviewAndValidationResponse() {
+    void testDraftReviewAndValidationResponse() {
         // TODO: test DraftReviewAndValidationResponse
     }
 
     /** Test the property 'draftResponse' */
     @Test
-    public void draftResponseTest() {
+    void draftResponseTest() {
         // TODO: test draftResponse
     }
 
     /** Test the property 'validation' */
     @Test
-    public void validationTest() {
+    void validationTest() {
         // TODO: test validation
     }
 }

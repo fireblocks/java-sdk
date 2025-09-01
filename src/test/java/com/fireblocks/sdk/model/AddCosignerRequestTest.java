@@ -13,33 +13,33 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for AddCosignerRequest */
-public class AddCosignerRequestTest {
+class AddCosignerRequestTest {
     private final AddCosignerRequest model = new AddCosignerRequest();
 
     /** Model tests for AddCosignerRequest */
     @Test
-    public void testAddCosignerRequest() {
+    void testAddCosignerRequest() {
         // TODO: test AddCosignerRequest
     }
 
     /** Test the property 'apiKeyId' */
     @Test
-    public void apiKeyIdTest() {
+    void apiKeyIdTest() {
         // TODO: test apiKeyId
     }
 
     /** Test the property 'name' */
     @Test
-    public void nameTest() {
+    void nameTest() {
         // TODO: test name
     }
 
     /** Test the property 'existingCosigner' */
     @Test
-    public void existingCosignerTest() {
+    void existingCosignerTest() {
         // TODO: test existingCosigner
     }
 }

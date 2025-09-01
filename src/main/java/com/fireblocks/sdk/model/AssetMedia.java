@@ -18,8 +18,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonValue;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -29,16 +28,18 @@ import java.util.StringJoiner;
     AssetMedia.JSON_PROPERTY_TYPE,
     AssetMedia.JSON_PROPERTY_ATTRIBUTES
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class AssetMedia {
     public static final String JSON_PROPERTY_URL = "url";
-    private String url;
+    @jakarta.annotation.Nonnull private String url;
 
     /** Media type */
     public enum TypeEnum {
-        SVG_XML("image/svg+xml"),
+        IMAGE_SVG_XML(String.valueOf("image/svg+xml")),
 
-        PNG("image/png");
+        IMAGE_PNG(String.valueOf("image/png"));
 
         private String value;
 
@@ -68,14 +69,22 @@ public class AssetMedia {
     }
 
     public static final String JSON_PROPERTY_TYPE = "type";
-    private TypeEnum type;
+    @jakarta.annotation.Nonnull private TypeEnum type;
 
     public static final String JSON_PROPERTY_ATTRIBUTES = "attributes";
-    private AssetMediaAttributes attributes;
+    @jakarta.annotation.Nullable private AssetMediaAttributes attributes;
 
     public AssetMedia() {}
 
-    public AssetMedia url(String url) {
+    @JsonCreator
+    public AssetMedia(
+            @JsonProperty(value = JSON_PROPERTY_URL, required = true) String url,
+            @JsonProperty(value = JSON_PROPERTY_TYPE, required = true) TypeEnum type) {
+        this.url = url;
+        this.type = type;
+    }
+
+    public AssetMedia url(@jakarta.annotation.Nonnull String url) {
         this.url = url;
         return this;
     }
@@ -94,11 +103,11 @@ public class AssetMedia {
 
     @JsonProperty(JSON_PROPERTY_URL)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setUrl(String url) {
+    public void setUrl(@jakarta.annotation.Nonnull String url) {
         this.url = url;
     }
 
-    public AssetMedia type(TypeEnum type) {
+    public AssetMedia type(@jakarta.annotation.Nonnull TypeEnum type) {
         this.type = type;
         return this;
     }
@@ -117,11 +126,11 @@ public class AssetMedia {
 
     @JsonProperty(JSON_PROPERTY_TYPE)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setType(TypeEnum type) {
+    public void setType(@jakarta.annotation.Nonnull TypeEnum type) {
         this.type = type;
     }
 
-    public AssetMedia attributes(AssetMediaAttributes attributes) {
+    public AssetMedia attributes(@jakarta.annotation.Nullable AssetMediaAttributes attributes) {
         this.attributes = attributes;
         return this;
     }
@@ -140,7 +149,7 @@ public class AssetMedia {
 
     @JsonProperty(JSON_PROPERTY_ATTRIBUTES)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAttributes(AssetMediaAttributes attributes) {
+    public void setAttributes(@jakarta.annotation.Nullable AssetMediaAttributes attributes) {
         this.attributes = attributes;
     }
 
@@ -225,8 +234,7 @@ public class AssetMedia {
                             "%surl%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getUrl()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getUrl()))));
         }
 
         // add `type` to the URL query string
@@ -236,8 +244,7 @@ public class AssetMedia {
                             "%stype%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getType()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getType()))));
         }
 
         // add `attributes` to the URL query string

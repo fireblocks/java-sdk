@@ -13,33 +13,33 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for PeerAdapterInfo */
-public class PeerAdapterInfoTest {
+class PeerAdapterInfoTest {
     private final PeerAdapterInfo model = new PeerAdapterInfo();
 
     /** Model tests for PeerAdapterInfo */
     @Test
-    public void testPeerAdapterInfo() {
+    void testPeerAdapterInfo() {
         // TODO: test PeerAdapterInfo
     }
 
     /** Test the property 'adapterTokenLinkId' */
     @Test
-    public void adapterTokenLinkIdTest() {
+    void adapterTokenLinkIdTest() {
         // TODO: test adapterTokenLinkId
     }
 
     /** Test the property 'adapterAddress' */
     @Test
-    public void adapterAddressTest() {
+    void adapterAddressTest() {
         // TODO: test adapterAddress
     }
 
     /** Test the property 'baseAssetId' */
     @Test
-    public void baseAssetIdTest() {
+    void baseAssetIdTest() {
         // TODO: test baseAssetId
     }
 }

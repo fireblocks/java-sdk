@@ -13,45 +13,45 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for CreateMultipleAccountsRequest */
-public class CreateMultipleAccountsRequestTest {
+class CreateMultipleAccountsRequestTest {
     private final CreateMultipleAccountsRequest model = new CreateMultipleAccountsRequest();
 
     /** Model tests for CreateMultipleAccountsRequest */
     @Test
-    public void testCreateMultipleAccountsRequest() {
+    void testCreateMultipleAccountsRequest() {
         // TODO: test CreateMultipleAccountsRequest
     }
 
     /** Test the property 'count' */
     @Test
-    public void countTest() {
+    void countTest() {
         // TODO: test count
     }
 
     /** Test the property 'baseAssetIds' */
     @Test
-    public void baseAssetIdsTest() {
+    void baseAssetIdsTest() {
         // TODO: test baseAssetIds
     }
 
     /** Test the property 'names' */
     @Test
-    public void namesTest() {
+    void namesTest() {
         // TODO: test names
     }
 
     /** Test the property 'vaultAccountNamesStartingIndex' */
     @Test
-    public void vaultAccountNamesStartingIndexTest() {
+    void vaultAccountNamesStartingIndexTest() {
         // TODO: test vaultAccountNamesStartingIndex
     }
 
     /** Test the property 'prefix' */
     @Test
-    public void prefixTest() {
+    void prefixTest() {
         // TODO: test prefix
     }
 }

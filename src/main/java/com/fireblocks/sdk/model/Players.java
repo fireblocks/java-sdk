@@ -18,23 +18,24 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonValue;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
 /** Players */
 @JsonPropertyOrder({Players.JSON_PROPERTY_ID, Players.JSON_PROPERTY_TYPE})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class Players {
     public static final String JSON_PROPERTY_ID = "id";
-    private String id;
+    @jakarta.annotation.Nonnull private String id;
 
     /** Type of the player */
     public enum TypeEnum {
-        MOBILE("MOBILE"),
+        MOBILE(String.valueOf("MOBILE")),
 
-        CLOUD("CLOUD");
+        CLOUD(String.valueOf("CLOUD"));
 
         private String value;
 
@@ -64,11 +65,19 @@ public class Players {
     }
 
     public static final String JSON_PROPERTY_TYPE = "type";
-    private TypeEnum type;
+    @jakarta.annotation.Nonnull private TypeEnum type;
 
     public Players() {}
 
-    public Players id(String id) {
+    @JsonCreator
+    public Players(
+            @JsonProperty(value = JSON_PROPERTY_ID, required = true) String id,
+            @JsonProperty(value = JSON_PROPERTY_TYPE, required = true) TypeEnum type) {
+        this.id = id;
+        this.type = type;
+    }
+
+    public Players id(@jakarta.annotation.Nonnull String id) {
         this.id = id;
         return this;
     }
@@ -87,11 +96,11 @@ public class Players {
 
     @JsonProperty(JSON_PROPERTY_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setId(String id) {
+    public void setId(@jakarta.annotation.Nonnull String id) {
         this.id = id;
     }
 
-    public Players type(TypeEnum type) {
+    public Players type(@jakarta.annotation.Nonnull TypeEnum type) {
         this.type = type;
         return this;
     }
@@ -110,7 +119,7 @@ public class Players {
 
     @JsonProperty(JSON_PROPERTY_TYPE)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setType(TypeEnum type) {
+    public void setType(@jakarta.annotation.Nonnull TypeEnum type) {
         this.type = type;
     }
 
@@ -190,10 +199,7 @@ public class Players {
             joiner.add(
                     String.format(
                             "%sid%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(String.valueOf(getId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getId()))));
         }
 
         // add `type` to the URL query string
@@ -203,8 +209,7 @@ public class Players {
                             "%stype%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getType()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getType()))));
         }
 
         return joiner.toString();

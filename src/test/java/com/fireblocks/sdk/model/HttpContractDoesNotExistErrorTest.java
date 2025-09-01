@@ -13,27 +13,27 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for HttpContractDoesNotExistError */
-public class HttpContractDoesNotExistErrorTest {
+class HttpContractDoesNotExistErrorTest {
     private final HttpContractDoesNotExistError model = new HttpContractDoesNotExistError();
 
     /** Model tests for HttpContractDoesNotExistError */
     @Test
-    public void testHttpContractDoesNotExistError() {
+    void testHttpContractDoesNotExistError() {
         // TODO: test HttpContractDoesNotExistError
     }
 
     /** Test the property 'message' */
     @Test
-    public void messageTest() {
+    void messageTest() {
         // TODO: test message
     }
 
     /** Test the property 'code' */
     @Test
-    public void codeTest() {
+    void codeTest() {
         // TODO: test code
     }
 }

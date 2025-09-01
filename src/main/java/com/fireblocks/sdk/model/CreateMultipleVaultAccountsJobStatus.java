@@ -13,11 +13,11 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -29,20 +29,30 @@ import java.util.StringJoiner;
     CreateMultipleVaultAccountsJobStatus.JSON_PROPERTY_VAULT_ACCOUNTS,
     CreateMultipleVaultAccountsJobStatus.JSON_PROPERTY_ERROR_MESSAGE
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class CreateMultipleVaultAccountsJobStatus {
     public static final String JSON_PROPERTY_STATUS = "status";
-    private String status;
+    @jakarta.annotation.Nonnull private String status;
 
     public static final String JSON_PROPERTY_VAULT_ACCOUNTS = "vaultAccounts";
+
+    @jakarta.annotation.Nullable
     private Map<String, Map<String, String>> vaultAccounts = new HashMap<>();
 
     public static final String JSON_PROPERTY_ERROR_MESSAGE = "errorMessage";
-    private String errorMessage;
+    @jakarta.annotation.Nullable private String errorMessage;
 
     public CreateMultipleVaultAccountsJobStatus() {}
 
-    public CreateMultipleVaultAccountsJobStatus status(String status) {
+    @JsonCreator
+    public CreateMultipleVaultAccountsJobStatus(
+            @JsonProperty(value = JSON_PROPERTY_STATUS, required = true) String status) {
+        this.status = status;
+    }
+
+    public CreateMultipleVaultAccountsJobStatus status(@jakarta.annotation.Nonnull String status) {
         this.status = status;
         return this;
     }
@@ -61,12 +71,12 @@ public class CreateMultipleVaultAccountsJobStatus {
 
     @JsonProperty(JSON_PROPERTY_STATUS)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setStatus(String status) {
+    public void setStatus(@jakarta.annotation.Nonnull String status) {
         this.status = status;
     }
 
     public CreateMultipleVaultAccountsJobStatus vaultAccounts(
-            Map<String, Map<String, String>> vaultAccounts) {
+            @jakarta.annotation.Nullable Map<String, Map<String, String>> vaultAccounts) {
         this.vaultAccounts = vaultAccounts;
         return this;
     }
@@ -94,11 +104,13 @@ public class CreateMultipleVaultAccountsJobStatus {
 
     @JsonProperty(JSON_PROPERTY_VAULT_ACCOUNTS)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setVaultAccounts(Map<String, Map<String, String>> vaultAccounts) {
+    public void setVaultAccounts(
+            @jakarta.annotation.Nullable Map<String, Map<String, String>> vaultAccounts) {
         this.vaultAccounts = vaultAccounts;
     }
 
-    public CreateMultipleVaultAccountsJobStatus errorMessage(String errorMessage) {
+    public CreateMultipleVaultAccountsJobStatus errorMessage(
+            @jakarta.annotation.Nullable String errorMessage) {
         this.errorMessage = errorMessage;
         return this;
     }
@@ -117,7 +129,7 @@ public class CreateMultipleVaultAccountsJobStatus {
 
     @JsonProperty(JSON_PROPERTY_ERROR_MESSAGE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setErrorMessage(String errorMessage) {
+    public void setErrorMessage(@jakarta.annotation.Nullable String errorMessage) {
         this.errorMessage = errorMessage;
     }
 
@@ -205,8 +217,7 @@ public class CreateMultipleVaultAccountsJobStatus {
                             "%sstatus%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getStatus()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getStatus()))));
         }
 
         // add `vaultAccounts` to the URL query string
@@ -222,10 +233,8 @@ public class CreateMultipleVaultAccountsJobStatus {
                                         : String.format(
                                                 "%s%d%s", containerPrefix, _key, containerSuffix),
                                 getVaultAccounts().get(_key),
-                                URLEncoder.encode(
-                                                String.valueOf(getVaultAccounts().get(_key)),
-                                                StandardCharsets.UTF_8)
-                                        .replaceAll("\\+", "%20")));
+                                ApiClient.urlEncode(
+                                        ApiClient.valueToString(getVaultAccounts().get(_key)))));
             }
         }
 
@@ -236,10 +245,7 @@ public class CreateMultipleVaultAccountsJobStatus {
                             "%serrorMessage%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getErrorMessage()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getErrorMessage()))));
         }
 
         return joiner.toString();

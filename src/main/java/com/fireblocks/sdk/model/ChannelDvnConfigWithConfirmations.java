@@ -24,61 +24,64 @@ import java.util.StringJoiner;
     ChannelDvnConfigWithConfirmations.JSON_PROPERTY_SEND_CONFIG,
     ChannelDvnConfigWithConfirmations.JSON_PROPERTY_RECEIVE_CONFIG
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class ChannelDvnConfigWithConfirmations {
     public static final String JSON_PROPERTY_SEND_CONFIG = "sendConfig";
-    private ChannelDvnConfigWithConfirmationsSendConfig sendConfig;
+    @jakarta.annotation.Nullable private DvnConfigWithConfirmations sendConfig;
 
     public static final String JSON_PROPERTY_RECEIVE_CONFIG = "receiveConfig";
-    private ChannelDvnConfigWithConfirmationsReceiveConfig receiveConfig;
+    @jakarta.annotation.Nullable private DvnConfigWithConfirmations receiveConfig;
 
     public ChannelDvnConfigWithConfirmations() {}
 
     public ChannelDvnConfigWithConfirmations sendConfig(
-            ChannelDvnConfigWithConfirmationsSendConfig sendConfig) {
+            @jakarta.annotation.Nullable DvnConfigWithConfirmations sendConfig) {
         this.sendConfig = sendConfig;
         return this;
     }
 
     /**
-     * Get sendConfig
+     * Outbound (source → peer) DVN config with confirmations.
      *
      * @return sendConfig
      */
     @jakarta.annotation.Nullable
     @JsonProperty(JSON_PROPERTY_SEND_CONFIG)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public ChannelDvnConfigWithConfirmationsSendConfig getSendConfig() {
+    public DvnConfigWithConfirmations getSendConfig() {
         return sendConfig;
     }
 
     @JsonProperty(JSON_PROPERTY_SEND_CONFIG)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setSendConfig(ChannelDvnConfigWithConfirmationsSendConfig sendConfig) {
+    public void setSendConfig(@jakarta.annotation.Nullable DvnConfigWithConfirmations sendConfig) {
         this.sendConfig = sendConfig;
     }
 
     public ChannelDvnConfigWithConfirmations receiveConfig(
-            ChannelDvnConfigWithConfirmationsReceiveConfig receiveConfig) {
+            @jakarta.annotation.Nullable DvnConfigWithConfirmations receiveConfig) {
         this.receiveConfig = receiveConfig;
         return this;
     }
 
     /**
-     * Get receiveConfig
+     * Inbound (peer → source) DVN config with confirmations.
      *
      * @return receiveConfig
      */
     @jakarta.annotation.Nullable
     @JsonProperty(JSON_PROPERTY_RECEIVE_CONFIG)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public ChannelDvnConfigWithConfirmationsReceiveConfig getReceiveConfig() {
+    public DvnConfigWithConfirmations getReceiveConfig() {
         return receiveConfig;
     }
 
     @JsonProperty(JSON_PROPERTY_RECEIVE_CONFIG)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setReceiveConfig(ChannelDvnConfigWithConfirmationsReceiveConfig receiveConfig) {
+    public void setReceiveConfig(
+            @jakarta.annotation.Nullable DvnConfigWithConfirmations receiveConfig) {
         this.receiveConfig = receiveConfig;
     }
 

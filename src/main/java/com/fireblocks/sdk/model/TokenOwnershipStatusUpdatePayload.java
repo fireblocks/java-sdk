@@ -18,8 +18,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonValue;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -28,16 +27,18 @@ import java.util.StringJoiner;
     TokenOwnershipStatusUpdatePayload.JSON_PROPERTY_ASSET_ID,
     TokenOwnershipStatusUpdatePayload.JSON_PROPERTY_STATUS
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class TokenOwnershipStatusUpdatePayload {
     public static final String JSON_PROPERTY_ASSET_ID = "assetId";
-    private String assetId;
+    @jakarta.annotation.Nonnull private String assetId;
 
     /** Token&#39;s ownership new status */
     public enum StatusEnum {
-        LISTED("LISTED"),
+        LISTED(String.valueOf("LISTED")),
 
-        ARCHIVED("ARCHIVED");
+        ARCHIVED(String.valueOf("ARCHIVED"));
 
         private String value;
 
@@ -67,11 +68,19 @@ public class TokenOwnershipStatusUpdatePayload {
     }
 
     public static final String JSON_PROPERTY_STATUS = "status";
-    private StatusEnum status;
+    @jakarta.annotation.Nonnull private StatusEnum status;
 
     public TokenOwnershipStatusUpdatePayload() {}
 
-    public TokenOwnershipStatusUpdatePayload assetId(String assetId) {
+    @JsonCreator
+    public TokenOwnershipStatusUpdatePayload(
+            @JsonProperty(value = JSON_PROPERTY_ASSET_ID, required = true) String assetId,
+            @JsonProperty(value = JSON_PROPERTY_STATUS, required = true) StatusEnum status) {
+        this.assetId = assetId;
+        this.status = status;
+    }
+
+    public TokenOwnershipStatusUpdatePayload assetId(@jakarta.annotation.Nonnull String assetId) {
         this.assetId = assetId;
         return this;
     }
@@ -90,11 +99,11 @@ public class TokenOwnershipStatusUpdatePayload {
 
     @JsonProperty(JSON_PROPERTY_ASSET_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setAssetId(String assetId) {
+    public void setAssetId(@jakarta.annotation.Nonnull String assetId) {
         this.assetId = assetId;
     }
 
-    public TokenOwnershipStatusUpdatePayload status(StatusEnum status) {
+    public TokenOwnershipStatusUpdatePayload status(@jakarta.annotation.Nonnull StatusEnum status) {
         this.status = status;
         return this;
     }
@@ -113,7 +122,7 @@ public class TokenOwnershipStatusUpdatePayload {
 
     @JsonProperty(JSON_PROPERTY_STATUS)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setStatus(StatusEnum status) {
+    public void setStatus(@jakarta.annotation.Nonnull StatusEnum status) {
         this.status = status;
     }
 
@@ -197,8 +206,7 @@ public class TokenOwnershipStatusUpdatePayload {
                             "%sassetId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getAssetId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getAssetId()))));
         }
 
         // add `status` to the URL query string
@@ -208,8 +216,7 @@ public class TokenOwnershipStatusUpdatePayload {
                             "%sstatus%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getStatus()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getStatus()))));
         }
 
         return joiner.toString();

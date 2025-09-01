@@ -13,27 +13,27 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for UpdateCallbackHandlerResponse */
-public class UpdateCallbackHandlerResponseTest {
+class UpdateCallbackHandlerResponseTest {
     private final UpdateCallbackHandlerResponse model = new UpdateCallbackHandlerResponse();
 
     /** Model tests for UpdateCallbackHandlerResponse */
     @Test
-    public void testUpdateCallbackHandlerResponse() {
+    void testUpdateCallbackHandlerResponse() {
         // TODO: test UpdateCallbackHandlerResponse
     }
 
     /** Test the property 'id' */
     @Test
-    public void idTest() {
+    void idTest() {
         // TODO: test id
     }
 
     /** Test the property 'callbackHandler' */
     @Test
-    public void callbackHandlerTest() {
+    void callbackHandlerTest() {
         // TODO: test callbackHandler
     }
 }

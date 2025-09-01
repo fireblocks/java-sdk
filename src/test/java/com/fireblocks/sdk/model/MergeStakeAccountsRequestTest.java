@@ -13,45 +13,45 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for MergeStakeAccountsRequest */
-public class MergeStakeAccountsRequestTest {
+class MergeStakeAccountsRequestTest {
     private final MergeStakeAccountsRequest model = new MergeStakeAccountsRequest();
 
     /** Model tests for MergeStakeAccountsRequest */
     @Test
-    public void testMergeStakeAccountsRequest() {
+    void testMergeStakeAccountsRequest() {
         // TODO: test MergeStakeAccountsRequest
     }
 
     /** Test the property 'sourceId' */
     @Test
-    public void sourceIdTest() {
+    void sourceIdTest() {
         // TODO: test sourceId
     }
 
     /** Test the property 'destinationId' */
     @Test
-    public void destinationIdTest() {
+    void destinationIdTest() {
         // TODO: test destinationId
     }
 
     /** Test the property 'fee' */
     @Test
-    public void feeTest() {
+    void feeTest() {
         // TODO: test fee
     }
 
     /** Test the property 'feeLevel' */
     @Test
-    public void feeLevelTest() {
+    void feeLevelTest() {
         // TODO: test feeLevel
     }
 
     /** Test the property 'txNote' */
     @Test
-    public void txNoteTest() {
+    void txNoteTest() {
         // TODO: test txNote
     }
 }

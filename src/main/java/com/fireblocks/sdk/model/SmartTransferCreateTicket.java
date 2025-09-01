@@ -18,9 +18,8 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.fireblocks.sdk.ApiClient;
 import java.math.BigDecimal;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -36,16 +35,18 @@ import java.util.StringJoiner;
     SmartTransferCreateTicket.JSON_PROPERTY_NOTE,
     SmartTransferCreateTicket.JSON_PROPERTY_SUBMIT
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class SmartTransferCreateTicket {
     public static final String JSON_PROPERTY_CREATED_BY_NETWORK_ID = "createdByNetworkId";
-    private String createdByNetworkId;
+    @jakarta.annotation.Nonnull private String createdByNetworkId;
 
     /** Gets or Sets type */
     public enum TypeEnum {
-        ASYNC("ASYNC"),
+        ASYNC(String.valueOf("ASYNC")),
 
-        DVP("DVP");
+        DVP(String.valueOf("DVP"));
 
         private String value;
 
@@ -75,26 +76,38 @@ public class SmartTransferCreateTicket {
     }
 
     public static final String JSON_PROPERTY_TYPE = "type";
-    private TypeEnum type;
+    @jakarta.annotation.Nonnull private TypeEnum type;
 
     public static final String JSON_PROPERTY_EXPIRES_IN = "expiresIn";
-    private BigDecimal expiresIn;
+    @jakarta.annotation.Nullable private BigDecimal expiresIn;
 
     public static final String JSON_PROPERTY_TERMS = "terms";
-    private List<SmartTransferCreateTicketTerm> terms;
+
+    @jakarta.annotation.Nullable
+    private List<SmartTransferCreateTicketTerm> terms = new ArrayList<>();
 
     public static final String JSON_PROPERTY_EXTERNAL_REF_ID = "externalRefId";
-    private String externalRefId;
+    @jakarta.annotation.Nullable private String externalRefId;
 
     public static final String JSON_PROPERTY_NOTE = "note";
-    private String note;
+    @jakarta.annotation.Nullable private String note;
 
     public static final String JSON_PROPERTY_SUBMIT = "submit";
-    private Boolean submit;
+    @jakarta.annotation.Nullable private Boolean submit;
 
     public SmartTransferCreateTicket() {}
 
-    public SmartTransferCreateTicket createdByNetworkId(String createdByNetworkId) {
+    @JsonCreator
+    public SmartTransferCreateTicket(
+            @JsonProperty(value = JSON_PROPERTY_CREATED_BY_NETWORK_ID, required = true)
+                    String createdByNetworkId,
+            @JsonProperty(value = JSON_PROPERTY_TYPE, required = true) TypeEnum type) {
+        this.createdByNetworkId = createdByNetworkId;
+        this.type = type;
+    }
+
+    public SmartTransferCreateTicket createdByNetworkId(
+            @jakarta.annotation.Nonnull String createdByNetworkId) {
         this.createdByNetworkId = createdByNetworkId;
         return this;
     }
@@ -113,11 +126,11 @@ public class SmartTransferCreateTicket {
 
     @JsonProperty(JSON_PROPERTY_CREATED_BY_NETWORK_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setCreatedByNetworkId(String createdByNetworkId) {
+    public void setCreatedByNetworkId(@jakarta.annotation.Nonnull String createdByNetworkId) {
         this.createdByNetworkId = createdByNetworkId;
     }
 
-    public SmartTransferCreateTicket type(TypeEnum type) {
+    public SmartTransferCreateTicket type(@jakarta.annotation.Nonnull TypeEnum type) {
         this.type = type;
         return this;
     }
@@ -136,11 +149,11 @@ public class SmartTransferCreateTicket {
 
     @JsonProperty(JSON_PROPERTY_TYPE)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setType(TypeEnum type) {
+    public void setType(@jakarta.annotation.Nonnull TypeEnum type) {
         this.type = type;
     }
 
-    public SmartTransferCreateTicket expiresIn(BigDecimal expiresIn) {
+    public SmartTransferCreateTicket expiresIn(@jakarta.annotation.Nullable BigDecimal expiresIn) {
         this.expiresIn = expiresIn;
         return this;
     }
@@ -160,11 +173,12 @@ public class SmartTransferCreateTicket {
 
     @JsonProperty(JSON_PROPERTY_EXPIRES_IN)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setExpiresIn(BigDecimal expiresIn) {
+    public void setExpiresIn(@jakarta.annotation.Nullable BigDecimal expiresIn) {
         this.expiresIn = expiresIn;
     }
 
-    public SmartTransferCreateTicket terms(List<SmartTransferCreateTicketTerm> terms) {
+    public SmartTransferCreateTicket terms(
+            @jakarta.annotation.Nullable List<SmartTransferCreateTicketTerm> terms) {
         this.terms = terms;
         return this;
     }
@@ -191,11 +205,12 @@ public class SmartTransferCreateTicket {
 
     @JsonProperty(JSON_PROPERTY_TERMS)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setTerms(List<SmartTransferCreateTicketTerm> terms) {
+    public void setTerms(@jakarta.annotation.Nullable List<SmartTransferCreateTicketTerm> terms) {
         this.terms = terms;
     }
 
-    public SmartTransferCreateTicket externalRefId(String externalRefId) {
+    public SmartTransferCreateTicket externalRefId(
+            @jakarta.annotation.Nullable String externalRefId) {
         this.externalRefId = externalRefId;
         return this;
     }
@@ -214,11 +229,11 @@ public class SmartTransferCreateTicket {
 
     @JsonProperty(JSON_PROPERTY_EXTERNAL_REF_ID)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setExternalRefId(String externalRefId) {
+    public void setExternalRefId(@jakarta.annotation.Nullable String externalRefId) {
         this.externalRefId = externalRefId;
     }
 
-    public SmartTransferCreateTicket note(String note) {
+    public SmartTransferCreateTicket note(@jakarta.annotation.Nullable String note) {
         this.note = note;
         return this;
     }
@@ -237,11 +252,11 @@ public class SmartTransferCreateTicket {
 
     @JsonProperty(JSON_PROPERTY_NOTE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setNote(String note) {
+    public void setNote(@jakarta.annotation.Nullable String note) {
         this.note = note;
     }
 
-    public SmartTransferCreateTicket submit(Boolean submit) {
+    public SmartTransferCreateTicket submit(@jakarta.annotation.Nullable Boolean submit) {
         this.submit = submit;
         return this;
     }
@@ -260,7 +275,7 @@ public class SmartTransferCreateTicket {
 
     @JsonProperty(JSON_PROPERTY_SUBMIT)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setSubmit(Boolean submit) {
+    public void setSubmit(@jakarta.annotation.Nullable Boolean submit) {
         this.submit = submit;
     }
 
@@ -356,10 +371,7 @@ public class SmartTransferCreateTicket {
                             "%screatedByNetworkId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getCreatedByNetworkId()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getCreatedByNetworkId()))));
         }
 
         // add `type` to the URL query string
@@ -369,8 +381,7 @@ public class SmartTransferCreateTicket {
                             "%stype%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getType()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getType()))));
         }
 
         // add `expiresIn` to the URL query string
@@ -380,9 +391,7 @@ public class SmartTransferCreateTicket {
                             "%sexpiresIn%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getExpiresIn()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getExpiresIn()))));
         }
 
         // add `terms` to the URL query string
@@ -415,10 +424,7 @@ public class SmartTransferCreateTicket {
                             "%sexternalRefId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getExternalRefId()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getExternalRefId()))));
         }
 
         // add `note` to the URL query string
@@ -428,8 +434,7 @@ public class SmartTransferCreateTicket {
                             "%snote%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getNote()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getNote()))));
         }
 
         // add `submit` to the URL query string
@@ -439,8 +444,7 @@ public class SmartTransferCreateTicket {
                             "%ssubmit%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getSubmit()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getSubmit()))));
         }
 
         return joiner.toString();

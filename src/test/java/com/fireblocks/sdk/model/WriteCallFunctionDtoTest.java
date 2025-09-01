@@ -13,63 +13,63 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for WriteCallFunctionDto */
-public class WriteCallFunctionDtoTest {
+class WriteCallFunctionDtoTest {
     private final WriteCallFunctionDto model = new WriteCallFunctionDto();
 
     /** Model tests for WriteCallFunctionDto */
     @Test
-    public void testWriteCallFunctionDto() {
+    void testWriteCallFunctionDto() {
         // TODO: test WriteCallFunctionDto
     }
 
     /** Test the property 'vaultAccountId' */
     @Test
-    public void vaultAccountIdTest() {
+    void vaultAccountIdTest() {
         // TODO: test vaultAccountId
     }
 
     /** Test the property 'abiFunction' */
     @Test
-    public void abiFunctionTest() {
+    void abiFunctionTest() {
         // TODO: test abiFunction
     }
 
     /** Test the property 'amount' */
     @Test
-    public void amountTest() {
+    void amountTest() {
         // TODO: test amount
     }
 
     /** Test the property 'feeLevel' */
     @Test
-    public void feeLevelTest() {
+    void feeLevelTest() {
         // TODO: test feeLevel
     }
 
     /** Test the property 'fee' */
     @Test
-    public void feeTest() {
+    void feeTest() {
         // TODO: test fee
     }
 
     /** Test the property 'note' */
     @Test
-    public void noteTest() {
+    void noteTest() {
         // TODO: test note
     }
 
     /** Test the property 'useGasless' */
     @Test
-    public void useGaslessTest() {
+    void useGaslessTest() {
         // TODO: test useGasless
     }
 
     /** Test the property 'externalId' */
     @Test
-    public void externalIdTest() {
+    void externalIdTest() {
         // TODO: test externalId
     }
 }

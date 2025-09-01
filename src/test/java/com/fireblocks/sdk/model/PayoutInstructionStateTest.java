@@ -13,13 +13,13 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for PayoutInstructionState */
-public class PayoutInstructionStateTest {
+class PayoutInstructionStateTest {
     /** Model tests for PayoutInstructionState */
     @Test
-    public void testPayoutInstructionState() {
+    void testPayoutInstructionState() {
         // TODO: test PayoutInstructionState
     }
 }

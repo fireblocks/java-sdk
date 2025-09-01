@@ -13,33 +13,33 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for TokenLinkExistsHttpError */
-public class TokenLinkExistsHttpErrorTest {
+class TokenLinkExistsHttpErrorTest {
     private final TokenLinkExistsHttpError model = new TokenLinkExistsHttpError();
 
     /** Model tests for TokenLinkExistsHttpError */
     @Test
-    public void testTokenLinkExistsHttpError() {
+    void testTokenLinkExistsHttpError() {
         // TODO: test TokenLinkExistsHttpError
     }
 
     /** Test the property 'statusCode' */
     @Test
-    public void statusCodeTest() {
+    void statusCodeTest() {
         // TODO: test statusCode
     }
 
     /** Test the property 'message' */
     @Test
-    public void messageTest() {
+    void messageTest() {
         // TODO: test message
     }
 
     /** Test the property 'error' */
     @Test
-    public void errorTest() {
+    void errorTest() {
         // TODO: test error
     }
 }

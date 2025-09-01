@@ -16,8 +16,7 @@ package com.fireblocks.sdk.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -26,17 +25,19 @@ import java.util.StringJoiner;
     HttpContractDoesNotExistError.JSON_PROPERTY_MESSAGE,
     HttpContractDoesNotExistError.JSON_PROPERTY_CODE
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class HttpContractDoesNotExistError {
     public static final String JSON_PROPERTY_MESSAGE = "message";
-    private String message;
+    @jakarta.annotation.Nullable private String message;
 
     public static final String JSON_PROPERTY_CODE = "code";
-    private String code;
+    @jakarta.annotation.Nullable private String code;
 
     public HttpContractDoesNotExistError() {}
 
-    public HttpContractDoesNotExistError message(String message) {
+    public HttpContractDoesNotExistError message(@jakarta.annotation.Nullable String message) {
         this.message = message;
         return this;
     }
@@ -55,11 +56,11 @@ public class HttpContractDoesNotExistError {
 
     @JsonProperty(JSON_PROPERTY_MESSAGE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setMessage(String message) {
+    public void setMessage(@jakarta.annotation.Nullable String message) {
         this.message = message;
     }
 
-    public HttpContractDoesNotExistError code(String code) {
+    public HttpContractDoesNotExistError code(@jakarta.annotation.Nullable String code) {
         this.code = code;
         return this;
     }
@@ -78,7 +79,7 @@ public class HttpContractDoesNotExistError {
 
     @JsonProperty(JSON_PROPERTY_CODE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setCode(String code) {
+    public void setCode(@jakarta.annotation.Nullable String code) {
         this.code = code;
     }
 
@@ -162,8 +163,7 @@ public class HttpContractDoesNotExistError {
                             "%smessage%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getMessage()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getMessage()))));
         }
 
         // add `code` to the URL query string
@@ -173,8 +173,7 @@ public class HttpContractDoesNotExistError {
                             "%scode%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getCode()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getCode()))));
         }
 
         return joiner.toString();

@@ -16,8 +16,7 @@ package com.fireblocks.sdk.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -27,20 +26,22 @@ import java.util.StringJoiner;
     DropTransactionResponse.JSON_PROPERTY_TX_ID,
     DropTransactionResponse.JSON_PROPERTY_REPLACED_TX_HASH
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class DropTransactionResponse {
     public static final String JSON_PROPERTY_TX_STATUS = "txStatus";
-    private String txStatus;
+    @jakarta.annotation.Nullable private String txStatus;
 
     public static final String JSON_PROPERTY_TX_ID = "txId";
-    private String txId;
+    @jakarta.annotation.Nullable private String txId;
 
     public static final String JSON_PROPERTY_REPLACED_TX_HASH = "replacedTxHash";
-    private String replacedTxHash;
+    @jakarta.annotation.Nullable private String replacedTxHash;
 
     public DropTransactionResponse() {}
 
-    public DropTransactionResponse txStatus(String txStatus) {
+    public DropTransactionResponse txStatus(@jakarta.annotation.Nullable String txStatus) {
         this.txStatus = txStatus;
         return this;
     }
@@ -59,11 +60,11 @@ public class DropTransactionResponse {
 
     @JsonProperty(JSON_PROPERTY_TX_STATUS)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setTxStatus(String txStatus) {
+    public void setTxStatus(@jakarta.annotation.Nullable String txStatus) {
         this.txStatus = txStatus;
     }
 
-    public DropTransactionResponse txId(String txId) {
+    public DropTransactionResponse txId(@jakarta.annotation.Nullable String txId) {
         this.txId = txId;
         return this;
     }
@@ -82,11 +83,12 @@ public class DropTransactionResponse {
 
     @JsonProperty(JSON_PROPERTY_TX_ID)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setTxId(String txId) {
+    public void setTxId(@jakarta.annotation.Nullable String txId) {
         this.txId = txId;
     }
 
-    public DropTransactionResponse replacedTxHash(String replacedTxHash) {
+    public DropTransactionResponse replacedTxHash(
+            @jakarta.annotation.Nullable String replacedTxHash) {
         this.replacedTxHash = replacedTxHash;
         return this;
     }
@@ -105,7 +107,7 @@ public class DropTransactionResponse {
 
     @JsonProperty(JSON_PROPERTY_REPLACED_TX_HASH)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setReplacedTxHash(String replacedTxHash) {
+    public void setReplacedTxHash(@jakarta.annotation.Nullable String replacedTxHash) {
         this.replacedTxHash = replacedTxHash;
     }
 
@@ -190,8 +192,7 @@ public class DropTransactionResponse {
                             "%stxStatus%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getTxStatus()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getTxStatus()))));
         }
 
         // add `txId` to the URL query string
@@ -201,8 +202,7 @@ public class DropTransactionResponse {
                             "%stxId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getTxId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getTxId()))));
         }
 
         // add `replacedTxHash` to the URL query string
@@ -212,10 +212,7 @@ public class DropTransactionResponse {
                             "%sreplacedTxHash%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getReplacedTxHash()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getReplacedTxHash()))));
         }
 
         return joiner.toString();

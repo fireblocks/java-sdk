@@ -13,22 +13,22 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for EditGasStationConfigurationResponse */
-public class EditGasStationConfigurationResponseTest {
+class EditGasStationConfigurationResponseTest {
     private final EditGasStationConfigurationResponse model =
             new EditGasStationConfigurationResponse();
 
     /** Model tests for EditGasStationConfigurationResponse */
     @Test
-    public void testEditGasStationConfigurationResponse() {
+    void testEditGasStationConfigurationResponse() {
         // TODO: test EditGasStationConfigurationResponse
     }
 
     /** Test the property 'success' */
     @Test
-    public void successTest() {
+    void successTest() {
         // TODO: test success
     }
 }

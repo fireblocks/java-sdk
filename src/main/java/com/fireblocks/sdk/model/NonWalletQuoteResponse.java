@@ -13,12 +13,12 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fireblocks.sdk.ApiClient;
 import java.math.BigDecimal;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -34,38 +34,69 @@ import java.util.StringJoiner;
     NonWalletQuoteResponse.JSON_PROPERTY_ADDITIONAL_DATA,
     NonWalletQuoteResponse.JSON_PROPERTY_ESTIMATED_FEES
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class NonWalletQuoteResponse {
     public static final String JSON_PROPERTY_PROTOCOL = "protocol";
-    private SwapProviderProtocolsEnum protocol;
+    @jakarta.annotation.Nonnull private SwapProviderProtocolsEnum protocol;
 
     public static final String JSON_PROPERTY_INPUT_AMOUNT = "inputAmount";
-    private String inputAmount;
+    @jakarta.annotation.Nonnull private String inputAmount;
 
     public static final String JSON_PROPERTY_INPUT_ASSET = "inputAsset";
-    private String inputAsset;
+    @jakarta.annotation.Nonnull private String inputAsset;
 
     public static final String JSON_PROPERTY_SLIPPAGE_TOLERANCE = "slippageTolerance";
-    private BigDecimal slippageTolerance;
+    @jakarta.annotation.Nonnull private BigDecimal slippageTolerance;
 
     public static final String JSON_PROPERTY_OUTPUT_MIN_AMOUNT = "outputMinAmount";
-    private String outputMinAmount;
+    @jakarta.annotation.Nonnull private String outputMinAmount;
 
     public static final String JSON_PROPERTY_OUTPUT_MAX_AMOUNT = "outputMaxAmount";
-    private String outputMaxAmount;
+    @jakarta.annotation.Nonnull private String outputMaxAmount;
 
     public static final String JSON_PROPERTY_OUTPUT_ASSET = "outputAsset";
-    private String outputAsset;
+    @jakarta.annotation.Nonnull private String outputAsset;
 
     public static final String JSON_PROPERTY_ADDITIONAL_DATA = "additionalData";
-    private ProviderAdditionalData additionalData;
+    @jakarta.annotation.Nonnull private ProviderAdditionalData additionalData;
 
     public static final String JSON_PROPERTY_ESTIMATED_FEES = "estimatedFees";
-    private NonWalletQuoteFee estimatedFees;
+    @jakarta.annotation.Nonnull private NonWalletQuoteFee estimatedFees;
 
     public NonWalletQuoteResponse() {}
 
-    public NonWalletQuoteResponse protocol(SwapProviderProtocolsEnum protocol) {
+    @JsonCreator
+    public NonWalletQuoteResponse(
+            @JsonProperty(value = JSON_PROPERTY_PROTOCOL, required = true)
+                    SwapProviderProtocolsEnum protocol,
+            @JsonProperty(value = JSON_PROPERTY_INPUT_AMOUNT, required = true) String inputAmount,
+            @JsonProperty(value = JSON_PROPERTY_INPUT_ASSET, required = true) String inputAsset,
+            @JsonProperty(value = JSON_PROPERTY_SLIPPAGE_TOLERANCE, required = true)
+                    BigDecimal slippageTolerance,
+            @JsonProperty(value = JSON_PROPERTY_OUTPUT_MIN_AMOUNT, required = true)
+                    String outputMinAmount,
+            @JsonProperty(value = JSON_PROPERTY_OUTPUT_MAX_AMOUNT, required = true)
+                    String outputMaxAmount,
+            @JsonProperty(value = JSON_PROPERTY_OUTPUT_ASSET, required = true) String outputAsset,
+            @JsonProperty(value = JSON_PROPERTY_ADDITIONAL_DATA, required = true)
+                    ProviderAdditionalData additionalData,
+            @JsonProperty(value = JSON_PROPERTY_ESTIMATED_FEES, required = true)
+                    NonWalletQuoteFee estimatedFees) {
+        this.protocol = protocol;
+        this.inputAmount = inputAmount;
+        this.inputAsset = inputAsset;
+        this.slippageTolerance = slippageTolerance;
+        this.outputMinAmount = outputMinAmount;
+        this.outputMaxAmount = outputMaxAmount;
+        this.outputAsset = outputAsset;
+        this.additionalData = additionalData;
+        this.estimatedFees = estimatedFees;
+    }
+
+    public NonWalletQuoteResponse protocol(
+            @jakarta.annotation.Nonnull SwapProviderProtocolsEnum protocol) {
         this.protocol = protocol;
         return this;
     }
@@ -84,11 +115,11 @@ public class NonWalletQuoteResponse {
 
     @JsonProperty(JSON_PROPERTY_PROTOCOL)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setProtocol(SwapProviderProtocolsEnum protocol) {
+    public void setProtocol(@jakarta.annotation.Nonnull SwapProviderProtocolsEnum protocol) {
         this.protocol = protocol;
     }
 
-    public NonWalletQuoteResponse inputAmount(String inputAmount) {
+    public NonWalletQuoteResponse inputAmount(@jakarta.annotation.Nonnull String inputAmount) {
         this.inputAmount = inputAmount;
         return this;
     }
@@ -107,11 +138,11 @@ public class NonWalletQuoteResponse {
 
     @JsonProperty(JSON_PROPERTY_INPUT_AMOUNT)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setInputAmount(String inputAmount) {
+    public void setInputAmount(@jakarta.annotation.Nonnull String inputAmount) {
         this.inputAmount = inputAmount;
     }
 
-    public NonWalletQuoteResponse inputAsset(String inputAsset) {
+    public NonWalletQuoteResponse inputAsset(@jakarta.annotation.Nonnull String inputAsset) {
         this.inputAsset = inputAsset;
         return this;
     }
@@ -130,11 +161,12 @@ public class NonWalletQuoteResponse {
 
     @JsonProperty(JSON_PROPERTY_INPUT_ASSET)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setInputAsset(String inputAsset) {
+    public void setInputAsset(@jakarta.annotation.Nonnull String inputAsset) {
         this.inputAsset = inputAsset;
     }
 
-    public NonWalletQuoteResponse slippageTolerance(BigDecimal slippageTolerance) {
+    public NonWalletQuoteResponse slippageTolerance(
+            @jakarta.annotation.Nonnull BigDecimal slippageTolerance) {
         this.slippageTolerance = slippageTolerance;
         return this;
     }
@@ -154,11 +186,12 @@ public class NonWalletQuoteResponse {
 
     @JsonProperty(JSON_PROPERTY_SLIPPAGE_TOLERANCE)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setSlippageTolerance(BigDecimal slippageTolerance) {
+    public void setSlippageTolerance(@jakarta.annotation.Nonnull BigDecimal slippageTolerance) {
         this.slippageTolerance = slippageTolerance;
     }
 
-    public NonWalletQuoteResponse outputMinAmount(String outputMinAmount) {
+    public NonWalletQuoteResponse outputMinAmount(
+            @jakarta.annotation.Nonnull String outputMinAmount) {
         this.outputMinAmount = outputMinAmount;
         return this;
     }
@@ -177,11 +210,12 @@ public class NonWalletQuoteResponse {
 
     @JsonProperty(JSON_PROPERTY_OUTPUT_MIN_AMOUNT)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setOutputMinAmount(String outputMinAmount) {
+    public void setOutputMinAmount(@jakarta.annotation.Nonnull String outputMinAmount) {
         this.outputMinAmount = outputMinAmount;
     }
 
-    public NonWalletQuoteResponse outputMaxAmount(String outputMaxAmount) {
+    public NonWalletQuoteResponse outputMaxAmount(
+            @jakarta.annotation.Nonnull String outputMaxAmount) {
         this.outputMaxAmount = outputMaxAmount;
         return this;
     }
@@ -200,11 +234,11 @@ public class NonWalletQuoteResponse {
 
     @JsonProperty(JSON_PROPERTY_OUTPUT_MAX_AMOUNT)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setOutputMaxAmount(String outputMaxAmount) {
+    public void setOutputMaxAmount(@jakarta.annotation.Nonnull String outputMaxAmount) {
         this.outputMaxAmount = outputMaxAmount;
     }
 
-    public NonWalletQuoteResponse outputAsset(String outputAsset) {
+    public NonWalletQuoteResponse outputAsset(@jakarta.annotation.Nonnull String outputAsset) {
         this.outputAsset = outputAsset;
         return this;
     }
@@ -223,11 +257,12 @@ public class NonWalletQuoteResponse {
 
     @JsonProperty(JSON_PROPERTY_OUTPUT_ASSET)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setOutputAsset(String outputAsset) {
+    public void setOutputAsset(@jakarta.annotation.Nonnull String outputAsset) {
         this.outputAsset = outputAsset;
     }
 
-    public NonWalletQuoteResponse additionalData(ProviderAdditionalData additionalData) {
+    public NonWalletQuoteResponse additionalData(
+            @jakarta.annotation.Nonnull ProviderAdditionalData additionalData) {
         this.additionalData = additionalData;
         return this;
     }
@@ -246,11 +281,13 @@ public class NonWalletQuoteResponse {
 
     @JsonProperty(JSON_PROPERTY_ADDITIONAL_DATA)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setAdditionalData(ProviderAdditionalData additionalData) {
+    public void setAdditionalData(
+            @jakarta.annotation.Nonnull ProviderAdditionalData additionalData) {
         this.additionalData = additionalData;
     }
 
-    public NonWalletQuoteResponse estimatedFees(NonWalletQuoteFee estimatedFees) {
+    public NonWalletQuoteResponse estimatedFees(
+            @jakarta.annotation.Nonnull NonWalletQuoteFee estimatedFees) {
         this.estimatedFees = estimatedFees;
         return this;
     }
@@ -269,7 +306,7 @@ public class NonWalletQuoteResponse {
 
     @JsonProperty(JSON_PROPERTY_ESTIMATED_FEES)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setEstimatedFees(NonWalletQuoteFee estimatedFees) {
+    public void setEstimatedFees(@jakarta.annotation.Nonnull NonWalletQuoteFee estimatedFees) {
         this.estimatedFees = estimatedFees;
     }
 
@@ -377,8 +414,7 @@ public class NonWalletQuoteResponse {
                             "%sprotocol%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getProtocol()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getProtocol()))));
         }
 
         // add `inputAmount` to the URL query string
@@ -388,10 +424,7 @@ public class NonWalletQuoteResponse {
                             "%sinputAmount%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getInputAmount()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getInputAmount()))));
         }
 
         // add `inputAsset` to the URL query string
@@ -401,9 +434,7 @@ public class NonWalletQuoteResponse {
                             "%sinputAsset%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getInputAsset()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getInputAsset()))));
         }
 
         // add `slippageTolerance` to the URL query string
@@ -413,10 +444,7 @@ public class NonWalletQuoteResponse {
                             "%sslippageTolerance%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getSlippageTolerance()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getSlippageTolerance()))));
         }
 
         // add `outputMinAmount` to the URL query string
@@ -426,10 +454,7 @@ public class NonWalletQuoteResponse {
                             "%soutputMinAmount%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getOutputMinAmount()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getOutputMinAmount()))));
         }
 
         // add `outputMaxAmount` to the URL query string
@@ -439,10 +464,7 @@ public class NonWalletQuoteResponse {
                             "%soutputMaxAmount%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getOutputMaxAmount()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getOutputMaxAmount()))));
         }
 
         // add `outputAsset` to the URL query string
@@ -452,10 +474,7 @@ public class NonWalletQuoteResponse {
                             "%soutputAsset%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getOutputAsset()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getOutputAsset()))));
         }
 
         // add `additionalData` to the URL query string

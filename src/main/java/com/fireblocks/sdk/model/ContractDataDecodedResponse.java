@@ -13,11 +13,11 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -28,17 +28,32 @@ import java.util.StringJoiner;
     ContractDataDecodedResponse.JSON_PROPERTY_RESULT,
     ContractDataDecodedResponse.JSON_PROPERTY_TYPE
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class ContractDataDecodedResponse {
     public static final String JSON_PROPERTY_RESULT = "result";
+
+    @jakarta.annotation.Nonnull
     private List<ContractDataDecodeResponseParams> result = new ArrayList<>();
 
     public static final String JSON_PROPERTY_TYPE = "type";
-    private ContractDataDecodeDataType type;
+    @jakarta.annotation.Nonnull private ContractDataDecodeDataType type;
 
     public ContractDataDecodedResponse() {}
 
-    public ContractDataDecodedResponse result(List<ContractDataDecodeResponseParams> result) {
+    @JsonCreator
+    public ContractDataDecodedResponse(
+            @JsonProperty(value = JSON_PROPERTY_RESULT, required = true)
+                    List<ContractDataDecodeResponseParams> result,
+            @JsonProperty(value = JSON_PROPERTY_TYPE, required = true)
+                    ContractDataDecodeDataType type) {
+        this.result = result;
+        this.type = type;
+    }
+
+    public ContractDataDecodedResponse result(
+            @jakarta.annotation.Nonnull List<ContractDataDecodeResponseParams> result) {
         this.result = result;
         return this;
     }
@@ -65,11 +80,13 @@ public class ContractDataDecodedResponse {
 
     @JsonProperty(JSON_PROPERTY_RESULT)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setResult(List<ContractDataDecodeResponseParams> result) {
+    public void setResult(
+            @jakarta.annotation.Nonnull List<ContractDataDecodeResponseParams> result) {
         this.result = result;
     }
 
-    public ContractDataDecodedResponse type(ContractDataDecodeDataType type) {
+    public ContractDataDecodedResponse type(
+            @jakarta.annotation.Nonnull ContractDataDecodeDataType type) {
         this.type = type;
         return this;
     }
@@ -88,7 +105,7 @@ public class ContractDataDecodedResponse {
 
     @JsonProperty(JSON_PROPERTY_TYPE)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setType(ContractDataDecodeDataType type) {
+    public void setType(@jakarta.annotation.Nonnull ContractDataDecodeDataType type) {
         this.type = type;
     }
 
@@ -194,8 +211,7 @@ public class ContractDataDecodedResponse {
                             "%stype%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getType()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getType()))));
         }
 
         return joiner.toString();

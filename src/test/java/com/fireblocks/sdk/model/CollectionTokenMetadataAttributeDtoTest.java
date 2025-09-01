@@ -13,34 +13,34 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for CollectionTokenMetadataAttributeDto */
-public class CollectionTokenMetadataAttributeDtoTest {
+class CollectionTokenMetadataAttributeDtoTest {
     private final CollectionTokenMetadataAttributeDto model =
             new CollectionTokenMetadataAttributeDto();
 
     /** Model tests for CollectionTokenMetadataAttributeDto */
     @Test
-    public void testCollectionTokenMetadataAttributeDto() {
+    void testCollectionTokenMetadataAttributeDto() {
         // TODO: test CollectionTokenMetadataAttributeDto
     }
 
     /** Test the property 'traitType' */
     @Test
-    public void traitTypeTest() {
+    void traitTypeTest() {
         // TODO: test traitType
     }
 
     /** Test the property 'value' */
     @Test
-    public void valueTest() {
+    void valueTest() {
         // TODO: test value
     }
 
     /** Test the property 'displayType' */
     @Test
-    public void displayTypeTest() {
+    void displayTypeTest() {
         // TODO: test displayType
     }
 }

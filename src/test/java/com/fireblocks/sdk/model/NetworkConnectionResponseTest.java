@@ -13,57 +13,57 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for NetworkConnectionResponse */
-public class NetworkConnectionResponseTest {
+class NetworkConnectionResponseTest {
     private final NetworkConnectionResponse model = new NetworkConnectionResponse();
 
     /** Model tests for NetworkConnectionResponse */
     @Test
-    public void testNetworkConnectionResponse() {
+    void testNetworkConnectionResponse() {
         // TODO: test NetworkConnectionResponse
     }
 
     /** Test the property 'id' */
     @Test
-    public void idTest() {
+    void idTest() {
         // TODO: test id
     }
 
     /** Test the property 'localChannel' */
     @Test
-    public void localChannelTest() {
+    void localChannelTest() {
         // TODO: test localChannel
     }
 
     /** Test the property 'remoteChannel' */
     @Test
-    public void remoteChannelTest() {
+    void remoteChannelTest() {
         // TODO: test remoteChannel
     }
 
     /** Test the property 'status' */
     @Test
-    public void statusTest() {
+    void statusTest() {
         // TODO: test status
     }
 
     /** Test the property 'localNetworkId' */
     @Test
-    public void localNetworkIdTest() {
+    void localNetworkIdTest() {
         // TODO: test localNetworkId
     }
 
     /** Test the property 'remoteNetworkId' */
     @Test
-    public void remoteNetworkIdTest() {
+    void remoteNetworkIdTest() {
         // TODO: test remoteNetworkId
     }
 
     /** Test the property 'routingPolicy' */
     @Test
-    public void routingPolicyTest() {
+    void routingPolicyTest() {
         // TODO: test routingPolicy
     }
 }

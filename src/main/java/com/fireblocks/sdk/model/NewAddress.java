@@ -13,11 +13,11 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -27,20 +27,32 @@ import java.util.StringJoiner;
     NewAddress.JSON_PROPERTY_INDEX,
     NewAddress.JSON_PROPERTY_DESCRIPTION
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class NewAddress {
     public static final String JSON_PROPERTY_ADDRESS = "address";
-    private String address;
+    @jakarta.annotation.Nonnull private String address;
 
     public static final String JSON_PROPERTY_INDEX = "index";
-    private Integer index;
+    @jakarta.annotation.Nonnull private Integer index;
 
     public static final String JSON_PROPERTY_DESCRIPTION = "description";
-    private String description;
+    @jakarta.annotation.Nonnull private String description;
 
     public NewAddress() {}
 
-    public NewAddress address(String address) {
+    @JsonCreator
+    public NewAddress(
+            @JsonProperty(value = JSON_PROPERTY_ADDRESS, required = true) String address,
+            @JsonProperty(value = JSON_PROPERTY_INDEX, required = true) Integer index,
+            @JsonProperty(value = JSON_PROPERTY_DESCRIPTION, required = true) String description) {
+        this.address = address;
+        this.index = index;
+        this.description = description;
+    }
+
+    public NewAddress address(@jakarta.annotation.Nonnull String address) {
         this.address = address;
         return this;
     }
@@ -59,11 +71,11 @@ public class NewAddress {
 
     @JsonProperty(JSON_PROPERTY_ADDRESS)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setAddress(String address) {
+    public void setAddress(@jakarta.annotation.Nonnull String address) {
         this.address = address;
     }
 
-    public NewAddress index(Integer index) {
+    public NewAddress index(@jakarta.annotation.Nonnull Integer index) {
         this.index = index;
         return this;
     }
@@ -82,11 +94,11 @@ public class NewAddress {
 
     @JsonProperty(JSON_PROPERTY_INDEX)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setIndex(Integer index) {
+    public void setIndex(@jakarta.annotation.Nonnull Integer index) {
         this.index = index;
     }
 
-    public NewAddress description(String description) {
+    public NewAddress description(@jakarta.annotation.Nonnull String description) {
         this.description = description;
         return this;
     }
@@ -105,7 +117,7 @@ public class NewAddress {
 
     @JsonProperty(JSON_PROPERTY_DESCRIPTION)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setDescription(String description) {
+    public void setDescription(@jakarta.annotation.Nonnull String description) {
         this.description = description;
     }
 
@@ -190,8 +202,7 @@ public class NewAddress {
                             "%saddress%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getAddress()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getAddress()))));
         }
 
         // add `index` to the URL query string
@@ -201,8 +212,7 @@ public class NewAddress {
                             "%sindex%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getIndex()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getIndex()))));
         }
 
         // add `description` to the URL query string
@@ -212,10 +222,7 @@ public class NewAddress {
                             "%sdescription%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getDescription()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getDescription()))));
         }
 
         return joiner.toString();

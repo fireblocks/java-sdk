@@ -13,27 +13,27 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for SolanaBlockchainData */
-public class SolanaBlockchainDataTest {
+class SolanaBlockchainDataTest {
     private final SolanaBlockchainData model = new SolanaBlockchainData();
 
     /** Model tests for SolanaBlockchainData */
     @Test
-    public void testSolanaBlockchainData() {
+    void testSolanaBlockchainData() {
         // TODO: test SolanaBlockchainData
     }
 
     /** Test the property 'stakeAccountAddress' */
     @Test
-    public void stakeAccountAddressTest() {
+    void stakeAccountAddressTest() {
         // TODO: test stakeAccountAddress
     }
 
     /** Test the property 'stakeAccountDerivationChangeValue' */
     @Test
-    public void stakeAccountDerivationChangeValueTest() {
+    void stakeAccountDerivationChangeValueTest() {
         // TODO: test stakeAccountDerivationChangeValue
     }
 }

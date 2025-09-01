@@ -16,8 +16,7 @@ package com.fireblocks.sdk.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -28,17 +27,19 @@ import java.util.StringJoiner;
     ScreeningVerdictMatchedRule.JSON_PROPERTY_ACTION,
     ScreeningVerdictMatchedRule.JSON_PROPERTY_CATEGORY
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class ScreeningVerdictMatchedRule {
     public static final String JSON_PROPERTY_ACTION = "action";
-    private String action;
+    @jakarta.annotation.Nullable private String action;
 
     public static final String JSON_PROPERTY_CATEGORY = "category";
-    private List<String> category;
+    @jakarta.annotation.Nullable private List<String> category = new ArrayList<>();
 
     public ScreeningVerdictMatchedRule() {}
 
-    public ScreeningVerdictMatchedRule action(String action) {
+    public ScreeningVerdictMatchedRule action(@jakarta.annotation.Nullable String action) {
         this.action = action;
         return this;
     }
@@ -57,11 +58,12 @@ public class ScreeningVerdictMatchedRule {
 
     @JsonProperty(JSON_PROPERTY_ACTION)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAction(String action) {
+    public void setAction(@jakarta.annotation.Nullable String action) {
         this.action = action;
     }
 
-    public ScreeningVerdictMatchedRule category(List<String> category) {
+    public ScreeningVerdictMatchedRule category(
+            @jakarta.annotation.Nullable List<String> category) {
         this.category = category;
         return this;
     }
@@ -88,7 +90,7 @@ public class ScreeningVerdictMatchedRule {
 
     @JsonProperty(JSON_PROPERTY_CATEGORY)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setCategory(List<String> category) {
+    public void setCategory(@jakarta.annotation.Nullable List<String> category) {
         this.category = category;
     }
 
@@ -171,8 +173,7 @@ public class ScreeningVerdictMatchedRule {
                             "%saction%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getAction()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getAction()))));
         }
 
         // add `category` to the URL query string
@@ -187,10 +188,8 @@ public class ScreeningVerdictMatchedRule {
                                         ? ""
                                         : String.format(
                                                 "%s%d%s", containerPrefix, i, containerSuffix),
-                                URLEncoder.encode(
-                                                String.valueOf(getCategory().get(i)),
-                                                StandardCharsets.UTF_8)
-                                        .replaceAll("\\+", "%20")));
+                                ApiClient.urlEncode(
+                                        ApiClient.valueToString(getCategory().get(i)))));
             }
         }
 

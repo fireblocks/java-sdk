@@ -13,27 +13,27 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for MediaEntityResponse */
-public class MediaEntityResponseTest {
+class MediaEntityResponseTest {
     private final MediaEntityResponse model = new MediaEntityResponse();
 
     /** Model tests for MediaEntityResponse */
     @Test
-    public void testMediaEntityResponse() {
+    void testMediaEntityResponse() {
         // TODO: test MediaEntityResponse
     }
 
     /** Test the property 'url' */
     @Test
-    public void urlTest() {
+    void urlTest() {
         // TODO: test url
     }
 
     /** Test the property 'contentType' */
     @Test
-    public void contentTypeTest() {
+    void contentTypeTest() {
         // TODO: test contentType
     }
 }

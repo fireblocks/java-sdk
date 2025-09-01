@@ -13,6 +13,7 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -26,23 +27,35 @@ import java.util.StringJoiner;
     EstimatedTransactionFeeResponse.JSON_PROPERTY_HIGH,
     EstimatedTransactionFeeResponse.JSON_PROPERTY_FEE_DETAILS
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class EstimatedTransactionFeeResponse {
     public static final String JSON_PROPERTY_LOW = "low";
-    private TransactionFee low;
+    @jakarta.annotation.Nonnull private TransactionFee low;
 
     public static final String JSON_PROPERTY_MEDIUM = "medium";
-    private TransactionFee medium;
+    @jakarta.annotation.Nonnull private TransactionFee medium;
 
     public static final String JSON_PROPERTY_HIGH = "high";
-    private TransactionFee high;
+    @jakarta.annotation.Nonnull private TransactionFee high;
 
     public static final String JSON_PROPERTY_FEE_DETAILS = "feeDetails";
-    private EstimatedFeeDetails feeDetails;
+    @jakarta.annotation.Nullable private EstimatedFeeDetails feeDetails;
 
     public EstimatedTransactionFeeResponse() {}
 
-    public EstimatedTransactionFeeResponse low(TransactionFee low) {
+    @JsonCreator
+    public EstimatedTransactionFeeResponse(
+            @JsonProperty(value = JSON_PROPERTY_LOW, required = true) TransactionFee low,
+            @JsonProperty(value = JSON_PROPERTY_MEDIUM, required = true) TransactionFee medium,
+            @JsonProperty(value = JSON_PROPERTY_HIGH, required = true) TransactionFee high) {
+        this.low = low;
+        this.medium = medium;
+        this.high = high;
+    }
+
+    public EstimatedTransactionFeeResponse low(@jakarta.annotation.Nonnull TransactionFee low) {
         this.low = low;
         return this;
     }
@@ -61,11 +74,12 @@ public class EstimatedTransactionFeeResponse {
 
     @JsonProperty(JSON_PROPERTY_LOW)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setLow(TransactionFee low) {
+    public void setLow(@jakarta.annotation.Nonnull TransactionFee low) {
         this.low = low;
     }
 
-    public EstimatedTransactionFeeResponse medium(TransactionFee medium) {
+    public EstimatedTransactionFeeResponse medium(
+            @jakarta.annotation.Nonnull TransactionFee medium) {
         this.medium = medium;
         return this;
     }
@@ -84,11 +98,11 @@ public class EstimatedTransactionFeeResponse {
 
     @JsonProperty(JSON_PROPERTY_MEDIUM)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setMedium(TransactionFee medium) {
+    public void setMedium(@jakarta.annotation.Nonnull TransactionFee medium) {
         this.medium = medium;
     }
 
-    public EstimatedTransactionFeeResponse high(TransactionFee high) {
+    public EstimatedTransactionFeeResponse high(@jakarta.annotation.Nonnull TransactionFee high) {
         this.high = high;
         return this;
     }
@@ -107,11 +121,12 @@ public class EstimatedTransactionFeeResponse {
 
     @JsonProperty(JSON_PROPERTY_HIGH)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setHigh(TransactionFee high) {
+    public void setHigh(@jakarta.annotation.Nonnull TransactionFee high) {
         this.high = high;
     }
 
-    public EstimatedTransactionFeeResponse feeDetails(EstimatedFeeDetails feeDetails) {
+    public EstimatedTransactionFeeResponse feeDetails(
+            @jakarta.annotation.Nullable EstimatedFeeDetails feeDetails) {
         this.feeDetails = feeDetails;
         return this;
     }
@@ -130,7 +145,7 @@ public class EstimatedTransactionFeeResponse {
 
     @JsonProperty(JSON_PROPERTY_FEE_DETAILS)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setFeeDetails(EstimatedFeeDetails feeDetails) {
+    public void setFeeDetails(@jakarta.annotation.Nullable EstimatedFeeDetails feeDetails) {
         this.feeDetails = feeDetails;
     }
 

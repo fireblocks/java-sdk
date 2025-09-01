@@ -18,8 +18,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonValue;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -30,41 +29,46 @@ import java.util.StringJoiner;
     ConversionValidationFailure.JSON_PROPERTY_REASON,
     ConversionValidationFailure.JSON_PROPERTY_DATA
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class ConversionValidationFailure {
     /** Gets or Sets reason */
     public enum ReasonEnum {
-        ACCOUNT_NOT_FOUND("ACCOUNT_NOT_FOUND"),
+        ACCOUNT_NOT_FOUND(String.valueOf("ACCOUNT_NOT_FOUND")),
 
-        ACCOUNT_TYPE_NOT_SUPPORTED("ACCOUNT_TYPE_NOT_SUPPORTED"),
+        ACCOUNT_TYPE_NOT_SUPPORTED(String.valueOf("ACCOUNT_TYPE_NOT_SUPPORTED")),
 
-        INSUFFICIENT_BALANCE("INSUFFICIENT_BALANCE"),
+        INSUFFICIENT_BALANCE(String.valueOf("INSUFFICIENT_BALANCE")),
 
-        ASSET_NOT_FOUND("ASSET_NOT_FOUND"),
+        ASSET_NOT_FOUND(String.valueOf("ASSET_NOT_FOUND")),
 
-        ASSETS_CONTINUITY_MISMATCH("ASSETS_CONTINUITY_MISMATCH"),
+        ASSETS_CONTINUITY_MISMATCH(String.valueOf("ASSETS_CONTINUITY_MISMATCH")),
 
-        EXCHANGE_BASKETS_MISMATCH("EXCHANGE_BASKETS_MISMATCH"),
+        EXCHANGE_BASKETS_MISMATCH(String.valueOf("EXCHANGE_BASKETS_MISMATCH")),
 
-        ACCOUNTS_CONTINUITY_MISMATCH("ACCOUNTS_CONTINUITY_MISMATCH"),
+        ACCOUNTS_CONTINUITY_MISMATCH(String.valueOf("ACCOUNTS_CONTINUITY_MISMATCH")),
 
-        ONE_TIME_ADDRESS_CONTINUITY_NOT_ALLOWED("ONE_TIME_ADDRESS_CONTINUITY_NOT_ALLOWED"),
+        ONE_TIME_ADDRESS_CONTINUITY_NOT_ALLOWED(
+                String.valueOf("ONE_TIME_ADDRESS_CONTINUITY_NOT_ALLOWED")),
 
-        EQUAL_ACCOUNTS_NOT_ALLOWED("EQUAL_ACCOUNTS_NOT_ALLOWED"),
+        EQUAL_ACCOUNTS_NOT_ALLOWED(String.valueOf("EQUAL_ACCOUNTS_NOT_ALLOWED")),
 
-        EQUAL_ASSETS_NOT_ALLOWED("EQUAL_ASSETS_NOT_ALLOWED"),
+        EQUAL_ASSETS_NOT_ALLOWED(String.valueOf("EQUAL_ASSETS_NOT_ALLOWED")),
 
-        INVALID_AMOUNT("INVALID_AMOUNT"),
+        INVALID_AMOUNT(String.valueOf("INVALID_AMOUNT")),
 
-        UNMANAGED_WALLET_AS_SOURCE_NOT_ALLOWED("UNMANAGED_WALLET_AS_SOURCE_NOT_ALLOWED"),
+        UNMANAGED_WALLET_AS_SOURCE_NOT_ALLOWED(
+                String.valueOf("UNMANAGED_WALLET_AS_SOURCE_NOT_ALLOWED")),
 
-        MANAGED_OPERATION_PARAMS_INVALID_SCHEMA("MANAGED_OPERATION_PARAMS_INVALID_SCHEMA"),
+        MANAGED_OPERATION_PARAMS_INVALID_SCHEMA(
+                String.valueOf("MANAGED_OPERATION_PARAMS_INVALID_SCHEMA")),
 
-        ACCOUNT_IS_NOT_EXCHANGE("ACCOUNT_IS_NOT_EXCHANGE"),
+        ACCOUNT_IS_NOT_EXCHANGE(String.valueOf("ACCOUNT_IS_NOT_EXCHANGE")),
 
-        UNSUPPORTED_TRADING_METHOD("UNSUPPORTED_TRADING_METHOD"),
+        UNSUPPORTED_TRADING_METHOD(String.valueOf("UNSUPPORTED_TRADING_METHOD")),
 
-        ASSETS_CAN_NOT_CONVERTED("ASSETS_CAN_NOT_CONVERTED");
+        ASSETS_CAN_NOT_CONVERTED(String.valueOf("ASSETS_CAN_NOT_CONVERTED"));
 
         private String value;
 
@@ -94,14 +98,20 @@ public class ConversionValidationFailure {
     }
 
     public static final String JSON_PROPERTY_REASON = "reason";
-    private ReasonEnum reason;
+    @jakarta.annotation.Nonnull private ReasonEnum reason;
 
     public static final String JSON_PROPERTY_DATA = "data";
-    private Map<String, Object> data = new HashMap<>();
+    @jakarta.annotation.Nullable private Map<String, Object> data = new HashMap<>();
 
     public ConversionValidationFailure() {}
 
-    public ConversionValidationFailure reason(ReasonEnum reason) {
+    @JsonCreator
+    public ConversionValidationFailure(
+            @JsonProperty(value = JSON_PROPERTY_REASON, required = true) ReasonEnum reason) {
+        this.reason = reason;
+    }
+
+    public ConversionValidationFailure reason(@jakarta.annotation.Nonnull ReasonEnum reason) {
         this.reason = reason;
         return this;
     }
@@ -120,11 +130,11 @@ public class ConversionValidationFailure {
 
     @JsonProperty(JSON_PROPERTY_REASON)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setReason(ReasonEnum reason) {
+    public void setReason(@jakarta.annotation.Nonnull ReasonEnum reason) {
         this.reason = reason;
     }
 
-    public ConversionValidationFailure data(Map<String, Object> data) {
+    public ConversionValidationFailure data(@jakarta.annotation.Nullable Map<String, Object> data) {
         this.data = data;
         return this;
     }
@@ -151,7 +161,7 @@ public class ConversionValidationFailure {
 
     @JsonProperty(JSON_PROPERTY_DATA)
     @JsonInclude(content = JsonInclude.Include.ALWAYS, value = JsonInclude.Include.USE_DEFAULTS)
-    public void setData(Map<String, Object> data) {
+    public void setData(@jakarta.annotation.Nullable Map<String, Object> data) {
         this.data = data;
     }
 
@@ -234,8 +244,7 @@ public class ConversionValidationFailure {
                             "%sreason%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getReason()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getReason()))));
         }
 
         // add `data` to the URL query string
@@ -251,10 +260,7 @@ public class ConversionValidationFailure {
                                         : String.format(
                                                 "%s%d%s", containerPrefix, _key, containerSuffix),
                                 getData().get(_key),
-                                URLEncoder.encode(
-                                                String.valueOf(getData().get(_key)),
-                                                StandardCharsets.UTF_8)
-                                        .replaceAll("\\+", "%20")));
+                                ApiClient.urlEncode(ApiClient.valueToString(getData().get(_key)))));
             }
         }
 

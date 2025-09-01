@@ -13,13 +13,13 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for ConfigChangeRequestStatus */
-public class ConfigChangeRequestStatusTest {
+class ConfigChangeRequestStatusTest {
     /** Model tests for ConfigChangeRequestStatus */
     @Test
-    public void testConfigChangeRequestStatus() {
+    void testConfigChangeRequestStatus() {
         // TODO: test ConfigChangeRequestStatus
     }
 }

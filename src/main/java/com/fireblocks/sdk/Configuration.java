@@ -12,11 +12,19 @@
 
 package com.fireblocks.sdk;
 
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
-public class Configuration {
-    public static final String VERSION = "11.2.0";
 
-    private static ApiClient defaultApiClient = new ApiClient();
+import java.util.Objects;
+import java.util.concurrent.atomic.AtomicReference;
+import java.util.function.Supplier;
+
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
+public class Configuration {
+    public static final String VERSION = "0.0.0";
+
+    private static final AtomicReference<ApiClient> defaultApiClient = new AtomicReference<>();
+    private static volatile Supplier<ApiClient> apiClientFactory = ApiClient::new;
 
     /**
      * Get the default API client, which would be used when creating API instances without providing
@@ -25,7 +33,18 @@ public class Configuration {
      * @return Default API client
      */
     public static ApiClient getDefaultApiClient() {
-        return defaultApiClient;
+        ApiClient client = defaultApiClient.get();
+        if (client == null) {
+            client =
+                    defaultApiClient.updateAndGet(
+                            val -> {
+                                if (val != null) { // changed by another thread
+                                    return val;
+                                }
+                                return apiClientFactory.get();
+                            });
+        }
+        return client;
     }
 
     /**
@@ -35,6 +54,13 @@ public class Configuration {
      * @param apiClient API client
      */
     public static void setDefaultApiClient(ApiClient apiClient) {
-        defaultApiClient = apiClient;
+        defaultApiClient.set(apiClient);
     }
+
+    /** set the callback used to create new ApiClient objects */
+    public static void setApiClientFactory(Supplier<ApiClient> factory) {
+        apiClientFactory = Objects.requireNonNull(factory);
+    }
+
+    private Configuration() {}
 }

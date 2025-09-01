@@ -13,11 +13,11 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -28,17 +28,32 @@ import java.util.StringJoiner;
     RemoveLayerZeroAdaptersResponse.JSON_PROPERTY_DEACTIVATED,
     RemoveLayerZeroAdaptersResponse.JSON_PROPERTY_FAILED
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class RemoveLayerZeroAdaptersResponse {
     public static final String JSON_PROPERTY_DEACTIVATED = "deactivated";
-    private List<String> deactivated = new ArrayList<>();
+    @jakarta.annotation.Nonnull private List<String> deactivated = new ArrayList<>();
 
     public static final String JSON_PROPERTY_FAILED = "failed";
+
+    @jakarta.annotation.Nonnull
     private List<RemoveLayerZeroAdapterFailedResult> failed = new ArrayList<>();
 
     public RemoveLayerZeroAdaptersResponse() {}
 
-    public RemoveLayerZeroAdaptersResponse deactivated(List<String> deactivated) {
+    @JsonCreator
+    public RemoveLayerZeroAdaptersResponse(
+            @JsonProperty(value = JSON_PROPERTY_DEACTIVATED, required = true)
+                    List<String> deactivated,
+            @JsonProperty(value = JSON_PROPERTY_FAILED, required = true)
+                    List<RemoveLayerZeroAdapterFailedResult> failed) {
+        this.deactivated = deactivated;
+        this.failed = failed;
+    }
+
+    public RemoveLayerZeroAdaptersResponse deactivated(
+            @jakarta.annotation.Nonnull List<String> deactivated) {
         this.deactivated = deactivated;
         return this;
     }
@@ -65,11 +80,12 @@ public class RemoveLayerZeroAdaptersResponse {
 
     @JsonProperty(JSON_PROPERTY_DEACTIVATED)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setDeactivated(List<String> deactivated) {
+    public void setDeactivated(@jakarta.annotation.Nonnull List<String> deactivated) {
         this.deactivated = deactivated;
     }
 
-    public RemoveLayerZeroAdaptersResponse failed(List<RemoveLayerZeroAdapterFailedResult> failed) {
+    public RemoveLayerZeroAdaptersResponse failed(
+            @jakarta.annotation.Nonnull List<RemoveLayerZeroAdapterFailedResult> failed) {
         this.failed = failed;
         return this;
     }
@@ -97,7 +113,8 @@ public class RemoveLayerZeroAdaptersResponse {
 
     @JsonProperty(JSON_PROPERTY_FAILED)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setFailed(List<RemoveLayerZeroAdapterFailedResult> failed) {
+    public void setFailed(
+            @jakarta.annotation.Nonnull List<RemoveLayerZeroAdapterFailedResult> failed) {
         this.failed = failed;
     }
 
@@ -186,10 +203,8 @@ public class RemoveLayerZeroAdaptersResponse {
                                         ? ""
                                         : String.format(
                                                 "%s%d%s", containerPrefix, i, containerSuffix),
-                                URLEncoder.encode(
-                                                String.valueOf(getDeactivated().get(i)),
-                                                StandardCharsets.UTF_8)
-                                        .replaceAll("\\+", "%20")));
+                                ApiClient.urlEncode(
+                                        ApiClient.valueToString(getDeactivated().get(i)))));
             }
         }
 

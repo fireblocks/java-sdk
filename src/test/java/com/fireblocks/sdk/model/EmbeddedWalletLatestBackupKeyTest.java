@@ -13,39 +13,39 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for EmbeddedWalletLatestBackupKey */
-public class EmbeddedWalletLatestBackupKeyTest {
+class EmbeddedWalletLatestBackupKeyTest {
     private final EmbeddedWalletLatestBackupKey model = new EmbeddedWalletLatestBackupKey();
 
     /** Model tests for EmbeddedWalletLatestBackupKey */
     @Test
-    public void testEmbeddedWalletLatestBackupKey() {
+    void testEmbeddedWalletLatestBackupKey() {
         // TODO: test EmbeddedWalletLatestBackupKey
     }
 
     /** Test the property 'deviceId' */
     @Test
-    public void deviceIdTest() {
+    void deviceIdTest() {
         // TODO: test deviceId
     }
 
     /** Test the property 'publicKey' */
     @Test
-    public void publicKeyTest() {
+    void publicKeyTest() {
         // TODO: test publicKey
     }
 
     /** Test the property 'keyId' */
     @Test
-    public void keyIdTest() {
+    void keyIdTest() {
         // TODO: test keyId
     }
 
     /** Test the property 'algorithm' */
     @Test
-    public void algorithmTest() {
+    void algorithmTest() {
         // TODO: test algorithm
     }
 }

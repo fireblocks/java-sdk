@@ -13,11 +13,11 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -28,23 +28,31 @@ import java.util.StringJoiner;
     BlockchainExplorer.JSON_PROPERTY_TX,
     BlockchainExplorer.JSON_PROPERTY_TOKEN
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class BlockchainExplorer {
     public static final String JSON_PROPERTY_BASE = "base";
-    private String base;
+    @jakarta.annotation.Nonnull private String base;
 
     public static final String JSON_PROPERTY_ADDRESS = "address";
-    private String address;
+    @jakarta.annotation.Nullable private String address;
 
     public static final String JSON_PROPERTY_TX = "tx";
-    private String tx;
+    @jakarta.annotation.Nullable private String tx;
 
     public static final String JSON_PROPERTY_TOKEN = "token";
-    private String token;
+    @jakarta.annotation.Nullable private String token;
 
     public BlockchainExplorer() {}
 
-    public BlockchainExplorer base(String base) {
+    @JsonCreator
+    public BlockchainExplorer(
+            @JsonProperty(value = JSON_PROPERTY_BASE, required = true) String base) {
+        this.base = base;
+    }
+
+    public BlockchainExplorer base(@jakarta.annotation.Nonnull String base) {
         this.base = base;
         return this;
     }
@@ -63,11 +71,11 @@ public class BlockchainExplorer {
 
     @JsonProperty(JSON_PROPERTY_BASE)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setBase(String base) {
+    public void setBase(@jakarta.annotation.Nonnull String base) {
         this.base = base;
     }
 
-    public BlockchainExplorer address(String address) {
+    public BlockchainExplorer address(@jakarta.annotation.Nullable String address) {
         this.address = address;
         return this;
     }
@@ -86,11 +94,11 @@ public class BlockchainExplorer {
 
     @JsonProperty(JSON_PROPERTY_ADDRESS)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAddress(String address) {
+    public void setAddress(@jakarta.annotation.Nullable String address) {
         this.address = address;
     }
 
-    public BlockchainExplorer tx(String tx) {
+    public BlockchainExplorer tx(@jakarta.annotation.Nullable String tx) {
         this.tx = tx;
         return this;
     }
@@ -109,11 +117,11 @@ public class BlockchainExplorer {
 
     @JsonProperty(JSON_PROPERTY_TX)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setTx(String tx) {
+    public void setTx(@jakarta.annotation.Nullable String tx) {
         this.tx = tx;
     }
 
-    public BlockchainExplorer token(String token) {
+    public BlockchainExplorer token(@jakarta.annotation.Nullable String token) {
         this.token = token;
         return this;
     }
@@ -132,7 +140,7 @@ public class BlockchainExplorer {
 
     @JsonProperty(JSON_PROPERTY_TOKEN)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setToken(String token) {
+    public void setToken(@jakarta.annotation.Nullable String token) {
         this.token = token;
     }
 
@@ -219,8 +227,7 @@ public class BlockchainExplorer {
                             "%sbase%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getBase()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getBase()))));
         }
 
         // add `address` to the URL query string
@@ -230,8 +237,7 @@ public class BlockchainExplorer {
                             "%saddress%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getAddress()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getAddress()))));
         }
 
         // add `tx` to the URL query string
@@ -239,10 +245,7 @@ public class BlockchainExplorer {
             joiner.add(
                     String.format(
                             "%stx%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(String.valueOf(getTx()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getTx()))));
         }
 
         // add `token` to the URL query string
@@ -252,8 +255,7 @@ public class BlockchainExplorer {
                             "%stoken%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getToken()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getToken()))));
         }
 
         return joiner.toString();

@@ -13,51 +13,51 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for ScreeningVerdict */
-public class ScreeningVerdictTest {
+class ScreeningVerdictTest {
     private final ScreeningVerdict model = new ScreeningVerdict();
 
     /** Model tests for ScreeningVerdict */
     @Test
-    public void testScreeningVerdict() {
+    void testScreeningVerdict() {
         // TODO: test ScreeningVerdict
     }
 
     /** Test the property 'verdict' */
     @Test
-    public void verdictTest() {
+    void verdictTest() {
         // TODO: test verdict
     }
 
     /** Test the property 'executionOperationId' */
     @Test
-    public void executionOperationIdTest() {
+    void executionOperationIdTest() {
         // TODO: test executionOperationId
     }
 
     /** Test the property 'account' */
     @Test
-    public void accountTest() {
+    void accountTest() {
         // TODO: test account
     }
 
     /** Test the property 'assetId' */
     @Test
-    public void assetIdTest() {
+    void assetIdTest() {
         // TODO: test assetId
     }
 
     /** Test the property 'amount' */
     @Test
-    public void amountTest() {
+    void amountTest() {
         // TODO: test amount
     }
 
     /** Test the property 'matchedRule' */
     @Test
-    public void matchedRuleTest() {
+    void matchedRuleTest() {
         // TODO: test matchedRule
     }
 }

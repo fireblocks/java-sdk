@@ -13,39 +13,39 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for DraftResponse */
-public class DraftResponseTest {
+class DraftResponseTest {
     private final DraftResponse model = new DraftResponse();
 
     /** Model tests for DraftResponse */
     @Test
-    public void testDraftResponse() {
+    void testDraftResponse() {
         // TODO: test DraftResponse
     }
 
     /** Test the property 'status' */
     @Test
-    public void statusTest() {
+    void statusTest() {
         // TODO: test status
     }
 
     /** Test the property 'rules' */
     @Test
-    public void rulesTest() {
+    void rulesTest() {
         // TODO: test rules
     }
 
     /** Test the property 'draftId' */
     @Test
-    public void draftIdTest() {
+    void draftIdTest() {
         // TODO: test draftId
     }
 
     /** Test the property 'metadata' */
     @Test
-    public void metadataTest() {
+    void metadataTest() {
         // TODO: test metadata
     }
 }

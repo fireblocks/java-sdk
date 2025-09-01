@@ -13,6 +13,7 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -26,17 +27,25 @@ import java.util.StringJoiner;
     GetConnectionsResponse.JSON_PROPERTY_DATA,
     GetConnectionsResponse.JSON_PROPERTY_PAGING
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class GetConnectionsResponse {
     public static final String JSON_PROPERTY_DATA = "data";
-    private List<SessionDTO> data = new ArrayList<>();
+    @jakarta.annotation.Nonnull private List<SessionDTO> data = new ArrayList<>();
 
     public static final String JSON_PROPERTY_PAGING = "paging";
-    private Paging paging;
+    @jakarta.annotation.Nullable private Paging paging;
 
     public GetConnectionsResponse() {}
 
-    public GetConnectionsResponse data(List<SessionDTO> data) {
+    @JsonCreator
+    public GetConnectionsResponse(
+            @JsonProperty(value = JSON_PROPERTY_DATA, required = true) List<SessionDTO> data) {
+        this.data = data;
+    }
+
+    public GetConnectionsResponse data(@jakarta.annotation.Nonnull List<SessionDTO> data) {
         this.data = data;
         return this;
     }
@@ -63,11 +72,11 @@ public class GetConnectionsResponse {
 
     @JsonProperty(JSON_PROPERTY_DATA)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setData(List<SessionDTO> data) {
+    public void setData(@jakarta.annotation.Nonnull List<SessionDTO> data) {
         this.data = data;
     }
 
-    public GetConnectionsResponse paging(Paging paging) {
+    public GetConnectionsResponse paging(@jakarta.annotation.Nullable Paging paging) {
         this.paging = paging;
         return this;
     }
@@ -86,7 +95,7 @@ public class GetConnectionsResponse {
 
     @JsonProperty(JSON_PROPERTY_PAGING)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setPaging(Paging paging) {
+    public void setPaging(@jakarta.annotation.Nullable Paging paging) {
         this.paging = paging;
     }
 

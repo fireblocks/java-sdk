@@ -13,11 +13,11 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -29,20 +29,29 @@ import java.util.StringJoiner;
     TravelRuleGetAllVASPsResponse.JSON_PROPERTY_TOTAL,
     TravelRuleGetAllVASPsResponse.JSON_PROPERTY_NEXT
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class TravelRuleGetAllVASPsResponse {
     public static final String JSON_PROPERTY_DATA = "data";
-    private List<TravelRuleVASP> data = new ArrayList<>();
+    @jakarta.annotation.Nonnull private List<TravelRuleVASP> data = new ArrayList<>();
 
     public static final String JSON_PROPERTY_TOTAL = "total";
-    private Integer total;
+    @jakarta.annotation.Nullable private Integer total;
 
     public static final String JSON_PROPERTY_NEXT = "next";
-    private String next;
+    @jakarta.annotation.Nullable private String next;
 
     public TravelRuleGetAllVASPsResponse() {}
 
-    public TravelRuleGetAllVASPsResponse data(List<TravelRuleVASP> data) {
+    @JsonCreator
+    public TravelRuleGetAllVASPsResponse(
+            @JsonProperty(value = JSON_PROPERTY_DATA, required = true) List<TravelRuleVASP> data) {
+        this.data = data;
+    }
+
+    public TravelRuleGetAllVASPsResponse data(
+            @jakarta.annotation.Nonnull List<TravelRuleVASP> data) {
         this.data = data;
         return this;
     }
@@ -69,11 +78,11 @@ public class TravelRuleGetAllVASPsResponse {
 
     @JsonProperty(JSON_PROPERTY_DATA)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setData(List<TravelRuleVASP> data) {
+    public void setData(@jakarta.annotation.Nonnull List<TravelRuleVASP> data) {
         this.data = data;
     }
 
-    public TravelRuleGetAllVASPsResponse total(Integer total) {
+    public TravelRuleGetAllVASPsResponse total(@jakarta.annotation.Nullable Integer total) {
         this.total = total;
         return this;
     }
@@ -92,11 +101,11 @@ public class TravelRuleGetAllVASPsResponse {
 
     @JsonProperty(JSON_PROPERTY_TOTAL)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setTotal(Integer total) {
+    public void setTotal(@jakarta.annotation.Nullable Integer total) {
         this.total = total;
     }
 
-    public TravelRuleGetAllVASPsResponse next(String next) {
+    public TravelRuleGetAllVASPsResponse next(@jakarta.annotation.Nullable String next) {
         this.next = next;
         return this;
     }
@@ -115,7 +124,7 @@ public class TravelRuleGetAllVASPsResponse {
 
     @JsonProperty(JSON_PROPERTY_NEXT)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setNext(String next) {
+    public void setNext(@jakarta.annotation.Nullable String next) {
         this.next = next;
     }
 
@@ -224,8 +233,7 @@ public class TravelRuleGetAllVASPsResponse {
                             "%stotal%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getTotal()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getTotal()))));
         }
 
         // add `next` to the URL query string
@@ -235,8 +243,7 @@ public class TravelRuleGetAllVASPsResponse {
                             "%snext%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getNext()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getNext()))));
         }
 
         return joiner.toString();

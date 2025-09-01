@@ -16,8 +16,7 @@ package com.fireblocks.sdk.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -26,18 +25,21 @@ import java.util.StringJoiner;
     TravelRuleLegalPersonNameIdentifier.JSON_PROPERTY_LEGAL_PERSON_NAME,
     TravelRuleLegalPersonNameIdentifier.JSON_PROPERTY_LEGAL_PERSON_NAME_IDENTIFIER_TYPE
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class TravelRuleLegalPersonNameIdentifier {
     public static final String JSON_PROPERTY_LEGAL_PERSON_NAME = "legalPersonName";
-    private String legalPersonName;
+    @jakarta.annotation.Nullable private String legalPersonName;
 
     public static final String JSON_PROPERTY_LEGAL_PERSON_NAME_IDENTIFIER_TYPE =
             "legalPersonNameIdentifierType";
-    private String legalPersonNameIdentifierType;
+    @jakarta.annotation.Nullable private String legalPersonNameIdentifierType;
 
     public TravelRuleLegalPersonNameIdentifier() {}
 
-    public TravelRuleLegalPersonNameIdentifier legalPersonName(String legalPersonName) {
+    public TravelRuleLegalPersonNameIdentifier legalPersonName(
+            @jakarta.annotation.Nullable String legalPersonName) {
         this.legalPersonName = legalPersonName;
         return this;
     }
@@ -56,12 +58,12 @@ public class TravelRuleLegalPersonNameIdentifier {
 
     @JsonProperty(JSON_PROPERTY_LEGAL_PERSON_NAME)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setLegalPersonName(String legalPersonName) {
+    public void setLegalPersonName(@jakarta.annotation.Nullable String legalPersonName) {
         this.legalPersonName = legalPersonName;
     }
 
     public TravelRuleLegalPersonNameIdentifier legalPersonNameIdentifierType(
-            String legalPersonNameIdentifierType) {
+            @jakarta.annotation.Nullable String legalPersonNameIdentifierType) {
         this.legalPersonNameIdentifierType = legalPersonNameIdentifierType;
         return this;
     }
@@ -82,7 +84,8 @@ public class TravelRuleLegalPersonNameIdentifier {
 
     @JsonProperty(JSON_PROPERTY_LEGAL_PERSON_NAME_IDENTIFIER_TYPE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setLegalPersonNameIdentifierType(String legalPersonNameIdentifierType) {
+    public void setLegalPersonNameIdentifierType(
+            @jakarta.annotation.Nullable String legalPersonNameIdentifierType) {
         this.legalPersonNameIdentifierType = legalPersonNameIdentifierType;
     }
 
@@ -171,10 +174,7 @@ public class TravelRuleLegalPersonNameIdentifier {
                             "%slegalPersonName%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getLegalPersonName()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getLegalPersonName()))));
         }
 
         // add `legalPersonNameIdentifierType` to the URL query string
@@ -184,10 +184,8 @@ public class TravelRuleLegalPersonNameIdentifier {
                             "%slegalPersonNameIdentifierType%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getLegalPersonNameIdentifierType()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(
+                                    ApiClient.valueToString(getLegalPersonNameIdentifierType()))));
         }
 
         return joiner.toString();

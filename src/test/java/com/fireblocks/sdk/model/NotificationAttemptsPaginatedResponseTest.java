@@ -13,28 +13,28 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for NotificationAttemptsPaginatedResponse */
-public class NotificationAttemptsPaginatedResponseTest {
+class NotificationAttemptsPaginatedResponseTest {
     private final NotificationAttemptsPaginatedResponse model =
             new NotificationAttemptsPaginatedResponse();
 
     /** Model tests for NotificationAttemptsPaginatedResponse */
     @Test
-    public void testNotificationAttemptsPaginatedResponse() {
+    void testNotificationAttemptsPaginatedResponse() {
         // TODO: test NotificationAttemptsPaginatedResponse
     }
 
     /** Test the property 'data' */
     @Test
-    public void dataTest() {
+    void dataTest() {
         // TODO: test data
     }
 
     /** Test the property 'next' */
     @Test
-    public void nextTest() {
+    void nextTest() {
         // TODO: test next
     }
 }

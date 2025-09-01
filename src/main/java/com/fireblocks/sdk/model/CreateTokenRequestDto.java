@@ -18,8 +18,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonValue;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -34,38 +33,40 @@ import java.util.StringJoiner;
     CreateTokenRequestDto.JSON_PROPERTY_FEE,
     CreateTokenRequestDto.JSON_PROPERTY_FEE_LEVEL
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class CreateTokenRequestDto {
     public static final String JSON_PROPERTY_BLOCKCHAIN_ID = "blockchainId";
-    private String blockchainId;
+    @jakarta.annotation.Nullable private String blockchainId;
 
     public static final String JSON_PROPERTY_ASSET_ID = "assetId";
-    private String assetId;
+    @jakarta.annotation.Nullable private String assetId;
 
     public static final String JSON_PROPERTY_VAULT_ACCOUNT_ID = "vaultAccountId";
-    private String vaultAccountId;
+    @jakarta.annotation.Nonnull private String vaultAccountId;
 
     public static final String JSON_PROPERTY_CREATE_PARAMS = "createParams";
-    private CreateTokenRequestDtoCreateParams createParams;
+    @jakarta.annotation.Nonnull private CreateTokenRequestDtoCreateParams createParams;
 
     public static final String JSON_PROPERTY_DISPLAY_NAME = "displayName";
-    private String displayName;
+    @jakarta.annotation.Nullable private String displayName;
 
     public static final String JSON_PROPERTY_USE_GASLESS = "useGasless";
-    private Boolean useGasless;
+    @jakarta.annotation.Nullable private Boolean useGasless;
 
     public static final String JSON_PROPERTY_FEE = "fee";
-    private String fee;
+    @jakarta.annotation.Nullable private String fee;
 
     /**
      * Fee level for the write function transaction. interchangeable with the &#39;fee&#39; field
      */
     public enum FeeLevelEnum {
-        LOW("LOW"),
+        LOW(String.valueOf("LOW")),
 
-        MEDIUM("MEDIUM"),
+        MEDIUM(String.valueOf("MEDIUM")),
 
-        HIGH("HIGH");
+        HIGH(String.valueOf("HIGH"));
 
         private String value;
 
@@ -95,11 +96,21 @@ public class CreateTokenRequestDto {
     }
 
     public static final String JSON_PROPERTY_FEE_LEVEL = "feeLevel";
-    private FeeLevelEnum feeLevel;
+    @jakarta.annotation.Nullable private FeeLevelEnum feeLevel;
 
     public CreateTokenRequestDto() {}
 
-    public CreateTokenRequestDto blockchainId(String blockchainId) {
+    @JsonCreator
+    public CreateTokenRequestDto(
+            @JsonProperty(value = JSON_PROPERTY_VAULT_ACCOUNT_ID, required = true)
+                    String vaultAccountId,
+            @JsonProperty(value = JSON_PROPERTY_CREATE_PARAMS, required = true)
+                    CreateTokenRequestDtoCreateParams createParams) {
+        this.vaultAccountId = vaultAccountId;
+        this.createParams = createParams;
+    }
+
+    public CreateTokenRequestDto blockchainId(@jakarta.annotation.Nullable String blockchainId) {
         this.blockchainId = blockchainId;
         return this;
     }
@@ -118,11 +129,11 @@ public class CreateTokenRequestDto {
 
     @JsonProperty(JSON_PROPERTY_BLOCKCHAIN_ID)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setBlockchainId(String blockchainId) {
+    public void setBlockchainId(@jakarta.annotation.Nullable String blockchainId) {
         this.blockchainId = blockchainId;
     }
 
-    public CreateTokenRequestDto assetId(String assetId) {
+    public CreateTokenRequestDto assetId(@jakarta.annotation.Nullable String assetId) {
         this.assetId = assetId;
         return this;
     }
@@ -141,11 +152,11 @@ public class CreateTokenRequestDto {
 
     @JsonProperty(JSON_PROPERTY_ASSET_ID)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAssetId(String assetId) {
+    public void setAssetId(@jakarta.annotation.Nullable String assetId) {
         this.assetId = assetId;
     }
 
-    public CreateTokenRequestDto vaultAccountId(String vaultAccountId) {
+    public CreateTokenRequestDto vaultAccountId(@jakarta.annotation.Nonnull String vaultAccountId) {
         this.vaultAccountId = vaultAccountId;
         return this;
     }
@@ -164,11 +175,12 @@ public class CreateTokenRequestDto {
 
     @JsonProperty(JSON_PROPERTY_VAULT_ACCOUNT_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setVaultAccountId(String vaultAccountId) {
+    public void setVaultAccountId(@jakarta.annotation.Nonnull String vaultAccountId) {
         this.vaultAccountId = vaultAccountId;
     }
 
-    public CreateTokenRequestDto createParams(CreateTokenRequestDtoCreateParams createParams) {
+    public CreateTokenRequestDto createParams(
+            @jakarta.annotation.Nonnull CreateTokenRequestDtoCreateParams createParams) {
         this.createParams = createParams;
         return this;
     }
@@ -187,11 +199,12 @@ public class CreateTokenRequestDto {
 
     @JsonProperty(JSON_PROPERTY_CREATE_PARAMS)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setCreateParams(CreateTokenRequestDtoCreateParams createParams) {
+    public void setCreateParams(
+            @jakarta.annotation.Nonnull CreateTokenRequestDtoCreateParams createParams) {
         this.createParams = createParams;
     }
 
-    public CreateTokenRequestDto displayName(String displayName) {
+    public CreateTokenRequestDto displayName(@jakarta.annotation.Nullable String displayName) {
         this.displayName = displayName;
         return this;
     }
@@ -210,11 +223,11 @@ public class CreateTokenRequestDto {
 
     @JsonProperty(JSON_PROPERTY_DISPLAY_NAME)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setDisplayName(String displayName) {
+    public void setDisplayName(@jakarta.annotation.Nullable String displayName) {
         this.displayName = displayName;
     }
 
-    public CreateTokenRequestDto useGasless(Boolean useGasless) {
+    public CreateTokenRequestDto useGasless(@jakarta.annotation.Nullable Boolean useGasless) {
         this.useGasless = useGasless;
         return this;
     }
@@ -235,11 +248,11 @@ public class CreateTokenRequestDto {
 
     @JsonProperty(JSON_PROPERTY_USE_GASLESS)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setUseGasless(Boolean useGasless) {
+    public void setUseGasless(@jakarta.annotation.Nullable Boolean useGasless) {
         this.useGasless = useGasless;
     }
 
-    public CreateTokenRequestDto fee(String fee) {
+    public CreateTokenRequestDto fee(@jakarta.annotation.Nullable String fee) {
         this.fee = fee;
         return this;
     }
@@ -259,11 +272,11 @@ public class CreateTokenRequestDto {
 
     @JsonProperty(JSON_PROPERTY_FEE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setFee(String fee) {
+    public void setFee(@jakarta.annotation.Nullable String fee) {
         this.fee = fee;
     }
 
-    public CreateTokenRequestDto feeLevel(FeeLevelEnum feeLevel) {
+    public CreateTokenRequestDto feeLevel(@jakarta.annotation.Nullable FeeLevelEnum feeLevel) {
         this.feeLevel = feeLevel;
         return this;
     }
@@ -282,7 +295,7 @@ public class CreateTokenRequestDto {
 
     @JsonProperty(JSON_PROPERTY_FEE_LEVEL)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setFeeLevel(FeeLevelEnum feeLevel) {
+    public void setFeeLevel(@jakarta.annotation.Nullable FeeLevelEnum feeLevel) {
         this.feeLevel = feeLevel;
     }
 
@@ -385,10 +398,7 @@ public class CreateTokenRequestDto {
                             "%sblockchainId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getBlockchainId()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getBlockchainId()))));
         }
 
         // add `assetId` to the URL query string
@@ -398,8 +408,7 @@ public class CreateTokenRequestDto {
                             "%sassetId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getAssetId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getAssetId()))));
         }
 
         // add `vaultAccountId` to the URL query string
@@ -409,10 +418,7 @@ public class CreateTokenRequestDto {
                             "%svaultAccountId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getVaultAccountId()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getVaultAccountId()))));
         }
 
         // add `createParams` to the URL query string
@@ -427,10 +433,7 @@ public class CreateTokenRequestDto {
                             "%sdisplayName%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getDisplayName()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getDisplayName()))));
         }
 
         // add `useGasless` to the URL query string
@@ -440,9 +443,7 @@ public class CreateTokenRequestDto {
                             "%suseGasless%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getUseGasless()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getUseGasless()))));
         }
 
         // add `fee` to the URL query string
@@ -452,8 +453,7 @@ public class CreateTokenRequestDto {
                             "%sfee%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getFee()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getFee()))));
         }
 
         // add `feeLevel` to the URL query string
@@ -463,8 +463,7 @@ public class CreateTokenRequestDto {
                             "%sfeeLevel%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getFeeLevel()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getFeeLevel()))));
         }
 
         return joiner.toString();

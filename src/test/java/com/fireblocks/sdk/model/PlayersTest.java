@@ -13,27 +13,27 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for Players */
-public class PlayersTest {
+class PlayersTest {
     private final Players model = new Players();
 
     /** Model tests for Players */
     @Test
-    public void testPlayers() {
+    void testPlayers() {
         // TODO: test Players
     }
 
     /** Test the property 'id' */
     @Test
-    public void idTest() {
+    void idTest() {
         // TODO: test id
     }
 
     /** Test the property 'type' */
     @Test
-    public void typeTest() {
+    void typeTest() {
         // TODO: test type
     }
 }

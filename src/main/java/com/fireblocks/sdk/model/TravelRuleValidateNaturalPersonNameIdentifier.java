@@ -27,21 +27,31 @@ import java.util.StringJoiner;
     TravelRuleValidateNaturalPersonNameIdentifier.JSON_PROPERTY_LOCAL_NAME_IDENTIFIER,
     TravelRuleValidateNaturalPersonNameIdentifier.JSON_PROPERTY_PHONETIC_NAME_IDENTIFIER
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class TravelRuleValidateNaturalPersonNameIdentifier {
     public static final String JSON_PROPERTY_NAME_IDENTIFIER = "nameIdentifier";
-    private List<TravelRuleValidateNaturalNameIdentifier> nameIdentifier;
+
+    @jakarta.annotation.Nullable
+    private List<TravelRuleValidateNaturalNameIdentifier> nameIdentifier = new ArrayList<>();
 
     public static final String JSON_PROPERTY_LOCAL_NAME_IDENTIFIER = "localNameIdentifier";
-    private List<TravelRuleValidateNaturalNameIdentifier> localNameIdentifier;
+
+    @jakarta.annotation.Nullable
+    private List<TravelRuleValidateNaturalNameIdentifier> localNameIdentifier = new ArrayList<>();
 
     public static final String JSON_PROPERTY_PHONETIC_NAME_IDENTIFIER = "phoneticNameIdentifier";
-    private List<TravelRuleValidateNaturalNameIdentifier> phoneticNameIdentifier;
+
+    @jakarta.annotation.Nullable
+    private List<TravelRuleValidateNaturalNameIdentifier> phoneticNameIdentifier =
+            new ArrayList<>();
 
     public TravelRuleValidateNaturalPersonNameIdentifier() {}
 
     public TravelRuleValidateNaturalPersonNameIdentifier nameIdentifier(
-            List<TravelRuleValidateNaturalNameIdentifier> nameIdentifier) {
+            @jakarta.annotation.Nullable
+                    List<TravelRuleValidateNaturalNameIdentifier> nameIdentifier) {
         this.nameIdentifier = nameIdentifier;
         return this;
     }
@@ -69,12 +79,15 @@ public class TravelRuleValidateNaturalPersonNameIdentifier {
 
     @JsonProperty(JSON_PROPERTY_NAME_IDENTIFIER)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setNameIdentifier(List<TravelRuleValidateNaturalNameIdentifier> nameIdentifier) {
+    public void setNameIdentifier(
+            @jakarta.annotation.Nullable
+                    List<TravelRuleValidateNaturalNameIdentifier> nameIdentifier) {
         this.nameIdentifier = nameIdentifier;
     }
 
     public TravelRuleValidateNaturalPersonNameIdentifier localNameIdentifier(
-            List<TravelRuleValidateNaturalNameIdentifier> localNameIdentifier) {
+            @jakarta.annotation.Nullable
+                    List<TravelRuleValidateNaturalNameIdentifier> localNameIdentifier) {
         this.localNameIdentifier = localNameIdentifier;
         return this;
     }
@@ -103,12 +116,14 @@ public class TravelRuleValidateNaturalPersonNameIdentifier {
     @JsonProperty(JSON_PROPERTY_LOCAL_NAME_IDENTIFIER)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
     public void setLocalNameIdentifier(
-            List<TravelRuleValidateNaturalNameIdentifier> localNameIdentifier) {
+            @jakarta.annotation.Nullable
+                    List<TravelRuleValidateNaturalNameIdentifier> localNameIdentifier) {
         this.localNameIdentifier = localNameIdentifier;
     }
 
     public TravelRuleValidateNaturalPersonNameIdentifier phoneticNameIdentifier(
-            List<TravelRuleValidateNaturalNameIdentifier> phoneticNameIdentifier) {
+            @jakarta.annotation.Nullable
+                    List<TravelRuleValidateNaturalNameIdentifier> phoneticNameIdentifier) {
         this.phoneticNameIdentifier = phoneticNameIdentifier;
         return this;
     }
@@ -137,7 +152,8 @@ public class TravelRuleValidateNaturalPersonNameIdentifier {
     @JsonProperty(JSON_PROPERTY_PHONETIC_NAME_IDENTIFIER)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
     public void setPhoneticNameIdentifier(
-            List<TravelRuleValidateNaturalNameIdentifier> phoneticNameIdentifier) {
+            @jakarta.annotation.Nullable
+                    List<TravelRuleValidateNaturalNameIdentifier> phoneticNameIdentifier) {
         this.phoneticNameIdentifier = phoneticNameIdentifier;
     }
 

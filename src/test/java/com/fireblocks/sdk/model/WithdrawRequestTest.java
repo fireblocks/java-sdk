@@ -13,39 +13,39 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for WithdrawRequest */
-public class WithdrawRequestTest {
+class WithdrawRequestTest {
     private final WithdrawRequest model = new WithdrawRequest();
 
     /** Model tests for WithdrawRequest */
     @Test
-    public void testWithdrawRequest() {
+    void testWithdrawRequest() {
         // TODO: test WithdrawRequest
     }
 
     /** Test the property 'id' */
     @Test
-    public void idTest() {
+    void idTest() {
         // TODO: test id
     }
 
     /** Test the property 'fee' */
     @Test
-    public void feeTest() {
+    void feeTest() {
         // TODO: test fee
     }
 
     /** Test the property 'feeLevel' */
     @Test
-    public void feeLevelTest() {
+    void feeLevelTest() {
         // TODO: test feeLevel
     }
 
     /** Test the property 'txNote' */
     @Test
-    public void txNoteTest() {
+    void txNoteTest() {
         // TODO: test txNote
     }
 }

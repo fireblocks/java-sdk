@@ -13,45 +13,45 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for ChainInfoResponse */
-public class ChainInfoResponseTest {
+class ChainInfoResponseTest {
     private final ChainInfoResponse model = new ChainInfoResponse();
 
     /** Model tests for ChainInfoResponse */
     @Test
-    public void testChainInfoResponse() {
+    void testChainInfoResponse() {
         // TODO: test ChainInfoResponse
     }
 
     /** Test the property 'chainDescriptor' */
     @Test
-    public void chainDescriptorTest() {
+    void chainDescriptorTest() {
         // TODO: test chainDescriptor
     }
 
     /** Test the property 'currentEpoch' */
     @Test
-    public void currentEpochTest() {
+    void currentEpochTest() {
         // TODO: test currentEpoch
     }
 
     /** Test the property 'epochElapsed' */
     @Test
-    public void epochElapsedTest() {
+    void epochElapsedTest() {
         // TODO: test epochElapsed
     }
 
     /** Test the property 'epochDuration' */
     @Test
-    public void epochDurationTest() {
+    void epochDurationTest() {
         // TODO: test epochDuration
     }
 
     /** Test the property 'additionalInfo' */
     @Test
-    public void additionalInfoTest() {
+    void additionalInfoTest() {
         // TODO: test additionalInfo
     }
 }

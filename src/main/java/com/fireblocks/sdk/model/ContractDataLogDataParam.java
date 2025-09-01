@@ -13,11 +13,11 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -28,17 +28,27 @@ import java.util.StringJoiner;
     ContractDataLogDataParam.JSON_PROPERTY_DATA,
     ContractDataLogDataParam.JSON_PROPERTY_TOPICS
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class ContractDataLogDataParam {
     public static final String JSON_PROPERTY_DATA = "data";
-    private String data;
+    @jakarta.annotation.Nonnull private String data;
 
     public static final String JSON_PROPERTY_TOPICS = "topics";
-    private List<String> topics = new ArrayList<>();
+    @jakarta.annotation.Nonnull private List<String> topics = new ArrayList<>();
 
     public ContractDataLogDataParam() {}
 
-    public ContractDataLogDataParam data(String data) {
+    @JsonCreator
+    public ContractDataLogDataParam(
+            @JsonProperty(value = JSON_PROPERTY_DATA, required = true) String data,
+            @JsonProperty(value = JSON_PROPERTY_TOPICS, required = true) List<String> topics) {
+        this.data = data;
+        this.topics = topics;
+    }
+
+    public ContractDataLogDataParam data(@jakarta.annotation.Nonnull String data) {
         this.data = data;
         return this;
     }
@@ -57,11 +67,11 @@ public class ContractDataLogDataParam {
 
     @JsonProperty(JSON_PROPERTY_DATA)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setData(String data) {
+    public void setData(@jakarta.annotation.Nonnull String data) {
         this.data = data;
     }
 
-    public ContractDataLogDataParam topics(List<String> topics) {
+    public ContractDataLogDataParam topics(@jakarta.annotation.Nonnull List<String> topics) {
         this.topics = topics;
         return this;
     }
@@ -88,7 +98,7 @@ public class ContractDataLogDataParam {
 
     @JsonProperty(JSON_PROPERTY_TOPICS)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setTopics(List<String> topics) {
+    public void setTopics(@jakarta.annotation.Nonnull List<String> topics) {
         this.topics = topics;
     }
 
@@ -171,8 +181,7 @@ public class ContractDataLogDataParam {
                             "%sdata%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getData()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getData()))));
         }
 
         // add `topics` to the URL query string
@@ -187,10 +196,7 @@ public class ContractDataLogDataParam {
                                         ? ""
                                         : String.format(
                                                 "%s%d%s", containerPrefix, i, containerSuffix),
-                                URLEncoder.encode(
-                                                String.valueOf(getTopics().get(i)),
-                                                StandardCharsets.UTF_8)
-                                        .replaceAll("\\+", "%20")));
+                                ApiClient.urlEncode(ApiClient.valueToString(getTopics().get(i)))));
             }
         }
 

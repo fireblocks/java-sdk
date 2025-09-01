@@ -13,27 +13,27 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for ScreeningVerdictMatchedRule */
-public class ScreeningVerdictMatchedRuleTest {
+class ScreeningVerdictMatchedRuleTest {
     private final ScreeningVerdictMatchedRule model = new ScreeningVerdictMatchedRule();
 
     /** Model tests for ScreeningVerdictMatchedRule */
     @Test
-    public void testScreeningVerdictMatchedRule() {
+    void testScreeningVerdictMatchedRule() {
         // TODO: test ScreeningVerdictMatchedRule
     }
 
     /** Test the property 'action' */
     @Test
-    public void actionTest() {
+    void actionTest() {
         // TODO: test action
     }
 
     /** Test the property 'category' */
     @Test
-    public void categoryTest() {
+    void categoryTest() {
         // TODO: test category
     }
 }

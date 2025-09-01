@@ -13,40 +13,40 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for DisbursementOperationPreviewOutputInstructionSetInner */
-public class DisbursementOperationPreviewOutputInstructionSetInnerTest {
+class DisbursementOperationPreviewOutputInstructionSetInnerTest {
     private final DisbursementOperationPreviewOutputInstructionSetInner model =
             new DisbursementOperationPreviewOutputInstructionSetInner();
 
     /** Model tests for DisbursementOperationPreviewOutputInstructionSetInner */
     @Test
-    public void testDisbursementOperationPreviewOutputInstructionSetInner() {
+    void testDisbursementOperationPreviewOutputInstructionSetInner() {
         // TODO: test DisbursementOperationPreviewOutputInstructionSetInner
     }
 
     /** Test the property 'amount' */
     @Test
-    public void amountTest() {
+    void amountTest() {
         // TODO: test amount
     }
 
     /** Test the property 'fee' */
     @Test
-    public void feeTest() {
+    void feeTest() {
         // TODO: test fee
     }
 
     /** Test the property 'payeeAccount' */
     @Test
-    public void payeeAccountTest() {
+    void payeeAccountTest() {
         // TODO: test payeeAccount
     }
 
     /** Test the property 'timeSeconds' */
     @Test
-    public void timeSecondsTest() {
+    void timeSecondsTest() {
         // TODO: test timeSeconds
     }
 }

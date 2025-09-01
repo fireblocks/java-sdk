@@ -16,21 +16,23 @@ package com.fireblocks.sdk.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
 /** UpdateVaultAccountAssetAddressRequest */
 @JsonPropertyOrder({UpdateVaultAccountAssetAddressRequest.JSON_PROPERTY_DESCRIPTION})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class UpdateVaultAccountAssetAddressRequest {
     public static final String JSON_PROPERTY_DESCRIPTION = "description";
-    private String description;
+    @jakarta.annotation.Nullable private String description;
 
     public UpdateVaultAccountAssetAddressRequest() {}
 
-    public UpdateVaultAccountAssetAddressRequest description(String description) {
+    public UpdateVaultAccountAssetAddressRequest description(
+            @jakarta.annotation.Nullable String description) {
         this.description = description;
         return this;
     }
@@ -49,7 +51,7 @@ public class UpdateVaultAccountAssetAddressRequest {
 
     @JsonProperty(JSON_PROPERTY_DESCRIPTION)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setDescription(String description) {
+    public void setDescription(@jakarta.annotation.Nullable String description) {
         this.description = description;
     }
 
@@ -131,10 +133,7 @@ public class UpdateVaultAccountAssetAddressRequest {
                             "%sdescription%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getDescription()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getDescription()))));
         }
 
         return joiner.toString();

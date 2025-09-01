@@ -13,45 +13,45 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for ToCollateralTransaction */
-public class ToCollateralTransactionTest {
+class ToCollateralTransactionTest {
     private final ToCollateralTransaction model = new ToCollateralTransaction();
 
     /** Model tests for ToCollateralTransaction */
     @Test
-    public void testToCollateralTransaction() {
+    void testToCollateralTransaction() {
         // TODO: test ToCollateralTransaction
     }
 
     /** Test the property 'asset' */
     @Test
-    public void assetTest() {
+    void assetTest() {
         // TODO: test asset
     }
 
     /** Test the property 'amount' */
     @Test
-    public void amountTest() {
+    void amountTest() {
         // TODO: test amount
     }
 
     /** Test the property 'srcAddress' */
     @Test
-    public void srcAddressTest() {
+    void srcAddressTest() {
         // TODO: test srcAddress
     }
 
     /** Test the property 'srcTag' */
     @Test
-    public void srcTagTest() {
+    void srcTagTest() {
         // TODO: test srcTag
     }
 
     /** Test the property 'fee' */
     @Test
-    public void feeTest() {
+    void feeTest() {
         // TODO: test fee
     }
 }

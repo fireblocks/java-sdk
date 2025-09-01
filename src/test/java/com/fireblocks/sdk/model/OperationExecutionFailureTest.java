@@ -13,27 +13,27 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for OperationExecutionFailure */
-public class OperationExecutionFailureTest {
+class OperationExecutionFailureTest {
     private final OperationExecutionFailure model = new OperationExecutionFailure();
 
     /** Model tests for OperationExecutionFailure */
     @Test
-    public void testOperationExecutionFailure() {
+    void testOperationExecutionFailure() {
         // TODO: test OperationExecutionFailure
     }
 
     /** Test the property 'reason' */
     @Test
-    public void reasonTest() {
+    void reasonTest() {
         // TODO: test reason
     }
 
     /** Test the property 'data' */
     @Test
-    public void dataTest() {
+    void dataTest() {
         // TODO: test data
     }
 }

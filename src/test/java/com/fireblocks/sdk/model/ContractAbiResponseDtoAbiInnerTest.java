@@ -13,69 +13,69 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for ContractAbiResponseDtoAbiInner */
-public class ContractAbiResponseDtoAbiInnerTest {
+class ContractAbiResponseDtoAbiInnerTest {
     private final ContractAbiResponseDtoAbiInner model = new ContractAbiResponseDtoAbiInner();
 
     /** Model tests for ContractAbiResponseDtoAbiInner */
     @Test
-    public void testContractAbiResponseDtoAbiInner() {
+    void testContractAbiResponseDtoAbiInner() {
         // TODO: test ContractAbiResponseDtoAbiInner
     }
 
     /** Test the property 'name' */
     @Test
-    public void nameTest() {
+    void nameTest() {
         // TODO: test name
     }
 
     /** Test the property 'stateMutability' */
     @Test
-    public void stateMutabilityTest() {
+    void stateMutabilityTest() {
         // TODO: test stateMutability
     }
 
     /** Test the property 'type' */
     @Test
-    public void typeTest() {
+    void typeTest() {
         // TODO: test type
     }
 
     /** Test the property 'inputs' */
     @Test
-    public void inputsTest() {
+    void inputsTest() {
         // TODO: test inputs
     }
 
     /** Test the property 'outputs' */
     @Test
-    public void outputsTest() {
+    void outputsTest() {
         // TODO: test outputs
     }
 
     /** Test the property 'description' */
     @Test
-    public void descriptionTest() {
+    void descriptionTest() {
         // TODO: test description
     }
 
     /** Test the property 'discriminator' */
     @Test
-    public void discriminatorTest() {
+    void discriminatorTest() {
         // TODO: test discriminator
     }
 
     /** Test the property 'accounts' */
     @Test
-    public void accountsTest() {
+    void accountsTest() {
         // TODO: test accounts
     }
 
     /** Test the property 'args' */
     @Test
-    public void argsTest() {
+    void argsTest() {
         // TODO: test args
     }
 }

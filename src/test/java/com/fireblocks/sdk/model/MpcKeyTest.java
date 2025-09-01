@@ -13,45 +13,45 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for MpcKey */
-public class MpcKeyTest {
+class MpcKeyTest {
     private final MpcKey model = new MpcKey();
 
     /** Model tests for MpcKey */
     @Test
-    public void testMpcKey() {
+    void testMpcKey() {
         // TODO: test MpcKey
     }
 
     /** Test the property 'keyId' */
     @Test
-    public void keyIdTest() {
+    void keyIdTest() {
         // TODO: test keyId
     }
 
     /** Test the property 'userId' */
     @Test
-    public void userIdTest() {
+    void userIdTest() {
         // TODO: test userId
     }
 
     /** Test the property 'algorithm' */
     @Test
-    public void algorithmTest() {
+    void algorithmTest() {
         // TODO: test algorithm
     }
 
     /** Test the property 'players' */
     @Test
-    public void playersTest() {
+    void playersTest() {
         // TODO: test players
     }
 
     /** Test the property 'lastPreprocessedIndex' */
     @Test
-    public void lastPreprocessedIndexTest() {
+    void lastPreprocessedIndexTest() {
         // TODO: test lastPreprocessedIndex
     }
 }

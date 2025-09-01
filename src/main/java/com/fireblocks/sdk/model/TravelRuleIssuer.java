@@ -13,24 +13,32 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
 /** TravelRuleIssuer */
 @JsonPropertyOrder({TravelRuleIssuer.JSON_PROPERTY_ISSUER_DID})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class TravelRuleIssuer {
     public static final String JSON_PROPERTY_ISSUER_DID = "issuerDid";
-    private String issuerDid;
+    @jakarta.annotation.Nonnull private String issuerDid;
 
     public TravelRuleIssuer() {}
 
-    public TravelRuleIssuer issuerDid(String issuerDid) {
+    @JsonCreator
+    public TravelRuleIssuer(
+            @JsonProperty(value = JSON_PROPERTY_ISSUER_DID, required = true) String issuerDid) {
+        this.issuerDid = issuerDid;
+    }
+
+    public TravelRuleIssuer issuerDid(@jakarta.annotation.Nonnull String issuerDid) {
         this.issuerDid = issuerDid;
         return this;
     }
@@ -49,7 +57,7 @@ public class TravelRuleIssuer {
 
     @JsonProperty(JSON_PROPERTY_ISSUER_DID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setIssuerDid(String issuerDid) {
+    public void setIssuerDid(@jakarta.annotation.Nonnull String issuerDid) {
         this.issuerDid = issuerDid;
     }
 
@@ -130,9 +138,7 @@ public class TravelRuleIssuer {
                             "%sissuerDid%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getIssuerDid()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getIssuerDid()))));
         }
 
         return joiner.toString();

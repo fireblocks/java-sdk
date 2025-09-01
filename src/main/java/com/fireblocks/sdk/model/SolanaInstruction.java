@@ -13,12 +13,12 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fireblocks.sdk.ApiClient;
 import java.math.BigDecimal;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -31,23 +31,39 @@ import java.util.StringJoiner;
     SolanaInstruction.JSON_PROPERTY_ACCOUNTS,
     SolanaInstruction.JSON_PROPERTY_ARGS
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class SolanaInstruction {
     public static final String JSON_PROPERTY_NAME = "name";
-    private String name;
+    @jakarta.annotation.Nonnull private String name;
 
     public static final String JSON_PROPERTY_DISCRIMINATOR = "discriminator";
-    private List<BigDecimal> discriminator = new ArrayList<>();
+    @jakarta.annotation.Nonnull private List<BigDecimal> discriminator = new ArrayList<>();
 
     public static final String JSON_PROPERTY_ACCOUNTS = "accounts";
-    private List<SOLAccount> accounts = new ArrayList<>();
+    @jakarta.annotation.Nonnull private List<SOLAccount> accounts = new ArrayList<>();
 
     public static final String JSON_PROPERTY_ARGS = "args";
-    private List<SolParameter> args = new ArrayList<>();
+    @jakarta.annotation.Nonnull private List<SolParameter> args = new ArrayList<>();
 
     public SolanaInstruction() {}
 
-    public SolanaInstruction name(String name) {
+    @JsonCreator
+    public SolanaInstruction(
+            @JsonProperty(value = JSON_PROPERTY_NAME, required = true) String name,
+            @JsonProperty(value = JSON_PROPERTY_DISCRIMINATOR, required = true)
+                    List<BigDecimal> discriminator,
+            @JsonProperty(value = JSON_PROPERTY_ACCOUNTS, required = true)
+                    List<SOLAccount> accounts,
+            @JsonProperty(value = JSON_PROPERTY_ARGS, required = true) List<SolParameter> args) {
+        this.name = name;
+        this.discriminator = discriminator;
+        this.accounts = accounts;
+        this.args = args;
+    }
+
+    public SolanaInstruction name(@jakarta.annotation.Nonnull String name) {
         this.name = name;
         return this;
     }
@@ -66,11 +82,12 @@ public class SolanaInstruction {
 
     @JsonProperty(JSON_PROPERTY_NAME)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setName(String name) {
+    public void setName(@jakarta.annotation.Nonnull String name) {
         this.name = name;
     }
 
-    public SolanaInstruction discriminator(List<BigDecimal> discriminator) {
+    public SolanaInstruction discriminator(
+            @jakarta.annotation.Nonnull List<BigDecimal> discriminator) {
         this.discriminator = discriminator;
         return this;
     }
@@ -97,11 +114,11 @@ public class SolanaInstruction {
 
     @JsonProperty(JSON_PROPERTY_DISCRIMINATOR)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setDiscriminator(List<BigDecimal> discriminator) {
+    public void setDiscriminator(@jakarta.annotation.Nonnull List<BigDecimal> discriminator) {
         this.discriminator = discriminator;
     }
 
-    public SolanaInstruction accounts(List<SOLAccount> accounts) {
+    public SolanaInstruction accounts(@jakarta.annotation.Nonnull List<SOLAccount> accounts) {
         this.accounts = accounts;
         return this;
     }
@@ -128,11 +145,11 @@ public class SolanaInstruction {
 
     @JsonProperty(JSON_PROPERTY_ACCOUNTS)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setAccounts(List<SOLAccount> accounts) {
+    public void setAccounts(@jakarta.annotation.Nonnull List<SOLAccount> accounts) {
         this.accounts = accounts;
     }
 
-    public SolanaInstruction args(List<SolParameter> args) {
+    public SolanaInstruction args(@jakarta.annotation.Nonnull List<SolParameter> args) {
         this.args = args;
         return this;
     }
@@ -159,7 +176,7 @@ public class SolanaInstruction {
 
     @JsonProperty(JSON_PROPERTY_ARGS)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setArgs(List<SolParameter> args) {
+    public void setArgs(@jakarta.annotation.Nonnull List<SolParameter> args) {
         this.args = args;
     }
 
@@ -246,8 +263,7 @@ public class SolanaInstruction {
                             "%sname%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getName()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getName()))));
         }
 
         // add `discriminator` to the URL query string
@@ -263,10 +279,8 @@ public class SolanaInstruction {
                                             ? ""
                                             : String.format(
                                                     "%s%d%s", containerPrefix, i, containerSuffix),
-                                    URLEncoder.encode(
-                                                    String.valueOf(getDiscriminator().get(i)),
-                                                    StandardCharsets.UTF_8)
-                                            .replaceAll("\\+", "%20")));
+                                    ApiClient.urlEncode(
+                                            ApiClient.valueToString(getDiscriminator().get(i)))));
                 }
             }
         }

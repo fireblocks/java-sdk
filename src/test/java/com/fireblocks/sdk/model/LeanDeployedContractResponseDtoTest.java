@@ -13,39 +13,39 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for LeanDeployedContractResponseDto */
-public class LeanDeployedContractResponseDtoTest {
+class LeanDeployedContractResponseDtoTest {
     private final LeanDeployedContractResponseDto model = new LeanDeployedContractResponseDto();
 
     /** Model tests for LeanDeployedContractResponseDto */
     @Test
-    public void testLeanDeployedContractResponseDto() {
+    void testLeanDeployedContractResponseDto() {
         // TODO: test LeanDeployedContractResponseDto
     }
 
     /** Test the property 'id' */
     @Test
-    public void idTest() {
+    void idTest() {
         // TODO: test id
     }
 
     /** Test the property 'contractAddress' */
     @Test
-    public void contractAddressTest() {
+    void contractAddressTest() {
         // TODO: test contractAddress
     }
 
     /** Test the property 'contractTemplateId' */
     @Test
-    public void contractTemplateIdTest() {
+    void contractTemplateIdTest() {
         // TODO: test contractTemplateId
     }
 
     /** Test the property 'blockchainId' */
     @Test
-    public void blockchainIdTest() {
+    void blockchainIdTest() {
         // TODO: test blockchainId
     }
 }

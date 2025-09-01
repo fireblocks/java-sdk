@@ -13,45 +13,45 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for UnstakeRequest */
-public class UnstakeRequestTest {
+class UnstakeRequestTest {
     private final UnstakeRequest model = new UnstakeRequest();
 
     /** Model tests for UnstakeRequest */
     @Test
-    public void testUnstakeRequest() {
+    void testUnstakeRequest() {
         // TODO: test UnstakeRequest
     }
 
     /** Test the property 'id' */
     @Test
-    public void idTest() {
+    void idTest() {
         // TODO: test id
     }
 
     /** Test the property 'fee' */
     @Test
-    public void feeTest() {
+    void feeTest() {
         // TODO: test fee
     }
 
     /** Test the property 'feeLevel' */
     @Test
-    public void feeLevelTest() {
+    void feeLevelTest() {
         // TODO: test feeLevel
     }
 
     /** Test the property 'txNote' */
     @Test
-    public void txNoteTest() {
+    void txNoteTest() {
         // TODO: test txNote
     }
 
     /** Test the property 'amount' */
     @Test
-    public void amountTest() {
+    void amountTest() {
         // TODO: test amount
     }
 }

@@ -13,11 +13,11 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -27,20 +27,34 @@ import java.util.StringJoiner;
     DisbursementAmountInstruction.JSON_PROPERTY_ASSET_ID,
     DisbursementAmountInstruction.JSON_PROPERTY_AMOUNT
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class DisbursementAmountInstruction {
     public static final String JSON_PROPERTY_PAYEE_ACCOUNT = "payeeAccount";
-    private Destination payeeAccount;
+    @jakarta.annotation.Nonnull private Destination payeeAccount;
 
     public static final String JSON_PROPERTY_ASSET_ID = "assetId";
-    private String assetId;
+    @jakarta.annotation.Nonnull private String assetId;
 
     public static final String JSON_PROPERTY_AMOUNT = "amount";
-    private String amount;
+    @jakarta.annotation.Nonnull private String amount;
 
     public DisbursementAmountInstruction() {}
 
-    public DisbursementAmountInstruction payeeAccount(Destination payeeAccount) {
+    @JsonCreator
+    public DisbursementAmountInstruction(
+            @JsonProperty(value = JSON_PROPERTY_PAYEE_ACCOUNT, required = true)
+                    Destination payeeAccount,
+            @JsonProperty(value = JSON_PROPERTY_ASSET_ID, required = true) String assetId,
+            @JsonProperty(value = JSON_PROPERTY_AMOUNT, required = true) String amount) {
+        this.payeeAccount = payeeAccount;
+        this.assetId = assetId;
+        this.amount = amount;
+    }
+
+    public DisbursementAmountInstruction payeeAccount(
+            @jakarta.annotation.Nonnull Destination payeeAccount) {
         this.payeeAccount = payeeAccount;
         return this;
     }
@@ -59,11 +73,11 @@ public class DisbursementAmountInstruction {
 
     @JsonProperty(JSON_PROPERTY_PAYEE_ACCOUNT)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setPayeeAccount(Destination payeeAccount) {
+    public void setPayeeAccount(@jakarta.annotation.Nonnull Destination payeeAccount) {
         this.payeeAccount = payeeAccount;
     }
 
-    public DisbursementAmountInstruction assetId(String assetId) {
+    public DisbursementAmountInstruction assetId(@jakarta.annotation.Nonnull String assetId) {
         this.assetId = assetId;
         return this;
     }
@@ -82,11 +96,11 @@ public class DisbursementAmountInstruction {
 
     @JsonProperty(JSON_PROPERTY_ASSET_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setAssetId(String assetId) {
+    public void setAssetId(@jakarta.annotation.Nonnull String assetId) {
         this.assetId = assetId;
     }
 
-    public DisbursementAmountInstruction amount(String amount) {
+    public DisbursementAmountInstruction amount(@jakarta.annotation.Nonnull String amount) {
         this.amount = amount;
         return this;
     }
@@ -105,7 +119,7 @@ public class DisbursementAmountInstruction {
 
     @JsonProperty(JSON_PROPERTY_AMOUNT)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setAmount(String amount) {
+    public void setAmount(@jakarta.annotation.Nonnull String amount) {
         this.amount = amount;
     }
 
@@ -196,8 +210,7 @@ public class DisbursementAmountInstruction {
                             "%sassetId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getAssetId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getAssetId()))));
         }
 
         // add `amount` to the URL query string
@@ -207,8 +220,7 @@ public class DisbursementAmountInstruction {
                             "%samount%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getAmount()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getAmount()))));
         }
 
         return joiner.toString();

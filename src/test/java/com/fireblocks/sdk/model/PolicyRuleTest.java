@@ -13,189 +13,159 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for PolicyRule */
-public class PolicyRuleTest {
+class PolicyRuleTest {
     private final PolicyRule model = new PolicyRule();
 
     /** Model tests for PolicyRule */
     @Test
-    public void testPolicyRule() {
+    void testPolicyRule() {
         // TODO: test PolicyRule
     }
 
-    /** Test the property 'operator' */
+    /** Test the property 'name' */
     @Test
-    public void operatorTest() {
-        // TODO: test operator
+    void nameTest() {
+        // TODO: test name
     }
 
-    /** Test the property 'operators' */
+    /** Test the property 'id' */
     @Test
-    public void operatorsTest() {
-        // TODO: test operators
+    void idTest() {
+        // TODO: test id
     }
 
-    /** Test the property 'transactionType' */
+    /** Test the property 'policyEngineVersion' */
     @Test
-    public void transactionTypeTest() {
-        // TODO: test transactionType
-    }
-
-    /** Test the property 'designatedSigner' */
-    @Test
-    public void designatedSignerTest() {
-        // TODO: test designatedSigner
-    }
-
-    /** Test the property 'designatedSigners' */
-    @Test
-    public void designatedSignersTest() {
-        // TODO: test designatedSigners
+    void policyEngineVersionTest() {
+        // TODO: test policyEngineVersion
     }
 
     /** Test the property 'type' */
     @Test
-    public void typeTest() {
+    void typeTest() {
         // TODO: test type
     }
 
-    /** Test the property 'action' */
+    /** Test the property 'subType' */
     @Test
-    public void actionTest() {
-        // TODO: test action
+    void subTypeTest() {
+        // TODO: test subType
+    }
+
+    /** Test the property 'initiator' */
+    @Test
+    void initiatorTest() {
+        // TODO: test initiator
     }
 
     /** Test the property 'asset' */
     @Test
-    public void assetTest() {
+    void assetTest() {
         // TODO: test asset
     }
 
-    /** Test the property 'srcType' */
+    /** Test the property 'source' */
     @Test
-    public void srcTypeTest() {
-        // TODO: test srcType
+    void sourceTest() {
+        // TODO: test source
     }
 
-    /** Test the property 'srcSubType' */
+    /** Test the property 'destination' */
     @Test
-    public void srcSubTypeTest() {
-        // TODO: test srcSubType
+    void destinationTest() {
+        // TODO: test destination
     }
 
-    /** Test the property 'srcId' */
+    /** Test the property 'account' */
     @Test
-    public void srcIdTest() {
-        // TODO: test srcId
+    void accountTest() {
+        // TODO: test account
     }
 
-    /** Test the property 'src' */
+    /** Test the property 'verdict' */
     @Test
-    public void srcTest() {
-        // TODO: test src
+    void verdictTest() {
+        // TODO: test verdict
     }
 
-    /** Test the property 'dstType' */
+    /** Test the property 'amountOverTime' */
     @Test
-    public void dstTypeTest() {
-        // TODO: test dstType
-    }
-
-    /** Test the property 'dstSubType' */
-    @Test
-    public void dstSubTypeTest() {
-        // TODO: test dstSubType
-    }
-
-    /** Test the property 'dstId' */
-    @Test
-    public void dstIdTest() {
-        // TODO: test dstId
-    }
-
-    /** Test the property 'dst' */
-    @Test
-    public void dstTest() {
-        // TODO: test dst
-    }
-
-    /** Test the property 'dstAddressType' */
-    @Test
-    public void dstAddressTypeTest() {
-        // TODO: test dstAddressType
-    }
-
-    /** Test the property 'amountCurrency' */
-    @Test
-    public void amountCurrencyTest() {
-        // TODO: test amountCurrency
-    }
-
-    /** Test the property 'amountScope' */
-    @Test
-    public void amountScopeTest() {
-        // TODO: test amountScope
+    void amountOverTimeTest() {
+        // TODO: test amountOverTime
     }
 
     /** Test the property 'amount' */
     @Test
-    public void amountTest() {
+    void amountTest() {
         // TODO: test amount
-    }
-
-    /** Test the property 'periodSec' */
-    @Test
-    public void periodSecTest() {
-        // TODO: test periodSec
-    }
-
-    /** Test the property 'authorizers' */
-    @Test
-    public void authorizersTest() {
-        // TODO: test authorizers
-    }
-
-    /** Test the property 'authorizersCount' */
-    @Test
-    public void authorizersCountTest() {
-        // TODO: test authorizersCount
-    }
-
-    /** Test the property 'authorizationGroups' */
-    @Test
-    public void authorizationGroupsTest() {
-        // TODO: test authorizationGroups
-    }
-
-    /** Test the property 'amountAggregation' */
-    @Test
-    public void amountAggregationTest() {
-        // TODO: test amountAggregation
-    }
-
-    /** Test the property 'rawMessageSigning' */
-    @Test
-    public void rawMessageSigningTest() {
-        // TODO: test rawMessageSigning
-    }
-
-    /** Test the property 'applyForApprove' */
-    @Test
-    public void applyForApproveTest() {
-        // TODO: test applyForApprove
-    }
-
-    /** Test the property 'applyForTypedMessage' */
-    @Test
-    public void applyForTypedMessageTest() {
-        // TODO: test applyForTypedMessage
     }
 
     /** Test the property 'externalDescriptor' */
     @Test
-    public void externalDescriptorTest() {
+    void externalDescriptorTest() {
         // TODO: test externalDescriptor
+    }
+
+    /** Test the property 'method' */
+    @Test
+    void methodTest() {
+        // TODO: test method
+    }
+
+    /** Test the property 'isGlobalPolicy' */
+    @Test
+    void isGlobalPolicyTest() {
+        // TODO: test isGlobalPolicy
+    }
+
+    /** Test the property 'programCall' */
+    @Test
+    void programCallTest() {
+        // TODO: test programCall
+    }
+
+    /** Test the property 'screeningMetadata' */
+    @Test
+    void screeningMetadataTest() {
+        // TODO: test screeningMetadata
+    }
+
+    /** Test the property 'quoteAsset' */
+    @Test
+    void quoteAssetTest() {
+        // TODO: test quoteAsset
+    }
+
+    /** Test the property 'baseAsset' */
+    @Test
+    void baseAssetTest() {
+        // TODO: test baseAsset
+    }
+
+    /** Test the property 'quoteAmount' */
+    @Test
+    void quoteAmountTest() {
+        // TODO: test quoteAmount
+    }
+
+    /** Test the property 'baseAmount' */
+    @Test
+    void baseAmountTest() {
+        // TODO: test baseAmount
+    }
+
+    /** Test the property 'derivationPath' */
+    @Test
+    void derivationPathTest() {
+        // TODO: test derivationPath
+    }
+
+    /** Test the property 'index' */
+    @Test
+    void indexTest() {
+        // TODO: test index
     }
 }

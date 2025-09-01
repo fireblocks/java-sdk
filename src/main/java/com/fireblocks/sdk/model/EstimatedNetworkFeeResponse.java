@@ -13,6 +13,7 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -25,20 +26,32 @@ import java.util.StringJoiner;
     EstimatedNetworkFeeResponse.JSON_PROPERTY_MEDIUM,
     EstimatedNetworkFeeResponse.JSON_PROPERTY_HIGH
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class EstimatedNetworkFeeResponse {
     public static final String JSON_PROPERTY_LOW = "low";
-    private NetworkFee low;
+    @jakarta.annotation.Nonnull private NetworkFee low;
 
     public static final String JSON_PROPERTY_MEDIUM = "medium";
-    private NetworkFee medium;
+    @jakarta.annotation.Nonnull private NetworkFee medium;
 
     public static final String JSON_PROPERTY_HIGH = "high";
-    private NetworkFee high;
+    @jakarta.annotation.Nonnull private NetworkFee high;
 
     public EstimatedNetworkFeeResponse() {}
 
-    public EstimatedNetworkFeeResponse low(NetworkFee low) {
+    @JsonCreator
+    public EstimatedNetworkFeeResponse(
+            @JsonProperty(value = JSON_PROPERTY_LOW, required = true) NetworkFee low,
+            @JsonProperty(value = JSON_PROPERTY_MEDIUM, required = true) NetworkFee medium,
+            @JsonProperty(value = JSON_PROPERTY_HIGH, required = true) NetworkFee high) {
+        this.low = low;
+        this.medium = medium;
+        this.high = high;
+    }
+
+    public EstimatedNetworkFeeResponse low(@jakarta.annotation.Nonnull NetworkFee low) {
         this.low = low;
         return this;
     }
@@ -57,11 +70,11 @@ public class EstimatedNetworkFeeResponse {
 
     @JsonProperty(JSON_PROPERTY_LOW)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setLow(NetworkFee low) {
+    public void setLow(@jakarta.annotation.Nonnull NetworkFee low) {
         this.low = low;
     }
 
-    public EstimatedNetworkFeeResponse medium(NetworkFee medium) {
+    public EstimatedNetworkFeeResponse medium(@jakarta.annotation.Nonnull NetworkFee medium) {
         this.medium = medium;
         return this;
     }
@@ -80,11 +93,11 @@ public class EstimatedNetworkFeeResponse {
 
     @JsonProperty(JSON_PROPERTY_MEDIUM)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setMedium(NetworkFee medium) {
+    public void setMedium(@jakarta.annotation.Nonnull NetworkFee medium) {
         this.medium = medium;
     }
 
-    public EstimatedNetworkFeeResponse high(NetworkFee high) {
+    public EstimatedNetworkFeeResponse high(@jakarta.annotation.Nonnull NetworkFee high) {
         this.high = high;
         return this;
     }
@@ -103,7 +116,7 @@ public class EstimatedNetworkFeeResponse {
 
     @JsonProperty(JSON_PROPERTY_HIGH)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setHigh(NetworkFee high) {
+    public void setHigh(@jakarta.annotation.Nonnull NetworkFee high) {
         this.high = high;
     }
 

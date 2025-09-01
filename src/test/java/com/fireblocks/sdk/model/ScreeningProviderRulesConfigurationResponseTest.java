@@ -13,52 +13,52 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for ScreeningProviderRulesConfigurationResponse */
-public class ScreeningProviderRulesConfigurationResponseTest {
+class ScreeningProviderRulesConfigurationResponseTest {
     private final ScreeningProviderRulesConfigurationResponse model =
             new ScreeningProviderRulesConfigurationResponse();
 
     /** Model tests for ScreeningProviderRulesConfigurationResponse */
     @Test
-    public void testScreeningProviderRulesConfigurationResponse() {
+    void testScreeningProviderRulesConfigurationResponse() {
         // TODO: test ScreeningProviderRulesConfigurationResponse
     }
 
     /** Test the property 'direction' */
     @Test
-    public void directionTest() {
+    void directionTest() {
         // TODO: test direction
     }
 
     /** Test the property 'status' */
     @Test
-    public void statusTest() {
+    void statusTest() {
         // TODO: test status
     }
 
     /** Test the property 'amountUSD' */
     @Test
-    public void amountUSDTest() {
+    void amountUSDTest() {
         // TODO: test amountUSD
     }
 
     /** Test the property 'amount' */
     @Test
-    public void amountTest() {
+    void amountTest() {
         // TODO: test amount
     }
 
     /** Test the property 'asset' */
     @Test
-    public void assetTest() {
+    void assetTest() {
         // TODO: test asset
     }
 
     /** Test the property 'action' */
     @Test
-    public void actionTest() {
+    void actionTest() {
         // TODO: test action
     }
 }

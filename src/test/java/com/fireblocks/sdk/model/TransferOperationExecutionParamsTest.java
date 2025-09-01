@@ -13,27 +13,27 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for TransferOperationExecutionParams */
-public class TransferOperationExecutionParamsTest {
+class TransferOperationExecutionParamsTest {
     private final TransferOperationExecutionParams model = new TransferOperationExecutionParams();
 
     /** Model tests for TransferOperationExecutionParams */
     @Test
-    public void testTransferOperationExecutionParams() {
+    void testTransferOperationExecutionParams() {
         // TODO: test TransferOperationExecutionParams
     }
 
     /** Test the property 'configOperationId' */
     @Test
-    public void configOperationIdTest() {
+    void configOperationIdTest() {
         // TODO: test configOperationId
     }
 
     /** Test the property 'executionParams' */
     @Test
-    public void executionParamsTest() {
+    void executionParamsTest() {
         // TODO: test executionParams
     }
 }

@@ -13,33 +13,33 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for GetLayerZeroPeersResponse */
-public class GetLayerZeroPeersResponseTest {
+class GetLayerZeroPeersResponseTest {
     private final GetLayerZeroPeersResponse model = new GetLayerZeroPeersResponse();
 
     /** Model tests for GetLayerZeroPeersResponse */
     @Test
-    public void testGetLayerZeroPeersResponse() {
+    void testGetLayerZeroPeersResponse() {
         // TODO: test GetLayerZeroPeersResponse
     }
 
     /** Test the property 'adapterTokenLinkId' */
     @Test
-    public void adapterTokenLinkIdTest() {
+    void adapterTokenLinkIdTest() {
         // TODO: test adapterTokenLinkId
     }
 
     /** Test the property 'adapterAddress' */
     @Test
-    public void adapterAddressTest() {
+    void adapterAddressTest() {
         // TODO: test adapterAddress
     }
 
     /** Test the property 'peers' */
     @Test
-    public void peersTest() {
+    void peersTest() {
         // TODO: test peers
     }
 }

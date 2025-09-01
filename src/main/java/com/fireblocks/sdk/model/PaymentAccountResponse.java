@@ -16,8 +16,7 @@ package com.fireblocks.sdk.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -26,17 +25,19 @@ import java.util.StringJoiner;
     PaymentAccountResponse.JSON_PROPERTY_ID,
     PaymentAccountResponse.JSON_PROPERTY_TYPE
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class PaymentAccountResponse {
     public static final String JSON_PROPERTY_ID = "id";
-    private String id;
+    @jakarta.annotation.Nullable private String id;
 
     public static final String JSON_PROPERTY_TYPE = "type";
-    private PaymentAccountType type;
+    @jakarta.annotation.Nullable private PaymentAccountType type;
 
     public PaymentAccountResponse() {}
 
-    public PaymentAccountResponse id(String id) {
+    public PaymentAccountResponse id(@jakarta.annotation.Nullable String id) {
         this.id = id;
         return this;
     }
@@ -55,11 +56,11 @@ public class PaymentAccountResponse {
 
     @JsonProperty(JSON_PROPERTY_ID)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setId(String id) {
+    public void setId(@jakarta.annotation.Nullable String id) {
         this.id = id;
     }
 
-    public PaymentAccountResponse type(PaymentAccountType type) {
+    public PaymentAccountResponse type(@jakarta.annotation.Nullable PaymentAccountType type) {
         this.type = type;
         return this;
     }
@@ -78,7 +79,7 @@ public class PaymentAccountResponse {
 
     @JsonProperty(JSON_PROPERTY_TYPE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setType(PaymentAccountType type) {
+    public void setType(@jakarta.annotation.Nullable PaymentAccountType type) {
         this.type = type;
     }
 
@@ -159,10 +160,7 @@ public class PaymentAccountResponse {
             joiner.add(
                     String.format(
                             "%sid%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(String.valueOf(getId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getId()))));
         }
 
         // add `type` to the URL query string
@@ -172,8 +170,7 @@ public class PaymentAccountResponse {
                             "%stype%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getType()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getType()))));
         }
 
         return joiner.toString();

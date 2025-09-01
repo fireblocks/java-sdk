@@ -13,11 +13,11 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -29,20 +29,34 @@ import java.util.StringJoiner;
     DisbursementOperationInput.JSON_PROPERTY_PAYMENT_ACCOUNT,
     DisbursementOperationInput.JSON_PROPERTY_INSTRUCTION_SET
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class DisbursementOperationInput {
     public static final String JSON_PROPERTY_AMOUNT = "amount";
-    private String amount;
+    @jakarta.annotation.Nullable private String amount;
 
     public static final String JSON_PROPERTY_PAYMENT_ACCOUNT = "paymentAccount";
-    private Account paymentAccount;
+    @jakarta.annotation.Nonnull private Account paymentAccount;
 
     public static final String JSON_PROPERTY_INSTRUCTION_SET = "instructionSet";
+
+    @jakarta.annotation.Nonnull
     private List<DisbursementInstruction> instructionSet = new ArrayList<>();
 
     public DisbursementOperationInput() {}
 
-    public DisbursementOperationInput amount(String amount) {
+    @JsonCreator
+    public DisbursementOperationInput(
+            @JsonProperty(value = JSON_PROPERTY_PAYMENT_ACCOUNT, required = true)
+                    Account paymentAccount,
+            @JsonProperty(value = JSON_PROPERTY_INSTRUCTION_SET, required = true)
+                    List<DisbursementInstruction> instructionSet) {
+        this.paymentAccount = paymentAccount;
+        this.instructionSet = instructionSet;
+    }
+
+    public DisbursementOperationInput amount(@jakarta.annotation.Nullable String amount) {
         this.amount = amount;
         return this;
     }
@@ -61,11 +75,12 @@ public class DisbursementOperationInput {
 
     @JsonProperty(JSON_PROPERTY_AMOUNT)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAmount(String amount) {
+    public void setAmount(@jakarta.annotation.Nullable String amount) {
         this.amount = amount;
     }
 
-    public DisbursementOperationInput paymentAccount(Account paymentAccount) {
+    public DisbursementOperationInput paymentAccount(
+            @jakarta.annotation.Nonnull Account paymentAccount) {
         this.paymentAccount = paymentAccount;
         return this;
     }
@@ -84,11 +99,12 @@ public class DisbursementOperationInput {
 
     @JsonProperty(JSON_PROPERTY_PAYMENT_ACCOUNT)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setPaymentAccount(Account paymentAccount) {
+    public void setPaymentAccount(@jakarta.annotation.Nonnull Account paymentAccount) {
         this.paymentAccount = paymentAccount;
     }
 
-    public DisbursementOperationInput instructionSet(List<DisbursementInstruction> instructionSet) {
+    public DisbursementOperationInput instructionSet(
+            @jakarta.annotation.Nonnull List<DisbursementInstruction> instructionSet) {
         this.instructionSet = instructionSet;
         return this;
     }
@@ -116,7 +132,8 @@ public class DisbursementOperationInput {
 
     @JsonProperty(JSON_PROPERTY_INSTRUCTION_SET)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setInstructionSet(List<DisbursementInstruction> instructionSet) {
+    public void setInstructionSet(
+            @jakarta.annotation.Nonnull List<DisbursementInstruction> instructionSet) {
         this.instructionSet = instructionSet;
     }
 
@@ -201,8 +218,7 @@ public class DisbursementOperationInput {
                             "%samount%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getAmount()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getAmount()))));
         }
 
         // add `paymentAccount` to the URL query string

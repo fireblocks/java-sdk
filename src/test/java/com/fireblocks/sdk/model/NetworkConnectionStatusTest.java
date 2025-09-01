@@ -13,13 +13,13 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for NetworkConnectionStatus */
-public class NetworkConnectionStatusTest {
+class NetworkConnectionStatusTest {
     /** Model tests for NetworkConnectionStatus */
     @Test
-    public void testNetworkConnectionStatus() {
+    void testNetworkConnectionStatus() {
         // TODO: test NetworkConnectionStatus
     }
 }

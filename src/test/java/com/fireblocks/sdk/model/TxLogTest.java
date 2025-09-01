@@ -13,69 +13,69 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for TxLog */
-public class TxLogTest {
+class TxLogTest {
     private final TxLog model = new TxLog();
 
     /** Model tests for TxLog */
     @Test
-    public void testTxLog() {
+    void testTxLog() {
         // TODO: test TxLog
     }
 
     /** Test the property 'address' */
     @Test
-    public void addressTest() {
+    void addressTest() {
         // TODO: test address
     }
 
     /** Test the property 'topics' */
     @Test
-    public void topicsTest() {
+    void topicsTest() {
         // TODO: test topics
     }
 
     /** Test the property 'data' */
     @Test
-    public void dataTest() {
+    void dataTest() {
         // TODO: test data
     }
 
     /** Test the property 'blockNumber' */
     @Test
-    public void blockNumberTest() {
+    void blockNumberTest() {
         // TODO: test blockNumber
     }
 
     /** Test the property 'transactionHash' */
     @Test
-    public void transactionHashTest() {
+    void transactionHashTest() {
         // TODO: test transactionHash
     }
 
     /** Test the property 'transactionIndex' */
     @Test
-    public void transactionIndexTest() {
+    void transactionIndexTest() {
         // TODO: test transactionIndex
     }
 
     /** Test the property 'blockHash' */
     @Test
-    public void blockHashTest() {
+    void blockHashTest() {
         // TODO: test blockHash
     }
 
     /** Test the property 'logIndex' */
     @Test
-    public void logIndexTest() {
+    void logIndexTest() {
         // TODO: test logIndex
     }
 
     /** Test the property 'removed' */
     @Test
-    public void removedTest() {
+    void removedTest() {
         // TODO: test removed
     }
 }

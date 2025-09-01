@@ -13,6 +13,7 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -23,14 +24,22 @@ import java.util.StringJoiner;
 
 /** GetConsoleUsersResponse */
 @JsonPropertyOrder({GetConsoleUsersResponse.JSON_PROPERTY_USERS})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class GetConsoleUsersResponse {
     public static final String JSON_PROPERTY_USERS = "users";
-    private List<ConsoleUser> users = new ArrayList<>();
+    @jakarta.annotation.Nonnull private List<ConsoleUser> users = new ArrayList<>();
 
     public GetConsoleUsersResponse() {}
 
-    public GetConsoleUsersResponse users(List<ConsoleUser> users) {
+    @JsonCreator
+    public GetConsoleUsersResponse(
+            @JsonProperty(value = JSON_PROPERTY_USERS, required = true) List<ConsoleUser> users) {
+        this.users = users;
+    }
+
+    public GetConsoleUsersResponse users(@jakarta.annotation.Nonnull List<ConsoleUser> users) {
         this.users = users;
         return this;
     }
@@ -57,7 +66,7 @@ public class GetConsoleUsersResponse {
 
     @JsonProperty(JSON_PROPERTY_USERS)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setUsers(List<ConsoleUser> users) {
+    public void setUsers(@jakarta.annotation.Nonnull List<ConsoleUser> users) {
         this.users = users;
     }
 

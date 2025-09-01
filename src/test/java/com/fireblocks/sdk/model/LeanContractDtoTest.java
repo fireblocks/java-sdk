@@ -13,69 +13,69 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for LeanContractDto */
-public class LeanContractDtoTest {
+class LeanContractDtoTest {
     private final LeanContractDto model = new LeanContractDto();
 
     /** Model tests for LeanContractDto */
     @Test
-    public void testLeanContractDto() {
+    void testLeanContractDto() {
         // TODO: test LeanContractDto
     }
 
     /** Test the property 'id' */
     @Test
-    public void idTest() {
+    void idTest() {
         // TODO: test id
     }
 
     /** Test the property 'name' */
     @Test
-    public void nameTest() {
+    void nameTest() {
         // TODO: test name
     }
 
     /** Test the property 'description' */
     @Test
-    public void descriptionTest() {
+    void descriptionTest() {
         // TODO: test description
     }
 
     /** Test the property 'attributes' */
     @Test
-    public void attributesTest() {
+    void attributesTest() {
         // TODO: test attributes
     }
 
     /** Test the property 'isPublic' */
     @Test
-    public void isPublicTest() {
+    void isPublicTest() {
         // TODO: test isPublic
     }
 
     /** Test the property 'canDeploy' */
     @Test
-    public void canDeployTest() {
+    void canDeployTest() {
         // TODO: test canDeploy
     }
 
     /** Test the property 'owner' */
     @Test
-    public void ownerTest() {
+    void ownerTest() {
         // TODO: test owner
     }
 
     /** Test the property 'vendor' */
     @Test
-    public void vendorTest() {
+    void vendorTest() {
         // TODO: test vendor
     }
 
     /** Test the property 'type' */
     @Test
-    public void typeTest() {
+    void typeTest() {
         // TODO: test type
     }
 }

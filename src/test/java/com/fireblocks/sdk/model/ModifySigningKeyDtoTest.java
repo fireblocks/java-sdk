@@ -13,21 +13,21 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for ModifySigningKeyDto */
-public class ModifySigningKeyDtoTest {
+class ModifySigningKeyDtoTest {
     private final ModifySigningKeyDto model = new ModifySigningKeyDto();
 
     /** Model tests for ModifySigningKeyDto */
     @Test
-    public void testModifySigningKeyDto() {
+    void testModifySigningKeyDto() {
         // TODO: test ModifySigningKeyDto
     }
 
     /** Test the property 'vaultAccountId' */
     @Test
-    public void vaultAccountIdTest() {
+    void vaultAccountIdTest() {
         // TODO: test vaultAccountId
     }
 }

@@ -13,21 +13,21 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for SplitResponse */
-public class SplitResponseTest {
+class SplitResponseTest {
     private final SplitResponse model = new SplitResponse();
 
     /** Model tests for SplitResponse */
     @Test
-    public void testSplitResponse() {
+    void testSplitResponse() {
         // TODO: test SplitResponse
     }
 
     /** Test the property 'id' */
     @Test
-    public void idTest() {
+    void idTest() {
         // TODO: test id
     }
 }

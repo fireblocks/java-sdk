@@ -26,18 +26,22 @@ import java.util.StringJoiner;
     ExchangeSettlementTransactionsResponse.JSON_PROPERTY_TO_EXCHANGE,
     ExchangeSettlementTransactionsResponse.JSON_PROPERTY_TO_COLLATERAL
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class ExchangeSettlementTransactionsResponse {
     public static final String JSON_PROPERTY_TO_EXCHANGE = "toExchange";
-    private List<ToExchangeTransaction> toExchange;
+    @jakarta.annotation.Nullable private List<ToExchangeTransaction> toExchange = new ArrayList<>();
 
     public static final String JSON_PROPERTY_TO_COLLATERAL = "toCollateral";
-    private List<ToCollateralTransaction> toCollateral;
+
+    @jakarta.annotation.Nullable
+    private List<ToCollateralTransaction> toCollateral = new ArrayList<>();
 
     public ExchangeSettlementTransactionsResponse() {}
 
     public ExchangeSettlementTransactionsResponse toExchange(
-            List<ToExchangeTransaction> toExchange) {
+            @jakarta.annotation.Nullable List<ToExchangeTransaction> toExchange) {
         this.toExchange = toExchange;
         return this;
     }
@@ -65,12 +69,12 @@ public class ExchangeSettlementTransactionsResponse {
 
     @JsonProperty(JSON_PROPERTY_TO_EXCHANGE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setToExchange(List<ToExchangeTransaction> toExchange) {
+    public void setToExchange(@jakarta.annotation.Nullable List<ToExchangeTransaction> toExchange) {
         this.toExchange = toExchange;
     }
 
     public ExchangeSettlementTransactionsResponse toCollateral(
-            List<ToCollateralTransaction> toCollateral) {
+            @jakarta.annotation.Nullable List<ToCollateralTransaction> toCollateral) {
         this.toCollateral = toCollateral;
         return this;
     }
@@ -98,7 +102,8 @@ public class ExchangeSettlementTransactionsResponse {
 
     @JsonProperty(JSON_PROPERTY_TO_COLLATERAL)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setToCollateral(List<ToCollateralTransaction> toCollateral) {
+    public void setToCollateral(
+            @jakarta.annotation.Nullable List<ToCollateralTransaction> toCollateral) {
         this.toCollateral = toCollateral;
     }
 

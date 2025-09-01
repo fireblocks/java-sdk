@@ -18,8 +18,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonValue;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -31,15 +30,17 @@ import java.util.StringJoiner;
     PublicKeyInformation.JSON_PROPERTY_DERIVATION_PATH,
     PublicKeyInformation.JSON_PROPERTY_PUBLIC_KEY
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class PublicKeyInformation {
     /** Elliptic Curve */
     public enum AlgorithmEnum {
-        ECDSA_SECP256K1("MPC_ECDSA_SECP256K1"),
+        MPC_ECDSA_SECP256_K1(String.valueOf("MPC_ECDSA_SECP256K1")),
 
-        ECDSA_SECP256R1("MPC_ECDSA_SECP256R1"),
+        MPC_ECDSA_SECP256_R1(String.valueOf("MPC_ECDSA_SECP256R1")),
 
-        EDDSA_ED25519("MPC_EDDSA_ED25519");
+        MPC_EDDSA_ED25519(String.valueOf("MPC_EDDSA_ED25519"));
 
         private String value;
 
@@ -69,17 +70,17 @@ public class PublicKeyInformation {
     }
 
     public static final String JSON_PROPERTY_ALGORITHM = "algorithm";
-    private AlgorithmEnum algorithm;
+    @jakarta.annotation.Nullable private AlgorithmEnum algorithm;
 
     public static final String JSON_PROPERTY_DERIVATION_PATH = "derivationPath";
-    private List<Integer> derivationPath;
+    @jakarta.annotation.Nullable private List<Integer> derivationPath = new ArrayList<>();
 
     public static final String JSON_PROPERTY_PUBLIC_KEY = "publicKey";
-    private String publicKey;
+    @jakarta.annotation.Nullable private String publicKey;
 
     public PublicKeyInformation() {}
 
-    public PublicKeyInformation algorithm(AlgorithmEnum algorithm) {
+    public PublicKeyInformation algorithm(@jakarta.annotation.Nullable AlgorithmEnum algorithm) {
         this.algorithm = algorithm;
         return this;
     }
@@ -98,11 +99,12 @@ public class PublicKeyInformation {
 
     @JsonProperty(JSON_PROPERTY_ALGORITHM)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAlgorithm(AlgorithmEnum algorithm) {
+    public void setAlgorithm(@jakarta.annotation.Nullable AlgorithmEnum algorithm) {
         this.algorithm = algorithm;
     }
 
-    public PublicKeyInformation derivationPath(List<Integer> derivationPath) {
+    public PublicKeyInformation derivationPath(
+            @jakarta.annotation.Nullable List<Integer> derivationPath) {
         this.derivationPath = derivationPath;
         return this;
     }
@@ -129,11 +131,11 @@ public class PublicKeyInformation {
 
     @JsonProperty(JSON_PROPERTY_DERIVATION_PATH)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setDerivationPath(List<Integer> derivationPath) {
+    public void setDerivationPath(@jakarta.annotation.Nullable List<Integer> derivationPath) {
         this.derivationPath = derivationPath;
     }
 
-    public PublicKeyInformation publicKey(String publicKey) {
+    public PublicKeyInformation publicKey(@jakarta.annotation.Nullable String publicKey) {
         this.publicKey = publicKey;
         return this;
     }
@@ -152,7 +154,7 @@ public class PublicKeyInformation {
 
     @JsonProperty(JSON_PROPERTY_PUBLIC_KEY)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setPublicKey(String publicKey) {
+    public void setPublicKey(@jakarta.annotation.Nullable String publicKey) {
         this.publicKey = publicKey;
     }
 
@@ -237,9 +239,7 @@ public class PublicKeyInformation {
                             "%salgorithm%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getAlgorithm()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getAlgorithm()))));
         }
 
         // add `derivationPath` to the URL query string
@@ -254,10 +254,8 @@ public class PublicKeyInformation {
                                         ? ""
                                         : String.format(
                                                 "%s%d%s", containerPrefix, i, containerSuffix),
-                                URLEncoder.encode(
-                                                String.valueOf(getDerivationPath().get(i)),
-                                                StandardCharsets.UTF_8)
-                                        .replaceAll("\\+", "%20")));
+                                ApiClient.urlEncode(
+                                        ApiClient.valueToString(getDerivationPath().get(i)))));
             }
         }
 
@@ -268,9 +266,7 @@ public class PublicKeyInformation {
                             "%spublicKey%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getPublicKey()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getPublicKey()))));
         }
 
         return joiner.toString();

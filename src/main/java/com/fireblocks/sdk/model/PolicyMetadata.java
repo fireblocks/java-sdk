@@ -13,44 +13,57 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
-/** Policy related metadata */
+/** Policy metadata */
 @JsonPropertyOrder({
     PolicyMetadata.JSON_PROPERTY_EDITED_BY,
     PolicyMetadata.JSON_PROPERTY_EDITED_AT,
     PolicyMetadata.JSON_PROPERTY_PUBLISHED_BY,
-    PolicyMetadata.JSON_PROPERTY_PUBLISHED_AT
+    PolicyMetadata.JSON_PROPERTY_PUBLISHED_AT,
+    PolicyMetadata.JSON_PROPERTY_POLICY_TYPE
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class PolicyMetadata {
     public static final String JSON_PROPERTY_EDITED_BY = "editedBy";
-    private String editedBy;
+    @jakarta.annotation.Nullable private String editedBy;
 
     public static final String JSON_PROPERTY_EDITED_AT = "editedAt";
-    private String editedAt;
+    @jakarta.annotation.Nullable private String editedAt;
 
     public static final String JSON_PROPERTY_PUBLISHED_BY = "publishedBy";
-    private String publishedBy;
+    @jakarta.annotation.Nullable private String publishedBy;
 
     public static final String JSON_PROPERTY_PUBLISHED_AT = "publishedAt";
-    private String publishedAt;
+    @jakarta.annotation.Nullable private String publishedAt;
+
+    public static final String JSON_PROPERTY_POLICY_TYPE = "policyType";
+    @jakarta.annotation.Nonnull private PolicyType policyType;
 
     public PolicyMetadata() {}
 
-    public PolicyMetadata editedBy(String editedBy) {
+    @JsonCreator
+    public PolicyMetadata(
+            @JsonProperty(value = JSON_PROPERTY_POLICY_TYPE, required = true)
+                    PolicyType policyType) {
+        this.policyType = policyType;
+    }
+
+    public PolicyMetadata editedBy(@jakarta.annotation.Nullable String editedBy) {
         this.editedBy = editedBy;
         return this;
     }
 
     /**
-     * The user id of the user who last edited the policy
+     * The user ID of the user who last edited the policy
      *
      * @return editedBy
      */
@@ -63,11 +76,11 @@ public class PolicyMetadata {
 
     @JsonProperty(JSON_PROPERTY_EDITED_BY)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setEditedBy(String editedBy) {
+    public void setEditedBy(@jakarta.annotation.Nullable String editedBy) {
         this.editedBy = editedBy;
     }
 
-    public PolicyMetadata editedAt(String editedAt) {
+    public PolicyMetadata editedAt(@jakarta.annotation.Nullable String editedAt) {
         this.editedAt = editedAt;
         return this;
     }
@@ -86,17 +99,17 @@ public class PolicyMetadata {
 
     @JsonProperty(JSON_PROPERTY_EDITED_AT)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setEditedAt(String editedAt) {
+    public void setEditedAt(@jakarta.annotation.Nullable String editedAt) {
         this.editedAt = editedAt;
     }
 
-    public PolicyMetadata publishedBy(String publishedBy) {
+    public PolicyMetadata publishedBy(@jakarta.annotation.Nullable String publishedBy) {
         this.publishedBy = publishedBy;
         return this;
     }
 
     /**
-     * The user id of the user who last published the policy
+     * The user ID of the user who last published the policy
      *
      * @return publishedBy
      */
@@ -109,11 +122,11 @@ public class PolicyMetadata {
 
     @JsonProperty(JSON_PROPERTY_PUBLISHED_BY)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setPublishedBy(String publishedBy) {
+    public void setPublishedBy(@jakarta.annotation.Nullable String publishedBy) {
         this.publishedBy = publishedBy;
     }
 
-    public PolicyMetadata publishedAt(String publishedAt) {
+    public PolicyMetadata publishedAt(@jakarta.annotation.Nullable String publishedAt) {
         this.publishedAt = publishedAt;
         return this;
     }
@@ -132,8 +145,31 @@ public class PolicyMetadata {
 
     @JsonProperty(JSON_PROPERTY_PUBLISHED_AT)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setPublishedAt(String publishedAt) {
+    public void setPublishedAt(@jakarta.annotation.Nullable String publishedAt) {
         this.publishedAt = publishedAt;
+    }
+
+    public PolicyMetadata policyType(@jakarta.annotation.Nonnull PolicyType policyType) {
+        this.policyType = policyType;
+        return this;
+    }
+
+    /**
+     * Get policyType
+     *
+     * @return policyType
+     */
+    @jakarta.annotation.Nonnull
+    @JsonProperty(JSON_PROPERTY_POLICY_TYPE)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public PolicyType getPolicyType() {
+        return policyType;
+    }
+
+    @JsonProperty(JSON_PROPERTY_POLICY_TYPE)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setPolicyType(@jakarta.annotation.Nonnull PolicyType policyType) {
+        this.policyType = policyType;
     }
 
     /** Return true if this PolicyMetadata object is equal to o. */
@@ -149,12 +185,13 @@ public class PolicyMetadata {
         return Objects.equals(this.editedBy, policyMetadata.editedBy)
                 && Objects.equals(this.editedAt, policyMetadata.editedAt)
                 && Objects.equals(this.publishedBy, policyMetadata.publishedBy)
-                && Objects.equals(this.publishedAt, policyMetadata.publishedAt);
+                && Objects.equals(this.publishedAt, policyMetadata.publishedAt)
+                && Objects.equals(this.policyType, policyMetadata.policyType);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(editedBy, editedAt, publishedBy, publishedAt);
+        return Objects.hash(editedBy, editedAt, publishedBy, publishedAt, policyType);
     }
 
     @Override
@@ -165,6 +202,7 @@ public class PolicyMetadata {
         sb.append("    editedAt: ").append(toIndentedString(editedAt)).append("\n");
         sb.append("    publishedBy: ").append(toIndentedString(publishedBy)).append("\n");
         sb.append("    publishedAt: ").append(toIndentedString(publishedAt)).append("\n");
+        sb.append("    policyType: ").append(toIndentedString(policyType)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -219,8 +257,7 @@ public class PolicyMetadata {
                             "%seditedBy%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getEditedBy()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getEditedBy()))));
         }
 
         // add `editedAt` to the URL query string
@@ -230,8 +267,7 @@ public class PolicyMetadata {
                             "%seditedAt%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getEditedAt()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getEditedAt()))));
         }
 
         // add `publishedBy` to the URL query string
@@ -241,10 +277,7 @@ public class PolicyMetadata {
                             "%spublishedBy%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getPublishedBy()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getPublishedBy()))));
         }
 
         // add `publishedAt` to the URL query string
@@ -254,10 +287,17 @@ public class PolicyMetadata {
                             "%spublishedAt%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getPublishedAt()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getPublishedAt()))));
+        }
+
+        // add `policyType` to the URL query string
+        if (getPolicyType() != null) {
+            joiner.add(
+                    String.format(
+                            "%spolicyType%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getPolicyType()))));
         }
 
         return joiner.toString();

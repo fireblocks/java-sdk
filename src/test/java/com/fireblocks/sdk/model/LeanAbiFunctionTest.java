@@ -13,39 +13,39 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for LeanAbiFunction */
-public class LeanAbiFunctionTest {
+class LeanAbiFunctionTest {
     private final LeanAbiFunction model = new LeanAbiFunction();
 
     /** Model tests for LeanAbiFunction */
     @Test
-    public void testLeanAbiFunction() {
+    void testLeanAbiFunction() {
         // TODO: test LeanAbiFunction
     }
 
     /** Test the property 'name' */
     @Test
-    public void nameTest() {
+    void nameTest() {
         // TODO: test name
     }
 
     /** Test the property 'inputs' */
     @Test
-    public void inputsTest() {
+    void inputsTest() {
         // TODO: test inputs
     }
 
     /** Test the property 'outputs' */
     @Test
-    public void outputsTest() {
+    void outputsTest() {
         // TODO: test outputs
     }
 
     /** Test the property 'stateMutability' */
     @Test
-    public void stateMutabilityTest() {
+    void stateMutabilityTest() {
         // TODO: test stateMutability
     }
 }

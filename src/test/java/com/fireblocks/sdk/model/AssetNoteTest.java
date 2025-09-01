@@ -13,39 +13,39 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for AssetNote */
-public class AssetNoteTest {
+class AssetNoteTest {
     private final AssetNote model = new AssetNote();
 
     /** Model tests for AssetNote */
     @Test
-    public void testAssetNote() {
+    void testAssetNote() {
         // TODO: test AssetNote
     }
 
     /** Test the property 'text' */
     @Test
-    public void textTest() {
+    void textTest() {
         // TODO: test text
     }
 
     /** Test the property 'userId' */
     @Test
-    public void userIdTest() {
+    void userIdTest() {
         // TODO: test userId
     }
 
     /** Test the property 'userName' */
     @Test
-    public void userNameTest() {
+    void userNameTest() {
         // TODO: test userName
     }
 
     /** Test the property 'updatedAt' */
     @Test
-    public void updatedAtTest() {
+    void updatedAtTest() {
         // TODO: test updatedAt
     }
 }

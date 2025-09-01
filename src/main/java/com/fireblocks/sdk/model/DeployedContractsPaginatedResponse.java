@@ -13,11 +13,11 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -28,17 +28,29 @@ import java.util.StringJoiner;
     DeployedContractsPaginatedResponse.JSON_PROPERTY_DATA,
     DeployedContractsPaginatedResponse.JSON_PROPERTY_NEXT
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class DeployedContractsPaginatedResponse {
     public static final String JSON_PROPERTY_DATA = "data";
+
+    @jakarta.annotation.Nonnull
     private List<LeanDeployedContractResponseDto> data = new ArrayList<>();
 
     public static final String JSON_PROPERTY_NEXT = "next";
-    private String next;
+    @jakarta.annotation.Nullable private String next;
 
     public DeployedContractsPaginatedResponse() {}
 
-    public DeployedContractsPaginatedResponse data(List<LeanDeployedContractResponseDto> data) {
+    @JsonCreator
+    public DeployedContractsPaginatedResponse(
+            @JsonProperty(value = JSON_PROPERTY_DATA, required = true)
+                    List<LeanDeployedContractResponseDto> data) {
+        this.data = data;
+    }
+
+    public DeployedContractsPaginatedResponse data(
+            @jakarta.annotation.Nonnull List<LeanDeployedContractResponseDto> data) {
         this.data = data;
         return this;
     }
@@ -66,11 +78,11 @@ public class DeployedContractsPaginatedResponse {
 
     @JsonProperty(JSON_PROPERTY_DATA)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setData(List<LeanDeployedContractResponseDto> data) {
+    public void setData(@jakarta.annotation.Nonnull List<LeanDeployedContractResponseDto> data) {
         this.data = data;
     }
 
-    public DeployedContractsPaginatedResponse next(String next) {
+    public DeployedContractsPaginatedResponse next(@jakarta.annotation.Nullable String next) {
         this.next = next;
         return this;
     }
@@ -89,7 +101,7 @@ public class DeployedContractsPaginatedResponse {
 
     @JsonProperty(JSON_PROPERTY_NEXT)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setNext(String next) {
+    public void setNext(@jakarta.annotation.Nullable String next) {
         this.next = next;
     }
 
@@ -196,8 +208,7 @@ public class DeployedContractsPaginatedResponse {
                             "%snext%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getNext()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getNext()))));
         }
 
         return joiner.toString();

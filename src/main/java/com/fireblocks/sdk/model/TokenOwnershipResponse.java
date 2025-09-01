@@ -18,9 +18,8 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.fireblocks.sdk.ApiClient;
 import java.math.BigDecimal;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -47,95 +46,97 @@ import java.util.StringJoiner;
     TokenOwnershipResponse.JSON_PROPERTY_NCW_ACCOUNT_ID,
     TokenOwnershipResponse.JSON_PROPERTY_STATUS
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class TokenOwnershipResponse {
     public static final String JSON_PROPERTY_ID = "id";
-    private String id;
+    @jakarta.annotation.Nonnull private String id;
 
     public static final String JSON_PROPERTY_TOKEN_ID = "tokenId";
-    private String tokenId;
+    @jakarta.annotation.Nonnull private String tokenId;
 
     public static final String JSON_PROPERTY_STANDARD = "standard";
-    private String standard;
+    @jakarta.annotation.Nonnull private String standard;
 
     public static final String JSON_PROPERTY_METADATA_U_R_I = "metadataURI";
-    private String metadataURI;
+    @jakarta.annotation.Nullable private String metadataURI;
 
     public static final String JSON_PROPERTY_CACHED_METADATA_U_R_I = "cachedMetadataURI";
-    private String cachedMetadataURI;
+    @jakarta.annotation.Nullable private String cachedMetadataURI;
 
     public static final String JSON_PROPERTY_MEDIA = "media";
-    private List<MediaEntityResponse> media;
+    @jakarta.annotation.Nullable private List<MediaEntityResponse> media = new ArrayList<>();
 
     public static final String JSON_PROPERTY_SPAM = "spam";
-    private SpamOwnershipResponse spam;
+    @jakarta.annotation.Nullable private SpamOwnershipResponse spam;
 
     public static final String JSON_PROPERTY_COLLECTION = "collection";
-    private TokenCollectionResponse collection;
+    @jakarta.annotation.Nullable private TokenCollectionResponse collection;
 
     public static final String JSON_PROPERTY_BALANCE = "balance";
-    private String balance;
+    @jakarta.annotation.Nonnull private String balance;
 
     public static final String JSON_PROPERTY_VAULT_ACCOUNT_ID = "vaultAccountId";
-    private String vaultAccountId;
+    @jakarta.annotation.Nullable private String vaultAccountId;
 
     public static final String JSON_PROPERTY_OWNERSHIP_START_TIME = "ownershipStartTime";
-    private BigDecimal ownershipStartTime;
+    @jakarta.annotation.Nonnull private BigDecimal ownershipStartTime;
 
     public static final String JSON_PROPERTY_OWNERSHIP_LAST_UPDATE_TIME = "ownershipLastUpdateTime";
-    private BigDecimal ownershipLastUpdateTime;
+    @jakarta.annotation.Nonnull private BigDecimal ownershipLastUpdateTime;
 
     /** Gets or Sets blockchainDescriptor */
     public enum BlockchainDescriptorEnum {
-        ETH("ETH"),
+        ETH(String.valueOf("ETH")),
 
-        ETH_TEST3("ETH_TEST3"),
+        ETH_TEST3(String.valueOf("ETH_TEST3")),
 
-        ETH_TEST5("ETH_TEST5"),
+        ETH_TEST5(String.valueOf("ETH_TEST5")),
 
-        ETH_TEST6("ETH_TEST6"),
+        ETH_TEST6(String.valueOf("ETH_TEST6")),
 
-        POLYGON("POLYGON"),
+        POLYGON(String.valueOf("POLYGON")),
 
-        POLYGON_TEST_MUMBAI("POLYGON_TEST_MUMBAI"),
+        POLYGON_TEST_MUMBAI(String.valueOf("POLYGON_TEST_MUMBAI")),
 
-        AMOY_POLYGON_TEST("AMOY_POLYGON_TEST"),
+        AMOY_POLYGON_TEST(String.valueOf("AMOY_POLYGON_TEST")),
 
-        XTZ("XTZ"),
+        XTZ(String.valueOf("XTZ")),
 
-        XTZ_TEST("XTZ_TEST"),
+        XTZ_TEST(String.valueOf("XTZ_TEST")),
 
-        BASECHAIN_ETH("BASECHAIN_ETH"),
+        BASECHAIN_ETH(String.valueOf("BASECHAIN_ETH")),
 
-        BASECHAIN_ETH_TEST3("BASECHAIN_ETH_TEST3"),
+        BASECHAIN_ETH_TEST3(String.valueOf("BASECHAIN_ETH_TEST3")),
 
-        BASECHAIN_ETH_TEST5("BASECHAIN_ETH_TEST5"),
+        BASECHAIN_ETH_TEST5(String.valueOf("BASECHAIN_ETH_TEST5")),
 
-        ETHERLINK("ETHERLINK"),
+        ETHERLINK(String.valueOf("ETHERLINK")),
 
-        ETHERLINK_TEST("ETHERLINK_TEST"),
+        ETHERLINK_TEST(String.valueOf("ETHERLINK_TEST")),
 
-        MANTLE("MANTLE"),
+        MANTLE(String.valueOf("MANTLE")),
 
-        MANTLE_TEST("MANTLE_TEST"),
+        MANTLE_TEST(String.valueOf("MANTLE_TEST")),
 
-        GUN_GUNZILLA("GUN_GUNZILLA"),
+        GUN_GUNZILLA(String.valueOf("GUN_GUNZILLA")),
 
-        GUN_GUNZILLA_TEST("GUN_GUNZILLA_TEST"),
+        GUN_GUNZILLA_TEST(String.valueOf("GUN_GUNZILLA_TEST")),
 
-        ETH_SONEIUM("ETH_SONEIUM"),
+        ETH_SONEIUM(String.valueOf("ETH_SONEIUM")),
 
-        SONEIUM_MINATO_TEST("SONEIUM_MINATO_TEST"),
+        SONEIUM_MINATO_TEST(String.valueOf("SONEIUM_MINATO_TEST")),
 
-        IOTX_IOTEX("IOTX_IOTEX"),
+        IOTX_IOTEX(String.valueOf("IOTX_IOTEX")),
 
-        KLAY_KAIA("KLAY_KAIA"),
+        KLAY_KAIA(String.valueOf("KLAY_KAIA")),
 
-        KLAY_KAIA_TEST("KLAY_KAIA_TEST"),
+        KLAY_KAIA_TEST(String.valueOf("KLAY_KAIA_TEST")),
 
-        APECHAIN("APECHAIN"),
+        APECHAIN(String.valueOf("APECHAIN")),
 
-        APECHAIN_TEST("APECHAIN_TEST");
+        APECHAIN_TEST(String.valueOf("APECHAIN_TEST"));
 
         private String value;
 
@@ -165,25 +166,25 @@ public class TokenOwnershipResponse {
     }
 
     public static final String JSON_PROPERTY_BLOCKCHAIN_DESCRIPTOR = "blockchainDescriptor";
-    private BlockchainDescriptorEnum blockchainDescriptor;
+    @jakarta.annotation.Nonnull private BlockchainDescriptorEnum blockchainDescriptor;
 
     public static final String JSON_PROPERTY_DESCRIPTION = "description";
-    private String description;
+    @jakarta.annotation.Nullable private String description;
 
     public static final String JSON_PROPERTY_NAME = "name";
-    private String name;
+    @jakarta.annotation.Nullable private String name;
 
     public static final String JSON_PROPERTY_NCW_ID = "ncwId";
-    private String ncwId;
+    @jakarta.annotation.Nullable private String ncwId;
 
     public static final String JSON_PROPERTY_NCW_ACCOUNT_ID = "ncwAccountId";
-    private String ncwAccountId;
+    @jakarta.annotation.Nullable private String ncwAccountId;
 
     /** Owned Token&#39;s status */
     public enum StatusEnum {
-        LISTED("LISTED"),
+        LISTED(String.valueOf("LISTED")),
 
-        ARCHIVED("ARCHIVED");
+        ARCHIVED(String.valueOf("ARCHIVED"));
 
         private String value;
 
@@ -213,11 +214,34 @@ public class TokenOwnershipResponse {
     }
 
     public static final String JSON_PROPERTY_STATUS = "status";
-    private StatusEnum status;
+    @jakarta.annotation.Nonnull private StatusEnum status;
 
     public TokenOwnershipResponse() {}
 
-    public TokenOwnershipResponse id(String id) {
+    @JsonCreator
+    public TokenOwnershipResponse(
+            @JsonProperty(value = JSON_PROPERTY_ID, required = true) String id,
+            @JsonProperty(value = JSON_PROPERTY_TOKEN_ID, required = true) String tokenId,
+            @JsonProperty(value = JSON_PROPERTY_STANDARD, required = true) String standard,
+            @JsonProperty(value = JSON_PROPERTY_BALANCE, required = true) String balance,
+            @JsonProperty(value = JSON_PROPERTY_OWNERSHIP_START_TIME, required = true)
+                    BigDecimal ownershipStartTime,
+            @JsonProperty(value = JSON_PROPERTY_OWNERSHIP_LAST_UPDATE_TIME, required = true)
+                    BigDecimal ownershipLastUpdateTime,
+            @JsonProperty(value = JSON_PROPERTY_BLOCKCHAIN_DESCRIPTOR, required = true)
+                    BlockchainDescriptorEnum blockchainDescriptor,
+            @JsonProperty(value = JSON_PROPERTY_STATUS, required = true) StatusEnum status) {
+        this.id = id;
+        this.tokenId = tokenId;
+        this.standard = standard;
+        this.balance = balance;
+        this.ownershipStartTime = ownershipStartTime;
+        this.ownershipLastUpdateTime = ownershipLastUpdateTime;
+        this.blockchainDescriptor = blockchainDescriptor;
+        this.status = status;
+    }
+
+    public TokenOwnershipResponse id(@jakarta.annotation.Nonnull String id) {
         this.id = id;
         return this;
     }
@@ -236,11 +260,11 @@ public class TokenOwnershipResponse {
 
     @JsonProperty(JSON_PROPERTY_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setId(String id) {
+    public void setId(@jakarta.annotation.Nonnull String id) {
         this.id = id;
     }
 
-    public TokenOwnershipResponse tokenId(String tokenId) {
+    public TokenOwnershipResponse tokenId(@jakarta.annotation.Nonnull String tokenId) {
         this.tokenId = tokenId;
         return this;
     }
@@ -259,11 +283,11 @@ public class TokenOwnershipResponse {
 
     @JsonProperty(JSON_PROPERTY_TOKEN_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setTokenId(String tokenId) {
+    public void setTokenId(@jakarta.annotation.Nonnull String tokenId) {
         this.tokenId = tokenId;
     }
 
-    public TokenOwnershipResponse standard(String standard) {
+    public TokenOwnershipResponse standard(@jakarta.annotation.Nonnull String standard) {
         this.standard = standard;
         return this;
     }
@@ -282,11 +306,11 @@ public class TokenOwnershipResponse {
 
     @JsonProperty(JSON_PROPERTY_STANDARD)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setStandard(String standard) {
+    public void setStandard(@jakarta.annotation.Nonnull String standard) {
         this.standard = standard;
     }
 
-    public TokenOwnershipResponse metadataURI(String metadataURI) {
+    public TokenOwnershipResponse metadataURI(@jakarta.annotation.Nullable String metadataURI) {
         this.metadataURI = metadataURI;
         return this;
     }
@@ -305,11 +329,12 @@ public class TokenOwnershipResponse {
 
     @JsonProperty(JSON_PROPERTY_METADATA_U_R_I)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setMetadataURI(String metadataURI) {
+    public void setMetadataURI(@jakarta.annotation.Nullable String metadataURI) {
         this.metadataURI = metadataURI;
     }
 
-    public TokenOwnershipResponse cachedMetadataURI(String cachedMetadataURI) {
+    public TokenOwnershipResponse cachedMetadataURI(
+            @jakarta.annotation.Nullable String cachedMetadataURI) {
         this.cachedMetadataURI = cachedMetadataURI;
         return this;
     }
@@ -328,11 +353,12 @@ public class TokenOwnershipResponse {
 
     @JsonProperty(JSON_PROPERTY_CACHED_METADATA_U_R_I)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setCachedMetadataURI(String cachedMetadataURI) {
+    public void setCachedMetadataURI(@jakarta.annotation.Nullable String cachedMetadataURI) {
         this.cachedMetadataURI = cachedMetadataURI;
     }
 
-    public TokenOwnershipResponse media(List<MediaEntityResponse> media) {
+    public TokenOwnershipResponse media(
+            @jakarta.annotation.Nullable List<MediaEntityResponse> media) {
         this.media = media;
         return this;
     }
@@ -359,11 +385,11 @@ public class TokenOwnershipResponse {
 
     @JsonProperty(JSON_PROPERTY_MEDIA)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setMedia(List<MediaEntityResponse> media) {
+    public void setMedia(@jakarta.annotation.Nullable List<MediaEntityResponse> media) {
         this.media = media;
     }
 
-    public TokenOwnershipResponse spam(SpamOwnershipResponse spam) {
+    public TokenOwnershipResponse spam(@jakarta.annotation.Nullable SpamOwnershipResponse spam) {
         this.spam = spam;
         return this;
     }
@@ -382,11 +408,12 @@ public class TokenOwnershipResponse {
 
     @JsonProperty(JSON_PROPERTY_SPAM)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setSpam(SpamOwnershipResponse spam) {
+    public void setSpam(@jakarta.annotation.Nullable SpamOwnershipResponse spam) {
         this.spam = spam;
     }
 
-    public TokenOwnershipResponse collection(TokenCollectionResponse collection) {
+    public TokenOwnershipResponse collection(
+            @jakarta.annotation.Nullable TokenCollectionResponse collection) {
         this.collection = collection;
         return this;
     }
@@ -405,11 +432,11 @@ public class TokenOwnershipResponse {
 
     @JsonProperty(JSON_PROPERTY_COLLECTION)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setCollection(TokenCollectionResponse collection) {
+    public void setCollection(@jakarta.annotation.Nullable TokenCollectionResponse collection) {
         this.collection = collection;
     }
 
-    public TokenOwnershipResponse balance(String balance) {
+    public TokenOwnershipResponse balance(@jakarta.annotation.Nonnull String balance) {
         this.balance = balance;
         return this;
     }
@@ -428,11 +455,12 @@ public class TokenOwnershipResponse {
 
     @JsonProperty(JSON_PROPERTY_BALANCE)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setBalance(String balance) {
+    public void setBalance(@jakarta.annotation.Nonnull String balance) {
         this.balance = balance;
     }
 
-    public TokenOwnershipResponse vaultAccountId(String vaultAccountId) {
+    public TokenOwnershipResponse vaultAccountId(
+            @jakarta.annotation.Nullable String vaultAccountId) {
         this.vaultAccountId = vaultAccountId;
         return this;
     }
@@ -451,11 +479,12 @@ public class TokenOwnershipResponse {
 
     @JsonProperty(JSON_PROPERTY_VAULT_ACCOUNT_ID)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setVaultAccountId(String vaultAccountId) {
+    public void setVaultAccountId(@jakarta.annotation.Nullable String vaultAccountId) {
         this.vaultAccountId = vaultAccountId;
     }
 
-    public TokenOwnershipResponse ownershipStartTime(BigDecimal ownershipStartTime) {
+    public TokenOwnershipResponse ownershipStartTime(
+            @jakarta.annotation.Nonnull BigDecimal ownershipStartTime) {
         this.ownershipStartTime = ownershipStartTime;
         return this;
     }
@@ -474,11 +503,12 @@ public class TokenOwnershipResponse {
 
     @JsonProperty(JSON_PROPERTY_OWNERSHIP_START_TIME)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setOwnershipStartTime(BigDecimal ownershipStartTime) {
+    public void setOwnershipStartTime(@jakarta.annotation.Nonnull BigDecimal ownershipStartTime) {
         this.ownershipStartTime = ownershipStartTime;
     }
 
-    public TokenOwnershipResponse ownershipLastUpdateTime(BigDecimal ownershipLastUpdateTime) {
+    public TokenOwnershipResponse ownershipLastUpdateTime(
+            @jakarta.annotation.Nonnull BigDecimal ownershipLastUpdateTime) {
         this.ownershipLastUpdateTime = ownershipLastUpdateTime;
         return this;
     }
@@ -497,12 +527,13 @@ public class TokenOwnershipResponse {
 
     @JsonProperty(JSON_PROPERTY_OWNERSHIP_LAST_UPDATE_TIME)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setOwnershipLastUpdateTime(BigDecimal ownershipLastUpdateTime) {
+    public void setOwnershipLastUpdateTime(
+            @jakarta.annotation.Nonnull BigDecimal ownershipLastUpdateTime) {
         this.ownershipLastUpdateTime = ownershipLastUpdateTime;
     }
 
     public TokenOwnershipResponse blockchainDescriptor(
-            BlockchainDescriptorEnum blockchainDescriptor) {
+            @jakarta.annotation.Nonnull BlockchainDescriptorEnum blockchainDescriptor) {
         this.blockchainDescriptor = blockchainDescriptor;
         return this;
     }
@@ -521,11 +552,12 @@ public class TokenOwnershipResponse {
 
     @JsonProperty(JSON_PROPERTY_BLOCKCHAIN_DESCRIPTOR)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setBlockchainDescriptor(BlockchainDescriptorEnum blockchainDescriptor) {
+    public void setBlockchainDescriptor(
+            @jakarta.annotation.Nonnull BlockchainDescriptorEnum blockchainDescriptor) {
         this.blockchainDescriptor = blockchainDescriptor;
     }
 
-    public TokenOwnershipResponse description(String description) {
+    public TokenOwnershipResponse description(@jakarta.annotation.Nullable String description) {
         this.description = description;
         return this;
     }
@@ -544,11 +576,11 @@ public class TokenOwnershipResponse {
 
     @JsonProperty(JSON_PROPERTY_DESCRIPTION)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setDescription(String description) {
+    public void setDescription(@jakarta.annotation.Nullable String description) {
         this.description = description;
     }
 
-    public TokenOwnershipResponse name(String name) {
+    public TokenOwnershipResponse name(@jakarta.annotation.Nullable String name) {
         this.name = name;
         return this;
     }
@@ -567,11 +599,11 @@ public class TokenOwnershipResponse {
 
     @JsonProperty(JSON_PROPERTY_NAME)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setName(String name) {
+    public void setName(@jakarta.annotation.Nullable String name) {
         this.name = name;
     }
 
-    public TokenOwnershipResponse ncwId(String ncwId) {
+    public TokenOwnershipResponse ncwId(@jakarta.annotation.Nullable String ncwId) {
         this.ncwId = ncwId;
         return this;
     }
@@ -590,11 +622,11 @@ public class TokenOwnershipResponse {
 
     @JsonProperty(JSON_PROPERTY_NCW_ID)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setNcwId(String ncwId) {
+    public void setNcwId(@jakarta.annotation.Nullable String ncwId) {
         this.ncwId = ncwId;
     }
 
-    public TokenOwnershipResponse ncwAccountId(String ncwAccountId) {
+    public TokenOwnershipResponse ncwAccountId(@jakarta.annotation.Nullable String ncwAccountId) {
         this.ncwAccountId = ncwAccountId;
         return this;
     }
@@ -613,11 +645,11 @@ public class TokenOwnershipResponse {
 
     @JsonProperty(JSON_PROPERTY_NCW_ACCOUNT_ID)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setNcwAccountId(String ncwAccountId) {
+    public void setNcwAccountId(@jakarta.annotation.Nullable String ncwAccountId) {
         this.ncwAccountId = ncwAccountId;
     }
 
-    public TokenOwnershipResponse status(StatusEnum status) {
+    public TokenOwnershipResponse status(@jakarta.annotation.Nonnull StatusEnum status) {
         this.status = status;
         return this;
     }
@@ -636,7 +668,7 @@ public class TokenOwnershipResponse {
 
     @JsonProperty(JSON_PROPERTY_STATUS)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setStatus(StatusEnum status) {
+    public void setStatus(@jakarta.annotation.Nonnull StatusEnum status) {
         this.status = status;
     }
 
@@ -779,10 +811,7 @@ public class TokenOwnershipResponse {
             joiner.add(
                     String.format(
                             "%sid%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(String.valueOf(getId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getId()))));
         }
 
         // add `tokenId` to the URL query string
@@ -792,8 +821,7 @@ public class TokenOwnershipResponse {
                             "%stokenId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getTokenId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getTokenId()))));
         }
 
         // add `standard` to the URL query string
@@ -803,8 +831,7 @@ public class TokenOwnershipResponse {
                             "%sstandard%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getStandard()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getStandard()))));
         }
 
         // add `metadataURI` to the URL query string
@@ -814,10 +841,7 @@ public class TokenOwnershipResponse {
                             "%smetadataURI%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getMetadataURI()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getMetadataURI()))));
         }
 
         // add `cachedMetadataURI` to the URL query string
@@ -827,10 +851,7 @@ public class TokenOwnershipResponse {
                             "%scachedMetadataURI%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getCachedMetadataURI()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getCachedMetadataURI()))));
         }
 
         // add `media` to the URL query string
@@ -873,8 +894,7 @@ public class TokenOwnershipResponse {
                             "%sbalance%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getBalance()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getBalance()))));
         }
 
         // add `vaultAccountId` to the URL query string
@@ -884,10 +904,7 @@ public class TokenOwnershipResponse {
                             "%svaultAccountId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getVaultAccountId()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getVaultAccountId()))));
         }
 
         // add `ownershipStartTime` to the URL query string
@@ -897,10 +914,7 @@ public class TokenOwnershipResponse {
                             "%sownershipStartTime%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getOwnershipStartTime()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getOwnershipStartTime()))));
         }
 
         // add `ownershipLastUpdateTime` to the URL query string
@@ -910,10 +924,8 @@ public class TokenOwnershipResponse {
                             "%sownershipLastUpdateTime%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getOwnershipLastUpdateTime()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(
+                                    ApiClient.valueToString(getOwnershipLastUpdateTime()))));
         }
 
         // add `blockchainDescriptor` to the URL query string
@@ -923,10 +935,8 @@ public class TokenOwnershipResponse {
                             "%sblockchainDescriptor%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getBlockchainDescriptor()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(
+                                    ApiClient.valueToString(getBlockchainDescriptor()))));
         }
 
         // add `description` to the URL query string
@@ -936,10 +946,7 @@ public class TokenOwnershipResponse {
                             "%sdescription%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getDescription()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getDescription()))));
         }
 
         // add `name` to the URL query string
@@ -949,8 +956,7 @@ public class TokenOwnershipResponse {
                             "%sname%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getName()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getName()))));
         }
 
         // add `ncwId` to the URL query string
@@ -960,8 +966,7 @@ public class TokenOwnershipResponse {
                             "%sncwId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getNcwId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getNcwId()))));
         }
 
         // add `ncwAccountId` to the URL query string
@@ -971,10 +976,7 @@ public class TokenOwnershipResponse {
                             "%sncwAccountId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getNcwAccountId()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getNcwAccountId()))));
         }
 
         // add `status` to the URL query string
@@ -984,8 +986,7 @@ public class TokenOwnershipResponse {
                             "%sstatus%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getStatus()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getStatus()))));
         }
 
         return joiner.toString();

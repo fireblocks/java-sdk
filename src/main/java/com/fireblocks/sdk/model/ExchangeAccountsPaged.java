@@ -16,8 +16,7 @@ package com.fireblocks.sdk.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -30,23 +29,26 @@ import java.util.StringJoiner;
     ExchangeAccountsPaged.JSON_PROPERTY_PREV_URL,
     ExchangeAccountsPaged.JSON_PROPERTY_NEXT_URL
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class ExchangeAccountsPaged {
     public static final String JSON_PROPERTY_EXCHANGE_ACCOUNT = "ExchangeAccount";
-    private List<ExchangeAccount> exchangeAccount;
+    @jakarta.annotation.Nullable private List<ExchangeAccount> exchangeAccount = new ArrayList<>();
 
     public static final String JSON_PROPERTY_PAGING = "paging";
-    private ExchangeAccountsPagedPaging paging;
+    @jakarta.annotation.Nullable private ExchangeAccountsPagedPaging paging;
 
     public static final String JSON_PROPERTY_PREV_URL = "prevUrl";
-    private String prevUrl;
+    @jakarta.annotation.Nullable private String prevUrl;
 
     public static final String JSON_PROPERTY_NEXT_URL = "nextUrl";
-    private String nextUrl;
+    @jakarta.annotation.Nullable private String nextUrl;
 
     public ExchangeAccountsPaged() {}
 
-    public ExchangeAccountsPaged exchangeAccount(List<ExchangeAccount> exchangeAccount) {
+    public ExchangeAccountsPaged exchangeAccount(
+            @jakarta.annotation.Nullable List<ExchangeAccount> exchangeAccount) {
         this.exchangeAccount = exchangeAccount;
         return this;
     }
@@ -73,11 +75,13 @@ public class ExchangeAccountsPaged {
 
     @JsonProperty(JSON_PROPERTY_EXCHANGE_ACCOUNT)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setExchangeAccount(List<ExchangeAccount> exchangeAccount) {
+    public void setExchangeAccount(
+            @jakarta.annotation.Nullable List<ExchangeAccount> exchangeAccount) {
         this.exchangeAccount = exchangeAccount;
     }
 
-    public ExchangeAccountsPaged paging(ExchangeAccountsPagedPaging paging) {
+    public ExchangeAccountsPaged paging(
+            @jakarta.annotation.Nullable ExchangeAccountsPagedPaging paging) {
         this.paging = paging;
         return this;
     }
@@ -96,11 +100,11 @@ public class ExchangeAccountsPaged {
 
     @JsonProperty(JSON_PROPERTY_PAGING)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setPaging(ExchangeAccountsPagedPaging paging) {
+    public void setPaging(@jakarta.annotation.Nullable ExchangeAccountsPagedPaging paging) {
         this.paging = paging;
     }
 
-    public ExchangeAccountsPaged prevUrl(String prevUrl) {
+    public ExchangeAccountsPaged prevUrl(@jakarta.annotation.Nullable String prevUrl) {
         this.prevUrl = prevUrl;
         return this;
     }
@@ -119,11 +123,11 @@ public class ExchangeAccountsPaged {
 
     @JsonProperty(JSON_PROPERTY_PREV_URL)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setPrevUrl(String prevUrl) {
+    public void setPrevUrl(@jakarta.annotation.Nullable String prevUrl) {
         this.prevUrl = prevUrl;
     }
 
-    public ExchangeAccountsPaged nextUrl(String nextUrl) {
+    public ExchangeAccountsPaged nextUrl(@jakarta.annotation.Nullable String nextUrl) {
         this.nextUrl = nextUrl;
         return this;
     }
@@ -142,7 +146,7 @@ public class ExchangeAccountsPaged {
 
     @JsonProperty(JSON_PROPERTY_NEXT_URL)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setNextUrl(String nextUrl) {
+    public void setNextUrl(@jakarta.annotation.Nullable String nextUrl) {
         this.nextUrl = nextUrl;
     }
 
@@ -257,8 +261,7 @@ public class ExchangeAccountsPaged {
                             "%sprevUrl%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getPrevUrl()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getPrevUrl()))));
         }
 
         // add `nextUrl` to the URL query string
@@ -268,8 +271,7 @@ public class ExchangeAccountsPaged {
                             "%snextUrl%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getNextUrl()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getNextUrl()))));
         }
 
         return joiner.toString();

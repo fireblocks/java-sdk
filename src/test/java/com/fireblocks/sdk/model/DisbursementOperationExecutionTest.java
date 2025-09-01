@@ -13,51 +13,51 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for DisbursementOperationExecution */
-public class DisbursementOperationExecutionTest {
+class DisbursementOperationExecutionTest {
     private final DisbursementOperationExecution model = new DisbursementOperationExecution();
 
     /** Model tests for DisbursementOperationExecution */
     @Test
-    public void testDisbursementOperationExecution() {
+    void testDisbursementOperationExecution() {
         // TODO: test DisbursementOperationExecution
     }
 
     /** Test the property 'input' */
     @Test
-    public void inputTest() {
+    void inputTest() {
         // TODO: test input
     }
 
     /** Test the property 'output' */
     @Test
-    public void outputTest() {
+    void outputTest() {
         // TODO: test output
     }
 
     /** Test the property 'payoutId' */
     @Test
-    public void payoutIdTest() {
+    void payoutIdTest() {
         // TODO: test payoutId
     }
 
     /** Test the property 'startedAt' */
     @Test
-    public void startedAtTest() {
+    void startedAtTest() {
         // TODO: test startedAt
     }
 
     /** Test the property 'finishedAt' */
     @Test
-    public void finishedAtTest() {
+    void finishedAtTest() {
         // TODO: test finishedAt
     }
 
     /** Test the property 'failure' */
     @Test
-    public void failureTest() {
+    void failureTest() {
         // TODO: test failure
     }
 }

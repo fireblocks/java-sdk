@@ -18,8 +18,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonValue;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -31,17 +30,19 @@ import java.util.StringJoiner;
     TokenLinkRequestDto.JSON_PROPERTY_BASE_ASSET_ID,
     TokenLinkRequestDto.JSON_PROPERTY_CONTRACT_ADDRESS
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class TokenLinkRequestDto {
     /** The type of token being linked */
     public enum TypeEnum {
-        FUNGIBLE_TOKEN("FUNGIBLE_TOKEN"),
+        FUNGIBLE_TOKEN(String.valueOf("FUNGIBLE_TOKEN")),
 
-        NON_FUNGIBLE_TOKEN("NON_FUNGIBLE_TOKEN"),
+        NON_FUNGIBLE_TOKEN(String.valueOf("NON_FUNGIBLE_TOKEN")),
 
-        TOKEN_UTILITY("TOKEN_UTILITY"),
+        TOKEN_UTILITY(String.valueOf("TOKEN_UTILITY")),
 
-        TOKEN_EXTENSION("TOKEN_EXTENSION");
+        TOKEN_EXTENSION(String.valueOf("TOKEN_EXTENSION"));
 
         private String value;
 
@@ -71,23 +72,29 @@ public class TokenLinkRequestDto {
     }
 
     public static final String JSON_PROPERTY_TYPE = "type";
-    private TypeEnum type;
+    @jakarta.annotation.Nonnull private TypeEnum type;
 
     public static final String JSON_PROPERTY_REF_ID = "refId";
-    private String refId;
+    @jakarta.annotation.Nullable private String refId;
 
     public static final String JSON_PROPERTY_DISPLAY_NAME = "displayName";
-    private String displayName;
+    @jakarta.annotation.Nullable private String displayName;
 
     public static final String JSON_PROPERTY_BASE_ASSET_ID = "baseAssetId";
-    private String baseAssetId;
+    @jakarta.annotation.Nullable private String baseAssetId;
 
     public static final String JSON_PROPERTY_CONTRACT_ADDRESS = "contractAddress";
-    private String contractAddress;
+    @jakarta.annotation.Nullable private String contractAddress;
 
     public TokenLinkRequestDto() {}
 
-    public TokenLinkRequestDto type(TypeEnum type) {
+    @JsonCreator
+    public TokenLinkRequestDto(
+            @JsonProperty(value = JSON_PROPERTY_TYPE, required = true) TypeEnum type) {
+        this.type = type;
+    }
+
+    public TokenLinkRequestDto type(@jakarta.annotation.Nonnull TypeEnum type) {
         this.type = type;
         return this;
     }
@@ -106,11 +113,11 @@ public class TokenLinkRequestDto {
 
     @JsonProperty(JSON_PROPERTY_TYPE)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setType(TypeEnum type) {
+    public void setType(@jakarta.annotation.Nonnull TypeEnum type) {
         this.type = type;
     }
 
-    public TokenLinkRequestDto refId(String refId) {
+    public TokenLinkRequestDto refId(@jakarta.annotation.Nullable String refId) {
         this.refId = refId;
         return this;
     }
@@ -130,11 +137,11 @@ public class TokenLinkRequestDto {
 
     @JsonProperty(JSON_PROPERTY_REF_ID)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setRefId(String refId) {
+    public void setRefId(@jakarta.annotation.Nullable String refId) {
         this.refId = refId;
     }
 
-    public TokenLinkRequestDto displayName(String displayName) {
+    public TokenLinkRequestDto displayName(@jakarta.annotation.Nullable String displayName) {
         this.displayName = displayName;
         return this;
     }
@@ -153,11 +160,11 @@ public class TokenLinkRequestDto {
 
     @JsonProperty(JSON_PROPERTY_DISPLAY_NAME)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setDisplayName(String displayName) {
+    public void setDisplayName(@jakarta.annotation.Nullable String displayName) {
         this.displayName = displayName;
     }
 
-    public TokenLinkRequestDto baseAssetId(String baseAssetId) {
+    public TokenLinkRequestDto baseAssetId(@jakarta.annotation.Nullable String baseAssetId) {
         this.baseAssetId = baseAssetId;
         return this;
     }
@@ -176,11 +183,12 @@ public class TokenLinkRequestDto {
 
     @JsonProperty(JSON_PROPERTY_BASE_ASSET_ID)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setBaseAssetId(String baseAssetId) {
+    public void setBaseAssetId(@jakarta.annotation.Nullable String baseAssetId) {
         this.baseAssetId = baseAssetId;
     }
 
-    public TokenLinkRequestDto contractAddress(String contractAddress) {
+    public TokenLinkRequestDto contractAddress(
+            @jakarta.annotation.Nullable String contractAddress) {
         this.contractAddress = contractAddress;
         return this;
     }
@@ -199,7 +207,7 @@ public class TokenLinkRequestDto {
 
     @JsonProperty(JSON_PROPERTY_CONTRACT_ADDRESS)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setContractAddress(String contractAddress) {
+    public void setContractAddress(@jakarta.annotation.Nullable String contractAddress) {
         this.contractAddress = contractAddress;
     }
 
@@ -288,8 +296,7 @@ public class TokenLinkRequestDto {
                             "%stype%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getType()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getType()))));
         }
 
         // add `refId` to the URL query string
@@ -299,8 +306,7 @@ public class TokenLinkRequestDto {
                             "%srefId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getRefId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getRefId()))));
         }
 
         // add `displayName` to the URL query string
@@ -310,10 +316,7 @@ public class TokenLinkRequestDto {
                             "%sdisplayName%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getDisplayName()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getDisplayName()))));
         }
 
         // add `baseAssetId` to the URL query string
@@ -323,10 +326,7 @@ public class TokenLinkRequestDto {
                             "%sbaseAssetId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getBaseAssetId()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getBaseAssetId()))));
         }
 
         // add `contractAddress` to the URL query string
@@ -336,10 +336,7 @@ public class TokenLinkRequestDto {
                             "%scontractAddress%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getContractAddress()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getContractAddress()))));
         }
 
         return joiner.toString();

@@ -18,8 +18,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonValue;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -32,27 +31,29 @@ import java.util.StringJoiner;
     SmartTransferApproveTerm.JSON_PROPERTY_FEE_LEVEL,
     SmartTransferApproveTerm.JSON_PROPERTY_NOTE
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class SmartTransferApproveTerm {
     public static final String JSON_PROPERTY_ASSET = "asset";
-    private String asset;
+    @jakarta.annotation.Nonnull private String asset;
 
     public static final String JSON_PROPERTY_AMOUNT = "amount";
-    private String amount;
+    @jakarta.annotation.Nonnull private String amount;
 
     public static final String JSON_PROPERTY_SRC_ID = "srcId";
-    private String srcId;
+    @jakarta.annotation.Nonnull private String srcId;
 
     public static final String JSON_PROPERTY_FEE = "fee";
-    private String fee;
+    @jakarta.annotation.Nullable private String fee;
 
     /** Transaction fee level. */
     public enum FeeLevelEnum {
-        LOW("LOW"),
+        LOW(String.valueOf("LOW")),
 
-        MEDIUM("MEDIUM"),
+        MEDIUM(String.valueOf("MEDIUM")),
 
-        HIGH("HIGH");
+        HIGH(String.valueOf("HIGH"));
 
         private String value;
 
@@ -82,14 +83,24 @@ public class SmartTransferApproveTerm {
     }
 
     public static final String JSON_PROPERTY_FEE_LEVEL = "feeLevel";
-    private FeeLevelEnum feeLevel;
+    @jakarta.annotation.Nullable private FeeLevelEnum feeLevel;
 
     public static final String JSON_PROPERTY_NOTE = "note";
-    private String note;
+    @jakarta.annotation.Nullable private String note;
 
     public SmartTransferApproveTerm() {}
 
-    public SmartTransferApproveTerm asset(String asset) {
+    @JsonCreator
+    public SmartTransferApproveTerm(
+            @JsonProperty(value = JSON_PROPERTY_ASSET, required = true) String asset,
+            @JsonProperty(value = JSON_PROPERTY_AMOUNT, required = true) String amount,
+            @JsonProperty(value = JSON_PROPERTY_SRC_ID, required = true) String srcId) {
+        this.asset = asset;
+        this.amount = amount;
+        this.srcId = srcId;
+    }
+
+    public SmartTransferApproveTerm asset(@jakarta.annotation.Nonnull String asset) {
         this.asset = asset;
         return this;
     }
@@ -108,11 +119,11 @@ public class SmartTransferApproveTerm {
 
     @JsonProperty(JSON_PROPERTY_ASSET)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setAsset(String asset) {
+    public void setAsset(@jakarta.annotation.Nonnull String asset) {
         this.asset = asset;
     }
 
-    public SmartTransferApproveTerm amount(String amount) {
+    public SmartTransferApproveTerm amount(@jakarta.annotation.Nonnull String amount) {
         this.amount = amount;
         return this;
     }
@@ -131,11 +142,11 @@ public class SmartTransferApproveTerm {
 
     @JsonProperty(JSON_PROPERTY_AMOUNT)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setAmount(String amount) {
+    public void setAmount(@jakarta.annotation.Nonnull String amount) {
         this.amount = amount;
     }
 
-    public SmartTransferApproveTerm srcId(String srcId) {
+    public SmartTransferApproveTerm srcId(@jakarta.annotation.Nonnull String srcId) {
         this.srcId = srcId;
         return this;
     }
@@ -154,11 +165,11 @@ public class SmartTransferApproveTerm {
 
     @JsonProperty(JSON_PROPERTY_SRC_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setSrcId(String srcId) {
+    public void setSrcId(@jakarta.annotation.Nonnull String srcId) {
         this.srcId = srcId;
     }
 
-    public SmartTransferApproveTerm fee(String fee) {
+    public SmartTransferApproveTerm fee(@jakarta.annotation.Nullable String fee) {
         this.fee = fee;
         return this;
     }
@@ -177,11 +188,11 @@ public class SmartTransferApproveTerm {
 
     @JsonProperty(JSON_PROPERTY_FEE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setFee(String fee) {
+    public void setFee(@jakarta.annotation.Nullable String fee) {
         this.fee = fee;
     }
 
-    public SmartTransferApproveTerm feeLevel(FeeLevelEnum feeLevel) {
+    public SmartTransferApproveTerm feeLevel(@jakarta.annotation.Nullable FeeLevelEnum feeLevel) {
         this.feeLevel = feeLevel;
         return this;
     }
@@ -200,11 +211,11 @@ public class SmartTransferApproveTerm {
 
     @JsonProperty(JSON_PROPERTY_FEE_LEVEL)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setFeeLevel(FeeLevelEnum feeLevel) {
+    public void setFeeLevel(@jakarta.annotation.Nullable FeeLevelEnum feeLevel) {
         this.feeLevel = feeLevel;
     }
 
-    public SmartTransferApproveTerm note(String note) {
+    public SmartTransferApproveTerm note(@jakarta.annotation.Nullable String note) {
         this.note = note;
         return this;
     }
@@ -223,7 +234,7 @@ public class SmartTransferApproveTerm {
 
     @JsonProperty(JSON_PROPERTY_NOTE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setNote(String note) {
+    public void setNote(@jakarta.annotation.Nullable String note) {
         this.note = note;
     }
 
@@ -314,8 +325,7 @@ public class SmartTransferApproveTerm {
                             "%sasset%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getAsset()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getAsset()))));
         }
 
         // add `amount` to the URL query string
@@ -325,8 +335,7 @@ public class SmartTransferApproveTerm {
                             "%samount%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getAmount()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getAmount()))));
         }
 
         // add `srcId` to the URL query string
@@ -336,8 +345,7 @@ public class SmartTransferApproveTerm {
                             "%ssrcId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getSrcId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getSrcId()))));
         }
 
         // add `fee` to the URL query string
@@ -347,8 +355,7 @@ public class SmartTransferApproveTerm {
                             "%sfee%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getFee()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getFee()))));
         }
 
         // add `feeLevel` to the URL query string
@@ -358,8 +365,7 @@ public class SmartTransferApproveTerm {
                             "%sfeeLevel%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getFeeLevel()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getFeeLevel()))));
         }
 
         // add `note` to the URL query string
@@ -369,8 +375,7 @@ public class SmartTransferApproveTerm {
                             "%snote%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getNote()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getNote()))));
         }
 
         return joiner.toString();

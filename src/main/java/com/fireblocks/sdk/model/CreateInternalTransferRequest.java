@@ -13,11 +13,11 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -28,23 +28,39 @@ import java.util.StringJoiner;
     CreateInternalTransferRequest.JSON_PROPERTY_SOURCE_TYPE,
     CreateInternalTransferRequest.JSON_PROPERTY_DEST_TYPE
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class CreateInternalTransferRequest {
     public static final String JSON_PROPERTY_ASSET = "asset";
-    private String asset;
+    @jakarta.annotation.Nonnull private String asset;
 
     public static final String JSON_PROPERTY_AMOUNT = "amount";
-    private String amount;
+    @jakarta.annotation.Nonnull private String amount;
 
     public static final String JSON_PROPERTY_SOURCE_TYPE = "sourceType";
-    private TradingAccountType sourceType;
+    @jakarta.annotation.Nonnull private TradingAccountType sourceType;
 
     public static final String JSON_PROPERTY_DEST_TYPE = "destType";
-    private TradingAccountType destType;
+    @jakarta.annotation.Nonnull private TradingAccountType destType;
 
     public CreateInternalTransferRequest() {}
 
-    public CreateInternalTransferRequest asset(String asset) {
+    @JsonCreator
+    public CreateInternalTransferRequest(
+            @JsonProperty(value = JSON_PROPERTY_ASSET, required = true) String asset,
+            @JsonProperty(value = JSON_PROPERTY_AMOUNT, required = true) String amount,
+            @JsonProperty(value = JSON_PROPERTY_SOURCE_TYPE, required = true)
+                    TradingAccountType sourceType,
+            @JsonProperty(value = JSON_PROPERTY_DEST_TYPE, required = true)
+                    TradingAccountType destType) {
+        this.asset = asset;
+        this.amount = amount;
+        this.sourceType = sourceType;
+        this.destType = destType;
+    }
+
+    public CreateInternalTransferRequest asset(@jakarta.annotation.Nonnull String asset) {
         this.asset = asset;
         return this;
     }
@@ -63,11 +79,11 @@ public class CreateInternalTransferRequest {
 
     @JsonProperty(JSON_PROPERTY_ASSET)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setAsset(String asset) {
+    public void setAsset(@jakarta.annotation.Nonnull String asset) {
         this.asset = asset;
     }
 
-    public CreateInternalTransferRequest amount(String amount) {
+    public CreateInternalTransferRequest amount(@jakarta.annotation.Nonnull String amount) {
         this.amount = amount;
         return this;
     }
@@ -86,11 +102,12 @@ public class CreateInternalTransferRequest {
 
     @JsonProperty(JSON_PROPERTY_AMOUNT)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setAmount(String amount) {
+    public void setAmount(@jakarta.annotation.Nonnull String amount) {
         this.amount = amount;
     }
 
-    public CreateInternalTransferRequest sourceType(TradingAccountType sourceType) {
+    public CreateInternalTransferRequest sourceType(
+            @jakarta.annotation.Nonnull TradingAccountType sourceType) {
         this.sourceType = sourceType;
         return this;
     }
@@ -109,11 +126,12 @@ public class CreateInternalTransferRequest {
 
     @JsonProperty(JSON_PROPERTY_SOURCE_TYPE)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setSourceType(TradingAccountType sourceType) {
+    public void setSourceType(@jakarta.annotation.Nonnull TradingAccountType sourceType) {
         this.sourceType = sourceType;
     }
 
-    public CreateInternalTransferRequest destType(TradingAccountType destType) {
+    public CreateInternalTransferRequest destType(
+            @jakarta.annotation.Nonnull TradingAccountType destType) {
         this.destType = destType;
         return this;
     }
@@ -132,7 +150,7 @@ public class CreateInternalTransferRequest {
 
     @JsonProperty(JSON_PROPERTY_DEST_TYPE)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setDestType(TradingAccountType destType) {
+    public void setDestType(@jakarta.annotation.Nonnull TradingAccountType destType) {
         this.destType = destType;
     }
 
@@ -220,8 +238,7 @@ public class CreateInternalTransferRequest {
                             "%sasset%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getAsset()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getAsset()))));
         }
 
         // add `amount` to the URL query string
@@ -231,8 +248,7 @@ public class CreateInternalTransferRequest {
                             "%samount%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getAmount()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getAmount()))));
         }
 
         // add `sourceType` to the URL query string
@@ -242,9 +258,7 @@ public class CreateInternalTransferRequest {
                             "%ssourceType%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getSourceType()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getSourceType()))));
         }
 
         // add `destType` to the URL query string
@@ -254,8 +268,7 @@ public class CreateInternalTransferRequest {
                             "%sdestType%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getDestType()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getDestType()))));
         }
 
         return joiner.toString();

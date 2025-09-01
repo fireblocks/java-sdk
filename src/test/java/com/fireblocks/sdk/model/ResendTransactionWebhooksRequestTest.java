@@ -13,27 +13,27 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for ResendTransactionWebhooksRequest */
-public class ResendTransactionWebhooksRequestTest {
+class ResendTransactionWebhooksRequestTest {
     private final ResendTransactionWebhooksRequest model = new ResendTransactionWebhooksRequest();
 
     /** Model tests for ResendTransactionWebhooksRequest */
     @Test
-    public void testResendTransactionWebhooksRequest() {
+    void testResendTransactionWebhooksRequest() {
         // TODO: test ResendTransactionWebhooksRequest
     }
 
     /** Test the property 'resendCreated' */
     @Test
-    public void resendCreatedTest() {
+    void resendCreatedTest() {
         // TODO: test resendCreated
     }
 
     /** Test the property 'resendStatusUpdated' */
     @Test
-    public void resendStatusUpdatedTest() {
+    void resendStatusUpdatedTest() {
         // TODO: test resendStatusUpdated
     }
 }

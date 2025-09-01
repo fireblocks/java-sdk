@@ -32,7 +32,7 @@ Add this dependency to your project's POM:
 <dependency>
   <groupId>com.fireblocks.sdk</groupId>
   <artifactId>fireblocks-sdk</artifactId>
-  <version>11.2.0</version>
+  <version>0.0.0</version>
   <scope>compile</scope>
 </dependency>
 ```
@@ -42,7 +42,7 @@ Add this dependency to your project's POM:
 Add this dependency to your project's build file:
 
 ```groovy
-compile "com.fireblocks.sdk:fireblocks-sdk:11.2.0"
+compile "com.fireblocks.sdk:fireblocks-sdk:0.0.0"
 ```
 
 ### Others
@@ -55,7 +55,7 @@ mvn clean package
 
 Then manually install the following JARs:
 
-- `target/fireblocks-sdk-11.2.0.jar`
+- `target/fireblocks-sdk-0.0.0.jar`
 - `target/lib/*.jar`
 
 
@@ -159,6 +159,7 @@ Class | Method | HTTP request | Description
 *ComplianceApi* | [**getScreeningFullDetails**](docs/ComplianceApi.md#getScreeningFullDetails) | **GET** /screening/transaction/{txId} | Provides all the compliance details for the given screened transaction.
 *ComplianceApi* | [**getScreeningPolicy**](docs/ComplianceApi.md#getScreeningPolicy) | **GET** /screening/travel_rule/screening_policy | Travel Rule - View Screening Policy
 *ComplianceApi* | [**retryRejectedTransactionBypassScreeningChecks**](docs/ComplianceApi.md#retryRejectedTransactionBypassScreeningChecks) | **POST** /screening/transaction/{txId}/bypass_screening_policy | Calling the \&quot;Bypass Screening Policy\&quot; API endpoint triggers a new transaction, with the API user as the initiator, bypassing the screening policy check
+*ComplianceApi* | [**setAmlVerdict**](docs/ComplianceApi.md#setAmlVerdict) | **POST** /screening/aml/verdict/manual | Set AML Verdict for Manual Screening Verdict.
 *ComplianceApi* | [**updateAmlScreeningConfiguration**](docs/ComplianceApi.md#updateAmlScreeningConfiguration) | **PUT** /screening/aml/policy_configuration | Update AML Configuration
 *ComplianceApi* | [**updateScreeningConfiguration**](docs/ComplianceApi.md#updateScreeningConfiguration) | **PUT** /screening/configurations | Tenant - Screening Configuration
 *ComplianceApi* | [**updateTravelRuleConfig**](docs/ComplianceApi.md#updateTravelRuleConfig) | **PUT** /screening/travel_rule/policy_configuration | Update Travel Rule Configuration
@@ -300,11 +301,15 @@ Class | Method | HTTP request | Description
 *PaymentsPayoutApi* | [**createPayout**](docs/PaymentsPayoutApi.md#createPayout) | **POST** /payments/payout | Create a payout instruction set
 *PaymentsPayoutApi* | [**executePayoutAction**](docs/PaymentsPayoutApi.md#executePayoutAction) | **POST** /payments/payout/{payoutId}/actions/execute | Execute a payout instruction set
 *PaymentsPayoutApi* | [**getPayout**](docs/PaymentsPayoutApi.md#getPayout) | **GET** /payments/payout/{payoutId} | Get the status of a payout instruction set
-*PolicyEditorBetaApi* | [**getActivePolicy**](docs/PolicyEditorBetaApi.md#getActivePolicy) | **GET** /tap/active_policy | Get the active policy and its validation
-*PolicyEditorBetaApi* | [**getDraft**](docs/PolicyEditorBetaApi.md#getDraft) | **GET** /tap/draft | Get the active draft
-*PolicyEditorBetaApi* | [**publishDraft**](docs/PolicyEditorBetaApi.md#publishDraft) | **POST** /tap/draft | Send publish request for a certain draft id
+*PolicyEditorBetaApi* | [**getActivePolicyLegacy**](docs/PolicyEditorBetaApi.md#getActivePolicyLegacy) | **GET** /tap/active_policy | Get the active policy and its validation
+*PolicyEditorBetaApi* | [**getDraftLegacy**](docs/PolicyEditorBetaApi.md#getDraftLegacy) | **GET** /tap/draft | Get the active draft
+*PolicyEditorBetaApi* | [**publishDraftLegacy**](docs/PolicyEditorBetaApi.md#publishDraftLegacy) | **POST** /tap/draft | Send publish request for a certain draft id
 *PolicyEditorBetaApi* | [**publishPolicyRules**](docs/PolicyEditorBetaApi.md#publishPolicyRules) | **POST** /tap/publish | Send publish request for a set of policy rules
-*PolicyEditorBetaApi* | [**updateDraft**](docs/PolicyEditorBetaApi.md#updateDraft) | **PUT** /tap/draft | Update the draft with a new set of rules
+*PolicyEditorBetaApi* | [**updateDraftLegacy**](docs/PolicyEditorBetaApi.md#updateDraftLegacy) | **PUT** /tap/draft | Update the draft with a new set of rules
+*PolicyEditorV2BetaApi* | [**getActivePolicy**](docs/PolicyEditorV2BetaApi.md#getActivePolicy) | **GET** /policy/active_policy | Get the active policy and its validation by policy type
+*PolicyEditorV2BetaApi* | [**getDraft**](docs/PolicyEditorV2BetaApi.md#getDraft) | **GET** /policy/draft | Get the active draft by policy type
+*PolicyEditorV2BetaApi* | [**publishDraft**](docs/PolicyEditorV2BetaApi.md#publishDraft) | **POST** /policy/draft | Send publish request for a certain draft id
+*PolicyEditorV2BetaApi* | [**updateDraft**](docs/PolicyEditorV2BetaApi.md#updateDraft) | **PUT** /policy/draft | Update the draft with a new set of rules by policy types
 *ResetDeviceApi* | [**resetDevice**](docs/ResetDeviceApi.md#resetDevice) | **POST** /management/users/{id}/reset_device | Resets device
 *SmartTransferApi* | [**approveDvPTicketTerm**](docs/SmartTransferApi.md#approveDvPTicketTerm) | **PUT** /smart_transfers/{ticketId}/terms/{termId}/dvp/approve | Define funding source and give approve to contract to transfer asset
 *SmartTransferApi* | [**cancelTicket**](docs/SmartTransferApi.md#cancelTicket) | **PUT** /smart-transfers/{ticketId}/cancel | Cancel Ticket
@@ -454,18 +459,17 @@ Class | Method | HTTP request | Description
 ## Documentation for Models
 
  - [APIUser](docs/APIUser.md)
+ - [AbaPaymentInfo](docs/AbaPaymentInfo.md)
  - [AbiFunction](docs/AbiFunction.md)
  - [Account](docs/Account.md)
+ - [AccountConfig](docs/AccountConfig.md)
+ - [AccountIdentifier](docs/AccountIdentifier.md)
  - [AccountType](docs/AccountType.md)
+ - [AccountType2](docs/AccountType2.md)
+ - [AchPaymentInfo](docs/AchPaymentInfo.md)
  - [AdapterProcessingResult](docs/AdapterProcessingResult.md)
  - [AddAbiRequestDto](docs/AddAbiRequestDto.md)
  - [AddAssetToExternalWalletRequest](docs/AddAssetToExternalWalletRequest.md)
- - [AddAssetToExternalWalletRequestOneOf](docs/AddAssetToExternalWalletRequestOneOf.md)
- - [AddAssetToExternalWalletRequestOneOf1](docs/AddAssetToExternalWalletRequestOneOf1.md)
- - [AddAssetToExternalWalletRequestOneOf1AdditionalInfo](docs/AddAssetToExternalWalletRequestOneOf1AdditionalInfo.md)
- - [AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf](docs/AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf.md)
- - [AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf1](docs/AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf1.md)
- - [AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf2](docs/AddAssetToExternalWalletRequestOneOf1AdditionalInfoOneOf2.md)
  - [AddCollateralRequestBody](docs/AddCollateralRequestBody.md)
  - [AddContractAssetRequest](docs/AddContractAssetRequest.md)
  - [AddCosignerRequest](docs/AddCosignerRequest.md)
@@ -473,20 +477,29 @@ Class | Method | HTTP request | Description
  - [AddExchangeAccountRequest](docs/AddExchangeAccountRequest.md)
  - [AddExchangeAccountResponse](docs/AddExchangeAccountResponse.md)
  - [AdditionalInfo](docs/AdditionalInfo.md)
+ - [AdditionalInfoRequest](docs/AdditionalInfoRequest.md)
+ - [AdditionalInfoRequestAdditionalInfo](docs/AdditionalInfoRequestAdditionalInfo.md)
  - [AddressNotAvailableError](docs/AddressNotAvailableError.md)
  - [AmlRegistrationResult](docs/AmlRegistrationResult.md)
  - [AmlRegistrationResultFullPayload](docs/AmlRegistrationResultFullPayload.md)
  - [AmlScreeningResult](docs/AmlScreeningResult.md)
- - [AmountAggregationTimePeriodMethod](docs/AmountAggregationTimePeriodMethod.md)
+ - [AmlVerdictManualRequest](docs/AmlVerdictManualRequest.md)
+ - [AmlVerdictManualResponse](docs/AmlVerdictManualResponse.md)
  - [AmountAndChainDescriptor](docs/AmountAndChainDescriptor.md)
  - [AmountInfo](docs/AmountInfo.md)
+ - [AmountOverTimeConfig](docs/AmountOverTimeConfig.md)
+ - [AmountOverTimeConfigRange](docs/AmountOverTimeConfigRange.md)
+ - [AmountRange](docs/AmountRange.md)
  - [ApiKey](docs/ApiKey.md)
  - [ApiKeysPaginatedResponse](docs/ApiKeysPaginatedResponse.md)
+ - [ApproversConfig](docs/ApproversConfig.md)
+ - [ApproversConfigApprovalGroupsInner](docs/ApproversConfigApprovalGroupsInner.md)
  - [Asset](docs/Asset.md)
  - [AssetAlreadyExistHttpError](docs/AssetAlreadyExistHttpError.md)
  - [AssetAmount](docs/AssetAmount.md)
  - [AssetBadRequestErrorResponse](docs/AssetBadRequestErrorResponse.md)
  - [AssetClass](docs/AssetClass.md)
+ - [AssetConfig](docs/AssetConfig.md)
  - [AssetConflictErrorResponse](docs/AssetConflictErrorResponse.md)
  - [AssetDetailsMetadata](docs/AssetDetailsMetadata.md)
  - [AssetDetailsOnchain](docs/AssetDetailsOnchain.md)
@@ -507,11 +520,13 @@ Class | Method | HTTP request | Description
  - [AssetResponse](docs/AssetResponse.md)
  - [AssetScope](docs/AssetScope.md)
  - [AssetTypeResponse](docs/AssetTypeResponse.md)
+ - [AssetTypesConfigInner](docs/AssetTypesConfigInner.md)
  - [AssetWallet](docs/AssetWallet.md)
  - [AuditLogData](docs/AuditLogData.md)
  - [AuditorData](docs/AuditorData.md)
  - [AuthorizationGroups](docs/AuthorizationGroups.md)
  - [AuthorizationInfo](docs/AuthorizationInfo.md)
+ - [BasicAddressRequest](docs/BasicAddressRequest.md)
  - [BlockInfo](docs/BlockInfo.md)
  - [BlockchainExplorer](docs/BlockchainExplorer.md)
  - [BlockchainMedia](docs/BlockchainMedia.md)
@@ -525,8 +540,6 @@ Class | Method | HTTP request | Description
  - [ChainDescriptor](docs/ChainDescriptor.md)
  - [ChainInfoResponse](docs/ChainInfoResponse.md)
  - [ChannelDvnConfigWithConfirmations](docs/ChannelDvnConfigWithConfirmations.md)
- - [ChannelDvnConfigWithConfirmationsReceiveConfig](docs/ChannelDvnConfigWithConfirmationsReceiveConfig.md)
- - [ChannelDvnConfigWithConfirmationsSendConfig](docs/ChannelDvnConfigWithConfirmationsSendConfig.md)
  - [ClaimRewardsRequest](docs/ClaimRewardsRequest.md)
  - [CollectionBurnRequestDto](docs/CollectionBurnRequestDto.md)
  - [CollectionBurnResponseDto](docs/CollectionBurnResponseDto.md)
@@ -566,6 +579,8 @@ Class | Method | HTTP request | Description
  - [ContractDeployResponse](docs/ContractDeployResponse.md)
  - [ContractDoc](docs/ContractDoc.md)
  - [ContractMetadataDto](docs/ContractMetadataDto.md)
+ - [ContractMethodConfig](docs/ContractMethodConfig.md)
+ - [ContractMethodPattern](docs/ContractMethodPattern.md)
  - [ContractTemplateDto](docs/ContractTemplateDto.md)
  - [ContractUploadRequest](docs/ContractUploadRequest.md)
  - [ContractWithAbiDto](docs/ContractWithAbiDto.md)
@@ -599,7 +614,6 @@ Class | Method | HTTP request | Description
  - [CreateInternalTransferRequest](docs/CreateInternalTransferRequest.md)
  - [CreateInternalWalletAssetRequest](docs/CreateInternalWalletAssetRequest.md)
  - [CreateMultichainTokenRequest](docs/CreateMultichainTokenRequest.md)
- - [CreateMultichainTokenRequestCreateParams](docs/CreateMultichainTokenRequestCreateParams.md)
  - [CreateMultipleAccountsRequest](docs/CreateMultipleAccountsRequest.md)
  - [CreateMultipleDepositAddressesJobStatus](docs/CreateMultipleDepositAddressesJobStatus.md)
  - [CreateMultipleDepositAddressesRequest](docs/CreateMultipleDepositAddressesRequest.md)
@@ -635,7 +649,10 @@ Class | Method | HTTP request | Description
  - [DeployedContractResponseDto](docs/DeployedContractResponseDto.md)
  - [DeployedContractsPaginatedResponse](docs/DeployedContractsPaginatedResponse.md)
  - [DepositFundsFromLinkedDDAResponse](docs/DepositFundsFromLinkedDDAResponse.md)
+ - [DerivationPathConfig](docs/DerivationPathConfig.md)
+ - [DesignatedSignersConfig](docs/DesignatedSignersConfig.md)
  - [Destination](docs/Destination.md)
+ - [DestinationConfig](docs/DestinationConfig.md)
  - [DestinationTransferPeerPath](docs/DestinationTransferPeerPath.md)
  - [DestinationTransferPeerPathResponse](docs/DestinationTransferPeerPathResponse.md)
  - [DisbursementAmountInstruction](docs/DisbursementAmountInstruction.md)
@@ -736,16 +753,48 @@ Class | Method | HTTP request | Description
  - [GetWhitelistIpAddressesResponse](docs/GetWhitelistIpAddressesResponse.md)
  - [GetWorkspaceStatusResponse](docs/GetWorkspaceStatusResponse.md)
  - [HttpContractDoesNotExistError](docs/HttpContractDoesNotExistError.md)
+ - [IbanPaymentInfo](docs/IbanPaymentInfo.md)
  - [IdlType](docs/IdlType.md)
+ - [InitiatorConfig](docs/InitiatorConfig.md)
+ - [InitiatorConfigPattern](docs/InitiatorConfigPattern.md)
  - [InstructionAmount](docs/InstructionAmount.md)
  - [InternalTransferResponse](docs/InternalTransferResponse.md)
  - [InvalidParamaterValueError](docs/InvalidParamaterValueError.md)
  - [Job](docs/Job.md)
  - [JobCreated](docs/JobCreated.md)
  - [LayerZeroAdapterCreateParams](docs/LayerZeroAdapterCreateParams.md)
+ - [LbtPaymentInfo](docs/LbtPaymentInfo.md)
  - [LeanAbiFunction](docs/LeanAbiFunction.md)
  - [LeanContractDto](docs/LeanContractDto.md)
  - [LeanDeployedContractResponseDto](docs/LeanDeployedContractResponseDto.md)
+ - [LegacyAmountAggregationTimePeriodMethod](docs/LegacyAmountAggregationTimePeriodMethod.md)
+ - [LegacyDraftResponse](docs/LegacyDraftResponse.md)
+ - [LegacyDraftReviewAndValidationResponse](docs/LegacyDraftReviewAndValidationResponse.md)
+ - [LegacyPolicyAndValidationResponse](docs/LegacyPolicyAndValidationResponse.md)
+ - [LegacyPolicyCheckResult](docs/LegacyPolicyCheckResult.md)
+ - [LegacyPolicyMetadata](docs/LegacyPolicyMetadata.md)
+ - [LegacyPolicyResponse](docs/LegacyPolicyResponse.md)
+ - [LegacyPolicyRule](docs/LegacyPolicyRule.md)
+ - [LegacyPolicyRuleAmount](docs/LegacyPolicyRuleAmount.md)
+ - [LegacyPolicyRuleAmountAggregation](docs/LegacyPolicyRuleAmountAggregation.md)
+ - [LegacyPolicyRuleAuthorizationGroups](docs/LegacyPolicyRuleAuthorizationGroups.md)
+ - [LegacyPolicyRuleAuthorizationGroupsGroupsInner](docs/LegacyPolicyRuleAuthorizationGroupsGroupsInner.md)
+ - [LegacyPolicyRuleCheckResult](docs/LegacyPolicyRuleCheckResult.md)
+ - [LegacyPolicyRuleDesignatedSigners](docs/LegacyPolicyRuleDesignatedSigners.md)
+ - [LegacyPolicyRuleDst](docs/LegacyPolicyRuleDst.md)
+ - [LegacyPolicyRuleError](docs/LegacyPolicyRuleError.md)
+ - [LegacyPolicyRuleOperators](docs/LegacyPolicyRuleOperators.md)
+ - [LegacyPolicyRuleRawMessageSigning](docs/LegacyPolicyRuleRawMessageSigning.md)
+ - [LegacyPolicyRuleRawMessageSigningDerivationPath](docs/LegacyPolicyRuleRawMessageSigningDerivationPath.md)
+ - [LegacyPolicyRuleSrc](docs/LegacyPolicyRuleSrc.md)
+ - [LegacyPolicyRules](docs/LegacyPolicyRules.md)
+ - [LegacyPolicySrcOrDestSubType](docs/LegacyPolicySrcOrDestSubType.md)
+ - [LegacyPolicySrcOrDestType](docs/LegacyPolicySrcOrDestType.md)
+ - [LegacyPolicyStatus](docs/LegacyPolicyStatus.md)
+ - [LegacyPolicyValidation](docs/LegacyPolicyValidation.md)
+ - [LegacyPublishDraftRequest](docs/LegacyPublishDraftRequest.md)
+ - [LegacyPublishResult](docs/LegacyPublishResult.md)
+ - [LegacySrcOrDestAttributesInner](docs/LegacySrcOrDestAttributesInner.md)
  - [ListAssetsResponse](docs/ListAssetsResponse.md)
  - [ListBlockchainsResponse](docs/ListBlockchainsResponse.md)
  - [ListOwnedCollectionsResponse](docs/ListOwnedCollectionsResponse.md)
@@ -756,6 +805,7 @@ Class | Method | HTTP request | Description
  - [ModifySigningKeyAgentIdDto](docs/ModifySigningKeyAgentIdDto.md)
  - [ModifySigningKeyDto](docs/ModifySigningKeyDto.md)
  - [ModifyValidationKeyDto](docs/ModifyValidationKeyDto.md)
+ - [MomoPaymentInfo](docs/MomoPaymentInfo.md)
  - [MpcKey](docs/MpcKey.md)
  - [MultichainDeploymentMetadata](docs/MultichainDeploymentMetadata.md)
  - [NetworkChannel](docs/NetworkChannel.md)
@@ -806,30 +856,21 @@ Class | Method | HTTP request | Description
  - [PayoutState](docs/PayoutState.md)
  - [PayoutStatus](docs/PayoutStatus.md)
  - [PeerAdapterInfo](docs/PeerAdapterInfo.md)
+ - [PixPaymentInfo](docs/PixPaymentInfo.md)
  - [Players](docs/Players.md)
  - [PolicyAndValidationResponse](docs/PolicyAndValidationResponse.md)
  - [PolicyCheckResult](docs/PolicyCheckResult.md)
  - [PolicyMetadata](docs/PolicyMetadata.md)
+ - [PolicyOperator](docs/PolicyOperator.md)
  - [PolicyResponse](docs/PolicyResponse.md)
  - [PolicyRule](docs/PolicyRule.md)
- - [PolicyRuleAmount](docs/PolicyRuleAmount.md)
- - [PolicyRuleAmountAggregation](docs/PolicyRuleAmountAggregation.md)
- - [PolicyRuleAuthorizationGroups](docs/PolicyRuleAuthorizationGroups.md)
- - [PolicyRuleAuthorizationGroupsGroupsInner](docs/PolicyRuleAuthorizationGroupsGroupsInner.md)
  - [PolicyRuleCheckResult](docs/PolicyRuleCheckResult.md)
- - [PolicyRuleDesignatedSigners](docs/PolicyRuleDesignatedSigners.md)
- - [PolicyRuleDst](docs/PolicyRuleDst.md)
  - [PolicyRuleError](docs/PolicyRuleError.md)
- - [PolicyRuleOperators](docs/PolicyRuleOperators.md)
- - [PolicyRuleRawMessageSigning](docs/PolicyRuleRawMessageSigning.md)
- - [PolicyRuleRawMessageSigningDerivationPath](docs/PolicyRuleRawMessageSigningDerivationPath.md)
- - [PolicyRuleSrc](docs/PolicyRuleSrc.md)
- - [PolicyRules](docs/PolicyRules.md)
- - [PolicySrcOrDestSubType](docs/PolicySrcOrDestSubType.md)
- - [PolicySrcOrDestType](docs/PolicySrcOrDestType.md)
  - [PolicyStatus](docs/PolicyStatus.md)
+ - [PolicyType](docs/PolicyType.md)
  - [PolicyValidation](docs/PolicyValidation.md)
  - [PreScreening](docs/PreScreening.md)
+ - [ProgramCallConfig](docs/ProgramCallConfig.md)
  - [Provider](docs/Provider.md)
  - [ProviderAdditionalData](docs/ProviderAdditionalData.md)
  - [ProviderCategoryEnum](docs/ProviderCategoryEnum.md)
@@ -869,6 +910,7 @@ Class | Method | HTTP request | Description
  - [SOLAccount](docs/SOLAccount.md)
  - [SOLAccountWithValue](docs/SOLAccountWithValue.md)
  - [ScreeningConfigurationsRequest](docs/ScreeningConfigurationsRequest.md)
+ - [ScreeningMetadataConfig](docs/ScreeningMetadataConfig.md)
  - [ScreeningOperationExecution](docs/ScreeningOperationExecution.md)
  - [ScreeningOperationExecutionOutput](docs/ScreeningOperationExecutionOutput.md)
  - [ScreeningOperationFailure](docs/ScreeningOperationFailure.md)
@@ -880,6 +922,7 @@ Class | Method | HTTP request | Description
  - [ScreeningVerdict](docs/ScreeningVerdict.md)
  - [ScreeningVerdictMatchedRule](docs/ScreeningVerdictMatchedRule.md)
  - [SearchNetworkIdsResponse](docs/SearchNetworkIdsResponse.md)
+ - [SepaPaymentInfo](docs/SepaPaymentInfo.md)
  - [SessionDTO](docs/SessionDTO.md)
  - [SessionMetadata](docs/SessionMetadata.md)
  - [SetAdminQuorumThresholdRequest](docs/SetAdminQuorumThresholdRequest.md)
@@ -944,9 +987,10 @@ Class | Method | HTTP request | Description
  - [SourceTransferPeerPathResponse](docs/SourceTransferPeerPathResponse.md)
  - [SpamOwnershipResponse](docs/SpamOwnershipResponse.md)
  - [SpamTokenResponse](docs/SpamTokenResponse.md)
+ - [SpeiAdvancedPaymentInfo](docs/SpeiAdvancedPaymentInfo.md)
+ - [SpeiBasicPaymentInfo](docs/SpeiBasicPaymentInfo.md)
  - [SplitRequest](docs/SplitRequest.md)
  - [SplitResponse](docs/SplitResponse.md)
- - [SrcOrDestAttributesInner](docs/SrcOrDestAttributesInner.md)
  - [StakeRequest](docs/StakeRequest.md)
  - [StakeResponse](docs/StakeResponse.md)
  - [StakingProvider](docs/StakingProvider.md)
@@ -967,6 +1011,8 @@ Class | Method | HTTP request | Description
  - [Task](docs/Task.md)
  - [TemplatesPaginatedResponse](docs/TemplatesPaginatedResponse.md)
  - [ThirdPartyRouting](docs/ThirdPartyRouting.md)
+ - [TimePeriodConfig](docs/TimePeriodConfig.md)
+ - [TimePeriodMatchType](docs/TimePeriodMatchType.md)
  - [ToCollateralTransaction](docs/ToCollateralTransaction.md)
  - [ToExchangeTransaction](docs/ToExchangeTransaction.md)
  - [TokenCollectionResponse](docs/TokenCollectionResponse.md)
@@ -1055,11 +1101,13 @@ Class | Method | HTTP request | Description
  - [UpdateAssetUserMetadataRequest](docs/UpdateAssetUserMetadataRequest.md)
  - [UpdateCallbackHandlerRequest](docs/UpdateCallbackHandlerRequest.md)
  - [UpdateCallbackHandlerResponse](docs/UpdateCallbackHandlerResponse.md)
+ - [UpdateDraftRequest](docs/UpdateDraftRequest.md)
  - [UpdateTagRequest](docs/UpdateTagRequest.md)
  - [UpdateTokenOwnershipStatusDto](docs/UpdateTokenOwnershipStatusDto.md)
  - [UpdateVaultAccountAssetAddressRequest](docs/UpdateVaultAccountAssetAddressRequest.md)
  - [UpdateVaultAccountRequest](docs/UpdateVaultAccountRequest.md)
  - [UpdateWebhookRequest](docs/UpdateWebhookRequest.md)
+ - [UsWirePaymentInfo](docs/UsWirePaymentInfo.md)
  - [UserGroupCreateRequest](docs/UserGroupCreateRequest.md)
  - [UserGroupCreateResponse](docs/UserGroupCreateResponse.md)
  - [UserGroupResponse](docs/UserGroupResponse.md)
@@ -1081,6 +1129,7 @@ Class | Method | HTTP request | Description
  - [VaultAsset](docs/VaultAsset.md)
  - [VaultWalletAddress](docs/VaultWalletAddress.md)
  - [VendorDto](docs/VendorDto.md)
+ - [VerdictConfig](docs/VerdictConfig.md)
  - [Version](docs/Version.md)
  - [WalletAsset](docs/WalletAsset.md)
  - [WalletAssetAdditionalInfo](docs/WalletAssetAdditionalInfo.md)

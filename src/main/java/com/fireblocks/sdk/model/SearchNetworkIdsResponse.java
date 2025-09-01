@@ -16,8 +16,7 @@ package com.fireblocks.sdk.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -28,17 +27,20 @@ import java.util.StringJoiner;
     SearchNetworkIdsResponse.JSON_PROPERTY_DATA,
     SearchNetworkIdsResponse.JSON_PROPERTY_NEXT
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class SearchNetworkIdsResponse {
     public static final String JSON_PROPERTY_DATA = "data";
-    private List<NetworkIdResponse> data;
+    @jakarta.annotation.Nullable private List<NetworkIdResponse> data = new ArrayList<>();
 
     public static final String JSON_PROPERTY_NEXT = "next";
-    private String next;
+    @jakarta.annotation.Nullable private String next;
 
     public SearchNetworkIdsResponse() {}
 
-    public SearchNetworkIdsResponse data(List<NetworkIdResponse> data) {
+    public SearchNetworkIdsResponse data(
+            @jakarta.annotation.Nullable List<NetworkIdResponse> data) {
         this.data = data;
         return this;
     }
@@ -65,11 +67,11 @@ public class SearchNetworkIdsResponse {
 
     @JsonProperty(JSON_PROPERTY_DATA)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setData(List<NetworkIdResponse> data) {
+    public void setData(@jakarta.annotation.Nullable List<NetworkIdResponse> data) {
         this.data = data;
     }
 
-    public SearchNetworkIdsResponse next(String next) {
+    public SearchNetworkIdsResponse next(@jakarta.annotation.Nullable String next) {
         this.next = next;
         return this;
     }
@@ -88,7 +90,7 @@ public class SearchNetworkIdsResponse {
 
     @JsonProperty(JSON_PROPERTY_NEXT)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setNext(String next) {
+    public void setNext(@jakarta.annotation.Nullable String next) {
         this.next = next;
     }
 
@@ -194,8 +196,7 @@ public class SearchNetworkIdsResponse {
                             "%snext%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getNext()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getNext()))));
         }
 
         return joiner.toString();

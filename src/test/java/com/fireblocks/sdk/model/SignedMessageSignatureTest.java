@@ -13,39 +13,39 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for SignedMessageSignature */
-public class SignedMessageSignatureTest {
+class SignedMessageSignatureTest {
     private final SignedMessageSignature model = new SignedMessageSignature();
 
     /** Model tests for SignedMessageSignature */
     @Test
-    public void testSignedMessageSignature() {
+    void testSignedMessageSignature() {
         // TODO: test SignedMessageSignature
     }
 
     /** Test the property 'fullSig' */
     @Test
-    public void fullSigTest() {
+    void fullSigTest() {
         // TODO: test fullSig
     }
 
     /** Test the property 'r' */
     @Test
-    public void rTest() {
+    void rTest() {
         // TODO: test r
     }
 
     /** Test the property 's' */
     @Test
-    public void sTest() {
+    void sTest() {
         // TODO: test s
     }
 
     /** Test the property 'v' */
     @Test
-    public void vTest() {
+    void vTest() {
         // TODO: test v
     }
 }

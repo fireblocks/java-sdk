@@ -13,11 +13,11 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -27,21 +27,34 @@ import java.util.StringJoiner;
     EmbeddedWalletDeviceKeySetupResponseSetupStatusInner.JSON_PROPERTY_CONFIRMED,
     EmbeddedWalletDeviceKeySetupResponseSetupStatusInner.JSON_PROPERTY_BACKED_UP
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class EmbeddedWalletDeviceKeySetupResponseSetupStatusInner {
     public static final String JSON_PROPERTY_ALGORITHM_NAME = "algorithmName";
-    private EmbeddedWalletAlgoritm algorithmName;
+    @jakarta.annotation.Nonnull private EmbeddedWalletAlgoritm algorithmName;
 
     public static final String JSON_PROPERTY_CONFIRMED = "confirmed";
-    private Boolean confirmed;
+    @jakarta.annotation.Nonnull private Boolean confirmed;
 
     public static final String JSON_PROPERTY_BACKED_UP = "backedUp";
-    private Boolean backedUp;
+    @jakarta.annotation.Nonnull private Boolean backedUp;
 
     public EmbeddedWalletDeviceKeySetupResponseSetupStatusInner() {}
 
+    @JsonCreator
+    public EmbeddedWalletDeviceKeySetupResponseSetupStatusInner(
+            @JsonProperty(value = JSON_PROPERTY_ALGORITHM_NAME, required = true)
+                    EmbeddedWalletAlgoritm algorithmName,
+            @JsonProperty(value = JSON_PROPERTY_CONFIRMED, required = true) Boolean confirmed,
+            @JsonProperty(value = JSON_PROPERTY_BACKED_UP, required = true) Boolean backedUp) {
+        this.algorithmName = algorithmName;
+        this.confirmed = confirmed;
+        this.backedUp = backedUp;
+    }
+
     public EmbeddedWalletDeviceKeySetupResponseSetupStatusInner algorithmName(
-            EmbeddedWalletAlgoritm algorithmName) {
+            @jakarta.annotation.Nonnull EmbeddedWalletAlgoritm algorithmName) {
         this.algorithmName = algorithmName;
         return this;
     }
@@ -60,11 +73,12 @@ public class EmbeddedWalletDeviceKeySetupResponseSetupStatusInner {
 
     @JsonProperty(JSON_PROPERTY_ALGORITHM_NAME)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setAlgorithmName(EmbeddedWalletAlgoritm algorithmName) {
+    public void setAlgorithmName(@jakarta.annotation.Nonnull EmbeddedWalletAlgoritm algorithmName) {
         this.algorithmName = algorithmName;
     }
 
-    public EmbeddedWalletDeviceKeySetupResponseSetupStatusInner confirmed(Boolean confirmed) {
+    public EmbeddedWalletDeviceKeySetupResponseSetupStatusInner confirmed(
+            @jakarta.annotation.Nonnull Boolean confirmed) {
         this.confirmed = confirmed;
         return this;
     }
@@ -83,11 +97,12 @@ public class EmbeddedWalletDeviceKeySetupResponseSetupStatusInner {
 
     @JsonProperty(JSON_PROPERTY_CONFIRMED)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setConfirmed(Boolean confirmed) {
+    public void setConfirmed(@jakarta.annotation.Nonnull Boolean confirmed) {
         this.confirmed = confirmed;
     }
 
-    public EmbeddedWalletDeviceKeySetupResponseSetupStatusInner backedUp(Boolean backedUp) {
+    public EmbeddedWalletDeviceKeySetupResponseSetupStatusInner backedUp(
+            @jakarta.annotation.Nonnull Boolean backedUp) {
         this.backedUp = backedUp;
         return this;
     }
@@ -106,7 +121,7 @@ public class EmbeddedWalletDeviceKeySetupResponseSetupStatusInner {
 
     @JsonProperty(JSON_PROPERTY_BACKED_UP)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setBackedUp(Boolean backedUp) {
+    public void setBackedUp(@jakarta.annotation.Nonnull Boolean backedUp) {
         this.backedUp = backedUp;
     }
 
@@ -207,9 +222,7 @@ public class EmbeddedWalletDeviceKeySetupResponseSetupStatusInner {
                             "%sconfirmed%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getConfirmed()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getConfirmed()))));
         }
 
         // add `backedUp` to the URL query string
@@ -219,8 +232,7 @@ public class EmbeddedWalletDeviceKeySetupResponseSetupStatusInner {
                             "%sbackedUp%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getBackedUp()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getBackedUp()))));
         }
 
         return joiner.toString();

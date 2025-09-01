@@ -13,13 +13,13 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for SwapProviderProtocolsEnum */
-public class SwapProviderProtocolsEnumTest {
+class SwapProviderProtocolsEnumTest {
     /** Model tests for SwapProviderProtocolsEnum */
     @Test
-    public void testSwapProviderProtocolsEnum() {
+    void testSwapProviderProtocolsEnum() {
         // TODO: test SwapProviderProtocolsEnum
     }
 }

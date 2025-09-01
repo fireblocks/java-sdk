@@ -18,9 +18,8 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.fireblocks.sdk.ApiClient;
 import java.math.BigDecimal;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -31,50 +30,52 @@ import java.util.StringJoiner;
     Transaction.JSON_PROPERTY_TIMESTAMP,
     Transaction.JSON_PROPERTY_INSTRUCTION_ID
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class Transaction {
     public static final String JSON_PROPERTY_ID = "id";
-    private String id;
+    @jakarta.annotation.Nonnull private String id;
 
     /** Gets or Sets state */
     public enum StateEnum {
-        SUBMITTED("SUBMITTED"),
+        SUBMITTED(String.valueOf("SUBMITTED")),
 
-        QUEUED("QUEUED"),
+        QUEUED(String.valueOf("QUEUED")),
 
-        PENDING_AUTHORIZATION("PENDING_AUTHORIZATION"),
+        PENDING_AUTHORIZATION(String.valueOf("PENDING_AUTHORIZATION")),
 
-        PENDING_SIGNATURE("PENDING_SIGNATURE"),
+        PENDING_SIGNATURE(String.valueOf("PENDING_SIGNATURE")),
 
-        BROADCASTING("BROADCASTING"),
+        BROADCASTING(String.valueOf("BROADCASTING")),
 
-        PENDING_3RD_PARTY_MANUAL_APPROVAL("PENDING_3RD_PARTY_MANUAL_APPROVAL"),
+        PENDING_3_RD_PARTY_MANUAL_APPROVAL(String.valueOf("PENDING_3RD_PARTY_MANUAL_APPROVAL")),
 
-        PENDING_3RD_PARTY("PENDING_3RD_PARTY"),
+        PENDING_3_RD_PARTY(String.valueOf("PENDING_3RD_PARTY")),
 
-        PENDING("PENDING"),
+        PENDING(String.valueOf("PENDING")),
 
-        CONFIRMING("CONFIRMING"),
+        CONFIRMING(String.valueOf("CONFIRMING")),
 
-        CONFIRMED("CONFIRMED"),
+        CONFIRMED(String.valueOf("CONFIRMED")),
 
-        COMPLETED("COMPLETED"),
+        COMPLETED(String.valueOf("COMPLETED")),
 
-        PARTIALLY_COMPLETED("PARTIALLY_COMPLETED"),
+        PARTIALLY_COMPLETED(String.valueOf("PARTIALLY_COMPLETED")),
 
-        PENDING_AML_SCREENING("PENDING_AML_SCREENING"),
+        PENDING_AML_SCREENING(String.valueOf("PENDING_AML_SCREENING")),
 
-        CANCELLING("CANCELLING"),
+        CANCELLING(String.valueOf("CANCELLING")),
 
-        CANCELLED("CANCELLED"),
+        CANCELLED(String.valueOf("CANCELLED")),
 
-        REJECTED("REJECTED"),
+        REJECTED(String.valueOf("REJECTED")),
 
-        BLOCKED("BLOCKED"),
+        BLOCKED(String.valueOf("BLOCKED")),
 
-        FAILED("FAILED"),
+        FAILED(String.valueOf("FAILED")),
 
-        TIMEOUT("TIMEOUT");
+        TIMEOUT(String.valueOf("TIMEOUT"));
 
         private String value;
 
@@ -104,17 +105,25 @@ public class Transaction {
     }
 
     public static final String JSON_PROPERTY_STATE = "state";
-    private StateEnum state;
+    @jakarta.annotation.Nonnull private StateEnum state;
 
     public static final String JSON_PROPERTY_TIMESTAMP = "timestamp";
-    private BigDecimal timestamp;
+    @jakarta.annotation.Nullable private BigDecimal timestamp;
 
     public static final String JSON_PROPERTY_INSTRUCTION_ID = "instructionId";
-    private String instructionId;
+    @jakarta.annotation.Nullable private String instructionId;
 
     public Transaction() {}
 
-    public Transaction id(String id) {
+    @JsonCreator
+    public Transaction(
+            @JsonProperty(value = JSON_PROPERTY_ID, required = true) String id,
+            @JsonProperty(value = JSON_PROPERTY_STATE, required = true) StateEnum state) {
+        this.id = id;
+        this.state = state;
+    }
+
+    public Transaction id(@jakarta.annotation.Nonnull String id) {
         this.id = id;
         return this;
     }
@@ -133,11 +142,11 @@ public class Transaction {
 
     @JsonProperty(JSON_PROPERTY_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setId(String id) {
+    public void setId(@jakarta.annotation.Nonnull String id) {
         this.id = id;
     }
 
-    public Transaction state(StateEnum state) {
+    public Transaction state(@jakarta.annotation.Nonnull StateEnum state) {
         this.state = state;
         return this;
     }
@@ -156,11 +165,11 @@ public class Transaction {
 
     @JsonProperty(JSON_PROPERTY_STATE)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setState(StateEnum state) {
+    public void setState(@jakarta.annotation.Nonnull StateEnum state) {
         this.state = state;
     }
 
-    public Transaction timestamp(BigDecimal timestamp) {
+    public Transaction timestamp(@jakarta.annotation.Nullable BigDecimal timestamp) {
         this.timestamp = timestamp;
         return this;
     }
@@ -179,11 +188,11 @@ public class Transaction {
 
     @JsonProperty(JSON_PROPERTY_TIMESTAMP)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setTimestamp(BigDecimal timestamp) {
+    public void setTimestamp(@jakarta.annotation.Nullable BigDecimal timestamp) {
         this.timestamp = timestamp;
     }
 
-    public Transaction instructionId(String instructionId) {
+    public Transaction instructionId(@jakarta.annotation.Nullable String instructionId) {
         this.instructionId = instructionId;
         return this;
     }
@@ -202,7 +211,7 @@ public class Transaction {
 
     @JsonProperty(JSON_PROPERTY_INSTRUCTION_ID)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setInstructionId(String instructionId) {
+    public void setInstructionId(@jakarta.annotation.Nullable String instructionId) {
         this.instructionId = instructionId;
     }
 
@@ -287,10 +296,7 @@ public class Transaction {
             joiner.add(
                     String.format(
                             "%sid%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(String.valueOf(getId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getId()))));
         }
 
         // add `state` to the URL query string
@@ -300,8 +306,7 @@ public class Transaction {
                             "%sstate%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getState()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getState()))));
         }
 
         // add `timestamp` to the URL query string
@@ -311,9 +316,7 @@ public class Transaction {
                             "%stimestamp%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getTimestamp()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getTimestamp()))));
         }
 
         // add `instructionId` to the URL query string
@@ -323,10 +326,7 @@ public class Transaction {
                             "%sinstructionId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getInstructionId()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getInstructionId()))));
         }
 
         return joiner.toString();

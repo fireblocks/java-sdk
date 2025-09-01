@@ -13,11 +13,11 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -27,20 +27,33 @@ import java.util.StringJoiner;
     EmbeddedWalletDevice.JSON_PROPERTY_ENABLED,
     EmbeddedWalletDevice.JSON_PROPERTY_PHYSICAL_DEVICE_ID
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class EmbeddedWalletDevice {
     public static final String JSON_PROPERTY_DEVICE_ID = "deviceId";
-    private String deviceId;
+    @jakarta.annotation.Nonnull private String deviceId;
 
     public static final String JSON_PROPERTY_ENABLED = "enabled";
-    private Boolean enabled;
+    @jakarta.annotation.Nonnull private Boolean enabled;
 
     public static final String JSON_PROPERTY_PHYSICAL_DEVICE_ID = "physicalDeviceId";
-    private String physicalDeviceId;
+    @jakarta.annotation.Nonnull private String physicalDeviceId;
 
     public EmbeddedWalletDevice() {}
 
-    public EmbeddedWalletDevice deviceId(String deviceId) {
+    @JsonCreator
+    public EmbeddedWalletDevice(
+            @JsonProperty(value = JSON_PROPERTY_DEVICE_ID, required = true) String deviceId,
+            @JsonProperty(value = JSON_PROPERTY_ENABLED, required = true) Boolean enabled,
+            @JsonProperty(value = JSON_PROPERTY_PHYSICAL_DEVICE_ID, required = true)
+                    String physicalDeviceId) {
+        this.deviceId = deviceId;
+        this.enabled = enabled;
+        this.physicalDeviceId = physicalDeviceId;
+    }
+
+    public EmbeddedWalletDevice deviceId(@jakarta.annotation.Nonnull String deviceId) {
         this.deviceId = deviceId;
         return this;
     }
@@ -59,11 +72,11 @@ public class EmbeddedWalletDevice {
 
     @JsonProperty(JSON_PROPERTY_DEVICE_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setDeviceId(String deviceId) {
+    public void setDeviceId(@jakarta.annotation.Nonnull String deviceId) {
         this.deviceId = deviceId;
     }
 
-    public EmbeddedWalletDevice enabled(Boolean enabled) {
+    public EmbeddedWalletDevice enabled(@jakarta.annotation.Nonnull Boolean enabled) {
         this.enabled = enabled;
         return this;
     }
@@ -82,11 +95,12 @@ public class EmbeddedWalletDevice {
 
     @JsonProperty(JSON_PROPERTY_ENABLED)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setEnabled(Boolean enabled) {
+    public void setEnabled(@jakarta.annotation.Nonnull Boolean enabled) {
         this.enabled = enabled;
     }
 
-    public EmbeddedWalletDevice physicalDeviceId(String physicalDeviceId) {
+    public EmbeddedWalletDevice physicalDeviceId(
+            @jakarta.annotation.Nonnull String physicalDeviceId) {
         this.physicalDeviceId = physicalDeviceId;
         return this;
     }
@@ -105,7 +119,7 @@ public class EmbeddedWalletDevice {
 
     @JsonProperty(JSON_PROPERTY_PHYSICAL_DEVICE_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setPhysicalDeviceId(String physicalDeviceId) {
+    public void setPhysicalDeviceId(@jakarta.annotation.Nonnull String physicalDeviceId) {
         this.physicalDeviceId = physicalDeviceId;
     }
 
@@ -190,8 +204,7 @@ public class EmbeddedWalletDevice {
                             "%sdeviceId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getDeviceId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getDeviceId()))));
         }
 
         // add `enabled` to the URL query string
@@ -201,8 +214,7 @@ public class EmbeddedWalletDevice {
                             "%senabled%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getEnabled()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getEnabled()))));
         }
 
         // add `physicalDeviceId` to the URL query string
@@ -212,10 +224,7 @@ public class EmbeddedWalletDevice {
                             "%sphysicalDeviceId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getPhysicalDeviceId()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getPhysicalDeviceId()))));
         }
 
         return joiner.toString();

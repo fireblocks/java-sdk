@@ -13,33 +13,33 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for AuditorData */
-public class AuditorDataTest {
+class AuditorDataTest {
     private final AuditorData model = new AuditorData();
 
     /** Model tests for AuditorData */
     @Test
-    public void testAuditorData() {
+    void testAuditorData() {
         // TODO: test AuditorData
     }
 
     /** Test the property 'name' */
     @Test
-    public void nameTest() {
+    void nameTest() {
         // TODO: test name
     }
 
     /** Test the property 'imageURL' */
     @Test
-    public void imageURLTest() {
+    void imageURLTest() {
         // TODO: test imageURL
     }
 
     /** Test the property 'link' */
     @Test
-    public void linkTest() {
+    void linkTest() {
         // TODO: test link
     }
 }

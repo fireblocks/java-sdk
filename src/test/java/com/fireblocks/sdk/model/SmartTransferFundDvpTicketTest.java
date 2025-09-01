@@ -13,33 +13,33 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for SmartTransferFundDvpTicket */
-public class SmartTransferFundDvpTicketTest {
+class SmartTransferFundDvpTicketTest {
     private final SmartTransferFundDvpTicket model = new SmartTransferFundDvpTicket();
 
     /** Model tests for SmartTransferFundDvpTicket */
     @Test
-    public void testSmartTransferFundDvpTicket() {
+    void testSmartTransferFundDvpTicket() {
         // TODO: test SmartTransferFundDvpTicket
     }
 
     /** Test the property 'fee' */
     @Test
-    public void feeTest() {
+    void feeTest() {
         // TODO: test fee
     }
 
     /** Test the property 'feeLevel' */
     @Test
-    public void feeLevelTest() {
+    void feeLevelTest() {
         // TODO: test feeLevel
     }
 
     /** Test the property 'note' */
     @Test
-    public void noteTest() {
+    void noteTest() {
         // TODO: test note
     }
 }

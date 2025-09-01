@@ -13,13 +13,13 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for GetTransactionOperation */
-public class GetTransactionOperationTest {
+class GetTransactionOperationTest {
     /** Model tests for GetTransactionOperation */
     @Test
-    public void testGetTransactionOperation() {
+    void testGetTransactionOperation() {
         // TODO: test GetTransactionOperation
     }
 }

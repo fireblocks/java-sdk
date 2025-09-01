@@ -32,7 +32,7 @@
 
 | Name | Value |
 |---- | -----|
-| WALLETCONNECT | &quot;WalletConnect&quot; |
+| WALLET_CONNECT | &quot;WalletConnect&quot; |
 
 
 

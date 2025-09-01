@@ -13,39 +13,39 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for BlockchainMetadata */
-public class BlockchainMetadataTest {
+class BlockchainMetadataTest {
     private final BlockchainMetadata model = new BlockchainMetadata();
 
     /** Model tests for BlockchainMetadata */
     @Test
-    public void testBlockchainMetadata() {
+    void testBlockchainMetadata() {
         // TODO: test BlockchainMetadata
     }
 
     /** Test the property 'scope' */
     @Test
-    public void scopeTest() {
+    void scopeTest() {
         // TODO: test scope
     }
 
     /** Test the property 'deprecated' */
     @Test
-    public void deprecatedTest() {
+    void deprecatedTest() {
         // TODO: test deprecated
     }
 
     /** Test the property 'media' */
     @Test
-    public void mediaTest() {
+    void mediaTest() {
         // TODO: test media
     }
 
     /** Test the property 'explorer' */
     @Test
-    public void explorerTest() {
+    void explorerTest() {
         // TODO: test explorer
     }
 }

@@ -13,21 +13,21 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for AssetMediaAttributes */
-public class AssetMediaAttributesTest {
+class AssetMediaAttributesTest {
     private final AssetMediaAttributes model = new AssetMediaAttributes();
 
     /** Model tests for AssetMediaAttributes */
     @Test
-    public void testAssetMediaAttributes() {
+    void testAssetMediaAttributes() {
         // TODO: test AssetMediaAttributes
     }
 
     /** Test the property 'monochrome' */
     @Test
-    public void monochromeTest() {
+    void monochromeTest() {
         // TODO: test monochrome
     }
 }

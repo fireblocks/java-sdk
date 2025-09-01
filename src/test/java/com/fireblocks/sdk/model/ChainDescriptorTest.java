@@ -13,13 +13,13 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for ChainDescriptor */
-public class ChainDescriptorTest {
+class ChainDescriptorTest {
     /** Model tests for ChainDescriptor */
     @Test
-    public void testChainDescriptor() {
+    void testChainDescriptor() {
         // TODO: test ChainDescriptor
     }
 }

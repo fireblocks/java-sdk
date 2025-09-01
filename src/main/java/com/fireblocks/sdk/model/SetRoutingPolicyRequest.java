@@ -13,6 +13,7 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -23,15 +24,27 @@ import java.util.StringJoiner;
 
 /** SetRoutingPolicyRequest */
 @JsonPropertyOrder({SetRoutingPolicyRequest.JSON_PROPERTY_ROUTING_POLICY})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class SetRoutingPolicyRequest {
     public static final String JSON_PROPERTY_ROUTING_POLICY = "routingPolicy";
+
+    @jakarta.annotation.Nonnull
     private Map<String, NetworkConnectionRoutingPolicyValue> routingPolicy = new HashMap<>();
 
     public SetRoutingPolicyRequest() {}
 
+    @JsonCreator
+    public SetRoutingPolicyRequest(
+            @JsonProperty(value = JSON_PROPERTY_ROUTING_POLICY, required = true)
+                    Map<String, NetworkConnectionRoutingPolicyValue> routingPolicy) {
+        this.routingPolicy = routingPolicy;
+    }
+
     public SetRoutingPolicyRequest routingPolicy(
-            Map<String, NetworkConnectionRoutingPolicyValue> routingPolicy) {
+            @jakarta.annotation.Nonnull
+                    Map<String, NetworkConnectionRoutingPolicyValue> routingPolicy) {
         this.routingPolicy = routingPolicy;
         return this;
     }
@@ -59,7 +72,9 @@ public class SetRoutingPolicyRequest {
 
     @JsonProperty(JSON_PROPERTY_ROUTING_POLICY)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setRoutingPolicy(Map<String, NetworkConnectionRoutingPolicyValue> routingPolicy) {
+    public void setRoutingPolicy(
+            @jakarta.annotation.Nonnull
+                    Map<String, NetworkConnectionRoutingPolicyValue> routingPolicy) {
         this.routingPolicy = routingPolicy;
     }
 

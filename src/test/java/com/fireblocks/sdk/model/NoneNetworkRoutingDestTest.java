@@ -13,21 +13,21 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for NoneNetworkRoutingDest */
-public class NoneNetworkRoutingDestTest {
+class NoneNetworkRoutingDestTest {
     private final NoneNetworkRoutingDest model = new NoneNetworkRoutingDest();
 
     /** Model tests for NoneNetworkRoutingDest */
     @Test
-    public void testNoneNetworkRoutingDest() {
+    void testNoneNetworkRoutingDest() {
         // TODO: test NoneNetworkRoutingDest
     }
 
     /** Test the property 'scheme' */
     @Test
-    public void schemeTest() {
+    void schemeTest() {
         // TODO: test scheme
     }
 }

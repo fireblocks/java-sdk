@@ -13,99 +13,99 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for TravelRulePolicyRuleResponse */
-public class TravelRulePolicyRuleResponseTest {
+class TravelRulePolicyRuleResponseTest {
     private final TravelRulePolicyRuleResponse model = new TravelRulePolicyRuleResponse();
 
     /** Model tests for TravelRulePolicyRuleResponse */
     @Test
-    public void testTravelRulePolicyRuleResponse() {
+    void testTravelRulePolicyRuleResponse() {
         // TODO: test TravelRulePolicyRuleResponse
     }
 
     /** Test the property 'sourceType' */
     @Test
-    public void sourceTypeTest() {
+    void sourceTypeTest() {
         // TODO: test sourceType
     }
 
     /** Test the property 'sourceSubType' */
     @Test
-    public void sourceSubTypeTest() {
+    void sourceSubTypeTest() {
         // TODO: test sourceSubType
     }
 
     /** Test the property 'destType' */
     @Test
-    public void destTypeTest() {
+    void destTypeTest() {
         // TODO: test destType
     }
 
     /** Test the property 'destSubType' */
     @Test
-    public void destSubTypeTest() {
+    void destSubTypeTest() {
         // TODO: test destSubType
     }
 
     /** Test the property 'destAddress' */
     @Test
-    public void destAddressTest() {
+    void destAddressTest() {
         // TODO: test destAddress
     }
 
     /** Test the property 'sourceId' */
     @Test
-    public void sourceIdTest() {
+    void sourceIdTest() {
         // TODO: test sourceId
     }
 
     /** Test the property 'destId' */
     @Test
-    public void destIdTest() {
+    void destIdTest() {
         // TODO: test destId
     }
 
     /** Test the property 'asset' */
     @Test
-    public void assetTest() {
+    void assetTest() {
         // TODO: test asset
     }
 
     /** Test the property 'baseAsset' */
     @Test
-    public void baseAssetTest() {
+    void baseAssetTest() {
         // TODO: test baseAsset
     }
 
     /** Test the property 'amount' */
     @Test
-    public void amountTest() {
+    void amountTest() {
         // TODO: test amount
     }
 
     /** Test the property 'amountUSD' */
     @Test
-    public void amountUSDTest() {
+    void amountUSDTest() {
         // TODO: test amountUSD
     }
 
     /** Test the property 'networkProtocol' */
     @Test
-    public void networkProtocolTest() {
+    void networkProtocolTest() {
         // TODO: test networkProtocol
     }
 
     /** Test the property 'operation' */
     @Test
-    public void operationTest() {
+    void operationTest() {
         // TODO: test operation
     }
 
     /** Test the property 'action' */
     @Test
-    public void actionTest() {
+    void actionTest() {
         // TODO: test action
     }
 }

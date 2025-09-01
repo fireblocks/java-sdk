@@ -13,11 +13,11 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -70,150 +70,201 @@ import java.util.StringJoiner;
     TravelRuleVASP.JSON_PROPERTY_IS_NOTIFIABLE,
     TravelRuleVASP.JSON_PROPERTY_ISSUERS
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class TravelRuleVASP {
     public static final String JSON_PROPERTY_DID = "did";
-    private String did;
+    @jakarta.annotation.Nonnull private String did;
 
     public static final String JSON_PROPERTY_NAME = "name";
-    private String name;
+    @jakarta.annotation.Nonnull private String name;
 
     public static final String JSON_PROPERTY_VERIFICATION_STATUS = "verificationStatus";
-    private String verificationStatus;
+    @jakarta.annotation.Nonnull private String verificationStatus;
 
     public static final String JSON_PROPERTY_ADDRESS_LINE1 = "addressLine1";
-    private String addressLine1;
+    @jakarta.annotation.Nonnull private String addressLine1;
 
     public static final String JSON_PROPERTY_ADDRESS_LINE2 = "addressLine2";
-    private String addressLine2;
+    @jakarta.annotation.Nullable private String addressLine2;
 
     public static final String JSON_PROPERTY_CITY = "city";
-    private String city;
+    @jakarta.annotation.Nonnull private String city;
 
     public static final String JSON_PROPERTY_COUNTRY = "country";
-    private String country;
+    @jakarta.annotation.Nonnull private String country;
 
     public static final String JSON_PROPERTY_EMAIL_DOMAINS = "emailDomains";
-    private String emailDomains;
+    @jakarta.annotation.Nonnull private String emailDomains;
 
     public static final String JSON_PROPERTY_WEBSITE = "website";
-    private String website;
+    @jakarta.annotation.Nonnull private String website;
 
     public static final String JSON_PROPERTY_LOGO = "logo";
-    private String logo;
+    @jakarta.annotation.Nullable private String logo;
 
     public static final String JSON_PROPERTY_LEGAL_STRUCTURE = "legalStructure";
-    private String legalStructure;
+    @jakarta.annotation.Nonnull private String legalStructure;
 
     public static final String JSON_PROPERTY_LEGAL_NAME = "legalName";
-    private String legalName;
+    @jakarta.annotation.Nonnull private String legalName;
 
     public static final String JSON_PROPERTY_YEAR_FOUNDED = "yearFounded";
-    private String yearFounded;
+    @jakarta.annotation.Nonnull private String yearFounded;
 
     public static final String JSON_PROPERTY_INCORPORATION_COUNTRY = "incorporationCountry";
-    private String incorporationCountry;
+    @jakarta.annotation.Nonnull private String incorporationCountry;
 
     public static final String JSON_PROPERTY_IS_REGULATED = "isRegulated";
-    private String isRegulated;
+    @jakarta.annotation.Nonnull private String isRegulated;
 
     public static final String JSON_PROPERTY_OTHER_NAMES = "otherNames";
-    private String otherNames;
+    @jakarta.annotation.Nullable private String otherNames;
 
     public static final String JSON_PROPERTY_IDENTIFICATION_TYPE = "identificationType";
-    private String identificationType;
+    @jakarta.annotation.Nullable private String identificationType;
 
     public static final String JSON_PROPERTY_IDENTIFICATION_COUNTRY = "identificationCountry";
-    private String identificationCountry;
+    @jakarta.annotation.Nullable private String identificationCountry;
 
     public static final String JSON_PROPERTY_BUSINESS_NUMBER = "businessNumber";
-    private String businessNumber;
+    @jakarta.annotation.Nullable private String businessNumber;
 
     public static final String JSON_PROPERTY_REGULATORY_AUTHORITIES = "regulatoryAuthorities";
-    private String regulatoryAuthorities;
+    @jakarta.annotation.Nullable private String regulatoryAuthorities;
 
     public static final String JSON_PROPERTY_JURISDICTIONS = "jurisdictions";
-    private String jurisdictions;
+    @jakarta.annotation.Nonnull private String jurisdictions;
 
     public static final String JSON_PROPERTY_STREET = "street";
-    private String street;
+    @jakarta.annotation.Nullable private String street;
 
     public static final String JSON_PROPERTY_NUMBER = "number";
-    private String number;
+    @jakarta.annotation.Nullable private String number;
 
     public static final String JSON_PROPERTY_UNIT = "unit";
-    private String unit;
+    @jakarta.annotation.Nullable private String unit;
 
     public static final String JSON_PROPERTY_POST_CODE = "postCode";
-    private String postCode;
+    @jakarta.annotation.Nullable private String postCode;
 
     public static final String JSON_PROPERTY_STATE = "state";
-    private String state;
+    @jakarta.annotation.Nullable private String state;
 
     public static final String JSON_PROPERTY_CERTIFICATES = "certificates";
-    private String certificates;
+    @jakarta.annotation.Nullable private String certificates;
 
     public static final String JSON_PROPERTY_DESCRIPTION = "description";
-    private String description;
+    @jakarta.annotation.Nullable private String description;
 
     public static final String JSON_PROPERTY_TRAVEL_RULE_O_P_E_N_V_A_S_P = "travelRule_OPENVASP";
-    private String travelRuleOPENVASP;
+    @jakarta.annotation.Nullable private String travelRuleOPENVASP;
 
     public static final String JSON_PROPERTY_TRAVEL_RULE_S_Y_G_N_A = "travelRule_SYGNA";
-    private String travelRuleSYGNA;
+    @jakarta.annotation.Nullable private String travelRuleSYGNA;
 
     public static final String JSON_PROPERTY_TRAVEL_RULE_T_R_I_S_A = "travelRule_TRISA";
-    private String travelRuleTRISA;
+    @jakarta.annotation.Nullable private String travelRuleTRISA;
 
     public static final String JSON_PROPERTY_TRAVEL_RULE_T_R_L_I_G_H_T = "travelRule_TRLIGHT";
-    private String travelRuleTRLIGHT;
+    @jakarta.annotation.Nonnull private String travelRuleTRLIGHT;
 
     public static final String JSON_PROPERTY_TRAVEL_RULE_E_M_A_I_L = "travelRule_EMAIL";
-    private String travelRuleEMAIL;
+    @jakarta.annotation.Nullable private String travelRuleEMAIL;
 
     public static final String JSON_PROPERTY_TRAVEL_RULE_T_R_P = "travelRule_TRP";
-    private String travelRuleTRP;
+    @jakarta.annotation.Nullable private String travelRuleTRP;
 
     public static final String JSON_PROPERTY_TRAVEL_RULE_S_H_Y_F_T = "travelRule_SHYFT";
-    private String travelRuleSHYFT;
+    @jakarta.annotation.Nullable private String travelRuleSHYFT;
 
     public static final String JSON_PROPERTY_TRAVEL_RULE_U_S_T_R_A_V_E_L_R_U_L_E_W_G =
             "travelRule_USTRAVELRULEWG";
-    private String travelRuleUSTRAVELRULEWG;
+    @jakarta.annotation.Nullable private String travelRuleUSTRAVELRULEWG;
 
     public static final String JSON_PROPERTY_CREATED_AT = "createdAt";
-    private String createdAt;
+    @jakarta.annotation.Nonnull private String createdAt;
 
     public static final String JSON_PROPERTY_CREATED_BY = "createdBy";
-    private String createdBy;
+    @jakarta.annotation.Nullable private String createdBy;
 
     public static final String JSON_PROPERTY_UPDATED_AT = "updatedAt";
-    private String updatedAt;
+    @jakarta.annotation.Nullable private String updatedAt;
 
     public static final String JSON_PROPERTY_UPDATED_BY = "updatedBy";
-    private String updatedBy;
+    @jakarta.annotation.Nullable private String updatedBy;
 
     public static final String JSON_PROPERTY_LAST_SENT_DATE = "lastSentDate";
-    private String lastSentDate;
+    @jakarta.annotation.Nullable private String lastSentDate;
 
     public static final String JSON_PROPERTY_LAST_RECEIVED_DATE = "lastReceivedDate";
-    private String lastReceivedDate;
+    @jakarta.annotation.Nullable private String lastReceivedDate;
 
     public static final String JSON_PROPERTY_DOCUMENTS = "documents";
-    private String documents;
+    @jakarta.annotation.Nullable private String documents;
 
     public static final String JSON_PROPERTY_HAS_ADMIN = "hasAdmin";
-    private Boolean hasAdmin;
+    @jakarta.annotation.Nonnull private Boolean hasAdmin;
 
     public static final String JSON_PROPERTY_IS_NOTIFIABLE = "isNotifiable";
-    private Boolean isNotifiable;
+    @jakarta.annotation.Nonnull private Boolean isNotifiable;
 
     public static final String JSON_PROPERTY_ISSUERS = "issuers";
-    private TravelRuleIssuers issuers;
+    @jakarta.annotation.Nonnull private TravelRuleIssuers issuers;
 
     public TravelRuleVASP() {}
 
-    public TravelRuleVASP did(String did) {
+    @JsonCreator
+    public TravelRuleVASP(
+            @JsonProperty(value = JSON_PROPERTY_DID, required = true) String did,
+            @JsonProperty(value = JSON_PROPERTY_NAME, required = true) String name,
+            @JsonProperty(value = JSON_PROPERTY_VERIFICATION_STATUS, required = true)
+                    String verificationStatus,
+            @JsonProperty(value = JSON_PROPERTY_ADDRESS_LINE1, required = true) String addressLine1,
+            @JsonProperty(value = JSON_PROPERTY_CITY, required = true) String city,
+            @JsonProperty(value = JSON_PROPERTY_COUNTRY, required = true) String country,
+            @JsonProperty(value = JSON_PROPERTY_EMAIL_DOMAINS, required = true) String emailDomains,
+            @JsonProperty(value = JSON_PROPERTY_WEBSITE, required = true) String website,
+            @JsonProperty(value = JSON_PROPERTY_LEGAL_STRUCTURE, required = true)
+                    String legalStructure,
+            @JsonProperty(value = JSON_PROPERTY_LEGAL_NAME, required = true) String legalName,
+            @JsonProperty(value = JSON_PROPERTY_YEAR_FOUNDED, required = true) String yearFounded,
+            @JsonProperty(value = JSON_PROPERTY_INCORPORATION_COUNTRY, required = true)
+                    String incorporationCountry,
+            @JsonProperty(value = JSON_PROPERTY_IS_REGULATED, required = true) String isRegulated,
+            @JsonProperty(value = JSON_PROPERTY_JURISDICTIONS, required = true)
+                    String jurisdictions,
+            @JsonProperty(value = JSON_PROPERTY_TRAVEL_RULE_T_R_L_I_G_H_T, required = true)
+                    String travelRuleTRLIGHT,
+            @JsonProperty(value = JSON_PROPERTY_CREATED_AT, required = true) String createdAt,
+            @JsonProperty(value = JSON_PROPERTY_HAS_ADMIN, required = true) Boolean hasAdmin,
+            @JsonProperty(value = JSON_PROPERTY_IS_NOTIFIABLE, required = true)
+                    Boolean isNotifiable,
+            @JsonProperty(value = JSON_PROPERTY_ISSUERS, required = true)
+                    TravelRuleIssuers issuers) {
+        this.did = did;
+        this.name = name;
+        this.verificationStatus = verificationStatus;
+        this.addressLine1 = addressLine1;
+        this.city = city;
+        this.country = country;
+        this.emailDomains = emailDomains;
+        this.website = website;
+        this.legalStructure = legalStructure;
+        this.legalName = legalName;
+        this.yearFounded = yearFounded;
+        this.incorporationCountry = incorporationCountry;
+        this.isRegulated = isRegulated;
+        this.jurisdictions = jurisdictions;
+        this.travelRuleTRLIGHT = travelRuleTRLIGHT;
+        this.createdAt = createdAt;
+        this.hasAdmin = hasAdmin;
+        this.isNotifiable = isNotifiable;
+        this.issuers = issuers;
+    }
+
+    public TravelRuleVASP did(@jakarta.annotation.Nonnull String did) {
         this.did = did;
         return this;
     }
@@ -232,11 +283,11 @@ public class TravelRuleVASP {
 
     @JsonProperty(JSON_PROPERTY_DID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setDid(String did) {
+    public void setDid(@jakarta.annotation.Nonnull String did) {
         this.did = did;
     }
 
-    public TravelRuleVASP name(String name) {
+    public TravelRuleVASP name(@jakarta.annotation.Nonnull String name) {
         this.name = name;
         return this;
     }
@@ -255,11 +306,12 @@ public class TravelRuleVASP {
 
     @JsonProperty(JSON_PROPERTY_NAME)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setName(String name) {
+    public void setName(@jakarta.annotation.Nonnull String name) {
         this.name = name;
     }
 
-    public TravelRuleVASP verificationStatus(String verificationStatus) {
+    public TravelRuleVASP verificationStatus(
+            @jakarta.annotation.Nonnull String verificationStatus) {
         this.verificationStatus = verificationStatus;
         return this;
     }
@@ -278,11 +330,11 @@ public class TravelRuleVASP {
 
     @JsonProperty(JSON_PROPERTY_VERIFICATION_STATUS)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setVerificationStatus(String verificationStatus) {
+    public void setVerificationStatus(@jakarta.annotation.Nonnull String verificationStatus) {
         this.verificationStatus = verificationStatus;
     }
 
-    public TravelRuleVASP addressLine1(String addressLine1) {
+    public TravelRuleVASP addressLine1(@jakarta.annotation.Nonnull String addressLine1) {
         this.addressLine1 = addressLine1;
         return this;
     }
@@ -301,11 +353,11 @@ public class TravelRuleVASP {
 
     @JsonProperty(JSON_PROPERTY_ADDRESS_LINE1)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setAddressLine1(String addressLine1) {
+    public void setAddressLine1(@jakarta.annotation.Nonnull String addressLine1) {
         this.addressLine1 = addressLine1;
     }
 
-    public TravelRuleVASP addressLine2(String addressLine2) {
+    public TravelRuleVASP addressLine2(@jakarta.annotation.Nullable String addressLine2) {
         this.addressLine2 = addressLine2;
         return this;
     }
@@ -324,11 +376,11 @@ public class TravelRuleVASP {
 
     @JsonProperty(JSON_PROPERTY_ADDRESS_LINE2)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAddressLine2(String addressLine2) {
+    public void setAddressLine2(@jakarta.annotation.Nullable String addressLine2) {
         this.addressLine2 = addressLine2;
     }
 
-    public TravelRuleVASP city(String city) {
+    public TravelRuleVASP city(@jakarta.annotation.Nonnull String city) {
         this.city = city;
         return this;
     }
@@ -347,11 +399,11 @@ public class TravelRuleVASP {
 
     @JsonProperty(JSON_PROPERTY_CITY)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setCity(String city) {
+    public void setCity(@jakarta.annotation.Nonnull String city) {
         this.city = city;
     }
 
-    public TravelRuleVASP country(String country) {
+    public TravelRuleVASP country(@jakarta.annotation.Nonnull String country) {
         this.country = country;
         return this;
     }
@@ -370,11 +422,11 @@ public class TravelRuleVASP {
 
     @JsonProperty(JSON_PROPERTY_COUNTRY)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setCountry(String country) {
+    public void setCountry(@jakarta.annotation.Nonnull String country) {
         this.country = country;
     }
 
-    public TravelRuleVASP emailDomains(String emailDomains) {
+    public TravelRuleVASP emailDomains(@jakarta.annotation.Nonnull String emailDomains) {
         this.emailDomains = emailDomains;
         return this;
     }
@@ -393,11 +445,11 @@ public class TravelRuleVASP {
 
     @JsonProperty(JSON_PROPERTY_EMAIL_DOMAINS)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setEmailDomains(String emailDomains) {
+    public void setEmailDomains(@jakarta.annotation.Nonnull String emailDomains) {
         this.emailDomains = emailDomains;
     }
 
-    public TravelRuleVASP website(String website) {
+    public TravelRuleVASP website(@jakarta.annotation.Nonnull String website) {
         this.website = website;
         return this;
     }
@@ -416,11 +468,11 @@ public class TravelRuleVASP {
 
     @JsonProperty(JSON_PROPERTY_WEBSITE)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setWebsite(String website) {
+    public void setWebsite(@jakarta.annotation.Nonnull String website) {
         this.website = website;
     }
 
-    public TravelRuleVASP logo(String logo) {
+    public TravelRuleVASP logo(@jakarta.annotation.Nullable String logo) {
         this.logo = logo;
         return this;
     }
@@ -439,11 +491,11 @@ public class TravelRuleVASP {
 
     @JsonProperty(JSON_PROPERTY_LOGO)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setLogo(String logo) {
+    public void setLogo(@jakarta.annotation.Nullable String logo) {
         this.logo = logo;
     }
 
-    public TravelRuleVASP legalStructure(String legalStructure) {
+    public TravelRuleVASP legalStructure(@jakarta.annotation.Nonnull String legalStructure) {
         this.legalStructure = legalStructure;
         return this;
     }
@@ -462,11 +514,11 @@ public class TravelRuleVASP {
 
     @JsonProperty(JSON_PROPERTY_LEGAL_STRUCTURE)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setLegalStructure(String legalStructure) {
+    public void setLegalStructure(@jakarta.annotation.Nonnull String legalStructure) {
         this.legalStructure = legalStructure;
     }
 
-    public TravelRuleVASP legalName(String legalName) {
+    public TravelRuleVASP legalName(@jakarta.annotation.Nonnull String legalName) {
         this.legalName = legalName;
         return this;
     }
@@ -485,11 +537,11 @@ public class TravelRuleVASP {
 
     @JsonProperty(JSON_PROPERTY_LEGAL_NAME)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setLegalName(String legalName) {
+    public void setLegalName(@jakarta.annotation.Nonnull String legalName) {
         this.legalName = legalName;
     }
 
-    public TravelRuleVASP yearFounded(String yearFounded) {
+    public TravelRuleVASP yearFounded(@jakarta.annotation.Nonnull String yearFounded) {
         this.yearFounded = yearFounded;
         return this;
     }
@@ -508,11 +560,12 @@ public class TravelRuleVASP {
 
     @JsonProperty(JSON_PROPERTY_YEAR_FOUNDED)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setYearFounded(String yearFounded) {
+    public void setYearFounded(@jakarta.annotation.Nonnull String yearFounded) {
         this.yearFounded = yearFounded;
     }
 
-    public TravelRuleVASP incorporationCountry(String incorporationCountry) {
+    public TravelRuleVASP incorporationCountry(
+            @jakarta.annotation.Nonnull String incorporationCountry) {
         this.incorporationCountry = incorporationCountry;
         return this;
     }
@@ -531,11 +584,11 @@ public class TravelRuleVASP {
 
     @JsonProperty(JSON_PROPERTY_INCORPORATION_COUNTRY)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setIncorporationCountry(String incorporationCountry) {
+    public void setIncorporationCountry(@jakarta.annotation.Nonnull String incorporationCountry) {
         this.incorporationCountry = incorporationCountry;
     }
 
-    public TravelRuleVASP isRegulated(String isRegulated) {
+    public TravelRuleVASP isRegulated(@jakarta.annotation.Nonnull String isRegulated) {
         this.isRegulated = isRegulated;
         return this;
     }
@@ -554,11 +607,11 @@ public class TravelRuleVASP {
 
     @JsonProperty(JSON_PROPERTY_IS_REGULATED)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setIsRegulated(String isRegulated) {
+    public void setIsRegulated(@jakarta.annotation.Nonnull String isRegulated) {
         this.isRegulated = isRegulated;
     }
 
-    public TravelRuleVASP otherNames(String otherNames) {
+    public TravelRuleVASP otherNames(@jakarta.annotation.Nullable String otherNames) {
         this.otherNames = otherNames;
         return this;
     }
@@ -577,11 +630,12 @@ public class TravelRuleVASP {
 
     @JsonProperty(JSON_PROPERTY_OTHER_NAMES)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setOtherNames(String otherNames) {
+    public void setOtherNames(@jakarta.annotation.Nullable String otherNames) {
         this.otherNames = otherNames;
     }
 
-    public TravelRuleVASP identificationType(String identificationType) {
+    public TravelRuleVASP identificationType(
+            @jakarta.annotation.Nullable String identificationType) {
         this.identificationType = identificationType;
         return this;
     }
@@ -600,11 +654,12 @@ public class TravelRuleVASP {
 
     @JsonProperty(JSON_PROPERTY_IDENTIFICATION_TYPE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setIdentificationType(String identificationType) {
+    public void setIdentificationType(@jakarta.annotation.Nullable String identificationType) {
         this.identificationType = identificationType;
     }
 
-    public TravelRuleVASP identificationCountry(String identificationCountry) {
+    public TravelRuleVASP identificationCountry(
+            @jakarta.annotation.Nullable String identificationCountry) {
         this.identificationCountry = identificationCountry;
         return this;
     }
@@ -623,11 +678,12 @@ public class TravelRuleVASP {
 
     @JsonProperty(JSON_PROPERTY_IDENTIFICATION_COUNTRY)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setIdentificationCountry(String identificationCountry) {
+    public void setIdentificationCountry(
+            @jakarta.annotation.Nullable String identificationCountry) {
         this.identificationCountry = identificationCountry;
     }
 
-    public TravelRuleVASP businessNumber(String businessNumber) {
+    public TravelRuleVASP businessNumber(@jakarta.annotation.Nullable String businessNumber) {
         this.businessNumber = businessNumber;
         return this;
     }
@@ -646,11 +702,12 @@ public class TravelRuleVASP {
 
     @JsonProperty(JSON_PROPERTY_BUSINESS_NUMBER)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setBusinessNumber(String businessNumber) {
+    public void setBusinessNumber(@jakarta.annotation.Nullable String businessNumber) {
         this.businessNumber = businessNumber;
     }
 
-    public TravelRuleVASP regulatoryAuthorities(String regulatoryAuthorities) {
+    public TravelRuleVASP regulatoryAuthorities(
+            @jakarta.annotation.Nullable String regulatoryAuthorities) {
         this.regulatoryAuthorities = regulatoryAuthorities;
         return this;
     }
@@ -669,11 +726,12 @@ public class TravelRuleVASP {
 
     @JsonProperty(JSON_PROPERTY_REGULATORY_AUTHORITIES)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setRegulatoryAuthorities(String regulatoryAuthorities) {
+    public void setRegulatoryAuthorities(
+            @jakarta.annotation.Nullable String regulatoryAuthorities) {
         this.regulatoryAuthorities = regulatoryAuthorities;
     }
 
-    public TravelRuleVASP jurisdictions(String jurisdictions) {
+    public TravelRuleVASP jurisdictions(@jakarta.annotation.Nonnull String jurisdictions) {
         this.jurisdictions = jurisdictions;
         return this;
     }
@@ -692,11 +750,11 @@ public class TravelRuleVASP {
 
     @JsonProperty(JSON_PROPERTY_JURISDICTIONS)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setJurisdictions(String jurisdictions) {
+    public void setJurisdictions(@jakarta.annotation.Nonnull String jurisdictions) {
         this.jurisdictions = jurisdictions;
     }
 
-    public TravelRuleVASP street(String street) {
+    public TravelRuleVASP street(@jakarta.annotation.Nullable String street) {
         this.street = street;
         return this;
     }
@@ -715,11 +773,11 @@ public class TravelRuleVASP {
 
     @JsonProperty(JSON_PROPERTY_STREET)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setStreet(String street) {
+    public void setStreet(@jakarta.annotation.Nullable String street) {
         this.street = street;
     }
 
-    public TravelRuleVASP number(String number) {
+    public TravelRuleVASP number(@jakarta.annotation.Nullable String number) {
         this.number = number;
         return this;
     }
@@ -738,11 +796,11 @@ public class TravelRuleVASP {
 
     @JsonProperty(JSON_PROPERTY_NUMBER)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setNumber(String number) {
+    public void setNumber(@jakarta.annotation.Nullable String number) {
         this.number = number;
     }
 
-    public TravelRuleVASP unit(String unit) {
+    public TravelRuleVASP unit(@jakarta.annotation.Nullable String unit) {
         this.unit = unit;
         return this;
     }
@@ -761,11 +819,11 @@ public class TravelRuleVASP {
 
     @JsonProperty(JSON_PROPERTY_UNIT)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setUnit(String unit) {
+    public void setUnit(@jakarta.annotation.Nullable String unit) {
         this.unit = unit;
     }
 
-    public TravelRuleVASP postCode(String postCode) {
+    public TravelRuleVASP postCode(@jakarta.annotation.Nullable String postCode) {
         this.postCode = postCode;
         return this;
     }
@@ -784,11 +842,11 @@ public class TravelRuleVASP {
 
     @JsonProperty(JSON_PROPERTY_POST_CODE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setPostCode(String postCode) {
+    public void setPostCode(@jakarta.annotation.Nullable String postCode) {
         this.postCode = postCode;
     }
 
-    public TravelRuleVASP state(String state) {
+    public TravelRuleVASP state(@jakarta.annotation.Nullable String state) {
         this.state = state;
         return this;
     }
@@ -807,11 +865,11 @@ public class TravelRuleVASP {
 
     @JsonProperty(JSON_PROPERTY_STATE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setState(String state) {
+    public void setState(@jakarta.annotation.Nullable String state) {
         this.state = state;
     }
 
-    public TravelRuleVASP certificates(String certificates) {
+    public TravelRuleVASP certificates(@jakarta.annotation.Nullable String certificates) {
         this.certificates = certificates;
         return this;
     }
@@ -830,11 +888,11 @@ public class TravelRuleVASP {
 
     @JsonProperty(JSON_PROPERTY_CERTIFICATES)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setCertificates(String certificates) {
+    public void setCertificates(@jakarta.annotation.Nullable String certificates) {
         this.certificates = certificates;
     }
 
-    public TravelRuleVASP description(String description) {
+    public TravelRuleVASP description(@jakarta.annotation.Nullable String description) {
         this.description = description;
         return this;
     }
@@ -853,11 +911,12 @@ public class TravelRuleVASP {
 
     @JsonProperty(JSON_PROPERTY_DESCRIPTION)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setDescription(String description) {
+    public void setDescription(@jakarta.annotation.Nullable String description) {
         this.description = description;
     }
 
-    public TravelRuleVASP travelRuleOPENVASP(String travelRuleOPENVASP) {
+    public TravelRuleVASP travelRuleOPENVASP(
+            @jakarta.annotation.Nullable String travelRuleOPENVASP) {
         this.travelRuleOPENVASP = travelRuleOPENVASP;
         return this;
     }
@@ -876,11 +935,11 @@ public class TravelRuleVASP {
 
     @JsonProperty(JSON_PROPERTY_TRAVEL_RULE_O_P_E_N_V_A_S_P)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setTravelRuleOPENVASP(String travelRuleOPENVASP) {
+    public void setTravelRuleOPENVASP(@jakarta.annotation.Nullable String travelRuleOPENVASP) {
         this.travelRuleOPENVASP = travelRuleOPENVASP;
     }
 
-    public TravelRuleVASP travelRuleSYGNA(String travelRuleSYGNA) {
+    public TravelRuleVASP travelRuleSYGNA(@jakarta.annotation.Nullable String travelRuleSYGNA) {
         this.travelRuleSYGNA = travelRuleSYGNA;
         return this;
     }
@@ -899,11 +958,11 @@ public class TravelRuleVASP {
 
     @JsonProperty(JSON_PROPERTY_TRAVEL_RULE_S_Y_G_N_A)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setTravelRuleSYGNA(String travelRuleSYGNA) {
+    public void setTravelRuleSYGNA(@jakarta.annotation.Nullable String travelRuleSYGNA) {
         this.travelRuleSYGNA = travelRuleSYGNA;
     }
 
-    public TravelRuleVASP travelRuleTRISA(String travelRuleTRISA) {
+    public TravelRuleVASP travelRuleTRISA(@jakarta.annotation.Nullable String travelRuleTRISA) {
         this.travelRuleTRISA = travelRuleTRISA;
         return this;
     }
@@ -922,11 +981,11 @@ public class TravelRuleVASP {
 
     @JsonProperty(JSON_PROPERTY_TRAVEL_RULE_T_R_I_S_A)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setTravelRuleTRISA(String travelRuleTRISA) {
+    public void setTravelRuleTRISA(@jakarta.annotation.Nullable String travelRuleTRISA) {
         this.travelRuleTRISA = travelRuleTRISA;
     }
 
-    public TravelRuleVASP travelRuleTRLIGHT(String travelRuleTRLIGHT) {
+    public TravelRuleVASP travelRuleTRLIGHT(@jakarta.annotation.Nonnull String travelRuleTRLIGHT) {
         this.travelRuleTRLIGHT = travelRuleTRLIGHT;
         return this;
     }
@@ -945,11 +1004,11 @@ public class TravelRuleVASP {
 
     @JsonProperty(JSON_PROPERTY_TRAVEL_RULE_T_R_L_I_G_H_T)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setTravelRuleTRLIGHT(String travelRuleTRLIGHT) {
+    public void setTravelRuleTRLIGHT(@jakarta.annotation.Nonnull String travelRuleTRLIGHT) {
         this.travelRuleTRLIGHT = travelRuleTRLIGHT;
     }
 
-    public TravelRuleVASP travelRuleEMAIL(String travelRuleEMAIL) {
+    public TravelRuleVASP travelRuleEMAIL(@jakarta.annotation.Nullable String travelRuleEMAIL) {
         this.travelRuleEMAIL = travelRuleEMAIL;
         return this;
     }
@@ -968,11 +1027,11 @@ public class TravelRuleVASP {
 
     @JsonProperty(JSON_PROPERTY_TRAVEL_RULE_E_M_A_I_L)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setTravelRuleEMAIL(String travelRuleEMAIL) {
+    public void setTravelRuleEMAIL(@jakarta.annotation.Nullable String travelRuleEMAIL) {
         this.travelRuleEMAIL = travelRuleEMAIL;
     }
 
-    public TravelRuleVASP travelRuleTRP(String travelRuleTRP) {
+    public TravelRuleVASP travelRuleTRP(@jakarta.annotation.Nullable String travelRuleTRP) {
         this.travelRuleTRP = travelRuleTRP;
         return this;
     }
@@ -991,11 +1050,11 @@ public class TravelRuleVASP {
 
     @JsonProperty(JSON_PROPERTY_TRAVEL_RULE_T_R_P)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setTravelRuleTRP(String travelRuleTRP) {
+    public void setTravelRuleTRP(@jakarta.annotation.Nullable String travelRuleTRP) {
         this.travelRuleTRP = travelRuleTRP;
     }
 
-    public TravelRuleVASP travelRuleSHYFT(String travelRuleSHYFT) {
+    public TravelRuleVASP travelRuleSHYFT(@jakarta.annotation.Nullable String travelRuleSHYFT) {
         this.travelRuleSHYFT = travelRuleSHYFT;
         return this;
     }
@@ -1014,11 +1073,12 @@ public class TravelRuleVASP {
 
     @JsonProperty(JSON_PROPERTY_TRAVEL_RULE_S_H_Y_F_T)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setTravelRuleSHYFT(String travelRuleSHYFT) {
+    public void setTravelRuleSHYFT(@jakarta.annotation.Nullable String travelRuleSHYFT) {
         this.travelRuleSHYFT = travelRuleSHYFT;
     }
 
-    public TravelRuleVASP travelRuleUSTRAVELRULEWG(String travelRuleUSTRAVELRULEWG) {
+    public TravelRuleVASP travelRuleUSTRAVELRULEWG(
+            @jakarta.annotation.Nullable String travelRuleUSTRAVELRULEWG) {
         this.travelRuleUSTRAVELRULEWG = travelRuleUSTRAVELRULEWG;
         return this;
     }
@@ -1037,11 +1097,12 @@ public class TravelRuleVASP {
 
     @JsonProperty(JSON_PROPERTY_TRAVEL_RULE_U_S_T_R_A_V_E_L_R_U_L_E_W_G)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setTravelRuleUSTRAVELRULEWG(String travelRuleUSTRAVELRULEWG) {
+    public void setTravelRuleUSTRAVELRULEWG(
+            @jakarta.annotation.Nullable String travelRuleUSTRAVELRULEWG) {
         this.travelRuleUSTRAVELRULEWG = travelRuleUSTRAVELRULEWG;
     }
 
-    public TravelRuleVASP createdAt(String createdAt) {
+    public TravelRuleVASP createdAt(@jakarta.annotation.Nonnull String createdAt) {
         this.createdAt = createdAt;
         return this;
     }
@@ -1060,11 +1121,11 @@ public class TravelRuleVASP {
 
     @JsonProperty(JSON_PROPERTY_CREATED_AT)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setCreatedAt(String createdAt) {
+    public void setCreatedAt(@jakarta.annotation.Nonnull String createdAt) {
         this.createdAt = createdAt;
     }
 
-    public TravelRuleVASP createdBy(String createdBy) {
+    public TravelRuleVASP createdBy(@jakarta.annotation.Nullable String createdBy) {
         this.createdBy = createdBy;
         return this;
     }
@@ -1083,11 +1144,11 @@ public class TravelRuleVASP {
 
     @JsonProperty(JSON_PROPERTY_CREATED_BY)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setCreatedBy(String createdBy) {
+    public void setCreatedBy(@jakarta.annotation.Nullable String createdBy) {
         this.createdBy = createdBy;
     }
 
-    public TravelRuleVASP updatedAt(String updatedAt) {
+    public TravelRuleVASP updatedAt(@jakarta.annotation.Nullable String updatedAt) {
         this.updatedAt = updatedAt;
         return this;
     }
@@ -1106,11 +1167,11 @@ public class TravelRuleVASP {
 
     @JsonProperty(JSON_PROPERTY_UPDATED_AT)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setUpdatedAt(String updatedAt) {
+    public void setUpdatedAt(@jakarta.annotation.Nullable String updatedAt) {
         this.updatedAt = updatedAt;
     }
 
-    public TravelRuleVASP updatedBy(String updatedBy) {
+    public TravelRuleVASP updatedBy(@jakarta.annotation.Nullable String updatedBy) {
         this.updatedBy = updatedBy;
         return this;
     }
@@ -1129,11 +1190,11 @@ public class TravelRuleVASP {
 
     @JsonProperty(JSON_PROPERTY_UPDATED_BY)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setUpdatedBy(String updatedBy) {
+    public void setUpdatedBy(@jakarta.annotation.Nullable String updatedBy) {
         this.updatedBy = updatedBy;
     }
 
-    public TravelRuleVASP lastSentDate(String lastSentDate) {
+    public TravelRuleVASP lastSentDate(@jakarta.annotation.Nullable String lastSentDate) {
         this.lastSentDate = lastSentDate;
         return this;
     }
@@ -1152,11 +1213,11 @@ public class TravelRuleVASP {
 
     @JsonProperty(JSON_PROPERTY_LAST_SENT_DATE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setLastSentDate(String lastSentDate) {
+    public void setLastSentDate(@jakarta.annotation.Nullable String lastSentDate) {
         this.lastSentDate = lastSentDate;
     }
 
-    public TravelRuleVASP lastReceivedDate(String lastReceivedDate) {
+    public TravelRuleVASP lastReceivedDate(@jakarta.annotation.Nullable String lastReceivedDate) {
         this.lastReceivedDate = lastReceivedDate;
         return this;
     }
@@ -1175,11 +1236,11 @@ public class TravelRuleVASP {
 
     @JsonProperty(JSON_PROPERTY_LAST_RECEIVED_DATE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setLastReceivedDate(String lastReceivedDate) {
+    public void setLastReceivedDate(@jakarta.annotation.Nullable String lastReceivedDate) {
         this.lastReceivedDate = lastReceivedDate;
     }
 
-    public TravelRuleVASP documents(String documents) {
+    public TravelRuleVASP documents(@jakarta.annotation.Nullable String documents) {
         this.documents = documents;
         return this;
     }
@@ -1198,11 +1259,11 @@ public class TravelRuleVASP {
 
     @JsonProperty(JSON_PROPERTY_DOCUMENTS)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setDocuments(String documents) {
+    public void setDocuments(@jakarta.annotation.Nullable String documents) {
         this.documents = documents;
     }
 
-    public TravelRuleVASP hasAdmin(Boolean hasAdmin) {
+    public TravelRuleVASP hasAdmin(@jakarta.annotation.Nonnull Boolean hasAdmin) {
         this.hasAdmin = hasAdmin;
         return this;
     }
@@ -1221,11 +1282,11 @@ public class TravelRuleVASP {
 
     @JsonProperty(JSON_PROPERTY_HAS_ADMIN)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setHasAdmin(Boolean hasAdmin) {
+    public void setHasAdmin(@jakarta.annotation.Nonnull Boolean hasAdmin) {
         this.hasAdmin = hasAdmin;
     }
 
-    public TravelRuleVASP isNotifiable(Boolean isNotifiable) {
+    public TravelRuleVASP isNotifiable(@jakarta.annotation.Nonnull Boolean isNotifiable) {
         this.isNotifiable = isNotifiable;
         return this;
     }
@@ -1244,11 +1305,11 @@ public class TravelRuleVASP {
 
     @JsonProperty(JSON_PROPERTY_IS_NOTIFIABLE)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setIsNotifiable(Boolean isNotifiable) {
+    public void setIsNotifiable(@jakarta.annotation.Nonnull Boolean isNotifiable) {
         this.isNotifiable = isNotifiable;
     }
 
-    public TravelRuleVASP issuers(TravelRuleIssuers issuers) {
+    public TravelRuleVASP issuers(@jakarta.annotation.Nonnull TravelRuleIssuers issuers) {
         this.issuers = issuers;
         return this;
     }
@@ -1267,7 +1328,7 @@ public class TravelRuleVASP {
 
     @JsonProperty(JSON_PROPERTY_ISSUERS)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setIssuers(TravelRuleIssuers issuers) {
+    public void setIssuers(@jakarta.annotation.Nonnull TravelRuleIssuers issuers) {
         this.issuers = issuers;
     }
 
@@ -1501,8 +1562,7 @@ public class TravelRuleVASP {
                             "%sdid%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getDid()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getDid()))));
         }
 
         // add `name` to the URL query string
@@ -1512,8 +1572,7 @@ public class TravelRuleVASP {
                             "%sname%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getName()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getName()))));
         }
 
         // add `verificationStatus` to the URL query string
@@ -1523,10 +1582,7 @@ public class TravelRuleVASP {
                             "%sverificationStatus%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getVerificationStatus()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getVerificationStatus()))));
         }
 
         // add `addressLine1` to the URL query string
@@ -1536,10 +1592,7 @@ public class TravelRuleVASP {
                             "%saddressLine1%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getAddressLine1()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getAddressLine1()))));
         }
 
         // add `addressLine2` to the URL query string
@@ -1549,10 +1602,7 @@ public class TravelRuleVASP {
                             "%saddressLine2%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getAddressLine2()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getAddressLine2()))));
         }
 
         // add `city` to the URL query string
@@ -1562,8 +1612,7 @@ public class TravelRuleVASP {
                             "%scity%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getCity()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getCity()))));
         }
 
         // add `country` to the URL query string
@@ -1573,8 +1622,7 @@ public class TravelRuleVASP {
                             "%scountry%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getCountry()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getCountry()))));
         }
 
         // add `emailDomains` to the URL query string
@@ -1584,10 +1632,7 @@ public class TravelRuleVASP {
                             "%semailDomains%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getEmailDomains()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getEmailDomains()))));
         }
 
         // add `website` to the URL query string
@@ -1597,8 +1642,7 @@ public class TravelRuleVASP {
                             "%swebsite%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getWebsite()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getWebsite()))));
         }
 
         // add `logo` to the URL query string
@@ -1608,8 +1652,7 @@ public class TravelRuleVASP {
                             "%slogo%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getLogo()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getLogo()))));
         }
 
         // add `legalStructure` to the URL query string
@@ -1619,10 +1662,7 @@ public class TravelRuleVASP {
                             "%slegalStructure%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getLegalStructure()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getLegalStructure()))));
         }
 
         // add `legalName` to the URL query string
@@ -1632,9 +1672,7 @@ public class TravelRuleVASP {
                             "%slegalName%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getLegalName()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getLegalName()))));
         }
 
         // add `yearFounded` to the URL query string
@@ -1644,10 +1682,7 @@ public class TravelRuleVASP {
                             "%syearFounded%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getYearFounded()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getYearFounded()))));
         }
 
         // add `incorporationCountry` to the URL query string
@@ -1657,10 +1692,8 @@ public class TravelRuleVASP {
                             "%sincorporationCountry%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getIncorporationCountry()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(
+                                    ApiClient.valueToString(getIncorporationCountry()))));
         }
 
         // add `isRegulated` to the URL query string
@@ -1670,10 +1703,7 @@ public class TravelRuleVASP {
                             "%sisRegulated%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getIsRegulated()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getIsRegulated()))));
         }
 
         // add `otherNames` to the URL query string
@@ -1683,9 +1713,7 @@ public class TravelRuleVASP {
                             "%sotherNames%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getOtherNames()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getOtherNames()))));
         }
 
         // add `identificationType` to the URL query string
@@ -1695,10 +1723,7 @@ public class TravelRuleVASP {
                             "%sidentificationType%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getIdentificationType()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getIdentificationType()))));
         }
 
         // add `identificationCountry` to the URL query string
@@ -1708,10 +1733,8 @@ public class TravelRuleVASP {
                             "%sidentificationCountry%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getIdentificationCountry()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(
+                                    ApiClient.valueToString(getIdentificationCountry()))));
         }
 
         // add `businessNumber` to the URL query string
@@ -1721,10 +1744,7 @@ public class TravelRuleVASP {
                             "%sbusinessNumber%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getBusinessNumber()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getBusinessNumber()))));
         }
 
         // add `regulatoryAuthorities` to the URL query string
@@ -1734,10 +1754,8 @@ public class TravelRuleVASP {
                             "%sregulatoryAuthorities%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getRegulatoryAuthorities()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(
+                                    ApiClient.valueToString(getRegulatoryAuthorities()))));
         }
 
         // add `jurisdictions` to the URL query string
@@ -1747,10 +1765,7 @@ public class TravelRuleVASP {
                             "%sjurisdictions%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getJurisdictions()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getJurisdictions()))));
         }
 
         // add `street` to the URL query string
@@ -1760,8 +1775,7 @@ public class TravelRuleVASP {
                             "%sstreet%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getStreet()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getStreet()))));
         }
 
         // add `number` to the URL query string
@@ -1771,8 +1785,7 @@ public class TravelRuleVASP {
                             "%snumber%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getNumber()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getNumber()))));
         }
 
         // add `unit` to the URL query string
@@ -1782,8 +1795,7 @@ public class TravelRuleVASP {
                             "%sunit%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getUnit()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getUnit()))));
         }
 
         // add `postCode` to the URL query string
@@ -1793,8 +1805,7 @@ public class TravelRuleVASP {
                             "%spostCode%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getPostCode()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getPostCode()))));
         }
 
         // add `state` to the URL query string
@@ -1804,8 +1815,7 @@ public class TravelRuleVASP {
                             "%sstate%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getState()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getState()))));
         }
 
         // add `certificates` to the URL query string
@@ -1815,10 +1825,7 @@ public class TravelRuleVASP {
                             "%scertificates%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getCertificates()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getCertificates()))));
         }
 
         // add `description` to the URL query string
@@ -1828,10 +1835,7 @@ public class TravelRuleVASP {
                             "%sdescription%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getDescription()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getDescription()))));
         }
 
         // add `travelRule_OPENVASP` to the URL query string
@@ -1841,10 +1845,7 @@ public class TravelRuleVASP {
                             "%stravelRule_OPENVASP%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getTravelRuleOPENVASP()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getTravelRuleOPENVASP()))));
         }
 
         // add `travelRule_SYGNA` to the URL query string
@@ -1854,10 +1855,7 @@ public class TravelRuleVASP {
                             "%stravelRule_SYGNA%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getTravelRuleSYGNA()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getTravelRuleSYGNA()))));
         }
 
         // add `travelRule_TRISA` to the URL query string
@@ -1867,10 +1865,7 @@ public class TravelRuleVASP {
                             "%stravelRule_TRISA%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getTravelRuleTRISA()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getTravelRuleTRISA()))));
         }
 
         // add `travelRule_TRLIGHT` to the URL query string
@@ -1880,10 +1875,7 @@ public class TravelRuleVASP {
                             "%stravelRule_TRLIGHT%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getTravelRuleTRLIGHT()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getTravelRuleTRLIGHT()))));
         }
 
         // add `travelRule_EMAIL` to the URL query string
@@ -1893,10 +1885,7 @@ public class TravelRuleVASP {
                             "%stravelRule_EMAIL%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getTravelRuleEMAIL()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getTravelRuleEMAIL()))));
         }
 
         // add `travelRule_TRP` to the URL query string
@@ -1906,10 +1895,7 @@ public class TravelRuleVASP {
                             "%stravelRule_TRP%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getTravelRuleTRP()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getTravelRuleTRP()))));
         }
 
         // add `travelRule_SHYFT` to the URL query string
@@ -1919,10 +1905,7 @@ public class TravelRuleVASP {
                             "%stravelRule_SHYFT%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getTravelRuleSHYFT()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getTravelRuleSHYFT()))));
         }
 
         // add `travelRule_USTRAVELRULEWG` to the URL query string
@@ -1932,10 +1915,8 @@ public class TravelRuleVASP {
                             "%stravelRule_USTRAVELRULEWG%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getTravelRuleUSTRAVELRULEWG()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(
+                                    ApiClient.valueToString(getTravelRuleUSTRAVELRULEWG()))));
         }
 
         // add `createdAt` to the URL query string
@@ -1945,9 +1926,7 @@ public class TravelRuleVASP {
                             "%screatedAt%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getCreatedAt()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getCreatedAt()))));
         }
 
         // add `createdBy` to the URL query string
@@ -1957,9 +1936,7 @@ public class TravelRuleVASP {
                             "%screatedBy%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getCreatedBy()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getCreatedBy()))));
         }
 
         // add `updatedAt` to the URL query string
@@ -1969,9 +1946,7 @@ public class TravelRuleVASP {
                             "%supdatedAt%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getUpdatedAt()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getUpdatedAt()))));
         }
 
         // add `updatedBy` to the URL query string
@@ -1981,9 +1956,7 @@ public class TravelRuleVASP {
                             "%supdatedBy%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getUpdatedBy()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getUpdatedBy()))));
         }
 
         // add `lastSentDate` to the URL query string
@@ -1993,10 +1966,7 @@ public class TravelRuleVASP {
                             "%slastSentDate%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getLastSentDate()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getLastSentDate()))));
         }
 
         // add `lastReceivedDate` to the URL query string
@@ -2006,10 +1976,7 @@ public class TravelRuleVASP {
                             "%slastReceivedDate%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getLastReceivedDate()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getLastReceivedDate()))));
         }
 
         // add `documents` to the URL query string
@@ -2019,9 +1986,7 @@ public class TravelRuleVASP {
                             "%sdocuments%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getDocuments()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getDocuments()))));
         }
 
         // add `hasAdmin` to the URL query string
@@ -2031,8 +1996,7 @@ public class TravelRuleVASP {
                             "%shasAdmin%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getHasAdmin()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getHasAdmin()))));
         }
 
         // add `isNotifiable` to the URL query string
@@ -2042,10 +2006,7 @@ public class TravelRuleVASP {
                             "%sisNotifiable%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getIsNotifiable()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getIsNotifiable()))));
         }
 
         // add `issuers` to the URL query string

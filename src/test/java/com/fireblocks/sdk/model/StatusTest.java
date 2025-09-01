@@ -13,27 +13,27 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for Status */
-public class StatusTest {
+class StatusTest {
     private final Status model = new Status();
 
     /** Model tests for Status */
     @Test
-    public void testStatus() {
+    void testStatus() {
         // TODO: test Status
     }
 
     /** Test the property 'status' */
     @Test
-    public void statusTest() {
+    void statusTest() {
         // TODO: test status
     }
 
     /** Test the property 'type' */
     @Test
-    public void typeTest() {
+    void typeTest() {
         // TODO: test type
     }
 }

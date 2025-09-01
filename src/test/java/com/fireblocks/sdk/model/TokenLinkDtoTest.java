@@ -13,51 +13,51 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for TokenLinkDto */
-public class TokenLinkDtoTest {
+class TokenLinkDtoTest {
     private final TokenLinkDto model = new TokenLinkDto();
 
     /** Model tests for TokenLinkDto */
     @Test
-    public void testTokenLinkDto() {
+    void testTokenLinkDto() {
         // TODO: test TokenLinkDto
     }
 
     /** Test the property 'id' */
     @Test
-    public void idTest() {
+    void idTest() {
         // TODO: test id
     }
 
     /** Test the property 'status' */
     @Test
-    public void statusTest() {
+    void statusTest() {
         // TODO: test status
     }
 
     /** Test the property 'type' */
     @Test
-    public void typeTest() {
+    void typeTest() {
         // TODO: test type
     }
 
     /** Test the property 'refId' */
     @Test
-    public void refIdTest() {
+    void refIdTest() {
         // TODO: test refId
     }
 
     /** Test the property 'displayName' */
     @Test
-    public void displayNameTest() {
+    void displayNameTest() {
         // TODO: test displayName
     }
 
     /** Test the property 'tokenMetadata' */
     @Test
-    public void tokenMetadataTest() {
+    void tokenMetadataTest() {
         // TODO: test tokenMetadata
     }
 }

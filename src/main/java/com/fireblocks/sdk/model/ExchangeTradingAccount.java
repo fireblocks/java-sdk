@@ -16,8 +16,7 @@ package com.fireblocks.sdk.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -29,20 +28,22 @@ import java.util.StringJoiner;
     ExchangeTradingAccount.JSON_PROPERTY_NAME,
     ExchangeTradingAccount.JSON_PROPERTY_ASSETS
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class ExchangeTradingAccount {
     public static final String JSON_PROPERTY_TYPE = "type";
-    private String type;
+    @jakarta.annotation.Nullable private String type;
 
     public static final String JSON_PROPERTY_NAME = "name";
-    private String name;
+    @jakarta.annotation.Nullable private String name;
 
     public static final String JSON_PROPERTY_ASSETS = "assets";
-    private List<ExchangeAsset> assets;
+    @jakarta.annotation.Nullable private List<ExchangeAsset> assets = new ArrayList<>();
 
     public ExchangeTradingAccount() {}
 
-    public ExchangeTradingAccount type(String type) {
+    public ExchangeTradingAccount type(@jakarta.annotation.Nullable String type) {
         this.type = type;
         return this;
     }
@@ -61,11 +62,11 @@ public class ExchangeTradingAccount {
 
     @JsonProperty(JSON_PROPERTY_TYPE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setType(String type) {
+    public void setType(@jakarta.annotation.Nullable String type) {
         this.type = type;
     }
 
-    public ExchangeTradingAccount name(String name) {
+    public ExchangeTradingAccount name(@jakarta.annotation.Nullable String name) {
         this.name = name;
         return this;
     }
@@ -84,11 +85,11 @@ public class ExchangeTradingAccount {
 
     @JsonProperty(JSON_PROPERTY_NAME)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setName(String name) {
+    public void setName(@jakarta.annotation.Nullable String name) {
         this.name = name;
     }
 
-    public ExchangeTradingAccount assets(List<ExchangeAsset> assets) {
+    public ExchangeTradingAccount assets(@jakarta.annotation.Nullable List<ExchangeAsset> assets) {
         this.assets = assets;
         return this;
     }
@@ -115,7 +116,7 @@ public class ExchangeTradingAccount {
 
     @JsonProperty(JSON_PROPERTY_ASSETS)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAssets(List<ExchangeAsset> assets) {
+    public void setAssets(@jakarta.annotation.Nullable List<ExchangeAsset> assets) {
         this.assets = assets;
     }
 
@@ -200,8 +201,7 @@ public class ExchangeTradingAccount {
                             "%stype%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getType()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getType()))));
         }
 
         // add `name` to the URL query string
@@ -211,8 +211,7 @@ public class ExchangeTradingAccount {
                             "%sname%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getName()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getName()))));
         }
 
         // add `assets` to the URL query string

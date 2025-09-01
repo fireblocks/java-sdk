@@ -13,6 +13,7 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -25,20 +26,30 @@ import java.util.StringJoiner;
     DisbursementOperationPreview.JSON_PROPERTY_OUTPUT,
     DisbursementOperationPreview.JSON_PROPERTY_FAILURE
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class DisbursementOperationPreview {
     public static final String JSON_PROPERTY_INPUT = "input";
-    private DisbursementOperationInput input;
+    @jakarta.annotation.Nonnull private DisbursementOperationInput input;
 
     public static final String JSON_PROPERTY_OUTPUT = "output";
-    private DisbursementOperationPreviewOutput output;
+    @jakarta.annotation.Nullable private DisbursementOperationPreviewOutput output;
 
     public static final String JSON_PROPERTY_FAILURE = "failure";
-    private OperationExecutionFailure failure;
+    @jakarta.annotation.Nullable private OperationExecutionFailure failure;
 
     public DisbursementOperationPreview() {}
 
-    public DisbursementOperationPreview input(DisbursementOperationInput input) {
+    @JsonCreator
+    public DisbursementOperationPreview(
+            @JsonProperty(value = JSON_PROPERTY_INPUT, required = true)
+                    DisbursementOperationInput input) {
+        this.input = input;
+    }
+
+    public DisbursementOperationPreview input(
+            @jakarta.annotation.Nonnull DisbursementOperationInput input) {
         this.input = input;
         return this;
     }
@@ -57,11 +68,12 @@ public class DisbursementOperationPreview {
 
     @JsonProperty(JSON_PROPERTY_INPUT)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setInput(DisbursementOperationInput input) {
+    public void setInput(@jakarta.annotation.Nonnull DisbursementOperationInput input) {
         this.input = input;
     }
 
-    public DisbursementOperationPreview output(DisbursementOperationPreviewOutput output) {
+    public DisbursementOperationPreview output(
+            @jakarta.annotation.Nullable DisbursementOperationPreviewOutput output) {
         this.output = output;
         return this;
     }
@@ -80,11 +92,12 @@ public class DisbursementOperationPreview {
 
     @JsonProperty(JSON_PROPERTY_OUTPUT)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setOutput(DisbursementOperationPreviewOutput output) {
+    public void setOutput(@jakarta.annotation.Nullable DisbursementOperationPreviewOutput output) {
         this.output = output;
     }
 
-    public DisbursementOperationPreview failure(OperationExecutionFailure failure) {
+    public DisbursementOperationPreview failure(
+            @jakarta.annotation.Nullable OperationExecutionFailure failure) {
         this.failure = failure;
         return this;
     }
@@ -103,7 +116,7 @@ public class DisbursementOperationPreview {
 
     @JsonProperty(JSON_PROPERTY_FAILURE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setFailure(OperationExecutionFailure failure) {
+    public void setFailure(@jakarta.annotation.Nullable OperationExecutionFailure failure) {
         this.failure = failure;
     }
 

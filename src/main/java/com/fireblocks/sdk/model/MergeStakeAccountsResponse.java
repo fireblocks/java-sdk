@@ -13,25 +13,33 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 import java.util.UUID;
 
 /** MergeStakeAccountsResponse */
 @JsonPropertyOrder({MergeStakeAccountsResponse.JSON_PROPERTY_ID})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class MergeStakeAccountsResponse {
     public static final String JSON_PROPERTY_ID = "id";
-    private UUID id;
+    @jakarta.annotation.Nonnull private UUID id;
 
     public MergeStakeAccountsResponse() {}
 
-    public MergeStakeAccountsResponse id(UUID id) {
+    @JsonCreator
+    public MergeStakeAccountsResponse(
+            @JsonProperty(value = JSON_PROPERTY_ID, required = true) UUID id) {
+        this.id = id;
+    }
+
+    public MergeStakeAccountsResponse id(@jakarta.annotation.Nonnull UUID id) {
         this.id = id;
         return this;
     }
@@ -50,7 +58,7 @@ public class MergeStakeAccountsResponse {
 
     @JsonProperty(JSON_PROPERTY_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setId(UUID id) {
+    public void setId(@jakarta.annotation.Nonnull UUID id) {
         this.id = id;
     }
 
@@ -129,10 +137,7 @@ public class MergeStakeAccountsResponse {
             joiner.add(
                     String.format(
                             "%sid%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(String.valueOf(getId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getId()))));
         }
 
         return joiner.toString();

@@ -13,39 +13,39 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for SessionMetadata */
-public class SessionMetadataTest {
+class SessionMetadataTest {
     private final SessionMetadata model = new SessionMetadata();
 
     /** Model tests for SessionMetadata */
     @Test
-    public void testSessionMetadata() {
+    void testSessionMetadata() {
         // TODO: test SessionMetadata
     }
 
     /** Test the property 'appUrl' */
     @Test
-    public void appUrlTest() {
+    void appUrlTest() {
         // TODO: test appUrl
     }
 
     /** Test the property 'appName' */
     @Test
-    public void appNameTest() {
+    void appNameTest() {
         // TODO: test appName
     }
 
     /** Test the property 'appDescription' */
     @Test
-    public void appDescriptionTest() {
+    void appDescriptionTest() {
         // TODO: test appDescription
     }
 
     /** Test the property 'appIcon' */
     @Test
-    public void appIconTest() {
+    void appIconTest() {
         // TODO: test appIcon
     }
 }

@@ -26,17 +26,19 @@ import java.util.StringJoiner;
     ListOwnedTokensResponse.JSON_PROPERTY_PAGING,
     ListOwnedTokensResponse.JSON_PROPERTY_DATA
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class ListOwnedTokensResponse {
     public static final String JSON_PROPERTY_PAGING = "paging";
-    private Paging paging;
+    @jakarta.annotation.Nullable private Paging paging;
 
     public static final String JSON_PROPERTY_DATA = "data";
-    private List<TokenResponse> data;
+    @jakarta.annotation.Nullable private List<TokenResponse> data = new ArrayList<>();
 
     public ListOwnedTokensResponse() {}
 
-    public ListOwnedTokensResponse paging(Paging paging) {
+    public ListOwnedTokensResponse paging(@jakarta.annotation.Nullable Paging paging) {
         this.paging = paging;
         return this;
     }
@@ -55,11 +57,11 @@ public class ListOwnedTokensResponse {
 
     @JsonProperty(JSON_PROPERTY_PAGING)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setPaging(Paging paging) {
+    public void setPaging(@jakarta.annotation.Nullable Paging paging) {
         this.paging = paging;
     }
 
-    public ListOwnedTokensResponse data(List<TokenResponse> data) {
+    public ListOwnedTokensResponse data(@jakarta.annotation.Nullable List<TokenResponse> data) {
         this.data = data;
         return this;
     }
@@ -86,7 +88,7 @@ public class ListOwnedTokensResponse {
 
     @JsonProperty(JSON_PROPERTY_DATA)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setData(List<TokenResponse> data) {
+    public void setData(@jakarta.annotation.Nullable List<TokenResponse> data) {
         this.data = data;
     }
 

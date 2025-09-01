@@ -13,11 +13,11 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -29,26 +29,42 @@ import java.util.StringJoiner;
     ConversionConfigOperation.JSON_PROPERTY_STATUS,
     ConversionConfigOperation.JSON_PROPERTY_VALIDATION_FAILURE
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class ConversionConfigOperation {
     public static final String JSON_PROPERTY_OPERATION_ID = "operationId";
-    private String operationId;
+    @jakarta.annotation.Nonnull private String operationId;
 
     public static final String JSON_PROPERTY_TYPE = "type";
-    private ConversionOperationType type;
+    @jakarta.annotation.Nonnull private ConversionOperationType type;
 
     public static final String JSON_PROPERTY_PARAMS = "params";
-    private ConversionOperationConfigParams params;
+    @jakarta.annotation.Nonnull private ConversionOperationConfigParams params;
 
     public static final String JSON_PROPERTY_STATUS = "status";
-    private ConfigOperationStatus status;
+    @jakarta.annotation.Nonnull private ConfigOperationStatus status;
 
     public static final String JSON_PROPERTY_VALIDATION_FAILURE = "validationFailure";
-    private ConversionValidationFailure validationFailure;
+    @jakarta.annotation.Nullable private ConversionValidationFailure validationFailure;
 
     public ConversionConfigOperation() {}
 
-    public ConversionConfigOperation operationId(String operationId) {
+    @JsonCreator
+    public ConversionConfigOperation(
+            @JsonProperty(value = JSON_PROPERTY_OPERATION_ID, required = true) String operationId,
+            @JsonProperty(value = JSON_PROPERTY_TYPE, required = true) ConversionOperationType type,
+            @JsonProperty(value = JSON_PROPERTY_PARAMS, required = true)
+                    ConversionOperationConfigParams params,
+            @JsonProperty(value = JSON_PROPERTY_STATUS, required = true)
+                    ConfigOperationStatus status) {
+        this.operationId = operationId;
+        this.type = type;
+        this.params = params;
+        this.status = status;
+    }
+
+    public ConversionConfigOperation operationId(@jakarta.annotation.Nonnull String operationId) {
         this.operationId = operationId;
         return this;
     }
@@ -67,11 +83,12 @@ public class ConversionConfigOperation {
 
     @JsonProperty(JSON_PROPERTY_OPERATION_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setOperationId(String operationId) {
+    public void setOperationId(@jakarta.annotation.Nonnull String operationId) {
         this.operationId = operationId;
     }
 
-    public ConversionConfigOperation type(ConversionOperationType type) {
+    public ConversionConfigOperation type(
+            @jakarta.annotation.Nonnull ConversionOperationType type) {
         this.type = type;
         return this;
     }
@@ -90,11 +107,12 @@ public class ConversionConfigOperation {
 
     @JsonProperty(JSON_PROPERTY_TYPE)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setType(ConversionOperationType type) {
+    public void setType(@jakarta.annotation.Nonnull ConversionOperationType type) {
         this.type = type;
     }
 
-    public ConversionConfigOperation params(ConversionOperationConfigParams params) {
+    public ConversionConfigOperation params(
+            @jakarta.annotation.Nonnull ConversionOperationConfigParams params) {
         this.params = params;
         return this;
     }
@@ -113,11 +131,12 @@ public class ConversionConfigOperation {
 
     @JsonProperty(JSON_PROPERTY_PARAMS)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setParams(ConversionOperationConfigParams params) {
+    public void setParams(@jakarta.annotation.Nonnull ConversionOperationConfigParams params) {
         this.params = params;
     }
 
-    public ConversionConfigOperation status(ConfigOperationStatus status) {
+    public ConversionConfigOperation status(
+            @jakarta.annotation.Nonnull ConfigOperationStatus status) {
         this.status = status;
         return this;
     }
@@ -136,12 +155,12 @@ public class ConversionConfigOperation {
 
     @JsonProperty(JSON_PROPERTY_STATUS)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setStatus(ConfigOperationStatus status) {
+    public void setStatus(@jakarta.annotation.Nonnull ConfigOperationStatus status) {
         this.status = status;
     }
 
     public ConversionConfigOperation validationFailure(
-            ConversionValidationFailure validationFailure) {
+            @jakarta.annotation.Nullable ConversionValidationFailure validationFailure) {
         this.validationFailure = validationFailure;
         return this;
     }
@@ -160,7 +179,8 @@ public class ConversionConfigOperation {
 
     @JsonProperty(JSON_PROPERTY_VALIDATION_FAILURE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setValidationFailure(ConversionValidationFailure validationFailure) {
+    public void setValidationFailure(
+            @jakarta.annotation.Nullable ConversionValidationFailure validationFailure) {
         this.validationFailure = validationFailure;
     }
 
@@ -252,10 +272,7 @@ public class ConversionConfigOperation {
                             "%soperationId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getOperationId()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getOperationId()))));
         }
 
         // add `type` to the URL query string
@@ -265,8 +282,7 @@ public class ConversionConfigOperation {
                             "%stype%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getType()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getType()))));
         }
 
         // add `params` to the URL query string
@@ -281,8 +297,7 @@ public class ConversionConfigOperation {
                             "%sstatus%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getStatus()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getStatus()))));
         }
 
         // add `validationFailure` to the URL query string

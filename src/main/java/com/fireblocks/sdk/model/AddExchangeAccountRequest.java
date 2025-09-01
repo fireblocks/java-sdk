@@ -13,11 +13,11 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -29,26 +29,38 @@ import java.util.StringJoiner;
     AddExchangeAccountRequest.JSON_PROPERTY_KEY,
     AddExchangeAccountRequest.JSON_PROPERTY_MAIN_ACCOUNT_ID
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class AddExchangeAccountRequest {
     public static final String JSON_PROPERTY_EXCHANGE_TYPE = "exchangeType";
-    private ExchangeType exchangeType;
+    @jakarta.annotation.Nonnull private ExchangeType exchangeType;
 
     public static final String JSON_PROPERTY_NAME = "name";
-    private String name;
+    @jakarta.annotation.Nonnull private String name;
 
     public static final String JSON_PROPERTY_CREDS = "creds";
-    private String creds;
+    @jakarta.annotation.Nullable private String creds;
 
     public static final String JSON_PROPERTY_KEY = "key";
-    private String key;
+    @jakarta.annotation.Nullable private String key;
 
     public static final String JSON_PROPERTY_MAIN_ACCOUNT_ID = "mainAccountId";
-    private String mainAccountId;
+    @jakarta.annotation.Nullable private String mainAccountId;
 
     public AddExchangeAccountRequest() {}
 
-    public AddExchangeAccountRequest exchangeType(ExchangeType exchangeType) {
+    @JsonCreator
+    public AddExchangeAccountRequest(
+            @JsonProperty(value = JSON_PROPERTY_EXCHANGE_TYPE, required = true)
+                    ExchangeType exchangeType,
+            @JsonProperty(value = JSON_PROPERTY_NAME, required = true) String name) {
+        this.exchangeType = exchangeType;
+        this.name = name;
+    }
+
+    public AddExchangeAccountRequest exchangeType(
+            @jakarta.annotation.Nonnull ExchangeType exchangeType) {
         this.exchangeType = exchangeType;
         return this;
     }
@@ -67,11 +79,11 @@ public class AddExchangeAccountRequest {
 
     @JsonProperty(JSON_PROPERTY_EXCHANGE_TYPE)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setExchangeType(ExchangeType exchangeType) {
+    public void setExchangeType(@jakarta.annotation.Nonnull ExchangeType exchangeType) {
         this.exchangeType = exchangeType;
     }
 
-    public AddExchangeAccountRequest name(String name) {
+    public AddExchangeAccountRequest name(@jakarta.annotation.Nonnull String name) {
         this.name = name;
         return this;
     }
@@ -90,11 +102,11 @@ public class AddExchangeAccountRequest {
 
     @JsonProperty(JSON_PROPERTY_NAME)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setName(String name) {
+    public void setName(@jakarta.annotation.Nonnull String name) {
         this.name = name;
     }
 
-    public AddExchangeAccountRequest creds(String creds) {
+    public AddExchangeAccountRequest creds(@jakarta.annotation.Nullable String creds) {
         this.creds = creds;
         return this;
     }
@@ -113,11 +125,11 @@ public class AddExchangeAccountRequest {
 
     @JsonProperty(JSON_PROPERTY_CREDS)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setCreds(String creds) {
+    public void setCreds(@jakarta.annotation.Nullable String creds) {
         this.creds = creds;
     }
 
-    public AddExchangeAccountRequest key(String key) {
+    public AddExchangeAccountRequest key(@jakarta.annotation.Nullable String key) {
         this.key = key;
         return this;
     }
@@ -136,11 +148,12 @@ public class AddExchangeAccountRequest {
 
     @JsonProperty(JSON_PROPERTY_KEY)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setKey(String key) {
+    public void setKey(@jakarta.annotation.Nullable String key) {
         this.key = key;
     }
 
-    public AddExchangeAccountRequest mainAccountId(String mainAccountId) {
+    public AddExchangeAccountRequest mainAccountId(
+            @jakarta.annotation.Nullable String mainAccountId) {
         this.mainAccountId = mainAccountId;
         return this;
     }
@@ -159,7 +172,7 @@ public class AddExchangeAccountRequest {
 
     @JsonProperty(JSON_PROPERTY_MAIN_ACCOUNT_ID)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setMainAccountId(String mainAccountId) {
+    public void setMainAccountId(@jakarta.annotation.Nullable String mainAccountId) {
         this.mainAccountId = mainAccountId;
     }
 
@@ -248,10 +261,7 @@ public class AddExchangeAccountRequest {
                             "%sexchangeType%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getExchangeType()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getExchangeType()))));
         }
 
         // add `name` to the URL query string
@@ -261,8 +271,7 @@ public class AddExchangeAccountRequest {
                             "%sname%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getName()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getName()))));
         }
 
         // add `creds` to the URL query string
@@ -272,8 +281,7 @@ public class AddExchangeAccountRequest {
                             "%screds%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getCreds()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getCreds()))));
         }
 
         // add `key` to the URL query string
@@ -283,8 +291,7 @@ public class AddExchangeAccountRequest {
                             "%skey%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getKey()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getKey()))));
         }
 
         // add `mainAccountId` to the URL query string
@@ -294,10 +301,7 @@ public class AddExchangeAccountRequest {
                             "%smainAccountId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getMainAccountId()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getMainAccountId()))));
         }
 
         return joiner.toString();

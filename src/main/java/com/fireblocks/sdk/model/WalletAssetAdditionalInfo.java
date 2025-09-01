@@ -16,8 +16,7 @@ package com.fireblocks.sdk.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -40,59 +39,62 @@ import java.util.StringJoiner;
     WalletAssetAdditionalInfo.JSON_PROPERTY_SPEI_CLABE,
     WalletAssetAdditionalInfo.JSON_PROPERTY_SPEI_NAME
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class WalletAssetAdditionalInfo {
     public static final String JSON_PROPERTY_ACCOUNT_HOLDER_GIVEN_NAME = "accountHolderGivenName";
-    private String accountHolderGivenName;
+    @jakarta.annotation.Nullable private String accountHolderGivenName;
 
     public static final String JSON_PROPERTY_ACCOUNT_HOLDER_SURNAME = "accountHolderSurname";
-    private String accountHolderSurname;
+    @jakarta.annotation.Nullable private String accountHolderSurname;
 
     public static final String JSON_PROPERTY_ACCOUNT_HOLDER_CITY = "accountHolderCity";
-    private String accountHolderCity;
+    @jakarta.annotation.Nullable private String accountHolderCity;
 
     public static final String JSON_PROPERTY_ACCOUNT_HOLDER_COUNTRY = "accountHolderCountry";
-    private String accountHolderCountry;
+    @jakarta.annotation.Nullable private String accountHolderCountry;
 
     public static final String JSON_PROPERTY_ACCOUNT_HOLDER_ADDRESS1 = "accountHolderAddress1";
-    private String accountHolderAddress1;
+    @jakarta.annotation.Nullable private String accountHolderAddress1;
 
     public static final String JSON_PROPERTY_ACCOUNT_HOLDER_ADDRESS2 = "accountHolderAddress2";
-    private String accountHolderAddress2;
+    @jakarta.annotation.Nullable private String accountHolderAddress2;
 
     public static final String JSON_PROPERTY_ACCOUNT_HOLDER_DISTRICT = "accountHolderDistrict";
-    private String accountHolderDistrict;
+    @jakarta.annotation.Nullable private String accountHolderDistrict;
 
     public static final String JSON_PROPERTY_ACCOUNT_HOLDER_POSTAL_CODE = "accountHolderPostalCode";
-    private String accountHolderPostalCode;
+    @jakarta.annotation.Nullable private String accountHolderPostalCode;
 
     public static final String JSON_PROPERTY_ABA_ROUTING_NUMBER = "abaRoutingNumber";
-    private String abaRoutingNumber;
+    @jakarta.annotation.Nullable private String abaRoutingNumber;
 
     public static final String JSON_PROPERTY_ABA_ACCOUNT_NUMBER = "abaAccountNumber";
-    private String abaAccountNumber;
+    @jakarta.annotation.Nullable private String abaAccountNumber;
 
     public static final String JSON_PROPERTY_ABA_COUNTRY = "abaCountry";
-    private String abaCountry;
+    @jakarta.annotation.Nullable private String abaCountry;
 
     public static final String JSON_PROPERTY_IBAN = "iban";
-    private String iban;
+    @jakarta.annotation.Nullable private String iban;
 
     public static final String JSON_PROPERTY_IBAN_CITY = "ibanCity";
-    private String ibanCity;
+    @jakarta.annotation.Nullable private String ibanCity;
 
     public static final String JSON_PROPERTY_IBAN_COUNTRY = "ibanCountry";
-    private String ibanCountry;
+    @jakarta.annotation.Nullable private String ibanCountry;
 
     public static final String JSON_PROPERTY_SPEI_CLABE = "speiClabe";
-    private String speiClabe;
+    @jakarta.annotation.Nullable private String speiClabe;
 
     public static final String JSON_PROPERTY_SPEI_NAME = "speiName";
-    private String speiName;
+    @jakarta.annotation.Nullable private String speiName;
 
     public WalletAssetAdditionalInfo() {}
 
-    public WalletAssetAdditionalInfo accountHolderGivenName(String accountHolderGivenName) {
+    public WalletAssetAdditionalInfo accountHolderGivenName(
+            @jakarta.annotation.Nullable String accountHolderGivenName) {
         this.accountHolderGivenName = accountHolderGivenName;
         return this;
     }
@@ -111,11 +113,13 @@ public class WalletAssetAdditionalInfo {
 
     @JsonProperty(JSON_PROPERTY_ACCOUNT_HOLDER_GIVEN_NAME)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAccountHolderGivenName(String accountHolderGivenName) {
+    public void setAccountHolderGivenName(
+            @jakarta.annotation.Nullable String accountHolderGivenName) {
         this.accountHolderGivenName = accountHolderGivenName;
     }
 
-    public WalletAssetAdditionalInfo accountHolderSurname(String accountHolderSurname) {
+    public WalletAssetAdditionalInfo accountHolderSurname(
+            @jakarta.annotation.Nullable String accountHolderSurname) {
         this.accountHolderSurname = accountHolderSurname;
         return this;
     }
@@ -134,11 +138,12 @@ public class WalletAssetAdditionalInfo {
 
     @JsonProperty(JSON_PROPERTY_ACCOUNT_HOLDER_SURNAME)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAccountHolderSurname(String accountHolderSurname) {
+    public void setAccountHolderSurname(@jakarta.annotation.Nullable String accountHolderSurname) {
         this.accountHolderSurname = accountHolderSurname;
     }
 
-    public WalletAssetAdditionalInfo accountHolderCity(String accountHolderCity) {
+    public WalletAssetAdditionalInfo accountHolderCity(
+            @jakarta.annotation.Nullable String accountHolderCity) {
         this.accountHolderCity = accountHolderCity;
         return this;
     }
@@ -157,11 +162,12 @@ public class WalletAssetAdditionalInfo {
 
     @JsonProperty(JSON_PROPERTY_ACCOUNT_HOLDER_CITY)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAccountHolderCity(String accountHolderCity) {
+    public void setAccountHolderCity(@jakarta.annotation.Nullable String accountHolderCity) {
         this.accountHolderCity = accountHolderCity;
     }
 
-    public WalletAssetAdditionalInfo accountHolderCountry(String accountHolderCountry) {
+    public WalletAssetAdditionalInfo accountHolderCountry(
+            @jakarta.annotation.Nullable String accountHolderCountry) {
         this.accountHolderCountry = accountHolderCountry;
         return this;
     }
@@ -180,11 +186,12 @@ public class WalletAssetAdditionalInfo {
 
     @JsonProperty(JSON_PROPERTY_ACCOUNT_HOLDER_COUNTRY)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAccountHolderCountry(String accountHolderCountry) {
+    public void setAccountHolderCountry(@jakarta.annotation.Nullable String accountHolderCountry) {
         this.accountHolderCountry = accountHolderCountry;
     }
 
-    public WalletAssetAdditionalInfo accountHolderAddress1(String accountHolderAddress1) {
+    public WalletAssetAdditionalInfo accountHolderAddress1(
+            @jakarta.annotation.Nullable String accountHolderAddress1) {
         this.accountHolderAddress1 = accountHolderAddress1;
         return this;
     }
@@ -203,11 +210,13 @@ public class WalletAssetAdditionalInfo {
 
     @JsonProperty(JSON_PROPERTY_ACCOUNT_HOLDER_ADDRESS1)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAccountHolderAddress1(String accountHolderAddress1) {
+    public void setAccountHolderAddress1(
+            @jakarta.annotation.Nullable String accountHolderAddress1) {
         this.accountHolderAddress1 = accountHolderAddress1;
     }
 
-    public WalletAssetAdditionalInfo accountHolderAddress2(String accountHolderAddress2) {
+    public WalletAssetAdditionalInfo accountHolderAddress2(
+            @jakarta.annotation.Nullable String accountHolderAddress2) {
         this.accountHolderAddress2 = accountHolderAddress2;
         return this;
     }
@@ -226,11 +235,13 @@ public class WalletAssetAdditionalInfo {
 
     @JsonProperty(JSON_PROPERTY_ACCOUNT_HOLDER_ADDRESS2)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAccountHolderAddress2(String accountHolderAddress2) {
+    public void setAccountHolderAddress2(
+            @jakarta.annotation.Nullable String accountHolderAddress2) {
         this.accountHolderAddress2 = accountHolderAddress2;
     }
 
-    public WalletAssetAdditionalInfo accountHolderDistrict(String accountHolderDistrict) {
+    public WalletAssetAdditionalInfo accountHolderDistrict(
+            @jakarta.annotation.Nullable String accountHolderDistrict) {
         this.accountHolderDistrict = accountHolderDistrict;
         return this;
     }
@@ -249,11 +260,13 @@ public class WalletAssetAdditionalInfo {
 
     @JsonProperty(JSON_PROPERTY_ACCOUNT_HOLDER_DISTRICT)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAccountHolderDistrict(String accountHolderDistrict) {
+    public void setAccountHolderDistrict(
+            @jakarta.annotation.Nullable String accountHolderDistrict) {
         this.accountHolderDistrict = accountHolderDistrict;
     }
 
-    public WalletAssetAdditionalInfo accountHolderPostalCode(String accountHolderPostalCode) {
+    public WalletAssetAdditionalInfo accountHolderPostalCode(
+            @jakarta.annotation.Nullable String accountHolderPostalCode) {
         this.accountHolderPostalCode = accountHolderPostalCode;
         return this;
     }
@@ -272,11 +285,13 @@ public class WalletAssetAdditionalInfo {
 
     @JsonProperty(JSON_PROPERTY_ACCOUNT_HOLDER_POSTAL_CODE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAccountHolderPostalCode(String accountHolderPostalCode) {
+    public void setAccountHolderPostalCode(
+            @jakarta.annotation.Nullable String accountHolderPostalCode) {
         this.accountHolderPostalCode = accountHolderPostalCode;
     }
 
-    public WalletAssetAdditionalInfo abaRoutingNumber(String abaRoutingNumber) {
+    public WalletAssetAdditionalInfo abaRoutingNumber(
+            @jakarta.annotation.Nullable String abaRoutingNumber) {
         this.abaRoutingNumber = abaRoutingNumber;
         return this;
     }
@@ -295,11 +310,12 @@ public class WalletAssetAdditionalInfo {
 
     @JsonProperty(JSON_PROPERTY_ABA_ROUTING_NUMBER)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAbaRoutingNumber(String abaRoutingNumber) {
+    public void setAbaRoutingNumber(@jakarta.annotation.Nullable String abaRoutingNumber) {
         this.abaRoutingNumber = abaRoutingNumber;
     }
 
-    public WalletAssetAdditionalInfo abaAccountNumber(String abaAccountNumber) {
+    public WalletAssetAdditionalInfo abaAccountNumber(
+            @jakarta.annotation.Nullable String abaAccountNumber) {
         this.abaAccountNumber = abaAccountNumber;
         return this;
     }
@@ -318,11 +334,11 @@ public class WalletAssetAdditionalInfo {
 
     @JsonProperty(JSON_PROPERTY_ABA_ACCOUNT_NUMBER)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAbaAccountNumber(String abaAccountNumber) {
+    public void setAbaAccountNumber(@jakarta.annotation.Nullable String abaAccountNumber) {
         this.abaAccountNumber = abaAccountNumber;
     }
 
-    public WalletAssetAdditionalInfo abaCountry(String abaCountry) {
+    public WalletAssetAdditionalInfo abaCountry(@jakarta.annotation.Nullable String abaCountry) {
         this.abaCountry = abaCountry;
         return this;
     }
@@ -341,11 +357,11 @@ public class WalletAssetAdditionalInfo {
 
     @JsonProperty(JSON_PROPERTY_ABA_COUNTRY)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAbaCountry(String abaCountry) {
+    public void setAbaCountry(@jakarta.annotation.Nullable String abaCountry) {
         this.abaCountry = abaCountry;
     }
 
-    public WalletAssetAdditionalInfo iban(String iban) {
+    public WalletAssetAdditionalInfo iban(@jakarta.annotation.Nullable String iban) {
         this.iban = iban;
         return this;
     }
@@ -364,11 +380,11 @@ public class WalletAssetAdditionalInfo {
 
     @JsonProperty(JSON_PROPERTY_IBAN)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setIban(String iban) {
+    public void setIban(@jakarta.annotation.Nullable String iban) {
         this.iban = iban;
     }
 
-    public WalletAssetAdditionalInfo ibanCity(String ibanCity) {
+    public WalletAssetAdditionalInfo ibanCity(@jakarta.annotation.Nullable String ibanCity) {
         this.ibanCity = ibanCity;
         return this;
     }
@@ -387,11 +403,11 @@ public class WalletAssetAdditionalInfo {
 
     @JsonProperty(JSON_PROPERTY_IBAN_CITY)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setIbanCity(String ibanCity) {
+    public void setIbanCity(@jakarta.annotation.Nullable String ibanCity) {
         this.ibanCity = ibanCity;
     }
 
-    public WalletAssetAdditionalInfo ibanCountry(String ibanCountry) {
+    public WalletAssetAdditionalInfo ibanCountry(@jakarta.annotation.Nullable String ibanCountry) {
         this.ibanCountry = ibanCountry;
         return this;
     }
@@ -410,11 +426,11 @@ public class WalletAssetAdditionalInfo {
 
     @JsonProperty(JSON_PROPERTY_IBAN_COUNTRY)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setIbanCountry(String ibanCountry) {
+    public void setIbanCountry(@jakarta.annotation.Nullable String ibanCountry) {
         this.ibanCountry = ibanCountry;
     }
 
-    public WalletAssetAdditionalInfo speiClabe(String speiClabe) {
+    public WalletAssetAdditionalInfo speiClabe(@jakarta.annotation.Nullable String speiClabe) {
         this.speiClabe = speiClabe;
         return this;
     }
@@ -433,11 +449,11 @@ public class WalletAssetAdditionalInfo {
 
     @JsonProperty(JSON_PROPERTY_SPEI_CLABE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setSpeiClabe(String speiClabe) {
+    public void setSpeiClabe(@jakarta.annotation.Nullable String speiClabe) {
         this.speiClabe = speiClabe;
     }
 
-    public WalletAssetAdditionalInfo speiName(String speiName) {
+    public WalletAssetAdditionalInfo speiName(@jakarta.annotation.Nullable String speiName) {
         this.speiName = speiName;
         return this;
     }
@@ -456,7 +472,7 @@ public class WalletAssetAdditionalInfo {
 
     @JsonProperty(JSON_PROPERTY_SPEI_NAME)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setSpeiName(String speiName) {
+    public void setSpeiName(@jakarta.annotation.Nullable String speiName) {
         this.speiName = speiName;
     }
 
@@ -609,10 +625,8 @@ public class WalletAssetAdditionalInfo {
                             "%saccountHolderGivenName%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getAccountHolderGivenName()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(
+                                    ApiClient.valueToString(getAccountHolderGivenName()))));
         }
 
         // add `accountHolderSurname` to the URL query string
@@ -622,10 +636,8 @@ public class WalletAssetAdditionalInfo {
                             "%saccountHolderSurname%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getAccountHolderSurname()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(
+                                    ApiClient.valueToString(getAccountHolderSurname()))));
         }
 
         // add `accountHolderCity` to the URL query string
@@ -635,10 +647,7 @@ public class WalletAssetAdditionalInfo {
                             "%saccountHolderCity%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getAccountHolderCity()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getAccountHolderCity()))));
         }
 
         // add `accountHolderCountry` to the URL query string
@@ -648,10 +657,8 @@ public class WalletAssetAdditionalInfo {
                             "%saccountHolderCountry%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getAccountHolderCountry()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(
+                                    ApiClient.valueToString(getAccountHolderCountry()))));
         }
 
         // add `accountHolderAddress1` to the URL query string
@@ -661,10 +668,8 @@ public class WalletAssetAdditionalInfo {
                             "%saccountHolderAddress1%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getAccountHolderAddress1()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(
+                                    ApiClient.valueToString(getAccountHolderAddress1()))));
         }
 
         // add `accountHolderAddress2` to the URL query string
@@ -674,10 +679,8 @@ public class WalletAssetAdditionalInfo {
                             "%saccountHolderAddress2%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getAccountHolderAddress2()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(
+                                    ApiClient.valueToString(getAccountHolderAddress2()))));
         }
 
         // add `accountHolderDistrict` to the URL query string
@@ -687,10 +690,8 @@ public class WalletAssetAdditionalInfo {
                             "%saccountHolderDistrict%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getAccountHolderDistrict()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(
+                                    ApiClient.valueToString(getAccountHolderDistrict()))));
         }
 
         // add `accountHolderPostalCode` to the URL query string
@@ -700,10 +701,8 @@ public class WalletAssetAdditionalInfo {
                             "%saccountHolderPostalCode%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getAccountHolderPostalCode()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(
+                                    ApiClient.valueToString(getAccountHolderPostalCode()))));
         }
 
         // add `abaRoutingNumber` to the URL query string
@@ -713,10 +712,7 @@ public class WalletAssetAdditionalInfo {
                             "%sabaRoutingNumber%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getAbaRoutingNumber()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getAbaRoutingNumber()))));
         }
 
         // add `abaAccountNumber` to the URL query string
@@ -726,10 +722,7 @@ public class WalletAssetAdditionalInfo {
                             "%sabaAccountNumber%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getAbaAccountNumber()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getAbaAccountNumber()))));
         }
 
         // add `abaCountry` to the URL query string
@@ -739,9 +732,7 @@ public class WalletAssetAdditionalInfo {
                             "%sabaCountry%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getAbaCountry()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getAbaCountry()))));
         }
 
         // add `iban` to the URL query string
@@ -751,8 +742,7 @@ public class WalletAssetAdditionalInfo {
                             "%siban%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getIban()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getIban()))));
         }
 
         // add `ibanCity` to the URL query string
@@ -762,8 +752,7 @@ public class WalletAssetAdditionalInfo {
                             "%sibanCity%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getIbanCity()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getIbanCity()))));
         }
 
         // add `ibanCountry` to the URL query string
@@ -773,10 +762,7 @@ public class WalletAssetAdditionalInfo {
                             "%sibanCountry%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getIbanCountry()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getIbanCountry()))));
         }
 
         // add `speiClabe` to the URL query string
@@ -786,9 +772,7 @@ public class WalletAssetAdditionalInfo {
                             "%sspeiClabe%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getSpeiClabe()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getSpeiClabe()))));
         }
 
         // add `speiName` to the URL query string
@@ -798,8 +782,7 @@ public class WalletAssetAdditionalInfo {
                             "%sspeiName%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getSpeiName()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getSpeiName()))));
         }
 
         return joiner.toString();

@@ -13,21 +13,21 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for GetOtaStatusResponse */
-public class GetOtaStatusResponseTest {
+class GetOtaStatusResponseTest {
     private final GetOtaStatusResponse model = new GetOtaStatusResponse();
 
     /** Model tests for GetOtaStatusResponse */
     @Test
-    public void testGetOtaStatusResponse() {
+    void testGetOtaStatusResponse() {
         // TODO: test GetOtaStatusResponse
     }
 
     /** Test the property 'enabled' */
     @Test
-    public void enabledTest() {
+    void enabledTest() {
         // TODO: test enabled
     }
 }

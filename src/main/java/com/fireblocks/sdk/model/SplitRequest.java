@@ -13,11 +13,11 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -29,26 +29,36 @@ import java.util.StringJoiner;
     SplitRequest.JSON_PROPERTY_FEE_LEVEL,
     SplitRequest.JSON_PROPERTY_TX_NOTE
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class SplitRequest {
     public static final String JSON_PROPERTY_ID = "id";
-    private String id;
+    @jakarta.annotation.Nonnull private String id;
 
     public static final String JSON_PROPERTY_AMOUNT = "amount";
-    private String amount;
+    @jakarta.annotation.Nonnull private String amount;
 
     public static final String JSON_PROPERTY_FEE = "fee";
-    private String fee;
+    @jakarta.annotation.Nullable private String fee;
 
     public static final String JSON_PROPERTY_FEE_LEVEL = "feeLevel";
-    private FeeLevel feeLevel;
+    @jakarta.annotation.Nullable private FeeLevel feeLevel;
 
     public static final String JSON_PROPERTY_TX_NOTE = "txNote";
-    private String txNote;
+    @jakarta.annotation.Nullable private String txNote;
 
     public SplitRequest() {}
 
-    public SplitRequest id(String id) {
+    @JsonCreator
+    public SplitRequest(
+            @JsonProperty(value = JSON_PROPERTY_ID, required = true) String id,
+            @JsonProperty(value = JSON_PROPERTY_AMOUNT, required = true) String amount) {
+        this.id = id;
+        this.amount = amount;
+    }
+
+    public SplitRequest id(@jakarta.annotation.Nonnull String id) {
         this.id = id;
         return this;
     }
@@ -67,11 +77,11 @@ public class SplitRequest {
 
     @JsonProperty(JSON_PROPERTY_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setId(String id) {
+    public void setId(@jakarta.annotation.Nonnull String id) {
         this.id = id;
     }
 
-    public SplitRequest amount(String amount) {
+    public SplitRequest amount(@jakarta.annotation.Nonnull String amount) {
         this.amount = amount;
         return this;
     }
@@ -90,11 +100,11 @@ public class SplitRequest {
 
     @JsonProperty(JSON_PROPERTY_AMOUNT)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setAmount(String amount) {
+    public void setAmount(@jakarta.annotation.Nonnull String amount) {
         this.amount = amount;
     }
 
-    public SplitRequest fee(String fee) {
+    public SplitRequest fee(@jakarta.annotation.Nullable String fee) {
         this.fee = fee;
         return this;
     }
@@ -114,11 +124,11 @@ public class SplitRequest {
 
     @JsonProperty(JSON_PROPERTY_FEE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setFee(String fee) {
+    public void setFee(@jakarta.annotation.Nullable String fee) {
         this.fee = fee;
     }
 
-    public SplitRequest feeLevel(FeeLevel feeLevel) {
+    public SplitRequest feeLevel(@jakarta.annotation.Nullable FeeLevel feeLevel) {
         this.feeLevel = feeLevel;
         return this;
     }
@@ -137,11 +147,11 @@ public class SplitRequest {
 
     @JsonProperty(JSON_PROPERTY_FEE_LEVEL)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setFeeLevel(FeeLevel feeLevel) {
+    public void setFeeLevel(@jakarta.annotation.Nullable FeeLevel feeLevel) {
         this.feeLevel = feeLevel;
     }
 
-    public SplitRequest txNote(String txNote) {
+    public SplitRequest txNote(@jakarta.annotation.Nullable String txNote) {
         this.txNote = txNote;
         return this;
     }
@@ -160,7 +170,7 @@ public class SplitRequest {
 
     @JsonProperty(JSON_PROPERTY_TX_NOTE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setTxNote(String txNote) {
+    public void setTxNote(@jakarta.annotation.Nullable String txNote) {
         this.txNote = txNote;
     }
 
@@ -247,10 +257,7 @@ public class SplitRequest {
             joiner.add(
                     String.format(
                             "%sid%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(String.valueOf(getId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getId()))));
         }
 
         // add `amount` to the URL query string
@@ -260,8 +267,7 @@ public class SplitRequest {
                             "%samount%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getAmount()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getAmount()))));
         }
 
         // add `fee` to the URL query string
@@ -271,8 +277,7 @@ public class SplitRequest {
                             "%sfee%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getFee()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getFee()))));
         }
 
         // add `feeLevel` to the URL query string
@@ -282,8 +287,7 @@ public class SplitRequest {
                             "%sfeeLevel%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getFeeLevel()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getFeeLevel()))));
         }
 
         // add `txNote` to the URL query string
@@ -293,8 +297,7 @@ public class SplitRequest {
                             "%stxNote%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getTxNote()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getTxNote()))));
         }
 
         return joiner.toString();

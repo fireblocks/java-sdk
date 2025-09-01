@@ -13,6 +13,7 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -23,17 +24,28 @@ import java.util.StringJoiner;
 
 /** Response object for policy operations */
 @JsonPropertyOrder({PolicyResponse.JSON_PROPERTY_RULES, PolicyResponse.JSON_PROPERTY_METADATA})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class PolicyResponse {
     public static final String JSON_PROPERTY_RULES = "rules";
-    private List<PolicyRule> rules = new ArrayList<>();
+    @jakarta.annotation.Nonnull private List<PolicyRule> rules = new ArrayList<>();
 
     public static final String JSON_PROPERTY_METADATA = "metadata";
-    private PolicyMetadata metadata;
+    @jakarta.annotation.Nonnull private PolicyMetadata metadata;
 
     public PolicyResponse() {}
 
-    public PolicyResponse rules(List<PolicyRule> rules) {
+    @JsonCreator
+    public PolicyResponse(
+            @JsonProperty(value = JSON_PROPERTY_RULES, required = true) List<PolicyRule> rules,
+            @JsonProperty(value = JSON_PROPERTY_METADATA, required = true)
+                    PolicyMetadata metadata) {
+        this.rules = rules;
+        this.metadata = metadata;
+    }
+
+    public PolicyResponse rules(@jakarta.annotation.Nonnull List<PolicyRule> rules) {
         this.rules = rules;
         return this;
     }
@@ -60,11 +72,11 @@ public class PolicyResponse {
 
     @JsonProperty(JSON_PROPERTY_RULES)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setRules(List<PolicyRule> rules) {
+    public void setRules(@jakarta.annotation.Nonnull List<PolicyRule> rules) {
         this.rules = rules;
     }
 
-    public PolicyResponse metadata(PolicyMetadata metadata) {
+    public PolicyResponse metadata(@jakarta.annotation.Nonnull PolicyMetadata metadata) {
         this.metadata = metadata;
         return this;
     }
@@ -83,7 +95,7 @@ public class PolicyResponse {
 
     @JsonProperty(JSON_PROPERTY_METADATA)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setMetadata(PolicyMetadata metadata) {
+    public void setMetadata(@jakarta.annotation.Nonnull PolicyMetadata metadata) {
         this.metadata = metadata;
     }
 

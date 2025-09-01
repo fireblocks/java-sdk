@@ -13,11 +13,11 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -27,20 +27,35 @@ import java.util.StringJoiner;
     ConfigDisbursementOperationSnapshot.JSON_PROPERTY_TYPE,
     ConfigDisbursementOperationSnapshot.JSON_PROPERTY_PARAMS
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class ConfigDisbursementOperationSnapshot {
     public static final String JSON_PROPERTY_OPERATION_ID = "operationId";
-    private String operationId;
+    @jakarta.annotation.Nonnull private String operationId;
 
     public static final String JSON_PROPERTY_TYPE = "type";
-    private DisbursementOperationType type;
+    @jakarta.annotation.Nonnull private DisbursementOperationType type;
 
     public static final String JSON_PROPERTY_PARAMS = "params";
-    private DisbursementOperationConfigParams params;
+    @jakarta.annotation.Nonnull private DisbursementOperationConfigParams params;
 
     public ConfigDisbursementOperationSnapshot() {}
 
-    public ConfigDisbursementOperationSnapshot operationId(String operationId) {
+    @JsonCreator
+    public ConfigDisbursementOperationSnapshot(
+            @JsonProperty(value = JSON_PROPERTY_OPERATION_ID, required = true) String operationId,
+            @JsonProperty(value = JSON_PROPERTY_TYPE, required = true)
+                    DisbursementOperationType type,
+            @JsonProperty(value = JSON_PROPERTY_PARAMS, required = true)
+                    DisbursementOperationConfigParams params) {
+        this.operationId = operationId;
+        this.type = type;
+        this.params = params;
+    }
+
+    public ConfigDisbursementOperationSnapshot operationId(
+            @jakarta.annotation.Nonnull String operationId) {
         this.operationId = operationId;
         return this;
     }
@@ -59,11 +74,12 @@ public class ConfigDisbursementOperationSnapshot {
 
     @JsonProperty(JSON_PROPERTY_OPERATION_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setOperationId(String operationId) {
+    public void setOperationId(@jakarta.annotation.Nonnull String operationId) {
         this.operationId = operationId;
     }
 
-    public ConfigDisbursementOperationSnapshot type(DisbursementOperationType type) {
+    public ConfigDisbursementOperationSnapshot type(
+            @jakarta.annotation.Nonnull DisbursementOperationType type) {
         this.type = type;
         return this;
     }
@@ -82,11 +98,12 @@ public class ConfigDisbursementOperationSnapshot {
 
     @JsonProperty(JSON_PROPERTY_TYPE)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setType(DisbursementOperationType type) {
+    public void setType(@jakarta.annotation.Nonnull DisbursementOperationType type) {
         this.type = type;
     }
 
-    public ConfigDisbursementOperationSnapshot params(DisbursementOperationConfigParams params) {
+    public ConfigDisbursementOperationSnapshot params(
+            @jakarta.annotation.Nonnull DisbursementOperationConfigParams params) {
         this.params = params;
         return this;
     }
@@ -105,7 +122,7 @@ public class ConfigDisbursementOperationSnapshot {
 
     @JsonProperty(JSON_PROPERTY_PARAMS)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setParams(DisbursementOperationConfigParams params) {
+    public void setParams(@jakarta.annotation.Nonnull DisbursementOperationConfigParams params) {
         this.params = params;
     }
 
@@ -191,10 +208,7 @@ public class ConfigDisbursementOperationSnapshot {
                             "%soperationId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getOperationId()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getOperationId()))));
         }
 
         // add `type` to the URL query string
@@ -204,8 +218,7 @@ public class ConfigDisbursementOperationSnapshot {
                             "%stype%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getType()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getType()))));
         }
 
         // add `params` to the URL query string

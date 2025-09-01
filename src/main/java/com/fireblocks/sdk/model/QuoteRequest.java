@@ -13,12 +13,12 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fireblocks.sdk.ApiClient;
 import java.math.BigDecimal;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -31,29 +31,47 @@ import java.util.StringJoiner;
     QuoteRequest.JSON_PROPERTY_SLIPPAGE_TOLERANCE,
     QuoteRequest.JSON_PROPERTY_PROTOCOL
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class QuoteRequest {
     public static final String JSON_PROPERTY_ACCOUNT_ID = "accountId";
-    private String accountId;
+    @jakarta.annotation.Nullable private String accountId;
 
     public static final String JSON_PROPERTY_INPUT_AMOUNT = "inputAmount";
-    private String inputAmount;
+    @jakarta.annotation.Nonnull private String inputAmount;
 
     public static final String JSON_PROPERTY_INPUT_ASSET = "inputAsset";
-    private String inputAsset;
+    @jakarta.annotation.Nonnull private String inputAsset;
 
     public static final String JSON_PROPERTY_OUTPUT_ASSET = "outputAsset";
-    private String outputAsset;
+    @jakarta.annotation.Nonnull private String outputAsset;
 
     public static final String JSON_PROPERTY_SLIPPAGE_TOLERANCE = "slippageTolerance";
-    private BigDecimal slippageTolerance;
+    @jakarta.annotation.Nonnull private BigDecimal slippageTolerance;
 
     public static final String JSON_PROPERTY_PROTOCOL = "protocol";
-    private SwapProviderProtocolsEnum protocol;
+    @jakarta.annotation.Nonnull private SwapProviderProtocolsEnum protocol;
 
     public QuoteRequest() {}
 
-    public QuoteRequest accountId(String accountId) {
+    @JsonCreator
+    public QuoteRequest(
+            @JsonProperty(value = JSON_PROPERTY_INPUT_AMOUNT, required = true) String inputAmount,
+            @JsonProperty(value = JSON_PROPERTY_INPUT_ASSET, required = true) String inputAsset,
+            @JsonProperty(value = JSON_PROPERTY_OUTPUT_ASSET, required = true) String outputAsset,
+            @JsonProperty(value = JSON_PROPERTY_SLIPPAGE_TOLERANCE, required = true)
+                    BigDecimal slippageTolerance,
+            @JsonProperty(value = JSON_PROPERTY_PROTOCOL, required = true)
+                    SwapProviderProtocolsEnum protocol) {
+        this.inputAmount = inputAmount;
+        this.inputAsset = inputAsset;
+        this.outputAsset = outputAsset;
+        this.slippageTolerance = slippageTolerance;
+        this.protocol = protocol;
+    }
+
+    public QuoteRequest accountId(@jakarta.annotation.Nullable String accountId) {
         this.accountId = accountId;
         return this;
     }
@@ -72,11 +90,11 @@ public class QuoteRequest {
 
     @JsonProperty(JSON_PROPERTY_ACCOUNT_ID)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAccountId(String accountId) {
+    public void setAccountId(@jakarta.annotation.Nullable String accountId) {
         this.accountId = accountId;
     }
 
-    public QuoteRequest inputAmount(String inputAmount) {
+    public QuoteRequest inputAmount(@jakarta.annotation.Nonnull String inputAmount) {
         this.inputAmount = inputAmount;
         return this;
     }
@@ -95,11 +113,11 @@ public class QuoteRequest {
 
     @JsonProperty(JSON_PROPERTY_INPUT_AMOUNT)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setInputAmount(String inputAmount) {
+    public void setInputAmount(@jakarta.annotation.Nonnull String inputAmount) {
         this.inputAmount = inputAmount;
     }
 
-    public QuoteRequest inputAsset(String inputAsset) {
+    public QuoteRequest inputAsset(@jakarta.annotation.Nonnull String inputAsset) {
         this.inputAsset = inputAsset;
         return this;
     }
@@ -118,11 +136,11 @@ public class QuoteRequest {
 
     @JsonProperty(JSON_PROPERTY_INPUT_ASSET)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setInputAsset(String inputAsset) {
+    public void setInputAsset(@jakarta.annotation.Nonnull String inputAsset) {
         this.inputAsset = inputAsset;
     }
 
-    public QuoteRequest outputAsset(String outputAsset) {
+    public QuoteRequest outputAsset(@jakarta.annotation.Nonnull String outputAsset) {
         this.outputAsset = outputAsset;
         return this;
     }
@@ -141,11 +159,12 @@ public class QuoteRequest {
 
     @JsonProperty(JSON_PROPERTY_OUTPUT_ASSET)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setOutputAsset(String outputAsset) {
+    public void setOutputAsset(@jakarta.annotation.Nonnull String outputAsset) {
         this.outputAsset = outputAsset;
     }
 
-    public QuoteRequest slippageTolerance(BigDecimal slippageTolerance) {
+    public QuoteRequest slippageTolerance(
+            @jakarta.annotation.Nonnull BigDecimal slippageTolerance) {
         this.slippageTolerance = slippageTolerance;
         return this;
     }
@@ -166,11 +185,11 @@ public class QuoteRequest {
 
     @JsonProperty(JSON_PROPERTY_SLIPPAGE_TOLERANCE)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setSlippageTolerance(BigDecimal slippageTolerance) {
+    public void setSlippageTolerance(@jakarta.annotation.Nonnull BigDecimal slippageTolerance) {
         this.slippageTolerance = slippageTolerance;
     }
 
-    public QuoteRequest protocol(SwapProviderProtocolsEnum protocol) {
+    public QuoteRequest protocol(@jakarta.annotation.Nonnull SwapProviderProtocolsEnum protocol) {
         this.protocol = protocol;
         return this;
     }
@@ -189,7 +208,7 @@ public class QuoteRequest {
 
     @JsonProperty(JSON_PROPERTY_PROTOCOL)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setProtocol(SwapProviderProtocolsEnum protocol) {
+    public void setProtocol(@jakarta.annotation.Nonnull SwapProviderProtocolsEnum protocol) {
         this.protocol = protocol;
     }
 
@@ -283,9 +302,7 @@ public class QuoteRequest {
                             "%saccountId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getAccountId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getAccountId()))));
         }
 
         // add `inputAmount` to the URL query string
@@ -295,10 +312,7 @@ public class QuoteRequest {
                             "%sinputAmount%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getInputAmount()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getInputAmount()))));
         }
 
         // add `inputAsset` to the URL query string
@@ -308,9 +322,7 @@ public class QuoteRequest {
                             "%sinputAsset%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getInputAsset()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getInputAsset()))));
         }
 
         // add `outputAsset` to the URL query string
@@ -320,10 +332,7 @@ public class QuoteRequest {
                             "%soutputAsset%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getOutputAsset()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getOutputAsset()))));
         }
 
         // add `slippageTolerance` to the URL query string
@@ -333,10 +342,7 @@ public class QuoteRequest {
                             "%sslippageTolerance%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getSlippageTolerance()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getSlippageTolerance()))));
         }
 
         // add `protocol` to the URL query string
@@ -346,8 +352,7 @@ public class QuoteRequest {
                             "%sprotocol%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getProtocol()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getProtocol()))));
         }
 
         return joiner.toString();

@@ -13,39 +13,39 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for ToExchangeTransaction */
-public class ToExchangeTransactionTest {
+class ToExchangeTransactionTest {
     private final ToExchangeTransaction model = new ToExchangeTransaction();
 
     /** Model tests for ToExchangeTransaction */
     @Test
-    public void testToExchangeTransaction() {
+    void testToExchangeTransaction() {
         // TODO: test ToExchangeTransaction
     }
 
     /** Test the property 'assetId' */
     @Test
-    public void assetIdTest() {
+    void assetIdTest() {
         // TODO: test assetId
     }
 
     /** Test the property 'amount' */
     @Test
-    public void amountTest() {
+    void amountTest() {
         // TODO: test amount
     }
 
     /** Test the property 'dstAddress' */
     @Test
-    public void dstAddressTest() {
+    void dstAddressTest() {
         // TODO: test dstAddress
     }
 
     /** Test the property 'dstTag' */
     @Test
-    public void dstTagTest() {
+    void dstTagTest() {
         // TODO: test dstTag
     }
 }

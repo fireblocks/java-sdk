@@ -16,8 +16,7 @@ package com.fireblocks.sdk.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -29,28 +28,32 @@ import java.util.StringJoiner;
     SettlementResponse.JSON_PROPERTY_FIREBLOCKS_INITIATED_TRANSACTIONS,
     SettlementResponse.JSON_PROPERTY_EXCHANGE_REQUESTED_TRANSACTIONS
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class SettlementResponse {
     public static final String JSON_PROPERTY_ID = "id";
-    private String id;
+    @jakarta.annotation.Nullable private String id;
 
     public static final String JSON_PROPERTY_INITIATOR = "initiator";
-    private String initiator;
+    @jakarta.annotation.Nullable private String initiator;
 
     public static final String JSON_PROPERTY_EXCHANGE_REPLY = "exchangeReply";
-    private String exchangeReply;
+    @jakarta.annotation.Nullable private String exchangeReply;
 
     public static final String JSON_PROPERTY_FIREBLOCKS_INITIATED_TRANSACTIONS =
             "fireblocksInitiatedTransactions";
-    private Object fireblocksInitiatedTransactions;
+    @jakarta.annotation.Nullable private Object fireblocksInitiatedTransactions;
 
     public static final String JSON_PROPERTY_EXCHANGE_REQUESTED_TRANSACTIONS =
             "exchangeRequestedTransactions";
+
+    @jakarta.annotation.Nullable
     private ExchangeSettlementTransactionsResponse exchangeRequestedTransactions;
 
     public SettlementResponse() {}
 
-    public SettlementResponse id(String id) {
+    public SettlementResponse id(@jakarta.annotation.Nullable String id) {
         this.id = id;
         return this;
     }
@@ -69,11 +72,11 @@ public class SettlementResponse {
 
     @JsonProperty(JSON_PROPERTY_ID)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setId(String id) {
+    public void setId(@jakarta.annotation.Nullable String id) {
         this.id = id;
     }
 
-    public SettlementResponse initiator(String initiator) {
+    public SettlementResponse initiator(@jakarta.annotation.Nullable String initiator) {
         this.initiator = initiator;
         return this;
     }
@@ -92,11 +95,11 @@ public class SettlementResponse {
 
     @JsonProperty(JSON_PROPERTY_INITIATOR)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setInitiator(String initiator) {
+    public void setInitiator(@jakarta.annotation.Nullable String initiator) {
         this.initiator = initiator;
     }
 
-    public SettlementResponse exchangeReply(String exchangeReply) {
+    public SettlementResponse exchangeReply(@jakarta.annotation.Nullable String exchangeReply) {
         this.exchangeReply = exchangeReply;
         return this;
     }
@@ -115,12 +118,12 @@ public class SettlementResponse {
 
     @JsonProperty(JSON_PROPERTY_EXCHANGE_REPLY)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setExchangeReply(String exchangeReply) {
+    public void setExchangeReply(@jakarta.annotation.Nullable String exchangeReply) {
         this.exchangeReply = exchangeReply;
     }
 
     public SettlementResponse fireblocksInitiatedTransactions(
-            Object fireblocksInitiatedTransactions) {
+            @jakarta.annotation.Nullable Object fireblocksInitiatedTransactions) {
         this.fireblocksInitiatedTransactions = fireblocksInitiatedTransactions;
         return this;
     }
@@ -139,12 +142,14 @@ public class SettlementResponse {
 
     @JsonProperty(JSON_PROPERTY_FIREBLOCKS_INITIATED_TRANSACTIONS)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setFireblocksInitiatedTransactions(Object fireblocksInitiatedTransactions) {
+    public void setFireblocksInitiatedTransactions(
+            @jakarta.annotation.Nullable Object fireblocksInitiatedTransactions) {
         this.fireblocksInitiatedTransactions = fireblocksInitiatedTransactions;
     }
 
     public SettlementResponse exchangeRequestedTransactions(
-            ExchangeSettlementTransactionsResponse exchangeRequestedTransactions) {
+            @jakarta.annotation.Nullable
+                    ExchangeSettlementTransactionsResponse exchangeRequestedTransactions) {
         this.exchangeRequestedTransactions = exchangeRequestedTransactions;
         return this;
     }
@@ -164,7 +169,8 @@ public class SettlementResponse {
     @JsonProperty(JSON_PROPERTY_EXCHANGE_REQUESTED_TRANSACTIONS)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
     public void setExchangeRequestedTransactions(
-            ExchangeSettlementTransactionsResponse exchangeRequestedTransactions) {
+            @jakarta.annotation.Nullable
+                    ExchangeSettlementTransactionsResponse exchangeRequestedTransactions) {
         this.exchangeRequestedTransactions = exchangeRequestedTransactions;
     }
 
@@ -264,10 +270,7 @@ public class SettlementResponse {
             joiner.add(
                     String.format(
                             "%sid%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(String.valueOf(getId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getId()))));
         }
 
         // add `initiator` to the URL query string
@@ -277,9 +280,7 @@ public class SettlementResponse {
                             "%sinitiator%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getInitiator()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getInitiator()))));
         }
 
         // add `exchangeReply` to the URL query string
@@ -289,10 +290,7 @@ public class SettlementResponse {
                             "%sexchangeReply%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getExchangeReply()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getExchangeReply()))));
         }
 
         // add `fireblocksInitiatedTransactions` to the URL query string
@@ -302,10 +300,9 @@ public class SettlementResponse {
                             "%sfireblocksInitiatedTransactions%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getFireblocksInitiatedTransactions()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(
+                                    ApiClient.valueToString(
+                                            getFireblocksInitiatedTransactions()))));
         }
 
         // add `exchangeRequestedTransactions` to the URL query string

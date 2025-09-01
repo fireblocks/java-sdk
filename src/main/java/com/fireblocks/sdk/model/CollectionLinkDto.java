@@ -18,8 +18,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonValue;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -31,16 +30,18 @@ import java.util.StringJoiner;
     CollectionLinkDto.JSON_PROPERTY_DISPLAY_NAME,
     CollectionLinkDto.JSON_PROPERTY_COLLECTION_METADATA
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class CollectionLinkDto {
     public static final String JSON_PROPERTY_ID = "id";
-    private String id;
+    @jakarta.annotation.Nonnull private String id;
 
     /** The collection status */
     public enum StatusEnum {
-        PENDING("PENDING"),
+        PENDING(String.valueOf("PENDING")),
 
-        COMPLETED("COMPLETED");
+        COMPLETED(String.valueOf("COMPLETED"));
 
         private String value;
 
@@ -70,20 +71,30 @@ public class CollectionLinkDto {
     }
 
     public static final String JSON_PROPERTY_STATUS = "status";
-    private StatusEnum status;
+    @jakarta.annotation.Nonnull private StatusEnum status;
 
     public static final String JSON_PROPERTY_TYPE = "type";
-    private CollectionType type;
+    @jakarta.annotation.Nonnull private CollectionType type;
 
     public static final String JSON_PROPERTY_DISPLAY_NAME = "displayName";
-    private String displayName;
+    @jakarta.annotation.Nullable private String displayName;
 
     public static final String JSON_PROPERTY_COLLECTION_METADATA = "collectionMetadata";
-    private CollectionMetadataDto collectionMetadata;
+    @jakarta.annotation.Nullable private CollectionMetadataDto collectionMetadata;
 
     public CollectionLinkDto() {}
 
-    public CollectionLinkDto id(String id) {
+    @JsonCreator
+    public CollectionLinkDto(
+            @JsonProperty(value = JSON_PROPERTY_ID, required = true) String id,
+            @JsonProperty(value = JSON_PROPERTY_STATUS, required = true) StatusEnum status,
+            @JsonProperty(value = JSON_PROPERTY_TYPE, required = true) CollectionType type) {
+        this.id = id;
+        this.status = status;
+        this.type = type;
+    }
+
+    public CollectionLinkDto id(@jakarta.annotation.Nonnull String id) {
         this.id = id;
         return this;
     }
@@ -102,11 +113,11 @@ public class CollectionLinkDto {
 
     @JsonProperty(JSON_PROPERTY_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setId(String id) {
+    public void setId(@jakarta.annotation.Nonnull String id) {
         this.id = id;
     }
 
-    public CollectionLinkDto status(StatusEnum status) {
+    public CollectionLinkDto status(@jakarta.annotation.Nonnull StatusEnum status) {
         this.status = status;
         return this;
     }
@@ -125,11 +136,11 @@ public class CollectionLinkDto {
 
     @JsonProperty(JSON_PROPERTY_STATUS)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setStatus(StatusEnum status) {
+    public void setStatus(@jakarta.annotation.Nonnull StatusEnum status) {
         this.status = status;
     }
 
-    public CollectionLinkDto type(CollectionType type) {
+    public CollectionLinkDto type(@jakarta.annotation.Nonnull CollectionType type) {
         this.type = type;
         return this;
     }
@@ -148,11 +159,11 @@ public class CollectionLinkDto {
 
     @JsonProperty(JSON_PROPERTY_TYPE)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setType(CollectionType type) {
+    public void setType(@jakarta.annotation.Nonnull CollectionType type) {
         this.type = type;
     }
 
-    public CollectionLinkDto displayName(String displayName) {
+    public CollectionLinkDto displayName(@jakarta.annotation.Nullable String displayName) {
         this.displayName = displayName;
         return this;
     }
@@ -172,11 +183,12 @@ public class CollectionLinkDto {
 
     @JsonProperty(JSON_PROPERTY_DISPLAY_NAME)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setDisplayName(String displayName) {
+    public void setDisplayName(@jakarta.annotation.Nullable String displayName) {
         this.displayName = displayName;
     }
 
-    public CollectionLinkDto collectionMetadata(CollectionMetadataDto collectionMetadata) {
+    public CollectionLinkDto collectionMetadata(
+            @jakarta.annotation.Nullable CollectionMetadataDto collectionMetadata) {
         this.collectionMetadata = collectionMetadata;
         return this;
     }
@@ -195,7 +207,8 @@ public class CollectionLinkDto {
 
     @JsonProperty(JSON_PROPERTY_COLLECTION_METADATA)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setCollectionMetadata(CollectionMetadataDto collectionMetadata) {
+    public void setCollectionMetadata(
+            @jakarta.annotation.Nullable CollectionMetadataDto collectionMetadata) {
         this.collectionMetadata = collectionMetadata;
     }
 
@@ -284,10 +297,7 @@ public class CollectionLinkDto {
             joiner.add(
                     String.format(
                             "%sid%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(String.valueOf(getId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getId()))));
         }
 
         // add `status` to the URL query string
@@ -297,8 +307,7 @@ public class CollectionLinkDto {
                             "%sstatus%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getStatus()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getStatus()))));
         }
 
         // add `type` to the URL query string
@@ -308,8 +317,7 @@ public class CollectionLinkDto {
                             "%stype%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getType()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getType()))));
         }
 
         // add `displayName` to the URL query string
@@ -319,10 +327,7 @@ public class CollectionLinkDto {
                             "%sdisplayName%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getDisplayName()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getDisplayName()))));
         }
 
         // add `collectionMetadata` to the URL query string

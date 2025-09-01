@@ -16,8 +16,7 @@ package com.fireblocks.sdk.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -31,26 +30,31 @@ import java.util.StringJoiner;
     ComplianceResultFullPayload.JSON_PROPERTY_STATUS,
     ComplianceResultFullPayload.JSON_PROPERTY_AML_REGISTRATION
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class ComplianceResultFullPayload {
     public static final String JSON_PROPERTY_AML = "aml";
-    private ComplianceScreeningResultFullPayload aml;
+    @jakarta.annotation.Nullable private ComplianceScreeningResultFullPayload aml;
 
     public static final String JSON_PROPERTY_TR = "tr";
-    private ComplianceScreeningResultFullPayload tr;
+    @jakarta.annotation.Nullable private ComplianceScreeningResultFullPayload tr;
 
     public static final String JSON_PROPERTY_AML_LIST = "amlList";
-    private List<ComplianceScreeningResultFullPayload> amlList;
+
+    @jakarta.annotation.Nullable
+    private List<ComplianceScreeningResultFullPayload> amlList = new ArrayList<>();
 
     public static final String JSON_PROPERTY_STATUS = "status";
-    private ComplianceResultStatusesEnum status;
+    @jakarta.annotation.Nullable private ComplianceResultStatusesEnum status;
 
     public static final String JSON_PROPERTY_AML_REGISTRATION = "amlRegistration";
-    private AmlRegistrationResultFullPayload amlRegistration;
+    @jakarta.annotation.Nullable private AmlRegistrationResultFullPayload amlRegistration;
 
     public ComplianceResultFullPayload() {}
 
-    public ComplianceResultFullPayload aml(ComplianceScreeningResultFullPayload aml) {
+    public ComplianceResultFullPayload aml(
+            @jakarta.annotation.Nullable ComplianceScreeningResultFullPayload aml) {
         this.aml = aml;
         return this;
     }
@@ -69,11 +73,12 @@ public class ComplianceResultFullPayload {
 
     @JsonProperty(JSON_PROPERTY_AML)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAml(ComplianceScreeningResultFullPayload aml) {
+    public void setAml(@jakarta.annotation.Nullable ComplianceScreeningResultFullPayload aml) {
         this.aml = aml;
     }
 
-    public ComplianceResultFullPayload tr(ComplianceScreeningResultFullPayload tr) {
+    public ComplianceResultFullPayload tr(
+            @jakarta.annotation.Nullable ComplianceScreeningResultFullPayload tr) {
         this.tr = tr;
         return this;
     }
@@ -92,11 +97,12 @@ public class ComplianceResultFullPayload {
 
     @JsonProperty(JSON_PROPERTY_TR)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setTr(ComplianceScreeningResultFullPayload tr) {
+    public void setTr(@jakarta.annotation.Nullable ComplianceScreeningResultFullPayload tr) {
         this.tr = tr;
     }
 
-    public ComplianceResultFullPayload amlList(List<ComplianceScreeningResultFullPayload> amlList) {
+    public ComplianceResultFullPayload amlList(
+            @jakarta.annotation.Nullable List<ComplianceScreeningResultFullPayload> amlList) {
         this.amlList = amlList;
         return this;
     }
@@ -124,11 +130,13 @@ public class ComplianceResultFullPayload {
 
     @JsonProperty(JSON_PROPERTY_AML_LIST)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAmlList(List<ComplianceScreeningResultFullPayload> amlList) {
+    public void setAmlList(
+            @jakarta.annotation.Nullable List<ComplianceScreeningResultFullPayload> amlList) {
         this.amlList = amlList;
     }
 
-    public ComplianceResultFullPayload status(ComplianceResultStatusesEnum status) {
+    public ComplianceResultFullPayload status(
+            @jakarta.annotation.Nullable ComplianceResultStatusesEnum status) {
         this.status = status;
         return this;
     }
@@ -147,12 +155,12 @@ public class ComplianceResultFullPayload {
 
     @JsonProperty(JSON_PROPERTY_STATUS)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setStatus(ComplianceResultStatusesEnum status) {
+    public void setStatus(@jakarta.annotation.Nullable ComplianceResultStatusesEnum status) {
         this.status = status;
     }
 
     public ComplianceResultFullPayload amlRegistration(
-            AmlRegistrationResultFullPayload amlRegistration) {
+            @jakarta.annotation.Nullable AmlRegistrationResultFullPayload amlRegistration) {
         this.amlRegistration = amlRegistration;
         return this;
     }
@@ -171,7 +179,8 @@ public class ComplianceResultFullPayload {
 
     @JsonProperty(JSON_PROPERTY_AML_REGISTRATION)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAmlRegistration(AmlRegistrationResultFullPayload amlRegistration) {
+    public void setAmlRegistration(
+            @jakarta.annotation.Nullable AmlRegistrationResultFullPayload amlRegistration) {
         this.amlRegistration = amlRegistration;
     }
 
@@ -294,8 +303,7 @@ public class ComplianceResultFullPayload {
                             "%sstatus%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getStatus()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getStatus()))));
         }
 
         // add `amlRegistration` to the URL query string

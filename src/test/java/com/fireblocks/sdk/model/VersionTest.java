@@ -13,21 +13,21 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for Version */
-public class VersionTest {
+class VersionTest {
     private final Version model = new Version();
 
     /** Model tests for Version */
     @Test
-    public void testVersion() {
+    void testVersion() {
         // TODO: test Version
     }
 
     /** Test the property 'hash' */
     @Test
-    public void hashTest() {
+    void hashTest() {
         // TODO: test hash
     }
 }

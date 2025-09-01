@@ -13,6 +13,7 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -28,23 +29,46 @@ import java.util.StringJoiner;
     DelegationSummary.JSON_PROPERTY_REWARDS_AMOUNT,
     DelegationSummary.JSON_PROPERTY_TOTAL_STAKED
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class DelegationSummary {
     public static final String JSON_PROPERTY_ACTIVE = "active";
-    private List<AmountAndChainDescriptor> active = new ArrayList<>();
+    @jakarta.annotation.Nonnull private List<AmountAndChainDescriptor> active = new ArrayList<>();
 
     public static final String JSON_PROPERTY_INACTIVE = "inactive";
-    private List<AmountAndChainDescriptor> inactive = new ArrayList<>();
+    @jakarta.annotation.Nonnull private List<AmountAndChainDescriptor> inactive = new ArrayList<>();
 
     public static final String JSON_PROPERTY_REWARDS_AMOUNT = "rewardsAmount";
+
+    @jakarta.annotation.Nonnull
     private List<AmountAndChainDescriptor> rewardsAmount = new ArrayList<>();
 
     public static final String JSON_PROPERTY_TOTAL_STAKED = "totalStaked";
+
+    @jakarta.annotation.Nonnull
     private List<AmountAndChainDescriptor> totalStaked = new ArrayList<>();
 
     public DelegationSummary() {}
 
-    public DelegationSummary active(List<AmountAndChainDescriptor> active) {
+    @JsonCreator
+    public DelegationSummary(
+            @JsonProperty(value = JSON_PROPERTY_ACTIVE, required = true)
+                    List<AmountAndChainDescriptor> active,
+            @JsonProperty(value = JSON_PROPERTY_INACTIVE, required = true)
+                    List<AmountAndChainDescriptor> inactive,
+            @JsonProperty(value = JSON_PROPERTY_REWARDS_AMOUNT, required = true)
+                    List<AmountAndChainDescriptor> rewardsAmount,
+            @JsonProperty(value = JSON_PROPERTY_TOTAL_STAKED, required = true)
+                    List<AmountAndChainDescriptor> totalStaked) {
+        this.active = active;
+        this.inactive = inactive;
+        this.rewardsAmount = rewardsAmount;
+        this.totalStaked = totalStaked;
+    }
+
+    public DelegationSummary active(
+            @jakarta.annotation.Nonnull List<AmountAndChainDescriptor> active) {
         this.active = active;
         return this;
     }
@@ -72,11 +96,12 @@ public class DelegationSummary {
 
     @JsonProperty(JSON_PROPERTY_ACTIVE)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setActive(List<AmountAndChainDescriptor> active) {
+    public void setActive(@jakarta.annotation.Nonnull List<AmountAndChainDescriptor> active) {
         this.active = active;
     }
 
-    public DelegationSummary inactive(List<AmountAndChainDescriptor> inactive) {
+    public DelegationSummary inactive(
+            @jakarta.annotation.Nonnull List<AmountAndChainDescriptor> inactive) {
         this.inactive = inactive;
         return this;
     }
@@ -104,11 +129,12 @@ public class DelegationSummary {
 
     @JsonProperty(JSON_PROPERTY_INACTIVE)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setInactive(List<AmountAndChainDescriptor> inactive) {
+    public void setInactive(@jakarta.annotation.Nonnull List<AmountAndChainDescriptor> inactive) {
         this.inactive = inactive;
     }
 
-    public DelegationSummary rewardsAmount(List<AmountAndChainDescriptor> rewardsAmount) {
+    public DelegationSummary rewardsAmount(
+            @jakarta.annotation.Nonnull List<AmountAndChainDescriptor> rewardsAmount) {
         this.rewardsAmount = rewardsAmount;
         return this;
     }
@@ -136,11 +162,13 @@ public class DelegationSummary {
 
     @JsonProperty(JSON_PROPERTY_REWARDS_AMOUNT)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setRewardsAmount(List<AmountAndChainDescriptor> rewardsAmount) {
+    public void setRewardsAmount(
+            @jakarta.annotation.Nonnull List<AmountAndChainDescriptor> rewardsAmount) {
         this.rewardsAmount = rewardsAmount;
     }
 
-    public DelegationSummary totalStaked(List<AmountAndChainDescriptor> totalStaked) {
+    public DelegationSummary totalStaked(
+            @jakarta.annotation.Nonnull List<AmountAndChainDescriptor> totalStaked) {
         this.totalStaked = totalStaked;
         return this;
     }
@@ -168,7 +196,8 @@ public class DelegationSummary {
 
     @JsonProperty(JSON_PROPERTY_TOTAL_STAKED)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setTotalStaked(List<AmountAndChainDescriptor> totalStaked) {
+    public void setTotalStaked(
+            @jakarta.annotation.Nonnull List<AmountAndChainDescriptor> totalStaked) {
         this.totalStaked = totalStaked;
     }
 

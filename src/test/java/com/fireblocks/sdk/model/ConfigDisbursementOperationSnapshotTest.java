@@ -13,34 +13,34 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for ConfigDisbursementOperationSnapshot */
-public class ConfigDisbursementOperationSnapshotTest {
+class ConfigDisbursementOperationSnapshotTest {
     private final ConfigDisbursementOperationSnapshot model =
             new ConfigDisbursementOperationSnapshot();
 
     /** Model tests for ConfigDisbursementOperationSnapshot */
     @Test
-    public void testConfigDisbursementOperationSnapshot() {
+    void testConfigDisbursementOperationSnapshot() {
         // TODO: test ConfigDisbursementOperationSnapshot
     }
 
     /** Test the property 'operationId' */
     @Test
-    public void operationIdTest() {
+    void operationIdTest() {
         // TODO: test operationId
     }
 
     /** Test the property 'type' */
     @Test
-    public void typeTest() {
+    void typeTest() {
         // TODO: test type
     }
 
     /** Test the property 'params' */
     @Test
-    public void paramsTest() {
+    void paramsTest() {
         // TODO: test params
     }
 }

@@ -13,11 +13,11 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -31,25 +31,46 @@ import java.util.UUID;
     RemoveLayerZeroPeersRequest.JSON_PROPERTY_DESTINATION_ADAPTER_TOKEN_LINK_IDS,
     RemoveLayerZeroPeersRequest.JSON_PROPERTY_BIDIRECTIONAL
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class RemoveLayerZeroPeersRequest {
     public static final String JSON_PROPERTY_VAULT_ACCOUNT_ID = "vaultAccountId";
-    private String vaultAccountId;
+    @jakarta.annotation.Nonnull private String vaultAccountId;
 
     public static final String JSON_PROPERTY_SOURCE_ADAPTER_TOKEN_LINK_ID =
             "sourceAdapterTokenLinkId";
-    private UUID sourceAdapterTokenLinkId;
+    @jakarta.annotation.Nonnull private UUID sourceAdapterTokenLinkId;
 
     public static final String JSON_PROPERTY_DESTINATION_ADAPTER_TOKEN_LINK_IDS =
             "destinationAdapterTokenLinkIds";
+
+    @jakarta.annotation.Nonnull
     private List<UUID> destinationAdapterTokenLinkIds = new ArrayList<>();
 
     public static final String JSON_PROPERTY_BIDIRECTIONAL = "bidirectional";
-    private Boolean bidirectional;
+    @jakarta.annotation.Nonnull private Boolean bidirectional;
 
     public RemoveLayerZeroPeersRequest() {}
 
-    public RemoveLayerZeroPeersRequest vaultAccountId(String vaultAccountId) {
+    @JsonCreator
+    public RemoveLayerZeroPeersRequest(
+            @JsonProperty(value = JSON_PROPERTY_VAULT_ACCOUNT_ID, required = true)
+                    String vaultAccountId,
+            @JsonProperty(value = JSON_PROPERTY_SOURCE_ADAPTER_TOKEN_LINK_ID, required = true)
+                    UUID sourceAdapterTokenLinkId,
+            @JsonProperty(value = JSON_PROPERTY_DESTINATION_ADAPTER_TOKEN_LINK_IDS, required = true)
+                    List<UUID> destinationAdapterTokenLinkIds,
+            @JsonProperty(value = JSON_PROPERTY_BIDIRECTIONAL, required = true)
+                    Boolean bidirectional) {
+        this.vaultAccountId = vaultAccountId;
+        this.sourceAdapterTokenLinkId = sourceAdapterTokenLinkId;
+        this.destinationAdapterTokenLinkIds = destinationAdapterTokenLinkIds;
+        this.bidirectional = bidirectional;
+    }
+
+    public RemoveLayerZeroPeersRequest vaultAccountId(
+            @jakarta.annotation.Nonnull String vaultAccountId) {
         this.vaultAccountId = vaultAccountId;
         return this;
     }
@@ -68,11 +89,12 @@ public class RemoveLayerZeroPeersRequest {
 
     @JsonProperty(JSON_PROPERTY_VAULT_ACCOUNT_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setVaultAccountId(String vaultAccountId) {
+    public void setVaultAccountId(@jakarta.annotation.Nonnull String vaultAccountId) {
         this.vaultAccountId = vaultAccountId;
     }
 
-    public RemoveLayerZeroPeersRequest sourceAdapterTokenLinkId(UUID sourceAdapterTokenLinkId) {
+    public RemoveLayerZeroPeersRequest sourceAdapterTokenLinkId(
+            @jakarta.annotation.Nonnull UUID sourceAdapterTokenLinkId) {
         this.sourceAdapterTokenLinkId = sourceAdapterTokenLinkId;
         return this;
     }
@@ -91,12 +113,13 @@ public class RemoveLayerZeroPeersRequest {
 
     @JsonProperty(JSON_PROPERTY_SOURCE_ADAPTER_TOKEN_LINK_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setSourceAdapterTokenLinkId(UUID sourceAdapterTokenLinkId) {
+    public void setSourceAdapterTokenLinkId(
+            @jakarta.annotation.Nonnull UUID sourceAdapterTokenLinkId) {
         this.sourceAdapterTokenLinkId = sourceAdapterTokenLinkId;
     }
 
     public RemoveLayerZeroPeersRequest destinationAdapterTokenLinkIds(
-            List<UUID> destinationAdapterTokenLinkIds) {
+            @jakarta.annotation.Nonnull List<UUID> destinationAdapterTokenLinkIds) {
         this.destinationAdapterTokenLinkIds = destinationAdapterTokenLinkIds;
         return this;
     }
@@ -124,11 +147,13 @@ public class RemoveLayerZeroPeersRequest {
 
     @JsonProperty(JSON_PROPERTY_DESTINATION_ADAPTER_TOKEN_LINK_IDS)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setDestinationAdapterTokenLinkIds(List<UUID> destinationAdapterTokenLinkIds) {
+    public void setDestinationAdapterTokenLinkIds(
+            @jakarta.annotation.Nonnull List<UUID> destinationAdapterTokenLinkIds) {
         this.destinationAdapterTokenLinkIds = destinationAdapterTokenLinkIds;
     }
 
-    public RemoveLayerZeroPeersRequest bidirectional(Boolean bidirectional) {
+    public RemoveLayerZeroPeersRequest bidirectional(
+            @jakarta.annotation.Nonnull Boolean bidirectional) {
         this.bidirectional = bidirectional;
         return this;
     }
@@ -147,7 +172,7 @@ public class RemoveLayerZeroPeersRequest {
 
     @JsonProperty(JSON_PROPERTY_BIDIRECTIONAL)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setBidirectional(Boolean bidirectional) {
+    public void setBidirectional(@jakarta.annotation.Nonnull Boolean bidirectional) {
         this.bidirectional = bidirectional;
     }
 
@@ -246,10 +271,7 @@ public class RemoveLayerZeroPeersRequest {
                             "%svaultAccountId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getVaultAccountId()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getVaultAccountId()))));
         }
 
         // add `sourceAdapterTokenLinkId` to the URL query string
@@ -259,10 +281,8 @@ public class RemoveLayerZeroPeersRequest {
                             "%ssourceAdapterTokenLinkId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getSourceAdapterTokenLinkId()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(
+                                    ApiClient.valueToString(getSourceAdapterTokenLinkId()))));
         }
 
         // add `destinationAdapterTokenLinkIds` to the URL query string
@@ -278,12 +298,9 @@ public class RemoveLayerZeroPeersRequest {
                                             ? ""
                                             : String.format(
                                                     "%s%d%s", containerPrefix, i, containerSuffix),
-                                    URLEncoder.encode(
-                                                    String.valueOf(
-                                                            getDestinationAdapterTokenLinkIds()
-                                                                    .get(i)),
-                                                    StandardCharsets.UTF_8)
-                                            .replaceAll("\\+", "%20")));
+                                    ApiClient.urlEncode(
+                                            ApiClient.valueToString(
+                                                    getDestinationAdapterTokenLinkIds().get(i)))));
                 }
             }
         }
@@ -295,10 +312,7 @@ public class RemoveLayerZeroPeersRequest {
                             "%sbidirectional%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getBidirectional()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getBidirectional()))));
         }
 
         return joiner.toString();

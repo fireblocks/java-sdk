@@ -27,21 +27,29 @@ import java.util.StringJoiner;
     TravelRuleNaturalPersonNameIdentifier.JSON_PROPERTY_LOCAL_NAME_IDENTIFIER,
     TravelRuleNaturalPersonNameIdentifier.JSON_PROPERTY_PHONETIC_NAME_IDENTIFIER
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class TravelRuleNaturalPersonNameIdentifier {
     public static final String JSON_PROPERTY_NAME_IDENTIFIER = "nameIdentifier";
-    private List<TravelRuleNaturalNameIdentifier> nameIdentifier;
+
+    @jakarta.annotation.Nullable
+    private List<TravelRuleNaturalNameIdentifier> nameIdentifier = new ArrayList<>();
 
     public static final String JSON_PROPERTY_LOCAL_NAME_IDENTIFIER = "localNameIdentifier";
-    private List<TravelRuleNaturalNameIdentifier> localNameIdentifier;
+
+    @jakarta.annotation.Nullable
+    private List<TravelRuleNaturalNameIdentifier> localNameIdentifier = new ArrayList<>();
 
     public static final String JSON_PROPERTY_PHONETIC_NAME_IDENTIFIER = "phoneticNameIdentifier";
-    private List<TravelRuleNaturalNameIdentifier> phoneticNameIdentifier;
+
+    @jakarta.annotation.Nullable
+    private List<TravelRuleNaturalNameIdentifier> phoneticNameIdentifier = new ArrayList<>();
 
     public TravelRuleNaturalPersonNameIdentifier() {}
 
     public TravelRuleNaturalPersonNameIdentifier nameIdentifier(
-            List<TravelRuleNaturalNameIdentifier> nameIdentifier) {
+            @jakarta.annotation.Nullable List<TravelRuleNaturalNameIdentifier> nameIdentifier) {
         this.nameIdentifier = nameIdentifier;
         return this;
     }
@@ -69,12 +77,14 @@ public class TravelRuleNaturalPersonNameIdentifier {
 
     @JsonProperty(JSON_PROPERTY_NAME_IDENTIFIER)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setNameIdentifier(List<TravelRuleNaturalNameIdentifier> nameIdentifier) {
+    public void setNameIdentifier(
+            @jakarta.annotation.Nullable List<TravelRuleNaturalNameIdentifier> nameIdentifier) {
         this.nameIdentifier = nameIdentifier;
     }
 
     public TravelRuleNaturalPersonNameIdentifier localNameIdentifier(
-            List<TravelRuleNaturalNameIdentifier> localNameIdentifier) {
+            @jakarta.annotation.Nullable
+                    List<TravelRuleNaturalNameIdentifier> localNameIdentifier) {
         this.localNameIdentifier = localNameIdentifier;
         return this;
     }
@@ -102,12 +112,15 @@ public class TravelRuleNaturalPersonNameIdentifier {
 
     @JsonProperty(JSON_PROPERTY_LOCAL_NAME_IDENTIFIER)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setLocalNameIdentifier(List<TravelRuleNaturalNameIdentifier> localNameIdentifier) {
+    public void setLocalNameIdentifier(
+            @jakarta.annotation.Nullable
+                    List<TravelRuleNaturalNameIdentifier> localNameIdentifier) {
         this.localNameIdentifier = localNameIdentifier;
     }
 
     public TravelRuleNaturalPersonNameIdentifier phoneticNameIdentifier(
-            List<TravelRuleNaturalNameIdentifier> phoneticNameIdentifier) {
+            @jakarta.annotation.Nullable
+                    List<TravelRuleNaturalNameIdentifier> phoneticNameIdentifier) {
         this.phoneticNameIdentifier = phoneticNameIdentifier;
         return this;
     }
@@ -136,7 +149,8 @@ public class TravelRuleNaturalPersonNameIdentifier {
     @JsonProperty(JSON_PROPERTY_PHONETIC_NAME_IDENTIFIER)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
     public void setPhoneticNameIdentifier(
-            List<TravelRuleNaturalNameIdentifier> phoneticNameIdentifier) {
+            @jakarta.annotation.Nullable
+                    List<TravelRuleNaturalNameIdentifier> phoneticNameIdentifier) {
         this.phoneticNameIdentifier = phoneticNameIdentifier;
     }
 

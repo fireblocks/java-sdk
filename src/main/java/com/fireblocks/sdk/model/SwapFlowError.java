@@ -13,27 +13,37 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
 /** The error message for the swap */
 @JsonPropertyOrder({SwapFlowError.JSON_PROPERTY_CODE, SwapFlowError.JSON_PROPERTY_MESSAGE})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class SwapFlowError {
     public static final String JSON_PROPERTY_CODE = "code";
-    private String code;
+    @jakarta.annotation.Nonnull private String code;
 
     public static final String JSON_PROPERTY_MESSAGE = "message";
-    private String message;
+    @jakarta.annotation.Nonnull private String message;
 
     public SwapFlowError() {}
 
-    public SwapFlowError code(String code) {
+    @JsonCreator
+    public SwapFlowError(
+            @JsonProperty(value = JSON_PROPERTY_CODE, required = true) String code,
+            @JsonProperty(value = JSON_PROPERTY_MESSAGE, required = true) String message) {
+        this.code = code;
+        this.message = message;
+    }
+
+    public SwapFlowError code(@jakarta.annotation.Nonnull String code) {
         this.code = code;
         return this;
     }
@@ -52,11 +62,11 @@ public class SwapFlowError {
 
     @JsonProperty(JSON_PROPERTY_CODE)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setCode(String code) {
+    public void setCode(@jakarta.annotation.Nonnull String code) {
         this.code = code;
     }
 
-    public SwapFlowError message(String message) {
+    public SwapFlowError message(@jakarta.annotation.Nonnull String message) {
         this.message = message;
         return this;
     }
@@ -75,7 +85,7 @@ public class SwapFlowError {
 
     @JsonProperty(JSON_PROPERTY_MESSAGE)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setMessage(String message) {
+    public void setMessage(@jakarta.annotation.Nonnull String message) {
         this.message = message;
     }
 
@@ -158,8 +168,7 @@ public class SwapFlowError {
                             "%scode%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getCode()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getCode()))));
         }
 
         // add `message` to the URL query string
@@ -169,8 +178,7 @@ public class SwapFlowError {
                             "%smessage%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getMessage()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getMessage()))));
         }
 
         return joiner.toString();

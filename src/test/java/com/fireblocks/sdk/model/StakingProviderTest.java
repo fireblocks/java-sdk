@@ -13,13 +13,13 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for StakingProvider */
-public class StakingProviderTest {
+class StakingProviderTest {
     /** Model tests for StakingProvider */
     @Test
-    public void testStakingProvider() {
+    void testStakingProvider() {
         // TODO: test StakingProvider
     }
 }

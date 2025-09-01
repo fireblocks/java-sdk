@@ -13,11 +13,11 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -29,17 +29,28 @@ import java.util.UUID;
     ResendNotificationsByResourceIdRequest.JSON_PROPERTY_RESOURCE_ID,
     ResendNotificationsByResourceIdRequest.JSON_PROPERTY_EXCLUDE_STATUSES
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class ResendNotificationsByResourceIdRequest {
     public static final String JSON_PROPERTY_RESOURCE_ID = "resourceId";
-    private UUID resourceId;
+    @jakarta.annotation.Nonnull private UUID resourceId;
 
     public static final String JSON_PROPERTY_EXCLUDE_STATUSES = "excludeStatuses";
-    private List<NotificationStatus> excludeStatuses;
+
+    @jakarta.annotation.Nullable
+    private List<NotificationStatus> excludeStatuses = new ArrayList<>();
 
     public ResendNotificationsByResourceIdRequest() {}
 
-    public ResendNotificationsByResourceIdRequest resourceId(UUID resourceId) {
+    @JsonCreator
+    public ResendNotificationsByResourceIdRequest(
+            @JsonProperty(value = JSON_PROPERTY_RESOURCE_ID, required = true) UUID resourceId) {
+        this.resourceId = resourceId;
+    }
+
+    public ResendNotificationsByResourceIdRequest resourceId(
+            @jakarta.annotation.Nonnull UUID resourceId) {
         this.resourceId = resourceId;
         return this;
     }
@@ -58,12 +69,12 @@ public class ResendNotificationsByResourceIdRequest {
 
     @JsonProperty(JSON_PROPERTY_RESOURCE_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setResourceId(UUID resourceId) {
+    public void setResourceId(@jakarta.annotation.Nonnull UUID resourceId) {
         this.resourceId = resourceId;
     }
 
     public ResendNotificationsByResourceIdRequest excludeStatuses(
-            List<NotificationStatus> excludeStatuses) {
+            @jakarta.annotation.Nullable List<NotificationStatus> excludeStatuses) {
         this.excludeStatuses = excludeStatuses;
         return this;
     }
@@ -94,7 +105,8 @@ public class ResendNotificationsByResourceIdRequest {
 
     @JsonProperty(JSON_PROPERTY_EXCLUDE_STATUSES)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setExcludeStatuses(List<NotificationStatus> excludeStatuses) {
+    public void setExcludeStatuses(
+            @jakarta.annotation.Nullable List<NotificationStatus> excludeStatuses) {
         this.excludeStatuses = excludeStatuses;
     }
 
@@ -180,9 +192,7 @@ public class ResendNotificationsByResourceIdRequest {
                             "%sresourceId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getResourceId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getResourceId()))));
         }
 
         // add `excludeStatuses` to the URL query string
@@ -198,10 +208,8 @@ public class ResendNotificationsByResourceIdRequest {
                                             ? ""
                                             : String.format(
                                                     "%s%d%s", containerPrefix, i, containerSuffix),
-                                    URLEncoder.encode(
-                                                    String.valueOf(getExcludeStatuses().get(i)),
-                                                    StandardCharsets.UTF_8)
-                                            .replaceAll("\\+", "%20")));
+                                    ApiClient.urlEncode(
+                                            ApiClient.valueToString(getExcludeStatuses().get(i)))));
                 }
             }
         }

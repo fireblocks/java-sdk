@@ -13,12 +13,12 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fireblocks.sdk.ApiClient;
 import java.math.BigDecimal;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -32,26 +32,39 @@ import java.util.StringJoiner;
     ContractDoc.JSON_PROPERTY_METHODS,
     ContractDoc.JSON_PROPERTY_VERSION
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class ContractDoc {
     public static final String JSON_PROPERTY_DETAILS = "details";
-    private String details;
+    @jakarta.annotation.Nullable private String details;
 
     public static final String JSON_PROPERTY_EVENTS = "events";
-    private String events;
+    @jakarta.annotation.Nullable private String events;
 
     public static final String JSON_PROPERTY_KIND = "kind";
-    private String kind;
+    @jakarta.annotation.Nonnull private String kind;
 
     public static final String JSON_PROPERTY_METHODS = "methods";
-    private Map<String, FunctionDoc> methods = new HashMap<>();
+    @jakarta.annotation.Nonnull private Map<String, FunctionDoc> methods = new HashMap<>();
 
     public static final String JSON_PROPERTY_VERSION = "version";
-    private BigDecimal version;
+    @jakarta.annotation.Nonnull private BigDecimal version;
 
     public ContractDoc() {}
 
-    public ContractDoc details(String details) {
+    @JsonCreator
+    public ContractDoc(
+            @JsonProperty(value = JSON_PROPERTY_KIND, required = true) String kind,
+            @JsonProperty(value = JSON_PROPERTY_METHODS, required = true)
+                    Map<String, FunctionDoc> methods,
+            @JsonProperty(value = JSON_PROPERTY_VERSION, required = true) BigDecimal version) {
+        this.kind = kind;
+        this.methods = methods;
+        this.version = version;
+    }
+
+    public ContractDoc details(@jakarta.annotation.Nullable String details) {
         this.details = details;
         return this;
     }
@@ -70,11 +83,11 @@ public class ContractDoc {
 
     @JsonProperty(JSON_PROPERTY_DETAILS)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setDetails(String details) {
+    public void setDetails(@jakarta.annotation.Nullable String details) {
         this.details = details;
     }
 
-    public ContractDoc events(String events) {
+    public ContractDoc events(@jakarta.annotation.Nullable String events) {
         this.events = events;
         return this;
     }
@@ -93,11 +106,11 @@ public class ContractDoc {
 
     @JsonProperty(JSON_PROPERTY_EVENTS)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setEvents(String events) {
+    public void setEvents(@jakarta.annotation.Nullable String events) {
         this.events = events;
     }
 
-    public ContractDoc kind(String kind) {
+    public ContractDoc kind(@jakarta.annotation.Nonnull String kind) {
         this.kind = kind;
         return this;
     }
@@ -116,11 +129,11 @@ public class ContractDoc {
 
     @JsonProperty(JSON_PROPERTY_KIND)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setKind(String kind) {
+    public void setKind(@jakarta.annotation.Nonnull String kind) {
         this.kind = kind;
     }
 
-    public ContractDoc methods(Map<String, FunctionDoc> methods) {
+    public ContractDoc methods(@jakarta.annotation.Nonnull Map<String, FunctionDoc> methods) {
         this.methods = methods;
         return this;
     }
@@ -147,11 +160,11 @@ public class ContractDoc {
 
     @JsonProperty(JSON_PROPERTY_METHODS)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setMethods(Map<String, FunctionDoc> methods) {
+    public void setMethods(@jakarta.annotation.Nonnull Map<String, FunctionDoc> methods) {
         this.methods = methods;
     }
 
-    public ContractDoc version(BigDecimal version) {
+    public ContractDoc version(@jakarta.annotation.Nonnull BigDecimal version) {
         this.version = version;
         return this;
     }
@@ -170,7 +183,7 @@ public class ContractDoc {
 
     @JsonProperty(JSON_PROPERTY_VERSION)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setVersion(BigDecimal version) {
+    public void setVersion(@jakarta.annotation.Nonnull BigDecimal version) {
         this.version = version;
     }
 
@@ -259,8 +272,7 @@ public class ContractDoc {
                             "%sdetails%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getDetails()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getDetails()))));
         }
 
         // add `events` to the URL query string
@@ -270,8 +282,7 @@ public class ContractDoc {
                             "%sevents%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getEvents()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getEvents()))));
         }
 
         // add `kind` to the URL query string
@@ -281,8 +292,7 @@ public class ContractDoc {
                             "%skind%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getKind()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getKind()))));
         }
 
         // add `methods` to the URL query string
@@ -315,8 +325,7 @@ public class ContractDoc {
                             "%sversion%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getVersion()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getVersion()))));
         }
 
         return joiner.toString();

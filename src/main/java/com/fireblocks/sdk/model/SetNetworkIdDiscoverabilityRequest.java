@@ -13,24 +13,34 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
 /** SetNetworkIdDiscoverabilityRequest */
 @JsonPropertyOrder({SetNetworkIdDiscoverabilityRequest.JSON_PROPERTY_IS_DISCOVERABLE})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class SetNetworkIdDiscoverabilityRequest {
     public static final String JSON_PROPERTY_IS_DISCOVERABLE = "isDiscoverable";
-    private Boolean isDiscoverable;
+    @jakarta.annotation.Nonnull private Boolean isDiscoverable;
 
     public SetNetworkIdDiscoverabilityRequest() {}
 
-    public SetNetworkIdDiscoverabilityRequest isDiscoverable(Boolean isDiscoverable) {
+    @JsonCreator
+    public SetNetworkIdDiscoverabilityRequest(
+            @JsonProperty(value = JSON_PROPERTY_IS_DISCOVERABLE, required = true)
+                    Boolean isDiscoverable) {
+        this.isDiscoverable = isDiscoverable;
+    }
+
+    public SetNetworkIdDiscoverabilityRequest isDiscoverable(
+            @jakarta.annotation.Nonnull Boolean isDiscoverable) {
         this.isDiscoverable = isDiscoverable;
         return this;
     }
@@ -49,7 +59,7 @@ public class SetNetworkIdDiscoverabilityRequest {
 
     @JsonProperty(JSON_PROPERTY_IS_DISCOVERABLE)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setIsDiscoverable(Boolean isDiscoverable) {
+    public void setIsDiscoverable(@jakarta.annotation.Nonnull Boolean isDiscoverable) {
         this.isDiscoverable = isDiscoverable;
     }
 
@@ -132,10 +142,7 @@ public class SetNetworkIdDiscoverabilityRequest {
                             "%sisDiscoverable%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getIsDiscoverable()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getIsDiscoverable()))));
         }
 
         return joiner.toString();

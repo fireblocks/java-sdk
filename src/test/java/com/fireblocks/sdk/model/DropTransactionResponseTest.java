@@ -13,33 +13,33 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for DropTransactionResponse */
-public class DropTransactionResponseTest {
+class DropTransactionResponseTest {
     private final DropTransactionResponse model = new DropTransactionResponse();
 
     /** Model tests for DropTransactionResponse */
     @Test
-    public void testDropTransactionResponse() {
+    void testDropTransactionResponse() {
         // TODO: test DropTransactionResponse
     }
 
     /** Test the property 'txStatus' */
     @Test
-    public void txStatusTest() {
+    void txStatusTest() {
         // TODO: test txStatus
     }
 
     /** Test the property 'txId' */
     @Test
-    public void txIdTest() {
+    void txIdTest() {
         // TODO: test txId
     }
 
     /** Test the property 'replacedTxHash' */
     @Test
-    public void replacedTxHashTest() {
+    void replacedTxHashTest() {
         // TODO: test replacedTxHash
     }
 }

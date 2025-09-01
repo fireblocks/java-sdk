@@ -13,11 +13,11 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -31,26 +31,43 @@ import java.util.StringJoiner;
     PayoutInstructionResponse.JSON_PROPERTY_STATE,
     PayoutInstructionResponse.JSON_PROPERTY_TRANSACTIONS
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class PayoutInstructionResponse {
     public static final String JSON_PROPERTY_ID = "id";
-    private String id;
+    @jakarta.annotation.Nullable private String id;
 
     public static final String JSON_PROPERTY_PAYEE_ACCOUNT = "payeeAccount";
-    private PayeeAccountResponse payeeAccount;
+    @jakarta.annotation.Nonnull private PayeeAccountResponse payeeAccount;
 
     public static final String JSON_PROPERTY_AMOUNT = "amount";
-    private InstructionAmount amount;
+    @jakarta.annotation.Nonnull private InstructionAmount amount;
 
     public static final String JSON_PROPERTY_STATE = "state";
-    private PayoutInstructionState state;
+    @jakarta.annotation.Nonnull private PayoutInstructionState state;
 
     public static final String JSON_PROPERTY_TRANSACTIONS = "transactions";
-    private List<Transaction> transactions = new ArrayList<>();
+    @jakarta.annotation.Nonnull private List<Transaction> transactions = new ArrayList<>();
 
     public PayoutInstructionResponse() {}
 
-    public PayoutInstructionResponse id(String id) {
+    @JsonCreator
+    public PayoutInstructionResponse(
+            @JsonProperty(value = JSON_PROPERTY_PAYEE_ACCOUNT, required = true)
+                    PayeeAccountResponse payeeAccount,
+            @JsonProperty(value = JSON_PROPERTY_AMOUNT, required = true) InstructionAmount amount,
+            @JsonProperty(value = JSON_PROPERTY_STATE, required = true)
+                    PayoutInstructionState state,
+            @JsonProperty(value = JSON_PROPERTY_TRANSACTIONS, required = true)
+                    List<Transaction> transactions) {
+        this.payeeAccount = payeeAccount;
+        this.amount = amount;
+        this.state = state;
+        this.transactions = transactions;
+    }
+
+    public PayoutInstructionResponse id(@jakarta.annotation.Nullable String id) {
         this.id = id;
         return this;
     }
@@ -69,11 +86,12 @@ public class PayoutInstructionResponse {
 
     @JsonProperty(JSON_PROPERTY_ID)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setId(String id) {
+    public void setId(@jakarta.annotation.Nullable String id) {
         this.id = id;
     }
 
-    public PayoutInstructionResponse payeeAccount(PayeeAccountResponse payeeAccount) {
+    public PayoutInstructionResponse payeeAccount(
+            @jakarta.annotation.Nonnull PayeeAccountResponse payeeAccount) {
         this.payeeAccount = payeeAccount;
         return this;
     }
@@ -92,11 +110,11 @@ public class PayoutInstructionResponse {
 
     @JsonProperty(JSON_PROPERTY_PAYEE_ACCOUNT)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setPayeeAccount(PayeeAccountResponse payeeAccount) {
+    public void setPayeeAccount(@jakarta.annotation.Nonnull PayeeAccountResponse payeeAccount) {
         this.payeeAccount = payeeAccount;
     }
 
-    public PayoutInstructionResponse amount(InstructionAmount amount) {
+    public PayoutInstructionResponse amount(@jakarta.annotation.Nonnull InstructionAmount amount) {
         this.amount = amount;
         return this;
     }
@@ -115,11 +133,12 @@ public class PayoutInstructionResponse {
 
     @JsonProperty(JSON_PROPERTY_AMOUNT)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setAmount(InstructionAmount amount) {
+    public void setAmount(@jakarta.annotation.Nonnull InstructionAmount amount) {
         this.amount = amount;
     }
 
-    public PayoutInstructionResponse state(PayoutInstructionState state) {
+    public PayoutInstructionResponse state(
+            @jakarta.annotation.Nonnull PayoutInstructionState state) {
         this.state = state;
         return this;
     }
@@ -138,11 +157,12 @@ public class PayoutInstructionResponse {
 
     @JsonProperty(JSON_PROPERTY_STATE)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setState(PayoutInstructionState state) {
+    public void setState(@jakarta.annotation.Nonnull PayoutInstructionState state) {
         this.state = state;
     }
 
-    public PayoutInstructionResponse transactions(List<Transaction> transactions) {
+    public PayoutInstructionResponse transactions(
+            @jakarta.annotation.Nonnull List<Transaction> transactions) {
         this.transactions = transactions;
         return this;
     }
@@ -169,7 +189,7 @@ public class PayoutInstructionResponse {
 
     @JsonProperty(JSON_PROPERTY_TRANSACTIONS)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setTransactions(List<Transaction> transactions) {
+    public void setTransactions(@jakarta.annotation.Nonnull List<Transaction> transactions) {
         this.transactions = transactions;
     }
 
@@ -256,10 +276,7 @@ public class PayoutInstructionResponse {
             joiner.add(
                     String.format(
                             "%sid%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(String.valueOf(getId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getId()))));
         }
 
         // add `payeeAccount` to the URL query string
@@ -279,8 +296,7 @@ public class PayoutInstructionResponse {
                             "%sstate%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getState()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getState()))));
         }
 
         // add `transactions` to the URL query string

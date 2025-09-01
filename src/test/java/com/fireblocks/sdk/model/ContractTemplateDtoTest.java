@@ -13,99 +13,99 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for ContractTemplateDto */
-public class ContractTemplateDtoTest {
+class ContractTemplateDtoTest {
     private final ContractTemplateDto model = new ContractTemplateDto();
 
     /** Model tests for ContractTemplateDto */
     @Test
-    public void testContractTemplateDto() {
+    void testContractTemplateDto() {
         // TODO: test ContractTemplateDto
     }
 
     /** Test the property 'id' */
     @Test
-    public void idTest() {
+    void idTest() {
         // TODO: test id
     }
 
     /** Test the property 'name' */
     @Test
-    public void nameTest() {
+    void nameTest() {
         // TODO: test name
     }
 
     /** Test the property 'description' */
     @Test
-    public void descriptionTest() {
+    void descriptionTest() {
         // TODO: test description
     }
 
     /** Test the property 'longDescription' */
     @Test
-    public void longDescriptionTest() {
+    void longDescriptionTest() {
         // TODO: test longDescription
     }
 
     /** Test the property 'abi' */
     @Test
-    public void abiTest() {
+    void abiTest() {
         // TODO: test abi
     }
 
     /** Test the property 'attributes' */
     @Test
-    public void attributesTest() {
+    void attributesTest() {
         // TODO: test attributes
     }
 
     /** Test the property 'docs' */
     @Test
-    public void docsTest() {
+    void docsTest() {
         // TODO: test docs
     }
 
     /** Test the property 'owner' */
     @Test
-    public void ownerTest() {
+    void ownerTest() {
         // TODO: test owner
     }
 
     /** Test the property 'vendor' */
     @Test
-    public void vendorTest() {
+    void vendorTest() {
         // TODO: test vendor
     }
 
     /** Test the property 'isPublic' */
     @Test
-    public void isPublicTest() {
+    void isPublicTest() {
         // TODO: test isPublic
     }
 
     /** Test the property 'canDeploy' */
     @Test
-    public void canDeployTest() {
+    void canDeployTest() {
         // TODO: test canDeploy
     }
 
     /** Test the property 'type' */
     @Test
-    public void typeTest() {
+    void typeTest() {
         // TODO: test type
     }
 
     /** Test the property 'implementationContractId' */
     @Test
-    public void implementationContractIdTest() {
+    void implementationContractIdTest() {
         // TODO: test implementationContractId
     }
 
     /** Test the property 'initializationPhase' */
     @Test
-    public void initializationPhaseTest() {
+    void initializationPhaseTest() {
         // TODO: test initializationPhase
     }
 }

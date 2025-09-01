@@ -18,8 +18,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonValue;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -42,52 +41,54 @@ import java.util.StringJoiner;
     ContractTemplateDto.JSON_PROPERTY_IMPLEMENTATION_CONTRACT_ID,
     ContractTemplateDto.JSON_PROPERTY_INITIALIZATION_PHASE
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class ContractTemplateDto {
     public static final String JSON_PROPERTY_ID = "id";
-    private String id;
+    @jakarta.annotation.Nonnull private String id;
 
     public static final String JSON_PROPERTY_NAME = "name";
-    private String name;
+    @jakarta.annotation.Nonnull private String name;
 
     public static final String JSON_PROPERTY_DESCRIPTION = "description";
-    private String description;
+    @jakarta.annotation.Nonnull private String description;
 
     public static final String JSON_PROPERTY_LONG_DESCRIPTION = "longDescription";
-    private String longDescription;
+    @jakarta.annotation.Nullable private String longDescription;
 
     public static final String JSON_PROPERTY_ABI = "abi";
-    private List<AbiFunction> abi = new ArrayList<>();
+    @jakarta.annotation.Nonnull private List<AbiFunction> abi = new ArrayList<>();
 
     public static final String JSON_PROPERTY_ATTRIBUTES = "attributes";
-    private ContractAttributes attributes;
+    @jakarta.annotation.Nullable private ContractAttributes attributes;
 
     public static final String JSON_PROPERTY_DOCS = "docs";
-    private ContractDoc docs;
+    @jakarta.annotation.Nullable private ContractDoc docs;
 
     public static final String JSON_PROPERTY_OWNER = "owner";
-    private String owner;
+    @jakarta.annotation.Nullable private String owner;
 
     public static final String JSON_PROPERTY_VENDOR = "vendor";
-    private VendorDto vendor;
+    @jakarta.annotation.Nullable private VendorDto vendor;
 
     public static final String JSON_PROPERTY_IS_PUBLIC = "isPublic";
-    private Boolean isPublic;
+    @jakarta.annotation.Nonnull private Boolean isPublic;
 
     public static final String JSON_PROPERTY_CAN_DEPLOY = "canDeploy";
-    private Boolean canDeploy;
+    @jakarta.annotation.Nullable private Boolean canDeploy;
 
     /** The type of the contract template */
     public enum TypeEnum {
-        FUNGIBLE_TOKEN("FUNGIBLE_TOKEN"),
+        FUNGIBLE_TOKEN(String.valueOf("FUNGIBLE_TOKEN")),
 
-        NON_FUNGIBLE_TOKEN("NON_FUNGIBLE_TOKEN"),
+        NON_FUNGIBLE_TOKEN(String.valueOf("NON_FUNGIBLE_TOKEN")),
 
-        NON_TOKEN("NON_TOKEN"),
+        NON_TOKEN(String.valueOf("NON_TOKEN")),
 
-        TOKEN_EXTENSION("TOKEN_EXTENSION"),
+        TOKEN_EXTENSION(String.valueOf("TOKEN_EXTENSION")),
 
-        TOKEN_UTILITY("TOKEN_UTILITY");
+        TOKEN_UTILITY(String.valueOf("TOKEN_UTILITY"));
 
         private String value;
 
@@ -117,17 +118,17 @@ public class ContractTemplateDto {
     }
 
     public static final String JSON_PROPERTY_TYPE = "type";
-    private TypeEnum type;
+    @jakarta.annotation.Nullable private TypeEnum type;
 
     public static final String JSON_PROPERTY_IMPLEMENTATION_CONTRACT_ID =
             "implementationContractId";
-    private String implementationContractId;
+    @jakarta.annotation.Nullable private String implementationContractId;
 
     /** Gets or Sets initializationPhase */
     public enum InitializationPhaseEnum {
-        ON_DEPLOYMENT("ON_DEPLOYMENT"),
+        ON_DEPLOYMENT(String.valueOf("ON_DEPLOYMENT")),
 
-        POST_DEPLOYMENT("POST_DEPLOYMENT");
+        POST_DEPLOYMENT(String.valueOf("POST_DEPLOYMENT"));
 
         private String value;
 
@@ -157,11 +158,28 @@ public class ContractTemplateDto {
     }
 
     public static final String JSON_PROPERTY_INITIALIZATION_PHASE = "initializationPhase";
-    private InitializationPhaseEnum initializationPhase;
+    @jakarta.annotation.Nonnull private InitializationPhaseEnum initializationPhase;
 
     public ContractTemplateDto() {}
 
-    public ContractTemplateDto id(String id) {
+    @JsonCreator
+    public ContractTemplateDto(
+            @JsonProperty(value = JSON_PROPERTY_ID, required = true) String id,
+            @JsonProperty(value = JSON_PROPERTY_NAME, required = true) String name,
+            @JsonProperty(value = JSON_PROPERTY_DESCRIPTION, required = true) String description,
+            @JsonProperty(value = JSON_PROPERTY_ABI, required = true) List<AbiFunction> abi,
+            @JsonProperty(value = JSON_PROPERTY_IS_PUBLIC, required = true) Boolean isPublic,
+            @JsonProperty(value = JSON_PROPERTY_INITIALIZATION_PHASE, required = true)
+                    InitializationPhaseEnum initializationPhase) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.abi = abi;
+        this.isPublic = isPublic;
+        this.initializationPhase = initializationPhase;
+    }
+
+    public ContractTemplateDto id(@jakarta.annotation.Nonnull String id) {
         this.id = id;
         return this;
     }
@@ -180,11 +198,11 @@ public class ContractTemplateDto {
 
     @JsonProperty(JSON_PROPERTY_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setId(String id) {
+    public void setId(@jakarta.annotation.Nonnull String id) {
         this.id = id;
     }
 
-    public ContractTemplateDto name(String name) {
+    public ContractTemplateDto name(@jakarta.annotation.Nonnull String name) {
         this.name = name;
         return this;
     }
@@ -203,11 +221,11 @@ public class ContractTemplateDto {
 
     @JsonProperty(JSON_PROPERTY_NAME)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setName(String name) {
+    public void setName(@jakarta.annotation.Nonnull String name) {
         this.name = name;
     }
 
-    public ContractTemplateDto description(String description) {
+    public ContractTemplateDto description(@jakarta.annotation.Nonnull String description) {
         this.description = description;
         return this;
     }
@@ -226,11 +244,12 @@ public class ContractTemplateDto {
 
     @JsonProperty(JSON_PROPERTY_DESCRIPTION)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setDescription(String description) {
+    public void setDescription(@jakarta.annotation.Nonnull String description) {
         this.description = description;
     }
 
-    public ContractTemplateDto longDescription(String longDescription) {
+    public ContractTemplateDto longDescription(
+            @jakarta.annotation.Nullable String longDescription) {
         this.longDescription = longDescription;
         return this;
     }
@@ -249,11 +268,11 @@ public class ContractTemplateDto {
 
     @JsonProperty(JSON_PROPERTY_LONG_DESCRIPTION)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setLongDescription(String longDescription) {
+    public void setLongDescription(@jakarta.annotation.Nullable String longDescription) {
         this.longDescription = longDescription;
     }
 
-    public ContractTemplateDto abi(List<AbiFunction> abi) {
+    public ContractTemplateDto abi(@jakarta.annotation.Nonnull List<AbiFunction> abi) {
         this.abi = abi;
         return this;
     }
@@ -280,11 +299,12 @@ public class ContractTemplateDto {
 
     @JsonProperty(JSON_PROPERTY_ABI)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setAbi(List<AbiFunction> abi) {
+    public void setAbi(@jakarta.annotation.Nonnull List<AbiFunction> abi) {
         this.abi = abi;
     }
 
-    public ContractTemplateDto attributes(ContractAttributes attributes) {
+    public ContractTemplateDto attributes(
+            @jakarta.annotation.Nullable ContractAttributes attributes) {
         this.attributes = attributes;
         return this;
     }
@@ -304,11 +324,11 @@ public class ContractTemplateDto {
 
     @JsonProperty(JSON_PROPERTY_ATTRIBUTES)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAttributes(ContractAttributes attributes) {
+    public void setAttributes(@jakarta.annotation.Nullable ContractAttributes attributes) {
         this.attributes = attributes;
     }
 
-    public ContractTemplateDto docs(ContractDoc docs) {
+    public ContractTemplateDto docs(@jakarta.annotation.Nullable ContractDoc docs) {
         this.docs = docs;
         return this;
     }
@@ -328,11 +348,11 @@ public class ContractTemplateDto {
 
     @JsonProperty(JSON_PROPERTY_DOCS)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setDocs(ContractDoc docs) {
+    public void setDocs(@jakarta.annotation.Nullable ContractDoc docs) {
         this.docs = docs;
     }
 
-    public ContractTemplateDto owner(String owner) {
+    public ContractTemplateDto owner(@jakarta.annotation.Nullable String owner) {
         this.owner = owner;
         return this;
     }
@@ -352,11 +372,11 @@ public class ContractTemplateDto {
 
     @JsonProperty(JSON_PROPERTY_OWNER)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setOwner(String owner) {
+    public void setOwner(@jakarta.annotation.Nullable String owner) {
         this.owner = owner;
     }
 
-    public ContractTemplateDto vendor(VendorDto vendor) {
+    public ContractTemplateDto vendor(@jakarta.annotation.Nullable VendorDto vendor) {
         this.vendor = vendor;
         return this;
     }
@@ -376,11 +396,11 @@ public class ContractTemplateDto {
 
     @JsonProperty(JSON_PROPERTY_VENDOR)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setVendor(VendorDto vendor) {
+    public void setVendor(@jakarta.annotation.Nullable VendorDto vendor) {
         this.vendor = vendor;
     }
 
-    public ContractTemplateDto isPublic(Boolean isPublic) {
+    public ContractTemplateDto isPublic(@jakarta.annotation.Nonnull Boolean isPublic) {
         this.isPublic = isPublic;
         return this;
     }
@@ -400,11 +420,11 @@ public class ContractTemplateDto {
 
     @JsonProperty(JSON_PROPERTY_IS_PUBLIC)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setIsPublic(Boolean isPublic) {
+    public void setIsPublic(@jakarta.annotation.Nonnull Boolean isPublic) {
         this.isPublic = isPublic;
     }
 
-    public ContractTemplateDto canDeploy(Boolean canDeploy) {
+    public ContractTemplateDto canDeploy(@jakarta.annotation.Nullable Boolean canDeploy) {
         this.canDeploy = canDeploy;
         return this;
     }
@@ -423,11 +443,11 @@ public class ContractTemplateDto {
 
     @JsonProperty(JSON_PROPERTY_CAN_DEPLOY)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setCanDeploy(Boolean canDeploy) {
+    public void setCanDeploy(@jakarta.annotation.Nullable Boolean canDeploy) {
         this.canDeploy = canDeploy;
     }
 
-    public ContractTemplateDto type(TypeEnum type) {
+    public ContractTemplateDto type(@jakarta.annotation.Nullable TypeEnum type) {
         this.type = type;
         return this;
     }
@@ -446,11 +466,12 @@ public class ContractTemplateDto {
 
     @JsonProperty(JSON_PROPERTY_TYPE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setType(TypeEnum type) {
+    public void setType(@jakarta.annotation.Nullable TypeEnum type) {
         this.type = type;
     }
 
-    public ContractTemplateDto implementationContractId(String implementationContractId) {
+    public ContractTemplateDto implementationContractId(
+            @jakarta.annotation.Nullable String implementationContractId) {
         this.implementationContractId = implementationContractId;
         return this;
     }
@@ -469,11 +490,13 @@ public class ContractTemplateDto {
 
     @JsonProperty(JSON_PROPERTY_IMPLEMENTATION_CONTRACT_ID)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setImplementationContractId(String implementationContractId) {
+    public void setImplementationContractId(
+            @jakarta.annotation.Nullable String implementationContractId) {
         this.implementationContractId = implementationContractId;
     }
 
-    public ContractTemplateDto initializationPhase(InitializationPhaseEnum initializationPhase) {
+    public ContractTemplateDto initializationPhase(
+            @jakarta.annotation.Nonnull InitializationPhaseEnum initializationPhase) {
         this.initializationPhase = initializationPhase;
         return this;
     }
@@ -492,7 +515,8 @@ public class ContractTemplateDto {
 
     @JsonProperty(JSON_PROPERTY_INITIALIZATION_PHASE)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setInitializationPhase(InitializationPhaseEnum initializationPhase) {
+    public void setInitializationPhase(
+            @jakarta.annotation.Nonnull InitializationPhaseEnum initializationPhase) {
         this.initializationPhase = initializationPhase;
     }
 
@@ -617,10 +641,7 @@ public class ContractTemplateDto {
             joiner.add(
                     String.format(
                             "%sid%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(String.valueOf(getId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getId()))));
         }
 
         // add `name` to the URL query string
@@ -630,8 +651,7 @@ public class ContractTemplateDto {
                             "%sname%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getName()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getName()))));
         }
 
         // add `description` to the URL query string
@@ -641,10 +661,7 @@ public class ContractTemplateDto {
                             "%sdescription%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getDescription()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getDescription()))));
         }
 
         // add `longDescription` to the URL query string
@@ -654,10 +671,7 @@ public class ContractTemplateDto {
                             "%slongDescription%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getLongDescription()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getLongDescription()))));
         }
 
         // add `abi` to the URL query string
@@ -699,8 +713,7 @@ public class ContractTemplateDto {
                             "%sowner%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getOwner()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getOwner()))));
         }
 
         // add `vendor` to the URL query string
@@ -715,8 +728,7 @@ public class ContractTemplateDto {
                             "%sisPublic%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getIsPublic()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getIsPublic()))));
         }
 
         // add `canDeploy` to the URL query string
@@ -726,9 +738,7 @@ public class ContractTemplateDto {
                             "%scanDeploy%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getCanDeploy()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getCanDeploy()))));
         }
 
         // add `type` to the URL query string
@@ -738,8 +748,7 @@ public class ContractTemplateDto {
                             "%stype%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getType()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getType()))));
         }
 
         // add `implementationContractId` to the URL query string
@@ -749,10 +758,8 @@ public class ContractTemplateDto {
                             "%simplementationContractId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getImplementationContractId()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(
+                                    ApiClient.valueToString(getImplementationContractId()))));
         }
 
         // add `initializationPhase` to the URL query string
@@ -762,10 +769,8 @@ public class ContractTemplateDto {
                             "%sinitializationPhase%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getInitializationPhase()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(
+                                    ApiClient.valueToString(getInitializationPhase()))));
         }
 
         return joiner.toString();

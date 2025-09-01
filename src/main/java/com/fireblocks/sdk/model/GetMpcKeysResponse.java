@@ -13,11 +13,11 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -28,17 +28,27 @@ import java.util.StringJoiner;
     GetMpcKeysResponse.JSON_PROPERTY_TENANT_ID,
     GetMpcKeysResponse.JSON_PROPERTY_KEYS
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class GetMpcKeysResponse {
     public static final String JSON_PROPERTY_TENANT_ID = "tenantId";
-    private String tenantId;
+    @jakarta.annotation.Nonnull private String tenantId;
 
     public static final String JSON_PROPERTY_KEYS = "keys";
-    private List<MpcKey> keys = new ArrayList<>();
+    @jakarta.annotation.Nonnull private List<MpcKey> keys = new ArrayList<>();
 
     public GetMpcKeysResponse() {}
 
-    public GetMpcKeysResponse tenantId(String tenantId) {
+    @JsonCreator
+    public GetMpcKeysResponse(
+            @JsonProperty(value = JSON_PROPERTY_TENANT_ID, required = true) String tenantId,
+            @JsonProperty(value = JSON_PROPERTY_KEYS, required = true) List<MpcKey> keys) {
+        this.tenantId = tenantId;
+        this.keys = keys;
+    }
+
+    public GetMpcKeysResponse tenantId(@jakarta.annotation.Nonnull String tenantId) {
         this.tenantId = tenantId;
         return this;
     }
@@ -57,11 +67,11 @@ public class GetMpcKeysResponse {
 
     @JsonProperty(JSON_PROPERTY_TENANT_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setTenantId(String tenantId) {
+    public void setTenantId(@jakarta.annotation.Nonnull String tenantId) {
         this.tenantId = tenantId;
     }
 
-    public GetMpcKeysResponse keys(List<MpcKey> keys) {
+    public GetMpcKeysResponse keys(@jakarta.annotation.Nonnull List<MpcKey> keys) {
         this.keys = keys;
         return this;
     }
@@ -88,7 +98,7 @@ public class GetMpcKeysResponse {
 
     @JsonProperty(JSON_PROPERTY_KEYS)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setKeys(List<MpcKey> keys) {
+    public void setKeys(@jakarta.annotation.Nonnull List<MpcKey> keys) {
         this.keys = keys;
     }
 
@@ -171,8 +181,7 @@ public class GetMpcKeysResponse {
                             "%stenantId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getTenantId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getTenantId()))));
         }
 
         // add `keys` to the URL query string

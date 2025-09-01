@@ -13,45 +13,45 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for Cosigner */
-public class CosignerTest {
+class CosignerTest {
     private final Cosigner model = new Cosigner();
 
     /** Model tests for Cosigner */
     @Test
-    public void testCosigner() {
+    void testCosigner() {
         // TODO: test Cosigner
     }
 
     /** Test the property 'archived' */
     @Test
-    public void archivedTest() {
+    void archivedTest() {
         // TODO: test archived
     }
 
     /** Test the property 'id' */
     @Test
-    public void idTest() {
+    void idTest() {
         // TODO: test id
     }
 
     /** Test the property 'name' */
     @Test
-    public void nameTest() {
+    void nameTest() {
         // TODO: test name
     }
 
     /** Test the property 'type' */
     @Test
-    public void typeTest() {
+    void typeTest() {
         // TODO: test type
     }
 
     /** Test the property 'version' */
     @Test
-    public void versionTest() {
+    void versionTest() {
         // TODO: test version
     }
 }

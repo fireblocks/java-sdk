@@ -13,11 +13,11 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -26,17 +26,25 @@ import java.util.StringJoiner;
     SmartTransferUserGroupsResponse.JSON_PROPERTY_MESSAGE,
     SmartTransferUserGroupsResponse.JSON_PROPERTY_DATA
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class SmartTransferUserGroupsResponse {
     public static final String JSON_PROPERTY_MESSAGE = "message";
-    private String message;
+    @jakarta.annotation.Nullable private String message;
 
     public static final String JSON_PROPERTY_DATA = "data";
-    private SmartTransferUserGroups data;
+    @jakarta.annotation.Nullable private SmartTransferUserGroups data;
 
     public SmartTransferUserGroupsResponse() {}
 
-    public SmartTransferUserGroupsResponse message(String message) {
+    @JsonCreator
+    public SmartTransferUserGroupsResponse(
+            @JsonProperty(value = JSON_PROPERTY_MESSAGE, required = true) String message) {
+        this.message = message;
+    }
+
+    public SmartTransferUserGroupsResponse message(@jakarta.annotation.Nullable String message) {
         this.message = message;
         return this;
     }
@@ -55,11 +63,12 @@ public class SmartTransferUserGroupsResponse {
 
     @JsonProperty(JSON_PROPERTY_MESSAGE)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setMessage(String message) {
+    public void setMessage(@jakarta.annotation.Nullable String message) {
         this.message = message;
     }
 
-    public SmartTransferUserGroupsResponse data(SmartTransferUserGroups data) {
+    public SmartTransferUserGroupsResponse data(
+            @jakarta.annotation.Nullable SmartTransferUserGroups data) {
         this.data = data;
         return this;
     }
@@ -78,7 +87,7 @@ public class SmartTransferUserGroupsResponse {
 
     @JsonProperty(JSON_PROPERTY_DATA)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setData(SmartTransferUserGroups data) {
+    public void setData(@jakarta.annotation.Nullable SmartTransferUserGroups data) {
         this.data = data;
     }
 
@@ -162,8 +171,7 @@ public class SmartTransferUserGroupsResponse {
                             "%smessage%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getMessage()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getMessage()))));
         }
 
         // add `data` to the URL query string

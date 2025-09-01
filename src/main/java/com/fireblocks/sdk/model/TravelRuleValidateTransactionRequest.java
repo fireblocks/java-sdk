@@ -13,12 +13,12 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fireblocks.sdk.ApiClient;
 import java.math.BigDecimal;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -37,50 +37,71 @@ import java.util.StringJoiner;
     TravelRuleValidateTransactionRequest.JSON_PROPERTY_BENEFICIARY_ACCOUNT_NUMBER,
     TravelRuleValidateTransactionRequest.JSON_PROPERTY_BENEFICIARY_ADDRESS
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class TravelRuleValidateTransactionRequest {
     public static final String JSON_PROPERTY_TRANSACTION_ASSET = "transactionAsset";
-    private String transactionAsset;
+    @jakarta.annotation.Nonnull private String transactionAsset;
 
     public static final String JSON_PROPERTY_DESTINATION = "destination";
-    private String destination;
+    @jakarta.annotation.Nonnull private String destination;
 
     public static final String JSON_PROPERTY_TRANSACTION_AMOUNT = "transactionAmount";
-    private String transactionAmount;
+    @jakarta.annotation.Nonnull private String transactionAmount;
 
     public static final String JSON_PROPERTY_TRANSACTION_ASSET_DECIMALS =
             "transactionAssetDecimals";
-    private BigDecimal transactionAssetDecimals;
+    @jakarta.annotation.Nullable private BigDecimal transactionAssetDecimals;
 
     public static final String JSON_PROPERTY_ORIGINATOR_V_A_S_PDID = "originatorVASPdid";
-    private String originatorVASPdid;
+    @jakarta.annotation.Nonnull private String originatorVASPdid;
 
     public static final String JSON_PROPERTY_ORIGINATOR_EQUALS_BENEFICIARY =
             "originatorEqualsBeneficiary";
-    private Boolean originatorEqualsBeneficiary;
+    @jakarta.annotation.Nonnull private Boolean originatorEqualsBeneficiary;
 
     public static final String JSON_PROPERTY_TRAVEL_RULE_BEHAVIOR = "travelRuleBehavior";
-    private Boolean travelRuleBehavior;
+    @jakarta.annotation.Nullable private Boolean travelRuleBehavior;
 
     public static final String JSON_PROPERTY_BENEFICIARY_V_A_S_PDID = "beneficiaryVASPdid";
-    private String beneficiaryVASPdid;
+    @jakarta.annotation.Nullable private String beneficiaryVASPdid;
 
     public static final String JSON_PROPERTY_BENEFICIARY_V_A_S_PNAME = "beneficiaryVASPname";
-    private String beneficiaryVASPname;
+    @jakarta.annotation.Nullable private String beneficiaryVASPname;
 
     public static final String JSON_PROPERTY_BENEFICIARY_NAME = "beneficiaryName";
-    private String beneficiaryName;
+    @jakarta.annotation.Nullable private String beneficiaryName;
 
     public static final String JSON_PROPERTY_BENEFICIARY_ACCOUNT_NUMBER =
             "beneficiaryAccountNumber";
-    private String beneficiaryAccountNumber;
+    @jakarta.annotation.Nullable private String beneficiaryAccountNumber;
 
     public static final String JSON_PROPERTY_BENEFICIARY_ADDRESS = "beneficiaryAddress";
-    private TravelRuleAddress beneficiaryAddress;
+    @jakarta.annotation.Nullable private TravelRuleAddress beneficiaryAddress;
 
     public TravelRuleValidateTransactionRequest() {}
 
-    public TravelRuleValidateTransactionRequest transactionAsset(String transactionAsset) {
+    @JsonCreator
+    public TravelRuleValidateTransactionRequest(
+            @JsonProperty(value = JSON_PROPERTY_TRANSACTION_ASSET, required = true)
+                    String transactionAsset,
+            @JsonProperty(value = JSON_PROPERTY_DESTINATION, required = true) String destination,
+            @JsonProperty(value = JSON_PROPERTY_TRANSACTION_AMOUNT, required = true)
+                    String transactionAmount,
+            @JsonProperty(value = JSON_PROPERTY_ORIGINATOR_V_A_S_PDID, required = true)
+                    String originatorVASPdid,
+            @JsonProperty(value = JSON_PROPERTY_ORIGINATOR_EQUALS_BENEFICIARY, required = true)
+                    Boolean originatorEqualsBeneficiary) {
+        this.transactionAsset = transactionAsset;
+        this.destination = destination;
+        this.transactionAmount = transactionAmount;
+        this.originatorVASPdid = originatorVASPdid;
+        this.originatorEqualsBeneficiary = originatorEqualsBeneficiary;
+    }
+
+    public TravelRuleValidateTransactionRequest transactionAsset(
+            @jakarta.annotation.Nonnull String transactionAsset) {
         this.transactionAsset = transactionAsset;
         return this;
     }
@@ -99,11 +120,12 @@ public class TravelRuleValidateTransactionRequest {
 
     @JsonProperty(JSON_PROPERTY_TRANSACTION_ASSET)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setTransactionAsset(String transactionAsset) {
+    public void setTransactionAsset(@jakarta.annotation.Nonnull String transactionAsset) {
         this.transactionAsset = transactionAsset;
     }
 
-    public TravelRuleValidateTransactionRequest destination(String destination) {
+    public TravelRuleValidateTransactionRequest destination(
+            @jakarta.annotation.Nonnull String destination) {
         this.destination = destination;
         return this;
     }
@@ -122,11 +144,12 @@ public class TravelRuleValidateTransactionRequest {
 
     @JsonProperty(JSON_PROPERTY_DESTINATION)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setDestination(String destination) {
+    public void setDestination(@jakarta.annotation.Nonnull String destination) {
         this.destination = destination;
     }
 
-    public TravelRuleValidateTransactionRequest transactionAmount(String transactionAmount) {
+    public TravelRuleValidateTransactionRequest transactionAmount(
+            @jakarta.annotation.Nonnull String transactionAmount) {
         this.transactionAmount = transactionAmount;
         return this;
     }
@@ -145,12 +168,12 @@ public class TravelRuleValidateTransactionRequest {
 
     @JsonProperty(JSON_PROPERTY_TRANSACTION_AMOUNT)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setTransactionAmount(String transactionAmount) {
+    public void setTransactionAmount(@jakarta.annotation.Nonnull String transactionAmount) {
         this.transactionAmount = transactionAmount;
     }
 
     public TravelRuleValidateTransactionRequest transactionAssetDecimals(
-            BigDecimal transactionAssetDecimals) {
+            @jakarta.annotation.Nullable BigDecimal transactionAssetDecimals) {
         this.transactionAssetDecimals = transactionAssetDecimals;
         return this;
     }
@@ -170,11 +193,13 @@ public class TravelRuleValidateTransactionRequest {
 
     @JsonProperty(JSON_PROPERTY_TRANSACTION_ASSET_DECIMALS)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setTransactionAssetDecimals(BigDecimal transactionAssetDecimals) {
+    public void setTransactionAssetDecimals(
+            @jakarta.annotation.Nullable BigDecimal transactionAssetDecimals) {
         this.transactionAssetDecimals = transactionAssetDecimals;
     }
 
-    public TravelRuleValidateTransactionRequest originatorVASPdid(String originatorVASPdid) {
+    public TravelRuleValidateTransactionRequest originatorVASPdid(
+            @jakarta.annotation.Nonnull String originatorVASPdid) {
         this.originatorVASPdid = originatorVASPdid;
         return this;
     }
@@ -193,12 +218,12 @@ public class TravelRuleValidateTransactionRequest {
 
     @JsonProperty(JSON_PROPERTY_ORIGINATOR_V_A_S_PDID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setOriginatorVASPdid(String originatorVASPdid) {
+    public void setOriginatorVASPdid(@jakarta.annotation.Nonnull String originatorVASPdid) {
         this.originatorVASPdid = originatorVASPdid;
     }
 
     public TravelRuleValidateTransactionRequest originatorEqualsBeneficiary(
-            Boolean originatorEqualsBeneficiary) {
+            @jakarta.annotation.Nonnull Boolean originatorEqualsBeneficiary) {
         this.originatorEqualsBeneficiary = originatorEqualsBeneficiary;
         return this;
     }
@@ -218,11 +243,13 @@ public class TravelRuleValidateTransactionRequest {
 
     @JsonProperty(JSON_PROPERTY_ORIGINATOR_EQUALS_BENEFICIARY)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setOriginatorEqualsBeneficiary(Boolean originatorEqualsBeneficiary) {
+    public void setOriginatorEqualsBeneficiary(
+            @jakarta.annotation.Nonnull Boolean originatorEqualsBeneficiary) {
         this.originatorEqualsBeneficiary = originatorEqualsBeneficiary;
     }
 
-    public TravelRuleValidateTransactionRequest travelRuleBehavior(Boolean travelRuleBehavior) {
+    public TravelRuleValidateTransactionRequest travelRuleBehavior(
+            @jakarta.annotation.Nullable Boolean travelRuleBehavior) {
         this.travelRuleBehavior = travelRuleBehavior;
         return this;
     }
@@ -242,11 +269,12 @@ public class TravelRuleValidateTransactionRequest {
 
     @JsonProperty(JSON_PROPERTY_TRAVEL_RULE_BEHAVIOR)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setTravelRuleBehavior(Boolean travelRuleBehavior) {
+    public void setTravelRuleBehavior(@jakarta.annotation.Nullable Boolean travelRuleBehavior) {
         this.travelRuleBehavior = travelRuleBehavior;
     }
 
-    public TravelRuleValidateTransactionRequest beneficiaryVASPdid(String beneficiaryVASPdid) {
+    public TravelRuleValidateTransactionRequest beneficiaryVASPdid(
+            @jakarta.annotation.Nullable String beneficiaryVASPdid) {
         this.beneficiaryVASPdid = beneficiaryVASPdid;
         return this;
     }
@@ -265,11 +293,12 @@ public class TravelRuleValidateTransactionRequest {
 
     @JsonProperty(JSON_PROPERTY_BENEFICIARY_V_A_S_PDID)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setBeneficiaryVASPdid(String beneficiaryVASPdid) {
+    public void setBeneficiaryVASPdid(@jakarta.annotation.Nullable String beneficiaryVASPdid) {
         this.beneficiaryVASPdid = beneficiaryVASPdid;
     }
 
-    public TravelRuleValidateTransactionRequest beneficiaryVASPname(String beneficiaryVASPname) {
+    public TravelRuleValidateTransactionRequest beneficiaryVASPname(
+            @jakarta.annotation.Nullable String beneficiaryVASPname) {
         this.beneficiaryVASPname = beneficiaryVASPname;
         return this;
     }
@@ -288,11 +317,12 @@ public class TravelRuleValidateTransactionRequest {
 
     @JsonProperty(JSON_PROPERTY_BENEFICIARY_V_A_S_PNAME)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setBeneficiaryVASPname(String beneficiaryVASPname) {
+    public void setBeneficiaryVASPname(@jakarta.annotation.Nullable String beneficiaryVASPname) {
         this.beneficiaryVASPname = beneficiaryVASPname;
     }
 
-    public TravelRuleValidateTransactionRequest beneficiaryName(String beneficiaryName) {
+    public TravelRuleValidateTransactionRequest beneficiaryName(
+            @jakarta.annotation.Nullable String beneficiaryName) {
         this.beneficiaryName = beneficiaryName;
         return this;
     }
@@ -311,12 +341,12 @@ public class TravelRuleValidateTransactionRequest {
 
     @JsonProperty(JSON_PROPERTY_BENEFICIARY_NAME)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setBeneficiaryName(String beneficiaryName) {
+    public void setBeneficiaryName(@jakarta.annotation.Nullable String beneficiaryName) {
         this.beneficiaryName = beneficiaryName;
     }
 
     public TravelRuleValidateTransactionRequest beneficiaryAccountNumber(
-            String beneficiaryAccountNumber) {
+            @jakarta.annotation.Nullable String beneficiaryAccountNumber) {
         this.beneficiaryAccountNumber = beneficiaryAccountNumber;
         return this;
     }
@@ -335,12 +365,13 @@ public class TravelRuleValidateTransactionRequest {
 
     @JsonProperty(JSON_PROPERTY_BENEFICIARY_ACCOUNT_NUMBER)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setBeneficiaryAccountNumber(String beneficiaryAccountNumber) {
+    public void setBeneficiaryAccountNumber(
+            @jakarta.annotation.Nullable String beneficiaryAccountNumber) {
         this.beneficiaryAccountNumber = beneficiaryAccountNumber;
     }
 
     public TravelRuleValidateTransactionRequest beneficiaryAddress(
-            TravelRuleAddress beneficiaryAddress) {
+            @jakarta.annotation.Nullable TravelRuleAddress beneficiaryAddress) {
         this.beneficiaryAddress = beneficiaryAddress;
         return this;
     }
@@ -359,7 +390,8 @@ public class TravelRuleValidateTransactionRequest {
 
     @JsonProperty(JSON_PROPERTY_BENEFICIARY_ADDRESS)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setBeneficiaryAddress(TravelRuleAddress beneficiaryAddress) {
+    public void setBeneficiaryAddress(
+            @jakarta.annotation.Nullable TravelRuleAddress beneficiaryAddress) {
         this.beneficiaryAddress = beneficiaryAddress;
     }
 
@@ -515,10 +547,7 @@ public class TravelRuleValidateTransactionRequest {
                             "%stransactionAsset%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getTransactionAsset()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getTransactionAsset()))));
         }
 
         // add `destination` to the URL query string
@@ -528,10 +557,7 @@ public class TravelRuleValidateTransactionRequest {
                             "%sdestination%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getDestination()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getDestination()))));
         }
 
         // add `transactionAmount` to the URL query string
@@ -541,10 +567,7 @@ public class TravelRuleValidateTransactionRequest {
                             "%stransactionAmount%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getTransactionAmount()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getTransactionAmount()))));
         }
 
         // add `transactionAssetDecimals` to the URL query string
@@ -554,10 +577,8 @@ public class TravelRuleValidateTransactionRequest {
                             "%stransactionAssetDecimals%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getTransactionAssetDecimals()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(
+                                    ApiClient.valueToString(getTransactionAssetDecimals()))));
         }
 
         // add `originatorVASPdid` to the URL query string
@@ -567,10 +588,7 @@ public class TravelRuleValidateTransactionRequest {
                             "%soriginatorVASPdid%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getOriginatorVASPdid()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getOriginatorVASPdid()))));
         }
 
         // add `originatorEqualsBeneficiary` to the URL query string
@@ -580,10 +598,8 @@ public class TravelRuleValidateTransactionRequest {
                             "%soriginatorEqualsBeneficiary%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getOriginatorEqualsBeneficiary()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(
+                                    ApiClient.valueToString(getOriginatorEqualsBeneficiary()))));
         }
 
         // add `travelRuleBehavior` to the URL query string
@@ -593,10 +609,7 @@ public class TravelRuleValidateTransactionRequest {
                             "%stravelRuleBehavior%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getTravelRuleBehavior()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getTravelRuleBehavior()))));
         }
 
         // add `beneficiaryVASPdid` to the URL query string
@@ -606,10 +619,7 @@ public class TravelRuleValidateTransactionRequest {
                             "%sbeneficiaryVASPdid%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getBeneficiaryVASPdid()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getBeneficiaryVASPdid()))));
         }
 
         // add `beneficiaryVASPname` to the URL query string
@@ -619,10 +629,8 @@ public class TravelRuleValidateTransactionRequest {
                             "%sbeneficiaryVASPname%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getBeneficiaryVASPname()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(
+                                    ApiClient.valueToString(getBeneficiaryVASPname()))));
         }
 
         // add `beneficiaryName` to the URL query string
@@ -632,10 +640,7 @@ public class TravelRuleValidateTransactionRequest {
                             "%sbeneficiaryName%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getBeneficiaryName()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getBeneficiaryName()))));
         }
 
         // add `beneficiaryAccountNumber` to the URL query string
@@ -645,10 +650,8 @@ public class TravelRuleValidateTransactionRequest {
                             "%sbeneficiaryAccountNumber%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getBeneficiaryAccountNumber()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(
+                                    ApiClient.valueToString(getBeneficiaryAccountNumber()))));
         }
 
         // add `beneficiaryAddress` to the URL query string

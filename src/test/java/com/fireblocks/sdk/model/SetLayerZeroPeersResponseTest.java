@@ -13,21 +13,21 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for SetLayerZeroPeersResponse */
-public class SetLayerZeroPeersResponseTest {
+class SetLayerZeroPeersResponseTest {
     private final SetLayerZeroPeersResponse model = new SetLayerZeroPeersResponse();
 
     /** Model tests for SetLayerZeroPeersResponse */
     @Test
-    public void testSetLayerZeroPeersResponse() {
+    void testSetLayerZeroPeersResponse() {
         // TODO: test SetLayerZeroPeersResponse
     }
 
     /** Test the property 'txnIds' */
     @Test
-    public void txnIdsTest() {
+    void txnIdsTest() {
         // TODO: test txnIds
     }
 }

@@ -13,21 +13,21 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for GetWorkspaceStatusResponse */
-public class GetWorkspaceStatusResponseTest {
+class GetWorkspaceStatusResponseTest {
     private final GetWorkspaceStatusResponse model = new GetWorkspaceStatusResponse();
 
     /** Model tests for GetWorkspaceStatusResponse */
     @Test
-    public void testGetWorkspaceStatusResponse() {
+    void testGetWorkspaceStatusResponse() {
         // TODO: test GetWorkspaceStatusResponse
     }
 
     /** Test the property 'status' */
     @Test
-    public void statusTest() {
+    void statusTest() {
         // TODO: test status
     }
 }

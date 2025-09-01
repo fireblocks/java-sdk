@@ -13,27 +13,27 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for CosignersPaginatedResponse */
-public class CosignersPaginatedResponseTest {
+class CosignersPaginatedResponseTest {
     private final CosignersPaginatedResponse model = new CosignersPaginatedResponse();
 
     /** Model tests for CosignersPaginatedResponse */
     @Test
-    public void testCosignersPaginatedResponse() {
+    void testCosignersPaginatedResponse() {
         // TODO: test CosignersPaginatedResponse
     }
 
     /** Test the property 'data' */
     @Test
-    public void dataTest() {
+    void dataTest() {
         // TODO: test data
     }
 
     /** Test the property 'next' */
     @Test
-    public void nextTest() {
+    void nextTest() {
         // TODO: test next
     }
 }

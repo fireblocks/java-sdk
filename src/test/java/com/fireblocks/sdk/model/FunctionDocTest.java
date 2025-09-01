@@ -13,33 +13,33 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for FunctionDoc */
-public class FunctionDocTest {
+class FunctionDocTest {
     private final FunctionDoc model = new FunctionDoc();
 
     /** Model tests for FunctionDoc */
     @Test
-    public void testFunctionDoc() {
+    void testFunctionDoc() {
         // TODO: test FunctionDoc
     }
 
     /** Test the property 'details' */
     @Test
-    public void detailsTest() {
+    void detailsTest() {
         // TODO: test details
     }
 
     /** Test the property 'params' */
     @Test
-    public void paramsTest() {
+    void paramsTest() {
         // TODO: test params
     }
 
     /** Test the property 'returns' */
     @Test
-    public void returnsTest() {
+    void returnsTest() {
         // TODO: test returns
     }
 }

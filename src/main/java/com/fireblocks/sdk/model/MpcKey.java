@@ -13,12 +13,12 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fireblocks.sdk.ApiClient;
 import java.math.BigDecimal;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -32,26 +32,40 @@ import java.util.StringJoiner;
     MpcKey.JSON_PROPERTY_PLAYERS,
     MpcKey.JSON_PROPERTY_LAST_PREPROCESSED_INDEX
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class MpcKey {
     public static final String JSON_PROPERTY_KEY_ID = "keyId";
-    private String keyId;
+    @jakarta.annotation.Nonnull private String keyId;
 
     public static final String JSON_PROPERTY_USER_ID = "userId";
-    private String userId;
+    @jakarta.annotation.Nonnull private String userId;
 
     public static final String JSON_PROPERTY_ALGORITHM = "algorithm";
-    private BigDecimal algorithm;
+    @jakarta.annotation.Nonnull private BigDecimal algorithm;
 
     public static final String JSON_PROPERTY_PLAYERS = "players";
-    private List<Players> players = new ArrayList<>();
+    @jakarta.annotation.Nonnull private List<Players> players = new ArrayList<>();
 
     public static final String JSON_PROPERTY_LAST_PREPROCESSED_INDEX = "lastPreprocessedIndex";
-    private BigDecimal lastPreprocessedIndex;
+    @jakarta.annotation.Nullable private BigDecimal lastPreprocessedIndex;
 
     public MpcKey() {}
 
-    public MpcKey keyId(String keyId) {
+    @JsonCreator
+    public MpcKey(
+            @JsonProperty(value = JSON_PROPERTY_KEY_ID, required = true) String keyId,
+            @JsonProperty(value = JSON_PROPERTY_USER_ID, required = true) String userId,
+            @JsonProperty(value = JSON_PROPERTY_ALGORITHM, required = true) BigDecimal algorithm,
+            @JsonProperty(value = JSON_PROPERTY_PLAYERS, required = true) List<Players> players) {
+        this.keyId = keyId;
+        this.userId = userId;
+        this.algorithm = algorithm;
+        this.players = players;
+    }
+
+    public MpcKey keyId(@jakarta.annotation.Nonnull String keyId) {
         this.keyId = keyId;
         return this;
     }
@@ -70,11 +84,11 @@ public class MpcKey {
 
     @JsonProperty(JSON_PROPERTY_KEY_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setKeyId(String keyId) {
+    public void setKeyId(@jakarta.annotation.Nonnull String keyId) {
         this.keyId = keyId;
     }
 
-    public MpcKey userId(String userId) {
+    public MpcKey userId(@jakarta.annotation.Nonnull String userId) {
         this.userId = userId;
         return this;
     }
@@ -93,11 +107,11 @@ public class MpcKey {
 
     @JsonProperty(JSON_PROPERTY_USER_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setUserId(String userId) {
+    public void setUserId(@jakarta.annotation.Nonnull String userId) {
         this.userId = userId;
     }
 
-    public MpcKey algorithm(BigDecimal algorithm) {
+    public MpcKey algorithm(@jakarta.annotation.Nonnull BigDecimal algorithm) {
         this.algorithm = algorithm;
         return this;
     }
@@ -116,11 +130,11 @@ public class MpcKey {
 
     @JsonProperty(JSON_PROPERTY_ALGORITHM)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setAlgorithm(BigDecimal algorithm) {
+    public void setAlgorithm(@jakarta.annotation.Nonnull BigDecimal algorithm) {
         this.algorithm = algorithm;
     }
 
-    public MpcKey players(List<Players> players) {
+    public MpcKey players(@jakarta.annotation.Nonnull List<Players> players) {
         this.players = players;
         return this;
     }
@@ -147,11 +161,12 @@ public class MpcKey {
 
     @JsonProperty(JSON_PROPERTY_PLAYERS)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setPlayers(List<Players> players) {
+    public void setPlayers(@jakarta.annotation.Nonnull List<Players> players) {
         this.players = players;
     }
 
-    public MpcKey lastPreprocessedIndex(BigDecimal lastPreprocessedIndex) {
+    public MpcKey lastPreprocessedIndex(
+            @jakarta.annotation.Nullable BigDecimal lastPreprocessedIndex) {
         this.lastPreprocessedIndex = lastPreprocessedIndex;
         return this;
     }
@@ -170,7 +185,8 @@ public class MpcKey {
 
     @JsonProperty(JSON_PROPERTY_LAST_PREPROCESSED_INDEX)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setLastPreprocessedIndex(BigDecimal lastPreprocessedIndex) {
+    public void setLastPreprocessedIndex(
+            @jakarta.annotation.Nullable BigDecimal lastPreprocessedIndex) {
         this.lastPreprocessedIndex = lastPreprocessedIndex;
     }
 
@@ -261,8 +277,7 @@ public class MpcKey {
                             "%skeyId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getKeyId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getKeyId()))));
         }
 
         // add `userId` to the URL query string
@@ -272,8 +287,7 @@ public class MpcKey {
                             "%suserId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getUserId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getUserId()))));
         }
 
         // add `algorithm` to the URL query string
@@ -283,9 +297,7 @@ public class MpcKey {
                             "%salgorithm%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getAlgorithm()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getAlgorithm()))));
         }
 
         // add `players` to the URL query string
@@ -318,10 +330,8 @@ public class MpcKey {
                             "%slastPreprocessedIndex%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getLastPreprocessedIndex()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(
+                                    ApiClient.valueToString(getLastPreprocessedIndex()))));
         }
 
         return joiner.toString();

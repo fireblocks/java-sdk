@@ -13,57 +13,57 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for CollectionDeployRequestDto */
-public class CollectionDeployRequestDtoTest {
+class CollectionDeployRequestDtoTest {
     private final CollectionDeployRequestDto model = new CollectionDeployRequestDto();
 
     /** Model tests for CollectionDeployRequestDto */
     @Test
-    public void testCollectionDeployRequestDto() {
+    void testCollectionDeployRequestDto() {
         // TODO: test CollectionDeployRequestDto
     }
 
     /** Test the property 'baseAssetId' */
     @Test
-    public void baseAssetIdTest() {
+    void baseAssetIdTest() {
         // TODO: test baseAssetId
     }
 
     /** Test the property 'vaultAccountId' */
     @Test
-    public void vaultAccountIdTest() {
+    void vaultAccountIdTest() {
         // TODO: test vaultAccountId
     }
 
     /** Test the property 'type' */
     @Test
-    public void typeTest() {
+    void typeTest() {
         // TODO: test type
     }
 
     /** Test the property 'name' */
     @Test
-    public void nameTest() {
+    void nameTest() {
         // TODO: test name
     }
 
     /** Test the property 'symbol' */
     @Test
-    public void symbolTest() {
+    void symbolTest() {
         // TODO: test symbol
     }
 
     /** Test the property 'adminAddress' */
     @Test
-    public void adminAddressTest() {
+    void adminAddressTest() {
         // TODO: test adminAddress
     }
 
     /** Test the property 'displayName' */
     @Test
-    public void displayNameTest() {
+    void displayNameTest() {
         // TODO: test displayName
     }
 }

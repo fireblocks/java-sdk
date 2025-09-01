@@ -16,8 +16,7 @@ package com.fireblocks.sdk.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -26,17 +25,19 @@ import java.util.StringJoiner;
     RescanTransaction.JSON_PROPERTY_TX_HASH,
     RescanTransaction.JSON_PROPERTY_ASSET_ID
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class RescanTransaction {
     public static final String JSON_PROPERTY_TX_HASH = "txHash";
-    private String txHash;
+    @jakarta.annotation.Nullable private String txHash;
 
     public static final String JSON_PROPERTY_ASSET_ID = "assetId";
-    private String assetId;
+    @jakarta.annotation.Nullable private String assetId;
 
     public RescanTransaction() {}
 
-    public RescanTransaction txHash(String txHash) {
+    public RescanTransaction txHash(@jakarta.annotation.Nullable String txHash) {
         this.txHash = txHash;
         return this;
     }
@@ -55,11 +56,11 @@ public class RescanTransaction {
 
     @JsonProperty(JSON_PROPERTY_TX_HASH)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setTxHash(String txHash) {
+    public void setTxHash(@jakarta.annotation.Nullable String txHash) {
         this.txHash = txHash;
     }
 
-    public RescanTransaction assetId(String assetId) {
+    public RescanTransaction assetId(@jakarta.annotation.Nullable String assetId) {
         this.assetId = assetId;
         return this;
     }
@@ -78,7 +79,7 @@ public class RescanTransaction {
 
     @JsonProperty(JSON_PROPERTY_ASSET_ID)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAssetId(String assetId) {
+    public void setAssetId(@jakarta.annotation.Nullable String assetId) {
         this.assetId = assetId;
     }
 
@@ -161,8 +162,7 @@ public class RescanTransaction {
                             "%stxHash%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getTxHash()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getTxHash()))));
         }
 
         // add `assetId` to the URL query string
@@ -172,8 +172,7 @@ public class RescanTransaction {
                             "%sassetId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getAssetId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getAssetId()))));
         }
 
         return joiner.toString();

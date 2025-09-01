@@ -13,27 +13,27 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for VaultAccountsPagedResponsePaging */
-public class VaultAccountsPagedResponsePagingTest {
+class VaultAccountsPagedResponsePagingTest {
     private final VaultAccountsPagedResponsePaging model = new VaultAccountsPagedResponsePaging();
 
     /** Model tests for VaultAccountsPagedResponsePaging */
     @Test
-    public void testVaultAccountsPagedResponsePaging() {
+    void testVaultAccountsPagedResponsePaging() {
         // TODO: test VaultAccountsPagedResponsePaging
     }
 
     /** Test the property 'before' */
     @Test
-    public void beforeTest() {
+    void beforeTest() {
         // TODO: test before
     }
 
     /** Test the property 'after' */
     @Test
-    public void afterTest() {
+    void afterTest() {
         // TODO: test after
     }
 }

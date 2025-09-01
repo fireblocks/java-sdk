@@ -13,33 +13,33 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for AmlRegistrationResultFullPayload */
-public class AmlRegistrationResultFullPayloadTest {
+class AmlRegistrationResultFullPayloadTest {
     private final AmlRegistrationResultFullPayload model = new AmlRegistrationResultFullPayload();
 
     /** Model tests for AmlRegistrationResultFullPayload */
     @Test
-    public void testAmlRegistrationResultFullPayload() {
+    void testAmlRegistrationResultFullPayload() {
         // TODO: test AmlRegistrationResultFullPayload
     }
 
     /** Test the property 'provider' */
     @Test
-    public void providerTest() {
+    void providerTest() {
         // TODO: test provider
     }
 
     /** Test the property 'success' */
     @Test
-    public void successTest() {
+    void successTest() {
         // TODO: test success
     }
 
     /** Test the property 'timestamp' */
     @Test
-    public void timestampTest() {
+    void timestampTest() {
         // TODO: test timestamp
     }
 }

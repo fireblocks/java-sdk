@@ -13,27 +13,27 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for CreateNetworkIdRequest */
-public class CreateNetworkIdRequestTest {
+class CreateNetworkIdRequestTest {
     private final CreateNetworkIdRequest model = new CreateNetworkIdRequest();
 
     /** Model tests for CreateNetworkIdRequest */
     @Test
-    public void testCreateNetworkIdRequest() {
+    void testCreateNetworkIdRequest() {
         // TODO: test CreateNetworkIdRequest
     }
 
     /** Test the property 'name' */
     @Test
-    public void nameTest() {
+    void nameTest() {
         // TODO: test name
     }
 
     /** Test the property 'routingPolicy' */
     @Test
-    public void routingPolicyTest() {
+    void routingPolicyTest() {
         // TODO: test routingPolicy
     }
 }

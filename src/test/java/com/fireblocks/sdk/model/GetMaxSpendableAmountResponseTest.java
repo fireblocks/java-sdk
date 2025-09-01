@@ -13,21 +13,21 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for GetMaxSpendableAmountResponse */
-public class GetMaxSpendableAmountResponseTest {
+class GetMaxSpendableAmountResponseTest {
     private final GetMaxSpendableAmountResponse model = new GetMaxSpendableAmountResponse();
 
     /** Model tests for GetMaxSpendableAmountResponse */
     @Test
-    public void testGetMaxSpendableAmountResponse() {
+    void testGetMaxSpendableAmountResponse() {
         // TODO: test GetMaxSpendableAmountResponse
     }
 
     /** Test the property 'maxSpendableAmount' */
     @Test
-    public void maxSpendableAmountTest() {
+    void maxSpendableAmountTest() {
         // TODO: test maxSpendableAmount
     }
 }

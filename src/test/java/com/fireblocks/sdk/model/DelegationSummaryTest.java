@@ -13,39 +13,39 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for DelegationSummary */
-public class DelegationSummaryTest {
+class DelegationSummaryTest {
     private final DelegationSummary model = new DelegationSummary();
 
     /** Model tests for DelegationSummary */
     @Test
-    public void testDelegationSummary() {
+    void testDelegationSummary() {
         // TODO: test DelegationSummary
     }
 
     /** Test the property 'active' */
     @Test
-    public void activeTest() {
+    void activeTest() {
         // TODO: test active
     }
 
     /** Test the property 'inactive' */
     @Test
-    public void inactiveTest() {
+    void inactiveTest() {
         // TODO: test inactive
     }
 
     /** Test the property 'rewardsAmount' */
     @Test
-    public void rewardsAmountTest() {
+    void rewardsAmountTest() {
         // TODO: test rewardsAmount
     }
 
     /** Test the property 'totalStaked' */
     @Test
-    public void totalStakedTest() {
+    void totalStakedTest() {
         // TODO: test totalStaked
     }
 }

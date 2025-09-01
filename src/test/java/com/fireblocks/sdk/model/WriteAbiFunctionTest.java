@@ -13,51 +13,51 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for WriteAbiFunction */
-public class WriteAbiFunctionTest {
+class WriteAbiFunctionTest {
     private final WriteAbiFunction model = new WriteAbiFunction();
 
     /** Model tests for WriteAbiFunction */
     @Test
-    public void testWriteAbiFunction() {
+    void testWriteAbiFunction() {
         // TODO: test WriteAbiFunction
     }
 
     /** Test the property 'stateMutability' */
     @Test
-    public void stateMutabilityTest() {
+    void stateMutabilityTest() {
         // TODO: test stateMutability
     }
 
     /** Test the property 'outputs' */
     @Test
-    public void outputsTest() {
+    void outputsTest() {
         // TODO: test outputs
     }
 
     /** Test the property 'type' */
     @Test
-    public void typeTest() {
+    void typeTest() {
         // TODO: test type
     }
 
     /** Test the property 'name' */
     @Test
-    public void nameTest() {
+    void nameTest() {
         // TODO: test name
     }
 
     /** Test the property 'inputs' */
     @Test
-    public void inputsTest() {
+    void inputsTest() {
         // TODO: test inputs
     }
 
     /** Test the property 'description' */
     @Test
-    public void descriptionTest() {
+    void descriptionTest() {
         // TODO: test description
     }
 }

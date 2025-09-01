@@ -13,33 +13,33 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for CreateAssetsBulkRequest */
-public class CreateAssetsBulkRequestTest {
+class CreateAssetsBulkRequestTest {
     private final CreateAssetsBulkRequest model = new CreateAssetsBulkRequest();
 
     /** Model tests for CreateAssetsBulkRequest */
     @Test
-    public void testCreateAssetsBulkRequest() {
+    void testCreateAssetsBulkRequest() {
         // TODO: test CreateAssetsBulkRequest
     }
 
     /** Test the property 'assetId' */
     @Test
-    public void assetIdTest() {
+    void assetIdTest() {
         // TODO: test assetId
     }
 
     /** Test the property 'vaultAccountIdFrom' */
     @Test
-    public void vaultAccountIdFromTest() {
+    void vaultAccountIdFromTest() {
         // TODO: test vaultAccountIdFrom
     }
 
     /** Test the property 'vaultAccountIdTo' */
     @Test
-    public void vaultAccountIdToTest() {
+    void vaultAccountIdToTest() {
         // TODO: test vaultAccountIdTo
     }
 }

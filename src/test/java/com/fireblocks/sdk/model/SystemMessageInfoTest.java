@@ -13,27 +13,27 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for SystemMessageInfo */
-public class SystemMessageInfoTest {
+class SystemMessageInfoTest {
     private final SystemMessageInfo model = new SystemMessageInfo();
 
     /** Model tests for SystemMessageInfo */
     @Test
-    public void testSystemMessageInfo() {
+    void testSystemMessageInfo() {
         // TODO: test SystemMessageInfo
     }
 
     /** Test the property 'type' */
     @Test
-    public void typeTest() {
+    void typeTest() {
         // TODO: test type
     }
 
     /** Test the property 'message' */
     @Test
-    public void messageTest() {
+    void messageTest() {
         // TODO: test message
     }
 }

@@ -18,8 +18,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonValue;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -28,23 +27,25 @@ import java.util.StringJoiner;
     ErrorResponseError.JSON_PROPERTY_TYPE,
     ErrorResponseError.JSON_PROPERTY_MESSAGE
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class ErrorResponseError {
     /** Gets or Sets type */
     public enum TypeEnum {
-        INTERNAL("INTERNAL"),
+        INTERNAL(String.valueOf("INTERNAL")),
 
-        AUTHENTICATION("AUTHENTICATION"),
+        AUTHENTICATION(String.valueOf("AUTHENTICATION")),
 
-        AUTHORIZATION("AUTHORIZATION"),
+        AUTHORIZATION(String.valueOf("AUTHORIZATION")),
 
-        VALIDATION("VALIDATION"),
+        VALIDATION(String.valueOf("VALIDATION")),
 
-        NOT_FOUND("NOT_FOUND"),
+        NOT_FOUND(String.valueOf("NOT_FOUND")),
 
-        UNPROCESSABLE_ENTITY("UNPROCESSABLE_ENTITY"),
+        UNPROCESSABLE_ENTITY(String.valueOf("UNPROCESSABLE_ENTITY")),
 
-        FORBIDDEN("FORBIDDEN");
+        FORBIDDEN(String.valueOf("FORBIDDEN"));
 
         private String value;
 
@@ -74,14 +75,22 @@ public class ErrorResponseError {
     }
 
     public static final String JSON_PROPERTY_TYPE = "type";
-    private TypeEnum type;
+    @jakarta.annotation.Nonnull private TypeEnum type;
 
     public static final String JSON_PROPERTY_MESSAGE = "message";
-    private String message;
+    @jakarta.annotation.Nonnull private String message;
 
     public ErrorResponseError() {}
 
-    public ErrorResponseError type(TypeEnum type) {
+    @JsonCreator
+    public ErrorResponseError(
+            @JsonProperty(value = JSON_PROPERTY_TYPE, required = true) TypeEnum type,
+            @JsonProperty(value = JSON_PROPERTY_MESSAGE, required = true) String message) {
+        this.type = type;
+        this.message = message;
+    }
+
+    public ErrorResponseError type(@jakarta.annotation.Nonnull TypeEnum type) {
         this.type = type;
         return this;
     }
@@ -100,11 +109,11 @@ public class ErrorResponseError {
 
     @JsonProperty(JSON_PROPERTY_TYPE)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setType(TypeEnum type) {
+    public void setType(@jakarta.annotation.Nonnull TypeEnum type) {
         this.type = type;
     }
 
-    public ErrorResponseError message(String message) {
+    public ErrorResponseError message(@jakarta.annotation.Nonnull String message) {
         this.message = message;
         return this;
     }
@@ -123,7 +132,7 @@ public class ErrorResponseError {
 
     @JsonProperty(JSON_PROPERTY_MESSAGE)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setMessage(String message) {
+    public void setMessage(@jakarta.annotation.Nonnull String message) {
         this.message = message;
     }
 
@@ -206,8 +215,7 @@ public class ErrorResponseError {
                             "%stype%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getType()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getType()))));
         }
 
         // add `message` to the URL query string
@@ -217,8 +225,7 @@ public class ErrorResponseError {
                             "%smessage%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getMessage()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getMessage()))));
         }
 
         return joiner.toString();

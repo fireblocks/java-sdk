@@ -13,33 +13,33 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for CallbackHandler */
-public class CallbackHandlerTest {
+class CallbackHandlerTest {
     private final CallbackHandler model = new CallbackHandler();
 
     /** Model tests for CallbackHandler */
     @Test
-    public void testCallbackHandler() {
+    void testCallbackHandler() {
         // TODO: test CallbackHandler
     }
 
     /** Test the property 'url' */
     @Test
-    public void urlTest() {
+    void urlTest() {
         // TODO: test url
     }
 
     /** Test the property 'publicKey' */
     @Test
-    public void publicKeyTest() {
+    void publicKeyTest() {
         // TODO: test publicKey
     }
 
     /** Test the property 'certPublicKeyHash' */
     @Test
-    public void certPublicKeyHashTest() {
+    void certPublicKeyHashTest() {
         // TODO: test certPublicKeyHash
     }
 }

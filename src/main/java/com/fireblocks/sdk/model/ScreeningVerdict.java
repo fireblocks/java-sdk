@@ -18,8 +18,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonValue;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -32,19 +31,21 @@ import java.util.StringJoiner;
     ScreeningVerdict.JSON_PROPERTY_AMOUNT,
     ScreeningVerdict.JSON_PROPERTY_MATCHED_RULE
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class ScreeningVerdict {
     /** Gets or Sets verdict */
     public enum VerdictEnum {
-        PASSED("PASSED"),
+        PASSED(String.valueOf("PASSED")),
 
-        PASSED_WITH_ALERT("PASSED_WITH_ALERT"),
+        PASSED_WITH_ALERT(String.valueOf("PASSED_WITH_ALERT")),
 
-        REJECTED("REJECTED"),
+        REJECTED(String.valueOf("REJECTED")),
 
-        FAILED("FAILED"),
+        FAILED(String.valueOf("FAILED")),
 
-        BYPASSED("BYPASSED");
+        BYPASSED(String.valueOf("BYPASSED"));
 
         private String value;
 
@@ -74,26 +75,41 @@ public class ScreeningVerdict {
     }
 
     public static final String JSON_PROPERTY_VERDICT = "verdict";
-    private VerdictEnum verdict;
+    @jakarta.annotation.Nonnull private VerdictEnum verdict;
 
     public static final String JSON_PROPERTY_EXECUTION_OPERATION_ID = "executionOperationId";
-    private String executionOperationId;
+    @jakarta.annotation.Nonnull private String executionOperationId;
 
     public static final String JSON_PROPERTY_ACCOUNT = "account";
-    private Destination account;
+    @jakarta.annotation.Nonnull private Destination account;
 
     public static final String JSON_PROPERTY_ASSET_ID = "assetId";
-    private String assetId;
+    @jakarta.annotation.Nonnull private String assetId;
 
     public static final String JSON_PROPERTY_AMOUNT = "amount";
-    private String amount;
+    @jakarta.annotation.Nonnull private String amount;
 
     public static final String JSON_PROPERTY_MATCHED_RULE = "matchedRule";
-    private ScreeningVerdictMatchedRule matchedRule;
+    @jakarta.annotation.Nullable private ScreeningVerdictMatchedRule matchedRule;
 
     public ScreeningVerdict() {}
 
-    public ScreeningVerdict verdict(VerdictEnum verdict) {
+    @JsonCreator
+    public ScreeningVerdict(
+            @JsonProperty(value = JSON_PROPERTY_VERDICT, required = true) VerdictEnum verdict,
+            @JsonProperty(value = JSON_PROPERTY_EXECUTION_OPERATION_ID, required = true)
+                    String executionOperationId,
+            @JsonProperty(value = JSON_PROPERTY_ACCOUNT, required = true) Destination account,
+            @JsonProperty(value = JSON_PROPERTY_ASSET_ID, required = true) String assetId,
+            @JsonProperty(value = JSON_PROPERTY_AMOUNT, required = true) String amount) {
+        this.verdict = verdict;
+        this.executionOperationId = executionOperationId;
+        this.account = account;
+        this.assetId = assetId;
+        this.amount = amount;
+    }
+
+    public ScreeningVerdict verdict(@jakarta.annotation.Nonnull VerdictEnum verdict) {
         this.verdict = verdict;
         return this;
     }
@@ -112,11 +128,12 @@ public class ScreeningVerdict {
 
     @JsonProperty(JSON_PROPERTY_VERDICT)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setVerdict(VerdictEnum verdict) {
+    public void setVerdict(@jakarta.annotation.Nonnull VerdictEnum verdict) {
         this.verdict = verdict;
     }
 
-    public ScreeningVerdict executionOperationId(String executionOperationId) {
+    public ScreeningVerdict executionOperationId(
+            @jakarta.annotation.Nonnull String executionOperationId) {
         this.executionOperationId = executionOperationId;
         return this;
     }
@@ -135,11 +152,11 @@ public class ScreeningVerdict {
 
     @JsonProperty(JSON_PROPERTY_EXECUTION_OPERATION_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setExecutionOperationId(String executionOperationId) {
+    public void setExecutionOperationId(@jakarta.annotation.Nonnull String executionOperationId) {
         this.executionOperationId = executionOperationId;
     }
 
-    public ScreeningVerdict account(Destination account) {
+    public ScreeningVerdict account(@jakarta.annotation.Nonnull Destination account) {
         this.account = account;
         return this;
     }
@@ -158,11 +175,11 @@ public class ScreeningVerdict {
 
     @JsonProperty(JSON_PROPERTY_ACCOUNT)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setAccount(Destination account) {
+    public void setAccount(@jakarta.annotation.Nonnull Destination account) {
         this.account = account;
     }
 
-    public ScreeningVerdict assetId(String assetId) {
+    public ScreeningVerdict assetId(@jakarta.annotation.Nonnull String assetId) {
         this.assetId = assetId;
         return this;
     }
@@ -181,11 +198,11 @@ public class ScreeningVerdict {
 
     @JsonProperty(JSON_PROPERTY_ASSET_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setAssetId(String assetId) {
+    public void setAssetId(@jakarta.annotation.Nonnull String assetId) {
         this.assetId = assetId;
     }
 
-    public ScreeningVerdict amount(String amount) {
+    public ScreeningVerdict amount(@jakarta.annotation.Nonnull String amount) {
         this.amount = amount;
         return this;
     }
@@ -204,11 +221,12 @@ public class ScreeningVerdict {
 
     @JsonProperty(JSON_PROPERTY_AMOUNT)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setAmount(String amount) {
+    public void setAmount(@jakarta.annotation.Nonnull String amount) {
         this.amount = amount;
     }
 
-    public ScreeningVerdict matchedRule(ScreeningVerdictMatchedRule matchedRule) {
+    public ScreeningVerdict matchedRule(
+            @jakarta.annotation.Nullable ScreeningVerdictMatchedRule matchedRule) {
         this.matchedRule = matchedRule;
         return this;
     }
@@ -227,7 +245,8 @@ public class ScreeningVerdict {
 
     @JsonProperty(JSON_PROPERTY_MATCHED_RULE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setMatchedRule(ScreeningVerdictMatchedRule matchedRule) {
+    public void setMatchedRule(
+            @jakarta.annotation.Nullable ScreeningVerdictMatchedRule matchedRule) {
         this.matchedRule = matchedRule;
     }
 
@@ -320,8 +339,7 @@ public class ScreeningVerdict {
                             "%sverdict%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getVerdict()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getVerdict()))));
         }
 
         // add `executionOperationId` to the URL query string
@@ -331,10 +349,8 @@ public class ScreeningVerdict {
                             "%sexecutionOperationId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getExecutionOperationId()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(
+                                    ApiClient.valueToString(getExecutionOperationId()))));
         }
 
         // add `account` to the URL query string
@@ -349,8 +365,7 @@ public class ScreeningVerdict {
                             "%sassetId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getAssetId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getAssetId()))));
         }
 
         // add `amount` to the URL query string
@@ -360,8 +375,7 @@ public class ScreeningVerdict {
                             "%samount%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getAmount()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getAmount()))));
         }
 
         // add `matchedRule` to the URL query string

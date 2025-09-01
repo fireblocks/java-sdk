@@ -13,27 +13,27 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for RemoveLayerZeroAdaptersRequest */
-public class RemoveLayerZeroAdaptersRequestTest {
+class RemoveLayerZeroAdaptersRequestTest {
     private final RemoveLayerZeroAdaptersRequest model = new RemoveLayerZeroAdaptersRequest();
 
     /** Model tests for RemoveLayerZeroAdaptersRequest */
     @Test
-    public void testRemoveLayerZeroAdaptersRequest() {
+    void testRemoveLayerZeroAdaptersRequest() {
         // TODO: test RemoveLayerZeroAdaptersRequest
     }
 
     /** Test the property 'vaultAccountId' */
     @Test
-    public void vaultAccountIdTest() {
+    void vaultAccountIdTest() {
         // TODO: test vaultAccountId
     }
 
     /** Test the property 'adapterTokenLinkIds' */
     @Test
-    public void adapterTokenLinkIdsTest() {
+    void adapterTokenLinkIdsTest() {
         // TODO: test adapterTokenLinkIds
     }
 }

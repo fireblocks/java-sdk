@@ -13,11 +13,11 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -29,20 +29,33 @@ import java.util.StringJoiner;
     ContractDataDecodeRequest.JSON_PROPERTY_DATA_TYPE,
     ContractDataDecodeRequest.JSON_PROPERTY_ABI
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class ContractDataDecodeRequest {
     public static final String JSON_PROPERTY_DATA = "data";
-    private ContractDataDecodeRequestData data;
+    @jakarta.annotation.Nonnull private ContractDataDecodeRequestData data;
 
     public static final String JSON_PROPERTY_DATA_TYPE = "dataType";
-    private ContractDataDecodeDataType dataType;
+    @jakarta.annotation.Nonnull private ContractDataDecodeDataType dataType;
 
     public static final String JSON_PROPERTY_ABI = "abi";
-    private List<AbiFunction> abi;
+    @jakarta.annotation.Nullable private List<AbiFunction> abi = new ArrayList<>();
 
     public ContractDataDecodeRequest() {}
 
-    public ContractDataDecodeRequest data(ContractDataDecodeRequestData data) {
+    @JsonCreator
+    public ContractDataDecodeRequest(
+            @JsonProperty(value = JSON_PROPERTY_DATA, required = true)
+                    ContractDataDecodeRequestData data,
+            @JsonProperty(value = JSON_PROPERTY_DATA_TYPE, required = true)
+                    ContractDataDecodeDataType dataType) {
+        this.data = data;
+        this.dataType = dataType;
+    }
+
+    public ContractDataDecodeRequest data(
+            @jakarta.annotation.Nonnull ContractDataDecodeRequestData data) {
         this.data = data;
         return this;
     }
@@ -61,11 +74,12 @@ public class ContractDataDecodeRequest {
 
     @JsonProperty(JSON_PROPERTY_DATA)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setData(ContractDataDecodeRequestData data) {
+    public void setData(@jakarta.annotation.Nonnull ContractDataDecodeRequestData data) {
         this.data = data;
     }
 
-    public ContractDataDecodeRequest dataType(ContractDataDecodeDataType dataType) {
+    public ContractDataDecodeRequest dataType(
+            @jakarta.annotation.Nonnull ContractDataDecodeDataType dataType) {
         this.dataType = dataType;
         return this;
     }
@@ -84,11 +98,11 @@ public class ContractDataDecodeRequest {
 
     @JsonProperty(JSON_PROPERTY_DATA_TYPE)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setDataType(ContractDataDecodeDataType dataType) {
+    public void setDataType(@jakarta.annotation.Nonnull ContractDataDecodeDataType dataType) {
         this.dataType = dataType;
     }
 
-    public ContractDataDecodeRequest abi(List<AbiFunction> abi) {
+    public ContractDataDecodeRequest abi(@jakarta.annotation.Nullable List<AbiFunction> abi) {
         this.abi = abi;
         return this;
     }
@@ -115,7 +129,7 @@ public class ContractDataDecodeRequest {
 
     @JsonProperty(JSON_PROPERTY_ABI)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAbi(List<AbiFunction> abi) {
+    public void setAbi(@jakarta.annotation.Nullable List<AbiFunction> abi) {
         this.abi = abi;
     }
 
@@ -205,8 +219,7 @@ public class ContractDataDecodeRequest {
                             "%sdataType%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getDataType()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getDataType()))));
         }
 
         // add `abi` to the URL query string

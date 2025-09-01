@@ -16,21 +16,22 @@ package com.fireblocks.sdk.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
 /** TravelRuleVaspForVault */
 @JsonPropertyOrder({TravelRuleVaspForVault.JSON_PROPERTY_VASP_DID})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class TravelRuleVaspForVault {
     public static final String JSON_PROPERTY_VASP_DID = "vaspDid";
-    private String vaspDid;
+    @jakarta.annotation.Nullable private String vaspDid;
 
     public TravelRuleVaspForVault() {}
 
-    public TravelRuleVaspForVault vaspDid(String vaspDid) {
+    public TravelRuleVaspForVault vaspDid(@jakarta.annotation.Nullable String vaspDid) {
         this.vaspDid = vaspDid;
         return this;
     }
@@ -49,7 +50,7 @@ public class TravelRuleVaspForVault {
 
     @JsonProperty(JSON_PROPERTY_VASP_DID)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setVaspDid(String vaspDid) {
+    public void setVaspDid(@jakarta.annotation.Nullable String vaspDid) {
         this.vaspDid = vaspDid;
     }
 
@@ -130,8 +131,7 @@ public class TravelRuleVaspForVault {
                             "%svaspDid%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getVaspDid()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getVaspDid()))));
         }
 
         return joiner.toString();

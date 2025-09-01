@@ -13,11 +13,11 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -27,20 +27,32 @@ import java.util.StringJoiner;
     CollectionBurnRequestDto.JSON_PROPERTY_TOKEN_ID,
     CollectionBurnRequestDto.JSON_PROPERTY_AMOUNT
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class CollectionBurnRequestDto {
     public static final String JSON_PROPERTY_VAULT_ACCOUNT_ID = "vaultAccountId";
-    private String vaultAccountId;
+    @jakarta.annotation.Nonnull private String vaultAccountId;
 
     public static final String JSON_PROPERTY_TOKEN_ID = "tokenId";
-    private String tokenId;
+    @jakarta.annotation.Nonnull private String tokenId;
 
     public static final String JSON_PROPERTY_AMOUNT = "amount";
-    private String amount;
+    @jakarta.annotation.Nullable private String amount;
 
     public CollectionBurnRequestDto() {}
 
-    public CollectionBurnRequestDto vaultAccountId(String vaultAccountId) {
+    @JsonCreator
+    public CollectionBurnRequestDto(
+            @JsonProperty(value = JSON_PROPERTY_VAULT_ACCOUNT_ID, required = true)
+                    String vaultAccountId,
+            @JsonProperty(value = JSON_PROPERTY_TOKEN_ID, required = true) String tokenId) {
+        this.vaultAccountId = vaultAccountId;
+        this.tokenId = tokenId;
+    }
+
+    public CollectionBurnRequestDto vaultAccountId(
+            @jakarta.annotation.Nonnull String vaultAccountId) {
         this.vaultAccountId = vaultAccountId;
         return this;
     }
@@ -59,11 +71,11 @@ public class CollectionBurnRequestDto {
 
     @JsonProperty(JSON_PROPERTY_VAULT_ACCOUNT_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setVaultAccountId(String vaultAccountId) {
+    public void setVaultAccountId(@jakarta.annotation.Nonnull String vaultAccountId) {
         this.vaultAccountId = vaultAccountId;
     }
 
-    public CollectionBurnRequestDto tokenId(String tokenId) {
+    public CollectionBurnRequestDto tokenId(@jakarta.annotation.Nonnull String tokenId) {
         this.tokenId = tokenId;
         return this;
     }
@@ -82,11 +94,11 @@ public class CollectionBurnRequestDto {
 
     @JsonProperty(JSON_PROPERTY_TOKEN_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setTokenId(String tokenId) {
+    public void setTokenId(@jakarta.annotation.Nonnull String tokenId) {
         this.tokenId = tokenId;
     }
 
-    public CollectionBurnRequestDto amount(String amount) {
+    public CollectionBurnRequestDto amount(@jakarta.annotation.Nullable String amount) {
         this.amount = amount;
         return this;
     }
@@ -106,7 +118,7 @@ public class CollectionBurnRequestDto {
 
     @JsonProperty(JSON_PROPERTY_AMOUNT)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAmount(String amount) {
+    public void setAmount(@jakarta.annotation.Nullable String amount) {
         this.amount = amount;
     }
 
@@ -191,10 +203,7 @@ public class CollectionBurnRequestDto {
                             "%svaultAccountId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getVaultAccountId()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getVaultAccountId()))));
         }
 
         // add `tokenId` to the URL query string
@@ -204,8 +213,7 @@ public class CollectionBurnRequestDto {
                             "%stokenId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getTokenId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getTokenId()))));
         }
 
         // add `amount` to the URL query string
@@ -215,8 +223,7 @@ public class CollectionBurnRequestDto {
                             "%samount%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getAmount()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getAmount()))));
         }
 
         return joiner.toString();

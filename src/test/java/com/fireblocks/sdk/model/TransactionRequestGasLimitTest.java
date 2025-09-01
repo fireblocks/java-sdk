@@ -13,15 +13,15 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for TransactionRequestGasLimit */
-public class TransactionRequestGasLimitTest {
+class TransactionRequestGasLimitTest {
     private final TransactionRequestGasLimit model = new TransactionRequestGasLimit();
 
     /** Model tests for TransactionRequestGasLimit */
     @Test
-    public void testTransactionRequestGasLimit() {
+    void testTransactionRequestGasLimit() {
         // TODO: test TransactionRequestGasLimit
     }
 }

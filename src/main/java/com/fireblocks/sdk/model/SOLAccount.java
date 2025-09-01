@@ -13,11 +13,11 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -28,23 +28,30 @@ import java.util.StringJoiner;
     SOLAccount.JSON_PROPERTY_WRITABLE,
     SOLAccount.JSON_PROPERTY_ADDRESS
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class SOLAccount {
     public static final String JSON_PROPERTY_NAME = "name";
-    private String name;
+    @jakarta.annotation.Nonnull private String name;
 
     public static final String JSON_PROPERTY_SIGNER = "signer";
-    private Boolean signer;
+    @jakarta.annotation.Nullable private Boolean signer;
 
     public static final String JSON_PROPERTY_WRITABLE = "writable";
-    private Boolean writable;
+    @jakarta.annotation.Nullable private Boolean writable;
 
     public static final String JSON_PROPERTY_ADDRESS = "address";
-    private String address;
+    @jakarta.annotation.Nullable private String address;
 
     public SOLAccount() {}
 
-    public SOLAccount name(String name) {
+    @JsonCreator
+    public SOLAccount(@JsonProperty(value = JSON_PROPERTY_NAME, required = true) String name) {
+        this.name = name;
+    }
+
+    public SOLAccount name(@jakarta.annotation.Nonnull String name) {
         this.name = name;
         return this;
     }
@@ -63,11 +70,11 @@ public class SOLAccount {
 
     @JsonProperty(JSON_PROPERTY_NAME)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setName(String name) {
+    public void setName(@jakarta.annotation.Nonnull String name) {
         this.name = name;
     }
 
-    public SOLAccount signer(Boolean signer) {
+    public SOLAccount signer(@jakarta.annotation.Nullable Boolean signer) {
         this.signer = signer;
         return this;
     }
@@ -87,11 +94,11 @@ public class SOLAccount {
 
     @JsonProperty(JSON_PROPERTY_SIGNER)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setSigner(Boolean signer) {
+    public void setSigner(@jakarta.annotation.Nullable Boolean signer) {
         this.signer = signer;
     }
 
-    public SOLAccount writable(Boolean writable) {
+    public SOLAccount writable(@jakarta.annotation.Nullable Boolean writable) {
         this.writable = writable;
         return this;
     }
@@ -110,11 +117,11 @@ public class SOLAccount {
 
     @JsonProperty(JSON_PROPERTY_WRITABLE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setWritable(Boolean writable) {
+    public void setWritable(@jakarta.annotation.Nullable Boolean writable) {
         this.writable = writable;
     }
 
-    public SOLAccount address(String address) {
+    public SOLAccount address(@jakarta.annotation.Nullable String address) {
         this.address = address;
         return this;
     }
@@ -133,7 +140,7 @@ public class SOLAccount {
 
     @JsonProperty(JSON_PROPERTY_ADDRESS)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAddress(String address) {
+    public void setAddress(@jakarta.annotation.Nullable String address) {
         this.address = address;
     }
 
@@ -220,8 +227,7 @@ public class SOLAccount {
                             "%sname%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getName()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getName()))));
         }
 
         // add `signer` to the URL query string
@@ -231,8 +237,7 @@ public class SOLAccount {
                             "%ssigner%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getSigner()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getSigner()))));
         }
 
         // add `writable` to the URL query string
@@ -242,8 +247,7 @@ public class SOLAccount {
                             "%swritable%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getWritable()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getWritable()))));
         }
 
         // add `address` to the URL query string
@@ -253,8 +257,7 @@ public class SOLAccount {
                             "%saddress%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getAddress()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getAddress()))));
         }
 
         return joiner.toString();

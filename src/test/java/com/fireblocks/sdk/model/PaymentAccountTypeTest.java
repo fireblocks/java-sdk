@@ -13,13 +13,13 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for PaymentAccountType */
-public class PaymentAccountTypeTest {
+class PaymentAccountTypeTest {
     /** Model tests for PaymentAccountType */
     @Test
-    public void testPaymentAccountType() {
+    void testPaymentAccountType() {
         // TODO: test PaymentAccountType
     }
 }

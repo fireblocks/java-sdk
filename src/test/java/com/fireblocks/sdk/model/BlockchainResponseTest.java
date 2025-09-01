@@ -13,51 +13,51 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for BlockchainResponse */
-public class BlockchainResponseTest {
+class BlockchainResponseTest {
     private final BlockchainResponse model = new BlockchainResponse();
 
     /** Model tests for BlockchainResponse */
     @Test
-    public void testBlockchainResponse() {
+    void testBlockchainResponse() {
         // TODO: test BlockchainResponse
     }
 
     /** Test the property 'id' */
     @Test
-    public void idTest() {
+    void idTest() {
         // TODO: test id
     }
 
     /** Test the property 'legacyId' */
     @Test
-    public void legacyIdTest() {
+    void legacyIdTest() {
         // TODO: test legacyId
     }
 
     /** Test the property 'displayName' */
     @Test
-    public void displayNameTest() {
+    void displayNameTest() {
         // TODO: test displayName
     }
 
     /** Test the property 'nativeAssetId' */
     @Test
-    public void nativeAssetIdTest() {
+    void nativeAssetIdTest() {
         // TODO: test nativeAssetId
     }
 
     /** Test the property 'onchain' */
     @Test
-    public void onchainTest() {
+    void onchainTest() {
         // TODO: test onchain
     }
 
     /** Test the property 'metadata' */
     @Test
-    public void metadataTest() {
+    void metadataTest() {
         // TODO: test metadata
     }
 }

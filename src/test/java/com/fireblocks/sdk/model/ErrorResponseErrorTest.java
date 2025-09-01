@@ -13,27 +13,27 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for ErrorResponseError */
-public class ErrorResponseErrorTest {
+class ErrorResponseErrorTest {
     private final ErrorResponseError model = new ErrorResponseError();
 
     /** Model tests for ErrorResponseError */
     @Test
-    public void testErrorResponseError() {
+    void testErrorResponseError() {
         // TODO: test ErrorResponseError
     }
 
     /** Test the property 'type' */
     @Test
-    public void typeTest() {
+    void typeTest() {
         // TODO: test type
     }
 
     /** Test the property 'message' */
     @Test
-    public void messageTest() {
+    void messageTest() {
         // TODO: test message
     }
 }

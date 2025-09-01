@@ -13,28 +13,28 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for CreateWorkflowExecutionRequestParamsInner */
-public class CreateWorkflowExecutionRequestParamsInnerTest {
+class CreateWorkflowExecutionRequestParamsInnerTest {
     private final CreateWorkflowExecutionRequestParamsInner model =
             new CreateWorkflowExecutionRequestParamsInner();
 
     /** Model tests for CreateWorkflowExecutionRequestParamsInner */
     @Test
-    public void testCreateWorkflowExecutionRequestParamsInner() {
+    void testCreateWorkflowExecutionRequestParamsInner() {
         // TODO: test CreateWorkflowExecutionRequestParamsInner
     }
 
     /** Test the property 'configOperationId' */
     @Test
-    public void configOperationIdTest() {
+    void configOperationIdTest() {
         // TODO: test configOperationId
     }
 
     /** Test the property 'executionParams' */
     @Test
-    public void executionParamsTest() {
+    void executionParamsTest() {
         // TODO: test executionParams
     }
 }

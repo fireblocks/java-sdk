@@ -13,45 +13,45 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for UnspentInputsResponse */
-public class UnspentInputsResponseTest {
+class UnspentInputsResponseTest {
     private final UnspentInputsResponse model = new UnspentInputsResponse();
 
     /** Model tests for UnspentInputsResponse */
     @Test
-    public void testUnspentInputsResponse() {
+    void testUnspentInputsResponse() {
         // TODO: test UnspentInputsResponse
     }
 
     /** Test the property 'input' */
     @Test
-    public void inputTest() {
+    void inputTest() {
         // TODO: test input
     }
 
     /** Test the property 'address' */
     @Test
-    public void addressTest() {
+    void addressTest() {
         // TODO: test address
     }
 
     /** Test the property 'amount' */
     @Test
-    public void amountTest() {
+    void amountTest() {
         // TODO: test amount
     }
 
     /** Test the property 'confirmations' */
     @Test
-    public void confirmationsTest() {
+    void confirmationsTest() {
         // TODO: test confirmations
     }
 
     /** Test the property 'status' */
     @Test
-    public void statusTest() {
+    void statusTest() {
         // TODO: test status
     }
 }

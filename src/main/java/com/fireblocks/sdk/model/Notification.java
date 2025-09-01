@@ -13,11 +13,11 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 import java.util.UUID;
@@ -31,29 +31,46 @@ import java.util.UUID;
     Notification.JSON_PROPERTY_EVENT_TYPE,
     Notification.JSON_PROPERTY_RESOURCE_ID
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class Notification {
     public static final String JSON_PROPERTY_ID = "id";
-    private UUID id;
+    @jakarta.annotation.Nonnull private UUID id;
 
     public static final String JSON_PROPERTY_CREATED_AT = "createdAt";
-    private Long createdAt;
+    @jakarta.annotation.Nonnull private Long createdAt;
 
     public static final String JSON_PROPERTY_UPDATED_AT = "updatedAt";
-    private Long updatedAt;
+    @jakarta.annotation.Nonnull private Long updatedAt;
 
     public static final String JSON_PROPERTY_STATUS = "status";
-    private NotificationStatus status;
+    @jakarta.annotation.Nonnull private NotificationStatus status;
 
     public static final String JSON_PROPERTY_EVENT_TYPE = "eventType";
-    private WebhookEvent eventType;
+    @jakarta.annotation.Nonnull private WebhookEvent eventType;
 
     public static final String JSON_PROPERTY_RESOURCE_ID = "resourceId";
-    private UUID resourceId;
+    @jakarta.annotation.Nullable private UUID resourceId;
 
     public Notification() {}
 
-    public Notification id(UUID id) {
+    @JsonCreator
+    public Notification(
+            @JsonProperty(value = JSON_PROPERTY_ID, required = true) UUID id,
+            @JsonProperty(value = JSON_PROPERTY_CREATED_AT, required = true) Long createdAt,
+            @JsonProperty(value = JSON_PROPERTY_UPDATED_AT, required = true) Long updatedAt,
+            @JsonProperty(value = JSON_PROPERTY_STATUS, required = true) NotificationStatus status,
+            @JsonProperty(value = JSON_PROPERTY_EVENT_TYPE, required = true)
+                    WebhookEvent eventType) {
+        this.id = id;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+        this.status = status;
+        this.eventType = eventType;
+    }
+
+    public Notification id(@jakarta.annotation.Nonnull UUID id) {
         this.id = id;
         return this;
     }
@@ -72,11 +89,11 @@ public class Notification {
 
     @JsonProperty(JSON_PROPERTY_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setId(UUID id) {
+    public void setId(@jakarta.annotation.Nonnull UUID id) {
         this.id = id;
     }
 
-    public Notification createdAt(Long createdAt) {
+    public Notification createdAt(@jakarta.annotation.Nonnull Long createdAt) {
         this.createdAt = createdAt;
         return this;
     }
@@ -95,11 +112,11 @@ public class Notification {
 
     @JsonProperty(JSON_PROPERTY_CREATED_AT)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setCreatedAt(Long createdAt) {
+    public void setCreatedAt(@jakarta.annotation.Nonnull Long createdAt) {
         this.createdAt = createdAt;
     }
 
-    public Notification updatedAt(Long updatedAt) {
+    public Notification updatedAt(@jakarta.annotation.Nonnull Long updatedAt) {
         this.updatedAt = updatedAt;
         return this;
     }
@@ -118,11 +135,11 @@ public class Notification {
 
     @JsonProperty(JSON_PROPERTY_UPDATED_AT)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setUpdatedAt(Long updatedAt) {
+    public void setUpdatedAt(@jakarta.annotation.Nonnull Long updatedAt) {
         this.updatedAt = updatedAt;
     }
 
-    public Notification status(NotificationStatus status) {
+    public Notification status(@jakarta.annotation.Nonnull NotificationStatus status) {
         this.status = status;
         return this;
     }
@@ -141,11 +158,11 @@ public class Notification {
 
     @JsonProperty(JSON_PROPERTY_STATUS)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setStatus(NotificationStatus status) {
+    public void setStatus(@jakarta.annotation.Nonnull NotificationStatus status) {
         this.status = status;
     }
 
-    public Notification eventType(WebhookEvent eventType) {
+    public Notification eventType(@jakarta.annotation.Nonnull WebhookEvent eventType) {
         this.eventType = eventType;
         return this;
     }
@@ -164,11 +181,11 @@ public class Notification {
 
     @JsonProperty(JSON_PROPERTY_EVENT_TYPE)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setEventType(WebhookEvent eventType) {
+    public void setEventType(@jakarta.annotation.Nonnull WebhookEvent eventType) {
         this.eventType = eventType;
     }
 
-    public Notification resourceId(UUID resourceId) {
+    public Notification resourceId(@jakarta.annotation.Nullable UUID resourceId) {
         this.resourceId = resourceId;
         return this;
     }
@@ -187,7 +204,7 @@ public class Notification {
 
     @JsonProperty(JSON_PROPERTY_RESOURCE_ID)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setResourceId(UUID resourceId) {
+    public void setResourceId(@jakarta.annotation.Nullable UUID resourceId) {
         this.resourceId = resourceId;
     }
 
@@ -276,10 +293,7 @@ public class Notification {
             joiner.add(
                     String.format(
                             "%sid%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(String.valueOf(getId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getId()))));
         }
 
         // add `createdAt` to the URL query string
@@ -289,9 +303,7 @@ public class Notification {
                             "%screatedAt%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getCreatedAt()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getCreatedAt()))));
         }
 
         // add `updatedAt` to the URL query string
@@ -301,9 +313,7 @@ public class Notification {
                             "%supdatedAt%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getUpdatedAt()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getUpdatedAt()))));
         }
 
         // add `status` to the URL query string
@@ -313,8 +323,7 @@ public class Notification {
                             "%sstatus%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getStatus()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getStatus()))));
         }
 
         // add `eventType` to the URL query string
@@ -324,9 +333,7 @@ public class Notification {
                             "%seventType%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getEventType()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getEventType()))));
         }
 
         // add `resourceId` to the URL query string
@@ -336,9 +343,7 @@ public class Notification {
                             "%sresourceId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getResourceId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getResourceId()))));
         }
 
         return joiner.toString();

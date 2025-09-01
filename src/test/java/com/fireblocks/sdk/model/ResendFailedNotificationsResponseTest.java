@@ -13,21 +13,21 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for ResendFailedNotificationsResponse */
-public class ResendFailedNotificationsResponseTest {
+class ResendFailedNotificationsResponseTest {
     private final ResendFailedNotificationsResponse model = new ResendFailedNotificationsResponse();
 
     /** Model tests for ResendFailedNotificationsResponse */
     @Test
-    public void testResendFailedNotificationsResponse() {
+    void testResendFailedNotificationsResponse() {
         // TODO: test ResendFailedNotificationsResponse
     }
 
     /** Test the property 'total' */
     @Test
-    public void totalTest() {
+    void totalTest() {
         // TODO: test total
     }
 }

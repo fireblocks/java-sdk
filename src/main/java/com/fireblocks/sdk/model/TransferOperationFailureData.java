@@ -13,11 +13,11 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -27,20 +27,30 @@ import java.util.StringJoiner;
     TransferOperationFailureData.JSON_PROPERTY_TX_STATUS,
     TransferOperationFailureData.JSON_PROPERTY_TX_SUB_STATUS
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class TransferOperationFailureData {
     public static final String JSON_PROPERTY_TX_ID = "txId";
-    private String txId;
+    @jakarta.annotation.Nonnull private String txId;
 
     public static final String JSON_PROPERTY_TX_STATUS = "txStatus";
-    private String txStatus;
+    @jakarta.annotation.Nonnull private String txStatus;
 
     public static final String JSON_PROPERTY_TX_SUB_STATUS = "txSubStatus";
-    private String txSubStatus;
+    @jakarta.annotation.Nullable private String txSubStatus;
 
     public TransferOperationFailureData() {}
 
-    public TransferOperationFailureData txId(String txId) {
+    @JsonCreator
+    public TransferOperationFailureData(
+            @JsonProperty(value = JSON_PROPERTY_TX_ID, required = true) String txId,
+            @JsonProperty(value = JSON_PROPERTY_TX_STATUS, required = true) String txStatus) {
+        this.txId = txId;
+        this.txStatus = txStatus;
+    }
+
+    public TransferOperationFailureData txId(@jakarta.annotation.Nonnull String txId) {
         this.txId = txId;
         return this;
     }
@@ -59,11 +69,11 @@ public class TransferOperationFailureData {
 
     @JsonProperty(JSON_PROPERTY_TX_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setTxId(String txId) {
+    public void setTxId(@jakarta.annotation.Nonnull String txId) {
         this.txId = txId;
     }
 
-    public TransferOperationFailureData txStatus(String txStatus) {
+    public TransferOperationFailureData txStatus(@jakarta.annotation.Nonnull String txStatus) {
         this.txStatus = txStatus;
         return this;
     }
@@ -82,11 +92,12 @@ public class TransferOperationFailureData {
 
     @JsonProperty(JSON_PROPERTY_TX_STATUS)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setTxStatus(String txStatus) {
+    public void setTxStatus(@jakarta.annotation.Nonnull String txStatus) {
         this.txStatus = txStatus;
     }
 
-    public TransferOperationFailureData txSubStatus(String txSubStatus) {
+    public TransferOperationFailureData txSubStatus(
+            @jakarta.annotation.Nullable String txSubStatus) {
         this.txSubStatus = txSubStatus;
         return this;
     }
@@ -105,7 +116,7 @@ public class TransferOperationFailureData {
 
     @JsonProperty(JSON_PROPERTY_TX_SUB_STATUS)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setTxSubStatus(String txSubStatus) {
+    public void setTxSubStatus(@jakarta.annotation.Nullable String txSubStatus) {
         this.txSubStatus = txSubStatus;
     }
 
@@ -191,8 +202,7 @@ public class TransferOperationFailureData {
                             "%stxId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getTxId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getTxId()))));
         }
 
         // add `txStatus` to the URL query string
@@ -202,8 +212,7 @@ public class TransferOperationFailureData {
                             "%stxStatus%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getTxStatus()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getTxStatus()))));
         }
 
         // add `txSubStatus` to the URL query string
@@ -213,10 +222,7 @@ public class TransferOperationFailureData {
                             "%stxSubStatus%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getTxSubStatus()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getTxSubStatus()))));
         }
 
         return joiner.toString();

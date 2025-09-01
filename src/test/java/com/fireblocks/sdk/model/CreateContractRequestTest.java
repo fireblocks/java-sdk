@@ -13,21 +13,21 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for CreateContractRequest */
-public class CreateContractRequestTest {
+class CreateContractRequestTest {
     private final CreateContractRequest model = new CreateContractRequest();
 
     /** Model tests for CreateContractRequest */
     @Test
-    public void testCreateContractRequest() {
+    void testCreateContractRequest() {
         // TODO: test CreateContractRequest
     }
 
     /** Test the property 'name' */
     @Test
-    public void nameTest() {
+    void nameTest() {
         // TODO: test name
     }
 }

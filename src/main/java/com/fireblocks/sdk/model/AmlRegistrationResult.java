@@ -16,9 +16,8 @@ package com.fireblocks.sdk.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fireblocks.sdk.ApiClient;
 import java.math.BigDecimal;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -28,20 +27,22 @@ import java.util.StringJoiner;
     AmlRegistrationResult.JSON_PROPERTY_SUCCESS,
     AmlRegistrationResult.JSON_PROPERTY_TIMESTAMP
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class AmlRegistrationResult {
     public static final String JSON_PROPERTY_PROVIDER = "provider";
-    private String provider;
+    @jakarta.annotation.Nullable private String provider;
 
     public static final String JSON_PROPERTY_SUCCESS = "success";
-    private Boolean success;
+    @jakarta.annotation.Nullable private Boolean success;
 
     public static final String JSON_PROPERTY_TIMESTAMP = "timestamp";
-    private BigDecimal timestamp;
+    @jakarta.annotation.Nullable private BigDecimal timestamp;
 
     public AmlRegistrationResult() {}
 
-    public AmlRegistrationResult provider(String provider) {
+    public AmlRegistrationResult provider(@jakarta.annotation.Nullable String provider) {
         this.provider = provider;
         return this;
     }
@@ -60,11 +61,11 @@ public class AmlRegistrationResult {
 
     @JsonProperty(JSON_PROPERTY_PROVIDER)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setProvider(String provider) {
+    public void setProvider(@jakarta.annotation.Nullable String provider) {
         this.provider = provider;
     }
 
-    public AmlRegistrationResult success(Boolean success) {
+    public AmlRegistrationResult success(@jakarta.annotation.Nullable Boolean success) {
         this.success = success;
         return this;
     }
@@ -83,11 +84,11 @@ public class AmlRegistrationResult {
 
     @JsonProperty(JSON_PROPERTY_SUCCESS)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setSuccess(Boolean success) {
+    public void setSuccess(@jakarta.annotation.Nullable Boolean success) {
         this.success = success;
     }
 
-    public AmlRegistrationResult timestamp(BigDecimal timestamp) {
+    public AmlRegistrationResult timestamp(@jakarta.annotation.Nullable BigDecimal timestamp) {
         this.timestamp = timestamp;
         return this;
     }
@@ -106,7 +107,7 @@ public class AmlRegistrationResult {
 
     @JsonProperty(JSON_PROPERTY_TIMESTAMP)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setTimestamp(BigDecimal timestamp) {
+    public void setTimestamp(@jakarta.annotation.Nullable BigDecimal timestamp) {
         this.timestamp = timestamp;
     }
 
@@ -191,8 +192,7 @@ public class AmlRegistrationResult {
                             "%sprovider%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getProvider()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getProvider()))));
         }
 
         // add `success` to the URL query string
@@ -202,8 +202,7 @@ public class AmlRegistrationResult {
                             "%ssuccess%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getSuccess()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getSuccess()))));
         }
 
         // add `timestamp` to the URL query string
@@ -213,9 +212,7 @@ public class AmlRegistrationResult {
                             "%stimestamp%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getTimestamp()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getTimestamp()))));
         }
 
         return joiner.toString();

@@ -13,21 +13,21 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for TravelRuleVaspForVault */
-public class TravelRuleVaspForVaultTest {
+class TravelRuleVaspForVaultTest {
     private final TravelRuleVaspForVault model = new TravelRuleVaspForVault();
 
     /** Model tests for TravelRuleVaspForVault */
     @Test
-    public void testTravelRuleVaspForVault() {
+    void testTravelRuleVaspForVault() {
         // TODO: test TravelRuleVaspForVault
     }
 
     /** Test the property 'vaspDid' */
     @Test
-    public void vaspDidTest() {
+    void vaspDidTest() {
         // TODO: test vaspDid
     }
 }

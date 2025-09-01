@@ -13,33 +13,33 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for PaginatedAssetsResponse */
-public class PaginatedAssetsResponseTest {
+class PaginatedAssetsResponseTest {
     private final PaginatedAssetsResponse model = new PaginatedAssetsResponse();
 
     /** Model tests for PaginatedAssetsResponse */
     @Test
-    public void testPaginatedAssetsResponse() {
+    void testPaginatedAssetsResponse() {
         // TODO: test PaginatedAssetsResponse
     }
 
     /** Test the property 'total' */
     @Test
-    public void totalTest() {
+    void totalTest() {
         // TODO: test total
     }
 
     /** Test the property 'data' */
     @Test
-    public void dataTest() {
+    void dataTest() {
         // TODO: test data
     }
 
     /** Test the property 'next' */
     @Test
-    public void nextTest() {
+    void nextTest() {
         // TODO: test next
     }
 }

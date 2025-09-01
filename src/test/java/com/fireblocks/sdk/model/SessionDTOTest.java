@@ -13,69 +13,69 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for SessionDTO */
-public class SessionDTOTest {
+class SessionDTOTest {
     private final SessionDTO model = new SessionDTO();
 
     /** Model tests for SessionDTO */
     @Test
-    public void testSessionDTO() {
+    void testSessionDTO() {
         // TODO: test SessionDTO
     }
 
     /** Test the property 'id' */
     @Test
-    public void idTest() {
+    void idTest() {
         // TODO: test id
     }
 
     /** Test the property 'userId' */
     @Test
-    public void userIdTest() {
+    void userIdTest() {
         // TODO: test userId
     }
 
     /** Test the property 'sessionMetadata' */
     @Test
-    public void sessionMetadataTest() {
+    void sessionMetadataTest() {
         // TODO: test sessionMetadata
     }
 
     /** Test the property 'vaultAccountId' */
     @Test
-    public void vaultAccountIdTest() {
+    void vaultAccountIdTest() {
         // TODO: test vaultAccountId
     }
 
     /** Test the property 'feeLevel' */
     @Test
-    public void feeLevelTest() {
+    void feeLevelTest() {
         // TODO: test feeLevel
     }
 
     /** Test the property 'chainIds' */
     @Test
-    public void chainIdsTest() {
+    void chainIdsTest() {
         // TODO: test chainIds
     }
 
     /** Test the property 'connectionType' */
     @Test
-    public void connectionTypeTest() {
+    void connectionTypeTest() {
         // TODO: test connectionType
     }
 
     /** Test the property 'connectionMethod' */
     @Test
-    public void connectionMethodTest() {
+    void connectionMethodTest() {
         // TODO: test connectionMethod
     }
 
     /** Test the property 'creationDate' */
     @Test
-    public void creationDateTest() {
+    void creationDateTest() {
         // TODO: test creationDate
     }
 }

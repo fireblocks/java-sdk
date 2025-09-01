@@ -16,8 +16,7 @@ package com.fireblocks.sdk.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -29,21 +28,27 @@ import java.util.StringJoiner;
     TravelRuleValidatePiiIVMS.JSON_PROPERTY_BENEFICIARY_PERSONS,
     TravelRuleValidatePiiIVMS.JSON_PROPERTY_ACCOUNT_NUMBER
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class TravelRuleValidatePiiIVMS {
     public static final String JSON_PROPERTY_ORIGINATOR_PERSONS = "originatorPersons";
-    private List<TravelRuleValidatePerson> originatorPersons;
+
+    @jakarta.annotation.Nullable
+    private List<TravelRuleValidatePerson> originatorPersons = new ArrayList<>();
 
     public static final String JSON_PROPERTY_BENEFICIARY_PERSONS = "beneficiaryPersons";
-    private List<TravelRuleValidatePerson> beneficiaryPersons;
+
+    @jakarta.annotation.Nullable
+    private List<TravelRuleValidatePerson> beneficiaryPersons = new ArrayList<>();
 
     public static final String JSON_PROPERTY_ACCOUNT_NUMBER = "accountNumber";
-    private List<String> accountNumber;
+    @jakarta.annotation.Nullable private List<String> accountNumber = new ArrayList<>();
 
     public TravelRuleValidatePiiIVMS() {}
 
     public TravelRuleValidatePiiIVMS originatorPersons(
-            List<TravelRuleValidatePerson> originatorPersons) {
+            @jakarta.annotation.Nullable List<TravelRuleValidatePerson> originatorPersons) {
         this.originatorPersons = originatorPersons;
         return this;
     }
@@ -71,12 +76,13 @@ public class TravelRuleValidatePiiIVMS {
 
     @JsonProperty(JSON_PROPERTY_ORIGINATOR_PERSONS)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setOriginatorPersons(List<TravelRuleValidatePerson> originatorPersons) {
+    public void setOriginatorPersons(
+            @jakarta.annotation.Nullable List<TravelRuleValidatePerson> originatorPersons) {
         this.originatorPersons = originatorPersons;
     }
 
     public TravelRuleValidatePiiIVMS beneficiaryPersons(
-            List<TravelRuleValidatePerson> beneficiaryPersons) {
+            @jakarta.annotation.Nullable List<TravelRuleValidatePerson> beneficiaryPersons) {
         this.beneficiaryPersons = beneficiaryPersons;
         return this;
     }
@@ -104,11 +110,13 @@ public class TravelRuleValidatePiiIVMS {
 
     @JsonProperty(JSON_PROPERTY_BENEFICIARY_PERSONS)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setBeneficiaryPersons(List<TravelRuleValidatePerson> beneficiaryPersons) {
+    public void setBeneficiaryPersons(
+            @jakarta.annotation.Nullable List<TravelRuleValidatePerson> beneficiaryPersons) {
         this.beneficiaryPersons = beneficiaryPersons;
     }
 
-    public TravelRuleValidatePiiIVMS accountNumber(List<String> accountNumber) {
+    public TravelRuleValidatePiiIVMS accountNumber(
+            @jakarta.annotation.Nullable List<String> accountNumber) {
         this.accountNumber = accountNumber;
         return this;
     }
@@ -135,7 +143,7 @@ public class TravelRuleValidatePiiIVMS {
 
     @JsonProperty(JSON_PROPERTY_ACCOUNT_NUMBER)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAccountNumber(List<String> accountNumber) {
+    public void setAccountNumber(@jakarta.annotation.Nullable List<String> accountNumber) {
         this.accountNumber = accountNumber;
     }
 
@@ -276,10 +284,8 @@ public class TravelRuleValidatePiiIVMS {
                                         ? ""
                                         : String.format(
                                                 "%s%d%s", containerPrefix, i, containerSuffix),
-                                URLEncoder.encode(
-                                                String.valueOf(getAccountNumber().get(i)),
-                                                StandardCharsets.UTF_8)
-                                        .replaceAll("\\+", "%20")));
+                                ApiClient.urlEncode(
+                                        ApiClient.valueToString(getAccountNumber().get(i)))));
             }
         }
 

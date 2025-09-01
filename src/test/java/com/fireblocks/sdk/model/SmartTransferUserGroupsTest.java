@@ -13,21 +13,21 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for SmartTransferUserGroups */
-public class SmartTransferUserGroupsTest {
+class SmartTransferUserGroupsTest {
     private final SmartTransferUserGroups model = new SmartTransferUserGroups();
 
     /** Model tests for SmartTransferUserGroups */
     @Test
-    public void testSmartTransferUserGroups() {
+    void testSmartTransferUserGroups() {
         // TODO: test SmartTransferUserGroups
     }
 
     /** Test the property 'userGroupIds' */
     @Test
-    public void userGroupIdsTest() {
+    void userGroupIdsTest() {
         // TODO: test userGroupIds
     }
 }

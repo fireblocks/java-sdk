@@ -13,39 +13,39 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for UnmanagedWallet */
-public class UnmanagedWalletTest {
+class UnmanagedWalletTest {
     private final UnmanagedWallet model = new UnmanagedWallet();
 
     /** Model tests for UnmanagedWallet */
     @Test
-    public void testUnmanagedWallet() {
+    void testUnmanagedWallet() {
         // TODO: test UnmanagedWallet
     }
 
     /** Test the property 'id' */
     @Test
-    public void idTest() {
+    void idTest() {
         // TODO: test id
     }
 
     /** Test the property 'name' */
     @Test
-    public void nameTest() {
+    void nameTest() {
         // TODO: test name
     }
 
     /** Test the property 'customerRefId' */
     @Test
-    public void customerRefIdTest() {
+    void customerRefIdTest() {
         // TODO: test customerRefId
     }
 
     /** Test the property 'assets' */
     @Test
-    public void assetsTest() {
+    void assetsTest() {
         // TODO: test assets
     }
 }

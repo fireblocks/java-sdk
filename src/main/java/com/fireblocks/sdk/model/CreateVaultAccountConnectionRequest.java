@@ -18,9 +18,8 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.fireblocks.sdk.ApiClient;
 import java.math.BigDecimal;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -33,16 +32,18 @@ import java.util.StringJoiner;
     CreateVaultAccountConnectionRequest.JSON_PROPERTY_URI,
     CreateVaultAccountConnectionRequest.JSON_PROPERTY_CHAIN_IDS
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class CreateVaultAccountConnectionRequest {
     public static final String JSON_PROPERTY_VAULT_ACCOUNT_ID = "vaultAccountId";
-    private BigDecimal vaultAccountId;
+    @jakarta.annotation.Nonnull private BigDecimal vaultAccountId;
 
     /** The default fee level. Valid values are &#x60;MEDIUM&#x60; and &#x60;HIGH&#x60;. */
     public enum FeeLevelEnum {
-        MEDIUM("MEDIUM"),
+        MEDIUM(String.valueOf("MEDIUM")),
 
-        HIGH("HIGH");
+        HIGH(String.valueOf("HIGH"));
 
         private String value;
 
@@ -72,17 +73,29 @@ public class CreateVaultAccountConnectionRequest {
     }
 
     public static final String JSON_PROPERTY_FEE_LEVEL = "feeLevel";
-    private FeeLevelEnum feeLevel;
+    @jakarta.annotation.Nonnull private FeeLevelEnum feeLevel;
 
     public static final String JSON_PROPERTY_URI = "uri";
-    private String uri;
+    @jakarta.annotation.Nonnull private String uri;
 
     public static final String JSON_PROPERTY_CHAIN_IDS = "chainIds";
-    private List<String> chainIds;
+    @jakarta.annotation.Nullable private List<String> chainIds = new ArrayList<>();
 
     public CreateVaultAccountConnectionRequest() {}
 
-    public CreateVaultAccountConnectionRequest vaultAccountId(BigDecimal vaultAccountId) {
+    @JsonCreator
+    public CreateVaultAccountConnectionRequest(
+            @JsonProperty(value = JSON_PROPERTY_VAULT_ACCOUNT_ID, required = true)
+                    BigDecimal vaultAccountId,
+            @JsonProperty(value = JSON_PROPERTY_FEE_LEVEL, required = true) FeeLevelEnum feeLevel,
+            @JsonProperty(value = JSON_PROPERTY_URI, required = true) String uri) {
+        this.vaultAccountId = vaultAccountId;
+        this.feeLevel = feeLevel;
+        this.uri = uri;
+    }
+
+    public CreateVaultAccountConnectionRequest vaultAccountId(
+            @jakarta.annotation.Nonnull BigDecimal vaultAccountId) {
         this.vaultAccountId = vaultAccountId;
         return this;
     }
@@ -101,11 +114,12 @@ public class CreateVaultAccountConnectionRequest {
 
     @JsonProperty(JSON_PROPERTY_VAULT_ACCOUNT_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setVaultAccountId(BigDecimal vaultAccountId) {
+    public void setVaultAccountId(@jakarta.annotation.Nonnull BigDecimal vaultAccountId) {
         this.vaultAccountId = vaultAccountId;
     }
 
-    public CreateVaultAccountConnectionRequest feeLevel(FeeLevelEnum feeLevel) {
+    public CreateVaultAccountConnectionRequest feeLevel(
+            @jakarta.annotation.Nonnull FeeLevelEnum feeLevel) {
         this.feeLevel = feeLevel;
         return this;
     }
@@ -124,11 +138,11 @@ public class CreateVaultAccountConnectionRequest {
 
     @JsonProperty(JSON_PROPERTY_FEE_LEVEL)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setFeeLevel(FeeLevelEnum feeLevel) {
+    public void setFeeLevel(@jakarta.annotation.Nonnull FeeLevelEnum feeLevel) {
         this.feeLevel = feeLevel;
     }
 
-    public CreateVaultAccountConnectionRequest uri(String uri) {
+    public CreateVaultAccountConnectionRequest uri(@jakarta.annotation.Nonnull String uri) {
         this.uri = uri;
         return this;
     }
@@ -147,11 +161,12 @@ public class CreateVaultAccountConnectionRequest {
 
     @JsonProperty(JSON_PROPERTY_URI)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setUri(String uri) {
+    public void setUri(@jakarta.annotation.Nonnull String uri) {
         this.uri = uri;
     }
 
-    public CreateVaultAccountConnectionRequest chainIds(List<String> chainIds) {
+    public CreateVaultAccountConnectionRequest chainIds(
+            @jakarta.annotation.Nullable List<String> chainIds) {
         this.chainIds = chainIds;
         return this;
     }
@@ -179,7 +194,7 @@ public class CreateVaultAccountConnectionRequest {
 
     @JsonProperty(JSON_PROPERTY_CHAIN_IDS)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setChainIds(List<String> chainIds) {
+    public void setChainIds(@jakarta.annotation.Nullable List<String> chainIds) {
         this.chainIds = chainIds;
     }
 
@@ -268,10 +283,7 @@ public class CreateVaultAccountConnectionRequest {
                             "%svaultAccountId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getVaultAccountId()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getVaultAccountId()))));
         }
 
         // add `feeLevel` to the URL query string
@@ -281,8 +293,7 @@ public class CreateVaultAccountConnectionRequest {
                             "%sfeeLevel%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getFeeLevel()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getFeeLevel()))));
         }
 
         // add `uri` to the URL query string
@@ -292,8 +303,7 @@ public class CreateVaultAccountConnectionRequest {
                             "%suri%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getUri()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getUri()))));
         }
 
         // add `chainIds` to the URL query string
@@ -308,10 +318,8 @@ public class CreateVaultAccountConnectionRequest {
                                         ? ""
                                         : String.format(
                                                 "%s%d%s", containerPrefix, i, containerSuffix),
-                                URLEncoder.encode(
-                                                String.valueOf(getChainIds().get(i)),
-                                                StandardCharsets.UTF_8)
-                                        .replaceAll("\\+", "%20")));
+                                ApiClient.urlEncode(
+                                        ApiClient.valueToString(getChainIds().get(i)))));
             }
         }
 

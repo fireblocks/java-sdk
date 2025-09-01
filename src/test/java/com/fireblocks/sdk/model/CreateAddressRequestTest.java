@@ -13,27 +13,27 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for CreateAddressRequest */
-public class CreateAddressRequestTest {
+class CreateAddressRequestTest {
     private final CreateAddressRequest model = new CreateAddressRequest();
 
     /** Model tests for CreateAddressRequest */
     @Test
-    public void testCreateAddressRequest() {
+    void testCreateAddressRequest() {
         // TODO: test CreateAddressRequest
     }
 
     /** Test the property 'description' */
     @Test
-    public void descriptionTest() {
+    void descriptionTest() {
         // TODO: test description
     }
 
     /** Test the property 'customerRefId' */
     @Test
-    public void customerRefIdTest() {
+    void customerRefIdTest() {
         // TODO: test customerRefId
     }
 }

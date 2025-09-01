@@ -13,27 +13,27 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for CreateValidationKeyDto */
-public class CreateValidationKeyDtoTest {
+class CreateValidationKeyDtoTest {
     private final CreateValidationKeyDto model = new CreateValidationKeyDto();
 
     /** Model tests for CreateValidationKeyDto */
     @Test
-    public void testCreateValidationKeyDto() {
+    void testCreateValidationKeyDto() {
         // TODO: test CreateValidationKeyDto
     }
 
     /** Test the property 'publicKeyPem' */
     @Test
-    public void publicKeyPemTest() {
+    void publicKeyPemTest() {
         // TODO: test publicKeyPem
     }
 
     /** Test the property 'daysTillExpired' */
     @Test
-    public void daysTillExpiredTest() {
+    void daysTillExpiredTest() {
         // TODO: test daysTillExpired
     }
 }

@@ -13,12 +13,12 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fireblocks.sdk.ApiClient;
 import java.math.BigDecimal;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -31,18 +31,33 @@ import java.util.StringJoiner;
     SolanaBlockchainData.JSON_PROPERTY_STAKE_ACCOUNT_ADDRESS,
     SolanaBlockchainData.JSON_PROPERTY_STAKE_ACCOUNT_DERIVATION_CHANGE_VALUE
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class SolanaBlockchainData {
     public static final String JSON_PROPERTY_STAKE_ACCOUNT_ADDRESS = "stakeAccountAddress";
-    private String stakeAccountAddress;
+    @jakarta.annotation.Nonnull private String stakeAccountAddress;
 
     public static final String JSON_PROPERTY_STAKE_ACCOUNT_DERIVATION_CHANGE_VALUE =
             "stakeAccountDerivationChangeValue";
-    private BigDecimal stakeAccountDerivationChangeValue;
+    @jakarta.annotation.Nonnull private BigDecimal stakeAccountDerivationChangeValue;
 
     public SolanaBlockchainData() {}
 
-    public SolanaBlockchainData stakeAccountAddress(String stakeAccountAddress) {
+    @JsonCreator
+    public SolanaBlockchainData(
+            @JsonProperty(value = JSON_PROPERTY_STAKE_ACCOUNT_ADDRESS, required = true)
+                    String stakeAccountAddress,
+            @JsonProperty(
+                            value = JSON_PROPERTY_STAKE_ACCOUNT_DERIVATION_CHANGE_VALUE,
+                            required = true)
+                    BigDecimal stakeAccountDerivationChangeValue) {
+        this.stakeAccountAddress = stakeAccountAddress;
+        this.stakeAccountDerivationChangeValue = stakeAccountDerivationChangeValue;
+    }
+
+    public SolanaBlockchainData stakeAccountAddress(
+            @jakarta.annotation.Nonnull String stakeAccountAddress) {
         this.stakeAccountAddress = stakeAccountAddress;
         return this;
     }
@@ -61,12 +76,12 @@ public class SolanaBlockchainData {
 
     @JsonProperty(JSON_PROPERTY_STAKE_ACCOUNT_ADDRESS)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setStakeAccountAddress(String stakeAccountAddress) {
+    public void setStakeAccountAddress(@jakarta.annotation.Nonnull String stakeAccountAddress) {
         this.stakeAccountAddress = stakeAccountAddress;
     }
 
     public SolanaBlockchainData stakeAccountDerivationChangeValue(
-            BigDecimal stakeAccountDerivationChangeValue) {
+            @jakarta.annotation.Nonnull BigDecimal stakeAccountDerivationChangeValue) {
         this.stakeAccountDerivationChangeValue = stakeAccountDerivationChangeValue;
         return this;
     }
@@ -86,7 +101,8 @@ public class SolanaBlockchainData {
 
     @JsonProperty(JSON_PROPERTY_STAKE_ACCOUNT_DERIVATION_CHANGE_VALUE)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setStakeAccountDerivationChangeValue(BigDecimal stakeAccountDerivationChangeValue) {
+    public void setStakeAccountDerivationChangeValue(
+            @jakarta.annotation.Nonnull BigDecimal stakeAccountDerivationChangeValue) {
         this.stakeAccountDerivationChangeValue = stakeAccountDerivationChangeValue;
     }
 
@@ -175,10 +191,8 @@ public class SolanaBlockchainData {
                             "%sstakeAccountAddress%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getStakeAccountAddress()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(
+                                    ApiClient.valueToString(getStakeAccountAddress()))));
         }
 
         // add `stakeAccountDerivationChangeValue` to the URL query string
@@ -188,10 +202,9 @@ public class SolanaBlockchainData {
                             "%sstakeAccountDerivationChangeValue%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getStakeAccountDerivationChangeValue()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(
+                                    ApiClient.valueToString(
+                                            getStakeAccountDerivationChangeValue()))));
         }
 
         return joiner.toString();

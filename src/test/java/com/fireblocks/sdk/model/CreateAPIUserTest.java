@@ -13,45 +13,45 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for CreateAPIUser */
-public class CreateAPIUserTest {
+class CreateAPIUserTest {
     private final CreateAPIUser model = new CreateAPIUser();
 
     /** Model tests for CreateAPIUser */
     @Test
-    public void testCreateAPIUser() {
+    void testCreateAPIUser() {
         // TODO: test CreateAPIUser
     }
 
     /** Test the property 'role' */
     @Test
-    public void roleTest() {
+    void roleTest() {
         // TODO: test role
     }
 
     /** Test the property 'name' */
     @Test
-    public void nameTest() {
+    void nameTest() {
         // TODO: test name
     }
 
     /** Test the property 'csrPem' */
     @Test
-    public void csrPemTest() {
+    void csrPemTest() {
         // TODO: test csrPem
     }
 
     /** Test the property 'coSignerSetupType' */
     @Test
-    public void coSignerSetupTypeTest() {
+    void coSignerSetupTypeTest() {
         // TODO: test coSignerSetupType
     }
 
     /** Test the property 'coSignerSetupIsFirstUser' */
     @Test
-    public void coSignerSetupIsFirstUserTest() {
+    void coSignerSetupIsFirstUserTest() {
         // TODO: test coSignerSetupIsFirstUser
     }
 }

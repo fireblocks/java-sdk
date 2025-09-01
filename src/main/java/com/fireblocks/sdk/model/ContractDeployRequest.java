@@ -18,8 +18,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonValue;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -34,32 +33,36 @@ import java.util.StringJoiner;
     ContractDeployRequest.JSON_PROPERTY_FEE,
     ContractDeployRequest.JSON_PROPERTY_FEE_LEVEL
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class ContractDeployRequest {
     public static final String JSON_PROPERTY_ASSET_ID = "assetId";
-    private String assetId;
+    @jakarta.annotation.Nonnull private String assetId;
 
     public static final String JSON_PROPERTY_VAULT_ACCOUNT_ID = "vaultAccountId";
-    private String vaultAccountId;
+    @jakarta.annotation.Nonnull private String vaultAccountId;
 
     public static final String JSON_PROPERTY_CONSTRUCTOR_PARAMETERS = "constructorParameters";
-    private List<ParameterWithValue> constructorParameters;
+
+    @jakarta.annotation.Nullable
+    private List<ParameterWithValue> constructorParameters = new ArrayList<>();
 
     public static final String JSON_PROPERTY_USE_GASLESS = "useGasless";
-    private Boolean useGasless;
+    @jakarta.annotation.Nullable private Boolean useGasless;
 
     public static final String JSON_PROPERTY_FEE = "fee";
-    private String fee;
+    @jakarta.annotation.Nullable private String fee;
 
     /**
      * Fee level for the write function transaction. interchangeable with the &#39;fee&#39; field
      */
     public enum FeeLevelEnum {
-        LOW("LOW"),
+        LOW(String.valueOf("LOW")),
 
-        MEDIUM("MEDIUM"),
+        MEDIUM(String.valueOf("MEDIUM")),
 
-        HIGH("HIGH");
+        HIGH(String.valueOf("HIGH"));
 
         private String value;
 
@@ -89,11 +92,20 @@ public class ContractDeployRequest {
     }
 
     public static final String JSON_PROPERTY_FEE_LEVEL = "feeLevel";
-    private FeeLevelEnum feeLevel;
+    @jakarta.annotation.Nullable private FeeLevelEnum feeLevel;
 
     public ContractDeployRequest() {}
 
-    public ContractDeployRequest assetId(String assetId) {
+    @JsonCreator
+    public ContractDeployRequest(
+            @JsonProperty(value = JSON_PROPERTY_ASSET_ID, required = true) String assetId,
+            @JsonProperty(value = JSON_PROPERTY_VAULT_ACCOUNT_ID, required = true)
+                    String vaultAccountId) {
+        this.assetId = assetId;
+        this.vaultAccountId = vaultAccountId;
+    }
+
+    public ContractDeployRequest assetId(@jakarta.annotation.Nonnull String assetId) {
         this.assetId = assetId;
         return this;
     }
@@ -112,11 +124,11 @@ public class ContractDeployRequest {
 
     @JsonProperty(JSON_PROPERTY_ASSET_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setAssetId(String assetId) {
+    public void setAssetId(@jakarta.annotation.Nonnull String assetId) {
         this.assetId = assetId;
     }
 
-    public ContractDeployRequest vaultAccountId(String vaultAccountId) {
+    public ContractDeployRequest vaultAccountId(@jakarta.annotation.Nonnull String vaultAccountId) {
         this.vaultAccountId = vaultAccountId;
         return this;
     }
@@ -135,12 +147,12 @@ public class ContractDeployRequest {
 
     @JsonProperty(JSON_PROPERTY_VAULT_ACCOUNT_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setVaultAccountId(String vaultAccountId) {
+    public void setVaultAccountId(@jakarta.annotation.Nonnull String vaultAccountId) {
         this.vaultAccountId = vaultAccountId;
     }
 
     public ContractDeployRequest constructorParameters(
-            List<ParameterWithValue> constructorParameters) {
+            @jakarta.annotation.Nullable List<ParameterWithValue> constructorParameters) {
         this.constructorParameters = constructorParameters;
         return this;
     }
@@ -168,11 +180,12 @@ public class ContractDeployRequest {
 
     @JsonProperty(JSON_PROPERTY_CONSTRUCTOR_PARAMETERS)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setConstructorParameters(List<ParameterWithValue> constructorParameters) {
+    public void setConstructorParameters(
+            @jakarta.annotation.Nullable List<ParameterWithValue> constructorParameters) {
         this.constructorParameters = constructorParameters;
     }
 
-    public ContractDeployRequest useGasless(Boolean useGasless) {
+    public ContractDeployRequest useGasless(@jakarta.annotation.Nullable Boolean useGasless) {
         this.useGasless = useGasless;
         return this;
     }
@@ -193,11 +206,11 @@ public class ContractDeployRequest {
 
     @JsonProperty(JSON_PROPERTY_USE_GASLESS)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setUseGasless(Boolean useGasless) {
+    public void setUseGasless(@jakarta.annotation.Nullable Boolean useGasless) {
         this.useGasless = useGasless;
     }
 
-    public ContractDeployRequest fee(String fee) {
+    public ContractDeployRequest fee(@jakarta.annotation.Nullable String fee) {
         this.fee = fee;
         return this;
     }
@@ -217,11 +230,11 @@ public class ContractDeployRequest {
 
     @JsonProperty(JSON_PROPERTY_FEE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setFee(String fee) {
+    public void setFee(@jakarta.annotation.Nullable String fee) {
         this.fee = fee;
     }
 
-    public ContractDeployRequest feeLevel(FeeLevelEnum feeLevel) {
+    public ContractDeployRequest feeLevel(@jakarta.annotation.Nullable FeeLevelEnum feeLevel) {
         this.feeLevel = feeLevel;
         return this;
     }
@@ -240,7 +253,7 @@ public class ContractDeployRequest {
 
     @JsonProperty(JSON_PROPERTY_FEE_LEVEL)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setFeeLevel(FeeLevelEnum feeLevel) {
+    public void setFeeLevel(@jakarta.annotation.Nullable FeeLevelEnum feeLevel) {
         this.feeLevel = feeLevel;
     }
 
@@ -335,8 +348,7 @@ public class ContractDeployRequest {
                             "%sassetId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getAssetId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getAssetId()))));
         }
 
         // add `vaultAccountId` to the URL query string
@@ -346,10 +358,7 @@ public class ContractDeployRequest {
                             "%svaultAccountId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getVaultAccountId()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getVaultAccountId()))));
         }
 
         // add `constructorParameters` to the URL query string
@@ -382,9 +391,7 @@ public class ContractDeployRequest {
                             "%suseGasless%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getUseGasless()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getUseGasless()))));
         }
 
         // add `fee` to the URL query string
@@ -394,8 +401,7 @@ public class ContractDeployRequest {
                             "%sfee%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getFee()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getFee()))));
         }
 
         // add `feeLevel` to the URL query string
@@ -405,8 +411,7 @@ public class ContractDeployRequest {
                             "%sfeeLevel%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getFeeLevel()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getFeeLevel()))));
         }
 
         return joiner.toString();

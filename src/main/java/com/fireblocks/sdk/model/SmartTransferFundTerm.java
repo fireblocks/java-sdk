@@ -13,11 +13,11 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -32,35 +32,52 @@ import java.util.StringJoiner;
     SmartTransferFundTerm.JSON_PROPERTY_FEE_LEVEL,
     SmartTransferFundTerm.JSON_PROPERTY_NOTE
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class SmartTransferFundTerm {
     public static final String JSON_PROPERTY_ASSET = "asset";
-    private String asset;
+    @jakarta.annotation.Nonnull private String asset;
 
     public static final String JSON_PROPERTY_AMOUNT = "amount";
-    private String amount;
+    @jakarta.annotation.Nonnull private String amount;
 
     public static final String JSON_PROPERTY_NETWORK_CONNECTION_ID = "networkConnectionId";
-    private String networkConnectionId;
+    @jakarta.annotation.Nonnull private String networkConnectionId;
 
     public static final String JSON_PROPERTY_SRC_ID = "srcId";
-    private String srcId;
+    @jakarta.annotation.Nonnull private String srcId;
 
     public static final String JSON_PROPERTY_SRC_TYPE = "srcType";
-    private String srcType;
+    @jakarta.annotation.Nonnull private String srcType;
 
     public static final String JSON_PROPERTY_FEE = "fee";
-    private String fee;
+    @jakarta.annotation.Nullable private String fee;
 
     public static final String JSON_PROPERTY_FEE_LEVEL = "feeLevel";
-    private String feeLevel;
+    @jakarta.annotation.Nullable private String feeLevel;
 
     public static final String JSON_PROPERTY_NOTE = "note";
-    private String note;
+    @jakarta.annotation.Nullable private String note;
 
     public SmartTransferFundTerm() {}
 
-    public SmartTransferFundTerm asset(String asset) {
+    @JsonCreator
+    public SmartTransferFundTerm(
+            @JsonProperty(value = JSON_PROPERTY_ASSET, required = true) String asset,
+            @JsonProperty(value = JSON_PROPERTY_AMOUNT, required = true) String amount,
+            @JsonProperty(value = JSON_PROPERTY_NETWORK_CONNECTION_ID, required = true)
+                    String networkConnectionId,
+            @JsonProperty(value = JSON_PROPERTY_SRC_ID, required = true) String srcId,
+            @JsonProperty(value = JSON_PROPERTY_SRC_TYPE, required = true) String srcType) {
+        this.asset = asset;
+        this.amount = amount;
+        this.networkConnectionId = networkConnectionId;
+        this.srcId = srcId;
+        this.srcType = srcType;
+    }
+
+    public SmartTransferFundTerm asset(@jakarta.annotation.Nonnull String asset) {
         this.asset = asset;
         return this;
     }
@@ -79,11 +96,11 @@ public class SmartTransferFundTerm {
 
     @JsonProperty(JSON_PROPERTY_ASSET)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setAsset(String asset) {
+    public void setAsset(@jakarta.annotation.Nonnull String asset) {
         this.asset = asset;
     }
 
-    public SmartTransferFundTerm amount(String amount) {
+    public SmartTransferFundTerm amount(@jakarta.annotation.Nonnull String amount) {
         this.amount = amount;
         return this;
     }
@@ -102,11 +119,12 @@ public class SmartTransferFundTerm {
 
     @JsonProperty(JSON_PROPERTY_AMOUNT)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setAmount(String amount) {
+    public void setAmount(@jakarta.annotation.Nonnull String amount) {
         this.amount = amount;
     }
 
-    public SmartTransferFundTerm networkConnectionId(String networkConnectionId) {
+    public SmartTransferFundTerm networkConnectionId(
+            @jakarta.annotation.Nonnull String networkConnectionId) {
         this.networkConnectionId = networkConnectionId;
         return this;
     }
@@ -125,11 +143,11 @@ public class SmartTransferFundTerm {
 
     @JsonProperty(JSON_PROPERTY_NETWORK_CONNECTION_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setNetworkConnectionId(String networkConnectionId) {
+    public void setNetworkConnectionId(@jakarta.annotation.Nonnull String networkConnectionId) {
         this.networkConnectionId = networkConnectionId;
     }
 
-    public SmartTransferFundTerm srcId(String srcId) {
+    public SmartTransferFundTerm srcId(@jakarta.annotation.Nonnull String srcId) {
         this.srcId = srcId;
         return this;
     }
@@ -148,11 +166,11 @@ public class SmartTransferFundTerm {
 
     @JsonProperty(JSON_PROPERTY_SRC_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setSrcId(String srcId) {
+    public void setSrcId(@jakarta.annotation.Nonnull String srcId) {
         this.srcId = srcId;
     }
 
-    public SmartTransferFundTerm srcType(String srcType) {
+    public SmartTransferFundTerm srcType(@jakarta.annotation.Nonnull String srcType) {
         this.srcType = srcType;
         return this;
     }
@@ -171,11 +189,11 @@ public class SmartTransferFundTerm {
 
     @JsonProperty(JSON_PROPERTY_SRC_TYPE)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setSrcType(String srcType) {
+    public void setSrcType(@jakarta.annotation.Nonnull String srcType) {
         this.srcType = srcType;
     }
 
-    public SmartTransferFundTerm fee(String fee) {
+    public SmartTransferFundTerm fee(@jakarta.annotation.Nullable String fee) {
         this.fee = fee;
         return this;
     }
@@ -194,11 +212,11 @@ public class SmartTransferFundTerm {
 
     @JsonProperty(JSON_PROPERTY_FEE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setFee(String fee) {
+    public void setFee(@jakarta.annotation.Nullable String fee) {
         this.fee = fee;
     }
 
-    public SmartTransferFundTerm feeLevel(String feeLevel) {
+    public SmartTransferFundTerm feeLevel(@jakarta.annotation.Nullable String feeLevel) {
         this.feeLevel = feeLevel;
         return this;
     }
@@ -217,11 +235,11 @@ public class SmartTransferFundTerm {
 
     @JsonProperty(JSON_PROPERTY_FEE_LEVEL)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setFeeLevel(String feeLevel) {
+    public void setFeeLevel(@jakarta.annotation.Nullable String feeLevel) {
         this.feeLevel = feeLevel;
     }
 
-    public SmartTransferFundTerm note(String note) {
+    public SmartTransferFundTerm note(@jakarta.annotation.Nullable String note) {
         this.note = note;
         return this;
     }
@@ -240,7 +258,7 @@ public class SmartTransferFundTerm {
 
     @JsonProperty(JSON_PROPERTY_NOTE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setNote(String note) {
+    public void setNote(@jakarta.annotation.Nullable String note) {
         this.note = note;
     }
 
@@ -339,8 +357,7 @@ public class SmartTransferFundTerm {
                             "%sasset%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getAsset()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getAsset()))));
         }
 
         // add `amount` to the URL query string
@@ -350,8 +367,7 @@ public class SmartTransferFundTerm {
                             "%samount%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getAmount()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getAmount()))));
         }
 
         // add `networkConnectionId` to the URL query string
@@ -361,10 +377,8 @@ public class SmartTransferFundTerm {
                             "%snetworkConnectionId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getNetworkConnectionId()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(
+                                    ApiClient.valueToString(getNetworkConnectionId()))));
         }
 
         // add `srcId` to the URL query string
@@ -374,8 +388,7 @@ public class SmartTransferFundTerm {
                             "%ssrcId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getSrcId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getSrcId()))));
         }
 
         // add `srcType` to the URL query string
@@ -385,8 +398,7 @@ public class SmartTransferFundTerm {
                             "%ssrcType%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getSrcType()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getSrcType()))));
         }
 
         // add `fee` to the URL query string
@@ -396,8 +408,7 @@ public class SmartTransferFundTerm {
                             "%sfee%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getFee()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getFee()))));
         }
 
         // add `feeLevel` to the URL query string
@@ -407,8 +418,7 @@ public class SmartTransferFundTerm {
                             "%sfeeLevel%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getFeeLevel()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getFeeLevel()))));
         }
 
         // add `note` to the URL query string
@@ -418,8 +428,7 @@ public class SmartTransferFundTerm {
                             "%snote%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getNote()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getNote()))));
         }
 
         return joiner.toString();

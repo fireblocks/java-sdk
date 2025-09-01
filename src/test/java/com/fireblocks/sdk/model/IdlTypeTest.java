@@ -13,13 +13,13 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for IdlType */
-public class IdlTypeTest {
+class IdlTypeTest {
     /** Model tests for IdlType */
     @Test
-    public void testIdlType() {
+    void testIdlType() {
         // TODO: test IdlType
     }
 }

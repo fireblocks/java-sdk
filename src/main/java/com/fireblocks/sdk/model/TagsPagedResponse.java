@@ -13,11 +13,11 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -25,17 +25,27 @@ import java.util.StringJoiner;
 
 /** TagsPagedResponse */
 @JsonPropertyOrder({TagsPagedResponse.JSON_PROPERTY_DATA, TagsPagedResponse.JSON_PROPERTY_NEXT})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class TagsPagedResponse {
     public static final String JSON_PROPERTY_DATA = "data";
-    private List<Tag> data = new ArrayList<>();
+    @jakarta.annotation.Nonnull private List<Tag> data = new ArrayList<>();
 
     public static final String JSON_PROPERTY_NEXT = "next";
-    private String next;
+    @jakarta.annotation.Nullable private String next;
 
     public TagsPagedResponse() {}
 
-    public TagsPagedResponse data(List<Tag> data) {
+    @JsonCreator
+    public TagsPagedResponse(
+            @JsonProperty(value = JSON_PROPERTY_DATA, required = true) List<Tag> data,
+            @JsonProperty(value = JSON_PROPERTY_NEXT, required = true) String next) {
+        this.data = data;
+        this.next = next;
+    }
+
+    public TagsPagedResponse data(@jakarta.annotation.Nonnull List<Tag> data) {
         this.data = data;
         return this;
     }
@@ -62,11 +72,11 @@ public class TagsPagedResponse {
 
     @JsonProperty(JSON_PROPERTY_DATA)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setData(List<Tag> data) {
+    public void setData(@jakarta.annotation.Nonnull List<Tag> data) {
         this.data = data;
     }
 
-    public TagsPagedResponse next(String next) {
+    public TagsPagedResponse next(@jakarta.annotation.Nullable String next) {
         this.next = next;
         return this;
     }
@@ -85,7 +95,7 @@ public class TagsPagedResponse {
 
     @JsonProperty(JSON_PROPERTY_NEXT)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setNext(String next) {
+    public void setNext(@jakarta.annotation.Nullable String next) {
         this.next = next;
     }
 
@@ -191,8 +201,7 @@ public class TagsPagedResponse {
                             "%snext%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getNext()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getNext()))));
         }
 
         return joiner.toString();

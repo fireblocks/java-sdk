@@ -365,7 +365,7 @@ No authorization required
 
 ## getNotifications
 
-> CompletableFuture<ApiResponse<NotificationPaginatedResponse>> getNotifications getNotifications(webhookId, order, sortBy, pageCursor, pageSize)
+> CompletableFuture<ApiResponse<NotificationPaginatedResponse>> getNotifications getNotifications(webhookId, order, sortBy, pageCursor, pageSize, startTime, endTime, statuses, events, resourceId)
 
 Get all notifications by webhook id
 
@@ -399,8 +399,13 @@ public class Example {
         String sortBy = "id"; // String | Sort by field
         String pageCursor = "pageCursor_example"; // String | Cursor of the required page
         BigDecimal pageSize = new BigDecimal("100"); // BigDecimal | Maximum number of items in the page
+        BigDecimal startTime = new BigDecimal("1625097600000"); // BigDecimal | Start time in milliseconds since epoch to filter by notifications created after this time (default 31 days ago)
+        BigDecimal endTime = new BigDecimal("1625017600000"); // BigDecimal | End time in milliseconds since epoch to filter by notifications created before this time (default current time)
+        List<NotificationStatus> statuses = Arrays.asList(); // List<NotificationStatus> | List of notification statuses to filter by
+        List<WebhookEvent> events = Arrays.asList(); // List<WebhookEvent> | List of webhook event types to filter by
+        String resourceId = "44fcead0-7053-4831-a53a-df7fb90d440f"; // String | Resource ID to filter by
         try {
-            CompletableFuture<ApiResponse<NotificationPaginatedResponse>> response = fireblocks.webhooksV2().getNotifications(webhookId, order, sortBy, pageCursor, pageSize);
+            CompletableFuture<ApiResponse<NotificationPaginatedResponse>> response = fireblocks.webhooksV2().getNotifications(webhookId, order, sortBy, pageCursor, pageSize, startTime, endTime, statuses, events, resourceId);
             System.out.println("Status code: " + response.get().getStatusCode());
             System.out.println("Response headers: " + response.get().getHeaders());
             System.out.println("Response body: " + response.get().getData());
@@ -432,6 +437,11 @@ public class Example {
 | **sortBy** | **String**| Sort by field | [optional] [default to updatedAt] [enum: id, createdAt, updatedAt, status, eventType, resourceId] |
 | **pageCursor** | **String**| Cursor of the required page | [optional] |
 | **pageSize** | **BigDecimal**| Maximum number of items in the page | [optional] [default to 100] |
+| **startTime** | **BigDecimal**| Start time in milliseconds since epoch to filter by notifications created after this time (default 31 days ago) | [optional] |
+| **endTime** | **BigDecimal**| End time in milliseconds since epoch to filter by notifications created before this time (default current time) | [optional] |
+| **statuses** | [**List&lt;NotificationStatus&gt;**](NotificationStatus.md)| List of notification statuses to filter by | [optional] |
+| **events** | [**List&lt;WebhookEvent&gt;**](WebhookEvent.md)| List of webhook event types to filter by | [optional] |
+| **resourceId** | **String**| Resource ID to filter by | [optional] |
 
 ### Return type
 

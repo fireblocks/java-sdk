@@ -18,9 +18,8 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.fireblocks.sdk.ApiClient;
 import java.math.BigDecimal;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -77,133 +76,139 @@ import java.util.StringJoiner;
     TransactionResponse.JSON_PROPERTY_NETWORK_FEE,
     TransactionResponse.JSON_PROPERTY_ERROR_DESCRIPTION
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class TransactionResponse {
     public static final String JSON_PROPERTY_ID = "id";
-    private String id;
+    @jakarta.annotation.Nullable private String id;
 
     public static final String JSON_PROPERTY_EXTERNAL_TX_ID = "externalTxId";
-    private String externalTxId;
+    @jakarta.annotation.Nullable private String externalTxId;
 
     public static final String JSON_PROPERTY_STATUS = "status";
-    private String status;
+    @jakarta.annotation.Nullable private String status;
 
     public static final String JSON_PROPERTY_SUB_STATUS = "subStatus";
-    private String subStatus;
+    @jakarta.annotation.Nullable private String subStatus;
 
     public static final String JSON_PROPERTY_TX_HASH = "txHash";
-    private String txHash;
+    @jakarta.annotation.Nullable private String txHash;
 
     public static final String JSON_PROPERTY_OPERATION = "operation";
-    private GetTransactionOperation operation;
+    @jakarta.annotation.Nullable private GetTransactionOperation operation;
 
     public static final String JSON_PROPERTY_NOTE = "note";
-    private String note;
+    @jakarta.annotation.Nullable private String note;
 
     public static final String JSON_PROPERTY_ASSET_ID = "assetId";
-    private String assetId;
+    @jakarta.annotation.Nullable private String assetId;
 
     public static final String JSON_PROPERTY_SOURCE = "source";
-    private SourceTransferPeerPathResponse source;
+    @jakarta.annotation.Nullable private SourceTransferPeerPathResponse source;
 
     public static final String JSON_PROPERTY_SOURCE_ADDRESS = "sourceAddress";
-    private String sourceAddress;
+    @jakarta.annotation.Nullable private String sourceAddress;
 
     public static final String JSON_PROPERTY_TAG = "tag";
-    private String tag;
+    @jakarta.annotation.Nullable private String tag;
 
     public static final String JSON_PROPERTY_DESTINATION = "destination";
-    private DestinationTransferPeerPathResponse destination;
+    @jakarta.annotation.Nullable private DestinationTransferPeerPathResponse destination;
 
     public static final String JSON_PROPERTY_DESTINATIONS = "destinations";
-    private List<TransactionResponseDestination> destinations;
+
+    @jakarta.annotation.Nullable
+    private List<TransactionResponseDestination> destinations = new ArrayList<>();
 
     public static final String JSON_PROPERTY_DESTINATION_ADDRESS = "destinationAddress";
-    private String destinationAddress;
+    @jakarta.annotation.Nullable private String destinationAddress;
 
     public static final String JSON_PROPERTY_DESTINATION_ADDRESS_DESCRIPTION =
             "destinationAddressDescription";
-    private String destinationAddressDescription;
+    @jakarta.annotation.Nullable private String destinationAddressDescription;
 
     public static final String JSON_PROPERTY_DESTINATION_TAG = "destinationTag";
-    private String destinationTag;
+    @jakarta.annotation.Nullable private String destinationTag;
 
     public static final String JSON_PROPERTY_CONTRACT_CALL_DECODED_DATA = "contractCallDecodedData";
+
+    @jakarta.annotation.Nullable
     private TransactionResponseContractCallDecodedData contractCallDecodedData;
 
     public static final String JSON_PROPERTY_AMOUNT_INFO = "amountInfo";
-    private AmountInfo amountInfo;
+    @jakarta.annotation.Nullable private AmountInfo amountInfo;
 
     public static final String JSON_PROPERTY_TREAT_AS_GROSS_AMOUNT = "treatAsGrossAmount";
-    private Boolean treatAsGrossAmount;
+    @jakarta.annotation.Nullable private Boolean treatAsGrossAmount;
 
     public static final String JSON_PROPERTY_FEE_INFO = "feeInfo";
-    private FeeInfo feeInfo;
+    @jakarta.annotation.Nullable private FeeInfo feeInfo;
 
     public static final String JSON_PROPERTY_FEE_CURRENCY = "feeCurrency";
-    private String feeCurrency;
+    @jakarta.annotation.Nullable private String feeCurrency;
 
     public static final String JSON_PROPERTY_NETWORK_RECORDS = "networkRecords";
-    private List<NetworkRecord> networkRecords;
+    @jakarta.annotation.Nullable private List<NetworkRecord> networkRecords = new ArrayList<>();
 
     public static final String JSON_PROPERTY_CREATED_AT = "createdAt";
-    private BigDecimal createdAt;
+    @jakarta.annotation.Nullable private BigDecimal createdAt;
 
     public static final String JSON_PROPERTY_LAST_UPDATED = "lastUpdated";
-    private BigDecimal lastUpdated;
+    @jakarta.annotation.Nullable private BigDecimal lastUpdated;
 
     public static final String JSON_PROPERTY_CREATED_BY = "createdBy";
-    private String createdBy;
+    @jakarta.annotation.Nullable private String createdBy;
 
     public static final String JSON_PROPERTY_SIGNED_BY = "signedBy";
-    private List<String> signedBy;
+    @jakarta.annotation.Nullable private List<String> signedBy = new ArrayList<>();
 
     public static final String JSON_PROPERTY_REJECTED_BY = "rejectedBy";
-    private String rejectedBy;
+    @jakarta.annotation.Nullable private String rejectedBy;
 
     public static final String JSON_PROPERTY_AUTHORIZATION_INFO = "authorizationInfo";
-    private AuthorizationInfo authorizationInfo;
+    @jakarta.annotation.Nullable private AuthorizationInfo authorizationInfo;
 
     public static final String JSON_PROPERTY_EXCHANGE_TX_ID = "exchangeTxId";
-    private String exchangeTxId;
+    @jakarta.annotation.Nullable private String exchangeTxId;
 
     public static final String JSON_PROPERTY_CUSTOMER_REF_ID = "customerRefId";
-    private String customerRefId;
+    @jakarta.annotation.Nullable private String customerRefId;
 
     public static final String JSON_PROPERTY_AML_SCREENING_RESULT = "amlScreeningResult";
-    private AmlScreeningResult amlScreeningResult;
+    @jakarta.annotation.Nullable private AmlScreeningResult amlScreeningResult;
 
     public static final String JSON_PROPERTY_COMPLIANCE_RESULTS = "complianceResults";
-    private ComplianceResults complianceResults;
+    @jakarta.annotation.Nullable private ComplianceResults complianceResults;
 
     public static final String JSON_PROPERTY_EXTRA_PARAMETERS = "extraParameters";
-    private Object extraParameters;
+    @jakarta.annotation.Nullable private Object extraParameters;
 
     public static final String JSON_PROPERTY_SIGNED_MESSAGES = "signedMessages";
-    private List<SignedMessage> signedMessages;
+    @jakarta.annotation.Nullable private List<SignedMessage> signedMessages = new ArrayList<>();
 
     public static final String JSON_PROPERTY_NUM_OF_CONFIRMATIONS = "numOfConfirmations";
-    private BigDecimal numOfConfirmations;
+    @jakarta.annotation.Nullable private BigDecimal numOfConfirmations;
 
     public static final String JSON_PROPERTY_BLOCK_INFO = "blockInfo";
-    private BlockInfo blockInfo;
+    @jakarta.annotation.Nullable private BlockInfo blockInfo;
 
     public static final String JSON_PROPERTY_INDEX = "index";
-    private BigDecimal index;
+    @jakarta.annotation.Nullable private BigDecimal index;
 
     public static final String JSON_PROPERTY_REWARD_INFO = "rewardInfo";
-    private RewardInfo rewardInfo;
+    @jakarta.annotation.Nullable private RewardInfo rewardInfo;
 
     public static final String JSON_PROPERTY_SYSTEM_MESSAGES = "systemMessages";
-    private SystemMessageInfo systemMessages;
+    @jakarta.annotation.Nullable private SystemMessageInfo systemMessages;
 
     /** Gets or Sets addressType */
     public enum AddressTypeEnum {
-        EMPTY(""),
+        EMPTY(String.valueOf("")),
 
-        WHITELISTED("WHITELISTED"),
+        WHITELISTED(String.valueOf("WHITELISTED")),
 
-        ONE_TIME("ONE_TIME");
+        ONE_TIME(String.valueOf("ONE_TIME"));
 
         private String value;
 
@@ -233,35 +238,35 @@ public class TransactionResponse {
     }
 
     public static final String JSON_PROPERTY_ADDRESS_TYPE = "addressType";
-    private AddressTypeEnum addressType;
+    @jakarta.annotation.Nullable private AddressTypeEnum addressType;
 
     public static final String JSON_PROPERTY_REQUESTED_AMOUNT = "requestedAmount";
-    private BigDecimal requestedAmount;
+    @jakarta.annotation.Nullable private BigDecimal requestedAmount;
 
     public static final String JSON_PROPERTY_AMOUNT = "amount";
-    private BigDecimal amount;
+    @jakarta.annotation.Nullable private BigDecimal amount;
 
     public static final String JSON_PROPERTY_NET_AMOUNT = "netAmount";
-    private BigDecimal netAmount;
+    @jakarta.annotation.Nullable private BigDecimal netAmount;
 
     public static final String JSON_PROPERTY_AMOUNT_U_S_D = "amountUSD";
-    private BigDecimal amountUSD;
+    @jakarta.annotation.Nullable private BigDecimal amountUSD;
 
     public static final String JSON_PROPERTY_SERVICE_FEE = "serviceFee";
-    private BigDecimal serviceFee;
+    @jakarta.annotation.Nullable private BigDecimal serviceFee;
 
     public static final String JSON_PROPERTY_FEE = "fee";
-    private BigDecimal fee;
+    @jakarta.annotation.Nullable private BigDecimal fee;
 
     public static final String JSON_PROPERTY_NETWORK_FEE = "networkFee";
-    private BigDecimal networkFee;
+    @jakarta.annotation.Nullable private BigDecimal networkFee;
 
     public static final String JSON_PROPERTY_ERROR_DESCRIPTION = "errorDescription";
-    private String errorDescription;
+    @jakarta.annotation.Nullable private String errorDescription;
 
     public TransactionResponse() {}
 
-    public TransactionResponse id(String id) {
+    public TransactionResponse id(@jakarta.annotation.Nullable String id) {
         this.id = id;
         return this;
     }
@@ -280,11 +285,11 @@ public class TransactionResponse {
 
     @JsonProperty(JSON_PROPERTY_ID)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setId(String id) {
+    public void setId(@jakarta.annotation.Nullable String id) {
         this.id = id;
     }
 
-    public TransactionResponse externalTxId(String externalTxId) {
+    public TransactionResponse externalTxId(@jakarta.annotation.Nullable String externalTxId) {
         this.externalTxId = externalTxId;
         return this;
     }
@@ -305,11 +310,11 @@ public class TransactionResponse {
 
     @JsonProperty(JSON_PROPERTY_EXTERNAL_TX_ID)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setExternalTxId(String externalTxId) {
+    public void setExternalTxId(@jakarta.annotation.Nullable String externalTxId) {
         this.externalTxId = externalTxId;
     }
 
-    public TransactionResponse status(String status) {
+    public TransactionResponse status(@jakarta.annotation.Nullable String status) {
         this.status = status;
         return this;
     }
@@ -329,11 +334,11 @@ public class TransactionResponse {
 
     @JsonProperty(JSON_PROPERTY_STATUS)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setStatus(String status) {
+    public void setStatus(@jakarta.annotation.Nullable String status) {
         this.status = status;
     }
 
-    public TransactionResponse subStatus(String subStatus) {
+    public TransactionResponse subStatus(@jakarta.annotation.Nullable String subStatus) {
         this.subStatus = subStatus;
         return this;
     }
@@ -354,11 +359,11 @@ public class TransactionResponse {
 
     @JsonProperty(JSON_PROPERTY_SUB_STATUS)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setSubStatus(String subStatus) {
+    public void setSubStatus(@jakarta.annotation.Nullable String subStatus) {
         this.subStatus = subStatus;
     }
 
-    public TransactionResponse txHash(String txHash) {
+    public TransactionResponse txHash(@jakarta.annotation.Nullable String txHash) {
         this.txHash = txHash;
         return this;
     }
@@ -389,11 +394,12 @@ public class TransactionResponse {
 
     @JsonProperty(JSON_PROPERTY_TX_HASH)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setTxHash(String txHash) {
+    public void setTxHash(@jakarta.annotation.Nullable String txHash) {
         this.txHash = txHash;
     }
 
-    public TransactionResponse operation(GetTransactionOperation operation) {
+    public TransactionResponse operation(
+            @jakarta.annotation.Nullable GetTransactionOperation operation) {
         this.operation = operation;
         return this;
     }
@@ -412,11 +418,11 @@ public class TransactionResponse {
 
     @JsonProperty(JSON_PROPERTY_OPERATION)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setOperation(GetTransactionOperation operation) {
+    public void setOperation(@jakarta.annotation.Nullable GetTransactionOperation operation) {
         this.operation = operation;
     }
 
-    public TransactionResponse note(String note) {
+    public TransactionResponse note(@jakarta.annotation.Nullable String note) {
         this.note = note;
         return this;
     }
@@ -436,11 +442,11 @@ public class TransactionResponse {
 
     @JsonProperty(JSON_PROPERTY_NOTE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setNote(String note) {
+    public void setNote(@jakarta.annotation.Nullable String note) {
         this.note = note;
     }
 
-    public TransactionResponse assetId(String assetId) {
+    public TransactionResponse assetId(@jakarta.annotation.Nullable String assetId) {
         this.assetId = assetId;
         return this;
     }
@@ -462,11 +468,12 @@ public class TransactionResponse {
 
     @JsonProperty(JSON_PROPERTY_ASSET_ID)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAssetId(String assetId) {
+    public void setAssetId(@jakarta.annotation.Nullable String assetId) {
         this.assetId = assetId;
     }
 
-    public TransactionResponse source(SourceTransferPeerPathResponse source) {
+    public TransactionResponse source(
+            @jakarta.annotation.Nullable SourceTransferPeerPathResponse source) {
         this.source = source;
         return this;
     }
@@ -485,11 +492,11 @@ public class TransactionResponse {
 
     @JsonProperty(JSON_PROPERTY_SOURCE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setSource(SourceTransferPeerPathResponse source) {
+    public void setSource(@jakarta.annotation.Nullable SourceTransferPeerPathResponse source) {
         this.source = source;
     }
 
-    public TransactionResponse sourceAddress(String sourceAddress) {
+    public TransactionResponse sourceAddress(@jakarta.annotation.Nullable String sourceAddress) {
         this.sourceAddress = sourceAddress;
         return this;
     }
@@ -511,11 +518,11 @@ public class TransactionResponse {
 
     @JsonProperty(JSON_PROPERTY_SOURCE_ADDRESS)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setSourceAddress(String sourceAddress) {
+    public void setSourceAddress(@jakarta.annotation.Nullable String sourceAddress) {
         this.sourceAddress = sourceAddress;
     }
 
-    public TransactionResponse tag(String tag) {
+    public TransactionResponse tag(@jakarta.annotation.Nullable String tag) {
         this.tag = tag;
         return this;
     }
@@ -535,11 +542,12 @@ public class TransactionResponse {
 
     @JsonProperty(JSON_PROPERTY_TAG)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setTag(String tag) {
+    public void setTag(@jakarta.annotation.Nullable String tag) {
         this.tag = tag;
     }
 
-    public TransactionResponse destination(DestinationTransferPeerPathResponse destination) {
+    public TransactionResponse destination(
+            @jakarta.annotation.Nullable DestinationTransferPeerPathResponse destination) {
         this.destination = destination;
         return this;
     }
@@ -558,11 +566,13 @@ public class TransactionResponse {
 
     @JsonProperty(JSON_PROPERTY_DESTINATION)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setDestination(DestinationTransferPeerPathResponse destination) {
+    public void setDestination(
+            @jakarta.annotation.Nullable DestinationTransferPeerPathResponse destination) {
         this.destination = destination;
     }
 
-    public TransactionResponse destinations(List<TransactionResponseDestination> destinations) {
+    public TransactionResponse destinations(
+            @jakarta.annotation.Nullable List<TransactionResponseDestination> destinations) {
         this.destinations = destinations;
         return this;
     }
@@ -591,11 +601,13 @@ public class TransactionResponse {
 
     @JsonProperty(JSON_PROPERTY_DESTINATIONS)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setDestinations(List<TransactionResponseDestination> destinations) {
+    public void setDestinations(
+            @jakarta.annotation.Nullable List<TransactionResponseDestination> destinations) {
         this.destinations = destinations;
     }
 
-    public TransactionResponse destinationAddress(String destinationAddress) {
+    public TransactionResponse destinationAddress(
+            @jakarta.annotation.Nullable String destinationAddress) {
         this.destinationAddress = destinationAddress;
         return this;
     }
@@ -620,11 +632,12 @@ public class TransactionResponse {
 
     @JsonProperty(JSON_PROPERTY_DESTINATION_ADDRESS)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setDestinationAddress(String destinationAddress) {
+    public void setDestinationAddress(@jakarta.annotation.Nullable String destinationAddress) {
         this.destinationAddress = destinationAddress;
     }
 
-    public TransactionResponse destinationAddressDescription(String destinationAddressDescription) {
+    public TransactionResponse destinationAddressDescription(
+            @jakarta.annotation.Nullable String destinationAddressDescription) {
         this.destinationAddressDescription = destinationAddressDescription;
         return this;
     }
@@ -643,11 +656,12 @@ public class TransactionResponse {
 
     @JsonProperty(JSON_PROPERTY_DESTINATION_ADDRESS_DESCRIPTION)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setDestinationAddressDescription(String destinationAddressDescription) {
+    public void setDestinationAddressDescription(
+            @jakarta.annotation.Nullable String destinationAddressDescription) {
         this.destinationAddressDescription = destinationAddressDescription;
     }
 
-    public TransactionResponse destinationTag(String destinationTag) {
+    public TransactionResponse destinationTag(@jakarta.annotation.Nullable String destinationTag) {
         this.destinationTag = destinationTag;
         return this;
     }
@@ -667,12 +681,13 @@ public class TransactionResponse {
 
     @JsonProperty(JSON_PROPERTY_DESTINATION_TAG)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setDestinationTag(String destinationTag) {
+    public void setDestinationTag(@jakarta.annotation.Nullable String destinationTag) {
         this.destinationTag = destinationTag;
     }
 
     public TransactionResponse contractCallDecodedData(
-            TransactionResponseContractCallDecodedData contractCallDecodedData) {
+            @jakarta.annotation.Nullable
+                    TransactionResponseContractCallDecodedData contractCallDecodedData) {
         this.contractCallDecodedData = contractCallDecodedData;
         return this;
     }
@@ -692,11 +707,12 @@ public class TransactionResponse {
     @JsonProperty(JSON_PROPERTY_CONTRACT_CALL_DECODED_DATA)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
     public void setContractCallDecodedData(
-            TransactionResponseContractCallDecodedData contractCallDecodedData) {
+            @jakarta.annotation.Nullable
+                    TransactionResponseContractCallDecodedData contractCallDecodedData) {
         this.contractCallDecodedData = contractCallDecodedData;
     }
 
-    public TransactionResponse amountInfo(AmountInfo amountInfo) {
+    public TransactionResponse amountInfo(@jakarta.annotation.Nullable AmountInfo amountInfo) {
         this.amountInfo = amountInfo;
         return this;
     }
@@ -715,11 +731,12 @@ public class TransactionResponse {
 
     @JsonProperty(JSON_PROPERTY_AMOUNT_INFO)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAmountInfo(AmountInfo amountInfo) {
+    public void setAmountInfo(@jakarta.annotation.Nullable AmountInfo amountInfo) {
         this.amountInfo = amountInfo;
     }
 
-    public TransactionResponse treatAsGrossAmount(Boolean treatAsGrossAmount) {
+    public TransactionResponse treatAsGrossAmount(
+            @jakarta.annotation.Nullable Boolean treatAsGrossAmount) {
         this.treatAsGrossAmount = treatAsGrossAmount;
         return this;
     }
@@ -742,11 +759,11 @@ public class TransactionResponse {
 
     @JsonProperty(JSON_PROPERTY_TREAT_AS_GROSS_AMOUNT)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setTreatAsGrossAmount(Boolean treatAsGrossAmount) {
+    public void setTreatAsGrossAmount(@jakarta.annotation.Nullable Boolean treatAsGrossAmount) {
         this.treatAsGrossAmount = treatAsGrossAmount;
     }
 
-    public TransactionResponse feeInfo(FeeInfo feeInfo) {
+    public TransactionResponse feeInfo(@jakarta.annotation.Nullable FeeInfo feeInfo) {
         this.feeInfo = feeInfo;
         return this;
     }
@@ -765,11 +782,11 @@ public class TransactionResponse {
 
     @JsonProperty(JSON_PROPERTY_FEE_INFO)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setFeeInfo(FeeInfo feeInfo) {
+    public void setFeeInfo(@jakarta.annotation.Nullable FeeInfo feeInfo) {
         this.feeInfo = feeInfo;
     }
 
-    public TransactionResponse feeCurrency(String feeCurrency) {
+    public TransactionResponse feeCurrency(@jakarta.annotation.Nullable String feeCurrency) {
         this.feeCurrency = feeCurrency;
         return this;
     }
@@ -789,11 +806,12 @@ public class TransactionResponse {
 
     @JsonProperty(JSON_PROPERTY_FEE_CURRENCY)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setFeeCurrency(String feeCurrency) {
+    public void setFeeCurrency(@jakarta.annotation.Nullable String feeCurrency) {
         this.feeCurrency = feeCurrency;
     }
 
-    public TransactionResponse networkRecords(List<NetworkRecord> networkRecords) {
+    public TransactionResponse networkRecords(
+            @jakarta.annotation.Nullable List<NetworkRecord> networkRecords) {
         this.networkRecords = networkRecords;
         return this;
     }
@@ -822,11 +840,11 @@ public class TransactionResponse {
 
     @JsonProperty(JSON_PROPERTY_NETWORK_RECORDS)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setNetworkRecords(List<NetworkRecord> networkRecords) {
+    public void setNetworkRecords(@jakarta.annotation.Nullable List<NetworkRecord> networkRecords) {
         this.networkRecords = networkRecords;
     }
 
-    public TransactionResponse createdAt(BigDecimal createdAt) {
+    public TransactionResponse createdAt(@jakarta.annotation.Nullable BigDecimal createdAt) {
         this.createdAt = createdAt;
         return this;
     }
@@ -845,11 +863,11 @@ public class TransactionResponse {
 
     @JsonProperty(JSON_PROPERTY_CREATED_AT)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setCreatedAt(BigDecimal createdAt) {
+    public void setCreatedAt(@jakarta.annotation.Nullable BigDecimal createdAt) {
         this.createdAt = createdAt;
     }
 
-    public TransactionResponse lastUpdated(BigDecimal lastUpdated) {
+    public TransactionResponse lastUpdated(@jakarta.annotation.Nullable BigDecimal lastUpdated) {
         this.lastUpdated = lastUpdated;
         return this;
     }
@@ -868,11 +886,11 @@ public class TransactionResponse {
 
     @JsonProperty(JSON_PROPERTY_LAST_UPDATED)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setLastUpdated(BigDecimal lastUpdated) {
+    public void setLastUpdated(@jakarta.annotation.Nullable BigDecimal lastUpdated) {
         this.lastUpdated = lastUpdated;
     }
 
-    public TransactionResponse createdBy(String createdBy) {
+    public TransactionResponse createdBy(@jakarta.annotation.Nullable String createdBy) {
         this.createdBy = createdBy;
         return this;
     }
@@ -891,11 +909,11 @@ public class TransactionResponse {
 
     @JsonProperty(JSON_PROPERTY_CREATED_BY)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setCreatedBy(String createdBy) {
+    public void setCreatedBy(@jakarta.annotation.Nullable String createdBy) {
         this.createdBy = createdBy;
     }
 
-    public TransactionResponse signedBy(List<String> signedBy) {
+    public TransactionResponse signedBy(@jakarta.annotation.Nullable List<String> signedBy) {
         this.signedBy = signedBy;
         return this;
     }
@@ -922,11 +940,11 @@ public class TransactionResponse {
 
     @JsonProperty(JSON_PROPERTY_SIGNED_BY)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setSignedBy(List<String> signedBy) {
+    public void setSignedBy(@jakarta.annotation.Nullable List<String> signedBy) {
         this.signedBy = signedBy;
     }
 
-    public TransactionResponse rejectedBy(String rejectedBy) {
+    public TransactionResponse rejectedBy(@jakarta.annotation.Nullable String rejectedBy) {
         this.rejectedBy = rejectedBy;
         return this;
     }
@@ -945,11 +963,12 @@ public class TransactionResponse {
 
     @JsonProperty(JSON_PROPERTY_REJECTED_BY)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setRejectedBy(String rejectedBy) {
+    public void setRejectedBy(@jakarta.annotation.Nullable String rejectedBy) {
         this.rejectedBy = rejectedBy;
     }
 
-    public TransactionResponse authorizationInfo(AuthorizationInfo authorizationInfo) {
+    public TransactionResponse authorizationInfo(
+            @jakarta.annotation.Nullable AuthorizationInfo authorizationInfo) {
         this.authorizationInfo = authorizationInfo;
         return this;
     }
@@ -968,11 +987,12 @@ public class TransactionResponse {
 
     @JsonProperty(JSON_PROPERTY_AUTHORIZATION_INFO)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAuthorizationInfo(AuthorizationInfo authorizationInfo) {
+    public void setAuthorizationInfo(
+            @jakarta.annotation.Nullable AuthorizationInfo authorizationInfo) {
         this.authorizationInfo = authorizationInfo;
     }
 
-    public TransactionResponse exchangeTxId(String exchangeTxId) {
+    public TransactionResponse exchangeTxId(@jakarta.annotation.Nullable String exchangeTxId) {
         this.exchangeTxId = exchangeTxId;
         return this;
     }
@@ -992,11 +1012,11 @@ public class TransactionResponse {
 
     @JsonProperty(JSON_PROPERTY_EXCHANGE_TX_ID)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setExchangeTxId(String exchangeTxId) {
+    public void setExchangeTxId(@jakarta.annotation.Nullable String exchangeTxId) {
         this.exchangeTxId = exchangeTxId;
     }
 
-    public TransactionResponse customerRefId(String customerRefId) {
+    public TransactionResponse customerRefId(@jakarta.annotation.Nullable String customerRefId) {
         this.customerRefId = customerRefId;
         return this;
     }
@@ -1015,11 +1035,12 @@ public class TransactionResponse {
 
     @JsonProperty(JSON_PROPERTY_CUSTOMER_REF_ID)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setCustomerRefId(String customerRefId) {
+    public void setCustomerRefId(@jakarta.annotation.Nullable String customerRefId) {
         this.customerRefId = customerRefId;
     }
 
-    public TransactionResponse amlScreeningResult(AmlScreeningResult amlScreeningResult) {
+    public TransactionResponse amlScreeningResult(
+            @jakarta.annotation.Nullable AmlScreeningResult amlScreeningResult) {
         this.amlScreeningResult = amlScreeningResult;
         return this;
     }
@@ -1038,11 +1059,13 @@ public class TransactionResponse {
 
     @JsonProperty(JSON_PROPERTY_AML_SCREENING_RESULT)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAmlScreeningResult(AmlScreeningResult amlScreeningResult) {
+    public void setAmlScreeningResult(
+            @jakarta.annotation.Nullable AmlScreeningResult amlScreeningResult) {
         this.amlScreeningResult = amlScreeningResult;
     }
 
-    public TransactionResponse complianceResults(ComplianceResults complianceResults) {
+    public TransactionResponse complianceResults(
+            @jakarta.annotation.Nullable ComplianceResults complianceResults) {
         this.complianceResults = complianceResults;
         return this;
     }
@@ -1061,11 +1084,13 @@ public class TransactionResponse {
 
     @JsonProperty(JSON_PROPERTY_COMPLIANCE_RESULTS)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setComplianceResults(ComplianceResults complianceResults) {
+    public void setComplianceResults(
+            @jakarta.annotation.Nullable ComplianceResults complianceResults) {
         this.complianceResults = complianceResults;
     }
 
-    public TransactionResponse extraParameters(Object extraParameters) {
+    public TransactionResponse extraParameters(
+            @jakarta.annotation.Nullable Object extraParameters) {
         this.extraParameters = extraParameters;
         return this;
     }
@@ -1104,11 +1129,12 @@ public class TransactionResponse {
 
     @JsonProperty(JSON_PROPERTY_EXTRA_PARAMETERS)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setExtraParameters(Object extraParameters) {
+    public void setExtraParameters(@jakarta.annotation.Nullable Object extraParameters) {
         this.extraParameters = extraParameters;
     }
 
-    public TransactionResponse signedMessages(List<SignedMessage> signedMessages) {
+    public TransactionResponse signedMessages(
+            @jakarta.annotation.Nullable List<SignedMessage> signedMessages) {
         this.signedMessages = signedMessages;
         return this;
     }
@@ -1135,11 +1161,12 @@ public class TransactionResponse {
 
     @JsonProperty(JSON_PROPERTY_SIGNED_MESSAGES)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setSignedMessages(List<SignedMessage> signedMessages) {
+    public void setSignedMessages(@jakarta.annotation.Nullable List<SignedMessage> signedMessages) {
         this.signedMessages = signedMessages;
     }
 
-    public TransactionResponse numOfConfirmations(BigDecimal numOfConfirmations) {
+    public TransactionResponse numOfConfirmations(
+            @jakarta.annotation.Nullable BigDecimal numOfConfirmations) {
         this.numOfConfirmations = numOfConfirmations;
         return this;
     }
@@ -1159,11 +1186,11 @@ public class TransactionResponse {
 
     @JsonProperty(JSON_PROPERTY_NUM_OF_CONFIRMATIONS)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setNumOfConfirmations(BigDecimal numOfConfirmations) {
+    public void setNumOfConfirmations(@jakarta.annotation.Nullable BigDecimal numOfConfirmations) {
         this.numOfConfirmations = numOfConfirmations;
     }
 
-    public TransactionResponse blockInfo(BlockInfo blockInfo) {
+    public TransactionResponse blockInfo(@jakarta.annotation.Nullable BlockInfo blockInfo) {
         this.blockInfo = blockInfo;
         return this;
     }
@@ -1182,11 +1209,11 @@ public class TransactionResponse {
 
     @JsonProperty(JSON_PROPERTY_BLOCK_INFO)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setBlockInfo(BlockInfo blockInfo) {
+    public void setBlockInfo(@jakarta.annotation.Nullable BlockInfo blockInfo) {
         this.blockInfo = blockInfo;
     }
 
-    public TransactionResponse index(BigDecimal index) {
+    public TransactionResponse index(@jakarta.annotation.Nullable BigDecimal index) {
         this.index = index;
         return this;
     }
@@ -1207,11 +1234,11 @@ public class TransactionResponse {
 
     @JsonProperty(JSON_PROPERTY_INDEX)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setIndex(BigDecimal index) {
+    public void setIndex(@jakarta.annotation.Nullable BigDecimal index) {
         this.index = index;
     }
 
-    public TransactionResponse rewardInfo(RewardInfo rewardInfo) {
+    public TransactionResponse rewardInfo(@jakarta.annotation.Nullable RewardInfo rewardInfo) {
         this.rewardInfo = rewardInfo;
         return this;
     }
@@ -1230,11 +1257,12 @@ public class TransactionResponse {
 
     @JsonProperty(JSON_PROPERTY_REWARD_INFO)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setRewardInfo(RewardInfo rewardInfo) {
+    public void setRewardInfo(@jakarta.annotation.Nullable RewardInfo rewardInfo) {
         this.rewardInfo = rewardInfo;
     }
 
-    public TransactionResponse systemMessages(SystemMessageInfo systemMessages) {
+    public TransactionResponse systemMessages(
+            @jakarta.annotation.Nullable SystemMessageInfo systemMessages) {
         this.systemMessages = systemMessages;
         return this;
     }
@@ -1253,11 +1281,12 @@ public class TransactionResponse {
 
     @JsonProperty(JSON_PROPERTY_SYSTEM_MESSAGES)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setSystemMessages(SystemMessageInfo systemMessages) {
+    public void setSystemMessages(@jakarta.annotation.Nullable SystemMessageInfo systemMessages) {
         this.systemMessages = systemMessages;
     }
 
-    public TransactionResponse addressType(AddressTypeEnum addressType) {
+    public TransactionResponse addressType(
+            @jakarta.annotation.Nullable AddressTypeEnum addressType) {
         this.addressType = addressType;
         return this;
     }
@@ -1276,11 +1305,12 @@ public class TransactionResponse {
 
     @JsonProperty(JSON_PROPERTY_ADDRESS_TYPE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAddressType(AddressTypeEnum addressType) {
+    public void setAddressType(@jakarta.annotation.Nullable AddressTypeEnum addressType) {
         this.addressType = addressType;
     }
 
-    public TransactionResponse requestedAmount(BigDecimal requestedAmount) {
+    public TransactionResponse requestedAmount(
+            @jakarta.annotation.Nullable BigDecimal requestedAmount) {
         this.requestedAmount = requestedAmount;
         return this;
     }
@@ -1302,11 +1332,11 @@ public class TransactionResponse {
 
     @JsonProperty(JSON_PROPERTY_REQUESTED_AMOUNT)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setRequestedAmount(BigDecimal requestedAmount) {
+    public void setRequestedAmount(@jakarta.annotation.Nullable BigDecimal requestedAmount) {
         this.requestedAmount = requestedAmount;
     }
 
-    public TransactionResponse amount(BigDecimal amount) {
+    public TransactionResponse amount(@jakarta.annotation.Nullable BigDecimal amount) {
         this.amount = amount;
         return this;
     }
@@ -1329,11 +1359,11 @@ public class TransactionResponse {
 
     @JsonProperty(JSON_PROPERTY_AMOUNT)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAmount(BigDecimal amount) {
+    public void setAmount(@jakarta.annotation.Nullable BigDecimal amount) {
         this.amount = amount;
     }
 
-    public TransactionResponse netAmount(BigDecimal netAmount) {
+    public TransactionResponse netAmount(@jakarta.annotation.Nullable BigDecimal netAmount) {
         this.netAmount = netAmount;
         return this;
     }
@@ -1355,11 +1385,11 @@ public class TransactionResponse {
 
     @JsonProperty(JSON_PROPERTY_NET_AMOUNT)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setNetAmount(BigDecimal netAmount) {
+    public void setNetAmount(@jakarta.annotation.Nullable BigDecimal netAmount) {
         this.netAmount = netAmount;
     }
 
-    public TransactionResponse amountUSD(BigDecimal amountUSD) {
+    public TransactionResponse amountUSD(@jakarta.annotation.Nullable BigDecimal amountUSD) {
         this.amountUSD = amountUSD;
         return this;
     }
@@ -1381,11 +1411,11 @@ public class TransactionResponse {
 
     @JsonProperty(JSON_PROPERTY_AMOUNT_U_S_D)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAmountUSD(BigDecimal amountUSD) {
+    public void setAmountUSD(@jakarta.annotation.Nullable BigDecimal amountUSD) {
         this.amountUSD = amountUSD;
     }
 
-    public TransactionResponse serviceFee(BigDecimal serviceFee) {
+    public TransactionResponse serviceFee(@jakarta.annotation.Nullable BigDecimal serviceFee) {
         this.serviceFee = serviceFee;
         return this;
     }
@@ -1408,11 +1438,11 @@ public class TransactionResponse {
 
     @JsonProperty(JSON_PROPERTY_SERVICE_FEE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setServiceFee(BigDecimal serviceFee) {
+    public void setServiceFee(@jakarta.annotation.Nullable BigDecimal serviceFee) {
         this.serviceFee = serviceFee;
     }
 
-    public TransactionResponse fee(BigDecimal fee) {
+    public TransactionResponse fee(@jakarta.annotation.Nullable BigDecimal fee) {
         this.fee = fee;
         return this;
     }
@@ -1433,11 +1463,11 @@ public class TransactionResponse {
 
     @JsonProperty(JSON_PROPERTY_FEE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setFee(BigDecimal fee) {
+    public void setFee(@jakarta.annotation.Nullable BigDecimal fee) {
         this.fee = fee;
     }
 
-    public TransactionResponse networkFee(BigDecimal networkFee) {
+    public TransactionResponse networkFee(@jakarta.annotation.Nullable BigDecimal networkFee) {
         this.networkFee = networkFee;
         return this;
     }
@@ -1459,11 +1489,12 @@ public class TransactionResponse {
 
     @JsonProperty(JSON_PROPERTY_NETWORK_FEE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setNetworkFee(BigDecimal networkFee) {
+    public void setNetworkFee(@jakarta.annotation.Nullable BigDecimal networkFee) {
         this.networkFee = networkFee;
     }
 
-    public TransactionResponse errorDescription(String errorDescription) {
+    public TransactionResponse errorDescription(
+            @jakarta.annotation.Nullable String errorDescription) {
         this.errorDescription = errorDescription;
         return this;
     }
@@ -1483,7 +1514,7 @@ public class TransactionResponse {
 
     @JsonProperty(JSON_PROPERTY_ERROR_DESCRIPTION)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setErrorDescription(String errorDescription) {
+    public void setErrorDescription(@jakarta.annotation.Nullable String errorDescription) {
         this.errorDescription = errorDescription;
     }
 
@@ -1723,10 +1754,7 @@ public class TransactionResponse {
             joiner.add(
                     String.format(
                             "%sid%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(String.valueOf(getId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getId()))));
         }
 
         // add `externalTxId` to the URL query string
@@ -1736,10 +1764,7 @@ public class TransactionResponse {
                             "%sexternalTxId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getExternalTxId()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getExternalTxId()))));
         }
 
         // add `status` to the URL query string
@@ -1749,8 +1774,7 @@ public class TransactionResponse {
                             "%sstatus%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getStatus()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getStatus()))));
         }
 
         // add `subStatus` to the URL query string
@@ -1760,9 +1784,7 @@ public class TransactionResponse {
                             "%ssubStatus%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getSubStatus()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getSubStatus()))));
         }
 
         // add `txHash` to the URL query string
@@ -1772,8 +1794,7 @@ public class TransactionResponse {
                             "%stxHash%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getTxHash()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getTxHash()))));
         }
 
         // add `operation` to the URL query string
@@ -1783,9 +1804,7 @@ public class TransactionResponse {
                             "%soperation%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getOperation()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getOperation()))));
         }
 
         // add `note` to the URL query string
@@ -1795,8 +1814,7 @@ public class TransactionResponse {
                             "%snote%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getNote()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getNote()))));
         }
 
         // add `assetId` to the URL query string
@@ -1806,8 +1824,7 @@ public class TransactionResponse {
                             "%sassetId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getAssetId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getAssetId()))));
         }
 
         // add `source` to the URL query string
@@ -1822,10 +1839,7 @@ public class TransactionResponse {
                             "%ssourceAddress%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getSourceAddress()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getSourceAddress()))));
         }
 
         // add `tag` to the URL query string
@@ -1835,8 +1849,7 @@ public class TransactionResponse {
                             "%stag%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getTag()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getTag()))));
         }
 
         // add `destination` to the URL query string
@@ -1874,10 +1887,7 @@ public class TransactionResponse {
                             "%sdestinationAddress%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getDestinationAddress()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getDestinationAddress()))));
         }
 
         // add `destinationAddressDescription` to the URL query string
@@ -1887,10 +1897,8 @@ public class TransactionResponse {
                             "%sdestinationAddressDescription%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getDestinationAddressDescription()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(
+                                    ApiClient.valueToString(getDestinationAddressDescription()))));
         }
 
         // add `destinationTag` to the URL query string
@@ -1900,10 +1908,7 @@ public class TransactionResponse {
                             "%sdestinationTag%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getDestinationTag()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getDestinationTag()))));
         }
 
         // add `contractCallDecodedData` to the URL query string
@@ -1925,10 +1930,7 @@ public class TransactionResponse {
                             "%streatAsGrossAmount%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getTreatAsGrossAmount()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getTreatAsGrossAmount()))));
         }
 
         // add `feeInfo` to the URL query string
@@ -1943,10 +1945,7 @@ public class TransactionResponse {
                             "%sfeeCurrency%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getFeeCurrency()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getFeeCurrency()))));
         }
 
         // add `networkRecords` to the URL query string
@@ -1979,9 +1978,7 @@ public class TransactionResponse {
                             "%screatedAt%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getCreatedAt()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getCreatedAt()))));
         }
 
         // add `lastUpdated` to the URL query string
@@ -1991,10 +1988,7 @@ public class TransactionResponse {
                             "%slastUpdated%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getLastUpdated()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getLastUpdated()))));
         }
 
         // add `createdBy` to the URL query string
@@ -2004,9 +1998,7 @@ public class TransactionResponse {
                             "%screatedBy%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getCreatedBy()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getCreatedBy()))));
         }
 
         // add `signedBy` to the URL query string
@@ -2021,10 +2013,8 @@ public class TransactionResponse {
                                         ? ""
                                         : String.format(
                                                 "%s%d%s", containerPrefix, i, containerSuffix),
-                                URLEncoder.encode(
-                                                String.valueOf(getSignedBy().get(i)),
-                                                StandardCharsets.UTF_8)
-                                        .replaceAll("\\+", "%20")));
+                                ApiClient.urlEncode(
+                                        ApiClient.valueToString(getSignedBy().get(i)))));
             }
         }
 
@@ -2035,9 +2025,7 @@ public class TransactionResponse {
                             "%srejectedBy%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getRejectedBy()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getRejectedBy()))));
         }
 
         // add `authorizationInfo` to the URL query string
@@ -2053,10 +2041,7 @@ public class TransactionResponse {
                             "%sexchangeTxId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getExchangeTxId()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getExchangeTxId()))));
         }
 
         // add `customerRefId` to the URL query string
@@ -2066,10 +2051,7 @@ public class TransactionResponse {
                             "%scustomerRefId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getCustomerRefId()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getCustomerRefId()))));
         }
 
         // add `amlScreeningResult` to the URL query string
@@ -2092,10 +2074,7 @@ public class TransactionResponse {
                             "%sextraParameters%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getExtraParameters()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getExtraParameters()))));
         }
 
         // add `signedMessages` to the URL query string
@@ -2128,10 +2107,7 @@ public class TransactionResponse {
                             "%snumOfConfirmations%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getNumOfConfirmations()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getNumOfConfirmations()))));
         }
 
         // add `blockInfo` to the URL query string
@@ -2146,8 +2122,7 @@ public class TransactionResponse {
                             "%sindex%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getIndex()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getIndex()))));
         }
 
         // add `rewardInfo` to the URL query string
@@ -2167,10 +2142,7 @@ public class TransactionResponse {
                             "%saddressType%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getAddressType()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getAddressType()))));
         }
 
         // add `requestedAmount` to the URL query string
@@ -2180,10 +2152,7 @@ public class TransactionResponse {
                             "%srequestedAmount%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getRequestedAmount()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getRequestedAmount()))));
         }
 
         // add `amount` to the URL query string
@@ -2193,8 +2162,7 @@ public class TransactionResponse {
                             "%samount%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getAmount()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getAmount()))));
         }
 
         // add `netAmount` to the URL query string
@@ -2204,9 +2172,7 @@ public class TransactionResponse {
                             "%snetAmount%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getNetAmount()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getNetAmount()))));
         }
 
         // add `amountUSD` to the URL query string
@@ -2216,9 +2182,7 @@ public class TransactionResponse {
                             "%samountUSD%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getAmountUSD()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getAmountUSD()))));
         }
 
         // add `serviceFee` to the URL query string
@@ -2228,9 +2192,7 @@ public class TransactionResponse {
                             "%sserviceFee%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getServiceFee()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getServiceFee()))));
         }
 
         // add `fee` to the URL query string
@@ -2240,8 +2202,7 @@ public class TransactionResponse {
                             "%sfee%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getFee()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getFee()))));
         }
 
         // add `networkFee` to the URL query string
@@ -2251,9 +2212,7 @@ public class TransactionResponse {
                             "%snetworkFee%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getNetworkFee()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getNetworkFee()))));
         }
 
         // add `errorDescription` to the URL query string
@@ -2263,10 +2222,7 @@ public class TransactionResponse {
                             "%serrorDescription%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getErrorDescription()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getErrorDescription()))));
         }
 
         return joiner.toString();

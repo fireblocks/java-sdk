@@ -13,27 +13,27 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for ScreeningUpdateConfigurations */
-public class ScreeningUpdateConfigurationsTest {
+class ScreeningUpdateConfigurationsTest {
     private final ScreeningUpdateConfigurations model = new ScreeningUpdateConfigurations();
 
     /** Model tests for ScreeningUpdateConfigurations */
     @Test
-    public void testScreeningUpdateConfigurations() {
+    void testScreeningUpdateConfigurations() {
         // TODO: test ScreeningUpdateConfigurations
     }
 
     /** Test the property 'disableBypass' */
     @Test
-    public void disableBypassTest() {
+    void disableBypassTest() {
         // TODO: test disableBypass
     }
 
     /** Test the property 'disableUnfreeze' */
     @Test
-    public void disableUnfreezeTest() {
+    void disableUnfreezeTest() {
         // TODO: test disableUnfreeze
     }
 }

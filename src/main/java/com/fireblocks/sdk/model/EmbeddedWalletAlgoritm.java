@@ -18,20 +18,21 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonValue;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
 /** algorithm name */
 @JsonPropertyOrder({EmbeddedWalletAlgoritm.JSON_PROPERTY_ALGORITHM})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class EmbeddedWalletAlgoritm {
     /** algorithm */
     public enum AlgorithmEnum {
-        ECDSA_SECP256K1("MPC_ECDSA_SECP256K1"),
+        MPC_ECDSA_SECP256_K1(String.valueOf("MPC_ECDSA_SECP256K1")),
 
-        EDDSA_ED25519("MPC_EDDSA_ED25519");
+        MPC_EDDSA_ED25519(String.valueOf("MPC_EDDSA_ED25519"));
 
         private String value;
 
@@ -61,11 +62,18 @@ public class EmbeddedWalletAlgoritm {
     }
 
     public static final String JSON_PROPERTY_ALGORITHM = "algorithm";
-    private AlgorithmEnum algorithm;
+    @jakarta.annotation.Nonnull private AlgorithmEnum algorithm;
 
     public EmbeddedWalletAlgoritm() {}
 
-    public EmbeddedWalletAlgoritm algorithm(AlgorithmEnum algorithm) {
+    @JsonCreator
+    public EmbeddedWalletAlgoritm(
+            @JsonProperty(value = JSON_PROPERTY_ALGORITHM, required = true)
+                    AlgorithmEnum algorithm) {
+        this.algorithm = algorithm;
+    }
+
+    public EmbeddedWalletAlgoritm algorithm(@jakarta.annotation.Nonnull AlgorithmEnum algorithm) {
         this.algorithm = algorithm;
         return this;
     }
@@ -84,7 +92,7 @@ public class EmbeddedWalletAlgoritm {
 
     @JsonProperty(JSON_PROPERTY_ALGORITHM)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setAlgorithm(AlgorithmEnum algorithm) {
+    public void setAlgorithm(@jakarta.annotation.Nonnull AlgorithmEnum algorithm) {
         this.algorithm = algorithm;
     }
 
@@ -165,9 +173,7 @@ public class EmbeddedWalletAlgoritm {
                             "%salgorithm%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getAlgorithm()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getAlgorithm()))));
         }
 
         return joiner.toString();

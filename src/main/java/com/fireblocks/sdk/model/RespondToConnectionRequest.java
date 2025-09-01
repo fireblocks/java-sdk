@@ -13,24 +13,32 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
 /** RespondToConnectionRequest */
 @JsonPropertyOrder({RespondToConnectionRequest.JSON_PROPERTY_APPROVE})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class RespondToConnectionRequest {
     public static final String JSON_PROPERTY_APPROVE = "approve";
-    private Boolean approve;
+    @jakarta.annotation.Nonnull private Boolean approve;
 
     public RespondToConnectionRequest() {}
 
-    public RespondToConnectionRequest approve(Boolean approve) {
+    @JsonCreator
+    public RespondToConnectionRequest(
+            @JsonProperty(value = JSON_PROPERTY_APPROVE, required = true) Boolean approve) {
+        this.approve = approve;
+    }
+
+    public RespondToConnectionRequest approve(@jakarta.annotation.Nonnull Boolean approve) {
         this.approve = approve;
         return this;
     }
@@ -49,7 +57,7 @@ public class RespondToConnectionRequest {
 
     @JsonProperty(JSON_PROPERTY_APPROVE)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setApprove(Boolean approve) {
+    public void setApprove(@jakarta.annotation.Nonnull Boolean approve) {
         this.approve = approve;
     }
 
@@ -130,8 +138,7 @@ public class RespondToConnectionRequest {
                             "%sapprove%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getApprove()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getApprove()))));
         }
 
         return joiner.toString();

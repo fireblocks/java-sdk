@@ -13,11 +13,11 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -26,17 +26,28 @@ import java.util.StringJoiner;
     CreateConnectionResponse.JSON_PROPERTY_ID,
     CreateConnectionResponse.JSON_PROPERTY_SESSION_METADATA
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class CreateConnectionResponse {
     public static final String JSON_PROPERTY_ID = "id";
-    private String id;
+    @jakarta.annotation.Nonnull private String id;
 
     public static final String JSON_PROPERTY_SESSION_METADATA = "sessionMetadata";
-    private SessionMetadata sessionMetadata;
+    @jakarta.annotation.Nonnull private SessionMetadata sessionMetadata;
 
     public CreateConnectionResponse() {}
 
-    public CreateConnectionResponse id(String id) {
+    @JsonCreator
+    public CreateConnectionResponse(
+            @JsonProperty(value = JSON_PROPERTY_ID, required = true) String id,
+            @JsonProperty(value = JSON_PROPERTY_SESSION_METADATA, required = true)
+                    SessionMetadata sessionMetadata) {
+        this.id = id;
+        this.sessionMetadata = sessionMetadata;
+    }
+
+    public CreateConnectionResponse id(@jakarta.annotation.Nonnull String id) {
         this.id = id;
         return this;
     }
@@ -55,11 +66,12 @@ public class CreateConnectionResponse {
 
     @JsonProperty(JSON_PROPERTY_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setId(String id) {
+    public void setId(@jakarta.annotation.Nonnull String id) {
         this.id = id;
     }
 
-    public CreateConnectionResponse sessionMetadata(SessionMetadata sessionMetadata) {
+    public CreateConnectionResponse sessionMetadata(
+            @jakarta.annotation.Nonnull SessionMetadata sessionMetadata) {
         this.sessionMetadata = sessionMetadata;
         return this;
     }
@@ -78,7 +90,7 @@ public class CreateConnectionResponse {
 
     @JsonProperty(JSON_PROPERTY_SESSION_METADATA)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setSessionMetadata(SessionMetadata sessionMetadata) {
+    public void setSessionMetadata(@jakarta.annotation.Nonnull SessionMetadata sessionMetadata) {
         this.sessionMetadata = sessionMetadata;
     }
 
@@ -159,10 +171,7 @@ public class CreateConnectionResponse {
             joiner.add(
                     String.format(
                             "%sid%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(String.valueOf(getId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getId()))));
         }
 
         // add `sessionMetadata` to the URL query string

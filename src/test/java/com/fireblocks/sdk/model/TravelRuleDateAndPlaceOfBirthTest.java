@@ -13,27 +13,27 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for TravelRuleDateAndPlaceOfBirth */
-public class TravelRuleDateAndPlaceOfBirthTest {
+class TravelRuleDateAndPlaceOfBirthTest {
     private final TravelRuleDateAndPlaceOfBirth model = new TravelRuleDateAndPlaceOfBirth();
 
     /** Model tests for TravelRuleDateAndPlaceOfBirth */
     @Test
-    public void testTravelRuleDateAndPlaceOfBirth() {
+    void testTravelRuleDateAndPlaceOfBirth() {
         // TODO: test TravelRuleDateAndPlaceOfBirth
     }
 
     /** Test the property 'dateOfBirth' */
     @Test
-    public void dateOfBirthTest() {
+    void dateOfBirthTest() {
         // TODO: test dateOfBirth
     }
 
     /** Test the property 'placeOfBirth' */
     @Test
-    public void placeOfBirthTest() {
+    void placeOfBirthTest() {
         // TODO: test placeOfBirth
     }
 }

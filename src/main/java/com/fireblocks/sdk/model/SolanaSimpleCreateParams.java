@@ -13,11 +13,11 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -27,20 +27,32 @@ import java.util.StringJoiner;
     SolanaSimpleCreateParams.JSON_PROPERTY_SYMBOL,
     SolanaSimpleCreateParams.JSON_PROPERTY_DECIMALS
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class SolanaSimpleCreateParams {
     public static final String JSON_PROPERTY_NAME = "name";
-    private String name;
+    @jakarta.annotation.Nonnull private String name;
 
     public static final String JSON_PROPERTY_SYMBOL = "symbol";
-    private String symbol;
+    @jakarta.annotation.Nonnull private String symbol;
 
     public static final String JSON_PROPERTY_DECIMALS = "decimals";
-    private Integer decimals;
+    @jakarta.annotation.Nonnull private Integer decimals;
 
     public SolanaSimpleCreateParams() {}
 
-    public SolanaSimpleCreateParams name(String name) {
+    @JsonCreator
+    public SolanaSimpleCreateParams(
+            @JsonProperty(value = JSON_PROPERTY_NAME, required = true) String name,
+            @JsonProperty(value = JSON_PROPERTY_SYMBOL, required = true) String symbol,
+            @JsonProperty(value = JSON_PROPERTY_DECIMALS, required = true) Integer decimals) {
+        this.name = name;
+        this.symbol = symbol;
+        this.decimals = decimals;
+    }
+
+    public SolanaSimpleCreateParams name(@jakarta.annotation.Nonnull String name) {
         this.name = name;
         return this;
     }
@@ -59,11 +71,11 @@ public class SolanaSimpleCreateParams {
 
     @JsonProperty(JSON_PROPERTY_NAME)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setName(String name) {
+    public void setName(@jakarta.annotation.Nonnull String name) {
         this.name = name;
     }
 
-    public SolanaSimpleCreateParams symbol(String symbol) {
+    public SolanaSimpleCreateParams symbol(@jakarta.annotation.Nonnull String symbol) {
         this.symbol = symbol;
         return this;
     }
@@ -82,11 +94,11 @@ public class SolanaSimpleCreateParams {
 
     @JsonProperty(JSON_PROPERTY_SYMBOL)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setSymbol(String symbol) {
+    public void setSymbol(@jakarta.annotation.Nonnull String symbol) {
         this.symbol = symbol;
     }
 
-    public SolanaSimpleCreateParams decimals(Integer decimals) {
+    public SolanaSimpleCreateParams decimals(@jakarta.annotation.Nonnull Integer decimals) {
         this.decimals = decimals;
         return this;
     }
@@ -105,7 +117,7 @@ public class SolanaSimpleCreateParams {
 
     @JsonProperty(JSON_PROPERTY_DECIMALS)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setDecimals(Integer decimals) {
+    public void setDecimals(@jakarta.annotation.Nonnull Integer decimals) {
         this.decimals = decimals;
     }
 
@@ -190,8 +202,7 @@ public class SolanaSimpleCreateParams {
                             "%sname%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getName()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getName()))));
         }
 
         // add `symbol` to the URL query string
@@ -201,8 +212,7 @@ public class SolanaSimpleCreateParams {
                             "%ssymbol%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getSymbol()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getSymbol()))));
         }
 
         // add `decimals` to the URL query string
@@ -212,8 +222,7 @@ public class SolanaSimpleCreateParams {
                             "%sdecimals%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getDecimals()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getDecimals()))));
         }
 
         return joiner.toString();

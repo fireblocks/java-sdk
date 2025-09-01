@@ -16,8 +16,7 @@ package com.fireblocks.sdk.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -30,29 +29,31 @@ import java.util.StringJoiner;
     ExchangeAsset.JSON_PROPERTY_AVAILABLE,
     ExchangeAsset.JSON_PROPERTY_CREDIT
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class ExchangeAsset {
     public static final String JSON_PROPERTY_ID = "id";
-    private String id;
+    @jakarta.annotation.Nullable private String id;
 
     public static final String JSON_PROPERTY_BALANCE = "balance";
-    private String balance;
+    @jakarta.annotation.Nullable private String balance;
 
     public static final String JSON_PROPERTY_LOCKED_AMOUNT = "lockedAmount";
-    private String lockedAmount;
+    @jakarta.annotation.Nullable private String lockedAmount;
 
     public static final String JSON_PROPERTY_TOTAL = "total";
-    private String total;
+    @jakarta.annotation.Nullable private String total;
 
     public static final String JSON_PROPERTY_AVAILABLE = "available";
-    private String available;
+    @jakarta.annotation.Nullable private String available;
 
     public static final String JSON_PROPERTY_CREDIT = "credit";
-    private String credit;
+    @jakarta.annotation.Nullable private String credit;
 
     public ExchangeAsset() {}
 
-    public ExchangeAsset id(String id) {
+    public ExchangeAsset id(@jakarta.annotation.Nullable String id) {
         this.id = id;
         return this;
     }
@@ -71,11 +72,11 @@ public class ExchangeAsset {
 
     @JsonProperty(JSON_PROPERTY_ID)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setId(String id) {
+    public void setId(@jakarta.annotation.Nullable String id) {
         this.id = id;
     }
 
-    public ExchangeAsset balance(String balance) {
+    public ExchangeAsset balance(@jakarta.annotation.Nullable String balance) {
         this.balance = balance;
         return this;
     }
@@ -94,11 +95,11 @@ public class ExchangeAsset {
 
     @JsonProperty(JSON_PROPERTY_BALANCE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setBalance(String balance) {
+    public void setBalance(@jakarta.annotation.Nullable String balance) {
         this.balance = balance;
     }
 
-    public ExchangeAsset lockedAmount(String lockedAmount) {
+    public ExchangeAsset lockedAmount(@jakarta.annotation.Nullable String lockedAmount) {
         this.lockedAmount = lockedAmount;
         return this;
     }
@@ -117,11 +118,11 @@ public class ExchangeAsset {
 
     @JsonProperty(JSON_PROPERTY_LOCKED_AMOUNT)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setLockedAmount(String lockedAmount) {
+    public void setLockedAmount(@jakarta.annotation.Nullable String lockedAmount) {
         this.lockedAmount = lockedAmount;
     }
 
-    public ExchangeAsset total(String total) {
+    public ExchangeAsset total(@jakarta.annotation.Nullable String total) {
         this.total = total;
         return this;
     }
@@ -140,11 +141,11 @@ public class ExchangeAsset {
 
     @JsonProperty(JSON_PROPERTY_TOTAL)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setTotal(String total) {
+    public void setTotal(@jakarta.annotation.Nullable String total) {
         this.total = total;
     }
 
-    public ExchangeAsset available(String available) {
+    public ExchangeAsset available(@jakarta.annotation.Nullable String available) {
         this.available = available;
         return this;
     }
@@ -163,11 +164,11 @@ public class ExchangeAsset {
 
     @JsonProperty(JSON_PROPERTY_AVAILABLE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAvailable(String available) {
+    public void setAvailable(@jakarta.annotation.Nullable String available) {
         this.available = available;
     }
 
-    public ExchangeAsset credit(String credit) {
+    public ExchangeAsset credit(@jakarta.annotation.Nullable String credit) {
         this.credit = credit;
         return this;
     }
@@ -186,7 +187,7 @@ public class ExchangeAsset {
 
     @JsonProperty(JSON_PROPERTY_CREDIT)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setCredit(String credit) {
+    public void setCredit(@jakarta.annotation.Nullable String credit) {
         this.credit = credit;
     }
 
@@ -275,10 +276,7 @@ public class ExchangeAsset {
             joiner.add(
                     String.format(
                             "%sid%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(String.valueOf(getId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getId()))));
         }
 
         // add `balance` to the URL query string
@@ -288,8 +286,7 @@ public class ExchangeAsset {
                             "%sbalance%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getBalance()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getBalance()))));
         }
 
         // add `lockedAmount` to the URL query string
@@ -299,10 +296,7 @@ public class ExchangeAsset {
                             "%slockedAmount%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getLockedAmount()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getLockedAmount()))));
         }
 
         // add `total` to the URL query string
@@ -312,8 +306,7 @@ public class ExchangeAsset {
                             "%stotal%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getTotal()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getTotal()))));
         }
 
         // add `available` to the URL query string
@@ -323,9 +316,7 @@ public class ExchangeAsset {
                             "%savailable%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getAvailable()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getAvailable()))));
         }
 
         // add `credit` to the URL query string
@@ -335,8 +326,7 @@ public class ExchangeAsset {
                             "%scredit%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getCredit()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getCredit()))));
         }
 
         return joiner.toString();

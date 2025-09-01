@@ -13,33 +13,33 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for SolanaSimpleCreateParams */
-public class SolanaSimpleCreateParamsTest {
+class SolanaSimpleCreateParamsTest {
     private final SolanaSimpleCreateParams model = new SolanaSimpleCreateParams();
 
     /** Model tests for SolanaSimpleCreateParams */
     @Test
-    public void testSolanaSimpleCreateParams() {
+    void testSolanaSimpleCreateParams() {
         // TODO: test SolanaSimpleCreateParams
     }
 
     /** Test the property 'name' */
     @Test
-    public void nameTest() {
+    void nameTest() {
         // TODO: test name
     }
 
     /** Test the property 'symbol' */
     @Test
-    public void symbolTest() {
+    void symbolTest() {
         // TODO: test symbol
     }
 
     /** Test the property 'decimals' */
     @Test
-    public void decimalsTest() {
+    void decimalsTest() {
         // TODO: test decimals
     }
 }

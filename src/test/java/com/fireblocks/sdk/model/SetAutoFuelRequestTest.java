@@ -13,21 +13,21 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for SetAutoFuelRequest */
-public class SetAutoFuelRequestTest {
+class SetAutoFuelRequestTest {
     private final SetAutoFuelRequest model = new SetAutoFuelRequest();
 
     /** Model tests for SetAutoFuelRequest */
     @Test
-    public void testSetAutoFuelRequest() {
+    void testSetAutoFuelRequest() {
         // TODO: test SetAutoFuelRequest
     }
 
     /** Test the property 'autoFuel' */
     @Test
-    public void autoFuelTest() {
+    void autoFuelTest() {
         // TODO: test autoFuel
     }
 }

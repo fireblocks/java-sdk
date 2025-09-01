@@ -16,8 +16,7 @@ package com.fireblocks.sdk.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -29,20 +28,22 @@ import java.util.StringJoiner;
     ValidatedTransactionsForRescan.JSON_PROPERTY_NETWORK_PROTOCOL,
     ValidatedTransactionsForRescan.JSON_PROPERTY_TX_HASHES
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class ValidatedTransactionsForRescan {
     public static final String JSON_PROPERTY_BASE_ASSET = "baseAsset";
-    private String baseAsset;
+    @jakarta.annotation.Nullable private String baseAsset;
 
     public static final String JSON_PROPERTY_NETWORK_PROTOCOL = "networkProtocol";
-    private String networkProtocol;
+    @jakarta.annotation.Nullable private String networkProtocol;
 
     public static final String JSON_PROPERTY_TX_HASHES = "txHashes";
-    private List<String> txHashes;
+    @jakarta.annotation.Nullable private List<String> txHashes = new ArrayList<>();
 
     public ValidatedTransactionsForRescan() {}
 
-    public ValidatedTransactionsForRescan baseAsset(String baseAsset) {
+    public ValidatedTransactionsForRescan baseAsset(@jakarta.annotation.Nullable String baseAsset) {
         this.baseAsset = baseAsset;
         return this;
     }
@@ -61,11 +62,12 @@ public class ValidatedTransactionsForRescan {
 
     @JsonProperty(JSON_PROPERTY_BASE_ASSET)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setBaseAsset(String baseAsset) {
+    public void setBaseAsset(@jakarta.annotation.Nullable String baseAsset) {
         this.baseAsset = baseAsset;
     }
 
-    public ValidatedTransactionsForRescan networkProtocol(String networkProtocol) {
+    public ValidatedTransactionsForRescan networkProtocol(
+            @jakarta.annotation.Nullable String networkProtocol) {
         this.networkProtocol = networkProtocol;
         return this;
     }
@@ -84,11 +86,12 @@ public class ValidatedTransactionsForRescan {
 
     @JsonProperty(JSON_PROPERTY_NETWORK_PROTOCOL)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setNetworkProtocol(String networkProtocol) {
+    public void setNetworkProtocol(@jakarta.annotation.Nullable String networkProtocol) {
         this.networkProtocol = networkProtocol;
     }
 
-    public ValidatedTransactionsForRescan txHashes(List<String> txHashes) {
+    public ValidatedTransactionsForRescan txHashes(
+            @jakarta.annotation.Nullable List<String> txHashes) {
         this.txHashes = txHashes;
         return this;
     }
@@ -115,7 +118,7 @@ public class ValidatedTransactionsForRescan {
 
     @JsonProperty(JSON_PROPERTY_TX_HASHES)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setTxHashes(List<String> txHashes) {
+    public void setTxHashes(@jakarta.annotation.Nullable List<String> txHashes) {
         this.txHashes = txHashes;
     }
 
@@ -202,9 +205,7 @@ public class ValidatedTransactionsForRescan {
                             "%sbaseAsset%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getBaseAsset()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getBaseAsset()))));
         }
 
         // add `networkProtocol` to the URL query string
@@ -214,10 +215,7 @@ public class ValidatedTransactionsForRescan {
                             "%snetworkProtocol%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getNetworkProtocol()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getNetworkProtocol()))));
         }
 
         // add `txHashes` to the URL query string
@@ -232,10 +230,8 @@ public class ValidatedTransactionsForRescan {
                                         ? ""
                                         : String.format(
                                                 "%s%d%s", containerPrefix, i, containerSuffix),
-                                URLEncoder.encode(
-                                                String.valueOf(getTxHashes().get(i)),
-                                                StandardCharsets.UTF_8)
-                                        .replaceAll("\\+", "%20")));
+                                ApiClient.urlEncode(
+                                        ApiClient.valueToString(getTxHashes().get(i)))));
             }
         }
 

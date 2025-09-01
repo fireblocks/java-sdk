@@ -18,9 +18,8 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.fireblocks.sdk.ApiClient;
 import java.math.BigDecimal;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -43,29 +42,31 @@ import java.util.StringJoiner;
     EmbeddedWalletAddressDetails.JSON_PROPERTY_USER_DEFINED,
     EmbeddedWalletAddressDetails.JSON_PROPERTY_STATE
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class EmbeddedWalletAddressDetails {
     public static final String JSON_PROPERTY_ACCOUNT_NAME = "accountName";
-    private String accountName;
+    @jakarta.annotation.Nonnull private String accountName;
 
     public static final String JSON_PROPERTY_ACCOUNT_ID = "accountId";
-    private String accountId;
+    @jakarta.annotation.Nonnull private String accountId;
 
     public static final String JSON_PROPERTY_ASSET = "asset";
-    private String asset;
+    @jakarta.annotation.Nonnull private String asset;
 
     public static final String JSON_PROPERTY_ADDRESS = "address";
-    private String address;
+    @jakarta.annotation.Nonnull private String address;
 
     /** addressType */
     public enum AddressTypeEnum {
-        PERMANENT("PERMANENT"),
+        PERMANENT(String.valueOf("PERMANENT")),
 
-        CHANGE("CHANGE"),
+        CHANGE(String.valueOf("CHANGE")),
 
-        DEFAULT("DEFAULT"),
+        DEFAULT(String.valueOf("DEFAULT")),
 
-        ADDRESS("ADDRESS");
+        ADDRESS(String.valueOf("ADDRESS"));
 
         private String value;
 
@@ -95,45 +96,45 @@ public class EmbeddedWalletAddressDetails {
     }
 
     public static final String JSON_PROPERTY_ADDRESS_TYPE = "addressType";
-    private AddressTypeEnum addressType;
+    @jakarta.annotation.Nonnull private AddressTypeEnum addressType;
 
     public static final String JSON_PROPERTY_ADDRESS_DESCRIPTION = "addressDescription";
-    private String addressDescription;
+    @jakarta.annotation.Nonnull private String addressDescription;
 
     public static final String JSON_PROPERTY_TAG = "tag";
-    private String tag;
+    @jakarta.annotation.Nonnull private String tag;
 
     public static final String JSON_PROPERTY_ADDRESS_INDEX = "addressIndex";
-    private BigDecimal addressIndex;
+    @jakarta.annotation.Nullable private BigDecimal addressIndex;
 
     public static final String JSON_PROPERTY_CHANGE = "change";
-    private BigDecimal change;
+    @jakarta.annotation.Nullable private BigDecimal change;
 
     public static final String JSON_PROPERTY_COIN_TYPE = "coinType";
-    private BigDecimal coinType;
+    @jakarta.annotation.Nullable private BigDecimal coinType;
 
     public static final String JSON_PROPERTY_CUSTOMER_REF_ID = "customerRefId";
-    private String customerRefId;
+    @jakarta.annotation.Nullable private String customerRefId;
 
     public static final String JSON_PROPERTY_ADDRESS_FORMAT = "addressFormat";
-    private String addressFormat;
+    @jakarta.annotation.Nullable private String addressFormat;
 
     public static final String JSON_PROPERTY_LEGACY_ADDRESS = "legacyAddress";
-    private String legacyAddress;
+    @jakarta.annotation.Nullable private String legacyAddress;
 
     public static final String JSON_PROPERTY_PAYMENT_ADDRESS = "paymentAddress";
-    private String paymentAddress;
+    @jakarta.annotation.Nullable private String paymentAddress;
 
     public static final String JSON_PROPERTY_USER_DEFINED = "userDefined";
-    private Boolean userDefined;
+    @jakarta.annotation.Nullable private Boolean userDefined;
 
     /** state */
     public enum StateEnum {
-        PENDING_ACTIVATION("PENDING_ACTIVATION"),
+        PENDING_ACTIVATION(String.valueOf("PENDING_ACTIVATION")),
 
-        ACTIVATION_FAILED("ACTIVATION_FAILED"),
+        ACTIVATION_FAILED(String.valueOf("ACTIVATION_FAILED")),
 
-        READY("READY");
+        READY(String.valueOf("READY"));
 
         private String value;
 
@@ -163,11 +164,32 @@ public class EmbeddedWalletAddressDetails {
     }
 
     public static final String JSON_PROPERTY_STATE = "state";
-    private StateEnum state;
+    @jakarta.annotation.Nullable private StateEnum state;
 
     public EmbeddedWalletAddressDetails() {}
 
-    public EmbeddedWalletAddressDetails accountName(String accountName) {
+    @JsonCreator
+    public EmbeddedWalletAddressDetails(
+            @JsonProperty(value = JSON_PROPERTY_ACCOUNT_NAME, required = true) String accountName,
+            @JsonProperty(value = JSON_PROPERTY_ACCOUNT_ID, required = true) String accountId,
+            @JsonProperty(value = JSON_PROPERTY_ASSET, required = true) String asset,
+            @JsonProperty(value = JSON_PROPERTY_ADDRESS, required = true) String address,
+            @JsonProperty(value = JSON_PROPERTY_ADDRESS_TYPE, required = true)
+                    AddressTypeEnum addressType,
+            @JsonProperty(value = JSON_PROPERTY_ADDRESS_DESCRIPTION, required = true)
+                    String addressDescription,
+            @JsonProperty(value = JSON_PROPERTY_TAG, required = true) String tag) {
+        this.accountName = accountName;
+        this.accountId = accountId;
+        this.asset = asset;
+        this.address = address;
+        this.addressType = addressType;
+        this.addressDescription = addressDescription;
+        this.tag = tag;
+    }
+
+    public EmbeddedWalletAddressDetails accountName(
+            @jakarta.annotation.Nonnull String accountName) {
         this.accountName = accountName;
         return this;
     }
@@ -186,11 +208,11 @@ public class EmbeddedWalletAddressDetails {
 
     @JsonProperty(JSON_PROPERTY_ACCOUNT_NAME)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setAccountName(String accountName) {
+    public void setAccountName(@jakarta.annotation.Nonnull String accountName) {
         this.accountName = accountName;
     }
 
-    public EmbeddedWalletAddressDetails accountId(String accountId) {
+    public EmbeddedWalletAddressDetails accountId(@jakarta.annotation.Nonnull String accountId) {
         this.accountId = accountId;
         return this;
     }
@@ -209,11 +231,11 @@ public class EmbeddedWalletAddressDetails {
 
     @JsonProperty(JSON_PROPERTY_ACCOUNT_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setAccountId(String accountId) {
+    public void setAccountId(@jakarta.annotation.Nonnull String accountId) {
         this.accountId = accountId;
     }
 
-    public EmbeddedWalletAddressDetails asset(String asset) {
+    public EmbeddedWalletAddressDetails asset(@jakarta.annotation.Nonnull String asset) {
         this.asset = asset;
         return this;
     }
@@ -232,11 +254,11 @@ public class EmbeddedWalletAddressDetails {
 
     @JsonProperty(JSON_PROPERTY_ASSET)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setAsset(String asset) {
+    public void setAsset(@jakarta.annotation.Nonnull String asset) {
         this.asset = asset;
     }
 
-    public EmbeddedWalletAddressDetails address(String address) {
+    public EmbeddedWalletAddressDetails address(@jakarta.annotation.Nonnull String address) {
         this.address = address;
         return this;
     }
@@ -255,11 +277,12 @@ public class EmbeddedWalletAddressDetails {
 
     @JsonProperty(JSON_PROPERTY_ADDRESS)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setAddress(String address) {
+    public void setAddress(@jakarta.annotation.Nonnull String address) {
         this.address = address;
     }
 
-    public EmbeddedWalletAddressDetails addressType(AddressTypeEnum addressType) {
+    public EmbeddedWalletAddressDetails addressType(
+            @jakarta.annotation.Nonnull AddressTypeEnum addressType) {
         this.addressType = addressType;
         return this;
     }
@@ -278,11 +301,12 @@ public class EmbeddedWalletAddressDetails {
 
     @JsonProperty(JSON_PROPERTY_ADDRESS_TYPE)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setAddressType(AddressTypeEnum addressType) {
+    public void setAddressType(@jakarta.annotation.Nonnull AddressTypeEnum addressType) {
         this.addressType = addressType;
     }
 
-    public EmbeddedWalletAddressDetails addressDescription(String addressDescription) {
+    public EmbeddedWalletAddressDetails addressDescription(
+            @jakarta.annotation.Nonnull String addressDescription) {
         this.addressDescription = addressDescription;
         return this;
     }
@@ -301,11 +325,11 @@ public class EmbeddedWalletAddressDetails {
 
     @JsonProperty(JSON_PROPERTY_ADDRESS_DESCRIPTION)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setAddressDescription(String addressDescription) {
+    public void setAddressDescription(@jakarta.annotation.Nonnull String addressDescription) {
         this.addressDescription = addressDescription;
     }
 
-    public EmbeddedWalletAddressDetails tag(String tag) {
+    public EmbeddedWalletAddressDetails tag(@jakarta.annotation.Nonnull String tag) {
         this.tag = tag;
         return this;
     }
@@ -324,11 +348,12 @@ public class EmbeddedWalletAddressDetails {
 
     @JsonProperty(JSON_PROPERTY_TAG)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setTag(String tag) {
+    public void setTag(@jakarta.annotation.Nonnull String tag) {
         this.tag = tag;
     }
 
-    public EmbeddedWalletAddressDetails addressIndex(BigDecimal addressIndex) {
+    public EmbeddedWalletAddressDetails addressIndex(
+            @jakarta.annotation.Nullable BigDecimal addressIndex) {
         this.addressIndex = addressIndex;
         return this;
     }
@@ -347,11 +372,11 @@ public class EmbeddedWalletAddressDetails {
 
     @JsonProperty(JSON_PROPERTY_ADDRESS_INDEX)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAddressIndex(BigDecimal addressIndex) {
+    public void setAddressIndex(@jakarta.annotation.Nullable BigDecimal addressIndex) {
         this.addressIndex = addressIndex;
     }
 
-    public EmbeddedWalletAddressDetails change(BigDecimal change) {
+    public EmbeddedWalletAddressDetails change(@jakarta.annotation.Nullable BigDecimal change) {
         this.change = change;
         return this;
     }
@@ -370,11 +395,11 @@ public class EmbeddedWalletAddressDetails {
 
     @JsonProperty(JSON_PROPERTY_CHANGE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setChange(BigDecimal change) {
+    public void setChange(@jakarta.annotation.Nullable BigDecimal change) {
         this.change = change;
     }
 
-    public EmbeddedWalletAddressDetails coinType(BigDecimal coinType) {
+    public EmbeddedWalletAddressDetails coinType(@jakarta.annotation.Nullable BigDecimal coinType) {
         this.coinType = coinType;
         return this;
     }
@@ -393,11 +418,12 @@ public class EmbeddedWalletAddressDetails {
 
     @JsonProperty(JSON_PROPERTY_COIN_TYPE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setCoinType(BigDecimal coinType) {
+    public void setCoinType(@jakarta.annotation.Nullable BigDecimal coinType) {
         this.coinType = coinType;
     }
 
-    public EmbeddedWalletAddressDetails customerRefId(String customerRefId) {
+    public EmbeddedWalletAddressDetails customerRefId(
+            @jakarta.annotation.Nullable String customerRefId) {
         this.customerRefId = customerRefId;
         return this;
     }
@@ -416,11 +442,12 @@ public class EmbeddedWalletAddressDetails {
 
     @JsonProperty(JSON_PROPERTY_CUSTOMER_REF_ID)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setCustomerRefId(String customerRefId) {
+    public void setCustomerRefId(@jakarta.annotation.Nullable String customerRefId) {
         this.customerRefId = customerRefId;
     }
 
-    public EmbeddedWalletAddressDetails addressFormat(String addressFormat) {
+    public EmbeddedWalletAddressDetails addressFormat(
+            @jakarta.annotation.Nullable String addressFormat) {
         this.addressFormat = addressFormat;
         return this;
     }
@@ -439,11 +466,12 @@ public class EmbeddedWalletAddressDetails {
 
     @JsonProperty(JSON_PROPERTY_ADDRESS_FORMAT)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAddressFormat(String addressFormat) {
+    public void setAddressFormat(@jakarta.annotation.Nullable String addressFormat) {
         this.addressFormat = addressFormat;
     }
 
-    public EmbeddedWalletAddressDetails legacyAddress(String legacyAddress) {
+    public EmbeddedWalletAddressDetails legacyAddress(
+            @jakarta.annotation.Nullable String legacyAddress) {
         this.legacyAddress = legacyAddress;
         return this;
     }
@@ -462,11 +490,12 @@ public class EmbeddedWalletAddressDetails {
 
     @JsonProperty(JSON_PROPERTY_LEGACY_ADDRESS)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setLegacyAddress(String legacyAddress) {
+    public void setLegacyAddress(@jakarta.annotation.Nullable String legacyAddress) {
         this.legacyAddress = legacyAddress;
     }
 
-    public EmbeddedWalletAddressDetails paymentAddress(String paymentAddress) {
+    public EmbeddedWalletAddressDetails paymentAddress(
+            @jakarta.annotation.Nullable String paymentAddress) {
         this.paymentAddress = paymentAddress;
         return this;
     }
@@ -485,11 +514,12 @@ public class EmbeddedWalletAddressDetails {
 
     @JsonProperty(JSON_PROPERTY_PAYMENT_ADDRESS)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setPaymentAddress(String paymentAddress) {
+    public void setPaymentAddress(@jakarta.annotation.Nullable String paymentAddress) {
         this.paymentAddress = paymentAddress;
     }
 
-    public EmbeddedWalletAddressDetails userDefined(Boolean userDefined) {
+    public EmbeddedWalletAddressDetails userDefined(
+            @jakarta.annotation.Nullable Boolean userDefined) {
         this.userDefined = userDefined;
         return this;
     }
@@ -508,11 +538,11 @@ public class EmbeddedWalletAddressDetails {
 
     @JsonProperty(JSON_PROPERTY_USER_DEFINED)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setUserDefined(Boolean userDefined) {
+    public void setUserDefined(@jakarta.annotation.Nullable Boolean userDefined) {
         this.userDefined = userDefined;
     }
 
-    public EmbeddedWalletAddressDetails state(StateEnum state) {
+    public EmbeddedWalletAddressDetails state(@jakarta.annotation.Nullable StateEnum state) {
         this.state = state;
         return this;
     }
@@ -531,7 +561,7 @@ public class EmbeddedWalletAddressDetails {
 
     @JsonProperty(JSON_PROPERTY_STATE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setState(StateEnum state) {
+    public void setState(@jakarta.annotation.Nullable StateEnum state) {
         this.state = state;
     }
 
@@ -662,10 +692,7 @@ public class EmbeddedWalletAddressDetails {
                             "%saccountName%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getAccountName()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getAccountName()))));
         }
 
         // add `accountId` to the URL query string
@@ -675,9 +702,7 @@ public class EmbeddedWalletAddressDetails {
                             "%saccountId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getAccountId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getAccountId()))));
         }
 
         // add `asset` to the URL query string
@@ -687,8 +712,7 @@ public class EmbeddedWalletAddressDetails {
                             "%sasset%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getAsset()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getAsset()))));
         }
 
         // add `address` to the URL query string
@@ -698,8 +722,7 @@ public class EmbeddedWalletAddressDetails {
                             "%saddress%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getAddress()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getAddress()))));
         }
 
         // add `addressType` to the URL query string
@@ -709,10 +732,7 @@ public class EmbeddedWalletAddressDetails {
                             "%saddressType%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getAddressType()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getAddressType()))));
         }
 
         // add `addressDescription` to the URL query string
@@ -722,10 +742,7 @@ public class EmbeddedWalletAddressDetails {
                             "%saddressDescription%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getAddressDescription()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getAddressDescription()))));
         }
 
         // add `tag` to the URL query string
@@ -735,8 +752,7 @@ public class EmbeddedWalletAddressDetails {
                             "%stag%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getTag()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getTag()))));
         }
 
         // add `addressIndex` to the URL query string
@@ -746,10 +762,7 @@ public class EmbeddedWalletAddressDetails {
                             "%saddressIndex%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getAddressIndex()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getAddressIndex()))));
         }
 
         // add `change` to the URL query string
@@ -759,8 +772,7 @@ public class EmbeddedWalletAddressDetails {
                             "%schange%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getChange()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getChange()))));
         }
 
         // add `coinType` to the URL query string
@@ -770,8 +782,7 @@ public class EmbeddedWalletAddressDetails {
                             "%scoinType%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getCoinType()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getCoinType()))));
         }
 
         // add `customerRefId` to the URL query string
@@ -781,10 +792,7 @@ public class EmbeddedWalletAddressDetails {
                             "%scustomerRefId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getCustomerRefId()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getCustomerRefId()))));
         }
 
         // add `addressFormat` to the URL query string
@@ -794,10 +802,7 @@ public class EmbeddedWalletAddressDetails {
                             "%saddressFormat%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getAddressFormat()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getAddressFormat()))));
         }
 
         // add `legacyAddress` to the URL query string
@@ -807,10 +812,7 @@ public class EmbeddedWalletAddressDetails {
                             "%slegacyAddress%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getLegacyAddress()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getLegacyAddress()))));
         }
 
         // add `paymentAddress` to the URL query string
@@ -820,10 +822,7 @@ public class EmbeddedWalletAddressDetails {
                             "%spaymentAddress%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getPaymentAddress()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getPaymentAddress()))));
         }
 
         // add `userDefined` to the URL query string
@@ -833,10 +832,7 @@ public class EmbeddedWalletAddressDetails {
                             "%suserDefined%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getUserDefined()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getUserDefined()))));
         }
 
         // add `state` to the URL query string
@@ -846,8 +842,7 @@ public class EmbeddedWalletAddressDetails {
                             "%sstate%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getState()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getState()))));
         }
 
         return joiner.toString();

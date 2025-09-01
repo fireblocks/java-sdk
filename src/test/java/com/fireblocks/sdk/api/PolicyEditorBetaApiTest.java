@@ -15,11 +15,11 @@ package com.fireblocks.sdk.api;
 
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
-import com.fireblocks.sdk.model.DraftReviewAndValidationResponse;
-import com.fireblocks.sdk.model.PolicyAndValidationResponse;
-import com.fireblocks.sdk.model.PolicyRules;
-import com.fireblocks.sdk.model.PublishDraftRequest;
-import com.fireblocks.sdk.model.PublishResult;
+import com.fireblocks.sdk.model.LegacyDraftReviewAndValidationResponse;
+import com.fireblocks.sdk.model.LegacyPolicyAndValidationResponse;
+import com.fireblocks.sdk.model.LegacyPolicyRules;
+import com.fireblocks.sdk.model.LegacyPublishDraftRequest;
+import com.fireblocks.sdk.model.LegacyPublishResult;
 import java.util.concurrent.CompletableFuture;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -33,50 +33,60 @@ public class PolicyEditorBetaApiTest {
     /**
      * Get the active policy and its validation
      *
-     * <p>Returns the active policy and its validation. &lt;/br&gt; **Note:** These endpoints are
-     * currently in beta and might be subject to changes. If you want to participate and learn more
-     * about the Fireblocks TAP, please contact your Fireblocks Customer Success Manager or send an
-     * email to CSM@fireblocks.com.
+     * <p>Legacy Endpoint – Returns the active policy and its validation. &lt;/br&gt; **Note:** -
+     * This endpoint will remain available for the foreseeable future and is not
+     * deprecated.&lt;/br&gt; - The &#x60;getActivePolicy&#x60; endpoint under policy/paths provides
+     * policy type-specific operations and improved functionality.&lt;/br&gt; - These endpoints are
+     * currently in beta and might be subject to changes.&lt;/br&gt; If you want to participate and
+     * learn more about the Fireblocks TAP, please contact your Fireblocks Customer Success Manager
+     * or send an email to CSM@fireblocks.com.
      *
      * @throws ApiException if the Api call fails
      */
     @Test
-    public void getActivePolicyTest() throws ApiException {
-        CompletableFuture<ApiResponse<PolicyAndValidationResponse>> response =
-                api.getActivePolicy();
+    public void getActivePolicyLegacyTest() throws ApiException {
+        CompletableFuture<ApiResponse<LegacyPolicyAndValidationResponse>> response =
+                api.getActivePolicyLegacy();
     }
 
     /**
      * Get the active draft
      *
-     * <p>Returns the active draft and its validation. &lt;/br&gt; **Note:** These endpoints are
-     * currently in beta and might be subject to changes. If you want to participate and learn more
-     * about the Fireblocks TAP, please contact your Fireblocks Customer Success Manager or send an
-     * email to CSM@fireblocks.com.
+     * <p>Legacy Endpoint – Returns the active draft and its validation. &lt;/br&gt; **Note:** -
+     * This endpoint will remain available for the foreseeable future and is not
+     * deprecated.&lt;/br&gt; - The &#x60;getDraft&#x60; endpoint under policy/paths provides policy
+     * type-specific operations and improved functionality.&lt;/br&gt; - These endpoints are
+     * currently in beta and might be subject to changes.&lt;/br&gt; If you want to participate and
+     * learn more about the Fireblocks TAP, please contact your Fireblocks Customer Success Manager
+     * or send an email to CSM@fireblocks.com.
      *
      * @throws ApiException if the Api call fails
      */
     @Test
-    public void getDraftTest() throws ApiException {
-        CompletableFuture<ApiResponse<DraftReviewAndValidationResponse>> response = api.getDraft();
+    public void getDraftLegacyTest() throws ApiException {
+        CompletableFuture<ApiResponse<LegacyDraftReviewAndValidationResponse>> response =
+                api.getDraftLegacy();
     }
 
     /**
      * Send publish request for a certain draft id
      *
-     * <p>Send publish request of certain draft id and returns the response. &lt;/br&gt; **Note:**
-     * These endpoints are currently in beta and might be subject to changes. If you want to
-     * participate and learn more about the Fireblocks TAP, please contact your Fireblocks Customer
-     * Success Manager or send an email to CSM@fireblocks.com.
+     * <p>Legacy Endpoint – Send publish request of certain draft id and returns the response.
+     * &lt;/br&gt; **Note:** - This endpoint will remain available for the foreseeable future and is
+     * not deprecated.&lt;/br&gt; - The &#x60;publishDraft&#x60; endpoint under policy/paths
+     * provides improved functionality and better performance.&lt;/br&gt; - These endpoints are
+     * currently in beta and might be subject to changes.&lt;/br&gt; If you want to participate and
+     * learn more about the Fireblocks TAP, please contact your Fireblocks Customer Success Manager
+     * or send an email to CSM@fireblocks.com.
      *
      * @throws ApiException if the Api call fails
      */
     @Test
-    public void publishDraftTest() throws ApiException {
-        PublishDraftRequest publishDraftRequest = null;
+    public void publishDraftLegacyTest() throws ApiException {
+        LegacyPublishDraftRequest legacyPublishDraftRequest = null;
         String idempotencyKey = null;
-        CompletableFuture<ApiResponse<PublishResult>> response =
-                api.publishDraft(publishDraftRequest, idempotencyKey);
+        CompletableFuture<ApiResponse<LegacyPublishResult>> response =
+                api.publishDraftLegacy(legacyPublishDraftRequest, idempotencyKey);
     }
 
     /**
@@ -91,27 +101,30 @@ public class PolicyEditorBetaApiTest {
      */
     @Test
     public void publishPolicyRulesTest() throws ApiException {
-        PolicyRules policyRules = null;
+        LegacyPolicyRules legacyPolicyRules = null;
         String idempotencyKey = null;
-        CompletableFuture<ApiResponse<PublishResult>> response =
-                api.publishPolicyRules(policyRules, idempotencyKey);
+        CompletableFuture<ApiResponse<LegacyPublishResult>> response =
+                api.publishPolicyRules(legacyPolicyRules, idempotencyKey);
     }
 
     /**
      * Update the draft with a new set of rules
      *
-     * <p>Update the draft and return its validation. &lt;/br&gt; **Note:** These endpoints are
-     * currently in beta and might be subject to changes. If you want to participate and learn more
-     * about the Fireblocks TAP, please contact your Fireblocks Customer Success Manager or send an
-     * email to CSM@fireblocks.com.
+     * <p>Legacy Endpoint – Update the draft and return its validation. &lt;/br&gt; **Note:** - This
+     * endpoint will remain available for the foreseeable future and is not deprecated.&lt;/br&gt; -
+     * The &#x60;updateDraft&#x60; endpoint under policy/paths provides policy type-specific
+     * operations and improved functionality.&lt;/br&gt; - These endpoints are currently in beta and
+     * might be subject to changes.&lt;/br&gt; If you want to participate and learn more about the
+     * Fireblocks TAP, please contact your Fireblocks Customer Success Manager or send an email to
+     * CSM@fireblocks.com.
      *
      * @throws ApiException if the Api call fails
      */
     @Test
-    public void updateDraftTest() throws ApiException {
-        PolicyRules policyRules = null;
+    public void updateDraftLegacyTest() throws ApiException {
+        LegacyPolicyRules legacyPolicyRules = null;
         String idempotencyKey = null;
-        CompletableFuture<ApiResponse<DraftReviewAndValidationResponse>> response =
-                api.updateDraft(policyRules, idempotencyKey);
+        CompletableFuture<ApiResponse<LegacyDraftReviewAndValidationResponse>> response =
+                api.updateDraftLegacy(legacyPolicyRules, idempotencyKey);
     }
 }

@@ -16,8 +16,7 @@ package com.fireblocks.sdk.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -33,32 +32,34 @@ import java.util.StringJoiner;
     VaultAccount.JSON_PROPERTY_AUTO_FUEL,
     VaultAccount.JSON_PROPERTY_TAGS
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class VaultAccount {
     public static final String JSON_PROPERTY_ID = "id";
-    private String id;
+    @jakarta.annotation.Nullable private String id;
 
     public static final String JSON_PROPERTY_NAME = "name";
-    private String name;
+    @jakarta.annotation.Nullable private String name;
 
     public static final String JSON_PROPERTY_ASSETS = "assets";
-    private List<VaultAsset> assets;
+    @jakarta.annotation.Nullable private List<VaultAsset> assets = new ArrayList<>();
 
     public static final String JSON_PROPERTY_HIDDEN_ON_U_I = "hiddenOnUI";
-    private Boolean hiddenOnUI;
+    @jakarta.annotation.Nullable private Boolean hiddenOnUI;
 
     public static final String JSON_PROPERTY_CUSTOMER_REF_ID = "customerRefId";
-    private String customerRefId;
+    @jakarta.annotation.Nullable private String customerRefId;
 
     public static final String JSON_PROPERTY_AUTO_FUEL = "autoFuel";
-    private Boolean autoFuel;
+    @jakarta.annotation.Nullable private Boolean autoFuel;
 
     public static final String JSON_PROPERTY_TAGS = "tags";
-    private List<Tag> tags;
+    @jakarta.annotation.Nullable private List<Tag> tags = new ArrayList<>();
 
     public VaultAccount() {}
 
-    public VaultAccount id(String id) {
+    public VaultAccount id(@jakarta.annotation.Nullable String id) {
         this.id = id;
         return this;
     }
@@ -77,11 +78,11 @@ public class VaultAccount {
 
     @JsonProperty(JSON_PROPERTY_ID)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setId(String id) {
+    public void setId(@jakarta.annotation.Nullable String id) {
         this.id = id;
     }
 
-    public VaultAccount name(String name) {
+    public VaultAccount name(@jakarta.annotation.Nullable String name) {
         this.name = name;
         return this;
     }
@@ -100,11 +101,11 @@ public class VaultAccount {
 
     @JsonProperty(JSON_PROPERTY_NAME)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setName(String name) {
+    public void setName(@jakarta.annotation.Nullable String name) {
         this.name = name;
     }
 
-    public VaultAccount assets(List<VaultAsset> assets) {
+    public VaultAccount assets(@jakarta.annotation.Nullable List<VaultAsset> assets) {
         this.assets = assets;
         return this;
     }
@@ -131,11 +132,11 @@ public class VaultAccount {
 
     @JsonProperty(JSON_PROPERTY_ASSETS)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAssets(List<VaultAsset> assets) {
+    public void setAssets(@jakarta.annotation.Nullable List<VaultAsset> assets) {
         this.assets = assets;
     }
 
-    public VaultAccount hiddenOnUI(Boolean hiddenOnUI) {
+    public VaultAccount hiddenOnUI(@jakarta.annotation.Nullable Boolean hiddenOnUI) {
         this.hiddenOnUI = hiddenOnUI;
         return this;
     }
@@ -154,11 +155,11 @@ public class VaultAccount {
 
     @JsonProperty(JSON_PROPERTY_HIDDEN_ON_U_I)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setHiddenOnUI(Boolean hiddenOnUI) {
+    public void setHiddenOnUI(@jakarta.annotation.Nullable Boolean hiddenOnUI) {
         this.hiddenOnUI = hiddenOnUI;
     }
 
-    public VaultAccount customerRefId(String customerRefId) {
+    public VaultAccount customerRefId(@jakarta.annotation.Nullable String customerRefId) {
         this.customerRefId = customerRefId;
         return this;
     }
@@ -177,11 +178,11 @@ public class VaultAccount {
 
     @JsonProperty(JSON_PROPERTY_CUSTOMER_REF_ID)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setCustomerRefId(String customerRefId) {
+    public void setCustomerRefId(@jakarta.annotation.Nullable String customerRefId) {
         this.customerRefId = customerRefId;
     }
 
-    public VaultAccount autoFuel(Boolean autoFuel) {
+    public VaultAccount autoFuel(@jakarta.annotation.Nullable Boolean autoFuel) {
         this.autoFuel = autoFuel;
         return this;
     }
@@ -200,11 +201,11 @@ public class VaultAccount {
 
     @JsonProperty(JSON_PROPERTY_AUTO_FUEL)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAutoFuel(Boolean autoFuel) {
+    public void setAutoFuel(@jakarta.annotation.Nullable Boolean autoFuel) {
         this.autoFuel = autoFuel;
     }
 
-    public VaultAccount tags(List<Tag> tags) {
+    public VaultAccount tags(@jakarta.annotation.Nullable List<Tag> tags) {
         this.tags = tags;
         return this;
     }
@@ -231,7 +232,7 @@ public class VaultAccount {
 
     @JsonProperty(JSON_PROPERTY_TAGS)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setTags(List<Tag> tags) {
+    public void setTags(@jakarta.annotation.Nullable List<Tag> tags) {
         this.tags = tags;
     }
 
@@ -322,10 +323,7 @@ public class VaultAccount {
             joiner.add(
                     String.format(
                             "%sid%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(String.valueOf(getId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getId()))));
         }
 
         // add `name` to the URL query string
@@ -335,8 +333,7 @@ public class VaultAccount {
                             "%sname%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getName()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getName()))));
         }
 
         // add `assets` to the URL query string
@@ -369,9 +366,7 @@ public class VaultAccount {
                             "%shiddenOnUI%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getHiddenOnUI()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getHiddenOnUI()))));
         }
 
         // add `customerRefId` to the URL query string
@@ -381,10 +376,7 @@ public class VaultAccount {
                             "%scustomerRefId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getCustomerRefId()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getCustomerRefId()))));
         }
 
         // add `autoFuel` to the URL query string
@@ -394,8 +386,7 @@ public class VaultAccount {
                             "%sautoFuel%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getAutoFuel()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getAutoFuel()))));
         }
 
         // add `tags` to the URL query string

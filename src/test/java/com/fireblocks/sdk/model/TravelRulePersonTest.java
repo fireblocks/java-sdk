@@ -13,27 +13,27 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for TravelRulePerson */
-public class TravelRulePersonTest {
+class TravelRulePersonTest {
     private final TravelRulePerson model = new TravelRulePerson();
 
     /** Model tests for TravelRulePerson */
     @Test
-    public void testTravelRulePerson() {
+    void testTravelRulePerson() {
         // TODO: test TravelRulePerson
     }
 
     /** Test the property 'naturalPerson' */
     @Test
-    public void naturalPersonTest() {
+    void naturalPersonTest() {
         // TODO: test naturalPerson
     }
 
     /** Test the property 'legalPerson' */
     @Test
-    public void legalPersonTest() {
+    void legalPersonTest() {
         // TODO: test legalPerson
     }
 }

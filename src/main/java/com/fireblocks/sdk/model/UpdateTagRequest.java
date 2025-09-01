@@ -16,8 +16,7 @@ package com.fireblocks.sdk.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -26,17 +25,19 @@ import java.util.StringJoiner;
     UpdateTagRequest.JSON_PROPERTY_LABEL,
     UpdateTagRequest.JSON_PROPERTY_DESCRIPTION
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class UpdateTagRequest {
     public static final String JSON_PROPERTY_LABEL = "label";
-    private String label;
+    @jakarta.annotation.Nullable private String label;
 
     public static final String JSON_PROPERTY_DESCRIPTION = "description";
-    private String description;
+    @jakarta.annotation.Nullable private String description;
 
     public UpdateTagRequest() {}
 
-    public UpdateTagRequest label(String label) {
+    public UpdateTagRequest label(@jakarta.annotation.Nullable String label) {
         this.label = label;
         return this;
     }
@@ -55,11 +56,11 @@ public class UpdateTagRequest {
 
     @JsonProperty(JSON_PROPERTY_LABEL)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setLabel(String label) {
+    public void setLabel(@jakarta.annotation.Nullable String label) {
         this.label = label;
     }
 
-    public UpdateTagRequest description(String description) {
+    public UpdateTagRequest description(@jakarta.annotation.Nullable String description) {
         this.description = description;
         return this;
     }
@@ -78,7 +79,7 @@ public class UpdateTagRequest {
 
     @JsonProperty(JSON_PROPERTY_DESCRIPTION)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setDescription(String description) {
+    public void setDescription(@jakarta.annotation.Nullable String description) {
         this.description = description;
     }
 
@@ -161,8 +162,7 @@ public class UpdateTagRequest {
                             "%slabel%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getLabel()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getLabel()))));
         }
 
         // add `description` to the URL query string
@@ -172,10 +172,7 @@ public class UpdateTagRequest {
                             "%sdescription%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getDescription()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getDescription()))));
         }
 
         return joiner.toString();

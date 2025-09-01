@@ -13,21 +13,21 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for ConvertAssetsResponse */
-public class ConvertAssetsResponseTest {
+class ConvertAssetsResponseTest {
     private final ConvertAssetsResponse model = new ConvertAssetsResponse();
 
     /** Model tests for ConvertAssetsResponse */
     @Test
-    public void testConvertAssetsResponse() {
+    void testConvertAssetsResponse() {
         // TODO: test ConvertAssetsResponse
     }
 
     /** Test the property 'success' */
     @Test
-    public void successTest() {
+    void successTest() {
         // TODO: test success
     }
 }

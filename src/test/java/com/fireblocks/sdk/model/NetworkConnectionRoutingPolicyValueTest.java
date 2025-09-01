@@ -13,34 +13,34 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for NetworkConnectionRoutingPolicyValue */
-public class NetworkConnectionRoutingPolicyValueTest {
+class NetworkConnectionRoutingPolicyValueTest {
     private final NetworkConnectionRoutingPolicyValue model =
             new NetworkConnectionRoutingPolicyValue();
 
     /** Model tests for NetworkConnectionRoutingPolicyValue */
     @Test
-    public void testNetworkConnectionRoutingPolicyValue() {
+    void testNetworkConnectionRoutingPolicyValue() {
         // TODO: test NetworkConnectionRoutingPolicyValue
     }
 
     /** Test the property 'scheme' */
     @Test
-    public void schemeTest() {
+    void schemeTest() {
         // TODO: test scheme
     }
 
     /** Test the property 'dstType' */
     @Test
-    public void dstTypeTest() {
+    void dstTypeTest() {
         // TODO: test dstType
     }
 
     /** Test the property 'dstId' */
     @Test
-    public void dstIdTest() {
+    void dstIdTest() {
         // TODO: test dstId
     }
 }

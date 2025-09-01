@@ -13,28 +13,28 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for ResendNotificationsByResourceIdRequest */
-public class ResendNotificationsByResourceIdRequestTest {
+class ResendNotificationsByResourceIdRequestTest {
     private final ResendNotificationsByResourceIdRequest model =
             new ResendNotificationsByResourceIdRequest();
 
     /** Model tests for ResendNotificationsByResourceIdRequest */
     @Test
-    public void testResendNotificationsByResourceIdRequest() {
+    void testResendNotificationsByResourceIdRequest() {
         // TODO: test ResendNotificationsByResourceIdRequest
     }
 
     /** Test the property 'resourceId' */
     @Test
-    public void resourceIdTest() {
+    void resourceIdTest() {
         // TODO: test resourceId
     }
 
     /** Test the property 'excludeStatuses' */
     @Test
-    public void excludeStatusesTest() {
+    void excludeStatusesTest() {
         // TODO: test excludeStatuses
     }
 }

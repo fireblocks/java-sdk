@@ -13,11 +13,11 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -31,23 +31,40 @@ import java.util.UUID;
     GetDeployableAddressRequest.JSON_PROPERTY_INIT_PARAMS,
     GetDeployableAddressRequest.JSON_PROPERTY_SALT
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class GetDeployableAddressRequest {
     public static final String JSON_PROPERTY_CHAIN_DESCRIPTOR = "chainDescriptor";
-    private String chainDescriptor;
+    @jakarta.annotation.Nonnull private String chainDescriptor;
 
     public static final String JSON_PROPERTY_TEMPLATE_ID = "templateId";
-    private UUID templateId;
+    @jakarta.annotation.Nonnull private UUID templateId;
 
     public static final String JSON_PROPERTY_INIT_PARAMS = "initParams";
-    private List<ParameterWithValue> initParams = new ArrayList<>();
+    @jakarta.annotation.Nonnull private List<ParameterWithValue> initParams = new ArrayList<>();
 
     public static final String JSON_PROPERTY_SALT = "salt";
-    private String salt;
+    @jakarta.annotation.Nonnull private String salt;
 
     public GetDeployableAddressRequest() {}
 
-    public GetDeployableAddressRequest chainDescriptor(String chainDescriptor) {
+    @JsonCreator
+    public GetDeployableAddressRequest(
+            @JsonProperty(value = JSON_PROPERTY_CHAIN_DESCRIPTOR, required = true)
+                    String chainDescriptor,
+            @JsonProperty(value = JSON_PROPERTY_TEMPLATE_ID, required = true) UUID templateId,
+            @JsonProperty(value = JSON_PROPERTY_INIT_PARAMS, required = true)
+                    List<ParameterWithValue> initParams,
+            @JsonProperty(value = JSON_PROPERTY_SALT, required = true) String salt) {
+        this.chainDescriptor = chainDescriptor;
+        this.templateId = templateId;
+        this.initParams = initParams;
+        this.salt = salt;
+    }
+
+    public GetDeployableAddressRequest chainDescriptor(
+            @jakarta.annotation.Nonnull String chainDescriptor) {
         this.chainDescriptor = chainDescriptor;
         return this;
     }
@@ -66,11 +83,11 @@ public class GetDeployableAddressRequest {
 
     @JsonProperty(JSON_PROPERTY_CHAIN_DESCRIPTOR)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setChainDescriptor(String chainDescriptor) {
+    public void setChainDescriptor(@jakarta.annotation.Nonnull String chainDescriptor) {
         this.chainDescriptor = chainDescriptor;
     }
 
-    public GetDeployableAddressRequest templateId(UUID templateId) {
+    public GetDeployableAddressRequest templateId(@jakarta.annotation.Nonnull UUID templateId) {
         this.templateId = templateId;
         return this;
     }
@@ -89,11 +106,12 @@ public class GetDeployableAddressRequest {
 
     @JsonProperty(JSON_PROPERTY_TEMPLATE_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setTemplateId(UUID templateId) {
+    public void setTemplateId(@jakarta.annotation.Nonnull UUID templateId) {
         this.templateId = templateId;
     }
 
-    public GetDeployableAddressRequest initParams(List<ParameterWithValue> initParams) {
+    public GetDeployableAddressRequest initParams(
+            @jakarta.annotation.Nonnull List<ParameterWithValue> initParams) {
         this.initParams = initParams;
         return this;
     }
@@ -120,11 +138,11 @@ public class GetDeployableAddressRequest {
 
     @JsonProperty(JSON_PROPERTY_INIT_PARAMS)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setInitParams(List<ParameterWithValue> initParams) {
+    public void setInitParams(@jakarta.annotation.Nonnull List<ParameterWithValue> initParams) {
         this.initParams = initParams;
     }
 
-    public GetDeployableAddressRequest salt(String salt) {
+    public GetDeployableAddressRequest salt(@jakarta.annotation.Nonnull String salt) {
         this.salt = salt;
         return this;
     }
@@ -144,7 +162,7 @@ public class GetDeployableAddressRequest {
 
     @JsonProperty(JSON_PROPERTY_SALT)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setSalt(String salt) {
+    public void setSalt(@jakarta.annotation.Nonnull String salt) {
         this.salt = salt;
     }
 
@@ -231,10 +249,7 @@ public class GetDeployableAddressRequest {
                             "%schainDescriptor%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getChainDescriptor()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getChainDescriptor()))));
         }
 
         // add `templateId` to the URL query string
@@ -244,9 +259,7 @@ public class GetDeployableAddressRequest {
                             "%stemplateId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getTemplateId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getTemplateId()))));
         }
 
         // add `initParams` to the URL query string
@@ -279,8 +292,7 @@ public class GetDeployableAddressRequest {
                             "%ssalt%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getSalt()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getSalt()))));
         }
 
         return joiner.toString();

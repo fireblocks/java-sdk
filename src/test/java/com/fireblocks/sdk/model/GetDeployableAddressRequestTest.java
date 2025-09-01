@@ -13,39 +13,39 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for GetDeployableAddressRequest */
-public class GetDeployableAddressRequestTest {
+class GetDeployableAddressRequestTest {
     private final GetDeployableAddressRequest model = new GetDeployableAddressRequest();
 
     /** Model tests for GetDeployableAddressRequest */
     @Test
-    public void testGetDeployableAddressRequest() {
+    void testGetDeployableAddressRequest() {
         // TODO: test GetDeployableAddressRequest
     }
 
     /** Test the property 'chainDescriptor' */
     @Test
-    public void chainDescriptorTest() {
+    void chainDescriptorTest() {
         // TODO: test chainDescriptor
     }
 
     /** Test the property 'templateId' */
     @Test
-    public void templateIdTest() {
+    void templateIdTest() {
         // TODO: test templateId
     }
 
     /** Test the property 'initParams' */
     @Test
-    public void initParamsTest() {
+    void initParamsTest() {
         // TODO: test initParams
     }
 
     /** Test the property 'salt' */
     @Test
-    public void saltTest() {
+    void saltTest() {
         // TODO: test salt
     }
 }

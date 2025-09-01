@@ -13,45 +13,45 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for ReissueMultichainTokenRequest */
-public class ReissueMultichainTokenRequestTest {
+class ReissueMultichainTokenRequestTest {
     private final ReissueMultichainTokenRequest model = new ReissueMultichainTokenRequest();
 
     /** Model tests for ReissueMultichainTokenRequest */
     @Test
-    public void testReissueMultichainTokenRequest() {
+    void testReissueMultichainTokenRequest() {
         // TODO: test ReissueMultichainTokenRequest
     }
 
     /** Test the property 'vaultAccountId' */
     @Test
-    public void vaultAccountIdTest() {
+    void vaultAccountIdTest() {
         // TODO: test vaultAccountId
     }
 
     /** Test the property 'chains' */
     @Test
-    public void chainsTest() {
+    void chainsTest() {
         // TODO: test chains
     }
 
     /** Test the property 'useGasless' */
     @Test
-    public void useGaslessTest() {
+    void useGaslessTest() {
         // TODO: test useGasless
     }
 
     /** Test the property 'fee' */
     @Test
-    public void feeTest() {
+    void feeTest() {
         // TODO: test fee
     }
 
     /** Test the property 'feeLevel' */
     @Test
-    public void feeLevelTest() {
+    void feeLevelTest() {
         // TODO: test feeLevel
     }
 }

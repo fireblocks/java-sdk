@@ -16,21 +16,22 @@ package com.fireblocks.sdk.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
 /** AssetNoteRequest */
 @JsonPropertyOrder({AssetNoteRequest.JSON_PROPERTY_TEXT})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class AssetNoteRequest {
     public static final String JSON_PROPERTY_TEXT = "text";
-    private String text;
+    @jakarta.annotation.Nullable private String text;
 
     public AssetNoteRequest() {}
 
-    public AssetNoteRequest text(String text) {
+    public AssetNoteRequest text(@jakarta.annotation.Nullable String text) {
         this.text = text;
         return this;
     }
@@ -49,7 +50,7 @@ public class AssetNoteRequest {
 
     @JsonProperty(JSON_PROPERTY_TEXT)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setText(String text) {
+    public void setText(@jakarta.annotation.Nullable String text) {
         this.text = text;
     }
 
@@ -130,8 +131,7 @@ public class AssetNoteRequest {
                             "%stext%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getText()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getText()))));
         }
 
         return joiner.toString();

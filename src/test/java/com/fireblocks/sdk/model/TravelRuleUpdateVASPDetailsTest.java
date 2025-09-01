@@ -13,27 +13,27 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for TravelRuleUpdateVASPDetails */
-public class TravelRuleUpdateVASPDetailsTest {
+class TravelRuleUpdateVASPDetailsTest {
     private final TravelRuleUpdateVASPDetails model = new TravelRuleUpdateVASPDetails();
 
     /** Model tests for TravelRuleUpdateVASPDetails */
     @Test
-    public void testTravelRuleUpdateVASPDetails() {
+    void testTravelRuleUpdateVASPDetails() {
         // TODO: test TravelRuleUpdateVASPDetails
     }
 
     /** Test the property 'did' */
     @Test
-    public void didTest() {
+    void didTest() {
         // TODO: test did
     }
 
     /** Test the property 'piiDidkey' */
     @Test
-    public void piiDidkeyTest() {
+    void piiDidkeyTest() {
         // TODO: test piiDidkey
     }
 }

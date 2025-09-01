@@ -13,21 +13,21 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for PreScreening */
-public class PreScreeningTest {
+class PreScreeningTest {
     private final PreScreening model = new PreScreening();
 
     /** Model tests for PreScreening */
     @Test
-    public void testPreScreening() {
+    void testPreScreening() {
         // TODO: test PreScreening
     }
 
     /** Test the property 'enabled' */
     @Test
-    public void enabledTest() {
+    void enabledTest() {
         // TODO: test enabled
     }
 }

@@ -13,57 +13,57 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for ContractWithAbiDto */
-public class ContractWithAbiDtoTest {
+class ContractWithAbiDtoTest {
     private final ContractWithAbiDto model = new ContractWithAbiDto();
 
     /** Model tests for ContractWithAbiDto */
     @Test
-    public void testContractWithAbiDto() {
+    void testContractWithAbiDto() {
         // TODO: test ContractWithAbiDto
     }
 
     /** Test the property 'contractAddress' */
     @Test
-    public void contractAddressTest() {
+    void contractAddressTest() {
         // TODO: test contractAddress
     }
 
     /** Test the property 'baseAssetId' */
     @Test
-    public void baseAssetIdTest() {
+    void baseAssetIdTest() {
         // TODO: test baseAssetId
     }
 
     /** Test the property 'name' */
     @Test
-    public void nameTest() {
+    void nameTest() {
         // TODO: test name
     }
 
     /** Test the property 'abi' */
     @Test
-    public void abiTest() {
+    void abiTest() {
         // TODO: test abi
     }
 
     /** Test the property 'isProxy' */
     @Test
-    public void isProxyTest() {
+    void isProxyTest() {
         // TODO: test isProxy
     }
 
     /** Test the property 'implementation' */
     @Test
-    public void implementationTest() {
+    void implementationTest() {
         // TODO: test implementation
     }
 
     /** Test the property 'isPublic' */
     @Test
-    public void isPublicTest() {
+    void isPublicTest() {
         // TODO: test isPublic
     }
 }

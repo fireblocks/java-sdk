@@ -13,51 +13,51 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for CollectionMintRequestDto */
-public class CollectionMintRequestDtoTest {
+class CollectionMintRequestDtoTest {
     private final CollectionMintRequestDto model = new CollectionMintRequestDto();
 
     /** Model tests for CollectionMintRequestDto */
     @Test
-    public void testCollectionMintRequestDto() {
+    void testCollectionMintRequestDto() {
         // TODO: test CollectionMintRequestDto
     }
 
     /** Test the property 'vaultAccountId' */
     @Test
-    public void vaultAccountIdTest() {
+    void vaultAccountIdTest() {
         // TODO: test vaultAccountId
     }
 
     /** Test the property 'to' */
     @Test
-    public void toTest() {
+    void toTest() {
         // TODO: test to
     }
 
     /** Test the property 'tokenId' */
     @Test
-    public void tokenIdTest() {
+    void tokenIdTest() {
         // TODO: test tokenId
     }
 
     /** Test the property 'amount' */
     @Test
-    public void amountTest() {
+    void amountTest() {
         // TODO: test amount
     }
 
     /** Test the property 'metadataURI' */
     @Test
-    public void metadataURITest() {
+    void metadataURITest() {
         // TODO: test metadataURI
     }
 
     /** Test the property 'metadata' */
     @Test
-    public void metadataTest() {
+    void metadataTest() {
         // TODO: test metadata
     }
 }

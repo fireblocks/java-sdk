@@ -13,27 +13,27 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for AssetMetadata */
-public class AssetMetadataTest {
+class AssetMetadataTest {
     private final AssetMetadata model = new AssetMetadata();
 
     /** Model tests for AssetMetadata */
     @Test
-    public void testAssetMetadata() {
+    void testAssetMetadata() {
         // TODO: test AssetMetadata
     }
 
     /** Test the property 'scope' */
     @Test
-    public void scopeTest() {
+    void scopeTest() {
         // TODO: test scope
     }
 
     /** Test the property 'deprecated' */
     @Test
-    public void deprecatedTest() {
+    void deprecatedTest() {
         // TODO: test deprecated
     }
 }

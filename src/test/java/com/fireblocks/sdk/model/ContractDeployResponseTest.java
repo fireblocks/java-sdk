@@ -13,21 +13,21 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for ContractDeployResponse */
-public class ContractDeployResponseTest {
+class ContractDeployResponseTest {
     private final ContractDeployResponse model = new ContractDeployResponse();
 
     /** Model tests for ContractDeployResponse */
     @Test
-    public void testContractDeployResponse() {
+    void testContractDeployResponse() {
         // TODO: test ContractDeployResponse
     }
 
     /** Test the property 'txId' */
     @Test
-    public void txIdTest() {
+    void txIdTest() {
         // TODO: test txId
     }
 }

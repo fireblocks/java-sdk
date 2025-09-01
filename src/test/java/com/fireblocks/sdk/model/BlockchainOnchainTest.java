@@ -13,39 +13,39 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for BlockchainOnchain */
-public class BlockchainOnchainTest {
+class BlockchainOnchainTest {
     private final BlockchainOnchain model = new BlockchainOnchain();
 
     /** Model tests for BlockchainOnchain */
     @Test
-    public void testBlockchainOnchain() {
+    void testBlockchainOnchain() {
         // TODO: test BlockchainOnchain
     }
 
     /** Test the property 'protocol' */
     @Test
-    public void protocolTest() {
+    void protocolTest() {
         // TODO: test protocol
     }
 
     /** Test the property 'chainId' */
     @Test
-    public void chainIdTest() {
+    void chainIdTest() {
         // TODO: test chainId
     }
 
     /** Test the property 'test' */
     @Test
-    public void testTest() {
+    void testTest() {
         // TODO: test test
     }
 
     /** Test the property 'signingAlgo' */
     @Test
-    public void signingAlgoTest() {
+    void signingAlgoTest() {
         // TODO: test signingAlgo
     }
 }

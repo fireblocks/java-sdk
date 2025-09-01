@@ -13,51 +13,51 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for CollectionOwnershipResponse */
-public class CollectionOwnershipResponseTest {
+class CollectionOwnershipResponseTest {
     private final CollectionOwnershipResponse model = new CollectionOwnershipResponse();
 
     /** Model tests for CollectionOwnershipResponse */
     @Test
-    public void testCollectionOwnershipResponse() {
+    void testCollectionOwnershipResponse() {
         // TODO: test CollectionOwnershipResponse
     }
 
     /** Test the property 'id' */
     @Test
-    public void idTest() {
+    void idTest() {
         // TODO: test id
     }
 
     /** Test the property 'name' */
     @Test
-    public void nameTest() {
+    void nameTest() {
         // TODO: test name
     }
 
     /** Test the property 'symbol' */
     @Test
-    public void symbolTest() {
+    void symbolTest() {
         // TODO: test symbol
     }
 
     /** Test the property 'standard' */
     @Test
-    public void standardTest() {
+    void standardTest() {
         // TODO: test standard
     }
 
     /** Test the property 'blockchainDescriptor' */
     @Test
-    public void blockchainDescriptorTest() {
+    void blockchainDescriptorTest() {
         // TODO: test blockchainDescriptor
     }
 
     /** Test the property 'contractAddress' */
     @Test
-    public void contractAddressTest() {
+    void contractAddressTest() {
         // TODO: test contractAddress
     }
 }

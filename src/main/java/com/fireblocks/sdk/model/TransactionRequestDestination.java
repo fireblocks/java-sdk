@@ -16,8 +16,7 @@ package com.fireblocks.sdk.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -28,23 +27,25 @@ import java.util.StringJoiner;
     TransactionRequestDestination.JSON_PROPERTY_TRAVEL_RULE_MESSAGE_ID,
     TransactionRequestDestination.JSON_PROPERTY_CUSTOMER_REF_ID
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class TransactionRequestDestination {
     public static final String JSON_PROPERTY_AMOUNT = "amount";
-    private String amount;
+    @jakarta.annotation.Nullable private String amount;
 
     public static final String JSON_PROPERTY_DESTINATION = "destination";
-    private DestinationTransferPeerPath destination;
+    @jakarta.annotation.Nullable private DestinationTransferPeerPath destination;
 
     public static final String JSON_PROPERTY_TRAVEL_RULE_MESSAGE_ID = "travelRuleMessageId";
-    private String travelRuleMessageId;
+    @jakarta.annotation.Nullable private String travelRuleMessageId;
 
     public static final String JSON_PROPERTY_CUSTOMER_REF_ID = "customerRefId";
-    private String customerRefId;
+    @jakarta.annotation.Nullable private String customerRefId;
 
     public TransactionRequestDestination() {}
 
-    public TransactionRequestDestination amount(String amount) {
+    public TransactionRequestDestination amount(@jakarta.annotation.Nullable String amount) {
         this.amount = amount;
         return this;
     }
@@ -63,11 +64,12 @@ public class TransactionRequestDestination {
 
     @JsonProperty(JSON_PROPERTY_AMOUNT)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAmount(String amount) {
+    public void setAmount(@jakarta.annotation.Nullable String amount) {
         this.amount = amount;
     }
 
-    public TransactionRequestDestination destination(DestinationTransferPeerPath destination) {
+    public TransactionRequestDestination destination(
+            @jakarta.annotation.Nullable DestinationTransferPeerPath destination) {
         this.destination = destination;
         return this;
     }
@@ -86,11 +88,13 @@ public class TransactionRequestDestination {
 
     @JsonProperty(JSON_PROPERTY_DESTINATION)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setDestination(DestinationTransferPeerPath destination) {
+    public void setDestination(
+            @jakarta.annotation.Nullable DestinationTransferPeerPath destination) {
         this.destination = destination;
     }
 
-    public TransactionRequestDestination travelRuleMessageId(String travelRuleMessageId) {
+    public TransactionRequestDestination travelRuleMessageId(
+            @jakarta.annotation.Nullable String travelRuleMessageId) {
         this.travelRuleMessageId = travelRuleMessageId;
         return this;
     }
@@ -110,11 +114,12 @@ public class TransactionRequestDestination {
 
     @JsonProperty(JSON_PROPERTY_TRAVEL_RULE_MESSAGE_ID)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setTravelRuleMessageId(String travelRuleMessageId) {
+    public void setTravelRuleMessageId(@jakarta.annotation.Nullable String travelRuleMessageId) {
         this.travelRuleMessageId = travelRuleMessageId;
     }
 
-    public TransactionRequestDestination customerRefId(String customerRefId) {
+    public TransactionRequestDestination customerRefId(
+            @jakarta.annotation.Nullable String customerRefId) {
         this.customerRefId = customerRefId;
         return this;
     }
@@ -133,7 +138,7 @@ public class TransactionRequestDestination {
 
     @JsonProperty(JSON_PROPERTY_CUSTOMER_REF_ID)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setCustomerRefId(String customerRefId) {
+    public void setCustomerRefId(@jakarta.annotation.Nullable String customerRefId) {
         this.customerRefId = customerRefId;
     }
 
@@ -224,8 +229,7 @@ public class TransactionRequestDestination {
                             "%samount%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getAmount()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getAmount()))));
         }
 
         // add `destination` to the URL query string
@@ -240,10 +244,8 @@ public class TransactionRequestDestination {
                             "%stravelRuleMessageId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getTravelRuleMessageId()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(
+                                    ApiClient.valueToString(getTravelRuleMessageId()))));
         }
 
         // add `customerRefId` to the URL query string
@@ -253,10 +255,7 @@ public class TransactionRequestDestination {
                             "%scustomerRefId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getCustomerRefId()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getCustomerRefId()))));
         }
 
         return joiner.toString();

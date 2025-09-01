@@ -13,25 +13,35 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fireblocks.sdk.ApiClient;
 import java.math.BigDecimal;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 import java.util.StringJoiner;
 
 /** ModifySigningKeyDto */
 @JsonPropertyOrder({ModifySigningKeyDto.JSON_PROPERTY_VAULT_ACCOUNT_ID})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class ModifySigningKeyDto {
     public static final String JSON_PROPERTY_VAULT_ACCOUNT_ID = "vaultAccountId";
-    private BigDecimal vaultAccountId;
+    @jakarta.annotation.Nonnull private BigDecimal vaultAccountId;
 
     public ModifySigningKeyDto() {}
 
-    public ModifySigningKeyDto vaultAccountId(BigDecimal vaultAccountId) {
+    @JsonCreator
+    public ModifySigningKeyDto(
+            @JsonProperty(value = JSON_PROPERTY_VAULT_ACCOUNT_ID, required = true)
+                    BigDecimal vaultAccountId) {
+        this.vaultAccountId = vaultAccountId;
+    }
+
+    public ModifySigningKeyDto vaultAccountId(
+            @jakarta.annotation.Nonnull BigDecimal vaultAccountId) {
         this.vaultAccountId = vaultAccountId;
         return this;
     }
@@ -50,7 +60,7 @@ public class ModifySigningKeyDto {
 
     @JsonProperty(JSON_PROPERTY_VAULT_ACCOUNT_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setVaultAccountId(BigDecimal vaultAccountId) {
+    public void setVaultAccountId(@jakarta.annotation.Nonnull BigDecimal vaultAccountId) {
         this.vaultAccountId = vaultAccountId;
     }
 
@@ -131,10 +141,7 @@ public class ModifySigningKeyDto {
                             "%svaultAccountId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getVaultAccountId()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getVaultAccountId()))));
         }
 
         return joiner.toString();

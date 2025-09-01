@@ -13,12 +13,12 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fireblocks.sdk.ApiClient;
 import java.math.BigDecimal;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -28,20 +28,28 @@ import java.util.StringJoiner;
     PaginatedAssetsResponse.JSON_PROPERTY_DATA,
     PaginatedAssetsResponse.JSON_PROPERTY_NEXT
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class PaginatedAssetsResponse {
     public static final String JSON_PROPERTY_TOTAL = "total";
-    private BigDecimal total;
+    @jakarta.annotation.Nullable private BigDecimal total;
 
     public static final String JSON_PROPERTY_DATA = "data";
-    private UnmanagedWallet data;
+    @jakarta.annotation.Nonnull private UnmanagedWallet data;
 
     public static final String JSON_PROPERTY_NEXT = "next";
-    private String next;
+    @jakarta.annotation.Nullable private String next;
 
     public PaginatedAssetsResponse() {}
 
-    public PaginatedAssetsResponse total(BigDecimal total) {
+    @JsonCreator
+    public PaginatedAssetsResponse(
+            @JsonProperty(value = JSON_PROPERTY_DATA, required = true) UnmanagedWallet data) {
+        this.data = data;
+    }
+
+    public PaginatedAssetsResponse total(@jakarta.annotation.Nullable BigDecimal total) {
         this.total = total;
         return this;
     }
@@ -60,11 +68,11 @@ public class PaginatedAssetsResponse {
 
     @JsonProperty(JSON_PROPERTY_TOTAL)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setTotal(BigDecimal total) {
+    public void setTotal(@jakarta.annotation.Nullable BigDecimal total) {
         this.total = total;
     }
 
-    public PaginatedAssetsResponse data(UnmanagedWallet data) {
+    public PaginatedAssetsResponse data(@jakarta.annotation.Nonnull UnmanagedWallet data) {
         this.data = data;
         return this;
     }
@@ -83,11 +91,11 @@ public class PaginatedAssetsResponse {
 
     @JsonProperty(JSON_PROPERTY_DATA)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setData(UnmanagedWallet data) {
+    public void setData(@jakarta.annotation.Nonnull UnmanagedWallet data) {
         this.data = data;
     }
 
-    public PaginatedAssetsResponse next(String next) {
+    public PaginatedAssetsResponse next(@jakarta.annotation.Nullable String next) {
         this.next = next;
         return this;
     }
@@ -106,7 +114,7 @@ public class PaginatedAssetsResponse {
 
     @JsonProperty(JSON_PROPERTY_NEXT)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setNext(String next) {
+    public void setNext(@jakarta.annotation.Nullable String next) {
         this.next = next;
     }
 
@@ -191,8 +199,7 @@ public class PaginatedAssetsResponse {
                             "%stotal%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getTotal()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getTotal()))));
         }
 
         // add `data` to the URL query string
@@ -207,8 +214,7 @@ public class PaginatedAssetsResponse {
                             "%snext%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getNext()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getNext()))));
         }
 
         return joiner.toString();

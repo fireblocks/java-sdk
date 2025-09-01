@@ -13,11 +13,11 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -26,17 +26,30 @@ import java.util.StringJoiner;
     CreateDisbursementConfigOperationRequest.JSON_PROPERTY_TYPE,
     CreateDisbursementConfigOperationRequest.JSON_PROPERTY_PARAMS
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class CreateDisbursementConfigOperationRequest {
     public static final String JSON_PROPERTY_TYPE = "type";
-    private DisbursementOperationType type;
+    @jakarta.annotation.Nonnull private DisbursementOperationType type;
 
     public static final String JSON_PROPERTY_PARAMS = "params";
-    private DisbursementOperationConfigParams params;
+    @jakarta.annotation.Nonnull private DisbursementOperationConfigParams params;
 
     public CreateDisbursementConfigOperationRequest() {}
 
-    public CreateDisbursementConfigOperationRequest type(DisbursementOperationType type) {
+    @JsonCreator
+    public CreateDisbursementConfigOperationRequest(
+            @JsonProperty(value = JSON_PROPERTY_TYPE, required = true)
+                    DisbursementOperationType type,
+            @JsonProperty(value = JSON_PROPERTY_PARAMS, required = true)
+                    DisbursementOperationConfigParams params) {
+        this.type = type;
+        this.params = params;
+    }
+
+    public CreateDisbursementConfigOperationRequest type(
+            @jakarta.annotation.Nonnull DisbursementOperationType type) {
         this.type = type;
         return this;
     }
@@ -55,12 +68,12 @@ public class CreateDisbursementConfigOperationRequest {
 
     @JsonProperty(JSON_PROPERTY_TYPE)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setType(DisbursementOperationType type) {
+    public void setType(@jakarta.annotation.Nonnull DisbursementOperationType type) {
         this.type = type;
     }
 
     public CreateDisbursementConfigOperationRequest params(
-            DisbursementOperationConfigParams params) {
+            @jakarta.annotation.Nonnull DisbursementOperationConfigParams params) {
         this.params = params;
         return this;
     }
@@ -79,7 +92,7 @@ public class CreateDisbursementConfigOperationRequest {
 
     @JsonProperty(JSON_PROPERTY_PARAMS)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setParams(DisbursementOperationConfigParams params) {
+    public void setParams(@jakarta.annotation.Nonnull DisbursementOperationConfigParams params) {
         this.params = params;
     }
 
@@ -163,8 +176,7 @@ public class CreateDisbursementConfigOperationRequest {
                             "%stype%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getType()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getType()))));
         }
 
         // add `params` to the URL query string

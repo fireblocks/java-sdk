@@ -13,12 +13,12 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fireblocks.sdk.ApiClient;
 import java.math.BigDecimal;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -30,26 +30,44 @@ import java.util.StringJoiner;
     ValidationKeyDto.JSON_PROPERTY_ENABLED,
     ValidationKeyDto.JSON_PROPERTY_CREATED_AT
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class ValidationKeyDto {
     public static final String JSON_PROPERTY_KEY_ID = "keyId";
-    private String keyId;
+    @jakarta.annotation.Nonnull private String keyId;
 
     public static final String JSON_PROPERTY_PUBLIC_KEY_PEM = "publicKeyPem";
-    private String publicKeyPem;
+    @jakarta.annotation.Nonnull private String publicKeyPem;
 
     public static final String JSON_PROPERTY_DAYS_TILL_EXPIRED = "daysTillExpired";
-    private BigDecimal daysTillExpired;
+    @jakarta.annotation.Nonnull private BigDecimal daysTillExpired;
 
     public static final String JSON_PROPERTY_ENABLED = "enabled";
-    private Boolean enabled;
+    @jakarta.annotation.Nonnull private Boolean enabled;
 
     public static final String JSON_PROPERTY_CREATED_AT = "createdAt";
-    private BigDecimal createdAt;
+    @jakarta.annotation.Nonnull private BigDecimal createdAt;
 
     public ValidationKeyDto() {}
 
-    public ValidationKeyDto keyId(String keyId) {
+    @JsonCreator
+    public ValidationKeyDto(
+            @JsonProperty(value = JSON_PROPERTY_KEY_ID, required = true) String keyId,
+            @JsonProperty(value = JSON_PROPERTY_PUBLIC_KEY_PEM, required = true)
+                    String publicKeyPem,
+            @JsonProperty(value = JSON_PROPERTY_DAYS_TILL_EXPIRED, required = true)
+                    BigDecimal daysTillExpired,
+            @JsonProperty(value = JSON_PROPERTY_ENABLED, required = true) Boolean enabled,
+            @JsonProperty(value = JSON_PROPERTY_CREATED_AT, required = true) BigDecimal createdAt) {
+        this.keyId = keyId;
+        this.publicKeyPem = publicKeyPem;
+        this.daysTillExpired = daysTillExpired;
+        this.enabled = enabled;
+        this.createdAt = createdAt;
+    }
+
+    public ValidationKeyDto keyId(@jakarta.annotation.Nonnull String keyId) {
         this.keyId = keyId;
         return this;
     }
@@ -68,11 +86,11 @@ public class ValidationKeyDto {
 
     @JsonProperty(JSON_PROPERTY_KEY_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setKeyId(String keyId) {
+    public void setKeyId(@jakarta.annotation.Nonnull String keyId) {
         this.keyId = keyId;
     }
 
-    public ValidationKeyDto publicKeyPem(String publicKeyPem) {
+    public ValidationKeyDto publicKeyPem(@jakarta.annotation.Nonnull String publicKeyPem) {
         this.publicKeyPem = publicKeyPem;
         return this;
     }
@@ -91,11 +109,12 @@ public class ValidationKeyDto {
 
     @JsonProperty(JSON_PROPERTY_PUBLIC_KEY_PEM)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setPublicKeyPem(String publicKeyPem) {
+    public void setPublicKeyPem(@jakarta.annotation.Nonnull String publicKeyPem) {
         this.publicKeyPem = publicKeyPem;
     }
 
-    public ValidationKeyDto daysTillExpired(BigDecimal daysTillExpired) {
+    public ValidationKeyDto daysTillExpired(
+            @jakarta.annotation.Nonnull BigDecimal daysTillExpired) {
         this.daysTillExpired = daysTillExpired;
         return this;
     }
@@ -114,11 +133,11 @@ public class ValidationKeyDto {
 
     @JsonProperty(JSON_PROPERTY_DAYS_TILL_EXPIRED)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setDaysTillExpired(BigDecimal daysTillExpired) {
+    public void setDaysTillExpired(@jakarta.annotation.Nonnull BigDecimal daysTillExpired) {
         this.daysTillExpired = daysTillExpired;
     }
 
-    public ValidationKeyDto enabled(Boolean enabled) {
+    public ValidationKeyDto enabled(@jakarta.annotation.Nonnull Boolean enabled) {
         this.enabled = enabled;
         return this;
     }
@@ -137,11 +156,11 @@ public class ValidationKeyDto {
 
     @JsonProperty(JSON_PROPERTY_ENABLED)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setEnabled(Boolean enabled) {
+    public void setEnabled(@jakarta.annotation.Nonnull Boolean enabled) {
         this.enabled = enabled;
     }
 
-    public ValidationKeyDto createdAt(BigDecimal createdAt) {
+    public ValidationKeyDto createdAt(@jakarta.annotation.Nonnull BigDecimal createdAt) {
         this.createdAt = createdAt;
         return this;
     }
@@ -160,7 +179,7 @@ public class ValidationKeyDto {
 
     @JsonProperty(JSON_PROPERTY_CREATED_AT)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setCreatedAt(BigDecimal createdAt) {
+    public void setCreatedAt(@jakarta.annotation.Nonnull BigDecimal createdAt) {
         this.createdAt = createdAt;
     }
 
@@ -249,8 +268,7 @@ public class ValidationKeyDto {
                             "%skeyId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getKeyId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getKeyId()))));
         }
 
         // add `publicKeyPem` to the URL query string
@@ -260,10 +278,7 @@ public class ValidationKeyDto {
                             "%spublicKeyPem%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getPublicKeyPem()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getPublicKeyPem()))));
         }
 
         // add `daysTillExpired` to the URL query string
@@ -273,10 +288,7 @@ public class ValidationKeyDto {
                             "%sdaysTillExpired%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getDaysTillExpired()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getDaysTillExpired()))));
         }
 
         // add `enabled` to the URL query string
@@ -286,8 +298,7 @@ public class ValidationKeyDto {
                             "%senabled%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getEnabled()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getEnabled()))));
         }
 
         // add `createdAt` to the URL query string
@@ -297,9 +308,7 @@ public class ValidationKeyDto {
                             "%screatedAt%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getCreatedAt()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getCreatedAt()))));
         }
 
         return joiner.toString();

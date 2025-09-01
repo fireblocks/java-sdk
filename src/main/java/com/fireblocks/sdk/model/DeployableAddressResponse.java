@@ -13,24 +13,32 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
 /** Response DTO containing a deployable address */
 @JsonPropertyOrder({DeployableAddressResponse.JSON_PROPERTY_ADDRESS})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class DeployableAddressResponse {
     public static final String JSON_PROPERTY_ADDRESS = "address";
-    private String address;
+    @jakarta.annotation.Nonnull private String address;
 
     public DeployableAddressResponse() {}
 
-    public DeployableAddressResponse address(String address) {
+    @JsonCreator
+    public DeployableAddressResponse(
+            @JsonProperty(value = JSON_PROPERTY_ADDRESS, required = true) String address) {
+        this.address = address;
+    }
+
+    public DeployableAddressResponse address(@jakarta.annotation.Nonnull String address) {
         this.address = address;
         return this;
     }
@@ -49,7 +57,7 @@ public class DeployableAddressResponse {
 
     @JsonProperty(JSON_PROPERTY_ADDRESS)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setAddress(String address) {
+    public void setAddress(@jakarta.annotation.Nonnull String address) {
         this.address = address;
     }
 
@@ -130,8 +138,7 @@ public class DeployableAddressResponse {
                             "%saddress%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getAddress()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getAddress()))));
         }
 
         return joiner.toString();

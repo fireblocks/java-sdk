@@ -13,45 +13,45 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for ConversionOperationConfigParams */
-public class ConversionOperationConfigParamsTest {
+class ConversionOperationConfigParamsTest {
     private final ConversionOperationConfigParams model = new ConversionOperationConfigParams();
 
     /** Model tests for ConversionOperationConfigParams */
     @Test
-    public void testConversionOperationConfigParams() {
+    void testConversionOperationConfigParams() {
         // TODO: test ConversionOperationConfigParams
     }
 
     /** Test the property 'amount' */
     @Test
-    public void amountTest() {
+    void amountTest() {
         // TODO: test amount
     }
 
     /** Test the property 'accountId' */
     @Test
-    public void accountIdTest() {
+    void accountIdTest() {
         // TODO: test accountId
     }
 
     /** Test the property 'srcAssetId' */
     @Test
-    public void srcAssetIdTest() {
+    void srcAssetIdTest() {
         // TODO: test srcAssetId
     }
 
     /** Test the property 'destAssetId' */
     @Test
-    public void destAssetIdTest() {
+    void destAssetIdTest() {
         // TODO: test destAssetId
     }
 
     /** Test the property 'slippageBasisPoints' */
     @Test
-    public void slippageBasisPointsTest() {
+    void slippageBasisPointsTest() {
         // TODO: test slippageBasisPoints
     }
 }

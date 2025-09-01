@@ -18,8 +18,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonValue;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -28,15 +27,17 @@ import java.util.StringJoiner;
     TransferOperationFailure.JSON_PROPERTY_REASON,
     TransferOperationFailure.JSON_PROPERTY_DATA
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class TransferOperationFailure {
     /** Gets or Sets reason */
     public enum ReasonEnum {
-        INVALID_AMOUNT("INVALID_AMOUNT"),
+        INVALID_AMOUNT(String.valueOf("INVALID_AMOUNT")),
 
-        SUBMISSION_FAILED("SUBMISSION_FAILED"),
+        SUBMISSION_FAILED(String.valueOf("SUBMISSION_FAILED")),
 
-        TRANSACTION_FAILED("TRANSACTION_FAILED");
+        TRANSACTION_FAILED(String.valueOf("TRANSACTION_FAILED"));
 
         private String value;
 
@@ -66,14 +67,20 @@ public class TransferOperationFailure {
     }
 
     public static final String JSON_PROPERTY_REASON = "reason";
-    private ReasonEnum reason;
+    @jakarta.annotation.Nonnull private ReasonEnum reason;
 
     public static final String JSON_PROPERTY_DATA = "data";
-    private TransferOperationFailureData data;
+    @jakarta.annotation.Nullable private TransferOperationFailureData data;
 
     public TransferOperationFailure() {}
 
-    public TransferOperationFailure reason(ReasonEnum reason) {
+    @JsonCreator
+    public TransferOperationFailure(
+            @JsonProperty(value = JSON_PROPERTY_REASON, required = true) ReasonEnum reason) {
+        this.reason = reason;
+    }
+
+    public TransferOperationFailure reason(@jakarta.annotation.Nonnull ReasonEnum reason) {
         this.reason = reason;
         return this;
     }
@@ -92,11 +99,12 @@ public class TransferOperationFailure {
 
     @JsonProperty(JSON_PROPERTY_REASON)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setReason(ReasonEnum reason) {
+    public void setReason(@jakarta.annotation.Nonnull ReasonEnum reason) {
         this.reason = reason;
     }
 
-    public TransferOperationFailure data(TransferOperationFailureData data) {
+    public TransferOperationFailure data(
+            @jakarta.annotation.Nullable TransferOperationFailureData data) {
         this.data = data;
         return this;
     }
@@ -115,7 +123,7 @@ public class TransferOperationFailure {
 
     @JsonProperty(JSON_PROPERTY_DATA)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setData(TransferOperationFailureData data) {
+    public void setData(@jakarta.annotation.Nullable TransferOperationFailureData data) {
         this.data = data;
     }
 
@@ -198,8 +206,7 @@ public class TransferOperationFailure {
                             "%sreason%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getReason()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getReason()))));
         }
 
         // add `data` to the URL query string

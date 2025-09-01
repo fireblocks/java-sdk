@@ -13,13 +13,13 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for ConversionOperationType */
-public class ConversionOperationTypeTest {
+class ConversionOperationTypeTest {
     /** Model tests for ConversionOperationType */
     @Test
-    public void testConversionOperationType() {
+    void testConversionOperationType() {
         // TODO: test ConversionOperationType
     }
 }

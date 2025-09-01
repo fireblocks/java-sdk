@@ -13,45 +13,45 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for ContractMetadataDto */
-public class ContractMetadataDtoTest {
+class ContractMetadataDtoTest {
     private final ContractMetadataDto model = new ContractMetadataDto();
 
     /** Model tests for ContractMetadataDto */
     @Test
-    public void testContractMetadataDto() {
+    void testContractMetadataDto() {
         // TODO: test ContractMetadataDto
     }
 
     /** Test the property 'id' */
     @Test
-    public void idTest() {
+    void idTest() {
         // TODO: test id
     }
 
     /** Test the property 'blockchainId' */
     @Test
-    public void blockchainIdTest() {
+    void blockchainIdTest() {
         // TODO: test blockchainId
     }
 
     /** Test the property 'contractAddress' */
     @Test
-    public void contractAddressTest() {
+    void contractAddressTest() {
         // TODO: test contractAddress
     }
 
     /** Test the property 'contractTemplateId' */
     @Test
-    public void contractTemplateIdTest() {
+    void contractTemplateIdTest() {
         // TODO: test contractTemplateId
     }
 
     /** Test the property 'vaultAccountId' */
     @Test
-    public void vaultAccountIdTest() {
+    void vaultAccountIdTest() {
         // TODO: test vaultAccountId
     }
 }

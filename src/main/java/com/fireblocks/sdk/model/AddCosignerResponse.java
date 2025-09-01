@@ -13,11 +13,11 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 import java.util.UUID;
@@ -29,23 +29,36 @@ import java.util.UUID;
     AddCosignerResponse.JSON_PROPERTY_EXISTING_COSIGNER,
     AddCosignerResponse.JSON_PROPERTY_PENDING_COSIGNER_ID
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class AddCosignerResponse {
     public static final String JSON_PROPERTY_API_KEY_ID = "apiKeyId";
-    private UUID apiKeyId;
+    @jakarta.annotation.Nonnull private UUID apiKeyId;
 
     public static final String JSON_PROPERTY_NAME = "name";
-    private String name;
+    @jakarta.annotation.Nonnull private String name;
 
     public static final String JSON_PROPERTY_EXISTING_COSIGNER = "existingCosigner";
-    private Boolean existingCosigner = false;
+    @jakarta.annotation.Nullable private Boolean existingCosigner = false;
 
     public static final String JSON_PROPERTY_PENDING_COSIGNER_ID = "pendingCosignerId";
-    private UUID pendingCosignerId;
+    @jakarta.annotation.Nonnull private UUID pendingCosignerId;
 
     public AddCosignerResponse() {}
 
-    public AddCosignerResponse apiKeyId(UUID apiKeyId) {
+    @JsonCreator
+    public AddCosignerResponse(
+            @JsonProperty(value = JSON_PROPERTY_API_KEY_ID, required = true) UUID apiKeyId,
+            @JsonProperty(value = JSON_PROPERTY_NAME, required = true) String name,
+            @JsonProperty(value = JSON_PROPERTY_PENDING_COSIGNER_ID, required = true)
+                    UUID pendingCosignerId) {
+        this.apiKeyId = apiKeyId;
+        this.name = name;
+        this.pendingCosignerId = pendingCosignerId;
+    }
+
+    public AddCosignerResponse apiKeyId(@jakarta.annotation.Nonnull UUID apiKeyId) {
         this.apiKeyId = apiKeyId;
         return this;
     }
@@ -64,11 +77,11 @@ public class AddCosignerResponse {
 
     @JsonProperty(JSON_PROPERTY_API_KEY_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setApiKeyId(UUID apiKeyId) {
+    public void setApiKeyId(@jakarta.annotation.Nonnull UUID apiKeyId) {
         this.apiKeyId = apiKeyId;
     }
 
-    public AddCosignerResponse name(String name) {
+    public AddCosignerResponse name(@jakarta.annotation.Nonnull String name) {
         this.name = name;
         return this;
     }
@@ -87,11 +100,12 @@ public class AddCosignerResponse {
 
     @JsonProperty(JSON_PROPERTY_NAME)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setName(String name) {
+    public void setName(@jakarta.annotation.Nonnull String name) {
         this.name = name;
     }
 
-    public AddCosignerResponse existingCosigner(Boolean existingCosigner) {
+    public AddCosignerResponse existingCosigner(
+            @jakarta.annotation.Nullable Boolean existingCosigner) {
         this.existingCosigner = existingCosigner;
         return this;
     }
@@ -110,11 +124,12 @@ public class AddCosignerResponse {
 
     @JsonProperty(JSON_PROPERTY_EXISTING_COSIGNER)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setExistingCosigner(Boolean existingCosigner) {
+    public void setExistingCosigner(@jakarta.annotation.Nullable Boolean existingCosigner) {
         this.existingCosigner = existingCosigner;
     }
 
-    public AddCosignerResponse pendingCosignerId(UUID pendingCosignerId) {
+    public AddCosignerResponse pendingCosignerId(
+            @jakarta.annotation.Nonnull UUID pendingCosignerId) {
         this.pendingCosignerId = pendingCosignerId;
         return this;
     }
@@ -133,7 +148,7 @@ public class AddCosignerResponse {
 
     @JsonProperty(JSON_PROPERTY_PENDING_COSIGNER_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setPendingCosignerId(UUID pendingCosignerId) {
+    public void setPendingCosignerId(@jakarta.annotation.Nonnull UUID pendingCosignerId) {
         this.pendingCosignerId = pendingCosignerId;
     }
 
@@ -222,8 +237,7 @@ public class AddCosignerResponse {
                             "%sapiKeyId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getApiKeyId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getApiKeyId()))));
         }
 
         // add `name` to the URL query string
@@ -233,8 +247,7 @@ public class AddCosignerResponse {
                             "%sname%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getName()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getName()))));
         }
 
         // add `existingCosigner` to the URL query string
@@ -244,10 +257,7 @@ public class AddCosignerResponse {
                             "%sexistingCosigner%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getExistingCosigner()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getExistingCosigner()))));
         }
 
         // add `pendingCosignerId` to the URL query string
@@ -257,10 +267,7 @@ public class AddCosignerResponse {
                             "%spendingCosignerId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getPendingCosignerId()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getPendingCosignerId()))));
         }
 
         return joiner.toString();

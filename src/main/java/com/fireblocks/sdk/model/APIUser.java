@@ -16,8 +16,7 @@ package com.fireblocks.sdk.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -30,29 +29,31 @@ import java.util.StringJoiner;
     APIUser.JSON_PROPERTY_STATUS,
     APIUser.JSON_PROPERTY_USER_TYPE
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class APIUser {
     public static final String JSON_PROPERTY_ID = "id";
-    private String id;
+    @jakarta.annotation.Nullable private String id;
 
     public static final String JSON_PROPERTY_NAME = "name";
-    private String name;
+    @jakarta.annotation.Nullable private String name;
 
     public static final String JSON_PROPERTY_ROLE = "role";
-    private UserRole role;
+    @jakarta.annotation.Nullable private UserRole role;
 
     public static final String JSON_PROPERTY_ENABLED = "enabled";
-    private Boolean enabled;
+    @jakarta.annotation.Nullable private Boolean enabled;
 
     public static final String JSON_PROPERTY_STATUS = "status";
-    private UserStatus status;
+    @jakarta.annotation.Nullable private UserStatus status;
 
     public static final String JSON_PROPERTY_USER_TYPE = "userType";
-    private UserType userType;
+    @jakarta.annotation.Nullable private UserType userType;
 
     public APIUser() {}
 
-    public APIUser id(String id) {
+    public APIUser id(@jakarta.annotation.Nullable String id) {
         this.id = id;
         return this;
     }
@@ -71,11 +72,11 @@ public class APIUser {
 
     @JsonProperty(JSON_PROPERTY_ID)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setId(String id) {
+    public void setId(@jakarta.annotation.Nullable String id) {
         this.id = id;
     }
 
-    public APIUser name(String name) {
+    public APIUser name(@jakarta.annotation.Nullable String name) {
         this.name = name;
         return this;
     }
@@ -94,11 +95,11 @@ public class APIUser {
 
     @JsonProperty(JSON_PROPERTY_NAME)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setName(String name) {
+    public void setName(@jakarta.annotation.Nullable String name) {
         this.name = name;
     }
 
-    public APIUser role(UserRole role) {
+    public APIUser role(@jakarta.annotation.Nullable UserRole role) {
         this.role = role;
         return this;
     }
@@ -117,11 +118,11 @@ public class APIUser {
 
     @JsonProperty(JSON_PROPERTY_ROLE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setRole(UserRole role) {
+    public void setRole(@jakarta.annotation.Nullable UserRole role) {
         this.role = role;
     }
 
-    public APIUser enabled(Boolean enabled) {
+    public APIUser enabled(@jakarta.annotation.Nullable Boolean enabled) {
         this.enabled = enabled;
         return this;
     }
@@ -140,11 +141,11 @@ public class APIUser {
 
     @JsonProperty(JSON_PROPERTY_ENABLED)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setEnabled(Boolean enabled) {
+    public void setEnabled(@jakarta.annotation.Nullable Boolean enabled) {
         this.enabled = enabled;
     }
 
-    public APIUser status(UserStatus status) {
+    public APIUser status(@jakarta.annotation.Nullable UserStatus status) {
         this.status = status;
         return this;
     }
@@ -163,11 +164,11 @@ public class APIUser {
 
     @JsonProperty(JSON_PROPERTY_STATUS)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setStatus(UserStatus status) {
+    public void setStatus(@jakarta.annotation.Nullable UserStatus status) {
         this.status = status;
     }
 
-    public APIUser userType(UserType userType) {
+    public APIUser userType(@jakarta.annotation.Nullable UserType userType) {
         this.userType = userType;
         return this;
     }
@@ -186,7 +187,7 @@ public class APIUser {
 
     @JsonProperty(JSON_PROPERTY_USER_TYPE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setUserType(UserType userType) {
+    public void setUserType(@jakarta.annotation.Nullable UserType userType) {
         this.userType = userType;
     }
 
@@ -275,10 +276,7 @@ public class APIUser {
             joiner.add(
                     String.format(
                             "%sid%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(String.valueOf(getId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getId()))));
         }
 
         // add `name` to the URL query string
@@ -288,8 +286,7 @@ public class APIUser {
                             "%sname%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getName()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getName()))));
         }
 
         // add `role` to the URL query string
@@ -299,8 +296,7 @@ public class APIUser {
                             "%srole%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getRole()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getRole()))));
         }
 
         // add `enabled` to the URL query string
@@ -310,8 +306,7 @@ public class APIUser {
                             "%senabled%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getEnabled()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getEnabled()))));
         }
 
         // add `status` to the URL query string
@@ -321,8 +316,7 @@ public class APIUser {
                             "%sstatus%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getStatus()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getStatus()))));
         }
 
         // add `userType` to the URL query string
@@ -332,8 +326,7 @@ public class APIUser {
                             "%suserType%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getUserType()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getUserType()))));
         }
 
         return joiner.toString();

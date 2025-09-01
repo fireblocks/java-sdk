@@ -13,27 +13,27 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for TemplatesPaginatedResponse */
-public class TemplatesPaginatedResponseTest {
+class TemplatesPaginatedResponseTest {
     private final TemplatesPaginatedResponse model = new TemplatesPaginatedResponse();
 
     /** Model tests for TemplatesPaginatedResponse */
     @Test
-    public void testTemplatesPaginatedResponse() {
+    void testTemplatesPaginatedResponse() {
         // TODO: test TemplatesPaginatedResponse
     }
 
     /** Test the property 'data' */
     @Test
-    public void dataTest() {
+    void dataTest() {
         // TODO: test data
     }
 
     /** Test the property 'next' */
     @Test
-    public void nextTest() {
+    void nextTest() {
         // TODO: test next
     }
 }

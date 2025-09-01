@@ -13,27 +13,27 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for PayeeAccount */
-public class PayeeAccountTest {
+class PayeeAccountTest {
     private final PayeeAccount model = new PayeeAccount();
 
     /** Model tests for PayeeAccount */
     @Test
-    public void testPayeeAccount() {
+    void testPayeeAccount() {
         // TODO: test PayeeAccount
     }
 
     /** Test the property 'id' */
     @Test
-    public void idTest() {
+    void idTest() {
         // TODO: test id
     }
 
     /** Test the property 'type' */
     @Test
-    public void typeTest() {
+    void typeTest() {
         // TODO: test type
     }
 }

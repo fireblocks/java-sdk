@@ -13,12 +13,12 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fireblocks.sdk.ApiClient;
 import java.math.BigDecimal;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -29,23 +29,40 @@ import java.util.StringJoiner;
     DisbursementOperationPreviewOutputInstructionSetInner.JSON_PROPERTY_PAYEE_ACCOUNT,
     DisbursementOperationPreviewOutputInstructionSetInner.JSON_PROPERTY_TIME_SECONDS
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class DisbursementOperationPreviewOutputInstructionSetInner {
     public static final String JSON_PROPERTY_AMOUNT = "amount";
-    private AssetAmount amount;
+    @jakarta.annotation.Nonnull private AssetAmount amount;
 
     public static final String JSON_PROPERTY_FEE = "fee";
-    private AssetAmount fee;
+    @jakarta.annotation.Nonnull private AssetAmount fee;
 
     public static final String JSON_PROPERTY_PAYEE_ACCOUNT = "payeeAccount";
-    private Destination payeeAccount;
+    @jakarta.annotation.Nonnull private Destination payeeAccount;
 
     public static final String JSON_PROPERTY_TIME_SECONDS = "timeSeconds";
-    private BigDecimal timeSeconds;
+    @jakarta.annotation.Nonnull private BigDecimal timeSeconds;
 
     public DisbursementOperationPreviewOutputInstructionSetInner() {}
 
-    public DisbursementOperationPreviewOutputInstructionSetInner amount(AssetAmount amount) {
+    @JsonCreator
+    public DisbursementOperationPreviewOutputInstructionSetInner(
+            @JsonProperty(value = JSON_PROPERTY_AMOUNT, required = true) AssetAmount amount,
+            @JsonProperty(value = JSON_PROPERTY_FEE, required = true) AssetAmount fee,
+            @JsonProperty(value = JSON_PROPERTY_PAYEE_ACCOUNT, required = true)
+                    Destination payeeAccount,
+            @JsonProperty(value = JSON_PROPERTY_TIME_SECONDS, required = true)
+                    BigDecimal timeSeconds) {
+        this.amount = amount;
+        this.fee = fee;
+        this.payeeAccount = payeeAccount;
+        this.timeSeconds = timeSeconds;
+    }
+
+    public DisbursementOperationPreviewOutputInstructionSetInner amount(
+            @jakarta.annotation.Nonnull AssetAmount amount) {
         this.amount = amount;
         return this;
     }
@@ -64,11 +81,12 @@ public class DisbursementOperationPreviewOutputInstructionSetInner {
 
     @JsonProperty(JSON_PROPERTY_AMOUNT)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setAmount(AssetAmount amount) {
+    public void setAmount(@jakarta.annotation.Nonnull AssetAmount amount) {
         this.amount = amount;
     }
 
-    public DisbursementOperationPreviewOutputInstructionSetInner fee(AssetAmount fee) {
+    public DisbursementOperationPreviewOutputInstructionSetInner fee(
+            @jakarta.annotation.Nonnull AssetAmount fee) {
         this.fee = fee;
         return this;
     }
@@ -87,12 +105,12 @@ public class DisbursementOperationPreviewOutputInstructionSetInner {
 
     @JsonProperty(JSON_PROPERTY_FEE)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setFee(AssetAmount fee) {
+    public void setFee(@jakarta.annotation.Nonnull AssetAmount fee) {
         this.fee = fee;
     }
 
     public DisbursementOperationPreviewOutputInstructionSetInner payeeAccount(
-            Destination payeeAccount) {
+            @jakarta.annotation.Nonnull Destination payeeAccount) {
         this.payeeAccount = payeeAccount;
         return this;
     }
@@ -111,12 +129,12 @@ public class DisbursementOperationPreviewOutputInstructionSetInner {
 
     @JsonProperty(JSON_PROPERTY_PAYEE_ACCOUNT)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setPayeeAccount(Destination payeeAccount) {
+    public void setPayeeAccount(@jakarta.annotation.Nonnull Destination payeeAccount) {
         this.payeeAccount = payeeAccount;
     }
 
     public DisbursementOperationPreviewOutputInstructionSetInner timeSeconds(
-            BigDecimal timeSeconds) {
+            @jakarta.annotation.Nonnull BigDecimal timeSeconds) {
         this.timeSeconds = timeSeconds;
         return this;
     }
@@ -135,7 +153,7 @@ public class DisbursementOperationPreviewOutputInstructionSetInner {
 
     @JsonProperty(JSON_PROPERTY_TIME_SECONDS)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setTimeSeconds(BigDecimal timeSeconds) {
+    public void setTimeSeconds(@jakarta.annotation.Nonnull BigDecimal timeSeconds) {
         this.timeSeconds = timeSeconds;
     }
 
@@ -248,10 +266,7 @@ public class DisbursementOperationPreviewOutputInstructionSetInner {
                             "%stimeSeconds%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getTimeSeconds()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getTimeSeconds()))));
         }
 
         return joiner.toString();

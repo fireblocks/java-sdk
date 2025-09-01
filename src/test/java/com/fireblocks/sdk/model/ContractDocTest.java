@@ -13,45 +13,45 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for ContractDoc */
-public class ContractDocTest {
+class ContractDocTest {
     private final ContractDoc model = new ContractDoc();
 
     /** Model tests for ContractDoc */
     @Test
-    public void testContractDoc() {
+    void testContractDoc() {
         // TODO: test ContractDoc
     }
 
     /** Test the property 'details' */
     @Test
-    public void detailsTest() {
+    void detailsTest() {
         // TODO: test details
     }
 
     /** Test the property 'events' */
     @Test
-    public void eventsTest() {
+    void eventsTest() {
         // TODO: test events
     }
 
     /** Test the property 'kind' */
     @Test
-    public void kindTest() {
+    void kindTest() {
         // TODO: test kind
     }
 
     /** Test the property 'methods' */
     @Test
-    public void methodsTest() {
+    void methodsTest() {
         // TODO: test methods
     }
 
     /** Test the property 'version' */
     @Test
-    public void versionTest() {
+    void versionTest() {
         // TODO: test version
     }
 }

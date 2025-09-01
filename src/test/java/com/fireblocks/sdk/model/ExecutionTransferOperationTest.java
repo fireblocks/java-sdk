@@ -13,51 +13,51 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for ExecutionTransferOperation */
-public class ExecutionTransferOperationTest {
+class ExecutionTransferOperationTest {
     private final ExecutionTransferOperation model = new ExecutionTransferOperation();
 
     /** Model tests for ExecutionTransferOperation */
     @Test
-    public void testExecutionTransferOperation() {
+    void testExecutionTransferOperation() {
         // TODO: test ExecutionTransferOperation
     }
 
     /** Test the property 'operationId' */
     @Test
-    public void operationIdTest() {
+    void operationIdTest() {
         // TODO: test operationId
     }
 
     /** Test the property 'status' */
     @Test
-    public void statusTest() {
+    void statusTest() {
         // TODO: test status
     }
 
     /** Test the property 'validationFailure' */
     @Test
-    public void validationFailureTest() {
+    void validationFailureTest() {
         // TODO: test validationFailure
     }
 
     /** Test the property 'operationType' */
     @Test
-    public void operationTypeTest() {
+    void operationTypeTest() {
         // TODO: test operationType
     }
 
     /** Test the property 'preview' */
     @Test
-    public void previewTest() {
+    void previewTest() {
         // TODO: test preview
     }
 
     /** Test the property 'execution' */
     @Test
-    public void executionTest() {
+    void executionTest() {
         // TODO: test execution
     }
 }

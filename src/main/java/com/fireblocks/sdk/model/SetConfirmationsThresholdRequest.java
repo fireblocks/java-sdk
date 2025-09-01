@@ -16,22 +16,24 @@ package com.fireblocks.sdk.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fireblocks.sdk.ApiClient;
 import java.math.BigDecimal;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 import java.util.StringJoiner;
 
 /** SetConfirmationsThresholdRequest */
 @JsonPropertyOrder({SetConfirmationsThresholdRequest.JSON_PROPERTY_NUM_OF_CONFIRMATIONS})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class SetConfirmationsThresholdRequest {
     public static final String JSON_PROPERTY_NUM_OF_CONFIRMATIONS = "numOfConfirmations";
-    private BigDecimal numOfConfirmations;
+    @jakarta.annotation.Nullable private BigDecimal numOfConfirmations;
 
     public SetConfirmationsThresholdRequest() {}
 
-    public SetConfirmationsThresholdRequest numOfConfirmations(BigDecimal numOfConfirmations) {
+    public SetConfirmationsThresholdRequest numOfConfirmations(
+            @jakarta.annotation.Nullable BigDecimal numOfConfirmations) {
         this.numOfConfirmations = numOfConfirmations;
         return this;
     }
@@ -50,7 +52,7 @@ public class SetConfirmationsThresholdRequest {
 
     @JsonProperty(JSON_PROPERTY_NUM_OF_CONFIRMATIONS)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setNumOfConfirmations(BigDecimal numOfConfirmations) {
+    public void setNumOfConfirmations(@jakarta.annotation.Nullable BigDecimal numOfConfirmations) {
         this.numOfConfirmations = numOfConfirmations;
     }
 
@@ -135,10 +137,7 @@ public class SetConfirmationsThresholdRequest {
                             "%snumOfConfirmations%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getNumOfConfirmations()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getNumOfConfirmations()))));
         }
 
         return joiner.toString();

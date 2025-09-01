@@ -33,19 +33,19 @@ Data object with result data
 |---- | -----|
 | QUEUED | &quot;queued&quot; |
 | SUBMITTED | &quot;submitted&quot; |
-| PENDINGSIGNATURE | &quot;pendingSignature&quot; |
-| PENDINGAUTHORIZATION | &quot;pendingAuthorization&quot; |
+| PENDING_SIGNATURE | &quot;pendingSignature&quot; |
+| PENDING_AUTHORIZATION | &quot;pendingAuthorization&quot; |
 | BROADCASTING | &quot;broadcasting&quot; |
 | CONFIRMING | &quot;confirming&quot; |
-| PENDINGAMLSCREENING | &quot;pendingAmlScreening&quot; |
+| PENDING_AML_SCREENING | &quot;pendingAmlScreening&quot; |
 | COMPLETED | &quot;completed&quot; |
 | CANCELLED | &quot;cancelled&quot; |
 | FAILED | &quot;failed&quot; |
 | REJECTED | &quot;rejected&quot; |
 | BLOCKED | &quot;blocked&quot; |
-| THIRDPARTYPENDINGMANUALAPPROVAL | &quot;thirdPartyPendingManualApproval&quot; |
-| THIRDPARTYPENDING | &quot;thirdPartyPending&quot; |
-| PARTIALLYCOMPLETED | &quot;partiallyCompleted&quot; |
+| THIRD_PARTY_PENDING_MANUAL_APPROVAL | &quot;thirdPartyPendingManualApproval&quot; |
+| THIRD_PARTY_PENDING | &quot;thirdPartyPending&quot; |
+| PARTIALLY_COMPLETED | &quot;partiallyCompleted&quot; |
 | CANCELLING | &quot;cancelling&quot; |
 
 

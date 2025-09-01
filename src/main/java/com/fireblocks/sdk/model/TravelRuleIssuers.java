@@ -13,6 +13,7 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -36,53 +37,96 @@ import java.util.StringJoiner;
     TravelRuleIssuers.JSON_PROPERTY_COUNTRY,
     TravelRuleIssuers.JSON_PROPERTY_DESCRIPTION
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class TravelRuleIssuers {
     public static final String JSON_PROPERTY_YEAR_FOUNDED = "yearFounded";
-    private TravelRuleIssuer yearFounded;
+    @jakarta.annotation.Nonnull private TravelRuleIssuer yearFounded;
 
     public static final String JSON_PROPERTY_IS_REGULATED = "isRegulated";
-    private TravelRuleIssuer isRegulated;
+    @jakarta.annotation.Nonnull private TravelRuleIssuer isRegulated;
 
     public static final String JSON_PROPERTY_REGULATORY_AUTHORITIES = "regulatoryAuthorities";
-    private TravelRuleIssuer regulatoryAuthorities;
+    @jakarta.annotation.Nonnull private TravelRuleIssuer regulatoryAuthorities;
 
     public static final String JSON_PROPERTY_NAME = "name";
-    private TravelRuleIssuer name;
+    @jakarta.annotation.Nonnull private TravelRuleIssuer name;
 
     public static final String JSON_PROPERTY_LOGO = "logo";
-    private TravelRuleIssuer logo;
+    @jakarta.annotation.Nonnull private TravelRuleIssuer logo;
 
     public static final String JSON_PROPERTY_WEBSITE = "website";
-    private TravelRuleIssuer website;
+    @jakarta.annotation.Nonnull private TravelRuleIssuer website;
 
     public static final String JSON_PROPERTY_LEGAL_NAME = "legalName";
-    private TravelRuleIssuer legalName;
+    @jakarta.annotation.Nonnull private TravelRuleIssuer legalName;
 
     public static final String JSON_PROPERTY_LEGAL_STRUCTURE = "legalStructure";
-    private TravelRuleIssuer legalStructure;
+    @jakarta.annotation.Nonnull private TravelRuleIssuer legalStructure;
 
     public static final String JSON_PROPERTY_INCORPORATION_COUNTRY = "incorporationCountry";
-    private TravelRuleIssuer incorporationCountry;
+    @jakarta.annotation.Nonnull private TravelRuleIssuer incorporationCountry;
 
     public static final String JSON_PROPERTY_BUSINESS_NUMBER = "businessNumber";
-    private TravelRuleIssuer businessNumber;
+    @jakarta.annotation.Nonnull private TravelRuleIssuer businessNumber;
 
     public static final String JSON_PROPERTY_ADDRESS_LINE1 = "addressLine1";
-    private TravelRuleIssuer addressLine1;
+    @jakarta.annotation.Nonnull private TravelRuleIssuer addressLine1;
 
     public static final String JSON_PROPERTY_CITY = "city";
-    private TravelRuleIssuer city;
+    @jakarta.annotation.Nonnull private TravelRuleIssuer city;
 
     public static final String JSON_PROPERTY_COUNTRY = "country";
-    private TravelRuleIssuer country;
+    @jakarta.annotation.Nonnull private TravelRuleIssuer country;
 
     public static final String JSON_PROPERTY_DESCRIPTION = "description";
-    private TravelRuleIssuer description;
+    @jakarta.annotation.Nonnull private TravelRuleIssuer description;
 
     public TravelRuleIssuers() {}
 
-    public TravelRuleIssuers yearFounded(TravelRuleIssuer yearFounded) {
+    @JsonCreator
+    public TravelRuleIssuers(
+            @JsonProperty(value = JSON_PROPERTY_YEAR_FOUNDED, required = true)
+                    TravelRuleIssuer yearFounded,
+            @JsonProperty(value = JSON_PROPERTY_IS_REGULATED, required = true)
+                    TravelRuleIssuer isRegulated,
+            @JsonProperty(value = JSON_PROPERTY_REGULATORY_AUTHORITIES, required = true)
+                    TravelRuleIssuer regulatoryAuthorities,
+            @JsonProperty(value = JSON_PROPERTY_NAME, required = true) TravelRuleIssuer name,
+            @JsonProperty(value = JSON_PROPERTY_LOGO, required = true) TravelRuleIssuer logo,
+            @JsonProperty(value = JSON_PROPERTY_WEBSITE, required = true) TravelRuleIssuer website,
+            @JsonProperty(value = JSON_PROPERTY_LEGAL_NAME, required = true)
+                    TravelRuleIssuer legalName,
+            @JsonProperty(value = JSON_PROPERTY_LEGAL_STRUCTURE, required = true)
+                    TravelRuleIssuer legalStructure,
+            @JsonProperty(value = JSON_PROPERTY_INCORPORATION_COUNTRY, required = true)
+                    TravelRuleIssuer incorporationCountry,
+            @JsonProperty(value = JSON_PROPERTY_BUSINESS_NUMBER, required = true)
+                    TravelRuleIssuer businessNumber,
+            @JsonProperty(value = JSON_PROPERTY_ADDRESS_LINE1, required = true)
+                    TravelRuleIssuer addressLine1,
+            @JsonProperty(value = JSON_PROPERTY_CITY, required = true) TravelRuleIssuer city,
+            @JsonProperty(value = JSON_PROPERTY_COUNTRY, required = true) TravelRuleIssuer country,
+            @JsonProperty(value = JSON_PROPERTY_DESCRIPTION, required = true)
+                    TravelRuleIssuer description) {
+        this.yearFounded = yearFounded;
+        this.isRegulated = isRegulated;
+        this.regulatoryAuthorities = regulatoryAuthorities;
+        this.name = name;
+        this.logo = logo;
+        this.website = website;
+        this.legalName = legalName;
+        this.legalStructure = legalStructure;
+        this.incorporationCountry = incorporationCountry;
+        this.businessNumber = businessNumber;
+        this.addressLine1 = addressLine1;
+        this.city = city;
+        this.country = country;
+        this.description = description;
+    }
+
+    public TravelRuleIssuers yearFounded(@jakarta.annotation.Nonnull TravelRuleIssuer yearFounded) {
         this.yearFounded = yearFounded;
         return this;
     }
@@ -101,11 +145,11 @@ public class TravelRuleIssuers {
 
     @JsonProperty(JSON_PROPERTY_YEAR_FOUNDED)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setYearFounded(TravelRuleIssuer yearFounded) {
+    public void setYearFounded(@jakarta.annotation.Nonnull TravelRuleIssuer yearFounded) {
         this.yearFounded = yearFounded;
     }
 
-    public TravelRuleIssuers isRegulated(TravelRuleIssuer isRegulated) {
+    public TravelRuleIssuers isRegulated(@jakarta.annotation.Nonnull TravelRuleIssuer isRegulated) {
         this.isRegulated = isRegulated;
         return this;
     }
@@ -124,11 +168,12 @@ public class TravelRuleIssuers {
 
     @JsonProperty(JSON_PROPERTY_IS_REGULATED)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setIsRegulated(TravelRuleIssuer isRegulated) {
+    public void setIsRegulated(@jakarta.annotation.Nonnull TravelRuleIssuer isRegulated) {
         this.isRegulated = isRegulated;
     }
 
-    public TravelRuleIssuers regulatoryAuthorities(TravelRuleIssuer regulatoryAuthorities) {
+    public TravelRuleIssuers regulatoryAuthorities(
+            @jakarta.annotation.Nonnull TravelRuleIssuer regulatoryAuthorities) {
         this.regulatoryAuthorities = regulatoryAuthorities;
         return this;
     }
@@ -147,11 +192,12 @@ public class TravelRuleIssuers {
 
     @JsonProperty(JSON_PROPERTY_REGULATORY_AUTHORITIES)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setRegulatoryAuthorities(TravelRuleIssuer regulatoryAuthorities) {
+    public void setRegulatoryAuthorities(
+            @jakarta.annotation.Nonnull TravelRuleIssuer regulatoryAuthorities) {
         this.regulatoryAuthorities = regulatoryAuthorities;
     }
 
-    public TravelRuleIssuers name(TravelRuleIssuer name) {
+    public TravelRuleIssuers name(@jakarta.annotation.Nonnull TravelRuleIssuer name) {
         this.name = name;
         return this;
     }
@@ -170,11 +216,11 @@ public class TravelRuleIssuers {
 
     @JsonProperty(JSON_PROPERTY_NAME)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setName(TravelRuleIssuer name) {
+    public void setName(@jakarta.annotation.Nonnull TravelRuleIssuer name) {
         this.name = name;
     }
 
-    public TravelRuleIssuers logo(TravelRuleIssuer logo) {
+    public TravelRuleIssuers logo(@jakarta.annotation.Nonnull TravelRuleIssuer logo) {
         this.logo = logo;
         return this;
     }
@@ -193,11 +239,11 @@ public class TravelRuleIssuers {
 
     @JsonProperty(JSON_PROPERTY_LOGO)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setLogo(TravelRuleIssuer logo) {
+    public void setLogo(@jakarta.annotation.Nonnull TravelRuleIssuer logo) {
         this.logo = logo;
     }
 
-    public TravelRuleIssuers website(TravelRuleIssuer website) {
+    public TravelRuleIssuers website(@jakarta.annotation.Nonnull TravelRuleIssuer website) {
         this.website = website;
         return this;
     }
@@ -216,11 +262,11 @@ public class TravelRuleIssuers {
 
     @JsonProperty(JSON_PROPERTY_WEBSITE)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setWebsite(TravelRuleIssuer website) {
+    public void setWebsite(@jakarta.annotation.Nonnull TravelRuleIssuer website) {
         this.website = website;
     }
 
-    public TravelRuleIssuers legalName(TravelRuleIssuer legalName) {
+    public TravelRuleIssuers legalName(@jakarta.annotation.Nonnull TravelRuleIssuer legalName) {
         this.legalName = legalName;
         return this;
     }
@@ -239,11 +285,12 @@ public class TravelRuleIssuers {
 
     @JsonProperty(JSON_PROPERTY_LEGAL_NAME)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setLegalName(TravelRuleIssuer legalName) {
+    public void setLegalName(@jakarta.annotation.Nonnull TravelRuleIssuer legalName) {
         this.legalName = legalName;
     }
 
-    public TravelRuleIssuers legalStructure(TravelRuleIssuer legalStructure) {
+    public TravelRuleIssuers legalStructure(
+            @jakarta.annotation.Nonnull TravelRuleIssuer legalStructure) {
         this.legalStructure = legalStructure;
         return this;
     }
@@ -262,11 +309,12 @@ public class TravelRuleIssuers {
 
     @JsonProperty(JSON_PROPERTY_LEGAL_STRUCTURE)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setLegalStructure(TravelRuleIssuer legalStructure) {
+    public void setLegalStructure(@jakarta.annotation.Nonnull TravelRuleIssuer legalStructure) {
         this.legalStructure = legalStructure;
     }
 
-    public TravelRuleIssuers incorporationCountry(TravelRuleIssuer incorporationCountry) {
+    public TravelRuleIssuers incorporationCountry(
+            @jakarta.annotation.Nonnull TravelRuleIssuer incorporationCountry) {
         this.incorporationCountry = incorporationCountry;
         return this;
     }
@@ -285,11 +333,13 @@ public class TravelRuleIssuers {
 
     @JsonProperty(JSON_PROPERTY_INCORPORATION_COUNTRY)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setIncorporationCountry(TravelRuleIssuer incorporationCountry) {
+    public void setIncorporationCountry(
+            @jakarta.annotation.Nonnull TravelRuleIssuer incorporationCountry) {
         this.incorporationCountry = incorporationCountry;
     }
 
-    public TravelRuleIssuers businessNumber(TravelRuleIssuer businessNumber) {
+    public TravelRuleIssuers businessNumber(
+            @jakarta.annotation.Nonnull TravelRuleIssuer businessNumber) {
         this.businessNumber = businessNumber;
         return this;
     }
@@ -308,11 +358,12 @@ public class TravelRuleIssuers {
 
     @JsonProperty(JSON_PROPERTY_BUSINESS_NUMBER)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setBusinessNumber(TravelRuleIssuer businessNumber) {
+    public void setBusinessNumber(@jakarta.annotation.Nonnull TravelRuleIssuer businessNumber) {
         this.businessNumber = businessNumber;
     }
 
-    public TravelRuleIssuers addressLine1(TravelRuleIssuer addressLine1) {
+    public TravelRuleIssuers addressLine1(
+            @jakarta.annotation.Nonnull TravelRuleIssuer addressLine1) {
         this.addressLine1 = addressLine1;
         return this;
     }
@@ -331,11 +382,11 @@ public class TravelRuleIssuers {
 
     @JsonProperty(JSON_PROPERTY_ADDRESS_LINE1)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setAddressLine1(TravelRuleIssuer addressLine1) {
+    public void setAddressLine1(@jakarta.annotation.Nonnull TravelRuleIssuer addressLine1) {
         this.addressLine1 = addressLine1;
     }
 
-    public TravelRuleIssuers city(TravelRuleIssuer city) {
+    public TravelRuleIssuers city(@jakarta.annotation.Nonnull TravelRuleIssuer city) {
         this.city = city;
         return this;
     }
@@ -354,11 +405,11 @@ public class TravelRuleIssuers {
 
     @JsonProperty(JSON_PROPERTY_CITY)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setCity(TravelRuleIssuer city) {
+    public void setCity(@jakarta.annotation.Nonnull TravelRuleIssuer city) {
         this.city = city;
     }
 
-    public TravelRuleIssuers country(TravelRuleIssuer country) {
+    public TravelRuleIssuers country(@jakarta.annotation.Nonnull TravelRuleIssuer country) {
         this.country = country;
         return this;
     }
@@ -377,11 +428,11 @@ public class TravelRuleIssuers {
 
     @JsonProperty(JSON_PROPERTY_COUNTRY)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setCountry(TravelRuleIssuer country) {
+    public void setCountry(@jakarta.annotation.Nonnull TravelRuleIssuer country) {
         this.country = country;
     }
 
-    public TravelRuleIssuers description(TravelRuleIssuer description) {
+    public TravelRuleIssuers description(@jakarta.annotation.Nonnull TravelRuleIssuer description) {
         this.description = description;
         return this;
     }
@@ -400,7 +451,7 @@ public class TravelRuleIssuers {
 
     @JsonProperty(JSON_PROPERTY_DESCRIPTION)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setDescription(TravelRuleIssuer description) {
+    public void setDescription(@jakarta.annotation.Nonnull TravelRuleIssuer description) {
         this.description = description;
     }
 

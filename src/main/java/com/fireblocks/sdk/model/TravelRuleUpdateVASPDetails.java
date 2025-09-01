@@ -13,11 +13,11 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -26,17 +26,27 @@ import java.util.StringJoiner;
     TravelRuleUpdateVASPDetails.JSON_PROPERTY_DID,
     TravelRuleUpdateVASPDetails.JSON_PROPERTY_PII_DIDKEY
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class TravelRuleUpdateVASPDetails {
     public static final String JSON_PROPERTY_DID = "did";
-    private String did;
+    @jakarta.annotation.Nonnull private String did;
 
     public static final String JSON_PROPERTY_PII_DIDKEY = "pii_didkey";
-    private String piiDidkey;
+    @jakarta.annotation.Nonnull private String piiDidkey;
 
     public TravelRuleUpdateVASPDetails() {}
 
-    public TravelRuleUpdateVASPDetails did(String did) {
+    @JsonCreator
+    public TravelRuleUpdateVASPDetails(
+            @JsonProperty(value = JSON_PROPERTY_DID, required = true) String did,
+            @JsonProperty(value = JSON_PROPERTY_PII_DIDKEY, required = true) String piiDidkey) {
+        this.did = did;
+        this.piiDidkey = piiDidkey;
+    }
+
+    public TravelRuleUpdateVASPDetails did(@jakarta.annotation.Nonnull String did) {
         this.did = did;
         return this;
     }
@@ -55,11 +65,11 @@ public class TravelRuleUpdateVASPDetails {
 
     @JsonProperty(JSON_PROPERTY_DID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setDid(String did) {
+    public void setDid(@jakarta.annotation.Nonnull String did) {
         this.did = did;
     }
 
-    public TravelRuleUpdateVASPDetails piiDidkey(String piiDidkey) {
+    public TravelRuleUpdateVASPDetails piiDidkey(@jakarta.annotation.Nonnull String piiDidkey) {
         this.piiDidkey = piiDidkey;
         return this;
     }
@@ -78,7 +88,7 @@ public class TravelRuleUpdateVASPDetails {
 
     @JsonProperty(JSON_PROPERTY_PII_DIDKEY)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setPiiDidkey(String piiDidkey) {
+    public void setPiiDidkey(@jakarta.annotation.Nonnull String piiDidkey) {
         this.piiDidkey = piiDidkey;
     }
 
@@ -161,8 +171,7 @@ public class TravelRuleUpdateVASPDetails {
                             "%sdid%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getDid()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getDid()))));
         }
 
         // add `pii_didkey` to the URL query string
@@ -172,9 +181,7 @@ public class TravelRuleUpdateVASPDetails {
                             "%spii_didkey%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getPiiDidkey()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getPiiDidkey()))));
         }
 
         return joiner.toString();

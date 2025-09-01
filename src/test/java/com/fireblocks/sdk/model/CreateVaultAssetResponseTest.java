@@ -13,63 +13,63 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for CreateVaultAssetResponse */
-public class CreateVaultAssetResponseTest {
+class CreateVaultAssetResponseTest {
     private final CreateVaultAssetResponse model = new CreateVaultAssetResponse();
 
     /** Model tests for CreateVaultAssetResponse */
     @Test
-    public void testCreateVaultAssetResponse() {
+    void testCreateVaultAssetResponse() {
         // TODO: test CreateVaultAssetResponse
     }
 
     /** Test the property 'id' */
     @Test
-    public void idTest() {
+    void idTest() {
         // TODO: test id
     }
 
     /** Test the property 'address' */
     @Test
-    public void addressTest() {
+    void addressTest() {
         // TODO: test address
     }
 
     /** Test the property 'legacyAddress' */
     @Test
-    public void legacyAddressTest() {
+    void legacyAddressTest() {
         // TODO: test legacyAddress
     }
 
     /** Test the property 'enterpriseAddress' */
     @Test
-    public void enterpriseAddressTest() {
+    void enterpriseAddressTest() {
         // TODO: test enterpriseAddress
     }
 
     /** Test the property 'tag' */
     @Test
-    public void tagTest() {
+    void tagTest() {
         // TODO: test tag
     }
 
     /** Test the property 'eosAccountName' */
     @Test
-    public void eosAccountNameTest() {
+    void eosAccountNameTest() {
         // TODO: test eosAccountName
     }
 
     /** Test the property 'status' */
     @Test
-    public void statusTest() {
+    void statusTest() {
         // TODO: test status
     }
 
     /** Test the property 'activationTxId' */
     @Test
-    public void activationTxIdTest() {
+    void activationTxIdTest() {
         // TODO: test activationTxId
     }
 }

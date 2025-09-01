@@ -16,8 +16,7 @@ package com.fireblocks.sdk.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -29,26 +28,28 @@ import java.util.StringJoiner;
     NetworkFee.JSON_PROPERTY_BASE_FEE,
     NetworkFee.JSON_PROPERTY_PRIORITY_FEE
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class NetworkFee {
     public static final String JSON_PROPERTY_FEE_PER_BYTE = "feePerByte";
-    private String feePerByte;
+    @jakarta.annotation.Nullable private String feePerByte;
 
     public static final String JSON_PROPERTY_GAS_PRICE = "gasPrice";
-    private String gasPrice;
+    @jakarta.annotation.Nullable private String gasPrice;
 
     public static final String JSON_PROPERTY_NETWORK_FEE = "networkFee";
-    private String networkFee;
+    @jakarta.annotation.Nullable private String networkFee;
 
     public static final String JSON_PROPERTY_BASE_FEE = "baseFee";
-    private String baseFee;
+    @jakarta.annotation.Nullable private String baseFee;
 
     public static final String JSON_PROPERTY_PRIORITY_FEE = "priorityFee";
-    private String priorityFee;
+    @jakarta.annotation.Nullable private String priorityFee;
 
     public NetworkFee() {}
 
-    public NetworkFee feePerByte(String feePerByte) {
+    public NetworkFee feePerByte(@jakarta.annotation.Nullable String feePerByte) {
         this.feePerByte = feePerByte;
         return this;
     }
@@ -67,11 +68,11 @@ public class NetworkFee {
 
     @JsonProperty(JSON_PROPERTY_FEE_PER_BYTE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setFeePerByte(String feePerByte) {
+    public void setFeePerByte(@jakarta.annotation.Nullable String feePerByte) {
         this.feePerByte = feePerByte;
     }
 
-    public NetworkFee gasPrice(String gasPrice) {
+    public NetworkFee gasPrice(@jakarta.annotation.Nullable String gasPrice) {
         this.gasPrice = gasPrice;
         return this;
     }
@@ -90,11 +91,11 @@ public class NetworkFee {
 
     @JsonProperty(JSON_PROPERTY_GAS_PRICE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setGasPrice(String gasPrice) {
+    public void setGasPrice(@jakarta.annotation.Nullable String gasPrice) {
         this.gasPrice = gasPrice;
     }
 
-    public NetworkFee networkFee(String networkFee) {
+    public NetworkFee networkFee(@jakarta.annotation.Nullable String networkFee) {
         this.networkFee = networkFee;
         return this;
     }
@@ -113,11 +114,11 @@ public class NetworkFee {
 
     @JsonProperty(JSON_PROPERTY_NETWORK_FEE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setNetworkFee(String networkFee) {
+    public void setNetworkFee(@jakarta.annotation.Nullable String networkFee) {
         this.networkFee = networkFee;
     }
 
-    public NetworkFee baseFee(String baseFee) {
+    public NetworkFee baseFee(@jakarta.annotation.Nullable String baseFee) {
         this.baseFee = baseFee;
         return this;
     }
@@ -136,11 +137,11 @@ public class NetworkFee {
 
     @JsonProperty(JSON_PROPERTY_BASE_FEE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setBaseFee(String baseFee) {
+    public void setBaseFee(@jakarta.annotation.Nullable String baseFee) {
         this.baseFee = baseFee;
     }
 
-    public NetworkFee priorityFee(String priorityFee) {
+    public NetworkFee priorityFee(@jakarta.annotation.Nullable String priorityFee) {
         this.priorityFee = priorityFee;
         return this;
     }
@@ -159,7 +160,7 @@ public class NetworkFee {
 
     @JsonProperty(JSON_PROPERTY_PRIORITY_FEE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setPriorityFee(String priorityFee) {
+    public void setPriorityFee(@jakarta.annotation.Nullable String priorityFee) {
         this.priorityFee = priorityFee;
     }
 
@@ -248,9 +249,7 @@ public class NetworkFee {
                             "%sfeePerByte%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getFeePerByte()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getFeePerByte()))));
         }
 
         // add `gasPrice` to the URL query string
@@ -260,8 +259,7 @@ public class NetworkFee {
                             "%sgasPrice%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getGasPrice()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getGasPrice()))));
         }
 
         // add `networkFee` to the URL query string
@@ -271,9 +269,7 @@ public class NetworkFee {
                             "%snetworkFee%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getNetworkFee()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getNetworkFee()))));
         }
 
         // add `baseFee` to the URL query string
@@ -283,8 +279,7 @@ public class NetworkFee {
                             "%sbaseFee%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getBaseFee()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getBaseFee()))));
         }
 
         // add `priorityFee` to the URL query string
@@ -294,10 +289,7 @@ public class NetworkFee {
                             "%spriorityFee%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getPriorityFee()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getPriorityFee()))));
         }
 
         return joiner.toString();

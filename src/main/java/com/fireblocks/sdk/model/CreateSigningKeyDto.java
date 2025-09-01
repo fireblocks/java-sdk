@@ -13,11 +13,11 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -28,23 +28,39 @@ import java.util.StringJoiner;
     CreateSigningKeyDto.JSON_PROPERTY_AGENT_USER_ID,
     CreateSigningKeyDto.JSON_PROPERTY_PROOF_OF_OWNERSHIP
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class CreateSigningKeyDto {
     public static final String JSON_PROPERTY_SIGNING_DEVICE_KEY_ID = "signingDeviceKeyId";
-    private String signingDeviceKeyId;
+    @jakarta.annotation.Nonnull private String signingDeviceKeyId;
 
     public static final String JSON_PROPERTY_SIGNED_CERT_PEM = "signedCertPem";
-    private String signedCertPem;
+    @jakarta.annotation.Nonnull private String signedCertPem;
 
     public static final String JSON_PROPERTY_AGENT_USER_ID = "agentUserId";
-    private String agentUserId;
+    @jakarta.annotation.Nonnull private String agentUserId;
 
     public static final String JSON_PROPERTY_PROOF_OF_OWNERSHIP = "proofOfOwnership";
-    private CreateSigningKeyDtoProofOfOwnership proofOfOwnership;
+    @jakarta.annotation.Nullable private CreateSigningKeyDtoProofOfOwnership proofOfOwnership;
 
     public CreateSigningKeyDto() {}
 
-    public CreateSigningKeyDto signingDeviceKeyId(String signingDeviceKeyId) {
+    @JsonCreator
+    public CreateSigningKeyDto(
+            @JsonProperty(value = JSON_PROPERTY_SIGNING_DEVICE_KEY_ID, required = true)
+                    String signingDeviceKeyId,
+            @JsonProperty(value = JSON_PROPERTY_SIGNED_CERT_PEM, required = true)
+                    String signedCertPem,
+            @JsonProperty(value = JSON_PROPERTY_AGENT_USER_ID, required = true)
+                    String agentUserId) {
+        this.signingDeviceKeyId = signingDeviceKeyId;
+        this.signedCertPem = signedCertPem;
+        this.agentUserId = agentUserId;
+    }
+
+    public CreateSigningKeyDto signingDeviceKeyId(
+            @jakarta.annotation.Nonnull String signingDeviceKeyId) {
         this.signingDeviceKeyId = signingDeviceKeyId;
         return this;
     }
@@ -63,11 +79,11 @@ public class CreateSigningKeyDto {
 
     @JsonProperty(JSON_PROPERTY_SIGNING_DEVICE_KEY_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setSigningDeviceKeyId(String signingDeviceKeyId) {
+    public void setSigningDeviceKeyId(@jakarta.annotation.Nonnull String signingDeviceKeyId) {
         this.signingDeviceKeyId = signingDeviceKeyId;
     }
 
-    public CreateSigningKeyDto signedCertPem(String signedCertPem) {
+    public CreateSigningKeyDto signedCertPem(@jakarta.annotation.Nonnull String signedCertPem) {
         this.signedCertPem = signedCertPem;
         return this;
     }
@@ -87,11 +103,11 @@ public class CreateSigningKeyDto {
 
     @JsonProperty(JSON_PROPERTY_SIGNED_CERT_PEM)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setSignedCertPem(String signedCertPem) {
+    public void setSignedCertPem(@jakarta.annotation.Nonnull String signedCertPem) {
         this.signedCertPem = signedCertPem;
     }
 
-    public CreateSigningKeyDto agentUserId(String agentUserId) {
+    public CreateSigningKeyDto agentUserId(@jakarta.annotation.Nonnull String agentUserId) {
         this.agentUserId = agentUserId;
         return this;
     }
@@ -110,12 +126,12 @@ public class CreateSigningKeyDto {
 
     @JsonProperty(JSON_PROPERTY_AGENT_USER_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setAgentUserId(String agentUserId) {
+    public void setAgentUserId(@jakarta.annotation.Nonnull String agentUserId) {
         this.agentUserId = agentUserId;
     }
 
     public CreateSigningKeyDto proofOfOwnership(
-            CreateSigningKeyDtoProofOfOwnership proofOfOwnership) {
+            @jakarta.annotation.Nullable CreateSigningKeyDtoProofOfOwnership proofOfOwnership) {
         this.proofOfOwnership = proofOfOwnership;
         return this;
     }
@@ -134,7 +150,8 @@ public class CreateSigningKeyDto {
 
     @JsonProperty(JSON_PROPERTY_PROOF_OF_OWNERSHIP)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setProofOfOwnership(CreateSigningKeyDtoProofOfOwnership proofOfOwnership) {
+    public void setProofOfOwnership(
+            @jakarta.annotation.Nullable CreateSigningKeyDtoProofOfOwnership proofOfOwnership) {
         this.proofOfOwnership = proofOfOwnership;
     }
 
@@ -223,10 +240,7 @@ public class CreateSigningKeyDto {
                             "%ssigningDeviceKeyId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getSigningDeviceKeyId()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getSigningDeviceKeyId()))));
         }
 
         // add `signedCertPem` to the URL query string
@@ -236,10 +250,7 @@ public class CreateSigningKeyDto {
                             "%ssignedCertPem%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getSignedCertPem()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getSignedCertPem()))));
         }
 
         // add `agentUserId` to the URL query string
@@ -249,10 +260,7 @@ public class CreateSigningKeyDto {
                             "%sagentUserId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getAgentUserId()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getAgentUserId()))));
         }
 
         // add `proofOfOwnership` to the URL query string

@@ -13,45 +13,45 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for TokenLinkRequestDto */
-public class TokenLinkRequestDtoTest {
+class TokenLinkRequestDtoTest {
     private final TokenLinkRequestDto model = new TokenLinkRequestDto();
 
     /** Model tests for TokenLinkRequestDto */
     @Test
-    public void testTokenLinkRequestDto() {
+    void testTokenLinkRequestDto() {
         // TODO: test TokenLinkRequestDto
     }
 
     /** Test the property 'type' */
     @Test
-    public void typeTest() {
+    void typeTest() {
         // TODO: test type
     }
 
     /** Test the property 'refId' */
     @Test
-    public void refIdTest() {
+    void refIdTest() {
         // TODO: test refId
     }
 
     /** Test the property 'displayName' */
     @Test
-    public void displayNameTest() {
+    void displayNameTest() {
         // TODO: test displayName
     }
 
     /** Test the property 'baseAssetId' */
     @Test
-    public void baseAssetIdTest() {
+    void baseAssetIdTest() {
         // TODO: test baseAssetId
     }
 
     /** Test the property 'contractAddress' */
     @Test
-    public void contractAddressTest() {
+    void contractAddressTest() {
         // TODO: test contractAddress
     }
 }

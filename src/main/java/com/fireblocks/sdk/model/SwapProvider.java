@@ -13,11 +13,11 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -34,33 +34,54 @@ import java.util.UUID;
     SwapProvider.JSON_PROPERTY_TERMS_OF_SERVICE_URL,
     SwapProvider.JSON_PROPERTY_IS_TERMS_OF_SERVICE_APPROVED
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class SwapProvider {
     public static final String JSON_PROPERTY_ID = "id";
-    private UUID id;
+    @jakarta.annotation.Nonnull private UUID id;
 
     public static final String JSON_PROPERTY_NAME = "name";
-    private String name;
+    @jakarta.annotation.Nonnull private String name;
 
     public static final String JSON_PROPERTY_PROTOCOLS = "protocols";
+
+    @jakarta.annotation.Nonnull
     private List<SwapProviderProtocolsEnum> protocols = new ArrayList<>();
 
     public static final String JSON_PROPERTY_CATEGORY = "category";
-    private ProviderCategoryEnum category;
+    @jakarta.annotation.Nonnull private ProviderCategoryEnum category;
 
     public static final String JSON_PROPERTY_IS_TERMS_APPROVAL_REQUIRED = "isTermsApprovalRequired";
-    private Boolean isTermsApprovalRequired;
+    @jakarta.annotation.Nonnull private Boolean isTermsApprovalRequired;
 
     public static final String JSON_PROPERTY_TERMS_OF_SERVICE_URL = "termsOfServiceUrl";
-    private String termsOfServiceUrl;
+    @jakarta.annotation.Nullable private String termsOfServiceUrl;
 
     public static final String JSON_PROPERTY_IS_TERMS_OF_SERVICE_APPROVED =
             "isTermsOfServiceApproved";
-    private Boolean isTermsOfServiceApproved;
+    @jakarta.annotation.Nullable private Boolean isTermsOfServiceApproved;
 
     public SwapProvider() {}
 
-    public SwapProvider id(UUID id) {
+    @JsonCreator
+    public SwapProvider(
+            @JsonProperty(value = JSON_PROPERTY_ID, required = true) UUID id,
+            @JsonProperty(value = JSON_PROPERTY_NAME, required = true) String name,
+            @JsonProperty(value = JSON_PROPERTY_PROTOCOLS, required = true)
+                    List<SwapProviderProtocolsEnum> protocols,
+            @JsonProperty(value = JSON_PROPERTY_CATEGORY, required = true)
+                    ProviderCategoryEnum category,
+            @JsonProperty(value = JSON_PROPERTY_IS_TERMS_APPROVAL_REQUIRED, required = true)
+                    Boolean isTermsApprovalRequired) {
+        this.id = id;
+        this.name = name;
+        this.protocols = protocols;
+        this.category = category;
+        this.isTermsApprovalRequired = isTermsApprovalRequired;
+    }
+
+    public SwapProvider id(@jakarta.annotation.Nonnull UUID id) {
         this.id = id;
         return this;
     }
@@ -79,11 +100,11 @@ public class SwapProvider {
 
     @JsonProperty(JSON_PROPERTY_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setId(UUID id) {
+    public void setId(@jakarta.annotation.Nonnull UUID id) {
         this.id = id;
     }
 
-    public SwapProvider name(String name) {
+    public SwapProvider name(@jakarta.annotation.Nonnull String name) {
         this.name = name;
         return this;
     }
@@ -102,11 +123,12 @@ public class SwapProvider {
 
     @JsonProperty(JSON_PROPERTY_NAME)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setName(String name) {
+    public void setName(@jakarta.annotation.Nonnull String name) {
         this.name = name;
     }
 
-    public SwapProvider protocols(List<SwapProviderProtocolsEnum> protocols) {
+    public SwapProvider protocols(
+            @jakarta.annotation.Nonnull List<SwapProviderProtocolsEnum> protocols) {
         this.protocols = protocols;
         return this;
     }
@@ -133,11 +155,12 @@ public class SwapProvider {
 
     @JsonProperty(JSON_PROPERTY_PROTOCOLS)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setProtocols(List<SwapProviderProtocolsEnum> protocols) {
+    public void setProtocols(
+            @jakarta.annotation.Nonnull List<SwapProviderProtocolsEnum> protocols) {
         this.protocols = protocols;
     }
 
-    public SwapProvider category(ProviderCategoryEnum category) {
+    public SwapProvider category(@jakarta.annotation.Nonnull ProviderCategoryEnum category) {
         this.category = category;
         return this;
     }
@@ -156,11 +179,12 @@ public class SwapProvider {
 
     @JsonProperty(JSON_PROPERTY_CATEGORY)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setCategory(ProviderCategoryEnum category) {
+    public void setCategory(@jakarta.annotation.Nonnull ProviderCategoryEnum category) {
         this.category = category;
     }
 
-    public SwapProvider isTermsApprovalRequired(Boolean isTermsApprovalRequired) {
+    public SwapProvider isTermsApprovalRequired(
+            @jakarta.annotation.Nonnull Boolean isTermsApprovalRequired) {
         this.isTermsApprovalRequired = isTermsApprovalRequired;
         return this;
     }
@@ -182,11 +206,12 @@ public class SwapProvider {
 
     @JsonProperty(JSON_PROPERTY_IS_TERMS_APPROVAL_REQUIRED)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setIsTermsApprovalRequired(Boolean isTermsApprovalRequired) {
+    public void setIsTermsApprovalRequired(
+            @jakarta.annotation.Nonnull Boolean isTermsApprovalRequired) {
         this.isTermsApprovalRequired = isTermsApprovalRequired;
     }
 
-    public SwapProvider termsOfServiceUrl(String termsOfServiceUrl) {
+    public SwapProvider termsOfServiceUrl(@jakarta.annotation.Nullable String termsOfServiceUrl) {
         this.termsOfServiceUrl = termsOfServiceUrl;
         return this;
     }
@@ -205,11 +230,12 @@ public class SwapProvider {
 
     @JsonProperty(JSON_PROPERTY_TERMS_OF_SERVICE_URL)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setTermsOfServiceUrl(String termsOfServiceUrl) {
+    public void setTermsOfServiceUrl(@jakarta.annotation.Nullable String termsOfServiceUrl) {
         this.termsOfServiceUrl = termsOfServiceUrl;
     }
 
-    public SwapProvider isTermsOfServiceApproved(Boolean isTermsOfServiceApproved) {
+    public SwapProvider isTermsOfServiceApproved(
+            @jakarta.annotation.Nullable Boolean isTermsOfServiceApproved) {
         this.isTermsOfServiceApproved = isTermsOfServiceApproved;
         return this;
     }
@@ -228,7 +254,8 @@ public class SwapProvider {
 
     @JsonProperty(JSON_PROPERTY_IS_TERMS_OF_SERVICE_APPROVED)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setIsTermsOfServiceApproved(Boolean isTermsOfServiceApproved) {
+    public void setIsTermsOfServiceApproved(
+            @jakarta.annotation.Nullable Boolean isTermsOfServiceApproved) {
         this.isTermsOfServiceApproved = isTermsOfServiceApproved;
     }
 
@@ -334,10 +361,7 @@ public class SwapProvider {
             joiner.add(
                     String.format(
                             "%sid%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(String.valueOf(getId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getId()))));
         }
 
         // add `name` to the URL query string
@@ -347,8 +371,7 @@ public class SwapProvider {
                             "%sname%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getName()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getName()))));
         }
 
         // add `protocols` to the URL query string
@@ -364,10 +387,8 @@ public class SwapProvider {
                                             ? ""
                                             : String.format(
                                                     "%s%d%s", containerPrefix, i, containerSuffix),
-                                    URLEncoder.encode(
-                                                    String.valueOf(getProtocols().get(i)),
-                                                    StandardCharsets.UTF_8)
-                                            .replaceAll("\\+", "%20")));
+                                    ApiClient.urlEncode(
+                                            ApiClient.valueToString(getProtocols().get(i)))));
                 }
             }
         }
@@ -379,8 +400,7 @@ public class SwapProvider {
                             "%scategory%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getCategory()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getCategory()))));
         }
 
         // add `isTermsApprovalRequired` to the URL query string
@@ -390,10 +410,8 @@ public class SwapProvider {
                             "%sisTermsApprovalRequired%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getIsTermsApprovalRequired()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(
+                                    ApiClient.valueToString(getIsTermsApprovalRequired()))));
         }
 
         // add `termsOfServiceUrl` to the URL query string
@@ -403,10 +421,7 @@ public class SwapProvider {
                             "%stermsOfServiceUrl%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getTermsOfServiceUrl()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getTermsOfServiceUrl()))));
         }
 
         // add `isTermsOfServiceApproved` to the URL query string
@@ -416,10 +431,8 @@ public class SwapProvider {
                             "%sisTermsOfServiceApproved%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getIsTermsOfServiceApproved()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(
+                                    ApiClient.valueToString(getIsTermsOfServiceApproved()))));
         }
 
         return joiner.toString();

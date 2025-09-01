@@ -13,21 +13,21 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for GasslessStandardConfigurations */
-public class GasslessStandardConfigurationsTest {
+class GasslessStandardConfigurationsTest {
     private final GasslessStandardConfigurations model = new GasslessStandardConfigurations();
 
     /** Model tests for GasslessStandardConfigurations */
     @Test
-    public void testGasslessStandardConfigurations() {
+    void testGasslessStandardConfigurations() {
         // TODO: test GasslessStandardConfigurations
     }
 
     /** Test the property 'gaslessStandardConfigurations' */
     @Test
-    public void gaslessStandardConfigurationsTest() {
+    void gaslessStandardConfigurationsTest() {
         // TODO: test gaslessStandardConfigurations
     }
 }

@@ -13,27 +13,27 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for CreateInternalWalletAssetRequest */
-public class CreateInternalWalletAssetRequestTest {
+class CreateInternalWalletAssetRequestTest {
     private final CreateInternalWalletAssetRequest model = new CreateInternalWalletAssetRequest();
 
     /** Model tests for CreateInternalWalletAssetRequest */
     @Test
-    public void testCreateInternalWalletAssetRequest() {
+    void testCreateInternalWalletAssetRequest() {
         // TODO: test CreateInternalWalletAssetRequest
     }
 
     /** Test the property 'address' */
     @Test
-    public void addressTest() {
+    void addressTest() {
         // TODO: test address
     }
 
     /** Test the property 'tag' */
     @Test
-    public void tagTest() {
+    void tagTest() {
         // TODO: test tag
     }
 }

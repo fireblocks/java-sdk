@@ -13,39 +13,39 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for NotificationAttempt */
-public class NotificationAttemptTest {
+class NotificationAttemptTest {
     private final NotificationAttempt model = new NotificationAttempt();
 
     /** Model tests for NotificationAttempt */
     @Test
-    public void testNotificationAttempt() {
+    void testNotificationAttempt() {
         // TODO: test NotificationAttempt
     }
 
     /** Test the property 'sentTime' */
     @Test
-    public void sentTimeTest() {
+    void sentTimeTest() {
         // TODO: test sentTime
     }
 
     /** Test the property 'duration' */
     @Test
-    public void durationTest() {
+    void durationTest() {
         // TODO: test duration
     }
 
     /** Test the property 'responseCode' */
     @Test
-    public void responseCodeTest() {
+    void responseCodeTest() {
         // TODO: test responseCode
     }
 
     /** Test the property 'failureReason' */
     @Test
-    public void failureReasonTest() {
+    void failureReasonTest() {
         // TODO: test failureReason
     }
 }

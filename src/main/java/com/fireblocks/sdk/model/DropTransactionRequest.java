@@ -16,8 +16,7 @@ package com.fireblocks.sdk.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -27,20 +26,22 @@ import java.util.StringJoiner;
     DropTransactionRequest.JSON_PROPERTY_FEE_LEVEL,
     DropTransactionRequest.JSON_PROPERTY_GAS_PRICE
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class DropTransactionRequest {
     public static final String JSON_PROPERTY_TX_ID = "txId";
-    private String txId;
+    @jakarta.annotation.Nullable private String txId;
 
     public static final String JSON_PROPERTY_FEE_LEVEL = "feeLevel";
-    private String feeLevel;
+    @jakarta.annotation.Nullable private String feeLevel;
 
     public static final String JSON_PROPERTY_GAS_PRICE = "gasPrice";
-    private String gasPrice;
+    @jakarta.annotation.Nullable private String gasPrice;
 
     public DropTransactionRequest() {}
 
-    public DropTransactionRequest txId(String txId) {
+    public DropTransactionRequest txId(@jakarta.annotation.Nullable String txId) {
         this.txId = txId;
         return this;
     }
@@ -59,11 +60,11 @@ public class DropTransactionRequest {
 
     @JsonProperty(JSON_PROPERTY_TX_ID)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setTxId(String txId) {
+    public void setTxId(@jakarta.annotation.Nullable String txId) {
         this.txId = txId;
     }
 
-    public DropTransactionRequest feeLevel(String feeLevel) {
+    public DropTransactionRequest feeLevel(@jakarta.annotation.Nullable String feeLevel) {
         this.feeLevel = feeLevel;
         return this;
     }
@@ -82,11 +83,11 @@ public class DropTransactionRequest {
 
     @JsonProperty(JSON_PROPERTY_FEE_LEVEL)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setFeeLevel(String feeLevel) {
+    public void setFeeLevel(@jakarta.annotation.Nullable String feeLevel) {
         this.feeLevel = feeLevel;
     }
 
-    public DropTransactionRequest gasPrice(String gasPrice) {
+    public DropTransactionRequest gasPrice(@jakarta.annotation.Nullable String gasPrice) {
         this.gasPrice = gasPrice;
         return this;
     }
@@ -105,7 +106,7 @@ public class DropTransactionRequest {
 
     @JsonProperty(JSON_PROPERTY_GAS_PRICE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setGasPrice(String gasPrice) {
+    public void setGasPrice(@jakarta.annotation.Nullable String gasPrice) {
         this.gasPrice = gasPrice;
     }
 
@@ -190,8 +191,7 @@ public class DropTransactionRequest {
                             "%stxId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getTxId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getTxId()))));
         }
 
         // add `feeLevel` to the URL query string
@@ -201,8 +201,7 @@ public class DropTransactionRequest {
                             "%sfeeLevel%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getFeeLevel()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getFeeLevel()))));
         }
 
         // add `gasPrice` to the URL query string
@@ -212,8 +211,7 @@ public class DropTransactionRequest {
                             "%sgasPrice%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getGasPrice()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getGasPrice()))));
         }
 
         return joiner.toString();

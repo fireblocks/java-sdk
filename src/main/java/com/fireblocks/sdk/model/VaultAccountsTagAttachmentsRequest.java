@@ -13,11 +13,11 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -29,17 +29,29 @@ import java.util.UUID;
     VaultAccountsTagAttachmentsRequest.JSON_PROPERTY_TAG_IDS,
     VaultAccountsTagAttachmentsRequest.JSON_PROPERTY_VAULT_ACCOUNT_IDS
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class VaultAccountsTagAttachmentsRequest {
     public static final String JSON_PROPERTY_TAG_IDS = "tagIds";
-    private List<UUID> tagIds = new ArrayList<>();
+    @jakarta.annotation.Nonnull private List<UUID> tagIds = new ArrayList<>();
 
     public static final String JSON_PROPERTY_VAULT_ACCOUNT_IDS = "vaultAccountIds";
-    private List<String> vaultAccountIds = new ArrayList<>();
+    @jakarta.annotation.Nonnull private List<String> vaultAccountIds = new ArrayList<>();
 
     public VaultAccountsTagAttachmentsRequest() {}
 
-    public VaultAccountsTagAttachmentsRequest tagIds(List<UUID> tagIds) {
+    @JsonCreator
+    public VaultAccountsTagAttachmentsRequest(
+            @JsonProperty(value = JSON_PROPERTY_TAG_IDS, required = true) List<UUID> tagIds,
+            @JsonProperty(value = JSON_PROPERTY_VAULT_ACCOUNT_IDS, required = true)
+                    List<String> vaultAccountIds) {
+        this.tagIds = tagIds;
+        this.vaultAccountIds = vaultAccountIds;
+    }
+
+    public VaultAccountsTagAttachmentsRequest tagIds(
+            @jakarta.annotation.Nonnull List<UUID> tagIds) {
         this.tagIds = tagIds;
         return this;
     }
@@ -66,11 +78,12 @@ public class VaultAccountsTagAttachmentsRequest {
 
     @JsonProperty(JSON_PROPERTY_TAG_IDS)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setTagIds(List<UUID> tagIds) {
+    public void setTagIds(@jakarta.annotation.Nonnull List<UUID> tagIds) {
         this.tagIds = tagIds;
     }
 
-    public VaultAccountsTagAttachmentsRequest vaultAccountIds(List<String> vaultAccountIds) {
+    public VaultAccountsTagAttachmentsRequest vaultAccountIds(
+            @jakarta.annotation.Nonnull List<String> vaultAccountIds) {
         this.vaultAccountIds = vaultAccountIds;
         return this;
     }
@@ -97,7 +110,7 @@ public class VaultAccountsTagAttachmentsRequest {
 
     @JsonProperty(JSON_PROPERTY_VAULT_ACCOUNT_IDS)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setVaultAccountIds(List<String> vaultAccountIds) {
+    public void setVaultAccountIds(@jakarta.annotation.Nonnull List<String> vaultAccountIds) {
         this.vaultAccountIds = vaultAccountIds;
     }
 
@@ -188,10 +201,8 @@ public class VaultAccountsTagAttachmentsRequest {
                                             ? ""
                                             : String.format(
                                                     "%s%d%s", containerPrefix, i, containerSuffix),
-                                    URLEncoder.encode(
-                                                    String.valueOf(getTagIds().get(i)),
-                                                    StandardCharsets.UTF_8)
-                                            .replaceAll("\\+", "%20")));
+                                    ApiClient.urlEncode(
+                                            ApiClient.valueToString(getTagIds().get(i)))));
                 }
             }
         }
@@ -208,10 +219,8 @@ public class VaultAccountsTagAttachmentsRequest {
                                         ? ""
                                         : String.format(
                                                 "%s%d%s", containerPrefix, i, containerSuffix),
-                                URLEncoder.encode(
-                                                String.valueOf(getVaultAccountIds().get(i)),
-                                                StandardCharsets.UTF_8)
-                                        .replaceAll("\\+", "%20")));
+                                ApiClient.urlEncode(
+                                        ApiClient.valueToString(getVaultAccountIds().get(i)))));
             }
         }
 

@@ -13,33 +13,33 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for AdditionalInfo */
-public class AdditionalInfoTest {
+class AdditionalInfoTest {
     private final AdditionalInfo model = new AdditionalInfo();
 
     /** Model tests for AdditionalInfo */
     @Test
-    public void testAdditionalInfo() {
+    void testAdditionalInfo() {
         // TODO: test AdditionalInfo
     }
 
     /** Test the property 'estimatedAnnualReward' */
     @Test
-    public void estimatedAnnualRewardTest() {
+    void estimatedAnnualRewardTest() {
         // TODO: test estimatedAnnualReward
     }
 
     /** Test the property 'lockupPeriod' */
     @Test
-    public void lockupPeriodTest() {
+    void lockupPeriodTest() {
         // TODO: test lockupPeriod
     }
 
     /** Test the property 'activationPeriod' */
     @Test
-    public void activationPeriodTest() {
+    void activationPeriodTest() {
         // TODO: test activationPeriod
     }
 }

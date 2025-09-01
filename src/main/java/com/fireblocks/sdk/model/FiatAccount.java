@@ -16,8 +16,7 @@ package com.fireblocks.sdk.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -31,26 +30,28 @@ import java.util.StringJoiner;
     FiatAccount.JSON_PROPERTY_ADDRESS,
     FiatAccount.JSON_PROPERTY_ASSETS
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class FiatAccount {
     public static final String JSON_PROPERTY_ID = "id";
-    private String id;
+    @jakarta.annotation.Nullable private String id;
 
     public static final String JSON_PROPERTY_TYPE = "type";
-    private FiatAccountType type;
+    @jakarta.annotation.Nullable private FiatAccountType type;
 
     public static final String JSON_PROPERTY_NAME = "name";
-    private String name;
+    @jakarta.annotation.Nullable private String name;
 
     public static final String JSON_PROPERTY_ADDRESS = "address";
-    private String address;
+    @jakarta.annotation.Nullable private String address;
 
     public static final String JSON_PROPERTY_ASSETS = "assets";
-    private List<FiatAsset> assets;
+    @jakarta.annotation.Nullable private List<FiatAsset> assets = new ArrayList<>();
 
     public FiatAccount() {}
 
-    public FiatAccount id(String id) {
+    public FiatAccount id(@jakarta.annotation.Nullable String id) {
         this.id = id;
         return this;
     }
@@ -69,11 +70,11 @@ public class FiatAccount {
 
     @JsonProperty(JSON_PROPERTY_ID)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setId(String id) {
+    public void setId(@jakarta.annotation.Nullable String id) {
         this.id = id;
     }
 
-    public FiatAccount type(FiatAccountType type) {
+    public FiatAccount type(@jakarta.annotation.Nullable FiatAccountType type) {
         this.type = type;
         return this;
     }
@@ -92,11 +93,11 @@ public class FiatAccount {
 
     @JsonProperty(JSON_PROPERTY_TYPE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setType(FiatAccountType type) {
+    public void setType(@jakarta.annotation.Nullable FiatAccountType type) {
         this.type = type;
     }
 
-    public FiatAccount name(String name) {
+    public FiatAccount name(@jakarta.annotation.Nullable String name) {
         this.name = name;
         return this;
     }
@@ -115,11 +116,11 @@ public class FiatAccount {
 
     @JsonProperty(JSON_PROPERTY_NAME)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setName(String name) {
+    public void setName(@jakarta.annotation.Nullable String name) {
         this.name = name;
     }
 
-    public FiatAccount address(String address) {
+    public FiatAccount address(@jakarta.annotation.Nullable String address) {
         this.address = address;
         return this;
     }
@@ -138,11 +139,11 @@ public class FiatAccount {
 
     @JsonProperty(JSON_PROPERTY_ADDRESS)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAddress(String address) {
+    public void setAddress(@jakarta.annotation.Nullable String address) {
         this.address = address;
     }
 
-    public FiatAccount assets(List<FiatAsset> assets) {
+    public FiatAccount assets(@jakarta.annotation.Nullable List<FiatAsset> assets) {
         this.assets = assets;
         return this;
     }
@@ -169,7 +170,7 @@ public class FiatAccount {
 
     @JsonProperty(JSON_PROPERTY_ASSETS)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAssets(List<FiatAsset> assets) {
+    public void setAssets(@jakarta.annotation.Nullable List<FiatAsset> assets) {
         this.assets = assets;
     }
 
@@ -256,10 +257,7 @@ public class FiatAccount {
             joiner.add(
                     String.format(
                             "%sid%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(String.valueOf(getId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getId()))));
         }
 
         // add `type` to the URL query string
@@ -269,8 +267,7 @@ public class FiatAccount {
                             "%stype%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getType()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getType()))));
         }
 
         // add `name` to the URL query string
@@ -280,8 +277,7 @@ public class FiatAccount {
                             "%sname%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getName()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getName()))));
         }
 
         // add `address` to the URL query string
@@ -291,8 +287,7 @@ public class FiatAccount {
                             "%saddress%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getAddress()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getAddress()))));
         }
 
         // add `assets` to the URL query string

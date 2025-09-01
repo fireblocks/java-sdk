@@ -13,21 +13,21 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for SettlementRequestBody */
-public class SettlementRequestBodyTest {
+class SettlementRequestBodyTest {
     private final SettlementRequestBody model = new SettlementRequestBody();
 
     /** Model tests for SettlementRequestBody */
     @Test
-    public void testSettlementRequestBody() {
+    void testSettlementRequestBody() {
         // TODO: test SettlementRequestBody
     }
 
     /** Test the property 'mainExchangeAccountId' */
     @Test
-    public void mainExchangeAccountIdTest() {
+    void mainExchangeAccountIdTest() {
         // TODO: test mainExchangeAccountId
     }
 }

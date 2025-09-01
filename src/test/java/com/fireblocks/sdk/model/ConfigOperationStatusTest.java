@@ -13,13 +13,13 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for ConfigOperationStatus */
-public class ConfigOperationStatusTest {
+class ConfigOperationStatusTest {
     /** Model tests for ConfigOperationStatus */
     @Test
-    public void testConfigOperationStatus() {
+    void testConfigOperationStatus() {
         // TODO: test ConfigOperationStatus
     }
 }

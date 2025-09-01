@@ -13,63 +13,63 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for Job */
-public class JobTest {
+class JobTest {
     private final Job model = new Job();
 
     /** Model tests for Job */
     @Test
-    public void testJob() {
+    void testJob() {
         // TODO: test Job
     }
 
     /** Test the property 'id' */
     @Test
-    public void idTest() {
+    void idTest() {
         // TODO: test id
     }
 
     /** Test the property 'tenantId' */
     @Test
-    public void tenantIdTest() {
+    void tenantIdTest() {
         // TODO: test tenantId
     }
 
     /** Test the property 'type' */
     @Test
-    public void typeTest() {
+    void typeTest() {
         // TODO: test type
     }
 
     /** Test the property 'userId' */
     @Test
-    public void userIdTest() {
+    void userIdTest() {
         // TODO: test userId
     }
 
     /** Test the property 'created' */
     @Test
-    public void createdTest() {
+    void createdTest() {
         // TODO: test created
     }
 
     /** Test the property 'updated' */
     @Test
-    public void updatedTest() {
+    void updatedTest() {
         // TODO: test updated
     }
 
     /** Test the property 'state' */
     @Test
-    public void stateTest() {
+    void stateTest() {
         // TODO: test state
     }
 
     /** Test the property 'tasks' */
     @Test
-    public void tasksTest() {
+    void tasksTest() {
         // TODO: test tasks
     }
 }

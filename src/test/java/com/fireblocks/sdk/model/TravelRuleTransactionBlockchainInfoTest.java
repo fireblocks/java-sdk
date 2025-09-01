@@ -13,34 +13,34 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for TravelRuleTransactionBlockchainInfo */
-public class TravelRuleTransactionBlockchainInfoTest {
+class TravelRuleTransactionBlockchainInfoTest {
     private final TravelRuleTransactionBlockchainInfo model =
             new TravelRuleTransactionBlockchainInfo();
 
     /** Model tests for TravelRuleTransactionBlockchainInfo */
     @Test
-    public void testTravelRuleTransactionBlockchainInfo() {
+    void testTravelRuleTransactionBlockchainInfo() {
         // TODO: test TravelRuleTransactionBlockchainInfo
     }
 
     /** Test the property 'txHash' */
     @Test
-    public void txHashTest() {
+    void txHashTest() {
         // TODO: test txHash
     }
 
     /** Test the property 'origin' */
     @Test
-    public void originTest() {
+    void originTest() {
         // TODO: test origin
     }
 
     /** Test the property 'destination' */
     @Test
-    public void destinationTest() {
+    void destinationTest() {
         // TODO: test destination
     }
 }

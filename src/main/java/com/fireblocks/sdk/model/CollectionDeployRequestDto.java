@@ -13,11 +13,11 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -31,32 +31,52 @@ import java.util.StringJoiner;
     CollectionDeployRequestDto.JSON_PROPERTY_ADMIN_ADDRESS,
     CollectionDeployRequestDto.JSON_PROPERTY_DISPLAY_NAME
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class CollectionDeployRequestDto {
     public static final String JSON_PROPERTY_BASE_ASSET_ID = "baseAssetId";
-    private String baseAssetId;
+    @jakarta.annotation.Nonnull private String baseAssetId;
 
     public static final String JSON_PROPERTY_VAULT_ACCOUNT_ID = "vaultAccountId";
-    private String vaultAccountId;
+    @jakarta.annotation.Nonnull private String vaultAccountId;
 
     public static final String JSON_PROPERTY_TYPE = "type";
-    private CollectionType type;
+    @jakarta.annotation.Nonnull private CollectionType type;
 
     public static final String JSON_PROPERTY_NAME = "name";
-    private String name;
+    @jakarta.annotation.Nonnull private String name;
 
     public static final String JSON_PROPERTY_SYMBOL = "symbol";
-    private String symbol;
+    @jakarta.annotation.Nonnull private String symbol;
 
     public static final String JSON_PROPERTY_ADMIN_ADDRESS = "adminAddress";
-    private String adminAddress;
+    @jakarta.annotation.Nonnull private String adminAddress;
 
     public static final String JSON_PROPERTY_DISPLAY_NAME = "displayName";
-    private String displayName;
+    @jakarta.annotation.Nullable private String displayName;
 
     public CollectionDeployRequestDto() {}
 
-    public CollectionDeployRequestDto baseAssetId(String baseAssetId) {
+    @JsonCreator
+    public CollectionDeployRequestDto(
+            @JsonProperty(value = JSON_PROPERTY_BASE_ASSET_ID, required = true) String baseAssetId,
+            @JsonProperty(value = JSON_PROPERTY_VAULT_ACCOUNT_ID, required = true)
+                    String vaultAccountId,
+            @JsonProperty(value = JSON_PROPERTY_TYPE, required = true) CollectionType type,
+            @JsonProperty(value = JSON_PROPERTY_NAME, required = true) String name,
+            @JsonProperty(value = JSON_PROPERTY_SYMBOL, required = true) String symbol,
+            @JsonProperty(value = JSON_PROPERTY_ADMIN_ADDRESS, required = true)
+                    String adminAddress) {
+        this.baseAssetId = baseAssetId;
+        this.vaultAccountId = vaultAccountId;
+        this.type = type;
+        this.name = name;
+        this.symbol = symbol;
+        this.adminAddress = adminAddress;
+    }
+
+    public CollectionDeployRequestDto baseAssetId(@jakarta.annotation.Nonnull String baseAssetId) {
         this.baseAssetId = baseAssetId;
         return this;
     }
@@ -75,11 +95,12 @@ public class CollectionDeployRequestDto {
 
     @JsonProperty(JSON_PROPERTY_BASE_ASSET_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setBaseAssetId(String baseAssetId) {
+    public void setBaseAssetId(@jakarta.annotation.Nonnull String baseAssetId) {
         this.baseAssetId = baseAssetId;
     }
 
-    public CollectionDeployRequestDto vaultAccountId(String vaultAccountId) {
+    public CollectionDeployRequestDto vaultAccountId(
+            @jakarta.annotation.Nonnull String vaultAccountId) {
         this.vaultAccountId = vaultAccountId;
         return this;
     }
@@ -98,11 +119,11 @@ public class CollectionDeployRequestDto {
 
     @JsonProperty(JSON_PROPERTY_VAULT_ACCOUNT_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setVaultAccountId(String vaultAccountId) {
+    public void setVaultAccountId(@jakarta.annotation.Nonnull String vaultAccountId) {
         this.vaultAccountId = vaultAccountId;
     }
 
-    public CollectionDeployRequestDto type(CollectionType type) {
+    public CollectionDeployRequestDto type(@jakarta.annotation.Nonnull CollectionType type) {
         this.type = type;
         return this;
     }
@@ -121,11 +142,11 @@ public class CollectionDeployRequestDto {
 
     @JsonProperty(JSON_PROPERTY_TYPE)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setType(CollectionType type) {
+    public void setType(@jakarta.annotation.Nonnull CollectionType type) {
         this.type = type;
     }
 
-    public CollectionDeployRequestDto name(String name) {
+    public CollectionDeployRequestDto name(@jakarta.annotation.Nonnull String name) {
         this.name = name;
         return this;
     }
@@ -144,11 +165,11 @@ public class CollectionDeployRequestDto {
 
     @JsonProperty(JSON_PROPERTY_NAME)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setName(String name) {
+    public void setName(@jakarta.annotation.Nonnull String name) {
         this.name = name;
     }
 
-    public CollectionDeployRequestDto symbol(String symbol) {
+    public CollectionDeployRequestDto symbol(@jakarta.annotation.Nonnull String symbol) {
         this.symbol = symbol;
         return this;
     }
@@ -167,11 +188,12 @@ public class CollectionDeployRequestDto {
 
     @JsonProperty(JSON_PROPERTY_SYMBOL)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setSymbol(String symbol) {
+    public void setSymbol(@jakarta.annotation.Nonnull String symbol) {
         this.symbol = symbol;
     }
 
-    public CollectionDeployRequestDto adminAddress(String adminAddress) {
+    public CollectionDeployRequestDto adminAddress(
+            @jakarta.annotation.Nonnull String adminAddress) {
         this.adminAddress = adminAddress;
         return this;
     }
@@ -190,11 +212,11 @@ public class CollectionDeployRequestDto {
 
     @JsonProperty(JSON_PROPERTY_ADMIN_ADDRESS)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setAdminAddress(String adminAddress) {
+    public void setAdminAddress(@jakarta.annotation.Nonnull String adminAddress) {
         this.adminAddress = adminAddress;
     }
 
-    public CollectionDeployRequestDto displayName(String displayName) {
+    public CollectionDeployRequestDto displayName(@jakarta.annotation.Nullable String displayName) {
         this.displayName = displayName;
         return this;
     }
@@ -213,7 +235,7 @@ public class CollectionDeployRequestDto {
 
     @JsonProperty(JSON_PROPERTY_DISPLAY_NAME)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setDisplayName(String displayName) {
+    public void setDisplayName(@jakarta.annotation.Nullable String displayName) {
         this.displayName = displayName;
     }
 
@@ -307,10 +329,7 @@ public class CollectionDeployRequestDto {
                             "%sbaseAssetId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getBaseAssetId()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getBaseAssetId()))));
         }
 
         // add `vaultAccountId` to the URL query string
@@ -320,10 +339,7 @@ public class CollectionDeployRequestDto {
                             "%svaultAccountId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getVaultAccountId()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getVaultAccountId()))));
         }
 
         // add `type` to the URL query string
@@ -333,8 +349,7 @@ public class CollectionDeployRequestDto {
                             "%stype%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getType()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getType()))));
         }
 
         // add `name` to the URL query string
@@ -344,8 +359,7 @@ public class CollectionDeployRequestDto {
                             "%sname%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getName()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getName()))));
         }
 
         // add `symbol` to the URL query string
@@ -355,8 +369,7 @@ public class CollectionDeployRequestDto {
                             "%ssymbol%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getSymbol()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getSymbol()))));
         }
 
         // add `adminAddress` to the URL query string
@@ -366,10 +379,7 @@ public class CollectionDeployRequestDto {
                             "%sadminAddress%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getAdminAddress()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getAdminAddress()))));
         }
 
         // add `displayName` to the URL query string
@@ -379,10 +389,7 @@ public class CollectionDeployRequestDto {
                             "%sdisplayName%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getDisplayName()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getDisplayName()))));
         }
 
         return joiner.toString();

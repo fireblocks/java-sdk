@@ -13,11 +13,11 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -30,23 +30,39 @@ import java.util.StringJoiner;
     PublishResult.JSON_PROPERTY_CHECK_RESULT,
     PublishResult.JSON_PROPERTY_METADATA
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class PublishResult {
     public static final String JSON_PROPERTY_STATUS = "status";
-    private PolicyStatus status;
+    @jakarta.annotation.Nonnull private PolicyStatus status;
 
     public static final String JSON_PROPERTY_RULES = "rules";
-    private List<PolicyRule> rules = new ArrayList<>();
+    @jakarta.annotation.Nonnull private List<PolicyRule> rules = new ArrayList<>();
 
     public static final String JSON_PROPERTY_CHECK_RESULT = "checkResult";
-    private PolicyCheckResult checkResult;
+    @jakarta.annotation.Nonnull private PolicyCheckResult checkResult;
 
     public static final String JSON_PROPERTY_METADATA = "metadata";
-    private PolicyMetadata metadata;
+    @jakarta.annotation.Nonnull private PolicyMetadata metadata;
 
     public PublishResult() {}
 
-    public PublishResult status(PolicyStatus status) {
+    @JsonCreator
+    public PublishResult(
+            @JsonProperty(value = JSON_PROPERTY_STATUS, required = true) PolicyStatus status,
+            @JsonProperty(value = JSON_PROPERTY_RULES, required = true) List<PolicyRule> rules,
+            @JsonProperty(value = JSON_PROPERTY_CHECK_RESULT, required = true)
+                    PolicyCheckResult checkResult,
+            @JsonProperty(value = JSON_PROPERTY_METADATA, required = true)
+                    PolicyMetadata metadata) {
+        this.status = status;
+        this.rules = rules;
+        this.checkResult = checkResult;
+        this.metadata = metadata;
+    }
+
+    public PublishResult status(@jakarta.annotation.Nonnull PolicyStatus status) {
         this.status = status;
         return this;
     }
@@ -65,11 +81,11 @@ public class PublishResult {
 
     @JsonProperty(JSON_PROPERTY_STATUS)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setStatus(PolicyStatus status) {
+    public void setStatus(@jakarta.annotation.Nonnull PolicyStatus status) {
         this.status = status;
     }
 
-    public PublishResult rules(List<PolicyRule> rules) {
+    public PublishResult rules(@jakarta.annotation.Nonnull List<PolicyRule> rules) {
         this.rules = rules;
         return this;
     }
@@ -96,11 +112,11 @@ public class PublishResult {
 
     @JsonProperty(JSON_PROPERTY_RULES)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setRules(List<PolicyRule> rules) {
+    public void setRules(@jakarta.annotation.Nonnull List<PolicyRule> rules) {
         this.rules = rules;
     }
 
-    public PublishResult checkResult(PolicyCheckResult checkResult) {
+    public PublishResult checkResult(@jakarta.annotation.Nonnull PolicyCheckResult checkResult) {
         this.checkResult = checkResult;
         return this;
     }
@@ -119,11 +135,11 @@ public class PublishResult {
 
     @JsonProperty(JSON_PROPERTY_CHECK_RESULT)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setCheckResult(PolicyCheckResult checkResult) {
+    public void setCheckResult(@jakarta.annotation.Nonnull PolicyCheckResult checkResult) {
         this.checkResult = checkResult;
     }
 
-    public PublishResult metadata(PolicyMetadata metadata) {
+    public PublishResult metadata(@jakarta.annotation.Nonnull PolicyMetadata metadata) {
         this.metadata = metadata;
         return this;
     }
@@ -142,7 +158,7 @@ public class PublishResult {
 
     @JsonProperty(JSON_PROPERTY_METADATA)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setMetadata(PolicyMetadata metadata) {
+    public void setMetadata(@jakarta.annotation.Nonnull PolicyMetadata metadata) {
         this.metadata = metadata;
     }
 
@@ -229,8 +245,7 @@ public class PublishResult {
                             "%sstatus%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getStatus()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getStatus()))));
         }
 
         // add `rules` to the URL query string

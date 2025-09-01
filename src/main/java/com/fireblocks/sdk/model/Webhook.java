@@ -18,8 +18,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonValue;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -36,27 +35,29 @@ import java.util.UUID;
     Webhook.JSON_PROPERTY_CREATED_AT,
     Webhook.JSON_PROPERTY_UPDATED_AT
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class Webhook {
     public static final String JSON_PROPERTY_ID = "id";
-    private UUID id;
+    @jakarta.annotation.Nonnull private UUID id;
 
     public static final String JSON_PROPERTY_URL = "url";
-    private String url;
+    @jakarta.annotation.Nonnull private String url;
 
     public static final String JSON_PROPERTY_DESCRIPTION = "description";
-    private String description;
+    @jakarta.annotation.Nullable private String description;
 
     public static final String JSON_PROPERTY_EVENTS = "events";
-    private List<WebhookEvent> events = new ArrayList<>();
+    @jakarta.annotation.Nonnull private List<WebhookEvent> events = new ArrayList<>();
 
     /** The status of the webhook */
     public enum StatusEnum {
-        DISABLED("DISABLED"),
+        DISABLED(String.valueOf("DISABLED")),
 
-        ENABLED("ENABLED"),
+        ENABLED(String.valueOf("ENABLED")),
 
-        SUSPENDED("SUSPENDED");
+        SUSPENDED(String.valueOf("SUSPENDED"));
 
         private String value;
 
@@ -86,17 +87,33 @@ public class Webhook {
     }
 
     public static final String JSON_PROPERTY_STATUS = "status";
-    private StatusEnum status;
+    @jakarta.annotation.Nonnull private StatusEnum status;
 
     public static final String JSON_PROPERTY_CREATED_AT = "createdAt";
-    private Long createdAt;
+    @jakarta.annotation.Nonnull private Long createdAt;
 
     public static final String JSON_PROPERTY_UPDATED_AT = "updatedAt";
-    private Long updatedAt;
+    @jakarta.annotation.Nonnull private Long updatedAt;
 
     public Webhook() {}
 
-    public Webhook id(UUID id) {
+    @JsonCreator
+    public Webhook(
+            @JsonProperty(value = JSON_PROPERTY_ID, required = true) UUID id,
+            @JsonProperty(value = JSON_PROPERTY_URL, required = true) String url,
+            @JsonProperty(value = JSON_PROPERTY_EVENTS, required = true) List<WebhookEvent> events,
+            @JsonProperty(value = JSON_PROPERTY_STATUS, required = true) StatusEnum status,
+            @JsonProperty(value = JSON_PROPERTY_CREATED_AT, required = true) Long createdAt,
+            @JsonProperty(value = JSON_PROPERTY_UPDATED_AT, required = true) Long updatedAt) {
+        this.id = id;
+        this.url = url;
+        this.events = events;
+        this.status = status;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+    }
+
+    public Webhook id(@jakarta.annotation.Nonnull UUID id) {
         this.id = id;
         return this;
     }
@@ -115,11 +132,11 @@ public class Webhook {
 
     @JsonProperty(JSON_PROPERTY_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setId(UUID id) {
+    public void setId(@jakarta.annotation.Nonnull UUID id) {
         this.id = id;
     }
 
-    public Webhook url(String url) {
+    public Webhook url(@jakarta.annotation.Nonnull String url) {
         this.url = url;
         return this;
     }
@@ -138,11 +155,11 @@ public class Webhook {
 
     @JsonProperty(JSON_PROPERTY_URL)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setUrl(String url) {
+    public void setUrl(@jakarta.annotation.Nonnull String url) {
         this.url = url;
     }
 
-    public Webhook description(String description) {
+    public Webhook description(@jakarta.annotation.Nullable String description) {
         this.description = description;
         return this;
     }
@@ -161,11 +178,11 @@ public class Webhook {
 
     @JsonProperty(JSON_PROPERTY_DESCRIPTION)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setDescription(String description) {
+    public void setDescription(@jakarta.annotation.Nullable String description) {
         this.description = description;
     }
 
-    public Webhook events(List<WebhookEvent> events) {
+    public Webhook events(@jakarta.annotation.Nonnull List<WebhookEvent> events) {
         this.events = events;
         return this;
     }
@@ -192,11 +209,11 @@ public class Webhook {
 
     @JsonProperty(JSON_PROPERTY_EVENTS)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setEvents(List<WebhookEvent> events) {
+    public void setEvents(@jakarta.annotation.Nonnull List<WebhookEvent> events) {
         this.events = events;
     }
 
-    public Webhook status(StatusEnum status) {
+    public Webhook status(@jakarta.annotation.Nonnull StatusEnum status) {
         this.status = status;
         return this;
     }
@@ -215,11 +232,11 @@ public class Webhook {
 
     @JsonProperty(JSON_PROPERTY_STATUS)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setStatus(StatusEnum status) {
+    public void setStatus(@jakarta.annotation.Nonnull StatusEnum status) {
         this.status = status;
     }
 
-    public Webhook createdAt(Long createdAt) {
+    public Webhook createdAt(@jakarta.annotation.Nonnull Long createdAt) {
         this.createdAt = createdAt;
         return this;
     }
@@ -238,11 +255,11 @@ public class Webhook {
 
     @JsonProperty(JSON_PROPERTY_CREATED_AT)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setCreatedAt(Long createdAt) {
+    public void setCreatedAt(@jakarta.annotation.Nonnull Long createdAt) {
         this.createdAt = createdAt;
     }
 
-    public Webhook updatedAt(Long updatedAt) {
+    public Webhook updatedAt(@jakarta.annotation.Nonnull Long updatedAt) {
         this.updatedAt = updatedAt;
         return this;
     }
@@ -261,7 +278,7 @@ public class Webhook {
 
     @JsonProperty(JSON_PROPERTY_UPDATED_AT)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setUpdatedAt(Long updatedAt) {
+    public void setUpdatedAt(@jakarta.annotation.Nonnull Long updatedAt) {
         this.updatedAt = updatedAt;
     }
 
@@ -352,10 +369,7 @@ public class Webhook {
             joiner.add(
                     String.format(
                             "%sid%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(String.valueOf(getId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getId()))));
         }
 
         // add `url` to the URL query string
@@ -365,8 +379,7 @@ public class Webhook {
                             "%surl%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getUrl()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getUrl()))));
         }
 
         // add `description` to the URL query string
@@ -376,10 +389,7 @@ public class Webhook {
                             "%sdescription%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getDescription()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getDescription()))));
         }
 
         // add `events` to the URL query string
@@ -395,10 +405,8 @@ public class Webhook {
                                             ? ""
                                             : String.format(
                                                     "%s%d%s", containerPrefix, i, containerSuffix),
-                                    URLEncoder.encode(
-                                                    String.valueOf(getEvents().get(i)),
-                                                    StandardCharsets.UTF_8)
-                                            .replaceAll("\\+", "%20")));
+                                    ApiClient.urlEncode(
+                                            ApiClient.valueToString(getEvents().get(i)))));
                 }
             }
         }
@@ -410,8 +418,7 @@ public class Webhook {
                             "%sstatus%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getStatus()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getStatus()))));
         }
 
         // add `createdAt` to the URL query string
@@ -421,9 +428,7 @@ public class Webhook {
                             "%screatedAt%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getCreatedAt()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getCreatedAt()))));
         }
 
         // add `updatedAt` to the URL query string
@@ -433,9 +438,7 @@ public class Webhook {
                             "%supdatedAt%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getUpdatedAt()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getUpdatedAt()))));
         }
 
         return joiner.toString();

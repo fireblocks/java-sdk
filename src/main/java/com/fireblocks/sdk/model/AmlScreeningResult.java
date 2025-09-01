@@ -16,8 +16,7 @@ package com.fireblocks.sdk.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -26,17 +25,19 @@ import java.util.StringJoiner;
     AmlScreeningResult.JSON_PROPERTY_PROVIDER,
     AmlScreeningResult.JSON_PROPERTY_PAYLOAD
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class AmlScreeningResult {
     public static final String JSON_PROPERTY_PROVIDER = "provider";
-    private String provider;
+    @jakarta.annotation.Nullable private String provider;
 
     public static final String JSON_PROPERTY_PAYLOAD = "payload";
-    private Object payload;
+    @jakarta.annotation.Nullable private Object payload;
 
     public AmlScreeningResult() {}
 
-    public AmlScreeningResult provider(String provider) {
+    public AmlScreeningResult provider(@jakarta.annotation.Nullable String provider) {
         this.provider = provider;
         return this;
     }
@@ -55,11 +56,11 @@ public class AmlScreeningResult {
 
     @JsonProperty(JSON_PROPERTY_PROVIDER)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setProvider(String provider) {
+    public void setProvider(@jakarta.annotation.Nullable String provider) {
         this.provider = provider;
     }
 
-    public AmlScreeningResult payload(Object payload) {
+    public AmlScreeningResult payload(@jakarta.annotation.Nullable Object payload) {
         this.payload = payload;
         return this;
     }
@@ -78,7 +79,7 @@ public class AmlScreeningResult {
 
     @JsonProperty(JSON_PROPERTY_PAYLOAD)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setPayload(Object payload) {
+    public void setPayload(@jakarta.annotation.Nullable Object payload) {
         this.payload = payload;
     }
 
@@ -161,8 +162,7 @@ public class AmlScreeningResult {
                             "%sprovider%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getProvider()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getProvider()))));
         }
 
         // add `payload` to the URL query string
@@ -172,8 +172,7 @@ public class AmlScreeningResult {
                             "%spayload%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getPayload()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getPayload()))));
         }
 
         return joiner.toString();

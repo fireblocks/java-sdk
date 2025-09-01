@@ -16,8 +16,7 @@ package com.fireblocks.sdk.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -29,20 +28,25 @@ import java.util.StringJoiner;
     DisbursementOperationExecutionParamsExecutionParams.JSON_PROPERTY_PAYMENT_ACCOUNT,
     DisbursementOperationExecutionParamsExecutionParams.JSON_PROPERTY_INSTRUCTION_SET
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class DisbursementOperationExecutionParamsExecutionParams {
     public static final String JSON_PROPERTY_AMOUNT = "amount";
-    private String amount;
+    @jakarta.annotation.Nullable private String amount;
 
     public static final String JSON_PROPERTY_PAYMENT_ACCOUNT = "paymentAccount";
-    private Account paymentAccount;
+    @jakarta.annotation.Nullable private Account paymentAccount;
 
     public static final String JSON_PROPERTY_INSTRUCTION_SET = "instructionSet";
-    private List<DisbursementInstruction> instructionSet;
+
+    @jakarta.annotation.Nullable
+    private List<DisbursementInstruction> instructionSet = new ArrayList<>();
 
     public DisbursementOperationExecutionParamsExecutionParams() {}
 
-    public DisbursementOperationExecutionParamsExecutionParams amount(String amount) {
+    public DisbursementOperationExecutionParamsExecutionParams amount(
+            @jakarta.annotation.Nullable String amount) {
         this.amount = amount;
         return this;
     }
@@ -61,12 +65,12 @@ public class DisbursementOperationExecutionParamsExecutionParams {
 
     @JsonProperty(JSON_PROPERTY_AMOUNT)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAmount(String amount) {
+    public void setAmount(@jakarta.annotation.Nullable String amount) {
         this.amount = amount;
     }
 
     public DisbursementOperationExecutionParamsExecutionParams paymentAccount(
-            Account paymentAccount) {
+            @jakarta.annotation.Nullable Account paymentAccount) {
         this.paymentAccount = paymentAccount;
         return this;
     }
@@ -85,12 +89,12 @@ public class DisbursementOperationExecutionParamsExecutionParams {
 
     @JsonProperty(JSON_PROPERTY_PAYMENT_ACCOUNT)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setPaymentAccount(Account paymentAccount) {
+    public void setPaymentAccount(@jakarta.annotation.Nullable Account paymentAccount) {
         this.paymentAccount = paymentAccount;
     }
 
     public DisbursementOperationExecutionParamsExecutionParams instructionSet(
-            List<DisbursementInstruction> instructionSet) {
+            @jakarta.annotation.Nullable List<DisbursementInstruction> instructionSet) {
         this.instructionSet = instructionSet;
         return this;
     }
@@ -118,7 +122,8 @@ public class DisbursementOperationExecutionParamsExecutionParams {
 
     @JsonProperty(JSON_PROPERTY_INSTRUCTION_SET)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setInstructionSet(List<DisbursementInstruction> instructionSet) {
+    public void setInstructionSet(
+            @jakarta.annotation.Nullable List<DisbursementInstruction> instructionSet) {
         this.instructionSet = instructionSet;
     }
 
@@ -213,8 +218,7 @@ public class DisbursementOperationExecutionParamsExecutionParams {
                             "%samount%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getAmount()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getAmount()))));
         }
 
         // add `paymentAccount` to the URL query string

@@ -13,39 +13,39 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for SolanaInstructionWithValue */
-public class SolanaInstructionWithValueTest {
+class SolanaInstructionWithValueTest {
     private final SolanaInstructionWithValue model = new SolanaInstructionWithValue();
 
     /** Model tests for SolanaInstructionWithValue */
     @Test
-    public void testSolanaInstructionWithValue() {
+    void testSolanaInstructionWithValue() {
         // TODO: test SolanaInstructionWithValue
     }
 
     /** Test the property 'name' */
     @Test
-    public void nameTest() {
+    void nameTest() {
         // TODO: test name
     }
 
     /** Test the property 'discriminator' */
     @Test
-    public void discriminatorTest() {
+    void discriminatorTest() {
         // TODO: test discriminator
     }
 
     /** Test the property 'accounts' */
     @Test
-    public void accountsTest() {
+    void accountsTest() {
         // TODO: test accounts
     }
 
     /** Test the property 'args' */
     @Test
-    public void argsTest() {
+    void argsTest() {
         // TODO: test args
     }
 }

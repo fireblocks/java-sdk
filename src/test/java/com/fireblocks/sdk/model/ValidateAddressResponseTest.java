@@ -13,33 +13,33 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for ValidateAddressResponse */
-public class ValidateAddressResponseTest {
+class ValidateAddressResponseTest {
     private final ValidateAddressResponse model = new ValidateAddressResponse();
 
     /** Model tests for ValidateAddressResponse */
     @Test
-    public void testValidateAddressResponse() {
+    void testValidateAddressResponse() {
         // TODO: test ValidateAddressResponse
     }
 
     /** Test the property 'isValid' */
     @Test
-    public void isValidTest() {
+    void isValidTest() {
         // TODO: test isValid
     }
 
     /** Test the property 'isActive' */
     @Test
-    public void isActiveTest() {
+    void isActiveTest() {
         // TODO: test isActive
     }
 
     /** Test the property 'requiresTag' */
     @Test
-    public void requiresTagTest() {
+    void requiresTagTest() {
         // TODO: test requiresTag
     }
 }

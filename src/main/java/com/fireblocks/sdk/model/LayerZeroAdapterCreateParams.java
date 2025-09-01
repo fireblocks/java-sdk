@@ -13,11 +13,11 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -28,23 +28,41 @@ import java.util.StringJoiner;
     LayerZeroAdapterCreateParams.JSON_PROPERTY_DEFAULT_ADMIN_ADDRESS,
     LayerZeroAdapterCreateParams.JSON_PROPERTY_PAUSER_ADDRESS
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class LayerZeroAdapterCreateParams {
     public static final String JSON_PROPERTY_TOKEN_LINK_ID = "tokenLinkId";
-    private String tokenLinkId;
+    @jakarta.annotation.Nonnull private String tokenLinkId;
 
     public static final String JSON_PROPERTY_DELEGATE_ADDRESS = "delegateAddress";
-    private String delegateAddress;
+    @jakarta.annotation.Nonnull private String delegateAddress;
 
     public static final String JSON_PROPERTY_DEFAULT_ADMIN_ADDRESS = "defaultAdminAddress";
-    private String defaultAdminAddress;
+    @jakarta.annotation.Nonnull private String defaultAdminAddress;
 
     public static final String JSON_PROPERTY_PAUSER_ADDRESS = "pauserAddress";
-    private String pauserAddress;
+    @jakarta.annotation.Nonnull private String pauserAddress;
 
     public LayerZeroAdapterCreateParams() {}
 
-    public LayerZeroAdapterCreateParams tokenLinkId(String tokenLinkId) {
+    @JsonCreator
+    public LayerZeroAdapterCreateParams(
+            @JsonProperty(value = JSON_PROPERTY_TOKEN_LINK_ID, required = true) String tokenLinkId,
+            @JsonProperty(value = JSON_PROPERTY_DELEGATE_ADDRESS, required = true)
+                    String delegateAddress,
+            @JsonProperty(value = JSON_PROPERTY_DEFAULT_ADMIN_ADDRESS, required = true)
+                    String defaultAdminAddress,
+            @JsonProperty(value = JSON_PROPERTY_PAUSER_ADDRESS, required = true)
+                    String pauserAddress) {
+        this.tokenLinkId = tokenLinkId;
+        this.delegateAddress = delegateAddress;
+        this.defaultAdminAddress = defaultAdminAddress;
+        this.pauserAddress = pauserAddress;
+    }
+
+    public LayerZeroAdapterCreateParams tokenLinkId(
+            @jakarta.annotation.Nonnull String tokenLinkId) {
         this.tokenLinkId = tokenLinkId;
         return this;
     }
@@ -63,11 +81,12 @@ public class LayerZeroAdapterCreateParams {
 
     @JsonProperty(JSON_PROPERTY_TOKEN_LINK_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setTokenLinkId(String tokenLinkId) {
+    public void setTokenLinkId(@jakarta.annotation.Nonnull String tokenLinkId) {
         this.tokenLinkId = tokenLinkId;
     }
 
-    public LayerZeroAdapterCreateParams delegateAddress(String delegateAddress) {
+    public LayerZeroAdapterCreateParams delegateAddress(
+            @jakarta.annotation.Nonnull String delegateAddress) {
         this.delegateAddress = delegateAddress;
         return this;
     }
@@ -86,11 +105,12 @@ public class LayerZeroAdapterCreateParams {
 
     @JsonProperty(JSON_PROPERTY_DELEGATE_ADDRESS)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setDelegateAddress(String delegateAddress) {
+    public void setDelegateAddress(@jakarta.annotation.Nonnull String delegateAddress) {
         this.delegateAddress = delegateAddress;
     }
 
-    public LayerZeroAdapterCreateParams defaultAdminAddress(String defaultAdminAddress) {
+    public LayerZeroAdapterCreateParams defaultAdminAddress(
+            @jakarta.annotation.Nonnull String defaultAdminAddress) {
         this.defaultAdminAddress = defaultAdminAddress;
         return this;
     }
@@ -109,11 +129,12 @@ public class LayerZeroAdapterCreateParams {
 
     @JsonProperty(JSON_PROPERTY_DEFAULT_ADMIN_ADDRESS)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setDefaultAdminAddress(String defaultAdminAddress) {
+    public void setDefaultAdminAddress(@jakarta.annotation.Nonnull String defaultAdminAddress) {
         this.defaultAdminAddress = defaultAdminAddress;
     }
 
-    public LayerZeroAdapterCreateParams pauserAddress(String pauserAddress) {
+    public LayerZeroAdapterCreateParams pauserAddress(
+            @jakarta.annotation.Nonnull String pauserAddress) {
         this.pauserAddress = pauserAddress;
         return this;
     }
@@ -132,7 +153,7 @@ public class LayerZeroAdapterCreateParams {
 
     @JsonProperty(JSON_PROPERTY_PAUSER_ADDRESS)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setPauserAddress(String pauserAddress) {
+    public void setPauserAddress(@jakarta.annotation.Nonnull String pauserAddress) {
         this.pauserAddress = pauserAddress;
     }
 
@@ -224,10 +245,7 @@ public class LayerZeroAdapterCreateParams {
                             "%stokenLinkId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getTokenLinkId()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getTokenLinkId()))));
         }
 
         // add `delegateAddress` to the URL query string
@@ -237,10 +255,7 @@ public class LayerZeroAdapterCreateParams {
                             "%sdelegateAddress%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getDelegateAddress()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getDelegateAddress()))));
         }
 
         // add `defaultAdminAddress` to the URL query string
@@ -250,10 +265,8 @@ public class LayerZeroAdapterCreateParams {
                             "%sdefaultAdminAddress%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getDefaultAdminAddress()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(
+                                    ApiClient.valueToString(getDefaultAdminAddress()))));
         }
 
         // add `pauserAddress` to the URL query string
@@ -263,10 +276,7 @@ public class LayerZeroAdapterCreateParams {
                             "%spauserAddress%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getPauserAddress()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getPauserAddress()))));
         }
 
         return joiner.toString();

@@ -13,81 +13,81 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for TokenResponse */
-public class TokenResponseTest {
+class TokenResponseTest {
     private final TokenResponse model = new TokenResponse();
 
     /** Model tests for TokenResponse */
     @Test
-    public void testTokenResponse() {
+    void testTokenResponse() {
         // TODO: test TokenResponse
     }
 
     /** Test the property 'id' */
     @Test
-    public void idTest() {
+    void idTest() {
         // TODO: test id
     }
 
     /** Test the property 'tokenId' */
     @Test
-    public void tokenIdTest() {
+    void tokenIdTest() {
         // TODO: test tokenId
     }
 
     /** Test the property 'standard' */
     @Test
-    public void standardTest() {
+    void standardTest() {
         // TODO: test standard
     }
 
     /** Test the property 'metadataURI' */
     @Test
-    public void metadataURITest() {
+    void metadataURITest() {
         // TODO: test metadataURI
     }
 
     /** Test the property 'cachedMetadataURI' */
     @Test
-    public void cachedMetadataURITest() {
+    void cachedMetadataURITest() {
         // TODO: test cachedMetadataURI
     }
 
     /** Test the property 'media' */
     @Test
-    public void mediaTest() {
+    void mediaTest() {
         // TODO: test media
     }
 
     /** Test the property 'spam' */
     @Test
-    public void spamTest() {
+    void spamTest() {
         // TODO: test spam
     }
 
     /** Test the property 'collection' */
     @Test
-    public void collectionTest() {
+    void collectionTest() {
         // TODO: test collection
     }
 
     /** Test the property 'blockchainDescriptor' */
     @Test
-    public void blockchainDescriptorTest() {
+    void blockchainDescriptorTest() {
         // TODO: test blockchainDescriptor
     }
 
     /** Test the property 'description' */
     @Test
-    public void descriptionTest() {
+    void descriptionTest() {
         // TODO: test description
     }
 
     /** Test the property 'name' */
     @Test
-    public void nameTest() {
+    void nameTest() {
         // TODO: test name
     }
 }

@@ -13,28 +13,28 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for DisbursementOperationExecutionParams */
-public class DisbursementOperationExecutionParamsTest {
+class DisbursementOperationExecutionParamsTest {
     private final DisbursementOperationExecutionParams model =
             new DisbursementOperationExecutionParams();
 
     /** Model tests for DisbursementOperationExecutionParams */
     @Test
-    public void testDisbursementOperationExecutionParams() {
+    void testDisbursementOperationExecutionParams() {
         // TODO: test DisbursementOperationExecutionParams
     }
 
     /** Test the property 'configOperationId' */
     @Test
-    public void configOperationIdTest() {
+    void configOperationIdTest() {
         // TODO: test configOperationId
     }
 
     /** Test the property 'executionParams' */
     @Test
-    public void executionParamsTest() {
+    void executionParamsTest() {
         // TODO: test executionParams
     }
 }

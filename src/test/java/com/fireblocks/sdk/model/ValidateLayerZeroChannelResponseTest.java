@@ -13,27 +13,27 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for ValidateLayerZeroChannelResponse */
-public class ValidateLayerZeroChannelResponseTest {
+class ValidateLayerZeroChannelResponseTest {
     private final ValidateLayerZeroChannelResponse model = new ValidateLayerZeroChannelResponse();
 
     /** Model tests for ValidateLayerZeroChannelResponse */
     @Test
-    public void testValidateLayerZeroChannelResponse() {
+    void testValidateLayerZeroChannelResponse() {
         // TODO: test ValidateLayerZeroChannelResponse
     }
 
     /** Test the property 'correct' */
     @Test
-    public void correctTest() {
+    void correctTest() {
         // TODO: test correct
     }
 
     /** Test the property 'errors' */
     @Test
-    public void errorsTest() {
+    void errorsTest() {
         // TODO: test errors
     }
 }

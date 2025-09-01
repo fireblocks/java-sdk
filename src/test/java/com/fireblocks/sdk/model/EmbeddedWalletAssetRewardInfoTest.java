@@ -13,21 +13,21 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for EmbeddedWalletAssetRewardInfo */
-public class EmbeddedWalletAssetRewardInfoTest {
+class EmbeddedWalletAssetRewardInfoTest {
     private final EmbeddedWalletAssetRewardInfo model = new EmbeddedWalletAssetRewardInfo();
 
     /** Model tests for EmbeddedWalletAssetRewardInfo */
     @Test
-    public void testEmbeddedWalletAssetRewardInfo() {
+    void testEmbeddedWalletAssetRewardInfo() {
         // TODO: test EmbeddedWalletAssetRewardInfo
     }
 
     /** Test the property 'pendingRewards' */
     @Test
-    public void pendingRewardsTest() {
+    void pendingRewardsTest() {
         // TODO: test pendingRewards
     }
 }

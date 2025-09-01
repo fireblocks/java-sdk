@@ -16,8 +16,7 @@ package com.fireblocks.sdk.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -31,32 +30,34 @@ import java.util.StringJoiner;
     TravelRuleOwnershipProof.JSON_PROPERTY_URL,
     TravelRuleOwnershipProof.JSON_PROPERTY_CONFIRMED
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class TravelRuleOwnershipProof {
     public static final String JSON_PROPERTY_TYPE = "type";
-    private String type;
+    @jakarta.annotation.Nullable private String type;
 
     public static final String JSON_PROPERTY_PROOF = "proof";
-    private String proof;
+    @jakarta.annotation.Nullable private String proof;
 
     public static final String JSON_PROPERTY_ATTESTATION = "attestation";
-    private String attestation;
+    @jakarta.annotation.Nullable private String attestation;
 
     public static final String JSON_PROPERTY_ADDRESS = "address";
-    private String address;
+    @jakarta.annotation.Nullable private String address;
 
     public static final String JSON_PROPERTY_WALLET_PROVIDER = "wallet_provider";
-    private String walletProvider;
+    @jakarta.annotation.Nullable private String walletProvider;
 
     public static final String JSON_PROPERTY_URL = "url";
-    private String url;
+    @jakarta.annotation.Nullable private String url;
 
     public static final String JSON_PROPERTY_CONFIRMED = "confirmed";
-    private Boolean confirmed;
+    @jakarta.annotation.Nullable private Boolean confirmed;
 
     public TravelRuleOwnershipProof() {}
 
-    public TravelRuleOwnershipProof type(String type) {
+    public TravelRuleOwnershipProof type(@jakarta.annotation.Nullable String type) {
         this.type = type;
         return this;
     }
@@ -79,11 +80,11 @@ public class TravelRuleOwnershipProof {
 
     @JsonProperty(JSON_PROPERTY_TYPE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setType(String type) {
+    public void setType(@jakarta.annotation.Nullable String type) {
         this.type = type;
     }
 
-    public TravelRuleOwnershipProof proof(String proof) {
+    public TravelRuleOwnershipProof proof(@jakarta.annotation.Nullable String proof) {
         this.proof = proof;
         return this;
     }
@@ -104,11 +105,11 @@ public class TravelRuleOwnershipProof {
 
     @JsonProperty(JSON_PROPERTY_PROOF)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setProof(String proof) {
+    public void setProof(@jakarta.annotation.Nullable String proof) {
         this.proof = proof;
     }
 
-    public TravelRuleOwnershipProof attestation(String attestation) {
+    public TravelRuleOwnershipProof attestation(@jakarta.annotation.Nullable String attestation) {
         this.attestation = attestation;
         return this;
     }
@@ -130,11 +131,11 @@ public class TravelRuleOwnershipProof {
 
     @JsonProperty(JSON_PROPERTY_ATTESTATION)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAttestation(String attestation) {
+    public void setAttestation(@jakarta.annotation.Nullable String attestation) {
         this.attestation = attestation;
     }
 
-    public TravelRuleOwnershipProof address(String address) {
+    public TravelRuleOwnershipProof address(@jakarta.annotation.Nullable String address) {
         this.address = address;
         return this;
     }
@@ -154,11 +155,12 @@ public class TravelRuleOwnershipProof {
 
     @JsonProperty(JSON_PROPERTY_ADDRESS)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAddress(String address) {
+    public void setAddress(@jakarta.annotation.Nullable String address) {
         this.address = address;
     }
 
-    public TravelRuleOwnershipProof walletProvider(String walletProvider) {
+    public TravelRuleOwnershipProof walletProvider(
+            @jakarta.annotation.Nullable String walletProvider) {
         this.walletProvider = walletProvider;
         return this;
     }
@@ -178,11 +180,11 @@ public class TravelRuleOwnershipProof {
 
     @JsonProperty(JSON_PROPERTY_WALLET_PROVIDER)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setWalletProvider(String walletProvider) {
+    public void setWalletProvider(@jakarta.annotation.Nullable String walletProvider) {
         this.walletProvider = walletProvider;
     }
 
-    public TravelRuleOwnershipProof url(String url) {
+    public TravelRuleOwnershipProof url(@jakarta.annotation.Nullable String url) {
         this.url = url;
         return this;
     }
@@ -202,11 +204,11 @@ public class TravelRuleOwnershipProof {
 
     @JsonProperty(JSON_PROPERTY_URL)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setUrl(String url) {
+    public void setUrl(@jakarta.annotation.Nullable String url) {
         this.url = url;
     }
 
-    public TravelRuleOwnershipProof confirmed(Boolean confirmed) {
+    public TravelRuleOwnershipProof confirmed(@jakarta.annotation.Nullable Boolean confirmed) {
         this.confirmed = confirmed;
         return this;
     }
@@ -226,7 +228,7 @@ public class TravelRuleOwnershipProof {
 
     @JsonProperty(JSON_PROPERTY_CONFIRMED)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setConfirmed(Boolean confirmed) {
+    public void setConfirmed(@jakarta.annotation.Nullable Boolean confirmed) {
         this.confirmed = confirmed;
     }
 
@@ -319,8 +321,7 @@ public class TravelRuleOwnershipProof {
                             "%stype%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getType()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getType()))));
         }
 
         // add `proof` to the URL query string
@@ -330,8 +331,7 @@ public class TravelRuleOwnershipProof {
                             "%sproof%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getProof()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getProof()))));
         }
 
         // add `attestation` to the URL query string
@@ -341,10 +341,7 @@ public class TravelRuleOwnershipProof {
                             "%sattestation%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getAttestation()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getAttestation()))));
         }
 
         // add `address` to the URL query string
@@ -354,8 +351,7 @@ public class TravelRuleOwnershipProof {
                             "%saddress%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getAddress()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getAddress()))));
         }
 
         // add `wallet_provider` to the URL query string
@@ -365,10 +361,7 @@ public class TravelRuleOwnershipProof {
                             "%swallet_provider%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getWalletProvider()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getWalletProvider()))));
         }
 
         // add `url` to the URL query string
@@ -378,8 +371,7 @@ public class TravelRuleOwnershipProof {
                             "%surl%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getUrl()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getUrl()))));
         }
 
         // add `confirmed` to the URL query string
@@ -389,9 +381,7 @@ public class TravelRuleOwnershipProof {
                             "%sconfirmed%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getConfirmed()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getConfirmed()))));
         }
 
         return joiner.toString();

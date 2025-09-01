@@ -13,12 +13,12 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fireblocks.sdk.ApiClient;
 import java.math.BigDecimal;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -27,17 +27,27 @@ import java.util.StringJoiner;
     SetAssetPriceRequest.JSON_PROPERTY_CURRENCY,
     SetAssetPriceRequest.JSON_PROPERTY_PRICE
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class SetAssetPriceRequest {
     public static final String JSON_PROPERTY_CURRENCY = "currency";
-    private String currency;
+    @jakarta.annotation.Nonnull private String currency;
 
     public static final String JSON_PROPERTY_PRICE = "price";
-    private BigDecimal price;
+    @jakarta.annotation.Nonnull private BigDecimal price;
 
     public SetAssetPriceRequest() {}
 
-    public SetAssetPriceRequest currency(String currency) {
+    @JsonCreator
+    public SetAssetPriceRequest(
+            @JsonProperty(value = JSON_PROPERTY_CURRENCY, required = true) String currency,
+            @JsonProperty(value = JSON_PROPERTY_PRICE, required = true) BigDecimal price) {
+        this.currency = currency;
+        this.price = price;
+    }
+
+    public SetAssetPriceRequest currency(@jakarta.annotation.Nonnull String currency) {
         this.currency = currency;
         return this;
     }
@@ -56,11 +66,11 @@ public class SetAssetPriceRequest {
 
     @JsonProperty(JSON_PROPERTY_CURRENCY)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setCurrency(String currency) {
+    public void setCurrency(@jakarta.annotation.Nonnull String currency) {
         this.currency = currency;
     }
 
-    public SetAssetPriceRequest price(BigDecimal price) {
+    public SetAssetPriceRequest price(@jakarta.annotation.Nonnull BigDecimal price) {
         this.price = price;
         return this;
     }
@@ -79,7 +89,7 @@ public class SetAssetPriceRequest {
 
     @JsonProperty(JSON_PROPERTY_PRICE)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setPrice(BigDecimal price) {
+    public void setPrice(@jakarta.annotation.Nonnull BigDecimal price) {
         this.price = price;
     }
 
@@ -162,8 +172,7 @@ public class SetAssetPriceRequest {
                             "%scurrency%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getCurrency()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getCurrency()))));
         }
 
         // add `price` to the URL query string
@@ -173,8 +182,7 @@ public class SetAssetPriceRequest {
                             "%sprice%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getPrice()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getPrice()))));
         }
 
         return joiner.toString();

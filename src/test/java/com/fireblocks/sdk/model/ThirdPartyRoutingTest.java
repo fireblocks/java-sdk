@@ -13,27 +13,27 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for ThirdPartyRouting */
-public class ThirdPartyRoutingTest {
+class ThirdPartyRoutingTest {
     private final ThirdPartyRouting model = new ThirdPartyRouting();
 
     /** Model tests for ThirdPartyRouting */
     @Test
-    public void testThirdPartyRouting() {
+    void testThirdPartyRouting() {
         // TODO: test ThirdPartyRouting
     }
 
     /** Test the property 'isThirdPartyRouting' */
     @Test
-    public void isThirdPartyRoutingTest() {
+    void isThirdPartyRoutingTest() {
         // TODO: test isThirdPartyRouting
     }
 
     /** Test the property 'description' */
     @Test
-    public void descriptionTest() {
+    void descriptionTest() {
         // TODO: test description
     }
 }

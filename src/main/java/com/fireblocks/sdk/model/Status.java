@@ -18,26 +18,27 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonValue;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
 /** Status */
 @JsonPropertyOrder({Status.JSON_PROPERTY_STATUS, Status.JSON_PROPERTY_TYPE})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class Status {
     /** The status of the command */
     public enum StatusEnum {
-        WAITING_FOR_APPROVAL("WAITING_FOR_APPROVAL"),
+        WAITING_FOR_APPROVAL(String.valueOf("WAITING_FOR_APPROVAL")),
 
-        APPROVED("APPROVED"),
+        APPROVED(String.valueOf("APPROVED")),
 
-        CANCELLED("CANCELLED"),
+        CANCELLED(String.valueOf("CANCELLED")),
 
-        REJECTED("REJECTED"),
+        REJECTED(String.valueOf("REJECTED")),
 
-        COMPLETED("COMPLETED");
+        COMPLETED(String.valueOf("COMPLETED"));
 
         private String value;
 
@@ -67,15 +68,15 @@ public class Status {
     }
 
     public static final String JSON_PROPERTY_STATUS = "status";
-    private StatusEnum status;
+    @jakarta.annotation.Nonnull private StatusEnum status;
 
     /** The type of the command */
     public enum TypeEnum {
-        PAIR_API_KEY("PAIR_API_KEY"),
+        PAIR_API_KEY(String.valueOf("PAIR_API_KEY")),
 
-        UPDATE_CALLBACK_HANDLER("UPDATE_CALLBACK_HANDLER"),
+        UPDATE_CALLBACK_HANDLER(String.valueOf("UPDATE_CALLBACK_HANDLER")),
 
-        UNPAIR_API_KEY("UNPAIR_API_KEY");
+        UNPAIR_API_KEY(String.valueOf("UNPAIR_API_KEY"));
 
         private String value;
 
@@ -105,11 +106,19 @@ public class Status {
     }
 
     public static final String JSON_PROPERTY_TYPE = "type";
-    private TypeEnum type;
+    @jakarta.annotation.Nonnull private TypeEnum type;
 
     public Status() {}
 
-    public Status status(StatusEnum status) {
+    @JsonCreator
+    public Status(
+            @JsonProperty(value = JSON_PROPERTY_STATUS, required = true) StatusEnum status,
+            @JsonProperty(value = JSON_PROPERTY_TYPE, required = true) TypeEnum type) {
+        this.status = status;
+        this.type = type;
+    }
+
+    public Status status(@jakarta.annotation.Nonnull StatusEnum status) {
         this.status = status;
         return this;
     }
@@ -128,11 +137,11 @@ public class Status {
 
     @JsonProperty(JSON_PROPERTY_STATUS)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setStatus(StatusEnum status) {
+    public void setStatus(@jakarta.annotation.Nonnull StatusEnum status) {
         this.status = status;
     }
 
-    public Status type(TypeEnum type) {
+    public Status type(@jakarta.annotation.Nonnull TypeEnum type) {
         this.type = type;
         return this;
     }
@@ -151,7 +160,7 @@ public class Status {
 
     @JsonProperty(JSON_PROPERTY_TYPE)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setType(TypeEnum type) {
+    public void setType(@jakarta.annotation.Nonnull TypeEnum type) {
         this.type = type;
     }
 
@@ -233,8 +242,7 @@ public class Status {
                             "%sstatus%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getStatus()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getStatus()))));
         }
 
         // add `type` to the URL query string
@@ -244,8 +252,7 @@ public class Status {
                             "%stype%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getType()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getType()))));
         }
 
         return joiner.toString();

@@ -18,8 +18,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonValue;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -29,22 +28,24 @@ import java.util.StringJoiner;
     SwapRequiredAction.JSON_PROPERTY_STATUS,
     SwapRequiredAction.JSON_PROPERTY_TX_ID
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class SwapRequiredAction {
     public static final String JSON_PROPERTY_TYPE = "type";
-    private SwapRequiredActionsEnum type;
+    @jakarta.annotation.Nonnull private SwapRequiredActionsEnum type;
 
     /** The status of the required action */
     public enum StatusEnum {
-        WAITING("WAITING"),
+        WAITING(String.valueOf("WAITING")),
 
-        PROCESSING("PROCESSING"),
+        PROCESSING(String.valueOf("PROCESSING")),
 
-        COMPLETED("COMPLETED"),
+        COMPLETED(String.valueOf("COMPLETED")),
 
-        FAILED("FAILED"),
+        FAILED(String.valueOf("FAILED")),
 
-        CANCELED("CANCELED");
+        CANCELED(String.valueOf("CANCELED"));
 
         private String value;
 
@@ -74,14 +75,22 @@ public class SwapRequiredAction {
     }
 
     public static final String JSON_PROPERTY_STATUS = "status";
-    private StatusEnum status;
+    @jakarta.annotation.Nonnull private StatusEnum status;
 
     public static final String JSON_PROPERTY_TX_ID = "txId";
-    private String txId;
+    @jakarta.annotation.Nullable private String txId;
 
     public SwapRequiredAction() {}
 
-    public SwapRequiredAction type(SwapRequiredActionsEnum type) {
+    @JsonCreator
+    public SwapRequiredAction(
+            @JsonProperty(value = JSON_PROPERTY_TYPE, required = true) SwapRequiredActionsEnum type,
+            @JsonProperty(value = JSON_PROPERTY_STATUS, required = true) StatusEnum status) {
+        this.type = type;
+        this.status = status;
+    }
+
+    public SwapRequiredAction type(@jakarta.annotation.Nonnull SwapRequiredActionsEnum type) {
         this.type = type;
         return this;
     }
@@ -100,11 +109,11 @@ public class SwapRequiredAction {
 
     @JsonProperty(JSON_PROPERTY_TYPE)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setType(SwapRequiredActionsEnum type) {
+    public void setType(@jakarta.annotation.Nonnull SwapRequiredActionsEnum type) {
         this.type = type;
     }
 
-    public SwapRequiredAction status(StatusEnum status) {
+    public SwapRequiredAction status(@jakarta.annotation.Nonnull StatusEnum status) {
         this.status = status;
         return this;
     }
@@ -123,11 +132,11 @@ public class SwapRequiredAction {
 
     @JsonProperty(JSON_PROPERTY_STATUS)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setStatus(StatusEnum status) {
+    public void setStatus(@jakarta.annotation.Nonnull StatusEnum status) {
         this.status = status;
     }
 
-    public SwapRequiredAction txId(String txId) {
+    public SwapRequiredAction txId(@jakarta.annotation.Nullable String txId) {
         this.txId = txId;
         return this;
     }
@@ -146,7 +155,7 @@ public class SwapRequiredAction {
 
     @JsonProperty(JSON_PROPERTY_TX_ID)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setTxId(String txId) {
+    public void setTxId(@jakarta.annotation.Nullable String txId) {
         this.txId = txId;
     }
 
@@ -231,8 +240,7 @@ public class SwapRequiredAction {
                             "%stype%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getType()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getType()))));
         }
 
         // add `status` to the URL query string
@@ -242,8 +250,7 @@ public class SwapRequiredAction {
                             "%sstatus%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getStatus()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getStatus()))));
         }
 
         // add `txId` to the URL query string
@@ -253,8 +260,7 @@ public class SwapRequiredAction {
                             "%stxId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getTxId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getTxId()))));
         }
 
         return joiner.toString();

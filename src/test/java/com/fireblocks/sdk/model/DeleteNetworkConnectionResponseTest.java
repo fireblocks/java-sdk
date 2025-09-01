@@ -13,21 +13,21 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for DeleteNetworkConnectionResponse */
-public class DeleteNetworkConnectionResponseTest {
+class DeleteNetworkConnectionResponseTest {
     private final DeleteNetworkConnectionResponse model = new DeleteNetworkConnectionResponse();
 
     /** Model tests for DeleteNetworkConnectionResponse */
     @Test
-    public void testDeleteNetworkConnectionResponse() {
+    void testDeleteNetworkConnectionResponse() {
         // TODO: test DeleteNetworkConnectionResponse
     }
 
     /** Test the property 'success' */
     @Test
-    public void successTest() {
+    void successTest() {
         // TODO: test success
     }
 }

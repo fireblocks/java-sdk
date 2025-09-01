@@ -13,45 +13,45 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for CreateNcwConnectionRequest */
-public class CreateNcwConnectionRequestTest {
+class CreateNcwConnectionRequestTest {
     private final CreateNcwConnectionRequest model = new CreateNcwConnectionRequest();
 
     /** Model tests for CreateNcwConnectionRequest */
     @Test
-    public void testCreateNcwConnectionRequest() {
+    void testCreateNcwConnectionRequest() {
         // TODO: test CreateNcwConnectionRequest
     }
 
     /** Test the property 'ncwId' */
     @Test
-    public void ncwIdTest() {
+    void ncwIdTest() {
         // TODO: test ncwId
     }
 
     /** Test the property 'ncwAccountId' */
     @Test
-    public void ncwAccountIdTest() {
+    void ncwAccountIdTest() {
         // TODO: test ncwAccountId
     }
 
     /** Test the property 'feeLevel' */
     @Test
-    public void feeLevelTest() {
+    void feeLevelTest() {
         // TODO: test feeLevel
     }
 
     /** Test the property 'uri' */
     @Test
-    public void uriTest() {
+    void uriTest() {
         // TODO: test uri
     }
 
     /** Test the property 'chainIds' */
     @Test
-    public void chainIdsTest() {
+    void chainIdsTest() {
         // TODO: test chainIds
     }
 }

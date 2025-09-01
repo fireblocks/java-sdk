@@ -13,21 +13,21 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for SmartTransferSubmitTicket */
-public class SmartTransferSubmitTicketTest {
+class SmartTransferSubmitTicketTest {
     private final SmartTransferSubmitTicket model = new SmartTransferSubmitTicket();
 
     /** Model tests for SmartTransferSubmitTicket */
     @Test
-    public void testSmartTransferSubmitTicket() {
+    void testSmartTransferSubmitTicket() {
         // TODO: test SmartTransferSubmitTicket
     }
 
     /** Test the property 'expiresIn' */
     @Test
-    public void expiresInTest() {
+    void expiresInTest() {
         // TODO: test expiresIn
     }
 }

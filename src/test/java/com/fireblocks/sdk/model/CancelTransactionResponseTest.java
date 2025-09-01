@@ -13,21 +13,21 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for CancelTransactionResponse */
-public class CancelTransactionResponseTest {
+class CancelTransactionResponseTest {
     private final CancelTransactionResponse model = new CancelTransactionResponse();
 
     /** Model tests for CancelTransactionResponse */
     @Test
-    public void testCancelTransactionResponse() {
+    void testCancelTransactionResponse() {
         // TODO: test CancelTransactionResponse
     }
 
     /** Test the property 'success' */
     @Test
-    public void successTest() {
+    void successTest() {
         // TODO: test success
     }
 }

@@ -13,51 +13,51 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for APIUser */
-public class APIUserTest {
+class APIUserTest {
     private final APIUser model = new APIUser();
 
     /** Model tests for APIUser */
     @Test
-    public void testAPIUser() {
+    void testAPIUser() {
         // TODO: test APIUser
     }
 
     /** Test the property 'id' */
     @Test
-    public void idTest() {
+    void idTest() {
         // TODO: test id
     }
 
     /** Test the property 'name' */
     @Test
-    public void nameTest() {
+    void nameTest() {
         // TODO: test name
     }
 
     /** Test the property 'role' */
     @Test
-    public void roleTest() {
+    void roleTest() {
         // TODO: test role
     }
 
     /** Test the property 'enabled' */
     @Test
-    public void enabledTest() {
+    void enabledTest() {
         // TODO: test enabled
     }
 
     /** Test the property 'status' */
     @Test
-    public void statusTest() {
+    void statusTest() {
         // TODO: test status
     }
 
     /** Test the property 'userType' */
     @Test
-    public void userTypeTest() {
+    void userTypeTest() {
         // TODO: test userType
     }
 }

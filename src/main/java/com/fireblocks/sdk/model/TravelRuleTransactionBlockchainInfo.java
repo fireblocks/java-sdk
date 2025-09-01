@@ -16,8 +16,7 @@ package com.fireblocks.sdk.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -27,20 +26,22 @@ import java.util.StringJoiner;
     TravelRuleTransactionBlockchainInfo.JSON_PROPERTY_ORIGIN,
     TravelRuleTransactionBlockchainInfo.JSON_PROPERTY_DESTINATION
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class TravelRuleTransactionBlockchainInfo {
     public static final String JSON_PROPERTY_TX_HASH = "txHash";
-    private String txHash;
+    @jakarta.annotation.Nullable private String txHash;
 
     public static final String JSON_PROPERTY_ORIGIN = "origin";
-    private String origin;
+    @jakarta.annotation.Nullable private String origin;
 
     public static final String JSON_PROPERTY_DESTINATION = "destination";
-    private String destination;
+    @jakarta.annotation.Nullable private String destination;
 
     public TravelRuleTransactionBlockchainInfo() {}
 
-    public TravelRuleTransactionBlockchainInfo txHash(String txHash) {
+    public TravelRuleTransactionBlockchainInfo txHash(@jakarta.annotation.Nullable String txHash) {
         this.txHash = txHash;
         return this;
     }
@@ -59,11 +60,11 @@ public class TravelRuleTransactionBlockchainInfo {
 
     @JsonProperty(JSON_PROPERTY_TX_HASH)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setTxHash(String txHash) {
+    public void setTxHash(@jakarta.annotation.Nullable String txHash) {
         this.txHash = txHash;
     }
 
-    public TravelRuleTransactionBlockchainInfo origin(String origin) {
+    public TravelRuleTransactionBlockchainInfo origin(@jakarta.annotation.Nullable String origin) {
         this.origin = origin;
         return this;
     }
@@ -82,11 +83,12 @@ public class TravelRuleTransactionBlockchainInfo {
 
     @JsonProperty(JSON_PROPERTY_ORIGIN)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setOrigin(String origin) {
+    public void setOrigin(@jakarta.annotation.Nullable String origin) {
         this.origin = origin;
     }
 
-    public TravelRuleTransactionBlockchainInfo destination(String destination) {
+    public TravelRuleTransactionBlockchainInfo destination(
+            @jakarta.annotation.Nullable String destination) {
         this.destination = destination;
         return this;
     }
@@ -105,7 +107,7 @@ public class TravelRuleTransactionBlockchainInfo {
 
     @JsonProperty(JSON_PROPERTY_DESTINATION)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setDestination(String destination) {
+    public void setDestination(@jakarta.annotation.Nullable String destination) {
         this.destination = destination;
     }
 
@@ -192,8 +194,7 @@ public class TravelRuleTransactionBlockchainInfo {
                             "%stxHash%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getTxHash()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getTxHash()))));
         }
 
         // add `origin` to the URL query string
@@ -203,8 +204,7 @@ public class TravelRuleTransactionBlockchainInfo {
                             "%sorigin%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getOrigin()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getOrigin()))));
         }
 
         // add `destination` to the URL query string
@@ -214,10 +214,7 @@ public class TravelRuleTransactionBlockchainInfo {
                             "%sdestination%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getDestination()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getDestination()))));
         }
 
         return joiner.toString();

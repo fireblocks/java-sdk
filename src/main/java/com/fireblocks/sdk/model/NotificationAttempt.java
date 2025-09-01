@@ -18,8 +18,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonValue;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -30,22 +29,24 @@ import java.util.StringJoiner;
     NotificationAttempt.JSON_PROPERTY_RESPONSE_CODE,
     NotificationAttempt.JSON_PROPERTY_FAILURE_REASON
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class NotificationAttempt {
     public static final String JSON_PROPERTY_SENT_TIME = "sentTime";
-    private Long sentTime;
+    @jakarta.annotation.Nonnull private Long sentTime;
 
     public static final String JSON_PROPERTY_DURATION = "duration";
-    private Integer duration;
+    @jakarta.annotation.Nonnull private Integer duration;
 
     public static final String JSON_PROPERTY_RESPONSE_CODE = "responseCode";
-    private Integer responseCode;
+    @jakarta.annotation.Nullable private Integer responseCode;
 
     /** The request failure reason in case responseCode is missing. */
     public enum FailureReasonEnum {
-        TIMED_OUT("TIMED_OUT"),
+        TIMED_OUT(String.valueOf("TIMED_OUT")),
 
-        NO_RESPONSE("NO_RESPONSE");
+        NO_RESPONSE(String.valueOf("NO_RESPONSE"));
 
         private String value;
 
@@ -75,11 +76,19 @@ public class NotificationAttempt {
     }
 
     public static final String JSON_PROPERTY_FAILURE_REASON = "failureReason";
-    private FailureReasonEnum failureReason;
+    @jakarta.annotation.Nullable private FailureReasonEnum failureReason;
 
     public NotificationAttempt() {}
 
-    public NotificationAttempt sentTime(Long sentTime) {
+    @JsonCreator
+    public NotificationAttempt(
+            @JsonProperty(value = JSON_PROPERTY_SENT_TIME, required = true) Long sentTime,
+            @JsonProperty(value = JSON_PROPERTY_DURATION, required = true) Integer duration) {
+        this.sentTime = sentTime;
+        this.duration = duration;
+    }
+
+    public NotificationAttempt sentTime(@jakarta.annotation.Nonnull Long sentTime) {
         this.sentTime = sentTime;
         return this;
     }
@@ -98,11 +107,11 @@ public class NotificationAttempt {
 
     @JsonProperty(JSON_PROPERTY_SENT_TIME)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setSentTime(Long sentTime) {
+    public void setSentTime(@jakarta.annotation.Nonnull Long sentTime) {
         this.sentTime = sentTime;
     }
 
-    public NotificationAttempt duration(Integer duration) {
+    public NotificationAttempt duration(@jakarta.annotation.Nonnull Integer duration) {
         this.duration = duration;
         return this;
     }
@@ -121,11 +130,11 @@ public class NotificationAttempt {
 
     @JsonProperty(JSON_PROPERTY_DURATION)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setDuration(Integer duration) {
+    public void setDuration(@jakarta.annotation.Nonnull Integer duration) {
         this.duration = duration;
     }
 
-    public NotificationAttempt responseCode(Integer responseCode) {
+    public NotificationAttempt responseCode(@jakarta.annotation.Nullable Integer responseCode) {
         this.responseCode = responseCode;
         return this;
     }
@@ -144,11 +153,12 @@ public class NotificationAttempt {
 
     @JsonProperty(JSON_PROPERTY_RESPONSE_CODE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setResponseCode(Integer responseCode) {
+    public void setResponseCode(@jakarta.annotation.Nullable Integer responseCode) {
         this.responseCode = responseCode;
     }
 
-    public NotificationAttempt failureReason(FailureReasonEnum failureReason) {
+    public NotificationAttempt failureReason(
+            @jakarta.annotation.Nullable FailureReasonEnum failureReason) {
         this.failureReason = failureReason;
         return this;
     }
@@ -167,7 +177,7 @@ public class NotificationAttempt {
 
     @JsonProperty(JSON_PROPERTY_FAILURE_REASON)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setFailureReason(FailureReasonEnum failureReason) {
+    public void setFailureReason(@jakarta.annotation.Nullable FailureReasonEnum failureReason) {
         this.failureReason = failureReason;
     }
 
@@ -254,8 +264,7 @@ public class NotificationAttempt {
                             "%ssentTime%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getSentTime()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getSentTime()))));
         }
 
         // add `duration` to the URL query string
@@ -265,8 +274,7 @@ public class NotificationAttempt {
                             "%sduration%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getDuration()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getDuration()))));
         }
 
         // add `responseCode` to the URL query string
@@ -276,10 +284,7 @@ public class NotificationAttempt {
                             "%sresponseCode%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getResponseCode()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getResponseCode()))));
         }
 
         // add `failureReason` to the URL query string
@@ -289,10 +294,7 @@ public class NotificationAttempt {
                             "%sfailureReason%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getFailureReason()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getFailureReason()))));
         }
 
         return joiner.toString();

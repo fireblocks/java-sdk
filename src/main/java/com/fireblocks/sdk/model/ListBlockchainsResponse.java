@@ -13,11 +13,11 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -28,17 +28,28 @@ import java.util.StringJoiner;
     ListBlockchainsResponse.JSON_PROPERTY_DATA,
     ListBlockchainsResponse.JSON_PROPERTY_NEXT
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class ListBlockchainsResponse {
     public static final String JSON_PROPERTY_DATA = "data";
-    private List<BlockchainResponse> data = new ArrayList<>();
+    @jakarta.annotation.Nonnull private List<BlockchainResponse> data = new ArrayList<>();
 
     public static final String JSON_PROPERTY_NEXT = "next";
-    private String next;
+    @jakarta.annotation.Nullable private String next;
 
     public ListBlockchainsResponse() {}
 
-    public ListBlockchainsResponse data(List<BlockchainResponse> data) {
+    @JsonCreator
+    public ListBlockchainsResponse(
+            @JsonProperty(value = JSON_PROPERTY_DATA, required = true)
+                    List<BlockchainResponse> data,
+            @JsonProperty(value = JSON_PROPERTY_NEXT, required = true) String next) {
+        this.data = data;
+        this.next = next;
+    }
+
+    public ListBlockchainsResponse data(@jakarta.annotation.Nonnull List<BlockchainResponse> data) {
         this.data = data;
         return this;
     }
@@ -65,11 +76,11 @@ public class ListBlockchainsResponse {
 
     @JsonProperty(JSON_PROPERTY_DATA)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setData(List<BlockchainResponse> data) {
+    public void setData(@jakarta.annotation.Nonnull List<BlockchainResponse> data) {
         this.data = data;
     }
 
-    public ListBlockchainsResponse next(String next) {
+    public ListBlockchainsResponse next(@jakarta.annotation.Nullable String next) {
         this.next = next;
         return this;
     }
@@ -88,7 +99,7 @@ public class ListBlockchainsResponse {
 
     @JsonProperty(JSON_PROPERTY_NEXT)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setNext(String next) {
+    public void setNext(@jakarta.annotation.Nullable String next) {
         this.next = next;
     }
 
@@ -194,8 +205,7 @@ public class ListBlockchainsResponse {
                             "%snext%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getNext()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getNext()))));
         }
 
         return joiner.toString();

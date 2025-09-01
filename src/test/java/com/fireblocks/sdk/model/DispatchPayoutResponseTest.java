@@ -13,21 +13,21 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for DispatchPayoutResponse */
-public class DispatchPayoutResponseTest {
+class DispatchPayoutResponseTest {
     private final DispatchPayoutResponse model = new DispatchPayoutResponse();
 
     /** Model tests for DispatchPayoutResponse */
     @Test
-    public void testDispatchPayoutResponse() {
+    void testDispatchPayoutResponse() {
         // TODO: test DispatchPayoutResponse
     }
 
     /** Test the property 'payoutId' */
     @Test
-    public void payoutIdTest() {
+    void payoutIdTest() {
         // TODO: test payoutId
     }
 }

@@ -13,33 +13,33 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for ExchangeTradingAccount */
-public class ExchangeTradingAccountTest {
+class ExchangeTradingAccountTest {
     private final ExchangeTradingAccount model = new ExchangeTradingAccount();
 
     /** Model tests for ExchangeTradingAccount */
     @Test
-    public void testExchangeTradingAccount() {
+    void testExchangeTradingAccount() {
         // TODO: test ExchangeTradingAccount
     }
 
     /** Test the property 'type' */
     @Test
-    public void typeTest() {
+    void typeTest() {
         // TODO: test type
     }
 
     /** Test the property 'name' */
     @Test
-    public void nameTest() {
+    void nameTest() {
         // TODO: test name
     }
 
     /** Test the property 'assets' */
     @Test
-    public void assetsTest() {
+    void assetsTest() {
         // TODO: test assets
     }
 }

@@ -13,27 +13,27 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for AssetNotFoundErrorResponse */
-public class AssetNotFoundErrorResponseTest {
+class AssetNotFoundErrorResponseTest {
     private final AssetNotFoundErrorResponse model = new AssetNotFoundErrorResponse();
 
     /** Model tests for AssetNotFoundErrorResponse */
     @Test
-    public void testAssetNotFoundErrorResponse() {
+    void testAssetNotFoundErrorResponse() {
         // TODO: test AssetNotFoundErrorResponse
     }
 
     /** Test the property 'message' */
     @Test
-    public void messageTest() {
+    void messageTest() {
         // TODO: test message
     }
 
     /** Test the property 'code' */
     @Test
-    public void codeTest() {
+    void codeTest() {
         // TODO: test code
     }
 }

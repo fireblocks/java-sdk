@@ -13,81 +13,81 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for VaultWalletAddress */
-public class VaultWalletAddressTest {
+class VaultWalletAddressTest {
     private final VaultWalletAddress model = new VaultWalletAddress();
 
     /** Model tests for VaultWalletAddress */
     @Test
-    public void testVaultWalletAddress() {
+    void testVaultWalletAddress() {
         // TODO: test VaultWalletAddress
     }
 
     /** Test the property 'assetId' */
     @Test
-    public void assetIdTest() {
+    void assetIdTest() {
         // TODO: test assetId
     }
 
     /** Test the property 'address' */
     @Test
-    public void addressTest() {
+    void addressTest() {
         // TODO: test address
     }
 
     /** Test the property 'description' */
     @Test
-    public void descriptionTest() {
+    void descriptionTest() {
         // TODO: test description
     }
 
     /** Test the property 'tag' */
     @Test
-    public void tagTest() {
+    void tagTest() {
         // TODO: test tag
     }
 
     /** Test the property 'type' */
     @Test
-    public void typeTest() {
+    void typeTest() {
         // TODO: test type
     }
 
     /** Test the property 'customerRefId' */
     @Test
-    public void customerRefIdTest() {
+    void customerRefIdTest() {
         // TODO: test customerRefId
     }
 
     /** Test the property 'addressFormat' */
     @Test
-    public void addressFormatTest() {
+    void addressFormatTest() {
         // TODO: test addressFormat
     }
 
     /** Test the property 'legacyAddress' */
     @Test
-    public void legacyAddressTest() {
+    void legacyAddressTest() {
         // TODO: test legacyAddress
     }
 
     /** Test the property 'enterpriseAddress' */
     @Test
-    public void enterpriseAddressTest() {
+    void enterpriseAddressTest() {
         // TODO: test enterpriseAddress
     }
 
     /** Test the property 'bip44AddressIndex' */
     @Test
-    public void bip44AddressIndexTest() {
+    void bip44AddressIndexTest() {
         // TODO: test bip44AddressIndex
     }
 
     /** Test the property 'userDefined' */
     @Test
-    public void userDefinedTest() {
+    void userDefinedTest() {
         // TODO: test userDefined
     }
 }

@@ -13,51 +13,51 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for Notification */
-public class NotificationTest {
+class NotificationTest {
     private final Notification model = new Notification();
 
     /** Model tests for Notification */
     @Test
-    public void testNotification() {
+    void testNotification() {
         // TODO: test Notification
     }
 
     /** Test the property 'id' */
     @Test
-    public void idTest() {
+    void idTest() {
         // TODO: test id
     }
 
     /** Test the property 'createdAt' */
     @Test
-    public void createdAtTest() {
+    void createdAtTest() {
         // TODO: test createdAt
     }
 
     /** Test the property 'updatedAt' */
     @Test
-    public void updatedAtTest() {
+    void updatedAtTest() {
         // TODO: test updatedAt
     }
 
     /** Test the property 'status' */
     @Test
-    public void statusTest() {
+    void statusTest() {
         // TODO: test status
     }
 
     /** Test the property 'eventType' */
     @Test
-    public void eventTypeTest() {
+    void eventTypeTest() {
         // TODO: test eventType
     }
 
     /** Test the property 'resourceId' */
     @Test
-    public void resourceIdTest() {
+    void resourceIdTest() {
         // TODO: test resourceId
     }
 }

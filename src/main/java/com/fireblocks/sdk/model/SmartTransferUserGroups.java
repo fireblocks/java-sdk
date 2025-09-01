@@ -13,11 +13,11 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -25,14 +25,24 @@ import java.util.StringJoiner;
 
 /** Data object with result data */
 @JsonPropertyOrder({SmartTransferUserGroups.JSON_PROPERTY_USER_GROUP_IDS})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class SmartTransferUserGroups {
     public static final String JSON_PROPERTY_USER_GROUP_IDS = "userGroupIds";
-    private List<String> userGroupIds;
+    @jakarta.annotation.Nullable private List<String> userGroupIds;
 
     public SmartTransferUserGroups() {}
 
-    public SmartTransferUserGroups userGroupIds(List<String> userGroupIds) {
+    @JsonCreator
+    public SmartTransferUserGroups(
+            @JsonProperty(value = JSON_PROPERTY_USER_GROUP_IDS, required = true)
+                    List<String> userGroupIds) {
+        this.userGroupIds = userGroupIds;
+    }
+
+    public SmartTransferUserGroups userGroupIds(
+            @jakarta.annotation.Nullable List<String> userGroupIds) {
         this.userGroupIds = userGroupIds;
         return this;
     }
@@ -59,7 +69,7 @@ public class SmartTransferUserGroups {
 
     @JsonProperty(JSON_PROPERTY_USER_GROUP_IDS)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setUserGroupIds(List<String> userGroupIds) {
+    public void setUserGroupIds(@jakarta.annotation.Nullable List<String> userGroupIds) {
         this.userGroupIds = userGroupIds;
     }
 
@@ -145,10 +155,8 @@ public class SmartTransferUserGroups {
                                         ? ""
                                         : String.format(
                                                 "%s%d%s", containerPrefix, i, containerSuffix),
-                                URLEncoder.encode(
-                                                String.valueOf(getUserGroupIds().get(i)),
-                                                StandardCharsets.UTF_8)
-                                        .replaceAll("\\+", "%20")));
+                                ApiClient.urlEncode(
+                                        ApiClient.valueToString(getUserGroupIds().get(i)))));
             }
         }
 

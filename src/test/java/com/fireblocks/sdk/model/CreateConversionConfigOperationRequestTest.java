@@ -13,28 +13,28 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for CreateConversionConfigOperationRequest */
-public class CreateConversionConfigOperationRequestTest {
+class CreateConversionConfigOperationRequestTest {
     private final CreateConversionConfigOperationRequest model =
             new CreateConversionConfigOperationRequest();
 
     /** Model tests for CreateConversionConfigOperationRequest */
     @Test
-    public void testCreateConversionConfigOperationRequest() {
+    void testCreateConversionConfigOperationRequest() {
         // TODO: test CreateConversionConfigOperationRequest
     }
 
     /** Test the property 'type' */
     @Test
-    public void typeTest() {
+    void typeTest() {
         // TODO: test type
     }
 
     /** Test the property 'params' */
     @Test
-    public void paramsTest() {
+    void paramsTest() {
         // TODO: test params
     }
 }

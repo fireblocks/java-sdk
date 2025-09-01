@@ -13,75 +13,75 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for ContractUploadRequest */
-public class ContractUploadRequestTest {
+class ContractUploadRequestTest {
     private final ContractUploadRequest model = new ContractUploadRequest();
 
     /** Model tests for ContractUploadRequest */
     @Test
-    public void testContractUploadRequest() {
+    void testContractUploadRequest() {
         // TODO: test ContractUploadRequest
     }
 
     /** Test the property 'name' */
     @Test
-    public void nameTest() {
+    void nameTest() {
         // TODO: test name
     }
 
     /** Test the property 'description' */
     @Test
-    public void descriptionTest() {
+    void descriptionTest() {
         // TODO: test description
     }
 
     /** Test the property 'longDescription' */
     @Test
-    public void longDescriptionTest() {
+    void longDescriptionTest() {
         // TODO: test longDescription
     }
 
     /** Test the property 'bytecode' */
     @Test
-    public void bytecodeTest() {
+    void bytecodeTest() {
         // TODO: test bytecode
     }
 
     /** Test the property 'sourcecode' */
     @Test
-    public void sourcecodeTest() {
+    void sourcecodeTest() {
         // TODO: test sourcecode
     }
 
     /** Test the property 'type' */
     @Test
-    public void typeTest() {
+    void typeTest() {
         // TODO: test type
     }
 
     /** Test the property 'docs' */
     @Test
-    public void docsTest() {
+    void docsTest() {
         // TODO: test docs
     }
 
     /** Test the property 'abi' */
     @Test
-    public void abiTest() {
+    void abiTest() {
         // TODO: test abi
     }
 
     /** Test the property 'attributes' */
     @Test
-    public void attributesTest() {
+    void attributesTest() {
         // TODO: test attributes
     }
 
     /** Test the property 'protocol' */
     @Test
-    public void protocolTest() {
+    void protocolTest() {
         // TODO: test protocol
     }
 }

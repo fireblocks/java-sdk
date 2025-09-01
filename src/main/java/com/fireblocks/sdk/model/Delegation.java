@@ -13,11 +13,11 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -45,65 +45,116 @@ import java.util.StringJoiner;
     Delegation.JSON_PROPERTY_BLOCKCHAIN_POSITION_INFO,
     Delegation.JSON_PROPERTY_RELATED_REQUESTS
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class Delegation {
     public static final String JSON_PROPERTY_ID = "id";
-    private String id;
+    @jakarta.annotation.Nonnull private String id;
 
     public static final String JSON_PROPERTY_VAULT_ACCOUNT_ID = "vaultAccountId";
-    private String vaultAccountId;
+    @jakarta.annotation.Nonnull private String vaultAccountId;
 
     public static final String JSON_PROPERTY_VALIDATOR_NAME = "validatorName";
-    private String validatorName;
+    @jakarta.annotation.Nonnull private String validatorName;
 
     public static final String JSON_PROPERTY_PROVIDER_NAME = "providerName";
-    private String providerName;
+    @jakarta.annotation.Nonnull private String providerName;
 
     public static final String JSON_PROPERTY_CHAIN_DESCRIPTOR = "chainDescriptor";
-    private String chainDescriptor;
+    @jakarta.annotation.Nonnull private String chainDescriptor;
 
     public static final String JSON_PROPERTY_AMOUNT = "amount";
-    private String amount;
+    @jakarta.annotation.Nonnull private String amount;
 
     public static final String JSON_PROPERTY_REWARDS_AMOUNT = "rewardsAmount";
-    private String rewardsAmount;
+    @jakarta.annotation.Nonnull private String rewardsAmount;
 
     public static final String JSON_PROPERTY_DATE_CREATED = "dateCreated";
-    private OffsetDateTime dateCreated;
+    @jakarta.annotation.Nonnull private OffsetDateTime dateCreated;
 
     public static final String JSON_PROPERTY_DATE_UPDATED = "dateUpdated";
-    private OffsetDateTime dateUpdated;
+    @jakarta.annotation.Nonnull private OffsetDateTime dateUpdated;
 
     public static final String JSON_PROPERTY_STATUS = "status";
-    private String status;
+    @jakarta.annotation.Nonnull private String status;
 
     public static final String JSON_PROPERTY_RELATED_TRANSACTIONS = "relatedTransactions";
+
+    @jakarta.annotation.Nonnull
     private List<RelatedTransaction> relatedTransactions = new ArrayList<>();
 
     public static final String JSON_PROPERTY_VALIDATOR_ADDRESS = "validatorAddress";
-    private String validatorAddress;
+    @jakarta.annotation.Nonnull private String validatorAddress;
 
     public static final String JSON_PROPERTY_PROVIDER_ID = "providerId";
-    private StakingProvider providerId;
+    @jakarta.annotation.Nonnull private StakingProvider providerId;
 
     public static final String JSON_PROPERTY_AVAILABLE_ACTIONS = "availableActions";
-    private List<String> availableActions = new ArrayList<>();
+    @jakarta.annotation.Nonnull private List<String> availableActions = new ArrayList<>();
 
     public static final String JSON_PROPERTY_IN_PROGRESS = "inProgress";
-    private Boolean inProgress;
+    @jakarta.annotation.Nonnull private Boolean inProgress;
 
     public static final String JSON_PROPERTY_IN_PROGRESS_TX_ID = "inProgressTxId";
-    private String inProgressTxId;
+    @jakarta.annotation.Nullable private String inProgressTxId;
 
     public static final String JSON_PROPERTY_BLOCKCHAIN_POSITION_INFO = "blockchainPositionInfo";
-    private SolanaBlockchainData blockchainPositionInfo;
+    @jakarta.annotation.Nonnull private SolanaBlockchainData blockchainPositionInfo;
 
     public static final String JSON_PROPERTY_RELATED_REQUESTS = "relatedRequests";
-    private List<RelatedRequest> relatedRequests;
+    @jakarta.annotation.Nullable private List<RelatedRequest> relatedRequests = new ArrayList<>();
 
     public Delegation() {}
 
-    public Delegation id(String id) {
+    @JsonCreator
+    public Delegation(
+            @JsonProperty(value = JSON_PROPERTY_ID, required = true) String id,
+            @JsonProperty(value = JSON_PROPERTY_VAULT_ACCOUNT_ID, required = true)
+                    String vaultAccountId,
+            @JsonProperty(value = JSON_PROPERTY_VALIDATOR_NAME, required = true)
+                    String validatorName,
+            @JsonProperty(value = JSON_PROPERTY_PROVIDER_NAME, required = true) String providerName,
+            @JsonProperty(value = JSON_PROPERTY_CHAIN_DESCRIPTOR, required = true)
+                    String chainDescriptor,
+            @JsonProperty(value = JSON_PROPERTY_AMOUNT, required = true) String amount,
+            @JsonProperty(value = JSON_PROPERTY_REWARDS_AMOUNT, required = true)
+                    String rewardsAmount,
+            @JsonProperty(value = JSON_PROPERTY_DATE_CREATED, required = true)
+                    OffsetDateTime dateCreated,
+            @JsonProperty(value = JSON_PROPERTY_DATE_UPDATED, required = true)
+                    OffsetDateTime dateUpdated,
+            @JsonProperty(value = JSON_PROPERTY_STATUS, required = true) String status,
+            @JsonProperty(value = JSON_PROPERTY_RELATED_TRANSACTIONS, required = true)
+                    List<RelatedTransaction> relatedTransactions,
+            @JsonProperty(value = JSON_PROPERTY_VALIDATOR_ADDRESS, required = true)
+                    String validatorAddress,
+            @JsonProperty(value = JSON_PROPERTY_PROVIDER_ID, required = true)
+                    StakingProvider providerId,
+            @JsonProperty(value = JSON_PROPERTY_AVAILABLE_ACTIONS, required = true)
+                    List<String> availableActions,
+            @JsonProperty(value = JSON_PROPERTY_IN_PROGRESS, required = true) Boolean inProgress,
+            @JsonProperty(value = JSON_PROPERTY_BLOCKCHAIN_POSITION_INFO, required = true)
+                    SolanaBlockchainData blockchainPositionInfo) {
+        this.id = id;
+        this.vaultAccountId = vaultAccountId;
+        this.validatorName = validatorName;
+        this.providerName = providerName;
+        this.chainDescriptor = chainDescriptor;
+        this.amount = amount;
+        this.rewardsAmount = rewardsAmount;
+        this.dateCreated = dateCreated;
+        this.dateUpdated = dateUpdated;
+        this.status = status;
+        this.relatedTransactions = relatedTransactions;
+        this.validatorAddress = validatorAddress;
+        this.providerId = providerId;
+        this.availableActions = availableActions;
+        this.inProgress = inProgress;
+        this.blockchainPositionInfo = blockchainPositionInfo;
+    }
+
+    public Delegation id(@jakarta.annotation.Nonnull String id) {
         this.id = id;
         return this;
     }
@@ -122,11 +173,11 @@ public class Delegation {
 
     @JsonProperty(JSON_PROPERTY_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setId(String id) {
+    public void setId(@jakarta.annotation.Nonnull String id) {
         this.id = id;
     }
 
-    public Delegation vaultAccountId(String vaultAccountId) {
+    public Delegation vaultAccountId(@jakarta.annotation.Nonnull String vaultAccountId) {
         this.vaultAccountId = vaultAccountId;
         return this;
     }
@@ -145,11 +196,11 @@ public class Delegation {
 
     @JsonProperty(JSON_PROPERTY_VAULT_ACCOUNT_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setVaultAccountId(String vaultAccountId) {
+    public void setVaultAccountId(@jakarta.annotation.Nonnull String vaultAccountId) {
         this.vaultAccountId = vaultAccountId;
     }
 
-    public Delegation validatorName(String validatorName) {
+    public Delegation validatorName(@jakarta.annotation.Nonnull String validatorName) {
         this.validatorName = validatorName;
         return this;
     }
@@ -168,11 +219,11 @@ public class Delegation {
 
     @JsonProperty(JSON_PROPERTY_VALIDATOR_NAME)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setValidatorName(String validatorName) {
+    public void setValidatorName(@jakarta.annotation.Nonnull String validatorName) {
         this.validatorName = validatorName;
     }
 
-    public Delegation providerName(String providerName) {
+    public Delegation providerName(@jakarta.annotation.Nonnull String providerName) {
         this.providerName = providerName;
         return this;
     }
@@ -191,11 +242,11 @@ public class Delegation {
 
     @JsonProperty(JSON_PROPERTY_PROVIDER_NAME)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setProviderName(String providerName) {
+    public void setProviderName(@jakarta.annotation.Nonnull String providerName) {
         this.providerName = providerName;
     }
 
-    public Delegation chainDescriptor(String chainDescriptor) {
+    public Delegation chainDescriptor(@jakarta.annotation.Nonnull String chainDescriptor) {
         this.chainDescriptor = chainDescriptor;
         return this;
     }
@@ -214,11 +265,11 @@ public class Delegation {
 
     @JsonProperty(JSON_PROPERTY_CHAIN_DESCRIPTOR)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setChainDescriptor(String chainDescriptor) {
+    public void setChainDescriptor(@jakarta.annotation.Nonnull String chainDescriptor) {
         this.chainDescriptor = chainDescriptor;
     }
 
-    public Delegation amount(String amount) {
+    public Delegation amount(@jakarta.annotation.Nonnull String amount) {
         this.amount = amount;
         return this;
     }
@@ -237,11 +288,11 @@ public class Delegation {
 
     @JsonProperty(JSON_PROPERTY_AMOUNT)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setAmount(String amount) {
+    public void setAmount(@jakarta.annotation.Nonnull String amount) {
         this.amount = amount;
     }
 
-    public Delegation rewardsAmount(String rewardsAmount) {
+    public Delegation rewardsAmount(@jakarta.annotation.Nonnull String rewardsAmount) {
         this.rewardsAmount = rewardsAmount;
         return this;
     }
@@ -260,11 +311,11 @@ public class Delegation {
 
     @JsonProperty(JSON_PROPERTY_REWARDS_AMOUNT)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setRewardsAmount(String rewardsAmount) {
+    public void setRewardsAmount(@jakarta.annotation.Nonnull String rewardsAmount) {
         this.rewardsAmount = rewardsAmount;
     }
 
-    public Delegation dateCreated(OffsetDateTime dateCreated) {
+    public Delegation dateCreated(@jakarta.annotation.Nonnull OffsetDateTime dateCreated) {
         this.dateCreated = dateCreated;
         return this;
     }
@@ -283,11 +334,11 @@ public class Delegation {
 
     @JsonProperty(JSON_PROPERTY_DATE_CREATED)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setDateCreated(OffsetDateTime dateCreated) {
+    public void setDateCreated(@jakarta.annotation.Nonnull OffsetDateTime dateCreated) {
         this.dateCreated = dateCreated;
     }
 
-    public Delegation dateUpdated(OffsetDateTime dateUpdated) {
+    public Delegation dateUpdated(@jakarta.annotation.Nonnull OffsetDateTime dateUpdated) {
         this.dateUpdated = dateUpdated;
         return this;
     }
@@ -306,11 +357,11 @@ public class Delegation {
 
     @JsonProperty(JSON_PROPERTY_DATE_UPDATED)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setDateUpdated(OffsetDateTime dateUpdated) {
+    public void setDateUpdated(@jakarta.annotation.Nonnull OffsetDateTime dateUpdated) {
         this.dateUpdated = dateUpdated;
     }
 
-    public Delegation status(String status) {
+    public Delegation status(@jakarta.annotation.Nonnull String status) {
         this.status = status;
         return this;
     }
@@ -329,11 +380,12 @@ public class Delegation {
 
     @JsonProperty(JSON_PROPERTY_STATUS)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setStatus(String status) {
+    public void setStatus(@jakarta.annotation.Nonnull String status) {
         this.status = status;
     }
 
-    public Delegation relatedTransactions(List<RelatedTransaction> relatedTransactions) {
+    public Delegation relatedTransactions(
+            @jakarta.annotation.Nonnull List<RelatedTransaction> relatedTransactions) {
         this.relatedTransactions = relatedTransactions;
         return this;
     }
@@ -362,11 +414,12 @@ public class Delegation {
 
     @JsonProperty(JSON_PROPERTY_RELATED_TRANSACTIONS)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setRelatedTransactions(List<RelatedTransaction> relatedTransactions) {
+    public void setRelatedTransactions(
+            @jakarta.annotation.Nonnull List<RelatedTransaction> relatedTransactions) {
         this.relatedTransactions = relatedTransactions;
     }
 
-    public Delegation validatorAddress(String validatorAddress) {
+    public Delegation validatorAddress(@jakarta.annotation.Nonnull String validatorAddress) {
         this.validatorAddress = validatorAddress;
         return this;
     }
@@ -385,11 +438,11 @@ public class Delegation {
 
     @JsonProperty(JSON_PROPERTY_VALIDATOR_ADDRESS)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setValidatorAddress(String validatorAddress) {
+    public void setValidatorAddress(@jakarta.annotation.Nonnull String validatorAddress) {
         this.validatorAddress = validatorAddress;
     }
 
-    public Delegation providerId(StakingProvider providerId) {
+    public Delegation providerId(@jakarta.annotation.Nonnull StakingProvider providerId) {
         this.providerId = providerId;
         return this;
     }
@@ -408,11 +461,11 @@ public class Delegation {
 
     @JsonProperty(JSON_PROPERTY_PROVIDER_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setProviderId(StakingProvider providerId) {
+    public void setProviderId(@jakarta.annotation.Nonnull StakingProvider providerId) {
         this.providerId = providerId;
     }
 
-    public Delegation availableActions(List<String> availableActions) {
+    public Delegation availableActions(@jakarta.annotation.Nonnull List<String> availableActions) {
         this.availableActions = availableActions;
         return this;
     }
@@ -440,11 +493,11 @@ public class Delegation {
 
     @JsonProperty(JSON_PROPERTY_AVAILABLE_ACTIONS)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setAvailableActions(List<String> availableActions) {
+    public void setAvailableActions(@jakarta.annotation.Nonnull List<String> availableActions) {
         this.availableActions = availableActions;
     }
 
-    public Delegation inProgress(Boolean inProgress) {
+    public Delegation inProgress(@jakarta.annotation.Nonnull Boolean inProgress) {
         this.inProgress = inProgress;
         return this;
     }
@@ -464,11 +517,11 @@ public class Delegation {
 
     @JsonProperty(JSON_PROPERTY_IN_PROGRESS)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setInProgress(Boolean inProgress) {
+    public void setInProgress(@jakarta.annotation.Nonnull Boolean inProgress) {
         this.inProgress = inProgress;
     }
 
-    public Delegation inProgressTxId(String inProgressTxId) {
+    public Delegation inProgressTxId(@jakarta.annotation.Nullable String inProgressTxId) {
         this.inProgressTxId = inProgressTxId;
         return this;
     }
@@ -487,11 +540,12 @@ public class Delegation {
 
     @JsonProperty(JSON_PROPERTY_IN_PROGRESS_TX_ID)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setInProgressTxId(String inProgressTxId) {
+    public void setInProgressTxId(@jakarta.annotation.Nullable String inProgressTxId) {
         this.inProgressTxId = inProgressTxId;
     }
 
-    public Delegation blockchainPositionInfo(SolanaBlockchainData blockchainPositionInfo) {
+    public Delegation blockchainPositionInfo(
+            @jakarta.annotation.Nonnull SolanaBlockchainData blockchainPositionInfo) {
         this.blockchainPositionInfo = blockchainPositionInfo;
         return this;
     }
@@ -510,11 +564,13 @@ public class Delegation {
 
     @JsonProperty(JSON_PROPERTY_BLOCKCHAIN_POSITION_INFO)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setBlockchainPositionInfo(SolanaBlockchainData blockchainPositionInfo) {
+    public void setBlockchainPositionInfo(
+            @jakarta.annotation.Nonnull SolanaBlockchainData blockchainPositionInfo) {
         this.blockchainPositionInfo = blockchainPositionInfo;
     }
 
-    public Delegation relatedRequests(List<RelatedRequest> relatedRequests) {
+    public Delegation relatedRequests(
+            @jakarta.annotation.Nullable List<RelatedRequest> relatedRequests) {
         this.relatedRequests = relatedRequests;
         return this;
     }
@@ -545,7 +601,8 @@ public class Delegation {
 
     @JsonProperty(JSON_PROPERTY_RELATED_REQUESTS)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setRelatedRequests(List<RelatedRequest> relatedRequests) {
+    public void setRelatedRequests(
+            @jakarta.annotation.Nullable List<RelatedRequest> relatedRequests) {
         this.relatedRequests = relatedRequests;
     }
 
@@ -680,10 +737,7 @@ public class Delegation {
             joiner.add(
                     String.format(
                             "%sid%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(String.valueOf(getId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getId()))));
         }
 
         // add `vaultAccountId` to the URL query string
@@ -693,10 +747,7 @@ public class Delegation {
                             "%svaultAccountId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getVaultAccountId()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getVaultAccountId()))));
         }
 
         // add `validatorName` to the URL query string
@@ -706,10 +757,7 @@ public class Delegation {
                             "%svalidatorName%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getValidatorName()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getValidatorName()))));
         }
 
         // add `providerName` to the URL query string
@@ -719,10 +767,7 @@ public class Delegation {
                             "%sproviderName%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getProviderName()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getProviderName()))));
         }
 
         // add `chainDescriptor` to the URL query string
@@ -732,10 +777,7 @@ public class Delegation {
                             "%schainDescriptor%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getChainDescriptor()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getChainDescriptor()))));
         }
 
         // add `amount` to the URL query string
@@ -745,8 +787,7 @@ public class Delegation {
                             "%samount%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getAmount()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getAmount()))));
         }
 
         // add `rewardsAmount` to the URL query string
@@ -756,10 +797,7 @@ public class Delegation {
                             "%srewardsAmount%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getRewardsAmount()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getRewardsAmount()))));
         }
 
         // add `dateCreated` to the URL query string
@@ -769,10 +807,7 @@ public class Delegation {
                             "%sdateCreated%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getDateCreated()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getDateCreated()))));
         }
 
         // add `dateUpdated` to the URL query string
@@ -782,10 +817,7 @@ public class Delegation {
                             "%sdateUpdated%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getDateUpdated()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getDateUpdated()))));
         }
 
         // add `status` to the URL query string
@@ -795,8 +827,7 @@ public class Delegation {
                             "%sstatus%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getStatus()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getStatus()))));
         }
 
         // add `relatedTransactions` to the URL query string
@@ -829,10 +860,7 @@ public class Delegation {
                             "%svalidatorAddress%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getValidatorAddress()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getValidatorAddress()))));
         }
 
         // add `providerId` to the URL query string
@@ -842,9 +870,7 @@ public class Delegation {
                             "%sproviderId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getProviderId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getProviderId()))));
         }
 
         // add `availableActions` to the URL query string
@@ -859,10 +885,8 @@ public class Delegation {
                                         ? ""
                                         : String.format(
                                                 "%s%d%s", containerPrefix, i, containerSuffix),
-                                URLEncoder.encode(
-                                                String.valueOf(getAvailableActions().get(i)),
-                                                StandardCharsets.UTF_8)
-                                        .replaceAll("\\+", "%20")));
+                                ApiClient.urlEncode(
+                                        ApiClient.valueToString(getAvailableActions().get(i)))));
             }
         }
 
@@ -873,9 +897,7 @@ public class Delegation {
                             "%sinProgress%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getInProgress()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getInProgress()))));
         }
 
         // add `inProgressTxId` to the URL query string
@@ -885,10 +907,7 @@ public class Delegation {
                             "%sinProgressTxId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getInProgressTxId()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getInProgressTxId()))));
         }
 
         // add `blockchainPositionInfo` to the URL query string

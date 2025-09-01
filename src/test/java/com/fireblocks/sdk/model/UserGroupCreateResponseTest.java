@@ -13,39 +13,39 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for UserGroupCreateResponse */
-public class UserGroupCreateResponseTest {
+class UserGroupCreateResponseTest {
     private final UserGroupCreateResponse model = new UserGroupCreateResponse();
 
     /** Model tests for UserGroupCreateResponse */
     @Test
-    public void testUserGroupCreateResponse() {
+    void testUserGroupCreateResponse() {
         // TODO: test UserGroupCreateResponse
     }
 
     /** Test the property 'name' */
     @Test
-    public void nameTest() {
+    void nameTest() {
         // TODO: test name
     }
 
     /** Test the property 'id' */
     @Test
-    public void idTest() {
+    void idTest() {
         // TODO: test id
     }
 
     /** Test the property 'memberIds' */
     @Test
-    public void memberIdsTest() {
+    void memberIdsTest() {
         // TODO: test memberIds
     }
 
     /** Test the property 'status' */
     @Test
-    public void statusTest() {
+    void statusTest() {
         // TODO: test status
     }
 }

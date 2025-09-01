@@ -13,123 +13,123 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for Delegation */
-public class DelegationTest {
+class DelegationTest {
     private final Delegation model = new Delegation();
 
     /** Model tests for Delegation */
     @Test
-    public void testDelegation() {
+    void testDelegation() {
         // TODO: test Delegation
     }
 
     /** Test the property 'id' */
     @Test
-    public void idTest() {
+    void idTest() {
         // TODO: test id
     }
 
     /** Test the property 'vaultAccountId' */
     @Test
-    public void vaultAccountIdTest() {
+    void vaultAccountIdTest() {
         // TODO: test vaultAccountId
     }
 
     /** Test the property 'validatorName' */
     @Test
-    public void validatorNameTest() {
+    void validatorNameTest() {
         // TODO: test validatorName
     }
 
     /** Test the property 'providerName' */
     @Test
-    public void providerNameTest() {
+    void providerNameTest() {
         // TODO: test providerName
     }
 
     /** Test the property 'chainDescriptor' */
     @Test
-    public void chainDescriptorTest() {
+    void chainDescriptorTest() {
         // TODO: test chainDescriptor
     }
 
     /** Test the property 'amount' */
     @Test
-    public void amountTest() {
+    void amountTest() {
         // TODO: test amount
     }
 
     /** Test the property 'rewardsAmount' */
     @Test
-    public void rewardsAmountTest() {
+    void rewardsAmountTest() {
         // TODO: test rewardsAmount
     }
 
     /** Test the property 'dateCreated' */
     @Test
-    public void dateCreatedTest() {
+    void dateCreatedTest() {
         // TODO: test dateCreated
     }
 
     /** Test the property 'dateUpdated' */
     @Test
-    public void dateUpdatedTest() {
+    void dateUpdatedTest() {
         // TODO: test dateUpdated
     }
 
     /** Test the property 'status' */
     @Test
-    public void statusTest() {
+    void statusTest() {
         // TODO: test status
     }
 
     /** Test the property 'relatedTransactions' */
     @Test
-    public void relatedTransactionsTest() {
+    void relatedTransactionsTest() {
         // TODO: test relatedTransactions
     }
 
     /** Test the property 'validatorAddress' */
     @Test
-    public void validatorAddressTest() {
+    void validatorAddressTest() {
         // TODO: test validatorAddress
     }
 
     /** Test the property 'providerId' */
     @Test
-    public void providerIdTest() {
+    void providerIdTest() {
         // TODO: test providerId
     }
 
     /** Test the property 'availableActions' */
     @Test
-    public void availableActionsTest() {
+    void availableActionsTest() {
         // TODO: test availableActions
     }
 
     /** Test the property 'inProgress' */
     @Test
-    public void inProgressTest() {
+    void inProgressTest() {
         // TODO: test inProgress
     }
 
     /** Test the property 'inProgressTxId' */
     @Test
-    public void inProgressTxIdTest() {
+    void inProgressTxIdTest() {
         // TODO: test inProgressTxId
     }
 
     /** Test the property 'blockchainPositionInfo' */
     @Test
-    public void blockchainPositionInfoTest() {
+    void blockchainPositionInfoTest() {
         // TODO: test blockchainPositionInfo
     }
 
     /** Test the property 'relatedRequests' */
     @Test
-    public void relatedRequestsTest() {
+    void relatedRequestsTest() {
         // TODO: test relatedRequests
     }
 }

@@ -13,22 +13,22 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for RemoveLayerZeroAdapterFailedResult */
-public class RemoveLayerZeroAdapterFailedResultTest {
+class RemoveLayerZeroAdapterFailedResultTest {
     private final RemoveLayerZeroAdapterFailedResult model =
             new RemoveLayerZeroAdapterFailedResult();
 
     /** Model tests for RemoveLayerZeroAdapterFailedResult */
     @Test
-    public void testRemoveLayerZeroAdapterFailedResult() {
+    void testRemoveLayerZeroAdapterFailedResult() {
         // TODO: test RemoveLayerZeroAdapterFailedResult
     }
 
     /** Test the property 'adapterTokenLinkId' */
     @Test
-    public void adapterTokenLinkIdTest() {
+    void adapterTokenLinkIdTest() {
         // TODO: test adapterTokenLinkId
     }
 }

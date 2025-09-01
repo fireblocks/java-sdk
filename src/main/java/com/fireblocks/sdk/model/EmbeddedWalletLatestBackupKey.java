@@ -18,8 +18,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonValue;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -30,24 +29,26 @@ import java.util.StringJoiner;
     EmbeddedWalletLatestBackupKey.JSON_PROPERTY_KEY_ID,
     EmbeddedWalletLatestBackupKey.JSON_PROPERTY_ALGORITHM
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class EmbeddedWalletLatestBackupKey {
     public static final String JSON_PROPERTY_DEVICE_ID = "deviceId";
-    private String deviceId;
+    @jakarta.annotation.Nonnull private String deviceId;
 
     public static final String JSON_PROPERTY_PUBLIC_KEY = "publicKey";
-    private String publicKey;
+    @jakarta.annotation.Nonnull private String publicKey;
 
     public static final String JSON_PROPERTY_KEY_ID = "keyId";
-    private String keyId;
+    @jakarta.annotation.Nonnull private String keyId;
 
     /** algorithm */
     public enum AlgorithmEnum {
-        CMP_ECDSA_SECP256K1("MPC_CMP_ECDSA_SECP256K1"),
+        MPC_CMP_ECDSA_SECP256_K1(String.valueOf("MPC_CMP_ECDSA_SECP256K1")),
 
-        CMP_EDDSA_ED25519("MPC_CMP_EDDSA_ED25519"),
+        MPC_CMP_EDDSA_ED25519(String.valueOf("MPC_CMP_EDDSA_ED25519")),
 
-        ECDSA_SECP256K1("MPC_ECDSA_SECP256K1");
+        MPC_ECDSA_SECP256_K1(String.valueOf("MPC_ECDSA_SECP256K1"));
 
         private String value;
 
@@ -77,11 +78,24 @@ public class EmbeddedWalletLatestBackupKey {
     }
 
     public static final String JSON_PROPERTY_ALGORITHM = "algorithm";
-    private AlgorithmEnum algorithm;
+    @jakarta.annotation.Nonnull private AlgorithmEnum algorithm;
 
     public EmbeddedWalletLatestBackupKey() {}
 
-    public EmbeddedWalletLatestBackupKey deviceId(String deviceId) {
+    @JsonCreator
+    public EmbeddedWalletLatestBackupKey(
+            @JsonProperty(value = JSON_PROPERTY_DEVICE_ID, required = true) String deviceId,
+            @JsonProperty(value = JSON_PROPERTY_PUBLIC_KEY, required = true) String publicKey,
+            @JsonProperty(value = JSON_PROPERTY_KEY_ID, required = true) String keyId,
+            @JsonProperty(value = JSON_PROPERTY_ALGORITHM, required = true)
+                    AlgorithmEnum algorithm) {
+        this.deviceId = deviceId;
+        this.publicKey = publicKey;
+        this.keyId = keyId;
+        this.algorithm = algorithm;
+    }
+
+    public EmbeddedWalletLatestBackupKey deviceId(@jakarta.annotation.Nonnull String deviceId) {
         this.deviceId = deviceId;
         return this;
     }
@@ -100,11 +114,11 @@ public class EmbeddedWalletLatestBackupKey {
 
     @JsonProperty(JSON_PROPERTY_DEVICE_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setDeviceId(String deviceId) {
+    public void setDeviceId(@jakarta.annotation.Nonnull String deviceId) {
         this.deviceId = deviceId;
     }
 
-    public EmbeddedWalletLatestBackupKey publicKey(String publicKey) {
+    public EmbeddedWalletLatestBackupKey publicKey(@jakarta.annotation.Nonnull String publicKey) {
         this.publicKey = publicKey;
         return this;
     }
@@ -123,11 +137,11 @@ public class EmbeddedWalletLatestBackupKey {
 
     @JsonProperty(JSON_PROPERTY_PUBLIC_KEY)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setPublicKey(String publicKey) {
+    public void setPublicKey(@jakarta.annotation.Nonnull String publicKey) {
         this.publicKey = publicKey;
     }
 
-    public EmbeddedWalletLatestBackupKey keyId(String keyId) {
+    public EmbeddedWalletLatestBackupKey keyId(@jakarta.annotation.Nonnull String keyId) {
         this.keyId = keyId;
         return this;
     }
@@ -146,11 +160,12 @@ public class EmbeddedWalletLatestBackupKey {
 
     @JsonProperty(JSON_PROPERTY_KEY_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setKeyId(String keyId) {
+    public void setKeyId(@jakarta.annotation.Nonnull String keyId) {
         this.keyId = keyId;
     }
 
-    public EmbeddedWalletLatestBackupKey algorithm(AlgorithmEnum algorithm) {
+    public EmbeddedWalletLatestBackupKey algorithm(
+            @jakarta.annotation.Nonnull AlgorithmEnum algorithm) {
         this.algorithm = algorithm;
         return this;
     }
@@ -169,7 +184,7 @@ public class EmbeddedWalletLatestBackupKey {
 
     @JsonProperty(JSON_PROPERTY_ALGORITHM)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setAlgorithm(AlgorithmEnum algorithm) {
+    public void setAlgorithm(@jakarta.annotation.Nonnull AlgorithmEnum algorithm) {
         this.algorithm = algorithm;
     }
 
@@ -257,8 +272,7 @@ public class EmbeddedWalletLatestBackupKey {
                             "%sdeviceId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getDeviceId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getDeviceId()))));
         }
 
         // add `publicKey` to the URL query string
@@ -268,9 +282,7 @@ public class EmbeddedWalletLatestBackupKey {
                             "%spublicKey%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getPublicKey()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getPublicKey()))));
         }
 
         // add `keyId` to the URL query string
@@ -280,8 +292,7 @@ public class EmbeddedWalletLatestBackupKey {
                             "%skeyId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getKeyId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getKeyId()))));
         }
 
         // add `algorithm` to the URL query string
@@ -291,9 +302,7 @@ public class EmbeddedWalletLatestBackupKey {
                             "%salgorithm%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getAlgorithm()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getAlgorithm()))));
         }
 
         return joiner.toString();

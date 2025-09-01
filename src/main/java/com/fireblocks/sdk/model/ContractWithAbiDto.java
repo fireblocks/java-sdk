@@ -13,11 +13,11 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -33,32 +33,49 @@ import java.util.StringJoiner;
     ContractWithAbiDto.JSON_PROPERTY_IMPLEMENTATION,
     ContractWithAbiDto.JSON_PROPERTY_IS_PUBLIC
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class ContractWithAbiDto {
     public static final String JSON_PROPERTY_CONTRACT_ADDRESS = "contractAddress";
-    private String contractAddress;
+    @jakarta.annotation.Nonnull private String contractAddress;
 
     public static final String JSON_PROPERTY_BASE_ASSET_ID = "baseAssetId";
-    private String baseAssetId;
+    @jakarta.annotation.Nonnull private String baseAssetId;
 
     public static final String JSON_PROPERTY_NAME = "name";
-    private String name;
+    @jakarta.annotation.Nonnull private String name;
 
     public static final String JSON_PROPERTY_ABI = "abi";
-    private List<AbiFunction> abi = new ArrayList<>();
+    @jakarta.annotation.Nonnull private List<AbiFunction> abi = new ArrayList<>();
 
     public static final String JSON_PROPERTY_IS_PROXY = "isProxy";
-    private Boolean isProxy;
+    @jakarta.annotation.Nullable private Boolean isProxy;
 
     public static final String JSON_PROPERTY_IMPLEMENTATION = "implementation";
-    private String implementation;
+    @jakarta.annotation.Nullable private String implementation;
 
     public static final String JSON_PROPERTY_IS_PUBLIC = "isPublic";
-    private Boolean isPublic;
+    @jakarta.annotation.Nonnull private Boolean isPublic;
 
     public ContractWithAbiDto() {}
 
-    public ContractWithAbiDto contractAddress(String contractAddress) {
+    @JsonCreator
+    public ContractWithAbiDto(
+            @JsonProperty(value = JSON_PROPERTY_CONTRACT_ADDRESS, required = true)
+                    String contractAddress,
+            @JsonProperty(value = JSON_PROPERTY_BASE_ASSET_ID, required = true) String baseAssetId,
+            @JsonProperty(value = JSON_PROPERTY_NAME, required = true) String name,
+            @JsonProperty(value = JSON_PROPERTY_ABI, required = true) List<AbiFunction> abi,
+            @JsonProperty(value = JSON_PROPERTY_IS_PUBLIC, required = true) Boolean isPublic) {
+        this.contractAddress = contractAddress;
+        this.baseAssetId = baseAssetId;
+        this.name = name;
+        this.abi = abi;
+        this.isPublic = isPublic;
+    }
+
+    public ContractWithAbiDto contractAddress(@jakarta.annotation.Nonnull String contractAddress) {
         this.contractAddress = contractAddress;
         return this;
     }
@@ -77,11 +94,11 @@ public class ContractWithAbiDto {
 
     @JsonProperty(JSON_PROPERTY_CONTRACT_ADDRESS)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setContractAddress(String contractAddress) {
+    public void setContractAddress(@jakarta.annotation.Nonnull String contractAddress) {
         this.contractAddress = contractAddress;
     }
 
-    public ContractWithAbiDto baseAssetId(String baseAssetId) {
+    public ContractWithAbiDto baseAssetId(@jakarta.annotation.Nonnull String baseAssetId) {
         this.baseAssetId = baseAssetId;
         return this;
     }
@@ -100,11 +117,11 @@ public class ContractWithAbiDto {
 
     @JsonProperty(JSON_PROPERTY_BASE_ASSET_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setBaseAssetId(String baseAssetId) {
+    public void setBaseAssetId(@jakarta.annotation.Nonnull String baseAssetId) {
         this.baseAssetId = baseAssetId;
     }
 
-    public ContractWithAbiDto name(String name) {
+    public ContractWithAbiDto name(@jakarta.annotation.Nonnull String name) {
         this.name = name;
         return this;
     }
@@ -123,11 +140,11 @@ public class ContractWithAbiDto {
 
     @JsonProperty(JSON_PROPERTY_NAME)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setName(String name) {
+    public void setName(@jakarta.annotation.Nonnull String name) {
         this.name = name;
     }
 
-    public ContractWithAbiDto abi(List<AbiFunction> abi) {
+    public ContractWithAbiDto abi(@jakarta.annotation.Nonnull List<AbiFunction> abi) {
         this.abi = abi;
         return this;
     }
@@ -154,11 +171,11 @@ public class ContractWithAbiDto {
 
     @JsonProperty(JSON_PROPERTY_ABI)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setAbi(List<AbiFunction> abi) {
+    public void setAbi(@jakarta.annotation.Nonnull List<AbiFunction> abi) {
         this.abi = abi;
     }
 
-    public ContractWithAbiDto isProxy(Boolean isProxy) {
+    public ContractWithAbiDto isProxy(@jakarta.annotation.Nullable Boolean isProxy) {
         this.isProxy = isProxy;
         return this;
     }
@@ -177,11 +194,11 @@ public class ContractWithAbiDto {
 
     @JsonProperty(JSON_PROPERTY_IS_PROXY)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setIsProxy(Boolean isProxy) {
+    public void setIsProxy(@jakarta.annotation.Nullable Boolean isProxy) {
         this.isProxy = isProxy;
     }
 
-    public ContractWithAbiDto implementation(String implementation) {
+    public ContractWithAbiDto implementation(@jakarta.annotation.Nullable String implementation) {
         this.implementation = implementation;
         return this;
     }
@@ -200,11 +217,11 @@ public class ContractWithAbiDto {
 
     @JsonProperty(JSON_PROPERTY_IMPLEMENTATION)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setImplementation(String implementation) {
+    public void setImplementation(@jakarta.annotation.Nullable String implementation) {
         this.implementation = implementation;
     }
 
-    public ContractWithAbiDto isPublic(Boolean isPublic) {
+    public ContractWithAbiDto isPublic(@jakarta.annotation.Nonnull Boolean isPublic) {
         this.isPublic = isPublic;
         return this;
     }
@@ -223,7 +240,7 @@ public class ContractWithAbiDto {
 
     @JsonProperty(JSON_PROPERTY_IS_PUBLIC)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setIsPublic(Boolean isPublic) {
+    public void setIsPublic(@jakarta.annotation.Nonnull Boolean isPublic) {
         this.isPublic = isPublic;
     }
 
@@ -317,10 +334,7 @@ public class ContractWithAbiDto {
                             "%scontractAddress%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getContractAddress()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getContractAddress()))));
         }
 
         // add `baseAssetId` to the URL query string
@@ -330,10 +344,7 @@ public class ContractWithAbiDto {
                             "%sbaseAssetId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getBaseAssetId()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getBaseAssetId()))));
         }
 
         // add `name` to the URL query string
@@ -343,8 +354,7 @@ public class ContractWithAbiDto {
                             "%sname%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getName()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getName()))));
         }
 
         // add `abi` to the URL query string
@@ -376,8 +386,7 @@ public class ContractWithAbiDto {
                             "%sisProxy%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getIsProxy()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getIsProxy()))));
         }
 
         // add `implementation` to the URL query string
@@ -387,10 +396,7 @@ public class ContractWithAbiDto {
                             "%simplementation%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getImplementation()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getImplementation()))));
         }
 
         // add `isPublic` to the URL query string
@@ -400,8 +406,7 @@ public class ContractWithAbiDto {
                             "%sisPublic%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getIsPublic()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getIsPublic()))));
         }
 
         return joiner.toString();

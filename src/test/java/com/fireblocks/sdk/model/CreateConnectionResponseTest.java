@@ -13,27 +13,27 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for CreateConnectionResponse */
-public class CreateConnectionResponseTest {
+class CreateConnectionResponseTest {
     private final CreateConnectionResponse model = new CreateConnectionResponse();
 
     /** Model tests for CreateConnectionResponse */
     @Test
-    public void testCreateConnectionResponse() {
+    void testCreateConnectionResponse() {
         // TODO: test CreateConnectionResponse
     }
 
     /** Test the property 'id' */
     @Test
-    public void idTest() {
+    void idTest() {
         // TODO: test id
     }
 
     /** Test the property 'sessionMetadata' */
     @Test
-    public void sessionMetadataTest() {
+    void sessionMetadataTest() {
         // TODO: test sessionMetadata
     }
 }

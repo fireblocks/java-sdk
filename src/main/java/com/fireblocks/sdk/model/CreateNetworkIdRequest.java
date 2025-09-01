@@ -13,11 +13,11 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -28,17 +28,27 @@ import java.util.StringJoiner;
     CreateNetworkIdRequest.JSON_PROPERTY_NAME,
     CreateNetworkIdRequest.JSON_PROPERTY_ROUTING_POLICY
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class CreateNetworkIdRequest {
     public static final String JSON_PROPERTY_NAME = "name";
-    private String name;
+    @jakarta.annotation.Nonnull private String name;
 
     public static final String JSON_PROPERTY_ROUTING_POLICY = "routingPolicy";
+
+    @jakarta.annotation.Nullable
     private Map<String, NetworkIdRoutingPolicyValue> routingPolicy = new HashMap<>();
 
     public CreateNetworkIdRequest() {}
 
-    public CreateNetworkIdRequest name(String name) {
+    @JsonCreator
+    public CreateNetworkIdRequest(
+            @JsonProperty(value = JSON_PROPERTY_NAME, required = true) String name) {
+        this.name = name;
+    }
+
+    public CreateNetworkIdRequest name(@jakarta.annotation.Nonnull String name) {
         this.name = name;
         return this;
     }
@@ -57,12 +67,12 @@ public class CreateNetworkIdRequest {
 
     @JsonProperty(JSON_PROPERTY_NAME)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setName(String name) {
+    public void setName(@jakarta.annotation.Nonnull String name) {
         this.name = name;
     }
 
     public CreateNetworkIdRequest routingPolicy(
-            Map<String, NetworkIdRoutingPolicyValue> routingPolicy) {
+            @jakarta.annotation.Nullable Map<String, NetworkIdRoutingPolicyValue> routingPolicy) {
         this.routingPolicy = routingPolicy;
         return this;
     }
@@ -90,7 +100,8 @@ public class CreateNetworkIdRequest {
 
     @JsonProperty(JSON_PROPERTY_ROUTING_POLICY)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setRoutingPolicy(Map<String, NetworkIdRoutingPolicyValue> routingPolicy) {
+    public void setRoutingPolicy(
+            @jakarta.annotation.Nullable Map<String, NetworkIdRoutingPolicyValue> routingPolicy) {
         this.routingPolicy = routingPolicy;
     }
 
@@ -173,8 +184,7 @@ public class CreateNetworkIdRequest {
                             "%sname%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getName()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getName()))));
         }
 
         // add `routingPolicy` to the URL query string

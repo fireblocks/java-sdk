@@ -13,21 +13,21 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for StakeResponse */
-public class StakeResponseTest {
+class StakeResponseTest {
     private final StakeResponse model = new StakeResponse();
 
     /** Model tests for StakeResponse */
     @Test
-    public void testStakeResponse() {
+    void testStakeResponse() {
         // TODO: test StakeResponse
     }
 
     /** Test the property 'id' */
     @Test
-    public void idTest() {
+    void idTest() {
         // TODO: test id
     }
 }

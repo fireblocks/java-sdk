@@ -13,15 +13,15 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for TransactionRequestGasPrice */
-public class TransactionRequestGasPriceTest {
+class TransactionRequestGasPriceTest {
     private final TransactionRequestGasPrice model = new TransactionRequestGasPrice();
 
     /** Model tests for TransactionRequestGasPrice */
     @Test
-    public void testTransactionRequestGasPrice() {
+    void testTransactionRequestGasPrice() {
         // TODO: test TransactionRequestGasPrice
     }
 }

@@ -18,8 +18,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonValue;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -30,22 +29,24 @@ import java.util.StringJoiner;
     BlockchainOnchain.JSON_PROPERTY_TEST,
     BlockchainOnchain.JSON_PROPERTY_SIGNING_ALGO
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class BlockchainOnchain {
     public static final String JSON_PROPERTY_PROTOCOL = "protocol";
-    private String protocol;
+    @jakarta.annotation.Nonnull private String protocol;
 
     public static final String JSON_PROPERTY_CHAIN_ID = "chainId";
-    private String chainId;
+    @jakarta.annotation.Nullable private String chainId;
 
     public static final String JSON_PROPERTY_TEST = "test";
-    private Boolean test;
+    @jakarta.annotation.Nonnull private Boolean test;
 
     /** Signing alghorithm */
     public enum SigningAlgoEnum {
-        ECDSA_SECP256K1("ECDSA_SECP256K1"),
+        ECDSA_SECP256_K1(String.valueOf("ECDSA_SECP256K1")),
 
-        EDDSA_ED25519("EDDSA_ED25519");
+        EDDSA_ED25519(String.valueOf("EDDSA_ED25519"));
 
         private String value;
 
@@ -75,11 +76,22 @@ public class BlockchainOnchain {
     }
 
     public static final String JSON_PROPERTY_SIGNING_ALGO = "signingAlgo";
-    private SigningAlgoEnum signingAlgo;
+    @jakarta.annotation.Nonnull private SigningAlgoEnum signingAlgo;
 
     public BlockchainOnchain() {}
 
-    public BlockchainOnchain protocol(String protocol) {
+    @JsonCreator
+    public BlockchainOnchain(
+            @JsonProperty(value = JSON_PROPERTY_PROTOCOL, required = true) String protocol,
+            @JsonProperty(value = JSON_PROPERTY_TEST, required = true) Boolean test,
+            @JsonProperty(value = JSON_PROPERTY_SIGNING_ALGO, required = true)
+                    SigningAlgoEnum signingAlgo) {
+        this.protocol = protocol;
+        this.test = test;
+        this.signingAlgo = signingAlgo;
+    }
+
+    public BlockchainOnchain protocol(@jakarta.annotation.Nonnull String protocol) {
         this.protocol = protocol;
         return this;
     }
@@ -98,11 +110,11 @@ public class BlockchainOnchain {
 
     @JsonProperty(JSON_PROPERTY_PROTOCOL)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setProtocol(String protocol) {
+    public void setProtocol(@jakarta.annotation.Nonnull String protocol) {
         this.protocol = protocol;
     }
 
-    public BlockchainOnchain chainId(String chainId) {
+    public BlockchainOnchain chainId(@jakarta.annotation.Nullable String chainId) {
         this.chainId = chainId;
         return this;
     }
@@ -121,11 +133,11 @@ public class BlockchainOnchain {
 
     @JsonProperty(JSON_PROPERTY_CHAIN_ID)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setChainId(String chainId) {
+    public void setChainId(@jakarta.annotation.Nullable String chainId) {
         this.chainId = chainId;
     }
 
-    public BlockchainOnchain test(Boolean test) {
+    public BlockchainOnchain test(@jakarta.annotation.Nonnull Boolean test) {
         this.test = test;
         return this;
     }
@@ -144,11 +156,11 @@ public class BlockchainOnchain {
 
     @JsonProperty(JSON_PROPERTY_TEST)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setTest(Boolean test) {
+    public void setTest(@jakarta.annotation.Nonnull Boolean test) {
         this.test = test;
     }
 
-    public BlockchainOnchain signingAlgo(SigningAlgoEnum signingAlgo) {
+    public BlockchainOnchain signingAlgo(@jakarta.annotation.Nonnull SigningAlgoEnum signingAlgo) {
         this.signingAlgo = signingAlgo;
         return this;
     }
@@ -167,7 +179,7 @@ public class BlockchainOnchain {
 
     @JsonProperty(JSON_PROPERTY_SIGNING_ALGO)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setSigningAlgo(SigningAlgoEnum signingAlgo) {
+    public void setSigningAlgo(@jakarta.annotation.Nonnull SigningAlgoEnum signingAlgo) {
         this.signingAlgo = signingAlgo;
     }
 
@@ -254,8 +266,7 @@ public class BlockchainOnchain {
                             "%sprotocol%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getProtocol()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getProtocol()))));
         }
 
         // add `chainId` to the URL query string
@@ -265,8 +276,7 @@ public class BlockchainOnchain {
                             "%schainId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getChainId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getChainId()))));
         }
 
         // add `test` to the URL query string
@@ -276,8 +286,7 @@ public class BlockchainOnchain {
                             "%stest%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getTest()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getTest()))));
         }
 
         // add `signingAlgo` to the URL query string
@@ -287,10 +296,7 @@ public class BlockchainOnchain {
                             "%ssigningAlgo%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getSigningAlgo()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getSigningAlgo()))));
         }
 
         return joiner.toString();

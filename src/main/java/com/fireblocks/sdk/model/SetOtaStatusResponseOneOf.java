@@ -16,21 +16,22 @@ package com.fireblocks.sdk.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
 /** SetOtaStatusResponseOneOf */
 @JsonPropertyOrder({SetOtaStatusResponseOneOf.JSON_PROPERTY_MESSAGE})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class SetOtaStatusResponseOneOf {
     public static final String JSON_PROPERTY_MESSAGE = "message";
-    private String message;
+    @jakarta.annotation.Nullable private String message;
 
     public SetOtaStatusResponseOneOf() {}
 
-    public SetOtaStatusResponseOneOf message(String message) {
+    public SetOtaStatusResponseOneOf message(@jakarta.annotation.Nullable String message) {
         this.message = message;
         return this;
     }
@@ -49,7 +50,7 @@ public class SetOtaStatusResponseOneOf {
 
     @JsonProperty(JSON_PROPERTY_MESSAGE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setMessage(String message) {
+    public void setMessage(@jakarta.annotation.Nullable String message) {
         this.message = message;
     }
 
@@ -130,8 +131,7 @@ public class SetOtaStatusResponseOneOf {
                             "%smessage%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getMessage()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getMessage()))));
         }
 
         return joiner.toString();

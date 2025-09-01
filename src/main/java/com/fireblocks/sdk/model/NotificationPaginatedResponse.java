@@ -13,11 +13,12 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -26,19 +27,31 @@ import java.util.StringJoiner;
 /** NotificationPaginatedResponse */
 @JsonPropertyOrder({
     NotificationPaginatedResponse.JSON_PROPERTY_DATA,
+    NotificationPaginatedResponse.JSON_PROPERTY_TOTAL,
     NotificationPaginatedResponse.JSON_PROPERTY_NEXT
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class NotificationPaginatedResponse {
     public static final String JSON_PROPERTY_DATA = "data";
-    private List<Notification> data = new ArrayList<>();
+    @jakarta.annotation.Nonnull private List<Notification> data = new ArrayList<>();
+
+    public static final String JSON_PROPERTY_TOTAL = "total";
+    @jakarta.annotation.Nullable private BigDecimal total;
 
     public static final String JSON_PROPERTY_NEXT = "next";
-    private String next;
+    @jakarta.annotation.Nullable private String next;
 
     public NotificationPaginatedResponse() {}
 
-    public NotificationPaginatedResponse data(List<Notification> data) {
+    @JsonCreator
+    public NotificationPaginatedResponse(
+            @JsonProperty(value = JSON_PROPERTY_DATA, required = true) List<Notification> data) {
+        this.data = data;
+    }
+
+    public NotificationPaginatedResponse data(@jakarta.annotation.Nonnull List<Notification> data) {
         this.data = data;
         return this;
     }
@@ -65,11 +78,35 @@ public class NotificationPaginatedResponse {
 
     @JsonProperty(JSON_PROPERTY_DATA)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setData(List<Notification> data) {
+    public void setData(@jakarta.annotation.Nonnull List<Notification> data) {
         this.data = data;
     }
 
-    public NotificationPaginatedResponse next(String next) {
+    public NotificationPaginatedResponse total(@jakarta.annotation.Nullable BigDecimal total) {
+        this.total = total;
+        return this;
+    }
+
+    /**
+     * The total number of notifications after all filters applied (not returned when
+     * &#39;pageCursor&#39; parameter is used)
+     *
+     * @return total
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_TOTAL)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public BigDecimal getTotal() {
+        return total;
+    }
+
+    @JsonProperty(JSON_PROPERTY_TOTAL)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setTotal(@jakarta.annotation.Nullable BigDecimal total) {
+        this.total = total;
+    }
+
+    public NotificationPaginatedResponse next(@jakarta.annotation.Nullable String next) {
         this.next = next;
         return this;
     }
@@ -88,7 +125,7 @@ public class NotificationPaginatedResponse {
 
     @JsonProperty(JSON_PROPERTY_NEXT)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setNext(String next) {
+    public void setNext(@jakarta.annotation.Nullable String next) {
         this.next = next;
     }
 
@@ -104,12 +141,13 @@ public class NotificationPaginatedResponse {
         NotificationPaginatedResponse notificationPaginatedResponse =
                 (NotificationPaginatedResponse) o;
         return Objects.equals(this.data, notificationPaginatedResponse.data)
+                && Objects.equals(this.total, notificationPaginatedResponse.total)
                 && Objects.equals(this.next, notificationPaginatedResponse.next);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(data, next);
+        return Objects.hash(data, total, next);
     }
 
     @Override
@@ -117,6 +155,7 @@ public class NotificationPaginatedResponse {
         StringBuilder sb = new StringBuilder();
         sb.append("class NotificationPaginatedResponse {\n");
         sb.append("    data: ").append(toIndentedString(data)).append("\n");
+        sb.append("    total: ").append(toIndentedString(total)).append("\n");
         sb.append("    next: ").append(toIndentedString(next)).append("\n");
         sb.append("}");
         return sb.toString();
@@ -188,6 +227,16 @@ public class NotificationPaginatedResponse {
             }
         }
 
+        // add `total` to the URL query string
+        if (getTotal() != null) {
+            joiner.add(
+                    String.format(
+                            "%stotal%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getTotal()))));
+        }
+
         // add `next` to the URL query string
         if (getNext() != null) {
             joiner.add(
@@ -195,8 +244,7 @@ public class NotificationPaginatedResponse {
                             "%snext%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getNext()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getNext()))));
         }
 
         return joiner.toString();

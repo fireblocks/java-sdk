@@ -13,11 +13,11 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -27,20 +27,34 @@ import java.util.StringJoiner;
     ConversionOperationExecutionOutput.JSON_PROPERTY_FEE,
     ConversionOperationExecutionOutput.JSON_PROPERTY_CONVERSION_RATE
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class ConversionOperationExecutionOutput {
     public static final String JSON_PROPERTY_AMOUNT = "amount";
-    private AssetAmount amount;
+    @jakarta.annotation.Nonnull private AssetAmount amount;
 
     public static final String JSON_PROPERTY_FEE = "fee";
-    private AssetAmount fee;
+    @jakarta.annotation.Nonnull private AssetAmount fee;
 
     public static final String JSON_PROPERTY_CONVERSION_RATE = "conversionRate";
-    private String conversionRate;
+    @jakarta.annotation.Nonnull private String conversionRate;
 
     public ConversionOperationExecutionOutput() {}
 
-    public ConversionOperationExecutionOutput amount(AssetAmount amount) {
+    @JsonCreator
+    public ConversionOperationExecutionOutput(
+            @JsonProperty(value = JSON_PROPERTY_AMOUNT, required = true) AssetAmount amount,
+            @JsonProperty(value = JSON_PROPERTY_FEE, required = true) AssetAmount fee,
+            @JsonProperty(value = JSON_PROPERTY_CONVERSION_RATE, required = true)
+                    String conversionRate) {
+        this.amount = amount;
+        this.fee = fee;
+        this.conversionRate = conversionRate;
+    }
+
+    public ConversionOperationExecutionOutput amount(
+            @jakarta.annotation.Nonnull AssetAmount amount) {
         this.amount = amount;
         return this;
     }
@@ -59,11 +73,11 @@ public class ConversionOperationExecutionOutput {
 
     @JsonProperty(JSON_PROPERTY_AMOUNT)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setAmount(AssetAmount amount) {
+    public void setAmount(@jakarta.annotation.Nonnull AssetAmount amount) {
         this.amount = amount;
     }
 
-    public ConversionOperationExecutionOutput fee(AssetAmount fee) {
+    public ConversionOperationExecutionOutput fee(@jakarta.annotation.Nonnull AssetAmount fee) {
         this.fee = fee;
         return this;
     }
@@ -82,11 +96,12 @@ public class ConversionOperationExecutionOutput {
 
     @JsonProperty(JSON_PROPERTY_FEE)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setFee(AssetAmount fee) {
+    public void setFee(@jakarta.annotation.Nonnull AssetAmount fee) {
         this.fee = fee;
     }
 
-    public ConversionOperationExecutionOutput conversionRate(String conversionRate) {
+    public ConversionOperationExecutionOutput conversionRate(
+            @jakarta.annotation.Nonnull String conversionRate) {
         this.conversionRate = conversionRate;
         return this;
     }
@@ -105,7 +120,7 @@ public class ConversionOperationExecutionOutput {
 
     @JsonProperty(JSON_PROPERTY_CONVERSION_RATE)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setConversionRate(String conversionRate) {
+    public void setConversionRate(@jakarta.annotation.Nonnull String conversionRate) {
         this.conversionRate = conversionRate;
     }
 
@@ -202,10 +217,7 @@ public class ConversionOperationExecutionOutput {
                             "%sconversionRate%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getConversionRate()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getConversionRate()))));
         }
 
         return joiner.toString();

@@ -13,33 +13,33 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for GasStationConfiguration */
-public class GasStationConfigurationTest {
+class GasStationConfigurationTest {
     private final GasStationConfiguration model = new GasStationConfiguration();
 
     /** Model tests for GasStationConfiguration */
     @Test
-    public void testGasStationConfiguration() {
+    void testGasStationConfiguration() {
         // TODO: test GasStationConfiguration
     }
 
     /** Test the property 'gasThreshold' */
     @Test
-    public void gasThresholdTest() {
+    void gasThresholdTest() {
         // TODO: test gasThreshold
     }
 
     /** Test the property 'gasCap' */
     @Test
-    public void gasCapTest() {
+    void gasCapTest() {
         // TODO: test gasCap
     }
 
     /** Test the property 'maxGasPrice' */
     @Test
-    public void maxGasPriceTest() {
+    void maxGasPriceTest() {
         // TODO: test maxGasPrice
     }
 }

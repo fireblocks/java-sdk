@@ -13,39 +13,39 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for BlockchainExplorer */
-public class BlockchainExplorerTest {
+class BlockchainExplorerTest {
     private final BlockchainExplorer model = new BlockchainExplorer();
 
     /** Model tests for BlockchainExplorer */
     @Test
-    public void testBlockchainExplorer() {
+    void testBlockchainExplorer() {
         // TODO: test BlockchainExplorer
     }
 
     /** Test the property 'base' */
     @Test
-    public void baseTest() {
+    void baseTest() {
         // TODO: test base
     }
 
     /** Test the property 'address' */
     @Test
-    public void addressTest() {
+    void addressTest() {
         // TODO: test address
     }
 
     /** Test the property 'tx' */
     @Test
-    public void txTest() {
+    void txTest() {
         // TODO: test tx
     }
 
     /** Test the property 'token' */
     @Test
-    public void tokenTest() {
+    void tokenTest() {
         // TODO: test token
     }
 }

@@ -13,63 +13,63 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for AuditLogData */
-public class AuditLogDataTest {
+class AuditLogDataTest {
     private final AuditLogData model = new AuditLogData();
 
     /** Model tests for AuditLogData */
     @Test
-    public void testAuditLogData() {
+    void testAuditLogData() {
         // TODO: test AuditLogData
     }
 
     /** Test the property 'id' */
     @Test
-    public void idTest() {
+    void idTest() {
         // TODO: test id
     }
 
     /** Test the property 'timestamp' */
     @Test
-    public void timestampTest() {
+    void timestampTest() {
         // TODO: test timestamp
     }
 
     /** Test the property 'createdAt' */
     @Test
-    public void createdAtTest() {
+    void createdAtTest() {
         // TODO: test createdAt
     }
 
     /** Test the property 'user' */
     @Test
-    public void userTest() {
+    void userTest() {
         // TODO: test user
     }
 
     /** Test the property 'subject' */
     @Test
-    public void subjectTest() {
+    void subjectTest() {
         // TODO: test subject
     }
 
     /** Test the property 'event' */
     @Test
-    public void eventTest() {
+    void eventTest() {
         // TODO: test event
     }
 
     /** Test the property 'tenantId' */
     @Test
-    public void tenantIdTest() {
+    void tenantIdTest() {
         // TODO: test tenantId
     }
 
     /** Test the property 'userId' */
     @Test
-    public void userIdTest() {
+    void userIdTest() {
         // TODO: test userId
     }
 }

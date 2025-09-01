@@ -13,34 +13,34 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for SmartTransferTicketFilteredResponse */
-public class SmartTransferTicketFilteredResponseTest {
+class SmartTransferTicketFilteredResponseTest {
     private final SmartTransferTicketFilteredResponse model =
             new SmartTransferTicketFilteredResponse();
 
     /** Model tests for SmartTransferTicketFilteredResponse */
     @Test
-    public void testSmartTransferTicketFilteredResponse() {
+    void testSmartTransferTicketFilteredResponse() {
         // TODO: test SmartTransferTicketFilteredResponse
     }
 
     /** Test the property 'message' */
     @Test
-    public void messageTest() {
+    void messageTest() {
         // TODO: test message
     }
 
     /** Test the property 'after' */
     @Test
-    public void afterTest() {
+    void afterTest() {
         // TODO: test after
     }
 
     /** Test the property 'data' */
     @Test
-    public void dataTest() {
+    void dataTest() {
         // TODO: test data
     }
 }

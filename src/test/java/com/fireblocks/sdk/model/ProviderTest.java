@@ -13,63 +13,63 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for Provider */
-public class ProviderTest {
+class ProviderTest {
     private final Provider model = new Provider();
 
     /** Model tests for Provider */
     @Test
-    public void testProvider() {
+    void testProvider() {
         // TODO: test Provider
     }
 
     /** Test the property 'id' */
     @Test
-    public void idTest() {
+    void idTest() {
         // TODO: test id
     }
 
     /** Test the property 'providerName' */
     @Test
-    public void providerNameTest() {
+    void providerNameTest() {
         // TODO: test providerName
     }
 
     /** Test the property 'validators' */
     @Test
-    public void validatorsTest() {
+    void validatorsTest() {
         // TODO: test validators
     }
 
     /** Test the property 'iconUrl' */
     @Test
-    public void iconUrlTest() {
+    void iconUrlTest() {
         // TODO: test iconUrl
     }
 
     /** Test the property 'termsOfServiceUrl' */
     @Test
-    public void termsOfServiceUrlTest() {
+    void termsOfServiceUrlTest() {
         // TODO: test termsOfServiceUrl
     }
 
     /** Test the property 'isTermsOfServiceApproved' */
     @Test
-    public void isTermsOfServiceApprovedTest() {
+    void isTermsOfServiceApprovedTest() {
         // TODO: test isTermsOfServiceApproved
     }
 
     /** Test the property 'isPrivate' */
     @Test
-    public void isPrivateTest() {
+    void isPrivateTest() {
         // TODO: test isPrivate
     }
 
     /** Test the property 'isLiquidStaking' */
     @Test
-    public void isLiquidStakingTest() {
+    void isLiquidStakingTest() {
         // TODO: test isLiquidStaking
     }
 }

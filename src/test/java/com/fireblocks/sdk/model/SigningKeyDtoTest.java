@@ -13,63 +13,63 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for SigningKeyDto */
-public class SigningKeyDtoTest {
+class SigningKeyDtoTest {
     private final SigningKeyDto model = new SigningKeyDto();
 
     /** Model tests for SigningKeyDto */
     @Test
-    public void testSigningKeyDto() {
+    void testSigningKeyDto() {
         // TODO: test SigningKeyDto
     }
 
     /** Test the property 'keyId' */
     @Test
-    public void keyIdTest() {
+    void keyIdTest() {
         // TODO: test keyId
     }
 
     /** Test the property 'signingDeviceKeyId' */
     @Test
-    public void signingDeviceKeyIdTest() {
+    void signingDeviceKeyIdTest() {
         // TODO: test signingDeviceKeyId
     }
 
     /** Test the property 'publicKeyPem' */
     @Test
-    public void publicKeyPemTest() {
+    void publicKeyPemTest() {
         // TODO: test publicKeyPem
     }
 
     /** Test the property 'algorithm' */
     @Test
-    public void algorithmTest() {
+    void algorithmTest() {
         // TODO: test algorithm
     }
 
     /** Test the property 'enabled' */
     @Test
-    public void enabledTest() {
+    void enabledTest() {
         // TODO: test enabled
     }
 
     /** Test the property 'vaultAccountId' */
     @Test
-    public void vaultAccountIdTest() {
+    void vaultAccountIdTest() {
         // TODO: test vaultAccountId
     }
 
     /** Test the property 'agentUserId' */
     @Test
-    public void agentUserIdTest() {
+    void agentUserIdTest() {
         // TODO: test agentUserId
     }
 
     /** Test the property 'createdAt' */
     @Test
-    public void createdAtTest() {
+    void createdAtTest() {
         // TODO: test createdAt
     }
 }

@@ -16,8 +16,7 @@ package com.fireblocks.sdk.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -26,17 +25,20 @@ import java.util.StringJoiner;
     AddCollateralRequestBody.JSON_PROPERTY_TRANSACTION_REQUEST,
     AddCollateralRequestBody.JSON_PROPERTY_IS_SRC_COLLATERAL
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class AddCollateralRequestBody {
     public static final String JSON_PROPERTY_TRANSACTION_REQUEST = "transactionRequest";
-    private TransactionRequest transactionRequest;
+    @jakarta.annotation.Nullable private TransactionRequest transactionRequest;
 
     public static final String JSON_PROPERTY_IS_SRC_COLLATERAL = "isSrcCollateral";
-    private Boolean isSrcCollateral;
+    @jakarta.annotation.Nullable private Boolean isSrcCollateral;
 
     public AddCollateralRequestBody() {}
 
-    public AddCollateralRequestBody transactionRequest(TransactionRequest transactionRequest) {
+    public AddCollateralRequestBody transactionRequest(
+            @jakarta.annotation.Nullable TransactionRequest transactionRequest) {
         this.transactionRequest = transactionRequest;
         return this;
     }
@@ -55,11 +57,13 @@ public class AddCollateralRequestBody {
 
     @JsonProperty(JSON_PROPERTY_TRANSACTION_REQUEST)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setTransactionRequest(TransactionRequest transactionRequest) {
+    public void setTransactionRequest(
+            @jakarta.annotation.Nullable TransactionRequest transactionRequest) {
         this.transactionRequest = transactionRequest;
     }
 
-    public AddCollateralRequestBody isSrcCollateral(Boolean isSrcCollateral) {
+    public AddCollateralRequestBody isSrcCollateral(
+            @jakarta.annotation.Nullable Boolean isSrcCollateral) {
         this.isSrcCollateral = isSrcCollateral;
         return this;
     }
@@ -78,7 +82,7 @@ public class AddCollateralRequestBody {
 
     @JsonProperty(JSON_PROPERTY_IS_SRC_COLLATERAL)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setIsSrcCollateral(Boolean isSrcCollateral) {
+    public void setIsSrcCollateral(@jakarta.annotation.Nullable Boolean isSrcCollateral) {
         this.isSrcCollateral = isSrcCollateral;
     }
 
@@ -170,10 +174,7 @@ public class AddCollateralRequestBody {
                             "%sisSrcCollateral%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getIsSrcCollateral()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getIsSrcCollateral()))));
         }
 
         return joiner.toString();

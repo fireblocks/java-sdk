@@ -13,27 +13,27 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for InternalTransferResponse */
-public class InternalTransferResponseTest {
+class InternalTransferResponseTest {
     private final InternalTransferResponse model = new InternalTransferResponse();
 
     /** Model tests for InternalTransferResponse */
     @Test
-    public void testInternalTransferResponse() {
+    void testInternalTransferResponse() {
         // TODO: test InternalTransferResponse
     }
 
     /** Test the property 'success' */
     @Test
-    public void successTest() {
+    void successTest() {
         // TODO: test success
     }
 
     /** Test the property 'id' */
     @Test
-    public void idTest() {
+    void idTest() {
         // TODO: test id
     }
 }

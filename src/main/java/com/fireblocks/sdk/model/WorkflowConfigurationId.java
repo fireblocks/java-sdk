@@ -13,24 +13,32 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
 /** WorkflowConfigurationId */
 @JsonPropertyOrder({WorkflowConfigurationId.JSON_PROPERTY_CONFIG_ID})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class WorkflowConfigurationId {
     public static final String JSON_PROPERTY_CONFIG_ID = "configId";
-    private String configId;
+    @jakarta.annotation.Nonnull private String configId;
 
     public WorkflowConfigurationId() {}
 
-    public WorkflowConfigurationId configId(String configId) {
+    @JsonCreator
+    public WorkflowConfigurationId(
+            @JsonProperty(value = JSON_PROPERTY_CONFIG_ID, required = true) String configId) {
+        this.configId = configId;
+    }
+
+    public WorkflowConfigurationId configId(@jakarta.annotation.Nonnull String configId) {
         this.configId = configId;
         return this;
     }
@@ -49,7 +57,7 @@ public class WorkflowConfigurationId {
 
     @JsonProperty(JSON_PROPERTY_CONFIG_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setConfigId(String configId) {
+    public void setConfigId(@jakarta.annotation.Nonnull String configId) {
         this.configId = configId;
     }
 
@@ -130,8 +138,7 @@ public class WorkflowConfigurationId {
                             "%sconfigId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getConfigId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getConfigId()))));
         }
 
         return joiner.toString();

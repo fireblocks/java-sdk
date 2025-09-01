@@ -13,51 +13,51 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for SmartTransferApproveTerm */
-public class SmartTransferApproveTermTest {
+class SmartTransferApproveTermTest {
     private final SmartTransferApproveTerm model = new SmartTransferApproveTerm();
 
     /** Model tests for SmartTransferApproveTerm */
     @Test
-    public void testSmartTransferApproveTerm() {
+    void testSmartTransferApproveTerm() {
         // TODO: test SmartTransferApproveTerm
     }
 
     /** Test the property 'asset' */
     @Test
-    public void assetTest() {
+    void assetTest() {
         // TODO: test asset
     }
 
     /** Test the property 'amount' */
     @Test
-    public void amountTest() {
+    void amountTest() {
         // TODO: test amount
     }
 
     /** Test the property 'srcId' */
     @Test
-    public void srcIdTest() {
+    void srcIdTest() {
         // TODO: test srcId
     }
 
     /** Test the property 'fee' */
     @Test
-    public void feeTest() {
+    void feeTest() {
         // TODO: test fee
     }
 
     /** Test the property 'feeLevel' */
     @Test
-    public void feeLevelTest() {
+    void feeLevelTest() {
         // TODO: test feeLevel
     }
 
     /** Test the property 'note' */
     @Test
-    public void noteTest() {
+    void noteTest() {
         // TODO: test note
     }
 }

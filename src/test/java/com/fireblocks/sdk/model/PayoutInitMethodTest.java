@@ -13,13 +13,13 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for PayoutInitMethod */
-public class PayoutInitMethodTest {
+class PayoutInitMethodTest {
     /** Model tests for PayoutInitMethod */
     @Test
-    public void testPayoutInitMethod() {
+    void testPayoutInitMethod() {
         // TODO: test PayoutInitMethod
     }
 }

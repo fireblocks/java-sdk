@@ -13,45 +13,45 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for NetworkFee */
-public class NetworkFeeTest {
+class NetworkFeeTest {
     private final NetworkFee model = new NetworkFee();
 
     /** Model tests for NetworkFee */
     @Test
-    public void testNetworkFee() {
+    void testNetworkFee() {
         // TODO: test NetworkFee
     }
 
     /** Test the property 'feePerByte' */
     @Test
-    public void feePerByteTest() {
+    void feePerByteTest() {
         // TODO: test feePerByte
     }
 
     /** Test the property 'gasPrice' */
     @Test
-    public void gasPriceTest() {
+    void gasPriceTest() {
         // TODO: test gasPrice
     }
 
     /** Test the property 'networkFee' */
     @Test
-    public void networkFeeTest() {
+    void networkFeeTest() {
         // TODO: test networkFee
     }
 
     /** Test the property 'baseFee' */
     @Test
-    public void baseFeeTest() {
+    void baseFeeTest() {
         // TODO: test baseFee
     }
 
     /** Test the property 'priorityFee' */
     @Test
-    public void priorityFeeTest() {
+    void priorityFeeTest() {
         // TODO: test priorityFee
     }
 }

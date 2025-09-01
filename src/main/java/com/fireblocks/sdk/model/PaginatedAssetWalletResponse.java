@@ -26,17 +26,20 @@ import java.util.StringJoiner;
     PaginatedAssetWalletResponse.JSON_PROPERTY_ASSET_WALLETS,
     PaginatedAssetWalletResponse.JSON_PROPERTY_PAGING
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class PaginatedAssetWalletResponse {
     public static final String JSON_PROPERTY_ASSET_WALLETS = "assetWallets";
-    private List<AssetWallet> assetWallets;
+    @jakarta.annotation.Nullable private List<AssetWallet> assetWallets = new ArrayList<>();
 
     public static final String JSON_PROPERTY_PAGING = "paging";
-    private PaginatedAssetWalletResponsePaging paging;
+    @jakarta.annotation.Nullable private PaginatedAssetWalletResponsePaging paging;
 
     public PaginatedAssetWalletResponse() {}
 
-    public PaginatedAssetWalletResponse assetWallets(List<AssetWallet> assetWallets) {
+    public PaginatedAssetWalletResponse assetWallets(
+            @jakarta.annotation.Nullable List<AssetWallet> assetWallets) {
         this.assetWallets = assetWallets;
         return this;
     }
@@ -63,11 +66,12 @@ public class PaginatedAssetWalletResponse {
 
     @JsonProperty(JSON_PROPERTY_ASSET_WALLETS)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAssetWallets(List<AssetWallet> assetWallets) {
+    public void setAssetWallets(@jakarta.annotation.Nullable List<AssetWallet> assetWallets) {
         this.assetWallets = assetWallets;
     }
 
-    public PaginatedAssetWalletResponse paging(PaginatedAssetWalletResponsePaging paging) {
+    public PaginatedAssetWalletResponse paging(
+            @jakarta.annotation.Nullable PaginatedAssetWalletResponsePaging paging) {
         this.paging = paging;
         return this;
     }
@@ -86,7 +90,7 @@ public class PaginatedAssetWalletResponse {
 
     @JsonProperty(JSON_PROPERTY_PAGING)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setPaging(PaginatedAssetWalletResponsePaging paging) {
+    public void setPaging(@jakarta.annotation.Nullable PaginatedAssetWalletResponsePaging paging) {
         this.paging = paging;
     }
 

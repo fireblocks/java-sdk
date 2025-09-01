@@ -13,11 +13,11 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -26,17 +26,29 @@ import java.util.StringJoiner;
     CreateTransferConfigOperationRequest.JSON_PROPERTY_TYPE,
     CreateTransferConfigOperationRequest.JSON_PROPERTY_PARAMS
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class CreateTransferConfigOperationRequest {
     public static final String JSON_PROPERTY_TYPE = "type";
-    private TransferOperationType type;
+    @jakarta.annotation.Nonnull private TransferOperationType type;
 
     public static final String JSON_PROPERTY_PARAMS = "params";
-    private TransferOperationConfigParams params;
+    @jakarta.annotation.Nonnull private TransferOperationConfigParams params;
 
     public CreateTransferConfigOperationRequest() {}
 
-    public CreateTransferConfigOperationRequest type(TransferOperationType type) {
+    @JsonCreator
+    public CreateTransferConfigOperationRequest(
+            @JsonProperty(value = JSON_PROPERTY_TYPE, required = true) TransferOperationType type,
+            @JsonProperty(value = JSON_PROPERTY_PARAMS, required = true)
+                    TransferOperationConfigParams params) {
+        this.type = type;
+        this.params = params;
+    }
+
+    public CreateTransferConfigOperationRequest type(
+            @jakarta.annotation.Nonnull TransferOperationType type) {
         this.type = type;
         return this;
     }
@@ -55,11 +67,12 @@ public class CreateTransferConfigOperationRequest {
 
     @JsonProperty(JSON_PROPERTY_TYPE)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setType(TransferOperationType type) {
+    public void setType(@jakarta.annotation.Nonnull TransferOperationType type) {
         this.type = type;
     }
 
-    public CreateTransferConfigOperationRequest params(TransferOperationConfigParams params) {
+    public CreateTransferConfigOperationRequest params(
+            @jakarta.annotation.Nonnull TransferOperationConfigParams params) {
         this.params = params;
         return this;
     }
@@ -78,7 +91,7 @@ public class CreateTransferConfigOperationRequest {
 
     @JsonProperty(JSON_PROPERTY_PARAMS)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setParams(TransferOperationConfigParams params) {
+    public void setParams(@jakarta.annotation.Nonnull TransferOperationConfigParams params) {
         this.params = params;
     }
 
@@ -162,8 +175,7 @@ public class CreateTransferConfigOperationRequest {
                             "%stype%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getType()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getType()))));
         }
 
         // add `params` to the URL query string

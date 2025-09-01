@@ -13,31 +13,41 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 import java.util.UUID;
 
 /** Tag */
 @JsonPropertyOrder({Tag.JSON_PROPERTY_ID, Tag.JSON_PROPERTY_LABEL, Tag.JSON_PROPERTY_DESCRIPTION})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class Tag {
     public static final String JSON_PROPERTY_ID = "id";
-    private UUID id;
+    @jakarta.annotation.Nonnull private UUID id;
 
     public static final String JSON_PROPERTY_LABEL = "label";
-    private String label;
+    @jakarta.annotation.Nonnull private String label;
 
     public static final String JSON_PROPERTY_DESCRIPTION = "description";
-    private String description;
+    @jakarta.annotation.Nullable private String description;
 
     public Tag() {}
 
-    public Tag id(UUID id) {
+    @JsonCreator
+    public Tag(
+            @JsonProperty(value = JSON_PROPERTY_ID, required = true) UUID id,
+            @JsonProperty(value = JSON_PROPERTY_LABEL, required = true) String label) {
+        this.id = id;
+        this.label = label;
+    }
+
+    public Tag id(@jakarta.annotation.Nonnull UUID id) {
         this.id = id;
         return this;
     }
@@ -56,11 +66,11 @@ public class Tag {
 
     @JsonProperty(JSON_PROPERTY_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setId(UUID id) {
+    public void setId(@jakarta.annotation.Nonnull UUID id) {
         this.id = id;
     }
 
-    public Tag label(String label) {
+    public Tag label(@jakarta.annotation.Nonnull String label) {
         this.label = label;
         return this;
     }
@@ -79,11 +89,11 @@ public class Tag {
 
     @JsonProperty(JSON_PROPERTY_LABEL)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setLabel(String label) {
+    public void setLabel(@jakarta.annotation.Nonnull String label) {
         this.label = label;
     }
 
-    public Tag description(String description) {
+    public Tag description(@jakarta.annotation.Nullable String description) {
         this.description = description;
         return this;
     }
@@ -102,7 +112,7 @@ public class Tag {
 
     @JsonProperty(JSON_PROPERTY_DESCRIPTION)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setDescription(String description) {
+    public void setDescription(@jakarta.annotation.Nullable String description) {
         this.description = description;
     }
 
@@ -185,10 +195,7 @@ public class Tag {
             joiner.add(
                     String.format(
                             "%sid%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(String.valueOf(getId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getId()))));
         }
 
         // add `label` to the URL query string
@@ -198,8 +205,7 @@ public class Tag {
                             "%slabel%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getLabel()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getLabel()))));
         }
 
         // add `description` to the URL query string
@@ -209,10 +215,7 @@ public class Tag {
                             "%sdescription%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getDescription()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getDescription()))));
         }
 
         return joiner.toString();

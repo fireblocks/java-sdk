@@ -13,27 +13,27 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for PaginatedAddressResponsePaging */
-public class PaginatedAddressResponsePagingTest {
+class PaginatedAddressResponsePagingTest {
     private final PaginatedAddressResponsePaging model = new PaginatedAddressResponsePaging();
 
     /** Model tests for PaginatedAddressResponsePaging */
     @Test
-    public void testPaginatedAddressResponsePaging() {
+    void testPaginatedAddressResponsePaging() {
         // TODO: test PaginatedAddressResponsePaging
     }
 
     /** Test the property 'before' */
     @Test
-    public void beforeTest() {
+    void beforeTest() {
         // TODO: test before
     }
 
     /** Test the property 'after' */
     @Test
-    public void afterTest() {
+    void afterTest() {
         // TODO: test after
     }
 }

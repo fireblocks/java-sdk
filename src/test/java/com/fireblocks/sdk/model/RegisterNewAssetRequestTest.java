@@ -13,33 +13,33 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for RegisterNewAssetRequest */
-public class RegisterNewAssetRequestTest {
+class RegisterNewAssetRequestTest {
     private final RegisterNewAssetRequest model = new RegisterNewAssetRequest();
 
     /** Model tests for RegisterNewAssetRequest */
     @Test
-    public void testRegisterNewAssetRequest() {
+    void testRegisterNewAssetRequest() {
         // TODO: test RegisterNewAssetRequest
     }
 
     /** Test the property 'blockchainId' */
     @Test
-    public void blockchainIdTest() {
+    void blockchainIdTest() {
         // TODO: test blockchainId
     }
 
     /** Test the property 'address' */
     @Test
-    public void addressTest() {
+    void addressTest() {
         // TODO: test address
     }
 
     /** Test the property 'symbol' */
     @Test
-    public void symbolTest() {
+    void symbolTest() {
         // TODO: test symbol
     }
 }

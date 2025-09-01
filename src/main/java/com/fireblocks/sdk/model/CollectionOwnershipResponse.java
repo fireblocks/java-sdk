@@ -18,8 +18,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonValue;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -32,71 +31,73 @@ import java.util.StringJoiner;
     CollectionOwnershipResponse.JSON_PROPERTY_BLOCKCHAIN_DESCRIPTOR,
     CollectionOwnershipResponse.JSON_PROPERTY_CONTRACT_ADDRESS
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class CollectionOwnershipResponse {
     public static final String JSON_PROPERTY_ID = "id";
-    private String id;
+    @jakarta.annotation.Nonnull private String id;
 
     public static final String JSON_PROPERTY_NAME = "name";
-    private String name;
+    @jakarta.annotation.Nullable private String name;
 
     public static final String JSON_PROPERTY_SYMBOL = "symbol";
-    private String symbol;
+    @jakarta.annotation.Nullable private String symbol;
 
     public static final String JSON_PROPERTY_STANDARD = "standard";
-    private String standard;
+    @jakarta.annotation.Nullable private String standard;
 
     /** Collection&#39;s blockchain */
     public enum BlockchainDescriptorEnum {
-        ETH("ETH"),
+        ETH(String.valueOf("ETH")),
 
-        ETH_TEST3("ETH_TEST3"),
+        ETH_TEST3(String.valueOf("ETH_TEST3")),
 
-        ETH_TEST5("ETH_TEST5"),
+        ETH_TEST5(String.valueOf("ETH_TEST5")),
 
-        ETH_TEST6("ETH_TEST6"),
+        ETH_TEST6(String.valueOf("ETH_TEST6")),
 
-        POLYGON("POLYGON"),
+        POLYGON(String.valueOf("POLYGON")),
 
-        POLYGON_TEST_MUMBAI("POLYGON_TEST_MUMBAI"),
+        POLYGON_TEST_MUMBAI(String.valueOf("POLYGON_TEST_MUMBAI")),
 
-        AMOY_POLYGON_TEST("AMOY_POLYGON_TEST"),
+        AMOY_POLYGON_TEST(String.valueOf("AMOY_POLYGON_TEST")),
 
-        XTZ("XTZ"),
+        XTZ(String.valueOf("XTZ")),
 
-        XTZ_TEST("XTZ_TEST"),
+        XTZ_TEST(String.valueOf("XTZ_TEST")),
 
-        BASECHAIN_ETH("BASECHAIN_ETH"),
+        BASECHAIN_ETH(String.valueOf("BASECHAIN_ETH")),
 
-        BASECHAIN_ETH_TEST3("BASECHAIN_ETH_TEST3"),
+        BASECHAIN_ETH_TEST3(String.valueOf("BASECHAIN_ETH_TEST3")),
 
-        BASECHAIN_ETH_TEST5("BASECHAIN_ETH_TEST5"),
+        BASECHAIN_ETH_TEST5(String.valueOf("BASECHAIN_ETH_TEST5")),
 
-        ETHERLINK("ETHERLINK"),
+        ETHERLINK(String.valueOf("ETHERLINK")),
 
-        ETHERLINK_TEST("ETHERLINK_TEST"),
+        ETHERLINK_TEST(String.valueOf("ETHERLINK_TEST")),
 
-        MANTLE("MANTLE"),
+        MANTLE(String.valueOf("MANTLE")),
 
-        MANTLE_TEST("MANTLE_TEST"),
+        MANTLE_TEST(String.valueOf("MANTLE_TEST")),
 
-        GUN_GUNZILLA("GUN_GUNZILLA"),
+        GUN_GUNZILLA(String.valueOf("GUN_GUNZILLA")),
 
-        GUN_GUNZILLA_TEST("GUN_GUNZILLA_TEST"),
+        GUN_GUNZILLA_TEST(String.valueOf("GUN_GUNZILLA_TEST")),
 
-        ETH_SONEIUM("ETH_SONEIUM"),
+        ETH_SONEIUM(String.valueOf("ETH_SONEIUM")),
 
-        SONEIUM_MINATO_TEST("SONEIUM_MINATO_TEST"),
+        SONEIUM_MINATO_TEST(String.valueOf("SONEIUM_MINATO_TEST")),
 
-        IOTX_IOTEX("IOTX_IOTEX"),
+        IOTX_IOTEX(String.valueOf("IOTX_IOTEX")),
 
-        KLAY_KAIA("KLAY_KAIA"),
+        KLAY_KAIA(String.valueOf("KLAY_KAIA")),
 
-        KLAY_KAIA_TEST("KLAY_KAIA_TEST"),
+        KLAY_KAIA_TEST(String.valueOf("KLAY_KAIA_TEST")),
 
-        APECHAIN("APECHAIN"),
+        APECHAIN(String.valueOf("APECHAIN")),
 
-        APECHAIN_TEST("APECHAIN_TEST");
+        APECHAIN_TEST(String.valueOf("APECHAIN_TEST"));
 
         private String value;
 
@@ -126,14 +127,23 @@ public class CollectionOwnershipResponse {
     }
 
     public static final String JSON_PROPERTY_BLOCKCHAIN_DESCRIPTOR = "blockchainDescriptor";
-    private BlockchainDescriptorEnum blockchainDescriptor;
+    @jakarta.annotation.Nonnull private BlockchainDescriptorEnum blockchainDescriptor;
 
     public static final String JSON_PROPERTY_CONTRACT_ADDRESS = "contractAddress";
-    private String contractAddress;
+    @jakarta.annotation.Nullable private String contractAddress;
 
     public CollectionOwnershipResponse() {}
 
-    public CollectionOwnershipResponse id(String id) {
+    @JsonCreator
+    public CollectionOwnershipResponse(
+            @JsonProperty(value = JSON_PROPERTY_ID, required = true) String id,
+            @JsonProperty(value = JSON_PROPERTY_BLOCKCHAIN_DESCRIPTOR, required = true)
+                    BlockchainDescriptorEnum blockchainDescriptor) {
+        this.id = id;
+        this.blockchainDescriptor = blockchainDescriptor;
+    }
+
+    public CollectionOwnershipResponse id(@jakarta.annotation.Nonnull String id) {
         this.id = id;
         return this;
     }
@@ -152,11 +162,11 @@ public class CollectionOwnershipResponse {
 
     @JsonProperty(JSON_PROPERTY_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setId(String id) {
+    public void setId(@jakarta.annotation.Nonnull String id) {
         this.id = id;
     }
 
-    public CollectionOwnershipResponse name(String name) {
+    public CollectionOwnershipResponse name(@jakarta.annotation.Nullable String name) {
         this.name = name;
         return this;
     }
@@ -175,11 +185,11 @@ public class CollectionOwnershipResponse {
 
     @JsonProperty(JSON_PROPERTY_NAME)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setName(String name) {
+    public void setName(@jakarta.annotation.Nullable String name) {
         this.name = name;
     }
 
-    public CollectionOwnershipResponse symbol(String symbol) {
+    public CollectionOwnershipResponse symbol(@jakarta.annotation.Nullable String symbol) {
         this.symbol = symbol;
         return this;
     }
@@ -198,11 +208,11 @@ public class CollectionOwnershipResponse {
 
     @JsonProperty(JSON_PROPERTY_SYMBOL)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setSymbol(String symbol) {
+    public void setSymbol(@jakarta.annotation.Nullable String symbol) {
         this.symbol = symbol;
     }
 
-    public CollectionOwnershipResponse standard(String standard) {
+    public CollectionOwnershipResponse standard(@jakarta.annotation.Nullable String standard) {
         this.standard = standard;
         return this;
     }
@@ -221,12 +231,12 @@ public class CollectionOwnershipResponse {
 
     @JsonProperty(JSON_PROPERTY_STANDARD)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setStandard(String standard) {
+    public void setStandard(@jakarta.annotation.Nullable String standard) {
         this.standard = standard;
     }
 
     public CollectionOwnershipResponse blockchainDescriptor(
-            BlockchainDescriptorEnum blockchainDescriptor) {
+            @jakarta.annotation.Nonnull BlockchainDescriptorEnum blockchainDescriptor) {
         this.blockchainDescriptor = blockchainDescriptor;
         return this;
     }
@@ -245,11 +255,13 @@ public class CollectionOwnershipResponse {
 
     @JsonProperty(JSON_PROPERTY_BLOCKCHAIN_DESCRIPTOR)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setBlockchainDescriptor(BlockchainDescriptorEnum blockchainDescriptor) {
+    public void setBlockchainDescriptor(
+            @jakarta.annotation.Nonnull BlockchainDescriptorEnum blockchainDescriptor) {
         this.blockchainDescriptor = blockchainDescriptor;
     }
 
-    public CollectionOwnershipResponse contractAddress(String contractAddress) {
+    public CollectionOwnershipResponse contractAddress(
+            @jakarta.annotation.Nullable String contractAddress) {
         this.contractAddress = contractAddress;
         return this;
     }
@@ -268,7 +280,7 @@ public class CollectionOwnershipResponse {
 
     @JsonProperty(JSON_PROPERTY_CONTRACT_ADDRESS)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setContractAddress(String contractAddress) {
+    public void setContractAddress(@jakarta.annotation.Nullable String contractAddress) {
         this.contractAddress = contractAddress;
     }
 
@@ -361,10 +373,7 @@ public class CollectionOwnershipResponse {
             joiner.add(
                     String.format(
                             "%sid%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(String.valueOf(getId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getId()))));
         }
 
         // add `name` to the URL query string
@@ -374,8 +383,7 @@ public class CollectionOwnershipResponse {
                             "%sname%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getName()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getName()))));
         }
 
         // add `symbol` to the URL query string
@@ -385,8 +393,7 @@ public class CollectionOwnershipResponse {
                             "%ssymbol%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getSymbol()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getSymbol()))));
         }
 
         // add `standard` to the URL query string
@@ -396,8 +403,7 @@ public class CollectionOwnershipResponse {
                             "%sstandard%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getStandard()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getStandard()))));
         }
 
         // add `blockchainDescriptor` to the URL query string
@@ -407,10 +413,8 @@ public class CollectionOwnershipResponse {
                             "%sblockchainDescriptor%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getBlockchainDescriptor()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(
+                                    ApiClient.valueToString(getBlockchainDescriptor()))));
         }
 
         // add `contractAddress` to the URL query string
@@ -420,10 +424,7 @@ public class CollectionOwnershipResponse {
                             "%scontractAddress%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getContractAddress()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getContractAddress()))));
         }
 
         return joiner.toString();

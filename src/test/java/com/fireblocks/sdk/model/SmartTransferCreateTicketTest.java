@@ -13,57 +13,57 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for SmartTransferCreateTicket */
-public class SmartTransferCreateTicketTest {
+class SmartTransferCreateTicketTest {
     private final SmartTransferCreateTicket model = new SmartTransferCreateTicket();
 
     /** Model tests for SmartTransferCreateTicket */
     @Test
-    public void testSmartTransferCreateTicket() {
+    void testSmartTransferCreateTicket() {
         // TODO: test SmartTransferCreateTicket
     }
 
     /** Test the property 'createdByNetworkId' */
     @Test
-    public void createdByNetworkIdTest() {
+    void createdByNetworkIdTest() {
         // TODO: test createdByNetworkId
     }
 
     /** Test the property 'type' */
     @Test
-    public void typeTest() {
+    void typeTest() {
         // TODO: test type
     }
 
     /** Test the property 'expiresIn' */
     @Test
-    public void expiresInTest() {
+    void expiresInTest() {
         // TODO: test expiresIn
     }
 
     /** Test the property 'terms' */
     @Test
-    public void termsTest() {
+    void termsTest() {
         // TODO: test terms
     }
 
     /** Test the property 'externalRefId' */
     @Test
-    public void externalRefIdTest() {
+    void externalRefIdTest() {
         // TODO: test externalRefId
     }
 
     /** Test the property 'note' */
     @Test
-    public void noteTest() {
+    void noteTest() {
         // TODO: test note
     }
 
     /** Test the property 'submit' */
     @Test
-    public void submitTest() {
+    void submitTest() {
         // TODO: test submit
     }
 }

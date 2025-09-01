@@ -18,8 +18,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonValue;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -30,13 +29,15 @@ import java.util.StringJoiner;
     TravelRuleValidateNationalIdentification.JSON_PROPERTY_NATIONAL_IDENTIFIER_TYPE,
     TravelRuleValidateNationalIdentification.JSON_PROPERTY_REGISTRATION_AUTHORITY
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class TravelRuleValidateNationalIdentification {
     public static final String JSON_PROPERTY_COUNTRY_OF_ISSUE = "countryOfIssue";
-    private String countryOfIssue;
+    @jakarta.annotation.Nullable private String countryOfIssue;
 
     public static final String JSON_PROPERTY_NATIONAL_IDENTIFIER = "nationalIdentifier";
-    private String nationalIdentifier;
+    @jakarta.annotation.Nullable private String nationalIdentifier;
 
     /**
      * Type of national identifier. Acceptable values include: - &#39;PASSPORT&#39;: Passport number
@@ -44,13 +45,13 @@ public class TravelRuleValidateNationalIdentification {
      * identification number - &#39;SOCIAL_SECURITY&#39;: Social security number
      */
     public enum NationalIdentifierTypeEnum {
-        PASSPORT("PASSPORT"),
+        PASSPORT(String.valueOf("PASSPORT")),
 
-        NATIONAL_ID("NATIONAL_ID"),
+        NATIONAL_ID(String.valueOf("NATIONAL_ID")),
 
-        TAX_ID("TAX_ID"),
+        TAX_ID(String.valueOf("TAX_ID")),
 
-        SOCIAL_SECURITY("SOCIAL_SECURITY");
+        SOCIAL_SECURITY(String.valueOf("SOCIAL_SECURITY"));
 
         private String value;
 
@@ -80,14 +81,15 @@ public class TravelRuleValidateNationalIdentification {
     }
 
     public static final String JSON_PROPERTY_NATIONAL_IDENTIFIER_TYPE = "nationalIdentifierType";
-    private NationalIdentifierTypeEnum nationalIdentifierType;
+    @jakarta.annotation.Nullable private NationalIdentifierTypeEnum nationalIdentifierType;
 
     public static final String JSON_PROPERTY_REGISTRATION_AUTHORITY = "registrationAuthority";
-    private String registrationAuthority;
+    @jakarta.annotation.Nullable private String registrationAuthority;
 
     public TravelRuleValidateNationalIdentification() {}
 
-    public TravelRuleValidateNationalIdentification countryOfIssue(String countryOfIssue) {
+    public TravelRuleValidateNationalIdentification countryOfIssue(
+            @jakarta.annotation.Nullable String countryOfIssue) {
         this.countryOfIssue = countryOfIssue;
         return this;
     }
@@ -106,11 +108,12 @@ public class TravelRuleValidateNationalIdentification {
 
     @JsonProperty(JSON_PROPERTY_COUNTRY_OF_ISSUE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setCountryOfIssue(String countryOfIssue) {
+    public void setCountryOfIssue(@jakarta.annotation.Nullable String countryOfIssue) {
         this.countryOfIssue = countryOfIssue;
     }
 
-    public TravelRuleValidateNationalIdentification nationalIdentifier(String nationalIdentifier) {
+    public TravelRuleValidateNationalIdentification nationalIdentifier(
+            @jakarta.annotation.Nullable String nationalIdentifier) {
         this.nationalIdentifier = nationalIdentifier;
         return this;
     }
@@ -129,12 +132,12 @@ public class TravelRuleValidateNationalIdentification {
 
     @JsonProperty(JSON_PROPERTY_NATIONAL_IDENTIFIER)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setNationalIdentifier(String nationalIdentifier) {
+    public void setNationalIdentifier(@jakarta.annotation.Nullable String nationalIdentifier) {
         this.nationalIdentifier = nationalIdentifier;
     }
 
     public TravelRuleValidateNationalIdentification nationalIdentifierType(
-            NationalIdentifierTypeEnum nationalIdentifierType) {
+            @jakarta.annotation.Nullable NationalIdentifierTypeEnum nationalIdentifierType) {
         this.nationalIdentifierType = nationalIdentifierType;
         return this;
     }
@@ -155,12 +158,13 @@ public class TravelRuleValidateNationalIdentification {
 
     @JsonProperty(JSON_PROPERTY_NATIONAL_IDENTIFIER_TYPE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setNationalIdentifierType(NationalIdentifierTypeEnum nationalIdentifierType) {
+    public void setNationalIdentifierType(
+            @jakarta.annotation.Nullable NationalIdentifierTypeEnum nationalIdentifierType) {
         this.nationalIdentifierType = nationalIdentifierType;
     }
 
     public TravelRuleValidateNationalIdentification registrationAuthority(
-            String registrationAuthority) {
+            @jakarta.annotation.Nullable String registrationAuthority) {
         this.registrationAuthority = registrationAuthority;
         return this;
     }
@@ -179,7 +183,8 @@ public class TravelRuleValidateNationalIdentification {
 
     @JsonProperty(JSON_PROPERTY_REGISTRATION_AUTHORITY)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setRegistrationAuthority(String registrationAuthority) {
+    public void setRegistrationAuthority(
+            @jakarta.annotation.Nullable String registrationAuthority) {
         this.registrationAuthority = registrationAuthority;
     }
 
@@ -282,10 +287,7 @@ public class TravelRuleValidateNationalIdentification {
                             "%scountryOfIssue%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getCountryOfIssue()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getCountryOfIssue()))));
         }
 
         // add `nationalIdentifier` to the URL query string
@@ -295,10 +297,7 @@ public class TravelRuleValidateNationalIdentification {
                             "%snationalIdentifier%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getNationalIdentifier()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getNationalIdentifier()))));
         }
 
         // add `nationalIdentifierType` to the URL query string
@@ -308,10 +307,8 @@ public class TravelRuleValidateNationalIdentification {
                             "%snationalIdentifierType%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getNationalIdentifierType()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(
+                                    ApiClient.valueToString(getNationalIdentifierType()))));
         }
 
         // add `registrationAuthority` to the URL query string
@@ -321,10 +318,8 @@ public class TravelRuleValidateNationalIdentification {
                             "%sregistrationAuthority%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getRegistrationAuthority()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(
+                                    ApiClient.valueToString(getRegistrationAuthority()))));
         }
 
         return joiner.toString();

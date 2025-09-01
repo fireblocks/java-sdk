@@ -13,27 +13,27 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for VendorDto */
-public class VendorDtoTest {
+class VendorDtoTest {
     private final VendorDto model = new VendorDto();
 
     /** Model tests for VendorDto */
     @Test
-    public void testVendorDto() {
+    void testVendorDto() {
         // TODO: test VendorDto
     }
 
     /** Test the property 'id' */
     @Test
-    public void idTest() {
+    void idTest() {
         // TODO: test id
     }
 
     /** Test the property 'name' */
     @Test
-    public void nameTest() {
+    void nameTest() {
         // TODO: test name
     }
 }

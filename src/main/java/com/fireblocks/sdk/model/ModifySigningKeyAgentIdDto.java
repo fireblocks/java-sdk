@@ -13,24 +13,33 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
 /** ModifySigningKeyAgentIdDto */
 @JsonPropertyOrder({ModifySigningKeyAgentIdDto.JSON_PROPERTY_AGENT_USER_ID})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class ModifySigningKeyAgentIdDto {
     public static final String JSON_PROPERTY_AGENT_USER_ID = "agentUserId";
-    private String agentUserId;
+    @jakarta.annotation.Nonnull private String agentUserId;
 
     public ModifySigningKeyAgentIdDto() {}
 
-    public ModifySigningKeyAgentIdDto agentUserId(String agentUserId) {
+    @JsonCreator
+    public ModifySigningKeyAgentIdDto(
+            @JsonProperty(value = JSON_PROPERTY_AGENT_USER_ID, required = true)
+                    String agentUserId) {
+        this.agentUserId = agentUserId;
+    }
+
+    public ModifySigningKeyAgentIdDto agentUserId(@jakarta.annotation.Nonnull String agentUserId) {
         this.agentUserId = agentUserId;
         return this;
     }
@@ -49,7 +58,7 @@ public class ModifySigningKeyAgentIdDto {
 
     @JsonProperty(JSON_PROPERTY_AGENT_USER_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setAgentUserId(String agentUserId) {
+    public void setAgentUserId(@jakarta.annotation.Nonnull String agentUserId) {
         this.agentUserId = agentUserId;
     }
 
@@ -130,10 +139,7 @@ public class ModifySigningKeyAgentIdDto {
                             "%sagentUserId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getAgentUserId()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getAgentUserId()))));
         }
 
         return joiner.toString();

@@ -13,33 +13,33 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for AssetMedia */
-public class AssetMediaTest {
+class AssetMediaTest {
     private final AssetMedia model = new AssetMedia();
 
     /** Model tests for AssetMedia */
     @Test
-    public void testAssetMedia() {
+    void testAssetMedia() {
         // TODO: test AssetMedia
     }
 
     /** Test the property 'url' */
     @Test
-    public void urlTest() {
+    void urlTest() {
         // TODO: test url
     }
 
     /** Test the property 'type' */
     @Test
-    public void typeTest() {
+    void typeTest() {
         // TODO: test type
     }
 
     /** Test the property 'attributes' */
     @Test
-    public void attributesTest() {
+    void attributesTest() {
         // TODO: test attributes
     }
 }

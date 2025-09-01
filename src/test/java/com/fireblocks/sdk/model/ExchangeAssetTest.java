@@ -13,51 +13,51 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for ExchangeAsset */
-public class ExchangeAssetTest {
+class ExchangeAssetTest {
     private final ExchangeAsset model = new ExchangeAsset();
 
     /** Model tests for ExchangeAsset */
     @Test
-    public void testExchangeAsset() {
+    void testExchangeAsset() {
         // TODO: test ExchangeAsset
     }
 
     /** Test the property 'id' */
     @Test
-    public void idTest() {
+    void idTest() {
         // TODO: test id
     }
 
     /** Test the property 'balance' */
     @Test
-    public void balanceTest() {
+    void balanceTest() {
         // TODO: test balance
     }
 
     /** Test the property 'lockedAmount' */
     @Test
-    public void lockedAmountTest() {
+    void lockedAmountTest() {
         // TODO: test lockedAmount
     }
 
     /** Test the property 'total' */
     @Test
-    public void totalTest() {
+    void totalTest() {
         // TODO: test total
     }
 
     /** Test the property 'available' */
     @Test
-    public void availableTest() {
+    void availableTest() {
         // TODO: test available
     }
 
     /** Test the property 'credit' */
     @Test
-    public void creditTest() {
+    void creditTest() {
         // TODO: test credit
     }
 }

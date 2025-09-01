@@ -18,8 +18,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonValue;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -27,18 +26,20 @@ import java.util.StringJoiner;
 
 /** The Solana configuration of the contract */
 @JsonPropertyOrder({SolanaConfig.JSON_PROPERTY_EXTENSIONS, SolanaConfig.JSON_PROPERTY_TYPE})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class SolanaConfig {
     public static final String JSON_PROPERTY_EXTENSIONS = "extensions";
-    private List<String> extensions;
+    @jakarta.annotation.Nullable private List<String> extensions = new ArrayList<>();
 
     /** The type of the contract. */
     public enum TypeEnum {
-        SPL("SPL"),
+        SPL(String.valueOf("SPL")),
 
-        TOKEN2022("TOKEN2022"),
+        TOKEN2022(String.valueOf("TOKEN2022")),
 
-        PROGRAM("PROGRAM");
+        PROGRAM(String.valueOf("PROGRAM"));
 
         private String value;
 
@@ -68,11 +69,11 @@ public class SolanaConfig {
     }
 
     public static final String JSON_PROPERTY_TYPE = "type";
-    private TypeEnum type;
+    @jakarta.annotation.Nullable private TypeEnum type;
 
     public SolanaConfig() {}
 
-    public SolanaConfig extensions(List<String> extensions) {
+    public SolanaConfig extensions(@jakarta.annotation.Nullable List<String> extensions) {
         this.extensions = extensions;
         return this;
     }
@@ -99,11 +100,11 @@ public class SolanaConfig {
 
     @JsonProperty(JSON_PROPERTY_EXTENSIONS)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setExtensions(List<String> extensions) {
+    public void setExtensions(@jakarta.annotation.Nullable List<String> extensions) {
         this.extensions = extensions;
     }
 
-    public SolanaConfig type(TypeEnum type) {
+    public SolanaConfig type(@jakarta.annotation.Nullable TypeEnum type) {
         this.type = type;
         return this;
     }
@@ -122,7 +123,7 @@ public class SolanaConfig {
 
     @JsonProperty(JSON_PROPERTY_TYPE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setType(TypeEnum type) {
+    public void setType(@jakarta.annotation.Nullable TypeEnum type) {
         this.type = type;
     }
 
@@ -210,10 +211,8 @@ public class SolanaConfig {
                                         ? ""
                                         : String.format(
                                                 "%s%d%s", containerPrefix, i, containerSuffix),
-                                URLEncoder.encode(
-                                                String.valueOf(getExtensions().get(i)),
-                                                StandardCharsets.UTF_8)
-                                        .replaceAll("\\+", "%20")));
+                                ApiClient.urlEncode(
+                                        ApiClient.valueToString(getExtensions().get(i)))));
             }
         }
 
@@ -224,8 +223,7 @@ public class SolanaConfig {
                             "%stype%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getType()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getType()))));
         }
 
         return joiner.toString();

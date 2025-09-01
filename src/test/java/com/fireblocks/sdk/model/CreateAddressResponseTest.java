@@ -13,45 +13,45 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for CreateAddressResponse */
-public class CreateAddressResponseTest {
+class CreateAddressResponseTest {
     private final CreateAddressResponse model = new CreateAddressResponse();
 
     /** Model tests for CreateAddressResponse */
     @Test
-    public void testCreateAddressResponse() {
+    void testCreateAddressResponse() {
         // TODO: test CreateAddressResponse
     }
 
     /** Test the property 'address' */
     @Test
-    public void addressTest() {
+    void addressTest() {
         // TODO: test address
     }
 
     /** Test the property 'legacyAddress' */
     @Test
-    public void legacyAddressTest() {
+    void legacyAddressTest() {
         // TODO: test legacyAddress
     }
 
     /** Test the property 'enterpriseAddress' */
     @Test
-    public void enterpriseAddressTest() {
+    void enterpriseAddressTest() {
         // TODO: test enterpriseAddress
     }
 
     /** Test the property 'tag' */
     @Test
-    public void tagTest() {
+    void tagTest() {
         // TODO: test tag
     }
 
     /** Test the property 'bip44AddressIndex' */
     @Test
-    public void bip44AddressIndexTest() {
+    void bip44AddressIndexTest() {
         // TODO: test bip44AddressIndex
     }
 }

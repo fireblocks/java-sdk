@@ -24,17 +24,20 @@ import java.util.StringJoiner;
     TravelRuleValidatePerson.JSON_PROPERTY_NATURAL_PERSON,
     TravelRuleValidatePerson.JSON_PROPERTY_LEGAL_PERSON
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class TravelRuleValidatePerson {
     public static final String JSON_PROPERTY_NATURAL_PERSON = "naturalPerson";
-    private TravelRuleValidateNaturalPerson naturalPerson;
+    @jakarta.annotation.Nullable private TravelRuleValidateNaturalPerson naturalPerson;
 
     public static final String JSON_PROPERTY_LEGAL_PERSON = "legalPerson";
-    private TravelRuleValidateLegalPerson legalPerson;
+    @jakarta.annotation.Nullable private TravelRuleValidateLegalPerson legalPerson;
 
     public TravelRuleValidatePerson() {}
 
-    public TravelRuleValidatePerson naturalPerson(TravelRuleValidateNaturalPerson naturalPerson) {
+    public TravelRuleValidatePerson naturalPerson(
+            @jakarta.annotation.Nullable TravelRuleValidateNaturalPerson naturalPerson) {
         this.naturalPerson = naturalPerson;
         return this;
     }
@@ -53,11 +56,13 @@ public class TravelRuleValidatePerson {
 
     @JsonProperty(JSON_PROPERTY_NATURAL_PERSON)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setNaturalPerson(TravelRuleValidateNaturalPerson naturalPerson) {
+    public void setNaturalPerson(
+            @jakarta.annotation.Nullable TravelRuleValidateNaturalPerson naturalPerson) {
         this.naturalPerson = naturalPerson;
     }
 
-    public TravelRuleValidatePerson legalPerson(TravelRuleValidateLegalPerson legalPerson) {
+    public TravelRuleValidatePerson legalPerson(
+            @jakarta.annotation.Nullable TravelRuleValidateLegalPerson legalPerson) {
         this.legalPerson = legalPerson;
         return this;
     }
@@ -76,7 +81,8 @@ public class TravelRuleValidatePerson {
 
     @JsonProperty(JSON_PROPERTY_LEGAL_PERSON)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setLegalPerson(TravelRuleValidateLegalPerson legalPerson) {
+    public void setLegalPerson(
+            @jakarta.annotation.Nullable TravelRuleValidateLegalPerson legalPerson) {
         this.legalPerson = legalPerson;
     }
 

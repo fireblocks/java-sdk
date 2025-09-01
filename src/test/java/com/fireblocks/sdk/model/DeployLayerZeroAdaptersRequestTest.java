@@ -13,57 +13,57 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for DeployLayerZeroAdaptersRequest */
-public class DeployLayerZeroAdaptersRequestTest {
+class DeployLayerZeroAdaptersRequestTest {
     private final DeployLayerZeroAdaptersRequest model = new DeployLayerZeroAdaptersRequest();
 
     /** Model tests for DeployLayerZeroAdaptersRequest */
     @Test
-    public void testDeployLayerZeroAdaptersRequest() {
+    void testDeployLayerZeroAdaptersRequest() {
         // TODO: test DeployLayerZeroAdaptersRequest
     }
 
     /** Test the property 'vaultAccountId' */
     @Test
-    public void vaultAccountIdTest() {
+    void vaultAccountIdTest() {
         // TODO: test vaultAccountId
     }
 
     /** Test the property 'createParams' */
     @Test
-    public void createParamsTest() {
+    void createParamsTest() {
         // TODO: test createParams
     }
 
     /** Test the property 'displayName' */
     @Test
-    public void displayNameTest() {
+    void displayNameTest() {
         // TODO: test displayName
     }
 
     /** Test the property 'useGasless' */
     @Test
-    public void useGaslessTest() {
+    void useGaslessTest() {
         // TODO: test useGasless
     }
 
     /** Test the property 'feeLevel' */
     @Test
-    public void feeLevelTest() {
+    void feeLevelTest() {
         // TODO: test feeLevel
     }
 
     /** Test the property 'fee' */
     @Test
-    public void feeTest() {
+    void feeTest() {
         // TODO: test fee
     }
 
     /** Test the property 'salt' */
     @Test
-    public void saltTest() {
+    void saltTest() {
         // TODO: test salt
     }
 }

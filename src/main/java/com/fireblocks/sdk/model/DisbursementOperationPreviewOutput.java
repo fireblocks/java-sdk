@@ -13,6 +13,7 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -23,16 +24,28 @@ import java.util.StringJoiner;
 
 /** DisbursementOperationPreviewOutput */
 @JsonPropertyOrder({DisbursementOperationPreviewOutput.JSON_PROPERTY_INSTRUCTION_SET})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class DisbursementOperationPreviewOutput {
     public static final String JSON_PROPERTY_INSTRUCTION_SET = "instructionSet";
+
+    @jakarta.annotation.Nonnull
     private List<DisbursementOperationPreviewOutputInstructionSetInner> instructionSet =
             new ArrayList<>();
 
     public DisbursementOperationPreviewOutput() {}
 
+    @JsonCreator
+    public DisbursementOperationPreviewOutput(
+            @JsonProperty(value = JSON_PROPERTY_INSTRUCTION_SET, required = true)
+                    List<DisbursementOperationPreviewOutputInstructionSetInner> instructionSet) {
+        this.instructionSet = instructionSet;
+    }
+
     public DisbursementOperationPreviewOutput instructionSet(
-            List<DisbursementOperationPreviewOutputInstructionSetInner> instructionSet) {
+            @jakarta.annotation.Nonnull
+                    List<DisbursementOperationPreviewOutputInstructionSetInner> instructionSet) {
         this.instructionSet = instructionSet;
         return this;
     }
@@ -61,7 +74,8 @@ public class DisbursementOperationPreviewOutput {
     @JsonProperty(JSON_PROPERTY_INSTRUCTION_SET)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
     public void setInstructionSet(
-            List<DisbursementOperationPreviewOutputInstructionSetInner> instructionSet) {
+            @jakarta.annotation.Nonnull
+                    List<DisbursementOperationPreviewOutputInstructionSetInner> instructionSet) {
         this.instructionSet = instructionSet;
     }
 

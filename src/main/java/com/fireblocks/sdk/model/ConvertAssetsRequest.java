@@ -13,12 +13,12 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fireblocks.sdk.ApiClient;
 import java.math.BigDecimal;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -28,20 +28,32 @@ import java.util.StringJoiner;
     ConvertAssetsRequest.JSON_PROPERTY_DEST_ASSET,
     ConvertAssetsRequest.JSON_PROPERTY_AMOUNT
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class ConvertAssetsRequest {
     public static final String JSON_PROPERTY_SRC_ASSET = "srcAsset";
-    private String srcAsset;
+    @jakarta.annotation.Nonnull private String srcAsset;
 
     public static final String JSON_PROPERTY_DEST_ASSET = "destAsset";
-    private String destAsset;
+    @jakarta.annotation.Nonnull private String destAsset;
 
     public static final String JSON_PROPERTY_AMOUNT = "amount";
-    private BigDecimal amount;
+    @jakarta.annotation.Nonnull private BigDecimal amount;
 
     public ConvertAssetsRequest() {}
 
-    public ConvertAssetsRequest srcAsset(String srcAsset) {
+    @JsonCreator
+    public ConvertAssetsRequest(
+            @JsonProperty(value = JSON_PROPERTY_SRC_ASSET, required = true) String srcAsset,
+            @JsonProperty(value = JSON_PROPERTY_DEST_ASSET, required = true) String destAsset,
+            @JsonProperty(value = JSON_PROPERTY_AMOUNT, required = true) BigDecimal amount) {
+        this.srcAsset = srcAsset;
+        this.destAsset = destAsset;
+        this.amount = amount;
+    }
+
+    public ConvertAssetsRequest srcAsset(@jakarta.annotation.Nonnull String srcAsset) {
         this.srcAsset = srcAsset;
         return this;
     }
@@ -61,11 +73,11 @@ public class ConvertAssetsRequest {
 
     @JsonProperty(JSON_PROPERTY_SRC_ASSET)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setSrcAsset(String srcAsset) {
+    public void setSrcAsset(@jakarta.annotation.Nonnull String srcAsset) {
         this.srcAsset = srcAsset;
     }
 
-    public ConvertAssetsRequest destAsset(String destAsset) {
+    public ConvertAssetsRequest destAsset(@jakarta.annotation.Nonnull String destAsset) {
         this.destAsset = destAsset;
         return this;
     }
@@ -85,11 +97,11 @@ public class ConvertAssetsRequest {
 
     @JsonProperty(JSON_PROPERTY_DEST_ASSET)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setDestAsset(String destAsset) {
+    public void setDestAsset(@jakarta.annotation.Nonnull String destAsset) {
         this.destAsset = destAsset;
     }
 
-    public ConvertAssetsRequest amount(BigDecimal amount) {
+    public ConvertAssetsRequest amount(@jakarta.annotation.Nonnull BigDecimal amount) {
         this.amount = amount;
         return this;
     }
@@ -108,7 +120,7 @@ public class ConvertAssetsRequest {
 
     @JsonProperty(JSON_PROPERTY_AMOUNT)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setAmount(BigDecimal amount) {
+    public void setAmount(@jakarta.annotation.Nonnull BigDecimal amount) {
         this.amount = amount;
     }
 
@@ -193,8 +205,7 @@ public class ConvertAssetsRequest {
                             "%ssrcAsset%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getSrcAsset()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getSrcAsset()))));
         }
 
         // add `destAsset` to the URL query string
@@ -204,9 +215,7 @@ public class ConvertAssetsRequest {
                             "%sdestAsset%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getDestAsset()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getDestAsset()))));
         }
 
         // add `amount` to the URL query string
@@ -216,8 +225,7 @@ public class ConvertAssetsRequest {
                             "%samount%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getAmount()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getAmount()))));
         }
 
         return joiner.toString();

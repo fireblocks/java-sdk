@@ -13,51 +13,51 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for CreateVaultAccountRequest */
-public class CreateVaultAccountRequestTest {
+class CreateVaultAccountRequestTest {
     private final CreateVaultAccountRequest model = new CreateVaultAccountRequest();
 
     /** Model tests for CreateVaultAccountRequest */
     @Test
-    public void testCreateVaultAccountRequest() {
+    void testCreateVaultAccountRequest() {
         // TODO: test CreateVaultAccountRequest
     }
 
     /** Test the property 'name' */
     @Test
-    public void nameTest() {
+    void nameTest() {
         // TODO: test name
     }
 
     /** Test the property 'hiddenOnUI' */
     @Test
-    public void hiddenOnUITest() {
+    void hiddenOnUITest() {
         // TODO: test hiddenOnUI
     }
 
     /** Test the property 'customerRefId' */
     @Test
-    public void customerRefIdTest() {
+    void customerRefIdTest() {
         // TODO: test customerRefId
     }
 
     /** Test the property 'autoFuel' */
     @Test
-    public void autoFuelTest() {
+    void autoFuelTest() {
         // TODO: test autoFuel
     }
 
     /** Test the property 'vaultType' */
     @Test
-    public void vaultTypeTest() {
+    void vaultTypeTest() {
         // TODO: test vaultType
     }
 
     /** Test the property 'autoAssign' */
     @Test
-    public void autoAssignTest() {
+    void autoAssignTest() {
         // TODO: test autoAssign
     }
 }

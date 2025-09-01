@@ -13,112 +13,112 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for TravelRuleValidateGeographicAddress */
-public class TravelRuleValidateGeographicAddressTest {
+class TravelRuleValidateGeographicAddressTest {
     private final TravelRuleValidateGeographicAddress model =
             new TravelRuleValidateGeographicAddress();
 
     /** Model tests for TravelRuleValidateGeographicAddress */
     @Test
-    public void testTravelRuleValidateGeographicAddress() {
+    void testTravelRuleValidateGeographicAddress() {
         // TODO: test TravelRuleValidateGeographicAddress
     }
 
     /** Test the property 'streetName' */
     @Test
-    public void streetNameTest() {
+    void streetNameTest() {
         // TODO: test streetName
     }
 
     /** Test the property 'townName' */
     @Test
-    public void townNameTest() {
+    void townNameTest() {
         // TODO: test townName
     }
 
     /** Test the property 'country' */
     @Test
-    public void countryTest() {
+    void countryTest() {
         // TODO: test country
     }
 
     /** Test the property 'buildingNumber' */
     @Test
-    public void buildingNumberTest() {
+    void buildingNumberTest() {
         // TODO: test buildingNumber
     }
 
     /** Test the property 'postCode' */
     @Test
-    public void postCodeTest() {
+    void postCodeTest() {
         // TODO: test postCode
     }
 
     /** Test the property 'addressType' */
     @Test
-    public void addressTypeTest() {
+    void addressTypeTest() {
         // TODO: test addressType
     }
 
     /** Test the property 'department' */
     @Test
-    public void departmentTest() {
+    void departmentTest() {
         // TODO: test department
     }
 
     /** Test the property 'subDepartment' */
     @Test
-    public void subDepartmentTest() {
+    void subDepartmentTest() {
         // TODO: test subDepartment
     }
 
     /** Test the property 'buildingName' */
     @Test
-    public void buildingNameTest() {
+    void buildingNameTest() {
         // TODO: test buildingName
     }
 
     /** Test the property 'floor' */
     @Test
-    public void floorTest() {
+    void floorTest() {
         // TODO: test floor
     }
 
     /** Test the property 'postBox' */
     @Test
-    public void postBoxTest() {
+    void postBoxTest() {
         // TODO: test postBox
     }
 
     /** Test the property 'room' */
     @Test
-    public void roomTest() {
+    void roomTest() {
         // TODO: test room
     }
 
     /** Test the property 'townLocationName' */
     @Test
-    public void townLocationNameTest() {
+    void townLocationNameTest() {
         // TODO: test townLocationName
     }
 
     /** Test the property 'districtName' */
     @Test
-    public void districtNameTest() {
+    void districtNameTest() {
         // TODO: test districtName
     }
 
     /** Test the property 'countrySubDivision' */
     @Test
-    public void countrySubDivisionTest() {
+    void countrySubDivisionTest() {
         // TODO: test countrySubDivision
     }
 
     /** Test the property 'addressLine' */
     @Test
-    public void addressLineTest() {
+    void addressLineTest() {
         // TODO: test addressLine
     }
 }

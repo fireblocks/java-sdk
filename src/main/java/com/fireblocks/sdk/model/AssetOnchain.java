@@ -13,12 +13,12 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fireblocks.sdk.ApiClient;
 import java.math.BigDecimal;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -30,26 +30,38 @@ import java.util.StringJoiner;
     AssetOnchain.JSON_PROPERTY_DECIMALS,
     AssetOnchain.JSON_PROPERTY_STANDARD
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class AssetOnchain {
     public static final String JSON_PROPERTY_SYMBOL = "symbol";
-    private String symbol;
+    @jakarta.annotation.Nonnull private String symbol;
 
     public static final String JSON_PROPERTY_NAME = "name";
-    private String name;
+    @jakarta.annotation.Nonnull private String name;
 
     public static final String JSON_PROPERTY_ADDRESS = "address";
-    private String address;
+    @jakarta.annotation.Nullable private String address;
 
     public static final String JSON_PROPERTY_DECIMALS = "decimals";
-    private BigDecimal decimals;
+    @jakarta.annotation.Nonnull private BigDecimal decimals;
 
     public static final String JSON_PROPERTY_STANDARD = "standard";
-    private String standard;
+    @jakarta.annotation.Nullable private String standard;
 
     public AssetOnchain() {}
 
-    public AssetOnchain symbol(String symbol) {
+    @JsonCreator
+    public AssetOnchain(
+            @JsonProperty(value = JSON_PROPERTY_SYMBOL, required = true) String symbol,
+            @JsonProperty(value = JSON_PROPERTY_NAME, required = true) String name,
+            @JsonProperty(value = JSON_PROPERTY_DECIMALS, required = true) BigDecimal decimals) {
+        this.symbol = symbol;
+        this.name = name;
+        this.decimals = decimals;
+    }
+
+    public AssetOnchain symbol(@jakarta.annotation.Nonnull String symbol) {
         this.symbol = symbol;
         return this;
     }
@@ -68,11 +80,11 @@ public class AssetOnchain {
 
     @JsonProperty(JSON_PROPERTY_SYMBOL)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setSymbol(String symbol) {
+    public void setSymbol(@jakarta.annotation.Nonnull String symbol) {
         this.symbol = symbol;
     }
 
-    public AssetOnchain name(String name) {
+    public AssetOnchain name(@jakarta.annotation.Nonnull String name) {
         this.name = name;
         return this;
     }
@@ -91,11 +103,11 @@ public class AssetOnchain {
 
     @JsonProperty(JSON_PROPERTY_NAME)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setName(String name) {
+    public void setName(@jakarta.annotation.Nonnull String name) {
         this.name = name;
     }
 
-    public AssetOnchain address(String address) {
+    public AssetOnchain address(@jakarta.annotation.Nullable String address) {
         this.address = address;
         return this;
     }
@@ -114,11 +126,11 @@ public class AssetOnchain {
 
     @JsonProperty(JSON_PROPERTY_ADDRESS)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAddress(String address) {
+    public void setAddress(@jakarta.annotation.Nullable String address) {
         this.address = address;
     }
 
-    public AssetOnchain decimals(BigDecimal decimals) {
+    public AssetOnchain decimals(@jakarta.annotation.Nonnull BigDecimal decimals) {
         this.decimals = decimals;
         return this;
     }
@@ -137,11 +149,11 @@ public class AssetOnchain {
 
     @JsonProperty(JSON_PROPERTY_DECIMALS)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setDecimals(BigDecimal decimals) {
+    public void setDecimals(@jakarta.annotation.Nonnull BigDecimal decimals) {
         this.decimals = decimals;
     }
 
-    public AssetOnchain standard(String standard) {
+    public AssetOnchain standard(@jakarta.annotation.Nullable String standard) {
         this.standard = standard;
         return this;
     }
@@ -160,7 +172,7 @@ public class AssetOnchain {
 
     @JsonProperty(JSON_PROPERTY_STANDARD)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setStandard(String standard) {
+    public void setStandard(@jakarta.annotation.Nullable String standard) {
         this.standard = standard;
     }
 
@@ -249,8 +261,7 @@ public class AssetOnchain {
                             "%ssymbol%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getSymbol()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getSymbol()))));
         }
 
         // add `name` to the URL query string
@@ -260,8 +271,7 @@ public class AssetOnchain {
                             "%sname%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getName()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getName()))));
         }
 
         // add `address` to the URL query string
@@ -271,8 +281,7 @@ public class AssetOnchain {
                             "%saddress%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getAddress()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getAddress()))));
         }
 
         // add `decimals` to the URL query string
@@ -282,8 +291,7 @@ public class AssetOnchain {
                             "%sdecimals%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getDecimals()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getDecimals()))));
         }
 
         // add `standard` to the URL query string
@@ -293,8 +301,7 @@ public class AssetOnchain {
                             "%sstandard%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getStandard()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getStandard()))));
         }
 
         return joiner.toString();

@@ -13,34 +13,34 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for CreateMultipleVaultAccountsJobStatus */
-public class CreateMultipleVaultAccountsJobStatusTest {
+class CreateMultipleVaultAccountsJobStatusTest {
     private final CreateMultipleVaultAccountsJobStatus model =
             new CreateMultipleVaultAccountsJobStatus();
 
     /** Model tests for CreateMultipleVaultAccountsJobStatus */
     @Test
-    public void testCreateMultipleVaultAccountsJobStatus() {
+    void testCreateMultipleVaultAccountsJobStatus() {
         // TODO: test CreateMultipleVaultAccountsJobStatus
     }
 
     /** Test the property 'status' */
     @Test
-    public void statusTest() {
+    void statusTest() {
         // TODO: test status
     }
 
     /** Test the property 'vaultAccounts' */
     @Test
-    public void vaultAccountsTest() {
+    void vaultAccountsTest() {
         // TODO: test vaultAccounts
     }
 
     /** Test the property 'errorMessage' */
     @Test
-    public void errorMessageTest() {
+    void errorMessageTest() {
         // TODO: test errorMessage
     }
 }

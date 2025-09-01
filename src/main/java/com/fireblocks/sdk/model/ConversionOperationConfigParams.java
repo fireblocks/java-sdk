@@ -13,11 +13,11 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -29,26 +29,35 @@ import java.util.StringJoiner;
     ConversionOperationConfigParams.JSON_PROPERTY_DEST_ASSET_ID,
     ConversionOperationConfigParams.JSON_PROPERTY_SLIPPAGE_BASIS_POINTS
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class ConversionOperationConfigParams {
     public static final String JSON_PROPERTY_AMOUNT = "amount";
-    private String amount;
+    @jakarta.annotation.Nullable private String amount;
 
     public static final String JSON_PROPERTY_ACCOUNT_ID = "accountId";
-    private String accountId;
+    @jakarta.annotation.Nullable private String accountId;
 
     public static final String JSON_PROPERTY_SRC_ASSET_ID = "srcAssetId";
-    private String srcAssetId;
+    @jakarta.annotation.Nullable private String srcAssetId;
 
     public static final String JSON_PROPERTY_DEST_ASSET_ID = "destAssetId";
-    private String destAssetId;
+    @jakarta.annotation.Nonnull private String destAssetId;
 
     public static final String JSON_PROPERTY_SLIPPAGE_BASIS_POINTS = "slippageBasisPoints";
-    private Integer slippageBasisPoints;
+    @jakarta.annotation.Nullable private Integer slippageBasisPoints;
 
     public ConversionOperationConfigParams() {}
 
-    public ConversionOperationConfigParams amount(String amount) {
+    @JsonCreator
+    public ConversionOperationConfigParams(
+            @JsonProperty(value = JSON_PROPERTY_DEST_ASSET_ID, required = true)
+                    String destAssetId) {
+        this.destAssetId = destAssetId;
+    }
+
+    public ConversionOperationConfigParams amount(@jakarta.annotation.Nullable String amount) {
         this.amount = amount;
         return this;
     }
@@ -67,11 +76,12 @@ public class ConversionOperationConfigParams {
 
     @JsonProperty(JSON_PROPERTY_AMOUNT)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAmount(String amount) {
+    public void setAmount(@jakarta.annotation.Nullable String amount) {
         this.amount = amount;
     }
 
-    public ConversionOperationConfigParams accountId(String accountId) {
+    public ConversionOperationConfigParams accountId(
+            @jakarta.annotation.Nullable String accountId) {
         this.accountId = accountId;
         return this;
     }
@@ -90,11 +100,12 @@ public class ConversionOperationConfigParams {
 
     @JsonProperty(JSON_PROPERTY_ACCOUNT_ID)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAccountId(String accountId) {
+    public void setAccountId(@jakarta.annotation.Nullable String accountId) {
         this.accountId = accountId;
     }
 
-    public ConversionOperationConfigParams srcAssetId(String srcAssetId) {
+    public ConversionOperationConfigParams srcAssetId(
+            @jakarta.annotation.Nullable String srcAssetId) {
         this.srcAssetId = srcAssetId;
         return this;
     }
@@ -113,11 +124,12 @@ public class ConversionOperationConfigParams {
 
     @JsonProperty(JSON_PROPERTY_SRC_ASSET_ID)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setSrcAssetId(String srcAssetId) {
+    public void setSrcAssetId(@jakarta.annotation.Nullable String srcAssetId) {
         this.srcAssetId = srcAssetId;
     }
 
-    public ConversionOperationConfigParams destAssetId(String destAssetId) {
+    public ConversionOperationConfigParams destAssetId(
+            @jakarta.annotation.Nonnull String destAssetId) {
         this.destAssetId = destAssetId;
         return this;
     }
@@ -136,11 +148,12 @@ public class ConversionOperationConfigParams {
 
     @JsonProperty(JSON_PROPERTY_DEST_ASSET_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setDestAssetId(String destAssetId) {
+    public void setDestAssetId(@jakarta.annotation.Nonnull String destAssetId) {
         this.destAssetId = destAssetId;
     }
 
-    public ConversionOperationConfigParams slippageBasisPoints(Integer slippageBasisPoints) {
+    public ConversionOperationConfigParams slippageBasisPoints(
+            @jakarta.annotation.Nullable Integer slippageBasisPoints) {
         this.slippageBasisPoints = slippageBasisPoints;
         return this;
     }
@@ -159,7 +172,7 @@ public class ConversionOperationConfigParams {
 
     @JsonProperty(JSON_PROPERTY_SLIPPAGE_BASIS_POINTS)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setSlippageBasisPoints(Integer slippageBasisPoints) {
+    public void setSlippageBasisPoints(@jakarta.annotation.Nullable Integer slippageBasisPoints) {
         this.slippageBasisPoints = slippageBasisPoints;
     }
 
@@ -253,8 +266,7 @@ public class ConversionOperationConfigParams {
                             "%samount%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getAmount()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getAmount()))));
         }
 
         // add `accountId` to the URL query string
@@ -264,9 +276,7 @@ public class ConversionOperationConfigParams {
                             "%saccountId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getAccountId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getAccountId()))));
         }
 
         // add `srcAssetId` to the URL query string
@@ -276,9 +286,7 @@ public class ConversionOperationConfigParams {
                             "%ssrcAssetId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getSrcAssetId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getSrcAssetId()))));
         }
 
         // add `destAssetId` to the URL query string
@@ -288,10 +296,7 @@ public class ConversionOperationConfigParams {
                             "%sdestAssetId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getDestAssetId()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getDestAssetId()))));
         }
 
         // add `slippageBasisPoints` to the URL query string
@@ -301,10 +306,8 @@ public class ConversionOperationConfigParams {
                             "%sslippageBasisPoints%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getSlippageBasisPoints()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(
+                                    ApiClient.valueToString(getSlippageBasisPoints()))));
         }
 
         return joiner.toString();

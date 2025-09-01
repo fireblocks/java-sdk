@@ -16,25 +16,26 @@ package com.fireblocks.sdk.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fireblocks.sdk.ApiClient;
 import java.math.BigDecimal;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 import java.util.StringJoiner;
 
 /** UnspentInput */
 @JsonPropertyOrder({UnspentInput.JSON_PROPERTY_TX_HASH, UnspentInput.JSON_PROPERTY_INDEX})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class UnspentInput {
     public static final String JSON_PROPERTY_TX_HASH = "txHash";
-    private String txHash;
+    @jakarta.annotation.Nullable private String txHash;
 
     public static final String JSON_PROPERTY_INDEX = "index";
-    private BigDecimal index;
+    @jakarta.annotation.Nullable private BigDecimal index;
 
     public UnspentInput() {}
 
-    public UnspentInput txHash(String txHash) {
+    public UnspentInput txHash(@jakarta.annotation.Nullable String txHash) {
         this.txHash = txHash;
         return this;
     }
@@ -53,11 +54,11 @@ public class UnspentInput {
 
     @JsonProperty(JSON_PROPERTY_TX_HASH)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setTxHash(String txHash) {
+    public void setTxHash(@jakarta.annotation.Nullable String txHash) {
         this.txHash = txHash;
     }
 
-    public UnspentInput index(BigDecimal index) {
+    public UnspentInput index(@jakarta.annotation.Nullable BigDecimal index) {
         this.index = index;
         return this;
     }
@@ -76,7 +77,7 @@ public class UnspentInput {
 
     @JsonProperty(JSON_PROPERTY_INDEX)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setIndex(BigDecimal index) {
+    public void setIndex(@jakarta.annotation.Nullable BigDecimal index) {
         this.index = index;
     }
 
@@ -159,8 +160,7 @@ public class UnspentInput {
                             "%stxHash%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getTxHash()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getTxHash()))));
         }
 
         // add `index` to the URL query string
@@ -170,8 +170,7 @@ public class UnspentInput {
                             "%sindex%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getIndex()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getIndex()))));
         }
 
         return joiner.toString();

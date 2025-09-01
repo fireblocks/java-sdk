@@ -13,11 +13,11 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -40,53 +40,87 @@ import java.util.StringJoiner;
     TransactionReceiptResponse.JSON_PROPERTY_TRANSACTION_INDEX,
     TransactionReceiptResponse.JSON_PROPERTY_TYPE
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class TransactionReceiptResponse {
     public static final String JSON_PROPERTY_BLOCK_HASH = "blockHash";
-    private String blockHash;
+    @jakarta.annotation.Nonnull private String blockHash;
 
     public static final String JSON_PROPERTY_BLOCK_NUMBER = "blockNumber";
-    private Integer blockNumber;
+    @jakarta.annotation.Nonnull private Integer blockNumber;
 
     public static final String JSON_PROPERTY_CONTRACT_ADDRESS = "contractAddress";
-    private String contractAddress;
+    @jakarta.annotation.Nullable private String contractAddress;
 
     public static final String JSON_PROPERTY_CUMULATIVE_GAS_USED = "cumulativeGasUsed";
-    private Integer cumulativeGasUsed;
+    @jakarta.annotation.Nonnull private Integer cumulativeGasUsed;
 
     public static final String JSON_PROPERTY_EFFECTIVE_GAS_PRICE = "effectiveGasPrice";
-    private Integer effectiveGasPrice;
+    @jakarta.annotation.Nonnull private Integer effectiveGasPrice;
 
     public static final String JSON_PROPERTY_FROM = "from";
-    private String from;
+    @jakarta.annotation.Nonnull private String from;
 
     public static final String JSON_PROPERTY_GAS_USED = "gasUsed";
-    private Integer gasUsed;
+    @jakarta.annotation.Nonnull private Integer gasUsed;
 
     public static final String JSON_PROPERTY_LOGS = "logs";
-    private List<TxLog> logs = new ArrayList<>();
+    @jakarta.annotation.Nonnull private List<TxLog> logs = new ArrayList<>();
 
     public static final String JSON_PROPERTY_LOGS_BLOOM = "logsBloom";
-    private String logsBloom;
+    @jakarta.annotation.Nonnull private String logsBloom;
 
     public static final String JSON_PROPERTY_STATUS = "status";
-    private Integer status;
+    @jakarta.annotation.Nonnull private Integer status;
 
     public static final String JSON_PROPERTY_TO = "to";
-    private String to;
+    @jakarta.annotation.Nullable private String to;
 
     public static final String JSON_PROPERTY_TRANSACTION_HASH = "transactionHash";
-    private String transactionHash;
+    @jakarta.annotation.Nonnull private String transactionHash;
 
     public static final String JSON_PROPERTY_TRANSACTION_INDEX = "transactionIndex";
-    private Integer transactionIndex;
+    @jakarta.annotation.Nonnull private Integer transactionIndex;
 
     public static final String JSON_PROPERTY_TYPE = "type";
-    private String type;
+    @jakarta.annotation.Nonnull private String type;
 
     public TransactionReceiptResponse() {}
 
-    public TransactionReceiptResponse blockHash(String blockHash) {
+    @JsonCreator
+    public TransactionReceiptResponse(
+            @JsonProperty(value = JSON_PROPERTY_BLOCK_HASH, required = true) String blockHash,
+            @JsonProperty(value = JSON_PROPERTY_BLOCK_NUMBER, required = true) Integer blockNumber,
+            @JsonProperty(value = JSON_PROPERTY_CUMULATIVE_GAS_USED, required = true)
+                    Integer cumulativeGasUsed,
+            @JsonProperty(value = JSON_PROPERTY_EFFECTIVE_GAS_PRICE, required = true)
+                    Integer effectiveGasPrice,
+            @JsonProperty(value = JSON_PROPERTY_FROM, required = true) String from,
+            @JsonProperty(value = JSON_PROPERTY_GAS_USED, required = true) Integer gasUsed,
+            @JsonProperty(value = JSON_PROPERTY_LOGS, required = true) List<TxLog> logs,
+            @JsonProperty(value = JSON_PROPERTY_LOGS_BLOOM, required = true) String logsBloom,
+            @JsonProperty(value = JSON_PROPERTY_STATUS, required = true) Integer status,
+            @JsonProperty(value = JSON_PROPERTY_TRANSACTION_HASH, required = true)
+                    String transactionHash,
+            @JsonProperty(value = JSON_PROPERTY_TRANSACTION_INDEX, required = true)
+                    Integer transactionIndex,
+            @JsonProperty(value = JSON_PROPERTY_TYPE, required = true) String type) {
+        this.blockHash = blockHash;
+        this.blockNumber = blockNumber;
+        this.cumulativeGasUsed = cumulativeGasUsed;
+        this.effectiveGasPrice = effectiveGasPrice;
+        this.from = from;
+        this.gasUsed = gasUsed;
+        this.logs = logs;
+        this.logsBloom = logsBloom;
+        this.status = status;
+        this.transactionHash = transactionHash;
+        this.transactionIndex = transactionIndex;
+        this.type = type;
+    }
+
+    public TransactionReceiptResponse blockHash(@jakarta.annotation.Nonnull String blockHash) {
         this.blockHash = blockHash;
         return this;
     }
@@ -105,11 +139,11 @@ public class TransactionReceiptResponse {
 
     @JsonProperty(JSON_PROPERTY_BLOCK_HASH)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setBlockHash(String blockHash) {
+    public void setBlockHash(@jakarta.annotation.Nonnull String blockHash) {
         this.blockHash = blockHash;
     }
 
-    public TransactionReceiptResponse blockNumber(Integer blockNumber) {
+    public TransactionReceiptResponse blockNumber(@jakarta.annotation.Nonnull Integer blockNumber) {
         this.blockNumber = blockNumber;
         return this;
     }
@@ -128,11 +162,12 @@ public class TransactionReceiptResponse {
 
     @JsonProperty(JSON_PROPERTY_BLOCK_NUMBER)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setBlockNumber(Integer blockNumber) {
+    public void setBlockNumber(@jakarta.annotation.Nonnull Integer blockNumber) {
         this.blockNumber = blockNumber;
     }
 
-    public TransactionReceiptResponse contractAddress(String contractAddress) {
+    public TransactionReceiptResponse contractAddress(
+            @jakarta.annotation.Nullable String contractAddress) {
         this.contractAddress = contractAddress;
         return this;
     }
@@ -151,11 +186,12 @@ public class TransactionReceiptResponse {
 
     @JsonProperty(JSON_PROPERTY_CONTRACT_ADDRESS)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setContractAddress(String contractAddress) {
+    public void setContractAddress(@jakarta.annotation.Nullable String contractAddress) {
         this.contractAddress = contractAddress;
     }
 
-    public TransactionReceiptResponse cumulativeGasUsed(Integer cumulativeGasUsed) {
+    public TransactionReceiptResponse cumulativeGasUsed(
+            @jakarta.annotation.Nonnull Integer cumulativeGasUsed) {
         this.cumulativeGasUsed = cumulativeGasUsed;
         return this;
     }
@@ -174,11 +210,12 @@ public class TransactionReceiptResponse {
 
     @JsonProperty(JSON_PROPERTY_CUMULATIVE_GAS_USED)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setCumulativeGasUsed(Integer cumulativeGasUsed) {
+    public void setCumulativeGasUsed(@jakarta.annotation.Nonnull Integer cumulativeGasUsed) {
         this.cumulativeGasUsed = cumulativeGasUsed;
     }
 
-    public TransactionReceiptResponse effectiveGasPrice(Integer effectiveGasPrice) {
+    public TransactionReceiptResponse effectiveGasPrice(
+            @jakarta.annotation.Nonnull Integer effectiveGasPrice) {
         this.effectiveGasPrice = effectiveGasPrice;
         return this;
     }
@@ -197,11 +234,11 @@ public class TransactionReceiptResponse {
 
     @JsonProperty(JSON_PROPERTY_EFFECTIVE_GAS_PRICE)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setEffectiveGasPrice(Integer effectiveGasPrice) {
+    public void setEffectiveGasPrice(@jakarta.annotation.Nonnull Integer effectiveGasPrice) {
         this.effectiveGasPrice = effectiveGasPrice;
     }
 
-    public TransactionReceiptResponse from(String from) {
+    public TransactionReceiptResponse from(@jakarta.annotation.Nonnull String from) {
         this.from = from;
         return this;
     }
@@ -220,11 +257,11 @@ public class TransactionReceiptResponse {
 
     @JsonProperty(JSON_PROPERTY_FROM)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setFrom(String from) {
+    public void setFrom(@jakarta.annotation.Nonnull String from) {
         this.from = from;
     }
 
-    public TransactionReceiptResponse gasUsed(Integer gasUsed) {
+    public TransactionReceiptResponse gasUsed(@jakarta.annotation.Nonnull Integer gasUsed) {
         this.gasUsed = gasUsed;
         return this;
     }
@@ -243,11 +280,11 @@ public class TransactionReceiptResponse {
 
     @JsonProperty(JSON_PROPERTY_GAS_USED)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setGasUsed(Integer gasUsed) {
+    public void setGasUsed(@jakarta.annotation.Nonnull Integer gasUsed) {
         this.gasUsed = gasUsed;
     }
 
-    public TransactionReceiptResponse logs(List<TxLog> logs) {
+    public TransactionReceiptResponse logs(@jakarta.annotation.Nonnull List<TxLog> logs) {
         this.logs = logs;
         return this;
     }
@@ -274,11 +311,11 @@ public class TransactionReceiptResponse {
 
     @JsonProperty(JSON_PROPERTY_LOGS)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setLogs(List<TxLog> logs) {
+    public void setLogs(@jakarta.annotation.Nonnull List<TxLog> logs) {
         this.logs = logs;
     }
 
-    public TransactionReceiptResponse logsBloom(String logsBloom) {
+    public TransactionReceiptResponse logsBloom(@jakarta.annotation.Nonnull String logsBloom) {
         this.logsBloom = logsBloom;
         return this;
     }
@@ -297,11 +334,11 @@ public class TransactionReceiptResponse {
 
     @JsonProperty(JSON_PROPERTY_LOGS_BLOOM)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setLogsBloom(String logsBloom) {
+    public void setLogsBloom(@jakarta.annotation.Nonnull String logsBloom) {
         this.logsBloom = logsBloom;
     }
 
-    public TransactionReceiptResponse status(Integer status) {
+    public TransactionReceiptResponse status(@jakarta.annotation.Nonnull Integer status) {
         this.status = status;
         return this;
     }
@@ -320,11 +357,11 @@ public class TransactionReceiptResponse {
 
     @JsonProperty(JSON_PROPERTY_STATUS)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setStatus(Integer status) {
+    public void setStatus(@jakarta.annotation.Nonnull Integer status) {
         this.status = status;
     }
 
-    public TransactionReceiptResponse to(String to) {
+    public TransactionReceiptResponse to(@jakarta.annotation.Nullable String to) {
         this.to = to;
         return this;
     }
@@ -343,11 +380,12 @@ public class TransactionReceiptResponse {
 
     @JsonProperty(JSON_PROPERTY_TO)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setTo(String to) {
+    public void setTo(@jakarta.annotation.Nullable String to) {
         this.to = to;
     }
 
-    public TransactionReceiptResponse transactionHash(String transactionHash) {
+    public TransactionReceiptResponse transactionHash(
+            @jakarta.annotation.Nonnull String transactionHash) {
         this.transactionHash = transactionHash;
         return this;
     }
@@ -366,11 +404,12 @@ public class TransactionReceiptResponse {
 
     @JsonProperty(JSON_PROPERTY_TRANSACTION_HASH)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setTransactionHash(String transactionHash) {
+    public void setTransactionHash(@jakarta.annotation.Nonnull String transactionHash) {
         this.transactionHash = transactionHash;
     }
 
-    public TransactionReceiptResponse transactionIndex(Integer transactionIndex) {
+    public TransactionReceiptResponse transactionIndex(
+            @jakarta.annotation.Nonnull Integer transactionIndex) {
         this.transactionIndex = transactionIndex;
         return this;
     }
@@ -389,11 +428,11 @@ public class TransactionReceiptResponse {
 
     @JsonProperty(JSON_PROPERTY_TRANSACTION_INDEX)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setTransactionIndex(Integer transactionIndex) {
+    public void setTransactionIndex(@jakarta.annotation.Nonnull Integer transactionIndex) {
         this.transactionIndex = transactionIndex;
     }
 
-    public TransactionReceiptResponse type(String type) {
+    public TransactionReceiptResponse type(@jakarta.annotation.Nonnull String type) {
         this.type = type;
         return this;
     }
@@ -412,7 +451,7 @@ public class TransactionReceiptResponse {
 
     @JsonProperty(JSON_PROPERTY_TYPE)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setType(String type) {
+    public void setType(@jakarta.annotation.Nonnull String type) {
         this.type = type;
     }
 
@@ -540,9 +579,7 @@ public class TransactionReceiptResponse {
                             "%sblockHash%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getBlockHash()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getBlockHash()))));
         }
 
         // add `blockNumber` to the URL query string
@@ -552,10 +589,7 @@ public class TransactionReceiptResponse {
                             "%sblockNumber%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getBlockNumber()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getBlockNumber()))));
         }
 
         // add `contractAddress` to the URL query string
@@ -565,10 +599,7 @@ public class TransactionReceiptResponse {
                             "%scontractAddress%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getContractAddress()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getContractAddress()))));
         }
 
         // add `cumulativeGasUsed` to the URL query string
@@ -578,10 +609,7 @@ public class TransactionReceiptResponse {
                             "%scumulativeGasUsed%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getCumulativeGasUsed()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getCumulativeGasUsed()))));
         }
 
         // add `effectiveGasPrice` to the URL query string
@@ -591,10 +619,7 @@ public class TransactionReceiptResponse {
                             "%seffectiveGasPrice%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getEffectiveGasPrice()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getEffectiveGasPrice()))));
         }
 
         // add `from` to the URL query string
@@ -604,8 +629,7 @@ public class TransactionReceiptResponse {
                             "%sfrom%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getFrom()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getFrom()))));
         }
 
         // add `gasUsed` to the URL query string
@@ -615,8 +639,7 @@ public class TransactionReceiptResponse {
                             "%sgasUsed%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getGasUsed()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getGasUsed()))));
         }
 
         // add `logs` to the URL query string
@@ -649,9 +672,7 @@ public class TransactionReceiptResponse {
                             "%slogsBloom%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getLogsBloom()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getLogsBloom()))));
         }
 
         // add `status` to the URL query string
@@ -661,8 +682,7 @@ public class TransactionReceiptResponse {
                             "%sstatus%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getStatus()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getStatus()))));
         }
 
         // add `to` to the URL query string
@@ -670,10 +690,7 @@ public class TransactionReceiptResponse {
             joiner.add(
                     String.format(
                             "%sto%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(String.valueOf(getTo()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getTo()))));
         }
 
         // add `transactionHash` to the URL query string
@@ -683,10 +700,7 @@ public class TransactionReceiptResponse {
                             "%stransactionHash%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getTransactionHash()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getTransactionHash()))));
         }
 
         // add `transactionIndex` to the URL query string
@@ -696,10 +710,7 @@ public class TransactionReceiptResponse {
                             "%stransactionIndex%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getTransactionIndex()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getTransactionIndex()))));
         }
 
         // add `type` to the URL query string
@@ -709,8 +720,7 @@ public class TransactionReceiptResponse {
                             "%stype%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getType()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getType()))));
         }
 
         return joiner.toString();

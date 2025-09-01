@@ -13,117 +13,117 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for EmbeddedWalletAssetResponse */
-public class EmbeddedWalletAssetResponseTest {
+class EmbeddedWalletAssetResponseTest {
     private final EmbeddedWalletAssetResponse model = new EmbeddedWalletAssetResponse();
 
     /** Model tests for EmbeddedWalletAssetResponse */
     @Test
-    public void testEmbeddedWalletAssetResponse() {
+    void testEmbeddedWalletAssetResponse() {
         // TODO: test EmbeddedWalletAssetResponse
     }
 
     /** Test the property 'id' */
     @Test
-    public void idTest() {
+    void idTest() {
         // TODO: test id
     }
 
     /** Test the property 'symbol' */
     @Test
-    public void symbolTest() {
+    void symbolTest() {
         // TODO: test symbol
     }
 
     /** Test the property 'name' */
     @Test
-    public void nameTest() {
+    void nameTest() {
         // TODO: test name
     }
 
     /** Test the property 'decimals' */
     @Test
-    public void decimalsTest() {
+    void decimalsTest() {
         // TODO: test decimals
     }
 
     /** Test the property 'networkProtocol' */
     @Test
-    public void networkProtocolTest() {
+    void networkProtocolTest() {
         // TODO: test networkProtocol
     }
 
     /** Test the property 'testnet' */
     @Test
-    public void testnetTest() {
+    void testnetTest() {
         // TODO: test testnet
     }
 
     /** Test the property 'hasFee' */
     @Test
-    public void hasFeeTest() {
+    void hasFeeTest() {
         // TODO: test hasFee
     }
 
     /** Test the property 'baseAsset' */
     @Test
-    public void baseAssetTest() {
+    void baseAssetTest() {
         // TODO: test baseAsset
     }
 
     /** Test the property 'ethNetwork' */
     @Test
-    public void ethNetworkTest() {
+    void ethNetworkTest() {
         // TODO: test ethNetwork
     }
 
     /** Test the property 'ethContractAddress' */
     @Test
-    public void ethContractAddressTest() {
+    void ethContractAddressTest() {
         // TODO: test ethContractAddress
     }
 
     /** Test the property 'issuerAddress' */
     @Test
-    public void issuerAddressTest() {
+    void issuerAddressTest() {
         // TODO: test issuerAddress
     }
 
     /** Test the property 'blockchainSymbol' */
     @Test
-    public void blockchainSymbolTest() {
+    void blockchainSymbolTest() {
         // TODO: test blockchainSymbol
     }
 
     /** Test the property 'deprecated' */
     @Test
-    public void deprecatedTest() {
+    void deprecatedTest() {
         // TODO: test deprecated
     }
 
     /** Test the property 'coinType' */
     @Test
-    public void coinTypeTest() {
+    void coinTypeTest() {
         // TODO: test coinType
     }
 
     /** Test the property 'blockchain' */
     @Test
-    public void blockchainTest() {
+    void blockchainTest() {
         // TODO: test blockchain
     }
 
     /** Test the property 'blockchainDisplayName' */
     @Test
-    public void blockchainDisplayNameTest() {
+    void blockchainDisplayNameTest() {
         // TODO: test blockchainDisplayName
     }
 
     /** Test the property 'algorithm' */
     @Test
-    public void algorithmTest() {
+    void algorithmTest() {
         // TODO: test algorithm
     }
 }

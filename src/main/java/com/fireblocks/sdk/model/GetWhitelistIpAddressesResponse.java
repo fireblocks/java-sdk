@@ -16,8 +16,7 @@ package com.fireblocks.sdk.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -28,17 +27,19 @@ import java.util.StringJoiner;
     GetWhitelistIpAddressesResponse.JSON_PROPERTY_USER_ID,
     GetWhitelistIpAddressesResponse.JSON_PROPERTY_WHITELISTED_IPS
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class GetWhitelistIpAddressesResponse {
     public static final String JSON_PROPERTY_USER_ID = "userId";
-    private String userId;
+    @jakarta.annotation.Nullable private String userId;
 
     public static final String JSON_PROPERTY_WHITELISTED_IPS = "whitelistedIps";
-    private List<String> whitelistedIps;
+    @jakarta.annotation.Nullable private List<String> whitelistedIps;
 
     public GetWhitelistIpAddressesResponse() {}
 
-    public GetWhitelistIpAddressesResponse userId(String userId) {
+    public GetWhitelistIpAddressesResponse userId(@jakarta.annotation.Nullable String userId) {
         this.userId = userId;
         return this;
     }
@@ -57,11 +58,12 @@ public class GetWhitelistIpAddressesResponse {
 
     @JsonProperty(JSON_PROPERTY_USER_ID)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setUserId(String userId) {
+    public void setUserId(@jakarta.annotation.Nullable String userId) {
         this.userId = userId;
     }
 
-    public GetWhitelistIpAddressesResponse whitelistedIps(List<String> whitelistedIps) {
+    public GetWhitelistIpAddressesResponse whitelistedIps(
+            @jakarta.annotation.Nullable List<String> whitelistedIps) {
         this.whitelistedIps = whitelistedIps;
         return this;
     }
@@ -88,7 +90,7 @@ public class GetWhitelistIpAddressesResponse {
 
     @JsonProperty(JSON_PROPERTY_WHITELISTED_IPS)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setWhitelistedIps(List<String> whitelistedIps) {
+    public void setWhitelistedIps(@jakarta.annotation.Nullable List<String> whitelistedIps) {
         this.whitelistedIps = whitelistedIps;
     }
 
@@ -173,8 +175,7 @@ public class GetWhitelistIpAddressesResponse {
                             "%suserId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getUserId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getUserId()))));
         }
 
         // add `whitelistedIps` to the URL query string
@@ -189,10 +190,8 @@ public class GetWhitelistIpAddressesResponse {
                                         ? ""
                                         : String.format(
                                                 "%s%d%s", containerPrefix, i, containerSuffix),
-                                URLEncoder.encode(
-                                                String.valueOf(getWhitelistedIps().get(i)),
-                                                StandardCharsets.UTF_8)
-                                        .replaceAll("\\+", "%20")));
+                                ApiClient.urlEncode(
+                                        ApiClient.valueToString(getWhitelistedIps().get(i)))));
             }
         }
 
