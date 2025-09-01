@@ -13,39 +13,39 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for RelatedRequest */
-public class RelatedRequestTest {
+class RelatedRequestTest {
     private final RelatedRequest model = new RelatedRequest();
 
     /** Model tests for RelatedRequest */
     @Test
-    public void testRelatedRequest() {
+    void testRelatedRequest() {
         // TODO: test RelatedRequest
     }
 
     /** Test the property 'status' */
     @Test
-    public void statusTest() {
+    void statusTest() {
         // TODO: test status
     }
 
     /** Test the property 'inProgress' */
     @Test
-    public void inProgressTest() {
+    void inProgressTest() {
         // TODO: test inProgress
     }
 
     /** Test the property 'amount' */
     @Test
-    public void amountTest() {
+    void amountTest() {
         // TODO: test amount
     }
 
     /** Test the property 'txId' */
     @Test
-    public void txIdTest() {
+    void txIdTest() {
         // TODO: test txId
     }
 }

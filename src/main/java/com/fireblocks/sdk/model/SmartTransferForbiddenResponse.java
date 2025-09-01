@@ -13,11 +13,11 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -26,17 +26,27 @@ import java.util.StringJoiner;
     SmartTransferForbiddenResponse.JSON_PROPERTY_MESSAGE,
     SmartTransferForbiddenResponse.JSON_PROPERTY_CODE
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class SmartTransferForbiddenResponse {
     public static final String JSON_PROPERTY_MESSAGE = "message";
-    private String message;
+    @jakarta.annotation.Nonnull private String message;
 
     public static final String JSON_PROPERTY_CODE = "code";
-    private String code;
+    @jakarta.annotation.Nonnull private String code;
 
     public SmartTransferForbiddenResponse() {}
 
-    public SmartTransferForbiddenResponse message(String message) {
+    @JsonCreator
+    public SmartTransferForbiddenResponse(
+            @JsonProperty(value = JSON_PROPERTY_MESSAGE, required = true) String message,
+            @JsonProperty(value = JSON_PROPERTY_CODE, required = true) String code) {
+        this.message = message;
+        this.code = code;
+    }
+
+    public SmartTransferForbiddenResponse message(@jakarta.annotation.Nonnull String message) {
         this.message = message;
         return this;
     }
@@ -55,11 +65,11 @@ public class SmartTransferForbiddenResponse {
 
     @JsonProperty(JSON_PROPERTY_MESSAGE)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setMessage(String message) {
+    public void setMessage(@jakarta.annotation.Nonnull String message) {
         this.message = message;
     }
 
-    public SmartTransferForbiddenResponse code(String code) {
+    public SmartTransferForbiddenResponse code(@jakarta.annotation.Nonnull String code) {
         this.code = code;
         return this;
     }
@@ -78,7 +88,7 @@ public class SmartTransferForbiddenResponse {
 
     @JsonProperty(JSON_PROPERTY_CODE)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setCode(String code) {
+    public void setCode(@jakarta.annotation.Nonnull String code) {
         this.code = code;
     }
 
@@ -162,8 +172,7 @@ public class SmartTransferForbiddenResponse {
                             "%smessage%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getMessage()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getMessage()))));
         }
 
         // add `code` to the URL query string
@@ -173,8 +182,7 @@ public class SmartTransferForbiddenResponse {
                             "%scode%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getCode()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getCode()))));
         }
 
         return joiner.toString();

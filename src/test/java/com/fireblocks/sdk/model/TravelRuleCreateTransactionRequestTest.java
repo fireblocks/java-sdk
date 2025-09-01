@@ -13,142 +13,142 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for TravelRuleCreateTransactionRequest */
-public class TravelRuleCreateTransactionRequestTest {
+class TravelRuleCreateTransactionRequestTest {
     private final TravelRuleCreateTransactionRequest model =
             new TravelRuleCreateTransactionRequest();
 
     /** Model tests for TravelRuleCreateTransactionRequest */
     @Test
-    public void testTravelRuleCreateTransactionRequest() {
+    void testTravelRuleCreateTransactionRequest() {
         // TODO: test TravelRuleCreateTransactionRequest
     }
 
     /** Test the property 'originatorVASPdid' */
     @Test
-    public void originatorVASPdidTest() {
+    void originatorVASPdidTest() {
         // TODO: test originatorVASPdid
     }
 
     /** Test the property 'beneficiaryVASPdid' */
     @Test
-    public void beneficiaryVASPdidTest() {
+    void beneficiaryVASPdidTest() {
         // TODO: test beneficiaryVASPdid
     }
 
     /** Test the property 'originatorVASPname' */
     @Test
-    public void originatorVASPnameTest() {
+    void originatorVASPnameTest() {
         // TODO: test originatorVASPname
     }
 
     /** Test the property 'beneficiaryVASPname' */
     @Test
-    public void beneficiaryVASPnameTest() {
+    void beneficiaryVASPnameTest() {
         // TODO: test beneficiaryVASPname
     }
 
     /** Test the property 'beneficiaryVASPwebsite' */
     @Test
-    public void beneficiaryVASPwebsiteTest() {
+    void beneficiaryVASPwebsiteTest() {
         // TODO: test beneficiaryVASPwebsite
     }
 
     /** Test the property 'transactionBlockchainInfo' */
     @Test
-    public void transactionBlockchainInfoTest() {
+    void transactionBlockchainInfoTest() {
         // TODO: test transactionBlockchainInfo
     }
 
     /** Test the property 'originator' */
     @Test
-    public void originatorTest() {
+    void originatorTest() {
         // TODO: test originator
     }
 
     /** Test the property 'beneficiary' */
     @Test
-    public void beneficiaryTest() {
+    void beneficiaryTest() {
         // TODO: test beneficiary
     }
 
     /** Test the property 'encrypted' */
     @Test
-    public void encryptedTest() {
+    void encryptedTest() {
         // TODO: test encrypted
     }
 
     /** Test the property 'protocol' */
     @Test
-    public void protocolTest() {
+    void protocolTest() {
         // TODO: test protocol
     }
 
     /** Test the property 'targetProtocol' */
     @Test
-    public void targetProtocolTest() {
+    void targetProtocolTest() {
         // TODO: test targetProtocol
     }
 
     /** Test the property 'skipBeneficiaryDataValidation' */
     @Test
-    public void skipBeneficiaryDataValidationTest() {
+    void skipBeneficiaryDataValidationTest() {
         // TODO: test skipBeneficiaryDataValidation
     }
 
     /** Test the property 'travelRuleBehavior' */
     @Test
-    public void travelRuleBehaviorTest() {
+    void travelRuleBehaviorTest() {
         // TODO: test travelRuleBehavior
     }
 
     /** Test the property 'originatorRef' */
     @Test
-    public void originatorRefTest() {
+    void originatorRefTest() {
         // TODO: test originatorRef
     }
 
     /** Test the property 'beneficiaryRef' */
     @Test
-    public void beneficiaryRefTest() {
+    void beneficiaryRefTest() {
         // TODO: test beneficiaryRef
     }
 
     /** Test the property 'travelRuleBehaviorRef' */
     @Test
-    public void travelRuleBehaviorRefTest() {
+    void travelRuleBehaviorRefTest() {
         // TODO: test travelRuleBehaviorRef
     }
 
     /** Test the property 'originatorProof' */
     @Test
-    public void originatorProofTest() {
+    void originatorProofTest() {
         // TODO: test originatorProof
     }
 
     /** Test the property 'beneficiaryProof' */
     @Test
-    public void beneficiaryProofTest() {
+    void beneficiaryProofTest() {
         // TODO: test beneficiaryProof
     }
 
     /** Test the property 'beneficiaryDid' */
     @Test
-    public void beneficiaryDidTest() {
+    void beneficiaryDidTest() {
         // TODO: test beneficiaryDid
     }
 
     /** Test the property 'originatorDid' */
     @Test
-    public void originatorDidTest() {
+    void originatorDidTest() {
         // TODO: test originatorDid
     }
 
     /** Test the property 'isNonCustodial' */
     @Test
-    public void isNonCustodialTest() {
+    void isNonCustodialTest() {
         // TODO: test isNonCustodial
     }
 }

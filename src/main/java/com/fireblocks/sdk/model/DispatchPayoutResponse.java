@@ -13,24 +13,32 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
 /** DispatchPayoutResponse */
 @JsonPropertyOrder({DispatchPayoutResponse.JSON_PROPERTY_PAYOUT_ID})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class DispatchPayoutResponse {
     public static final String JSON_PROPERTY_PAYOUT_ID = "payoutId";
-    private String payoutId;
+    @jakarta.annotation.Nonnull private String payoutId;
 
     public DispatchPayoutResponse() {}
 
-    public DispatchPayoutResponse payoutId(String payoutId) {
+    @JsonCreator
+    public DispatchPayoutResponse(
+            @JsonProperty(value = JSON_PROPERTY_PAYOUT_ID, required = true) String payoutId) {
+        this.payoutId = payoutId;
+    }
+
+    public DispatchPayoutResponse payoutId(@jakarta.annotation.Nonnull String payoutId) {
         this.payoutId = payoutId;
         return this;
     }
@@ -49,7 +57,7 @@ public class DispatchPayoutResponse {
 
     @JsonProperty(JSON_PROPERTY_PAYOUT_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setPayoutId(String payoutId) {
+    public void setPayoutId(@jakarta.annotation.Nonnull String payoutId) {
         this.payoutId = payoutId;
     }
 
@@ -130,8 +138,7 @@ public class DispatchPayoutResponse {
                             "%spayoutId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getPayoutId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getPayoutId()))));
         }
 
         return joiner.toString();

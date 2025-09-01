@@ -13,33 +13,33 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for PolicyRuleCheckResult */
-public class PolicyRuleCheckResultTest {
+class PolicyRuleCheckResultTest {
     private final PolicyRuleCheckResult model = new PolicyRuleCheckResult();
 
     /** Model tests for PolicyRuleCheckResult */
     @Test
-    public void testPolicyRuleCheckResult() {
+    void testPolicyRuleCheckResult() {
         // TODO: test PolicyRuleCheckResult
     }
 
     /** Test the property 'index' */
     @Test
-    public void indexTest() {
+    void indexTest() {
         // TODO: test index
     }
 
     /** Test the property 'status' */
     @Test
-    public void statusTest() {
+    void statusTest() {
         // TODO: test status
     }
 
     /** Test the property 'errors' */
     @Test
-    public void errorsTest() {
+    void errorsTest() {
         // TODO: test errors
     }
 }

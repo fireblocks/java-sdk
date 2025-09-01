@@ -13,88 +13,88 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for TravelRuleValidateTransactionRequest */
-public class TravelRuleValidateTransactionRequestTest {
+class TravelRuleValidateTransactionRequestTest {
     private final TravelRuleValidateTransactionRequest model =
             new TravelRuleValidateTransactionRequest();
 
     /** Model tests for TravelRuleValidateTransactionRequest */
     @Test
-    public void testTravelRuleValidateTransactionRequest() {
+    void testTravelRuleValidateTransactionRequest() {
         // TODO: test TravelRuleValidateTransactionRequest
     }
 
     /** Test the property 'transactionAsset' */
     @Test
-    public void transactionAssetTest() {
+    void transactionAssetTest() {
         // TODO: test transactionAsset
     }
 
     /** Test the property 'destination' */
     @Test
-    public void destinationTest() {
+    void destinationTest() {
         // TODO: test destination
     }
 
     /** Test the property 'transactionAmount' */
     @Test
-    public void transactionAmountTest() {
+    void transactionAmountTest() {
         // TODO: test transactionAmount
     }
 
     /** Test the property 'transactionAssetDecimals' */
     @Test
-    public void transactionAssetDecimalsTest() {
+    void transactionAssetDecimalsTest() {
         // TODO: test transactionAssetDecimals
     }
 
     /** Test the property 'originatorVASPdid' */
     @Test
-    public void originatorVASPdidTest() {
+    void originatorVASPdidTest() {
         // TODO: test originatorVASPdid
     }
 
     /** Test the property 'originatorEqualsBeneficiary' */
     @Test
-    public void originatorEqualsBeneficiaryTest() {
+    void originatorEqualsBeneficiaryTest() {
         // TODO: test originatorEqualsBeneficiary
     }
 
     /** Test the property 'travelRuleBehavior' */
     @Test
-    public void travelRuleBehaviorTest() {
+    void travelRuleBehaviorTest() {
         // TODO: test travelRuleBehavior
     }
 
     /** Test the property 'beneficiaryVASPdid' */
     @Test
-    public void beneficiaryVASPdidTest() {
+    void beneficiaryVASPdidTest() {
         // TODO: test beneficiaryVASPdid
     }
 
     /** Test the property 'beneficiaryVASPname' */
     @Test
-    public void beneficiaryVASPnameTest() {
+    void beneficiaryVASPnameTest() {
         // TODO: test beneficiaryVASPname
     }
 
     /** Test the property 'beneficiaryName' */
     @Test
-    public void beneficiaryNameTest() {
+    void beneficiaryNameTest() {
         // TODO: test beneficiaryName
     }
 
     /** Test the property 'beneficiaryAccountNumber' */
     @Test
-    public void beneficiaryAccountNumberTest() {
+    void beneficiaryAccountNumberTest() {
         // TODO: test beneficiaryAccountNumber
     }
 
     /** Test the property 'beneficiaryAddress' */
     @Test
-    public void beneficiaryAddressTest() {
+    void beneficiaryAddressTest() {
         // TODO: test beneficiaryAddress
     }
 }

@@ -13,11 +13,11 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -27,20 +27,28 @@ import java.util.StringJoiner;
     CallbackHandlerRequest.JSON_PROPERTY_PUBLIC_KEY,
     CallbackHandlerRequest.JSON_PROPERTY_CERT
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class CallbackHandlerRequest {
     public static final String JSON_PROPERTY_URL = "url";
-    private String url;
+    @jakarta.annotation.Nonnull private String url;
 
     public static final String JSON_PROPERTY_PUBLIC_KEY = "publicKey";
-    private String publicKey;
+    @jakarta.annotation.Nullable private String publicKey;
 
     public static final String JSON_PROPERTY_CERT = "cert";
-    private String cert;
+    @jakarta.annotation.Nullable private String cert;
 
     public CallbackHandlerRequest() {}
 
-    public CallbackHandlerRequest url(String url) {
+    @JsonCreator
+    public CallbackHandlerRequest(
+            @JsonProperty(value = JSON_PROPERTY_URL, required = true) String url) {
+        this.url = url;
+    }
+
+    public CallbackHandlerRequest url(@jakarta.annotation.Nonnull String url) {
         this.url = url;
         return this;
     }
@@ -59,11 +67,11 @@ public class CallbackHandlerRequest {
 
     @JsonProperty(JSON_PROPERTY_URL)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setUrl(String url) {
+    public void setUrl(@jakarta.annotation.Nonnull String url) {
         this.url = url;
     }
 
-    public CallbackHandlerRequest publicKey(String publicKey) {
+    public CallbackHandlerRequest publicKey(@jakarta.annotation.Nullable String publicKey) {
         this.publicKey = publicKey;
         return this;
     }
@@ -82,11 +90,11 @@ public class CallbackHandlerRequest {
 
     @JsonProperty(JSON_PROPERTY_PUBLIC_KEY)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setPublicKey(String publicKey) {
+    public void setPublicKey(@jakarta.annotation.Nullable String publicKey) {
         this.publicKey = publicKey;
     }
 
-    public CallbackHandlerRequest cert(String cert) {
+    public CallbackHandlerRequest cert(@jakarta.annotation.Nullable String cert) {
         this.cert = cert;
         return this;
     }
@@ -105,7 +113,7 @@ public class CallbackHandlerRequest {
 
     @JsonProperty(JSON_PROPERTY_CERT)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setCert(String cert) {
+    public void setCert(@jakarta.annotation.Nullable String cert) {
         this.cert = cert;
     }
 
@@ -190,8 +198,7 @@ public class CallbackHandlerRequest {
                             "%surl%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getUrl()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getUrl()))));
         }
 
         // add `publicKey` to the URL query string
@@ -201,9 +208,7 @@ public class CallbackHandlerRequest {
                             "%spublicKey%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getPublicKey()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getPublicKey()))));
         }
 
         // add `cert` to the URL query string
@@ -213,8 +218,7 @@ public class CallbackHandlerRequest {
                             "%scert%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getCert()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getCert()))));
         }
 
         return joiner.toString();

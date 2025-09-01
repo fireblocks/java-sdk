@@ -13,21 +13,21 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for RenameCosigner */
-public class RenameCosignerTest {
+class RenameCosignerTest {
     private final RenameCosigner model = new RenameCosigner();
 
     /** Model tests for RenameCosigner */
     @Test
-    public void testRenameCosigner() {
+    void testRenameCosigner() {
         // TODO: test RenameCosigner
     }
 
     /** Test the property 'name' */
     @Test
-    public void nameTest() {
+    void nameTest() {
         // TODO: test name
     }
 }

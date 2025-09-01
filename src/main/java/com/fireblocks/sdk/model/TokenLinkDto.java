@@ -18,8 +18,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonValue;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -32,16 +31,18 @@ import java.util.StringJoiner;
     TokenLinkDto.JSON_PROPERTY_DISPLAY_NAME,
     TokenLinkDto.JSON_PROPERTY_TOKEN_METADATA
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class TokenLinkDto {
     public static final String JSON_PROPERTY_ID = "id";
-    private String id;
+    @jakarta.annotation.Nonnull private String id;
 
     /** The token status */
     public enum StatusEnum {
-        PENDING("PENDING"),
+        PENDING(String.valueOf("PENDING")),
 
-        COMPLETED("COMPLETED");
+        COMPLETED(String.valueOf("COMPLETED"));
 
         private String value;
 
@@ -71,17 +72,17 @@ public class TokenLinkDto {
     }
 
     public static final String JSON_PROPERTY_STATUS = "status";
-    private StatusEnum status;
+    @jakarta.annotation.Nonnull private StatusEnum status;
 
     /** The type of token */
     public enum TypeEnum {
-        FUNGIBLE_TOKEN("FUNGIBLE_TOKEN"),
+        FUNGIBLE_TOKEN(String.valueOf("FUNGIBLE_TOKEN")),
 
-        NON_FUNGIBLE_TOKEN("NON_FUNGIBLE_TOKEN"),
+        NON_FUNGIBLE_TOKEN(String.valueOf("NON_FUNGIBLE_TOKEN")),
 
-        TOKEN_UTILITY("TOKEN_UTILITY"),
+        TOKEN_UTILITY(String.valueOf("TOKEN_UTILITY")),
 
-        TOKEN_EXTENSION("TOKEN_EXTENSION");
+        TOKEN_EXTENSION(String.valueOf("TOKEN_EXTENSION"));
 
         private String value;
 
@@ -111,20 +112,28 @@ public class TokenLinkDto {
     }
 
     public static final String JSON_PROPERTY_TYPE = "type";
-    private TypeEnum type;
+    @jakarta.annotation.Nullable private TypeEnum type;
 
     public static final String JSON_PROPERTY_REF_ID = "refId";
-    private String refId;
+    @jakarta.annotation.Nullable private String refId;
 
     public static final String JSON_PROPERTY_DISPLAY_NAME = "displayName";
-    private String displayName;
+    @jakarta.annotation.Nullable private String displayName;
 
     public static final String JSON_PROPERTY_TOKEN_METADATA = "tokenMetadata";
-    private TokenLinkDtoTokenMetadata tokenMetadata;
+    @jakarta.annotation.Nullable private TokenLinkDtoTokenMetadata tokenMetadata;
 
     public TokenLinkDto() {}
 
-    public TokenLinkDto id(String id) {
+    @JsonCreator
+    public TokenLinkDto(
+            @JsonProperty(value = JSON_PROPERTY_ID, required = true) String id,
+            @JsonProperty(value = JSON_PROPERTY_STATUS, required = true) StatusEnum status) {
+        this.id = id;
+        this.status = status;
+    }
+
+    public TokenLinkDto id(@jakarta.annotation.Nonnull String id) {
         this.id = id;
         return this;
     }
@@ -143,11 +152,11 @@ public class TokenLinkDto {
 
     @JsonProperty(JSON_PROPERTY_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setId(String id) {
+    public void setId(@jakarta.annotation.Nonnull String id) {
         this.id = id;
     }
 
-    public TokenLinkDto status(StatusEnum status) {
+    public TokenLinkDto status(@jakarta.annotation.Nonnull StatusEnum status) {
         this.status = status;
         return this;
     }
@@ -166,11 +175,11 @@ public class TokenLinkDto {
 
     @JsonProperty(JSON_PROPERTY_STATUS)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setStatus(StatusEnum status) {
+    public void setStatus(@jakarta.annotation.Nonnull StatusEnum status) {
         this.status = status;
     }
 
-    public TokenLinkDto type(TypeEnum type) {
+    public TokenLinkDto type(@jakarta.annotation.Nullable TypeEnum type) {
         this.type = type;
         return this;
     }
@@ -189,11 +198,11 @@ public class TokenLinkDto {
 
     @JsonProperty(JSON_PROPERTY_TYPE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setType(TypeEnum type) {
+    public void setType(@jakarta.annotation.Nullable TypeEnum type) {
         this.type = type;
     }
 
-    public TokenLinkDto refId(String refId) {
+    public TokenLinkDto refId(@jakarta.annotation.Nullable String refId) {
         this.refId = refId;
         return this;
     }
@@ -212,11 +221,11 @@ public class TokenLinkDto {
 
     @JsonProperty(JSON_PROPERTY_REF_ID)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setRefId(String refId) {
+    public void setRefId(@jakarta.annotation.Nullable String refId) {
         this.refId = refId;
     }
 
-    public TokenLinkDto displayName(String displayName) {
+    public TokenLinkDto displayName(@jakarta.annotation.Nullable String displayName) {
         this.displayName = displayName;
         return this;
     }
@@ -235,11 +244,12 @@ public class TokenLinkDto {
 
     @JsonProperty(JSON_PROPERTY_DISPLAY_NAME)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setDisplayName(String displayName) {
+    public void setDisplayName(@jakarta.annotation.Nullable String displayName) {
         this.displayName = displayName;
     }
 
-    public TokenLinkDto tokenMetadata(TokenLinkDtoTokenMetadata tokenMetadata) {
+    public TokenLinkDto tokenMetadata(
+            @jakarta.annotation.Nullable TokenLinkDtoTokenMetadata tokenMetadata) {
         this.tokenMetadata = tokenMetadata;
         return this;
     }
@@ -258,7 +268,8 @@ public class TokenLinkDto {
 
     @JsonProperty(JSON_PROPERTY_TOKEN_METADATA)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setTokenMetadata(TokenLinkDtoTokenMetadata tokenMetadata) {
+    public void setTokenMetadata(
+            @jakarta.annotation.Nullable TokenLinkDtoTokenMetadata tokenMetadata) {
         this.tokenMetadata = tokenMetadata;
     }
 
@@ -347,10 +358,7 @@ public class TokenLinkDto {
             joiner.add(
                     String.format(
                             "%sid%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(String.valueOf(getId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getId()))));
         }
 
         // add `status` to the URL query string
@@ -360,8 +368,7 @@ public class TokenLinkDto {
                             "%sstatus%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getStatus()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getStatus()))));
         }
 
         // add `type` to the URL query string
@@ -371,8 +378,7 @@ public class TokenLinkDto {
                             "%stype%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getType()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getType()))));
         }
 
         // add `refId` to the URL query string
@@ -382,8 +388,7 @@ public class TokenLinkDto {
                             "%srefId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getRefId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getRefId()))));
         }
 
         // add `displayName` to the URL query string
@@ -393,10 +398,7 @@ public class TokenLinkDto {
                             "%sdisplayName%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getDisplayName()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getDisplayName()))));
         }
 
         // add `tokenMetadata` to the URL query string

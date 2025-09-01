@@ -13,45 +13,45 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for ComplianceScreeningResult */
-public class ComplianceScreeningResultTest {
+class ComplianceScreeningResultTest {
     private final ComplianceScreeningResult model = new ComplianceScreeningResult();
 
     /** Model tests for ComplianceScreeningResult */
     @Test
-    public void testComplianceScreeningResult() {
+    void testComplianceScreeningResult() {
         // TODO: test ComplianceScreeningResult
     }
 
     /** Test the property 'provider' */
     @Test
-    public void providerTest() {
+    void providerTest() {
         // TODO: test provider
     }
 
     /** Test the property 'payload' */
     @Test
-    public void payloadTest() {
+    void payloadTest() {
         // TODO: test payload
     }
 
     /** Test the property 'bypassReason' */
     @Test
-    public void bypassReasonTest() {
+    void bypassReasonTest() {
         // TODO: test bypassReason
     }
 
     /** Test the property 'screeningStatus' */
     @Test
-    public void screeningStatusTest() {
+    void screeningStatusTest() {
         // TODO: test screeningStatus
     }
 
     /** Test the property 'timestamp' */
     @Test
-    public void timestampTest() {
+    void timestampTest() {
         // TODO: test timestamp
     }
 }

@@ -13,27 +13,27 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for SetAssetPriceRequest */
-public class SetAssetPriceRequestTest {
+class SetAssetPriceRequestTest {
     private final SetAssetPriceRequest model = new SetAssetPriceRequest();
 
     /** Model tests for SetAssetPriceRequest */
     @Test
-    public void testSetAssetPriceRequest() {
+    void testSetAssetPriceRequest() {
         // TODO: test SetAssetPriceRequest
     }
 
     /** Test the property 'currency' */
     @Test
-    public void currencyTest() {
+    void currencyTest() {
         // TODO: test currency
     }
 
     /** Test the property 'price' */
     @Test
-    public void priceTest() {
+    void priceTest() {
         // TODO: test price
     }
 }

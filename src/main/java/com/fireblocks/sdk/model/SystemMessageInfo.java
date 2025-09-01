@@ -18,20 +18,21 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonValue;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
 /** SystemMessageInfo */
 @JsonPropertyOrder({SystemMessageInfo.JSON_PROPERTY_TYPE, SystemMessageInfo.JSON_PROPERTY_MESSAGE})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class SystemMessageInfo {
     /** Gets or Sets type */
     public enum TypeEnum {
-        WARN("WARN"),
+        WARN(String.valueOf("WARN")),
 
-        BLOCK("BLOCK");
+        BLOCK(String.valueOf("BLOCK"));
 
         private String value;
 
@@ -61,14 +62,14 @@ public class SystemMessageInfo {
     }
 
     public static final String JSON_PROPERTY_TYPE = "type";
-    private TypeEnum type;
+    @jakarta.annotation.Nullable private TypeEnum type;
 
     public static final String JSON_PROPERTY_MESSAGE = "message";
-    private String message;
+    @jakarta.annotation.Nullable private String message;
 
     public SystemMessageInfo() {}
 
-    public SystemMessageInfo type(TypeEnum type) {
+    public SystemMessageInfo type(@jakarta.annotation.Nullable TypeEnum type) {
         this.type = type;
         return this;
     }
@@ -87,11 +88,11 @@ public class SystemMessageInfo {
 
     @JsonProperty(JSON_PROPERTY_TYPE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setType(TypeEnum type) {
+    public void setType(@jakarta.annotation.Nullable TypeEnum type) {
         this.type = type;
     }
 
-    public SystemMessageInfo message(String message) {
+    public SystemMessageInfo message(@jakarta.annotation.Nullable String message) {
         this.message = message;
         return this;
     }
@@ -112,7 +113,7 @@ public class SystemMessageInfo {
 
     @JsonProperty(JSON_PROPERTY_MESSAGE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setMessage(String message) {
+    public void setMessage(@jakarta.annotation.Nullable String message) {
         this.message = message;
     }
 
@@ -195,8 +196,7 @@ public class SystemMessageInfo {
                             "%stype%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getType()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getType()))));
         }
 
         // add `message` to the URL query string
@@ -206,8 +206,7 @@ public class SystemMessageInfo {
                             "%smessage%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getMessage()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getMessage()))));
         }
 
         return joiner.toString();

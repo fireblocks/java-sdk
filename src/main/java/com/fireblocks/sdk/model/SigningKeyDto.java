@@ -13,12 +13,12 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fireblocks.sdk.ApiClient;
 import java.math.BigDecimal;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -33,35 +33,60 @@ import java.util.StringJoiner;
     SigningKeyDto.JSON_PROPERTY_AGENT_USER_ID,
     SigningKeyDto.JSON_PROPERTY_CREATED_AT
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class SigningKeyDto {
     public static final String JSON_PROPERTY_KEY_ID = "keyId";
-    private String keyId;
+    @jakarta.annotation.Nonnull private String keyId;
 
     public static final String JSON_PROPERTY_SIGNING_DEVICE_KEY_ID = "signingDeviceKeyId";
-    private String signingDeviceKeyId;
+    @jakarta.annotation.Nonnull private String signingDeviceKeyId;
 
     public static final String JSON_PROPERTY_PUBLIC_KEY_PEM = "publicKeyPem";
-    private String publicKeyPem;
+    @jakarta.annotation.Nonnull private String publicKeyPem;
 
     public static final String JSON_PROPERTY_ALGORITHM = "algorithm";
-    private String algorithm;
+    @jakarta.annotation.Nonnull private String algorithm;
 
     public static final String JSON_PROPERTY_ENABLED = "enabled";
-    private Boolean enabled;
+    @jakarta.annotation.Nonnull private Boolean enabled;
 
     public static final String JSON_PROPERTY_VAULT_ACCOUNT_ID = "vaultAccountId";
-    private BigDecimal vaultAccountId;
+    @jakarta.annotation.Nullable private BigDecimal vaultAccountId;
 
     public static final String JSON_PROPERTY_AGENT_USER_ID = "agentUserId";
-    private String agentUserId;
+    @jakarta.annotation.Nonnull private String agentUserId;
 
     public static final String JSON_PROPERTY_CREATED_AT = "createdAt";
-    private BigDecimal createdAt;
+    @jakarta.annotation.Nonnull private BigDecimal createdAt;
 
     public SigningKeyDto() {}
 
-    public SigningKeyDto keyId(String keyId) {
+    @JsonCreator
+    public SigningKeyDto(
+            @JsonProperty(value = JSON_PROPERTY_KEY_ID, required = true) String keyId,
+            @JsonProperty(value = JSON_PROPERTY_SIGNING_DEVICE_KEY_ID, required = true)
+                    String signingDeviceKeyId,
+            @JsonProperty(value = JSON_PROPERTY_PUBLIC_KEY_PEM, required = true)
+                    String publicKeyPem,
+            @JsonProperty(value = JSON_PROPERTY_ALGORITHM, required = true) String algorithm,
+            @JsonProperty(value = JSON_PROPERTY_ENABLED, required = true) Boolean enabled,
+            @JsonProperty(value = JSON_PROPERTY_VAULT_ACCOUNT_ID, required = true)
+                    BigDecimal vaultAccountId,
+            @JsonProperty(value = JSON_PROPERTY_AGENT_USER_ID, required = true) String agentUserId,
+            @JsonProperty(value = JSON_PROPERTY_CREATED_AT, required = true) BigDecimal createdAt) {
+        this.keyId = keyId;
+        this.signingDeviceKeyId = signingDeviceKeyId;
+        this.publicKeyPem = publicKeyPem;
+        this.algorithm = algorithm;
+        this.enabled = enabled;
+        this.vaultAccountId = vaultAccountId;
+        this.agentUserId = agentUserId;
+        this.createdAt = createdAt;
+    }
+
+    public SigningKeyDto keyId(@jakarta.annotation.Nonnull String keyId) {
         this.keyId = keyId;
         return this;
     }
@@ -80,11 +105,11 @@ public class SigningKeyDto {
 
     @JsonProperty(JSON_PROPERTY_KEY_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setKeyId(String keyId) {
+    public void setKeyId(@jakarta.annotation.Nonnull String keyId) {
         this.keyId = keyId;
     }
 
-    public SigningKeyDto signingDeviceKeyId(String signingDeviceKeyId) {
+    public SigningKeyDto signingDeviceKeyId(@jakarta.annotation.Nonnull String signingDeviceKeyId) {
         this.signingDeviceKeyId = signingDeviceKeyId;
         return this;
     }
@@ -103,11 +128,11 @@ public class SigningKeyDto {
 
     @JsonProperty(JSON_PROPERTY_SIGNING_DEVICE_KEY_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setSigningDeviceKeyId(String signingDeviceKeyId) {
+    public void setSigningDeviceKeyId(@jakarta.annotation.Nonnull String signingDeviceKeyId) {
         this.signingDeviceKeyId = signingDeviceKeyId;
     }
 
-    public SigningKeyDto publicKeyPem(String publicKeyPem) {
+    public SigningKeyDto publicKeyPem(@jakarta.annotation.Nonnull String publicKeyPem) {
         this.publicKeyPem = publicKeyPem;
         return this;
     }
@@ -126,11 +151,11 @@ public class SigningKeyDto {
 
     @JsonProperty(JSON_PROPERTY_PUBLIC_KEY_PEM)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setPublicKeyPem(String publicKeyPem) {
+    public void setPublicKeyPem(@jakarta.annotation.Nonnull String publicKeyPem) {
         this.publicKeyPem = publicKeyPem;
     }
 
-    public SigningKeyDto algorithm(String algorithm) {
+    public SigningKeyDto algorithm(@jakarta.annotation.Nonnull String algorithm) {
         this.algorithm = algorithm;
         return this;
     }
@@ -149,11 +174,11 @@ public class SigningKeyDto {
 
     @JsonProperty(JSON_PROPERTY_ALGORITHM)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setAlgorithm(String algorithm) {
+    public void setAlgorithm(@jakarta.annotation.Nonnull String algorithm) {
         this.algorithm = algorithm;
     }
 
-    public SigningKeyDto enabled(Boolean enabled) {
+    public SigningKeyDto enabled(@jakarta.annotation.Nonnull Boolean enabled) {
         this.enabled = enabled;
         return this;
     }
@@ -172,11 +197,11 @@ public class SigningKeyDto {
 
     @JsonProperty(JSON_PROPERTY_ENABLED)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setEnabled(Boolean enabled) {
+    public void setEnabled(@jakarta.annotation.Nonnull Boolean enabled) {
         this.enabled = enabled;
     }
 
-    public SigningKeyDto vaultAccountId(BigDecimal vaultAccountId) {
+    public SigningKeyDto vaultAccountId(@jakarta.annotation.Nullable BigDecimal vaultAccountId) {
         this.vaultAccountId = vaultAccountId;
         return this;
     }
@@ -195,11 +220,11 @@ public class SigningKeyDto {
 
     @JsonProperty(JSON_PROPERTY_VAULT_ACCOUNT_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setVaultAccountId(BigDecimal vaultAccountId) {
+    public void setVaultAccountId(@jakarta.annotation.Nullable BigDecimal vaultAccountId) {
         this.vaultAccountId = vaultAccountId;
     }
 
-    public SigningKeyDto agentUserId(String agentUserId) {
+    public SigningKeyDto agentUserId(@jakarta.annotation.Nonnull String agentUserId) {
         this.agentUserId = agentUserId;
         return this;
     }
@@ -218,11 +243,11 @@ public class SigningKeyDto {
 
     @JsonProperty(JSON_PROPERTY_AGENT_USER_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setAgentUserId(String agentUserId) {
+    public void setAgentUserId(@jakarta.annotation.Nonnull String agentUserId) {
         this.agentUserId = agentUserId;
     }
 
-    public SigningKeyDto createdAt(BigDecimal createdAt) {
+    public SigningKeyDto createdAt(@jakarta.annotation.Nonnull BigDecimal createdAt) {
         this.createdAt = createdAt;
         return this;
     }
@@ -241,7 +266,7 @@ public class SigningKeyDto {
 
     @JsonProperty(JSON_PROPERTY_CREATED_AT)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setCreatedAt(BigDecimal createdAt) {
+    public void setCreatedAt(@jakarta.annotation.Nonnull BigDecimal createdAt) {
         this.createdAt = createdAt;
     }
 
@@ -346,8 +371,7 @@ public class SigningKeyDto {
                             "%skeyId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getKeyId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getKeyId()))));
         }
 
         // add `signingDeviceKeyId` to the URL query string
@@ -357,10 +381,7 @@ public class SigningKeyDto {
                             "%ssigningDeviceKeyId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getSigningDeviceKeyId()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getSigningDeviceKeyId()))));
         }
 
         // add `publicKeyPem` to the URL query string
@@ -370,10 +391,7 @@ public class SigningKeyDto {
                             "%spublicKeyPem%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getPublicKeyPem()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getPublicKeyPem()))));
         }
 
         // add `algorithm` to the URL query string
@@ -383,9 +401,7 @@ public class SigningKeyDto {
                             "%salgorithm%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getAlgorithm()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getAlgorithm()))));
         }
 
         // add `enabled` to the URL query string
@@ -395,8 +411,7 @@ public class SigningKeyDto {
                             "%senabled%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getEnabled()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getEnabled()))));
         }
 
         // add `vaultAccountId` to the URL query string
@@ -406,10 +421,7 @@ public class SigningKeyDto {
                             "%svaultAccountId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getVaultAccountId()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getVaultAccountId()))));
         }
 
         // add `agentUserId` to the URL query string
@@ -419,10 +431,7 @@ public class SigningKeyDto {
                             "%sagentUserId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getAgentUserId()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getAgentUserId()))));
         }
 
         // add `createdAt` to the URL query string
@@ -432,9 +441,7 @@ public class SigningKeyDto {
                             "%screatedAt%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getCreatedAt()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getCreatedAt()))));
         }
 
         return joiner.toString();

@@ -13,40 +13,40 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for TravelRuleValidateNationalIdentification */
-public class TravelRuleValidateNationalIdentificationTest {
+class TravelRuleValidateNationalIdentificationTest {
     private final TravelRuleValidateNationalIdentification model =
             new TravelRuleValidateNationalIdentification();
 
     /** Model tests for TravelRuleValidateNationalIdentification */
     @Test
-    public void testTravelRuleValidateNationalIdentification() {
+    void testTravelRuleValidateNationalIdentification() {
         // TODO: test TravelRuleValidateNationalIdentification
     }
 
     /** Test the property 'countryOfIssue' */
     @Test
-    public void countryOfIssueTest() {
+    void countryOfIssueTest() {
         // TODO: test countryOfIssue
     }
 
     /** Test the property 'nationalIdentifier' */
     @Test
-    public void nationalIdentifierTest() {
+    void nationalIdentifierTest() {
         // TODO: test nationalIdentifier
     }
 
     /** Test the property 'nationalIdentifierType' */
     @Test
-    public void nationalIdentifierTypeTest() {
+    void nationalIdentifierTypeTest() {
         // TODO: test nationalIdentifierType
     }
 
     /** Test the property 'registrationAuthority' */
     @Test
-    public void registrationAuthorityTest() {
+    void registrationAuthorityTest() {
         // TODO: test registrationAuthority
     }
 }

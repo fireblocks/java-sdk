@@ -13,21 +13,21 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for MergeStakeAccountsResponse */
-public class MergeStakeAccountsResponseTest {
+class MergeStakeAccountsResponseTest {
     private final MergeStakeAccountsResponse model = new MergeStakeAccountsResponse();
 
     /** Model tests for MergeStakeAccountsResponse */
     @Test
-    public void testMergeStakeAccountsResponse() {
+    void testMergeStakeAccountsResponse() {
         // TODO: test MergeStakeAccountsResponse
     }
 
     /** Test the property 'id' */
     @Test
-    public void idTest() {
+    void idTest() {
         // TODO: test id
     }
 }

@@ -16,8 +16,8 @@
 
 | Name | Value |
 |---- | -----|
-| SVG_XML | &quot;image/svg+xml&quot; |
-| PNG | &quot;image/png&quot; |
+| IMAGE_SVG_XML | &quot;image/svg+xml&quot; |
+| IMAGE_PNG | &quot;image/png&quot; |
 
 
 

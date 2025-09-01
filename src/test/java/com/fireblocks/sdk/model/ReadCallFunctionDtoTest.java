@@ -13,21 +13,21 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for ReadCallFunctionDto */
-public class ReadCallFunctionDtoTest {
+class ReadCallFunctionDtoTest {
     private final ReadCallFunctionDto model = new ReadCallFunctionDto();
 
     /** Model tests for ReadCallFunctionDto */
     @Test
-    public void testReadCallFunctionDto() {
+    void testReadCallFunctionDto() {
         // TODO: test ReadCallFunctionDto
     }
 
     /** Test the property 'abiFunction' */
     @Test
-    public void abiFunctionTest() {
+    void abiFunctionTest() {
         // TODO: test abiFunction
     }
 }

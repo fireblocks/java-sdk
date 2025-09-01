@@ -13,27 +13,27 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for PairApiKeyResponse */
-public class PairApiKeyResponseTest {
+class PairApiKeyResponseTest {
     private final PairApiKeyResponse model = new PairApiKeyResponse();
 
     /** Model tests for PairApiKeyResponse */
     @Test
-    public void testPairApiKeyResponse() {
+    void testPairApiKeyResponse() {
         // TODO: test PairApiKeyResponse
     }
 
     /** Test the property 'id' */
     @Test
-    public void idTest() {
+    void idTest() {
         // TODO: test id
     }
 
     /** Test the property 'callbackHandler' */
     @Test
-    public void callbackHandlerTest() {
+    void callbackHandlerTest() {
         // TODO: test callbackHandler
     }
 }

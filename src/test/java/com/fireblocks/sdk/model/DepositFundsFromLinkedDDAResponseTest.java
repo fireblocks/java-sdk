@@ -13,21 +13,21 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for DepositFundsFromLinkedDDAResponse */
-public class DepositFundsFromLinkedDDAResponseTest {
+class DepositFundsFromLinkedDDAResponseTest {
     private final DepositFundsFromLinkedDDAResponse model = new DepositFundsFromLinkedDDAResponse();
 
     /** Model tests for DepositFundsFromLinkedDDAResponse */
     @Test
-    public void testDepositFundsFromLinkedDDAResponse() {
+    void testDepositFundsFromLinkedDDAResponse() {
         // TODO: test DepositFundsFromLinkedDDAResponse
     }
 
     /** Test the property 'success' */
     @Test
-    public void successTest() {
+    void successTest() {
         // TODO: test success
     }
 }

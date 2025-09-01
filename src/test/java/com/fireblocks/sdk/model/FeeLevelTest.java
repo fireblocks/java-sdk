@@ -13,13 +13,13 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for FeeLevel */
-public class FeeLevelTest {
+class FeeLevelTest {
     /** Model tests for FeeLevel */
     @Test
-    public void testFeeLevel() {
+    void testFeeLevel() {
         // TODO: test FeeLevel
     }
 }

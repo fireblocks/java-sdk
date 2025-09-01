@@ -13,45 +13,45 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for ScreeningPolicyResponse */
-public class ScreeningPolicyResponseTest {
+class ScreeningPolicyResponseTest {
     private final ScreeningPolicyResponse model = new ScreeningPolicyResponse();
 
     /** Model tests for ScreeningPolicyResponse */
     @Test
-    public void testScreeningPolicyResponse() {
+    void testScreeningPolicyResponse() {
         // TODO: test ScreeningPolicyResponse
     }
 
     /** Test the property 'policy' */
     @Test
-    public void policyTest() {
+    void policyTest() {
         // TODO: test policy
     }
 
     /** Test the property 'policyStatus' */
     @Test
-    public void policyStatusTest() {
+    void policyStatusTest() {
         // TODO: test policyStatus
     }
 
     /** Test the property 'isDefault' */
     @Test
-    public void isDefaultTest() {
+    void isDefaultTest() {
         // TODO: test isDefault
     }
 
     /** Test the property 'createDate' */
     @Test
-    public void createDateTest() {
+    void createDateTest() {
         // TODO: test createDate
     }
 
     /** Test the property 'lastUpdate' */
     @Test
-    public void lastUpdateTest() {
+    void lastUpdateTest() {
         // TODO: test lastUpdate
     }
 }

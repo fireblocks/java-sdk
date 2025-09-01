@@ -13,33 +13,33 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for ConvertAssetsRequest */
-public class ConvertAssetsRequestTest {
+class ConvertAssetsRequestTest {
     private final ConvertAssetsRequest model = new ConvertAssetsRequest();
 
     /** Model tests for ConvertAssetsRequest */
     @Test
-    public void testConvertAssetsRequest() {
+    void testConvertAssetsRequest() {
         // TODO: test ConvertAssetsRequest
     }
 
     /** Test the property 'srcAsset' */
     @Test
-    public void srcAssetTest() {
+    void srcAssetTest() {
         // TODO: test srcAsset
     }
 
     /** Test the property 'destAsset' */
     @Test
-    public void destAssetTest() {
+    void destAssetTest() {
         // TODO: test destAsset
     }
 
     /** Test the property 'amount' */
     @Test
-    public void amountTest() {
+    void amountTest() {
         // TODO: test amount
     }
 }

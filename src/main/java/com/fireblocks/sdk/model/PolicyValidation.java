@@ -13,11 +13,11 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -26,17 +26,28 @@ import java.util.StringJoiner;
     PolicyValidation.JSON_PROPERTY_STATUS,
     PolicyValidation.JSON_PROPERTY_CHECK_RESULT
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class PolicyValidation {
     public static final String JSON_PROPERTY_STATUS = "status";
-    private String status;
+    @jakarta.annotation.Nonnull private String status;
 
     public static final String JSON_PROPERTY_CHECK_RESULT = "checkResult";
-    private PolicyCheckResult checkResult;
+    @jakarta.annotation.Nonnull private PolicyCheckResult checkResult;
 
     public PolicyValidation() {}
 
-    public PolicyValidation status(String status) {
+    @JsonCreator
+    public PolicyValidation(
+            @JsonProperty(value = JSON_PROPERTY_STATUS, required = true) String status,
+            @JsonProperty(value = JSON_PROPERTY_CHECK_RESULT, required = true)
+                    PolicyCheckResult checkResult) {
+        this.status = status;
+        this.checkResult = checkResult;
+    }
+
+    public PolicyValidation status(@jakarta.annotation.Nonnull String status) {
         this.status = status;
         return this;
     }
@@ -55,11 +66,11 @@ public class PolicyValidation {
 
     @JsonProperty(JSON_PROPERTY_STATUS)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setStatus(String status) {
+    public void setStatus(@jakarta.annotation.Nonnull String status) {
         this.status = status;
     }
 
-    public PolicyValidation checkResult(PolicyCheckResult checkResult) {
+    public PolicyValidation checkResult(@jakarta.annotation.Nonnull PolicyCheckResult checkResult) {
         this.checkResult = checkResult;
         return this;
     }
@@ -78,7 +89,7 @@ public class PolicyValidation {
 
     @JsonProperty(JSON_PROPERTY_CHECK_RESULT)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setCheckResult(PolicyCheckResult checkResult) {
+    public void setCheckResult(@jakarta.annotation.Nonnull PolicyCheckResult checkResult) {
         this.checkResult = checkResult;
     }
 
@@ -161,8 +172,7 @@ public class PolicyValidation {
                             "%sstatus%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getStatus()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getStatus()))));
         }
 
         // add `checkResult` to the URL query string

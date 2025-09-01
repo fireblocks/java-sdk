@@ -13,21 +13,21 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for AssetMetadataRequest */
-public class AssetMetadataRequestTest {
+class AssetMetadataRequestTest {
     private final AssetMetadataRequest model = new AssetMetadataRequest();
 
     /** Model tests for AssetMetadataRequest */
     @Test
-    public void testAssetMetadataRequest() {
+    void testAssetMetadataRequest() {
         // TODO: test AssetMetadataRequest
     }
 
     /** Test the property 'note' */
     @Test
-    public void noteTest() {
+    void noteTest() {
         // TODO: test note
     }
 }

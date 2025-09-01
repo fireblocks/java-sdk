@@ -13,12 +13,12 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fireblocks.sdk.ApiClient;
 import java.math.BigDecimal;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -27,17 +27,29 @@ import java.util.StringJoiner;
     CreateValidationKeyDto.JSON_PROPERTY_PUBLIC_KEY_PEM,
     CreateValidationKeyDto.JSON_PROPERTY_DAYS_TILL_EXPIRED
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class CreateValidationKeyDto {
     public static final String JSON_PROPERTY_PUBLIC_KEY_PEM = "publicKeyPem";
-    private String publicKeyPem;
+    @jakarta.annotation.Nonnull private String publicKeyPem;
 
     public static final String JSON_PROPERTY_DAYS_TILL_EXPIRED = "daysTillExpired";
-    private BigDecimal daysTillExpired;
+    @jakarta.annotation.Nonnull private BigDecimal daysTillExpired;
 
     public CreateValidationKeyDto() {}
 
-    public CreateValidationKeyDto publicKeyPem(String publicKeyPem) {
+    @JsonCreator
+    public CreateValidationKeyDto(
+            @JsonProperty(value = JSON_PROPERTY_PUBLIC_KEY_PEM, required = true)
+                    String publicKeyPem,
+            @JsonProperty(value = JSON_PROPERTY_DAYS_TILL_EXPIRED, required = true)
+                    BigDecimal daysTillExpired) {
+        this.publicKeyPem = publicKeyPem;
+        this.daysTillExpired = daysTillExpired;
+    }
+
+    public CreateValidationKeyDto publicKeyPem(@jakarta.annotation.Nonnull String publicKeyPem) {
         this.publicKeyPem = publicKeyPem;
         return this;
     }
@@ -56,11 +68,12 @@ public class CreateValidationKeyDto {
 
     @JsonProperty(JSON_PROPERTY_PUBLIC_KEY_PEM)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setPublicKeyPem(String publicKeyPem) {
+    public void setPublicKeyPem(@jakarta.annotation.Nonnull String publicKeyPem) {
         this.publicKeyPem = publicKeyPem;
     }
 
-    public CreateValidationKeyDto daysTillExpired(BigDecimal daysTillExpired) {
+    public CreateValidationKeyDto daysTillExpired(
+            @jakarta.annotation.Nonnull BigDecimal daysTillExpired) {
         this.daysTillExpired = daysTillExpired;
         return this;
     }
@@ -79,7 +92,7 @@ public class CreateValidationKeyDto {
 
     @JsonProperty(JSON_PROPERTY_DAYS_TILL_EXPIRED)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setDaysTillExpired(BigDecimal daysTillExpired) {
+    public void setDaysTillExpired(@jakarta.annotation.Nonnull BigDecimal daysTillExpired) {
         this.daysTillExpired = daysTillExpired;
     }
 
@@ -162,10 +175,7 @@ public class CreateValidationKeyDto {
                             "%spublicKeyPem%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getPublicKeyPem()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getPublicKeyPem()))));
         }
 
         // add `daysTillExpired` to the URL query string
@@ -175,10 +185,7 @@ public class CreateValidationKeyDto {
                             "%sdaysTillExpired%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getDaysTillExpired()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getDaysTillExpired()))));
         }
 
         return joiner.toString();

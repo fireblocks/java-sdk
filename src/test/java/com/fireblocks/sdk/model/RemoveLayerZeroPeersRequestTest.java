@@ -13,39 +13,39 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for RemoveLayerZeroPeersRequest */
-public class RemoveLayerZeroPeersRequestTest {
+class RemoveLayerZeroPeersRequestTest {
     private final RemoveLayerZeroPeersRequest model = new RemoveLayerZeroPeersRequest();
 
     /** Model tests for RemoveLayerZeroPeersRequest */
     @Test
-    public void testRemoveLayerZeroPeersRequest() {
+    void testRemoveLayerZeroPeersRequest() {
         // TODO: test RemoveLayerZeroPeersRequest
     }
 
     /** Test the property 'vaultAccountId' */
     @Test
-    public void vaultAccountIdTest() {
+    void vaultAccountIdTest() {
         // TODO: test vaultAccountId
     }
 
     /** Test the property 'sourceAdapterTokenLinkId' */
     @Test
-    public void sourceAdapterTokenLinkIdTest() {
+    void sourceAdapterTokenLinkIdTest() {
         // TODO: test sourceAdapterTokenLinkId
     }
 
     /** Test the property 'destinationAdapterTokenLinkIds' */
     @Test
-    public void destinationAdapterTokenLinkIdsTest() {
+    void destinationAdapterTokenLinkIdsTest() {
         // TODO: test destinationAdapterTokenLinkIds
     }
 
     /** Test the property 'bidirectional' */
     @Test
-    public void bidirectionalTest() {
+    void bidirectionalTest() {
         // TODO: test bidirectional
     }
 }

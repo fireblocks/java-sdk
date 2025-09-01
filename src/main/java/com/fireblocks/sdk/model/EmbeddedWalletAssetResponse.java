@@ -18,9 +18,8 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.fireblocks.sdk.ApiClient;
 import java.math.BigDecimal;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -44,61 +43,63 @@ import java.util.StringJoiner;
     EmbeddedWalletAssetResponse.JSON_PROPERTY_BLOCKCHAIN_DISPLAY_NAME,
     EmbeddedWalletAssetResponse.JSON_PROPERTY_ALGORITHM
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class EmbeddedWalletAssetResponse {
     public static final String JSON_PROPERTY_ID = "id";
-    private String id;
+    @jakarta.annotation.Nonnull private String id;
 
     public static final String JSON_PROPERTY_SYMBOL = "symbol";
-    private String symbol;
+    @jakarta.annotation.Nonnull private String symbol;
 
     public static final String JSON_PROPERTY_NAME = "name";
-    private String name;
+    @jakarta.annotation.Nonnull private String name;
 
     public static final String JSON_PROPERTY_DECIMALS = "decimals";
-    private BigDecimal decimals;
+    @jakarta.annotation.Nonnull private BigDecimal decimals;
 
     public static final String JSON_PROPERTY_NETWORK_PROTOCOL = "networkProtocol";
-    private String networkProtocol;
+    @jakarta.annotation.Nonnull private String networkProtocol;
 
     public static final String JSON_PROPERTY_TESTNET = "testnet";
-    private Boolean testnet;
+    @jakarta.annotation.Nonnull private Boolean testnet;
 
     public static final String JSON_PROPERTY_HAS_FEE = "hasFee";
-    private Boolean hasFee;
+    @jakarta.annotation.Nonnull private Boolean hasFee;
 
     public static final String JSON_PROPERTY_BASE_ASSET = "baseAsset";
-    private String baseAsset;
+    @jakarta.annotation.Nonnull private String baseAsset;
 
     public static final String JSON_PROPERTY_ETH_NETWORK = "ethNetwork";
-    private String ethNetwork;
+    @jakarta.annotation.Nullable private String ethNetwork;
 
     public static final String JSON_PROPERTY_ETH_CONTRACT_ADDRESS = "ethContractAddress";
-    private String ethContractAddress;
+    @jakarta.annotation.Nullable private String ethContractAddress;
 
     public static final String JSON_PROPERTY_ISSUER_ADDRESS = "issuerAddress";
-    private String issuerAddress;
+    @jakarta.annotation.Nullable private String issuerAddress;
 
     public static final String JSON_PROPERTY_BLOCKCHAIN_SYMBOL = "blockchainSymbol";
-    private String blockchainSymbol;
+    @jakarta.annotation.Nullable private String blockchainSymbol;
 
     public static final String JSON_PROPERTY_DEPRECATED = "deprecated";
-    private Boolean deprecated;
+    @jakarta.annotation.Nullable private Boolean deprecated;
 
     public static final String JSON_PROPERTY_COIN_TYPE = "coinType";
-    private BigDecimal coinType;
+    @jakarta.annotation.Nonnull private BigDecimal coinType;
 
     public static final String JSON_PROPERTY_BLOCKCHAIN = "blockchain";
-    private String blockchain;
+    @jakarta.annotation.Nonnull private String blockchain;
 
     public static final String JSON_PROPERTY_BLOCKCHAIN_DISPLAY_NAME = "blockchainDisplayName";
-    private String blockchainDisplayName;
+    @jakarta.annotation.Nullable private String blockchainDisplayName;
 
     /** Gets or Sets algorithm */
     public enum AlgorithmEnum {
-        ECDSA_SECP256K1("MPC_ECDSA_SECP256K1"),
+        MPC_ECDSA_SECP256_K1(String.valueOf("MPC_ECDSA_SECP256K1")),
 
-        EDDSA_ED25519("MPC_EDDSA_ED25519");
+        MPC_EDDSA_ED25519(String.valueOf("MPC_EDDSA_ED25519"));
 
         private String value;
 
@@ -128,11 +129,36 @@ public class EmbeddedWalletAssetResponse {
     }
 
     public static final String JSON_PROPERTY_ALGORITHM = "algorithm";
-    private AlgorithmEnum algorithm;
+    @jakarta.annotation.Nullable private AlgorithmEnum algorithm;
 
     public EmbeddedWalletAssetResponse() {}
 
-    public EmbeddedWalletAssetResponse id(String id) {
+    @JsonCreator
+    public EmbeddedWalletAssetResponse(
+            @JsonProperty(value = JSON_PROPERTY_ID, required = true) String id,
+            @JsonProperty(value = JSON_PROPERTY_SYMBOL, required = true) String symbol,
+            @JsonProperty(value = JSON_PROPERTY_NAME, required = true) String name,
+            @JsonProperty(value = JSON_PROPERTY_DECIMALS, required = true) BigDecimal decimals,
+            @JsonProperty(value = JSON_PROPERTY_NETWORK_PROTOCOL, required = true)
+                    String networkProtocol,
+            @JsonProperty(value = JSON_PROPERTY_TESTNET, required = true) Boolean testnet,
+            @JsonProperty(value = JSON_PROPERTY_HAS_FEE, required = true) Boolean hasFee,
+            @JsonProperty(value = JSON_PROPERTY_BASE_ASSET, required = true) String baseAsset,
+            @JsonProperty(value = JSON_PROPERTY_COIN_TYPE, required = true) BigDecimal coinType,
+            @JsonProperty(value = JSON_PROPERTY_BLOCKCHAIN, required = true) String blockchain) {
+        this.id = id;
+        this.symbol = symbol;
+        this.name = name;
+        this.decimals = decimals;
+        this.networkProtocol = networkProtocol;
+        this.testnet = testnet;
+        this.hasFee = hasFee;
+        this.baseAsset = baseAsset;
+        this.coinType = coinType;
+        this.blockchain = blockchain;
+    }
+
+    public EmbeddedWalletAssetResponse id(@jakarta.annotation.Nonnull String id) {
         this.id = id;
         return this;
     }
@@ -151,11 +177,11 @@ public class EmbeddedWalletAssetResponse {
 
     @JsonProperty(JSON_PROPERTY_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setId(String id) {
+    public void setId(@jakarta.annotation.Nonnull String id) {
         this.id = id;
     }
 
-    public EmbeddedWalletAssetResponse symbol(String symbol) {
+    public EmbeddedWalletAssetResponse symbol(@jakarta.annotation.Nonnull String symbol) {
         this.symbol = symbol;
         return this;
     }
@@ -174,11 +200,11 @@ public class EmbeddedWalletAssetResponse {
 
     @JsonProperty(JSON_PROPERTY_SYMBOL)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setSymbol(String symbol) {
+    public void setSymbol(@jakarta.annotation.Nonnull String symbol) {
         this.symbol = symbol;
     }
 
-    public EmbeddedWalletAssetResponse name(String name) {
+    public EmbeddedWalletAssetResponse name(@jakarta.annotation.Nonnull String name) {
         this.name = name;
         return this;
     }
@@ -197,11 +223,11 @@ public class EmbeddedWalletAssetResponse {
 
     @JsonProperty(JSON_PROPERTY_NAME)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setName(String name) {
+    public void setName(@jakarta.annotation.Nonnull String name) {
         this.name = name;
     }
 
-    public EmbeddedWalletAssetResponse decimals(BigDecimal decimals) {
+    public EmbeddedWalletAssetResponse decimals(@jakarta.annotation.Nonnull BigDecimal decimals) {
         this.decimals = decimals;
         return this;
     }
@@ -220,11 +246,12 @@ public class EmbeddedWalletAssetResponse {
 
     @JsonProperty(JSON_PROPERTY_DECIMALS)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setDecimals(BigDecimal decimals) {
+    public void setDecimals(@jakarta.annotation.Nonnull BigDecimal decimals) {
         this.decimals = decimals;
     }
 
-    public EmbeddedWalletAssetResponse networkProtocol(String networkProtocol) {
+    public EmbeddedWalletAssetResponse networkProtocol(
+            @jakarta.annotation.Nonnull String networkProtocol) {
         this.networkProtocol = networkProtocol;
         return this;
     }
@@ -243,11 +270,11 @@ public class EmbeddedWalletAssetResponse {
 
     @JsonProperty(JSON_PROPERTY_NETWORK_PROTOCOL)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setNetworkProtocol(String networkProtocol) {
+    public void setNetworkProtocol(@jakarta.annotation.Nonnull String networkProtocol) {
         this.networkProtocol = networkProtocol;
     }
 
-    public EmbeddedWalletAssetResponse testnet(Boolean testnet) {
+    public EmbeddedWalletAssetResponse testnet(@jakarta.annotation.Nonnull Boolean testnet) {
         this.testnet = testnet;
         return this;
     }
@@ -266,11 +293,11 @@ public class EmbeddedWalletAssetResponse {
 
     @JsonProperty(JSON_PROPERTY_TESTNET)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setTestnet(Boolean testnet) {
+    public void setTestnet(@jakarta.annotation.Nonnull Boolean testnet) {
         this.testnet = testnet;
     }
 
-    public EmbeddedWalletAssetResponse hasFee(Boolean hasFee) {
+    public EmbeddedWalletAssetResponse hasFee(@jakarta.annotation.Nonnull Boolean hasFee) {
         this.hasFee = hasFee;
         return this;
     }
@@ -289,11 +316,11 @@ public class EmbeddedWalletAssetResponse {
 
     @JsonProperty(JSON_PROPERTY_HAS_FEE)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setHasFee(Boolean hasFee) {
+    public void setHasFee(@jakarta.annotation.Nonnull Boolean hasFee) {
         this.hasFee = hasFee;
     }
 
-    public EmbeddedWalletAssetResponse baseAsset(String baseAsset) {
+    public EmbeddedWalletAssetResponse baseAsset(@jakarta.annotation.Nonnull String baseAsset) {
         this.baseAsset = baseAsset;
         return this;
     }
@@ -312,11 +339,11 @@ public class EmbeddedWalletAssetResponse {
 
     @JsonProperty(JSON_PROPERTY_BASE_ASSET)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setBaseAsset(String baseAsset) {
+    public void setBaseAsset(@jakarta.annotation.Nonnull String baseAsset) {
         this.baseAsset = baseAsset;
     }
 
-    public EmbeddedWalletAssetResponse ethNetwork(String ethNetwork) {
+    public EmbeddedWalletAssetResponse ethNetwork(@jakarta.annotation.Nullable String ethNetwork) {
         this.ethNetwork = ethNetwork;
         return this;
     }
@@ -335,11 +362,12 @@ public class EmbeddedWalletAssetResponse {
 
     @JsonProperty(JSON_PROPERTY_ETH_NETWORK)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setEthNetwork(String ethNetwork) {
+    public void setEthNetwork(@jakarta.annotation.Nullable String ethNetwork) {
         this.ethNetwork = ethNetwork;
     }
 
-    public EmbeddedWalletAssetResponse ethContractAddress(String ethContractAddress) {
+    public EmbeddedWalletAssetResponse ethContractAddress(
+            @jakarta.annotation.Nullable String ethContractAddress) {
         this.ethContractAddress = ethContractAddress;
         return this;
     }
@@ -358,11 +386,12 @@ public class EmbeddedWalletAssetResponse {
 
     @JsonProperty(JSON_PROPERTY_ETH_CONTRACT_ADDRESS)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setEthContractAddress(String ethContractAddress) {
+    public void setEthContractAddress(@jakarta.annotation.Nullable String ethContractAddress) {
         this.ethContractAddress = ethContractAddress;
     }
 
-    public EmbeddedWalletAssetResponse issuerAddress(String issuerAddress) {
+    public EmbeddedWalletAssetResponse issuerAddress(
+            @jakarta.annotation.Nullable String issuerAddress) {
         this.issuerAddress = issuerAddress;
         return this;
     }
@@ -382,11 +411,12 @@ public class EmbeddedWalletAssetResponse {
 
     @JsonProperty(JSON_PROPERTY_ISSUER_ADDRESS)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setIssuerAddress(String issuerAddress) {
+    public void setIssuerAddress(@jakarta.annotation.Nullable String issuerAddress) {
         this.issuerAddress = issuerAddress;
     }
 
-    public EmbeddedWalletAssetResponse blockchainSymbol(String blockchainSymbol) {
+    public EmbeddedWalletAssetResponse blockchainSymbol(
+            @jakarta.annotation.Nullable String blockchainSymbol) {
         this.blockchainSymbol = blockchainSymbol;
         return this;
     }
@@ -405,11 +435,11 @@ public class EmbeddedWalletAssetResponse {
 
     @JsonProperty(JSON_PROPERTY_BLOCKCHAIN_SYMBOL)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setBlockchainSymbol(String blockchainSymbol) {
+    public void setBlockchainSymbol(@jakarta.annotation.Nullable String blockchainSymbol) {
         this.blockchainSymbol = blockchainSymbol;
     }
 
-    public EmbeddedWalletAssetResponse deprecated(Boolean deprecated) {
+    public EmbeddedWalletAssetResponse deprecated(@jakarta.annotation.Nullable Boolean deprecated) {
         this.deprecated = deprecated;
         return this;
     }
@@ -428,11 +458,11 @@ public class EmbeddedWalletAssetResponse {
 
     @JsonProperty(JSON_PROPERTY_DEPRECATED)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setDeprecated(Boolean deprecated) {
+    public void setDeprecated(@jakarta.annotation.Nullable Boolean deprecated) {
         this.deprecated = deprecated;
     }
 
-    public EmbeddedWalletAssetResponse coinType(BigDecimal coinType) {
+    public EmbeddedWalletAssetResponse coinType(@jakarta.annotation.Nonnull BigDecimal coinType) {
         this.coinType = coinType;
         return this;
     }
@@ -451,11 +481,11 @@ public class EmbeddedWalletAssetResponse {
 
     @JsonProperty(JSON_PROPERTY_COIN_TYPE)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setCoinType(BigDecimal coinType) {
+    public void setCoinType(@jakarta.annotation.Nonnull BigDecimal coinType) {
         this.coinType = coinType;
     }
 
-    public EmbeddedWalletAssetResponse blockchain(String blockchain) {
+    public EmbeddedWalletAssetResponse blockchain(@jakarta.annotation.Nonnull String blockchain) {
         this.blockchain = blockchain;
         return this;
     }
@@ -474,11 +504,12 @@ public class EmbeddedWalletAssetResponse {
 
     @JsonProperty(JSON_PROPERTY_BLOCKCHAIN)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setBlockchain(String blockchain) {
+    public void setBlockchain(@jakarta.annotation.Nonnull String blockchain) {
         this.blockchain = blockchain;
     }
 
-    public EmbeddedWalletAssetResponse blockchainDisplayName(String blockchainDisplayName) {
+    public EmbeddedWalletAssetResponse blockchainDisplayName(
+            @jakarta.annotation.Nullable String blockchainDisplayName) {
         this.blockchainDisplayName = blockchainDisplayName;
         return this;
     }
@@ -497,11 +528,13 @@ public class EmbeddedWalletAssetResponse {
 
     @JsonProperty(JSON_PROPERTY_BLOCKCHAIN_DISPLAY_NAME)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setBlockchainDisplayName(String blockchainDisplayName) {
+    public void setBlockchainDisplayName(
+            @jakarta.annotation.Nullable String blockchainDisplayName) {
         this.blockchainDisplayName = blockchainDisplayName;
     }
 
-    public EmbeddedWalletAssetResponse algorithm(AlgorithmEnum algorithm) {
+    public EmbeddedWalletAssetResponse algorithm(
+            @jakarta.annotation.Nullable AlgorithmEnum algorithm) {
         this.algorithm = algorithm;
         return this;
     }
@@ -520,7 +553,7 @@ public class EmbeddedWalletAssetResponse {
 
     @JsonProperty(JSON_PROPERTY_ALGORITHM)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAlgorithm(AlgorithmEnum algorithm) {
+    public void setAlgorithm(@jakarta.annotation.Nullable AlgorithmEnum algorithm) {
         this.algorithm = algorithm;
     }
 
@@ -656,10 +689,7 @@ public class EmbeddedWalletAssetResponse {
             joiner.add(
                     String.format(
                             "%sid%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(String.valueOf(getId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getId()))));
         }
 
         // add `symbol` to the URL query string
@@ -669,8 +699,7 @@ public class EmbeddedWalletAssetResponse {
                             "%ssymbol%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getSymbol()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getSymbol()))));
         }
 
         // add `name` to the URL query string
@@ -680,8 +709,7 @@ public class EmbeddedWalletAssetResponse {
                             "%sname%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getName()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getName()))));
         }
 
         // add `decimals` to the URL query string
@@ -691,8 +719,7 @@ public class EmbeddedWalletAssetResponse {
                             "%sdecimals%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getDecimals()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getDecimals()))));
         }
 
         // add `networkProtocol` to the URL query string
@@ -702,10 +729,7 @@ public class EmbeddedWalletAssetResponse {
                             "%snetworkProtocol%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getNetworkProtocol()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getNetworkProtocol()))));
         }
 
         // add `testnet` to the URL query string
@@ -715,8 +739,7 @@ public class EmbeddedWalletAssetResponse {
                             "%stestnet%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getTestnet()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getTestnet()))));
         }
 
         // add `hasFee` to the URL query string
@@ -726,8 +749,7 @@ public class EmbeddedWalletAssetResponse {
                             "%shasFee%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getHasFee()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getHasFee()))));
         }
 
         // add `baseAsset` to the URL query string
@@ -737,9 +759,7 @@ public class EmbeddedWalletAssetResponse {
                             "%sbaseAsset%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getBaseAsset()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getBaseAsset()))));
         }
 
         // add `ethNetwork` to the URL query string
@@ -749,9 +769,7 @@ public class EmbeddedWalletAssetResponse {
                             "%sethNetwork%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getEthNetwork()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getEthNetwork()))));
         }
 
         // add `ethContractAddress` to the URL query string
@@ -761,10 +779,7 @@ public class EmbeddedWalletAssetResponse {
                             "%sethContractAddress%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getEthContractAddress()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getEthContractAddress()))));
         }
 
         // add `issuerAddress` to the URL query string
@@ -774,10 +789,7 @@ public class EmbeddedWalletAssetResponse {
                             "%sissuerAddress%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getIssuerAddress()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getIssuerAddress()))));
         }
 
         // add `blockchainSymbol` to the URL query string
@@ -787,10 +799,7 @@ public class EmbeddedWalletAssetResponse {
                             "%sblockchainSymbol%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getBlockchainSymbol()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getBlockchainSymbol()))));
         }
 
         // add `deprecated` to the URL query string
@@ -800,9 +809,7 @@ public class EmbeddedWalletAssetResponse {
                             "%sdeprecated%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getDeprecated()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getDeprecated()))));
         }
 
         // add `coinType` to the URL query string
@@ -812,8 +819,7 @@ public class EmbeddedWalletAssetResponse {
                             "%scoinType%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getCoinType()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getCoinType()))));
         }
 
         // add `blockchain` to the URL query string
@@ -823,9 +829,7 @@ public class EmbeddedWalletAssetResponse {
                             "%sblockchain%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getBlockchain()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getBlockchain()))));
         }
 
         // add `blockchainDisplayName` to the URL query string
@@ -835,10 +839,8 @@ public class EmbeddedWalletAssetResponse {
                             "%sblockchainDisplayName%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getBlockchainDisplayName()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(
+                                    ApiClient.valueToString(getBlockchainDisplayName()))));
         }
 
         // add `algorithm` to the URL query string
@@ -848,9 +850,7 @@ public class EmbeddedWalletAssetResponse {
                             "%salgorithm%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getAlgorithm()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getAlgorithm()))));
         }
 
         return joiner.toString();

@@ -13,11 +13,11 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -26,17 +26,27 @@ import java.util.StringJoiner;
     TokenOwnershipSpamUpdatePayload.JSON_PROPERTY_ASSET_ID,
     TokenOwnershipSpamUpdatePayload.JSON_PROPERTY_SPAM
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class TokenOwnershipSpamUpdatePayload {
     public static final String JSON_PROPERTY_ASSET_ID = "assetId";
-    private String assetId;
+    @jakarta.annotation.Nonnull private String assetId;
 
     public static final String JSON_PROPERTY_SPAM = "spam";
-    private Boolean spam;
+    @jakarta.annotation.Nonnull private Boolean spam;
 
     public TokenOwnershipSpamUpdatePayload() {}
 
-    public TokenOwnershipSpamUpdatePayload assetId(String assetId) {
+    @JsonCreator
+    public TokenOwnershipSpamUpdatePayload(
+            @JsonProperty(value = JSON_PROPERTY_ASSET_ID, required = true) String assetId,
+            @JsonProperty(value = JSON_PROPERTY_SPAM, required = true) Boolean spam) {
+        this.assetId = assetId;
+        this.spam = spam;
+    }
+
+    public TokenOwnershipSpamUpdatePayload assetId(@jakarta.annotation.Nonnull String assetId) {
         this.assetId = assetId;
         return this;
     }
@@ -55,11 +65,11 @@ public class TokenOwnershipSpamUpdatePayload {
 
     @JsonProperty(JSON_PROPERTY_ASSET_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setAssetId(String assetId) {
+    public void setAssetId(@jakarta.annotation.Nonnull String assetId) {
         this.assetId = assetId;
     }
 
-    public TokenOwnershipSpamUpdatePayload spam(Boolean spam) {
+    public TokenOwnershipSpamUpdatePayload spam(@jakarta.annotation.Nonnull Boolean spam) {
         this.spam = spam;
         return this;
     }
@@ -78,7 +88,7 @@ public class TokenOwnershipSpamUpdatePayload {
 
     @JsonProperty(JSON_PROPERTY_SPAM)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setSpam(Boolean spam) {
+    public void setSpam(@jakarta.annotation.Nonnull Boolean spam) {
         this.spam = spam;
     }
 
@@ -162,8 +172,7 @@ public class TokenOwnershipSpamUpdatePayload {
                             "%sassetId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getAssetId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getAssetId()))));
         }
 
         // add `spam` to the URL query string
@@ -173,8 +182,7 @@ public class TokenOwnershipSpamUpdatePayload {
                             "%sspam%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getSpam()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getSpam()))));
         }
 
         return joiner.toString();

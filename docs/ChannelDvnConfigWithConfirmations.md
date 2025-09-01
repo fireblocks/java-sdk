@@ -7,8 +7,8 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**sendConfig** | [**ChannelDvnConfigWithConfirmationsSendConfig**](ChannelDvnConfigWithConfirmationsSendConfig.md) |  |  [optional] |
-|**receiveConfig** | [**ChannelDvnConfigWithConfirmationsReceiveConfig**](ChannelDvnConfigWithConfirmationsReceiveConfig.md) |  |  [optional] |
+|**sendConfig** | [**DvnConfigWithConfirmations**](DvnConfigWithConfirmations.md) | Outbound (source → peer) DVN config with confirmations. |  [optional] |
+|**receiveConfig** | [**DvnConfigWithConfirmations**](DvnConfigWithConfirmations.md) | Inbound (peer → source) DVN config with confirmations. |  [optional] |
 
 
 

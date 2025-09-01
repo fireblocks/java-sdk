@@ -13,51 +13,51 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for QuoteRequest */
-public class QuoteRequestTest {
+class QuoteRequestTest {
     private final QuoteRequest model = new QuoteRequest();
 
     /** Model tests for QuoteRequest */
     @Test
-    public void testQuoteRequest() {
+    void testQuoteRequest() {
         // TODO: test QuoteRequest
     }
 
     /** Test the property 'accountId' */
     @Test
-    public void accountIdTest() {
+    void accountIdTest() {
         // TODO: test accountId
     }
 
     /** Test the property 'inputAmount' */
     @Test
-    public void inputAmountTest() {
+    void inputAmountTest() {
         // TODO: test inputAmount
     }
 
     /** Test the property 'inputAsset' */
     @Test
-    public void inputAssetTest() {
+    void inputAssetTest() {
         // TODO: test inputAsset
     }
 
     /** Test the property 'outputAsset' */
     @Test
-    public void outputAssetTest() {
+    void outputAssetTest() {
         // TODO: test outputAsset
     }
 
     /** Test the property 'slippageTolerance' */
     @Test
-    public void slippageToleranceTest() {
+    void slippageToleranceTest() {
         // TODO: test slippageTolerance
     }
 
     /** Test the property 'protocol' */
     @Test
-    public void protocolTest() {
+    void protocolTest() {
         // TODO: test protocol
     }
 }

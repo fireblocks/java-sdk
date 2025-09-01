@@ -13,11 +13,11 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -32,31 +32,45 @@ import java.util.StringJoiner;
     CreateMultipleDepositAddressesRequest.JSON_PROPERTY_VAULT_ACCOUNT_TO_COPY_DESC_FROM,
     CreateMultipleDepositAddressesRequest.JSON_PROPERTY_VAULT_ACCOUNT_TO_COPY_DESC_FROM_INDEX
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class CreateMultipleDepositAddressesRequest {
     public static final String JSON_PROPERTY_VAULT_ACCOUNT_ID = "vaultAccountId";
-    private Integer vaultAccountId;
+    @jakarta.annotation.Nonnull private Integer vaultAccountId;
 
     public static final String JSON_PROPERTY_ASSET_ID = "assetId";
-    private String assetId;
+    @jakarta.annotation.Nonnull private String assetId;
 
     public static final String JSON_PROPERTY_COUNT = "count";
-    private Integer count;
+    @jakarta.annotation.Nonnull private Integer count;
 
     public static final String JSON_PROPERTY_DESCRIPTIONS = "descriptions";
-    private List<String> descriptions;
+    @jakarta.annotation.Nullable private List<String> descriptions = new ArrayList<>();
 
     public static final String JSON_PROPERTY_VAULT_ACCOUNT_TO_COPY_DESC_FROM =
             "vaultAccountToCopyDescFrom";
-    private Integer vaultAccountToCopyDescFrom;
+    @jakarta.annotation.Nullable private Integer vaultAccountToCopyDescFrom;
 
     public static final String JSON_PROPERTY_VAULT_ACCOUNT_TO_COPY_DESC_FROM_INDEX =
             "vaultAccountToCopyDescFromIndex";
-    private Integer vaultAccountToCopyDescFromIndex;
+    @jakarta.annotation.Nullable private Integer vaultAccountToCopyDescFromIndex;
 
     public CreateMultipleDepositAddressesRequest() {}
 
-    public CreateMultipleDepositAddressesRequest vaultAccountId(Integer vaultAccountId) {
+    @JsonCreator
+    public CreateMultipleDepositAddressesRequest(
+            @JsonProperty(value = JSON_PROPERTY_VAULT_ACCOUNT_ID, required = true)
+                    Integer vaultAccountId,
+            @JsonProperty(value = JSON_PROPERTY_ASSET_ID, required = true) String assetId,
+            @JsonProperty(value = JSON_PROPERTY_COUNT, required = true) Integer count) {
+        this.vaultAccountId = vaultAccountId;
+        this.assetId = assetId;
+        this.count = count;
+    }
+
+    public CreateMultipleDepositAddressesRequest vaultAccountId(
+            @jakarta.annotation.Nonnull Integer vaultAccountId) {
         this.vaultAccountId = vaultAccountId;
         return this;
     }
@@ -75,11 +89,12 @@ public class CreateMultipleDepositAddressesRequest {
 
     @JsonProperty(JSON_PROPERTY_VAULT_ACCOUNT_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setVaultAccountId(Integer vaultAccountId) {
+    public void setVaultAccountId(@jakarta.annotation.Nonnull Integer vaultAccountId) {
         this.vaultAccountId = vaultAccountId;
     }
 
-    public CreateMultipleDepositAddressesRequest assetId(String assetId) {
+    public CreateMultipleDepositAddressesRequest assetId(
+            @jakarta.annotation.Nonnull String assetId) {
         this.assetId = assetId;
         return this;
     }
@@ -98,11 +113,11 @@ public class CreateMultipleDepositAddressesRequest {
 
     @JsonProperty(JSON_PROPERTY_ASSET_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setAssetId(String assetId) {
+    public void setAssetId(@jakarta.annotation.Nonnull String assetId) {
         this.assetId = assetId;
     }
 
-    public CreateMultipleDepositAddressesRequest count(Integer count) {
+    public CreateMultipleDepositAddressesRequest count(@jakarta.annotation.Nonnull Integer count) {
         this.count = count;
         return this;
     }
@@ -121,11 +136,12 @@ public class CreateMultipleDepositAddressesRequest {
 
     @JsonProperty(JSON_PROPERTY_COUNT)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setCount(Integer count) {
+    public void setCount(@jakarta.annotation.Nonnull Integer count) {
         this.count = count;
     }
 
-    public CreateMultipleDepositAddressesRequest descriptions(List<String> descriptions) {
+    public CreateMultipleDepositAddressesRequest descriptions(
+            @jakarta.annotation.Nullable List<String> descriptions) {
         this.descriptions = descriptions;
         return this;
     }
@@ -152,12 +168,12 @@ public class CreateMultipleDepositAddressesRequest {
 
     @JsonProperty(JSON_PROPERTY_DESCRIPTIONS)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setDescriptions(List<String> descriptions) {
+    public void setDescriptions(@jakarta.annotation.Nullable List<String> descriptions) {
         this.descriptions = descriptions;
     }
 
     public CreateMultipleDepositAddressesRequest vaultAccountToCopyDescFrom(
-            Integer vaultAccountToCopyDescFrom) {
+            @jakarta.annotation.Nullable Integer vaultAccountToCopyDescFrom) {
         this.vaultAccountToCopyDescFrom = vaultAccountToCopyDescFrom;
         return this;
     }
@@ -177,12 +193,13 @@ public class CreateMultipleDepositAddressesRequest {
 
     @JsonProperty(JSON_PROPERTY_VAULT_ACCOUNT_TO_COPY_DESC_FROM)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setVaultAccountToCopyDescFrom(Integer vaultAccountToCopyDescFrom) {
+    public void setVaultAccountToCopyDescFrom(
+            @jakarta.annotation.Nullable Integer vaultAccountToCopyDescFrom) {
         this.vaultAccountToCopyDescFrom = vaultAccountToCopyDescFrom;
     }
 
     public CreateMultipleDepositAddressesRequest vaultAccountToCopyDescFromIndex(
-            Integer vaultAccountToCopyDescFromIndex) {
+            @jakarta.annotation.Nullable Integer vaultAccountToCopyDescFromIndex) {
         this.vaultAccountToCopyDescFromIndex = vaultAccountToCopyDescFromIndex;
         return this;
     }
@@ -201,7 +218,8 @@ public class CreateMultipleDepositAddressesRequest {
 
     @JsonProperty(JSON_PROPERTY_VAULT_ACCOUNT_TO_COPY_DESC_FROM_INDEX)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setVaultAccountToCopyDescFromIndex(Integer vaultAccountToCopyDescFromIndex) {
+    public void setVaultAccountToCopyDescFromIndex(
+            @jakarta.annotation.Nullable Integer vaultAccountToCopyDescFromIndex) {
         this.vaultAccountToCopyDescFromIndex = vaultAccountToCopyDescFromIndex;
     }
 
@@ -309,10 +327,7 @@ public class CreateMultipleDepositAddressesRequest {
                             "%svaultAccountId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getVaultAccountId()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getVaultAccountId()))));
         }
 
         // add `assetId` to the URL query string
@@ -322,8 +337,7 @@ public class CreateMultipleDepositAddressesRequest {
                             "%sassetId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getAssetId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getAssetId()))));
         }
 
         // add `count` to the URL query string
@@ -333,8 +347,7 @@ public class CreateMultipleDepositAddressesRequest {
                             "%scount%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getCount()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getCount()))));
         }
 
         // add `descriptions` to the URL query string
@@ -349,10 +362,8 @@ public class CreateMultipleDepositAddressesRequest {
                                         ? ""
                                         : String.format(
                                                 "%s%d%s", containerPrefix, i, containerSuffix),
-                                URLEncoder.encode(
-                                                String.valueOf(getDescriptions().get(i)),
-                                                StandardCharsets.UTF_8)
-                                        .replaceAll("\\+", "%20")));
+                                ApiClient.urlEncode(
+                                        ApiClient.valueToString(getDescriptions().get(i)))));
             }
         }
 
@@ -363,10 +374,8 @@ public class CreateMultipleDepositAddressesRequest {
                             "%svaultAccountToCopyDescFrom%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getVaultAccountToCopyDescFrom()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(
+                                    ApiClient.valueToString(getVaultAccountToCopyDescFrom()))));
         }
 
         // add `vaultAccountToCopyDescFromIndex` to the URL query string
@@ -376,10 +385,9 @@ public class CreateMultipleDepositAddressesRequest {
                             "%svaultAccountToCopyDescFromIndex%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getVaultAccountToCopyDescFromIndex()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(
+                                    ApiClient.valueToString(
+                                            getVaultAccountToCopyDescFromIndex()))));
         }
 
         return joiner.toString();

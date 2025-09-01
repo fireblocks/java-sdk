@@ -13,11 +13,11 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -27,20 +27,34 @@ import java.util.StringJoiner;
     DisbursementPercentageInstruction.JSON_PROPERTY_ASSET_ID,
     DisbursementPercentageInstruction.JSON_PROPERTY_PERCENTAGE
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class DisbursementPercentageInstruction {
     public static final String JSON_PROPERTY_PAYEE_ACCOUNT = "payeeAccount";
-    private Destination payeeAccount;
+    @jakarta.annotation.Nonnull private Destination payeeAccount;
 
     public static final String JSON_PROPERTY_ASSET_ID = "assetId";
-    private String assetId;
+    @jakarta.annotation.Nonnull private String assetId;
 
     public static final String JSON_PROPERTY_PERCENTAGE = "percentage";
-    private String percentage;
+    @jakarta.annotation.Nonnull private String percentage;
 
     public DisbursementPercentageInstruction() {}
 
-    public DisbursementPercentageInstruction payeeAccount(Destination payeeAccount) {
+    @JsonCreator
+    public DisbursementPercentageInstruction(
+            @JsonProperty(value = JSON_PROPERTY_PAYEE_ACCOUNT, required = true)
+                    Destination payeeAccount,
+            @JsonProperty(value = JSON_PROPERTY_ASSET_ID, required = true) String assetId,
+            @JsonProperty(value = JSON_PROPERTY_PERCENTAGE, required = true) String percentage) {
+        this.payeeAccount = payeeAccount;
+        this.assetId = assetId;
+        this.percentage = percentage;
+    }
+
+    public DisbursementPercentageInstruction payeeAccount(
+            @jakarta.annotation.Nonnull Destination payeeAccount) {
         this.payeeAccount = payeeAccount;
         return this;
     }
@@ -59,11 +73,11 @@ public class DisbursementPercentageInstruction {
 
     @JsonProperty(JSON_PROPERTY_PAYEE_ACCOUNT)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setPayeeAccount(Destination payeeAccount) {
+    public void setPayeeAccount(@jakarta.annotation.Nonnull Destination payeeAccount) {
         this.payeeAccount = payeeAccount;
     }
 
-    public DisbursementPercentageInstruction assetId(String assetId) {
+    public DisbursementPercentageInstruction assetId(@jakarta.annotation.Nonnull String assetId) {
         this.assetId = assetId;
         return this;
     }
@@ -82,11 +96,12 @@ public class DisbursementPercentageInstruction {
 
     @JsonProperty(JSON_PROPERTY_ASSET_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setAssetId(String assetId) {
+    public void setAssetId(@jakarta.annotation.Nonnull String assetId) {
         this.assetId = assetId;
     }
 
-    public DisbursementPercentageInstruction percentage(String percentage) {
+    public DisbursementPercentageInstruction percentage(
+            @jakarta.annotation.Nonnull String percentage) {
         this.percentage = percentage;
         return this;
     }
@@ -105,7 +120,7 @@ public class DisbursementPercentageInstruction {
 
     @JsonProperty(JSON_PROPERTY_PERCENTAGE)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setPercentage(String percentage) {
+    public void setPercentage(@jakarta.annotation.Nonnull String percentage) {
         this.percentage = percentage;
     }
 
@@ -196,8 +211,7 @@ public class DisbursementPercentageInstruction {
                             "%sassetId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getAssetId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getAssetId()))));
         }
 
         // add `percentage` to the URL query string
@@ -207,9 +221,7 @@ public class DisbursementPercentageInstruction {
                             "%spercentage%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getPercentage()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getPercentage()))));
         }
 
         return joiner.toString();

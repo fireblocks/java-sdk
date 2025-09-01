@@ -13,11 +13,11 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -27,20 +27,33 @@ import java.util.StringJoiner;
     StellarRippleCreateParamsDto.JSON_PROPERTY_NAME,
     StellarRippleCreateParamsDto.JSON_PROPERTY_ISSUER_ADDRESS
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class StellarRippleCreateParamsDto {
     public static final String JSON_PROPERTY_SYMBOL = "symbol";
-    private String symbol;
+    @jakarta.annotation.Nonnull private String symbol;
 
     public static final String JSON_PROPERTY_NAME = "name";
-    private String name;
+    @jakarta.annotation.Nonnull private String name;
 
     public static final String JSON_PROPERTY_ISSUER_ADDRESS = "issuerAddress";
-    private String issuerAddress;
+    @jakarta.annotation.Nonnull private String issuerAddress;
 
     public StellarRippleCreateParamsDto() {}
 
-    public StellarRippleCreateParamsDto symbol(String symbol) {
+    @JsonCreator
+    public StellarRippleCreateParamsDto(
+            @JsonProperty(value = JSON_PROPERTY_SYMBOL, required = true) String symbol,
+            @JsonProperty(value = JSON_PROPERTY_NAME, required = true) String name,
+            @JsonProperty(value = JSON_PROPERTY_ISSUER_ADDRESS, required = true)
+                    String issuerAddress) {
+        this.symbol = symbol;
+        this.name = name;
+        this.issuerAddress = issuerAddress;
+    }
+
+    public StellarRippleCreateParamsDto symbol(@jakarta.annotation.Nonnull String symbol) {
         this.symbol = symbol;
         return this;
     }
@@ -59,11 +72,11 @@ public class StellarRippleCreateParamsDto {
 
     @JsonProperty(JSON_PROPERTY_SYMBOL)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setSymbol(String symbol) {
+    public void setSymbol(@jakarta.annotation.Nonnull String symbol) {
         this.symbol = symbol;
     }
 
-    public StellarRippleCreateParamsDto name(String name) {
+    public StellarRippleCreateParamsDto name(@jakarta.annotation.Nonnull String name) {
         this.name = name;
         return this;
     }
@@ -82,11 +95,12 @@ public class StellarRippleCreateParamsDto {
 
     @JsonProperty(JSON_PROPERTY_NAME)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setName(String name) {
+    public void setName(@jakarta.annotation.Nonnull String name) {
         this.name = name;
     }
 
-    public StellarRippleCreateParamsDto issuerAddress(String issuerAddress) {
+    public StellarRippleCreateParamsDto issuerAddress(
+            @jakarta.annotation.Nonnull String issuerAddress) {
         this.issuerAddress = issuerAddress;
         return this;
     }
@@ -106,7 +120,7 @@ public class StellarRippleCreateParamsDto {
 
     @JsonProperty(JSON_PROPERTY_ISSUER_ADDRESS)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setIssuerAddress(String issuerAddress) {
+    public void setIssuerAddress(@jakarta.annotation.Nonnull String issuerAddress) {
         this.issuerAddress = issuerAddress;
     }
 
@@ -192,8 +206,7 @@ public class StellarRippleCreateParamsDto {
                             "%ssymbol%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getSymbol()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getSymbol()))));
         }
 
         // add `name` to the URL query string
@@ -203,8 +216,7 @@ public class StellarRippleCreateParamsDto {
                             "%sname%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getName()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getName()))));
         }
 
         // add `issuerAddress` to the URL query string
@@ -214,10 +226,7 @@ public class StellarRippleCreateParamsDto {
                             "%sissuerAddress%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getIssuerAddress()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getIssuerAddress()))));
         }
 
         return joiner.toString();

@@ -16,9 +16,8 @@ package com.fireblocks.sdk.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fireblocks.sdk.ApiClient;
 import java.math.BigDecimal;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -33,35 +32,37 @@ import java.util.StringJoiner;
     AuditLogData.JSON_PROPERTY_TENANT_ID,
     AuditLogData.JSON_PROPERTY_USER_ID
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class AuditLogData {
     public static final String JSON_PROPERTY_ID = "id";
-    private String id;
+    @jakarta.annotation.Nullable private String id;
 
     public static final String JSON_PROPERTY_TIMESTAMP = "timestamp";
-    private BigDecimal timestamp;
+    @jakarta.annotation.Nullable private BigDecimal timestamp;
 
     public static final String JSON_PROPERTY_CREATED_AT = "createdAt";
-    private BigDecimal createdAt;
+    @jakarta.annotation.Nullable private BigDecimal createdAt;
 
     public static final String JSON_PROPERTY_USER = "user";
-    private String user;
+    @jakarta.annotation.Nullable private String user;
 
     public static final String JSON_PROPERTY_SUBJECT = "subject";
-    private String subject;
+    @jakarta.annotation.Nullable private String subject;
 
     public static final String JSON_PROPERTY_EVENT = "event";
-    private String event;
+    @jakarta.annotation.Nullable private String event;
 
     public static final String JSON_PROPERTY_TENANT_ID = "tenantId";
-    private String tenantId;
+    @jakarta.annotation.Nullable private String tenantId;
 
     public static final String JSON_PROPERTY_USER_ID = "userId";
-    private String userId;
+    @jakarta.annotation.Nullable private String userId;
 
     public AuditLogData() {}
 
-    public AuditLogData id(String id) {
+    public AuditLogData id(@jakarta.annotation.Nullable String id) {
         this.id = id;
         return this;
     }
@@ -80,11 +81,11 @@ public class AuditLogData {
 
     @JsonProperty(JSON_PROPERTY_ID)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setId(String id) {
+    public void setId(@jakarta.annotation.Nullable String id) {
         this.id = id;
     }
 
-    public AuditLogData timestamp(BigDecimal timestamp) {
+    public AuditLogData timestamp(@jakarta.annotation.Nullable BigDecimal timestamp) {
         this.timestamp = timestamp;
         return this;
     }
@@ -103,11 +104,11 @@ public class AuditLogData {
 
     @JsonProperty(JSON_PROPERTY_TIMESTAMP)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setTimestamp(BigDecimal timestamp) {
+    public void setTimestamp(@jakarta.annotation.Nullable BigDecimal timestamp) {
         this.timestamp = timestamp;
     }
 
-    public AuditLogData createdAt(BigDecimal createdAt) {
+    public AuditLogData createdAt(@jakarta.annotation.Nullable BigDecimal createdAt) {
         this.createdAt = createdAt;
         return this;
     }
@@ -126,11 +127,11 @@ public class AuditLogData {
 
     @JsonProperty(JSON_PROPERTY_CREATED_AT)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setCreatedAt(BigDecimal createdAt) {
+    public void setCreatedAt(@jakarta.annotation.Nullable BigDecimal createdAt) {
         this.createdAt = createdAt;
     }
 
-    public AuditLogData user(String user) {
+    public AuditLogData user(@jakarta.annotation.Nullable String user) {
         this.user = user;
         return this;
     }
@@ -149,11 +150,11 @@ public class AuditLogData {
 
     @JsonProperty(JSON_PROPERTY_USER)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setUser(String user) {
+    public void setUser(@jakarta.annotation.Nullable String user) {
         this.user = user;
     }
 
-    public AuditLogData subject(String subject) {
+    public AuditLogData subject(@jakarta.annotation.Nullable String subject) {
         this.subject = subject;
         return this;
     }
@@ -172,11 +173,11 @@ public class AuditLogData {
 
     @JsonProperty(JSON_PROPERTY_SUBJECT)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setSubject(String subject) {
+    public void setSubject(@jakarta.annotation.Nullable String subject) {
         this.subject = subject;
     }
 
-    public AuditLogData event(String event) {
+    public AuditLogData event(@jakarta.annotation.Nullable String event) {
         this.event = event;
         return this;
     }
@@ -195,11 +196,11 @@ public class AuditLogData {
 
     @JsonProperty(JSON_PROPERTY_EVENT)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setEvent(String event) {
+    public void setEvent(@jakarta.annotation.Nullable String event) {
         this.event = event;
     }
 
-    public AuditLogData tenantId(String tenantId) {
+    public AuditLogData tenantId(@jakarta.annotation.Nullable String tenantId) {
         this.tenantId = tenantId;
         return this;
     }
@@ -218,11 +219,11 @@ public class AuditLogData {
 
     @JsonProperty(JSON_PROPERTY_TENANT_ID)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setTenantId(String tenantId) {
+    public void setTenantId(@jakarta.annotation.Nullable String tenantId) {
         this.tenantId = tenantId;
     }
 
-    public AuditLogData userId(String userId) {
+    public AuditLogData userId(@jakarta.annotation.Nullable String userId) {
         this.userId = userId;
         return this;
     }
@@ -241,7 +242,7 @@ public class AuditLogData {
 
     @JsonProperty(JSON_PROPERTY_USER_ID)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setUserId(String userId) {
+    public void setUserId(@jakarta.annotation.Nullable String userId) {
         this.userId = userId;
     }
 
@@ -334,10 +335,7 @@ public class AuditLogData {
             joiner.add(
                     String.format(
                             "%sid%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(String.valueOf(getId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getId()))));
         }
 
         // add `timestamp` to the URL query string
@@ -347,9 +345,7 @@ public class AuditLogData {
                             "%stimestamp%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getTimestamp()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getTimestamp()))));
         }
 
         // add `createdAt` to the URL query string
@@ -359,9 +355,7 @@ public class AuditLogData {
                             "%screatedAt%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getCreatedAt()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getCreatedAt()))));
         }
 
         // add `user` to the URL query string
@@ -371,8 +365,7 @@ public class AuditLogData {
                             "%suser%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getUser()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getUser()))));
         }
 
         // add `subject` to the URL query string
@@ -382,8 +375,7 @@ public class AuditLogData {
                             "%ssubject%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getSubject()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getSubject()))));
         }
 
         // add `event` to the URL query string
@@ -393,8 +385,7 @@ public class AuditLogData {
                             "%sevent%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getEvent()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getEvent()))));
         }
 
         // add `tenantId` to the URL query string
@@ -404,8 +395,7 @@ public class AuditLogData {
                             "%stenantId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getTenantId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getTenantId()))));
         }
 
         // add `userId` to the URL query string
@@ -415,8 +405,7 @@ public class AuditLogData {
                             "%suserId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getUserId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getUserId()))));
         }
 
         return joiner.toString();

@@ -13,34 +13,34 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for ConversionOperationExecutionOutput */
-public class ConversionOperationExecutionOutputTest {
+class ConversionOperationExecutionOutputTest {
     private final ConversionOperationExecutionOutput model =
             new ConversionOperationExecutionOutput();
 
     /** Model tests for ConversionOperationExecutionOutput */
     @Test
-    public void testConversionOperationExecutionOutput() {
+    void testConversionOperationExecutionOutput() {
         // TODO: test ConversionOperationExecutionOutput
     }
 
     /** Test the property 'amount' */
     @Test
-    public void amountTest() {
+    void amountTest() {
         // TODO: test amount
     }
 
     /** Test the property 'fee' */
     @Test
-    public void feeTest() {
+    void feeTest() {
         // TODO: test fee
     }
 
     /** Test the property 'conversionRate' */
     @Test
-    public void conversionRateTest() {
+    void conversionRateTest() {
         // TODO: test conversionRate
     }
 }

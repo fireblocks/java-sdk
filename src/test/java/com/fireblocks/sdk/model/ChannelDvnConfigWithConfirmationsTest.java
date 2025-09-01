@@ -13,27 +13,27 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for ChannelDvnConfigWithConfirmations */
-public class ChannelDvnConfigWithConfirmationsTest {
+class ChannelDvnConfigWithConfirmationsTest {
     private final ChannelDvnConfigWithConfirmations model = new ChannelDvnConfigWithConfirmations();
 
     /** Model tests for ChannelDvnConfigWithConfirmations */
     @Test
-    public void testChannelDvnConfigWithConfirmations() {
+    void testChannelDvnConfigWithConfirmations() {
         // TODO: test ChannelDvnConfigWithConfirmations
     }
 
     /** Test the property 'sendConfig' */
     @Test
-    public void sendConfigTest() {
+    void sendConfigTest() {
         // TODO: test sendConfig
     }
 
     /** Test the property 'receiveConfig' */
     @Test
-    public void receiveConfigTest() {
+    void receiveConfigTest() {
         // TODO: test receiveConfig
     }
 }

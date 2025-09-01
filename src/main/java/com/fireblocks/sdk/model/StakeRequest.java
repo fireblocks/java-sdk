@@ -13,11 +13,11 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -30,29 +30,43 @@ import java.util.StringJoiner;
     StakeRequest.JSON_PROPERTY_FEE,
     StakeRequest.JSON_PROPERTY_FEE_LEVEL
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class StakeRequest {
     public static final String JSON_PROPERTY_VAULT_ACCOUNT_ID = "vaultAccountId";
-    private String vaultAccountId;
+    @jakarta.annotation.Nonnull private String vaultAccountId;
 
     public static final String JSON_PROPERTY_PROVIDER_ID = "providerId";
-    private StakingProvider providerId;
+    @jakarta.annotation.Nonnull private StakingProvider providerId;
 
     public static final String JSON_PROPERTY_STAKE_AMOUNT = "stakeAmount";
-    private String stakeAmount;
+    @jakarta.annotation.Nonnull private String stakeAmount;
 
     public static final String JSON_PROPERTY_TX_NOTE = "txNote";
-    private String txNote;
+    @jakarta.annotation.Nullable private String txNote;
 
     public static final String JSON_PROPERTY_FEE = "fee";
-    private String fee;
+    @jakarta.annotation.Nullable private String fee;
 
     public static final String JSON_PROPERTY_FEE_LEVEL = "feeLevel";
-    private FeeLevel feeLevel;
+    @jakarta.annotation.Nullable private FeeLevel feeLevel;
 
     public StakeRequest() {}
 
-    public StakeRequest vaultAccountId(String vaultAccountId) {
+    @JsonCreator
+    public StakeRequest(
+            @JsonProperty(value = JSON_PROPERTY_VAULT_ACCOUNT_ID, required = true)
+                    String vaultAccountId,
+            @JsonProperty(value = JSON_PROPERTY_PROVIDER_ID, required = true)
+                    StakingProvider providerId,
+            @JsonProperty(value = JSON_PROPERTY_STAKE_AMOUNT, required = true) String stakeAmount) {
+        this.vaultAccountId = vaultAccountId;
+        this.providerId = providerId;
+        this.stakeAmount = stakeAmount;
+    }
+
+    public StakeRequest vaultAccountId(@jakarta.annotation.Nonnull String vaultAccountId) {
         this.vaultAccountId = vaultAccountId;
         return this;
     }
@@ -71,11 +85,11 @@ public class StakeRequest {
 
     @JsonProperty(JSON_PROPERTY_VAULT_ACCOUNT_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setVaultAccountId(String vaultAccountId) {
+    public void setVaultAccountId(@jakarta.annotation.Nonnull String vaultAccountId) {
         this.vaultAccountId = vaultAccountId;
     }
 
-    public StakeRequest providerId(StakingProvider providerId) {
+    public StakeRequest providerId(@jakarta.annotation.Nonnull StakingProvider providerId) {
         this.providerId = providerId;
         return this;
     }
@@ -94,11 +108,11 @@ public class StakeRequest {
 
     @JsonProperty(JSON_PROPERTY_PROVIDER_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setProviderId(StakingProvider providerId) {
+    public void setProviderId(@jakarta.annotation.Nonnull StakingProvider providerId) {
         this.providerId = providerId;
     }
 
-    public StakeRequest stakeAmount(String stakeAmount) {
+    public StakeRequest stakeAmount(@jakarta.annotation.Nonnull String stakeAmount) {
         this.stakeAmount = stakeAmount;
         return this;
     }
@@ -117,11 +131,11 @@ public class StakeRequest {
 
     @JsonProperty(JSON_PROPERTY_STAKE_AMOUNT)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setStakeAmount(String stakeAmount) {
+    public void setStakeAmount(@jakarta.annotation.Nonnull String stakeAmount) {
         this.stakeAmount = stakeAmount;
     }
 
-    public StakeRequest txNote(String txNote) {
+    public StakeRequest txNote(@jakarta.annotation.Nullable String txNote) {
         this.txNote = txNote;
         return this;
     }
@@ -140,11 +154,11 @@ public class StakeRequest {
 
     @JsonProperty(JSON_PROPERTY_TX_NOTE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setTxNote(String txNote) {
+    public void setTxNote(@jakarta.annotation.Nullable String txNote) {
         this.txNote = txNote;
     }
 
-    public StakeRequest fee(String fee) {
+    public StakeRequest fee(@jakarta.annotation.Nullable String fee) {
         this.fee = fee;
         return this;
     }
@@ -164,11 +178,11 @@ public class StakeRequest {
 
     @JsonProperty(JSON_PROPERTY_FEE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setFee(String fee) {
+    public void setFee(@jakarta.annotation.Nullable String fee) {
         this.fee = fee;
     }
 
-    public StakeRequest feeLevel(FeeLevel feeLevel) {
+    public StakeRequest feeLevel(@jakarta.annotation.Nullable FeeLevel feeLevel) {
         this.feeLevel = feeLevel;
         return this;
     }
@@ -187,7 +201,7 @@ public class StakeRequest {
 
     @JsonProperty(JSON_PROPERTY_FEE_LEVEL)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setFeeLevel(FeeLevel feeLevel) {
+    public void setFeeLevel(@jakarta.annotation.Nullable FeeLevel feeLevel) {
         this.feeLevel = feeLevel;
     }
 
@@ -278,10 +292,7 @@ public class StakeRequest {
                             "%svaultAccountId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getVaultAccountId()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getVaultAccountId()))));
         }
 
         // add `providerId` to the URL query string
@@ -291,9 +302,7 @@ public class StakeRequest {
                             "%sproviderId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getProviderId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getProviderId()))));
         }
 
         // add `stakeAmount` to the URL query string
@@ -303,10 +312,7 @@ public class StakeRequest {
                             "%sstakeAmount%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getStakeAmount()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getStakeAmount()))));
         }
 
         // add `txNote` to the URL query string
@@ -316,8 +322,7 @@ public class StakeRequest {
                             "%stxNote%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getTxNote()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getTxNote()))));
         }
 
         // add `fee` to the URL query string
@@ -327,8 +332,7 @@ public class StakeRequest {
                             "%sfee%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getFee()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getFee()))));
         }
 
         // add `feeLevel` to the URL query string
@@ -338,8 +342,7 @@ public class StakeRequest {
                             "%sfeeLevel%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getFeeLevel()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getFeeLevel()))));
         }
 
         return joiner.toString();

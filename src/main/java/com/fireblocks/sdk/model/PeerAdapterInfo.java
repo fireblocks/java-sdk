@@ -13,11 +13,11 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 import java.util.UUID;
@@ -28,20 +28,35 @@ import java.util.UUID;
     PeerAdapterInfo.JSON_PROPERTY_ADAPTER_ADDRESS,
     PeerAdapterInfo.JSON_PROPERTY_BASE_ASSET_ID
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class PeerAdapterInfo {
     public static final String JSON_PROPERTY_ADAPTER_TOKEN_LINK_ID = "adapterTokenLinkId";
-    private UUID adapterTokenLinkId;
+    @jakarta.annotation.Nonnull private UUID adapterTokenLinkId;
 
     public static final String JSON_PROPERTY_ADAPTER_ADDRESS = "adapterAddress";
-    private String adapterAddress;
+    @jakarta.annotation.Nonnull private String adapterAddress;
 
     public static final String JSON_PROPERTY_BASE_ASSET_ID = "baseAssetId";
-    private String baseAssetId;
+    @jakarta.annotation.Nonnull private String baseAssetId;
 
     public PeerAdapterInfo() {}
 
-    public PeerAdapterInfo adapterTokenLinkId(UUID adapterTokenLinkId) {
+    @JsonCreator
+    public PeerAdapterInfo(
+            @JsonProperty(value = JSON_PROPERTY_ADAPTER_TOKEN_LINK_ID, required = true)
+                    UUID adapterTokenLinkId,
+            @JsonProperty(value = JSON_PROPERTY_ADAPTER_ADDRESS, required = true)
+                    String adapterAddress,
+            @JsonProperty(value = JSON_PROPERTY_BASE_ASSET_ID, required = true)
+                    String baseAssetId) {
+        this.adapterTokenLinkId = adapterTokenLinkId;
+        this.adapterAddress = adapterAddress;
+        this.baseAssetId = baseAssetId;
+    }
+
+    public PeerAdapterInfo adapterTokenLinkId(@jakarta.annotation.Nonnull UUID adapterTokenLinkId) {
         this.adapterTokenLinkId = adapterTokenLinkId;
         return this;
     }
@@ -60,11 +75,11 @@ public class PeerAdapterInfo {
 
     @JsonProperty(JSON_PROPERTY_ADAPTER_TOKEN_LINK_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setAdapterTokenLinkId(UUID adapterTokenLinkId) {
+    public void setAdapterTokenLinkId(@jakarta.annotation.Nonnull UUID adapterTokenLinkId) {
         this.adapterTokenLinkId = adapterTokenLinkId;
     }
 
-    public PeerAdapterInfo adapterAddress(String adapterAddress) {
+    public PeerAdapterInfo adapterAddress(@jakarta.annotation.Nonnull String adapterAddress) {
         this.adapterAddress = adapterAddress;
         return this;
     }
@@ -83,11 +98,11 @@ public class PeerAdapterInfo {
 
     @JsonProperty(JSON_PROPERTY_ADAPTER_ADDRESS)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setAdapterAddress(String adapterAddress) {
+    public void setAdapterAddress(@jakarta.annotation.Nonnull String adapterAddress) {
         this.adapterAddress = adapterAddress;
     }
 
-    public PeerAdapterInfo baseAssetId(String baseAssetId) {
+    public PeerAdapterInfo baseAssetId(@jakarta.annotation.Nonnull String baseAssetId) {
         this.baseAssetId = baseAssetId;
         return this;
     }
@@ -106,7 +121,7 @@ public class PeerAdapterInfo {
 
     @JsonProperty(JSON_PROPERTY_BASE_ASSET_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setBaseAssetId(String baseAssetId) {
+    public void setBaseAssetId(@jakarta.annotation.Nonnull String baseAssetId) {
         this.baseAssetId = baseAssetId;
     }
 
@@ -193,10 +208,7 @@ public class PeerAdapterInfo {
                             "%sadapterTokenLinkId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getAdapterTokenLinkId()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getAdapterTokenLinkId()))));
         }
 
         // add `adapterAddress` to the URL query string
@@ -206,10 +218,7 @@ public class PeerAdapterInfo {
                             "%sadapterAddress%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getAdapterAddress()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getAdapterAddress()))));
         }
 
         // add `baseAssetId` to the URL query string
@@ -219,10 +228,7 @@ public class PeerAdapterInfo {
                             "%sbaseAssetId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getBaseAssetId()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getBaseAssetId()))));
         }
 
         return joiner.toString();

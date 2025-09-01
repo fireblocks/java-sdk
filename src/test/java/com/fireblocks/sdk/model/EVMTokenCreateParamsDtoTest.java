@@ -13,27 +13,27 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for EVMTokenCreateParamsDto */
-public class EVMTokenCreateParamsDtoTest {
+class EVMTokenCreateParamsDtoTest {
     private final EVMTokenCreateParamsDto model = new EVMTokenCreateParamsDto();
 
     /** Model tests for EVMTokenCreateParamsDto */
     @Test
-    public void testEVMTokenCreateParamsDto() {
+    void testEVMTokenCreateParamsDto() {
         // TODO: test EVMTokenCreateParamsDto
     }
 
     /** Test the property 'contractId' */
     @Test
-    public void contractIdTest() {
+    void contractIdTest() {
         // TODO: test contractId
     }
 
     /** Test the property 'deployFunctionParams' */
     @Test
-    public void deployFunctionParamsTest() {
+    void deployFunctionParamsTest() {
         // TODO: test deployFunctionParams
     }
 }

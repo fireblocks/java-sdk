@@ -16,8 +16,7 @@ package com.fireblocks.sdk.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -33,32 +32,39 @@ import java.util.StringJoiner;
     TravelRuleNaturalPerson.JSON_PROPERTY_COUNTRY_OF_RESIDENCE,
     TravelRuleNaturalPerson.JSON_PROPERTY_CUSTOMER_NUMBER
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class TravelRuleNaturalPerson {
     public static final String JSON_PROPERTY_NAME = "name";
-    private List<TravelRuleNaturalPersonNameIdentifier> name;
+
+    @jakarta.annotation.Nullable
+    private List<TravelRuleNaturalPersonNameIdentifier> name = new ArrayList<>();
 
     public static final String JSON_PROPERTY_GEOGRAPHIC_ADDRESS = "geographicAddress";
-    private List<TravelRuleGeographicAddress> geographicAddress;
+
+    @jakarta.annotation.Nullable
+    private List<TravelRuleGeographicAddress> geographicAddress = new ArrayList<>();
 
     public static final String JSON_PROPERTY_NATIONAL_IDENTIFICATION = "nationalIdentification";
-    private TravelRuleNationalIdentification nationalIdentification;
+    @jakarta.annotation.Nullable private TravelRuleNationalIdentification nationalIdentification;
 
     public static final String JSON_PROPERTY_DATE_AND_PLACE_OF_BIRTH = "dateAndPlaceOfBirth";
-    private TravelRuleDateAndPlaceOfBirth dateAndPlaceOfBirth;
+    @jakarta.annotation.Nullable private TravelRuleDateAndPlaceOfBirth dateAndPlaceOfBirth;
 
     public static final String JSON_PROPERTY_CUSTOMER_IDENTIFICATION = "customerIdentification";
-    private String customerIdentification;
+    @jakarta.annotation.Nullable private String customerIdentification;
 
     public static final String JSON_PROPERTY_COUNTRY_OF_RESIDENCE = "countryOfResidence";
-    private String countryOfResidence;
+    @jakarta.annotation.Nullable private String countryOfResidence;
 
     public static final String JSON_PROPERTY_CUSTOMER_NUMBER = "customerNumber";
-    private String customerNumber;
+    @jakarta.annotation.Nullable private String customerNumber;
 
     public TravelRuleNaturalPerson() {}
 
-    public TravelRuleNaturalPerson name(List<TravelRuleNaturalPersonNameIdentifier> name) {
+    public TravelRuleNaturalPerson name(
+            @jakarta.annotation.Nullable List<TravelRuleNaturalPersonNameIdentifier> name) {
         this.name = name;
         return this;
     }
@@ -86,12 +92,13 @@ public class TravelRuleNaturalPerson {
 
     @JsonProperty(JSON_PROPERTY_NAME)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setName(List<TravelRuleNaturalPersonNameIdentifier> name) {
+    public void setName(
+            @jakarta.annotation.Nullable List<TravelRuleNaturalPersonNameIdentifier> name) {
         this.name = name;
     }
 
     public TravelRuleNaturalPerson geographicAddress(
-            List<TravelRuleGeographicAddress> geographicAddress) {
+            @jakarta.annotation.Nullable List<TravelRuleGeographicAddress> geographicAddress) {
         this.geographicAddress = geographicAddress;
         return this;
     }
@@ -120,12 +127,13 @@ public class TravelRuleNaturalPerson {
 
     @JsonProperty(JSON_PROPERTY_GEOGRAPHIC_ADDRESS)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setGeographicAddress(List<TravelRuleGeographicAddress> geographicAddress) {
+    public void setGeographicAddress(
+            @jakarta.annotation.Nullable List<TravelRuleGeographicAddress> geographicAddress) {
         this.geographicAddress = geographicAddress;
     }
 
     public TravelRuleNaturalPerson nationalIdentification(
-            TravelRuleNationalIdentification nationalIdentification) {
+            @jakarta.annotation.Nullable TravelRuleNationalIdentification nationalIdentification) {
         this.nationalIdentification = nationalIdentification;
         return this;
     }
@@ -144,12 +152,13 @@ public class TravelRuleNaturalPerson {
 
     @JsonProperty(JSON_PROPERTY_NATIONAL_IDENTIFICATION)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setNationalIdentification(TravelRuleNationalIdentification nationalIdentification) {
+    public void setNationalIdentification(
+            @jakarta.annotation.Nullable TravelRuleNationalIdentification nationalIdentification) {
         this.nationalIdentification = nationalIdentification;
     }
 
     public TravelRuleNaturalPerson dateAndPlaceOfBirth(
-            TravelRuleDateAndPlaceOfBirth dateAndPlaceOfBirth) {
+            @jakarta.annotation.Nullable TravelRuleDateAndPlaceOfBirth dateAndPlaceOfBirth) {
         this.dateAndPlaceOfBirth = dateAndPlaceOfBirth;
         return this;
     }
@@ -168,11 +177,13 @@ public class TravelRuleNaturalPerson {
 
     @JsonProperty(JSON_PROPERTY_DATE_AND_PLACE_OF_BIRTH)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setDateAndPlaceOfBirth(TravelRuleDateAndPlaceOfBirth dateAndPlaceOfBirth) {
+    public void setDateAndPlaceOfBirth(
+            @jakarta.annotation.Nullable TravelRuleDateAndPlaceOfBirth dateAndPlaceOfBirth) {
         this.dateAndPlaceOfBirth = dateAndPlaceOfBirth;
     }
 
-    public TravelRuleNaturalPerson customerIdentification(String customerIdentification) {
+    public TravelRuleNaturalPerson customerIdentification(
+            @jakarta.annotation.Nullable String customerIdentification) {
         this.customerIdentification = customerIdentification;
         return this;
     }
@@ -192,11 +203,13 @@ public class TravelRuleNaturalPerson {
 
     @JsonProperty(JSON_PROPERTY_CUSTOMER_IDENTIFICATION)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setCustomerIdentification(String customerIdentification) {
+    public void setCustomerIdentification(
+            @jakarta.annotation.Nullable String customerIdentification) {
         this.customerIdentification = customerIdentification;
     }
 
-    public TravelRuleNaturalPerson countryOfResidence(String countryOfResidence) {
+    public TravelRuleNaturalPerson countryOfResidence(
+            @jakarta.annotation.Nullable String countryOfResidence) {
         this.countryOfResidence = countryOfResidence;
         return this;
     }
@@ -216,11 +229,12 @@ public class TravelRuleNaturalPerson {
 
     @JsonProperty(JSON_PROPERTY_COUNTRY_OF_RESIDENCE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setCountryOfResidence(String countryOfResidence) {
+    public void setCountryOfResidence(@jakarta.annotation.Nullable String countryOfResidence) {
         this.countryOfResidence = countryOfResidence;
     }
 
-    public TravelRuleNaturalPerson customerNumber(String customerNumber) {
+    public TravelRuleNaturalPerson customerNumber(
+            @jakarta.annotation.Nullable String customerNumber) {
         this.customerNumber = customerNumber;
         return this;
     }
@@ -240,7 +254,7 @@ public class TravelRuleNaturalPerson {
 
     @JsonProperty(JSON_PROPERTY_CUSTOMER_NUMBER)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setCustomerNumber(String customerNumber) {
+    public void setCustomerNumber(@jakarta.annotation.Nullable String customerNumber) {
         this.customerNumber = customerNumber;
     }
 
@@ -414,10 +428,8 @@ public class TravelRuleNaturalPerson {
                             "%scustomerIdentification%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getCustomerIdentification()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(
+                                    ApiClient.valueToString(getCustomerIdentification()))));
         }
 
         // add `countryOfResidence` to the URL query string
@@ -427,10 +439,7 @@ public class TravelRuleNaturalPerson {
                             "%scountryOfResidence%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getCountryOfResidence()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getCountryOfResidence()))));
         }
 
         // add `customerNumber` to the URL query string
@@ -440,10 +449,7 @@ public class TravelRuleNaturalPerson {
                             "%scustomerNumber%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getCustomerNumber()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getCustomerNumber()))));
         }
 
         return joiner.toString();

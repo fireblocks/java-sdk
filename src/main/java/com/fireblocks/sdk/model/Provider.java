@@ -13,11 +13,11 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -34,36 +34,55 @@ import java.util.StringJoiner;
     Provider.JSON_PROPERTY_IS_PRIVATE,
     Provider.JSON_PROPERTY_IS_LIQUID_STAKING
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class Provider {
     public static final String JSON_PROPERTY_ID = "id";
-    private String id;
+    @jakarta.annotation.Nonnull private String id;
 
     public static final String JSON_PROPERTY_PROVIDER_NAME = "providerName";
-    private String providerName;
+    @jakarta.annotation.Nonnull private String providerName;
 
     public static final String JSON_PROPERTY_VALIDATORS = "validators";
-    private List<Validator> validators = new ArrayList<>();
+    @jakarta.annotation.Nonnull private List<Validator> validators = new ArrayList<>();
 
     public static final String JSON_PROPERTY_ICON_URL = "iconUrl";
-    private String iconUrl;
+    @jakarta.annotation.Nullable private String iconUrl;
 
     public static final String JSON_PROPERTY_TERMS_OF_SERVICE_URL = "termsOfServiceUrl";
-    private String termsOfServiceUrl;
+    @jakarta.annotation.Nullable private String termsOfServiceUrl;
 
     public static final String JSON_PROPERTY_IS_TERMS_OF_SERVICE_APPROVED =
             "isTermsOfServiceApproved";
-    private Boolean isTermsOfServiceApproved;
+    @jakarta.annotation.Nonnull private Boolean isTermsOfServiceApproved;
 
     public static final String JSON_PROPERTY_IS_PRIVATE = "isPrivate";
-    private Boolean isPrivate;
+    @jakarta.annotation.Nullable private Boolean isPrivate;
 
     public static final String JSON_PROPERTY_IS_LIQUID_STAKING = "isLiquidStaking";
-    private Boolean isLiquidStaking;
+    @jakarta.annotation.Nonnull private Boolean isLiquidStaking;
 
     public Provider() {}
 
-    public Provider id(String id) {
+    @JsonCreator
+    public Provider(
+            @JsonProperty(value = JSON_PROPERTY_ID, required = true) String id,
+            @JsonProperty(value = JSON_PROPERTY_PROVIDER_NAME, required = true) String providerName,
+            @JsonProperty(value = JSON_PROPERTY_VALIDATORS, required = true)
+                    List<Validator> validators,
+            @JsonProperty(value = JSON_PROPERTY_IS_TERMS_OF_SERVICE_APPROVED, required = true)
+                    Boolean isTermsOfServiceApproved,
+            @JsonProperty(value = JSON_PROPERTY_IS_LIQUID_STAKING, required = true)
+                    Boolean isLiquidStaking) {
+        this.id = id;
+        this.providerName = providerName;
+        this.validators = validators;
+        this.isTermsOfServiceApproved = isTermsOfServiceApproved;
+        this.isLiquidStaking = isLiquidStaking;
+    }
+
+    public Provider id(@jakarta.annotation.Nonnull String id) {
         this.id = id;
         return this;
     }
@@ -82,11 +101,11 @@ public class Provider {
 
     @JsonProperty(JSON_PROPERTY_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setId(String id) {
+    public void setId(@jakarta.annotation.Nonnull String id) {
         this.id = id;
     }
 
-    public Provider providerName(String providerName) {
+    public Provider providerName(@jakarta.annotation.Nonnull String providerName) {
         this.providerName = providerName;
         return this;
     }
@@ -105,11 +124,11 @@ public class Provider {
 
     @JsonProperty(JSON_PROPERTY_PROVIDER_NAME)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setProviderName(String providerName) {
+    public void setProviderName(@jakarta.annotation.Nonnull String providerName) {
         this.providerName = providerName;
     }
 
-    public Provider validators(List<Validator> validators) {
+    public Provider validators(@jakarta.annotation.Nonnull List<Validator> validators) {
         this.validators = validators;
         return this;
     }
@@ -137,11 +156,11 @@ public class Provider {
 
     @JsonProperty(JSON_PROPERTY_VALIDATORS)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setValidators(List<Validator> validators) {
+    public void setValidators(@jakarta.annotation.Nonnull List<Validator> validators) {
         this.validators = validators;
     }
 
-    public Provider iconUrl(String iconUrl) {
+    public Provider iconUrl(@jakarta.annotation.Nullable String iconUrl) {
         this.iconUrl = iconUrl;
         return this;
     }
@@ -160,11 +179,11 @@ public class Provider {
 
     @JsonProperty(JSON_PROPERTY_ICON_URL)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setIconUrl(String iconUrl) {
+    public void setIconUrl(@jakarta.annotation.Nullable String iconUrl) {
         this.iconUrl = iconUrl;
     }
 
-    public Provider termsOfServiceUrl(String termsOfServiceUrl) {
+    public Provider termsOfServiceUrl(@jakarta.annotation.Nullable String termsOfServiceUrl) {
         this.termsOfServiceUrl = termsOfServiceUrl;
         return this;
     }
@@ -183,11 +202,12 @@ public class Provider {
 
     @JsonProperty(JSON_PROPERTY_TERMS_OF_SERVICE_URL)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setTermsOfServiceUrl(String termsOfServiceUrl) {
+    public void setTermsOfServiceUrl(@jakarta.annotation.Nullable String termsOfServiceUrl) {
         this.termsOfServiceUrl = termsOfServiceUrl;
     }
 
-    public Provider isTermsOfServiceApproved(Boolean isTermsOfServiceApproved) {
+    public Provider isTermsOfServiceApproved(
+            @jakarta.annotation.Nonnull Boolean isTermsOfServiceApproved) {
         this.isTermsOfServiceApproved = isTermsOfServiceApproved;
         return this;
     }
@@ -206,11 +226,12 @@ public class Provider {
 
     @JsonProperty(JSON_PROPERTY_IS_TERMS_OF_SERVICE_APPROVED)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setIsTermsOfServiceApproved(Boolean isTermsOfServiceApproved) {
+    public void setIsTermsOfServiceApproved(
+            @jakarta.annotation.Nonnull Boolean isTermsOfServiceApproved) {
         this.isTermsOfServiceApproved = isTermsOfServiceApproved;
     }
 
-    public Provider isPrivate(Boolean isPrivate) {
+    public Provider isPrivate(@jakarta.annotation.Nullable Boolean isPrivate) {
         this.isPrivate = isPrivate;
         return this;
     }
@@ -229,11 +250,11 @@ public class Provider {
 
     @JsonProperty(JSON_PROPERTY_IS_PRIVATE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setIsPrivate(Boolean isPrivate) {
+    public void setIsPrivate(@jakarta.annotation.Nullable Boolean isPrivate) {
         this.isPrivate = isPrivate;
     }
 
-    public Provider isLiquidStaking(Boolean isLiquidStaking) {
+    public Provider isLiquidStaking(@jakarta.annotation.Nonnull Boolean isLiquidStaking) {
         this.isLiquidStaking = isLiquidStaking;
         return this;
     }
@@ -252,7 +273,7 @@ public class Provider {
 
     @JsonProperty(JSON_PROPERTY_IS_LIQUID_STAKING)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setIsLiquidStaking(Boolean isLiquidStaking) {
+    public void setIsLiquidStaking(@jakarta.annotation.Nonnull Boolean isLiquidStaking) {
         this.isLiquidStaking = isLiquidStaking;
     }
 
@@ -357,10 +378,7 @@ public class Provider {
             joiner.add(
                     String.format(
                             "%sid%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(String.valueOf(getId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getId()))));
         }
 
         // add `providerName` to the URL query string
@@ -370,10 +388,7 @@ public class Provider {
                             "%sproviderName%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getProviderName()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getProviderName()))));
         }
 
         // add `validators` to the URL query string
@@ -406,8 +421,7 @@ public class Provider {
                             "%siconUrl%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getIconUrl()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getIconUrl()))));
         }
 
         // add `termsOfServiceUrl` to the URL query string
@@ -417,10 +431,7 @@ public class Provider {
                             "%stermsOfServiceUrl%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getTermsOfServiceUrl()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getTermsOfServiceUrl()))));
         }
 
         // add `isTermsOfServiceApproved` to the URL query string
@@ -430,10 +441,8 @@ public class Provider {
                             "%sisTermsOfServiceApproved%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getIsTermsOfServiceApproved()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(
+                                    ApiClient.valueToString(getIsTermsOfServiceApproved()))));
         }
 
         // add `isPrivate` to the URL query string
@@ -443,9 +452,7 @@ public class Provider {
                             "%sisPrivate%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getIsPrivate()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getIsPrivate()))));
         }
 
         // add `isLiquidStaking` to the URL query string
@@ -455,10 +462,7 @@ public class Provider {
                             "%sisLiquidStaking%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getIsLiquidStaking()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getIsLiquidStaking()))));
         }
 
         return joiner.toString();

@@ -13,21 +13,21 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for Funds */
-public class FundsTest {
+class FundsTest {
     private final Funds model = new Funds();
 
     /** Model tests for Funds */
     @Test
-    public void testFunds() {
+    void testFunds() {
         // TODO: test Funds
     }
 
     /** Test the property 'amount' */
     @Test
-    public void amountTest() {
+    void amountTest() {
         // TODO: test amount
     }
 }

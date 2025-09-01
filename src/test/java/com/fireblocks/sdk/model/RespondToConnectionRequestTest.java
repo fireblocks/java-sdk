@@ -13,21 +13,21 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for RespondToConnectionRequest */
-public class RespondToConnectionRequestTest {
+class RespondToConnectionRequestTest {
     private final RespondToConnectionRequest model = new RespondToConnectionRequest();
 
     /** Model tests for RespondToConnectionRequest */
     @Test
-    public void testRespondToConnectionRequest() {
+    void testRespondToConnectionRequest() {
         // TODO: test RespondToConnectionRequest
     }
 
     /** Test the property 'approve' */
     @Test
-    public void approveTest() {
+    void approveTest() {
         // TODO: test approve
     }
 }

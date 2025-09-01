@@ -13,11 +13,11 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -27,20 +27,31 @@ import java.util.StringJoiner;
     CollectionTokenMetadataAttributeDto.JSON_PROPERTY_VALUE,
     CollectionTokenMetadataAttributeDto.JSON_PROPERTY_DISPLAY_TYPE
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class CollectionTokenMetadataAttributeDto {
     public static final String JSON_PROPERTY_TRAIT_TYPE = "trait_type";
-    private String traitType;
+    @jakarta.annotation.Nonnull private String traitType;
 
     public static final String JSON_PROPERTY_VALUE = "value";
-    private String value;
+    @jakarta.annotation.Nonnull private String value;
 
     public static final String JSON_PROPERTY_DISPLAY_TYPE = "display_type";
-    private String displayType;
+    @jakarta.annotation.Nullable private String displayType;
 
     public CollectionTokenMetadataAttributeDto() {}
 
-    public CollectionTokenMetadataAttributeDto traitType(String traitType) {
+    @JsonCreator
+    public CollectionTokenMetadataAttributeDto(
+            @JsonProperty(value = JSON_PROPERTY_TRAIT_TYPE, required = true) String traitType,
+            @JsonProperty(value = JSON_PROPERTY_VALUE, required = true) String value) {
+        this.traitType = traitType;
+        this.value = value;
+    }
+
+    public CollectionTokenMetadataAttributeDto traitType(
+            @jakarta.annotation.Nonnull String traitType) {
         this.traitType = traitType;
         return this;
     }
@@ -59,11 +70,11 @@ public class CollectionTokenMetadataAttributeDto {
 
     @JsonProperty(JSON_PROPERTY_TRAIT_TYPE)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setTraitType(String traitType) {
+    public void setTraitType(@jakarta.annotation.Nonnull String traitType) {
         this.traitType = traitType;
     }
 
-    public CollectionTokenMetadataAttributeDto value(String value) {
+    public CollectionTokenMetadataAttributeDto value(@jakarta.annotation.Nonnull String value) {
         this.value = value;
         return this;
     }
@@ -82,11 +93,12 @@ public class CollectionTokenMetadataAttributeDto {
 
     @JsonProperty(JSON_PROPERTY_VALUE)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setValue(String value) {
+    public void setValue(@jakarta.annotation.Nonnull String value) {
         this.value = value;
     }
 
-    public CollectionTokenMetadataAttributeDto displayType(String displayType) {
+    public CollectionTokenMetadataAttributeDto displayType(
+            @jakarta.annotation.Nullable String displayType) {
         this.displayType = displayType;
         return this;
     }
@@ -105,7 +117,7 @@ public class CollectionTokenMetadataAttributeDto {
 
     @JsonProperty(JSON_PROPERTY_DISPLAY_TYPE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setDisplayType(String displayType) {
+    public void setDisplayType(@jakarta.annotation.Nullable String displayType) {
         this.displayType = displayType;
     }
 
@@ -192,9 +204,7 @@ public class CollectionTokenMetadataAttributeDto {
                             "%strait_type%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getTraitType()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getTraitType()))));
         }
 
         // add `value` to the URL query string
@@ -204,8 +214,7 @@ public class CollectionTokenMetadataAttributeDto {
                             "%svalue%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getValue()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getValue()))));
         }
 
         // add `display_type` to the URL query string
@@ -215,10 +224,7 @@ public class CollectionTokenMetadataAttributeDto {
                             "%sdisplay_type%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getDisplayType()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getDisplayType()))));
         }
 
         return joiner.toString();

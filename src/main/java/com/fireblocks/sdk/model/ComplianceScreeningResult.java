@@ -18,9 +18,8 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.fireblocks.sdk.ApiClient;
 import java.math.BigDecimal;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -32,28 +31,30 @@ import java.util.StringJoiner;
     ComplianceScreeningResult.JSON_PROPERTY_SCREENING_STATUS,
     ComplianceScreeningResult.JSON_PROPERTY_TIMESTAMP
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class ComplianceScreeningResult {
     public static final String JSON_PROPERTY_PROVIDER = "provider";
-    private String provider;
+    @jakarta.annotation.Nullable private String provider;
 
     public static final String JSON_PROPERTY_PAYLOAD = "payload";
-    private Object payload;
+    @jakarta.annotation.Nullable private Object payload;
 
     public static final String JSON_PROPERTY_BYPASS_REASON = "bypassReason";
-    private String bypassReason;
+    @jakarta.annotation.Nullable private String bypassReason;
 
     /** Gets or Sets screeningStatus */
     public enum ScreeningStatusEnum {
-        COMPLETED("COMPLETED"),
+        COMPLETED(String.valueOf("COMPLETED")),
 
-        PENDING("PENDING"),
+        PENDING(String.valueOf("PENDING")),
 
-        BYPASSED("BYPASSED"),
+        BYPASSED(String.valueOf("BYPASSED")),
 
-        FAILED("FAILED"),
+        FAILED(String.valueOf("FAILED")),
 
-        FROZEN("FROZEN");
+        FROZEN(String.valueOf("FROZEN"));
 
         private String value;
 
@@ -83,14 +84,14 @@ public class ComplianceScreeningResult {
     }
 
     public static final String JSON_PROPERTY_SCREENING_STATUS = "screeningStatus";
-    private ScreeningStatusEnum screeningStatus;
+    @jakarta.annotation.Nullable private ScreeningStatusEnum screeningStatus;
 
     public static final String JSON_PROPERTY_TIMESTAMP = "timestamp";
-    private BigDecimal timestamp;
+    @jakarta.annotation.Nullable private BigDecimal timestamp;
 
     public ComplianceScreeningResult() {}
 
-    public ComplianceScreeningResult provider(String provider) {
+    public ComplianceScreeningResult provider(@jakarta.annotation.Nullable String provider) {
         this.provider = provider;
         return this;
     }
@@ -109,11 +110,11 @@ public class ComplianceScreeningResult {
 
     @JsonProperty(JSON_PROPERTY_PROVIDER)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setProvider(String provider) {
+    public void setProvider(@jakarta.annotation.Nullable String provider) {
         this.provider = provider;
     }
 
-    public ComplianceScreeningResult payload(Object payload) {
+    public ComplianceScreeningResult payload(@jakarta.annotation.Nullable Object payload) {
         this.payload = payload;
         return this;
     }
@@ -133,11 +134,12 @@ public class ComplianceScreeningResult {
 
     @JsonProperty(JSON_PROPERTY_PAYLOAD)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setPayload(Object payload) {
+    public void setPayload(@jakarta.annotation.Nullable Object payload) {
         this.payload = payload;
     }
 
-    public ComplianceScreeningResult bypassReason(String bypassReason) {
+    public ComplianceScreeningResult bypassReason(
+            @jakarta.annotation.Nullable String bypassReason) {
         this.bypassReason = bypassReason;
         return this;
     }
@@ -156,11 +158,12 @@ public class ComplianceScreeningResult {
 
     @JsonProperty(JSON_PROPERTY_BYPASS_REASON)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setBypassReason(String bypassReason) {
+    public void setBypassReason(@jakarta.annotation.Nullable String bypassReason) {
         this.bypassReason = bypassReason;
     }
 
-    public ComplianceScreeningResult screeningStatus(ScreeningStatusEnum screeningStatus) {
+    public ComplianceScreeningResult screeningStatus(
+            @jakarta.annotation.Nullable ScreeningStatusEnum screeningStatus) {
         this.screeningStatus = screeningStatus;
         return this;
     }
@@ -179,11 +182,12 @@ public class ComplianceScreeningResult {
 
     @JsonProperty(JSON_PROPERTY_SCREENING_STATUS)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setScreeningStatus(ScreeningStatusEnum screeningStatus) {
+    public void setScreeningStatus(
+            @jakarta.annotation.Nullable ScreeningStatusEnum screeningStatus) {
         this.screeningStatus = screeningStatus;
     }
 
-    public ComplianceScreeningResult timestamp(BigDecimal timestamp) {
+    public ComplianceScreeningResult timestamp(@jakarta.annotation.Nullable BigDecimal timestamp) {
         this.timestamp = timestamp;
         return this;
     }
@@ -202,7 +206,7 @@ public class ComplianceScreeningResult {
 
     @JsonProperty(JSON_PROPERTY_TIMESTAMP)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setTimestamp(BigDecimal timestamp) {
+    public void setTimestamp(@jakarta.annotation.Nullable BigDecimal timestamp) {
         this.timestamp = timestamp;
     }
 
@@ -291,8 +295,7 @@ public class ComplianceScreeningResult {
                             "%sprovider%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getProvider()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getProvider()))));
         }
 
         // add `payload` to the URL query string
@@ -302,8 +305,7 @@ public class ComplianceScreeningResult {
                             "%spayload%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getPayload()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getPayload()))));
         }
 
         // add `bypassReason` to the URL query string
@@ -313,10 +315,7 @@ public class ComplianceScreeningResult {
                             "%sbypassReason%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getBypassReason()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getBypassReason()))));
         }
 
         // add `screeningStatus` to the URL query string
@@ -326,10 +325,7 @@ public class ComplianceScreeningResult {
                             "%sscreeningStatus%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getScreeningStatus()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getScreeningStatus()))));
         }
 
         // add `timestamp` to the URL query string
@@ -339,9 +335,7 @@ public class ComplianceScreeningResult {
                             "%stimestamp%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getTimestamp()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getTimestamp()))));
         }
 
         return joiner.toString();

@@ -13,39 +13,39 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for AmountInfo */
-public class AmountInfoTest {
+class AmountInfoTest {
     private final AmountInfo model = new AmountInfo();
 
     /** Model tests for AmountInfo */
     @Test
-    public void testAmountInfo() {
+    void testAmountInfo() {
         // TODO: test AmountInfo
     }
 
     /** Test the property 'amount' */
     @Test
-    public void amountTest() {
+    void amountTest() {
         // TODO: test amount
     }
 
     /** Test the property 'requestedAmount' */
     @Test
-    public void requestedAmountTest() {
+    void requestedAmountTest() {
         // TODO: test requestedAmount
     }
 
     /** Test the property 'netAmount' */
     @Test
-    public void netAmountTest() {
+    void netAmountTest() {
         // TODO: test netAmount
     }
 
     /** Test the property 'amountUSD' */
     @Test
-    public void amountUSDTest() {
+    void amountUSDTest() {
         // TODO: test amountUSD
     }
 }

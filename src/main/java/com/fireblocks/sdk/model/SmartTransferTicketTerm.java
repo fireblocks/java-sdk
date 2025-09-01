@@ -18,8 +18,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonValue;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.time.OffsetDateTime;
 import java.util.Objects;
 import java.util.StringJoiner;
@@ -43,77 +42,79 @@ import java.util.StringJoiner;
     SmartTransferTicketTerm.JSON_PROPERTY_CREATED_AT,
     SmartTransferTicketTerm.JSON_PROPERTY_UPDATED_AT
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class SmartTransferTicketTerm {
     public static final String JSON_PROPERTY_ID = "id";
-    private String id;
+    @jakarta.annotation.Nonnull private String id;
 
     public static final String JSON_PROPERTY_TICKET_ID = "ticketId";
-    private String ticketId;
+    @jakarta.annotation.Nonnull private String ticketId;
 
     public static final String JSON_PROPERTY_ASSET = "asset";
-    private String asset;
+    @jakarta.annotation.Nonnull private String asset;
 
     public static final String JSON_PROPERTY_AMOUNT = "amount";
-    private String amount;
+    @jakarta.annotation.Nonnull private String amount;
 
     public static final String JSON_PROPERTY_DVP_SRC_DST_VAULT_ID = "dvpSrcDstVaultId";
-    private String dvpSrcDstVaultId;
+    @jakarta.annotation.Nullable private String dvpSrcDstVaultId;
 
     public static final String JSON_PROPERTY_AMOUNT_USD = "amountUsd";
-    private String amountUsd;
+    @jakarta.annotation.Nullable private String amountUsd;
 
     public static final String JSON_PROPERTY_FROM_NETWORK_ID = "fromNetworkId";
-    private String fromNetworkId;
+    @jakarta.annotation.Nonnull private String fromNetworkId;
 
     public static final String JSON_PROPERTY_FROM_NETWORK_ID_NAME = "fromNetworkIdName";
-    private String fromNetworkIdName;
+    @jakarta.annotation.Nonnull private String fromNetworkIdName;
 
     public static final String JSON_PROPERTY_TO_NETWORK_ID = "toNetworkId";
-    private String toNetworkId;
+    @jakarta.annotation.Nonnull private String toNetworkId;
 
     public static final String JSON_PROPERTY_TO_NETWORK_ID_NAME = "toNetworkIdName";
-    private String toNetworkIdName;
+    @jakarta.annotation.Nonnull private String toNetworkIdName;
 
     public static final String JSON_PROPERTY_TX_HASH = "txHash";
-    private String txHash;
+    @jakarta.annotation.Nullable private String txHash;
 
     public static final String JSON_PROPERTY_FB_TX_ID = "fbTxId";
-    private String fbTxId;
+    @jakarta.annotation.Nullable private String fbTxId;
 
     /** Ticket term transaction status */
     public enum TxStatusEnum {
-        QUEUED("queued"),
+        QUEUED(String.valueOf("queued")),
 
-        SUBMITTED("submitted"),
+        SUBMITTED(String.valueOf("submitted")),
 
-        PENDINGSIGNATURE("pendingSignature"),
+        PENDING_SIGNATURE(String.valueOf("pendingSignature")),
 
-        PENDINGAUTHORIZATION("pendingAuthorization"),
+        PENDING_AUTHORIZATION(String.valueOf("pendingAuthorization")),
 
-        BROADCASTING("broadcasting"),
+        BROADCASTING(String.valueOf("broadcasting")),
 
-        CONFIRMING("confirming"),
+        CONFIRMING(String.valueOf("confirming")),
 
-        PENDINGAMLSCREENING("pendingAmlScreening"),
+        PENDING_AML_SCREENING(String.valueOf("pendingAmlScreening")),
 
-        COMPLETED("completed"),
+        COMPLETED(String.valueOf("completed")),
 
-        CANCELLED("cancelled"),
+        CANCELLED(String.valueOf("cancelled")),
 
-        FAILED("failed"),
+        FAILED(String.valueOf("failed")),
 
-        REJECTED("rejected"),
+        REJECTED(String.valueOf("rejected")),
 
-        BLOCKED("blocked"),
+        BLOCKED(String.valueOf("blocked")),
 
-        THIRDPARTYPENDINGMANUALAPPROVAL("thirdPartyPendingManualApproval"),
+        THIRD_PARTY_PENDING_MANUAL_APPROVAL(String.valueOf("thirdPartyPendingManualApproval")),
 
-        THIRDPARTYPENDING("thirdPartyPending"),
+        THIRD_PARTY_PENDING(String.valueOf("thirdPartyPending")),
 
-        PARTIALLYCOMPLETED("partiallyCompleted"),
+        PARTIALLY_COMPLETED(String.valueOf("partiallyCompleted")),
 
-        CANCELLING("cancelling");
+        CANCELLING(String.valueOf("cancelling"));
 
         private String value;
 
@@ -143,19 +144,19 @@ public class SmartTransferTicketTerm {
     }
 
     public static final String JSON_PROPERTY_TX_STATUS = "txStatus";
-    private TxStatusEnum txStatus;
+    @jakarta.annotation.Nullable private TxStatusEnum txStatus;
 
     /** Ticket term status */
     public enum StatusEnum {
-        CREATED("CREATED"),
+        CREATED(String.valueOf("CREATED")),
 
-        FUNDING("FUNDING"),
+        FUNDING(String.valueOf("FUNDING")),
 
-        FUNDING_FAILED("FUNDING_FAILED"),
+        FUNDING_FAILED(String.valueOf("FUNDING_FAILED")),
 
-        FUNDED("FUNDED"),
+        FUNDED(String.valueOf("FUNDED")),
 
-        REJECTED("REJECTED");
+        REJECTED(String.valueOf("REJECTED"));
 
         private String value;
 
@@ -185,17 +186,54 @@ public class SmartTransferTicketTerm {
     }
 
     public static final String JSON_PROPERTY_STATUS = "status";
-    private StatusEnum status;
+    @jakarta.annotation.Nonnull private StatusEnum status;
 
     public static final String JSON_PROPERTY_CREATED_AT = "createdAt";
-    private OffsetDateTime createdAt;
+    @jakarta.annotation.Nonnull private OffsetDateTime createdAt;
 
     public static final String JSON_PROPERTY_UPDATED_AT = "updatedAt";
-    private OffsetDateTime updatedAt;
+    @jakarta.annotation.Nonnull private OffsetDateTime updatedAt;
 
     public SmartTransferTicketTerm() {}
 
-    public SmartTransferTicketTerm id(String id) {
+    @JsonCreator
+    public SmartTransferTicketTerm(
+            @JsonProperty(value = JSON_PROPERTY_ID, required = true) String id,
+            @JsonProperty(value = JSON_PROPERTY_TICKET_ID, required = true) String ticketId,
+            @JsonProperty(value = JSON_PROPERTY_ASSET, required = true) String asset,
+            @JsonProperty(value = JSON_PROPERTY_AMOUNT, required = true) String amount,
+            @JsonProperty(value = JSON_PROPERTY_FROM_NETWORK_ID, required = true)
+                    String fromNetworkId,
+            @JsonProperty(value = JSON_PROPERTY_FROM_NETWORK_ID_NAME, required = true)
+                    String fromNetworkIdName,
+            @JsonProperty(value = JSON_PROPERTY_TO_NETWORK_ID, required = true) String toNetworkId,
+            @JsonProperty(value = JSON_PROPERTY_TO_NETWORK_ID_NAME, required = true)
+                    String toNetworkIdName,
+            @JsonProperty(value = JSON_PROPERTY_TX_HASH, required = true) String txHash,
+            @JsonProperty(value = JSON_PROPERTY_FB_TX_ID, required = true) String fbTxId,
+            @JsonProperty(value = JSON_PROPERTY_TX_STATUS, required = true) TxStatusEnum txStatus,
+            @JsonProperty(value = JSON_PROPERTY_STATUS, required = true) StatusEnum status,
+            @JsonProperty(value = JSON_PROPERTY_CREATED_AT, required = true)
+                    OffsetDateTime createdAt,
+            @JsonProperty(value = JSON_PROPERTY_UPDATED_AT, required = true)
+                    OffsetDateTime updatedAt) {
+        this.id = id;
+        this.ticketId = ticketId;
+        this.asset = asset;
+        this.amount = amount;
+        this.fromNetworkId = fromNetworkId;
+        this.fromNetworkIdName = fromNetworkIdName;
+        this.toNetworkId = toNetworkId;
+        this.toNetworkIdName = toNetworkIdName;
+        this.txHash = txHash;
+        this.fbTxId = fbTxId;
+        this.txStatus = txStatus;
+        this.status = status;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+    }
+
+    public SmartTransferTicketTerm id(@jakarta.annotation.Nonnull String id) {
         this.id = id;
         return this;
     }
@@ -214,11 +252,11 @@ public class SmartTransferTicketTerm {
 
     @JsonProperty(JSON_PROPERTY_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setId(String id) {
+    public void setId(@jakarta.annotation.Nonnull String id) {
         this.id = id;
     }
 
-    public SmartTransferTicketTerm ticketId(String ticketId) {
+    public SmartTransferTicketTerm ticketId(@jakarta.annotation.Nonnull String ticketId) {
         this.ticketId = ticketId;
         return this;
     }
@@ -237,11 +275,11 @@ public class SmartTransferTicketTerm {
 
     @JsonProperty(JSON_PROPERTY_TICKET_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setTicketId(String ticketId) {
+    public void setTicketId(@jakarta.annotation.Nonnull String ticketId) {
         this.ticketId = ticketId;
     }
 
-    public SmartTransferTicketTerm asset(String asset) {
+    public SmartTransferTicketTerm asset(@jakarta.annotation.Nonnull String asset) {
         this.asset = asset;
         return this;
     }
@@ -260,11 +298,11 @@ public class SmartTransferTicketTerm {
 
     @JsonProperty(JSON_PROPERTY_ASSET)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setAsset(String asset) {
+    public void setAsset(@jakarta.annotation.Nonnull String asset) {
         this.asset = asset;
     }
 
-    public SmartTransferTicketTerm amount(String amount) {
+    public SmartTransferTicketTerm amount(@jakarta.annotation.Nonnull String amount) {
         this.amount = amount;
         return this;
     }
@@ -283,11 +321,12 @@ public class SmartTransferTicketTerm {
 
     @JsonProperty(JSON_PROPERTY_AMOUNT)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setAmount(String amount) {
+    public void setAmount(@jakarta.annotation.Nonnull String amount) {
         this.amount = amount;
     }
 
-    public SmartTransferTicketTerm dvpSrcDstVaultId(String dvpSrcDstVaultId) {
+    public SmartTransferTicketTerm dvpSrcDstVaultId(
+            @jakarta.annotation.Nullable String dvpSrcDstVaultId) {
         this.dvpSrcDstVaultId = dvpSrcDstVaultId;
         return this;
     }
@@ -306,11 +345,11 @@ public class SmartTransferTicketTerm {
 
     @JsonProperty(JSON_PROPERTY_DVP_SRC_DST_VAULT_ID)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setDvpSrcDstVaultId(String dvpSrcDstVaultId) {
+    public void setDvpSrcDstVaultId(@jakarta.annotation.Nullable String dvpSrcDstVaultId) {
         this.dvpSrcDstVaultId = dvpSrcDstVaultId;
     }
 
-    public SmartTransferTicketTerm amountUsd(String amountUsd) {
+    public SmartTransferTicketTerm amountUsd(@jakarta.annotation.Nullable String amountUsd) {
         this.amountUsd = amountUsd;
         return this;
     }
@@ -329,11 +368,11 @@ public class SmartTransferTicketTerm {
 
     @JsonProperty(JSON_PROPERTY_AMOUNT_USD)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAmountUsd(String amountUsd) {
+    public void setAmountUsd(@jakarta.annotation.Nullable String amountUsd) {
         this.amountUsd = amountUsd;
     }
 
-    public SmartTransferTicketTerm fromNetworkId(String fromNetworkId) {
+    public SmartTransferTicketTerm fromNetworkId(@jakarta.annotation.Nonnull String fromNetworkId) {
         this.fromNetworkId = fromNetworkId;
         return this;
     }
@@ -352,11 +391,12 @@ public class SmartTransferTicketTerm {
 
     @JsonProperty(JSON_PROPERTY_FROM_NETWORK_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setFromNetworkId(String fromNetworkId) {
+    public void setFromNetworkId(@jakarta.annotation.Nonnull String fromNetworkId) {
         this.fromNetworkId = fromNetworkId;
     }
 
-    public SmartTransferTicketTerm fromNetworkIdName(String fromNetworkIdName) {
+    public SmartTransferTicketTerm fromNetworkIdName(
+            @jakarta.annotation.Nonnull String fromNetworkIdName) {
         this.fromNetworkIdName = fromNetworkIdName;
         return this;
     }
@@ -375,11 +415,11 @@ public class SmartTransferTicketTerm {
 
     @JsonProperty(JSON_PROPERTY_FROM_NETWORK_ID_NAME)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setFromNetworkIdName(String fromNetworkIdName) {
+    public void setFromNetworkIdName(@jakarta.annotation.Nonnull String fromNetworkIdName) {
         this.fromNetworkIdName = fromNetworkIdName;
     }
 
-    public SmartTransferTicketTerm toNetworkId(String toNetworkId) {
+    public SmartTransferTicketTerm toNetworkId(@jakarta.annotation.Nonnull String toNetworkId) {
         this.toNetworkId = toNetworkId;
         return this;
     }
@@ -398,11 +438,12 @@ public class SmartTransferTicketTerm {
 
     @JsonProperty(JSON_PROPERTY_TO_NETWORK_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setToNetworkId(String toNetworkId) {
+    public void setToNetworkId(@jakarta.annotation.Nonnull String toNetworkId) {
         this.toNetworkId = toNetworkId;
     }
 
-    public SmartTransferTicketTerm toNetworkIdName(String toNetworkIdName) {
+    public SmartTransferTicketTerm toNetworkIdName(
+            @jakarta.annotation.Nonnull String toNetworkIdName) {
         this.toNetworkIdName = toNetworkIdName;
         return this;
     }
@@ -421,11 +462,11 @@ public class SmartTransferTicketTerm {
 
     @JsonProperty(JSON_PROPERTY_TO_NETWORK_ID_NAME)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setToNetworkIdName(String toNetworkIdName) {
+    public void setToNetworkIdName(@jakarta.annotation.Nonnull String toNetworkIdName) {
         this.toNetworkIdName = toNetworkIdName;
     }
 
-    public SmartTransferTicketTerm txHash(String txHash) {
+    public SmartTransferTicketTerm txHash(@jakarta.annotation.Nullable String txHash) {
         this.txHash = txHash;
         return this;
     }
@@ -444,11 +485,11 @@ public class SmartTransferTicketTerm {
 
     @JsonProperty(JSON_PROPERTY_TX_HASH)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setTxHash(String txHash) {
+    public void setTxHash(@jakarta.annotation.Nullable String txHash) {
         this.txHash = txHash;
     }
 
-    public SmartTransferTicketTerm fbTxId(String fbTxId) {
+    public SmartTransferTicketTerm fbTxId(@jakarta.annotation.Nullable String fbTxId) {
         this.fbTxId = fbTxId;
         return this;
     }
@@ -467,11 +508,11 @@ public class SmartTransferTicketTerm {
 
     @JsonProperty(JSON_PROPERTY_FB_TX_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setFbTxId(String fbTxId) {
+    public void setFbTxId(@jakarta.annotation.Nullable String fbTxId) {
         this.fbTxId = fbTxId;
     }
 
-    public SmartTransferTicketTerm txStatus(TxStatusEnum txStatus) {
+    public SmartTransferTicketTerm txStatus(@jakarta.annotation.Nullable TxStatusEnum txStatus) {
         this.txStatus = txStatus;
         return this;
     }
@@ -490,11 +531,11 @@ public class SmartTransferTicketTerm {
 
     @JsonProperty(JSON_PROPERTY_TX_STATUS)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setTxStatus(TxStatusEnum txStatus) {
+    public void setTxStatus(@jakarta.annotation.Nullable TxStatusEnum txStatus) {
         this.txStatus = txStatus;
     }
 
-    public SmartTransferTicketTerm status(StatusEnum status) {
+    public SmartTransferTicketTerm status(@jakarta.annotation.Nonnull StatusEnum status) {
         this.status = status;
         return this;
     }
@@ -513,11 +554,11 @@ public class SmartTransferTicketTerm {
 
     @JsonProperty(JSON_PROPERTY_STATUS)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setStatus(StatusEnum status) {
+    public void setStatus(@jakarta.annotation.Nonnull StatusEnum status) {
         this.status = status;
     }
 
-    public SmartTransferTicketTerm createdAt(OffsetDateTime createdAt) {
+    public SmartTransferTicketTerm createdAt(@jakarta.annotation.Nonnull OffsetDateTime createdAt) {
         this.createdAt = createdAt;
         return this;
     }
@@ -536,11 +577,11 @@ public class SmartTransferTicketTerm {
 
     @JsonProperty(JSON_PROPERTY_CREATED_AT)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setCreatedAt(OffsetDateTime createdAt) {
+    public void setCreatedAt(@jakarta.annotation.Nonnull OffsetDateTime createdAt) {
         this.createdAt = createdAt;
     }
 
-    public SmartTransferTicketTerm updatedAt(OffsetDateTime updatedAt) {
+    public SmartTransferTicketTerm updatedAt(@jakarta.annotation.Nonnull OffsetDateTime updatedAt) {
         this.updatedAt = updatedAt;
         return this;
     }
@@ -559,7 +600,7 @@ public class SmartTransferTicketTerm {
 
     @JsonProperty(JSON_PROPERTY_UPDATED_AT)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setUpdatedAt(OffsetDateTime updatedAt) {
+    public void setUpdatedAt(@jakarta.annotation.Nonnull OffsetDateTime updatedAt) {
         this.updatedAt = updatedAt;
     }
 
@@ -686,10 +727,7 @@ public class SmartTransferTicketTerm {
             joiner.add(
                     String.format(
                             "%sid%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(String.valueOf(getId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getId()))));
         }
 
         // add `ticketId` to the URL query string
@@ -699,8 +737,7 @@ public class SmartTransferTicketTerm {
                             "%sticketId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getTicketId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getTicketId()))));
         }
 
         // add `asset` to the URL query string
@@ -710,8 +747,7 @@ public class SmartTransferTicketTerm {
                             "%sasset%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getAsset()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getAsset()))));
         }
 
         // add `amount` to the URL query string
@@ -721,8 +757,7 @@ public class SmartTransferTicketTerm {
                             "%samount%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getAmount()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getAmount()))));
         }
 
         // add `dvpSrcDstVaultId` to the URL query string
@@ -732,10 +767,7 @@ public class SmartTransferTicketTerm {
                             "%sdvpSrcDstVaultId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getDvpSrcDstVaultId()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getDvpSrcDstVaultId()))));
         }
 
         // add `amountUsd` to the URL query string
@@ -745,9 +777,7 @@ public class SmartTransferTicketTerm {
                             "%samountUsd%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getAmountUsd()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getAmountUsd()))));
         }
 
         // add `fromNetworkId` to the URL query string
@@ -757,10 +787,7 @@ public class SmartTransferTicketTerm {
                             "%sfromNetworkId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getFromNetworkId()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getFromNetworkId()))));
         }
 
         // add `fromNetworkIdName` to the URL query string
@@ -770,10 +797,7 @@ public class SmartTransferTicketTerm {
                             "%sfromNetworkIdName%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getFromNetworkIdName()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getFromNetworkIdName()))));
         }
 
         // add `toNetworkId` to the URL query string
@@ -783,10 +807,7 @@ public class SmartTransferTicketTerm {
                             "%stoNetworkId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getToNetworkId()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getToNetworkId()))));
         }
 
         // add `toNetworkIdName` to the URL query string
@@ -796,10 +817,7 @@ public class SmartTransferTicketTerm {
                             "%stoNetworkIdName%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getToNetworkIdName()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getToNetworkIdName()))));
         }
 
         // add `txHash` to the URL query string
@@ -809,8 +827,7 @@ public class SmartTransferTicketTerm {
                             "%stxHash%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getTxHash()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getTxHash()))));
         }
 
         // add `fbTxId` to the URL query string
@@ -820,8 +837,7 @@ public class SmartTransferTicketTerm {
                             "%sfbTxId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getFbTxId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getFbTxId()))));
         }
 
         // add `txStatus` to the URL query string
@@ -831,8 +847,7 @@ public class SmartTransferTicketTerm {
                             "%stxStatus%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getTxStatus()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getTxStatus()))));
         }
 
         // add `status` to the URL query string
@@ -842,8 +857,7 @@ public class SmartTransferTicketTerm {
                             "%sstatus%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getStatus()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getStatus()))));
         }
 
         // add `createdAt` to the URL query string
@@ -853,9 +867,7 @@ public class SmartTransferTicketTerm {
                             "%screatedAt%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getCreatedAt()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getCreatedAt()))));
         }
 
         // add `updatedAt` to the URL query string
@@ -865,9 +877,7 @@ public class SmartTransferTicketTerm {
                             "%supdatedAt%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getUpdatedAt()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getUpdatedAt()))));
         }
 
         return joiner.toString();

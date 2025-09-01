@@ -13,11 +13,11 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -29,26 +29,43 @@ import java.util.StringJoiner;
     DisbursementConfigOperation.JSON_PROPERTY_STATUS,
     DisbursementConfigOperation.JSON_PROPERTY_VALIDATION_FAILURE
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class DisbursementConfigOperation {
     public static final String JSON_PROPERTY_OPERATION_ID = "operationId";
-    private String operationId;
+    @jakarta.annotation.Nonnull private String operationId;
 
     public static final String JSON_PROPERTY_TYPE = "type";
-    private DisbursementOperationType type;
+    @jakarta.annotation.Nonnull private DisbursementOperationType type;
 
     public static final String JSON_PROPERTY_PARAMS = "params";
-    private DisbursementOperationConfigParams params;
+    @jakarta.annotation.Nonnull private DisbursementOperationConfigParams params;
 
     public static final String JSON_PROPERTY_STATUS = "status";
-    private ConfigOperationStatus status;
+    @jakarta.annotation.Nonnull private ConfigOperationStatus status;
 
     public static final String JSON_PROPERTY_VALIDATION_FAILURE = "validationFailure";
-    private DisbursementValidationFailure validationFailure;
+    @jakarta.annotation.Nullable private DisbursementValidationFailure validationFailure;
 
     public DisbursementConfigOperation() {}
 
-    public DisbursementConfigOperation operationId(String operationId) {
+    @JsonCreator
+    public DisbursementConfigOperation(
+            @JsonProperty(value = JSON_PROPERTY_OPERATION_ID, required = true) String operationId,
+            @JsonProperty(value = JSON_PROPERTY_TYPE, required = true)
+                    DisbursementOperationType type,
+            @JsonProperty(value = JSON_PROPERTY_PARAMS, required = true)
+                    DisbursementOperationConfigParams params,
+            @JsonProperty(value = JSON_PROPERTY_STATUS, required = true)
+                    ConfigOperationStatus status) {
+        this.operationId = operationId;
+        this.type = type;
+        this.params = params;
+        this.status = status;
+    }
+
+    public DisbursementConfigOperation operationId(@jakarta.annotation.Nonnull String operationId) {
         this.operationId = operationId;
         return this;
     }
@@ -67,11 +84,12 @@ public class DisbursementConfigOperation {
 
     @JsonProperty(JSON_PROPERTY_OPERATION_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setOperationId(String operationId) {
+    public void setOperationId(@jakarta.annotation.Nonnull String operationId) {
         this.operationId = operationId;
     }
 
-    public DisbursementConfigOperation type(DisbursementOperationType type) {
+    public DisbursementConfigOperation type(
+            @jakarta.annotation.Nonnull DisbursementOperationType type) {
         this.type = type;
         return this;
     }
@@ -90,11 +108,12 @@ public class DisbursementConfigOperation {
 
     @JsonProperty(JSON_PROPERTY_TYPE)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setType(DisbursementOperationType type) {
+    public void setType(@jakarta.annotation.Nonnull DisbursementOperationType type) {
         this.type = type;
     }
 
-    public DisbursementConfigOperation params(DisbursementOperationConfigParams params) {
+    public DisbursementConfigOperation params(
+            @jakarta.annotation.Nonnull DisbursementOperationConfigParams params) {
         this.params = params;
         return this;
     }
@@ -113,11 +132,12 @@ public class DisbursementConfigOperation {
 
     @JsonProperty(JSON_PROPERTY_PARAMS)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setParams(DisbursementOperationConfigParams params) {
+    public void setParams(@jakarta.annotation.Nonnull DisbursementOperationConfigParams params) {
         this.params = params;
     }
 
-    public DisbursementConfigOperation status(ConfigOperationStatus status) {
+    public DisbursementConfigOperation status(
+            @jakarta.annotation.Nonnull ConfigOperationStatus status) {
         this.status = status;
         return this;
     }
@@ -136,12 +156,12 @@ public class DisbursementConfigOperation {
 
     @JsonProperty(JSON_PROPERTY_STATUS)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setStatus(ConfigOperationStatus status) {
+    public void setStatus(@jakarta.annotation.Nonnull ConfigOperationStatus status) {
         this.status = status;
     }
 
     public DisbursementConfigOperation validationFailure(
-            DisbursementValidationFailure validationFailure) {
+            @jakarta.annotation.Nullable DisbursementValidationFailure validationFailure) {
         this.validationFailure = validationFailure;
         return this;
     }
@@ -160,7 +180,8 @@ public class DisbursementConfigOperation {
 
     @JsonProperty(JSON_PROPERTY_VALIDATION_FAILURE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setValidationFailure(DisbursementValidationFailure validationFailure) {
+    public void setValidationFailure(
+            @jakarta.annotation.Nullable DisbursementValidationFailure validationFailure) {
         this.validationFailure = validationFailure;
     }
 
@@ -252,10 +273,7 @@ public class DisbursementConfigOperation {
                             "%soperationId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getOperationId()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getOperationId()))));
         }
 
         // add `type` to the URL query string
@@ -265,8 +283,7 @@ public class DisbursementConfigOperation {
                             "%stype%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getType()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getType()))));
         }
 
         // add `params` to the URL query string
@@ -281,8 +298,7 @@ public class DisbursementConfigOperation {
                             "%sstatus%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getStatus()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getStatus()))));
         }
 
         // add `validationFailure` to the URL query string

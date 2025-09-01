@@ -13,57 +13,57 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for ParameterWithValue */
-public class ParameterWithValueTest {
+class ParameterWithValueTest {
     private final ParameterWithValue model = new ParameterWithValue();
 
     /** Model tests for ParameterWithValue */
     @Test
-    public void testParameterWithValue() {
+    void testParameterWithValue() {
         // TODO: test ParameterWithValue
     }
 
     /** Test the property 'name' */
     @Test
-    public void nameTest() {
+    void nameTest() {
         // TODO: test name
     }
 
     /** Test the property 'description' */
     @Test
-    public void descriptionTest() {
+    void descriptionTest() {
         // TODO: test description
     }
 
     /** Test the property 'internalType' */
     @Test
-    public void internalTypeTest() {
+    void internalTypeTest() {
         // TODO: test internalType
     }
 
     /** Test the property 'type' */
     @Test
-    public void typeTest() {
+    void typeTest() {
         // TODO: test type
     }
 
     /** Test the property 'components' */
     @Test
-    public void componentsTest() {
+    void componentsTest() {
         // TODO: test components
     }
 
     /** Test the property 'value' */
     @Test
-    public void valueTest() {
+    void valueTest() {
         // TODO: test value
     }
 
     /** Test the property 'functionValue' */
     @Test
-    public void functionValueTest() {
+    void functionValueTest() {
         // TODO: test functionValue
     }
 }

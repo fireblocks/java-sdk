@@ -13,27 +13,38 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
 /** Account */
 @JsonPropertyOrder({Account.JSON_PROPERTY_ACCOUNT_ID, Account.JSON_PROPERTY_ACCOUNT_TYPE})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class Account {
     public static final String JSON_PROPERTY_ACCOUNT_ID = "accountId";
-    private String accountId;
+    @jakarta.annotation.Nonnull private String accountId;
 
     public static final String JSON_PROPERTY_ACCOUNT_TYPE = "accountType";
-    private AccountType accountType;
+    @jakarta.annotation.Nonnull private AccountType accountType;
 
     public Account() {}
 
-    public Account accountId(String accountId) {
+    @JsonCreator
+    public Account(
+            @JsonProperty(value = JSON_PROPERTY_ACCOUNT_ID, required = true) String accountId,
+            @JsonProperty(value = JSON_PROPERTY_ACCOUNT_TYPE, required = true)
+                    AccountType accountType) {
+        this.accountId = accountId;
+        this.accountType = accountType;
+    }
+
+    public Account accountId(@jakarta.annotation.Nonnull String accountId) {
         this.accountId = accountId;
         return this;
     }
@@ -52,11 +63,11 @@ public class Account {
 
     @JsonProperty(JSON_PROPERTY_ACCOUNT_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setAccountId(String accountId) {
+    public void setAccountId(@jakarta.annotation.Nonnull String accountId) {
         this.accountId = accountId;
     }
 
-    public Account accountType(AccountType accountType) {
+    public Account accountType(@jakarta.annotation.Nonnull AccountType accountType) {
         this.accountType = accountType;
         return this;
     }
@@ -75,7 +86,7 @@ public class Account {
 
     @JsonProperty(JSON_PROPERTY_ACCOUNT_TYPE)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setAccountType(AccountType accountType) {
+    public void setAccountType(@jakarta.annotation.Nonnull AccountType accountType) {
         this.accountType = accountType;
     }
 
@@ -158,9 +169,7 @@ public class Account {
                             "%saccountId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getAccountId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getAccountId()))));
         }
 
         // add `accountType` to the URL query string
@@ -170,10 +179,7 @@ public class Account {
                             "%saccountType%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getAccountType()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getAccountType()))));
         }
 
         return joiner.toString();

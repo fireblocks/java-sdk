@@ -13,11 +13,11 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -30,29 +30,49 @@ import java.util.StringJoiner;
     BlockchainResponse.JSON_PROPERTY_ONCHAIN,
     BlockchainResponse.JSON_PROPERTY_METADATA
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class BlockchainResponse {
     public static final String JSON_PROPERTY_ID = "id";
-    private String id;
+    @jakarta.annotation.Nonnull private String id;
 
     public static final String JSON_PROPERTY_LEGACY_ID = "legacyId";
-    private String legacyId;
+    @jakarta.annotation.Nonnull private String legacyId;
 
     public static final String JSON_PROPERTY_DISPLAY_NAME = "displayName";
-    private String displayName;
+    @jakarta.annotation.Nonnull private String displayName;
 
     public static final String JSON_PROPERTY_NATIVE_ASSET_ID = "nativeAssetId";
-    private String nativeAssetId;
+    @jakarta.annotation.Nonnull private String nativeAssetId;
 
     public static final String JSON_PROPERTY_ONCHAIN = "onchain";
-    private BlockchainOnchain onchain;
+    @jakarta.annotation.Nonnull private BlockchainOnchain onchain;
 
     public static final String JSON_PROPERTY_METADATA = "metadata";
-    private BlockchainMetadata metadata;
+    @jakarta.annotation.Nonnull private BlockchainMetadata metadata;
 
     public BlockchainResponse() {}
 
-    public BlockchainResponse id(String id) {
+    @JsonCreator
+    public BlockchainResponse(
+            @JsonProperty(value = JSON_PROPERTY_ID, required = true) String id,
+            @JsonProperty(value = JSON_PROPERTY_LEGACY_ID, required = true) String legacyId,
+            @JsonProperty(value = JSON_PROPERTY_DISPLAY_NAME, required = true) String displayName,
+            @JsonProperty(value = JSON_PROPERTY_NATIVE_ASSET_ID, required = true)
+                    String nativeAssetId,
+            @JsonProperty(value = JSON_PROPERTY_ONCHAIN, required = true) BlockchainOnchain onchain,
+            @JsonProperty(value = JSON_PROPERTY_METADATA, required = true)
+                    BlockchainMetadata metadata) {
+        this.id = id;
+        this.legacyId = legacyId;
+        this.displayName = displayName;
+        this.nativeAssetId = nativeAssetId;
+        this.onchain = onchain;
+        this.metadata = metadata;
+    }
+
+    public BlockchainResponse id(@jakarta.annotation.Nonnull String id) {
         this.id = id;
         return this;
     }
@@ -71,11 +91,11 @@ public class BlockchainResponse {
 
     @JsonProperty(JSON_PROPERTY_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setId(String id) {
+    public void setId(@jakarta.annotation.Nonnull String id) {
         this.id = id;
     }
 
-    public BlockchainResponse legacyId(String legacyId) {
+    public BlockchainResponse legacyId(@jakarta.annotation.Nonnull String legacyId) {
         this.legacyId = legacyId;
         return this;
     }
@@ -94,11 +114,11 @@ public class BlockchainResponse {
 
     @JsonProperty(JSON_PROPERTY_LEGACY_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setLegacyId(String legacyId) {
+    public void setLegacyId(@jakarta.annotation.Nonnull String legacyId) {
         this.legacyId = legacyId;
     }
 
-    public BlockchainResponse displayName(String displayName) {
+    public BlockchainResponse displayName(@jakarta.annotation.Nonnull String displayName) {
         this.displayName = displayName;
         return this;
     }
@@ -117,11 +137,11 @@ public class BlockchainResponse {
 
     @JsonProperty(JSON_PROPERTY_DISPLAY_NAME)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setDisplayName(String displayName) {
+    public void setDisplayName(@jakarta.annotation.Nonnull String displayName) {
         this.displayName = displayName;
     }
 
-    public BlockchainResponse nativeAssetId(String nativeAssetId) {
+    public BlockchainResponse nativeAssetId(@jakarta.annotation.Nonnull String nativeAssetId) {
         this.nativeAssetId = nativeAssetId;
         return this;
     }
@@ -140,11 +160,11 @@ public class BlockchainResponse {
 
     @JsonProperty(JSON_PROPERTY_NATIVE_ASSET_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setNativeAssetId(String nativeAssetId) {
+    public void setNativeAssetId(@jakarta.annotation.Nonnull String nativeAssetId) {
         this.nativeAssetId = nativeAssetId;
     }
 
-    public BlockchainResponse onchain(BlockchainOnchain onchain) {
+    public BlockchainResponse onchain(@jakarta.annotation.Nonnull BlockchainOnchain onchain) {
         this.onchain = onchain;
         return this;
     }
@@ -163,11 +183,11 @@ public class BlockchainResponse {
 
     @JsonProperty(JSON_PROPERTY_ONCHAIN)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setOnchain(BlockchainOnchain onchain) {
+    public void setOnchain(@jakarta.annotation.Nonnull BlockchainOnchain onchain) {
         this.onchain = onchain;
     }
 
-    public BlockchainResponse metadata(BlockchainMetadata metadata) {
+    public BlockchainResponse metadata(@jakarta.annotation.Nonnull BlockchainMetadata metadata) {
         this.metadata = metadata;
         return this;
     }
@@ -186,7 +206,7 @@ public class BlockchainResponse {
 
     @JsonProperty(JSON_PROPERTY_METADATA)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setMetadata(BlockchainMetadata metadata) {
+    public void setMetadata(@jakarta.annotation.Nonnull BlockchainMetadata metadata) {
         this.metadata = metadata;
     }
 
@@ -275,10 +295,7 @@ public class BlockchainResponse {
             joiner.add(
                     String.format(
                             "%sid%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(String.valueOf(getId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getId()))));
         }
 
         // add `legacyId` to the URL query string
@@ -288,8 +305,7 @@ public class BlockchainResponse {
                             "%slegacyId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getLegacyId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getLegacyId()))));
         }
 
         // add `displayName` to the URL query string
@@ -299,10 +315,7 @@ public class BlockchainResponse {
                             "%sdisplayName%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getDisplayName()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getDisplayName()))));
         }
 
         // add `nativeAssetId` to the URL query string
@@ -312,10 +325,7 @@ public class BlockchainResponse {
                             "%snativeAssetId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getNativeAssetId()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getNativeAssetId()))));
         }
 
         // add `onchain` to the URL query string

@@ -18,6 +18,7 @@ import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.model.CreateWebhookRequest;
 import com.fireblocks.sdk.model.NotificationAttemptsPaginatedResponse;
 import com.fireblocks.sdk.model.NotificationPaginatedResponse;
+import com.fireblocks.sdk.model.NotificationStatus;
 import com.fireblocks.sdk.model.NotificationWithData;
 import com.fireblocks.sdk.model.ResendFailedNotificationsJobStatusResponse;
 import com.fireblocks.sdk.model.ResendFailedNotificationsRequest;
@@ -25,8 +26,10 @@ import com.fireblocks.sdk.model.ResendFailedNotificationsResponse;
 import com.fireblocks.sdk.model.ResendNotificationsByResourceIdRequest;
 import com.fireblocks.sdk.model.UpdateWebhookRequest;
 import com.fireblocks.sdk.model.Webhook;
+import com.fireblocks.sdk.model.WebhookEvent;
 import com.fireblocks.sdk.model.WebhookPaginatedResponse;
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 import org.junit.Ignore;
@@ -114,8 +117,23 @@ public class WebhooksV2ApiTest {
         String sortBy = null;
         String pageCursor = null;
         BigDecimal pageSize = null;
+        BigDecimal startTime = null;
+        BigDecimal endTime = null;
+        List<NotificationStatus> statuses = null;
+        List<WebhookEvent> events = null;
+        String resourceId = null;
         CompletableFuture<ApiResponse<NotificationPaginatedResponse>> response =
-                api.getNotifications(webhookId, order, sortBy, pageCursor, pageSize);
+                api.getNotifications(
+                        webhookId,
+                        order,
+                        sortBy,
+                        pageCursor,
+                        pageSize,
+                        startTime,
+                        endTime,
+                        statuses,
+                        events,
+                        resourceId);
     }
 
     /**

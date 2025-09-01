@@ -16,22 +16,23 @@ package com.fireblocks.sdk.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fireblocks.sdk.ApiClient;
 import java.math.BigDecimal;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 import java.util.StringJoiner;
 
 /** ResendFailedNotificationsResponse */
 @JsonPropertyOrder({ResendFailedNotificationsResponse.JSON_PROPERTY_TOTAL})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class ResendFailedNotificationsResponse {
     public static final String JSON_PROPERTY_TOTAL = "total";
-    private BigDecimal total;
+    @jakarta.annotation.Nullable private BigDecimal total;
 
     public ResendFailedNotificationsResponse() {}
 
-    public ResendFailedNotificationsResponse total(BigDecimal total) {
+    public ResendFailedNotificationsResponse total(@jakarta.annotation.Nullable BigDecimal total) {
         this.total = total;
         return this;
     }
@@ -50,7 +51,7 @@ public class ResendFailedNotificationsResponse {
 
     @JsonProperty(JSON_PROPERTY_TOTAL)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setTotal(BigDecimal total) {
+    public void setTotal(@jakarta.annotation.Nullable BigDecimal total) {
         this.total = total;
     }
 
@@ -132,8 +133,7 @@ public class ResendFailedNotificationsResponse {
                             "%stotal%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getTotal()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getTotal()))));
         }
 
         return joiner.toString();

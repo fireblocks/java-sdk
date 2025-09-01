@@ -13,21 +13,21 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for ResendWebhooksResponse */
-public class ResendWebhooksResponseTest {
+class ResendWebhooksResponseTest {
     private final ResendWebhooksResponse model = new ResendWebhooksResponse();
 
     /** Model tests for ResendWebhooksResponse */
     @Test
-    public void testResendWebhooksResponse() {
+    void testResendWebhooksResponse() {
         // TODO: test ResendWebhooksResponse
     }
 
     /** Test the property 'messagesCount' */
     @Test
-    public void messagesCountTest() {
+    void messagesCountTest() {
         // TODO: test messagesCount
     }
 }

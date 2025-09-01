@@ -26,10 +26,9 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
+import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.JSON;
 import java.io.IOException;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -38,7 +37,9 @@ import java.util.StringJoiner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 @JsonDeserialize(
         using = ContractDataDecodeRequestData.ContractDataDecodeRequestDataDeserializer.class)
 @JsonSerialize(using = ContractDataDecodeRequestData.ContractDataDecodeRequestDataSerializer.class)
@@ -319,10 +320,7 @@ public class ContractDataDecodeRequestData extends AbstractOpenApiSchema {
                                 "%sone_of_0%s=%s",
                                 prefix,
                                 suffix,
-                                URLEncoder.encode(
-                                                String.valueOf(getActualInstance()),
-                                                StandardCharsets.UTF_8)
-                                        .replaceAll("\\+", "%20")));
+                                ApiClient.urlEncode(String.valueOf(getActualInstance()))));
             }
             return joiner.toString();
         }

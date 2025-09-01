@@ -13,27 +13,27 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for AddressNotAvailableError */
-public class AddressNotAvailableErrorTest {
+class AddressNotAvailableErrorTest {
     private final AddressNotAvailableError model = new AddressNotAvailableError();
 
     /** Model tests for AddressNotAvailableError */
     @Test
-    public void testAddressNotAvailableError() {
+    void testAddressNotAvailableError() {
         // TODO: test AddressNotAvailableError
     }
 
     /** Test the property 'message' */
     @Test
-    public void messageTest() {
+    void messageTest() {
         // TODO: test message
     }
 
     /** Test the property 'code' */
     @Test
-    public void codeTest() {
+    void codeTest() {
         // TODO: test code
     }
 }

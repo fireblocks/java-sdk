@@ -13,12 +13,12 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fireblocks.sdk.ApiClient;
 import java.math.BigDecimal;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -31,23 +31,40 @@ import java.util.StringJoiner;
     SolanaInstructionWithValue.JSON_PROPERTY_ACCOUNTS,
     SolanaInstructionWithValue.JSON_PROPERTY_ARGS
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class SolanaInstructionWithValue {
     public static final String JSON_PROPERTY_NAME = "name";
-    private String name;
+    @jakarta.annotation.Nonnull private String name;
 
     public static final String JSON_PROPERTY_DISCRIMINATOR = "discriminator";
-    private List<BigDecimal> discriminator = new ArrayList<>();
+    @jakarta.annotation.Nonnull private List<BigDecimal> discriminator = new ArrayList<>();
 
     public static final String JSON_PROPERTY_ACCOUNTS = "accounts";
-    private List<SOLAccountWithValue> accounts = new ArrayList<>();
+    @jakarta.annotation.Nonnull private List<SOLAccountWithValue> accounts = new ArrayList<>();
 
     public static final String JSON_PROPERTY_ARGS = "args";
-    private List<SolParameterWithValue> args = new ArrayList<>();
+    @jakarta.annotation.Nonnull private List<SolParameterWithValue> args = new ArrayList<>();
 
     public SolanaInstructionWithValue() {}
 
-    public SolanaInstructionWithValue name(String name) {
+    @JsonCreator
+    public SolanaInstructionWithValue(
+            @JsonProperty(value = JSON_PROPERTY_NAME, required = true) String name,
+            @JsonProperty(value = JSON_PROPERTY_DISCRIMINATOR, required = true)
+                    List<BigDecimal> discriminator,
+            @JsonProperty(value = JSON_PROPERTY_ACCOUNTS, required = true)
+                    List<SOLAccountWithValue> accounts,
+            @JsonProperty(value = JSON_PROPERTY_ARGS, required = true)
+                    List<SolParameterWithValue> args) {
+        this.name = name;
+        this.discriminator = discriminator;
+        this.accounts = accounts;
+        this.args = args;
+    }
+
+    public SolanaInstructionWithValue name(@jakarta.annotation.Nonnull String name) {
         this.name = name;
         return this;
     }
@@ -66,11 +83,12 @@ public class SolanaInstructionWithValue {
 
     @JsonProperty(JSON_PROPERTY_NAME)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setName(String name) {
+    public void setName(@jakarta.annotation.Nonnull String name) {
         this.name = name;
     }
 
-    public SolanaInstructionWithValue discriminator(List<BigDecimal> discriminator) {
+    public SolanaInstructionWithValue discriminator(
+            @jakarta.annotation.Nonnull List<BigDecimal> discriminator) {
         this.discriminator = discriminator;
         return this;
     }
@@ -97,11 +115,12 @@ public class SolanaInstructionWithValue {
 
     @JsonProperty(JSON_PROPERTY_DISCRIMINATOR)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setDiscriminator(List<BigDecimal> discriminator) {
+    public void setDiscriminator(@jakarta.annotation.Nonnull List<BigDecimal> discriminator) {
         this.discriminator = discriminator;
     }
 
-    public SolanaInstructionWithValue accounts(List<SOLAccountWithValue> accounts) {
+    public SolanaInstructionWithValue accounts(
+            @jakarta.annotation.Nonnull List<SOLAccountWithValue> accounts) {
         this.accounts = accounts;
         return this;
     }
@@ -128,11 +147,12 @@ public class SolanaInstructionWithValue {
 
     @JsonProperty(JSON_PROPERTY_ACCOUNTS)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setAccounts(List<SOLAccountWithValue> accounts) {
+    public void setAccounts(@jakarta.annotation.Nonnull List<SOLAccountWithValue> accounts) {
         this.accounts = accounts;
     }
 
-    public SolanaInstructionWithValue args(List<SolParameterWithValue> args) {
+    public SolanaInstructionWithValue args(
+            @jakarta.annotation.Nonnull List<SolParameterWithValue> args) {
         this.args = args;
         return this;
     }
@@ -159,7 +179,7 @@ public class SolanaInstructionWithValue {
 
     @JsonProperty(JSON_PROPERTY_ARGS)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setArgs(List<SolParameterWithValue> args) {
+    public void setArgs(@jakarta.annotation.Nonnull List<SolParameterWithValue> args) {
         this.args = args;
     }
 
@@ -246,8 +266,7 @@ public class SolanaInstructionWithValue {
                             "%sname%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getName()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getName()))));
         }
 
         // add `discriminator` to the URL query string
@@ -263,10 +282,8 @@ public class SolanaInstructionWithValue {
                                             ? ""
                                             : String.format(
                                                     "%s%d%s", containerPrefix, i, containerSuffix),
-                                    URLEncoder.encode(
-                                                    String.valueOf(getDiscriminator().get(i)),
-                                                    StandardCharsets.UTF_8)
-                                            .replaceAll("\\+", "%20")));
+                                    ApiClient.urlEncode(
+                                            ApiClient.valueToString(getDiscriminator().get(i)))));
                 }
             }
         }

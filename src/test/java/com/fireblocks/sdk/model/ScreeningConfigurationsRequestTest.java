@@ -13,33 +13,33 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for ScreeningConfigurationsRequest */
-public class ScreeningConfigurationsRequestTest {
+class ScreeningConfigurationsRequestTest {
     private final ScreeningConfigurationsRequest model = new ScreeningConfigurationsRequest();
 
     /** Model tests for ScreeningConfigurationsRequest */
     @Test
-    public void testScreeningConfigurationsRequest() {
+    void testScreeningConfigurationsRequest() {
         // TODO: test ScreeningConfigurationsRequest
     }
 
     /** Test the property 'bypassScreeningDuringServiceOutages' */
     @Test
-    public void bypassScreeningDuringServiceOutagesTest() {
+    void bypassScreeningDuringServiceOutagesTest() {
         // TODO: test bypassScreeningDuringServiceOutages
     }
 
     /** Test the property 'inboundTransactionDelay' */
     @Test
-    public void inboundTransactionDelayTest() {
+    void inboundTransactionDelayTest() {
         // TODO: test inboundTransactionDelay
     }
 
     /** Test the property 'outboundTransactionDelay' */
     @Test
-    public void outboundTransactionDelayTest() {
+    void outboundTransactionDelayTest() {
         // TODO: test outboundTransactionDelay
     }
 }

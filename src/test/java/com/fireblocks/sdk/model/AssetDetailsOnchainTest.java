@@ -13,45 +13,45 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for AssetDetailsOnchain */
-public class AssetDetailsOnchainTest {
+class AssetDetailsOnchainTest {
     private final AssetDetailsOnchain model = new AssetDetailsOnchain();
 
     /** Model tests for AssetDetailsOnchain */
     @Test
-    public void testAssetDetailsOnchain() {
+    void testAssetDetailsOnchain() {
         // TODO: test AssetDetailsOnchain
     }
 
     /** Test the property 'symbol' */
     @Test
-    public void symbolTest() {
+    void symbolTest() {
         // TODO: test symbol
     }
 
     /** Test the property 'name' */
     @Test
-    public void nameTest() {
+    void nameTest() {
         // TODO: test name
     }
 
     /** Test the property 'address' */
     @Test
-    public void addressTest() {
+    void addressTest() {
         // TODO: test address
     }
 
     /** Test the property 'decimals' */
     @Test
-    public void decimalsTest() {
+    void decimalsTest() {
         // TODO: test decimals
     }
 
     /** Test the property 'standards' */
     @Test
-    public void standardsTest() {
+    void standardsTest() {
         // TODO: test standards
     }
 }

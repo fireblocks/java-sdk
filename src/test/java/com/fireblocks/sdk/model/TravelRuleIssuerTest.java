@@ -13,21 +13,21 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for TravelRuleIssuer */
-public class TravelRuleIssuerTest {
+class TravelRuleIssuerTest {
     private final TravelRuleIssuer model = new TravelRuleIssuer();
 
     /** Model tests for TravelRuleIssuer */
     @Test
-    public void testTravelRuleIssuer() {
+    void testTravelRuleIssuer() {
         // TODO: test TravelRuleIssuer
     }
 
     /** Test the property 'issuerDid' */
     @Test
-    public void issuerDidTest() {
+    void issuerDidTest() {
         // TODO: test issuerDid
     }
 }

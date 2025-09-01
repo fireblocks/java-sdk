@@ -16,8 +16,7 @@ package com.fireblocks.sdk.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -28,23 +27,25 @@ import java.util.StringJoiner;
     ToExchangeTransaction.JSON_PROPERTY_DST_ADDRESS,
     ToExchangeTransaction.JSON_PROPERTY_DST_TAG
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class ToExchangeTransaction {
     public static final String JSON_PROPERTY_ASSET_ID = "assetId";
-    private String assetId;
+    @jakarta.annotation.Nullable private String assetId;
 
     public static final String JSON_PROPERTY_AMOUNT = "amount";
-    private String amount;
+    @jakarta.annotation.Nullable private String amount;
 
     public static final String JSON_PROPERTY_DST_ADDRESS = "dstAddress";
-    private String dstAddress;
+    @jakarta.annotation.Nullable private String dstAddress;
 
     public static final String JSON_PROPERTY_DST_TAG = "dstTag";
-    private String dstTag;
+    @jakarta.annotation.Nullable private String dstTag;
 
     public ToExchangeTransaction() {}
 
-    public ToExchangeTransaction assetId(String assetId) {
+    public ToExchangeTransaction assetId(@jakarta.annotation.Nullable String assetId) {
         this.assetId = assetId;
         return this;
     }
@@ -63,11 +64,11 @@ public class ToExchangeTransaction {
 
     @JsonProperty(JSON_PROPERTY_ASSET_ID)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAssetId(String assetId) {
+    public void setAssetId(@jakarta.annotation.Nullable String assetId) {
         this.assetId = assetId;
     }
 
-    public ToExchangeTransaction amount(String amount) {
+    public ToExchangeTransaction amount(@jakarta.annotation.Nullable String amount) {
         this.amount = amount;
         return this;
     }
@@ -86,11 +87,11 @@ public class ToExchangeTransaction {
 
     @JsonProperty(JSON_PROPERTY_AMOUNT)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAmount(String amount) {
+    public void setAmount(@jakarta.annotation.Nullable String amount) {
         this.amount = amount;
     }
 
-    public ToExchangeTransaction dstAddress(String dstAddress) {
+    public ToExchangeTransaction dstAddress(@jakarta.annotation.Nullable String dstAddress) {
         this.dstAddress = dstAddress;
         return this;
     }
@@ -109,11 +110,11 @@ public class ToExchangeTransaction {
 
     @JsonProperty(JSON_PROPERTY_DST_ADDRESS)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setDstAddress(String dstAddress) {
+    public void setDstAddress(@jakarta.annotation.Nullable String dstAddress) {
         this.dstAddress = dstAddress;
     }
 
-    public ToExchangeTransaction dstTag(String dstTag) {
+    public ToExchangeTransaction dstTag(@jakarta.annotation.Nullable String dstTag) {
         this.dstTag = dstTag;
         return this;
     }
@@ -132,7 +133,7 @@ public class ToExchangeTransaction {
 
     @JsonProperty(JSON_PROPERTY_DST_TAG)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setDstTag(String dstTag) {
+    public void setDstTag(@jakarta.annotation.Nullable String dstTag) {
         this.dstTag = dstTag;
     }
 
@@ -219,8 +220,7 @@ public class ToExchangeTransaction {
                             "%sassetId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getAssetId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getAssetId()))));
         }
 
         // add `amount` to the URL query string
@@ -230,8 +230,7 @@ public class ToExchangeTransaction {
                             "%samount%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getAmount()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getAmount()))));
         }
 
         // add `dstAddress` to the URL query string
@@ -241,9 +240,7 @@ public class ToExchangeTransaction {
                             "%sdstAddress%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getDstAddress()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getDstAddress()))));
         }
 
         // add `dstTag` to the URL query string
@@ -253,8 +250,7 @@ public class ToExchangeTransaction {
                             "%sdstTag%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getDstTag()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getDstTag()))));
         }
 
         return joiner.toString();

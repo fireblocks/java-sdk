@@ -13,57 +13,57 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for WalletAsset */
-public class WalletAssetTest {
+class WalletAssetTest {
     private final WalletAsset model = new WalletAsset();
 
     /** Model tests for WalletAsset */
     @Test
-    public void testWalletAsset() {
+    void testWalletAsset() {
         // TODO: test WalletAsset
     }
 
     /** Test the property 'id' */
     @Test
-    public void idTest() {
+    void idTest() {
         // TODO: test id
     }
 
     /** Test the property 'balance' */
     @Test
-    public void balanceTest() {
+    void balanceTest() {
         // TODO: test balance
     }
 
     /** Test the property 'lockedAmount' */
     @Test
-    public void lockedAmountTest() {
+    void lockedAmountTest() {
         // TODO: test lockedAmount
     }
 
     /** Test the property 'status' */
     @Test
-    public void statusTest() {
+    void statusTest() {
         // TODO: test status
     }
 
     /** Test the property 'address' */
     @Test
-    public void addressTest() {
+    void addressTest() {
         // TODO: test address
     }
 
     /** Test the property 'tag' */
     @Test
-    public void tagTest() {
+    void tagTest() {
         // TODO: test tag
     }
 
     /** Test the property 'activationTime' */
     @Test
-    public void activationTimeTest() {
+    void activationTimeTest() {
         // TODO: test activationTime
     }
 }

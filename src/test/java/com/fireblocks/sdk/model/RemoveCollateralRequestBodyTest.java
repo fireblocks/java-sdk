@@ -13,27 +13,27 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for RemoveCollateralRequestBody */
-public class RemoveCollateralRequestBodyTest {
+class RemoveCollateralRequestBodyTest {
     private final RemoveCollateralRequestBody model = new RemoveCollateralRequestBody();
 
     /** Model tests for RemoveCollateralRequestBody */
     @Test
-    public void testRemoveCollateralRequestBody() {
+    void testRemoveCollateralRequestBody() {
         // TODO: test RemoveCollateralRequestBody
     }
 
     /** Test the property 'transactionRequest' */
     @Test
-    public void transactionRequestTest() {
+    void transactionRequestTest() {
         // TODO: test transactionRequest
     }
 
     /** Test the property 'isDstCollateral' */
     @Test
-    public void isDstCollateralTest() {
+    void isDstCollateralTest() {
         // TODO: test isDstCollateral
     }
 }

@@ -13,39 +13,39 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for ExchangeAccountsPaged */
-public class ExchangeAccountsPagedTest {
+class ExchangeAccountsPagedTest {
     private final ExchangeAccountsPaged model = new ExchangeAccountsPaged();
 
     /** Model tests for ExchangeAccountsPaged */
     @Test
-    public void testExchangeAccountsPaged() {
+    void testExchangeAccountsPaged() {
         // TODO: test ExchangeAccountsPaged
     }
 
     /** Test the property 'exchangeAccount' */
     @Test
-    public void exchangeAccountTest() {
+    void exchangeAccountTest() {
         // TODO: test exchangeAccount
     }
 
     /** Test the property 'paging' */
     @Test
-    public void pagingTest() {
+    void pagingTest() {
         // TODO: test paging
     }
 
     /** Test the property 'prevUrl' */
     @Test
-    public void prevUrlTest() {
+    void prevUrlTest() {
         // TODO: test prevUrl
     }
 
     /** Test the property 'nextUrl' */
     @Test
-    public void nextUrlTest() {
+    void nextUrlTest() {
         // TODO: test nextUrl
     }
 }

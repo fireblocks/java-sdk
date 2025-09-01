@@ -13,11 +13,11 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -26,17 +26,27 @@ import java.util.StringJoiner;
     EmbeddedWalletAccount.JSON_PROPERTY_ACCOUNT_ID,
     EmbeddedWalletAccount.JSON_PROPERTY_WALLET_ID
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class EmbeddedWalletAccount {
     public static final String JSON_PROPERTY_ACCOUNT_ID = "accountId";
-    private String accountId;
+    @jakarta.annotation.Nonnull private String accountId;
 
     public static final String JSON_PROPERTY_WALLET_ID = "walletId";
-    private String walletId;
+    @jakarta.annotation.Nonnull private String walletId;
 
     public EmbeddedWalletAccount() {}
 
-    public EmbeddedWalletAccount accountId(String accountId) {
+    @JsonCreator
+    public EmbeddedWalletAccount(
+            @JsonProperty(value = JSON_PROPERTY_ACCOUNT_ID, required = true) String accountId,
+            @JsonProperty(value = JSON_PROPERTY_WALLET_ID, required = true) String walletId) {
+        this.accountId = accountId;
+        this.walletId = walletId;
+    }
+
+    public EmbeddedWalletAccount accountId(@jakarta.annotation.Nonnull String accountId) {
         this.accountId = accountId;
         return this;
     }
@@ -55,11 +65,11 @@ public class EmbeddedWalletAccount {
 
     @JsonProperty(JSON_PROPERTY_ACCOUNT_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setAccountId(String accountId) {
+    public void setAccountId(@jakarta.annotation.Nonnull String accountId) {
         this.accountId = accountId;
     }
 
-    public EmbeddedWalletAccount walletId(String walletId) {
+    public EmbeddedWalletAccount walletId(@jakarta.annotation.Nonnull String walletId) {
         this.walletId = walletId;
         return this;
     }
@@ -78,7 +88,7 @@ public class EmbeddedWalletAccount {
 
     @JsonProperty(JSON_PROPERTY_WALLET_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setWalletId(String walletId) {
+    public void setWalletId(@jakarta.annotation.Nonnull String walletId) {
         this.walletId = walletId;
     }
 
@@ -161,9 +171,7 @@ public class EmbeddedWalletAccount {
                             "%saccountId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getAccountId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getAccountId()))));
         }
 
         // add `walletId` to the URL query string
@@ -173,8 +181,7 @@ public class EmbeddedWalletAccount {
                             "%swalletId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getWalletId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getWalletId()))));
         }
 
         return joiner.toString();

@@ -13,33 +13,33 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for ApiKey */
-public class ApiKeyTest {
+class ApiKeyTest {
     private final ApiKey model = new ApiKey();
 
     /** Model tests for ApiKey */
     @Test
-    public void testApiKey() {
+    void testApiKey() {
         // TODO: test ApiKey
     }
 
     /** Test the property 'id' */
     @Test
-    public void idTest() {
+    void idTest() {
         // TODO: test id
     }
 
     /** Test the property 'lastSeen' */
     @Test
-    public void lastSeenTest() {
+    void lastSeenTest() {
         // TODO: test lastSeen
     }
 
     /** Test the property 'callbackHandler' */
     @Test
-    public void callbackHandlerTest() {
+    void callbackHandlerTest() {
         // TODO: test callbackHandler
     }
 }

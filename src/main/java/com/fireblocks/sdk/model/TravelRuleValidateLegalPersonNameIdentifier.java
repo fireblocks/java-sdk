@@ -18,8 +18,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonValue;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -28,10 +27,12 @@ import java.util.StringJoiner;
     TravelRuleValidateLegalPersonNameIdentifier.JSON_PROPERTY_LEGAL_PERSON_NAME,
     TravelRuleValidateLegalPersonNameIdentifier.JSON_PROPERTY_LEGAL_PERSON_NAME_IDENTIFIER_TYPE
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class TravelRuleValidateLegalPersonNameIdentifier {
     public static final String JSON_PROPERTY_LEGAL_PERSON_NAME = "legalPersonName";
-    private String legalPersonName;
+    @jakarta.annotation.Nullable private String legalPersonName;
 
     /**
      * Specifies the type of name for a legal person. Acceptable values are: - &#39;REGISTERED&#39;:
@@ -39,11 +40,11 @@ public class TravelRuleValidateLegalPersonNameIdentifier {
      * name. - &#39;OTHER&#39;: Any other type of name.
      */
     public enum LegalPersonNameIdentifierTypeEnum {
-        REGISTERED("REGISTERED"),
+        REGISTERED(String.valueOf("REGISTERED")),
 
-        TRADE("TRADE"),
+        TRADE(String.valueOf("TRADE")),
 
-        OTHER("OTHER");
+        OTHER(String.valueOf("OTHER"));
 
         private String value;
 
@@ -74,11 +75,14 @@ public class TravelRuleValidateLegalPersonNameIdentifier {
 
     public static final String JSON_PROPERTY_LEGAL_PERSON_NAME_IDENTIFIER_TYPE =
             "legalPersonNameIdentifierType";
+
+    @jakarta.annotation.Nullable
     private LegalPersonNameIdentifierTypeEnum legalPersonNameIdentifierType;
 
     public TravelRuleValidateLegalPersonNameIdentifier() {}
 
-    public TravelRuleValidateLegalPersonNameIdentifier legalPersonName(String legalPersonName) {
+    public TravelRuleValidateLegalPersonNameIdentifier legalPersonName(
+            @jakarta.annotation.Nullable String legalPersonName) {
         this.legalPersonName = legalPersonName;
         return this;
     }
@@ -97,12 +101,13 @@ public class TravelRuleValidateLegalPersonNameIdentifier {
 
     @JsonProperty(JSON_PROPERTY_LEGAL_PERSON_NAME)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setLegalPersonName(String legalPersonName) {
+    public void setLegalPersonName(@jakarta.annotation.Nullable String legalPersonName) {
         this.legalPersonName = legalPersonName;
     }
 
     public TravelRuleValidateLegalPersonNameIdentifier legalPersonNameIdentifierType(
-            LegalPersonNameIdentifierTypeEnum legalPersonNameIdentifierType) {
+            @jakarta.annotation.Nullable
+                    LegalPersonNameIdentifierTypeEnum legalPersonNameIdentifierType) {
         this.legalPersonNameIdentifierType = legalPersonNameIdentifierType;
         return this;
     }
@@ -124,7 +129,8 @@ public class TravelRuleValidateLegalPersonNameIdentifier {
     @JsonProperty(JSON_PROPERTY_LEGAL_PERSON_NAME_IDENTIFIER_TYPE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
     public void setLegalPersonNameIdentifierType(
-            LegalPersonNameIdentifierTypeEnum legalPersonNameIdentifierType) {
+            @jakarta.annotation.Nullable
+                    LegalPersonNameIdentifierTypeEnum legalPersonNameIdentifierType) {
         this.legalPersonNameIdentifierType = legalPersonNameIdentifierType;
     }
 
@@ -214,10 +220,7 @@ public class TravelRuleValidateLegalPersonNameIdentifier {
                             "%slegalPersonName%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getLegalPersonName()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getLegalPersonName()))));
         }
 
         // add `legalPersonNameIdentifierType` to the URL query string
@@ -227,10 +230,8 @@ public class TravelRuleValidateLegalPersonNameIdentifier {
                             "%slegalPersonNameIdentifierType%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getLegalPersonNameIdentifierType()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(
+                                    ApiClient.valueToString(getLegalPersonNameIdentifierType()))));
         }
 
         return joiner.toString();

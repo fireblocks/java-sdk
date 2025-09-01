@@ -13,117 +13,117 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for VaultAsset */
-public class VaultAssetTest {
+class VaultAssetTest {
     private final VaultAsset model = new VaultAsset();
 
     /** Model tests for VaultAsset */
     @Test
-    public void testVaultAsset() {
+    void testVaultAsset() {
         // TODO: test VaultAsset
     }
 
     /** Test the property 'id' */
     @Test
-    public void idTest() {
+    void idTest() {
         // TODO: test id
     }
 
     /** Test the property 'total' */
     @Test
-    public void totalTest() {
+    void totalTest() {
         // TODO: test total
     }
 
     /** Test the property 'balance' */
     @Test
-    public void balanceTest() {
+    void balanceTest() {
         // TODO: test balance
     }
 
     /** Test the property 'available' */
     @Test
-    public void availableTest() {
+    void availableTest() {
         // TODO: test available
     }
 
     /** Test the property 'pending' */
     @Test
-    public void pendingTest() {
+    void pendingTest() {
         // TODO: test pending
     }
 
     /** Test the property 'frozen' */
     @Test
-    public void frozenTest() {
+    void frozenTest() {
         // TODO: test frozen
     }
 
     /** Test the property 'lockedAmount' */
     @Test
-    public void lockedAmountTest() {
+    void lockedAmountTest() {
         // TODO: test lockedAmount
     }
 
     /** Test the property 'staked' */
     @Test
-    public void stakedTest() {
+    void stakedTest() {
         // TODO: test staked
     }
 
     /** Test the property 'totalStakedCPU' */
     @Test
-    public void totalStakedCPUTest() {
+    void totalStakedCPUTest() {
         // TODO: test totalStakedCPU
     }
 
     /** Test the property 'totalStakedNetwork' */
     @Test
-    public void totalStakedNetworkTest() {
+    void totalStakedNetworkTest() {
         // TODO: test totalStakedNetwork
     }
 
     /** Test the property 'selfStakedCPU' */
     @Test
-    public void selfStakedCPUTest() {
+    void selfStakedCPUTest() {
         // TODO: test selfStakedCPU
     }
 
     /** Test the property 'selfStakedNetwork' */
     @Test
-    public void selfStakedNetworkTest() {
+    void selfStakedNetworkTest() {
         // TODO: test selfStakedNetwork
     }
 
     /** Test the property 'pendingRefundCPU' */
     @Test
-    public void pendingRefundCPUTest() {
+    void pendingRefundCPUTest() {
         // TODO: test pendingRefundCPU
     }
 
     /** Test the property 'pendingRefundNetwork' */
     @Test
-    public void pendingRefundNetworkTest() {
+    void pendingRefundNetworkTest() {
         // TODO: test pendingRefundNetwork
     }
 
     /** Test the property 'blockHeight' */
     @Test
-    public void blockHeightTest() {
+    void blockHeightTest() {
         // TODO: test blockHeight
     }
 
     /** Test the property 'blockHash' */
     @Test
-    public void blockHashTest() {
+    void blockHashTest() {
         // TODO: test blockHash
     }
 
     /** Test the property 'rewardsInfo' */
     @Test
-    public void rewardsInfoTest() {
+    void rewardsInfoTest() {
         // TODO: test rewardsInfo
     }
 }

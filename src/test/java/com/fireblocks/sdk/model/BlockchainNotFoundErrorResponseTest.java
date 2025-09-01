@@ -13,27 +13,27 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for BlockchainNotFoundErrorResponse */
-public class BlockchainNotFoundErrorResponseTest {
+class BlockchainNotFoundErrorResponseTest {
     private final BlockchainNotFoundErrorResponse model = new BlockchainNotFoundErrorResponse();
 
     /** Model tests for BlockchainNotFoundErrorResponse */
     @Test
-    public void testBlockchainNotFoundErrorResponse() {
+    void testBlockchainNotFoundErrorResponse() {
         // TODO: test BlockchainNotFoundErrorResponse
     }
 
     /** Test the property 'message' */
     @Test
-    public void messageTest() {
+    void messageTest() {
         // TODO: test message
     }
 
     /** Test the property 'code' */
     @Test
-    public void codeTest() {
+    void codeTest() {
         // TODO: test code
     }
 }

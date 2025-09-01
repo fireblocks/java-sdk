@@ -13,21 +13,21 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for SmartTransferSetTicketExternalId */
-public class SmartTransferSetTicketExternalIdTest {
+class SmartTransferSetTicketExternalIdTest {
     private final SmartTransferSetTicketExternalId model = new SmartTransferSetTicketExternalId();
 
     /** Model tests for SmartTransferSetTicketExternalId */
     @Test
-    public void testSmartTransferSetTicketExternalId() {
+    void testSmartTransferSetTicketExternalId() {
         // TODO: test SmartTransferSetTicketExternalId
     }
 
     /** Test the property 'externalRefId' */
     @Test
-    public void externalRefIdTest() {
+    void externalRefIdTest() {
         // TODO: test externalRefId
     }
 }

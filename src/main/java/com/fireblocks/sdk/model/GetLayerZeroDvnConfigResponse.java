@@ -13,11 +13,11 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -29,18 +29,33 @@ import java.util.UUID;
     GetLayerZeroDvnConfigResponse.JSON_PROPERTY_SOURCE_ADAPTER_TOKEN_LINK_ID,
     GetLayerZeroDvnConfigResponse.JSON_PROPERTY_CHANNEL_CONFIGS
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class GetLayerZeroDvnConfigResponse {
     public static final String JSON_PROPERTY_SOURCE_ADAPTER_TOKEN_LINK_ID =
             "sourceAdapterTokenLinkId";
-    private UUID sourceAdapterTokenLinkId;
+    @jakarta.annotation.Nonnull private UUID sourceAdapterTokenLinkId;
 
     public static final String JSON_PROPERTY_CHANNEL_CONFIGS = "channelConfigs";
+
+    @jakarta.annotation.Nonnull
     private List<ChannelDvnConfigWithConfirmations> channelConfigs = new ArrayList<>();
 
     public GetLayerZeroDvnConfigResponse() {}
 
-    public GetLayerZeroDvnConfigResponse sourceAdapterTokenLinkId(UUID sourceAdapterTokenLinkId) {
+    @JsonCreator
+    public GetLayerZeroDvnConfigResponse(
+            @JsonProperty(value = JSON_PROPERTY_SOURCE_ADAPTER_TOKEN_LINK_ID, required = true)
+                    UUID sourceAdapterTokenLinkId,
+            @JsonProperty(value = JSON_PROPERTY_CHANNEL_CONFIGS, required = true)
+                    List<ChannelDvnConfigWithConfirmations> channelConfigs) {
+        this.sourceAdapterTokenLinkId = sourceAdapterTokenLinkId;
+        this.channelConfigs = channelConfigs;
+    }
+
+    public GetLayerZeroDvnConfigResponse sourceAdapterTokenLinkId(
+            @jakarta.annotation.Nonnull UUID sourceAdapterTokenLinkId) {
         this.sourceAdapterTokenLinkId = sourceAdapterTokenLinkId;
         return this;
     }
@@ -59,12 +74,13 @@ public class GetLayerZeroDvnConfigResponse {
 
     @JsonProperty(JSON_PROPERTY_SOURCE_ADAPTER_TOKEN_LINK_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setSourceAdapterTokenLinkId(UUID sourceAdapterTokenLinkId) {
+    public void setSourceAdapterTokenLinkId(
+            @jakarta.annotation.Nonnull UUID sourceAdapterTokenLinkId) {
         this.sourceAdapterTokenLinkId = sourceAdapterTokenLinkId;
     }
 
     public GetLayerZeroDvnConfigResponse channelConfigs(
-            List<ChannelDvnConfigWithConfirmations> channelConfigs) {
+            @jakarta.annotation.Nonnull List<ChannelDvnConfigWithConfirmations> channelConfigs) {
         this.channelConfigs = channelConfigs;
         return this;
     }
@@ -93,7 +109,8 @@ public class GetLayerZeroDvnConfigResponse {
 
     @JsonProperty(JSON_PROPERTY_CHANNEL_CONFIGS)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setChannelConfigs(List<ChannelDvnConfigWithConfirmations> channelConfigs) {
+    public void setChannelConfigs(
+            @jakarta.annotation.Nonnull List<ChannelDvnConfigWithConfirmations> channelConfigs) {
         this.channelConfigs = channelConfigs;
     }
 
@@ -182,10 +199,8 @@ public class GetLayerZeroDvnConfigResponse {
                             "%ssourceAdapterTokenLinkId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getSourceAdapterTokenLinkId()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(
+                                    ApiClient.valueToString(getSourceAdapterTokenLinkId()))));
         }
 
         // add `channelConfigs` to the URL query string

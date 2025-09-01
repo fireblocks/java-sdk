@@ -13,39 +13,39 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for AddAbiRequestDto */
-public class AddAbiRequestDtoTest {
+class AddAbiRequestDtoTest {
     private final AddAbiRequestDto model = new AddAbiRequestDto();
 
     /** Model tests for AddAbiRequestDto */
     @Test
-    public void testAddAbiRequestDto() {
+    void testAddAbiRequestDto() {
         // TODO: test AddAbiRequestDto
     }
 
     /** Test the property 'contractAddress' */
     @Test
-    public void contractAddressTest() {
+    void contractAddressTest() {
         // TODO: test contractAddress
     }
 
     /** Test the property 'baseAssetId' */
     @Test
-    public void baseAssetIdTest() {
+    void baseAssetIdTest() {
         // TODO: test baseAssetId
     }
 
     /** Test the property 'abi' */
     @Test
-    public void abiTest() {
+    void abiTest() {
         // TODO: test abi
     }
 
     /** Test the property 'name' */
     @Test
-    public void nameTest() {
+    void nameTest() {
         // TODO: test name
     }
 }

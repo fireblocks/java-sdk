@@ -13,28 +13,28 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for EmbeddedWalletPaginatedAssetsResponse */
-public class EmbeddedWalletPaginatedAssetsResponseTest {
+class EmbeddedWalletPaginatedAssetsResponseTest {
     private final EmbeddedWalletPaginatedAssetsResponse model =
             new EmbeddedWalletPaginatedAssetsResponse();
 
     /** Model tests for EmbeddedWalletPaginatedAssetsResponse */
     @Test
-    public void testEmbeddedWalletPaginatedAssetsResponse() {
+    void testEmbeddedWalletPaginatedAssetsResponse() {
         // TODO: test EmbeddedWalletPaginatedAssetsResponse
     }
 
     /** Test the property 'data' */
     @Test
-    public void dataTest() {
+    void dataTest() {
         // TODO: test data
     }
 
     /** Test the property 'next' */
     @Test
-    public void nextTest() {
+    void nextTest() {
         // TODO: test next
     }
 }

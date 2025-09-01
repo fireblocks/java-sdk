@@ -18,93 +18,55 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.fireblocks.sdk.ApiClient;
 import java.math.BigDecimal;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 import java.util.StringJoiner;
 
-/** Policy rule which is enforced on transactions */
+/** V2 Policy rule which is enforced on transactions */
 @JsonPropertyOrder({
-    PolicyRule.JSON_PROPERTY_OPERATOR,
-    PolicyRule.JSON_PROPERTY_OPERATORS,
-    PolicyRule.JSON_PROPERTY_TRANSACTION_TYPE,
-    PolicyRule.JSON_PROPERTY_DESIGNATED_SIGNER,
-    PolicyRule.JSON_PROPERTY_DESIGNATED_SIGNERS,
+    PolicyRule.JSON_PROPERTY_NAME,
+    PolicyRule.JSON_PROPERTY_ID,
+    PolicyRule.JSON_PROPERTY_POLICY_ENGINE_VERSION,
     PolicyRule.JSON_PROPERTY_TYPE,
-    PolicyRule.JSON_PROPERTY_ACTION,
+    PolicyRule.JSON_PROPERTY_SUB_TYPE,
+    PolicyRule.JSON_PROPERTY_INITIATOR,
     PolicyRule.JSON_PROPERTY_ASSET,
-    PolicyRule.JSON_PROPERTY_SRC_TYPE,
-    PolicyRule.JSON_PROPERTY_SRC_SUB_TYPE,
-    PolicyRule.JSON_PROPERTY_SRC_ID,
-    PolicyRule.JSON_PROPERTY_SRC,
-    PolicyRule.JSON_PROPERTY_DST_TYPE,
-    PolicyRule.JSON_PROPERTY_DST_SUB_TYPE,
-    PolicyRule.JSON_PROPERTY_DST_ID,
-    PolicyRule.JSON_PROPERTY_DST,
-    PolicyRule.JSON_PROPERTY_DST_ADDRESS_TYPE,
-    PolicyRule.JSON_PROPERTY_AMOUNT_CURRENCY,
-    PolicyRule.JSON_PROPERTY_AMOUNT_SCOPE,
+    PolicyRule.JSON_PROPERTY_SOURCE,
+    PolicyRule.JSON_PROPERTY_DESTINATION,
+    PolicyRule.JSON_PROPERTY_ACCOUNT,
+    PolicyRule.JSON_PROPERTY_VERDICT,
+    PolicyRule.JSON_PROPERTY_AMOUNT_OVER_TIME,
     PolicyRule.JSON_PROPERTY_AMOUNT,
-    PolicyRule.JSON_PROPERTY_PERIOD_SEC,
-    PolicyRule.JSON_PROPERTY_AUTHORIZERS,
-    PolicyRule.JSON_PROPERTY_AUTHORIZERS_COUNT,
-    PolicyRule.JSON_PROPERTY_AUTHORIZATION_GROUPS,
-    PolicyRule.JSON_PROPERTY_AMOUNT_AGGREGATION,
-    PolicyRule.JSON_PROPERTY_RAW_MESSAGE_SIGNING,
-    PolicyRule.JSON_PROPERTY_APPLY_FOR_APPROVE,
-    PolicyRule.JSON_PROPERTY_APPLY_FOR_TYPED_MESSAGE,
-    PolicyRule.JSON_PROPERTY_EXTERNAL_DESCRIPTOR
+    PolicyRule.JSON_PROPERTY_EXTERNAL_DESCRIPTOR,
+    PolicyRule.JSON_PROPERTY_METHOD,
+    PolicyRule.JSON_PROPERTY_IS_GLOBAL_POLICY,
+    PolicyRule.JSON_PROPERTY_PROGRAM_CALL,
+    PolicyRule.JSON_PROPERTY_SCREENING_METADATA,
+    PolicyRule.JSON_PROPERTY_QUOTE_ASSET,
+    PolicyRule.JSON_PROPERTY_BASE_ASSET,
+    PolicyRule.JSON_PROPERTY_QUOTE_AMOUNT,
+    PolicyRule.JSON_PROPERTY_BASE_AMOUNT,
+    PolicyRule.JSON_PROPERTY_DERIVATION_PATH,
+    PolicyRule.JSON_PROPERTY_INDEX
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class PolicyRule {
-    public static final String JSON_PROPERTY_OPERATOR = "operator";
-    private String operator;
+    public static final String JSON_PROPERTY_NAME = "name";
+    @jakarta.annotation.Nonnull private String name;
 
-    public static final String JSON_PROPERTY_OPERATORS = "operators";
-    private PolicyRuleOperators operators;
+    public static final String JSON_PROPERTY_ID = "id";
+    @jakarta.annotation.Nonnull private String id;
 
-    /**
-     * Defines the type of transaction to which the rule applies. * TRANSFER - Default. Transfers
-     * funds from one account to another * CONTRACT_CALL - Calls a smart contract, mainly for DeFi
-     * operations. * APPROVE - Allows a smart contract to withdraw from a designated wallet. * MINT
-     * - Perform a mint operation (increase supply) on a supported token * BURN - Perform a burn
-     * operation (reduce supply) on a supported token * SUPPLY - Use for DeFi to lend assets *
-     * REDEEM - Use for DeFi to get lending back * STAKE - Allows you to allocate and lock certain
-     * assets for earning staking rewards. * RAW - An off-chain message with no predefined format,
-     * use it to sign any message with your private key. * TYPED_MESSAGE - An off-chain message type
-     * that follows a predefined format, used to sign specific messages that are not actual
-     * transactions. * PROGRAM_CALL - In Solana refers to invoking on-chain programs (smart
-     * contracts) to execute transactions and interact with the blockchain.
-     */
-    public enum TransactionTypeEnum {
-        TRANSFER("TRANSFER"),
-
-        CONTRACT_CALL("CONTRACT_CALL"),
-
-        APPROVE("APPROVE"),
-
-        MINT("MINT"),
-
-        BURN("BURN"),
-
-        SUPPLY("SUPPLY"),
-
-        REDEEM("REDEEM"),
-
-        STAKE("STAKE"),
-
-        RAW("RAW"),
-
-        TYPED_MESSAGE("TYPED_MESSAGE"),
-
-        PROGRAM_CALL("PROGRAM_CALL");
+    /** Policy engine version */
+    public enum PolicyEngineVersionEnum {
+        V2(String.valueOf("v2"));
 
         private String value;
 
-        TransactionTypeEnum(String value) {
+        PolicyEngineVersionEnum(String value) {
             this.value = value;
         }
 
@@ -119,8 +81,8 @@ public class PolicyRule {
         }
 
         @JsonCreator
-        public static TransactionTypeEnum fromValue(String value) {
-            for (TransactionTypeEnum b : TransactionTypeEnum.values()) {
+        public static PolicyEngineVersionEnum fromValue(String value) {
+            for (PolicyEngineVersionEnum b : PolicyEngineVersionEnum.values()) {
                 if (b.value.equals(value)) {
                     return b;
                 }
@@ -129,760 +91,377 @@ public class PolicyRule {
         }
     }
 
-    public static final String JSON_PROPERTY_TRANSACTION_TYPE = "transactionType";
-    private TransactionTypeEnum transactionType;
-
-    public static final String JSON_PROPERTY_DESIGNATED_SIGNER = "designatedSigner";
-    private String designatedSigner;
-
-    public static final String JSON_PROPERTY_DESIGNATED_SIGNERS = "designatedSigners";
-    private PolicyRuleDesignatedSigners designatedSigners;
-
-    /** Policy rule type */
-    public enum TypeEnum {
-        TRANSFER("TRANSFER");
-
-        private String value;
-
-        TypeEnum(String value) {
-            this.value = value;
-        }
-
-        @JsonValue
-        public String getValue() {
-            return value;
-        }
-
-        @Override
-        public String toString() {
-            return String.valueOf(value);
-        }
-
-        @JsonCreator
-        public static TypeEnum fromValue(String value) {
-            for (TypeEnum b : TypeEnum.values()) {
-                if (b.value.equals(value)) {
-                    return b;
-                }
-            }
-            throw new IllegalArgumentException("Unexpected value '" + value + "'");
-        }
-    }
+    public static final String JSON_PROPERTY_POLICY_ENGINE_VERSION = "policyEngineVersion";
+    @jakarta.annotation.Nonnull private PolicyEngineVersionEnum policyEngineVersion;
 
     public static final String JSON_PROPERTY_TYPE = "type";
-    private TypeEnum type;
+    @jakarta.annotation.Nonnull private PolicyType type;
 
-    /**
-     * Defines what occurs when a transaction meets the rule&#39;s criteria * ALLOW - The
-     * transaction goes through and can be signed without requiring additional approvals * BLOCK -
-     * The transaction is automatically blocked * 2-TIER - Only these users or user groups can
-     * approve If any of them reject the transaction before the required approval threshold is met,
-     * the transaction doesn&#39;t go through The list of entities are set is
-     * \&quot;authorizationGroups\&quot; field
-     */
-    public enum ActionEnum {
-        ALLOW("ALLOW"),
+    public static final String JSON_PROPERTY_SUB_TYPE = "subType";
+    @jakarta.annotation.Nullable private PolicyType subType;
 
-        BLOCK("BLOCK"),
-
-        _2_TIER("2-TIER");
-
-        private String value;
-
-        ActionEnum(String value) {
-            this.value = value;
-        }
-
-        @JsonValue
-        public String getValue() {
-            return value;
-        }
-
-        @Override
-        public String toString() {
-            return String.valueOf(value);
-        }
-
-        @JsonCreator
-        public static ActionEnum fromValue(String value) {
-            for (ActionEnum b : ActionEnum.values()) {
-                if (b.value.equals(value)) {
-                    return b;
-                }
-            }
-            throw new IllegalArgumentException("Unexpected value '" + value + "'");
-        }
-    }
-
-    public static final String JSON_PROPERTY_ACTION = "action";
-    private ActionEnum action;
+    public static final String JSON_PROPERTY_INITIATOR = "initiator";
+    @jakarta.annotation.Nonnull private InitiatorConfigPattern initiator;
 
     public static final String JSON_PROPERTY_ASSET = "asset";
-    private String asset;
+    @jakarta.annotation.Nonnull private AssetConfig asset;
 
-    public static final String JSON_PROPERTY_SRC_TYPE = "srcType";
-    private PolicySrcOrDestType srcType;
+    public static final String JSON_PROPERTY_SOURCE = "source";
+    @jakarta.annotation.Nonnull private AccountConfig source;
 
-    public static final String JSON_PROPERTY_SRC_SUB_TYPE = "srcSubType";
-    private PolicySrcOrDestSubType srcSubType;
+    public static final String JSON_PROPERTY_DESTINATION = "destination";
+    @jakarta.annotation.Nullable private DestinationConfig destination;
 
-    public static final String JSON_PROPERTY_SRC_ID = "srcId";
-    private String srcId;
+    public static final String JSON_PROPERTY_ACCOUNT = "account";
+    @jakarta.annotation.Nullable private AccountConfig account;
 
-    public static final String JSON_PROPERTY_SRC = "src";
-    private PolicyRuleSrc src;
+    public static final String JSON_PROPERTY_VERDICT = "verdict";
+    @jakarta.annotation.Nonnull private VerdictConfig verdict;
 
-    public static final String JSON_PROPERTY_DST_TYPE = "dstType";
-    private PolicySrcOrDestType dstType;
-
-    public static final String JSON_PROPERTY_DST_SUB_TYPE = "dstSubType";
-    private PolicySrcOrDestSubType dstSubType;
-
-    public static final String JSON_PROPERTY_DST_ID = "dstId";
-    private String dstId;
-
-    public static final String JSON_PROPERTY_DST = "dst";
-    private PolicyRuleDst dst;
-
-    /**
-     * Defines whether the destination to which you are sending funds must be whitelisted, to allow
-     * one-time transfers to non-whitelisted external addresses, or both. By default, you can only
-     * transfer to an external address after it’s whitelisted. * WHITELISTED - Can only be sent to
-     * whitelisted addresses. * ONE_TIME - Can only be sent to non-whitelisted external addresses. *
-     * \&quot;*\&quot; - can be sent to whitelisted addresses or non-whitelisted external
-     */
-    public enum DstAddressTypeEnum {
-        WHITELISTED("WHITELISTED"),
-
-        ONE_TIME("ONE_TIME"),
-
-        STAR("*");
-
-        private String value;
-
-        DstAddressTypeEnum(String value) {
-            this.value = value;
-        }
-
-        @JsonValue
-        public String getValue() {
-            return value;
-        }
-
-        @Override
-        public String toString() {
-            return String.valueOf(value);
-        }
-
-        @JsonCreator
-        public static DstAddressTypeEnum fromValue(String value) {
-            for (DstAddressTypeEnum b : DstAddressTypeEnum.values()) {
-                if (b.value.equals(value)) {
-                    return b;
-                }
-            }
-            throw new IllegalArgumentException("Unexpected value '" + value + "'");
-        }
-    }
-
-    public static final String JSON_PROPERTY_DST_ADDRESS_TYPE = "dstAddressType";
-    private DstAddressTypeEnum dstAddressType;
-
-    /**
-     * * USD - Limits the amount of any asset users can transfer based on the USD equivalent of the
-     * asset. * EUR - Limits the amount of any asset users can transfer based on the EURO equivalent
-     * of the asset. * NATIVE - Limits the amount of an asset a user can transfer when using a
-     * specific asset.
-     */
-    public enum AmountCurrencyEnum {
-        USD("USD"),
-
-        EUR("EUR"),
-
-        NATIVE("NATIVE");
-
-        private String value;
-
-        AmountCurrencyEnum(String value) {
-            this.value = value;
-        }
-
-        @JsonValue
-        public String getValue() {
-            return value;
-        }
-
-        @Override
-        public String toString() {
-            return String.valueOf(value);
-        }
-
-        @JsonCreator
-        public static AmountCurrencyEnum fromValue(String value) {
-            for (AmountCurrencyEnum b : AmountCurrencyEnum.values()) {
-                if (b.value.equals(value)) {
-                    return b;
-                }
-            }
-            throw new IllegalArgumentException("Unexpected value '" + value + "'");
-        }
-    }
-
-    public static final String JSON_PROPERTY_AMOUNT_CURRENCY = "amountCurrency";
-    private AmountCurrencyEnum amountCurrency;
-
-    /**
-     * * SINGLE_TX - limit applies to a single transaction * TIMEFRAME - limit applies to all
-     * transactions within the defined time period
-     */
-    public enum AmountScopeEnum {
-        SINGLE_TX("SINGLE_TX"),
-
-        TIMEFRAME("TIMEFRAME");
-
-        private String value;
-
-        AmountScopeEnum(String value) {
-            this.value = value;
-        }
-
-        @JsonValue
-        public String getValue() {
-            return value;
-        }
-
-        @Override
-        public String toString() {
-            return String.valueOf(value);
-        }
-
-        @JsonCreator
-        public static AmountScopeEnum fromValue(String value) {
-            for (AmountScopeEnum b : AmountScopeEnum.values()) {
-                if (b.value.equals(value)) {
-                    return b;
-                }
-            }
-            throw new IllegalArgumentException("Unexpected value '" + value + "'");
-        }
-    }
-
-    public static final String JSON_PROPERTY_AMOUNT_SCOPE = "amountScope";
-    private AmountScopeEnum amountScope;
+    public static final String JSON_PROPERTY_AMOUNT_OVER_TIME = "amountOverTime";
+    @jakarta.annotation.Nullable private AmountOverTimeConfig amountOverTime;
 
     public static final String JSON_PROPERTY_AMOUNT = "amount";
-    private PolicyRuleAmount amount;
-
-    public static final String JSON_PROPERTY_PERIOD_SEC = "periodSec";
-    private BigDecimal periodSec;
-
-    public static final String JSON_PROPERTY_AUTHORIZERS = "authorizers";
-    private List<String> authorizers;
-
-    public static final String JSON_PROPERTY_AUTHORIZERS_COUNT = "authorizersCount";
-    private BigDecimal authorizersCount;
-
-    public static final String JSON_PROPERTY_AUTHORIZATION_GROUPS = "authorizationGroups";
-    private PolicyRuleAuthorizationGroups authorizationGroups;
-
-    public static final String JSON_PROPERTY_AMOUNT_AGGREGATION = "amountAggregation";
-    private PolicyRuleAmountAggregation amountAggregation;
-
-    public static final String JSON_PROPERTY_RAW_MESSAGE_SIGNING = "rawMessageSigning";
-    private PolicyRuleRawMessageSigning rawMessageSigning;
-
-    public static final String JSON_PROPERTY_APPLY_FOR_APPROVE = "applyForApprove";
-    private Boolean applyForApprove;
-
-    public static final String JSON_PROPERTY_APPLY_FOR_TYPED_MESSAGE = "applyForTypedMessage";
-    private Boolean applyForTypedMessage;
+    @jakarta.annotation.Nullable private AmountRange amount;
 
     public static final String JSON_PROPERTY_EXTERNAL_DESCRIPTOR = "externalDescriptor";
-    private String externalDescriptor;
+    @jakarta.annotation.Nullable private String externalDescriptor;
+
+    public static final String JSON_PROPERTY_METHOD = "method";
+    @jakarta.annotation.Nullable private ContractMethodPattern method;
+
+    public static final String JSON_PROPERTY_IS_GLOBAL_POLICY = "isGlobalPolicy";
+    @jakarta.annotation.Nullable private Boolean isGlobalPolicy;
+
+    public static final String JSON_PROPERTY_PROGRAM_CALL = "programCall";
+    @jakarta.annotation.Nullable private ProgramCallConfig programCall;
+
+    public static final String JSON_PROPERTY_SCREENING_METADATA = "screeningMetadata";
+    @jakarta.annotation.Nullable private ScreeningMetadataConfig screeningMetadata;
+
+    public static final String JSON_PROPERTY_QUOTE_ASSET = "quoteAsset";
+    @jakarta.annotation.Nullable private AssetConfig quoteAsset;
+
+    public static final String JSON_PROPERTY_BASE_ASSET = "baseAsset";
+    @jakarta.annotation.Nullable private AssetConfig baseAsset;
+
+    public static final String JSON_PROPERTY_QUOTE_AMOUNT = "quoteAmount";
+    @jakarta.annotation.Nullable private AmountRange quoteAmount;
+
+    public static final String JSON_PROPERTY_BASE_AMOUNT = "baseAmount";
+    @jakarta.annotation.Nullable private AmountRange baseAmount;
+
+    public static final String JSON_PROPERTY_DERIVATION_PATH = "derivationPath";
+    @jakarta.annotation.Nullable private DerivationPathConfig derivationPath;
+
+    public static final String JSON_PROPERTY_INDEX = "index";
+    @jakarta.annotation.Nullable private BigDecimal index;
 
     public PolicyRule() {}
 
-    public PolicyRule operator(String operator) {
-        this.operator = operator;
+    @JsonCreator
+    public PolicyRule(
+            @JsonProperty(value = JSON_PROPERTY_NAME, required = true) String name,
+            @JsonProperty(value = JSON_PROPERTY_ID, required = true) String id,
+            @JsonProperty(value = JSON_PROPERTY_POLICY_ENGINE_VERSION, required = true)
+                    PolicyEngineVersionEnum policyEngineVersion,
+            @JsonProperty(value = JSON_PROPERTY_TYPE, required = true) PolicyType type,
+            @JsonProperty(value = JSON_PROPERTY_INITIATOR, required = true)
+                    InitiatorConfigPattern initiator,
+            @JsonProperty(value = JSON_PROPERTY_ASSET, required = true) AssetConfig asset,
+            @JsonProperty(value = JSON_PROPERTY_SOURCE, required = true) AccountConfig source,
+            @JsonProperty(value = JSON_PROPERTY_VERDICT, required = true) VerdictConfig verdict) {
+        this.name = name;
+        this.id = id;
+        this.policyEngineVersion = policyEngineVersion;
+        this.type = type;
+        this.initiator = initiator;
+        this.asset = asset;
+        this.source = source;
+        this.verdict = verdict;
+    }
+
+    public PolicyRule name(@jakarta.annotation.Nonnull String name) {
+        this.name = name;
         return this;
     }
 
     /**
-     * (deprecated - replaced by \&quot;operators\&quot;) | Defines users who can initiate the type
-     * of transaction to which the rule applies. options are * \&quot;*\&quot; - All users are
-     * allowed * Specific User id
+     * Name of the policy rule
      *
-     * @return operator
-     * @deprecated
+     * @return name
      */
-    @Deprecated
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_OPERATOR)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public String getOperator() {
-        return operator;
+    @jakarta.annotation.Nonnull
+    @JsonProperty(JSON_PROPERTY_NAME)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public String getName() {
+        return name;
     }
 
-    @JsonProperty(JSON_PROPERTY_OPERATOR)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setOperator(String operator) {
-        this.operator = operator;
+    @JsonProperty(JSON_PROPERTY_NAME)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setName(@jakarta.annotation.Nonnull String name) {
+        this.name = name;
     }
 
-    public PolicyRule operators(PolicyRuleOperators operators) {
-        this.operators = operators;
+    public PolicyRule id(@jakarta.annotation.Nonnull String id) {
+        this.id = id;
         return this;
     }
 
     /**
-     * Get operators
+     * Unique identifier for the policy rule
      *
-     * @return operators
+     * @return id
      */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_OPERATORS)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public PolicyRuleOperators getOperators() {
-        return operators;
+    @jakarta.annotation.Nonnull
+    @JsonProperty(JSON_PROPERTY_ID)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public String getId() {
+        return id;
     }
 
-    @JsonProperty(JSON_PROPERTY_OPERATORS)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setOperators(PolicyRuleOperators operators) {
-        this.operators = operators;
+    @JsonProperty(JSON_PROPERTY_ID)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setId(@jakarta.annotation.Nonnull String id) {
+        this.id = id;
     }
 
-    public PolicyRule transactionType(TransactionTypeEnum transactionType) {
-        this.transactionType = transactionType;
+    public PolicyRule policyEngineVersion(
+            @jakarta.annotation.Nonnull PolicyEngineVersionEnum policyEngineVersion) {
+        this.policyEngineVersion = policyEngineVersion;
         return this;
     }
 
     /**
-     * Defines the type of transaction to which the rule applies. * TRANSFER - Default. Transfers
-     * funds from one account to another * CONTRACT_CALL - Calls a smart contract, mainly for DeFi
-     * operations. * APPROVE - Allows a smart contract to withdraw from a designated wallet. * MINT
-     * - Perform a mint operation (increase supply) on a supported token * BURN - Perform a burn
-     * operation (reduce supply) on a supported token * SUPPLY - Use for DeFi to lend assets *
-     * REDEEM - Use for DeFi to get lending back * STAKE - Allows you to allocate and lock certain
-     * assets for earning staking rewards. * RAW - An off-chain message with no predefined format,
-     * use it to sign any message with your private key. * TYPED_MESSAGE - An off-chain message type
-     * that follows a predefined format, used to sign specific messages that are not actual
-     * transactions. * PROGRAM_CALL - In Solana refers to invoking on-chain programs (smart
-     * contracts) to execute transactions and interact with the blockchain.
+     * Policy engine version
      *
-     * @return transactionType
+     * @return policyEngineVersion
      */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_TRANSACTION_TYPE)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public TransactionTypeEnum getTransactionType() {
-        return transactionType;
+    @jakarta.annotation.Nonnull
+    @JsonProperty(JSON_PROPERTY_POLICY_ENGINE_VERSION)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public PolicyEngineVersionEnum getPolicyEngineVersion() {
+        return policyEngineVersion;
     }
 
-    @JsonProperty(JSON_PROPERTY_TRANSACTION_TYPE)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setTransactionType(TransactionTypeEnum transactionType) {
-        this.transactionType = transactionType;
+    @JsonProperty(JSON_PROPERTY_POLICY_ENGINE_VERSION)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setPolicyEngineVersion(
+            @jakarta.annotation.Nonnull PolicyEngineVersionEnum policyEngineVersion) {
+        this.policyEngineVersion = policyEngineVersion;
     }
 
-    public PolicyRule designatedSigner(String designatedSigner) {
-        this.designatedSigner = designatedSigner;
-        return this;
-    }
-
-    /**
-     * (deprecated - replaced by \&quot;designatedSigners\&quot;) Id representing the user who signs
-     * transactions that match a specific rule
-     *
-     * @return designatedSigner
-     * @deprecated
-     */
-    @Deprecated
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_DESIGNATED_SIGNER)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public String getDesignatedSigner() {
-        return designatedSigner;
-    }
-
-    @JsonProperty(JSON_PROPERTY_DESIGNATED_SIGNER)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setDesignatedSigner(String designatedSigner) {
-        this.designatedSigner = designatedSigner;
-    }
-
-    public PolicyRule designatedSigners(PolicyRuleDesignatedSigners designatedSigners) {
-        this.designatedSigners = designatedSigners;
-        return this;
-    }
-
-    /**
-     * Get designatedSigners
-     *
-     * @return designatedSigners
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_DESIGNATED_SIGNERS)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public PolicyRuleDesignatedSigners getDesignatedSigners() {
-        return designatedSigners;
-    }
-
-    @JsonProperty(JSON_PROPERTY_DESIGNATED_SIGNERS)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setDesignatedSigners(PolicyRuleDesignatedSigners designatedSigners) {
-        this.designatedSigners = designatedSigners;
-    }
-
-    public PolicyRule type(TypeEnum type) {
+    public PolicyRule type(@jakarta.annotation.Nonnull PolicyType type) {
         this.type = type;
         return this;
     }
 
     /**
-     * Policy rule type
+     * Get type
      *
      * @return type
      */
     @jakarta.annotation.Nonnull
     @JsonProperty(JSON_PROPERTY_TYPE)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public TypeEnum getType() {
+    public PolicyType getType() {
         return type;
     }
 
     @JsonProperty(JSON_PROPERTY_TYPE)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setType(TypeEnum type) {
+    public void setType(@jakarta.annotation.Nonnull PolicyType type) {
         this.type = type;
     }
 
-    public PolicyRule action(ActionEnum action) {
-        this.action = action;
+    public PolicyRule subType(@jakarta.annotation.Nullable PolicyType subType) {
+        this.subType = subType;
         return this;
     }
 
     /**
-     * Defines what occurs when a transaction meets the rule&#39;s criteria * ALLOW - The
-     * transaction goes through and can be signed without requiring additional approvals * BLOCK -
-     * The transaction is automatically blocked * 2-TIER - Only these users or user groups can
-     * approve If any of them reject the transaction before the required approval threshold is met,
-     * the transaction doesn&#39;t go through The list of entities are set is
-     * \&quot;authorizationGroups\&quot; field
+     * Get subType
      *
-     * @return action
+     * @return subType
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_SUB_TYPE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public PolicyType getSubType() {
+        return subType;
+    }
+
+    @JsonProperty(JSON_PROPERTY_SUB_TYPE)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setSubType(@jakarta.annotation.Nullable PolicyType subType) {
+        this.subType = subType;
+    }
+
+    public PolicyRule initiator(@jakarta.annotation.Nonnull InitiatorConfigPattern initiator) {
+        this.initiator = initiator;
+        return this;
+    }
+
+    /**
+     * Get initiator
+     *
+     * @return initiator
      */
     @jakarta.annotation.Nonnull
-    @JsonProperty(JSON_PROPERTY_ACTION)
+    @JsonProperty(JSON_PROPERTY_INITIATOR)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public ActionEnum getAction() {
-        return action;
+    public InitiatorConfigPattern getInitiator() {
+        return initiator;
     }
 
-    @JsonProperty(JSON_PROPERTY_ACTION)
+    @JsonProperty(JSON_PROPERTY_INITIATOR)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setAction(ActionEnum action) {
-        this.action = action;
+    public void setInitiator(@jakarta.annotation.Nonnull InitiatorConfigPattern initiator) {
+        this.initiator = initiator;
     }
 
-    public PolicyRule asset(String asset) {
+    public PolicyRule asset(@jakarta.annotation.Nonnull AssetConfig asset) {
         this.asset = asset;
         return this;
     }
 
     /**
-     * Defines the type of asset being transacted, options are * \&quot;*\&quot; - All assets *
-     * Specific asset
+     * Get asset
      *
      * @return asset
      */
     @jakarta.annotation.Nonnull
     @JsonProperty(JSON_PROPERTY_ASSET)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public String getAsset() {
+    public AssetConfig getAsset() {
         return asset;
     }
 
     @JsonProperty(JSON_PROPERTY_ASSET)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setAsset(String asset) {
+    public void setAsset(@jakarta.annotation.Nonnull AssetConfig asset) {
         this.asset = asset;
     }
 
-    public PolicyRule srcType(PolicySrcOrDestType srcType) {
-        this.srcType = srcType;
+    public PolicyRule source(@jakarta.annotation.Nonnull AccountConfig source) {
+        this.source = source;
         return this;
     }
 
     /**
-     * (deprecated - replaced by &quot;src&quot;) source account type
+     * Get source
      *
-     * @return srcType
-     * @deprecated
-     */
-    @Deprecated
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_SRC_TYPE)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public PolicySrcOrDestType getSrcType() {
-        return srcType;
-    }
-
-    @JsonProperty(JSON_PROPERTY_SRC_TYPE)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setSrcType(PolicySrcOrDestType srcType) {
-        this.srcType = srcType;
-    }
-
-    public PolicyRule srcSubType(PolicySrcOrDestSubType srcSubType) {
-        this.srcSubType = srcSubType;
-        return this;
-    }
-
-    /**
-     * (deprecated - replaced by &quot;src&quot;) source sub account type
-     *
-     * @return srcSubType
-     * @deprecated
-     */
-    @Deprecated
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_SRC_SUB_TYPE)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public PolicySrcOrDestSubType getSrcSubType() {
-        return srcSubType;
-    }
-
-    @JsonProperty(JSON_PROPERTY_SRC_SUB_TYPE)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setSrcSubType(PolicySrcOrDestSubType srcSubType) {
-        this.srcSubType = srcSubType;
-    }
-
-    public PolicyRule srcId(String srcId) {
-        this.srcId = srcId;
-        return this;
-    }
-
-    /**
-     * (deprecated - replaced by &quot;src&quot;) source account id
-     *
-     * @return srcId
-     * @deprecated
-     */
-    @Deprecated
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_SRC_ID)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public String getSrcId() {
-        return srcId;
-    }
-
-    @JsonProperty(JSON_PROPERTY_SRC_ID)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setSrcId(String srcId) {
-        this.srcId = srcId;
-    }
-
-    public PolicyRule src(PolicyRuleSrc src) {
-        this.src = src;
-        return this;
-    }
-
-    /**
-     * Get src
-     *
-     * @return src
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_SRC)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public PolicyRuleSrc getSrc() {
-        return src;
-    }
-
-    @JsonProperty(JSON_PROPERTY_SRC)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setSrc(PolicyRuleSrc src) {
-        this.src = src;
-    }
-
-    public PolicyRule dstType(PolicySrcOrDestType dstType) {
-        this.dstType = dstType;
-        return this;
-    }
-
-    /**
-     * (deprecated - replaced by &quot;dst&quot;) destination account type
-     *
-     * @return dstType
-     * @deprecated
-     */
-    @Deprecated
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_DST_TYPE)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public PolicySrcOrDestType getDstType() {
-        return dstType;
-    }
-
-    @JsonProperty(JSON_PROPERTY_DST_TYPE)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setDstType(PolicySrcOrDestType dstType) {
-        this.dstType = dstType;
-    }
-
-    public PolicyRule dstSubType(PolicySrcOrDestSubType dstSubType) {
-        this.dstSubType = dstSubType;
-        return this;
-    }
-
-    /**
-     * (deprecated - replaced by &quot;dst&quot;) destination sub account type
-     *
-     * @return dstSubType
-     * @deprecated
-     */
-    @Deprecated
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_DST_SUB_TYPE)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public PolicySrcOrDestSubType getDstSubType() {
-        return dstSubType;
-    }
-
-    @JsonProperty(JSON_PROPERTY_DST_SUB_TYPE)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setDstSubType(PolicySrcOrDestSubType dstSubType) {
-        this.dstSubType = dstSubType;
-    }
-
-    public PolicyRule dstId(String dstId) {
-        this.dstId = dstId;
-        return this;
-    }
-
-    /**
-     * (deprecated - replaced by &quot;dst&quot;) destination account id
-     *
-     * @return dstId
-     * @deprecated
-     */
-    @Deprecated
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_DST_ID)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public String getDstId() {
-        return dstId;
-    }
-
-    @JsonProperty(JSON_PROPERTY_DST_ID)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setDstId(String dstId) {
-        this.dstId = dstId;
-    }
-
-    public PolicyRule dst(PolicyRuleDst dst) {
-        this.dst = dst;
-        return this;
-    }
-
-    /**
-     * Get dst
-     *
-     * @return dst
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_DST)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public PolicyRuleDst getDst() {
-        return dst;
-    }
-
-    @JsonProperty(JSON_PROPERTY_DST)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setDst(PolicyRuleDst dst) {
-        this.dst = dst;
-    }
-
-    public PolicyRule dstAddressType(DstAddressTypeEnum dstAddressType) {
-        this.dstAddressType = dstAddressType;
-        return this;
-    }
-
-    /**
-     * Defines whether the destination to which you are sending funds must be whitelisted, to allow
-     * one-time transfers to non-whitelisted external addresses, or both. By default, you can only
-     * transfer to an external address after it’s whitelisted. * WHITELISTED - Can only be sent to
-     * whitelisted addresses. * ONE_TIME - Can only be sent to non-whitelisted external addresses. *
-     * \&quot;*\&quot; - can be sent to whitelisted addresses or non-whitelisted external
-     *
-     * @return dstAddressType
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_DST_ADDRESS_TYPE)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public DstAddressTypeEnum getDstAddressType() {
-        return dstAddressType;
-    }
-
-    @JsonProperty(JSON_PROPERTY_DST_ADDRESS_TYPE)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setDstAddressType(DstAddressTypeEnum dstAddressType) {
-        this.dstAddressType = dstAddressType;
-    }
-
-    public PolicyRule amountCurrency(AmountCurrencyEnum amountCurrency) {
-        this.amountCurrency = amountCurrency;
-        return this;
-    }
-
-    /**
-     * * USD - Limits the amount of any asset users can transfer based on the USD equivalent of the
-     * asset. * EUR - Limits the amount of any asset users can transfer based on the EURO equivalent
-     * of the asset. * NATIVE - Limits the amount of an asset a user can transfer when using a
-     * specific asset.
-     *
-     * @return amountCurrency
+     * @return source
      */
     @jakarta.annotation.Nonnull
-    @JsonProperty(JSON_PROPERTY_AMOUNT_CURRENCY)
+    @JsonProperty(JSON_PROPERTY_SOURCE)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public AmountCurrencyEnum getAmountCurrency() {
-        return amountCurrency;
+    public AccountConfig getSource() {
+        return source;
     }
 
-    @JsonProperty(JSON_PROPERTY_AMOUNT_CURRENCY)
+    @JsonProperty(JSON_PROPERTY_SOURCE)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setAmountCurrency(AmountCurrencyEnum amountCurrency) {
-        this.amountCurrency = amountCurrency;
+    public void setSource(@jakarta.annotation.Nonnull AccountConfig source) {
+        this.source = source;
     }
 
-    public PolicyRule amountScope(AmountScopeEnum amountScope) {
-        this.amountScope = amountScope;
+    public PolicyRule destination(@jakarta.annotation.Nullable DestinationConfig destination) {
+        this.destination = destination;
         return this;
     }
 
     /**
-     * * SINGLE_TX - limit applies to a single transaction * TIMEFRAME - limit applies to all
-     * transactions within the defined time period
+     * Get destination
      *
-     * @return amountScope
+     * @return destination
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_DESTINATION)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public DestinationConfig getDestination() {
+        return destination;
+    }
+
+    @JsonProperty(JSON_PROPERTY_DESTINATION)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setDestination(@jakarta.annotation.Nullable DestinationConfig destination) {
+        this.destination = destination;
+    }
+
+    public PolicyRule account(@jakarta.annotation.Nullable AccountConfig account) {
+        this.account = account;
+        return this;
+    }
+
+    /**
+     * Get account
+     *
+     * @return account
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_ACCOUNT)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public AccountConfig getAccount() {
+        return account;
+    }
+
+    @JsonProperty(JSON_PROPERTY_ACCOUNT)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setAccount(@jakarta.annotation.Nullable AccountConfig account) {
+        this.account = account;
+    }
+
+    public PolicyRule verdict(@jakarta.annotation.Nonnull VerdictConfig verdict) {
+        this.verdict = verdict;
+        return this;
+    }
+
+    /**
+     * Get verdict
+     *
+     * @return verdict
      */
     @jakarta.annotation.Nonnull
-    @JsonProperty(JSON_PROPERTY_AMOUNT_SCOPE)
+    @JsonProperty(JSON_PROPERTY_VERDICT)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public AmountScopeEnum getAmountScope() {
-        return amountScope;
+    public VerdictConfig getVerdict() {
+        return verdict;
     }
 
-    @JsonProperty(JSON_PROPERTY_AMOUNT_SCOPE)
+    @JsonProperty(JSON_PROPERTY_VERDICT)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setAmountScope(AmountScopeEnum amountScope) {
-        this.amountScope = amountScope;
+    public void setVerdict(@jakarta.annotation.Nonnull VerdictConfig verdict) {
+        this.verdict = verdict;
     }
 
-    public PolicyRule amount(PolicyRuleAmount amount) {
+    public PolicyRule amountOverTime(
+            @jakarta.annotation.Nullable AmountOverTimeConfig amountOverTime) {
+        this.amountOverTime = amountOverTime;
+        return this;
+    }
+
+    /**
+     * Get amountOverTime
+     *
+     * @return amountOverTime
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_AMOUNT_OVER_TIME)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public AmountOverTimeConfig getAmountOverTime() {
+        return amountOverTime;
+    }
+
+    @JsonProperty(JSON_PROPERTY_AMOUNT_OVER_TIME)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setAmountOverTime(
+            @jakarta.annotation.Nullable AmountOverTimeConfig amountOverTime) {
+        this.amountOverTime = amountOverTime;
+    }
+
+    public PolicyRule amount(@jakarta.annotation.Nullable AmountRange amount) {
         this.amount = amount;
         return this;
     }
@@ -892,229 +471,26 @@ public class PolicyRule {
      *
      * @return amount
      */
-    @jakarta.annotation.Nonnull
+    @jakarta.annotation.Nullable
     @JsonProperty(JSON_PROPERTY_AMOUNT)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public PolicyRuleAmount getAmount() {
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public AmountRange getAmount() {
         return amount;
     }
 
     @JsonProperty(JSON_PROPERTY_AMOUNT)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setAmount(PolicyRuleAmount amount) {
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setAmount(@jakarta.annotation.Nullable AmountRange amount) {
         this.amount = amount;
     }
 
-    public PolicyRule periodSec(BigDecimal periodSec) {
-        this.periodSec = periodSec;
-        return this;
-    }
-
-    /**
-     * Time period in seconds applied by the amountScope field to accumulate transferred amounts in
-     * transactions that match the rule, until the total exceeds the value you specify under
-     * Minimum. When the specified amount is reached within that period, whether by one or many
-     * transactions, further transactions in that period either fail or require more approvals.
-     *
-     * @return periodSec
-     */
-    @jakarta.annotation.Nonnull
-    @JsonProperty(JSON_PROPERTY_PERIOD_SEC)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public BigDecimal getPeriodSec() {
-        return periodSec;
-    }
-
-    @JsonProperty(JSON_PROPERTY_PERIOD_SEC)
-    @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setPeriodSec(BigDecimal periodSec) {
-        this.periodSec = periodSec;
-    }
-
-    public PolicyRule authorizers(List<String> authorizers) {
-        this.authorizers = authorizers;
-        return this;
-    }
-
-    public PolicyRule addAuthorizersItem(String authorizersItem) {
-        if (this.authorizers == null) {
-            this.authorizers = new ArrayList<>();
-        }
-        this.authorizers.add(authorizersItem);
-        return this;
-    }
-
-    /**
-     * (deprecated - replaced by \&quot;authorizationGroups\&quot;) Allowed entities which can
-     * approves a transaction
-     *
-     * @return authorizers
-     * @deprecated
-     */
-    @Deprecated
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_AUTHORIZERS)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public List<String> getAuthorizers() {
-        return authorizers;
-    }
-
-    @JsonProperty(JSON_PROPERTY_AUTHORIZERS)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAuthorizers(List<String> authorizers) {
-        this.authorizers = authorizers;
-    }
-
-    public PolicyRule authorizersCount(BigDecimal authorizersCount) {
-        this.authorizersCount = authorizersCount;
-        return this;
-    }
-
-    /**
-     * (deprecated - replaced by \&quot;authorizationGroups\&quot;) Min amount of entities which are
-     * needed to approve a transaction
-     *
-     * @return authorizersCount
-     * @deprecated
-     */
-    @Deprecated
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_AUTHORIZERS_COUNT)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public BigDecimal getAuthorizersCount() {
-        return authorizersCount;
-    }
-
-    @JsonProperty(JSON_PROPERTY_AUTHORIZERS_COUNT)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAuthorizersCount(BigDecimal authorizersCount) {
-        this.authorizersCount = authorizersCount;
-    }
-
-    public PolicyRule authorizationGroups(PolicyRuleAuthorizationGroups authorizationGroups) {
-        this.authorizationGroups = authorizationGroups;
-        return this;
-    }
-
-    /**
-     * Get authorizationGroups
-     *
-     * @return authorizationGroups
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_AUTHORIZATION_GROUPS)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public PolicyRuleAuthorizationGroups getAuthorizationGroups() {
-        return authorizationGroups;
-    }
-
-    @JsonProperty(JSON_PROPERTY_AUTHORIZATION_GROUPS)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAuthorizationGroups(PolicyRuleAuthorizationGroups authorizationGroups) {
-        this.authorizationGroups = authorizationGroups;
-    }
-
-    public PolicyRule amountAggregation(PolicyRuleAmountAggregation amountAggregation) {
-        this.amountAggregation = amountAggregation;
-        return this;
-    }
-
-    /**
-     * Get amountAggregation
-     *
-     * @return amountAggregation
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_AMOUNT_AGGREGATION)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public PolicyRuleAmountAggregation getAmountAggregation() {
-        return amountAggregation;
-    }
-
-    @JsonProperty(JSON_PROPERTY_AMOUNT_AGGREGATION)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAmountAggregation(PolicyRuleAmountAggregation amountAggregation) {
-        this.amountAggregation = amountAggregation;
-    }
-
-    public PolicyRule rawMessageSigning(PolicyRuleRawMessageSigning rawMessageSigning) {
-        this.rawMessageSigning = rawMessageSigning;
-        return this;
-    }
-
-    /**
-     * Get rawMessageSigning
-     *
-     * @return rawMessageSigning
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_RAW_MESSAGE_SIGNING)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public PolicyRuleRawMessageSigning getRawMessageSigning() {
-        return rawMessageSigning;
-    }
-
-    @JsonProperty(JSON_PROPERTY_RAW_MESSAGE_SIGNING)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setRawMessageSigning(PolicyRuleRawMessageSigning rawMessageSigning) {
-        this.rawMessageSigning = rawMessageSigning;
-    }
-
-    public PolicyRule applyForApprove(Boolean applyForApprove) {
-        this.applyForApprove = applyForApprove;
-        return this;
-    }
-
-    /**
-     * Applying this rule over APPROVE type transactions (can only be enabled when rule&#39;s
-     * transaction type is TRANSFER)
-     *
-     * @return applyForApprove
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_APPLY_FOR_APPROVE)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public Boolean getApplyForApprove() {
-        return applyForApprove;
-    }
-
-    @JsonProperty(JSON_PROPERTY_APPLY_FOR_APPROVE)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setApplyForApprove(Boolean applyForApprove) {
-        this.applyForApprove = applyForApprove;
-    }
-
-    public PolicyRule applyForTypedMessage(Boolean applyForTypedMessage) {
-        this.applyForTypedMessage = applyForTypedMessage;
-        return this;
-    }
-
-    /**
-     * Applying this rule over TYPED_MESSAGE type transactions (can only be enabled when rule&#39;s
-     * transaction type is CONTRACT_CALL)
-     *
-     * @return applyForTypedMessage
-     */
-    @jakarta.annotation.Nullable
-    @JsonProperty(JSON_PROPERTY_APPLY_FOR_TYPED_MESSAGE)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public Boolean getApplyForTypedMessage() {
-        return applyForTypedMessage;
-    }
-
-    @JsonProperty(JSON_PROPERTY_APPLY_FOR_TYPED_MESSAGE)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setApplyForTypedMessage(Boolean applyForTypedMessage) {
-        this.applyForTypedMessage = applyForTypedMessage;
-    }
-
-    public PolicyRule externalDescriptor(String externalDescriptor) {
+    public PolicyRule externalDescriptor(@jakarta.annotation.Nullable String externalDescriptor) {
         this.externalDescriptor = externalDescriptor;
         return this;
     }
 
     /**
-     * A unique id identifying the rule
+     * External descriptor for the rule
      *
      * @return externalDescriptor
      */
@@ -1127,8 +503,242 @@ public class PolicyRule {
 
     @JsonProperty(JSON_PROPERTY_EXTERNAL_DESCRIPTOR)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setExternalDescriptor(String externalDescriptor) {
+    public void setExternalDescriptor(@jakarta.annotation.Nullable String externalDescriptor) {
         this.externalDescriptor = externalDescriptor;
+    }
+
+    public PolicyRule method(@jakarta.annotation.Nullable ContractMethodPattern method) {
+        this.method = method;
+        return this;
+    }
+
+    /**
+     * Get method
+     *
+     * @return method
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_METHOD)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public ContractMethodPattern getMethod() {
+        return method;
+    }
+
+    @JsonProperty(JSON_PROPERTY_METHOD)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setMethod(@jakarta.annotation.Nullable ContractMethodPattern method) {
+        this.method = method;
+    }
+
+    public PolicyRule isGlobalPolicy(@jakarta.annotation.Nullable Boolean isGlobalPolicy) {
+        this.isGlobalPolicy = isGlobalPolicy;
+        return this;
+    }
+
+    /**
+     * Whether this is a global policy
+     *
+     * @return isGlobalPolicy
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_IS_GLOBAL_POLICY)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public Boolean getIsGlobalPolicy() {
+        return isGlobalPolicy;
+    }
+
+    @JsonProperty(JSON_PROPERTY_IS_GLOBAL_POLICY)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setIsGlobalPolicy(@jakarta.annotation.Nullable Boolean isGlobalPolicy) {
+        this.isGlobalPolicy = isGlobalPolicy;
+    }
+
+    public PolicyRule programCall(@jakarta.annotation.Nullable ProgramCallConfig programCall) {
+        this.programCall = programCall;
+        return this;
+    }
+
+    /**
+     * Get programCall
+     *
+     * @return programCall
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_PROGRAM_CALL)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public ProgramCallConfig getProgramCall() {
+        return programCall;
+    }
+
+    @JsonProperty(JSON_PROPERTY_PROGRAM_CALL)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setProgramCall(@jakarta.annotation.Nullable ProgramCallConfig programCall) {
+        this.programCall = programCall;
+    }
+
+    public PolicyRule screeningMetadata(
+            @jakarta.annotation.Nullable ScreeningMetadataConfig screeningMetadata) {
+        this.screeningMetadata = screeningMetadata;
+        return this;
+    }
+
+    /**
+     * Get screeningMetadata
+     *
+     * @return screeningMetadata
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_SCREENING_METADATA)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public ScreeningMetadataConfig getScreeningMetadata() {
+        return screeningMetadata;
+    }
+
+    @JsonProperty(JSON_PROPERTY_SCREENING_METADATA)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setScreeningMetadata(
+            @jakarta.annotation.Nullable ScreeningMetadataConfig screeningMetadata) {
+        this.screeningMetadata = screeningMetadata;
+    }
+
+    public PolicyRule quoteAsset(@jakarta.annotation.Nullable AssetConfig quoteAsset) {
+        this.quoteAsset = quoteAsset;
+        return this;
+    }
+
+    /**
+     * Get quoteAsset
+     *
+     * @return quoteAsset
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_QUOTE_ASSET)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public AssetConfig getQuoteAsset() {
+        return quoteAsset;
+    }
+
+    @JsonProperty(JSON_PROPERTY_QUOTE_ASSET)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setQuoteAsset(@jakarta.annotation.Nullable AssetConfig quoteAsset) {
+        this.quoteAsset = quoteAsset;
+    }
+
+    public PolicyRule baseAsset(@jakarta.annotation.Nullable AssetConfig baseAsset) {
+        this.baseAsset = baseAsset;
+        return this;
+    }
+
+    /**
+     * Get baseAsset
+     *
+     * @return baseAsset
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_BASE_ASSET)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public AssetConfig getBaseAsset() {
+        return baseAsset;
+    }
+
+    @JsonProperty(JSON_PROPERTY_BASE_ASSET)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setBaseAsset(@jakarta.annotation.Nullable AssetConfig baseAsset) {
+        this.baseAsset = baseAsset;
+    }
+
+    public PolicyRule quoteAmount(@jakarta.annotation.Nullable AmountRange quoteAmount) {
+        this.quoteAmount = quoteAmount;
+        return this;
+    }
+
+    /**
+     * Get quoteAmount
+     *
+     * @return quoteAmount
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_QUOTE_AMOUNT)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public AmountRange getQuoteAmount() {
+        return quoteAmount;
+    }
+
+    @JsonProperty(JSON_PROPERTY_QUOTE_AMOUNT)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setQuoteAmount(@jakarta.annotation.Nullable AmountRange quoteAmount) {
+        this.quoteAmount = quoteAmount;
+    }
+
+    public PolicyRule baseAmount(@jakarta.annotation.Nullable AmountRange baseAmount) {
+        this.baseAmount = baseAmount;
+        return this;
+    }
+
+    /**
+     * Get baseAmount
+     *
+     * @return baseAmount
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_BASE_AMOUNT)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public AmountRange getBaseAmount() {
+        return baseAmount;
+    }
+
+    @JsonProperty(JSON_PROPERTY_BASE_AMOUNT)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setBaseAmount(@jakarta.annotation.Nullable AmountRange baseAmount) {
+        this.baseAmount = baseAmount;
+    }
+
+    public PolicyRule derivationPath(
+            @jakarta.annotation.Nullable DerivationPathConfig derivationPath) {
+        this.derivationPath = derivationPath;
+        return this;
+    }
+
+    /**
+     * Get derivationPath
+     *
+     * @return derivationPath
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_DERIVATION_PATH)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public DerivationPathConfig getDerivationPath() {
+        return derivationPath;
+    }
+
+    @JsonProperty(JSON_PROPERTY_DERIVATION_PATH)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setDerivationPath(
+            @jakarta.annotation.Nullable DerivationPathConfig derivationPath) {
+        this.derivationPath = derivationPath;
+    }
+
+    public PolicyRule index(@jakarta.annotation.Nullable BigDecimal index) {
+        this.index = index;
+        return this;
+    }
+
+    /**
+     * Index for the policy rule
+     *
+     * @return index
+     */
+    @jakarta.annotation.Nullable
+    @JsonProperty(JSON_PROPERTY_INDEX)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public BigDecimal getIndex() {
+        return index;
+    }
+
+    @JsonProperty(JSON_PROPERTY_INDEX)
+    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    public void setIndex(@jakarta.annotation.Nullable BigDecimal index) {
+        this.index = index;
     }
 
     /** Return true if this PolicyRule object is equal to o. */
@@ -1141,116 +751,95 @@ public class PolicyRule {
             return false;
         }
         PolicyRule policyRule = (PolicyRule) o;
-        return Objects.equals(this.operator, policyRule.operator)
-                && Objects.equals(this.operators, policyRule.operators)
-                && Objects.equals(this.transactionType, policyRule.transactionType)
-                && Objects.equals(this.designatedSigner, policyRule.designatedSigner)
-                && Objects.equals(this.designatedSigners, policyRule.designatedSigners)
+        return Objects.equals(this.name, policyRule.name)
+                && Objects.equals(this.id, policyRule.id)
+                && Objects.equals(this.policyEngineVersion, policyRule.policyEngineVersion)
                 && Objects.equals(this.type, policyRule.type)
-                && Objects.equals(this.action, policyRule.action)
+                && Objects.equals(this.subType, policyRule.subType)
+                && Objects.equals(this.initiator, policyRule.initiator)
                 && Objects.equals(this.asset, policyRule.asset)
-                && Objects.equals(this.srcType, policyRule.srcType)
-                && Objects.equals(this.srcSubType, policyRule.srcSubType)
-                && Objects.equals(this.srcId, policyRule.srcId)
-                && Objects.equals(this.src, policyRule.src)
-                && Objects.equals(this.dstType, policyRule.dstType)
-                && Objects.equals(this.dstSubType, policyRule.dstSubType)
-                && Objects.equals(this.dstId, policyRule.dstId)
-                && Objects.equals(this.dst, policyRule.dst)
-                && Objects.equals(this.dstAddressType, policyRule.dstAddressType)
-                && Objects.equals(this.amountCurrency, policyRule.amountCurrency)
-                && Objects.equals(this.amountScope, policyRule.amountScope)
+                && Objects.equals(this.source, policyRule.source)
+                && Objects.equals(this.destination, policyRule.destination)
+                && Objects.equals(this.account, policyRule.account)
+                && Objects.equals(this.verdict, policyRule.verdict)
+                && Objects.equals(this.amountOverTime, policyRule.amountOverTime)
                 && Objects.equals(this.amount, policyRule.amount)
-                && Objects.equals(this.periodSec, policyRule.periodSec)
-                && Objects.equals(this.authorizers, policyRule.authorizers)
-                && Objects.equals(this.authorizersCount, policyRule.authorizersCount)
-                && Objects.equals(this.authorizationGroups, policyRule.authorizationGroups)
-                && Objects.equals(this.amountAggregation, policyRule.amountAggregation)
-                && Objects.equals(this.rawMessageSigning, policyRule.rawMessageSigning)
-                && Objects.equals(this.applyForApprove, policyRule.applyForApprove)
-                && Objects.equals(this.applyForTypedMessage, policyRule.applyForTypedMessage)
-                && Objects.equals(this.externalDescriptor, policyRule.externalDescriptor);
+                && Objects.equals(this.externalDescriptor, policyRule.externalDescriptor)
+                && Objects.equals(this.method, policyRule.method)
+                && Objects.equals(this.isGlobalPolicy, policyRule.isGlobalPolicy)
+                && Objects.equals(this.programCall, policyRule.programCall)
+                && Objects.equals(this.screeningMetadata, policyRule.screeningMetadata)
+                && Objects.equals(this.quoteAsset, policyRule.quoteAsset)
+                && Objects.equals(this.baseAsset, policyRule.baseAsset)
+                && Objects.equals(this.quoteAmount, policyRule.quoteAmount)
+                && Objects.equals(this.baseAmount, policyRule.baseAmount)
+                && Objects.equals(this.derivationPath, policyRule.derivationPath)
+                && Objects.equals(this.index, policyRule.index);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
-                operator,
-                operators,
-                transactionType,
-                designatedSigner,
-                designatedSigners,
+                name,
+                id,
+                policyEngineVersion,
                 type,
-                action,
+                subType,
+                initiator,
                 asset,
-                srcType,
-                srcSubType,
-                srcId,
-                src,
-                dstType,
-                dstSubType,
-                dstId,
-                dst,
-                dstAddressType,
-                amountCurrency,
-                amountScope,
+                source,
+                destination,
+                account,
+                verdict,
+                amountOverTime,
                 amount,
-                periodSec,
-                authorizers,
-                authorizersCount,
-                authorizationGroups,
-                amountAggregation,
-                rawMessageSigning,
-                applyForApprove,
-                applyForTypedMessage,
-                externalDescriptor);
+                externalDescriptor,
+                method,
+                isGlobalPolicy,
+                programCall,
+                screeningMetadata,
+                quoteAsset,
+                baseAsset,
+                quoteAmount,
+                baseAmount,
+                derivationPath,
+                index);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("class PolicyRule {\n");
-        sb.append("    operator: ").append(toIndentedString(operator)).append("\n");
-        sb.append("    operators: ").append(toIndentedString(operators)).append("\n");
-        sb.append("    transactionType: ").append(toIndentedString(transactionType)).append("\n");
-        sb.append("    designatedSigner: ").append(toIndentedString(designatedSigner)).append("\n");
-        sb.append("    designatedSigners: ")
-                .append(toIndentedString(designatedSigners))
+        sb.append("    name: ").append(toIndentedString(name)).append("\n");
+        sb.append("    id: ").append(toIndentedString(id)).append("\n");
+        sb.append("    policyEngineVersion: ")
+                .append(toIndentedString(policyEngineVersion))
                 .append("\n");
         sb.append("    type: ").append(toIndentedString(type)).append("\n");
-        sb.append("    action: ").append(toIndentedString(action)).append("\n");
+        sb.append("    subType: ").append(toIndentedString(subType)).append("\n");
+        sb.append("    initiator: ").append(toIndentedString(initiator)).append("\n");
         sb.append("    asset: ").append(toIndentedString(asset)).append("\n");
-        sb.append("    srcType: ").append(toIndentedString(srcType)).append("\n");
-        sb.append("    srcSubType: ").append(toIndentedString(srcSubType)).append("\n");
-        sb.append("    srcId: ").append(toIndentedString(srcId)).append("\n");
-        sb.append("    src: ").append(toIndentedString(src)).append("\n");
-        sb.append("    dstType: ").append(toIndentedString(dstType)).append("\n");
-        sb.append("    dstSubType: ").append(toIndentedString(dstSubType)).append("\n");
-        sb.append("    dstId: ").append(toIndentedString(dstId)).append("\n");
-        sb.append("    dst: ").append(toIndentedString(dst)).append("\n");
-        sb.append("    dstAddressType: ").append(toIndentedString(dstAddressType)).append("\n");
-        sb.append("    amountCurrency: ").append(toIndentedString(amountCurrency)).append("\n");
-        sb.append("    amountScope: ").append(toIndentedString(amountScope)).append("\n");
+        sb.append("    source: ").append(toIndentedString(source)).append("\n");
+        sb.append("    destination: ").append(toIndentedString(destination)).append("\n");
+        sb.append("    account: ").append(toIndentedString(account)).append("\n");
+        sb.append("    verdict: ").append(toIndentedString(verdict)).append("\n");
+        sb.append("    amountOverTime: ").append(toIndentedString(amountOverTime)).append("\n");
         sb.append("    amount: ").append(toIndentedString(amount)).append("\n");
-        sb.append("    periodSec: ").append(toIndentedString(periodSec)).append("\n");
-        sb.append("    authorizers: ").append(toIndentedString(authorizers)).append("\n");
-        sb.append("    authorizersCount: ").append(toIndentedString(authorizersCount)).append("\n");
-        sb.append("    authorizationGroups: ")
-                .append(toIndentedString(authorizationGroups))
-                .append("\n");
-        sb.append("    amountAggregation: ")
-                .append(toIndentedString(amountAggregation))
-                .append("\n");
-        sb.append("    rawMessageSigning: ")
-                .append(toIndentedString(rawMessageSigning))
-                .append("\n");
-        sb.append("    applyForApprove: ").append(toIndentedString(applyForApprove)).append("\n");
-        sb.append("    applyForTypedMessage: ")
-                .append(toIndentedString(applyForTypedMessage))
-                .append("\n");
         sb.append("    externalDescriptor: ")
                 .append(toIndentedString(externalDescriptor))
                 .append("\n");
+        sb.append("    method: ").append(toIndentedString(method)).append("\n");
+        sb.append("    isGlobalPolicy: ").append(toIndentedString(isGlobalPolicy)).append("\n");
+        sb.append("    programCall: ").append(toIndentedString(programCall)).append("\n");
+        sb.append("    screeningMetadata: ")
+                .append(toIndentedString(screeningMetadata))
+                .append("\n");
+        sb.append("    quoteAsset: ").append(toIndentedString(quoteAsset)).append("\n");
+        sb.append("    baseAsset: ").append(toIndentedString(baseAsset)).append("\n");
+        sb.append("    quoteAmount: ").append(toIndentedString(quoteAmount)).append("\n");
+        sb.append("    baseAmount: ").append(toIndentedString(baseAmount)).append("\n");
+        sb.append("    derivationPath: ").append(toIndentedString(derivationPath)).append("\n");
+        sb.append("    index: ").append(toIndentedString(index)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -1298,52 +887,33 @@ public class PolicyRule {
 
         StringJoiner joiner = new StringJoiner("&");
 
-        // add `operator` to the URL query string
-        if (getOperator() != null) {
+        // add `name` to the URL query string
+        if (getName() != null) {
             joiner.add(
                     String.format(
-                            "%soperator%s=%s",
+                            "%sname%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getOperator()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getName()))));
         }
 
-        // add `operators` to the URL query string
-        if (getOperators() != null) {
-            joiner.add(getOperators().toUrlQueryString(prefix + "operators" + suffix));
-        }
-
-        // add `transactionType` to the URL query string
-        if (getTransactionType() != null) {
+        // add `id` to the URL query string
+        if (getId() != null) {
             joiner.add(
                     String.format(
-                            "%stransactionType%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getTransactionType()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            "%sid%s=%s",
+                            prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getId()))));
         }
 
-        // add `designatedSigner` to the URL query string
-        if (getDesignatedSigner() != null) {
+        // add `policyEngineVersion` to the URL query string
+        if (getPolicyEngineVersion() != null) {
             joiner.add(
                     String.format(
-                            "%sdesignatedSigner%s=%s",
+                            "%spolicyEngineVersion%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getDesignatedSigner()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
-        // add `designatedSigners` to the URL query string
-        if (getDesignatedSigners() != null) {
-            joiner.add(
-                    getDesignatedSigners().toUrlQueryString(prefix + "designatedSigners" + suffix));
+                            ApiClient.urlEncode(
+                                    ApiClient.valueToString(getPolicyEngineVersion()))));
         }
 
         // add `type` to the URL query string
@@ -1353,241 +923,57 @@ public class PolicyRule {
                             "%stype%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getType()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getType()))));
         }
 
-        // add `action` to the URL query string
-        if (getAction() != null) {
+        // add `subType` to the URL query string
+        if (getSubType() != null) {
             joiner.add(
                     String.format(
-                            "%saction%s=%s",
+                            "%ssubType%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getAction()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getSubType()))));
+        }
+
+        // add `initiator` to the URL query string
+        if (getInitiator() != null) {
+            joiner.add(getInitiator().toUrlQueryString(prefix + "initiator" + suffix));
         }
 
         // add `asset` to the URL query string
         if (getAsset() != null) {
-            joiner.add(
-                    String.format(
-                            "%sasset%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(String.valueOf(getAsset()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+            joiner.add(getAsset().toUrlQueryString(prefix + "asset" + suffix));
         }
 
-        // add `srcType` to the URL query string
-        if (getSrcType() != null) {
-            joiner.add(
-                    String.format(
-                            "%ssrcType%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(String.valueOf(getSrcType()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+        // add `source` to the URL query string
+        if (getSource() != null) {
+            joiner.add(getSource().toUrlQueryString(prefix + "source" + suffix));
         }
 
-        // add `srcSubType` to the URL query string
-        if (getSrcSubType() != null) {
-            joiner.add(
-                    String.format(
-                            "%ssrcSubType%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getSrcSubType()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+        // add `destination` to the URL query string
+        if (getDestination() != null) {
+            joiner.add(getDestination().toUrlQueryString(prefix + "destination" + suffix));
         }
 
-        // add `srcId` to the URL query string
-        if (getSrcId() != null) {
-            joiner.add(
-                    String.format(
-                            "%ssrcId%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(String.valueOf(getSrcId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+        // add `account` to the URL query string
+        if (getAccount() != null) {
+            joiner.add(getAccount().toUrlQueryString(prefix + "account" + suffix));
         }
 
-        // add `src` to the URL query string
-        if (getSrc() != null) {
-            joiner.add(getSrc().toUrlQueryString(prefix + "src" + suffix));
+        // add `verdict` to the URL query string
+        if (getVerdict() != null) {
+            joiner.add(getVerdict().toUrlQueryString(prefix + "verdict" + suffix));
         }
 
-        // add `dstType` to the URL query string
-        if (getDstType() != null) {
-            joiner.add(
-                    String.format(
-                            "%sdstType%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(String.valueOf(getDstType()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
-        // add `dstSubType` to the URL query string
-        if (getDstSubType() != null) {
-            joiner.add(
-                    String.format(
-                            "%sdstSubType%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getDstSubType()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
-        // add `dstId` to the URL query string
-        if (getDstId() != null) {
-            joiner.add(
-                    String.format(
-                            "%sdstId%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(String.valueOf(getDstId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
-        // add `dst` to the URL query string
-        if (getDst() != null) {
-            joiner.add(getDst().toUrlQueryString(prefix + "dst" + suffix));
-        }
-
-        // add `dstAddressType` to the URL query string
-        if (getDstAddressType() != null) {
-            joiner.add(
-                    String.format(
-                            "%sdstAddressType%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getDstAddressType()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
-        // add `amountCurrency` to the URL query string
-        if (getAmountCurrency() != null) {
-            joiner.add(
-                    String.format(
-                            "%samountCurrency%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getAmountCurrency()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
-        // add `amountScope` to the URL query string
-        if (getAmountScope() != null) {
-            joiner.add(
-                    String.format(
-                            "%samountScope%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getAmountScope()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+        // add `amountOverTime` to the URL query string
+        if (getAmountOverTime() != null) {
+            joiner.add(getAmountOverTime().toUrlQueryString(prefix + "amountOverTime" + suffix));
         }
 
         // add `amount` to the URL query string
         if (getAmount() != null) {
             joiner.add(getAmount().toUrlQueryString(prefix + "amount" + suffix));
-        }
-
-        // add `periodSec` to the URL query string
-        if (getPeriodSec() != null) {
-            joiner.add(
-                    String.format(
-                            "%speriodSec%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getPeriodSec()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
-        // add `authorizers` to the URL query string
-        if (getAuthorizers() != null) {
-            for (int i = 0; i < getAuthorizers().size(); i++) {
-                joiner.add(
-                        String.format(
-                                "%sauthorizers%s%s=%s",
-                                prefix,
-                                suffix,
-                                "".equals(suffix)
-                                        ? ""
-                                        : String.format(
-                                                "%s%d%s", containerPrefix, i, containerSuffix),
-                                URLEncoder.encode(
-                                                String.valueOf(getAuthorizers().get(i)),
-                                                StandardCharsets.UTF_8)
-                                        .replaceAll("\\+", "%20")));
-            }
-        }
-
-        // add `authorizersCount` to the URL query string
-        if (getAuthorizersCount() != null) {
-            joiner.add(
-                    String.format(
-                            "%sauthorizersCount%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getAuthorizersCount()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
-        // add `authorizationGroups` to the URL query string
-        if (getAuthorizationGroups() != null) {
-            joiner.add(
-                    getAuthorizationGroups()
-                            .toUrlQueryString(prefix + "authorizationGroups" + suffix));
-        }
-
-        // add `amountAggregation` to the URL query string
-        if (getAmountAggregation() != null) {
-            joiner.add(
-                    getAmountAggregation().toUrlQueryString(prefix + "amountAggregation" + suffix));
-        }
-
-        // add `rawMessageSigning` to the URL query string
-        if (getRawMessageSigning() != null) {
-            joiner.add(
-                    getRawMessageSigning().toUrlQueryString(prefix + "rawMessageSigning" + suffix));
-        }
-
-        // add `applyForApprove` to the URL query string
-        if (getApplyForApprove() != null) {
-            joiner.add(
-                    String.format(
-                            "%sapplyForApprove%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getApplyForApprove()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
-        }
-
-        // add `applyForTypedMessage` to the URL query string
-        if (getApplyForTypedMessage() != null) {
-            joiner.add(
-                    String.format(
-                            "%sapplyForTypedMessage%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getApplyForTypedMessage()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
         }
 
         // add `externalDescriptor` to the URL query string
@@ -1597,10 +983,68 @@ public class PolicyRule {
                             "%sexternalDescriptor%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getExternalDescriptor()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getExternalDescriptor()))));
+        }
+
+        // add `method` to the URL query string
+        if (getMethod() != null) {
+            joiner.add(getMethod().toUrlQueryString(prefix + "method" + suffix));
+        }
+
+        // add `isGlobalPolicy` to the URL query string
+        if (getIsGlobalPolicy() != null) {
+            joiner.add(
+                    String.format(
+                            "%sisGlobalPolicy%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getIsGlobalPolicy()))));
+        }
+
+        // add `programCall` to the URL query string
+        if (getProgramCall() != null) {
+            joiner.add(getProgramCall().toUrlQueryString(prefix + "programCall" + suffix));
+        }
+
+        // add `screeningMetadata` to the URL query string
+        if (getScreeningMetadata() != null) {
+            joiner.add(
+                    getScreeningMetadata().toUrlQueryString(prefix + "screeningMetadata" + suffix));
+        }
+
+        // add `quoteAsset` to the URL query string
+        if (getQuoteAsset() != null) {
+            joiner.add(getQuoteAsset().toUrlQueryString(prefix + "quoteAsset" + suffix));
+        }
+
+        // add `baseAsset` to the URL query string
+        if (getBaseAsset() != null) {
+            joiner.add(getBaseAsset().toUrlQueryString(prefix + "baseAsset" + suffix));
+        }
+
+        // add `quoteAmount` to the URL query string
+        if (getQuoteAmount() != null) {
+            joiner.add(getQuoteAmount().toUrlQueryString(prefix + "quoteAmount" + suffix));
+        }
+
+        // add `baseAmount` to the URL query string
+        if (getBaseAmount() != null) {
+            joiner.add(getBaseAmount().toUrlQueryString(prefix + "baseAmount" + suffix));
+        }
+
+        // add `derivationPath` to the URL query string
+        if (getDerivationPath() != null) {
+            joiner.add(getDerivationPath().toUrlQueryString(prefix + "derivationPath" + suffix));
+        }
+
+        // add `index` to the URL query string
+        if (getIndex() != null) {
+            joiner.add(
+                    String.format(
+                            "%sindex%s=%s",
+                            prefix,
+                            suffix,
+                            ApiClient.urlEncode(ApiClient.valueToString(getIndex()))));
         }
 
         return joiner.toString();

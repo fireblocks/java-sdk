@@ -13,27 +13,27 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for GetMpcKeysResponse */
-public class GetMpcKeysResponseTest {
+class GetMpcKeysResponseTest {
     private final GetMpcKeysResponse model = new GetMpcKeysResponse();
 
     /** Model tests for GetMpcKeysResponse */
     @Test
-    public void testGetMpcKeysResponse() {
+    void testGetMpcKeysResponse() {
         // TODO: test GetMpcKeysResponse
     }
 
     /** Test the property 'tenantId' */
     @Test
-    public void tenantIdTest() {
+    void tenantIdTest() {
         // TODO: test tenantId
     }
 
     /** Test the property 'keys' */
     @Test
-    public void keysTest() {
+    void keysTest() {
         // TODO: test keys
     }
 }

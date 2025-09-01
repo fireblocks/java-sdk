@@ -13,11 +13,11 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -29,20 +29,34 @@ import java.util.StringJoiner;
     NetworkConnection.JSON_PROPERTY_REMOTE_NETWORK_ID,
     NetworkConnection.JSON_PROPERTY_ROUTING_POLICY
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class NetworkConnection {
     public static final String JSON_PROPERTY_LOCAL_NETWORK_ID = "localNetworkId";
-    private String localNetworkId;
+    @jakarta.annotation.Nonnull private String localNetworkId;
 
     public static final String JSON_PROPERTY_REMOTE_NETWORK_ID = "remoteNetworkId";
-    private String remoteNetworkId;
+    @jakarta.annotation.Nonnull private String remoteNetworkId;
 
     public static final String JSON_PROPERTY_ROUTING_POLICY = "routingPolicy";
+
+    @jakarta.annotation.Nullable
     private Map<String, NetworkConnectionRoutingPolicyValue> routingPolicy = new HashMap<>();
 
     public NetworkConnection() {}
 
-    public NetworkConnection localNetworkId(String localNetworkId) {
+    @JsonCreator
+    public NetworkConnection(
+            @JsonProperty(value = JSON_PROPERTY_LOCAL_NETWORK_ID, required = true)
+                    String localNetworkId,
+            @JsonProperty(value = JSON_PROPERTY_REMOTE_NETWORK_ID, required = true)
+                    String remoteNetworkId) {
+        this.localNetworkId = localNetworkId;
+        this.remoteNetworkId = remoteNetworkId;
+    }
+
+    public NetworkConnection localNetworkId(@jakarta.annotation.Nonnull String localNetworkId) {
         this.localNetworkId = localNetworkId;
         return this;
     }
@@ -61,11 +75,11 @@ public class NetworkConnection {
 
     @JsonProperty(JSON_PROPERTY_LOCAL_NETWORK_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setLocalNetworkId(String localNetworkId) {
+    public void setLocalNetworkId(@jakarta.annotation.Nonnull String localNetworkId) {
         this.localNetworkId = localNetworkId;
     }
 
-    public NetworkConnection remoteNetworkId(String remoteNetworkId) {
+    public NetworkConnection remoteNetworkId(@jakarta.annotation.Nonnull String remoteNetworkId) {
         this.remoteNetworkId = remoteNetworkId;
         return this;
     }
@@ -84,12 +98,13 @@ public class NetworkConnection {
 
     @JsonProperty(JSON_PROPERTY_REMOTE_NETWORK_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setRemoteNetworkId(String remoteNetworkId) {
+    public void setRemoteNetworkId(@jakarta.annotation.Nonnull String remoteNetworkId) {
         this.remoteNetworkId = remoteNetworkId;
     }
 
     public NetworkConnection routingPolicy(
-            Map<String, NetworkConnectionRoutingPolicyValue> routingPolicy) {
+            @jakarta.annotation.Nullable
+                    Map<String, NetworkConnectionRoutingPolicyValue> routingPolicy) {
         this.routingPolicy = routingPolicy;
         return this;
     }
@@ -117,7 +132,9 @@ public class NetworkConnection {
 
     @JsonProperty(JSON_PROPERTY_ROUTING_POLICY)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setRoutingPolicy(Map<String, NetworkConnectionRoutingPolicyValue> routingPolicy) {
+    public void setRoutingPolicy(
+            @jakarta.annotation.Nullable
+                    Map<String, NetworkConnectionRoutingPolicyValue> routingPolicy) {
         this.routingPolicy = routingPolicy;
     }
 
@@ -202,10 +219,7 @@ public class NetworkConnection {
                             "%slocalNetworkId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getLocalNetworkId()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getLocalNetworkId()))));
         }
 
         // add `remoteNetworkId` to the URL query string
@@ -215,10 +229,7 @@ public class NetworkConnection {
                             "%sremoteNetworkId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getRemoteNetworkId()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getRemoteNetworkId()))));
         }
 
         // add `routingPolicy` to the URL query string

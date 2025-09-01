@@ -13,11 +13,11 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -30,24 +30,43 @@ import java.util.StringJoiner;
     EmbeddedWalletDeviceKeySetupResponse.JSON_PROPERTY_ENABLED,
     EmbeddedWalletDeviceKeySetupResponse.JSON_PROPERTY_SETUP_STATUS
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class EmbeddedWalletDeviceKeySetupResponse {
     public static final String JSON_PROPERTY_STATUS = "status";
-    private EmbeddedWalletSetUpStatus status;
+    @jakarta.annotation.Nonnull private EmbeddedWalletSetUpStatus status;
 
     public static final String JSON_PROPERTY_DEVICE_ID = "deviceId";
-    private String deviceId;
+    @jakarta.annotation.Nonnull private String deviceId;
 
     public static final String JSON_PROPERTY_ENABLED = "enabled";
-    private Boolean enabled;
+    @jakarta.annotation.Nonnull private Boolean enabled;
 
     public static final String JSON_PROPERTY_SETUP_STATUS = "setupStatus";
+
+    @jakarta.annotation.Nonnull
     private List<EmbeddedWalletDeviceKeySetupResponseSetupStatusInner> setupStatus =
             new ArrayList<>();
 
     public EmbeddedWalletDeviceKeySetupResponse() {}
 
-    public EmbeddedWalletDeviceKeySetupResponse status(EmbeddedWalletSetUpStatus status) {
+    @JsonCreator
+    public EmbeddedWalletDeviceKeySetupResponse(
+            @JsonProperty(value = JSON_PROPERTY_STATUS, required = true)
+                    EmbeddedWalletSetUpStatus status,
+            @JsonProperty(value = JSON_PROPERTY_DEVICE_ID, required = true) String deviceId,
+            @JsonProperty(value = JSON_PROPERTY_ENABLED, required = true) Boolean enabled,
+            @JsonProperty(value = JSON_PROPERTY_SETUP_STATUS, required = true)
+                    List<EmbeddedWalletDeviceKeySetupResponseSetupStatusInner> setupStatus) {
+        this.status = status;
+        this.deviceId = deviceId;
+        this.enabled = enabled;
+        this.setupStatus = setupStatus;
+    }
+
+    public EmbeddedWalletDeviceKeySetupResponse status(
+            @jakarta.annotation.Nonnull EmbeddedWalletSetUpStatus status) {
         this.status = status;
         return this;
     }
@@ -66,11 +85,12 @@ public class EmbeddedWalletDeviceKeySetupResponse {
 
     @JsonProperty(JSON_PROPERTY_STATUS)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setStatus(EmbeddedWalletSetUpStatus status) {
+    public void setStatus(@jakarta.annotation.Nonnull EmbeddedWalletSetUpStatus status) {
         this.status = status;
     }
 
-    public EmbeddedWalletDeviceKeySetupResponse deviceId(String deviceId) {
+    public EmbeddedWalletDeviceKeySetupResponse deviceId(
+            @jakarta.annotation.Nonnull String deviceId) {
         this.deviceId = deviceId;
         return this;
     }
@@ -89,11 +109,12 @@ public class EmbeddedWalletDeviceKeySetupResponse {
 
     @JsonProperty(JSON_PROPERTY_DEVICE_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setDeviceId(String deviceId) {
+    public void setDeviceId(@jakarta.annotation.Nonnull String deviceId) {
         this.deviceId = deviceId;
     }
 
-    public EmbeddedWalletDeviceKeySetupResponse enabled(Boolean enabled) {
+    public EmbeddedWalletDeviceKeySetupResponse enabled(
+            @jakarta.annotation.Nonnull Boolean enabled) {
         this.enabled = enabled;
         return this;
     }
@@ -112,12 +133,13 @@ public class EmbeddedWalletDeviceKeySetupResponse {
 
     @JsonProperty(JSON_PROPERTY_ENABLED)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setEnabled(Boolean enabled) {
+    public void setEnabled(@jakarta.annotation.Nonnull Boolean enabled) {
         this.enabled = enabled;
     }
 
     public EmbeddedWalletDeviceKeySetupResponse setupStatus(
-            List<EmbeddedWalletDeviceKeySetupResponseSetupStatusInner> setupStatus) {
+            @jakarta.annotation.Nonnull
+                    List<EmbeddedWalletDeviceKeySetupResponseSetupStatusInner> setupStatus) {
         this.setupStatus = setupStatus;
         return this;
     }
@@ -146,7 +168,8 @@ public class EmbeddedWalletDeviceKeySetupResponse {
     @JsonProperty(JSON_PROPERTY_SETUP_STATUS)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
     public void setSetupStatus(
-            List<EmbeddedWalletDeviceKeySetupResponseSetupStatusInner> setupStatus) {
+            @jakarta.annotation.Nonnull
+                    List<EmbeddedWalletDeviceKeySetupResponseSetupStatusInner> setupStatus) {
         this.setupStatus = setupStatus;
     }
 
@@ -240,8 +263,7 @@ public class EmbeddedWalletDeviceKeySetupResponse {
                             "%sdeviceId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getDeviceId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getDeviceId()))));
         }
 
         // add `enabled` to the URL query string
@@ -251,8 +273,7 @@ public class EmbeddedWalletDeviceKeySetupResponse {
                             "%senabled%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getEnabled()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getEnabled()))));
         }
 
         // add `setupStatus` to the URL query string

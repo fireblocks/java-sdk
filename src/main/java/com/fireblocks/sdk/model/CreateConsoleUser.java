@@ -13,11 +13,11 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -28,23 +28,37 @@ import java.util.StringJoiner;
     CreateConsoleUser.JSON_PROPERTY_ROLE,
     CreateConsoleUser.JSON_PROPERTY_EMAIL
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class CreateConsoleUser {
     public static final String JSON_PROPERTY_FIRST_NAME = "firstName";
-    private String firstName;
+    @jakarta.annotation.Nonnull private String firstName;
 
     public static final String JSON_PROPERTY_LAST_NAME = "lastName";
-    private String lastName;
+    @jakarta.annotation.Nonnull private String lastName;
 
     public static final String JSON_PROPERTY_ROLE = "role";
-    private String role;
+    @jakarta.annotation.Nonnull private String role;
 
     public static final String JSON_PROPERTY_EMAIL = "email";
-    private String email;
+    @jakarta.annotation.Nonnull private String email;
 
     public CreateConsoleUser() {}
 
-    public CreateConsoleUser firstName(String firstName) {
+    @JsonCreator
+    public CreateConsoleUser(
+            @JsonProperty(value = JSON_PROPERTY_FIRST_NAME, required = true) String firstName,
+            @JsonProperty(value = JSON_PROPERTY_LAST_NAME, required = true) String lastName,
+            @JsonProperty(value = JSON_PROPERTY_ROLE, required = true) String role,
+            @JsonProperty(value = JSON_PROPERTY_EMAIL, required = true) String email) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.role = role;
+        this.email = email;
+    }
+
+    public CreateConsoleUser firstName(@jakarta.annotation.Nonnull String firstName) {
         this.firstName = firstName;
         return this;
     }
@@ -63,11 +77,11 @@ public class CreateConsoleUser {
 
     @JsonProperty(JSON_PROPERTY_FIRST_NAME)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setFirstName(String firstName) {
+    public void setFirstName(@jakarta.annotation.Nonnull String firstName) {
         this.firstName = firstName;
     }
 
-    public CreateConsoleUser lastName(String lastName) {
+    public CreateConsoleUser lastName(@jakarta.annotation.Nonnull String lastName) {
         this.lastName = lastName;
         return this;
     }
@@ -86,11 +100,11 @@ public class CreateConsoleUser {
 
     @JsonProperty(JSON_PROPERTY_LAST_NAME)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setLastName(String lastName) {
+    public void setLastName(@jakarta.annotation.Nonnull String lastName) {
         this.lastName = lastName;
     }
 
-    public CreateConsoleUser role(String role) {
+    public CreateConsoleUser role(@jakarta.annotation.Nonnull String role) {
         this.role = role;
         return this;
     }
@@ -109,11 +123,11 @@ public class CreateConsoleUser {
 
     @JsonProperty(JSON_PROPERTY_ROLE)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setRole(String role) {
+    public void setRole(@jakarta.annotation.Nonnull String role) {
         this.role = role;
     }
 
-    public CreateConsoleUser email(String email) {
+    public CreateConsoleUser email(@jakarta.annotation.Nonnull String email) {
         this.email = email;
         return this;
     }
@@ -132,7 +146,7 @@ public class CreateConsoleUser {
 
     @JsonProperty(JSON_PROPERTY_EMAIL)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setEmail(String email) {
+    public void setEmail(@jakarta.annotation.Nonnull String email) {
         this.email = email;
     }
 
@@ -219,9 +233,7 @@ public class CreateConsoleUser {
                             "%sfirstName%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getFirstName()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getFirstName()))));
         }
 
         // add `lastName` to the URL query string
@@ -231,8 +243,7 @@ public class CreateConsoleUser {
                             "%slastName%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getLastName()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getLastName()))));
         }
 
         // add `role` to the URL query string
@@ -242,8 +253,7 @@ public class CreateConsoleUser {
                             "%srole%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getRole()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getRole()))));
         }
 
         // add `email` to the URL query string
@@ -253,8 +263,7 @@ public class CreateConsoleUser {
                             "%semail%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getEmail()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getEmail()))));
         }
 
         return joiner.toString();

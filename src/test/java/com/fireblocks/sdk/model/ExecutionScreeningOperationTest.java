@@ -13,45 +13,45 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for ExecutionScreeningOperation */
-public class ExecutionScreeningOperationTest {
+class ExecutionScreeningOperationTest {
     private final ExecutionScreeningOperation model = new ExecutionScreeningOperation();
 
     /** Model tests for ExecutionScreeningOperation */
     @Test
-    public void testExecutionScreeningOperation() {
+    void testExecutionScreeningOperation() {
         // TODO: test ExecutionScreeningOperation
     }
 
     /** Test the property 'operationId' */
     @Test
-    public void operationIdTest() {
+    void operationIdTest() {
         // TODO: test operationId
     }
 
     /** Test the property 'status' */
     @Test
-    public void statusTest() {
+    void statusTest() {
         // TODO: test status
     }
 
     /** Test the property 'operationType' */
     @Test
-    public void operationTypeTest() {
+    void operationTypeTest() {
         // TODO: test operationType
     }
 
     /** Test the property 'validationFailure' */
     @Test
-    public void validationFailureTest() {
+    void validationFailureTest() {
         // TODO: test validationFailure
     }
 
     /** Test the property 'execution' */
     @Test
-    public void executionTest() {
+    void executionTest() {
         // TODO: test execution
     }
 }

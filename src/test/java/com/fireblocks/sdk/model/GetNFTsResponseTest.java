@@ -13,27 +13,27 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for GetNFTsResponse */
-public class GetNFTsResponseTest {
+class GetNFTsResponseTest {
     private final GetNFTsResponse model = new GetNFTsResponse();
 
     /** Model tests for GetNFTsResponse */
     @Test
-    public void testGetNFTsResponse() {
+    void testGetNFTsResponse() {
         // TODO: test GetNFTsResponse
     }
 
     /** Test the property 'paging' */
     @Test
-    public void pagingTest() {
+    void pagingTest() {
         // TODO: test paging
     }
 
     /** Test the property 'data' */
     @Test
-    public void dataTest() {
+    void dataTest() {
         // TODO: test data
     }
 }

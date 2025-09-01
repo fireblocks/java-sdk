@@ -16,8 +16,7 @@ package com.fireblocks.sdk.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -26,17 +25,20 @@ import java.util.StringJoiner;
     TravelRuleValidateDateAndPlaceOfBirth.JSON_PROPERTY_DATE_OF_BIRTH,
     TravelRuleValidateDateAndPlaceOfBirth.JSON_PROPERTY_PLACE_OF_BIRTH
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class TravelRuleValidateDateAndPlaceOfBirth {
     public static final String JSON_PROPERTY_DATE_OF_BIRTH = "dateOfBirth";
-    private String dateOfBirth;
+    @jakarta.annotation.Nullable private String dateOfBirth;
 
     public static final String JSON_PROPERTY_PLACE_OF_BIRTH = "placeOfBirth";
-    private String placeOfBirth;
+    @jakarta.annotation.Nullable private String placeOfBirth;
 
     public TravelRuleValidateDateAndPlaceOfBirth() {}
 
-    public TravelRuleValidateDateAndPlaceOfBirth dateOfBirth(String dateOfBirth) {
+    public TravelRuleValidateDateAndPlaceOfBirth dateOfBirth(
+            @jakarta.annotation.Nullable String dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
         return this;
     }
@@ -55,11 +57,12 @@ public class TravelRuleValidateDateAndPlaceOfBirth {
 
     @JsonProperty(JSON_PROPERTY_DATE_OF_BIRTH)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setDateOfBirth(String dateOfBirth) {
+    public void setDateOfBirth(@jakarta.annotation.Nullable String dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 
-    public TravelRuleValidateDateAndPlaceOfBirth placeOfBirth(String placeOfBirth) {
+    public TravelRuleValidateDateAndPlaceOfBirth placeOfBirth(
+            @jakarta.annotation.Nullable String placeOfBirth) {
         this.placeOfBirth = placeOfBirth;
         return this;
     }
@@ -78,7 +81,7 @@ public class TravelRuleValidateDateAndPlaceOfBirth {
 
     @JsonProperty(JSON_PROPERTY_PLACE_OF_BIRTH)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setPlaceOfBirth(String placeOfBirth) {
+    public void setPlaceOfBirth(@jakarta.annotation.Nullable String placeOfBirth) {
         this.placeOfBirth = placeOfBirth;
     }
 
@@ -163,10 +166,7 @@ public class TravelRuleValidateDateAndPlaceOfBirth {
                             "%sdateOfBirth%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getDateOfBirth()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getDateOfBirth()))));
         }
 
         // add `placeOfBirth` to the URL query string
@@ -176,10 +176,7 @@ public class TravelRuleValidateDateAndPlaceOfBirth {
                             "%splaceOfBirth%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getPlaceOfBirth()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getPlaceOfBirth()))));
         }
 
         return joiner.toString();

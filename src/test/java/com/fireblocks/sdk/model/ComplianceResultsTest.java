@@ -13,45 +13,45 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for ComplianceResults */
-public class ComplianceResultsTest {
+class ComplianceResultsTest {
     private final ComplianceResults model = new ComplianceResults();
 
     /** Model tests for ComplianceResults */
     @Test
-    public void testComplianceResults() {
+    void testComplianceResults() {
         // TODO: test ComplianceResults
     }
 
     /** Test the property 'aml' */
     @Test
-    public void amlTest() {
+    void amlTest() {
         // TODO: test aml
     }
 
     /** Test the property 'tr' */
     @Test
-    public void trTest() {
+    void trTest() {
         // TODO: test tr
     }
 
     /** Test the property 'amlList' */
     @Test
-    public void amlListTest() {
+    void amlListTest() {
         // TODO: test amlList
     }
 
     /** Test the property 'status' */
     @Test
-    public void statusTest() {
+    void statusTest() {
         // TODO: test status
     }
 
     /** Test the property 'amlRegistration' */
     @Test
-    public void amlRegistrationTest() {
+    void amlRegistrationTest() {
         // TODO: test amlRegistration
     }
 }

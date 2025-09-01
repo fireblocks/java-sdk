@@ -13,11 +13,11 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -32,29 +32,41 @@ import java.util.StringJoiner;
     CollectionTokenMetadataDto.JSON_PROPERTY_EXTERNAL_URL,
     CollectionTokenMetadataDto.JSON_PROPERTY_ATTRIBUTES
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class CollectionTokenMetadataDto {
     public static final String JSON_PROPERTY_NAME = "name";
-    private String name;
+    @jakarta.annotation.Nonnull private String name;
 
     public static final String JSON_PROPERTY_DESCRIPTION = "description";
-    private String description;
+    @jakarta.annotation.Nonnull private String description;
 
     public static final String JSON_PROPERTY_IMAGE = "image";
-    private String image;
+    @jakarta.annotation.Nullable private String image;
 
     public static final String JSON_PROPERTY_ANIMATION_URL = "animation_url";
-    private String animationUrl;
+    @jakarta.annotation.Nullable private String animationUrl;
 
     public static final String JSON_PROPERTY_EXTERNAL_URL = "external_url";
-    private String externalUrl;
+    @jakarta.annotation.Nullable private String externalUrl;
 
     public static final String JSON_PROPERTY_ATTRIBUTES = "attributes";
-    private List<CollectionTokenMetadataAttributeDto> attributes;
+
+    @jakarta.annotation.Nullable
+    private List<CollectionTokenMetadataAttributeDto> attributes = new ArrayList<>();
 
     public CollectionTokenMetadataDto() {}
 
-    public CollectionTokenMetadataDto name(String name) {
+    @JsonCreator
+    public CollectionTokenMetadataDto(
+            @JsonProperty(value = JSON_PROPERTY_NAME, required = true) String name,
+            @JsonProperty(value = JSON_PROPERTY_DESCRIPTION, required = true) String description) {
+        this.name = name;
+        this.description = description;
+    }
+
+    public CollectionTokenMetadataDto name(@jakarta.annotation.Nonnull String name) {
         this.name = name;
         return this;
     }
@@ -73,11 +85,11 @@ public class CollectionTokenMetadataDto {
 
     @JsonProperty(JSON_PROPERTY_NAME)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setName(String name) {
+    public void setName(@jakarta.annotation.Nonnull String name) {
         this.name = name;
     }
 
-    public CollectionTokenMetadataDto description(String description) {
+    public CollectionTokenMetadataDto description(@jakarta.annotation.Nonnull String description) {
         this.description = description;
         return this;
     }
@@ -96,11 +108,11 @@ public class CollectionTokenMetadataDto {
 
     @JsonProperty(JSON_PROPERTY_DESCRIPTION)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setDescription(String description) {
+    public void setDescription(@jakarta.annotation.Nonnull String description) {
         this.description = description;
     }
 
-    public CollectionTokenMetadataDto image(String image) {
+    public CollectionTokenMetadataDto image(@jakarta.annotation.Nullable String image) {
         this.image = image;
         return this;
     }
@@ -119,11 +131,12 @@ public class CollectionTokenMetadataDto {
 
     @JsonProperty(JSON_PROPERTY_IMAGE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setImage(String image) {
+    public void setImage(@jakarta.annotation.Nullable String image) {
         this.image = image;
     }
 
-    public CollectionTokenMetadataDto animationUrl(String animationUrl) {
+    public CollectionTokenMetadataDto animationUrl(
+            @jakarta.annotation.Nullable String animationUrl) {
         this.animationUrl = animationUrl;
         return this;
     }
@@ -142,11 +155,11 @@ public class CollectionTokenMetadataDto {
 
     @JsonProperty(JSON_PROPERTY_ANIMATION_URL)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAnimationUrl(String animationUrl) {
+    public void setAnimationUrl(@jakarta.annotation.Nullable String animationUrl) {
         this.animationUrl = animationUrl;
     }
 
-    public CollectionTokenMetadataDto externalUrl(String externalUrl) {
+    public CollectionTokenMetadataDto externalUrl(@jakarta.annotation.Nullable String externalUrl) {
         this.externalUrl = externalUrl;
         return this;
     }
@@ -165,12 +178,12 @@ public class CollectionTokenMetadataDto {
 
     @JsonProperty(JSON_PROPERTY_EXTERNAL_URL)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setExternalUrl(String externalUrl) {
+    public void setExternalUrl(@jakarta.annotation.Nullable String externalUrl) {
         this.externalUrl = externalUrl;
     }
 
     public CollectionTokenMetadataDto attributes(
-            List<CollectionTokenMetadataAttributeDto> attributes) {
+            @jakarta.annotation.Nullable List<CollectionTokenMetadataAttributeDto> attributes) {
         this.attributes = attributes;
         return this;
     }
@@ -198,7 +211,8 @@ public class CollectionTokenMetadataDto {
 
     @JsonProperty(JSON_PROPERTY_ATTRIBUTES)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAttributes(List<CollectionTokenMetadataAttributeDto> attributes) {
+    public void setAttributes(
+            @jakarta.annotation.Nullable List<CollectionTokenMetadataAttributeDto> attributes) {
         this.attributes = attributes;
     }
 
@@ -289,8 +303,7 @@ public class CollectionTokenMetadataDto {
                             "%sname%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getName()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getName()))));
         }
 
         // add `description` to the URL query string
@@ -300,10 +313,7 @@ public class CollectionTokenMetadataDto {
                             "%sdescription%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getDescription()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getDescription()))));
         }
 
         // add `image` to the URL query string
@@ -313,8 +323,7 @@ public class CollectionTokenMetadataDto {
                             "%simage%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getImage()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getImage()))));
         }
 
         // add `animation_url` to the URL query string
@@ -324,10 +333,7 @@ public class CollectionTokenMetadataDto {
                             "%sanimation_url%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getAnimationUrl()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getAnimationUrl()))));
         }
 
         // add `external_url` to the URL query string
@@ -337,10 +343,7 @@ public class CollectionTokenMetadataDto {
                             "%sexternal_url%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getExternalUrl()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getExternalUrl()))));
         }
 
         // add `attributes` to the URL query string

@@ -18,8 +18,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonValue;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -30,20 +29,22 @@ import java.util.StringJoiner;
     AssetResponse.JSON_PROPERTY_ONCHAIN,
     AssetResponse.JSON_PROPERTY_METADATA
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class AssetResponse {
     public static final String JSON_PROPERTY_LEGACY_ID = "legacyId";
-    private String legacyId;
+    @jakarta.annotation.Nonnull private String legacyId;
 
     /** Gets or Sets assetClass */
     public enum AssetClassEnum {
-        NATIVE("NATIVE"),
+        NATIVE(String.valueOf("NATIVE")),
 
-        FT("FT"),
+        FT(String.valueOf("FT")),
 
-        NFT("NFT"),
+        NFT(String.valueOf("NFT")),
 
-        SFT("SFT");
+        SFT(String.valueOf("SFT"));
 
         private String value;
 
@@ -73,17 +74,30 @@ public class AssetResponse {
     }
 
     public static final String JSON_PROPERTY_ASSET_CLASS = "assetClass";
-    private AssetClassEnum assetClass;
+    @jakarta.annotation.Nonnull private AssetClassEnum assetClass;
 
     public static final String JSON_PROPERTY_ONCHAIN = "onchain";
-    private AssetOnchain onchain;
+    @jakarta.annotation.Nonnull private AssetOnchain onchain;
 
     public static final String JSON_PROPERTY_METADATA = "metadata";
-    private AssetMetadata metadata;
+    @jakarta.annotation.Nonnull private AssetMetadata metadata;
 
     public AssetResponse() {}
 
-    public AssetResponse legacyId(String legacyId) {
+    @JsonCreator
+    public AssetResponse(
+            @JsonProperty(value = JSON_PROPERTY_LEGACY_ID, required = true) String legacyId,
+            @JsonProperty(value = JSON_PROPERTY_ASSET_CLASS, required = true)
+                    AssetClassEnum assetClass,
+            @JsonProperty(value = JSON_PROPERTY_ONCHAIN, required = true) AssetOnchain onchain,
+            @JsonProperty(value = JSON_PROPERTY_METADATA, required = true) AssetMetadata metadata) {
+        this.legacyId = legacyId;
+        this.assetClass = assetClass;
+        this.onchain = onchain;
+        this.metadata = metadata;
+    }
+
+    public AssetResponse legacyId(@jakarta.annotation.Nonnull String legacyId) {
         this.legacyId = legacyId;
         return this;
     }
@@ -102,11 +116,11 @@ public class AssetResponse {
 
     @JsonProperty(JSON_PROPERTY_LEGACY_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setLegacyId(String legacyId) {
+    public void setLegacyId(@jakarta.annotation.Nonnull String legacyId) {
         this.legacyId = legacyId;
     }
 
-    public AssetResponse assetClass(AssetClassEnum assetClass) {
+    public AssetResponse assetClass(@jakarta.annotation.Nonnull AssetClassEnum assetClass) {
         this.assetClass = assetClass;
         return this;
     }
@@ -125,11 +139,11 @@ public class AssetResponse {
 
     @JsonProperty(JSON_PROPERTY_ASSET_CLASS)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setAssetClass(AssetClassEnum assetClass) {
+    public void setAssetClass(@jakarta.annotation.Nonnull AssetClassEnum assetClass) {
         this.assetClass = assetClass;
     }
 
-    public AssetResponse onchain(AssetOnchain onchain) {
+    public AssetResponse onchain(@jakarta.annotation.Nonnull AssetOnchain onchain) {
         this.onchain = onchain;
         return this;
     }
@@ -148,11 +162,11 @@ public class AssetResponse {
 
     @JsonProperty(JSON_PROPERTY_ONCHAIN)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setOnchain(AssetOnchain onchain) {
+    public void setOnchain(@jakarta.annotation.Nonnull AssetOnchain onchain) {
         this.onchain = onchain;
     }
 
-    public AssetResponse metadata(AssetMetadata metadata) {
+    public AssetResponse metadata(@jakarta.annotation.Nonnull AssetMetadata metadata) {
         this.metadata = metadata;
         return this;
     }
@@ -171,7 +185,7 @@ public class AssetResponse {
 
     @JsonProperty(JSON_PROPERTY_METADATA)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setMetadata(AssetMetadata metadata) {
+    public void setMetadata(@jakarta.annotation.Nonnull AssetMetadata metadata) {
         this.metadata = metadata;
     }
 
@@ -258,8 +272,7 @@ public class AssetResponse {
                             "%slegacyId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getLegacyId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getLegacyId()))));
         }
 
         // add `assetClass` to the URL query string
@@ -269,9 +282,7 @@ public class AssetResponse {
                             "%sassetClass%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getAssetClass()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getAssetClass()))));
         }
 
         // add `onchain` to the URL query string

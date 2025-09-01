@@ -13,43 +13,94 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.StringJoiner;
 
-/** PublishDraftRequest */
-@JsonPropertyOrder({PublishDraftRequest.JSON_PROPERTY_DRAFT_ID})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+/** Request schema for publishing draft with policy types and draft ID */
+@JsonPropertyOrder({
+    PublishDraftRequest.JSON_PROPERTY_POLICY_TYPES,
+    PublishDraftRequest.JSON_PROPERTY_DRAFT_ID
+})
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class PublishDraftRequest {
+    public static final String JSON_PROPERTY_POLICY_TYPES = "policyTypes";
+    @jakarta.annotation.Nonnull private List<PolicyType> policyTypes = new ArrayList<>();
+
     public static final String JSON_PROPERTY_DRAFT_ID = "draftId";
-    private String draftId;
+    @jakarta.annotation.Nonnull private String draftId;
 
     public PublishDraftRequest() {}
 
-    public PublishDraftRequest draftId(String draftId) {
+    @JsonCreator
+    public PublishDraftRequest(
+            @JsonProperty(value = JSON_PROPERTY_POLICY_TYPES, required = true)
+                    List<PolicyType> policyTypes,
+            @JsonProperty(value = JSON_PROPERTY_DRAFT_ID, required = true) String draftId) {
+        this.policyTypes = policyTypes;
+        this.draftId = draftId;
+    }
+
+    public PublishDraftRequest policyTypes(
+            @jakarta.annotation.Nonnull List<PolicyType> policyTypes) {
+        this.policyTypes = policyTypes;
+        return this;
+    }
+
+    public PublishDraftRequest addPolicyTypesItem(PolicyType policyTypesItem) {
+        if (this.policyTypes == null) {
+            this.policyTypes = new ArrayList<>();
+        }
+        this.policyTypes.add(policyTypesItem);
+        return this;
+    }
+
+    /**
+     * Get policyTypes
+     *
+     * @return policyTypes
+     */
+    @jakarta.annotation.Nonnull
+    @JsonProperty(JSON_PROPERTY_POLICY_TYPES)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public List<PolicyType> getPolicyTypes() {
+        return policyTypes;
+    }
+
+    @JsonProperty(JSON_PROPERTY_POLICY_TYPES)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setPolicyTypes(@jakarta.annotation.Nonnull List<PolicyType> policyTypes) {
+        this.policyTypes = policyTypes;
+    }
+
+    public PublishDraftRequest draftId(@jakarta.annotation.Nonnull String draftId) {
         this.draftId = draftId;
         return this;
     }
 
     /**
-     * draft unique identifier
+     * The ID of the draft to publish
      *
      * @return draftId
      */
-    @jakarta.annotation.Nullable
+    @jakarta.annotation.Nonnull
     @JsonProperty(JSON_PROPERTY_DRAFT_ID)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
     public String getDraftId() {
         return draftId;
     }
 
     @JsonProperty(JSON_PROPERTY_DRAFT_ID)
-    @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setDraftId(String draftId) {
+    @JsonInclude(value = JsonInclude.Include.ALWAYS)
+    public void setDraftId(@jakarta.annotation.Nonnull String draftId) {
         this.draftId = draftId;
     }
 
@@ -63,18 +114,20 @@ public class PublishDraftRequest {
             return false;
         }
         PublishDraftRequest publishDraftRequest = (PublishDraftRequest) o;
-        return Objects.equals(this.draftId, publishDraftRequest.draftId);
+        return Objects.equals(this.policyTypes, publishDraftRequest.policyTypes)
+                && Objects.equals(this.draftId, publishDraftRequest.draftId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(draftId);
+        return Objects.hash(policyTypes, draftId);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("class PublishDraftRequest {\n");
+        sb.append("    policyTypes: ").append(toIndentedString(policyTypes)).append("\n");
         sb.append("    draftId: ").append(toIndentedString(draftId)).append("\n");
         sb.append("}");
         return sb.toString();
@@ -123,6 +176,25 @@ public class PublishDraftRequest {
 
         StringJoiner joiner = new StringJoiner("&");
 
+        // add `policyTypes` to the URL query string
+        if (getPolicyTypes() != null) {
+            for (int i = 0; i < getPolicyTypes().size(); i++) {
+                if (getPolicyTypes().get(i) != null) {
+                    joiner.add(
+                            String.format(
+                                    "%spolicyTypes%s%s=%s",
+                                    prefix,
+                                    suffix,
+                                    "".equals(suffix)
+                                            ? ""
+                                            : String.format(
+                                                    "%s%d%s", containerPrefix, i, containerSuffix),
+                                    ApiClient.urlEncode(
+                                            ApiClient.valueToString(getPolicyTypes().get(i)))));
+                }
+            }
+        }
+
         // add `draftId` to the URL query string
         if (getDraftId() != null) {
             joiner.add(
@@ -130,8 +202,7 @@ public class PublishDraftRequest {
                             "%sdraftId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getDraftId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getDraftId()))));
         }
 
         return joiner.toString();

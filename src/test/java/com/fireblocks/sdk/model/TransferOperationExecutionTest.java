@@ -13,51 +13,51 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for TransferOperationExecution */
-public class TransferOperationExecutionTest {
+class TransferOperationExecutionTest {
     private final TransferOperationExecution model = new TransferOperationExecution();
 
     /** Model tests for TransferOperationExecution */
     @Test
-    public void testTransferOperationExecution() {
+    void testTransferOperationExecution() {
         // TODO: test TransferOperationExecution
     }
 
     /** Test the property 'input' */
     @Test
-    public void inputTest() {
+    void inputTest() {
         // TODO: test input
     }
 
     /** Test the property 'output' */
     @Test
-    public void outputTest() {
+    void outputTest() {
         // TODO: test output
     }
 
     /** Test the property 'txId' */
     @Test
-    public void txIdTest() {
+    void txIdTest() {
         // TODO: test txId
     }
 
     /** Test the property 'startedAt' */
     @Test
-    public void startedAtTest() {
+    void startedAtTest() {
         // TODO: test startedAt
     }
 
     /** Test the property 'finishedAt' */
     @Test
-    public void finishedAtTest() {
+    void finishedAtTest() {
         // TODO: test finishedAt
     }
 
     /** Test the property 'failure' */
     @Test
-    public void failureTest() {
+    void failureTest() {
         // TODO: test failure
     }
 }

@@ -13,11 +13,11 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 import java.util.UUID;
@@ -31,29 +31,38 @@ import java.util.UUID;
     SourceTransferPeerPathResponse.JSON_PROPERTY_WALLET_ID,
     SourceTransferPeerPathResponse.JSON_PROPERTY_TRADING_ACCOUNT
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class SourceTransferPeerPathResponse {
     public static final String JSON_PROPERTY_TYPE = "type";
-    private TransferPeerPathType type;
+    @jakarta.annotation.Nonnull private TransferPeerPathType type;
 
     public static final String JSON_PROPERTY_SUB_TYPE = "subType";
-    private String subType;
+    @jakarta.annotation.Nullable private String subType;
 
     public static final String JSON_PROPERTY_ID = "id";
-    private String id;
+    @jakarta.annotation.Nullable private String id;
 
     public static final String JSON_PROPERTY_NAME = "name";
-    private String name;
+    @jakarta.annotation.Nullable private String name;
 
     public static final String JSON_PROPERTY_WALLET_ID = "walletId";
-    private UUID walletId;
+    @jakarta.annotation.Nullable private UUID walletId;
 
     public static final String JSON_PROPERTY_TRADING_ACCOUNT = "tradingAccount";
-    private String tradingAccount;
+    @jakarta.annotation.Nullable private String tradingAccount;
 
     public SourceTransferPeerPathResponse() {}
 
-    public SourceTransferPeerPathResponse type(TransferPeerPathType type) {
+    @JsonCreator
+    public SourceTransferPeerPathResponse(
+            @JsonProperty(value = JSON_PROPERTY_TYPE, required = true) TransferPeerPathType type) {
+        this.type = type;
+    }
+
+    public SourceTransferPeerPathResponse type(
+            @jakarta.annotation.Nonnull TransferPeerPathType type) {
         this.type = type;
         return this;
     }
@@ -72,11 +81,11 @@ public class SourceTransferPeerPathResponse {
 
     @JsonProperty(JSON_PROPERTY_TYPE)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setType(TransferPeerPathType type) {
+    public void setType(@jakarta.annotation.Nonnull TransferPeerPathType type) {
         this.type = type;
     }
 
-    public SourceTransferPeerPathResponse subType(String subType) {
+    public SourceTransferPeerPathResponse subType(@jakarta.annotation.Nullable String subType) {
         this.subType = subType;
         return this;
     }
@@ -98,11 +107,11 @@ public class SourceTransferPeerPathResponse {
 
     @JsonProperty(JSON_PROPERTY_SUB_TYPE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setSubType(String subType) {
+    public void setSubType(@jakarta.annotation.Nullable String subType) {
         this.subType = subType;
     }
 
-    public SourceTransferPeerPathResponse id(String id) {
+    public SourceTransferPeerPathResponse id(@jakarta.annotation.Nullable String id) {
         this.id = id;
         return this;
     }
@@ -129,11 +138,11 @@ public class SourceTransferPeerPathResponse {
 
     @JsonProperty(JSON_PROPERTY_ID)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setId(String id) {
+    public void setId(@jakarta.annotation.Nullable String id) {
         this.id = id;
     }
 
-    public SourceTransferPeerPathResponse name(String name) {
+    public SourceTransferPeerPathResponse name(@jakarta.annotation.Nullable String name) {
         this.name = name;
         return this;
     }
@@ -152,11 +161,11 @@ public class SourceTransferPeerPathResponse {
 
     @JsonProperty(JSON_PROPERTY_NAME)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setName(String name) {
+    public void setName(@jakarta.annotation.Nullable String name) {
         this.name = name;
     }
 
-    public SourceTransferPeerPathResponse walletId(UUID walletId) {
+    public SourceTransferPeerPathResponse walletId(@jakarta.annotation.Nullable UUID walletId) {
         this.walletId = walletId;
         return this;
     }
@@ -175,11 +184,12 @@ public class SourceTransferPeerPathResponse {
 
     @JsonProperty(JSON_PROPERTY_WALLET_ID)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setWalletId(UUID walletId) {
+    public void setWalletId(@jakarta.annotation.Nullable UUID walletId) {
         this.walletId = walletId;
     }
 
-    public SourceTransferPeerPathResponse tradingAccount(String tradingAccount) {
+    public SourceTransferPeerPathResponse tradingAccount(
+            @jakarta.annotation.Nullable String tradingAccount) {
         this.tradingAccount = tradingAccount;
         return this;
     }
@@ -199,7 +209,7 @@ public class SourceTransferPeerPathResponse {
 
     @JsonProperty(JSON_PROPERTY_TRADING_ACCOUNT)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setTradingAccount(String tradingAccount) {
+    public void setTradingAccount(@jakarta.annotation.Nullable String tradingAccount) {
         this.tradingAccount = tradingAccount;
     }
 
@@ -292,8 +302,7 @@ public class SourceTransferPeerPathResponse {
                             "%stype%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getType()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getType()))));
         }
 
         // add `subType` to the URL query string
@@ -303,8 +312,7 @@ public class SourceTransferPeerPathResponse {
                             "%ssubType%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getSubType()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getSubType()))));
         }
 
         // add `id` to the URL query string
@@ -312,10 +320,7 @@ public class SourceTransferPeerPathResponse {
             joiner.add(
                     String.format(
                             "%sid%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(String.valueOf(getId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getId()))));
         }
 
         // add `name` to the URL query string
@@ -325,8 +330,7 @@ public class SourceTransferPeerPathResponse {
                             "%sname%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getName()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getName()))));
         }
 
         // add `walletId` to the URL query string
@@ -336,8 +340,7 @@ public class SourceTransferPeerPathResponse {
                             "%swalletId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getWalletId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getWalletId()))));
         }
 
         // add `tradingAccount` to the URL query string
@@ -347,10 +350,7 @@ public class SourceTransferPeerPathResponse {
                             "%stradingAccount%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getTradingAccount()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getTradingAccount()))));
         }
 
         return joiner.toString();

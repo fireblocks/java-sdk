@@ -16,9 +16,8 @@ package com.fireblocks.sdk.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fireblocks.sdk.ApiClient;
 import java.math.BigDecimal;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -29,17 +28,20 @@ import java.util.StringJoiner;
     ResendFailedNotificationsRequest.JSON_PROPERTY_START_TIME,
     ResendFailedNotificationsRequest.JSON_PROPERTY_EVENTS
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class ResendFailedNotificationsRequest {
     public static final String JSON_PROPERTY_START_TIME = "startTime";
-    private BigDecimal startTime;
+    @jakarta.annotation.Nullable private BigDecimal startTime;
 
     public static final String JSON_PROPERTY_EVENTS = "events";
-    private List<WebhookEvent> events;
+    @jakarta.annotation.Nullable private List<WebhookEvent> events = new ArrayList<>();
 
     public ResendFailedNotificationsRequest() {}
 
-    public ResendFailedNotificationsRequest startTime(BigDecimal startTime) {
+    public ResendFailedNotificationsRequest startTime(
+            @jakarta.annotation.Nullable BigDecimal startTime) {
         this.startTime = startTime;
         return this;
     }
@@ -61,11 +63,12 @@ public class ResendFailedNotificationsRequest {
 
     @JsonProperty(JSON_PROPERTY_START_TIME)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setStartTime(BigDecimal startTime) {
+    public void setStartTime(@jakarta.annotation.Nullable BigDecimal startTime) {
         this.startTime = startTime;
     }
 
-    public ResendFailedNotificationsRequest events(List<WebhookEvent> events) {
+    public ResendFailedNotificationsRequest events(
+            @jakarta.annotation.Nullable List<WebhookEvent> events) {
         this.events = events;
         return this;
     }
@@ -93,7 +96,7 @@ public class ResendFailedNotificationsRequest {
 
     @JsonProperty(JSON_PROPERTY_EVENTS)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setEvents(List<WebhookEvent> events) {
+    public void setEvents(@jakarta.annotation.Nullable List<WebhookEvent> events) {
         this.events = events;
     }
 
@@ -177,9 +180,7 @@ public class ResendFailedNotificationsRequest {
                             "%sstartTime%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getStartTime()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getStartTime()))));
         }
 
         // add `events` to the URL query string
@@ -195,10 +196,8 @@ public class ResendFailedNotificationsRequest {
                                             ? ""
                                             : String.format(
                                                     "%s%d%s", containerPrefix, i, containerSuffix),
-                                    URLEncoder.encode(
-                                                    String.valueOf(getEvents().get(i)),
-                                                    StandardCharsets.UTF_8)
-                                            .replaceAll("\\+", "%20")));
+                                    ApiClient.urlEncode(
+                                            ApiClient.valueToString(getEvents().get(i)))));
                 }
             }
         }

@@ -13,24 +13,34 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
 /** SmartTransferSetTicketExternalId */
 @JsonPropertyOrder({SmartTransferSetTicketExternalId.JSON_PROPERTY_EXTERNAL_REF_ID})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class SmartTransferSetTicketExternalId {
     public static final String JSON_PROPERTY_EXTERNAL_REF_ID = "externalRefId";
-    private String externalRefId;
+    @jakarta.annotation.Nonnull private String externalRefId;
 
     public SmartTransferSetTicketExternalId() {}
 
-    public SmartTransferSetTicketExternalId externalRefId(String externalRefId) {
+    @JsonCreator
+    public SmartTransferSetTicketExternalId(
+            @JsonProperty(value = JSON_PROPERTY_EXTERNAL_REF_ID, required = true)
+                    String externalRefId) {
+        this.externalRefId = externalRefId;
+    }
+
+    public SmartTransferSetTicketExternalId externalRefId(
+            @jakarta.annotation.Nonnull String externalRefId) {
         this.externalRefId = externalRefId;
         return this;
     }
@@ -49,7 +59,7 @@ public class SmartTransferSetTicketExternalId {
 
     @JsonProperty(JSON_PROPERTY_EXTERNAL_REF_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setExternalRefId(String externalRefId) {
+    public void setExternalRefId(@jakarta.annotation.Nonnull String externalRefId) {
         this.externalRefId = externalRefId;
     }
 
@@ -131,10 +141,7 @@ public class SmartTransferSetTicketExternalId {
                             "%sexternalRefId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getExternalRefId()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getExternalRefId()))));
         }
 
         return joiner.toString();

@@ -13,27 +13,27 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for GetOwnershipTokensResponse */
-public class GetOwnershipTokensResponseTest {
+class GetOwnershipTokensResponseTest {
     private final GetOwnershipTokensResponse model = new GetOwnershipTokensResponse();
 
     /** Model tests for GetOwnershipTokensResponse */
     @Test
-    public void testGetOwnershipTokensResponse() {
+    void testGetOwnershipTokensResponse() {
         // TODO: test GetOwnershipTokensResponse
     }
 
     /** Test the property 'paging' */
     @Test
-    public void pagingTest() {
+    void pagingTest() {
         // TODO: test paging
     }
 
     /** Test the property 'data' */
     @Test
-    public void dataTest() {
+    void dataTest() {
         // TODO: test data
     }
 }

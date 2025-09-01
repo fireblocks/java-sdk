@@ -18,9 +18,8 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.fireblocks.sdk.ApiClient;
 import java.math.BigDecimal;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -31,16 +30,18 @@ import java.util.StringJoiner;
     PolicyRuleError.JSON_PROPERTY_ERROR_CODE_NAME,
     PolicyRuleError.JSON_PROPERTY_ERROR_FIELD
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class PolicyRuleError {
     public static final String JSON_PROPERTY_ERROR_MESSAGE = "errorMessage";
-    private String errorMessage;
+    @jakarta.annotation.Nonnull private String errorMessage;
 
     public static final String JSON_PROPERTY_ERROR_CODE = "errorCode";
-    private BigDecimal errorCode;
+    @jakarta.annotation.Nonnull private BigDecimal errorCode;
 
     public static final String JSON_PROPERTY_ERROR_CODE_NAME = "errorCodeName";
-    private String errorCodeName;
+    @jakarta.annotation.Nonnull private String errorCodeName;
 
     /**
      * The field which the error relates to * operator - transaction initiator * operators -
@@ -51,23 +52,23 @@ public class PolicyRuleError {
      * asset configuration
      */
     public enum ErrorFieldEnum {
-        OPERATOR("operator"),
+        OPERATOR(String.valueOf("operator")),
 
-        OPERATORS("operators"),
+        OPERATORS(String.valueOf("operators")),
 
-        AUTHORIZATIONGROUPS("authorizationGroups"),
+        AUTHORIZATION_GROUPS(String.valueOf("authorizationGroups")),
 
-        DESIGNATEDSIGNER("designatedSigner"),
+        DESIGNATED_SIGNER(String.valueOf("designatedSigner")),
 
-        DESIGNATEDSIGNERS("designatedSigners"),
+        DESIGNATED_SIGNERS(String.valueOf("designatedSigners")),
 
-        CONTRACTMETHODS("contractMethods"),
+        CONTRACT_METHODS(String.valueOf("contractMethods")),
 
-        AMOUNTAGGREGATION("amountAggregation"),
+        AMOUNT_AGGREGATION(String.valueOf("amountAggregation")),
 
-        SRC("src"),
+        SRC(String.valueOf("src")),
 
-        DST("dst");
+        DST(String.valueOf("dst"));
 
         private String value;
 
@@ -97,11 +98,25 @@ public class PolicyRuleError {
     }
 
     public static final String JSON_PROPERTY_ERROR_FIELD = "errorField";
-    private ErrorFieldEnum errorField;
+    @jakarta.annotation.Nonnull private ErrorFieldEnum errorField;
 
     public PolicyRuleError() {}
 
-    public PolicyRuleError errorMessage(String errorMessage) {
+    @JsonCreator
+    public PolicyRuleError(
+            @JsonProperty(value = JSON_PROPERTY_ERROR_MESSAGE, required = true) String errorMessage,
+            @JsonProperty(value = JSON_PROPERTY_ERROR_CODE, required = true) BigDecimal errorCode,
+            @JsonProperty(value = JSON_PROPERTY_ERROR_CODE_NAME, required = true)
+                    String errorCodeName,
+            @JsonProperty(value = JSON_PROPERTY_ERROR_FIELD, required = true)
+                    ErrorFieldEnum errorField) {
+        this.errorMessage = errorMessage;
+        this.errorCode = errorCode;
+        this.errorCodeName = errorCodeName;
+        this.errorField = errorField;
+    }
+
+    public PolicyRuleError errorMessage(@jakarta.annotation.Nonnull String errorMessage) {
         this.errorMessage = errorMessage;
         return this;
     }
@@ -120,11 +135,11 @@ public class PolicyRuleError {
 
     @JsonProperty(JSON_PROPERTY_ERROR_MESSAGE)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setErrorMessage(String errorMessage) {
+    public void setErrorMessage(@jakarta.annotation.Nonnull String errorMessage) {
         this.errorMessage = errorMessage;
     }
 
-    public PolicyRuleError errorCode(BigDecimal errorCode) {
+    public PolicyRuleError errorCode(@jakarta.annotation.Nonnull BigDecimal errorCode) {
         this.errorCode = errorCode;
         return this;
     }
@@ -143,11 +158,11 @@ public class PolicyRuleError {
 
     @JsonProperty(JSON_PROPERTY_ERROR_CODE)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setErrorCode(BigDecimal errorCode) {
+    public void setErrorCode(@jakarta.annotation.Nonnull BigDecimal errorCode) {
         this.errorCode = errorCode;
     }
 
-    public PolicyRuleError errorCodeName(String errorCodeName) {
+    public PolicyRuleError errorCodeName(@jakarta.annotation.Nonnull String errorCodeName) {
         this.errorCodeName = errorCodeName;
         return this;
     }
@@ -166,11 +181,11 @@ public class PolicyRuleError {
 
     @JsonProperty(JSON_PROPERTY_ERROR_CODE_NAME)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setErrorCodeName(String errorCodeName) {
+    public void setErrorCodeName(@jakarta.annotation.Nonnull String errorCodeName) {
         this.errorCodeName = errorCodeName;
     }
 
-    public PolicyRuleError errorField(ErrorFieldEnum errorField) {
+    public PolicyRuleError errorField(@jakarta.annotation.Nonnull ErrorFieldEnum errorField) {
         this.errorField = errorField;
         return this;
     }
@@ -194,7 +209,7 @@ public class PolicyRuleError {
 
     @JsonProperty(JSON_PROPERTY_ERROR_FIELD)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setErrorField(ErrorFieldEnum errorField) {
+    public void setErrorField(@jakarta.annotation.Nonnull ErrorFieldEnum errorField) {
         this.errorField = errorField;
     }
 
@@ -281,10 +296,7 @@ public class PolicyRuleError {
                             "%serrorMessage%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getErrorMessage()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getErrorMessage()))));
         }
 
         // add `errorCode` to the URL query string
@@ -294,9 +306,7 @@ public class PolicyRuleError {
                             "%serrorCode%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getErrorCode()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getErrorCode()))));
         }
 
         // add `errorCodeName` to the URL query string
@@ -306,10 +316,7 @@ public class PolicyRuleError {
                             "%serrorCodeName%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getErrorCodeName()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getErrorCodeName()))));
         }
 
         // add `errorField` to the URL query string
@@ -319,9 +326,7 @@ public class PolicyRuleError {
                             "%serrorField%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getErrorField()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getErrorField()))));
         }
 
         return joiner.toString();

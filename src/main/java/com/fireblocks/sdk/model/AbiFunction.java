@@ -18,8 +18,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonValue;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -34,20 +33,22 @@ import java.util.StringJoiner;
     AbiFunction.JSON_PROPERTY_OUTPUTS,
     AbiFunction.JSON_PROPERTY_DESCRIPTION
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class AbiFunction {
     public static final String JSON_PROPERTY_NAME = "name";
-    private String name;
+    @jakarta.annotation.Nullable private String name;
 
     /** The state mutability of the contract function as it appears in the ABI */
     public enum StateMutabilityEnum {
-        PURE("pure"),
+        PURE(String.valueOf("pure")),
 
-        VIEW("view"),
+        VIEW(String.valueOf("view")),
 
-        NONPAYABLE("nonpayable"),
+        NONPAYABLE(String.valueOf("nonpayable")),
 
-        PAYABLE("payable");
+        PAYABLE(String.valueOf("payable"));
 
         private String value;
 
@@ -77,21 +78,21 @@ public class AbiFunction {
     }
 
     public static final String JSON_PROPERTY_STATE_MUTABILITY = "stateMutability";
-    private StateMutabilityEnum stateMutability;
+    @jakarta.annotation.Nullable private StateMutabilityEnum stateMutability;
 
     /** The type of the function */
     public enum TypeEnum {
-        CONSTRUCTOR("constructor"),
+        CONSTRUCTOR(String.valueOf("constructor")),
 
-        FUNCTION("function"),
+        FUNCTION(String.valueOf("function")),
 
-        ERROR("error"),
+        ERROR(String.valueOf("error")),
 
-        EVENT("event"),
+        EVENT(String.valueOf("event")),
 
-        RECEIVE("receive"),
+        RECEIVE(String.valueOf("receive")),
 
-        FALLBACK("fallback");
+        FALLBACK(String.valueOf("fallback"));
 
         private String value;
 
@@ -121,20 +122,25 @@ public class AbiFunction {
     }
 
     public static final String JSON_PROPERTY_TYPE = "type";
-    private TypeEnum type;
+    @jakarta.annotation.Nonnull private TypeEnum type;
 
     public static final String JSON_PROPERTY_INPUTS = "inputs";
-    private List<Parameter> inputs;
+    @jakarta.annotation.Nullable private List<Parameter> inputs = new ArrayList<>();
 
     public static final String JSON_PROPERTY_OUTPUTS = "outputs";
-    private List<Parameter> outputs;
+    @jakarta.annotation.Nullable private List<Parameter> outputs = new ArrayList<>();
 
     public static final String JSON_PROPERTY_DESCRIPTION = "description";
-    private String description;
+    @jakarta.annotation.Nullable private String description;
 
     public AbiFunction() {}
 
-    public AbiFunction name(String name) {
+    @JsonCreator
+    public AbiFunction(@JsonProperty(value = JSON_PROPERTY_TYPE, required = true) TypeEnum type) {
+        this.type = type;
+    }
+
+    public AbiFunction name(@jakarta.annotation.Nullable String name) {
         this.name = name;
         return this;
     }
@@ -153,11 +159,12 @@ public class AbiFunction {
 
     @JsonProperty(JSON_PROPERTY_NAME)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setName(String name) {
+    public void setName(@jakarta.annotation.Nullable String name) {
         this.name = name;
     }
 
-    public AbiFunction stateMutability(StateMutabilityEnum stateMutability) {
+    public AbiFunction stateMutability(
+            @jakarta.annotation.Nullable StateMutabilityEnum stateMutability) {
         this.stateMutability = stateMutability;
         return this;
     }
@@ -176,11 +183,12 @@ public class AbiFunction {
 
     @JsonProperty(JSON_PROPERTY_STATE_MUTABILITY)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setStateMutability(StateMutabilityEnum stateMutability) {
+    public void setStateMutability(
+            @jakarta.annotation.Nullable StateMutabilityEnum stateMutability) {
         this.stateMutability = stateMutability;
     }
 
-    public AbiFunction type(TypeEnum type) {
+    public AbiFunction type(@jakarta.annotation.Nonnull TypeEnum type) {
         this.type = type;
         return this;
     }
@@ -199,11 +207,11 @@ public class AbiFunction {
 
     @JsonProperty(JSON_PROPERTY_TYPE)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setType(TypeEnum type) {
+    public void setType(@jakarta.annotation.Nonnull TypeEnum type) {
         this.type = type;
     }
 
-    public AbiFunction inputs(List<Parameter> inputs) {
+    public AbiFunction inputs(@jakarta.annotation.Nullable List<Parameter> inputs) {
         this.inputs = inputs;
         return this;
     }
@@ -230,11 +238,11 @@ public class AbiFunction {
 
     @JsonProperty(JSON_PROPERTY_INPUTS)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setInputs(List<Parameter> inputs) {
+    public void setInputs(@jakarta.annotation.Nullable List<Parameter> inputs) {
         this.inputs = inputs;
     }
 
-    public AbiFunction outputs(List<Parameter> outputs) {
+    public AbiFunction outputs(@jakarta.annotation.Nullable List<Parameter> outputs) {
         this.outputs = outputs;
         return this;
     }
@@ -261,11 +269,11 @@ public class AbiFunction {
 
     @JsonProperty(JSON_PROPERTY_OUTPUTS)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setOutputs(List<Parameter> outputs) {
+    public void setOutputs(@jakarta.annotation.Nullable List<Parameter> outputs) {
         this.outputs = outputs;
     }
 
-    public AbiFunction description(String description) {
+    public AbiFunction description(@jakarta.annotation.Nullable String description) {
         this.description = description;
         return this;
     }
@@ -284,7 +292,7 @@ public class AbiFunction {
 
     @JsonProperty(JSON_PROPERTY_DESCRIPTION)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setDescription(String description) {
+    public void setDescription(@jakarta.annotation.Nullable String description) {
         this.description = description;
     }
 
@@ -375,8 +383,7 @@ public class AbiFunction {
                             "%sname%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getName()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getName()))));
         }
 
         // add `stateMutability` to the URL query string
@@ -386,10 +393,7 @@ public class AbiFunction {
                             "%sstateMutability%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getStateMutability()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getStateMutability()))));
         }
 
         // add `type` to the URL query string
@@ -399,8 +403,7 @@ public class AbiFunction {
                             "%stype%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getType()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getType()))));
         }
 
         // add `inputs` to the URL query string
@@ -456,10 +459,7 @@ public class AbiFunction {
                             "%sdescription%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getDescription()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getDescription()))));
         }
 
         return joiner.toString();

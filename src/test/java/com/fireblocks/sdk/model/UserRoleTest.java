@@ -13,13 +13,13 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for UserRole */
-public class UserRoleTest {
+class UserRoleTest {
     /** Model tests for UserRole */
     @Test
-    public void testUserRole() {
+    void testUserRole() {
         // TODO: test UserRole
     }
 }

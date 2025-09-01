@@ -13,27 +13,27 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for SolParameter */
-public class SolParameterTest {
+class SolParameterTest {
     private final SolParameter model = new SolParameter();
 
     /** Model tests for SolParameter */
     @Test
-    public void testSolParameter() {
+    void testSolParameter() {
         // TODO: test SolParameter
     }
 
     /** Test the property 'name' */
     @Test
-    public void nameTest() {
+    void nameTest() {
         // TODO: test name
     }
 
     /** Test the property 'type' */
     @Test
-    public void typeTest() {
+    void typeTest() {
         // TODO: test type
     }
 }

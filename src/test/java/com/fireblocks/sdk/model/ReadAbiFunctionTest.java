@@ -13,51 +13,51 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for ReadAbiFunction */
-public class ReadAbiFunctionTest {
+class ReadAbiFunctionTest {
     private final ReadAbiFunction model = new ReadAbiFunction();
 
     /** Model tests for ReadAbiFunction */
     @Test
-    public void testReadAbiFunction() {
+    void testReadAbiFunction() {
         // TODO: test ReadAbiFunction
     }
 
     /** Test the property 'stateMutability' */
     @Test
-    public void stateMutabilityTest() {
+    void stateMutabilityTest() {
         // TODO: test stateMutability
     }
 
     /** Test the property 'outputs' */
     @Test
-    public void outputsTest() {
+    void outputsTest() {
         // TODO: test outputs
     }
 
     /** Test the property 'name' */
     @Test
-    public void nameTest() {
+    void nameTest() {
         // TODO: test name
     }
 
     /** Test the property 'type' */
     @Test
-    public void typeTest() {
+    void typeTest() {
         // TODO: test type
     }
 
     /** Test the property 'inputs' */
     @Test
-    public void inputsTest() {
+    void inputsTest() {
         // TODO: test inputs
     }
 
     /** Test the property 'description' */
     @Test
-    public void descriptionTest() {
+    void descriptionTest() {
         // TODO: test description
     }
 }

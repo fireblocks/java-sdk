@@ -20,8 +20,8 @@ A list of signed messages returned for raw signing.
 
 | Name | Value |
 |---- | -----|
-| ECDSA_SECP256K1 | &quot;MPC_ECDSA_SECP256K1&quot; |
-| EDDSA_ED25519 | &quot;MPC_EDDSA_ED25519&quot; |
+| MPC_ECDSA_SECP256_K1 | &quot;MPC_ECDSA_SECP256K1&quot; |
+| MPC_EDDSA_ED25519 | &quot;MPC_EDDSA_ED25519&quot; |
 
 
 

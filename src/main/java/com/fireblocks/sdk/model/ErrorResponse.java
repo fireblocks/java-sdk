@@ -13,6 +13,7 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -21,14 +22,22 @@ import java.util.StringJoiner;
 
 /** ErrorResponse */
 @JsonPropertyOrder({ErrorResponse.JSON_PROPERTY_ERROR})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class ErrorResponse {
     public static final String JSON_PROPERTY_ERROR = "error";
-    private ErrorResponseError error;
+    @jakarta.annotation.Nonnull private ErrorResponseError error;
 
     public ErrorResponse() {}
 
-    public ErrorResponse error(ErrorResponseError error) {
+    @JsonCreator
+    public ErrorResponse(
+            @JsonProperty(value = JSON_PROPERTY_ERROR, required = true) ErrorResponseError error) {
+        this.error = error;
+    }
+
+    public ErrorResponse error(@jakarta.annotation.Nonnull ErrorResponseError error) {
         this.error = error;
         return this;
     }
@@ -47,7 +56,7 @@ public class ErrorResponse {
 
     @JsonProperty(JSON_PROPERTY_ERROR)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setError(ErrorResponseError error) {
+    public void setError(@jakarta.annotation.Nonnull ErrorResponseError error) {
         this.error = error;
     }
 

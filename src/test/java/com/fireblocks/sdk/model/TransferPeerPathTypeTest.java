@@ -13,13 +13,13 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for TransferPeerPathType */
-public class TransferPeerPathTypeTest {
+class TransferPeerPathTypeTest {
     /** Model tests for TransferPeerPathType */
     @Test
-    public void testTransferPeerPathType() {
+    void testTransferPeerPathType() {
         // TODO: test TransferPeerPathType
     }
 }

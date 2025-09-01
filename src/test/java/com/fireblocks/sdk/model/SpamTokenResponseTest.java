@@ -13,21 +13,21 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for SpamTokenResponse */
-public class SpamTokenResponseTest {
+class SpamTokenResponseTest {
     private final SpamTokenResponse model = new SpamTokenResponse();
 
     /** Model tests for SpamTokenResponse */
     @Test
-    public void testSpamTokenResponse() {
+    void testSpamTokenResponse() {
         // TODO: test SpamTokenResponse
     }
 
     /** Test the property 'result' */
     @Test
-    public void resultTest() {
+    void resultTest() {
         // TODO: test result
     }
 }

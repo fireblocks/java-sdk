@@ -13,27 +13,37 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
 /** PaymentAccount */
 @JsonPropertyOrder({PaymentAccount.JSON_PROPERTY_ID, PaymentAccount.JSON_PROPERTY_TYPE})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class PaymentAccount {
     public static final String JSON_PROPERTY_ID = "id";
-    private String id;
+    @jakarta.annotation.Nonnull private String id;
 
     public static final String JSON_PROPERTY_TYPE = "type";
-    private PaymentAccountType type;
+    @jakarta.annotation.Nonnull private PaymentAccountType type;
 
     public PaymentAccount() {}
 
-    public PaymentAccount id(String id) {
+    @JsonCreator
+    public PaymentAccount(
+            @JsonProperty(value = JSON_PROPERTY_ID, required = true) String id,
+            @JsonProperty(value = JSON_PROPERTY_TYPE, required = true) PaymentAccountType type) {
+        this.id = id;
+        this.type = type;
+    }
+
+    public PaymentAccount id(@jakarta.annotation.Nonnull String id) {
         this.id = id;
         return this;
     }
@@ -52,11 +62,11 @@ public class PaymentAccount {
 
     @JsonProperty(JSON_PROPERTY_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setId(String id) {
+    public void setId(@jakarta.annotation.Nonnull String id) {
         this.id = id;
     }
 
-    public PaymentAccount type(PaymentAccountType type) {
+    public PaymentAccount type(@jakarta.annotation.Nonnull PaymentAccountType type) {
         this.type = type;
         return this;
     }
@@ -75,7 +85,7 @@ public class PaymentAccount {
 
     @JsonProperty(JSON_PROPERTY_TYPE)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setType(PaymentAccountType type) {
+    public void setType(@jakarta.annotation.Nonnull PaymentAccountType type) {
         this.type = type;
     }
 
@@ -156,10 +166,7 @@ public class PaymentAccount {
             joiner.add(
                     String.format(
                             "%sid%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(String.valueOf(getId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getId()))));
         }
 
         // add `type` to the URL query string
@@ -169,8 +176,7 @@ public class PaymentAccount {
                             "%stype%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getType()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getType()))));
         }
 
         return joiner.toString();

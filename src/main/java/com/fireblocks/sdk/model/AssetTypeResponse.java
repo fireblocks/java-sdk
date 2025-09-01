@@ -13,12 +13,12 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fireblocks.sdk.ApiClient;
 import java.math.BigDecimal;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -31,29 +31,41 @@ import java.util.StringJoiner;
     AssetTypeResponse.JSON_PROPERTY_NATIVE_ASSET,
     AssetTypeResponse.JSON_PROPERTY_DECIMALS
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class AssetTypeResponse {
     public static final String JSON_PROPERTY_ID = "id";
-    private String id;
+    @jakarta.annotation.Nonnull private String id;
 
     public static final String JSON_PROPERTY_NAME = "name";
-    private String name;
+    @jakarta.annotation.Nonnull private String name;
 
     public static final String JSON_PROPERTY_TYPE = "type";
-    private String type;
+    @jakarta.annotation.Nonnull private String type;
 
     public static final String JSON_PROPERTY_CONTRACT_ADDRESS = "contractAddress";
-    private String contractAddress;
+    @jakarta.annotation.Nullable private String contractAddress;
 
     public static final String JSON_PROPERTY_NATIVE_ASSET = "nativeAsset";
-    private String nativeAsset;
+    @jakarta.annotation.Nullable private String nativeAsset;
 
     public static final String JSON_PROPERTY_DECIMALS = "decimals";
-    private BigDecimal decimals;
+    @jakarta.annotation.Nullable private BigDecimal decimals;
 
     public AssetTypeResponse() {}
 
-    public AssetTypeResponse id(String id) {
+    @JsonCreator
+    public AssetTypeResponse(
+            @JsonProperty(value = JSON_PROPERTY_ID, required = true) String id,
+            @JsonProperty(value = JSON_PROPERTY_NAME, required = true) String name,
+            @JsonProperty(value = JSON_PROPERTY_TYPE, required = true) String type) {
+        this.id = id;
+        this.name = name;
+        this.type = type;
+    }
+
+    public AssetTypeResponse id(@jakarta.annotation.Nonnull String id) {
         this.id = id;
         return this;
     }
@@ -72,11 +84,11 @@ public class AssetTypeResponse {
 
     @JsonProperty(JSON_PROPERTY_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setId(String id) {
+    public void setId(@jakarta.annotation.Nonnull String id) {
         this.id = id;
     }
 
-    public AssetTypeResponse name(String name) {
+    public AssetTypeResponse name(@jakarta.annotation.Nonnull String name) {
         this.name = name;
         return this;
     }
@@ -95,11 +107,11 @@ public class AssetTypeResponse {
 
     @JsonProperty(JSON_PROPERTY_NAME)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setName(String name) {
+    public void setName(@jakarta.annotation.Nonnull String name) {
         this.name = name;
     }
 
-    public AssetTypeResponse type(String type) {
+    public AssetTypeResponse type(@jakarta.annotation.Nonnull String type) {
         this.type = type;
         return this;
     }
@@ -118,11 +130,11 @@ public class AssetTypeResponse {
 
     @JsonProperty(JSON_PROPERTY_TYPE)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setType(String type) {
+    public void setType(@jakarta.annotation.Nonnull String type) {
         this.type = type;
     }
 
-    public AssetTypeResponse contractAddress(String contractAddress) {
+    public AssetTypeResponse contractAddress(@jakarta.annotation.Nullable String contractAddress) {
         this.contractAddress = contractAddress;
         return this;
     }
@@ -141,11 +153,11 @@ public class AssetTypeResponse {
 
     @JsonProperty(JSON_PROPERTY_CONTRACT_ADDRESS)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setContractAddress(String contractAddress) {
+    public void setContractAddress(@jakarta.annotation.Nullable String contractAddress) {
         this.contractAddress = contractAddress;
     }
 
-    public AssetTypeResponse nativeAsset(String nativeAsset) {
+    public AssetTypeResponse nativeAsset(@jakarta.annotation.Nullable String nativeAsset) {
         this.nativeAsset = nativeAsset;
         return this;
     }
@@ -164,11 +176,11 @@ public class AssetTypeResponse {
 
     @JsonProperty(JSON_PROPERTY_NATIVE_ASSET)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setNativeAsset(String nativeAsset) {
+    public void setNativeAsset(@jakarta.annotation.Nullable String nativeAsset) {
         this.nativeAsset = nativeAsset;
     }
 
-    public AssetTypeResponse decimals(BigDecimal decimals) {
+    public AssetTypeResponse decimals(@jakarta.annotation.Nullable BigDecimal decimals) {
         this.decimals = decimals;
         return this;
     }
@@ -187,7 +199,7 @@ public class AssetTypeResponse {
 
     @JsonProperty(JSON_PROPERTY_DECIMALS)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setDecimals(BigDecimal decimals) {
+    public void setDecimals(@jakarta.annotation.Nullable BigDecimal decimals) {
         this.decimals = decimals;
     }
 
@@ -276,10 +288,7 @@ public class AssetTypeResponse {
             joiner.add(
                     String.format(
                             "%sid%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(String.valueOf(getId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getId()))));
         }
 
         // add `name` to the URL query string
@@ -289,8 +298,7 @@ public class AssetTypeResponse {
                             "%sname%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getName()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getName()))));
         }
 
         // add `type` to the URL query string
@@ -300,8 +308,7 @@ public class AssetTypeResponse {
                             "%stype%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getType()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getType()))));
         }
 
         // add `contractAddress` to the URL query string
@@ -311,10 +318,7 @@ public class AssetTypeResponse {
                             "%scontractAddress%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getContractAddress()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getContractAddress()))));
         }
 
         // add `nativeAsset` to the URL query string
@@ -324,10 +328,7 @@ public class AssetTypeResponse {
                             "%snativeAsset%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getNativeAsset()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getNativeAsset()))));
         }
 
         // add `decimals` to the URL query string
@@ -337,8 +338,7 @@ public class AssetTypeResponse {
                             "%sdecimals%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getDecimals()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getDecimals()))));
         }
 
         return joiner.toString();

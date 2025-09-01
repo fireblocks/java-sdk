@@ -13,111 +13,111 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for WalletAssetAdditionalInfo */
-public class WalletAssetAdditionalInfoTest {
+class WalletAssetAdditionalInfoTest {
     private final WalletAssetAdditionalInfo model = new WalletAssetAdditionalInfo();
 
     /** Model tests for WalletAssetAdditionalInfo */
     @Test
-    public void testWalletAssetAdditionalInfo() {
+    void testWalletAssetAdditionalInfo() {
         // TODO: test WalletAssetAdditionalInfo
     }
 
     /** Test the property 'accountHolderGivenName' */
     @Test
-    public void accountHolderGivenNameTest() {
+    void accountHolderGivenNameTest() {
         // TODO: test accountHolderGivenName
     }
 
     /** Test the property 'accountHolderSurname' */
     @Test
-    public void accountHolderSurnameTest() {
+    void accountHolderSurnameTest() {
         // TODO: test accountHolderSurname
     }
 
     /** Test the property 'accountHolderCity' */
     @Test
-    public void accountHolderCityTest() {
+    void accountHolderCityTest() {
         // TODO: test accountHolderCity
     }
 
     /** Test the property 'accountHolderCountry' */
     @Test
-    public void accountHolderCountryTest() {
+    void accountHolderCountryTest() {
         // TODO: test accountHolderCountry
     }
 
     /** Test the property 'accountHolderAddress1' */
     @Test
-    public void accountHolderAddress1Test() {
+    void accountHolderAddress1Test() {
         // TODO: test accountHolderAddress1
     }
 
     /** Test the property 'accountHolderAddress2' */
     @Test
-    public void accountHolderAddress2Test() {
+    void accountHolderAddress2Test() {
         // TODO: test accountHolderAddress2
     }
 
     /** Test the property 'accountHolderDistrict' */
     @Test
-    public void accountHolderDistrictTest() {
+    void accountHolderDistrictTest() {
         // TODO: test accountHolderDistrict
     }
 
     /** Test the property 'accountHolderPostalCode' */
     @Test
-    public void accountHolderPostalCodeTest() {
+    void accountHolderPostalCodeTest() {
         // TODO: test accountHolderPostalCode
     }
 
     /** Test the property 'abaRoutingNumber' */
     @Test
-    public void abaRoutingNumberTest() {
+    void abaRoutingNumberTest() {
         // TODO: test abaRoutingNumber
     }
 
     /** Test the property 'abaAccountNumber' */
     @Test
-    public void abaAccountNumberTest() {
+    void abaAccountNumberTest() {
         // TODO: test abaAccountNumber
     }
 
     /** Test the property 'abaCountry' */
     @Test
-    public void abaCountryTest() {
+    void abaCountryTest() {
         // TODO: test abaCountry
     }
 
     /** Test the property 'iban' */
     @Test
-    public void ibanTest() {
+    void ibanTest() {
         // TODO: test iban
     }
 
     /** Test the property 'ibanCity' */
     @Test
-    public void ibanCityTest() {
+    void ibanCityTest() {
         // TODO: test ibanCity
     }
 
     /** Test the property 'ibanCountry' */
     @Test
-    public void ibanCountryTest() {
+    void ibanCountryTest() {
         // TODO: test ibanCountry
     }
 
     /** Test the property 'speiClabe' */
     @Test
-    public void speiClabeTest() {
+    void speiClabeTest() {
         // TODO: test speiClabe
     }
 
     /** Test the property 'speiName' */
     @Test
-    public void speiNameTest() {
+    void speiNameTest() {
         // TODO: test speiName
     }
 }

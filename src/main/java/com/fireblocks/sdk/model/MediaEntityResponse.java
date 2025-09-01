@@ -18,8 +18,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonValue;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -28,30 +27,32 @@ import java.util.StringJoiner;
     MediaEntityResponse.JSON_PROPERTY_URL,
     MediaEntityResponse.JSON_PROPERTY_CONTENT_TYPE
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class MediaEntityResponse {
     public static final String JSON_PROPERTY_URL = "url";
-    private String url;
+    @jakarta.annotation.Nonnull private String url;
 
     /** Media type */
     public enum ContentTypeEnum {
-        IMAGE("IMAGE"),
+        IMAGE(String.valueOf("IMAGE")),
 
-        VIDEO("VIDEO"),
+        VIDEO(String.valueOf("VIDEO")),
 
-        ANIMATION("ANIMATION"),
+        ANIMATION(String.valueOf("ANIMATION")),
 
-        THREE_D("THREE_D"),
+        THREE_D(String.valueOf("THREE_D")),
 
-        TEXT("TEXT"),
+        TEXT(String.valueOf("TEXT")),
 
-        GIF("GIF"),
+        GIF(String.valueOf("GIF")),
 
-        UNKNOWN_TYPE("UNKNOWN_TYPE"),
+        UNKNOWN_TYPE(String.valueOf("UNKNOWN_TYPE")),
 
-        SVG("SVG"),
+        SVG(String.valueOf("SVG")),
 
-        AUDIO("AUDIO");
+        AUDIO(String.valueOf("AUDIO"));
 
         private String value;
 
@@ -81,11 +82,20 @@ public class MediaEntityResponse {
     }
 
     public static final String JSON_PROPERTY_CONTENT_TYPE = "contentType";
-    private ContentTypeEnum contentType;
+    @jakarta.annotation.Nonnull private ContentTypeEnum contentType;
 
     public MediaEntityResponse() {}
 
-    public MediaEntityResponse url(String url) {
+    @JsonCreator
+    public MediaEntityResponse(
+            @JsonProperty(value = JSON_PROPERTY_URL, required = true) String url,
+            @JsonProperty(value = JSON_PROPERTY_CONTENT_TYPE, required = true)
+                    ContentTypeEnum contentType) {
+        this.url = url;
+        this.contentType = contentType;
+    }
+
+    public MediaEntityResponse url(@jakarta.annotation.Nonnull String url) {
         this.url = url;
         return this;
     }
@@ -104,11 +114,12 @@ public class MediaEntityResponse {
 
     @JsonProperty(JSON_PROPERTY_URL)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setUrl(String url) {
+    public void setUrl(@jakarta.annotation.Nonnull String url) {
         this.url = url;
     }
 
-    public MediaEntityResponse contentType(ContentTypeEnum contentType) {
+    public MediaEntityResponse contentType(
+            @jakarta.annotation.Nonnull ContentTypeEnum contentType) {
         this.contentType = contentType;
         return this;
     }
@@ -127,7 +138,7 @@ public class MediaEntityResponse {
 
     @JsonProperty(JSON_PROPERTY_CONTENT_TYPE)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setContentType(ContentTypeEnum contentType) {
+    public void setContentType(@jakarta.annotation.Nonnull ContentTypeEnum contentType) {
         this.contentType = contentType;
     }
 
@@ -210,8 +221,7 @@ public class MediaEntityResponse {
                             "%surl%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getUrl()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getUrl()))));
         }
 
         // add `contentType` to the URL query string
@@ -221,10 +231,7 @@ public class MediaEntityResponse {
                             "%scontentType%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getContentType()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getContentType()))));
         }
 
         return joiner.toString();

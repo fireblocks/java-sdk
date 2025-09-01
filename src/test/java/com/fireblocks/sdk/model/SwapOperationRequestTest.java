@@ -13,33 +13,33 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for SwapOperationRequest */
-public class SwapOperationRequestTest {
+class SwapOperationRequestTest {
     private final SwapOperationRequest model = new SwapOperationRequest();
 
     /** Model tests for SwapOperationRequest */
     @Test
-    public void testSwapOperationRequest() {
+    void testSwapOperationRequest() {
         // TODO: test SwapOperationRequest
     }
 
     /** Test the property 'providerQuoteId' */
     @Test
-    public void providerQuoteIdTest() {
+    void providerQuoteIdTest() {
         // TODO: test providerQuoteId
     }
 
     /** Test the property 'feeLevel' */
     @Test
-    public void feeLevelTest() {
+    void feeLevelTest() {
         // TODO: test feeLevel
     }
 
     /** Test the property 'txNote' */
     @Test
-    public void txNoteTest() {
+    void txNoteTest() {
         // TODO: test txNote
     }
 }

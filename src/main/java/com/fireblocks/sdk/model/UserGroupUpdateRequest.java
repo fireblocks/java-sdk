@@ -16,8 +16,7 @@ package com.fireblocks.sdk.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -28,17 +27,19 @@ import java.util.StringJoiner;
     UserGroupUpdateRequest.JSON_PROPERTY_GROUP_NAME,
     UserGroupUpdateRequest.JSON_PROPERTY_MEMBER_IDS
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class UserGroupUpdateRequest {
     public static final String JSON_PROPERTY_GROUP_NAME = "groupName";
-    private String groupName;
+    @jakarta.annotation.Nullable private String groupName;
 
     public static final String JSON_PROPERTY_MEMBER_IDS = "memberIds";
-    private List<String> memberIds;
+    @jakarta.annotation.Nullable private List<String> memberIds = new ArrayList<>();
 
     public UserGroupUpdateRequest() {}
 
-    public UserGroupUpdateRequest groupName(String groupName) {
+    public UserGroupUpdateRequest groupName(@jakarta.annotation.Nullable String groupName) {
         this.groupName = groupName;
         return this;
     }
@@ -57,11 +58,11 @@ public class UserGroupUpdateRequest {
 
     @JsonProperty(JSON_PROPERTY_GROUP_NAME)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setGroupName(String groupName) {
+    public void setGroupName(@jakarta.annotation.Nullable String groupName) {
         this.groupName = groupName;
     }
 
-    public UserGroupUpdateRequest memberIds(List<String> memberIds) {
+    public UserGroupUpdateRequest memberIds(@jakarta.annotation.Nullable List<String> memberIds) {
         this.memberIds = memberIds;
         return this;
     }
@@ -88,7 +89,7 @@ public class UserGroupUpdateRequest {
 
     @JsonProperty(JSON_PROPERTY_MEMBER_IDS)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setMemberIds(List<String> memberIds) {
+    public void setMemberIds(@jakarta.annotation.Nullable List<String> memberIds) {
         this.memberIds = memberIds;
     }
 
@@ -171,9 +172,7 @@ public class UserGroupUpdateRequest {
                             "%sgroupName%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getGroupName()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getGroupName()))));
         }
 
         // add `memberIds` to the URL query string
@@ -188,10 +187,8 @@ public class UserGroupUpdateRequest {
                                         ? ""
                                         : String.format(
                                                 "%s%d%s", containerPrefix, i, containerSuffix),
-                                URLEncoder.encode(
-                                                String.valueOf(getMemberIds().get(i)),
-                                                StandardCharsets.UTF_8)
-                                        .replaceAll("\\+", "%20")));
+                                ApiClient.urlEncode(
+                                        ApiClient.valueToString(getMemberIds().get(i)))));
             }
         }
 

@@ -13,33 +13,33 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for DvnConfig */
-public class DvnConfigTest {
+class DvnConfigTest {
     private final DvnConfig model = new DvnConfig();
 
     /** Model tests for DvnConfig */
     @Test
-    public void testDvnConfig() {
+    void testDvnConfig() {
         // TODO: test DvnConfig
     }
 
     /** Test the property 'dvnAddresses' */
     @Test
-    public void dvnAddressesTest() {
+    void dvnAddressesTest() {
         // TODO: test dvnAddresses
     }
 
     /** Test the property 'optionalDVNAddresses' */
     @Test
-    public void optionalDVNAddressesTest() {
+    void optionalDVNAddressesTest() {
         // TODO: test optionalDVNAddresses
     }
 
     /** Test the property 'optionalThreshold' */
     @Test
-    public void optionalThresholdTest() {
+    void optionalThresholdTest() {
         // TODO: test optionalThreshold
     }
 }

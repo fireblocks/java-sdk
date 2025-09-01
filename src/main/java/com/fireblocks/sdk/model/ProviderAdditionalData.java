@@ -13,24 +13,32 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
 /** Provider specific additional data */
 @JsonPropertyOrder({ProviderAdditionalData.JSON_PROPERTY_PRICE_IMPACT})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class ProviderAdditionalData {
     public static final String JSON_PROPERTY_PRICE_IMPACT = "priceImpact";
-    private String priceImpact;
+    @jakarta.annotation.Nonnull private String priceImpact;
 
     public ProviderAdditionalData() {}
 
-    public ProviderAdditionalData priceImpact(String priceImpact) {
+    @JsonCreator
+    public ProviderAdditionalData(
+            @JsonProperty(value = JSON_PROPERTY_PRICE_IMPACT, required = true) String priceImpact) {
+        this.priceImpact = priceImpact;
+    }
+
+    public ProviderAdditionalData priceImpact(@jakarta.annotation.Nonnull String priceImpact) {
         this.priceImpact = priceImpact;
         return this;
     }
@@ -49,7 +57,7 @@ public class ProviderAdditionalData {
 
     @JsonProperty(JSON_PROPERTY_PRICE_IMPACT)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setPriceImpact(String priceImpact) {
+    public void setPriceImpact(@jakarta.annotation.Nonnull String priceImpact) {
         this.priceImpact = priceImpact;
     }
 
@@ -130,10 +138,7 @@ public class ProviderAdditionalData {
                             "%spriceImpact%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getPriceImpact()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getPriceImpact()))));
         }
 
         return joiner.toString();

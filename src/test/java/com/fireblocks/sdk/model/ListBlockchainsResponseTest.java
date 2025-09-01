@@ -13,27 +13,27 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for ListBlockchainsResponse */
-public class ListBlockchainsResponseTest {
+class ListBlockchainsResponseTest {
     private final ListBlockchainsResponse model = new ListBlockchainsResponse();
 
     /** Model tests for ListBlockchainsResponse */
     @Test
-    public void testListBlockchainsResponse() {
+    void testListBlockchainsResponse() {
         // TODO: test ListBlockchainsResponse
     }
 
     /** Test the property 'data' */
     @Test
-    public void dataTest() {
+    void dataTest() {
         // TODO: test data
     }
 
     /** Test the property 'next' */
     @Test
-    public void nextTest() {
+    void nextTest() {
         // TODO: test next
     }
 }

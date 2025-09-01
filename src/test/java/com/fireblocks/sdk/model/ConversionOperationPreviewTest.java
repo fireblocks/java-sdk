@@ -13,33 +13,33 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for ConversionOperationPreview */
-public class ConversionOperationPreviewTest {
+class ConversionOperationPreviewTest {
     private final ConversionOperationPreview model = new ConversionOperationPreview();
 
     /** Model tests for ConversionOperationPreview */
     @Test
-    public void testConversionOperationPreview() {
+    void testConversionOperationPreview() {
         // TODO: test ConversionOperationPreview
     }
 
     /** Test the property 'input' */
     @Test
-    public void inputTest() {
+    void inputTest() {
         // TODO: test input
     }
 
     /** Test the property 'output' */
     @Test
-    public void outputTest() {
+    void outputTest() {
         // TODO: test output
     }
 
     /** Test the property 'failure' */
     @Test
-    public void failureTest() {
+    void failureTest() {
         // TODO: test failure
     }
 }

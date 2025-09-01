@@ -13,27 +13,27 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for SwapFlowError */
-public class SwapFlowErrorTest {
+class SwapFlowErrorTest {
     private final SwapFlowError model = new SwapFlowError();
 
     /** Model tests for SwapFlowError */
     @Test
-    public void testSwapFlowError() {
+    void testSwapFlowError() {
         // TODO: test SwapFlowError
     }
 
     /** Test the property 'code' */
     @Test
-    public void codeTest() {
+    void codeTest() {
         // TODO: test code
     }
 
     /** Test the property 'message' */
     @Test
-    public void messageTest() {
+    void messageTest() {
         // TODO: test message
     }
 }

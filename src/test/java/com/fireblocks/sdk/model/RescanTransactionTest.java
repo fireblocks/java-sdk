@@ -13,27 +13,27 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for RescanTransaction */
-public class RescanTransactionTest {
+class RescanTransactionTest {
     private final RescanTransaction model = new RescanTransaction();
 
     /** Model tests for RescanTransaction */
     @Test
-    public void testRescanTransaction() {
+    void testRescanTransaction() {
         // TODO: test RescanTransaction
     }
 
     /** Test the property 'txHash' */
     @Test
-    public void txHashTest() {
+    void txHashTest() {
         // TODO: test txHash
     }
 
     /** Test the property 'assetId' */
     @Test
-    public void assetIdTest() {
+    void assetIdTest() {
         // TODO: test assetId
     }
 }

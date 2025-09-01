@@ -13,27 +13,27 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for GasStationPropertiesResponse */
-public class GasStationPropertiesResponseTest {
+class GasStationPropertiesResponseTest {
     private final GasStationPropertiesResponse model = new GasStationPropertiesResponse();
 
     /** Model tests for GasStationPropertiesResponse */
     @Test
-    public void testGasStationPropertiesResponse() {
+    void testGasStationPropertiesResponse() {
         // TODO: test GasStationPropertiesResponse
     }
 
     /** Test the property 'balance' */
     @Test
-    public void balanceTest() {
+    void balanceTest() {
         // TODO: test balance
     }
 
     /** Test the property '_configuration' */
     @Test
-    public void _configurationTest() {
+    void _configurationTest() {
         // TODO: test _configuration
     }
 }

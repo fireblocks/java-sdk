@@ -18,8 +18,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonValue;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -34,26 +33,28 @@ import java.util.StringJoiner;
     WriteCallFunctionDto.JSON_PROPERTY_USE_GASLESS,
     WriteCallFunctionDto.JSON_PROPERTY_EXTERNAL_ID
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class WriteCallFunctionDto {
     public static final String JSON_PROPERTY_VAULT_ACCOUNT_ID = "vaultAccountId";
-    private String vaultAccountId;
+    @jakarta.annotation.Nonnull private String vaultAccountId;
 
     public static final String JSON_PROPERTY_ABI_FUNCTION = "abiFunction";
-    private WriteCallFunctionDtoAbiFunction abiFunction;
+    @jakarta.annotation.Nonnull private WriteCallFunctionDtoAbiFunction abiFunction;
 
     public static final String JSON_PROPERTY_AMOUNT = "amount";
-    private String amount;
+    @jakarta.annotation.Nullable private String amount;
 
     /**
      * Fee level for the write function transaction. interchangeable with the &#39;fee&#39; field
      */
     public enum FeeLevelEnum {
-        LOW("LOW"),
+        LOW(String.valueOf("LOW")),
 
-        MEDIUM("MEDIUM"),
+        MEDIUM(String.valueOf("MEDIUM")),
 
-        HIGH("HIGH");
+        HIGH(String.valueOf("HIGH"));
 
         private String value;
 
@@ -83,23 +84,33 @@ public class WriteCallFunctionDto {
     }
 
     public static final String JSON_PROPERTY_FEE_LEVEL = "feeLevel";
-    private FeeLevelEnum feeLevel;
+    @jakarta.annotation.Nullable private FeeLevelEnum feeLevel;
 
     public static final String JSON_PROPERTY_FEE = "fee";
-    private String fee;
+    @jakarta.annotation.Nullable private String fee;
 
     public static final String JSON_PROPERTY_NOTE = "note";
-    private String note;
+    @jakarta.annotation.Nullable private String note;
 
     public static final String JSON_PROPERTY_USE_GASLESS = "useGasless";
-    private Boolean useGasless;
+    @jakarta.annotation.Nullable private Boolean useGasless;
 
     public static final String JSON_PROPERTY_EXTERNAL_ID = "externalId";
-    private String externalId;
+    @jakarta.annotation.Nullable private String externalId;
 
     public WriteCallFunctionDto() {}
 
-    public WriteCallFunctionDto vaultAccountId(String vaultAccountId) {
+    @JsonCreator
+    public WriteCallFunctionDto(
+            @JsonProperty(value = JSON_PROPERTY_VAULT_ACCOUNT_ID, required = true)
+                    String vaultAccountId,
+            @JsonProperty(value = JSON_PROPERTY_ABI_FUNCTION, required = true)
+                    WriteCallFunctionDtoAbiFunction abiFunction) {
+        this.vaultAccountId = vaultAccountId;
+        this.abiFunction = abiFunction;
+    }
+
+    public WriteCallFunctionDto vaultAccountId(@jakarta.annotation.Nonnull String vaultAccountId) {
         this.vaultAccountId = vaultAccountId;
         return this;
     }
@@ -118,11 +129,12 @@ public class WriteCallFunctionDto {
 
     @JsonProperty(JSON_PROPERTY_VAULT_ACCOUNT_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setVaultAccountId(String vaultAccountId) {
+    public void setVaultAccountId(@jakarta.annotation.Nonnull String vaultAccountId) {
         this.vaultAccountId = vaultAccountId;
     }
 
-    public WriteCallFunctionDto abiFunction(WriteCallFunctionDtoAbiFunction abiFunction) {
+    public WriteCallFunctionDto abiFunction(
+            @jakarta.annotation.Nonnull WriteCallFunctionDtoAbiFunction abiFunction) {
         this.abiFunction = abiFunction;
         return this;
     }
@@ -141,11 +153,12 @@ public class WriteCallFunctionDto {
 
     @JsonProperty(JSON_PROPERTY_ABI_FUNCTION)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setAbiFunction(WriteCallFunctionDtoAbiFunction abiFunction) {
+    public void setAbiFunction(
+            @jakarta.annotation.Nonnull WriteCallFunctionDtoAbiFunction abiFunction) {
         this.abiFunction = abiFunction;
     }
 
-    public WriteCallFunctionDto amount(String amount) {
+    public WriteCallFunctionDto amount(@jakarta.annotation.Nullable String amount) {
         this.amount = amount;
         return this;
     }
@@ -164,11 +177,11 @@ public class WriteCallFunctionDto {
 
     @JsonProperty(JSON_PROPERTY_AMOUNT)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAmount(String amount) {
+    public void setAmount(@jakarta.annotation.Nullable String amount) {
         this.amount = amount;
     }
 
-    public WriteCallFunctionDto feeLevel(FeeLevelEnum feeLevel) {
+    public WriteCallFunctionDto feeLevel(@jakarta.annotation.Nullable FeeLevelEnum feeLevel) {
         this.feeLevel = feeLevel;
         return this;
     }
@@ -187,11 +200,11 @@ public class WriteCallFunctionDto {
 
     @JsonProperty(JSON_PROPERTY_FEE_LEVEL)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setFeeLevel(FeeLevelEnum feeLevel) {
+    public void setFeeLevel(@jakarta.annotation.Nullable FeeLevelEnum feeLevel) {
         this.feeLevel = feeLevel;
     }
 
-    public WriteCallFunctionDto fee(String fee) {
+    public WriteCallFunctionDto fee(@jakarta.annotation.Nullable String fee) {
         this.fee = fee;
         return this;
     }
@@ -211,11 +224,11 @@ public class WriteCallFunctionDto {
 
     @JsonProperty(JSON_PROPERTY_FEE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setFee(String fee) {
+    public void setFee(@jakarta.annotation.Nullable String fee) {
         this.fee = fee;
     }
 
-    public WriteCallFunctionDto note(String note) {
+    public WriteCallFunctionDto note(@jakarta.annotation.Nullable String note) {
         this.note = note;
         return this;
     }
@@ -235,11 +248,11 @@ public class WriteCallFunctionDto {
 
     @JsonProperty(JSON_PROPERTY_NOTE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setNote(String note) {
+    public void setNote(@jakarta.annotation.Nullable String note) {
         this.note = note;
     }
 
-    public WriteCallFunctionDto useGasless(Boolean useGasless) {
+    public WriteCallFunctionDto useGasless(@jakarta.annotation.Nullable Boolean useGasless) {
         this.useGasless = useGasless;
         return this;
     }
@@ -260,11 +273,11 @@ public class WriteCallFunctionDto {
 
     @JsonProperty(JSON_PROPERTY_USE_GASLESS)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setUseGasless(Boolean useGasless) {
+    public void setUseGasless(@jakarta.annotation.Nullable Boolean useGasless) {
         this.useGasless = useGasless;
     }
 
-    public WriteCallFunctionDto externalId(String externalId) {
+    public WriteCallFunctionDto externalId(@jakarta.annotation.Nullable String externalId) {
         this.externalId = externalId;
         return this;
     }
@@ -284,7 +297,7 @@ public class WriteCallFunctionDto {
 
     @JsonProperty(JSON_PROPERTY_EXTERNAL_ID)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setExternalId(String externalId) {
+    public void setExternalId(@jakarta.annotation.Nullable String externalId) {
         this.externalId = externalId;
     }
 
@@ -380,10 +393,7 @@ public class WriteCallFunctionDto {
                             "%svaultAccountId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getVaultAccountId()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getVaultAccountId()))));
         }
 
         // add `abiFunction` to the URL query string
@@ -398,8 +408,7 @@ public class WriteCallFunctionDto {
                             "%samount%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getAmount()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getAmount()))));
         }
 
         // add `feeLevel` to the URL query string
@@ -409,8 +418,7 @@ public class WriteCallFunctionDto {
                             "%sfeeLevel%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getFeeLevel()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getFeeLevel()))));
         }
 
         // add `fee` to the URL query string
@@ -420,8 +428,7 @@ public class WriteCallFunctionDto {
                             "%sfee%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getFee()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getFee()))));
         }
 
         // add `note` to the URL query string
@@ -431,8 +438,7 @@ public class WriteCallFunctionDto {
                             "%snote%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getNote()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getNote()))));
         }
 
         // add `useGasless` to the URL query string
@@ -442,9 +448,7 @@ public class WriteCallFunctionDto {
                             "%suseGasless%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getUseGasless()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getUseGasless()))));
         }
 
         // add `externalId` to the URL query string
@@ -454,9 +458,7 @@ public class WriteCallFunctionDto {
                             "%sexternalId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getExternalId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getExternalId()))));
         }
 
         return joiner.toString();

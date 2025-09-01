@@ -13,52 +13,52 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for CreateMultipleDepositAddressesRequest */
-public class CreateMultipleDepositAddressesRequestTest {
+class CreateMultipleDepositAddressesRequestTest {
     private final CreateMultipleDepositAddressesRequest model =
             new CreateMultipleDepositAddressesRequest();
 
     /** Model tests for CreateMultipleDepositAddressesRequest */
     @Test
-    public void testCreateMultipleDepositAddressesRequest() {
+    void testCreateMultipleDepositAddressesRequest() {
         // TODO: test CreateMultipleDepositAddressesRequest
     }
 
     /** Test the property 'vaultAccountId' */
     @Test
-    public void vaultAccountIdTest() {
+    void vaultAccountIdTest() {
         // TODO: test vaultAccountId
     }
 
     /** Test the property 'assetId' */
     @Test
-    public void assetIdTest() {
+    void assetIdTest() {
         // TODO: test assetId
     }
 
     /** Test the property 'count' */
     @Test
-    public void countTest() {
+    void countTest() {
         // TODO: test count
     }
 
     /** Test the property 'descriptions' */
     @Test
-    public void descriptionsTest() {
+    void descriptionsTest() {
         // TODO: test descriptions
     }
 
     /** Test the property 'vaultAccountToCopyDescFrom' */
     @Test
-    public void vaultAccountToCopyDescFromTest() {
+    void vaultAccountToCopyDescFromTest() {
         // TODO: test vaultAccountToCopyDescFrom
     }
 
     /** Test the property 'vaultAccountToCopyDescFromIndex' */
     @Test
-    public void vaultAccountToCopyDescFromIndexTest() {
+    void vaultAccountToCopyDescFromIndexTest() {
         // TODO: test vaultAccountToCopyDescFromIndex
     }
 }

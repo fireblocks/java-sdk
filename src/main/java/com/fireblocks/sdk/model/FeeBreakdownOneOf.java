@@ -16,8 +16,7 @@ package com.fireblocks.sdk.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -28,23 +27,25 @@ import java.util.StringJoiner;
     FeeBreakdownOneOf.JSON_PROPERTY_RENT,
     FeeBreakdownOneOf.JSON_PROPERTY_TOTAL_FEE
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class FeeBreakdownOneOf {
     public static final String JSON_PROPERTY_BASE_FEE = "baseFee";
-    private String baseFee;
+    @jakarta.annotation.Nullable private String baseFee;
 
     public static final String JSON_PROPERTY_PRIORITY_FEE = "priorityFee";
-    private String priorityFee;
+    @jakarta.annotation.Nullable private String priorityFee;
 
     public static final String JSON_PROPERTY_RENT = "rent";
-    private String rent;
+    @jakarta.annotation.Nullable private String rent;
 
     public static final String JSON_PROPERTY_TOTAL_FEE = "totalFee";
-    private String totalFee;
+    @jakarta.annotation.Nullable private String totalFee;
 
     public FeeBreakdownOneOf() {}
 
-    public FeeBreakdownOneOf baseFee(String baseFee) {
+    public FeeBreakdownOneOf baseFee(@jakarta.annotation.Nullable String baseFee) {
         this.baseFee = baseFee;
         return this;
     }
@@ -63,11 +64,11 @@ public class FeeBreakdownOneOf {
 
     @JsonProperty(JSON_PROPERTY_BASE_FEE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setBaseFee(String baseFee) {
+    public void setBaseFee(@jakarta.annotation.Nullable String baseFee) {
         this.baseFee = baseFee;
     }
 
-    public FeeBreakdownOneOf priorityFee(String priorityFee) {
+    public FeeBreakdownOneOf priorityFee(@jakarta.annotation.Nullable String priorityFee) {
         this.priorityFee = priorityFee;
         return this;
     }
@@ -86,11 +87,11 @@ public class FeeBreakdownOneOf {
 
     @JsonProperty(JSON_PROPERTY_PRIORITY_FEE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setPriorityFee(String priorityFee) {
+    public void setPriorityFee(@jakarta.annotation.Nullable String priorityFee) {
         this.priorityFee = priorityFee;
     }
 
-    public FeeBreakdownOneOf rent(String rent) {
+    public FeeBreakdownOneOf rent(@jakarta.annotation.Nullable String rent) {
         this.rent = rent;
         return this;
     }
@@ -109,11 +110,11 @@ public class FeeBreakdownOneOf {
 
     @JsonProperty(JSON_PROPERTY_RENT)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setRent(String rent) {
+    public void setRent(@jakarta.annotation.Nullable String rent) {
         this.rent = rent;
     }
 
-    public FeeBreakdownOneOf totalFee(String totalFee) {
+    public FeeBreakdownOneOf totalFee(@jakarta.annotation.Nullable String totalFee) {
         this.totalFee = totalFee;
         return this;
     }
@@ -132,7 +133,7 @@ public class FeeBreakdownOneOf {
 
     @JsonProperty(JSON_PROPERTY_TOTAL_FEE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setTotalFee(String totalFee) {
+    public void setTotalFee(@jakarta.annotation.Nullable String totalFee) {
         this.totalFee = totalFee;
     }
 
@@ -219,8 +220,7 @@ public class FeeBreakdownOneOf {
                             "%sbaseFee%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getBaseFee()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getBaseFee()))));
         }
 
         // add `priorityFee` to the URL query string
@@ -230,10 +230,7 @@ public class FeeBreakdownOneOf {
                             "%spriorityFee%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getPriorityFee()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getPriorityFee()))));
         }
 
         // add `rent` to the URL query string
@@ -243,8 +240,7 @@ public class FeeBreakdownOneOf {
                             "%srent%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getRent()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getRent()))));
         }
 
         // add `totalFee` to the URL query string
@@ -254,8 +250,7 @@ public class FeeBreakdownOneOf {
                             "%stotalFee%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getTotalFee()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getTotalFee()))));
         }
 
         return joiner.toString();

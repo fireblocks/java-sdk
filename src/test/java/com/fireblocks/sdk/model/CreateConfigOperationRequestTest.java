@@ -13,27 +13,27 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for CreateConfigOperationRequest */
-public class CreateConfigOperationRequestTest {
+class CreateConfigOperationRequestTest {
     private final CreateConfigOperationRequest model = new CreateConfigOperationRequest();
 
     /** Model tests for CreateConfigOperationRequest */
     @Test
-    public void testCreateConfigOperationRequest() {
+    void testCreateConfigOperationRequest() {
         // TODO: test CreateConfigOperationRequest
     }
 
     /** Test the property 'type' */
     @Test
-    public void typeTest() {
+    void typeTest() {
         // TODO: test type
     }
 
     /** Test the property 'params' */
     @Test
-    public void paramsTest() {
+    void paramsTest() {
         // TODO: test params
     }
 }

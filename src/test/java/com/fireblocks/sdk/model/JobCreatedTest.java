@@ -13,21 +13,21 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for JobCreated */
-public class JobCreatedTest {
+class JobCreatedTest {
     private final JobCreated model = new JobCreated();
 
     /** Model tests for JobCreated */
     @Test
-    public void testJobCreated() {
+    void testJobCreated() {
         // TODO: test JobCreated
     }
 
     /** Test the property 'jobId' */
     @Test
-    public void jobIdTest() {
+    void jobIdTest() {
         // TODO: test jobId
     }
 }

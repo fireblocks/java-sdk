@@ -13,22 +13,22 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for DisbursementOperationPreviewOutput */
-public class DisbursementOperationPreviewOutputTest {
+class DisbursementOperationPreviewOutputTest {
     private final DisbursementOperationPreviewOutput model =
             new DisbursementOperationPreviewOutput();
 
     /** Model tests for DisbursementOperationPreviewOutput */
     @Test
-    public void testDisbursementOperationPreviewOutput() {
+    void testDisbursementOperationPreviewOutput() {
         // TODO: test DisbursementOperationPreviewOutput
     }
 
     /** Test the property 'instructionSet' */
     @Test
-    public void instructionSetTest() {
+    void instructionSetTest() {
         // TODO: test instructionSet
     }
 }

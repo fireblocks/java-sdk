@@ -16,8 +16,7 @@ package com.fireblocks.sdk.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -29,26 +28,28 @@ import java.util.StringJoiner;
     CreateAddressResponse.JSON_PROPERTY_TAG,
     CreateAddressResponse.JSON_PROPERTY_BIP44_ADDRESS_INDEX
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class CreateAddressResponse {
     public static final String JSON_PROPERTY_ADDRESS = "address";
-    private String address;
+    @jakarta.annotation.Nullable private String address;
 
     public static final String JSON_PROPERTY_LEGACY_ADDRESS = "legacyAddress";
-    private String legacyAddress;
+    @jakarta.annotation.Nullable private String legacyAddress;
 
     public static final String JSON_PROPERTY_ENTERPRISE_ADDRESS = "enterpriseAddress";
-    private String enterpriseAddress;
+    @jakarta.annotation.Nullable private String enterpriseAddress;
 
     public static final String JSON_PROPERTY_TAG = "tag";
-    private String tag;
+    @jakarta.annotation.Nullable private String tag;
 
     public static final String JSON_PROPERTY_BIP44_ADDRESS_INDEX = "bip44AddressIndex";
-    private Integer bip44AddressIndex;
+    @jakarta.annotation.Nullable private Integer bip44AddressIndex;
 
     public CreateAddressResponse() {}
 
-    public CreateAddressResponse address(String address) {
+    public CreateAddressResponse address(@jakarta.annotation.Nullable String address) {
         this.address = address;
         return this;
     }
@@ -67,11 +68,11 @@ public class CreateAddressResponse {
 
     @JsonProperty(JSON_PROPERTY_ADDRESS)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAddress(String address) {
+    public void setAddress(@jakarta.annotation.Nullable String address) {
         this.address = address;
     }
 
-    public CreateAddressResponse legacyAddress(String legacyAddress) {
+    public CreateAddressResponse legacyAddress(@jakarta.annotation.Nullable String legacyAddress) {
         this.legacyAddress = legacyAddress;
         return this;
     }
@@ -90,11 +91,12 @@ public class CreateAddressResponse {
 
     @JsonProperty(JSON_PROPERTY_LEGACY_ADDRESS)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setLegacyAddress(String legacyAddress) {
+    public void setLegacyAddress(@jakarta.annotation.Nullable String legacyAddress) {
         this.legacyAddress = legacyAddress;
     }
 
-    public CreateAddressResponse enterpriseAddress(String enterpriseAddress) {
+    public CreateAddressResponse enterpriseAddress(
+            @jakarta.annotation.Nullable String enterpriseAddress) {
         this.enterpriseAddress = enterpriseAddress;
         return this;
     }
@@ -113,11 +115,11 @@ public class CreateAddressResponse {
 
     @JsonProperty(JSON_PROPERTY_ENTERPRISE_ADDRESS)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setEnterpriseAddress(String enterpriseAddress) {
+    public void setEnterpriseAddress(@jakarta.annotation.Nullable String enterpriseAddress) {
         this.enterpriseAddress = enterpriseAddress;
     }
 
-    public CreateAddressResponse tag(String tag) {
+    public CreateAddressResponse tag(@jakarta.annotation.Nullable String tag) {
         this.tag = tag;
         return this;
     }
@@ -136,11 +138,12 @@ public class CreateAddressResponse {
 
     @JsonProperty(JSON_PROPERTY_TAG)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setTag(String tag) {
+    public void setTag(@jakarta.annotation.Nullable String tag) {
         this.tag = tag;
     }
 
-    public CreateAddressResponse bip44AddressIndex(Integer bip44AddressIndex) {
+    public CreateAddressResponse bip44AddressIndex(
+            @jakarta.annotation.Nullable Integer bip44AddressIndex) {
         this.bip44AddressIndex = bip44AddressIndex;
         return this;
     }
@@ -159,7 +162,7 @@ public class CreateAddressResponse {
 
     @JsonProperty(JSON_PROPERTY_BIP44_ADDRESS_INDEX)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setBip44AddressIndex(Integer bip44AddressIndex) {
+    public void setBip44AddressIndex(@jakarta.annotation.Nullable Integer bip44AddressIndex) {
         this.bip44AddressIndex = bip44AddressIndex;
     }
 
@@ -252,8 +255,7 @@ public class CreateAddressResponse {
                             "%saddress%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getAddress()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getAddress()))));
         }
 
         // add `legacyAddress` to the URL query string
@@ -263,10 +265,7 @@ public class CreateAddressResponse {
                             "%slegacyAddress%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getLegacyAddress()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getLegacyAddress()))));
         }
 
         // add `enterpriseAddress` to the URL query string
@@ -276,10 +275,7 @@ public class CreateAddressResponse {
                             "%senterpriseAddress%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getEnterpriseAddress()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getEnterpriseAddress()))));
         }
 
         // add `tag` to the URL query string
@@ -289,8 +285,7 @@ public class CreateAddressResponse {
                             "%stag%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getTag()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getTag()))));
         }
 
         // add `bip44AddressIndex` to the URL query string
@@ -300,10 +295,7 @@ public class CreateAddressResponse {
                             "%sbip44AddressIndex%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getBip44AddressIndex()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getBip44AddressIndex()))));
         }
 
         return joiner.toString();

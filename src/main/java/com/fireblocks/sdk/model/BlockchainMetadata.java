@@ -13,11 +13,11 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -30,23 +30,33 @@ import java.util.StringJoiner;
     BlockchainMetadata.JSON_PROPERTY_MEDIA,
     BlockchainMetadata.JSON_PROPERTY_EXPLORER
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class BlockchainMetadata {
     public static final String JSON_PROPERTY_SCOPE = "scope";
-    private AssetScope scope;
+    @jakarta.annotation.Nonnull private AssetScope scope;
 
     public static final String JSON_PROPERTY_DEPRECATED = "deprecated";
-    private Boolean deprecated;
+    @jakarta.annotation.Nonnull private Boolean deprecated;
 
     public static final String JSON_PROPERTY_MEDIA = "media";
-    private List<BlockchainMedia> media;
+    @jakarta.annotation.Nullable private List<BlockchainMedia> media = new ArrayList<>();
 
     public static final String JSON_PROPERTY_EXPLORER = "explorer";
-    private BlockchainExplorer explorer;
+    @jakarta.annotation.Nullable private BlockchainExplorer explorer;
 
     public BlockchainMetadata() {}
 
-    public BlockchainMetadata scope(AssetScope scope) {
+    @JsonCreator
+    public BlockchainMetadata(
+            @JsonProperty(value = JSON_PROPERTY_SCOPE, required = true) AssetScope scope,
+            @JsonProperty(value = JSON_PROPERTY_DEPRECATED, required = true) Boolean deprecated) {
+        this.scope = scope;
+        this.deprecated = deprecated;
+    }
+
+    public BlockchainMetadata scope(@jakarta.annotation.Nonnull AssetScope scope) {
         this.scope = scope;
         return this;
     }
@@ -65,11 +75,11 @@ public class BlockchainMetadata {
 
     @JsonProperty(JSON_PROPERTY_SCOPE)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setScope(AssetScope scope) {
+    public void setScope(@jakarta.annotation.Nonnull AssetScope scope) {
         this.scope = scope;
     }
 
-    public BlockchainMetadata deprecated(Boolean deprecated) {
+    public BlockchainMetadata deprecated(@jakarta.annotation.Nonnull Boolean deprecated) {
         this.deprecated = deprecated;
         return this;
     }
@@ -88,11 +98,11 @@ public class BlockchainMetadata {
 
     @JsonProperty(JSON_PROPERTY_DEPRECATED)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setDeprecated(Boolean deprecated) {
+    public void setDeprecated(@jakarta.annotation.Nonnull Boolean deprecated) {
         this.deprecated = deprecated;
     }
 
-    public BlockchainMetadata media(List<BlockchainMedia> media) {
+    public BlockchainMetadata media(@jakarta.annotation.Nullable List<BlockchainMedia> media) {
         this.media = media;
         return this;
     }
@@ -119,11 +129,11 @@ public class BlockchainMetadata {
 
     @JsonProperty(JSON_PROPERTY_MEDIA)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setMedia(List<BlockchainMedia> media) {
+    public void setMedia(@jakarta.annotation.Nullable List<BlockchainMedia> media) {
         this.media = media;
     }
 
-    public BlockchainMetadata explorer(BlockchainExplorer explorer) {
+    public BlockchainMetadata explorer(@jakarta.annotation.Nullable BlockchainExplorer explorer) {
         this.explorer = explorer;
         return this;
     }
@@ -142,7 +152,7 @@ public class BlockchainMetadata {
 
     @JsonProperty(JSON_PROPERTY_EXPLORER)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setExplorer(BlockchainExplorer explorer) {
+    public void setExplorer(@jakarta.annotation.Nullable BlockchainExplorer explorer) {
         this.explorer = explorer;
     }
 
@@ -229,8 +239,7 @@ public class BlockchainMetadata {
                             "%sscope%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getScope()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getScope()))));
         }
 
         // add `deprecated` to the URL query string
@@ -240,9 +249,7 @@ public class BlockchainMetadata {
                             "%sdeprecated%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getDeprecated()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getDeprecated()))));
         }
 
         // add `media` to the URL query string

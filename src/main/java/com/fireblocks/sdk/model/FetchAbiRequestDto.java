@@ -13,11 +13,11 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -26,17 +26,28 @@ import java.util.StringJoiner;
     FetchAbiRequestDto.JSON_PROPERTY_BASE_ASSET_ID,
     FetchAbiRequestDto.JSON_PROPERTY_CONTRACT_ADDRESS
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class FetchAbiRequestDto {
     public static final String JSON_PROPERTY_BASE_ASSET_ID = "baseAssetId";
-    private String baseAssetId;
+    @jakarta.annotation.Nonnull private String baseAssetId;
 
     public static final String JSON_PROPERTY_CONTRACT_ADDRESS = "contractAddress";
-    private String contractAddress;
+    @jakarta.annotation.Nonnull private String contractAddress;
 
     public FetchAbiRequestDto() {}
 
-    public FetchAbiRequestDto baseAssetId(String baseAssetId) {
+    @JsonCreator
+    public FetchAbiRequestDto(
+            @JsonProperty(value = JSON_PROPERTY_BASE_ASSET_ID, required = true) String baseAssetId,
+            @JsonProperty(value = JSON_PROPERTY_CONTRACT_ADDRESS, required = true)
+                    String contractAddress) {
+        this.baseAssetId = baseAssetId;
+        this.contractAddress = contractAddress;
+    }
+
+    public FetchAbiRequestDto baseAssetId(@jakarta.annotation.Nonnull String baseAssetId) {
         this.baseAssetId = baseAssetId;
         return this;
     }
@@ -55,11 +66,11 @@ public class FetchAbiRequestDto {
 
     @JsonProperty(JSON_PROPERTY_BASE_ASSET_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setBaseAssetId(String baseAssetId) {
+    public void setBaseAssetId(@jakarta.annotation.Nonnull String baseAssetId) {
         this.baseAssetId = baseAssetId;
     }
 
-    public FetchAbiRequestDto contractAddress(String contractAddress) {
+    public FetchAbiRequestDto contractAddress(@jakarta.annotation.Nonnull String contractAddress) {
         this.contractAddress = contractAddress;
         return this;
     }
@@ -78,7 +89,7 @@ public class FetchAbiRequestDto {
 
     @JsonProperty(JSON_PROPERTY_CONTRACT_ADDRESS)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setContractAddress(String contractAddress) {
+    public void setContractAddress(@jakarta.annotation.Nonnull String contractAddress) {
         this.contractAddress = contractAddress;
     }
 
@@ -161,10 +172,7 @@ public class FetchAbiRequestDto {
                             "%sbaseAssetId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getBaseAssetId()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getBaseAssetId()))));
         }
 
         // add `contractAddress` to the URL query string
@@ -174,10 +182,7 @@ public class FetchAbiRequestDto {
                             "%scontractAddress%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getContractAddress()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getContractAddress()))));
         }
 
         return joiner.toString();

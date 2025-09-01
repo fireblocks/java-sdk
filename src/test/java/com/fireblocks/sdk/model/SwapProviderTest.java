@@ -13,57 +13,57 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for SwapProvider */
-public class SwapProviderTest {
+class SwapProviderTest {
     private final SwapProvider model = new SwapProvider();
 
     /** Model tests for SwapProvider */
     @Test
-    public void testSwapProvider() {
+    void testSwapProvider() {
         // TODO: test SwapProvider
     }
 
     /** Test the property 'id' */
     @Test
-    public void idTest() {
+    void idTest() {
         // TODO: test id
     }
 
     /** Test the property 'name' */
     @Test
-    public void nameTest() {
+    void nameTest() {
         // TODO: test name
     }
 
     /** Test the property 'protocols' */
     @Test
-    public void protocolsTest() {
+    void protocolsTest() {
         // TODO: test protocols
     }
 
     /** Test the property 'category' */
     @Test
-    public void categoryTest() {
+    void categoryTest() {
         // TODO: test category
     }
 
     /** Test the property 'isTermsApprovalRequired' */
     @Test
-    public void isTermsApprovalRequiredTest() {
+    void isTermsApprovalRequiredTest() {
         // TODO: test isTermsApprovalRequired
     }
 
     /** Test the property 'termsOfServiceUrl' */
     @Test
-    public void termsOfServiceUrlTest() {
+    void termsOfServiceUrlTest() {
         // TODO: test termsOfServiceUrl
     }
 
     /** Test the property 'isTermsOfServiceApproved' */
     @Test
-    public void isTermsOfServiceApprovedTest() {
+    void isTermsOfServiceApprovedTest() {
         // TODO: test isTermsOfServiceApproved
     }
 }

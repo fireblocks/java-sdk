@@ -13,6 +13,7 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -24,17 +25,28 @@ import java.util.StringJoiner;
     PolicyAndValidationResponse.JSON_PROPERTY_POLICY,
     PolicyAndValidationResponse.JSON_PROPERTY_VALIDATION
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class PolicyAndValidationResponse {
     public static final String JSON_PROPERTY_POLICY = "policy";
-    private PolicyResponse policy;
+    @jakarta.annotation.Nonnull private PolicyResponse policy;
 
     public static final String JSON_PROPERTY_VALIDATION = "validation";
-    private PolicyValidation validation;
+    @jakarta.annotation.Nonnull private PolicyValidation validation;
 
     public PolicyAndValidationResponse() {}
 
-    public PolicyAndValidationResponse policy(PolicyResponse policy) {
+    @JsonCreator
+    public PolicyAndValidationResponse(
+            @JsonProperty(value = JSON_PROPERTY_POLICY, required = true) PolicyResponse policy,
+            @JsonProperty(value = JSON_PROPERTY_VALIDATION, required = true)
+                    PolicyValidation validation) {
+        this.policy = policy;
+        this.validation = validation;
+    }
+
+    public PolicyAndValidationResponse policy(@jakarta.annotation.Nonnull PolicyResponse policy) {
         this.policy = policy;
         return this;
     }
@@ -53,11 +65,12 @@ public class PolicyAndValidationResponse {
 
     @JsonProperty(JSON_PROPERTY_POLICY)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setPolicy(PolicyResponse policy) {
+    public void setPolicy(@jakarta.annotation.Nonnull PolicyResponse policy) {
         this.policy = policy;
     }
 
-    public PolicyAndValidationResponse validation(PolicyValidation validation) {
+    public PolicyAndValidationResponse validation(
+            @jakarta.annotation.Nonnull PolicyValidation validation) {
         this.validation = validation;
         return this;
     }
@@ -76,7 +89,7 @@ public class PolicyAndValidationResponse {
 
     @JsonProperty(JSON_PROPERTY_VALIDATION)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setValidation(PolicyValidation validation) {
+    public void setValidation(@jakarta.annotation.Nonnull PolicyValidation validation) {
         this.validation = validation;
     }
 

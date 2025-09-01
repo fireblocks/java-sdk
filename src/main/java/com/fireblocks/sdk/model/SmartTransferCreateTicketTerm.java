@@ -13,11 +13,11 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -28,23 +28,39 @@ import java.util.StringJoiner;
     SmartTransferCreateTicketTerm.JSON_PROPERTY_FROM_NETWORK_ID,
     SmartTransferCreateTicketTerm.JSON_PROPERTY_TO_NETWORK_ID
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class SmartTransferCreateTicketTerm {
     public static final String JSON_PROPERTY_ASSET = "asset";
-    private String asset;
+    @jakarta.annotation.Nonnull private String asset;
 
     public static final String JSON_PROPERTY_AMOUNT = "amount";
-    private String amount;
+    @jakarta.annotation.Nonnull private String amount;
 
     public static final String JSON_PROPERTY_FROM_NETWORK_ID = "fromNetworkId";
-    private String fromNetworkId;
+    @jakarta.annotation.Nonnull private String fromNetworkId;
 
     public static final String JSON_PROPERTY_TO_NETWORK_ID = "toNetworkId";
-    private String toNetworkId;
+    @jakarta.annotation.Nonnull private String toNetworkId;
 
     public SmartTransferCreateTicketTerm() {}
 
-    public SmartTransferCreateTicketTerm asset(String asset) {
+    @JsonCreator
+    public SmartTransferCreateTicketTerm(
+            @JsonProperty(value = JSON_PROPERTY_ASSET, required = true) String asset,
+            @JsonProperty(value = JSON_PROPERTY_AMOUNT, required = true) String amount,
+            @JsonProperty(value = JSON_PROPERTY_FROM_NETWORK_ID, required = true)
+                    String fromNetworkId,
+            @JsonProperty(value = JSON_PROPERTY_TO_NETWORK_ID, required = true)
+                    String toNetworkId) {
+        this.asset = asset;
+        this.amount = amount;
+        this.fromNetworkId = fromNetworkId;
+        this.toNetworkId = toNetworkId;
+    }
+
+    public SmartTransferCreateTicketTerm asset(@jakarta.annotation.Nonnull String asset) {
         this.asset = asset;
         return this;
     }
@@ -63,11 +79,11 @@ public class SmartTransferCreateTicketTerm {
 
     @JsonProperty(JSON_PROPERTY_ASSET)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setAsset(String asset) {
+    public void setAsset(@jakarta.annotation.Nonnull String asset) {
         this.asset = asset;
     }
 
-    public SmartTransferCreateTicketTerm amount(String amount) {
+    public SmartTransferCreateTicketTerm amount(@jakarta.annotation.Nonnull String amount) {
         this.amount = amount;
         return this;
     }
@@ -86,11 +102,12 @@ public class SmartTransferCreateTicketTerm {
 
     @JsonProperty(JSON_PROPERTY_AMOUNT)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setAmount(String amount) {
+    public void setAmount(@jakarta.annotation.Nonnull String amount) {
         this.amount = amount;
     }
 
-    public SmartTransferCreateTicketTerm fromNetworkId(String fromNetworkId) {
+    public SmartTransferCreateTicketTerm fromNetworkId(
+            @jakarta.annotation.Nonnull String fromNetworkId) {
         this.fromNetworkId = fromNetworkId;
         return this;
     }
@@ -109,11 +126,12 @@ public class SmartTransferCreateTicketTerm {
 
     @JsonProperty(JSON_PROPERTY_FROM_NETWORK_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setFromNetworkId(String fromNetworkId) {
+    public void setFromNetworkId(@jakarta.annotation.Nonnull String fromNetworkId) {
         this.fromNetworkId = fromNetworkId;
     }
 
-    public SmartTransferCreateTicketTerm toNetworkId(String toNetworkId) {
+    public SmartTransferCreateTicketTerm toNetworkId(
+            @jakarta.annotation.Nonnull String toNetworkId) {
         this.toNetworkId = toNetworkId;
         return this;
     }
@@ -132,7 +150,7 @@ public class SmartTransferCreateTicketTerm {
 
     @JsonProperty(JSON_PROPERTY_TO_NETWORK_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setToNetworkId(String toNetworkId) {
+    public void setToNetworkId(@jakarta.annotation.Nonnull String toNetworkId) {
         this.toNetworkId = toNetworkId;
     }
 
@@ -220,8 +238,7 @@ public class SmartTransferCreateTicketTerm {
                             "%sasset%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getAsset()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getAsset()))));
         }
 
         // add `amount` to the URL query string
@@ -231,8 +248,7 @@ public class SmartTransferCreateTicketTerm {
                             "%samount%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getAmount()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getAmount()))));
         }
 
         // add `fromNetworkId` to the URL query string
@@ -242,10 +258,7 @@ public class SmartTransferCreateTicketTerm {
                             "%sfromNetworkId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getFromNetworkId()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getFromNetworkId()))));
         }
 
         // add `toNetworkId` to the URL query string
@@ -255,10 +268,7 @@ public class SmartTransferCreateTicketTerm {
                             "%stoNetworkId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getToNetworkId()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getToNetworkId()))));
         }
 
         return joiner.toString();

@@ -18,18 +18,19 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonValue;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
 /** NoneNetworkRoutingDest */
 @JsonPropertyOrder({NoneNetworkRoutingDest.JSON_PROPERTY_SCHEME})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class NoneNetworkRoutingDest {
     /** No network routing logic. */
     public enum SchemeEnum {
-        NONE("NONE");
+        NONE(String.valueOf("NONE"));
 
         private String value;
 
@@ -59,11 +60,17 @@ public class NoneNetworkRoutingDest {
     }
 
     public static final String JSON_PROPERTY_SCHEME = "scheme";
-    private SchemeEnum scheme;
+    @jakarta.annotation.Nonnull private SchemeEnum scheme;
 
     public NoneNetworkRoutingDest() {}
 
-    public NoneNetworkRoutingDest scheme(SchemeEnum scheme) {
+    @JsonCreator
+    public NoneNetworkRoutingDest(
+            @JsonProperty(value = JSON_PROPERTY_SCHEME, required = true) SchemeEnum scheme) {
+        this.scheme = scheme;
+    }
+
+    public NoneNetworkRoutingDest scheme(@jakarta.annotation.Nonnull SchemeEnum scheme) {
         this.scheme = scheme;
         return this;
     }
@@ -82,7 +89,7 @@ public class NoneNetworkRoutingDest {
 
     @JsonProperty(JSON_PROPERTY_SCHEME)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setScheme(SchemeEnum scheme) {
+    public void setScheme(@jakarta.annotation.Nonnull SchemeEnum scheme) {
         this.scheme = scheme;
     }
 
@@ -163,8 +170,7 @@ public class NoneNetworkRoutingDest {
                             "%sscheme%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getScheme()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getScheme()))));
         }
 
         return joiner.toString();

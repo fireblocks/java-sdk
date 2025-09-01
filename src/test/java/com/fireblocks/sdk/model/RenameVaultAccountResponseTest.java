@@ -13,27 +13,27 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for RenameVaultAccountResponse */
-public class RenameVaultAccountResponseTest {
+class RenameVaultAccountResponseTest {
     private final RenameVaultAccountResponse model = new RenameVaultAccountResponse();
 
     /** Model tests for RenameVaultAccountResponse */
     @Test
-    public void testRenameVaultAccountResponse() {
+    void testRenameVaultAccountResponse() {
         // TODO: test RenameVaultAccountResponse
     }
 
     /** Test the property 'name' */
     @Test
-    public void nameTest() {
+    void nameTest() {
         // TODO: test name
     }
 
     /** Test the property 'id' */
     @Test
-    public void idTest() {
+    void idTest() {
         // TODO: test id
     }
 }

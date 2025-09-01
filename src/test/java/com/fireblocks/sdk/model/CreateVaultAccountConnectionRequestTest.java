@@ -13,40 +13,40 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for CreateVaultAccountConnectionRequest */
-public class CreateVaultAccountConnectionRequestTest {
+class CreateVaultAccountConnectionRequestTest {
     private final CreateVaultAccountConnectionRequest model =
             new CreateVaultAccountConnectionRequest();
 
     /** Model tests for CreateVaultAccountConnectionRequest */
     @Test
-    public void testCreateVaultAccountConnectionRequest() {
+    void testCreateVaultAccountConnectionRequest() {
         // TODO: test CreateVaultAccountConnectionRequest
     }
 
     /** Test the property 'vaultAccountId' */
     @Test
-    public void vaultAccountIdTest() {
+    void vaultAccountIdTest() {
         // TODO: test vaultAccountId
     }
 
     /** Test the property 'feeLevel' */
     @Test
-    public void feeLevelTest() {
+    void feeLevelTest() {
         // TODO: test feeLevel
     }
 
     /** Test the property 'uri' */
     @Test
-    public void uriTest() {
+    void uriTest() {
         // TODO: test uri
     }
 
     /** Test the property 'chainIds' */
     @Test
-    public void chainIdsTest() {
+    void chainIdsTest() {
         // TODO: test chainIds
     }
 }

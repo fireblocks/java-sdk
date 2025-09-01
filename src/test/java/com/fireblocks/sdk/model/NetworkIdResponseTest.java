@@ -13,39 +13,39 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for NetworkIdResponse */
-public class NetworkIdResponseTest {
+class NetworkIdResponseTest {
     private final NetworkIdResponse model = new NetworkIdResponse();
 
     /** Model tests for NetworkIdResponse */
     @Test
-    public void testNetworkIdResponse() {
+    void testNetworkIdResponse() {
         // TODO: test NetworkIdResponse
     }
 
     /** Test the property 'routingPolicy' */
     @Test
-    public void routingPolicyTest() {
+    void routingPolicyTest() {
         // TODO: test routingPolicy
     }
 
     /** Test the property 'isDiscoverable' */
     @Test
-    public void isDiscoverableTest() {
+    void isDiscoverableTest() {
         // TODO: test isDiscoverable
     }
 
     /** Test the property 'id' */
     @Test
-    public void idTest() {
+    void idTest() {
         // TODO: test id
     }
 
     /** Test the property 'name' */
     @Test
-    public void nameTest() {
+    void nameTest() {
         // TODO: test name
     }
 }

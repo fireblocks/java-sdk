@@ -13,27 +13,27 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for DisbursementValidationFailure */
-public class DisbursementValidationFailureTest {
+class DisbursementValidationFailureTest {
     private final DisbursementValidationFailure model = new DisbursementValidationFailure();
 
     /** Model tests for DisbursementValidationFailure */
     @Test
-    public void testDisbursementValidationFailure() {
+    void testDisbursementValidationFailure() {
         // TODO: test DisbursementValidationFailure
     }
 
     /** Test the property 'reason' */
     @Test
-    public void reasonTest() {
+    void reasonTest() {
         // TODO: test reason
     }
 
     /** Test the property 'data' */
     @Test
-    public void dataTest() {
+    void dataTest() {
         // TODO: test data
     }
 }

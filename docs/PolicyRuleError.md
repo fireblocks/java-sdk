@@ -21,11 +21,11 @@ Rule validation result error
 |---- | -----|
 | OPERATOR | &quot;operator&quot; |
 | OPERATORS | &quot;operators&quot; |
-| AUTHORIZATIONGROUPS | &quot;authorizationGroups&quot; |
-| DESIGNATEDSIGNER | &quot;designatedSigner&quot; |
-| DESIGNATEDSIGNERS | &quot;designatedSigners&quot; |
-| CONTRACTMETHODS | &quot;contractMethods&quot; |
-| AMOUNTAGGREGATION | &quot;amountAggregation&quot; |
+| AUTHORIZATION_GROUPS | &quot;authorizationGroups&quot; |
+| DESIGNATED_SIGNER | &quot;designatedSigner&quot; |
+| DESIGNATED_SIGNERS | &quot;designatedSigners&quot; |
+| CONTRACT_METHODS | &quot;contractMethods&quot; |
+| AMOUNT_AGGREGATION | &quot;amountAggregation&quot; |
 | SRC | &quot;src&quot; |
 | DST | &quot;dst&quot; |
 

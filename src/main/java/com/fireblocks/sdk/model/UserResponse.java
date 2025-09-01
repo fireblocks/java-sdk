@@ -16,8 +16,7 @@ package com.fireblocks.sdk.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -30,29 +29,31 @@ import java.util.StringJoiner;
     UserResponse.JSON_PROPERTY_EMAIL,
     UserResponse.JSON_PROPERTY_ENABLED
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class UserResponse {
     public static final String JSON_PROPERTY_ID = "id";
-    private String id;
+    @jakarta.annotation.Nullable private String id;
 
     public static final String JSON_PROPERTY_FIRST_NAME = "firstName";
-    private String firstName;
+    @jakarta.annotation.Nullable private String firstName;
 
     public static final String JSON_PROPERTY_LAST_NAME = "lastName";
-    private String lastName;
+    @jakarta.annotation.Nullable private String lastName;
 
     public static final String JSON_PROPERTY_ROLE = "role";
-    private String role;
+    @jakarta.annotation.Nullable private String role;
 
     public static final String JSON_PROPERTY_EMAIL = "email";
-    private String email;
+    @jakarta.annotation.Nullable private String email;
 
     public static final String JSON_PROPERTY_ENABLED = "enabled";
-    private Boolean enabled;
+    @jakarta.annotation.Nullable private Boolean enabled;
 
     public UserResponse() {}
 
-    public UserResponse id(String id) {
+    public UserResponse id(@jakarta.annotation.Nullable String id) {
         this.id = id;
         return this;
     }
@@ -71,11 +72,11 @@ public class UserResponse {
 
     @JsonProperty(JSON_PROPERTY_ID)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setId(String id) {
+    public void setId(@jakarta.annotation.Nullable String id) {
         this.id = id;
     }
 
-    public UserResponse firstName(String firstName) {
+    public UserResponse firstName(@jakarta.annotation.Nullable String firstName) {
         this.firstName = firstName;
         return this;
     }
@@ -94,11 +95,11 @@ public class UserResponse {
 
     @JsonProperty(JSON_PROPERTY_FIRST_NAME)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setFirstName(String firstName) {
+    public void setFirstName(@jakarta.annotation.Nullable String firstName) {
         this.firstName = firstName;
     }
 
-    public UserResponse lastName(String lastName) {
+    public UserResponse lastName(@jakarta.annotation.Nullable String lastName) {
         this.lastName = lastName;
         return this;
     }
@@ -117,11 +118,11 @@ public class UserResponse {
 
     @JsonProperty(JSON_PROPERTY_LAST_NAME)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setLastName(String lastName) {
+    public void setLastName(@jakarta.annotation.Nullable String lastName) {
         this.lastName = lastName;
     }
 
-    public UserResponse role(String role) {
+    public UserResponse role(@jakarta.annotation.Nullable String role) {
         this.role = role;
         return this;
     }
@@ -140,11 +141,11 @@ public class UserResponse {
 
     @JsonProperty(JSON_PROPERTY_ROLE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setRole(String role) {
+    public void setRole(@jakarta.annotation.Nullable String role) {
         this.role = role;
     }
 
-    public UserResponse email(String email) {
+    public UserResponse email(@jakarta.annotation.Nullable String email) {
         this.email = email;
         return this;
     }
@@ -163,11 +164,11 @@ public class UserResponse {
 
     @JsonProperty(JSON_PROPERTY_EMAIL)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setEmail(String email) {
+    public void setEmail(@jakarta.annotation.Nullable String email) {
         this.email = email;
     }
 
-    public UserResponse enabled(Boolean enabled) {
+    public UserResponse enabled(@jakarta.annotation.Nullable Boolean enabled) {
         this.enabled = enabled;
         return this;
     }
@@ -186,7 +187,7 @@ public class UserResponse {
 
     @JsonProperty(JSON_PROPERTY_ENABLED)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setEnabled(Boolean enabled) {
+    public void setEnabled(@jakarta.annotation.Nullable Boolean enabled) {
         this.enabled = enabled;
     }
 
@@ -275,10 +276,7 @@ public class UserResponse {
             joiner.add(
                     String.format(
                             "%sid%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(String.valueOf(getId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getId()))));
         }
 
         // add `firstName` to the URL query string
@@ -288,9 +286,7 @@ public class UserResponse {
                             "%sfirstName%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getFirstName()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getFirstName()))));
         }
 
         // add `lastName` to the URL query string
@@ -300,8 +296,7 @@ public class UserResponse {
                             "%slastName%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getLastName()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getLastName()))));
         }
 
         // add `role` to the URL query string
@@ -311,8 +306,7 @@ public class UserResponse {
                             "%srole%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getRole()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getRole()))));
         }
 
         // add `email` to the URL query string
@@ -322,8 +316,7 @@ public class UserResponse {
                             "%semail%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getEmail()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getEmail()))));
         }
 
         // add `enabled` to the URL query string
@@ -333,8 +326,7 @@ public class UserResponse {
                             "%senabled%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getEnabled()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getEnabled()))));
         }
 
         return joiner.toString();

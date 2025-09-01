@@ -16,21 +16,23 @@ package com.fireblocks.sdk.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
 /** SetCustomerRefIdForAddressRequest */
 @JsonPropertyOrder({SetCustomerRefIdForAddressRequest.JSON_PROPERTY_CUSTOMER_REF_ID})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class SetCustomerRefIdForAddressRequest {
     public static final String JSON_PROPERTY_CUSTOMER_REF_ID = "customerRefId";
-    private String customerRefId;
+    @jakarta.annotation.Nullable private String customerRefId;
 
     public SetCustomerRefIdForAddressRequest() {}
 
-    public SetCustomerRefIdForAddressRequest customerRefId(String customerRefId) {
+    public SetCustomerRefIdForAddressRequest customerRefId(
+            @jakarta.annotation.Nullable String customerRefId) {
         this.customerRefId = customerRefId;
         return this;
     }
@@ -49,7 +51,7 @@ public class SetCustomerRefIdForAddressRequest {
 
     @JsonProperty(JSON_PROPERTY_CUSTOMER_REF_ID)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setCustomerRefId(String customerRefId) {
+    public void setCustomerRefId(@jakarta.annotation.Nullable String customerRefId) {
         this.customerRefId = customerRefId;
     }
 
@@ -131,10 +133,7 @@ public class SetCustomerRefIdForAddressRequest {
                             "%scustomerRefId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getCustomerRefId()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getCustomerRefId()))));
         }
 
         return joiner.toString();

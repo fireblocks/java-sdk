@@ -13,21 +13,21 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for GetAPIUsersResponse */
-public class GetAPIUsersResponseTest {
+class GetAPIUsersResponseTest {
     private final GetAPIUsersResponse model = new GetAPIUsersResponse();
 
     /** Model tests for GetAPIUsersResponse */
     @Test
-    public void testGetAPIUsersResponse() {
+    void testGetAPIUsersResponse() {
         // TODO: test GetAPIUsersResponse
     }
 
     /** Test the property 'users' */
     @Test
-    public void usersTest() {
+    void usersTest() {
         // TODO: test users
     }
 }

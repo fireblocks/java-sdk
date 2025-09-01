@@ -16,8 +16,7 @@ package com.fireblocks.sdk.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -28,23 +27,26 @@ import java.util.StringJoiner;
     TravelRuleNationalIdentification.JSON_PROPERTY_NATIONAL_IDENTIFIER_TYPE,
     TravelRuleNationalIdentification.JSON_PROPERTY_REGISTRATION_AUTHORITY
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class TravelRuleNationalIdentification {
     public static final String JSON_PROPERTY_COUNTRY_OF_ISSUE = "countryOfIssue";
-    private String countryOfIssue;
+    @jakarta.annotation.Nullable private String countryOfIssue;
 
     public static final String JSON_PROPERTY_NATIONAL_IDENTIFIER = "nationalIdentifier";
-    private String nationalIdentifier;
+    @jakarta.annotation.Nullable private String nationalIdentifier;
 
     public static final String JSON_PROPERTY_NATIONAL_IDENTIFIER_TYPE = "nationalIdentifierType";
-    private String nationalIdentifierType;
+    @jakarta.annotation.Nullable private String nationalIdentifierType;
 
     public static final String JSON_PROPERTY_REGISTRATION_AUTHORITY = "registrationAuthority";
-    private String registrationAuthority;
+    @jakarta.annotation.Nullable private String registrationAuthority;
 
     public TravelRuleNationalIdentification() {}
 
-    public TravelRuleNationalIdentification countryOfIssue(String countryOfIssue) {
+    public TravelRuleNationalIdentification countryOfIssue(
+            @jakarta.annotation.Nullable String countryOfIssue) {
         this.countryOfIssue = countryOfIssue;
         return this;
     }
@@ -64,11 +66,12 @@ public class TravelRuleNationalIdentification {
 
     @JsonProperty(JSON_PROPERTY_COUNTRY_OF_ISSUE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setCountryOfIssue(String countryOfIssue) {
+    public void setCountryOfIssue(@jakarta.annotation.Nullable String countryOfIssue) {
         this.countryOfIssue = countryOfIssue;
     }
 
-    public TravelRuleNationalIdentification nationalIdentifier(String nationalIdentifier) {
+    public TravelRuleNationalIdentification nationalIdentifier(
+            @jakarta.annotation.Nullable String nationalIdentifier) {
         this.nationalIdentifier = nationalIdentifier;
         return this;
     }
@@ -87,11 +90,12 @@ public class TravelRuleNationalIdentification {
 
     @JsonProperty(JSON_PROPERTY_NATIONAL_IDENTIFIER)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setNationalIdentifier(String nationalIdentifier) {
+    public void setNationalIdentifier(@jakarta.annotation.Nullable String nationalIdentifier) {
         this.nationalIdentifier = nationalIdentifier;
     }
 
-    public TravelRuleNationalIdentification nationalIdentifierType(String nationalIdentifierType) {
+    public TravelRuleNationalIdentification nationalIdentifierType(
+            @jakarta.annotation.Nullable String nationalIdentifierType) {
         this.nationalIdentifierType = nationalIdentifierType;
         return this;
     }
@@ -113,11 +117,13 @@ public class TravelRuleNationalIdentification {
 
     @JsonProperty(JSON_PROPERTY_NATIONAL_IDENTIFIER_TYPE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setNationalIdentifierType(String nationalIdentifierType) {
+    public void setNationalIdentifierType(
+            @jakarta.annotation.Nullable String nationalIdentifierType) {
         this.nationalIdentifierType = nationalIdentifierType;
     }
 
-    public TravelRuleNationalIdentification registrationAuthority(String registrationAuthority) {
+    public TravelRuleNationalIdentification registrationAuthority(
+            @jakarta.annotation.Nullable String registrationAuthority) {
         this.registrationAuthority = registrationAuthority;
         return this;
     }
@@ -136,7 +142,8 @@ public class TravelRuleNationalIdentification {
 
     @JsonProperty(JSON_PROPERTY_REGISTRATION_AUTHORITY)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setRegistrationAuthority(String registrationAuthority) {
+    public void setRegistrationAuthority(
+            @jakarta.annotation.Nullable String registrationAuthority) {
         this.registrationAuthority = registrationAuthority;
     }
 
@@ -237,10 +244,7 @@ public class TravelRuleNationalIdentification {
                             "%scountryOfIssue%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getCountryOfIssue()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getCountryOfIssue()))));
         }
 
         // add `nationalIdentifier` to the URL query string
@@ -250,10 +254,7 @@ public class TravelRuleNationalIdentification {
                             "%snationalIdentifier%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getNationalIdentifier()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getNationalIdentifier()))));
         }
 
         // add `nationalIdentifierType` to the URL query string
@@ -263,10 +264,8 @@ public class TravelRuleNationalIdentification {
                             "%snationalIdentifierType%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getNationalIdentifierType()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(
+                                    ApiClient.valueToString(getNationalIdentifierType()))));
         }
 
         // add `registrationAuthority` to the URL query string
@@ -276,10 +275,8 @@ public class TravelRuleNationalIdentification {
                             "%sregistrationAuthority%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getRegistrationAuthority()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(
+                                    ApiClient.valueToString(getRegistrationAuthority()))));
         }
 
         return joiner.toString();

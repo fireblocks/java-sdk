@@ -13,27 +13,27 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for RemoveLayerZeroAdaptersResponse */
-public class RemoveLayerZeroAdaptersResponseTest {
+class RemoveLayerZeroAdaptersResponseTest {
     private final RemoveLayerZeroAdaptersResponse model = new RemoveLayerZeroAdaptersResponse();
 
     /** Model tests for RemoveLayerZeroAdaptersResponse */
     @Test
-    public void testRemoveLayerZeroAdaptersResponse() {
+    void testRemoveLayerZeroAdaptersResponse() {
         // TODO: test RemoveLayerZeroAdaptersResponse
     }
 
     /** Test the property 'deactivated' */
     @Test
-    public void deactivatedTest() {
+    void deactivatedTest() {
         // TODO: test deactivated
     }
 
     /** Test the property 'failed' */
     @Test
-    public void failedTest() {
+    void failedTest() {
         // TODO: test failed
     }
 }

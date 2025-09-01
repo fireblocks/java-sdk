@@ -16,8 +16,7 @@ package com.fireblocks.sdk.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -28,17 +27,19 @@ import java.util.StringJoiner;
     SetConfirmationsThresholdResponse.JSON_PROPERTY_SUCCESS,
     SetConfirmationsThresholdResponse.JSON_PROPERTY_TRANSACTIONS
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class SetConfirmationsThresholdResponse {
     public static final String JSON_PROPERTY_SUCCESS = "success";
-    private Boolean success;
+    @jakarta.annotation.Nullable private Boolean success;
 
     public static final String JSON_PROPERTY_TRANSACTIONS = "transactions";
-    private List<String> transactions;
+    @jakarta.annotation.Nullable private List<String> transactions = new ArrayList<>();
 
     public SetConfirmationsThresholdResponse() {}
 
-    public SetConfirmationsThresholdResponse success(Boolean success) {
+    public SetConfirmationsThresholdResponse success(@jakarta.annotation.Nullable Boolean success) {
         this.success = success;
         return this;
     }
@@ -57,11 +58,12 @@ public class SetConfirmationsThresholdResponse {
 
     @JsonProperty(JSON_PROPERTY_SUCCESS)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setSuccess(Boolean success) {
+    public void setSuccess(@jakarta.annotation.Nullable Boolean success) {
         this.success = success;
     }
 
-    public SetConfirmationsThresholdResponse transactions(List<String> transactions) {
+    public SetConfirmationsThresholdResponse transactions(
+            @jakarta.annotation.Nullable List<String> transactions) {
         this.transactions = transactions;
         return this;
     }
@@ -88,7 +90,7 @@ public class SetConfirmationsThresholdResponse {
 
     @JsonProperty(JSON_PROPERTY_TRANSACTIONS)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setTransactions(List<String> transactions) {
+    public void setTransactions(@jakarta.annotation.Nullable List<String> transactions) {
         this.transactions = transactions;
     }
 
@@ -173,8 +175,7 @@ public class SetConfirmationsThresholdResponse {
                             "%ssuccess%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getSuccess()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getSuccess()))));
         }
 
         // add `transactions` to the URL query string
@@ -189,10 +190,8 @@ public class SetConfirmationsThresholdResponse {
                                         ? ""
                                         : String.format(
                                                 "%s%d%s", containerPrefix, i, containerSuffix),
-                                URLEncoder.encode(
-                                                String.valueOf(getTransactions().get(i)),
-                                                StandardCharsets.UTF_8)
-                                        .replaceAll("\\+", "%20")));
+                                ApiClient.urlEncode(
+                                        ApiClient.valueToString(getTransactions().get(i)))));
             }
         }
 

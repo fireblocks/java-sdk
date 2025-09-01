@@ -21,14 +21,17 @@ import java.util.StringJoiner;
 
 /** UpdateCallbackHandlerRequest */
 @JsonPropertyOrder({UpdateCallbackHandlerRequest.JSON_PROPERTY_CALLBACK_HANDLER})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class UpdateCallbackHandlerRequest {
     public static final String JSON_PROPERTY_CALLBACK_HANDLER = "callbackHandler";
-    private CallbackHandlerRequest callbackHandler;
+    @jakarta.annotation.Nullable private CallbackHandlerRequest callbackHandler;
 
     public UpdateCallbackHandlerRequest() {}
 
-    public UpdateCallbackHandlerRequest callbackHandler(CallbackHandlerRequest callbackHandler) {
+    public UpdateCallbackHandlerRequest callbackHandler(
+            @jakarta.annotation.Nullable CallbackHandlerRequest callbackHandler) {
         this.callbackHandler = callbackHandler;
         return this;
     }
@@ -47,7 +50,8 @@ public class UpdateCallbackHandlerRequest {
 
     @JsonProperty(JSON_PROPERTY_CALLBACK_HANDLER)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setCallbackHandler(CallbackHandlerRequest callbackHandler) {
+    public void setCallbackHandler(
+            @jakarta.annotation.Nullable CallbackHandlerRequest callbackHandler) {
         this.callbackHandler = callbackHandler;
     }
 

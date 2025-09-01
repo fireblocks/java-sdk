@@ -13,21 +13,21 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for SetCustomerRefIdForAddressRequest */
-public class SetCustomerRefIdForAddressRequestTest {
+class SetCustomerRefIdForAddressRequestTest {
     private final SetCustomerRefIdForAddressRequest model = new SetCustomerRefIdForAddressRequest();
 
     /** Model tests for SetCustomerRefIdForAddressRequest */
     @Test
-    public void testSetCustomerRefIdForAddressRequest() {
+    void testSetCustomerRefIdForAddressRequest() {
         // TODO: test SetCustomerRefIdForAddressRequest
     }
 
     /** Test the property 'customerRefId' */
     @Test
-    public void customerRefIdTest() {
+    void customerRefIdTest() {
         // TODO: test customerRefId
     }
 }

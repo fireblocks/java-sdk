@@ -13,13 +13,13 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for ExecutionOperationStatus */
-public class ExecutionOperationStatusTest {
+class ExecutionOperationStatusTest {
     /** Model tests for ExecutionOperationStatus */
     @Test
-    public void testExecutionOperationStatus() {
+    void testExecutionOperationStatus() {
         // TODO: test ExecutionOperationStatus
     }
 }

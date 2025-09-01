@@ -13,11 +13,11 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -28,17 +28,27 @@ import java.util.StringJoiner;
     EVMTokenCreateParamsDto.JSON_PROPERTY_CONTRACT_ID,
     EVMTokenCreateParamsDto.JSON_PROPERTY_DEPLOY_FUNCTION_PARAMS
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class EVMTokenCreateParamsDto {
     public static final String JSON_PROPERTY_CONTRACT_ID = "contractId";
-    private String contractId;
+    @jakarta.annotation.Nonnull private String contractId;
 
     public static final String JSON_PROPERTY_DEPLOY_FUNCTION_PARAMS = "deployFunctionParams";
-    private List<ParameterWithValue> deployFunctionParams;
+
+    @jakarta.annotation.Nullable
+    private List<ParameterWithValue> deployFunctionParams = new ArrayList<>();
 
     public EVMTokenCreateParamsDto() {}
 
-    public EVMTokenCreateParamsDto contractId(String contractId) {
+    @JsonCreator
+    public EVMTokenCreateParamsDto(
+            @JsonProperty(value = JSON_PROPERTY_CONTRACT_ID, required = true) String contractId) {
+        this.contractId = contractId;
+    }
+
+    public EVMTokenCreateParamsDto contractId(@jakarta.annotation.Nonnull String contractId) {
         this.contractId = contractId;
         return this;
     }
@@ -57,12 +67,12 @@ public class EVMTokenCreateParamsDto {
 
     @JsonProperty(JSON_PROPERTY_CONTRACT_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setContractId(String contractId) {
+    public void setContractId(@jakarta.annotation.Nonnull String contractId) {
         this.contractId = contractId;
     }
 
     public EVMTokenCreateParamsDto deployFunctionParams(
-            List<ParameterWithValue> deployFunctionParams) {
+            @jakarta.annotation.Nullable List<ParameterWithValue> deployFunctionParams) {
         this.deployFunctionParams = deployFunctionParams;
         return this;
     }
@@ -90,7 +100,8 @@ public class EVMTokenCreateParamsDto {
 
     @JsonProperty(JSON_PROPERTY_DEPLOY_FUNCTION_PARAMS)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setDeployFunctionParams(List<ParameterWithValue> deployFunctionParams) {
+    public void setDeployFunctionParams(
+            @jakarta.annotation.Nullable List<ParameterWithValue> deployFunctionParams) {
         this.deployFunctionParams = deployFunctionParams;
     }
 
@@ -176,9 +187,7 @@ public class EVMTokenCreateParamsDto {
                             "%scontractId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getContractId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getContractId()))));
         }
 
         // add `deployFunctionParams` to the URL query string

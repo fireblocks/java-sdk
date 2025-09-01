@@ -13,12 +13,12 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fireblocks.sdk.ApiClient;
 import java.math.BigDecimal;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -30,26 +30,47 @@ import java.util.StringJoiner;
     ChainInfoResponse.JSON_PROPERTY_EPOCH_DURATION,
     ChainInfoResponse.JSON_PROPERTY_ADDITIONAL_INFO
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class ChainInfoResponse {
     public static final String JSON_PROPERTY_CHAIN_DESCRIPTOR = "chainDescriptor";
-    private String chainDescriptor;
+    @jakarta.annotation.Nonnull private String chainDescriptor;
 
     public static final String JSON_PROPERTY_CURRENT_EPOCH = "currentEpoch";
-    private BigDecimal currentEpoch;
+    @jakarta.annotation.Nonnull private BigDecimal currentEpoch;
 
     public static final String JSON_PROPERTY_EPOCH_ELAPSED = "epochElapsed";
-    private BigDecimal epochElapsed;
+    @jakarta.annotation.Nonnull private BigDecimal epochElapsed;
 
     public static final String JSON_PROPERTY_EPOCH_DURATION = "epochDuration";
-    private BigDecimal epochDuration;
+    @jakarta.annotation.Nonnull private BigDecimal epochDuration;
 
     public static final String JSON_PROPERTY_ADDITIONAL_INFO = "additionalInfo";
-    private AdditionalInfo additionalInfo;
+    @jakarta.annotation.Nonnull private AdditionalInfo additionalInfo;
 
     public ChainInfoResponse() {}
 
-    public ChainInfoResponse chainDescriptor(String chainDescriptor) {
+    @JsonCreator
+    public ChainInfoResponse(
+            @JsonProperty(value = JSON_PROPERTY_CHAIN_DESCRIPTOR, required = true)
+                    String chainDescriptor,
+            @JsonProperty(value = JSON_PROPERTY_CURRENT_EPOCH, required = true)
+                    BigDecimal currentEpoch,
+            @JsonProperty(value = JSON_PROPERTY_EPOCH_ELAPSED, required = true)
+                    BigDecimal epochElapsed,
+            @JsonProperty(value = JSON_PROPERTY_EPOCH_DURATION, required = true)
+                    BigDecimal epochDuration,
+            @JsonProperty(value = JSON_PROPERTY_ADDITIONAL_INFO, required = true)
+                    AdditionalInfo additionalInfo) {
+        this.chainDescriptor = chainDescriptor;
+        this.currentEpoch = currentEpoch;
+        this.epochElapsed = epochElapsed;
+        this.epochDuration = epochDuration;
+        this.additionalInfo = additionalInfo;
+    }
+
+    public ChainInfoResponse chainDescriptor(@jakarta.annotation.Nonnull String chainDescriptor) {
         this.chainDescriptor = chainDescriptor;
         return this;
     }
@@ -68,11 +89,11 @@ public class ChainInfoResponse {
 
     @JsonProperty(JSON_PROPERTY_CHAIN_DESCRIPTOR)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setChainDescriptor(String chainDescriptor) {
+    public void setChainDescriptor(@jakarta.annotation.Nonnull String chainDescriptor) {
         this.chainDescriptor = chainDescriptor;
     }
 
-    public ChainInfoResponse currentEpoch(BigDecimal currentEpoch) {
+    public ChainInfoResponse currentEpoch(@jakarta.annotation.Nonnull BigDecimal currentEpoch) {
         this.currentEpoch = currentEpoch;
         return this;
     }
@@ -91,11 +112,11 @@ public class ChainInfoResponse {
 
     @JsonProperty(JSON_PROPERTY_CURRENT_EPOCH)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setCurrentEpoch(BigDecimal currentEpoch) {
+    public void setCurrentEpoch(@jakarta.annotation.Nonnull BigDecimal currentEpoch) {
         this.currentEpoch = currentEpoch;
     }
 
-    public ChainInfoResponse epochElapsed(BigDecimal epochElapsed) {
+    public ChainInfoResponse epochElapsed(@jakarta.annotation.Nonnull BigDecimal epochElapsed) {
         this.epochElapsed = epochElapsed;
         return this;
     }
@@ -115,11 +136,11 @@ public class ChainInfoResponse {
 
     @JsonProperty(JSON_PROPERTY_EPOCH_ELAPSED)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setEpochElapsed(BigDecimal epochElapsed) {
+    public void setEpochElapsed(@jakarta.annotation.Nonnull BigDecimal epochElapsed) {
         this.epochElapsed = epochElapsed;
     }
 
-    public ChainInfoResponse epochDuration(BigDecimal epochDuration) {
+    public ChainInfoResponse epochDuration(@jakarta.annotation.Nonnull BigDecimal epochDuration) {
         this.epochDuration = epochDuration;
         return this;
     }
@@ -138,11 +159,12 @@ public class ChainInfoResponse {
 
     @JsonProperty(JSON_PROPERTY_EPOCH_DURATION)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setEpochDuration(BigDecimal epochDuration) {
+    public void setEpochDuration(@jakarta.annotation.Nonnull BigDecimal epochDuration) {
         this.epochDuration = epochDuration;
     }
 
-    public ChainInfoResponse additionalInfo(AdditionalInfo additionalInfo) {
+    public ChainInfoResponse additionalInfo(
+            @jakarta.annotation.Nonnull AdditionalInfo additionalInfo) {
         this.additionalInfo = additionalInfo;
         return this;
     }
@@ -161,7 +183,7 @@ public class ChainInfoResponse {
 
     @JsonProperty(JSON_PROPERTY_ADDITIONAL_INFO)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setAdditionalInfo(AdditionalInfo additionalInfo) {
+    public void setAdditionalInfo(@jakarta.annotation.Nonnull AdditionalInfo additionalInfo) {
         this.additionalInfo = additionalInfo;
     }
 
@@ -251,10 +273,7 @@ public class ChainInfoResponse {
                             "%schainDescriptor%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getChainDescriptor()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getChainDescriptor()))));
         }
 
         // add `currentEpoch` to the URL query string
@@ -264,10 +283,7 @@ public class ChainInfoResponse {
                             "%scurrentEpoch%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getCurrentEpoch()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getCurrentEpoch()))));
         }
 
         // add `epochElapsed` to the URL query string
@@ -277,10 +293,7 @@ public class ChainInfoResponse {
                             "%sepochElapsed%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getEpochElapsed()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getEpochElapsed()))));
         }
 
         // add `epochDuration` to the URL query string
@@ -290,10 +303,7 @@ public class ChainInfoResponse {
                             "%sepochDuration%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getEpochDuration()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getEpochDuration()))));
         }
 
         // add `additionalInfo` to the URL query string

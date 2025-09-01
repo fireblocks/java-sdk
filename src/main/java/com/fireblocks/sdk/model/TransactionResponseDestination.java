@@ -16,8 +16,7 @@ package com.fireblocks.sdk.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -31,33 +30,36 @@ import java.util.StringJoiner;
     TransactionResponseDestination.JSON_PROPERTY_DESTINATION,
     TransactionResponseDestination.JSON_PROPERTY_AUTHORIZATION_INFO
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class TransactionResponseDestination {
     public static final String JSON_PROPERTY_DESTINATION_ADDRESS = "destinationAddress";
-    private Object destinationAddress = null;
+    @jakarta.annotation.Nullable private Object destinationAddress = null;
 
     public static final String JSON_PROPERTY_DESTINATION_ADDRESS_DESCRIPTION =
             "destinationAddressDescription";
-    private Object destinationAddressDescription = null;
+    @jakarta.annotation.Nullable private Object destinationAddressDescription = null;
 
     public static final String JSON_PROPERTY_AMOUNT = "amount";
-    private String amount;
+    @jakarta.annotation.Nullable private String amount;
 
     public static final String JSON_PROPERTY_AMOUNT_U_S_D = "amountUSD";
-    private String amountUSD;
+    @jakarta.annotation.Nullable private String amountUSD;
 
     public static final String JSON_PROPERTY_AML_SCREENING_RESULT = "amlScreeningResult";
-    private AmlScreeningResult amlScreeningResult;
+    @jakarta.annotation.Nullable private AmlScreeningResult amlScreeningResult;
 
     public static final String JSON_PROPERTY_DESTINATION = "destination";
-    private DestinationTransferPeerPathResponse destination;
+    @jakarta.annotation.Nullable private DestinationTransferPeerPathResponse destination;
 
     public static final String JSON_PROPERTY_AUTHORIZATION_INFO = "authorizationInfo";
-    private AuthorizationInfo authorizationInfo;
+    @jakarta.annotation.Nullable private AuthorizationInfo authorizationInfo;
 
     public TransactionResponseDestination() {}
 
-    public TransactionResponseDestination destinationAddress(Object destinationAddress) {
+    public TransactionResponseDestination destinationAddress(
+            @jakarta.annotation.Nullable Object destinationAddress) {
         this.destinationAddress = destinationAddress;
         return this;
     }
@@ -76,12 +78,12 @@ public class TransactionResponseDestination {
 
     @JsonProperty(JSON_PROPERTY_DESTINATION_ADDRESS)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setDestinationAddress(Object destinationAddress) {
+    public void setDestinationAddress(@jakarta.annotation.Nullable Object destinationAddress) {
         this.destinationAddress = destinationAddress;
     }
 
     public TransactionResponseDestination destinationAddressDescription(
-            Object destinationAddressDescription) {
+            @jakarta.annotation.Nullable Object destinationAddressDescription) {
         this.destinationAddressDescription = destinationAddressDescription;
         return this;
     }
@@ -100,11 +102,12 @@ public class TransactionResponseDestination {
 
     @JsonProperty(JSON_PROPERTY_DESTINATION_ADDRESS_DESCRIPTION)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setDestinationAddressDescription(Object destinationAddressDescription) {
+    public void setDestinationAddressDescription(
+            @jakarta.annotation.Nullable Object destinationAddressDescription) {
         this.destinationAddressDescription = destinationAddressDescription;
     }
 
-    public TransactionResponseDestination amount(String amount) {
+    public TransactionResponseDestination amount(@jakarta.annotation.Nullable String amount) {
         this.amount = amount;
         return this;
     }
@@ -123,11 +126,11 @@ public class TransactionResponseDestination {
 
     @JsonProperty(JSON_PROPERTY_AMOUNT)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAmount(String amount) {
+    public void setAmount(@jakarta.annotation.Nullable String amount) {
         this.amount = amount;
     }
 
-    public TransactionResponseDestination amountUSD(String amountUSD) {
+    public TransactionResponseDestination amountUSD(@jakarta.annotation.Nullable String amountUSD) {
         this.amountUSD = amountUSD;
         return this;
     }
@@ -146,12 +149,12 @@ public class TransactionResponseDestination {
 
     @JsonProperty(JSON_PROPERTY_AMOUNT_U_S_D)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAmountUSD(String amountUSD) {
+    public void setAmountUSD(@jakarta.annotation.Nullable String amountUSD) {
         this.amountUSD = amountUSD;
     }
 
     public TransactionResponseDestination amlScreeningResult(
-            AmlScreeningResult amlScreeningResult) {
+            @jakarta.annotation.Nullable AmlScreeningResult amlScreeningResult) {
         this.amlScreeningResult = amlScreeningResult;
         return this;
     }
@@ -170,12 +173,13 @@ public class TransactionResponseDestination {
 
     @JsonProperty(JSON_PROPERTY_AML_SCREENING_RESULT)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAmlScreeningResult(AmlScreeningResult amlScreeningResult) {
+    public void setAmlScreeningResult(
+            @jakarta.annotation.Nullable AmlScreeningResult amlScreeningResult) {
         this.amlScreeningResult = amlScreeningResult;
     }
 
     public TransactionResponseDestination destination(
-            DestinationTransferPeerPathResponse destination) {
+            @jakarta.annotation.Nullable DestinationTransferPeerPathResponse destination) {
         this.destination = destination;
         return this;
     }
@@ -194,11 +198,13 @@ public class TransactionResponseDestination {
 
     @JsonProperty(JSON_PROPERTY_DESTINATION)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setDestination(DestinationTransferPeerPathResponse destination) {
+    public void setDestination(
+            @jakarta.annotation.Nullable DestinationTransferPeerPathResponse destination) {
         this.destination = destination;
     }
 
-    public TransactionResponseDestination authorizationInfo(AuthorizationInfo authorizationInfo) {
+    public TransactionResponseDestination authorizationInfo(
+            @jakarta.annotation.Nullable AuthorizationInfo authorizationInfo) {
         this.authorizationInfo = authorizationInfo;
         return this;
     }
@@ -217,7 +223,8 @@ public class TransactionResponseDestination {
 
     @JsonProperty(JSON_PROPERTY_AUTHORIZATION_INFO)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAuthorizationInfo(AuthorizationInfo authorizationInfo) {
+    public void setAuthorizationInfo(
+            @jakarta.annotation.Nullable AuthorizationInfo authorizationInfo) {
         this.authorizationInfo = authorizationInfo;
     }
 
@@ -331,10 +338,7 @@ public class TransactionResponseDestination {
                             "%sdestinationAddress%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getDestinationAddress()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getDestinationAddress()))));
         }
 
         // add `destinationAddressDescription` to the URL query string
@@ -344,10 +348,8 @@ public class TransactionResponseDestination {
                             "%sdestinationAddressDescription%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getDestinationAddressDescription()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(
+                                    ApiClient.valueToString(getDestinationAddressDescription()))));
         }
 
         // add `amount` to the URL query string
@@ -357,8 +359,7 @@ public class TransactionResponseDestination {
                             "%samount%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getAmount()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getAmount()))));
         }
 
         // add `amountUSD` to the URL query string
@@ -368,9 +369,7 @@ public class TransactionResponseDestination {
                             "%samountUSD%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getAmountUSD()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getAmountUSD()))));
         }
 
         // add `amlScreeningResult` to the URL query string

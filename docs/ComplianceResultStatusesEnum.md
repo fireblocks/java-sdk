@@ -7,49 +7,49 @@
 
 * `STARTED` (value: `"Started"`)
 
-* `NETWORKCONNECTIONADDRESSRESOLVE` (value: `"NetworkConnectionAddressResolve"`)
+* `NETWORK_CONNECTION_ADDRESS_RESOLVE` (value: `"NetworkConnectionAddressResolve"`)
 
-* `SCREENINGPREPARE` (value: `"ScreeningPrepare"`)
+* `SCREENING_PREPARE` (value: `"ScreeningPrepare"`)
 
-* `AMLSTARTED` (value: `"AMLStarted"`)
+* `AML_STARTED` (value: `"AMLStarted"`)
 
-* `AMLCOMPLETED` (value: `"AMLCompleted"`)
+* `AML_COMPLETED` (value: `"AMLCompleted"`)
 
-* `AMLFAILED` (value: `"AMLFailed"`)
+* `AML_FAILED` (value: `"AMLFailed"`)
 
-* `AMLINBACKGROUND` (value: `"AMLInBackground"`)
+* `AMLIN_BACKGROUND` (value: `"AMLInBackground"`)
 
-* `TRPRECONDITIONCHECKS` (value: `"TRPreconditionChecks"`)
+* `TR_PRECONDITION_CHECKS` (value: `"TRPreconditionChecks"`)
 
-* `TRSTARTED` (value: `"TRStarted"`)
+* `TR_STARTED` (value: `"TRStarted"`)
 
-* `TRCOMPLETED` (value: `"TRCompleted"`)
+* `TR_COMPLETED` (value: `"TRCompleted"`)
 
-* `TRFAILED` (value: `"TRFailed"`)
+* `TR_FAILED` (value: `"TRFailed"`)
 
 * `COMPLETED` (value: `"Completed"`)
 
-* `INCOMINGSTARTED` (value: `"IncomingStarted"`)
+* `INCOMING_STARTED` (value: `"IncomingStarted"`)
 
-* `INCOMINGSCREENINGPREPARE` (value: `"IncomingScreeningPrepare"`)
+* `INCOMING_SCREENING_PREPARE` (value: `"IncomingScreeningPrepare"`)
 
-* `INCOMINGWAITFORFIRSTCONFIRMATION` (value: `"IncomingWaitForFirstConfirmation"`)
+* `INCOMING_WAIT_FOR_FIRST_CONFIRMATION` (value: `"IncomingWaitForFirstConfirmation"`)
 
-* `AMLINCOMINGSTARTED` (value: `"AMLIncomingStarted"`)
+* `AML_INCOMING_STARTED` (value: `"AMLIncomingStarted"`)
 
-* `AMLINCOMINGCOMPLETED` (value: `"AMLIncomingCompleted"`)
+* `AML_INCOMING_COMPLETED` (value: `"AMLIncomingCompleted"`)
 
-* `AMLINCOMINGFAILED` (value: `"AMLIncomingFailed"`)
+* `AML_INCOMING_FAILED` (value: `"AMLIncomingFailed"`)
 
-* `AMLINCOMINGINBACKGROUND` (value: `"AMLIncomingInBackground"`)
+* `AML_INCOMING_IN_BACKGROUND` (value: `"AMLIncomingInBackground"`)
 
-* `TRINCOMINGSTARTED` (value: `"TRIncomingStarted"`)
+* `TR_INCOMING_STARTED` (value: `"TRIncomingStarted"`)
 
-* `TRINCOMINGCOMPLETED` (value: `"TRIncomingCompleted"`)
+* `TR_INCOMING_COMPLETED` (value: `"TRIncomingCompleted"`)
 
-* `TRINCOMINGFAILED` (value: `"TRIncomingFailed"`)
+* `TR_INCOMING_FAILED` (value: `"TRIncomingFailed"`)
 
-* `INCOMINGCOMPLETED` (value: `"IncomingCompleted"`)
+* `INCOMING_COMPLETED` (value: `"IncomingCompleted"`)
 
 
 

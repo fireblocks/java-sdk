@@ -13,28 +13,28 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for GetExchangeAccountsCredentialsPublicKeyResponse */
-public class GetExchangeAccountsCredentialsPublicKeyResponseTest {
+class GetExchangeAccountsCredentialsPublicKeyResponseTest {
     private final GetExchangeAccountsCredentialsPublicKeyResponse model =
             new GetExchangeAccountsCredentialsPublicKeyResponse();
 
     /** Model tests for GetExchangeAccountsCredentialsPublicKeyResponse */
     @Test
-    public void testGetExchangeAccountsCredentialsPublicKeyResponse() {
+    void testGetExchangeAccountsCredentialsPublicKeyResponse() {
         // TODO: test GetExchangeAccountsCredentialsPublicKeyResponse
     }
 
     /** Test the property 'publicKey' */
     @Test
-    public void publicKeyTest() {
+    void publicKeyTest() {
         // TODO: test publicKey
     }
 
     /** Test the property 'tenantId' */
     @Test
-    public void tenantIdTest() {
+    void tenantIdTest() {
         // TODO: test tenantId
     }
 }

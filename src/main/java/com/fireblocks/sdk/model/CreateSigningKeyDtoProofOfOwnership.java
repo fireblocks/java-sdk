@@ -13,11 +13,11 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -26,17 +26,27 @@ import java.util.StringJoiner;
     CreateSigningKeyDtoProofOfOwnership.JSON_PROPERTY_MESSAGE,
     CreateSigningKeyDtoProofOfOwnership.JSON_PROPERTY_SIGNATURE
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class CreateSigningKeyDtoProofOfOwnership {
     public static final String JSON_PROPERTY_MESSAGE = "message";
-    private String message;
+    @jakarta.annotation.Nonnull private String message;
 
     public static final String JSON_PROPERTY_SIGNATURE = "signature";
-    private String signature;
+    @jakarta.annotation.Nonnull private String signature;
 
     public CreateSigningKeyDtoProofOfOwnership() {}
 
-    public CreateSigningKeyDtoProofOfOwnership message(String message) {
+    @JsonCreator
+    public CreateSigningKeyDtoProofOfOwnership(
+            @JsonProperty(value = JSON_PROPERTY_MESSAGE, required = true) String message,
+            @JsonProperty(value = JSON_PROPERTY_SIGNATURE, required = true) String signature) {
+        this.message = message;
+        this.signature = signature;
+    }
+
+    public CreateSigningKeyDtoProofOfOwnership message(@jakarta.annotation.Nonnull String message) {
         this.message = message;
         return this;
     }
@@ -56,11 +66,12 @@ public class CreateSigningKeyDtoProofOfOwnership {
 
     @JsonProperty(JSON_PROPERTY_MESSAGE)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setMessage(String message) {
+    public void setMessage(@jakarta.annotation.Nonnull String message) {
         this.message = message;
     }
 
-    public CreateSigningKeyDtoProofOfOwnership signature(String signature) {
+    public CreateSigningKeyDtoProofOfOwnership signature(
+            @jakarta.annotation.Nonnull String signature) {
         this.signature = signature;
         return this;
     }
@@ -79,7 +90,7 @@ public class CreateSigningKeyDtoProofOfOwnership {
 
     @JsonProperty(JSON_PROPERTY_SIGNATURE)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setSignature(String signature) {
+    public void setSignature(@jakarta.annotation.Nonnull String signature) {
         this.signature = signature;
     }
 
@@ -163,8 +174,7 @@ public class CreateSigningKeyDtoProofOfOwnership {
                             "%smessage%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getMessage()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getMessage()))));
         }
 
         // add `signature` to the URL query string
@@ -174,9 +184,7 @@ public class CreateSigningKeyDtoProofOfOwnership {
                             "%ssignature%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getSignature()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getSignature()))));
         }
 
         return joiner.toString();

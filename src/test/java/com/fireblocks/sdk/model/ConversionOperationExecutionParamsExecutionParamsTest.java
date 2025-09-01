@@ -13,46 +13,46 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for ConversionOperationExecutionParamsExecutionParams */
-public class ConversionOperationExecutionParamsExecutionParamsTest {
+class ConversionOperationExecutionParamsExecutionParamsTest {
     private final ConversionOperationExecutionParamsExecutionParams model =
             new ConversionOperationExecutionParamsExecutionParams();
 
     /** Model tests for ConversionOperationExecutionParamsExecutionParams */
     @Test
-    public void testConversionOperationExecutionParamsExecutionParams() {
+    void testConversionOperationExecutionParamsExecutionParams() {
         // TODO: test ConversionOperationExecutionParamsExecutionParams
     }
 
     /** Test the property 'amount' */
     @Test
-    public void amountTest() {
+    void amountTest() {
         // TODO: test amount
     }
 
     /** Test the property 'accountId' */
     @Test
-    public void accountIdTest() {
+    void accountIdTest() {
         // TODO: test accountId
     }
 
     /** Test the property 'srcAssetId' */
     @Test
-    public void srcAssetIdTest() {
+    void srcAssetIdTest() {
         // TODO: test srcAssetId
     }
 
     /** Test the property 'destAssetId' */
     @Test
-    public void destAssetIdTest() {
+    void destAssetIdTest() {
         // TODO: test destAssetId
     }
 
     /** Test the property 'slippageBasisPoints' */
     @Test
-    public void slippageBasisPointsTest() {
+    void slippageBasisPointsTest() {
         // TODO: test slippageBasisPoints
     }
 }

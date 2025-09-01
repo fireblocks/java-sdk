@@ -13,27 +13,27 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for AdapterProcessingResult */
-public class AdapterProcessingResultTest {
+class AdapterProcessingResultTest {
     private final AdapterProcessingResult model = new AdapterProcessingResult();
 
     /** Model tests for AdapterProcessingResult */
     @Test
-    public void testAdapterProcessingResult() {
+    void testAdapterProcessingResult() {
         // TODO: test AdapterProcessingResult
     }
 
     /** Test the property 'inputTokenLinkId' */
     @Test
-    public void inputTokenLinkIdTest() {
+    void inputTokenLinkIdTest() {
         // TODO: test inputTokenLinkId
     }
 
     /** Test the property 'adapterLinkId' */
     @Test
-    public void adapterLinkIdTest() {
+    void adapterLinkIdTest() {
         // TODO: test adapterLinkId
     }
 }

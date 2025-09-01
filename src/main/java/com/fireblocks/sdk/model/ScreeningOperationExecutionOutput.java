@@ -13,6 +13,7 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -23,14 +24,24 @@ import java.util.StringJoiner;
 
 /** ScreeningOperationExecutionOutput */
 @JsonPropertyOrder({ScreeningOperationExecutionOutput.JSON_PROPERTY_VERDICTS})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class ScreeningOperationExecutionOutput {
     public static final String JSON_PROPERTY_VERDICTS = "verdicts";
-    private List<ScreeningVerdict> verdicts = new ArrayList<>();
+    @jakarta.annotation.Nonnull private List<ScreeningVerdict> verdicts = new ArrayList<>();
 
     public ScreeningOperationExecutionOutput() {}
 
-    public ScreeningOperationExecutionOutput verdicts(List<ScreeningVerdict> verdicts) {
+    @JsonCreator
+    public ScreeningOperationExecutionOutput(
+            @JsonProperty(value = JSON_PROPERTY_VERDICTS, required = true)
+                    List<ScreeningVerdict> verdicts) {
+        this.verdicts = verdicts;
+    }
+
+    public ScreeningOperationExecutionOutput verdicts(
+            @jakarta.annotation.Nonnull List<ScreeningVerdict> verdicts) {
         this.verdicts = verdicts;
         return this;
     }
@@ -57,7 +68,7 @@ public class ScreeningOperationExecutionOutput {
 
     @JsonProperty(JSON_PROPERTY_VERDICTS)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setVerdicts(List<ScreeningVerdict> verdicts) {
+    public void setVerdicts(@jakarta.annotation.Nonnull List<ScreeningVerdict> verdicts) {
         this.verdicts = verdicts;
     }
 

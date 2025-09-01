@@ -13,12 +13,12 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fireblocks.sdk.ApiClient;
 import java.math.BigDecimal;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -27,17 +27,27 @@ import java.util.StringJoiner;
     AddressNotAvailableError.JSON_PROPERTY_MESSAGE,
     AddressNotAvailableError.JSON_PROPERTY_CODE
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class AddressNotAvailableError {
     public static final String JSON_PROPERTY_MESSAGE = "message";
-    private String message;
+    @jakarta.annotation.Nonnull private String message;
 
     public static final String JSON_PROPERTY_CODE = "code";
-    private BigDecimal code;
+    @jakarta.annotation.Nonnull private BigDecimal code;
 
     public AddressNotAvailableError() {}
 
-    public AddressNotAvailableError message(String message) {
+    @JsonCreator
+    public AddressNotAvailableError(
+            @JsonProperty(value = JSON_PROPERTY_MESSAGE, required = true) String message,
+            @JsonProperty(value = JSON_PROPERTY_CODE, required = true) BigDecimal code) {
+        this.message = message;
+        this.code = code;
+    }
+
+    public AddressNotAvailableError message(@jakarta.annotation.Nonnull String message) {
         this.message = message;
         return this;
     }
@@ -56,11 +66,11 @@ public class AddressNotAvailableError {
 
     @JsonProperty(JSON_PROPERTY_MESSAGE)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setMessage(String message) {
+    public void setMessage(@jakarta.annotation.Nonnull String message) {
         this.message = message;
     }
 
-    public AddressNotAvailableError code(BigDecimal code) {
+    public AddressNotAvailableError code(@jakarta.annotation.Nonnull BigDecimal code) {
         this.code = code;
         return this;
     }
@@ -79,7 +89,7 @@ public class AddressNotAvailableError {
 
     @JsonProperty(JSON_PROPERTY_CODE)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setCode(BigDecimal code) {
+    public void setCode(@jakarta.annotation.Nonnull BigDecimal code) {
         this.code = code;
     }
 
@@ -162,8 +172,7 @@ public class AddressNotAvailableError {
                             "%smessage%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getMessage()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getMessage()))));
         }
 
         // add `code` to the URL query string
@@ -173,8 +182,7 @@ public class AddressNotAvailableError {
                             "%scode%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getCode()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getCode()))));
         }
 
         return joiner.toString();

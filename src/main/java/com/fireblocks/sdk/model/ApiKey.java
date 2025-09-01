@@ -13,11 +13,11 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.time.OffsetDateTime;
 import java.util.Objects;
 import java.util.StringJoiner;
@@ -29,20 +29,27 @@ import java.util.UUID;
     ApiKey.JSON_PROPERTY_LAST_SEEN,
     ApiKey.JSON_PROPERTY_CALLBACK_HANDLER
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class ApiKey {
     public static final String JSON_PROPERTY_ID = "id";
-    private UUID id;
+    @jakarta.annotation.Nonnull private UUID id;
 
     public static final String JSON_PROPERTY_LAST_SEEN = "lastSeen";
-    private OffsetDateTime lastSeen;
+    @jakarta.annotation.Nullable private OffsetDateTime lastSeen;
 
     public static final String JSON_PROPERTY_CALLBACK_HANDLER = "callbackHandler";
-    private CallbackHandler callbackHandler;
+    @jakarta.annotation.Nullable private CallbackHandler callbackHandler;
 
     public ApiKey() {}
 
-    public ApiKey id(UUID id) {
+    @JsonCreator
+    public ApiKey(@JsonProperty(value = JSON_PROPERTY_ID, required = true) UUID id) {
+        this.id = id;
+    }
+
+    public ApiKey id(@jakarta.annotation.Nonnull UUID id) {
         this.id = id;
         return this;
     }
@@ -61,11 +68,11 @@ public class ApiKey {
 
     @JsonProperty(JSON_PROPERTY_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setId(UUID id) {
+    public void setId(@jakarta.annotation.Nonnull UUID id) {
         this.id = id;
     }
 
-    public ApiKey lastSeen(OffsetDateTime lastSeen) {
+    public ApiKey lastSeen(@jakarta.annotation.Nullable OffsetDateTime lastSeen) {
         this.lastSeen = lastSeen;
         return this;
     }
@@ -84,11 +91,11 @@ public class ApiKey {
 
     @JsonProperty(JSON_PROPERTY_LAST_SEEN)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setLastSeen(OffsetDateTime lastSeen) {
+    public void setLastSeen(@jakarta.annotation.Nullable OffsetDateTime lastSeen) {
         this.lastSeen = lastSeen;
     }
 
-    public ApiKey callbackHandler(CallbackHandler callbackHandler) {
+    public ApiKey callbackHandler(@jakarta.annotation.Nullable CallbackHandler callbackHandler) {
         this.callbackHandler = callbackHandler;
         return this;
     }
@@ -107,7 +114,7 @@ public class ApiKey {
 
     @JsonProperty(JSON_PROPERTY_CALLBACK_HANDLER)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setCallbackHandler(CallbackHandler callbackHandler) {
+    public void setCallbackHandler(@jakarta.annotation.Nullable CallbackHandler callbackHandler) {
         this.callbackHandler = callbackHandler;
     }
 
@@ -190,10 +197,7 @@ public class ApiKey {
             joiner.add(
                     String.format(
                             "%sid%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(String.valueOf(getId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getId()))));
         }
 
         // add `lastSeen` to the URL query string
@@ -203,8 +207,7 @@ public class ApiKey {
                             "%slastSeen%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getLastSeen()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getLastSeen()))));
         }
 
         // add `callbackHandler` to the URL query string

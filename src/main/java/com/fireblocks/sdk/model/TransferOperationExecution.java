@@ -13,12 +13,12 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fireblocks.sdk.ApiClient;
 import java.math.BigDecimal;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -31,29 +31,41 @@ import java.util.StringJoiner;
     TransferOperationExecution.JSON_PROPERTY_FINISHED_AT,
     TransferOperationExecution.JSON_PROPERTY_FAILURE
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class TransferOperationExecution {
     public static final String JSON_PROPERTY_INPUT = "input";
-    private TransferOperationConfigParams input;
+    @jakarta.annotation.Nonnull private TransferOperationConfigParams input;
 
     public static final String JSON_PROPERTY_OUTPUT = "output";
-    private TransferOperationExecutionOutput output;
+    @jakarta.annotation.Nullable private TransferOperationExecutionOutput output;
 
     public static final String JSON_PROPERTY_TX_ID = "txId";
-    private String txId;
+    @jakarta.annotation.Nullable private String txId;
 
     public static final String JSON_PROPERTY_STARTED_AT = "startedAt";
-    private BigDecimal startedAt;
+    @jakarta.annotation.Nonnull private BigDecimal startedAt;
 
     public static final String JSON_PROPERTY_FINISHED_AT = "finishedAt";
-    private BigDecimal finishedAt;
+    @jakarta.annotation.Nullable private BigDecimal finishedAt;
 
     public static final String JSON_PROPERTY_FAILURE = "failure";
-    private TransferOperationFailure failure;
+    @jakarta.annotation.Nullable private TransferOperationFailure failure;
 
     public TransferOperationExecution() {}
 
-    public TransferOperationExecution input(TransferOperationConfigParams input) {
+    @JsonCreator
+    public TransferOperationExecution(
+            @JsonProperty(value = JSON_PROPERTY_INPUT, required = true)
+                    TransferOperationConfigParams input,
+            @JsonProperty(value = JSON_PROPERTY_STARTED_AT, required = true) BigDecimal startedAt) {
+        this.input = input;
+        this.startedAt = startedAt;
+    }
+
+    public TransferOperationExecution input(
+            @jakarta.annotation.Nonnull TransferOperationConfigParams input) {
         this.input = input;
         return this;
     }
@@ -72,11 +84,12 @@ public class TransferOperationExecution {
 
     @JsonProperty(JSON_PROPERTY_INPUT)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setInput(TransferOperationConfigParams input) {
+    public void setInput(@jakarta.annotation.Nonnull TransferOperationConfigParams input) {
         this.input = input;
     }
 
-    public TransferOperationExecution output(TransferOperationExecutionOutput output) {
+    public TransferOperationExecution output(
+            @jakarta.annotation.Nullable TransferOperationExecutionOutput output) {
         this.output = output;
         return this;
     }
@@ -95,11 +108,11 @@ public class TransferOperationExecution {
 
     @JsonProperty(JSON_PROPERTY_OUTPUT)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setOutput(TransferOperationExecutionOutput output) {
+    public void setOutput(@jakarta.annotation.Nullable TransferOperationExecutionOutput output) {
         this.output = output;
     }
 
-    public TransferOperationExecution txId(String txId) {
+    public TransferOperationExecution txId(@jakarta.annotation.Nullable String txId) {
         this.txId = txId;
         return this;
     }
@@ -118,11 +131,11 @@ public class TransferOperationExecution {
 
     @JsonProperty(JSON_PROPERTY_TX_ID)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setTxId(String txId) {
+    public void setTxId(@jakarta.annotation.Nullable String txId) {
         this.txId = txId;
     }
 
-    public TransferOperationExecution startedAt(BigDecimal startedAt) {
+    public TransferOperationExecution startedAt(@jakarta.annotation.Nonnull BigDecimal startedAt) {
         this.startedAt = startedAt;
         return this;
     }
@@ -141,11 +154,12 @@ public class TransferOperationExecution {
 
     @JsonProperty(JSON_PROPERTY_STARTED_AT)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setStartedAt(BigDecimal startedAt) {
+    public void setStartedAt(@jakarta.annotation.Nonnull BigDecimal startedAt) {
         this.startedAt = startedAt;
     }
 
-    public TransferOperationExecution finishedAt(BigDecimal finishedAt) {
+    public TransferOperationExecution finishedAt(
+            @jakarta.annotation.Nullable BigDecimal finishedAt) {
         this.finishedAt = finishedAt;
         return this;
     }
@@ -164,11 +178,12 @@ public class TransferOperationExecution {
 
     @JsonProperty(JSON_PROPERTY_FINISHED_AT)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setFinishedAt(BigDecimal finishedAt) {
+    public void setFinishedAt(@jakarta.annotation.Nullable BigDecimal finishedAt) {
         this.finishedAt = finishedAt;
     }
 
-    public TransferOperationExecution failure(TransferOperationFailure failure) {
+    public TransferOperationExecution failure(
+            @jakarta.annotation.Nullable TransferOperationFailure failure) {
         this.failure = failure;
         return this;
     }
@@ -187,7 +202,7 @@ public class TransferOperationExecution {
 
     @JsonProperty(JSON_PROPERTY_FAILURE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setFailure(TransferOperationFailure failure) {
+    public void setFailure(@jakarta.annotation.Nullable TransferOperationFailure failure) {
         this.failure = failure;
     }
 
@@ -288,8 +303,7 @@ public class TransferOperationExecution {
                             "%stxId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getTxId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getTxId()))));
         }
 
         // add `startedAt` to the URL query string
@@ -299,9 +313,7 @@ public class TransferOperationExecution {
                             "%sstartedAt%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getStartedAt()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getStartedAt()))));
         }
 
         // add `finishedAt` to the URL query string
@@ -311,9 +323,7 @@ public class TransferOperationExecution {
                             "%sfinishedAt%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getFinishedAt()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getFinishedAt()))));
         }
 
         // add `failure` to the URL query string

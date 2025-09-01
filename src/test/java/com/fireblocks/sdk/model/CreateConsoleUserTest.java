@@ -13,39 +13,39 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for CreateConsoleUser */
-public class CreateConsoleUserTest {
+class CreateConsoleUserTest {
     private final CreateConsoleUser model = new CreateConsoleUser();
 
     /** Model tests for CreateConsoleUser */
     @Test
-    public void testCreateConsoleUser() {
+    void testCreateConsoleUser() {
         // TODO: test CreateConsoleUser
     }
 
     /** Test the property 'firstName' */
     @Test
-    public void firstNameTest() {
+    void firstNameTest() {
         // TODO: test firstName
     }
 
     /** Test the property 'lastName' */
     @Test
-    public void lastNameTest() {
+    void lastNameTest() {
         // TODO: test lastName
     }
 
     /** Test the property 'role' */
     @Test
-    public void roleTest() {
+    void roleTest() {
         // TODO: test role
     }
 
     /** Test the property 'email' */
     @Test
-    public void emailTest() {
+    void emailTest() {
         // TODO: test email
     }
 }

@@ -16,8 +16,7 @@ package com.fireblocks.sdk.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -27,20 +26,22 @@ import java.util.StringJoiner;
     CreateTransactionResponse.JSON_PROPERTY_STATUS,
     CreateTransactionResponse.JSON_PROPERTY_SYSTEM_MESSAGES
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class CreateTransactionResponse {
     public static final String JSON_PROPERTY_ID = "id";
-    private String id;
+    @jakarta.annotation.Nullable private String id;
 
     public static final String JSON_PROPERTY_STATUS = "status";
-    private String status;
+    @jakarta.annotation.Nullable private String status;
 
     public static final String JSON_PROPERTY_SYSTEM_MESSAGES = "systemMessages";
-    private SystemMessageInfo systemMessages;
+    @jakarta.annotation.Nullable private SystemMessageInfo systemMessages;
 
     public CreateTransactionResponse() {}
 
-    public CreateTransactionResponse id(String id) {
+    public CreateTransactionResponse id(@jakarta.annotation.Nullable String id) {
         this.id = id;
         return this;
     }
@@ -59,11 +60,11 @@ public class CreateTransactionResponse {
 
     @JsonProperty(JSON_PROPERTY_ID)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setId(String id) {
+    public void setId(@jakarta.annotation.Nullable String id) {
         this.id = id;
     }
 
-    public CreateTransactionResponse status(String status) {
+    public CreateTransactionResponse status(@jakarta.annotation.Nullable String status) {
         this.status = status;
         return this;
     }
@@ -83,11 +84,12 @@ public class CreateTransactionResponse {
 
     @JsonProperty(JSON_PROPERTY_STATUS)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setStatus(String status) {
+    public void setStatus(@jakarta.annotation.Nullable String status) {
         this.status = status;
     }
 
-    public CreateTransactionResponse systemMessages(SystemMessageInfo systemMessages) {
+    public CreateTransactionResponse systemMessages(
+            @jakarta.annotation.Nullable SystemMessageInfo systemMessages) {
         this.systemMessages = systemMessages;
         return this;
     }
@@ -106,7 +108,7 @@ public class CreateTransactionResponse {
 
     @JsonProperty(JSON_PROPERTY_SYSTEM_MESSAGES)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setSystemMessages(SystemMessageInfo systemMessages) {
+    public void setSystemMessages(@jakarta.annotation.Nullable SystemMessageInfo systemMessages) {
         this.systemMessages = systemMessages;
     }
 
@@ -189,10 +191,7 @@ public class CreateTransactionResponse {
             joiner.add(
                     String.format(
                             "%sid%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(String.valueOf(getId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getId()))));
         }
 
         // add `status` to the URL query string
@@ -202,8 +201,7 @@ public class CreateTransactionResponse {
                             "%sstatus%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getStatus()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getStatus()))));
         }
 
         // add `systemMessages` to the URL query string

@@ -13,11 +13,11 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -28,23 +28,42 @@ import java.util.StringJoiner;
     SmartTransferStatistic.JSON_PROPERTY_TOTAL_ACTIVE_TICKETS,
     SmartTransferStatistic.JSON_PROPERTY_TOTAL_INACTIVE_TICKETS
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class SmartTransferStatistic {
     public static final String JSON_PROPERTY_INFLOW = "inflow";
-    private SmartTransferStatisticInflow inflow;
+    @jakarta.annotation.Nonnull private SmartTransferStatisticInflow inflow;
 
     public static final String JSON_PROPERTY_OUTFLOW = "outflow";
-    private SmartTransferStatisticOutflow outflow;
+    @jakarta.annotation.Nonnull private SmartTransferStatisticOutflow outflow;
 
     public static final String JSON_PROPERTY_TOTAL_ACTIVE_TICKETS = "totalActiveTickets";
-    private Integer totalActiveTickets;
+    @jakarta.annotation.Nonnull private Integer totalActiveTickets;
 
     public static final String JSON_PROPERTY_TOTAL_INACTIVE_TICKETS = "totalInactiveTickets";
-    private Integer totalInactiveTickets;
+    @jakarta.annotation.Nonnull private Integer totalInactiveTickets;
 
     public SmartTransferStatistic() {}
 
-    public SmartTransferStatistic inflow(SmartTransferStatisticInflow inflow) {
+    @JsonCreator
+    public SmartTransferStatistic(
+            @JsonProperty(value = JSON_PROPERTY_INFLOW, required = true)
+                    SmartTransferStatisticInflow inflow,
+            @JsonProperty(value = JSON_PROPERTY_OUTFLOW, required = true)
+                    SmartTransferStatisticOutflow outflow,
+            @JsonProperty(value = JSON_PROPERTY_TOTAL_ACTIVE_TICKETS, required = true)
+                    Integer totalActiveTickets,
+            @JsonProperty(value = JSON_PROPERTY_TOTAL_INACTIVE_TICKETS, required = true)
+                    Integer totalInactiveTickets) {
+        this.inflow = inflow;
+        this.outflow = outflow;
+        this.totalActiveTickets = totalActiveTickets;
+        this.totalInactiveTickets = totalInactiveTickets;
+    }
+
+    public SmartTransferStatistic inflow(
+            @jakarta.annotation.Nonnull SmartTransferStatisticInflow inflow) {
         this.inflow = inflow;
         return this;
     }
@@ -63,11 +82,12 @@ public class SmartTransferStatistic {
 
     @JsonProperty(JSON_PROPERTY_INFLOW)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setInflow(SmartTransferStatisticInflow inflow) {
+    public void setInflow(@jakarta.annotation.Nonnull SmartTransferStatisticInflow inflow) {
         this.inflow = inflow;
     }
 
-    public SmartTransferStatistic outflow(SmartTransferStatisticOutflow outflow) {
+    public SmartTransferStatistic outflow(
+            @jakarta.annotation.Nonnull SmartTransferStatisticOutflow outflow) {
         this.outflow = outflow;
         return this;
     }
@@ -86,11 +106,12 @@ public class SmartTransferStatistic {
 
     @JsonProperty(JSON_PROPERTY_OUTFLOW)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setOutflow(SmartTransferStatisticOutflow outflow) {
+    public void setOutflow(@jakarta.annotation.Nonnull SmartTransferStatisticOutflow outflow) {
         this.outflow = outflow;
     }
 
-    public SmartTransferStatistic totalActiveTickets(Integer totalActiveTickets) {
+    public SmartTransferStatistic totalActiveTickets(
+            @jakarta.annotation.Nonnull Integer totalActiveTickets) {
         this.totalActiveTickets = totalActiveTickets;
         return this;
     }
@@ -109,11 +130,12 @@ public class SmartTransferStatistic {
 
     @JsonProperty(JSON_PROPERTY_TOTAL_ACTIVE_TICKETS)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setTotalActiveTickets(Integer totalActiveTickets) {
+    public void setTotalActiveTickets(@jakarta.annotation.Nonnull Integer totalActiveTickets) {
         this.totalActiveTickets = totalActiveTickets;
     }
 
-    public SmartTransferStatistic totalInactiveTickets(Integer totalInactiveTickets) {
+    public SmartTransferStatistic totalInactiveTickets(
+            @jakarta.annotation.Nonnull Integer totalInactiveTickets) {
         this.totalInactiveTickets = totalInactiveTickets;
         return this;
     }
@@ -132,7 +154,7 @@ public class SmartTransferStatistic {
 
     @JsonProperty(JSON_PROPERTY_TOTAL_INACTIVE_TICKETS)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setTotalInactiveTickets(Integer totalInactiveTickets) {
+    public void setTotalInactiveTickets(@jakarta.annotation.Nonnull Integer totalInactiveTickets) {
         this.totalInactiveTickets = totalInactiveTickets;
     }
 
@@ -235,10 +257,7 @@ public class SmartTransferStatistic {
                             "%stotalActiveTickets%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getTotalActiveTickets()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getTotalActiveTickets()))));
         }
 
         // add `totalInactiveTickets` to the URL query string
@@ -248,10 +267,8 @@ public class SmartTransferStatistic {
                             "%stotalInactiveTickets%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getTotalInactiveTickets()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(
+                                    ApiClient.valueToString(getTotalInactiveTickets()))));
         }
 
         return joiner.toString();

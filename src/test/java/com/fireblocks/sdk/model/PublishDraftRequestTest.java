@@ -13,21 +13,27 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for PublishDraftRequest */
-public class PublishDraftRequestTest {
+class PublishDraftRequestTest {
     private final PublishDraftRequest model = new PublishDraftRequest();
 
     /** Model tests for PublishDraftRequest */
     @Test
-    public void testPublishDraftRequest() {
+    void testPublishDraftRequest() {
         // TODO: test PublishDraftRequest
+    }
+
+    /** Test the property 'policyTypes' */
+    @Test
+    void policyTypesTest() {
+        // TODO: test policyTypes
     }
 
     /** Test the property 'draftId' */
     @Test
-    public void draftIdTest() {
+    void draftIdTest() {
         // TODO: test draftId
     }
 }

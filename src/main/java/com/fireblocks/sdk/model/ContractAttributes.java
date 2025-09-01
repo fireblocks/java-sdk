@@ -13,11 +13,11 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -29,20 +29,32 @@ import java.util.StringJoiner;
     ContractAttributes.JSON_PROPERTY_STANDARDS,
     ContractAttributes.JSON_PROPERTY_AUDITOR
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class ContractAttributes {
     public static final String JSON_PROPERTY_USE_CASES = "useCases";
-    private List<String> useCases = new ArrayList<>();
+    @jakarta.annotation.Nonnull private List<String> useCases = new ArrayList<>();
 
     public static final String JSON_PROPERTY_STANDARDS = "standards";
-    private List<String> standards = new ArrayList<>();
+    @jakarta.annotation.Nonnull private List<String> standards = new ArrayList<>();
 
     public static final String JSON_PROPERTY_AUDITOR = "auditor";
-    private AuditorData auditor;
+    @jakarta.annotation.Nonnull private AuditorData auditor;
 
     public ContractAttributes() {}
 
-    public ContractAttributes useCases(List<String> useCases) {
+    @JsonCreator
+    public ContractAttributes(
+            @JsonProperty(value = JSON_PROPERTY_USE_CASES, required = true) List<String> useCases,
+            @JsonProperty(value = JSON_PROPERTY_STANDARDS, required = true) List<String> standards,
+            @JsonProperty(value = JSON_PROPERTY_AUDITOR, required = true) AuditorData auditor) {
+        this.useCases = useCases;
+        this.standards = standards;
+        this.auditor = auditor;
+    }
+
+    public ContractAttributes useCases(@jakarta.annotation.Nonnull List<String> useCases) {
         this.useCases = useCases;
         return this;
     }
@@ -69,11 +81,11 @@ public class ContractAttributes {
 
     @JsonProperty(JSON_PROPERTY_USE_CASES)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setUseCases(List<String> useCases) {
+    public void setUseCases(@jakarta.annotation.Nonnull List<String> useCases) {
         this.useCases = useCases;
     }
 
-    public ContractAttributes standards(List<String> standards) {
+    public ContractAttributes standards(@jakarta.annotation.Nonnull List<String> standards) {
         this.standards = standards;
         return this;
     }
@@ -100,11 +112,11 @@ public class ContractAttributes {
 
     @JsonProperty(JSON_PROPERTY_STANDARDS)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setStandards(List<String> standards) {
+    public void setStandards(@jakarta.annotation.Nonnull List<String> standards) {
         this.standards = standards;
     }
 
-    public ContractAttributes auditor(AuditorData auditor) {
+    public ContractAttributes auditor(@jakarta.annotation.Nonnull AuditorData auditor) {
         this.auditor = auditor;
         return this;
     }
@@ -123,7 +135,7 @@ public class ContractAttributes {
 
     @JsonProperty(JSON_PROPERTY_AUDITOR)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setAuditor(AuditorData auditor) {
+    public void setAuditor(@jakarta.annotation.Nonnull AuditorData auditor) {
         this.auditor = auditor;
     }
 
@@ -213,10 +225,8 @@ public class ContractAttributes {
                                         ? ""
                                         : String.format(
                                                 "%s%d%s", containerPrefix, i, containerSuffix),
-                                URLEncoder.encode(
-                                                String.valueOf(getUseCases().get(i)),
-                                                StandardCharsets.UTF_8)
-                                        .replaceAll("\\+", "%20")));
+                                ApiClient.urlEncode(
+                                        ApiClient.valueToString(getUseCases().get(i)))));
             }
         }
 
@@ -232,10 +242,8 @@ public class ContractAttributes {
                                         ? ""
                                         : String.format(
                                                 "%s%d%s", containerPrefix, i, containerSuffix),
-                                URLEncoder.encode(
-                                                String.valueOf(getStandards().get(i)),
-                                                StandardCharsets.UTF_8)
-                                        .replaceAll("\\+", "%20")));
+                                ApiClient.urlEncode(
+                                        ApiClient.valueToString(getStandards().get(i)))));
             }
         }
 

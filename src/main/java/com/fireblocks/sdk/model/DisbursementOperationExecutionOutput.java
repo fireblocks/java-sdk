@@ -13,6 +13,7 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -23,15 +24,26 @@ import java.util.StringJoiner;
 
 /** DisbursementOperationExecutionOutput */
 @JsonPropertyOrder({DisbursementOperationExecutionOutput.JSON_PROPERTY_INSTRUCTION_SET})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class DisbursementOperationExecutionOutput {
     public static final String JSON_PROPERTY_INSTRUCTION_SET = "instructionSet";
+
+    @jakarta.annotation.Nonnull
     private List<DisbursementInstructionOutput> instructionSet = new ArrayList<>();
 
     public DisbursementOperationExecutionOutput() {}
 
+    @JsonCreator
+    public DisbursementOperationExecutionOutput(
+            @JsonProperty(value = JSON_PROPERTY_INSTRUCTION_SET, required = true)
+                    List<DisbursementInstructionOutput> instructionSet) {
+        this.instructionSet = instructionSet;
+    }
+
     public DisbursementOperationExecutionOutput instructionSet(
-            List<DisbursementInstructionOutput> instructionSet) {
+            @jakarta.annotation.Nonnull List<DisbursementInstructionOutput> instructionSet) {
         this.instructionSet = instructionSet;
         return this;
     }
@@ -59,7 +71,8 @@ public class DisbursementOperationExecutionOutput {
 
     @JsonProperty(JSON_PROPERTY_INSTRUCTION_SET)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setInstructionSet(List<DisbursementInstructionOutput> instructionSet) {
+    public void setInstructionSet(
+            @jakarta.annotation.Nonnull List<DisbursementInstructionOutput> instructionSet) {
         this.instructionSet = instructionSet;
     }
 

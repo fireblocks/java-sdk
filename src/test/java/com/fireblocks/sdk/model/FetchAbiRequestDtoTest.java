@@ -13,27 +13,27 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for FetchAbiRequestDto */
-public class FetchAbiRequestDtoTest {
+class FetchAbiRequestDtoTest {
     private final FetchAbiRequestDto model = new FetchAbiRequestDto();
 
     /** Model tests for FetchAbiRequestDto */
     @Test
-    public void testFetchAbiRequestDto() {
+    void testFetchAbiRequestDto() {
         // TODO: test FetchAbiRequestDto
     }
 
     /** Test the property 'baseAssetId' */
     @Test
-    public void baseAssetIdTest() {
+    void baseAssetIdTest() {
         // TODO: test baseAssetId
     }
 
     /** Test the property 'contractAddress' */
     @Test
-    public void contractAddressTest() {
+    void contractAddressTest() {
         // TODO: test contractAddress
     }
 }

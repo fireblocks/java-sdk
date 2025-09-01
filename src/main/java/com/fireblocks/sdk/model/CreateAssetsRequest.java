@@ -16,21 +16,22 @@ package com.fireblocks.sdk.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
 /** CreateAssetsRequest */
 @JsonPropertyOrder({CreateAssetsRequest.JSON_PROPERTY_EOS_ACCOUNT_NAME})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class CreateAssetsRequest {
     public static final String JSON_PROPERTY_EOS_ACCOUNT_NAME = "eosAccountName";
-    private String eosAccountName;
+    @jakarta.annotation.Nullable private String eosAccountName;
 
     public CreateAssetsRequest() {}
 
-    public CreateAssetsRequest eosAccountName(String eosAccountName) {
+    public CreateAssetsRequest eosAccountName(@jakarta.annotation.Nullable String eosAccountName) {
         this.eosAccountName = eosAccountName;
         return this;
     }
@@ -50,7 +51,7 @@ public class CreateAssetsRequest {
 
     @JsonProperty(JSON_PROPERTY_EOS_ACCOUNT_NAME)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setEosAccountName(String eosAccountName) {
+    public void setEosAccountName(@jakarta.annotation.Nullable String eosAccountName) {
         this.eosAccountName = eosAccountName;
     }
 
@@ -131,10 +132,7 @@ public class CreateAssetsRequest {
                             "%seosAccountName%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getEosAccountName()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getEosAccountName()))));
         }
 
         return joiner.toString();

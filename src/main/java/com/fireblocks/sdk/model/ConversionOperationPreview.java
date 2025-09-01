@@ -13,6 +13,7 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -25,20 +26,30 @@ import java.util.StringJoiner;
     ConversionOperationPreview.JSON_PROPERTY_OUTPUT,
     ConversionOperationPreview.JSON_PROPERTY_FAILURE
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class ConversionOperationPreview {
     public static final String JSON_PROPERTY_INPUT = "input";
-    private ConversionOperationConfigParams input;
+    @jakarta.annotation.Nonnull private ConversionOperationConfigParams input;
 
     public static final String JSON_PROPERTY_OUTPUT = "output";
-    private ConversionOperationPreviewOutput output;
+    @jakarta.annotation.Nullable private ConversionOperationPreviewOutput output;
 
     public static final String JSON_PROPERTY_FAILURE = "failure";
-    private ConversionOperationFailure failure;
+    @jakarta.annotation.Nullable private ConversionOperationFailure failure;
 
     public ConversionOperationPreview() {}
 
-    public ConversionOperationPreview input(ConversionOperationConfigParams input) {
+    @JsonCreator
+    public ConversionOperationPreview(
+            @JsonProperty(value = JSON_PROPERTY_INPUT, required = true)
+                    ConversionOperationConfigParams input) {
+        this.input = input;
+    }
+
+    public ConversionOperationPreview input(
+            @jakarta.annotation.Nonnull ConversionOperationConfigParams input) {
         this.input = input;
         return this;
     }
@@ -57,11 +68,12 @@ public class ConversionOperationPreview {
 
     @JsonProperty(JSON_PROPERTY_INPUT)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setInput(ConversionOperationConfigParams input) {
+    public void setInput(@jakarta.annotation.Nonnull ConversionOperationConfigParams input) {
         this.input = input;
     }
 
-    public ConversionOperationPreview output(ConversionOperationPreviewOutput output) {
+    public ConversionOperationPreview output(
+            @jakarta.annotation.Nullable ConversionOperationPreviewOutput output) {
         this.output = output;
         return this;
     }
@@ -80,11 +92,12 @@ public class ConversionOperationPreview {
 
     @JsonProperty(JSON_PROPERTY_OUTPUT)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setOutput(ConversionOperationPreviewOutput output) {
+    public void setOutput(@jakarta.annotation.Nullable ConversionOperationPreviewOutput output) {
         this.output = output;
     }
 
-    public ConversionOperationPreview failure(ConversionOperationFailure failure) {
+    public ConversionOperationPreview failure(
+            @jakarta.annotation.Nullable ConversionOperationFailure failure) {
         this.failure = failure;
         return this;
     }
@@ -103,7 +116,7 @@ public class ConversionOperationPreview {
 
     @JsonProperty(JSON_PROPERTY_FAILURE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setFailure(ConversionOperationFailure failure) {
+    public void setFailure(@jakarta.annotation.Nullable ConversionOperationFailure failure) {
         this.failure = failure;
     }
 

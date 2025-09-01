@@ -13,12 +13,12 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fireblocks.sdk.ApiClient;
 import java.math.BigDecimal;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -29,23 +29,39 @@ import java.util.StringJoiner;
     TransferOperationPreviewOutput.JSON_PROPERTY_IS_SIGN_REQUIRED,
     TransferOperationPreviewOutput.JSON_PROPERTY_TIME_SECONDS
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class TransferOperationPreviewOutput {
     public static final String JSON_PROPERTY_AMOUNT = "amount";
-    private AssetAmount amount;
+    @jakarta.annotation.Nonnull private AssetAmount amount;
 
     public static final String JSON_PROPERTY_FEE = "fee";
-    private AssetAmount fee;
+    @jakarta.annotation.Nonnull private AssetAmount fee;
 
     public static final String JSON_PROPERTY_IS_SIGN_REQUIRED = "isSignRequired";
-    private Boolean isSignRequired;
+    @jakarta.annotation.Nonnull private Boolean isSignRequired;
 
     public static final String JSON_PROPERTY_TIME_SECONDS = "timeSeconds";
-    private BigDecimal timeSeconds;
+    @jakarta.annotation.Nonnull private BigDecimal timeSeconds;
 
     public TransferOperationPreviewOutput() {}
 
-    public TransferOperationPreviewOutput amount(AssetAmount amount) {
+    @JsonCreator
+    public TransferOperationPreviewOutput(
+            @JsonProperty(value = JSON_PROPERTY_AMOUNT, required = true) AssetAmount amount,
+            @JsonProperty(value = JSON_PROPERTY_FEE, required = true) AssetAmount fee,
+            @JsonProperty(value = JSON_PROPERTY_IS_SIGN_REQUIRED, required = true)
+                    Boolean isSignRequired,
+            @JsonProperty(value = JSON_PROPERTY_TIME_SECONDS, required = true)
+                    BigDecimal timeSeconds) {
+        this.amount = amount;
+        this.fee = fee;
+        this.isSignRequired = isSignRequired;
+        this.timeSeconds = timeSeconds;
+    }
+
+    public TransferOperationPreviewOutput amount(@jakarta.annotation.Nonnull AssetAmount amount) {
         this.amount = amount;
         return this;
     }
@@ -64,11 +80,11 @@ public class TransferOperationPreviewOutput {
 
     @JsonProperty(JSON_PROPERTY_AMOUNT)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setAmount(AssetAmount amount) {
+    public void setAmount(@jakarta.annotation.Nonnull AssetAmount amount) {
         this.amount = amount;
     }
 
-    public TransferOperationPreviewOutput fee(AssetAmount fee) {
+    public TransferOperationPreviewOutput fee(@jakarta.annotation.Nonnull AssetAmount fee) {
         this.fee = fee;
         return this;
     }
@@ -87,11 +103,12 @@ public class TransferOperationPreviewOutput {
 
     @JsonProperty(JSON_PROPERTY_FEE)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setFee(AssetAmount fee) {
+    public void setFee(@jakarta.annotation.Nonnull AssetAmount fee) {
         this.fee = fee;
     }
 
-    public TransferOperationPreviewOutput isSignRequired(Boolean isSignRequired) {
+    public TransferOperationPreviewOutput isSignRequired(
+            @jakarta.annotation.Nonnull Boolean isSignRequired) {
         this.isSignRequired = isSignRequired;
         return this;
     }
@@ -110,11 +127,12 @@ public class TransferOperationPreviewOutput {
 
     @JsonProperty(JSON_PROPERTY_IS_SIGN_REQUIRED)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setIsSignRequired(Boolean isSignRequired) {
+    public void setIsSignRequired(@jakarta.annotation.Nonnull Boolean isSignRequired) {
         this.isSignRequired = isSignRequired;
     }
 
-    public TransferOperationPreviewOutput timeSeconds(BigDecimal timeSeconds) {
+    public TransferOperationPreviewOutput timeSeconds(
+            @jakarta.annotation.Nonnull BigDecimal timeSeconds) {
         this.timeSeconds = timeSeconds;
         return this;
     }
@@ -133,7 +151,7 @@ public class TransferOperationPreviewOutput {
 
     @JsonProperty(JSON_PROPERTY_TIME_SECONDS)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setTimeSeconds(BigDecimal timeSeconds) {
+    public void setTimeSeconds(@jakarta.annotation.Nonnull BigDecimal timeSeconds) {
         this.timeSeconds = timeSeconds;
     }
 
@@ -232,10 +250,7 @@ public class TransferOperationPreviewOutput {
                             "%sisSignRequired%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getIsSignRequired()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getIsSignRequired()))));
         }
 
         // add `timeSeconds` to the URL query string
@@ -245,10 +260,7 @@ public class TransferOperationPreviewOutput {
                             "%stimeSeconds%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getTimeSeconds()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getTimeSeconds()))));
         }
 
         return joiner.toString();

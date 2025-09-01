@@ -13,27 +13,27 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for ScreeningValidationFailure */
-public class ScreeningValidationFailureTest {
+class ScreeningValidationFailureTest {
     private final ScreeningValidationFailure model = new ScreeningValidationFailure();
 
     /** Model tests for ScreeningValidationFailure */
     @Test
-    public void testScreeningValidationFailure() {
+    void testScreeningValidationFailure() {
         // TODO: test ScreeningValidationFailure
     }
 
     /** Test the property 'reason' */
     @Test
-    public void reasonTest() {
+    void reasonTest() {
         // TODO: test reason
     }
 
     /** Test the property 'data' */
     @Test
-    public void dataTest() {
+    void dataTest() {
         // TODO: test data
     }
 }

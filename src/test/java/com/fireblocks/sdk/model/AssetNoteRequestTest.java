@@ -13,21 +13,21 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for AssetNoteRequest */
-public class AssetNoteRequestTest {
+class AssetNoteRequestTest {
     private final AssetNoteRequest model = new AssetNoteRequest();
 
     /** Model tests for AssetNoteRequest */
     @Test
-    public void testAssetNoteRequest() {
+    void testAssetNoteRequest() {
         // TODO: test AssetNoteRequest
     }
 
     /** Test the property 'text' */
     @Test
-    public void textTest() {
+    void textTest() {
         // TODO: test text
     }
 }

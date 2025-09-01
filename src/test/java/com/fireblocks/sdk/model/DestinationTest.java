@@ -13,39 +13,39 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for Destination */
-public class DestinationTest {
+class DestinationTest {
     private final Destination model = new Destination();
 
     /** Model tests for Destination */
     @Test
-    public void testDestination() {
+    void testDestination() {
         // TODO: test Destination
     }
 
     /** Test the property 'accountId' */
     @Test
-    public void accountIdTest() {
+    void accountIdTest() {
         // TODO: test accountId
     }
 
     /** Test the property 'accountType' */
     @Test
-    public void accountTypeTest() {
+    void accountTypeTest() {
         // TODO: test accountType
     }
 
     /** Test the property 'oneTimeAddress' */
     @Test
-    public void oneTimeAddressTest() {
+    void oneTimeAddressTest() {
         // TODO: test oneTimeAddress
     }
 
     /** Test the property 'tag' */
     @Test
-    public void tagTest() {
+    void tagTest() {
         // TODO: test tag
     }
 }

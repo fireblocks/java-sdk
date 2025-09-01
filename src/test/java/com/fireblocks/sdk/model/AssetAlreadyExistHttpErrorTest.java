@@ -13,33 +13,33 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for AssetAlreadyExistHttpError */
-public class AssetAlreadyExistHttpErrorTest {
+class AssetAlreadyExistHttpErrorTest {
     private final AssetAlreadyExistHttpError model = new AssetAlreadyExistHttpError();
 
     /** Model tests for AssetAlreadyExistHttpError */
     @Test
-    public void testAssetAlreadyExistHttpError() {
+    void testAssetAlreadyExistHttpError() {
         // TODO: test AssetAlreadyExistHttpError
     }
 
     /** Test the property 'statusCode' */
     @Test
-    public void statusCodeTest() {
+    void statusCodeTest() {
         // TODO: test statusCode
     }
 
     /** Test the property 'message' */
     @Test
-    public void messageTest() {
+    void messageTest() {
         // TODO: test message
     }
 
     /** Test the property 'error' */
     @Test
-    public void errorTest() {
+    void errorTest() {
         // TODO: test error
     }
 }

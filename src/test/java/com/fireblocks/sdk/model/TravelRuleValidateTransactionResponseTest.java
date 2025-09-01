@@ -13,58 +13,58 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for TravelRuleValidateTransactionResponse */
-public class TravelRuleValidateTransactionResponseTest {
+class TravelRuleValidateTransactionResponseTest {
     private final TravelRuleValidateTransactionResponse model =
             new TravelRuleValidateTransactionResponse();
 
     /** Model tests for TravelRuleValidateTransactionResponse */
     @Test
-    public void testTravelRuleValidateTransactionResponse() {
+    void testTravelRuleValidateTransactionResponse() {
         // TODO: test TravelRuleValidateTransactionResponse
     }
 
     /** Test the property 'isValid' */
     @Test
-    public void isValidTest() {
+    void isValidTest() {
         // TODO: test isValid
     }
 
     /** Test the property 'type' */
     @Test
-    public void typeTest() {
+    void typeTest() {
         // TODO: test type
     }
 
     /** Test the property 'beneficiaryAddressType' */
     @Test
-    public void beneficiaryAddressTypeTest() {
+    void beneficiaryAddressTypeTest() {
         // TODO: test beneficiaryAddressType
     }
 
     /** Test the property 'addressSource' */
     @Test
-    public void addressSourceTest() {
+    void addressSourceTest() {
         // TODO: test addressSource
     }
 
     /** Test the property 'beneficiaryVASPdid' */
     @Test
-    public void beneficiaryVASPdidTest() {
+    void beneficiaryVASPdidTest() {
         // TODO: test beneficiaryVASPdid
     }
 
     /** Test the property 'beneficiaryVASPname' */
     @Test
-    public void beneficiaryVASPnameTest() {
+    void beneficiaryVASPnameTest() {
         // TODO: test beneficiaryVASPname
     }
 
     /** Test the property 'warnings' */
     @Test
-    public void warningsTest() {
+    void warningsTest() {
         // TODO: test warnings
     }
 }

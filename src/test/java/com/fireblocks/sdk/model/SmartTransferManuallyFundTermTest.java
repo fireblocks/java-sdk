@@ -13,21 +13,21 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for SmartTransferManuallyFundTerm */
-public class SmartTransferManuallyFundTermTest {
+class SmartTransferManuallyFundTermTest {
     private final SmartTransferManuallyFundTerm model = new SmartTransferManuallyFundTerm();
 
     /** Model tests for SmartTransferManuallyFundTerm */
     @Test
-    public void testSmartTransferManuallyFundTerm() {
+    void testSmartTransferManuallyFundTerm() {
         // TODO: test SmartTransferManuallyFundTerm
     }
 
     /** Test the property 'txHash' */
     @Test
-    public void txHashTest() {
+    void txHashTest() {
         // TODO: test txHash
     }
 }

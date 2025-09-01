@@ -13,11 +13,11 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 import java.util.UUID;
@@ -31,29 +31,37 @@ import java.util.UUID;
     SourceTransferPeerPath.JSON_PROPERTY_WALLET_ID,
     SourceTransferPeerPath.JSON_PROPERTY_IS_COLLATERAL
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class SourceTransferPeerPath {
     public static final String JSON_PROPERTY_TYPE = "type";
-    private TransferPeerPathType type;
+    @jakarta.annotation.Nonnull private TransferPeerPathType type;
 
     public static final String JSON_PROPERTY_SUB_TYPE = "subType";
-    private TransferPeerPathSubType subType;
+    @jakarta.annotation.Nullable private TransferPeerPathSubType subType;
 
     public static final String JSON_PROPERTY_ID = "id";
-    private String id;
+    @jakarta.annotation.Nullable private String id;
 
     public static final String JSON_PROPERTY_NAME = "name";
-    private String name;
+    @jakarta.annotation.Nullable private String name;
 
     public static final String JSON_PROPERTY_WALLET_ID = "walletId";
-    private UUID walletId;
+    @jakarta.annotation.Nullable private UUID walletId;
 
     public static final String JSON_PROPERTY_IS_COLLATERAL = "isCollateral";
-    private Boolean isCollateral;
+    @jakarta.annotation.Nullable private Boolean isCollateral;
 
     public SourceTransferPeerPath() {}
 
-    public SourceTransferPeerPath type(TransferPeerPathType type) {
+    @JsonCreator
+    public SourceTransferPeerPath(
+            @JsonProperty(value = JSON_PROPERTY_TYPE, required = true) TransferPeerPathType type) {
+        this.type = type;
+    }
+
+    public SourceTransferPeerPath type(@jakarta.annotation.Nonnull TransferPeerPathType type) {
         this.type = type;
         return this;
     }
@@ -72,11 +80,12 @@ public class SourceTransferPeerPath {
 
     @JsonProperty(JSON_PROPERTY_TYPE)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setType(TransferPeerPathType type) {
+    public void setType(@jakarta.annotation.Nonnull TransferPeerPathType type) {
         this.type = type;
     }
 
-    public SourceTransferPeerPath subType(TransferPeerPathSubType subType) {
+    public SourceTransferPeerPath subType(
+            @jakarta.annotation.Nullable TransferPeerPathSubType subType) {
         this.subType = subType;
         return this;
     }
@@ -95,11 +104,11 @@ public class SourceTransferPeerPath {
 
     @JsonProperty(JSON_PROPERTY_SUB_TYPE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setSubType(TransferPeerPathSubType subType) {
+    public void setSubType(@jakarta.annotation.Nullable TransferPeerPathSubType subType) {
         this.subType = subType;
     }
 
-    public SourceTransferPeerPath id(String id) {
+    public SourceTransferPeerPath id(@jakarta.annotation.Nullable String id) {
         this.id = id;
         return this;
     }
@@ -118,11 +127,11 @@ public class SourceTransferPeerPath {
 
     @JsonProperty(JSON_PROPERTY_ID)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setId(String id) {
+    public void setId(@jakarta.annotation.Nullable String id) {
         this.id = id;
     }
 
-    public SourceTransferPeerPath name(String name) {
+    public SourceTransferPeerPath name(@jakarta.annotation.Nullable String name) {
         this.name = name;
         return this;
     }
@@ -141,11 +150,11 @@ public class SourceTransferPeerPath {
 
     @JsonProperty(JSON_PROPERTY_NAME)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setName(String name) {
+    public void setName(@jakarta.annotation.Nullable String name) {
         this.name = name;
     }
 
-    public SourceTransferPeerPath walletId(UUID walletId) {
+    public SourceTransferPeerPath walletId(@jakarta.annotation.Nullable UUID walletId) {
         this.walletId = walletId;
         return this;
     }
@@ -164,11 +173,11 @@ public class SourceTransferPeerPath {
 
     @JsonProperty(JSON_PROPERTY_WALLET_ID)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setWalletId(UUID walletId) {
+    public void setWalletId(@jakarta.annotation.Nullable UUID walletId) {
         this.walletId = walletId;
     }
 
-    public SourceTransferPeerPath isCollateral(Boolean isCollateral) {
+    public SourceTransferPeerPath isCollateral(@jakarta.annotation.Nullable Boolean isCollateral) {
         this.isCollateral = isCollateral;
         return this;
     }
@@ -187,7 +196,7 @@ public class SourceTransferPeerPath {
 
     @JsonProperty(JSON_PROPERTY_IS_COLLATERAL)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setIsCollateral(Boolean isCollateral) {
+    public void setIsCollateral(@jakarta.annotation.Nullable Boolean isCollateral) {
         this.isCollateral = isCollateral;
     }
 
@@ -278,8 +287,7 @@ public class SourceTransferPeerPath {
                             "%stype%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getType()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getType()))));
         }
 
         // add `subType` to the URL query string
@@ -289,8 +297,7 @@ public class SourceTransferPeerPath {
                             "%ssubType%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getSubType()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getSubType()))));
         }
 
         // add `id` to the URL query string
@@ -298,10 +305,7 @@ public class SourceTransferPeerPath {
             joiner.add(
                     String.format(
                             "%sid%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(String.valueOf(getId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getId()))));
         }
 
         // add `name` to the URL query string
@@ -311,8 +315,7 @@ public class SourceTransferPeerPath {
                             "%sname%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getName()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getName()))));
         }
 
         // add `walletId` to the URL query string
@@ -322,8 +325,7 @@ public class SourceTransferPeerPath {
                             "%swalletId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getWalletId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getWalletId()))));
         }
 
         // add `isCollateral` to the URL query string
@@ -333,10 +335,7 @@ public class SourceTransferPeerPath {
                             "%sisCollateral%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getIsCollateral()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getIsCollateral()))));
         }
 
         return joiner.toString();

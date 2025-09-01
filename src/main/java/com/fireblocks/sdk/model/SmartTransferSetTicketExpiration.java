@@ -13,25 +13,34 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fireblocks.sdk.ApiClient;
 import java.math.BigDecimal;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 import java.util.StringJoiner;
 
 /** SmartTransferSetTicketExpiration */
 @JsonPropertyOrder({SmartTransferSetTicketExpiration.JSON_PROPERTY_EXPIRES_IN})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class SmartTransferSetTicketExpiration {
     public static final String JSON_PROPERTY_EXPIRES_IN = "expiresIn";
-    private BigDecimal expiresIn;
+    @jakarta.annotation.Nonnull private BigDecimal expiresIn;
 
     public SmartTransferSetTicketExpiration() {}
 
-    public SmartTransferSetTicketExpiration expiresIn(BigDecimal expiresIn) {
+    @JsonCreator
+    public SmartTransferSetTicketExpiration(
+            @JsonProperty(value = JSON_PROPERTY_EXPIRES_IN, required = true) BigDecimal expiresIn) {
+        this.expiresIn = expiresIn;
+    }
+
+    public SmartTransferSetTicketExpiration expiresIn(
+            @jakarta.annotation.Nonnull BigDecimal expiresIn) {
         this.expiresIn = expiresIn;
         return this;
     }
@@ -52,7 +61,7 @@ public class SmartTransferSetTicketExpiration {
 
     @JsonProperty(JSON_PROPERTY_EXPIRES_IN)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setExpiresIn(BigDecimal expiresIn) {
+    public void setExpiresIn(@jakarta.annotation.Nonnull BigDecimal expiresIn) {
         this.expiresIn = expiresIn;
     }
 
@@ -134,9 +143,7 @@ public class SmartTransferSetTicketExpiration {
                             "%sexpiresIn%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getExpiresIn()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getExpiresIn()))));
         }
 
         return joiner.toString();

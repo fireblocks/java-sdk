@@ -18,9 +18,8 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.fireblocks.sdk.ApiClient;
 import java.math.BigDecimal;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -32,16 +31,18 @@ import java.util.StringJoiner;
     PolicyRuleCheckResult.JSON_PROPERTY_STATUS,
     PolicyRuleCheckResult.JSON_PROPERTY_ERRORS
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class PolicyRuleCheckResult {
     public static final String JSON_PROPERTY_INDEX = "index";
-    private BigDecimal index;
+    @jakarta.annotation.Nonnull private BigDecimal index;
 
     /** Validation status */
     public enum StatusEnum {
-        OK("ok"),
+        OK(String.valueOf("ok")),
 
-        FAILURE("failure");
+        FAILURE(String.valueOf("failure"));
 
         private String value;
 
@@ -71,14 +72,25 @@ public class PolicyRuleCheckResult {
     }
 
     public static final String JSON_PROPERTY_STATUS = "status";
-    private StatusEnum status;
+    @jakarta.annotation.Nonnull private StatusEnum status;
 
     public static final String JSON_PROPERTY_ERRORS = "errors";
-    private List<PolicyRuleError> errors = new ArrayList<>();
+    @jakarta.annotation.Nonnull private List<PolicyRuleError> errors = new ArrayList<>();
 
     public PolicyRuleCheckResult() {}
 
-    public PolicyRuleCheckResult index(BigDecimal index) {
+    @JsonCreator
+    public PolicyRuleCheckResult(
+            @JsonProperty(value = JSON_PROPERTY_INDEX, required = true) BigDecimal index,
+            @JsonProperty(value = JSON_PROPERTY_STATUS, required = true) StatusEnum status,
+            @JsonProperty(value = JSON_PROPERTY_ERRORS, required = true)
+                    List<PolicyRuleError> errors) {
+        this.index = index;
+        this.status = status;
+        this.errors = errors;
+    }
+
+    public PolicyRuleCheckResult index(@jakarta.annotation.Nonnull BigDecimal index) {
         this.index = index;
         return this;
     }
@@ -97,11 +109,11 @@ public class PolicyRuleCheckResult {
 
     @JsonProperty(JSON_PROPERTY_INDEX)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setIndex(BigDecimal index) {
+    public void setIndex(@jakarta.annotation.Nonnull BigDecimal index) {
         this.index = index;
     }
 
-    public PolicyRuleCheckResult status(StatusEnum status) {
+    public PolicyRuleCheckResult status(@jakarta.annotation.Nonnull StatusEnum status) {
         this.status = status;
         return this;
     }
@@ -120,11 +132,11 @@ public class PolicyRuleCheckResult {
 
     @JsonProperty(JSON_PROPERTY_STATUS)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setStatus(StatusEnum status) {
+    public void setStatus(@jakarta.annotation.Nonnull StatusEnum status) {
         this.status = status;
     }
 
-    public PolicyRuleCheckResult errors(List<PolicyRuleError> errors) {
+    public PolicyRuleCheckResult errors(@jakarta.annotation.Nonnull List<PolicyRuleError> errors) {
         this.errors = errors;
         return this;
     }
@@ -151,7 +163,7 @@ public class PolicyRuleCheckResult {
 
     @JsonProperty(JSON_PROPERTY_ERRORS)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setErrors(List<PolicyRuleError> errors) {
+    public void setErrors(@jakarta.annotation.Nonnull List<PolicyRuleError> errors) {
         this.errors = errors;
     }
 
@@ -236,8 +248,7 @@ public class PolicyRuleCheckResult {
                             "%sindex%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getIndex()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getIndex()))));
         }
 
         // add `status` to the URL query string
@@ -247,8 +258,7 @@ public class PolicyRuleCheckResult {
                             "%sstatus%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getStatus()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getStatus()))));
         }
 
         // add `errors` to the URL query string

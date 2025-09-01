@@ -13,27 +13,27 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for UpdateTagRequest */
-public class UpdateTagRequestTest {
+class UpdateTagRequestTest {
     private final UpdateTagRequest model = new UpdateTagRequest();
 
     /** Model tests for UpdateTagRequest */
     @Test
-    public void testUpdateTagRequest() {
+    void testUpdateTagRequest() {
         // TODO: test UpdateTagRequest
     }
 
     /** Test the property 'label' */
     @Test
-    public void labelTest() {
+    void labelTest() {
         // TODO: test label
     }
 
     /** Test the property 'description' */
     @Test
-    public void descriptionTest() {
+    void descriptionTest() {
         // TODO: test description
     }
 }

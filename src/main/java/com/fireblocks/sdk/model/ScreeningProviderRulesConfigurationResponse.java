@@ -18,9 +18,8 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.fireblocks.sdk.ApiClient;
 import java.math.BigDecimal;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -33,13 +32,15 @@ import java.util.StringJoiner;
     ScreeningProviderRulesConfigurationResponse.JSON_PROPERTY_ASSET,
     ScreeningProviderRulesConfigurationResponse.JSON_PROPERTY_ACTION
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class ScreeningProviderRulesConfigurationResponse {
     /** Gets or Sets direction */
     public enum DirectionEnum {
-        INBOUND("INBOUND"),
+        INBOUND(String.valueOf("INBOUND")),
 
-        OUTBOUND("OUTBOUND");
+        OUTBOUND(String.valueOf("OUTBOUND"));
 
         private String value;
 
@@ -69,21 +70,21 @@ public class ScreeningProviderRulesConfigurationResponse {
     }
 
     public static final String JSON_PROPERTY_DIRECTION = "direction";
-    private DirectionEnum direction;
+    @jakarta.annotation.Nullable private DirectionEnum direction;
 
     /** Gets or Sets status */
     public enum StatusEnum {
-        COMPLETED("COMPLETED"),
+        COMPLETED(String.valueOf("COMPLETED")),
 
-        PENDING("PENDING"),
+        PENDING(String.valueOf("PENDING")),
 
-        REJECTED("REJECTED"),
+        REJECTED(String.valueOf("REJECTED")),
 
-        FAILED("FAILED"),
+        FAILED(String.valueOf("FAILED")),
 
-        CANCELED("CANCELED"),
+        CANCELED(String.valueOf("CANCELED")),
 
-        BLOCKING_TIME_EXPIRED("BLOCKING_TIME_EXPIRED");
+        BLOCKING_TIME_EXPIRED(String.valueOf("BLOCKING_TIME_EXPIRED"));
 
         private String value;
 
@@ -113,30 +114,30 @@ public class ScreeningProviderRulesConfigurationResponse {
     }
 
     public static final String JSON_PROPERTY_STATUS = "status";
-    private StatusEnum status;
+    @jakarta.annotation.Nullable private StatusEnum status;
 
     public static final String JSON_PROPERTY_AMOUNT_U_S_D = "amountUSD";
-    private BigDecimal amountUSD;
+    @jakarta.annotation.Nullable private BigDecimal amountUSD;
 
     public static final String JSON_PROPERTY_AMOUNT = "amount";
-    private BigDecimal amount;
+    @jakarta.annotation.Nullable private BigDecimal amount;
 
     public static final String JSON_PROPERTY_ASSET = "asset";
-    private String asset;
+    @jakarta.annotation.Nullable private String asset;
 
     /** Gets or Sets action */
     public enum ActionEnum {
-        ACCEPT("ACCEPT"),
+        ACCEPT(String.valueOf("ACCEPT")),
 
-        REJECT("REJECT"),
+        REJECT(String.valueOf("REJECT")),
 
-        ALERT("ALERT"),
+        ALERT(String.valueOf("ALERT")),
 
-        WAIT("WAIT"),
+        WAIT(String.valueOf("WAIT")),
 
-        FREEZE("FREEZE"),
+        FREEZE(String.valueOf("FREEZE")),
 
-        CANCEL("CANCEL");
+        CANCEL(String.valueOf("CANCEL"));
 
         private String value;
 
@@ -166,11 +167,18 @@ public class ScreeningProviderRulesConfigurationResponse {
     }
 
     public static final String JSON_PROPERTY_ACTION = "action";
-    private ActionEnum action;
+    @jakarta.annotation.Nonnull private ActionEnum action;
 
     public ScreeningProviderRulesConfigurationResponse() {}
 
-    public ScreeningProviderRulesConfigurationResponse direction(DirectionEnum direction) {
+    @JsonCreator
+    public ScreeningProviderRulesConfigurationResponse(
+            @JsonProperty(value = JSON_PROPERTY_ACTION, required = true) ActionEnum action) {
+        this.action = action;
+    }
+
+    public ScreeningProviderRulesConfigurationResponse direction(
+            @jakarta.annotation.Nullable DirectionEnum direction) {
         this.direction = direction;
         return this;
     }
@@ -189,11 +197,12 @@ public class ScreeningProviderRulesConfigurationResponse {
 
     @JsonProperty(JSON_PROPERTY_DIRECTION)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setDirection(DirectionEnum direction) {
+    public void setDirection(@jakarta.annotation.Nullable DirectionEnum direction) {
         this.direction = direction;
     }
 
-    public ScreeningProviderRulesConfigurationResponse status(StatusEnum status) {
+    public ScreeningProviderRulesConfigurationResponse status(
+            @jakarta.annotation.Nullable StatusEnum status) {
         this.status = status;
         return this;
     }
@@ -212,11 +221,12 @@ public class ScreeningProviderRulesConfigurationResponse {
 
     @JsonProperty(JSON_PROPERTY_STATUS)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setStatus(StatusEnum status) {
+    public void setStatus(@jakarta.annotation.Nullable StatusEnum status) {
         this.status = status;
     }
 
-    public ScreeningProviderRulesConfigurationResponse amountUSD(BigDecimal amountUSD) {
+    public ScreeningProviderRulesConfigurationResponse amountUSD(
+            @jakarta.annotation.Nullable BigDecimal amountUSD) {
         this.amountUSD = amountUSD;
         return this;
     }
@@ -235,11 +245,12 @@ public class ScreeningProviderRulesConfigurationResponse {
 
     @JsonProperty(JSON_PROPERTY_AMOUNT_U_S_D)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAmountUSD(BigDecimal amountUSD) {
+    public void setAmountUSD(@jakarta.annotation.Nullable BigDecimal amountUSD) {
         this.amountUSD = amountUSD;
     }
 
-    public ScreeningProviderRulesConfigurationResponse amount(BigDecimal amount) {
+    public ScreeningProviderRulesConfigurationResponse amount(
+            @jakarta.annotation.Nullable BigDecimal amount) {
         this.amount = amount;
         return this;
     }
@@ -258,11 +269,12 @@ public class ScreeningProviderRulesConfigurationResponse {
 
     @JsonProperty(JSON_PROPERTY_AMOUNT)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAmount(BigDecimal amount) {
+    public void setAmount(@jakarta.annotation.Nullable BigDecimal amount) {
         this.amount = amount;
     }
 
-    public ScreeningProviderRulesConfigurationResponse asset(String asset) {
+    public ScreeningProviderRulesConfigurationResponse asset(
+            @jakarta.annotation.Nullable String asset) {
         this.asset = asset;
         return this;
     }
@@ -281,11 +293,12 @@ public class ScreeningProviderRulesConfigurationResponse {
 
     @JsonProperty(JSON_PROPERTY_ASSET)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAsset(String asset) {
+    public void setAsset(@jakarta.annotation.Nullable String asset) {
         this.asset = asset;
     }
 
-    public ScreeningProviderRulesConfigurationResponse action(ActionEnum action) {
+    public ScreeningProviderRulesConfigurationResponse action(
+            @jakarta.annotation.Nonnull ActionEnum action) {
         this.action = action;
         return this;
     }
@@ -304,7 +317,7 @@ public class ScreeningProviderRulesConfigurationResponse {
 
     @JsonProperty(JSON_PROPERTY_ACTION)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setAction(ActionEnum action) {
+    public void setAction(@jakarta.annotation.Nonnull ActionEnum action) {
         this.action = action;
     }
 
@@ -397,9 +410,7 @@ public class ScreeningProviderRulesConfigurationResponse {
                             "%sdirection%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getDirection()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getDirection()))));
         }
 
         // add `status` to the URL query string
@@ -409,8 +420,7 @@ public class ScreeningProviderRulesConfigurationResponse {
                             "%sstatus%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getStatus()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getStatus()))));
         }
 
         // add `amountUSD` to the URL query string
@@ -420,9 +430,7 @@ public class ScreeningProviderRulesConfigurationResponse {
                             "%samountUSD%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getAmountUSD()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getAmountUSD()))));
         }
 
         // add `amount` to the URL query string
@@ -432,8 +440,7 @@ public class ScreeningProviderRulesConfigurationResponse {
                             "%samount%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getAmount()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getAmount()))));
         }
 
         // add `asset` to the URL query string
@@ -443,8 +450,7 @@ public class ScreeningProviderRulesConfigurationResponse {
                             "%sasset%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getAsset()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getAsset()))));
         }
 
         // add `action` to the URL query string
@@ -454,8 +460,7 @@ public class ScreeningProviderRulesConfigurationResponse {
                             "%saction%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getAction()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getAction()))));
         }
 
         return joiner.toString();

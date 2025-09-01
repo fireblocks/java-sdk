@@ -16,8 +16,7 @@ package com.fireblocks.sdk.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -41,62 +40,64 @@ import java.util.StringJoiner;
     VaultAsset.JSON_PROPERTY_BLOCK_HASH,
     VaultAsset.JSON_PROPERTY_REWARDS_INFO
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class VaultAsset {
     public static final String JSON_PROPERTY_ID = "id";
-    private String id;
+    @jakarta.annotation.Nullable private String id;
 
     public static final String JSON_PROPERTY_TOTAL = "total";
-    private String total;
+    @jakarta.annotation.Nullable private String total;
 
     public static final String JSON_PROPERTY_BALANCE = "balance";
-    private String balance;
+    @jakarta.annotation.Nullable private String balance;
 
     public static final String JSON_PROPERTY_AVAILABLE = "available";
-    private String available;
+    @jakarta.annotation.Nullable private String available;
 
     public static final String JSON_PROPERTY_PENDING = "pending";
-    private String pending;
+    @jakarta.annotation.Nullable private String pending;
 
     public static final String JSON_PROPERTY_FROZEN = "frozen";
-    private String frozen;
+    @jakarta.annotation.Nullable private String frozen;
 
     public static final String JSON_PROPERTY_LOCKED_AMOUNT = "lockedAmount";
-    private String lockedAmount;
+    @jakarta.annotation.Nullable private String lockedAmount;
 
     public static final String JSON_PROPERTY_STAKED = "staked";
-    private String staked;
+    @jakarta.annotation.Nullable private String staked;
 
     public static final String JSON_PROPERTY_TOTAL_STAKED_C_P_U = "totalStakedCPU";
-    private String totalStakedCPU;
+    @jakarta.annotation.Nullable private String totalStakedCPU;
 
     public static final String JSON_PROPERTY_TOTAL_STAKED_NETWORK = "totalStakedNetwork";
-    private String totalStakedNetwork;
+    @jakarta.annotation.Nullable private String totalStakedNetwork;
 
     public static final String JSON_PROPERTY_SELF_STAKED_C_P_U = "selfStakedCPU";
-    private String selfStakedCPU;
+    @jakarta.annotation.Nullable private String selfStakedCPU;
 
     public static final String JSON_PROPERTY_SELF_STAKED_NETWORK = "selfStakedNetwork";
-    private String selfStakedNetwork;
+    @jakarta.annotation.Nullable private String selfStakedNetwork;
 
     public static final String JSON_PROPERTY_PENDING_REFUND_C_P_U = "pendingRefundCPU";
-    private String pendingRefundCPU;
+    @jakarta.annotation.Nullable private String pendingRefundCPU;
 
     public static final String JSON_PROPERTY_PENDING_REFUND_NETWORK = "pendingRefundNetwork";
-    private String pendingRefundNetwork;
+    @jakarta.annotation.Nullable private String pendingRefundNetwork;
 
     public static final String JSON_PROPERTY_BLOCK_HEIGHT = "blockHeight";
-    private String blockHeight;
+    @jakarta.annotation.Nullable private String blockHeight;
 
     public static final String JSON_PROPERTY_BLOCK_HASH = "blockHash";
-    private String blockHash;
+    @jakarta.annotation.Nullable private String blockHash;
 
     public static final String JSON_PROPERTY_REWARDS_INFO = "rewardsInfo";
-    private RewardsInfo rewardsInfo;
+    @jakarta.annotation.Nullable private RewardsInfo rewardsInfo;
 
     public VaultAsset() {}
 
-    public VaultAsset id(String id) {
+    public VaultAsset id(@jakarta.annotation.Nullable String id) {
         this.id = id;
         return this;
     }
@@ -115,11 +116,11 @@ public class VaultAsset {
 
     @JsonProperty(JSON_PROPERTY_ID)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setId(String id) {
+    public void setId(@jakarta.annotation.Nullable String id) {
         this.id = id;
     }
 
-    public VaultAsset total(String total) {
+    public VaultAsset total(@jakarta.annotation.Nullable String total) {
         this.total = total;
         return this;
     }
@@ -139,11 +140,11 @@ public class VaultAsset {
 
     @JsonProperty(JSON_PROPERTY_TOTAL)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setTotal(String total) {
+    public void setTotal(@jakarta.annotation.Nullable String total) {
         this.total = total;
     }
 
-    public VaultAsset balance(String balance) {
+    public VaultAsset balance(@jakarta.annotation.Nullable String balance) {
         this.balance = balance;
         return this;
     }
@@ -164,11 +165,11 @@ public class VaultAsset {
 
     @JsonProperty(JSON_PROPERTY_BALANCE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setBalance(String balance) {
+    public void setBalance(@jakarta.annotation.Nullable String balance) {
         this.balance = balance;
     }
 
-    public VaultAsset available(String available) {
+    public VaultAsset available(@jakarta.annotation.Nullable String available) {
         this.available = available;
         return this;
     }
@@ -187,11 +188,11 @@ public class VaultAsset {
 
     @JsonProperty(JSON_PROPERTY_AVAILABLE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAvailable(String available) {
+    public void setAvailable(@jakarta.annotation.Nullable String available) {
         this.available = available;
     }
 
-    public VaultAsset pending(String pending) {
+    public VaultAsset pending(@jakarta.annotation.Nullable String pending) {
         this.pending = pending;
         return this;
     }
@@ -210,11 +211,11 @@ public class VaultAsset {
 
     @JsonProperty(JSON_PROPERTY_PENDING)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setPending(String pending) {
+    public void setPending(@jakarta.annotation.Nullable String pending) {
         this.pending = pending;
     }
 
-    public VaultAsset frozen(String frozen) {
+    public VaultAsset frozen(@jakarta.annotation.Nullable String frozen) {
         this.frozen = frozen;
         return this;
     }
@@ -233,11 +234,11 @@ public class VaultAsset {
 
     @JsonProperty(JSON_PROPERTY_FROZEN)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setFrozen(String frozen) {
+    public void setFrozen(@jakarta.annotation.Nullable String frozen) {
         this.frozen = frozen;
     }
 
-    public VaultAsset lockedAmount(String lockedAmount) {
+    public VaultAsset lockedAmount(@jakarta.annotation.Nullable String lockedAmount) {
         this.lockedAmount = lockedAmount;
         return this;
     }
@@ -256,11 +257,11 @@ public class VaultAsset {
 
     @JsonProperty(JSON_PROPERTY_LOCKED_AMOUNT)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setLockedAmount(String lockedAmount) {
+    public void setLockedAmount(@jakarta.annotation.Nullable String lockedAmount) {
         this.lockedAmount = lockedAmount;
     }
 
-    public VaultAsset staked(String staked) {
+    public VaultAsset staked(@jakarta.annotation.Nullable String staked) {
         this.staked = staked;
         return this;
     }
@@ -279,11 +280,11 @@ public class VaultAsset {
 
     @JsonProperty(JSON_PROPERTY_STAKED)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setStaked(String staked) {
+    public void setStaked(@jakarta.annotation.Nullable String staked) {
         this.staked = staked;
     }
 
-    public VaultAsset totalStakedCPU(String totalStakedCPU) {
+    public VaultAsset totalStakedCPU(@jakarta.annotation.Nullable String totalStakedCPU) {
         this.totalStakedCPU = totalStakedCPU;
         return this;
     }
@@ -302,11 +303,11 @@ public class VaultAsset {
 
     @JsonProperty(JSON_PROPERTY_TOTAL_STAKED_C_P_U)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setTotalStakedCPU(String totalStakedCPU) {
+    public void setTotalStakedCPU(@jakarta.annotation.Nullable String totalStakedCPU) {
         this.totalStakedCPU = totalStakedCPU;
     }
 
-    public VaultAsset totalStakedNetwork(String totalStakedNetwork) {
+    public VaultAsset totalStakedNetwork(@jakarta.annotation.Nullable String totalStakedNetwork) {
         this.totalStakedNetwork = totalStakedNetwork;
         return this;
     }
@@ -325,11 +326,11 @@ public class VaultAsset {
 
     @JsonProperty(JSON_PROPERTY_TOTAL_STAKED_NETWORK)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setTotalStakedNetwork(String totalStakedNetwork) {
+    public void setTotalStakedNetwork(@jakarta.annotation.Nullable String totalStakedNetwork) {
         this.totalStakedNetwork = totalStakedNetwork;
     }
 
-    public VaultAsset selfStakedCPU(String selfStakedCPU) {
+    public VaultAsset selfStakedCPU(@jakarta.annotation.Nullable String selfStakedCPU) {
         this.selfStakedCPU = selfStakedCPU;
         return this;
     }
@@ -348,11 +349,11 @@ public class VaultAsset {
 
     @JsonProperty(JSON_PROPERTY_SELF_STAKED_C_P_U)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setSelfStakedCPU(String selfStakedCPU) {
+    public void setSelfStakedCPU(@jakarta.annotation.Nullable String selfStakedCPU) {
         this.selfStakedCPU = selfStakedCPU;
     }
 
-    public VaultAsset selfStakedNetwork(String selfStakedNetwork) {
+    public VaultAsset selfStakedNetwork(@jakarta.annotation.Nullable String selfStakedNetwork) {
         this.selfStakedNetwork = selfStakedNetwork;
         return this;
     }
@@ -371,11 +372,11 @@ public class VaultAsset {
 
     @JsonProperty(JSON_PROPERTY_SELF_STAKED_NETWORK)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setSelfStakedNetwork(String selfStakedNetwork) {
+    public void setSelfStakedNetwork(@jakarta.annotation.Nullable String selfStakedNetwork) {
         this.selfStakedNetwork = selfStakedNetwork;
     }
 
-    public VaultAsset pendingRefundCPU(String pendingRefundCPU) {
+    public VaultAsset pendingRefundCPU(@jakarta.annotation.Nullable String pendingRefundCPU) {
         this.pendingRefundCPU = pendingRefundCPU;
         return this;
     }
@@ -394,11 +395,12 @@ public class VaultAsset {
 
     @JsonProperty(JSON_PROPERTY_PENDING_REFUND_C_P_U)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setPendingRefundCPU(String pendingRefundCPU) {
+    public void setPendingRefundCPU(@jakarta.annotation.Nullable String pendingRefundCPU) {
         this.pendingRefundCPU = pendingRefundCPU;
     }
 
-    public VaultAsset pendingRefundNetwork(String pendingRefundNetwork) {
+    public VaultAsset pendingRefundNetwork(
+            @jakarta.annotation.Nullable String pendingRefundNetwork) {
         this.pendingRefundNetwork = pendingRefundNetwork;
         return this;
     }
@@ -417,11 +419,11 @@ public class VaultAsset {
 
     @JsonProperty(JSON_PROPERTY_PENDING_REFUND_NETWORK)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setPendingRefundNetwork(String pendingRefundNetwork) {
+    public void setPendingRefundNetwork(@jakarta.annotation.Nullable String pendingRefundNetwork) {
         this.pendingRefundNetwork = pendingRefundNetwork;
     }
 
-    public VaultAsset blockHeight(String blockHeight) {
+    public VaultAsset blockHeight(@jakarta.annotation.Nullable String blockHeight) {
         this.blockHeight = blockHeight;
         return this;
     }
@@ -440,11 +442,11 @@ public class VaultAsset {
 
     @JsonProperty(JSON_PROPERTY_BLOCK_HEIGHT)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setBlockHeight(String blockHeight) {
+    public void setBlockHeight(@jakarta.annotation.Nullable String blockHeight) {
         this.blockHeight = blockHeight;
     }
 
-    public VaultAsset blockHash(String blockHash) {
+    public VaultAsset blockHash(@jakarta.annotation.Nullable String blockHash) {
         this.blockHash = blockHash;
         return this;
     }
@@ -463,11 +465,11 @@ public class VaultAsset {
 
     @JsonProperty(JSON_PROPERTY_BLOCK_HASH)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setBlockHash(String blockHash) {
+    public void setBlockHash(@jakarta.annotation.Nullable String blockHash) {
         this.blockHash = blockHash;
     }
 
-    public VaultAsset rewardsInfo(RewardsInfo rewardsInfo) {
+    public VaultAsset rewardsInfo(@jakarta.annotation.Nullable RewardsInfo rewardsInfo) {
         this.rewardsInfo = rewardsInfo;
         return this;
     }
@@ -486,7 +488,7 @@ public class VaultAsset {
 
     @JsonProperty(JSON_PROPERTY_REWARDS_INFO)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setRewardsInfo(RewardsInfo rewardsInfo) {
+    public void setRewardsInfo(@jakarta.annotation.Nullable RewardsInfo rewardsInfo) {
         this.rewardsInfo = rewardsInfo;
     }
 
@@ -620,10 +622,7 @@ public class VaultAsset {
             joiner.add(
                     String.format(
                             "%sid%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(String.valueOf(getId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getId()))));
         }
 
         // add `total` to the URL query string
@@ -633,8 +632,7 @@ public class VaultAsset {
                             "%stotal%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getTotal()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getTotal()))));
         }
 
         // add `balance` to the URL query string
@@ -644,8 +642,7 @@ public class VaultAsset {
                             "%sbalance%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getBalance()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getBalance()))));
         }
 
         // add `available` to the URL query string
@@ -655,9 +652,7 @@ public class VaultAsset {
                             "%savailable%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getAvailable()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getAvailable()))));
         }
 
         // add `pending` to the URL query string
@@ -667,8 +662,7 @@ public class VaultAsset {
                             "%spending%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getPending()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getPending()))));
         }
 
         // add `frozen` to the URL query string
@@ -678,8 +672,7 @@ public class VaultAsset {
                             "%sfrozen%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getFrozen()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getFrozen()))));
         }
 
         // add `lockedAmount` to the URL query string
@@ -689,10 +682,7 @@ public class VaultAsset {
                             "%slockedAmount%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getLockedAmount()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getLockedAmount()))));
         }
 
         // add `staked` to the URL query string
@@ -702,8 +692,7 @@ public class VaultAsset {
                             "%sstaked%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getStaked()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getStaked()))));
         }
 
         // add `totalStakedCPU` to the URL query string
@@ -713,10 +702,7 @@ public class VaultAsset {
                             "%stotalStakedCPU%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getTotalStakedCPU()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getTotalStakedCPU()))));
         }
 
         // add `totalStakedNetwork` to the URL query string
@@ -726,10 +712,7 @@ public class VaultAsset {
                             "%stotalStakedNetwork%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getTotalStakedNetwork()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getTotalStakedNetwork()))));
         }
 
         // add `selfStakedCPU` to the URL query string
@@ -739,10 +722,7 @@ public class VaultAsset {
                             "%sselfStakedCPU%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getSelfStakedCPU()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getSelfStakedCPU()))));
         }
 
         // add `selfStakedNetwork` to the URL query string
@@ -752,10 +732,7 @@ public class VaultAsset {
                             "%sselfStakedNetwork%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getSelfStakedNetwork()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getSelfStakedNetwork()))));
         }
 
         // add `pendingRefundCPU` to the URL query string
@@ -765,10 +742,7 @@ public class VaultAsset {
                             "%spendingRefundCPU%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getPendingRefundCPU()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getPendingRefundCPU()))));
         }
 
         // add `pendingRefundNetwork` to the URL query string
@@ -778,10 +752,8 @@ public class VaultAsset {
                             "%spendingRefundNetwork%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getPendingRefundNetwork()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(
+                                    ApiClient.valueToString(getPendingRefundNetwork()))));
         }
 
         // add `blockHeight` to the URL query string
@@ -791,10 +763,7 @@ public class VaultAsset {
                             "%sblockHeight%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getBlockHeight()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getBlockHeight()))));
         }
 
         // add `blockHash` to the URL query string
@@ -804,9 +773,7 @@ public class VaultAsset {
                             "%sblockHash%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getBlockHash()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getBlockHash()))));
         }
 
         // add `rewardsInfo` to the URL query string

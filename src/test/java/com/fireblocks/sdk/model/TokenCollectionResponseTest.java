@@ -13,33 +13,33 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for TokenCollectionResponse */
-public class TokenCollectionResponseTest {
+class TokenCollectionResponseTest {
     private final TokenCollectionResponse model = new TokenCollectionResponse();
 
     /** Model tests for TokenCollectionResponse */
     @Test
-    public void testTokenCollectionResponse() {
+    void testTokenCollectionResponse() {
         // TODO: test TokenCollectionResponse
     }
 
     /** Test the property 'id' */
     @Test
-    public void idTest() {
+    void idTest() {
         // TODO: test id
     }
 
     /** Test the property 'name' */
     @Test
-    public void nameTest() {
+    void nameTest() {
         // TODO: test name
     }
 
     /** Test the property 'symbol' */
     @Test
-    public void symbolTest() {
+    void symbolTest() {
         // TODO: test symbol
     }
 }

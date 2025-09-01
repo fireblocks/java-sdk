@@ -13,33 +13,33 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for SwapRequiredAction */
-public class SwapRequiredActionTest {
+class SwapRequiredActionTest {
     private final SwapRequiredAction model = new SwapRequiredAction();
 
     /** Model tests for SwapRequiredAction */
     @Test
-    public void testSwapRequiredAction() {
+    void testSwapRequiredAction() {
         // TODO: test SwapRequiredAction
     }
 
     /** Test the property 'type' */
     @Test
-    public void typeTest() {
+    void typeTest() {
         // TODO: test type
     }
 
     /** Test the property 'status' */
     @Test
-    public void statusTest() {
+    void statusTest() {
         // TODO: test status
     }
 
     /** Test the property 'txId' */
     @Test
-    public void txIdTest() {
+    void txIdTest() {
         // TODO: test txId
     }
 }

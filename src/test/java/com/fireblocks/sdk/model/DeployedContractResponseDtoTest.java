@@ -13,69 +13,69 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for DeployedContractResponseDto */
-public class DeployedContractResponseDtoTest {
+class DeployedContractResponseDtoTest {
     private final DeployedContractResponseDto model = new DeployedContractResponseDto();
 
     /** Model tests for DeployedContractResponseDto */
     @Test
-    public void testDeployedContractResponseDto() {
+    void testDeployedContractResponseDto() {
         // TODO: test DeployedContractResponseDto
     }
 
     /** Test the property 'id' */
     @Test
-    public void idTest() {
+    void idTest() {
         // TODO: test id
     }
 
     /** Test the property 'contractAddress' */
     @Test
-    public void contractAddressTest() {
+    void contractAddressTest() {
         // TODO: test contractAddress
     }
 
     /** Test the property 'contractTemplateId' */
     @Test
-    public void contractTemplateIdTest() {
+    void contractTemplateIdTest() {
         // TODO: test contractTemplateId
     }
 
     /** Test the property 'vaultAccountId' */
     @Test
-    public void vaultAccountIdTest() {
+    void vaultAccountIdTest() {
         // TODO: test vaultAccountId
     }
 
     /** Test the property 'blockchainId' */
     @Test
-    public void blockchainIdTest() {
+    void blockchainIdTest() {
         // TODO: test blockchainId
     }
 
     /** Test the property 'baseAssetId' */
     @Test
-    public void baseAssetIdTest() {
+    void baseAssetIdTest() {
         // TODO: test baseAssetId
     }
 
     /** Test the property 'gaslessConfig' */
     @Test
-    public void gaslessConfigTest() {
+    void gaslessConfigTest() {
         // TODO: test gaslessConfig
     }
 
     /** Test the property 'multichainDeploymentMetadata' */
     @Test
-    public void multichainDeploymentMetadataTest() {
+    void multichainDeploymentMetadataTest() {
         // TODO: test multichainDeploymentMetadata
     }
 
     /** Test the property 'solanaConfig' */
     @Test
-    public void solanaConfigTest() {
+    void solanaConfigTest() {
         // TODO: test solanaConfig
     }
 }

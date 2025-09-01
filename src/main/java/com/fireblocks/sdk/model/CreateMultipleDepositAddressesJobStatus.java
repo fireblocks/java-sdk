@@ -13,11 +13,11 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -29,20 +29,29 @@ import java.util.StringJoiner;
     CreateMultipleDepositAddressesJobStatus.JSON_PROPERTY_ADDRESSES,
     CreateMultipleDepositAddressesJobStatus.JSON_PROPERTY_ERROR_MESSAGE
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class CreateMultipleDepositAddressesJobStatus {
     public static final String JSON_PROPERTY_STATUS = "status";
-    private String status;
+    @jakarta.annotation.Nonnull private String status;
 
     public static final String JSON_PROPERTY_ADDRESSES = "addresses";
-    private List<NewAddress> addresses;
+    @jakarta.annotation.Nullable private List<NewAddress> addresses = new ArrayList<>();
 
     public static final String JSON_PROPERTY_ERROR_MESSAGE = "errorMessage";
-    private String errorMessage;
+    @jakarta.annotation.Nullable private String errorMessage;
 
     public CreateMultipleDepositAddressesJobStatus() {}
 
-    public CreateMultipleDepositAddressesJobStatus status(String status) {
+    @JsonCreator
+    public CreateMultipleDepositAddressesJobStatus(
+            @JsonProperty(value = JSON_PROPERTY_STATUS, required = true) String status) {
+        this.status = status;
+    }
+
+    public CreateMultipleDepositAddressesJobStatus status(
+            @jakarta.annotation.Nonnull String status) {
         this.status = status;
         return this;
     }
@@ -61,11 +70,12 @@ public class CreateMultipleDepositAddressesJobStatus {
 
     @JsonProperty(JSON_PROPERTY_STATUS)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setStatus(String status) {
+    public void setStatus(@jakarta.annotation.Nonnull String status) {
         this.status = status;
     }
 
-    public CreateMultipleDepositAddressesJobStatus addresses(List<NewAddress> addresses) {
+    public CreateMultipleDepositAddressesJobStatus addresses(
+            @jakarta.annotation.Nullable List<NewAddress> addresses) {
         this.addresses = addresses;
         return this;
     }
@@ -92,11 +102,12 @@ public class CreateMultipleDepositAddressesJobStatus {
 
     @JsonProperty(JSON_PROPERTY_ADDRESSES)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAddresses(List<NewAddress> addresses) {
+    public void setAddresses(@jakarta.annotation.Nullable List<NewAddress> addresses) {
         this.addresses = addresses;
     }
 
-    public CreateMultipleDepositAddressesJobStatus errorMessage(String errorMessage) {
+    public CreateMultipleDepositAddressesJobStatus errorMessage(
+            @jakarta.annotation.Nullable String errorMessage) {
         this.errorMessage = errorMessage;
         return this;
     }
@@ -115,7 +126,7 @@ public class CreateMultipleDepositAddressesJobStatus {
 
     @JsonProperty(JSON_PROPERTY_ERROR_MESSAGE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setErrorMessage(String errorMessage) {
+    public void setErrorMessage(@jakarta.annotation.Nullable String errorMessage) {
         this.errorMessage = errorMessage;
     }
 
@@ -202,8 +213,7 @@ public class CreateMultipleDepositAddressesJobStatus {
                             "%sstatus%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getStatus()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getStatus()))));
         }
 
         // add `addresses` to the URL query string
@@ -236,10 +246,7 @@ public class CreateMultipleDepositAddressesJobStatus {
                             "%serrorMessage%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getErrorMessage()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getErrorMessage()))));
         }
 
         return joiner.toString();

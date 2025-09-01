@@ -13,6 +13,7 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -21,14 +22,24 @@ import java.util.StringJoiner;
 
 /** ReadCallFunctionDto */
 @JsonPropertyOrder({ReadCallFunctionDto.JSON_PROPERTY_ABI_FUNCTION})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class ReadCallFunctionDto {
     public static final String JSON_PROPERTY_ABI_FUNCTION = "abiFunction";
-    private ReadCallFunctionDtoAbiFunction abiFunction;
+    @jakarta.annotation.Nonnull private ReadCallFunctionDtoAbiFunction abiFunction;
 
     public ReadCallFunctionDto() {}
 
-    public ReadCallFunctionDto abiFunction(ReadCallFunctionDtoAbiFunction abiFunction) {
+    @JsonCreator
+    public ReadCallFunctionDto(
+            @JsonProperty(value = JSON_PROPERTY_ABI_FUNCTION, required = true)
+                    ReadCallFunctionDtoAbiFunction abiFunction) {
+        this.abiFunction = abiFunction;
+    }
+
+    public ReadCallFunctionDto abiFunction(
+            @jakarta.annotation.Nonnull ReadCallFunctionDtoAbiFunction abiFunction) {
         this.abiFunction = abiFunction;
         return this;
     }
@@ -47,7 +58,8 @@ public class ReadCallFunctionDto {
 
     @JsonProperty(JSON_PROPERTY_ABI_FUNCTION)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setAbiFunction(ReadCallFunctionDtoAbiFunction abiFunction) {
+    public void setAbiFunction(
+            @jakarta.annotation.Nonnull ReadCallFunctionDtoAbiFunction abiFunction) {
         this.abiFunction = abiFunction;
     }
 

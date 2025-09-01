@@ -13,51 +13,51 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for QuoteFee */
-public class QuoteFeeTest {
+class QuoteFeeTest {
     private final QuoteFee model = new QuoteFee();
 
     /** Model tests for QuoteFee */
     @Test
-    public void testQuoteFee() {
+    void testQuoteFee() {
         // TODO: test QuoteFee
     }
 
     /** Test the property 'networkExecutionFee' */
     @Test
-    public void networkExecutionFeeTest() {
+    void networkExecutionFeeTest() {
         // TODO: test networkExecutionFee
     }
 
     /** Test the property 'networkFeeAssetId' */
     @Test
-    public void networkFeeAssetIdTest() {
+    void networkFeeAssetIdTest() {
         // TODO: test networkFeeAssetId
     }
 
     /** Test the property 'providerFee' */
     @Test
-    public void providerFeeTest() {
+    void providerFeeTest() {
         // TODO: test providerFee
     }
 
     /** Test the property 'providerFeeAssetId' */
     @Test
-    public void providerFeeAssetIdTest() {
+    void providerFeeAssetIdTest() {
         // TODO: test providerFeeAssetId
     }
 
     /** Test the property 'providerFeeRate' */
     @Test
-    public void providerFeeRateTest() {
+    void providerFeeRateTest() {
         // TODO: test providerFeeRate
     }
 
     /** Test the property 'networkApproveFee' */
     @Test
-    public void networkApproveFeeTest() {
+    void networkApproveFeeTest() {
         // TODO: test networkApproveFee
     }
 }

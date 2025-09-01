@@ -13,21 +13,21 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for ScreeningOperationExecutionOutput */
-public class ScreeningOperationExecutionOutputTest {
+class ScreeningOperationExecutionOutputTest {
     private final ScreeningOperationExecutionOutput model = new ScreeningOperationExecutionOutput();
 
     /** Model tests for ScreeningOperationExecutionOutput */
     @Test
-    public void testScreeningOperationExecutionOutput() {
+    void testScreeningOperationExecutionOutput() {
         // TODO: test ScreeningOperationExecutionOutput
     }
 
     /** Test the property 'verdicts' */
     @Test
-    public void verdictsTest() {
+    void verdictsTest() {
         // TODO: test verdicts
     }
 }

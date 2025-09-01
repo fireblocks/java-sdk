@@ -13,45 +13,45 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for CollectionLinkDto */
-public class CollectionLinkDtoTest {
+class CollectionLinkDtoTest {
     private final CollectionLinkDto model = new CollectionLinkDto();
 
     /** Model tests for CollectionLinkDto */
     @Test
-    public void testCollectionLinkDto() {
+    void testCollectionLinkDto() {
         // TODO: test CollectionLinkDto
     }
 
     /** Test the property 'id' */
     @Test
-    public void idTest() {
+    void idTest() {
         // TODO: test id
     }
 
     /** Test the property 'status' */
     @Test
-    public void statusTest() {
+    void statusTest() {
         // TODO: test status
     }
 
     /** Test the property 'type' */
     @Test
-    public void typeTest() {
+    void typeTest() {
         // TODO: test type
     }
 
     /** Test the property 'displayName' */
     @Test
-    public void displayNameTest() {
+    void displayNameTest() {
         // TODO: test displayName
     }
 
     /** Test the property 'collectionMetadata' */
     @Test
-    public void collectionMetadataTest() {
+    void collectionMetadataTest() {
         // TODO: test collectionMetadata
     }
 }

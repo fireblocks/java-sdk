@@ -36,7 +36,9 @@ import java.util.StringJoiner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 @JsonDeserialize(
         using = AddAssetToExternalWalletRequest.AddAssetToExternalWalletRequestDeserializer.class)
 @JsonSerialize(
@@ -84,106 +86,90 @@ public class AddAssetToExternalWalletRequest extends AbstractOpenApiSchema {
             boolean typeCoercion = ctxt.isEnabled(MapperFeature.ALLOW_COERCION_OF_SCALARS);
             int match = 0;
             JsonToken token = tree.traverse(jp.getCodec()).nextToken();
-            // deserialize AddAssetToExternalWalletRequestOneOf
+            // deserialize AdditionalInfoRequest
             try {
                 boolean attemptParsing = true;
                 // ensure that we respect type coercion as set on the client ObjectMapper
-                if (AddAssetToExternalWalletRequestOneOf.class.equals(Integer.class)
-                        || AddAssetToExternalWalletRequestOneOf.class.equals(Long.class)
-                        || AddAssetToExternalWalletRequestOneOf.class.equals(Float.class)
-                        || AddAssetToExternalWalletRequestOneOf.class.equals(Double.class)
-                        || AddAssetToExternalWalletRequestOneOf.class.equals(Boolean.class)
-                        || AddAssetToExternalWalletRequestOneOf.class.equals(String.class)) {
+                if (AdditionalInfoRequest.class.equals(Integer.class)
+                        || AdditionalInfoRequest.class.equals(Long.class)
+                        || AdditionalInfoRequest.class.equals(Float.class)
+                        || AdditionalInfoRequest.class.equals(Double.class)
+                        || AdditionalInfoRequest.class.equals(Boolean.class)
+                        || AdditionalInfoRequest.class.equals(String.class)) {
                     attemptParsing = typeCoercion;
                     if (!attemptParsing) {
                         attemptParsing |=
-                                ((AddAssetToExternalWalletRequestOneOf.class.equals(Integer.class)
-                                                || AddAssetToExternalWalletRequestOneOf.class
-                                                        .equals(Long.class))
+                                ((AdditionalInfoRequest.class.equals(Integer.class)
+                                                || AdditionalInfoRequest.class.equals(Long.class))
                                         && token == JsonToken.VALUE_NUMBER_INT);
                         attemptParsing |=
-                                ((AddAssetToExternalWalletRequestOneOf.class.equals(Float.class)
-                                                || AddAssetToExternalWalletRequestOneOf.class
-                                                        .equals(Double.class))
+                                ((AdditionalInfoRequest.class.equals(Float.class)
+                                                || AdditionalInfoRequest.class.equals(Double.class))
                                         && token == JsonToken.VALUE_NUMBER_FLOAT);
                         attemptParsing |=
-                                (AddAssetToExternalWalletRequestOneOf.class.equals(Boolean.class)
+                                (AdditionalInfoRequest.class.equals(Boolean.class)
                                         && (token == JsonToken.VALUE_FALSE
                                                 || token == JsonToken.VALUE_TRUE));
                         attemptParsing |=
-                                (AddAssetToExternalWalletRequestOneOf.class.equals(String.class)
+                                (AdditionalInfoRequest.class.equals(String.class)
                                         && token == JsonToken.VALUE_STRING);
                     }
                 }
                 if (attemptParsing) {
                     deserialized =
-                            tree.traverse(jp.getCodec())
-                                    .readValueAs(AddAssetToExternalWalletRequestOneOf.class);
+                            tree.traverse(jp.getCodec()).readValueAs(AdditionalInfoRequest.class);
                     // TODO: there is no validation against JSON schema constraints
                     // (min, max, enum, pattern...), this does not perform a strict JSON
                     // validation, which means the 'match' count may be higher than it should be.
                     match++;
-                    log.log(
-                            Level.FINER,
-                            "Input data matches schema 'AddAssetToExternalWalletRequestOneOf'");
+                    log.log(Level.FINER, "Input data matches schema 'AdditionalInfoRequest'");
                 }
             } catch (Exception e) {
                 // deserialization failed, continue
-                log.log(
-                        Level.FINER,
-                        "Input data does not match schema 'AddAssetToExternalWalletRequestOneOf'",
-                        e);
+                log.log(Level.FINER, "Input data does not match schema 'AdditionalInfoRequest'", e);
             }
 
-            // deserialize AddAssetToExternalWalletRequestOneOf1
+            // deserialize BasicAddressRequest
             try {
                 boolean attemptParsing = true;
                 // ensure that we respect type coercion as set on the client ObjectMapper
-                if (AddAssetToExternalWalletRequestOneOf1.class.equals(Integer.class)
-                        || AddAssetToExternalWalletRequestOneOf1.class.equals(Long.class)
-                        || AddAssetToExternalWalletRequestOneOf1.class.equals(Float.class)
-                        || AddAssetToExternalWalletRequestOneOf1.class.equals(Double.class)
-                        || AddAssetToExternalWalletRequestOneOf1.class.equals(Boolean.class)
-                        || AddAssetToExternalWalletRequestOneOf1.class.equals(String.class)) {
+                if (BasicAddressRequest.class.equals(Integer.class)
+                        || BasicAddressRequest.class.equals(Long.class)
+                        || BasicAddressRequest.class.equals(Float.class)
+                        || BasicAddressRequest.class.equals(Double.class)
+                        || BasicAddressRequest.class.equals(Boolean.class)
+                        || BasicAddressRequest.class.equals(String.class)) {
                     attemptParsing = typeCoercion;
                     if (!attemptParsing) {
                         attemptParsing |=
-                                ((AddAssetToExternalWalletRequestOneOf1.class.equals(Integer.class)
-                                                || AddAssetToExternalWalletRequestOneOf1.class
-                                                        .equals(Long.class))
+                                ((BasicAddressRequest.class.equals(Integer.class)
+                                                || BasicAddressRequest.class.equals(Long.class))
                                         && token == JsonToken.VALUE_NUMBER_INT);
                         attemptParsing |=
-                                ((AddAssetToExternalWalletRequestOneOf1.class.equals(Float.class)
-                                                || AddAssetToExternalWalletRequestOneOf1.class
-                                                        .equals(Double.class))
+                                ((BasicAddressRequest.class.equals(Float.class)
+                                                || BasicAddressRequest.class.equals(Double.class))
                                         && token == JsonToken.VALUE_NUMBER_FLOAT);
                         attemptParsing |=
-                                (AddAssetToExternalWalletRequestOneOf1.class.equals(Boolean.class)
+                                (BasicAddressRequest.class.equals(Boolean.class)
                                         && (token == JsonToken.VALUE_FALSE
                                                 || token == JsonToken.VALUE_TRUE));
                         attemptParsing |=
-                                (AddAssetToExternalWalletRequestOneOf1.class.equals(String.class)
+                                (BasicAddressRequest.class.equals(String.class)
                                         && token == JsonToken.VALUE_STRING);
                     }
                 }
                 if (attemptParsing) {
                     deserialized =
-                            tree.traverse(jp.getCodec())
-                                    .readValueAs(AddAssetToExternalWalletRequestOneOf1.class);
+                            tree.traverse(jp.getCodec()).readValueAs(BasicAddressRequest.class);
                     // TODO: there is no validation against JSON schema constraints
                     // (min, max, enum, pattern...), this does not perform a strict JSON
                     // validation, which means the 'match' count may be higher than it should be.
                     match++;
-                    log.log(
-                            Level.FINER,
-                            "Input data matches schema 'AddAssetToExternalWalletRequestOneOf1'");
+                    log.log(Level.FINER, "Input data matches schema 'BasicAddressRequest'");
                 }
             } catch (Exception e) {
                 // deserialization failed, continue
-                log.log(
-                        Level.FINER,
-                        "Input data does not match schema 'AddAssetToExternalWalletRequestOneOf1'",
-                        e);
+                log.log(Level.FINER, "Input data does not match schema 'BasicAddressRequest'", e);
             }
 
             if (match == 1) {
@@ -214,22 +200,19 @@ public class AddAssetToExternalWalletRequest extends AbstractOpenApiSchema {
         super("oneOf", Boolean.FALSE);
     }
 
-    public AddAssetToExternalWalletRequest(AddAssetToExternalWalletRequestOneOf o) {
+    public AddAssetToExternalWalletRequest(AdditionalInfoRequest o) {
         super("oneOf", Boolean.FALSE);
         setActualInstance(o);
     }
 
-    public AddAssetToExternalWalletRequest(AddAssetToExternalWalletRequestOneOf1 o) {
+    public AddAssetToExternalWalletRequest(BasicAddressRequest o) {
         super("oneOf", Boolean.FALSE);
         setActualInstance(o);
     }
 
     static {
-        schemas.put(
-                "AddAssetToExternalWalletRequestOneOf", AddAssetToExternalWalletRequestOneOf.class);
-        schemas.put(
-                "AddAssetToExternalWalletRequestOneOf1",
-                AddAssetToExternalWalletRequestOneOf1.class);
+        schemas.put("AdditionalInfoRequest", AdditionalInfoRequest.class);
+        schemas.put("BasicAddressRequest", BasicAddressRequest.class);
         JSON.registerDescendants(
                 AddAssetToExternalWalletRequest.class, Collections.unmodifiableMap(schemas));
     }
@@ -241,37 +224,32 @@ public class AddAssetToExternalWalletRequest extends AbstractOpenApiSchema {
 
     /**
      * Set the instance that matches the oneOf child schema, check the instance parameter is valid
-     * against the oneOf child schemas: AddAssetToExternalWalletRequestOneOf,
-     * AddAssetToExternalWalletRequestOneOf1
+     * against the oneOf child schemas: AdditionalInfoRequest, BasicAddressRequest
      *
      * <p>It could be an instance of the 'oneOf' schemas. The oneOf child schemas may themselves be
      * a composed schema (allOf, anyOf, oneOf).
      */
     @Override
     public void setActualInstance(Object instance) {
-        if (JSON.isInstanceOf(
-                AddAssetToExternalWalletRequestOneOf.class, instance, new HashSet<Class<?>>())) {
+        if (JSON.isInstanceOf(AdditionalInfoRequest.class, instance, new HashSet<Class<?>>())) {
             super.setActualInstance(instance);
             return;
         }
 
-        if (JSON.isInstanceOf(
-                AddAssetToExternalWalletRequestOneOf1.class, instance, new HashSet<Class<?>>())) {
+        if (JSON.isInstanceOf(BasicAddressRequest.class, instance, new HashSet<Class<?>>())) {
             super.setActualInstance(instance);
             return;
         }
 
         throw new RuntimeException(
-                "Invalid instance type. Must be AddAssetToExternalWalletRequestOneOf,"
-                        + " AddAssetToExternalWalletRequestOneOf1");
+                "Invalid instance type. Must be AdditionalInfoRequest, BasicAddressRequest");
     }
 
     /**
-     * Get the actual instance, which can be the following: AddAssetToExternalWalletRequestOneOf,
-     * AddAssetToExternalWalletRequestOneOf1
+     * Get the actual instance, which can be the following: AdditionalInfoRequest,
+     * BasicAddressRequest
      *
-     * @return The actual instance (AddAssetToExternalWalletRequestOneOf,
-     *     AddAssetToExternalWalletRequestOneOf1)
+     * @return The actual instance (AdditionalInfoRequest, BasicAddressRequest)
      */
     @Override
     public Object getActualInstance() {
@@ -279,27 +257,25 @@ public class AddAssetToExternalWalletRequest extends AbstractOpenApiSchema {
     }
 
     /**
-     * Get the actual instance of `AddAssetToExternalWalletRequestOneOf`. If the actual instance is
-     * not `AddAssetToExternalWalletRequestOneOf`, the ClassCastException will be thrown.
+     * Get the actual instance of `AdditionalInfoRequest`. If the actual instance is not
+     * `AdditionalInfoRequest`, the ClassCastException will be thrown.
      *
-     * @return The actual instance of `AddAssetToExternalWalletRequestOneOf`
-     * @throws ClassCastException if the instance is not `AddAssetToExternalWalletRequestOneOf`
+     * @return The actual instance of `AdditionalInfoRequest`
+     * @throws ClassCastException if the instance is not `AdditionalInfoRequest`
      */
-    public AddAssetToExternalWalletRequestOneOf getAddAssetToExternalWalletRequestOneOf()
-            throws ClassCastException {
-        return (AddAssetToExternalWalletRequestOneOf) super.getActualInstance();
+    public AdditionalInfoRequest getAdditionalInfoRequest() throws ClassCastException {
+        return (AdditionalInfoRequest) super.getActualInstance();
     }
 
     /**
-     * Get the actual instance of `AddAssetToExternalWalletRequestOneOf1`. If the actual instance is
-     * not `AddAssetToExternalWalletRequestOneOf1`, the ClassCastException will be thrown.
+     * Get the actual instance of `BasicAddressRequest`. If the actual instance is not
+     * `BasicAddressRequest`, the ClassCastException will be thrown.
      *
-     * @return The actual instance of `AddAssetToExternalWalletRequestOneOf1`
-     * @throws ClassCastException if the instance is not `AddAssetToExternalWalletRequestOneOf1`
+     * @return The actual instance of `BasicAddressRequest`
+     * @throws ClassCastException if the instance is not `BasicAddressRequest`
      */
-    public AddAssetToExternalWalletRequestOneOf1 getAddAssetToExternalWalletRequestOneOf1()
-            throws ClassCastException {
-        return (AddAssetToExternalWalletRequestOneOf1) super.getActualInstance();
+    public BasicAddressRequest getBasicAddressRequest() throws ClassCastException {
+        return (BasicAddressRequest) super.getActualInstance();
     }
 
     /**
@@ -334,18 +310,18 @@ public class AddAssetToExternalWalletRequest extends AbstractOpenApiSchema {
 
         StringJoiner joiner = new StringJoiner("&");
 
-        if (getActualInstance() instanceof AddAssetToExternalWalletRequestOneOf) {
+        if (getActualInstance() instanceof BasicAddressRequest) {
             if (getActualInstance() != null) {
                 joiner.add(
-                        ((AddAssetToExternalWalletRequestOneOf) getActualInstance())
+                        ((BasicAddressRequest) getActualInstance())
                                 .toUrlQueryString(prefix + "one_of_0" + suffix));
             }
             return joiner.toString();
         }
-        if (getActualInstance() instanceof AddAssetToExternalWalletRequestOneOf1) {
+        if (getActualInstance() instanceof AdditionalInfoRequest) {
             if (getActualInstance() != null) {
                 joiner.add(
-                        ((AddAssetToExternalWalletRequestOneOf1) getActualInstance())
+                        ((AdditionalInfoRequest) getActualInstance())
                                 .toUrlQueryString(prefix + "one_of_1" + suffix));
             }
             return joiner.toString();

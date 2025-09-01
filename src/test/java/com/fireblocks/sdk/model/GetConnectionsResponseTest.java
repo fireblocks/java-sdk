@@ -13,27 +13,27 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for GetConnectionsResponse */
-public class GetConnectionsResponseTest {
+class GetConnectionsResponseTest {
     private final GetConnectionsResponse model = new GetConnectionsResponse();
 
     /** Model tests for GetConnectionsResponse */
     @Test
-    public void testGetConnectionsResponse() {
+    void testGetConnectionsResponse() {
         // TODO: test GetConnectionsResponse
     }
 
     /** Test the property 'data' */
     @Test
-    public void dataTest() {
+    void dataTest() {
         // TODO: test data
     }
 
     /** Test the property 'paging' */
     @Test
-    public void pagingTest() {
+    void pagingTest() {
         // TODO: test paging
     }
 }

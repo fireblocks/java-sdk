@@ -13,21 +13,21 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for VaultActionStatus */
-public class VaultActionStatusTest {
+class VaultActionStatusTest {
     private final VaultActionStatus model = new VaultActionStatus();
 
     /** Model tests for VaultActionStatus */
     @Test
-    public void testVaultActionStatus() {
+    void testVaultActionStatus() {
         // TODO: test VaultActionStatus
     }
 
     /** Test the property 'success' */
     @Test
-    public void successTest() {
+    void successTest() {
         // TODO: test success
     }
 }

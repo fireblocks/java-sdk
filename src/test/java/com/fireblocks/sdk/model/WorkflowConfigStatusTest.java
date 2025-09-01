@@ -13,13 +13,13 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for WorkflowConfigStatus */
-public class WorkflowConfigStatusTest {
+class WorkflowConfigStatusTest {
     /** Model tests for WorkflowConfigStatus */
     @Test
-    public void testWorkflowConfigStatus() {
+    void testWorkflowConfigStatus() {
         // TODO: test WorkflowConfigStatus
     }
 }

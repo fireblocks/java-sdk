@@ -13,11 +13,11 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -30,23 +30,35 @@ import java.util.StringJoiner;
     UnmanagedWallet.JSON_PROPERTY_CUSTOMER_REF_ID,
     UnmanagedWallet.JSON_PROPERTY_ASSETS
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class UnmanagedWallet {
     public static final String JSON_PROPERTY_ID = "id";
-    private String id;
+    @jakarta.annotation.Nonnull private String id;
 
     public static final String JSON_PROPERTY_NAME = "name";
-    private String name;
+    @jakarta.annotation.Nonnull private String name;
 
     public static final String JSON_PROPERTY_CUSTOMER_REF_ID = "customerRefId";
-    private String customerRefId;
+    @jakarta.annotation.Nullable private String customerRefId;
 
     public static final String JSON_PROPERTY_ASSETS = "assets";
-    private List<WalletAsset> assets = new ArrayList<>();
+    @jakarta.annotation.Nonnull private List<WalletAsset> assets = new ArrayList<>();
 
     public UnmanagedWallet() {}
 
-    public UnmanagedWallet id(String id) {
+    @JsonCreator
+    public UnmanagedWallet(
+            @JsonProperty(value = JSON_PROPERTY_ID, required = true) String id,
+            @JsonProperty(value = JSON_PROPERTY_NAME, required = true) String name,
+            @JsonProperty(value = JSON_PROPERTY_ASSETS, required = true) List<WalletAsset> assets) {
+        this.id = id;
+        this.name = name;
+        this.assets = assets;
+    }
+
+    public UnmanagedWallet id(@jakarta.annotation.Nonnull String id) {
         this.id = id;
         return this;
     }
@@ -65,11 +77,11 @@ public class UnmanagedWallet {
 
     @JsonProperty(JSON_PROPERTY_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setId(String id) {
+    public void setId(@jakarta.annotation.Nonnull String id) {
         this.id = id;
     }
 
-    public UnmanagedWallet name(String name) {
+    public UnmanagedWallet name(@jakarta.annotation.Nonnull String name) {
         this.name = name;
         return this;
     }
@@ -88,11 +100,11 @@ public class UnmanagedWallet {
 
     @JsonProperty(JSON_PROPERTY_NAME)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setName(String name) {
+    public void setName(@jakarta.annotation.Nonnull String name) {
         this.name = name;
     }
 
-    public UnmanagedWallet customerRefId(String customerRefId) {
+    public UnmanagedWallet customerRefId(@jakarta.annotation.Nullable String customerRefId) {
         this.customerRefId = customerRefId;
         return this;
     }
@@ -111,11 +123,11 @@ public class UnmanagedWallet {
 
     @JsonProperty(JSON_PROPERTY_CUSTOMER_REF_ID)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setCustomerRefId(String customerRefId) {
+    public void setCustomerRefId(@jakarta.annotation.Nullable String customerRefId) {
         this.customerRefId = customerRefId;
     }
 
-    public UnmanagedWallet assets(List<WalletAsset> assets) {
+    public UnmanagedWallet assets(@jakarta.annotation.Nonnull List<WalletAsset> assets) {
         this.assets = assets;
         return this;
     }
@@ -142,7 +154,7 @@ public class UnmanagedWallet {
 
     @JsonProperty(JSON_PROPERTY_ASSETS)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setAssets(List<WalletAsset> assets) {
+    public void setAssets(@jakarta.annotation.Nonnull List<WalletAsset> assets) {
         this.assets = assets;
     }
 
@@ -227,10 +239,7 @@ public class UnmanagedWallet {
             joiner.add(
                     String.format(
                             "%sid%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(String.valueOf(getId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getId()))));
         }
 
         // add `name` to the URL query string
@@ -240,8 +249,7 @@ public class UnmanagedWallet {
                             "%sname%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getName()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getName()))));
         }
 
         // add `customerRefId` to the URL query string
@@ -251,10 +259,7 @@ public class UnmanagedWallet {
                             "%scustomerRefId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getCustomerRefId()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getCustomerRefId()))));
         }
 
         // add `assets` to the URL query string

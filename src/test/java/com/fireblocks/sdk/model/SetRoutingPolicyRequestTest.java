@@ -13,21 +13,21 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for SetRoutingPolicyRequest */
-public class SetRoutingPolicyRequestTest {
+class SetRoutingPolicyRequestTest {
     private final SetRoutingPolicyRequest model = new SetRoutingPolicyRequest();
 
     /** Model tests for SetRoutingPolicyRequest */
     @Test
-    public void testSetRoutingPolicyRequest() {
+    void testSetRoutingPolicyRequest() {
         // TODO: test SetRoutingPolicyRequest
     }
 
     /** Test the property 'routingPolicy' */
     @Test
-    public void routingPolicyTest() {
+    void routingPolicyTest() {
         // TODO: test routingPolicy
     }
 }

@@ -18,7 +18,7 @@
 
 | Name | Value |
 |---- | -----|
-| ECDSA_SECP256K1 | &quot;ECDSA_SECP256K1&quot; |
+| ECDSA_SECP256_K1 | &quot;ECDSA_SECP256K1&quot; |
 | EDDSA_ED25519 | &quot;EDDSA_ED25519&quot; |
 
 

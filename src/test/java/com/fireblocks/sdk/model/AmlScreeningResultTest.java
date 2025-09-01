@@ -13,27 +13,27 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for AmlScreeningResult */
-public class AmlScreeningResultTest {
+class AmlScreeningResultTest {
     private final AmlScreeningResult model = new AmlScreeningResult();
 
     /** Model tests for AmlScreeningResult */
     @Test
-    public void testAmlScreeningResult() {
+    void testAmlScreeningResult() {
         // TODO: test AmlScreeningResult
     }
 
     /** Test the property 'provider' */
     @Test
-    public void providerTest() {
+    void providerTest() {
         // TODO: test provider
     }
 
     /** Test the property 'payload' */
     @Test
-    public void payloadTest() {
+    void payloadTest() {
         // TODO: test payload
     }
 }

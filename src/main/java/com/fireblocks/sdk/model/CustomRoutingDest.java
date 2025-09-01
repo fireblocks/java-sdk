@@ -18,8 +18,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonValue;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -29,11 +28,13 @@ import java.util.StringJoiner;
     CustomRoutingDest.JSON_PROPERTY_DST_TYPE,
     CustomRoutingDest.JSON_PROPERTY_DST_ID
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class CustomRoutingDest {
     /** The network routing logic. */
     public enum SchemeEnum {
-        CUSTOM("CUSTOM");
+        CUSTOM(String.valueOf("CUSTOM"));
 
         private String value;
 
@@ -63,15 +64,15 @@ public class CustomRoutingDest {
     }
 
     public static final String JSON_PROPERTY_SCHEME = "scheme";
-    private SchemeEnum scheme;
+    @jakarta.annotation.Nonnull private SchemeEnum scheme;
 
     /** The account the funds are being sent to. */
     public enum DstTypeEnum {
-        FIAT_ACCOUNT("FIAT_ACCOUNT"),
+        FIAT_ACCOUNT(String.valueOf("FIAT_ACCOUNT")),
 
-        VAULT("VAULT"),
+        VAULT(String.valueOf("VAULT")),
 
-        EXCHANGE("EXCHANGE");
+        EXCHANGE(String.valueOf("EXCHANGE"));
 
         private String value;
 
@@ -101,14 +102,24 @@ public class CustomRoutingDest {
     }
 
     public static final String JSON_PROPERTY_DST_TYPE = "dstType";
-    private DstTypeEnum dstType;
+    @jakarta.annotation.Nonnull private DstTypeEnum dstType;
 
     public static final String JSON_PROPERTY_DST_ID = "dstId";
-    private String dstId;
+    @jakarta.annotation.Nonnull private String dstId;
 
     public CustomRoutingDest() {}
 
-    public CustomRoutingDest scheme(SchemeEnum scheme) {
+    @JsonCreator
+    public CustomRoutingDest(
+            @JsonProperty(value = JSON_PROPERTY_SCHEME, required = true) SchemeEnum scheme,
+            @JsonProperty(value = JSON_PROPERTY_DST_TYPE, required = true) DstTypeEnum dstType,
+            @JsonProperty(value = JSON_PROPERTY_DST_ID, required = true) String dstId) {
+        this.scheme = scheme;
+        this.dstType = dstType;
+        this.dstId = dstId;
+    }
+
+    public CustomRoutingDest scheme(@jakarta.annotation.Nonnull SchemeEnum scheme) {
         this.scheme = scheme;
         return this;
     }
@@ -127,11 +138,11 @@ public class CustomRoutingDest {
 
     @JsonProperty(JSON_PROPERTY_SCHEME)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setScheme(SchemeEnum scheme) {
+    public void setScheme(@jakarta.annotation.Nonnull SchemeEnum scheme) {
         this.scheme = scheme;
     }
 
-    public CustomRoutingDest dstType(DstTypeEnum dstType) {
+    public CustomRoutingDest dstType(@jakarta.annotation.Nonnull DstTypeEnum dstType) {
         this.dstType = dstType;
         return this;
     }
@@ -150,11 +161,11 @@ public class CustomRoutingDest {
 
     @JsonProperty(JSON_PROPERTY_DST_TYPE)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setDstType(DstTypeEnum dstType) {
+    public void setDstType(@jakarta.annotation.Nonnull DstTypeEnum dstType) {
         this.dstType = dstType;
     }
 
-    public CustomRoutingDest dstId(String dstId) {
+    public CustomRoutingDest dstId(@jakarta.annotation.Nonnull String dstId) {
         this.dstId = dstId;
         return this;
     }
@@ -173,7 +184,7 @@ public class CustomRoutingDest {
 
     @JsonProperty(JSON_PROPERTY_DST_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setDstId(String dstId) {
+    public void setDstId(@jakarta.annotation.Nonnull String dstId) {
         this.dstId = dstId;
     }
 
@@ -258,8 +269,7 @@ public class CustomRoutingDest {
                             "%sscheme%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getScheme()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getScheme()))));
         }
 
         // add `dstType` to the URL query string
@@ -269,8 +279,7 @@ public class CustomRoutingDest {
                             "%sdstType%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getDstType()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getDstType()))));
         }
 
         // add `dstId` to the URL query string
@@ -280,8 +289,7 @@ public class CustomRoutingDest {
                             "%sdstId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getDstId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getDstId()))));
         }
 
         return joiner.toString();

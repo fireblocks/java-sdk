@@ -13,28 +13,28 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for CreateSigningKeyDtoProofOfOwnership */
-public class CreateSigningKeyDtoProofOfOwnershipTest {
+class CreateSigningKeyDtoProofOfOwnershipTest {
     private final CreateSigningKeyDtoProofOfOwnership model =
             new CreateSigningKeyDtoProofOfOwnership();
 
     /** Model tests for CreateSigningKeyDtoProofOfOwnership */
     @Test
-    public void testCreateSigningKeyDtoProofOfOwnership() {
+    void testCreateSigningKeyDtoProofOfOwnership() {
         // TODO: test CreateSigningKeyDtoProofOfOwnership
     }
 
     /** Test the property 'message' */
     @Test
-    public void messageTest() {
+    void messageTest() {
         // TODO: test message
     }
 
     /** Test the property 'signature' */
     @Test
-    public void signatureTest() {
+    void signatureTest() {
         // TODO: test signature
     }
 }

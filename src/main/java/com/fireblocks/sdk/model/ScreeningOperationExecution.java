@@ -13,12 +13,12 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fireblocks.sdk.ApiClient;
 import java.math.BigDecimal;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -29,23 +29,32 @@ import java.util.StringJoiner;
     ScreeningOperationExecution.JSON_PROPERTY_FINISHED_AT,
     ScreeningOperationExecution.JSON_PROPERTY_FAILURE
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class ScreeningOperationExecution {
     public static final String JSON_PROPERTY_OUTPUT = "output";
-    private ScreeningOperationExecutionOutput output;
+    @jakarta.annotation.Nullable private ScreeningOperationExecutionOutput output;
 
     public static final String JSON_PROPERTY_STARTED_AT = "startedAt";
-    private BigDecimal startedAt;
+    @jakarta.annotation.Nonnull private BigDecimal startedAt;
 
     public static final String JSON_PROPERTY_FINISHED_AT = "finishedAt";
-    private BigDecimal finishedAt;
+    @jakarta.annotation.Nullable private BigDecimal finishedAt;
 
     public static final String JSON_PROPERTY_FAILURE = "failure";
-    private ScreeningOperationFailure failure;
+    @jakarta.annotation.Nullable private ScreeningOperationFailure failure;
 
     public ScreeningOperationExecution() {}
 
-    public ScreeningOperationExecution output(ScreeningOperationExecutionOutput output) {
+    @JsonCreator
+    public ScreeningOperationExecution(
+            @JsonProperty(value = JSON_PROPERTY_STARTED_AT, required = true) BigDecimal startedAt) {
+        this.startedAt = startedAt;
+    }
+
+    public ScreeningOperationExecution output(
+            @jakarta.annotation.Nullable ScreeningOperationExecutionOutput output) {
         this.output = output;
         return this;
     }
@@ -64,11 +73,11 @@ public class ScreeningOperationExecution {
 
     @JsonProperty(JSON_PROPERTY_OUTPUT)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setOutput(ScreeningOperationExecutionOutput output) {
+    public void setOutput(@jakarta.annotation.Nullable ScreeningOperationExecutionOutput output) {
         this.output = output;
     }
 
-    public ScreeningOperationExecution startedAt(BigDecimal startedAt) {
+    public ScreeningOperationExecution startedAt(@jakarta.annotation.Nonnull BigDecimal startedAt) {
         this.startedAt = startedAt;
         return this;
     }
@@ -87,11 +96,12 @@ public class ScreeningOperationExecution {
 
     @JsonProperty(JSON_PROPERTY_STARTED_AT)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setStartedAt(BigDecimal startedAt) {
+    public void setStartedAt(@jakarta.annotation.Nonnull BigDecimal startedAt) {
         this.startedAt = startedAt;
     }
 
-    public ScreeningOperationExecution finishedAt(BigDecimal finishedAt) {
+    public ScreeningOperationExecution finishedAt(
+            @jakarta.annotation.Nullable BigDecimal finishedAt) {
         this.finishedAt = finishedAt;
         return this;
     }
@@ -110,11 +120,12 @@ public class ScreeningOperationExecution {
 
     @JsonProperty(JSON_PROPERTY_FINISHED_AT)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setFinishedAt(BigDecimal finishedAt) {
+    public void setFinishedAt(@jakarta.annotation.Nullable BigDecimal finishedAt) {
         this.finishedAt = finishedAt;
     }
 
-    public ScreeningOperationExecution failure(ScreeningOperationFailure failure) {
+    public ScreeningOperationExecution failure(
+            @jakarta.annotation.Nullable ScreeningOperationFailure failure) {
         this.failure = failure;
         return this;
     }
@@ -133,7 +144,7 @@ public class ScreeningOperationExecution {
 
     @JsonProperty(JSON_PROPERTY_FAILURE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setFailure(ScreeningOperationFailure failure) {
+    public void setFailure(@jakarta.annotation.Nullable ScreeningOperationFailure failure) {
         this.failure = failure;
     }
 
@@ -225,9 +236,7 @@ public class ScreeningOperationExecution {
                             "%sstartedAt%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getStartedAt()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getStartedAt()))));
         }
 
         // add `finishedAt` to the URL query string
@@ -237,9 +246,7 @@ public class ScreeningOperationExecution {
                             "%sfinishedAt%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getFinishedAt()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getFinishedAt()))));
         }
 
         // add `failure` to the URL query string

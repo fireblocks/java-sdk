@@ -13,93 +13,93 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for AssetMetadataDto */
-public class AssetMetadataDtoTest {
+class AssetMetadataDtoTest {
     private final AssetMetadataDto model = new AssetMetadataDto();
 
     /** Model tests for AssetMetadataDto */
     @Test
-    public void testAssetMetadataDto() {
+    void testAssetMetadataDto() {
         // TODO: test AssetMetadataDto
     }
 
     /** Test the property 'assetId' */
     @Test
-    public void assetIdTest() {
+    void assetIdTest() {
         // TODO: test assetId
     }
 
     /** Test the property 'name' */
     @Test
-    public void nameTest() {
+    void nameTest() {
         // TODO: test name
     }
 
     /** Test the property 'symbol' */
     @Test
-    public void symbolTest() {
+    void symbolTest() {
         // TODO: test symbol
     }
 
     /** Test the property 'networkProtocol' */
     @Test
-    public void networkProtocolTest() {
+    void networkProtocolTest() {
         // TODO: test networkProtocol
     }
 
     /** Test the property 'totalSupply' */
     @Test
-    public void totalSupplyTest() {
+    void totalSupplyTest() {
         // TODO: test totalSupply
     }
 
     /** Test the property 'holdersCount' */
     @Test
-    public void holdersCountTest() {
+    void holdersCountTest() {
         // TODO: test holdersCount
     }
 
     /** Test the property 'type' */
     @Test
-    public void typeTest() {
+    void typeTest() {
         // TODO: test type
     }
 
     /** Test the property 'contractAddress' */
     @Test
-    public void contractAddressTest() {
+    void contractAddressTest() {
         // TODO: test contractAddress
     }
 
     /** Test the property 'issuerAddress' */
     @Test
-    public void issuerAddressTest() {
+    void issuerAddressTest() {
         // TODO: test issuerAddress
     }
 
     /** Test the property 'testnet' */
     @Test
-    public void testnetTest() {
+    void testnetTest() {
         // TODO: test testnet
     }
 
     /** Test the property 'blockchain' */
     @Test
-    public void blockchainTest() {
+    void blockchainTest() {
         // TODO: test blockchain
     }
 
     /** Test the property 'decimals' */
     @Test
-    public void decimalsTest() {
+    void decimalsTest() {
         // TODO: test decimals
     }
 
     /** Test the property 'vaultAccountId' */
     @Test
-    public void vaultAccountIdTest() {
+    void vaultAccountIdTest() {
         // TODO: test vaultAccountId
     }
 }

@@ -13,63 +13,63 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for CreateTokenRequestDto */
-public class CreateTokenRequestDtoTest {
+class CreateTokenRequestDtoTest {
     private final CreateTokenRequestDto model = new CreateTokenRequestDto();
 
     /** Model tests for CreateTokenRequestDto */
     @Test
-    public void testCreateTokenRequestDto() {
+    void testCreateTokenRequestDto() {
         // TODO: test CreateTokenRequestDto
     }
 
     /** Test the property 'blockchainId' */
     @Test
-    public void blockchainIdTest() {
+    void blockchainIdTest() {
         // TODO: test blockchainId
     }
 
     /** Test the property 'assetId' */
     @Test
-    public void assetIdTest() {
+    void assetIdTest() {
         // TODO: test assetId
     }
 
     /** Test the property 'vaultAccountId' */
     @Test
-    public void vaultAccountIdTest() {
+    void vaultAccountIdTest() {
         // TODO: test vaultAccountId
     }
 
     /** Test the property 'createParams' */
     @Test
-    public void createParamsTest() {
+    void createParamsTest() {
         // TODO: test createParams
     }
 
     /** Test the property 'displayName' */
     @Test
-    public void displayNameTest() {
+    void displayNameTest() {
         // TODO: test displayName
     }
 
     /** Test the property 'useGasless' */
     @Test
-    public void useGaslessTest() {
+    void useGaslessTest() {
         // TODO: test useGasless
     }
 
     /** Test the property 'fee' */
     @Test
-    public void feeTest() {
+    void feeTest() {
         // TODO: test fee
     }
 
     /** Test the property 'feeLevel' */
     @Test
-    public void feeLevelTest() {
+    void feeLevelTest() {
         // TODO: test feeLevel
     }
 }

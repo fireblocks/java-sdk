@@ -13,11 +13,11 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -30,20 +30,36 @@ import java.util.UUID;
     GetLayerZeroPeersResponse.JSON_PROPERTY_ADAPTER_ADDRESS,
     GetLayerZeroPeersResponse.JSON_PROPERTY_PEERS
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class GetLayerZeroPeersResponse {
     public static final String JSON_PROPERTY_ADAPTER_TOKEN_LINK_ID = "adapterTokenLinkId";
-    private UUID adapterTokenLinkId;
+    @jakarta.annotation.Nonnull private UUID adapterTokenLinkId;
 
     public static final String JSON_PROPERTY_ADAPTER_ADDRESS = "adapterAddress";
-    private String adapterAddress;
+    @jakarta.annotation.Nonnull private String adapterAddress;
 
     public static final String JSON_PROPERTY_PEERS = "peers";
-    private List<PeerAdapterInfo> peers = new ArrayList<>();
+    @jakarta.annotation.Nonnull private List<PeerAdapterInfo> peers = new ArrayList<>();
 
     public GetLayerZeroPeersResponse() {}
 
-    public GetLayerZeroPeersResponse adapterTokenLinkId(UUID adapterTokenLinkId) {
+    @JsonCreator
+    public GetLayerZeroPeersResponse(
+            @JsonProperty(value = JSON_PROPERTY_ADAPTER_TOKEN_LINK_ID, required = true)
+                    UUID adapterTokenLinkId,
+            @JsonProperty(value = JSON_PROPERTY_ADAPTER_ADDRESS, required = true)
+                    String adapterAddress,
+            @JsonProperty(value = JSON_PROPERTY_PEERS, required = true)
+                    List<PeerAdapterInfo> peers) {
+        this.adapterTokenLinkId = adapterTokenLinkId;
+        this.adapterAddress = adapterAddress;
+        this.peers = peers;
+    }
+
+    public GetLayerZeroPeersResponse adapterTokenLinkId(
+            @jakarta.annotation.Nonnull UUID adapterTokenLinkId) {
         this.adapterTokenLinkId = adapterTokenLinkId;
         return this;
     }
@@ -62,11 +78,12 @@ public class GetLayerZeroPeersResponse {
 
     @JsonProperty(JSON_PROPERTY_ADAPTER_TOKEN_LINK_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setAdapterTokenLinkId(UUID adapterTokenLinkId) {
+    public void setAdapterTokenLinkId(@jakarta.annotation.Nonnull UUID adapterTokenLinkId) {
         this.adapterTokenLinkId = adapterTokenLinkId;
     }
 
-    public GetLayerZeroPeersResponse adapterAddress(String adapterAddress) {
+    public GetLayerZeroPeersResponse adapterAddress(
+            @jakarta.annotation.Nonnull String adapterAddress) {
         this.adapterAddress = adapterAddress;
         return this;
     }
@@ -85,11 +102,12 @@ public class GetLayerZeroPeersResponse {
 
     @JsonProperty(JSON_PROPERTY_ADAPTER_ADDRESS)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setAdapterAddress(String adapterAddress) {
+    public void setAdapterAddress(@jakarta.annotation.Nonnull String adapterAddress) {
         this.adapterAddress = adapterAddress;
     }
 
-    public GetLayerZeroPeersResponse peers(List<PeerAdapterInfo> peers) {
+    public GetLayerZeroPeersResponse peers(
+            @jakarta.annotation.Nonnull List<PeerAdapterInfo> peers) {
         this.peers = peers;
         return this;
     }
@@ -116,7 +134,7 @@ public class GetLayerZeroPeersResponse {
 
     @JsonProperty(JSON_PROPERTY_PEERS)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setPeers(List<PeerAdapterInfo> peers) {
+    public void setPeers(@jakarta.annotation.Nonnull List<PeerAdapterInfo> peers) {
         this.peers = peers;
     }
 
@@ -203,10 +221,7 @@ public class GetLayerZeroPeersResponse {
                             "%sadapterTokenLinkId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getAdapterTokenLinkId()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getAdapterTokenLinkId()))));
         }
 
         // add `adapterAddress` to the URL query string
@@ -216,10 +231,7 @@ public class GetLayerZeroPeersResponse {
                             "%sadapterAddress%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getAdapterAddress()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getAdapterAddress()))));
         }
 
         // add `peers` to the URL query string

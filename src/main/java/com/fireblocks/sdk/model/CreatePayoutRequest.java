@@ -13,6 +13,7 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -26,17 +27,30 @@ import java.util.StringJoiner;
     CreatePayoutRequest.JSON_PROPERTY_PAYMENT_ACCOUNT,
     CreatePayoutRequest.JSON_PROPERTY_INSTRUCTION_SET
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class CreatePayoutRequest {
     public static final String JSON_PROPERTY_PAYMENT_ACCOUNT = "paymentAccount";
-    private PaymentAccount paymentAccount;
+    @jakarta.annotation.Nonnull private PaymentAccount paymentAccount;
 
     public static final String JSON_PROPERTY_INSTRUCTION_SET = "instructionSet";
-    private List<PayoutInstruction> instructionSet = new ArrayList<>();
+    @jakarta.annotation.Nonnull private List<PayoutInstruction> instructionSet = new ArrayList<>();
 
     public CreatePayoutRequest() {}
 
-    public CreatePayoutRequest paymentAccount(PaymentAccount paymentAccount) {
+    @JsonCreator
+    public CreatePayoutRequest(
+            @JsonProperty(value = JSON_PROPERTY_PAYMENT_ACCOUNT, required = true)
+                    PaymentAccount paymentAccount,
+            @JsonProperty(value = JSON_PROPERTY_INSTRUCTION_SET, required = true)
+                    List<PayoutInstruction> instructionSet) {
+        this.paymentAccount = paymentAccount;
+        this.instructionSet = instructionSet;
+    }
+
+    public CreatePayoutRequest paymentAccount(
+            @jakarta.annotation.Nonnull PaymentAccount paymentAccount) {
         this.paymentAccount = paymentAccount;
         return this;
     }
@@ -55,11 +69,12 @@ public class CreatePayoutRequest {
 
     @JsonProperty(JSON_PROPERTY_PAYMENT_ACCOUNT)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setPaymentAccount(PaymentAccount paymentAccount) {
+    public void setPaymentAccount(@jakarta.annotation.Nonnull PaymentAccount paymentAccount) {
         this.paymentAccount = paymentAccount;
     }
 
-    public CreatePayoutRequest instructionSet(List<PayoutInstruction> instructionSet) {
+    public CreatePayoutRequest instructionSet(
+            @jakarta.annotation.Nonnull List<PayoutInstruction> instructionSet) {
         this.instructionSet = instructionSet;
         return this;
     }
@@ -86,7 +101,8 @@ public class CreatePayoutRequest {
 
     @JsonProperty(JSON_PROPERTY_INSTRUCTION_SET)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setInstructionSet(List<PayoutInstruction> instructionSet) {
+    public void setInstructionSet(
+            @jakarta.annotation.Nonnull List<PayoutInstruction> instructionSet) {
         this.instructionSet = instructionSet;
     }
 

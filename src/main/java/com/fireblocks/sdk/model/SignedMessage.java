@@ -18,9 +18,8 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.fireblocks.sdk.ApiClient;
 import java.math.BigDecimal;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -34,16 +33,18 @@ import java.util.StringJoiner;
     SignedMessage.JSON_PROPERTY_SIGNATURE,
     SignedMessage.JSON_PROPERTY_PUBLIC_KEY
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class SignedMessage {
     public static final String JSON_PROPERTY_CONTENT = "content";
-    private String content;
+    @jakarta.annotation.Nullable private String content;
 
     /** Gets or Sets algorithm */
     public enum AlgorithmEnum {
-        ECDSA_SECP256K1("MPC_ECDSA_SECP256K1"),
+        MPC_ECDSA_SECP256_K1(String.valueOf("MPC_ECDSA_SECP256K1")),
 
-        EDDSA_ED25519("MPC_EDDSA_ED25519");
+        MPC_EDDSA_ED25519(String.valueOf("MPC_EDDSA_ED25519"));
 
         private String value;
 
@@ -73,20 +74,20 @@ public class SignedMessage {
     }
 
     public static final String JSON_PROPERTY_ALGORITHM = "algorithm";
-    private AlgorithmEnum algorithm;
+    @jakarta.annotation.Nullable private AlgorithmEnum algorithm;
 
     public static final String JSON_PROPERTY_DERIVATION_PATH = "derivationPath";
-    private List<BigDecimal> derivationPath;
+    @jakarta.annotation.Nullable private List<BigDecimal> derivationPath = new ArrayList<>();
 
     public static final String JSON_PROPERTY_SIGNATURE = "signature";
-    private SignedMessageSignature signature;
+    @jakarta.annotation.Nullable private SignedMessageSignature signature;
 
     public static final String JSON_PROPERTY_PUBLIC_KEY = "publicKey";
-    private String publicKey;
+    @jakarta.annotation.Nullable private String publicKey;
 
     public SignedMessage() {}
 
-    public SignedMessage content(String content) {
+    public SignedMessage content(@jakarta.annotation.Nullable String content) {
         this.content = content;
         return this;
     }
@@ -105,11 +106,11 @@ public class SignedMessage {
 
     @JsonProperty(JSON_PROPERTY_CONTENT)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setContent(String content) {
+    public void setContent(@jakarta.annotation.Nullable String content) {
         this.content = content;
     }
 
-    public SignedMessage algorithm(AlgorithmEnum algorithm) {
+    public SignedMessage algorithm(@jakarta.annotation.Nullable AlgorithmEnum algorithm) {
         this.algorithm = algorithm;
         return this;
     }
@@ -128,11 +129,12 @@ public class SignedMessage {
 
     @JsonProperty(JSON_PROPERTY_ALGORITHM)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAlgorithm(AlgorithmEnum algorithm) {
+    public void setAlgorithm(@jakarta.annotation.Nullable AlgorithmEnum algorithm) {
         this.algorithm = algorithm;
     }
 
-    public SignedMessage derivationPath(List<BigDecimal> derivationPath) {
+    public SignedMessage derivationPath(
+            @jakarta.annotation.Nullable List<BigDecimal> derivationPath) {
         this.derivationPath = derivationPath;
         return this;
     }
@@ -159,11 +161,11 @@ public class SignedMessage {
 
     @JsonProperty(JSON_PROPERTY_DERIVATION_PATH)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setDerivationPath(List<BigDecimal> derivationPath) {
+    public void setDerivationPath(@jakarta.annotation.Nullable List<BigDecimal> derivationPath) {
         this.derivationPath = derivationPath;
     }
 
-    public SignedMessage signature(SignedMessageSignature signature) {
+    public SignedMessage signature(@jakarta.annotation.Nullable SignedMessageSignature signature) {
         this.signature = signature;
         return this;
     }
@@ -182,11 +184,11 @@ public class SignedMessage {
 
     @JsonProperty(JSON_PROPERTY_SIGNATURE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setSignature(SignedMessageSignature signature) {
+    public void setSignature(@jakarta.annotation.Nullable SignedMessageSignature signature) {
         this.signature = signature;
     }
 
-    public SignedMessage publicKey(String publicKey) {
+    public SignedMessage publicKey(@jakarta.annotation.Nullable String publicKey) {
         this.publicKey = publicKey;
         return this;
     }
@@ -205,7 +207,7 @@ public class SignedMessage {
 
     @JsonProperty(JSON_PROPERTY_PUBLIC_KEY)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setPublicKey(String publicKey) {
+    public void setPublicKey(@jakarta.annotation.Nullable String publicKey) {
         this.publicKey = publicKey;
     }
 
@@ -294,8 +296,7 @@ public class SignedMessage {
                             "%scontent%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getContent()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getContent()))));
         }
 
         // add `algorithm` to the URL query string
@@ -305,9 +306,7 @@ public class SignedMessage {
                             "%salgorithm%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getAlgorithm()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getAlgorithm()))));
         }
 
         // add `derivationPath` to the URL query string
@@ -323,10 +322,8 @@ public class SignedMessage {
                                             ? ""
                                             : String.format(
                                                     "%s%d%s", containerPrefix, i, containerSuffix),
-                                    URLEncoder.encode(
-                                                    String.valueOf(getDerivationPath().get(i)),
-                                                    StandardCharsets.UTF_8)
-                                            .replaceAll("\\+", "%20")));
+                                    ApiClient.urlEncode(
+                                            ApiClient.valueToString(getDerivationPath().get(i)))));
                 }
             }
         }
@@ -343,9 +340,7 @@ public class SignedMessage {
                             "%spublicKey%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getPublicKey()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getPublicKey()))));
         }
 
         return joiner.toString();

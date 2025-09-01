@@ -13,51 +13,51 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for CreateTokenRequestDtoCreateParams */
-public class CreateTokenRequestDtoCreateParamsTest {
+class CreateTokenRequestDtoCreateParamsTest {
     private final CreateTokenRequestDtoCreateParams model = new CreateTokenRequestDtoCreateParams();
 
     /** Model tests for CreateTokenRequestDtoCreateParams */
     @Test
-    public void testCreateTokenRequestDtoCreateParams() {
+    void testCreateTokenRequestDtoCreateParams() {
         // TODO: test CreateTokenRequestDtoCreateParams
     }
 
     /** Test the property 'contractId' */
     @Test
-    public void contractIdTest() {
+    void contractIdTest() {
         // TODO: test contractId
     }
 
     /** Test the property 'deployFunctionParams' */
     @Test
-    public void deployFunctionParamsTest() {
+    void deployFunctionParamsTest() {
         // TODO: test deployFunctionParams
     }
 
     /** Test the property 'symbol' */
     @Test
-    public void symbolTest() {
+    void symbolTest() {
         // TODO: test symbol
     }
 
     /** Test the property 'name' */
     @Test
-    public void nameTest() {
+    void nameTest() {
         // TODO: test name
     }
 
     /** Test the property 'issuerAddress' */
     @Test
-    public void issuerAddressTest() {
+    void issuerAddressTest() {
         // TODO: test issuerAddress
     }
 
     /** Test the property 'decimals' */
     @Test
-    public void decimalsTest() {
+    void decimalsTest() {
         // TODO: test decimals
     }
 }

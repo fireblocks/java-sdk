@@ -13,6 +13,7 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -26,17 +27,29 @@ import java.util.StringJoiner;
     ContractAbiResponseDto.JSON_PROPERTY_ABI,
     ContractAbiResponseDto.JSON_PROPERTY_IMPLEMENTATION_ABI
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class ContractAbiResponseDto {
     public static final String JSON_PROPERTY_ABI = "abi";
+
+    @jakarta.annotation.Nonnull
     private List<ContractAbiResponseDtoAbiInner> abi = new ArrayList<>();
 
     public static final String JSON_PROPERTY_IMPLEMENTATION_ABI = "implementationAbi";
-    private List<AbiFunction> implementationAbi;
+    @jakarta.annotation.Nullable private List<AbiFunction> implementationAbi = new ArrayList<>();
 
     public ContractAbiResponseDto() {}
 
-    public ContractAbiResponseDto abi(List<ContractAbiResponseDtoAbiInner> abi) {
+    @JsonCreator
+    public ContractAbiResponseDto(
+            @JsonProperty(value = JSON_PROPERTY_ABI, required = true)
+                    List<ContractAbiResponseDtoAbiInner> abi) {
+        this.abi = abi;
+    }
+
+    public ContractAbiResponseDto abi(
+            @jakarta.annotation.Nonnull List<ContractAbiResponseDtoAbiInner> abi) {
         this.abi = abi;
         return this;
     }
@@ -63,11 +76,12 @@ public class ContractAbiResponseDto {
 
     @JsonProperty(JSON_PROPERTY_ABI)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setAbi(List<ContractAbiResponseDtoAbiInner> abi) {
+    public void setAbi(@jakarta.annotation.Nonnull List<ContractAbiResponseDtoAbiInner> abi) {
         this.abi = abi;
     }
 
-    public ContractAbiResponseDto implementationAbi(List<AbiFunction> implementationAbi) {
+    public ContractAbiResponseDto implementationAbi(
+            @jakarta.annotation.Nullable List<AbiFunction> implementationAbi) {
         this.implementationAbi = implementationAbi;
         return this;
     }
@@ -94,7 +108,8 @@ public class ContractAbiResponseDto {
 
     @JsonProperty(JSON_PROPERTY_IMPLEMENTATION_ABI)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setImplementationAbi(List<AbiFunction> implementationAbi) {
+    public void setImplementationAbi(
+            @jakarta.annotation.Nullable List<AbiFunction> implementationAbi) {
         this.implementationAbi = implementationAbi;
     }
 

@@ -13,12 +13,12 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fireblocks.sdk.ApiClient;
 import java.math.BigDecimal;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -31,23 +31,39 @@ import java.util.StringJoiner;
     DvnConfigWithConfirmations.JSON_PROPERTY_OPTIONAL_THRESHOLD,
     DvnConfigWithConfirmations.JSON_PROPERTY_CONFIRMATIONS
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class DvnConfigWithConfirmations {
     public static final String JSON_PROPERTY_DVN_ADDRESSES = "dvnAddresses";
-    private List<String> dvnAddresses = new ArrayList<>();
+    @jakarta.annotation.Nonnull private List<String> dvnAddresses = new ArrayList<>();
 
     public static final String JSON_PROPERTY_OPTIONAL_D_V_N_ADDRESSES = "optionalDVNAddresses";
-    private List<String> optionalDVNAddresses;
+    @jakarta.annotation.Nullable private List<String> optionalDVNAddresses = new ArrayList<>();
 
     public static final String JSON_PROPERTY_OPTIONAL_THRESHOLD = "optionalThreshold";
-    private BigDecimal optionalThreshold;
+    @jakarta.annotation.Nonnull private BigDecimal optionalThreshold;
 
     public static final String JSON_PROPERTY_CONFIRMATIONS = "confirmations";
-    private BigDecimal confirmations;
+    @jakarta.annotation.Nonnull private BigDecimal confirmations;
 
     public DvnConfigWithConfirmations() {}
 
-    public DvnConfigWithConfirmations dvnAddresses(List<String> dvnAddresses) {
+    @JsonCreator
+    public DvnConfigWithConfirmations(
+            @JsonProperty(value = JSON_PROPERTY_DVN_ADDRESSES, required = true)
+                    List<String> dvnAddresses,
+            @JsonProperty(value = JSON_PROPERTY_OPTIONAL_THRESHOLD, required = true)
+                    BigDecimal optionalThreshold,
+            @JsonProperty(value = JSON_PROPERTY_CONFIRMATIONS, required = true)
+                    BigDecimal confirmations) {
+        this.dvnAddresses = dvnAddresses;
+        this.optionalThreshold = optionalThreshold;
+        this.confirmations = confirmations;
+    }
+
+    public DvnConfigWithConfirmations dvnAddresses(
+            @jakarta.annotation.Nonnull List<String> dvnAddresses) {
         this.dvnAddresses = dvnAddresses;
         return this;
     }
@@ -74,11 +90,12 @@ public class DvnConfigWithConfirmations {
 
     @JsonProperty(JSON_PROPERTY_DVN_ADDRESSES)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setDvnAddresses(List<String> dvnAddresses) {
+    public void setDvnAddresses(@jakarta.annotation.Nonnull List<String> dvnAddresses) {
         this.dvnAddresses = dvnAddresses;
     }
 
-    public DvnConfigWithConfirmations optionalDVNAddresses(List<String> optionalDVNAddresses) {
+    public DvnConfigWithConfirmations optionalDVNAddresses(
+            @jakarta.annotation.Nullable List<String> optionalDVNAddresses) {
         this.optionalDVNAddresses = optionalDVNAddresses;
         return this;
     }
@@ -105,11 +122,13 @@ public class DvnConfigWithConfirmations {
 
     @JsonProperty(JSON_PROPERTY_OPTIONAL_D_V_N_ADDRESSES)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setOptionalDVNAddresses(List<String> optionalDVNAddresses) {
+    public void setOptionalDVNAddresses(
+            @jakarta.annotation.Nullable List<String> optionalDVNAddresses) {
         this.optionalDVNAddresses = optionalDVNAddresses;
     }
 
-    public DvnConfigWithConfirmations optionalThreshold(BigDecimal optionalThreshold) {
+    public DvnConfigWithConfirmations optionalThreshold(
+            @jakarta.annotation.Nonnull BigDecimal optionalThreshold) {
         this.optionalThreshold = optionalThreshold;
         return this;
     }
@@ -128,11 +147,12 @@ public class DvnConfigWithConfirmations {
 
     @JsonProperty(JSON_PROPERTY_OPTIONAL_THRESHOLD)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setOptionalThreshold(BigDecimal optionalThreshold) {
+    public void setOptionalThreshold(@jakarta.annotation.Nonnull BigDecimal optionalThreshold) {
         this.optionalThreshold = optionalThreshold;
     }
 
-    public DvnConfigWithConfirmations confirmations(BigDecimal confirmations) {
+    public DvnConfigWithConfirmations confirmations(
+            @jakarta.annotation.Nonnull BigDecimal confirmations) {
         this.confirmations = confirmations;
         return this;
     }
@@ -151,7 +171,7 @@ public class DvnConfigWithConfirmations {
 
     @JsonProperty(JSON_PROPERTY_CONFIRMATIONS)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setConfirmations(BigDecimal confirmations) {
+    public void setConfirmations(@jakarta.annotation.Nonnull BigDecimal confirmations) {
         this.confirmations = confirmations;
     }
 
@@ -249,10 +269,8 @@ public class DvnConfigWithConfirmations {
                                         ? ""
                                         : String.format(
                                                 "%s%d%s", containerPrefix, i, containerSuffix),
-                                URLEncoder.encode(
-                                                String.valueOf(getDvnAddresses().get(i)),
-                                                StandardCharsets.UTF_8)
-                                        .replaceAll("\\+", "%20")));
+                                ApiClient.urlEncode(
+                                        ApiClient.valueToString(getDvnAddresses().get(i)))));
             }
         }
 
@@ -268,10 +286,9 @@ public class DvnConfigWithConfirmations {
                                         ? ""
                                         : String.format(
                                                 "%s%d%s", containerPrefix, i, containerSuffix),
-                                URLEncoder.encode(
-                                                String.valueOf(getOptionalDVNAddresses().get(i)),
-                                                StandardCharsets.UTF_8)
-                                        .replaceAll("\\+", "%20")));
+                                ApiClient.urlEncode(
+                                        ApiClient.valueToString(
+                                                getOptionalDVNAddresses().get(i)))));
             }
         }
 
@@ -282,10 +299,7 @@ public class DvnConfigWithConfirmations {
                             "%soptionalThreshold%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getOptionalThreshold()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getOptionalThreshold()))));
         }
 
         // add `confirmations` to the URL query string
@@ -295,10 +309,7 @@ public class DvnConfigWithConfirmations {
                             "%sconfirmations%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getConfirmations()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getConfirmations()))));
         }
 
         return joiner.toString();

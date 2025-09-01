@@ -16,8 +16,7 @@ package com.fireblocks.sdk.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -26,17 +25,19 @@ import java.util.StringJoiner;
     PaginatedAssetWalletResponsePaging.JSON_PROPERTY_BEFORE,
     PaginatedAssetWalletResponsePaging.JSON_PROPERTY_AFTER
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class PaginatedAssetWalletResponsePaging {
     public static final String JSON_PROPERTY_BEFORE = "before";
-    private String before;
+    @jakarta.annotation.Nullable private String before;
 
     public static final String JSON_PROPERTY_AFTER = "after";
-    private String after;
+    @jakarta.annotation.Nullable private String after;
 
     public PaginatedAssetWalletResponsePaging() {}
 
-    public PaginatedAssetWalletResponsePaging before(String before) {
+    public PaginatedAssetWalletResponsePaging before(@jakarta.annotation.Nullable String before) {
         this.before = before;
         return this;
     }
@@ -56,11 +57,11 @@ public class PaginatedAssetWalletResponsePaging {
 
     @JsonProperty(JSON_PROPERTY_BEFORE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setBefore(String before) {
+    public void setBefore(@jakarta.annotation.Nullable String before) {
         this.before = before;
     }
 
-    public PaginatedAssetWalletResponsePaging after(String after) {
+    public PaginatedAssetWalletResponsePaging after(@jakarta.annotation.Nullable String after) {
         this.after = after;
         return this;
     }
@@ -80,7 +81,7 @@ public class PaginatedAssetWalletResponsePaging {
 
     @JsonProperty(JSON_PROPERTY_AFTER)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAfter(String after) {
+    public void setAfter(@jakarta.annotation.Nullable String after) {
         this.after = after;
     }
 
@@ -164,8 +165,7 @@ public class PaginatedAssetWalletResponsePaging {
                             "%sbefore%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getBefore()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getBefore()))));
         }
 
         // add `after` to the URL query string
@@ -175,8 +175,7 @@ public class PaginatedAssetWalletResponsePaging {
                             "%safter%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getAfter()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getAfter()))));
         }
 
         return joiner.toString();

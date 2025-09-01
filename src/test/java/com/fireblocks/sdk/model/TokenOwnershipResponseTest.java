@@ -13,123 +13,123 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for TokenOwnershipResponse */
-public class TokenOwnershipResponseTest {
+class TokenOwnershipResponseTest {
     private final TokenOwnershipResponse model = new TokenOwnershipResponse();
 
     /** Model tests for TokenOwnershipResponse */
     @Test
-    public void testTokenOwnershipResponse() {
+    void testTokenOwnershipResponse() {
         // TODO: test TokenOwnershipResponse
     }
 
     /** Test the property 'id' */
     @Test
-    public void idTest() {
+    void idTest() {
         // TODO: test id
     }
 
     /** Test the property 'tokenId' */
     @Test
-    public void tokenIdTest() {
+    void tokenIdTest() {
         // TODO: test tokenId
     }
 
     /** Test the property 'standard' */
     @Test
-    public void standardTest() {
+    void standardTest() {
         // TODO: test standard
     }
 
     /** Test the property 'metadataURI' */
     @Test
-    public void metadataURITest() {
+    void metadataURITest() {
         // TODO: test metadataURI
     }
 
     /** Test the property 'cachedMetadataURI' */
     @Test
-    public void cachedMetadataURITest() {
+    void cachedMetadataURITest() {
         // TODO: test cachedMetadataURI
     }
 
     /** Test the property 'media' */
     @Test
-    public void mediaTest() {
+    void mediaTest() {
         // TODO: test media
     }
 
     /** Test the property 'spam' */
     @Test
-    public void spamTest() {
+    void spamTest() {
         // TODO: test spam
     }
 
     /** Test the property 'collection' */
     @Test
-    public void collectionTest() {
+    void collectionTest() {
         // TODO: test collection
     }
 
     /** Test the property 'balance' */
     @Test
-    public void balanceTest() {
+    void balanceTest() {
         // TODO: test balance
     }
 
     /** Test the property 'vaultAccountId' */
     @Test
-    public void vaultAccountIdTest() {
+    void vaultAccountIdTest() {
         // TODO: test vaultAccountId
     }
 
     /** Test the property 'ownershipStartTime' */
     @Test
-    public void ownershipStartTimeTest() {
+    void ownershipStartTimeTest() {
         // TODO: test ownershipStartTime
     }
 
     /** Test the property 'ownershipLastUpdateTime' */
     @Test
-    public void ownershipLastUpdateTimeTest() {
+    void ownershipLastUpdateTimeTest() {
         // TODO: test ownershipLastUpdateTime
     }
 
     /** Test the property 'blockchainDescriptor' */
     @Test
-    public void blockchainDescriptorTest() {
+    void blockchainDescriptorTest() {
         // TODO: test blockchainDescriptor
     }
 
     /** Test the property 'description' */
     @Test
-    public void descriptionTest() {
+    void descriptionTest() {
         // TODO: test description
     }
 
     /** Test the property 'name' */
     @Test
-    public void nameTest() {
+    void nameTest() {
         // TODO: test name
     }
 
     /** Test the property 'ncwId' */
     @Test
-    public void ncwIdTest() {
+    void ncwIdTest() {
         // TODO: test ncwId
     }
 
     /** Test the property 'ncwAccountId' */
     @Test
-    public void ncwAccountIdTest() {
+    void ncwAccountIdTest() {
         // TODO: test ncwAccountId
     }
 
     /** Test the property 'status' */
     @Test
-    public void statusTest() {
+    void statusTest() {
         // TODO: test status
     }
 }

@@ -13,27 +13,27 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for SolanaConfig */
-public class SolanaConfigTest {
+class SolanaConfigTest {
     private final SolanaConfig model = new SolanaConfig();
 
     /** Model tests for SolanaConfig */
     @Test
-    public void testSolanaConfig() {
+    void testSolanaConfig() {
         // TODO: test SolanaConfig
     }
 
     /** Test the property 'extensions' */
     @Test
-    public void extensionsTest() {
+    void extensionsTest() {
         // TODO: test extensions
     }
 
     /** Test the property 'type' */
     @Test
-    public void typeTest() {
+    void typeTest() {
         // TODO: test type
     }
 }

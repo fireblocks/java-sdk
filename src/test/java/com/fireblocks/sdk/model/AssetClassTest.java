@@ -13,13 +13,13 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for AssetClass */
-public class AssetClassTest {
+class AssetClassTest {
     /** Model tests for AssetClass */
     @Test
-    public void testAssetClass() {
+    void testAssetClass() {
         // TODO: test AssetClass
     }
 }

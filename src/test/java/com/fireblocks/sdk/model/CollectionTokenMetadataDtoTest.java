@@ -13,51 +13,51 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for CollectionTokenMetadataDto */
-public class CollectionTokenMetadataDtoTest {
+class CollectionTokenMetadataDtoTest {
     private final CollectionTokenMetadataDto model = new CollectionTokenMetadataDto();
 
     /** Model tests for CollectionTokenMetadataDto */
     @Test
-    public void testCollectionTokenMetadataDto() {
+    void testCollectionTokenMetadataDto() {
         // TODO: test CollectionTokenMetadataDto
     }
 
     /** Test the property 'name' */
     @Test
-    public void nameTest() {
+    void nameTest() {
         // TODO: test name
     }
 
     /** Test the property 'description' */
     @Test
-    public void descriptionTest() {
+    void descriptionTest() {
         // TODO: test description
     }
 
     /** Test the property 'image' */
     @Test
-    public void imageTest() {
+    void imageTest() {
         // TODO: test image
     }
 
     /** Test the property 'animationUrl' */
     @Test
-    public void animationUrlTest() {
+    void animationUrlTest() {
         // TODO: test animationUrl
     }
 
     /** Test the property 'externalUrl' */
     @Test
-    public void externalUrlTest() {
+    void externalUrlTest() {
         // TODO: test externalUrl
     }
 
     /** Test the property 'attributes' */
     @Test
-    public void attributesTest() {
+    void attributesTest() {
         // TODO: test attributes
     }
 }

@@ -13,11 +13,11 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -27,20 +27,32 @@ import java.util.StringJoiner;
     AuditorData.JSON_PROPERTY_IMAGE_U_R_L,
     AuditorData.JSON_PROPERTY_LINK
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class AuditorData {
     public static final String JSON_PROPERTY_NAME = "name";
-    private String name;
+    @jakarta.annotation.Nonnull private String name;
 
     public static final String JSON_PROPERTY_IMAGE_U_R_L = "imageURL";
-    private String imageURL;
+    @jakarta.annotation.Nonnull private String imageURL;
 
     public static final String JSON_PROPERTY_LINK = "link";
-    private String link;
+    @jakarta.annotation.Nonnull private String link;
 
     public AuditorData() {}
 
-    public AuditorData name(String name) {
+    @JsonCreator
+    public AuditorData(
+            @JsonProperty(value = JSON_PROPERTY_NAME, required = true) String name,
+            @JsonProperty(value = JSON_PROPERTY_IMAGE_U_R_L, required = true) String imageURL,
+            @JsonProperty(value = JSON_PROPERTY_LINK, required = true) String link) {
+        this.name = name;
+        this.imageURL = imageURL;
+        this.link = link;
+    }
+
+    public AuditorData name(@jakarta.annotation.Nonnull String name) {
         this.name = name;
         return this;
     }
@@ -59,11 +71,11 @@ public class AuditorData {
 
     @JsonProperty(JSON_PROPERTY_NAME)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setName(String name) {
+    public void setName(@jakarta.annotation.Nonnull String name) {
         this.name = name;
     }
 
-    public AuditorData imageURL(String imageURL) {
+    public AuditorData imageURL(@jakarta.annotation.Nonnull String imageURL) {
         this.imageURL = imageURL;
         return this;
     }
@@ -82,11 +94,11 @@ public class AuditorData {
 
     @JsonProperty(JSON_PROPERTY_IMAGE_U_R_L)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setImageURL(String imageURL) {
+    public void setImageURL(@jakarta.annotation.Nonnull String imageURL) {
         this.imageURL = imageURL;
     }
 
-    public AuditorData link(String link) {
+    public AuditorData link(@jakarta.annotation.Nonnull String link) {
         this.link = link;
         return this;
     }
@@ -105,7 +117,7 @@ public class AuditorData {
 
     @JsonProperty(JSON_PROPERTY_LINK)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setLink(String link) {
+    public void setLink(@jakarta.annotation.Nonnull String link) {
         this.link = link;
     }
 
@@ -190,8 +202,7 @@ public class AuditorData {
                             "%sname%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getName()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getName()))));
         }
 
         // add `imageURL` to the URL query string
@@ -201,8 +212,7 @@ public class AuditorData {
                             "%simageURL%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getImageURL()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getImageURL()))));
         }
 
         // add `link` to the URL query string
@@ -212,8 +222,7 @@ public class AuditorData {
                             "%slink%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getLink()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getLink()))));
         }
 
         return joiner.toString();

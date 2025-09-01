@@ -13,11 +13,11 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -33,32 +33,54 @@ import java.util.StringJoiner;
     NetworkConnectionResponse.JSON_PROPERTY_REMOTE_NETWORK_ID,
     NetworkConnectionResponse.JSON_PROPERTY_ROUTING_POLICY
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class NetworkConnectionResponse {
     public static final String JSON_PROPERTY_ID = "id";
-    private String id;
+    @jakarta.annotation.Nonnull private String id;
 
     public static final String JSON_PROPERTY_LOCAL_CHANNEL = "localChannel";
-    private NetworkChannel localChannel;
+    @jakarta.annotation.Nullable private NetworkChannel localChannel;
 
     public static final String JSON_PROPERTY_REMOTE_CHANNEL = "remoteChannel";
-    private NetworkChannel remoteChannel;
+    @jakarta.annotation.Nullable private NetworkChannel remoteChannel;
 
     public static final String JSON_PROPERTY_STATUS = "status";
-    private NetworkConnectionStatus status;
+    @jakarta.annotation.Nonnull private NetworkConnectionStatus status;
 
     public static final String JSON_PROPERTY_LOCAL_NETWORK_ID = "localNetworkId";
-    private NetworkId localNetworkId;
+    @jakarta.annotation.Nonnull private NetworkId localNetworkId;
 
     public static final String JSON_PROPERTY_REMOTE_NETWORK_ID = "remoteNetworkId";
-    private NetworkId remoteNetworkId;
+    @jakarta.annotation.Nonnull private NetworkId remoteNetworkId;
 
     public static final String JSON_PROPERTY_ROUTING_POLICY = "routingPolicy";
+
+    @jakarta.annotation.Nonnull
     private Map<String, NetworkConnectionRoutingPolicyValue> routingPolicy = new HashMap<>();
 
     public NetworkConnectionResponse() {}
 
-    public NetworkConnectionResponse id(String id) {
+    @JsonCreator
+    public NetworkConnectionResponse(
+            @JsonProperty(value = JSON_PROPERTY_ID, required = true) String id,
+            @JsonProperty(value = JSON_PROPERTY_STATUS, required = true)
+                    NetworkConnectionStatus status,
+            @JsonProperty(value = JSON_PROPERTY_LOCAL_NETWORK_ID, required = true)
+                    NetworkId localNetworkId,
+            @JsonProperty(value = JSON_PROPERTY_REMOTE_NETWORK_ID, required = true)
+                    NetworkId remoteNetworkId,
+            @JsonProperty(value = JSON_PROPERTY_ROUTING_POLICY, required = true)
+                    Map<String, NetworkConnectionRoutingPolicyValue> routingPolicy) {
+        this.id = id;
+        this.status = status;
+        this.localNetworkId = localNetworkId;
+        this.remoteNetworkId = remoteNetworkId;
+        this.routingPolicy = routingPolicy;
+    }
+
+    public NetworkConnectionResponse id(@jakarta.annotation.Nonnull String id) {
         this.id = id;
         return this;
     }
@@ -77,11 +99,12 @@ public class NetworkConnectionResponse {
 
     @JsonProperty(JSON_PROPERTY_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setId(String id) {
+    public void setId(@jakarta.annotation.Nonnull String id) {
         this.id = id;
     }
 
-    public NetworkConnectionResponse localChannel(NetworkChannel localChannel) {
+    public NetworkConnectionResponse localChannel(
+            @jakarta.annotation.Nullable NetworkChannel localChannel) {
         this.localChannel = localChannel;
         return this;
     }
@@ -102,11 +125,12 @@ public class NetworkConnectionResponse {
 
     @JsonProperty(JSON_PROPERTY_LOCAL_CHANNEL)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setLocalChannel(NetworkChannel localChannel) {
+    public void setLocalChannel(@jakarta.annotation.Nullable NetworkChannel localChannel) {
         this.localChannel = localChannel;
     }
 
-    public NetworkConnectionResponse remoteChannel(NetworkChannel remoteChannel) {
+    public NetworkConnectionResponse remoteChannel(
+            @jakarta.annotation.Nullable NetworkChannel remoteChannel) {
         this.remoteChannel = remoteChannel;
         return this;
     }
@@ -127,11 +151,12 @@ public class NetworkConnectionResponse {
 
     @JsonProperty(JSON_PROPERTY_REMOTE_CHANNEL)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setRemoteChannel(NetworkChannel remoteChannel) {
+    public void setRemoteChannel(@jakarta.annotation.Nullable NetworkChannel remoteChannel) {
         this.remoteChannel = remoteChannel;
     }
 
-    public NetworkConnectionResponse status(NetworkConnectionStatus status) {
+    public NetworkConnectionResponse status(
+            @jakarta.annotation.Nonnull NetworkConnectionStatus status) {
         this.status = status;
         return this;
     }
@@ -150,11 +175,12 @@ public class NetworkConnectionResponse {
 
     @JsonProperty(JSON_PROPERTY_STATUS)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setStatus(NetworkConnectionStatus status) {
+    public void setStatus(@jakarta.annotation.Nonnull NetworkConnectionStatus status) {
         this.status = status;
     }
 
-    public NetworkConnectionResponse localNetworkId(NetworkId localNetworkId) {
+    public NetworkConnectionResponse localNetworkId(
+            @jakarta.annotation.Nonnull NetworkId localNetworkId) {
         this.localNetworkId = localNetworkId;
         return this;
     }
@@ -173,11 +199,12 @@ public class NetworkConnectionResponse {
 
     @JsonProperty(JSON_PROPERTY_LOCAL_NETWORK_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setLocalNetworkId(NetworkId localNetworkId) {
+    public void setLocalNetworkId(@jakarta.annotation.Nonnull NetworkId localNetworkId) {
         this.localNetworkId = localNetworkId;
     }
 
-    public NetworkConnectionResponse remoteNetworkId(NetworkId remoteNetworkId) {
+    public NetworkConnectionResponse remoteNetworkId(
+            @jakarta.annotation.Nonnull NetworkId remoteNetworkId) {
         this.remoteNetworkId = remoteNetworkId;
         return this;
     }
@@ -196,12 +223,13 @@ public class NetworkConnectionResponse {
 
     @JsonProperty(JSON_PROPERTY_REMOTE_NETWORK_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setRemoteNetworkId(NetworkId remoteNetworkId) {
+    public void setRemoteNetworkId(@jakarta.annotation.Nonnull NetworkId remoteNetworkId) {
         this.remoteNetworkId = remoteNetworkId;
     }
 
     public NetworkConnectionResponse routingPolicy(
-            Map<String, NetworkConnectionRoutingPolicyValue> routingPolicy) {
+            @jakarta.annotation.Nonnull
+                    Map<String, NetworkConnectionRoutingPolicyValue> routingPolicy) {
         this.routingPolicy = routingPolicy;
         return this;
     }
@@ -229,7 +257,9 @@ public class NetworkConnectionResponse {
 
     @JsonProperty(JSON_PROPERTY_ROUTING_POLICY)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setRoutingPolicy(Map<String, NetworkConnectionRoutingPolicyValue> routingPolicy) {
+    public void setRoutingPolicy(
+            @jakarta.annotation.Nonnull
+                    Map<String, NetworkConnectionRoutingPolicyValue> routingPolicy) {
         this.routingPolicy = routingPolicy;
     }
 
@@ -327,10 +357,7 @@ public class NetworkConnectionResponse {
             joiner.add(
                     String.format(
                             "%sid%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(String.valueOf(getId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getId()))));
         }
 
         // add `localChannel` to the URL query string
@@ -350,8 +377,7 @@ public class NetworkConnectionResponse {
                             "%sstatus%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getStatus()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getStatus()))));
         }
 
         // add `localNetworkId` to the URL query string

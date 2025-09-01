@@ -16,8 +16,7 @@ package com.fireblocks.sdk.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -31,26 +30,30 @@ import java.util.StringJoiner;
     ComplianceResults.JSON_PROPERTY_STATUS,
     ComplianceResults.JSON_PROPERTY_AML_REGISTRATION
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class ComplianceResults {
     public static final String JSON_PROPERTY_AML = "aml";
-    private ComplianceScreeningResult aml;
+    @jakarta.annotation.Nullable private ComplianceScreeningResult aml;
 
     public static final String JSON_PROPERTY_TR = "tr";
-    private ComplianceScreeningResult tr;
+    @jakarta.annotation.Nullable private ComplianceScreeningResult tr;
 
     public static final String JSON_PROPERTY_AML_LIST = "amlList";
-    private List<ComplianceScreeningResult> amlList;
+
+    @jakarta.annotation.Nullable
+    private List<ComplianceScreeningResult> amlList = new ArrayList<>();
 
     public static final String JSON_PROPERTY_STATUS = "status";
-    private ComplianceResultStatusesEnum status;
+    @jakarta.annotation.Nullable private ComplianceResultStatusesEnum status;
 
     public static final String JSON_PROPERTY_AML_REGISTRATION = "amlRegistration";
-    private AmlRegistrationResult amlRegistration;
+    @jakarta.annotation.Nullable private AmlRegistrationResult amlRegistration;
 
     public ComplianceResults() {}
 
-    public ComplianceResults aml(ComplianceScreeningResult aml) {
+    public ComplianceResults aml(@jakarta.annotation.Nullable ComplianceScreeningResult aml) {
         this.aml = aml;
         return this;
     }
@@ -69,11 +72,11 @@ public class ComplianceResults {
 
     @JsonProperty(JSON_PROPERTY_AML)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAml(ComplianceScreeningResult aml) {
+    public void setAml(@jakarta.annotation.Nullable ComplianceScreeningResult aml) {
         this.aml = aml;
     }
 
-    public ComplianceResults tr(ComplianceScreeningResult tr) {
+    public ComplianceResults tr(@jakarta.annotation.Nullable ComplianceScreeningResult tr) {
         this.tr = tr;
         return this;
     }
@@ -92,11 +95,12 @@ public class ComplianceResults {
 
     @JsonProperty(JSON_PROPERTY_TR)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setTr(ComplianceScreeningResult tr) {
+    public void setTr(@jakarta.annotation.Nullable ComplianceScreeningResult tr) {
         this.tr = tr;
     }
 
-    public ComplianceResults amlList(List<ComplianceScreeningResult> amlList) {
+    public ComplianceResults amlList(
+            @jakarta.annotation.Nullable List<ComplianceScreeningResult> amlList) {
         this.amlList = amlList;
         return this;
     }
@@ -123,11 +127,12 @@ public class ComplianceResults {
 
     @JsonProperty(JSON_PROPERTY_AML_LIST)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAmlList(List<ComplianceScreeningResult> amlList) {
+    public void setAmlList(@jakarta.annotation.Nullable List<ComplianceScreeningResult> amlList) {
         this.amlList = amlList;
     }
 
-    public ComplianceResults status(ComplianceResultStatusesEnum status) {
+    public ComplianceResults status(
+            @jakarta.annotation.Nullable ComplianceResultStatusesEnum status) {
         this.status = status;
         return this;
     }
@@ -146,11 +151,12 @@ public class ComplianceResults {
 
     @JsonProperty(JSON_PROPERTY_STATUS)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setStatus(ComplianceResultStatusesEnum status) {
+    public void setStatus(@jakarta.annotation.Nullable ComplianceResultStatusesEnum status) {
         this.status = status;
     }
 
-    public ComplianceResults amlRegistration(AmlRegistrationResult amlRegistration) {
+    public ComplianceResults amlRegistration(
+            @jakarta.annotation.Nullable AmlRegistrationResult amlRegistration) {
         this.amlRegistration = amlRegistration;
         return this;
     }
@@ -169,7 +175,8 @@ public class ComplianceResults {
 
     @JsonProperty(JSON_PROPERTY_AML_REGISTRATION)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAmlRegistration(AmlRegistrationResult amlRegistration) {
+    public void setAmlRegistration(
+            @jakarta.annotation.Nullable AmlRegistrationResult amlRegistration) {
         this.amlRegistration = amlRegistration;
     }
 
@@ -291,8 +298,7 @@ public class ComplianceResults {
                             "%sstatus%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getStatus()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getStatus()))));
         }
 
         // add `amlRegistration` to the URL query string

@@ -18,8 +18,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonValue;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -28,13 +27,15 @@ import java.util.StringJoiner;
     ScreeningOperationFailure.JSON_PROPERTY_REASON,
     ScreeningOperationFailure.JSON_PROPERTY_DATA
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class ScreeningOperationFailure {
     /** Gets or Sets reason */
     public enum ReasonEnum {
-        AML_PROCESS_FAILED("AML_PROCESS_FAILED"),
+        AML_PROCESS_FAILED(String.valueOf("AML_PROCESS_FAILED")),
 
-        SCREENING_REJECTED("SCREENING_REJECTED");
+        SCREENING_REJECTED(String.valueOf("SCREENING_REJECTED"));
 
         private String value;
 
@@ -64,14 +65,20 @@ public class ScreeningOperationFailure {
     }
 
     public static final String JSON_PROPERTY_REASON = "reason";
-    private ReasonEnum reason;
+    @jakarta.annotation.Nonnull private ReasonEnum reason;
 
     public static final String JSON_PROPERTY_DATA = "data";
-    private ScreeningOperationExecutionOutput data;
+    @jakarta.annotation.Nullable private ScreeningOperationExecutionOutput data;
 
     public ScreeningOperationFailure() {}
 
-    public ScreeningOperationFailure reason(ReasonEnum reason) {
+    @JsonCreator
+    public ScreeningOperationFailure(
+            @JsonProperty(value = JSON_PROPERTY_REASON, required = true) ReasonEnum reason) {
+        this.reason = reason;
+    }
+
+    public ScreeningOperationFailure reason(@jakarta.annotation.Nonnull ReasonEnum reason) {
         this.reason = reason;
         return this;
     }
@@ -90,11 +97,12 @@ public class ScreeningOperationFailure {
 
     @JsonProperty(JSON_PROPERTY_REASON)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setReason(ReasonEnum reason) {
+    public void setReason(@jakarta.annotation.Nonnull ReasonEnum reason) {
         this.reason = reason;
     }
 
-    public ScreeningOperationFailure data(ScreeningOperationExecutionOutput data) {
+    public ScreeningOperationFailure data(
+            @jakarta.annotation.Nullable ScreeningOperationExecutionOutput data) {
         this.data = data;
         return this;
     }
@@ -113,7 +121,7 @@ public class ScreeningOperationFailure {
 
     @JsonProperty(JSON_PROPERTY_DATA)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setData(ScreeningOperationExecutionOutput data) {
+    public void setData(@jakarta.annotation.Nullable ScreeningOperationExecutionOutput data) {
         this.data = data;
     }
 
@@ -196,8 +204,7 @@ public class ScreeningOperationFailure {
                             "%sreason%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getReason()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getReason()))));
         }
 
         // add `data` to the URL query string

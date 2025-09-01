@@ -13,39 +13,39 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for TravelRuleAddress */
-public class TravelRuleAddressTest {
+class TravelRuleAddressTest {
     private final TravelRuleAddress model = new TravelRuleAddress();
 
     /** Model tests for TravelRuleAddress */
     @Test
-    public void testTravelRuleAddress() {
+    void testTravelRuleAddress() {
         // TODO: test TravelRuleAddress
     }
 
     /** Test the property 'street' */
     @Test
-    public void streetTest() {
+    void streetTest() {
         // TODO: test street
     }
 
     /** Test the property 'city' */
     @Test
-    public void cityTest() {
+    void cityTest() {
         // TODO: test city
     }
 
     /** Test the property 'state' */
     @Test
-    public void stateTest() {
+    void stateTest() {
         // TODO: test state
     }
 
     /** Test the property 'postalCode' */
     @Test
-    public void postalCodeTest() {
+    void postalCodeTest() {
         // TODO: test postalCode
     }
 }

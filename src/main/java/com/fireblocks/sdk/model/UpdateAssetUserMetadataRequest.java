@@ -21,14 +21,17 @@ import java.util.StringJoiner;
 
 /** UpdateAssetUserMetadataRequest */
 @JsonPropertyOrder({UpdateAssetUserMetadataRequest.JSON_PROPERTY_METADATA})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class UpdateAssetUserMetadataRequest {
     public static final String JSON_PROPERTY_METADATA = "metadata";
-    private AssetMetadataRequest metadata;
+    @jakarta.annotation.Nullable private AssetMetadataRequest metadata;
 
     public UpdateAssetUserMetadataRequest() {}
 
-    public UpdateAssetUserMetadataRequest metadata(AssetMetadataRequest metadata) {
+    public UpdateAssetUserMetadataRequest metadata(
+            @jakarta.annotation.Nullable AssetMetadataRequest metadata) {
         this.metadata = metadata;
         return this;
     }
@@ -47,7 +50,7 @@ public class UpdateAssetUserMetadataRequest {
 
     @JsonProperty(JSON_PROPERTY_METADATA)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setMetadata(AssetMetadataRequest metadata) {
+    public void setMetadata(@jakarta.annotation.Nullable AssetMetadataRequest metadata) {
         this.metadata = metadata;
     }
 

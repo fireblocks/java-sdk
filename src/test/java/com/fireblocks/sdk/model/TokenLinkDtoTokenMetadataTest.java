@@ -13,129 +13,129 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for TokenLinkDtoTokenMetadata */
-public class TokenLinkDtoTokenMetadataTest {
+class TokenLinkDtoTokenMetadataTest {
     private final TokenLinkDtoTokenMetadata model = new TokenLinkDtoTokenMetadata();
 
     /** Model tests for TokenLinkDtoTokenMetadata */
     @Test
-    public void testTokenLinkDtoTokenMetadata() {
+    void testTokenLinkDtoTokenMetadata() {
         // TODO: test TokenLinkDtoTokenMetadata
     }
 
     /** Test the property 'assetId' */
     @Test
-    public void assetIdTest() {
+    void assetIdTest() {
         // TODO: test assetId
     }
 
     /** Test the property 'name' */
     @Test
-    public void nameTest() {
+    void nameTest() {
         // TODO: test name
     }
 
     /** Test the property 'symbol' */
     @Test
-    public void symbolTest() {
+    void symbolTest() {
         // TODO: test symbol
     }
 
     /** Test the property 'networkProtocol' */
     @Test
-    public void networkProtocolTest() {
+    void networkProtocolTest() {
         // TODO: test networkProtocol
     }
 
     /** Test the property 'totalSupply' */
     @Test
-    public void totalSupplyTest() {
+    void totalSupplyTest() {
         // TODO: test totalSupply
     }
 
     /** Test the property 'holdersCount' */
     @Test
-    public void holdersCountTest() {
+    void holdersCountTest() {
         // TODO: test holdersCount
     }
 
     /** Test the property 'type' */
     @Test
-    public void typeTest() {
+    void typeTest() {
         // TODO: test type
     }
 
     /** Test the property 'contractAddress' */
     @Test
-    public void contractAddressTest() {
+    void contractAddressTest() {
         // TODO: test contractAddress
     }
 
     /** Test the property 'issuerAddress' */
     @Test
-    public void issuerAddressTest() {
+    void issuerAddressTest() {
         // TODO: test issuerAddress
     }
 
     /** Test the property 'testnet' */
     @Test
-    public void testnetTest() {
+    void testnetTest() {
         // TODO: test testnet
     }
 
     /** Test the property 'blockchain' */
     @Test
-    public void blockchainTest() {
+    void blockchainTest() {
         // TODO: test blockchain
     }
 
     /** Test the property 'decimals' */
     @Test
-    public void decimalsTest() {
+    void decimalsTest() {
         // TODO: test decimals
     }
 
     /** Test the property 'vaultAccountId' */
     @Test
-    public void vaultAccountIdTest() {
+    void vaultAccountIdTest() {
         // TODO: test vaultAccountId
     }
 
     /** Test the property 'fbCollectionId' */
     @Test
-    public void fbCollectionIdTest() {
+    void fbCollectionIdTest() {
         // TODO: test fbCollectionId
     }
 
     /** Test the property 'standard' */
     @Test
-    public void standardTest() {
+    void standardTest() {
         // TODO: test standard
     }
 
     /** Test the property 'blockchainDescriptor' */
     @Test
-    public void blockchainDescriptorTest() {
+    void blockchainDescriptorTest() {
         // TODO: test blockchainDescriptor
     }
 
     /** Test the property 'id' */
     @Test
-    public void idTest() {
+    void idTest() {
         // TODO: test id
     }
 
     /** Test the property 'blockchainId' */
     @Test
-    public void blockchainIdTest() {
+    void blockchainIdTest() {
         // TODO: test blockchainId
     }
 
     /** Test the property 'contractTemplateId' */
     @Test
-    public void contractTemplateIdTest() {
+    void contractTemplateIdTest() {
         // TODO: test contractTemplateId
     }
 }

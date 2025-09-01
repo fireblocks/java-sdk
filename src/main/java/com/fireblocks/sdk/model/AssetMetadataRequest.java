@@ -21,14 +21,16 @@ import java.util.StringJoiner;
 
 /** AssetMetadataRequest */
 @JsonPropertyOrder({AssetMetadataRequest.JSON_PROPERTY_NOTE})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class AssetMetadataRequest {
     public static final String JSON_PROPERTY_NOTE = "note";
-    private AssetNoteRequest note;
+    @jakarta.annotation.Nullable private AssetNoteRequest note;
 
     public AssetMetadataRequest() {}
 
-    public AssetMetadataRequest note(AssetNoteRequest note) {
+    public AssetMetadataRequest note(@jakarta.annotation.Nullable AssetNoteRequest note) {
         this.note = note;
         return this;
     }
@@ -47,7 +49,7 @@ public class AssetMetadataRequest {
 
     @JsonProperty(JSON_PROPERTY_NOTE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setNote(AssetNoteRequest note) {
+    public void setNote(@jakarta.annotation.Nullable AssetNoteRequest note) {
         this.note = note;
     }
 

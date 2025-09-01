@@ -13,51 +13,51 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for AssetTypeResponse */
-public class AssetTypeResponseTest {
+class AssetTypeResponseTest {
     private final AssetTypeResponse model = new AssetTypeResponse();
 
     /** Model tests for AssetTypeResponse */
     @Test
-    public void testAssetTypeResponse() {
+    void testAssetTypeResponse() {
         // TODO: test AssetTypeResponse
     }
 
     /** Test the property 'id' */
     @Test
-    public void idTest() {
+    void idTest() {
         // TODO: test id
     }
 
     /** Test the property 'name' */
     @Test
-    public void nameTest() {
+    void nameTest() {
         // TODO: test name
     }
 
     /** Test the property 'type' */
     @Test
-    public void typeTest() {
+    void typeTest() {
         // TODO: test type
     }
 
     /** Test the property 'contractAddress' */
     @Test
-    public void contractAddressTest() {
+    void contractAddressTest() {
         // TODO: test contractAddress
     }
 
     /** Test the property 'nativeAsset' */
     @Test
-    public void nativeAssetTest() {
+    void nativeAssetTest() {
         // TODO: test nativeAsset
     }
 
     /** Test the property 'decimals' */
     @Test
-    public void decimalsTest() {
+    void decimalsTest() {
         // TODO: test decimals
     }
 }

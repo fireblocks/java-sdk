@@ -13,27 +13,27 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for SpamOwnershipResponse */
-public class SpamOwnershipResponseTest {
+class SpamOwnershipResponseTest {
     private final SpamOwnershipResponse model = new SpamOwnershipResponse();
 
     /** Model tests for SpamOwnershipResponse */
     @Test
-    public void testSpamOwnershipResponse() {
+    void testSpamOwnershipResponse() {
         // TODO: test SpamOwnershipResponse
     }
 
     /** Test the property 'result' */
     @Test
-    public void resultTest() {
+    void resultTest() {
         // TODO: test result
     }
 
     /** Test the property 'source' */
     @Test
-    public void sourceTest() {
+    void sourceTest() {
         // TODO: test source
     }
 }

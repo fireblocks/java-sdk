@@ -26,17 +26,20 @@ import java.util.StringJoiner;
     PaginatedAddressResponse.JSON_PROPERTY_ADDRESSES,
     PaginatedAddressResponse.JSON_PROPERTY_PAGING
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class PaginatedAddressResponse {
     public static final String JSON_PROPERTY_ADDRESSES = "addresses";
-    private List<VaultWalletAddress> addresses;
+    @jakarta.annotation.Nullable private List<VaultWalletAddress> addresses = new ArrayList<>();
 
     public static final String JSON_PROPERTY_PAGING = "paging";
-    private PaginatedAddressResponsePaging paging;
+    @jakarta.annotation.Nullable private PaginatedAddressResponsePaging paging;
 
     public PaginatedAddressResponse() {}
 
-    public PaginatedAddressResponse addresses(List<VaultWalletAddress> addresses) {
+    public PaginatedAddressResponse addresses(
+            @jakarta.annotation.Nullable List<VaultWalletAddress> addresses) {
         this.addresses = addresses;
         return this;
     }
@@ -63,11 +66,12 @@ public class PaginatedAddressResponse {
 
     @JsonProperty(JSON_PROPERTY_ADDRESSES)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAddresses(List<VaultWalletAddress> addresses) {
+    public void setAddresses(@jakarta.annotation.Nullable List<VaultWalletAddress> addresses) {
         this.addresses = addresses;
     }
 
-    public PaginatedAddressResponse paging(PaginatedAddressResponsePaging paging) {
+    public PaginatedAddressResponse paging(
+            @jakarta.annotation.Nullable PaginatedAddressResponsePaging paging) {
         this.paging = paging;
         return this;
     }
@@ -86,7 +90,7 @@ public class PaginatedAddressResponse {
 
     @JsonProperty(JSON_PROPERTY_PAGING)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setPaging(PaginatedAddressResponsePaging paging) {
+    public void setPaging(@jakarta.annotation.Nullable PaginatedAddressResponsePaging paging) {
         this.paging = paging;
     }
 

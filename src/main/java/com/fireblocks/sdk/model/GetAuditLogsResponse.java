@@ -16,9 +16,8 @@ package com.fireblocks.sdk.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fireblocks.sdk.ApiClient;
 import java.math.BigDecimal;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -30,20 +29,22 @@ import java.util.StringJoiner;
     GetAuditLogsResponse.JSON_PROPERTY_CURSOR,
     GetAuditLogsResponse.JSON_PROPERTY_TOTAL
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class GetAuditLogsResponse {
     public static final String JSON_PROPERTY_DATA = "data";
-    private List<AuditLogData> data;
+    @jakarta.annotation.Nullable private List<AuditLogData> data = new ArrayList<>();
 
     public static final String JSON_PROPERTY_CURSOR = "cursor";
-    private String cursor;
+    @jakarta.annotation.Nullable private String cursor;
 
     public static final String JSON_PROPERTY_TOTAL = "total";
-    private BigDecimal total;
+    @jakarta.annotation.Nullable private BigDecimal total;
 
     public GetAuditLogsResponse() {}
 
-    public GetAuditLogsResponse data(List<AuditLogData> data) {
+    public GetAuditLogsResponse data(@jakarta.annotation.Nullable List<AuditLogData> data) {
         this.data = data;
         return this;
     }
@@ -70,11 +71,11 @@ public class GetAuditLogsResponse {
 
     @JsonProperty(JSON_PROPERTY_DATA)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setData(List<AuditLogData> data) {
+    public void setData(@jakarta.annotation.Nullable List<AuditLogData> data) {
         this.data = data;
     }
 
-    public GetAuditLogsResponse cursor(String cursor) {
+    public GetAuditLogsResponse cursor(@jakarta.annotation.Nullable String cursor) {
         this.cursor = cursor;
         return this;
     }
@@ -93,11 +94,11 @@ public class GetAuditLogsResponse {
 
     @JsonProperty(JSON_PROPERTY_CURSOR)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setCursor(String cursor) {
+    public void setCursor(@jakarta.annotation.Nullable String cursor) {
         this.cursor = cursor;
     }
 
-    public GetAuditLogsResponse total(BigDecimal total) {
+    public GetAuditLogsResponse total(@jakarta.annotation.Nullable BigDecimal total) {
         this.total = total;
         return this;
     }
@@ -116,7 +117,7 @@ public class GetAuditLogsResponse {
 
     @JsonProperty(JSON_PROPERTY_TOTAL)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setTotal(BigDecimal total) {
+    public void setTotal(@jakarta.annotation.Nullable BigDecimal total) {
         this.total = total;
     }
 
@@ -224,8 +225,7 @@ public class GetAuditLogsResponse {
                             "%scursor%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getCursor()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getCursor()))));
         }
 
         // add `total` to the URL query string
@@ -235,8 +235,7 @@ public class GetAuditLogsResponse {
                             "%stotal%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getTotal()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getTotal()))));
         }
 
         return joiner.toString();

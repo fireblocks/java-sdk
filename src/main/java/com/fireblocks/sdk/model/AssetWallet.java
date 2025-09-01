@@ -16,8 +16,7 @@ package com.fireblocks.sdk.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -35,44 +34,46 @@ import java.util.StringJoiner;
     AssetWallet.JSON_PROPERTY_BLOCK_HASH,
     AssetWallet.JSON_PROPERTY_CREATION_TIMESTAMP
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class AssetWallet {
     public static final String JSON_PROPERTY_VAULT_ID = "vaultId";
-    private String vaultId;
+    @jakarta.annotation.Nullable private String vaultId;
 
     public static final String JSON_PROPERTY_ASSET_ID = "assetId";
-    private String assetId;
+    @jakarta.annotation.Nullable private String assetId;
 
     public static final String JSON_PROPERTY_AVAILABLE = "available";
-    private String available;
+    @jakarta.annotation.Nullable private String available;
 
     public static final String JSON_PROPERTY_TOTAL = "total";
-    private String total;
+    @jakarta.annotation.Nullable private String total;
 
     public static final String JSON_PROPERTY_PENDING = "pending";
-    private String pending;
+    @jakarta.annotation.Nullable private String pending;
 
     public static final String JSON_PROPERTY_STAKED = "staked";
-    private String staked;
+    @jakarta.annotation.Nullable private String staked;
 
     public static final String JSON_PROPERTY_FROZEN = "frozen";
-    private String frozen;
+    @jakarta.annotation.Nullable private String frozen;
 
     public static final String JSON_PROPERTY_LOCKED_AMOUNT = "lockedAmount";
-    private String lockedAmount;
+    @jakarta.annotation.Nullable private String lockedAmount;
 
     public static final String JSON_PROPERTY_BLOCK_HEIGHT = "blockHeight";
-    private String blockHeight;
+    @jakarta.annotation.Nullable private String blockHeight;
 
     public static final String JSON_PROPERTY_BLOCK_HASH = "blockHash";
-    private String blockHash;
+    @jakarta.annotation.Nullable private String blockHash;
 
     public static final String JSON_PROPERTY_CREATION_TIMESTAMP = "creationTimestamp";
-    private String creationTimestamp;
+    @jakarta.annotation.Nullable private String creationTimestamp;
 
     public AssetWallet() {}
 
-    public AssetWallet vaultId(String vaultId) {
+    public AssetWallet vaultId(@jakarta.annotation.Nullable String vaultId) {
         this.vaultId = vaultId;
         return this;
     }
@@ -94,11 +95,11 @@ public class AssetWallet {
 
     @JsonProperty(JSON_PROPERTY_VAULT_ID)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setVaultId(String vaultId) {
+    public void setVaultId(@jakarta.annotation.Nullable String vaultId) {
         this.vaultId = vaultId;
     }
 
-    public AssetWallet assetId(String assetId) {
+    public AssetWallet assetId(@jakarta.annotation.Nullable String assetId) {
         this.assetId = assetId;
         return this;
     }
@@ -118,11 +119,11 @@ public class AssetWallet {
 
     @JsonProperty(JSON_PROPERTY_ASSET_ID)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAssetId(String assetId) {
+    public void setAssetId(@jakarta.annotation.Nullable String assetId) {
         this.assetId = assetId;
     }
 
-    public AssetWallet available(String available) {
+    public AssetWallet available(@jakarta.annotation.Nullable String available) {
         this.available = available;
         return this;
     }
@@ -141,11 +142,11 @@ public class AssetWallet {
 
     @JsonProperty(JSON_PROPERTY_AVAILABLE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAvailable(String available) {
+    public void setAvailable(@jakarta.annotation.Nullable String available) {
         this.available = available;
     }
 
-    public AssetWallet total(String total) {
+    public AssetWallet total(@jakarta.annotation.Nullable String total) {
         this.total = total;
         return this;
     }
@@ -165,11 +166,11 @@ public class AssetWallet {
 
     @JsonProperty(JSON_PROPERTY_TOTAL)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setTotal(String total) {
+    public void setTotal(@jakarta.annotation.Nullable String total) {
         this.total = total;
     }
 
-    public AssetWallet pending(String pending) {
+    public AssetWallet pending(@jakarta.annotation.Nullable String pending) {
         this.pending = pending;
         return this;
     }
@@ -188,11 +189,11 @@ public class AssetWallet {
 
     @JsonProperty(JSON_PROPERTY_PENDING)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setPending(String pending) {
+    public void setPending(@jakarta.annotation.Nullable String pending) {
         this.pending = pending;
     }
 
-    public AssetWallet staked(String staked) {
+    public AssetWallet staked(@jakarta.annotation.Nullable String staked) {
         this.staked = staked;
         return this;
     }
@@ -211,11 +212,11 @@ public class AssetWallet {
 
     @JsonProperty(JSON_PROPERTY_STAKED)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setStaked(String staked) {
+    public void setStaked(@jakarta.annotation.Nullable String staked) {
         this.staked = staked;
     }
 
-    public AssetWallet frozen(String frozen) {
+    public AssetWallet frozen(@jakarta.annotation.Nullable String frozen) {
         this.frozen = frozen;
         return this;
     }
@@ -234,11 +235,11 @@ public class AssetWallet {
 
     @JsonProperty(JSON_PROPERTY_FROZEN)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setFrozen(String frozen) {
+    public void setFrozen(@jakarta.annotation.Nullable String frozen) {
         this.frozen = frozen;
     }
 
-    public AssetWallet lockedAmount(String lockedAmount) {
+    public AssetWallet lockedAmount(@jakarta.annotation.Nullable String lockedAmount) {
         this.lockedAmount = lockedAmount;
         return this;
     }
@@ -257,11 +258,11 @@ public class AssetWallet {
 
     @JsonProperty(JSON_PROPERTY_LOCKED_AMOUNT)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setLockedAmount(String lockedAmount) {
+    public void setLockedAmount(@jakarta.annotation.Nullable String lockedAmount) {
         this.lockedAmount = lockedAmount;
     }
 
-    public AssetWallet blockHeight(String blockHeight) {
+    public AssetWallet blockHeight(@jakarta.annotation.Nullable String blockHeight) {
         this.blockHeight = blockHeight;
         return this;
     }
@@ -280,11 +281,11 @@ public class AssetWallet {
 
     @JsonProperty(JSON_PROPERTY_BLOCK_HEIGHT)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setBlockHeight(String blockHeight) {
+    public void setBlockHeight(@jakarta.annotation.Nullable String blockHeight) {
         this.blockHeight = blockHeight;
     }
 
-    public AssetWallet blockHash(String blockHash) {
+    public AssetWallet blockHash(@jakarta.annotation.Nullable String blockHash) {
         this.blockHash = blockHash;
         return this;
     }
@@ -303,11 +304,11 @@ public class AssetWallet {
 
     @JsonProperty(JSON_PROPERTY_BLOCK_HASH)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setBlockHash(String blockHash) {
+    public void setBlockHash(@jakarta.annotation.Nullable String blockHash) {
         this.blockHash = blockHash;
     }
 
-    public AssetWallet creationTimestamp(String creationTimestamp) {
+    public AssetWallet creationTimestamp(@jakarta.annotation.Nullable String creationTimestamp) {
         this.creationTimestamp = creationTimestamp;
         return this;
     }
@@ -326,7 +327,7 @@ public class AssetWallet {
 
     @JsonProperty(JSON_PROPERTY_CREATION_TIMESTAMP)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setCreationTimestamp(String creationTimestamp) {
+    public void setCreationTimestamp(@jakarta.annotation.Nullable String creationTimestamp) {
         this.creationTimestamp = creationTimestamp;
     }
 
@@ -440,8 +441,7 @@ public class AssetWallet {
                             "%svaultId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getVaultId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getVaultId()))));
         }
 
         // add `assetId` to the URL query string
@@ -451,8 +451,7 @@ public class AssetWallet {
                             "%sassetId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getAssetId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getAssetId()))));
         }
 
         // add `available` to the URL query string
@@ -462,9 +461,7 @@ public class AssetWallet {
                             "%savailable%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getAvailable()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getAvailable()))));
         }
 
         // add `total` to the URL query string
@@ -474,8 +471,7 @@ public class AssetWallet {
                             "%stotal%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getTotal()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getTotal()))));
         }
 
         // add `pending` to the URL query string
@@ -485,8 +481,7 @@ public class AssetWallet {
                             "%spending%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getPending()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getPending()))));
         }
 
         // add `staked` to the URL query string
@@ -496,8 +491,7 @@ public class AssetWallet {
                             "%sstaked%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getStaked()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getStaked()))));
         }
 
         // add `frozen` to the URL query string
@@ -507,8 +501,7 @@ public class AssetWallet {
                             "%sfrozen%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getFrozen()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getFrozen()))));
         }
 
         // add `lockedAmount` to the URL query string
@@ -518,10 +511,7 @@ public class AssetWallet {
                             "%slockedAmount%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getLockedAmount()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getLockedAmount()))));
         }
 
         // add `blockHeight` to the URL query string
@@ -531,10 +521,7 @@ public class AssetWallet {
                             "%sblockHeight%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getBlockHeight()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getBlockHeight()))));
         }
 
         // add `blockHash` to the URL query string
@@ -544,9 +531,7 @@ public class AssetWallet {
                             "%sblockHash%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getBlockHash()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getBlockHash()))));
         }
 
         // add `creationTimestamp` to the URL query string
@@ -556,10 +541,7 @@ public class AssetWallet {
                             "%screationTimestamp%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getCreationTimestamp()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getCreationTimestamp()))));
         }
 
         return joiner.toString();

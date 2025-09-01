@@ -18,8 +18,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonValue;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -34,25 +33,27 @@ import java.util.StringJoiner;
     FeeInfo.JSON_PROPERTY_RELAY_NAME,
     FeeInfo.JSON_PROPERTY_FEE_U_S_D
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class FeeInfo {
     public static final String JSON_PROPERTY_NETWORK_FEE = "networkFee";
-    private String networkFee;
+    @jakarta.annotation.Nullable private String networkFee;
 
     public static final String JSON_PROPERTY_SERVICE_FEE = "serviceFee";
-    private String serviceFee;
+    @jakarta.annotation.Nullable private String serviceFee;
 
     public static final String JSON_PROPERTY_GAS_PRICE = "gasPrice";
-    private String gasPrice;
+    @jakarta.annotation.Nullable private String gasPrice;
 
     public static final String JSON_PROPERTY_PAID_BY_RELAY = "paidByRelay";
-    private Boolean paidByRelay;
+    @jakarta.annotation.Nullable private Boolean paidByRelay;
 
     /** Wether the relay is the same tenant (LOCAL) or another tenant (THIRD_PARTY) */
     public enum RelayTypeEnum {
-        LOCAL("LOCAL"),
+        LOCAL(String.valueOf("LOCAL")),
 
-        THIRD_PARTY("THIRD_PARTY");
+        THIRD_PARTY(String.valueOf("THIRD_PARTY"));
 
         private String value;
 
@@ -82,20 +83,20 @@ public class FeeInfo {
     }
 
     public static final String JSON_PROPERTY_RELAY_TYPE = "relayType";
-    private RelayTypeEnum relayType;
+    @jakarta.annotation.Nullable private RelayTypeEnum relayType;
 
     public static final String JSON_PROPERTY_RELAY_ID = "relayId";
-    private String relayId;
+    @jakarta.annotation.Nullable private String relayId;
 
     public static final String JSON_PROPERTY_RELAY_NAME = "relayName";
-    private String relayName;
+    @jakarta.annotation.Nullable private String relayName;
 
     public static final String JSON_PROPERTY_FEE_U_S_D = "feeUSD";
-    private String feeUSD;
+    @jakarta.annotation.Nullable private String feeUSD;
 
     public FeeInfo() {}
 
-    public FeeInfo networkFee(String networkFee) {
+    public FeeInfo networkFee(@jakarta.annotation.Nullable String networkFee) {
         this.networkFee = networkFee;
         return this;
     }
@@ -114,11 +115,11 @@ public class FeeInfo {
 
     @JsonProperty(JSON_PROPERTY_NETWORK_FEE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setNetworkFee(String networkFee) {
+    public void setNetworkFee(@jakarta.annotation.Nullable String networkFee) {
         this.networkFee = networkFee;
     }
 
-    public FeeInfo serviceFee(String serviceFee) {
+    public FeeInfo serviceFee(@jakarta.annotation.Nullable String serviceFee) {
         this.serviceFee = serviceFee;
         return this;
     }
@@ -138,11 +139,11 @@ public class FeeInfo {
 
     @JsonProperty(JSON_PROPERTY_SERVICE_FEE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setServiceFee(String serviceFee) {
+    public void setServiceFee(@jakarta.annotation.Nullable String serviceFee) {
         this.serviceFee = serviceFee;
     }
 
-    public FeeInfo gasPrice(String gasPrice) {
+    public FeeInfo gasPrice(@jakarta.annotation.Nullable String gasPrice) {
         this.gasPrice = gasPrice;
         return this;
     }
@@ -161,11 +162,11 @@ public class FeeInfo {
 
     @JsonProperty(JSON_PROPERTY_GAS_PRICE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setGasPrice(String gasPrice) {
+    public void setGasPrice(@jakarta.annotation.Nullable String gasPrice) {
         this.gasPrice = gasPrice;
     }
 
-    public FeeInfo paidByRelay(Boolean paidByRelay) {
+    public FeeInfo paidByRelay(@jakarta.annotation.Nullable Boolean paidByRelay) {
         this.paidByRelay = paidByRelay;
         return this;
     }
@@ -184,11 +185,11 @@ public class FeeInfo {
 
     @JsonProperty(JSON_PROPERTY_PAID_BY_RELAY)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setPaidByRelay(Boolean paidByRelay) {
+    public void setPaidByRelay(@jakarta.annotation.Nullable Boolean paidByRelay) {
         this.paidByRelay = paidByRelay;
     }
 
-    public FeeInfo relayType(RelayTypeEnum relayType) {
+    public FeeInfo relayType(@jakarta.annotation.Nullable RelayTypeEnum relayType) {
         this.relayType = relayType;
         return this;
     }
@@ -207,11 +208,11 @@ public class FeeInfo {
 
     @JsonProperty(JSON_PROPERTY_RELAY_TYPE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setRelayType(RelayTypeEnum relayType) {
+    public void setRelayType(@jakarta.annotation.Nullable RelayTypeEnum relayType) {
         this.relayType = relayType;
     }
 
-    public FeeInfo relayId(String relayId) {
+    public FeeInfo relayId(@jakarta.annotation.Nullable String relayId) {
         this.relayId = relayId;
         return this;
     }
@@ -230,11 +231,11 @@ public class FeeInfo {
 
     @JsonProperty(JSON_PROPERTY_RELAY_ID)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setRelayId(String relayId) {
+    public void setRelayId(@jakarta.annotation.Nullable String relayId) {
         this.relayId = relayId;
     }
 
-    public FeeInfo relayName(String relayName) {
+    public FeeInfo relayName(@jakarta.annotation.Nullable String relayName) {
         this.relayName = relayName;
         return this;
     }
@@ -253,11 +254,11 @@ public class FeeInfo {
 
     @JsonProperty(JSON_PROPERTY_RELAY_NAME)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setRelayName(String relayName) {
+    public void setRelayName(@jakarta.annotation.Nullable String relayName) {
         this.relayName = relayName;
     }
 
-    public FeeInfo feeUSD(String feeUSD) {
+    public FeeInfo feeUSD(@jakarta.annotation.Nullable String feeUSD) {
         this.feeUSD = feeUSD;
         return this;
     }
@@ -276,7 +277,7 @@ public class FeeInfo {
 
     @JsonProperty(JSON_PROPERTY_FEE_U_S_D)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setFeeUSD(String feeUSD) {
+    public void setFeeUSD(@jakarta.annotation.Nullable String feeUSD) {
         this.feeUSD = feeUSD;
     }
 
@@ -379,9 +380,7 @@ public class FeeInfo {
                             "%snetworkFee%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getNetworkFee()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getNetworkFee()))));
         }
 
         // add `serviceFee` to the URL query string
@@ -391,9 +390,7 @@ public class FeeInfo {
                             "%sserviceFee%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getServiceFee()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getServiceFee()))));
         }
 
         // add `gasPrice` to the URL query string
@@ -403,8 +400,7 @@ public class FeeInfo {
                             "%sgasPrice%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getGasPrice()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getGasPrice()))));
         }
 
         // add `paidByRelay` to the URL query string
@@ -414,10 +410,7 @@ public class FeeInfo {
                             "%spaidByRelay%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getPaidByRelay()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getPaidByRelay()))));
         }
 
         // add `relayType` to the URL query string
@@ -427,9 +420,7 @@ public class FeeInfo {
                             "%srelayType%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getRelayType()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getRelayType()))));
         }
 
         // add `relayId` to the URL query string
@@ -439,8 +430,7 @@ public class FeeInfo {
                             "%srelayId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getRelayId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getRelayId()))));
         }
 
         // add `relayName` to the URL query string
@@ -450,9 +440,7 @@ public class FeeInfo {
                             "%srelayName%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getRelayName()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getRelayName()))));
         }
 
         // add `feeUSD` to the URL query string
@@ -462,8 +450,7 @@ public class FeeInfo {
                             "%sfeeUSD%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getFeeUSD()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getFeeUSD()))));
         }
 
         return joiner.toString();

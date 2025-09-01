@@ -13,21 +13,21 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for ModifyValidationKeyDto */
-public class ModifyValidationKeyDtoTest {
+class ModifyValidationKeyDtoTest {
     private final ModifyValidationKeyDto model = new ModifyValidationKeyDto();
 
     /** Model tests for ModifyValidationKeyDto */
     @Test
-    public void testModifyValidationKeyDto() {
+    void testModifyValidationKeyDto() {
         // TODO: test ModifyValidationKeyDto
     }
 
     /** Test the property 'enabled' */
     @Test
-    public void enabledTest() {
+    void enabledTest() {
         // TODO: test enabled
     }
 }

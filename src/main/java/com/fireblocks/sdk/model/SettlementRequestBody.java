@@ -16,21 +16,23 @@ package com.fireblocks.sdk.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
 /** SettlementRequestBody */
 @JsonPropertyOrder({SettlementRequestBody.JSON_PROPERTY_MAIN_EXCHANGE_ACCOUNT_ID})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class SettlementRequestBody {
     public static final String JSON_PROPERTY_MAIN_EXCHANGE_ACCOUNT_ID = "mainExchangeAccountId";
-    private String mainExchangeAccountId;
+    @jakarta.annotation.Nullable private String mainExchangeAccountId;
 
     public SettlementRequestBody() {}
 
-    public SettlementRequestBody mainExchangeAccountId(String mainExchangeAccountId) {
+    public SettlementRequestBody mainExchangeAccountId(
+            @jakarta.annotation.Nullable String mainExchangeAccountId) {
         this.mainExchangeAccountId = mainExchangeAccountId;
         return this;
     }
@@ -49,7 +51,8 @@ public class SettlementRequestBody {
 
     @JsonProperty(JSON_PROPERTY_MAIN_EXCHANGE_ACCOUNT_ID)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setMainExchangeAccountId(String mainExchangeAccountId) {
+    public void setMainExchangeAccountId(
+            @jakarta.annotation.Nullable String mainExchangeAccountId) {
         this.mainExchangeAccountId = mainExchangeAccountId;
     }
 
@@ -133,10 +136,8 @@ public class SettlementRequestBody {
                             "%smainExchangeAccountId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getMainExchangeAccountId()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(
+                                    ApiClient.valueToString(getMainExchangeAccountId()))));
         }
 
         return joiner.toString();

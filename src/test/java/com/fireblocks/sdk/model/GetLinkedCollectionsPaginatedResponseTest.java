@@ -13,28 +13,28 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for GetLinkedCollectionsPaginatedResponse */
-public class GetLinkedCollectionsPaginatedResponseTest {
+class GetLinkedCollectionsPaginatedResponseTest {
     private final GetLinkedCollectionsPaginatedResponse model =
             new GetLinkedCollectionsPaginatedResponse();
 
     /** Model tests for GetLinkedCollectionsPaginatedResponse */
     @Test
-    public void testGetLinkedCollectionsPaginatedResponse() {
+    void testGetLinkedCollectionsPaginatedResponse() {
         // TODO: test GetLinkedCollectionsPaginatedResponse
     }
 
     /** Test the property 'data' */
     @Test
-    public void dataTest() {
+    void dataTest() {
         // TODO: test data
     }
 
     /** Test the property 'next' */
     @Test
-    public void nextTest() {
+    void nextTest() {
         // TODO: test next
     }
 }

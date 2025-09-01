@@ -13,63 +13,63 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for FeeInfo */
-public class FeeInfoTest {
+class FeeInfoTest {
     private final FeeInfo model = new FeeInfo();
 
     /** Model tests for FeeInfo */
     @Test
-    public void testFeeInfo() {
+    void testFeeInfo() {
         // TODO: test FeeInfo
     }
 
     /** Test the property 'networkFee' */
     @Test
-    public void networkFeeTest() {
+    void networkFeeTest() {
         // TODO: test networkFee
     }
 
     /** Test the property 'serviceFee' */
     @Test
-    public void serviceFeeTest() {
+    void serviceFeeTest() {
         // TODO: test serviceFee
     }
 
     /** Test the property 'gasPrice' */
     @Test
-    public void gasPriceTest() {
+    void gasPriceTest() {
         // TODO: test gasPrice
     }
 
     /** Test the property 'paidByRelay' */
     @Test
-    public void paidByRelayTest() {
+    void paidByRelayTest() {
         // TODO: test paidByRelay
     }
 
     /** Test the property 'relayType' */
     @Test
-    public void relayTypeTest() {
+    void relayTypeTest() {
         // TODO: test relayType
     }
 
     /** Test the property 'relayId' */
     @Test
-    public void relayIdTest() {
+    void relayIdTest() {
         // TODO: test relayId
     }
 
     /** Test the property 'relayName' */
     @Test
-    public void relayNameTest() {
+    void relayNameTest() {
         // TODO: test relayName
     }
 
     /** Test the property 'feeUSD' */
     @Test
-    public void feeUSDTest() {
+    void feeUSDTest() {
         // TODO: test feeUSD
     }
 }

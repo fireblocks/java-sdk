@@ -13,27 +13,27 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for OneTimeAddressAccount */
-public class OneTimeAddressAccountTest {
+class OneTimeAddressAccountTest {
     private final OneTimeAddressAccount model = new OneTimeAddressAccount();
 
     /** Model tests for OneTimeAddressAccount */
     @Test
-    public void testOneTimeAddressAccount() {
+    void testOneTimeAddressAccount() {
         // TODO: test OneTimeAddressAccount
     }
 
     /** Test the property 'oneTimeAddress' */
     @Test
-    public void oneTimeAddressTest() {
+    void oneTimeAddressTest() {
         // TODO: test oneTimeAddress
     }
 
     /** Test the property 'tag' */
     @Test
-    public void tagTest() {
+    void tagTest() {
         // TODO: test tag
     }
 }

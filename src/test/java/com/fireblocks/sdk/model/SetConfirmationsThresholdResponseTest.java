@@ -13,27 +13,27 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for SetConfirmationsThresholdResponse */
-public class SetConfirmationsThresholdResponseTest {
+class SetConfirmationsThresholdResponseTest {
     private final SetConfirmationsThresholdResponse model = new SetConfirmationsThresholdResponse();
 
     /** Model tests for SetConfirmationsThresholdResponse */
     @Test
-    public void testSetConfirmationsThresholdResponse() {
+    void testSetConfirmationsThresholdResponse() {
         // TODO: test SetConfirmationsThresholdResponse
     }
 
     /** Test the property 'success' */
     @Test
-    public void successTest() {
+    void successTest() {
         // TODO: test success
     }
 
     /** Test the property 'transactions' */
     @Test
-    public void transactionsTest() {
+    void transactionsTest() {
         // TODO: test transactions
     }
 }

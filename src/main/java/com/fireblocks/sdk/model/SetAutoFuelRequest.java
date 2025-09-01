@@ -16,21 +16,22 @@ package com.fireblocks.sdk.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
 /** SetAutoFuelRequest */
 @JsonPropertyOrder({SetAutoFuelRequest.JSON_PROPERTY_AUTO_FUEL})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class SetAutoFuelRequest {
     public static final String JSON_PROPERTY_AUTO_FUEL = "autoFuel";
-    private Boolean autoFuel;
+    @jakarta.annotation.Nullable private Boolean autoFuel;
 
     public SetAutoFuelRequest() {}
 
-    public SetAutoFuelRequest autoFuel(Boolean autoFuel) {
+    public SetAutoFuelRequest autoFuel(@jakarta.annotation.Nullable Boolean autoFuel) {
         this.autoFuel = autoFuel;
         return this;
     }
@@ -49,7 +50,7 @@ public class SetAutoFuelRequest {
 
     @JsonProperty(JSON_PROPERTY_AUTO_FUEL)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAutoFuel(Boolean autoFuel) {
+    public void setAutoFuel(@jakarta.annotation.Nullable Boolean autoFuel) {
         this.autoFuel = autoFuel;
     }
 
@@ -130,8 +131,7 @@ public class SetAutoFuelRequest {
                             "%sautoFuel%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getAutoFuel()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getAutoFuel()))));
         }
 
         return joiner.toString();

@@ -18,9 +18,8 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.fireblocks.sdk.ApiClient;
 import java.math.BigDecimal;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -41,54 +40,56 @@ import java.util.StringJoiner;
     TravelRulePolicyRuleResponse.JSON_PROPERTY_OPERATION,
     TravelRulePolicyRuleResponse.JSON_PROPERTY_ACTION
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class TravelRulePolicyRuleResponse {
     public static final String JSON_PROPERTY_SOURCE_TYPE = "sourceType";
-    private String sourceType;
+    @jakarta.annotation.Nullable private String sourceType;
 
     public static final String JSON_PROPERTY_SOURCE_SUB_TYPE = "sourceSubType";
-    private String sourceSubType;
+    @jakarta.annotation.Nullable private String sourceSubType;
 
     public static final String JSON_PROPERTY_DEST_TYPE = "destType";
-    private String destType;
+    @jakarta.annotation.Nullable private String destType;
 
     public static final String JSON_PROPERTY_DEST_SUB_TYPE = "destSubType";
-    private String destSubType;
+    @jakarta.annotation.Nullable private String destSubType;
 
     public static final String JSON_PROPERTY_DEST_ADDRESS = "destAddress";
-    private String destAddress;
+    @jakarta.annotation.Nullable private String destAddress;
 
     public static final String JSON_PROPERTY_SOURCE_ID = "sourceId";
-    private String sourceId;
+    @jakarta.annotation.Nullable private String sourceId;
 
     public static final String JSON_PROPERTY_DEST_ID = "destId";
-    private String destId;
+    @jakarta.annotation.Nullable private String destId;
 
     public static final String JSON_PROPERTY_ASSET = "asset";
-    private String asset;
+    @jakarta.annotation.Nullable private String asset;
 
     public static final String JSON_PROPERTY_BASE_ASSET = "baseAsset";
-    private String baseAsset;
+    @jakarta.annotation.Nullable private String baseAsset;
 
     public static final String JSON_PROPERTY_AMOUNT = "amount";
-    private BigDecimal amount;
+    @jakarta.annotation.Nullable private BigDecimal amount;
 
     public static final String JSON_PROPERTY_AMOUNT_U_S_D = "amountUSD";
-    private BigDecimal amountUSD;
+    @jakarta.annotation.Nullable private BigDecimal amountUSD;
 
     public static final String JSON_PROPERTY_NETWORK_PROTOCOL = "networkProtocol";
-    private String networkProtocol;
+    @jakarta.annotation.Nullable private String networkProtocol;
 
     public static final String JSON_PROPERTY_OPERATION = "operation";
-    private String operation;
+    @jakarta.annotation.Nullable private String operation;
 
     /** Gets or Sets action */
     public enum ActionEnum {
-        SCREEN("SCREEN"),
+        SCREEN(String.valueOf("SCREEN")),
 
-        PASS("PASS"),
+        PASS(String.valueOf("PASS")),
 
-        FREEZE("FREEZE");
+        FREEZE(String.valueOf("FREEZE"));
 
         private String value;
 
@@ -118,11 +119,17 @@ public class TravelRulePolicyRuleResponse {
     }
 
     public static final String JSON_PROPERTY_ACTION = "action";
-    private ActionEnum action;
+    @jakarta.annotation.Nonnull private ActionEnum action;
 
     public TravelRulePolicyRuleResponse() {}
 
-    public TravelRulePolicyRuleResponse sourceType(String sourceType) {
+    @JsonCreator
+    public TravelRulePolicyRuleResponse(
+            @JsonProperty(value = JSON_PROPERTY_ACTION, required = true) ActionEnum action) {
+        this.action = action;
+    }
+
+    public TravelRulePolicyRuleResponse sourceType(@jakarta.annotation.Nullable String sourceType) {
         this.sourceType = sourceType;
         return this;
     }
@@ -141,11 +148,12 @@ public class TravelRulePolicyRuleResponse {
 
     @JsonProperty(JSON_PROPERTY_SOURCE_TYPE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setSourceType(String sourceType) {
+    public void setSourceType(@jakarta.annotation.Nullable String sourceType) {
         this.sourceType = sourceType;
     }
 
-    public TravelRulePolicyRuleResponse sourceSubType(String sourceSubType) {
+    public TravelRulePolicyRuleResponse sourceSubType(
+            @jakarta.annotation.Nullable String sourceSubType) {
         this.sourceSubType = sourceSubType;
         return this;
     }
@@ -164,11 +172,11 @@ public class TravelRulePolicyRuleResponse {
 
     @JsonProperty(JSON_PROPERTY_SOURCE_SUB_TYPE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setSourceSubType(String sourceSubType) {
+    public void setSourceSubType(@jakarta.annotation.Nullable String sourceSubType) {
         this.sourceSubType = sourceSubType;
     }
 
-    public TravelRulePolicyRuleResponse destType(String destType) {
+    public TravelRulePolicyRuleResponse destType(@jakarta.annotation.Nullable String destType) {
         this.destType = destType;
         return this;
     }
@@ -187,11 +195,12 @@ public class TravelRulePolicyRuleResponse {
 
     @JsonProperty(JSON_PROPERTY_DEST_TYPE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setDestType(String destType) {
+    public void setDestType(@jakarta.annotation.Nullable String destType) {
         this.destType = destType;
     }
 
-    public TravelRulePolicyRuleResponse destSubType(String destSubType) {
+    public TravelRulePolicyRuleResponse destSubType(
+            @jakarta.annotation.Nullable String destSubType) {
         this.destSubType = destSubType;
         return this;
     }
@@ -210,11 +219,12 @@ public class TravelRulePolicyRuleResponse {
 
     @JsonProperty(JSON_PROPERTY_DEST_SUB_TYPE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setDestSubType(String destSubType) {
+    public void setDestSubType(@jakarta.annotation.Nullable String destSubType) {
         this.destSubType = destSubType;
     }
 
-    public TravelRulePolicyRuleResponse destAddress(String destAddress) {
+    public TravelRulePolicyRuleResponse destAddress(
+            @jakarta.annotation.Nullable String destAddress) {
         this.destAddress = destAddress;
         return this;
     }
@@ -233,11 +243,11 @@ public class TravelRulePolicyRuleResponse {
 
     @JsonProperty(JSON_PROPERTY_DEST_ADDRESS)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setDestAddress(String destAddress) {
+    public void setDestAddress(@jakarta.annotation.Nullable String destAddress) {
         this.destAddress = destAddress;
     }
 
-    public TravelRulePolicyRuleResponse sourceId(String sourceId) {
+    public TravelRulePolicyRuleResponse sourceId(@jakarta.annotation.Nullable String sourceId) {
         this.sourceId = sourceId;
         return this;
     }
@@ -256,11 +266,11 @@ public class TravelRulePolicyRuleResponse {
 
     @JsonProperty(JSON_PROPERTY_SOURCE_ID)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setSourceId(String sourceId) {
+    public void setSourceId(@jakarta.annotation.Nullable String sourceId) {
         this.sourceId = sourceId;
     }
 
-    public TravelRulePolicyRuleResponse destId(String destId) {
+    public TravelRulePolicyRuleResponse destId(@jakarta.annotation.Nullable String destId) {
         this.destId = destId;
         return this;
     }
@@ -279,11 +289,11 @@ public class TravelRulePolicyRuleResponse {
 
     @JsonProperty(JSON_PROPERTY_DEST_ID)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setDestId(String destId) {
+    public void setDestId(@jakarta.annotation.Nullable String destId) {
         this.destId = destId;
     }
 
-    public TravelRulePolicyRuleResponse asset(String asset) {
+    public TravelRulePolicyRuleResponse asset(@jakarta.annotation.Nullable String asset) {
         this.asset = asset;
         return this;
     }
@@ -302,11 +312,11 @@ public class TravelRulePolicyRuleResponse {
 
     @JsonProperty(JSON_PROPERTY_ASSET)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAsset(String asset) {
+    public void setAsset(@jakarta.annotation.Nullable String asset) {
         this.asset = asset;
     }
 
-    public TravelRulePolicyRuleResponse baseAsset(String baseAsset) {
+    public TravelRulePolicyRuleResponse baseAsset(@jakarta.annotation.Nullable String baseAsset) {
         this.baseAsset = baseAsset;
         return this;
     }
@@ -325,11 +335,11 @@ public class TravelRulePolicyRuleResponse {
 
     @JsonProperty(JSON_PROPERTY_BASE_ASSET)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setBaseAsset(String baseAsset) {
+    public void setBaseAsset(@jakarta.annotation.Nullable String baseAsset) {
         this.baseAsset = baseAsset;
     }
 
-    public TravelRulePolicyRuleResponse amount(BigDecimal amount) {
+    public TravelRulePolicyRuleResponse amount(@jakarta.annotation.Nullable BigDecimal amount) {
         this.amount = amount;
         return this;
     }
@@ -348,11 +358,12 @@ public class TravelRulePolicyRuleResponse {
 
     @JsonProperty(JSON_PROPERTY_AMOUNT)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAmount(BigDecimal amount) {
+    public void setAmount(@jakarta.annotation.Nullable BigDecimal amount) {
         this.amount = amount;
     }
 
-    public TravelRulePolicyRuleResponse amountUSD(BigDecimal amountUSD) {
+    public TravelRulePolicyRuleResponse amountUSD(
+            @jakarta.annotation.Nullable BigDecimal amountUSD) {
         this.amountUSD = amountUSD;
         return this;
     }
@@ -371,11 +382,12 @@ public class TravelRulePolicyRuleResponse {
 
     @JsonProperty(JSON_PROPERTY_AMOUNT_U_S_D)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAmountUSD(BigDecimal amountUSD) {
+    public void setAmountUSD(@jakarta.annotation.Nullable BigDecimal amountUSD) {
         this.amountUSD = amountUSD;
     }
 
-    public TravelRulePolicyRuleResponse networkProtocol(String networkProtocol) {
+    public TravelRulePolicyRuleResponse networkProtocol(
+            @jakarta.annotation.Nullable String networkProtocol) {
         this.networkProtocol = networkProtocol;
         return this;
     }
@@ -394,11 +406,11 @@ public class TravelRulePolicyRuleResponse {
 
     @JsonProperty(JSON_PROPERTY_NETWORK_PROTOCOL)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setNetworkProtocol(String networkProtocol) {
+    public void setNetworkProtocol(@jakarta.annotation.Nullable String networkProtocol) {
         this.networkProtocol = networkProtocol;
     }
 
-    public TravelRulePolicyRuleResponse operation(String operation) {
+    public TravelRulePolicyRuleResponse operation(@jakarta.annotation.Nullable String operation) {
         this.operation = operation;
         return this;
     }
@@ -417,11 +429,11 @@ public class TravelRulePolicyRuleResponse {
 
     @JsonProperty(JSON_PROPERTY_OPERATION)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setOperation(String operation) {
+    public void setOperation(@jakarta.annotation.Nullable String operation) {
         this.operation = operation;
     }
 
-    public TravelRulePolicyRuleResponse action(ActionEnum action) {
+    public TravelRulePolicyRuleResponse action(@jakarta.annotation.Nonnull ActionEnum action) {
         this.action = action;
         return this;
     }
@@ -440,7 +452,7 @@ public class TravelRulePolicyRuleResponse {
 
     @JsonProperty(JSON_PROPERTY_ACTION)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setAction(ActionEnum action) {
+    public void setAction(@jakarta.annotation.Nonnull ActionEnum action) {
         this.action = action;
     }
 
@@ -563,9 +575,7 @@ public class TravelRulePolicyRuleResponse {
                             "%ssourceType%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getSourceType()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getSourceType()))));
         }
 
         // add `sourceSubType` to the URL query string
@@ -575,10 +585,7 @@ public class TravelRulePolicyRuleResponse {
                             "%ssourceSubType%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getSourceSubType()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getSourceSubType()))));
         }
 
         // add `destType` to the URL query string
@@ -588,8 +595,7 @@ public class TravelRulePolicyRuleResponse {
                             "%sdestType%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getDestType()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getDestType()))));
         }
 
         // add `destSubType` to the URL query string
@@ -599,10 +605,7 @@ public class TravelRulePolicyRuleResponse {
                             "%sdestSubType%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getDestSubType()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getDestSubType()))));
         }
 
         // add `destAddress` to the URL query string
@@ -612,10 +615,7 @@ public class TravelRulePolicyRuleResponse {
                             "%sdestAddress%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getDestAddress()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getDestAddress()))));
         }
 
         // add `sourceId` to the URL query string
@@ -625,8 +625,7 @@ public class TravelRulePolicyRuleResponse {
                             "%ssourceId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getSourceId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getSourceId()))));
         }
 
         // add `destId` to the URL query string
@@ -636,8 +635,7 @@ public class TravelRulePolicyRuleResponse {
                             "%sdestId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getDestId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getDestId()))));
         }
 
         // add `asset` to the URL query string
@@ -647,8 +645,7 @@ public class TravelRulePolicyRuleResponse {
                             "%sasset%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getAsset()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getAsset()))));
         }
 
         // add `baseAsset` to the URL query string
@@ -658,9 +655,7 @@ public class TravelRulePolicyRuleResponse {
                             "%sbaseAsset%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getBaseAsset()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getBaseAsset()))));
         }
 
         // add `amount` to the URL query string
@@ -670,8 +665,7 @@ public class TravelRulePolicyRuleResponse {
                             "%samount%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getAmount()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getAmount()))));
         }
 
         // add `amountUSD` to the URL query string
@@ -681,9 +675,7 @@ public class TravelRulePolicyRuleResponse {
                             "%samountUSD%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getAmountUSD()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getAmountUSD()))));
         }
 
         // add `networkProtocol` to the URL query string
@@ -693,10 +685,7 @@ public class TravelRulePolicyRuleResponse {
                             "%snetworkProtocol%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getNetworkProtocol()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getNetworkProtocol()))));
         }
 
         // add `operation` to the URL query string
@@ -706,9 +695,7 @@ public class TravelRulePolicyRuleResponse {
                             "%soperation%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getOperation()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getOperation()))));
         }
 
         // add `action` to the URL query string
@@ -718,8 +705,7 @@ public class TravelRulePolicyRuleResponse {
                             "%saction%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getAction()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getAction()))));
         }
 
         return joiner.toString();

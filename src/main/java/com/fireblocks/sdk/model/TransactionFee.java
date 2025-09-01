@@ -16,9 +16,8 @@ package com.fireblocks.sdk.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fireblocks.sdk.ApiClient;
 import java.math.BigDecimal;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -33,35 +32,37 @@ import java.util.StringJoiner;
     TransactionFee.JSON_PROPERTY_MAX_FEE_PER_GAS_DELTA,
     TransactionFee.JSON_PROPERTY_L1_FEE
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class TransactionFee {
     public static final String JSON_PROPERTY_FEE_PER_BYTE = "feePerByte";
-    private String feePerByte;
+    @jakarta.annotation.Nullable private String feePerByte;
 
     public static final String JSON_PROPERTY_GAS_PRICE = "gasPrice";
-    private BigDecimal gasPrice;
+    @jakarta.annotation.Nullable private BigDecimal gasPrice;
 
     public static final String JSON_PROPERTY_GAS_LIMIT = "gasLimit";
-    private String gasLimit;
+    @jakarta.annotation.Nullable private String gasLimit;
 
     public static final String JSON_PROPERTY_NETWORK_FEE = "networkFee";
-    private String networkFee;
+    @jakarta.annotation.Nullable private String networkFee;
 
     public static final String JSON_PROPERTY_BASE_FEE = "baseFee";
-    private BigDecimal baseFee;
+    @jakarta.annotation.Nullable private BigDecimal baseFee;
 
     public static final String JSON_PROPERTY_PRIORITY_FEE = "priorityFee";
-    private BigDecimal priorityFee;
+    @jakarta.annotation.Nullable private BigDecimal priorityFee;
 
     public static final String JSON_PROPERTY_MAX_FEE_PER_GAS_DELTA = "maxFeePerGasDelta";
-    private String maxFeePerGasDelta;
+    @jakarta.annotation.Nullable private String maxFeePerGasDelta;
 
     public static final String JSON_PROPERTY_L1_FEE = "l1Fee";
-    private String l1Fee;
+    @jakarta.annotation.Nullable private String l1Fee;
 
     public TransactionFee() {}
 
-    public TransactionFee feePerByte(String feePerByte) {
+    public TransactionFee feePerByte(@jakarta.annotation.Nullable String feePerByte) {
         this.feePerByte = feePerByte;
         return this;
     }
@@ -80,11 +81,11 @@ public class TransactionFee {
 
     @JsonProperty(JSON_PROPERTY_FEE_PER_BYTE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setFeePerByte(String feePerByte) {
+    public void setFeePerByte(@jakarta.annotation.Nullable String feePerByte) {
         this.feePerByte = feePerByte;
     }
 
-    public TransactionFee gasPrice(BigDecimal gasPrice) {
+    public TransactionFee gasPrice(@jakarta.annotation.Nullable BigDecimal gasPrice) {
         this.gasPrice = gasPrice;
         return this;
     }
@@ -103,11 +104,11 @@ public class TransactionFee {
 
     @JsonProperty(JSON_PROPERTY_GAS_PRICE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setGasPrice(BigDecimal gasPrice) {
+    public void setGasPrice(@jakarta.annotation.Nullable BigDecimal gasPrice) {
         this.gasPrice = gasPrice;
     }
 
-    public TransactionFee gasLimit(String gasLimit) {
+    public TransactionFee gasLimit(@jakarta.annotation.Nullable String gasLimit) {
         this.gasLimit = gasLimit;
         return this;
     }
@@ -126,11 +127,11 @@ public class TransactionFee {
 
     @JsonProperty(JSON_PROPERTY_GAS_LIMIT)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setGasLimit(String gasLimit) {
+    public void setGasLimit(@jakarta.annotation.Nullable String gasLimit) {
         this.gasLimit = gasLimit;
     }
 
-    public TransactionFee networkFee(String networkFee) {
+    public TransactionFee networkFee(@jakarta.annotation.Nullable String networkFee) {
         this.networkFee = networkFee;
         return this;
     }
@@ -149,11 +150,11 @@ public class TransactionFee {
 
     @JsonProperty(JSON_PROPERTY_NETWORK_FEE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setNetworkFee(String networkFee) {
+    public void setNetworkFee(@jakarta.annotation.Nullable String networkFee) {
         this.networkFee = networkFee;
     }
 
-    public TransactionFee baseFee(BigDecimal baseFee) {
+    public TransactionFee baseFee(@jakarta.annotation.Nullable BigDecimal baseFee) {
         this.baseFee = baseFee;
         return this;
     }
@@ -172,11 +173,11 @@ public class TransactionFee {
 
     @JsonProperty(JSON_PROPERTY_BASE_FEE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setBaseFee(BigDecimal baseFee) {
+    public void setBaseFee(@jakarta.annotation.Nullable BigDecimal baseFee) {
         this.baseFee = baseFee;
     }
 
-    public TransactionFee priorityFee(BigDecimal priorityFee) {
+    public TransactionFee priorityFee(@jakarta.annotation.Nullable BigDecimal priorityFee) {
         this.priorityFee = priorityFee;
         return this;
     }
@@ -195,11 +196,11 @@ public class TransactionFee {
 
     @JsonProperty(JSON_PROPERTY_PRIORITY_FEE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setPriorityFee(BigDecimal priorityFee) {
+    public void setPriorityFee(@jakarta.annotation.Nullable BigDecimal priorityFee) {
         this.priorityFee = priorityFee;
     }
 
-    public TransactionFee maxFeePerGasDelta(String maxFeePerGasDelta) {
+    public TransactionFee maxFeePerGasDelta(@jakarta.annotation.Nullable String maxFeePerGasDelta) {
         this.maxFeePerGasDelta = maxFeePerGasDelta;
         return this;
     }
@@ -218,11 +219,11 @@ public class TransactionFee {
 
     @JsonProperty(JSON_PROPERTY_MAX_FEE_PER_GAS_DELTA)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setMaxFeePerGasDelta(String maxFeePerGasDelta) {
+    public void setMaxFeePerGasDelta(@jakarta.annotation.Nullable String maxFeePerGasDelta) {
         this.maxFeePerGasDelta = maxFeePerGasDelta;
     }
 
-    public TransactionFee l1Fee(String l1Fee) {
+    public TransactionFee l1Fee(@jakarta.annotation.Nullable String l1Fee) {
         this.l1Fee = l1Fee;
         return this;
     }
@@ -241,7 +242,7 @@ public class TransactionFee {
 
     @JsonProperty(JSON_PROPERTY_L1_FEE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setL1Fee(String l1Fee) {
+    public void setL1Fee(@jakarta.annotation.Nullable String l1Fee) {
         this.l1Fee = l1Fee;
     }
 
@@ -346,9 +347,7 @@ public class TransactionFee {
                             "%sfeePerByte%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getFeePerByte()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getFeePerByte()))));
         }
 
         // add `gasPrice` to the URL query string
@@ -358,8 +357,7 @@ public class TransactionFee {
                             "%sgasPrice%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getGasPrice()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getGasPrice()))));
         }
 
         // add `gasLimit` to the URL query string
@@ -369,8 +367,7 @@ public class TransactionFee {
                             "%sgasLimit%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getGasLimit()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getGasLimit()))));
         }
 
         // add `networkFee` to the URL query string
@@ -380,9 +377,7 @@ public class TransactionFee {
                             "%snetworkFee%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getNetworkFee()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getNetworkFee()))));
         }
 
         // add `baseFee` to the URL query string
@@ -392,8 +387,7 @@ public class TransactionFee {
                             "%sbaseFee%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getBaseFee()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getBaseFee()))));
         }
 
         // add `priorityFee` to the URL query string
@@ -403,10 +397,7 @@ public class TransactionFee {
                             "%spriorityFee%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getPriorityFee()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getPriorityFee()))));
         }
 
         // add `maxFeePerGasDelta` to the URL query string
@@ -416,10 +407,7 @@ public class TransactionFee {
                             "%smaxFeePerGasDelta%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getMaxFeePerGasDelta()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getMaxFeePerGasDelta()))));
         }
 
         // add `l1Fee` to the URL query string
@@ -429,8 +417,7 @@ public class TransactionFee {
                             "%sl1Fee%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getL1Fee()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getL1Fee()))));
         }
 
         return joiner.toString();

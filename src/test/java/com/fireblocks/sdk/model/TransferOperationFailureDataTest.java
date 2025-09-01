@@ -13,33 +13,33 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for TransferOperationFailureData */
-public class TransferOperationFailureDataTest {
+class TransferOperationFailureDataTest {
     private final TransferOperationFailureData model = new TransferOperationFailureData();
 
     /** Model tests for TransferOperationFailureData */
     @Test
-    public void testTransferOperationFailureData() {
+    void testTransferOperationFailureData() {
         // TODO: test TransferOperationFailureData
     }
 
     /** Test the property 'txId' */
     @Test
-    public void txIdTest() {
+    void txIdTest() {
         // TODO: test txId
     }
 
     /** Test the property 'txStatus' */
     @Test
-    public void txStatusTest() {
+    void txStatusTest() {
         // TODO: test txStatus
     }
 
     /** Test the property 'txSubStatus' */
     @Test
-    public void txSubStatusTest() {
+    void txSubStatusTest() {
         // TODO: test txSubStatus
     }
 }

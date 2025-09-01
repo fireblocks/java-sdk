@@ -13,12 +13,12 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fireblocks.sdk.ApiClient;
 import java.math.BigDecimal;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -31,20 +31,36 @@ import java.util.StringJoiner;
     AdditionalInfo.JSON_PROPERTY_LOCKUP_PERIOD,
     AdditionalInfo.JSON_PROPERTY_ACTIVATION_PERIOD
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class AdditionalInfo {
     public static final String JSON_PROPERTY_ESTIMATED_ANNUAL_REWARD = "estimatedAnnualReward";
-    private BigDecimal estimatedAnnualReward;
+    @jakarta.annotation.Nonnull private BigDecimal estimatedAnnualReward;
 
     public static final String JSON_PROPERTY_LOCKUP_PERIOD = "lockupPeriod";
-    private BigDecimal lockupPeriod;
+    @jakarta.annotation.Nonnull private BigDecimal lockupPeriod;
 
     public static final String JSON_PROPERTY_ACTIVATION_PERIOD = "activationPeriod";
-    private BigDecimal activationPeriod;
+    @jakarta.annotation.Nonnull private BigDecimal activationPeriod;
 
     public AdditionalInfo() {}
 
-    public AdditionalInfo estimatedAnnualReward(BigDecimal estimatedAnnualReward) {
+    @JsonCreator
+    public AdditionalInfo(
+            @JsonProperty(value = JSON_PROPERTY_ESTIMATED_ANNUAL_REWARD, required = true)
+                    BigDecimal estimatedAnnualReward,
+            @JsonProperty(value = JSON_PROPERTY_LOCKUP_PERIOD, required = true)
+                    BigDecimal lockupPeriod,
+            @JsonProperty(value = JSON_PROPERTY_ACTIVATION_PERIOD, required = true)
+                    BigDecimal activationPeriod) {
+        this.estimatedAnnualReward = estimatedAnnualReward;
+        this.lockupPeriod = lockupPeriod;
+        this.activationPeriod = activationPeriod;
+    }
+
+    public AdditionalInfo estimatedAnnualReward(
+            @jakarta.annotation.Nonnull BigDecimal estimatedAnnualReward) {
         this.estimatedAnnualReward = estimatedAnnualReward;
         return this;
     }
@@ -64,11 +80,12 @@ public class AdditionalInfo {
 
     @JsonProperty(JSON_PROPERTY_ESTIMATED_ANNUAL_REWARD)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setEstimatedAnnualReward(BigDecimal estimatedAnnualReward) {
+    public void setEstimatedAnnualReward(
+            @jakarta.annotation.Nonnull BigDecimal estimatedAnnualReward) {
         this.estimatedAnnualReward = estimatedAnnualReward;
     }
 
-    public AdditionalInfo lockupPeriod(BigDecimal lockupPeriod) {
+    public AdditionalInfo lockupPeriod(@jakarta.annotation.Nonnull BigDecimal lockupPeriod) {
         this.lockupPeriod = lockupPeriod;
         return this;
     }
@@ -88,11 +105,12 @@ public class AdditionalInfo {
 
     @JsonProperty(JSON_PROPERTY_LOCKUP_PERIOD)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setLockupPeriod(BigDecimal lockupPeriod) {
+    public void setLockupPeriod(@jakarta.annotation.Nonnull BigDecimal lockupPeriod) {
         this.lockupPeriod = lockupPeriod;
     }
 
-    public AdditionalInfo activationPeriod(BigDecimal activationPeriod) {
+    public AdditionalInfo activationPeriod(
+            @jakarta.annotation.Nonnull BigDecimal activationPeriod) {
         this.activationPeriod = activationPeriod;
         return this;
     }
@@ -112,7 +130,7 @@ public class AdditionalInfo {
 
     @JsonProperty(JSON_PROPERTY_ACTIVATION_PERIOD)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setActivationPeriod(BigDecimal activationPeriod) {
+    public void setActivationPeriod(@jakarta.annotation.Nonnull BigDecimal activationPeriod) {
         this.activationPeriod = activationPeriod;
     }
 
@@ -199,10 +217,8 @@ public class AdditionalInfo {
                             "%sestimatedAnnualReward%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getEstimatedAnnualReward()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(
+                                    ApiClient.valueToString(getEstimatedAnnualReward()))));
         }
 
         // add `lockupPeriod` to the URL query string
@@ -212,10 +228,7 @@ public class AdditionalInfo {
                             "%slockupPeriod%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getLockupPeriod()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getLockupPeriod()))));
         }
 
         // add `activationPeriod` to the URL query string
@@ -225,10 +238,7 @@ public class AdditionalInfo {
                             "%sactivationPeriod%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getActivationPeriod()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getActivationPeriod()))));
         }
 
         return joiner.toString();

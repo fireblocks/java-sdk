@@ -13,11 +13,11 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -27,20 +27,27 @@ import java.util.StringJoiner;
     CallbackHandler.JSON_PROPERTY_PUBLIC_KEY,
     CallbackHandler.JSON_PROPERTY_CERT_PUBLIC_KEY_HASH
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class CallbackHandler {
     public static final String JSON_PROPERTY_URL = "url";
-    private String url;
+    @jakarta.annotation.Nonnull private String url;
 
     public static final String JSON_PROPERTY_PUBLIC_KEY = "publicKey";
-    private String publicKey;
+    @jakarta.annotation.Nullable private String publicKey;
 
     public static final String JSON_PROPERTY_CERT_PUBLIC_KEY_HASH = "certPublicKeyHash";
-    private String certPublicKeyHash;
+    @jakarta.annotation.Nullable private String certPublicKeyHash;
 
     public CallbackHandler() {}
 
-    public CallbackHandler url(String url) {
+    @JsonCreator
+    public CallbackHandler(@JsonProperty(value = JSON_PROPERTY_URL, required = true) String url) {
+        this.url = url;
+    }
+
+    public CallbackHandler url(@jakarta.annotation.Nonnull String url) {
         this.url = url;
         return this;
     }
@@ -59,11 +66,11 @@ public class CallbackHandler {
 
     @JsonProperty(JSON_PROPERTY_URL)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setUrl(String url) {
+    public void setUrl(@jakarta.annotation.Nonnull String url) {
         this.url = url;
     }
 
-    public CallbackHandler publicKey(String publicKey) {
+    public CallbackHandler publicKey(@jakarta.annotation.Nullable String publicKey) {
         this.publicKey = publicKey;
         return this;
     }
@@ -82,11 +89,12 @@ public class CallbackHandler {
 
     @JsonProperty(JSON_PROPERTY_PUBLIC_KEY)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setPublicKey(String publicKey) {
+    public void setPublicKey(@jakarta.annotation.Nullable String publicKey) {
         this.publicKey = publicKey;
     }
 
-    public CallbackHandler certPublicKeyHash(String certPublicKeyHash) {
+    public CallbackHandler certPublicKeyHash(
+            @jakarta.annotation.Nullable String certPublicKeyHash) {
         this.certPublicKeyHash = certPublicKeyHash;
         return this;
     }
@@ -105,7 +113,7 @@ public class CallbackHandler {
 
     @JsonProperty(JSON_PROPERTY_CERT_PUBLIC_KEY_HASH)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setCertPublicKeyHash(String certPublicKeyHash) {
+    public void setCertPublicKeyHash(@jakarta.annotation.Nullable String certPublicKeyHash) {
         this.certPublicKeyHash = certPublicKeyHash;
     }
 
@@ -192,8 +200,7 @@ public class CallbackHandler {
                             "%surl%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getUrl()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getUrl()))));
         }
 
         // add `publicKey` to the URL query string
@@ -203,9 +210,7 @@ public class CallbackHandler {
                             "%spublicKey%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getPublicKey()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getPublicKey()))));
         }
 
         // add `certPublicKeyHash` to the URL query string
@@ -215,10 +220,7 @@ public class CallbackHandler {
                             "%scertPublicKeyHash%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getCertPublicKeyHash()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getCertPublicKeyHash()))));
         }
 
         return joiner.toString();

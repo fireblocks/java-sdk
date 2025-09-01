@@ -23,18 +23,23 @@ import java.util.StringJoiner;
 
 /** The gasless configuration of the contract */
 @JsonPropertyOrder({GasslessStandardConfigurations.JSON_PROPERTY_GASLESS_STANDARD_CONFIGURATIONS})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class GasslessStandardConfigurations {
     public static final String JSON_PROPERTY_GASLESS_STANDARD_CONFIGURATIONS =
             "gaslessStandardConfigurations";
+
+    @jakarta.annotation.Nullable
     private Map<String, GasslessStandardConfigurationsGaslessStandardConfigurationsValue>
             gaslessStandardConfigurations = new HashMap<>();
 
     public GasslessStandardConfigurations() {}
 
     public GasslessStandardConfigurations gaslessStandardConfigurations(
-            Map<String, GasslessStandardConfigurationsGaslessStandardConfigurationsValue>
-                    gaslessStandardConfigurations) {
+            @jakarta.annotation.Nullable
+                    Map<String, GasslessStandardConfigurationsGaslessStandardConfigurationsValue>
+                            gaslessStandardConfigurations) {
         this.gaslessStandardConfigurations = gaslessStandardConfigurations;
         return this;
     }
@@ -66,8 +71,9 @@ public class GasslessStandardConfigurations {
     @JsonProperty(JSON_PROPERTY_GASLESS_STANDARD_CONFIGURATIONS)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
     public void setGaslessStandardConfigurations(
-            Map<String, GasslessStandardConfigurationsGaslessStandardConfigurationsValue>
-                    gaslessStandardConfigurations) {
+            @jakarta.annotation.Nullable
+                    Map<String, GasslessStandardConfigurationsGaslessStandardConfigurationsValue>
+                            gaslessStandardConfigurations) {
         this.gaslessStandardConfigurations = gaslessStandardConfigurations;
     }
 

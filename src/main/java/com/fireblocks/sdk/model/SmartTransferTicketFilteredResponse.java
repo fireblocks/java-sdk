@@ -13,11 +13,11 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -29,20 +29,34 @@ import java.util.StringJoiner;
     SmartTransferTicketFilteredResponse.JSON_PROPERTY_AFTER,
     SmartTransferTicketFilteredResponse.JSON_PROPERTY_DATA
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class SmartTransferTicketFilteredResponse {
     public static final String JSON_PROPERTY_MESSAGE = "message";
-    private String message;
+    @jakarta.annotation.Nullable private String message;
 
     public static final String JSON_PROPERTY_AFTER = "after";
-    private String after;
+    @jakarta.annotation.Nonnull private String after;
 
     public static final String JSON_PROPERTY_DATA = "data";
-    private List<SmartTransferTicket> data = new ArrayList<>();
+    @jakarta.annotation.Nonnull private List<SmartTransferTicket> data = new ArrayList<>();
 
     public SmartTransferTicketFilteredResponse() {}
 
-    public SmartTransferTicketFilteredResponse message(String message) {
+    @JsonCreator
+    public SmartTransferTicketFilteredResponse(
+            @JsonProperty(value = JSON_PROPERTY_MESSAGE, required = true) String message,
+            @JsonProperty(value = JSON_PROPERTY_AFTER, required = true) String after,
+            @JsonProperty(value = JSON_PROPERTY_DATA, required = true)
+                    List<SmartTransferTicket> data) {
+        this.message = message;
+        this.after = after;
+        this.data = data;
+    }
+
+    public SmartTransferTicketFilteredResponse message(
+            @jakarta.annotation.Nullable String message) {
         this.message = message;
         return this;
     }
@@ -61,11 +75,11 @@ public class SmartTransferTicketFilteredResponse {
 
     @JsonProperty(JSON_PROPERTY_MESSAGE)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setMessage(String message) {
+    public void setMessage(@jakarta.annotation.Nullable String message) {
         this.message = message;
     }
 
-    public SmartTransferTicketFilteredResponse after(String after) {
+    public SmartTransferTicketFilteredResponse after(@jakarta.annotation.Nonnull String after) {
         this.after = after;
         return this;
     }
@@ -84,11 +98,12 @@ public class SmartTransferTicketFilteredResponse {
 
     @JsonProperty(JSON_PROPERTY_AFTER)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setAfter(String after) {
+    public void setAfter(@jakarta.annotation.Nonnull String after) {
         this.after = after;
     }
 
-    public SmartTransferTicketFilteredResponse data(List<SmartTransferTicket> data) {
+    public SmartTransferTicketFilteredResponse data(
+            @jakarta.annotation.Nonnull List<SmartTransferTicket> data) {
         this.data = data;
         return this;
     }
@@ -115,7 +130,7 @@ public class SmartTransferTicketFilteredResponse {
 
     @JsonProperty(JSON_PROPERTY_DATA)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setData(List<SmartTransferTicket> data) {
+    public void setData(@jakarta.annotation.Nonnull List<SmartTransferTicket> data) {
         this.data = data;
     }
 
@@ -201,8 +216,7 @@ public class SmartTransferTicketFilteredResponse {
                             "%smessage%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getMessage()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getMessage()))));
         }
 
         // add `after` to the URL query string
@@ -212,8 +226,7 @@ public class SmartTransferTicketFilteredResponse {
                             "%safter%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getAfter()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getAfter()))));
         }
 
         // add `data` to the URL query string

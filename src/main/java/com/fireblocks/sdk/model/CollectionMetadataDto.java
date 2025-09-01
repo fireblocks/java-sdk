@@ -13,11 +13,11 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -30,29 +30,41 @@ import java.util.StringJoiner;
     CollectionMetadataDto.JSON_PROPERTY_BLOCKCHAIN_DESCRIPTOR,
     CollectionMetadataDto.JSON_PROPERTY_CONTRACT_ADDRESS
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class CollectionMetadataDto {
     public static final String JSON_PROPERTY_FB_COLLECTION_ID = "fbCollectionId";
-    private String fbCollectionId;
+    @jakarta.annotation.Nonnull private String fbCollectionId;
 
     public static final String JSON_PROPERTY_NAME = "name";
-    private String name;
+    @jakarta.annotation.Nullable private String name;
 
     public static final String JSON_PROPERTY_SYMBOL = "symbol";
-    private String symbol;
+    @jakarta.annotation.Nullable private String symbol;
 
     public static final String JSON_PROPERTY_STANDARD = "standard";
-    private String standard;
+    @jakarta.annotation.Nullable private String standard;
 
     public static final String JSON_PROPERTY_BLOCKCHAIN_DESCRIPTOR = "blockchainDescriptor";
-    private String blockchainDescriptor;
+    @jakarta.annotation.Nonnull private String blockchainDescriptor;
 
     public static final String JSON_PROPERTY_CONTRACT_ADDRESS = "contractAddress";
-    private String contractAddress;
+    @jakarta.annotation.Nullable private String contractAddress;
 
     public CollectionMetadataDto() {}
 
-    public CollectionMetadataDto fbCollectionId(String fbCollectionId) {
+    @JsonCreator
+    public CollectionMetadataDto(
+            @JsonProperty(value = JSON_PROPERTY_FB_COLLECTION_ID, required = true)
+                    String fbCollectionId,
+            @JsonProperty(value = JSON_PROPERTY_BLOCKCHAIN_DESCRIPTOR, required = true)
+                    String blockchainDescriptor) {
+        this.fbCollectionId = fbCollectionId;
+        this.blockchainDescriptor = blockchainDescriptor;
+    }
+
+    public CollectionMetadataDto fbCollectionId(@jakarta.annotation.Nonnull String fbCollectionId) {
         this.fbCollectionId = fbCollectionId;
         return this;
     }
@@ -71,11 +83,11 @@ public class CollectionMetadataDto {
 
     @JsonProperty(JSON_PROPERTY_FB_COLLECTION_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setFbCollectionId(String fbCollectionId) {
+    public void setFbCollectionId(@jakarta.annotation.Nonnull String fbCollectionId) {
         this.fbCollectionId = fbCollectionId;
     }
 
-    public CollectionMetadataDto name(String name) {
+    public CollectionMetadataDto name(@jakarta.annotation.Nullable String name) {
         this.name = name;
         return this;
     }
@@ -94,11 +106,11 @@ public class CollectionMetadataDto {
 
     @JsonProperty(JSON_PROPERTY_NAME)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setName(String name) {
+    public void setName(@jakarta.annotation.Nullable String name) {
         this.name = name;
     }
 
-    public CollectionMetadataDto symbol(String symbol) {
+    public CollectionMetadataDto symbol(@jakarta.annotation.Nullable String symbol) {
         this.symbol = symbol;
         return this;
     }
@@ -117,11 +129,11 @@ public class CollectionMetadataDto {
 
     @JsonProperty(JSON_PROPERTY_SYMBOL)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setSymbol(String symbol) {
+    public void setSymbol(@jakarta.annotation.Nullable String symbol) {
         this.symbol = symbol;
     }
 
-    public CollectionMetadataDto standard(String standard) {
+    public CollectionMetadataDto standard(@jakarta.annotation.Nullable String standard) {
         this.standard = standard;
         return this;
     }
@@ -140,11 +152,12 @@ public class CollectionMetadataDto {
 
     @JsonProperty(JSON_PROPERTY_STANDARD)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setStandard(String standard) {
+    public void setStandard(@jakarta.annotation.Nullable String standard) {
         this.standard = standard;
     }
 
-    public CollectionMetadataDto blockchainDescriptor(String blockchainDescriptor) {
+    public CollectionMetadataDto blockchainDescriptor(
+            @jakarta.annotation.Nonnull String blockchainDescriptor) {
         this.blockchainDescriptor = blockchainDescriptor;
         return this;
     }
@@ -163,11 +176,12 @@ public class CollectionMetadataDto {
 
     @JsonProperty(JSON_PROPERTY_BLOCKCHAIN_DESCRIPTOR)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setBlockchainDescriptor(String blockchainDescriptor) {
+    public void setBlockchainDescriptor(@jakarta.annotation.Nonnull String blockchainDescriptor) {
         this.blockchainDescriptor = blockchainDescriptor;
     }
 
-    public CollectionMetadataDto contractAddress(String contractAddress) {
+    public CollectionMetadataDto contractAddress(
+            @jakarta.annotation.Nullable String contractAddress) {
         this.contractAddress = contractAddress;
         return this;
     }
@@ -186,7 +200,7 @@ public class CollectionMetadataDto {
 
     @JsonProperty(JSON_PROPERTY_CONTRACT_ADDRESS)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setContractAddress(String contractAddress) {
+    public void setContractAddress(@jakarta.annotation.Nullable String contractAddress) {
         this.contractAddress = contractAddress;
     }
 
@@ -281,10 +295,7 @@ public class CollectionMetadataDto {
                             "%sfbCollectionId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getFbCollectionId()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getFbCollectionId()))));
         }
 
         // add `name` to the URL query string
@@ -294,8 +305,7 @@ public class CollectionMetadataDto {
                             "%sname%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getName()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getName()))));
         }
 
         // add `symbol` to the URL query string
@@ -305,8 +315,7 @@ public class CollectionMetadataDto {
                             "%ssymbol%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getSymbol()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getSymbol()))));
         }
 
         // add `standard` to the URL query string
@@ -316,8 +325,7 @@ public class CollectionMetadataDto {
                             "%sstandard%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getStandard()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getStandard()))));
         }
 
         // add `blockchainDescriptor` to the URL query string
@@ -327,10 +335,8 @@ public class CollectionMetadataDto {
                             "%sblockchainDescriptor%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getBlockchainDescriptor()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(
+                                    ApiClient.valueToString(getBlockchainDescriptor()))));
         }
 
         // add `contractAddress` to the URL query string
@@ -340,10 +346,7 @@ public class CollectionMetadataDto {
                             "%scontractAddress%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getContractAddress()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getContractAddress()))));
         }
 
         return joiner.toString();

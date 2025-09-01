@@ -13,27 +13,27 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for ContractDataLogDataParam */
-public class ContractDataLogDataParamTest {
+class ContractDataLogDataParamTest {
     private final ContractDataLogDataParam model = new ContractDataLogDataParam();
 
     /** Model tests for ContractDataLogDataParam */
     @Test
-    public void testContractDataLogDataParam() {
+    void testContractDataLogDataParam() {
         // TODO: test ContractDataLogDataParam
     }
 
     /** Test the property 'data' */
     @Test
-    public void dataTest() {
+    void dataTest() {
         // TODO: test data
     }
 
     /** Test the property 'topics' */
     @Test
-    public void topicsTest() {
+    void topicsTest() {
         // TODO: test topics
     }
 }

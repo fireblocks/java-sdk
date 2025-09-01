@@ -18,8 +18,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonValue;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -37,35 +36,37 @@ import java.util.StringJoiner;
     VaultWalletAddress.JSON_PROPERTY_BIP44_ADDRESS_INDEX,
     VaultWalletAddress.JSON_PROPERTY_USER_DEFINED
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class VaultWalletAddress {
     public static final String JSON_PROPERTY_ASSET_ID = "assetId";
-    private String assetId;
+    @jakarta.annotation.Nullable private String assetId;
 
     public static final String JSON_PROPERTY_ADDRESS = "address";
-    private String address;
+    @jakarta.annotation.Nullable private String address;
 
     public static final String JSON_PROPERTY_DESCRIPTION = "description";
-    private String description;
+    @jakarta.annotation.Nullable private String description;
 
     public static final String JSON_PROPERTY_TAG = "tag";
-    private String tag;
+    @jakarta.annotation.Nullable private String tag;
 
     public static final String JSON_PROPERTY_TYPE = "type";
-    private String type;
+    @jakarta.annotation.Nullable private String type;
 
     public static final String JSON_PROPERTY_CUSTOMER_REF_ID = "customerRefId";
-    private String customerRefId;
+    @jakarta.annotation.Nullable private String customerRefId;
 
     /** Gets or Sets addressFormat */
     public enum AddressFormatEnum {
-        SEGWIT("SEGWIT"),
+        SEGWIT(String.valueOf("SEGWIT")),
 
-        LEGACY("LEGACY"),
+        LEGACY(String.valueOf("LEGACY")),
 
-        BASE("BASE"),
+        BASE(String.valueOf("BASE")),
 
-        PAYMENT("PAYMENT");
+        PAYMENT(String.valueOf("PAYMENT"));
 
         private String value;
 
@@ -95,23 +96,23 @@ public class VaultWalletAddress {
     }
 
     public static final String JSON_PROPERTY_ADDRESS_FORMAT = "addressFormat";
-    private AddressFormatEnum addressFormat;
+    @jakarta.annotation.Nullable private AddressFormatEnum addressFormat;
 
     public static final String JSON_PROPERTY_LEGACY_ADDRESS = "legacyAddress";
-    private String legacyAddress;
+    @jakarta.annotation.Nullable private String legacyAddress;
 
     public static final String JSON_PROPERTY_ENTERPRISE_ADDRESS = "enterpriseAddress";
-    private String enterpriseAddress;
+    @jakarta.annotation.Nullable private String enterpriseAddress;
 
     public static final String JSON_PROPERTY_BIP44_ADDRESS_INDEX = "bip44AddressIndex";
-    private Integer bip44AddressIndex;
+    @jakarta.annotation.Nullable private Integer bip44AddressIndex;
 
     public static final String JSON_PROPERTY_USER_DEFINED = "userDefined";
-    private Boolean userDefined;
+    @jakarta.annotation.Nullable private Boolean userDefined;
 
     public VaultWalletAddress() {}
 
-    public VaultWalletAddress assetId(String assetId) {
+    public VaultWalletAddress assetId(@jakarta.annotation.Nullable String assetId) {
         this.assetId = assetId;
         return this;
     }
@@ -130,11 +131,11 @@ public class VaultWalletAddress {
 
     @JsonProperty(JSON_PROPERTY_ASSET_ID)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAssetId(String assetId) {
+    public void setAssetId(@jakarta.annotation.Nullable String assetId) {
         this.assetId = assetId;
     }
 
-    public VaultWalletAddress address(String address) {
+    public VaultWalletAddress address(@jakarta.annotation.Nullable String address) {
         this.address = address;
         return this;
     }
@@ -153,11 +154,11 @@ public class VaultWalletAddress {
 
     @JsonProperty(JSON_PROPERTY_ADDRESS)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAddress(String address) {
+    public void setAddress(@jakarta.annotation.Nullable String address) {
         this.address = address;
     }
 
-    public VaultWalletAddress description(String description) {
+    public VaultWalletAddress description(@jakarta.annotation.Nullable String description) {
         this.description = description;
         return this;
     }
@@ -176,11 +177,11 @@ public class VaultWalletAddress {
 
     @JsonProperty(JSON_PROPERTY_DESCRIPTION)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setDescription(String description) {
+    public void setDescription(@jakarta.annotation.Nullable String description) {
         this.description = description;
     }
 
-    public VaultWalletAddress tag(String tag) {
+    public VaultWalletAddress tag(@jakarta.annotation.Nullable String tag) {
         this.tag = tag;
         return this;
     }
@@ -199,11 +200,11 @@ public class VaultWalletAddress {
 
     @JsonProperty(JSON_PROPERTY_TAG)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setTag(String tag) {
+    public void setTag(@jakarta.annotation.Nullable String tag) {
         this.tag = tag;
     }
 
-    public VaultWalletAddress type(String type) {
+    public VaultWalletAddress type(@jakarta.annotation.Nullable String type) {
         this.type = type;
         return this;
     }
@@ -222,11 +223,11 @@ public class VaultWalletAddress {
 
     @JsonProperty(JSON_PROPERTY_TYPE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setType(String type) {
+    public void setType(@jakarta.annotation.Nullable String type) {
         this.type = type;
     }
 
-    public VaultWalletAddress customerRefId(String customerRefId) {
+    public VaultWalletAddress customerRefId(@jakarta.annotation.Nullable String customerRefId) {
         this.customerRefId = customerRefId;
         return this;
     }
@@ -245,11 +246,12 @@ public class VaultWalletAddress {
 
     @JsonProperty(JSON_PROPERTY_CUSTOMER_REF_ID)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setCustomerRefId(String customerRefId) {
+    public void setCustomerRefId(@jakarta.annotation.Nullable String customerRefId) {
         this.customerRefId = customerRefId;
     }
 
-    public VaultWalletAddress addressFormat(AddressFormatEnum addressFormat) {
+    public VaultWalletAddress addressFormat(
+            @jakarta.annotation.Nullable AddressFormatEnum addressFormat) {
         this.addressFormat = addressFormat;
         return this;
     }
@@ -268,11 +270,11 @@ public class VaultWalletAddress {
 
     @JsonProperty(JSON_PROPERTY_ADDRESS_FORMAT)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAddressFormat(AddressFormatEnum addressFormat) {
+    public void setAddressFormat(@jakarta.annotation.Nullable AddressFormatEnum addressFormat) {
         this.addressFormat = addressFormat;
     }
 
-    public VaultWalletAddress legacyAddress(String legacyAddress) {
+    public VaultWalletAddress legacyAddress(@jakarta.annotation.Nullable String legacyAddress) {
         this.legacyAddress = legacyAddress;
         return this;
     }
@@ -291,11 +293,12 @@ public class VaultWalletAddress {
 
     @JsonProperty(JSON_PROPERTY_LEGACY_ADDRESS)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setLegacyAddress(String legacyAddress) {
+    public void setLegacyAddress(@jakarta.annotation.Nullable String legacyAddress) {
         this.legacyAddress = legacyAddress;
     }
 
-    public VaultWalletAddress enterpriseAddress(String enterpriseAddress) {
+    public VaultWalletAddress enterpriseAddress(
+            @jakarta.annotation.Nullable String enterpriseAddress) {
         this.enterpriseAddress = enterpriseAddress;
         return this;
     }
@@ -314,11 +317,12 @@ public class VaultWalletAddress {
 
     @JsonProperty(JSON_PROPERTY_ENTERPRISE_ADDRESS)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setEnterpriseAddress(String enterpriseAddress) {
+    public void setEnterpriseAddress(@jakarta.annotation.Nullable String enterpriseAddress) {
         this.enterpriseAddress = enterpriseAddress;
     }
 
-    public VaultWalletAddress bip44AddressIndex(Integer bip44AddressIndex) {
+    public VaultWalletAddress bip44AddressIndex(
+            @jakarta.annotation.Nullable Integer bip44AddressIndex) {
         this.bip44AddressIndex = bip44AddressIndex;
         return this;
     }
@@ -337,11 +341,11 @@ public class VaultWalletAddress {
 
     @JsonProperty(JSON_PROPERTY_BIP44_ADDRESS_INDEX)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setBip44AddressIndex(Integer bip44AddressIndex) {
+    public void setBip44AddressIndex(@jakarta.annotation.Nullable Integer bip44AddressIndex) {
         this.bip44AddressIndex = bip44AddressIndex;
     }
 
-    public VaultWalletAddress userDefined(Boolean userDefined) {
+    public VaultWalletAddress userDefined(@jakarta.annotation.Nullable Boolean userDefined) {
         this.userDefined = userDefined;
         return this;
     }
@@ -360,7 +364,7 @@ public class VaultWalletAddress {
 
     @JsonProperty(JSON_PROPERTY_USER_DEFINED)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setUserDefined(Boolean userDefined) {
+    public void setUserDefined(@jakarta.annotation.Nullable Boolean userDefined) {
         this.userDefined = userDefined;
     }
 
@@ -476,8 +480,7 @@ public class VaultWalletAddress {
                             "%sassetId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getAssetId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getAssetId()))));
         }
 
         // add `address` to the URL query string
@@ -487,8 +490,7 @@ public class VaultWalletAddress {
                             "%saddress%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getAddress()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getAddress()))));
         }
 
         // add `description` to the URL query string
@@ -498,10 +500,7 @@ public class VaultWalletAddress {
                             "%sdescription%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getDescription()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getDescription()))));
         }
 
         // add `tag` to the URL query string
@@ -511,8 +510,7 @@ public class VaultWalletAddress {
                             "%stag%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getTag()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getTag()))));
         }
 
         // add `type` to the URL query string
@@ -522,8 +520,7 @@ public class VaultWalletAddress {
                             "%stype%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getType()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getType()))));
         }
 
         // add `customerRefId` to the URL query string
@@ -533,10 +530,7 @@ public class VaultWalletAddress {
                             "%scustomerRefId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getCustomerRefId()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getCustomerRefId()))));
         }
 
         // add `addressFormat` to the URL query string
@@ -546,10 +540,7 @@ public class VaultWalletAddress {
                             "%saddressFormat%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getAddressFormat()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getAddressFormat()))));
         }
 
         // add `legacyAddress` to the URL query string
@@ -559,10 +550,7 @@ public class VaultWalletAddress {
                             "%slegacyAddress%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getLegacyAddress()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getLegacyAddress()))));
         }
 
         // add `enterpriseAddress` to the URL query string
@@ -572,10 +560,7 @@ public class VaultWalletAddress {
                             "%senterpriseAddress%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getEnterpriseAddress()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getEnterpriseAddress()))));
         }
 
         // add `bip44AddressIndex` to the URL query string
@@ -585,10 +570,7 @@ public class VaultWalletAddress {
                             "%sbip44AddressIndex%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getBip44AddressIndex()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getBip44AddressIndex()))));
         }
 
         // add `userDefined` to the URL query string
@@ -598,10 +580,7 @@ public class VaultWalletAddress {
                             "%suserDefined%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getUserDefined()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getUserDefined()))));
         }
 
         return joiner.toString();

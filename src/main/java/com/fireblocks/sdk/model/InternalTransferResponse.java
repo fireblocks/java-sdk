@@ -13,11 +13,11 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -26,17 +26,25 @@ import java.util.StringJoiner;
     InternalTransferResponse.JSON_PROPERTY_SUCCESS,
     InternalTransferResponse.JSON_PROPERTY_ID
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class InternalTransferResponse {
     public static final String JSON_PROPERTY_SUCCESS = "success";
-    private Boolean success;
+    @jakarta.annotation.Nonnull private Boolean success;
 
     public static final String JSON_PROPERTY_ID = "id";
-    private String id;
+    @jakarta.annotation.Nullable private String id;
 
     public InternalTransferResponse() {}
 
-    public InternalTransferResponse success(Boolean success) {
+    @JsonCreator
+    public InternalTransferResponse(
+            @JsonProperty(value = JSON_PROPERTY_SUCCESS, required = true) Boolean success) {
+        this.success = success;
+    }
+
+    public InternalTransferResponse success(@jakarta.annotation.Nonnull Boolean success) {
         this.success = success;
         return this;
     }
@@ -55,11 +63,11 @@ public class InternalTransferResponse {
 
     @JsonProperty(JSON_PROPERTY_SUCCESS)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setSuccess(Boolean success) {
+    public void setSuccess(@jakarta.annotation.Nonnull Boolean success) {
         this.success = success;
     }
 
-    public InternalTransferResponse id(String id) {
+    public InternalTransferResponse id(@jakarta.annotation.Nullable String id) {
         this.id = id;
         return this;
     }
@@ -78,7 +86,7 @@ public class InternalTransferResponse {
 
     @JsonProperty(JSON_PROPERTY_ID)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setId(String id) {
+    public void setId(@jakarta.annotation.Nullable String id) {
         this.id = id;
     }
 
@@ -161,8 +169,7 @@ public class InternalTransferResponse {
                             "%ssuccess%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getSuccess()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getSuccess()))));
         }
 
         // add `id` to the URL query string
@@ -170,10 +177,7 @@ public class InternalTransferResponse {
             joiner.add(
                     String.format(
                             "%sid%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(String.valueOf(getId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getId()))));
         }
 
         return joiner.toString();

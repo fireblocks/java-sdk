@@ -13,11 +13,11 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -28,17 +28,27 @@ import java.util.StringJoiner;
     ValidateLayerZeroChannelResponse.JSON_PROPERTY_CORRECT,
     ValidateLayerZeroChannelResponse.JSON_PROPERTY_ERRORS
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class ValidateLayerZeroChannelResponse {
     public static final String JSON_PROPERTY_CORRECT = "correct";
-    private Boolean correct;
+    @jakarta.annotation.Nonnull private Boolean correct;
 
     public static final String JSON_PROPERTY_ERRORS = "errors";
-    private List<String> errors = new ArrayList<>();
+    @jakarta.annotation.Nonnull private List<String> errors = new ArrayList<>();
 
     public ValidateLayerZeroChannelResponse() {}
 
-    public ValidateLayerZeroChannelResponse correct(Boolean correct) {
+    @JsonCreator
+    public ValidateLayerZeroChannelResponse(
+            @JsonProperty(value = JSON_PROPERTY_CORRECT, required = true) Boolean correct,
+            @JsonProperty(value = JSON_PROPERTY_ERRORS, required = true) List<String> errors) {
+        this.correct = correct;
+        this.errors = errors;
+    }
+
+    public ValidateLayerZeroChannelResponse correct(@jakarta.annotation.Nonnull Boolean correct) {
         this.correct = correct;
         return this;
     }
@@ -57,11 +67,12 @@ public class ValidateLayerZeroChannelResponse {
 
     @JsonProperty(JSON_PROPERTY_CORRECT)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setCorrect(Boolean correct) {
+    public void setCorrect(@jakarta.annotation.Nonnull Boolean correct) {
         this.correct = correct;
     }
 
-    public ValidateLayerZeroChannelResponse errors(List<String> errors) {
+    public ValidateLayerZeroChannelResponse errors(
+            @jakarta.annotation.Nonnull List<String> errors) {
         this.errors = errors;
         return this;
     }
@@ -88,7 +99,7 @@ public class ValidateLayerZeroChannelResponse {
 
     @JsonProperty(JSON_PROPERTY_ERRORS)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setErrors(List<String> errors) {
+    public void setErrors(@jakarta.annotation.Nonnull List<String> errors) {
         this.errors = errors;
     }
 
@@ -172,8 +183,7 @@ public class ValidateLayerZeroChannelResponse {
                             "%scorrect%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getCorrect()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getCorrect()))));
         }
 
         // add `errors` to the URL query string
@@ -188,10 +198,7 @@ public class ValidateLayerZeroChannelResponse {
                                         ? ""
                                         : String.format(
                                                 "%s%d%s", containerPrefix, i, containerSuffix),
-                                URLEncoder.encode(
-                                                String.valueOf(getErrors().get(i)),
-                                                StandardCharsets.UTF_8)
-                                        .replaceAll("\\+", "%20")));
+                                ApiClient.urlEncode(ApiClient.valueToString(getErrors().get(i)))));
             }
         }
 

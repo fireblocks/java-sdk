@@ -18,8 +18,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonValue;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -34,17 +33,19 @@ import java.util.StringJoiner;
     AuthorizationInfo.JSON_PROPERTY_LOGIC,
     AuthorizationInfo.JSON_PROPERTY_GROUPS
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class AuthorizationInfo {
     public static final String JSON_PROPERTY_ALLOW_OPERATOR_AS_AUTHORIZER =
             "allowOperatorAsAuthorizer";
-    private Boolean allowOperatorAsAuthorizer;
+    @jakarta.annotation.Nullable private Boolean allowOperatorAsAuthorizer;
 
     /** Gets or Sets logic */
     public enum LogicEnum {
-        AND("AND"),
+        AND(String.valueOf("AND")),
 
-        OR("OR");
+        OR(String.valueOf("OR"));
 
         private String value;
 
@@ -74,14 +75,15 @@ public class AuthorizationInfo {
     }
 
     public static final String JSON_PROPERTY_LOGIC = "logic";
-    private LogicEnum logic;
+    @jakarta.annotation.Nullable private LogicEnum logic;
 
     public static final String JSON_PROPERTY_GROUPS = "groups";
-    private List<AuthorizationGroups> groups;
+    @jakarta.annotation.Nullable private List<AuthorizationGroups> groups = new ArrayList<>();
 
     public AuthorizationInfo() {}
 
-    public AuthorizationInfo allowOperatorAsAuthorizer(Boolean allowOperatorAsAuthorizer) {
+    public AuthorizationInfo allowOperatorAsAuthorizer(
+            @jakarta.annotation.Nullable Boolean allowOperatorAsAuthorizer) {
         this.allowOperatorAsAuthorizer = allowOperatorAsAuthorizer;
         return this;
     }
@@ -100,11 +102,12 @@ public class AuthorizationInfo {
 
     @JsonProperty(JSON_PROPERTY_ALLOW_OPERATOR_AS_AUTHORIZER)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAllowOperatorAsAuthorizer(Boolean allowOperatorAsAuthorizer) {
+    public void setAllowOperatorAsAuthorizer(
+            @jakarta.annotation.Nullable Boolean allowOperatorAsAuthorizer) {
         this.allowOperatorAsAuthorizer = allowOperatorAsAuthorizer;
     }
 
-    public AuthorizationInfo logic(LogicEnum logic) {
+    public AuthorizationInfo logic(@jakarta.annotation.Nullable LogicEnum logic) {
         this.logic = logic;
         return this;
     }
@@ -123,11 +126,11 @@ public class AuthorizationInfo {
 
     @JsonProperty(JSON_PROPERTY_LOGIC)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setLogic(LogicEnum logic) {
+    public void setLogic(@jakarta.annotation.Nullable LogicEnum logic) {
         this.logic = logic;
     }
 
-    public AuthorizationInfo groups(List<AuthorizationGroups> groups) {
+    public AuthorizationInfo groups(@jakarta.annotation.Nullable List<AuthorizationGroups> groups) {
         this.groups = groups;
         return this;
     }
@@ -154,7 +157,7 @@ public class AuthorizationInfo {
 
     @JsonProperty(JSON_PROPERTY_GROUPS)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setGroups(List<AuthorizationGroups> groups) {
+    public void setGroups(@jakarta.annotation.Nullable List<AuthorizationGroups> groups) {
         this.groups = groups;
     }
 
@@ -242,10 +245,8 @@ public class AuthorizationInfo {
                             "%sallowOperatorAsAuthorizer%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getAllowOperatorAsAuthorizer()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(
+                                    ApiClient.valueToString(getAllowOperatorAsAuthorizer()))));
         }
 
         // add `logic` to the URL query string
@@ -255,8 +256,7 @@ public class AuthorizationInfo {
                             "%slogic%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getLogic()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getLogic()))));
         }
 
         // add `groups` to the URL query string

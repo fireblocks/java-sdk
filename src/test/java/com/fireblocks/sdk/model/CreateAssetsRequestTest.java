@@ -13,21 +13,21 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for CreateAssetsRequest */
-public class CreateAssetsRequestTest {
+class CreateAssetsRequestTest {
     private final CreateAssetsRequest model = new CreateAssetsRequest();
 
     /** Model tests for CreateAssetsRequest */
     @Test
-    public void testCreateAssetsRequest() {
+    void testCreateAssetsRequest() {
         // TODO: test CreateAssetsRequest
     }
 
     /** Test the property 'eosAccountName' */
     @Test
-    public void eosAccountNameTest() {
+    void eosAccountNameTest() {
         // TODO: test eosAccountName
     }
 }

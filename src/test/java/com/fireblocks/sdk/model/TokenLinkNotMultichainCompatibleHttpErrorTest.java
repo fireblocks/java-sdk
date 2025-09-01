@@ -13,28 +13,28 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for TokenLinkNotMultichainCompatibleHttpError */
-public class TokenLinkNotMultichainCompatibleHttpErrorTest {
+class TokenLinkNotMultichainCompatibleHttpErrorTest {
     private final TokenLinkNotMultichainCompatibleHttpError model =
             new TokenLinkNotMultichainCompatibleHttpError();
 
     /** Model tests for TokenLinkNotMultichainCompatibleHttpError */
     @Test
-    public void testTokenLinkNotMultichainCompatibleHttpError() {
+    void testTokenLinkNotMultichainCompatibleHttpError() {
         // TODO: test TokenLinkNotMultichainCompatibleHttpError
     }
 
     /** Test the property 'message' */
     @Test
-    public void messageTest() {
+    void messageTest() {
         // TODO: test message
     }
 
     /** Test the property 'code' */
     @Test
-    public void codeTest() {
+    void codeTest() {
         // TODO: test code
     }
 }

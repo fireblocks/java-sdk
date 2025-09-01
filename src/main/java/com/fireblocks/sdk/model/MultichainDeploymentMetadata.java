@@ -16,8 +16,7 @@ package com.fireblocks.sdk.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -33,29 +32,31 @@ import java.util.UUID;
     MultichainDeploymentMetadata.JSON_PROPERTY_INIT_PARAMS,
     MultichainDeploymentMetadata.JSON_PROPERTY_ENCODED_INIT_PARAMS
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class MultichainDeploymentMetadata {
     public static final String JSON_PROPERTY_ID = "id";
-    private UUID id;
+    @jakarta.annotation.Nullable private UUID id;
 
     public static final String JSON_PROPERTY_ADDRESS = "address";
-    private String address;
+    @jakarta.annotation.Nullable private String address;
 
     public static final String JSON_PROPERTY_TEMPLATE_ID = "templateId";
-    private UUID templateId;
+    @jakarta.annotation.Nullable private UUID templateId;
 
     public static final String JSON_PROPERTY_DEPLOYMENT_SALT = "deploymentSalt";
-    private String deploymentSalt;
+    @jakarta.annotation.Nullable private String deploymentSalt;
 
     public static final String JSON_PROPERTY_INIT_PARAMS = "initParams";
-    private List<ParameterWithValue> initParams;
+    @jakarta.annotation.Nullable private List<ParameterWithValue> initParams = new ArrayList<>();
 
     public static final String JSON_PROPERTY_ENCODED_INIT_PARAMS = "encodedInitParams";
-    private String encodedInitParams;
+    @jakarta.annotation.Nullable private String encodedInitParams;
 
     public MultichainDeploymentMetadata() {}
 
-    public MultichainDeploymentMetadata id(UUID id) {
+    public MultichainDeploymentMetadata id(@jakarta.annotation.Nullable UUID id) {
         this.id = id;
         return this;
     }
@@ -74,11 +75,11 @@ public class MultichainDeploymentMetadata {
 
     @JsonProperty(JSON_PROPERTY_ID)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setId(UUID id) {
+    public void setId(@jakarta.annotation.Nullable UUID id) {
         this.id = id;
     }
 
-    public MultichainDeploymentMetadata address(String address) {
+    public MultichainDeploymentMetadata address(@jakarta.annotation.Nullable String address) {
         this.address = address;
         return this;
     }
@@ -97,11 +98,11 @@ public class MultichainDeploymentMetadata {
 
     @JsonProperty(JSON_PROPERTY_ADDRESS)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAddress(String address) {
+    public void setAddress(@jakarta.annotation.Nullable String address) {
         this.address = address;
     }
 
-    public MultichainDeploymentMetadata templateId(UUID templateId) {
+    public MultichainDeploymentMetadata templateId(@jakarta.annotation.Nullable UUID templateId) {
         this.templateId = templateId;
         return this;
     }
@@ -120,11 +121,12 @@ public class MultichainDeploymentMetadata {
 
     @JsonProperty(JSON_PROPERTY_TEMPLATE_ID)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setTemplateId(UUID templateId) {
+    public void setTemplateId(@jakarta.annotation.Nullable UUID templateId) {
         this.templateId = templateId;
     }
 
-    public MultichainDeploymentMetadata deploymentSalt(String deploymentSalt) {
+    public MultichainDeploymentMetadata deploymentSalt(
+            @jakarta.annotation.Nullable String deploymentSalt) {
         this.deploymentSalt = deploymentSalt;
         return this;
     }
@@ -143,11 +145,12 @@ public class MultichainDeploymentMetadata {
 
     @JsonProperty(JSON_PROPERTY_DEPLOYMENT_SALT)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setDeploymentSalt(String deploymentSalt) {
+    public void setDeploymentSalt(@jakarta.annotation.Nullable String deploymentSalt) {
         this.deploymentSalt = deploymentSalt;
     }
 
-    public MultichainDeploymentMetadata initParams(List<ParameterWithValue> initParams) {
+    public MultichainDeploymentMetadata initParams(
+            @jakarta.annotation.Nullable List<ParameterWithValue> initParams) {
         this.initParams = initParams;
         return this;
     }
@@ -174,11 +177,12 @@ public class MultichainDeploymentMetadata {
 
     @JsonProperty(JSON_PROPERTY_INIT_PARAMS)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setInitParams(List<ParameterWithValue> initParams) {
+    public void setInitParams(@jakarta.annotation.Nullable List<ParameterWithValue> initParams) {
         this.initParams = initParams;
     }
 
-    public MultichainDeploymentMetadata encodedInitParams(String encodedInitParams) {
+    public MultichainDeploymentMetadata encodedInitParams(
+            @jakarta.annotation.Nullable String encodedInitParams) {
         this.encodedInitParams = encodedInitParams;
         return this;
     }
@@ -197,7 +201,7 @@ public class MultichainDeploymentMetadata {
 
     @JsonProperty(JSON_PROPERTY_ENCODED_INIT_PARAMS)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setEncodedInitParams(String encodedInitParams) {
+    public void setEncodedInitParams(@jakarta.annotation.Nullable String encodedInitParams) {
         this.encodedInitParams = encodedInitParams;
     }
 
@@ -290,10 +294,7 @@ public class MultichainDeploymentMetadata {
             joiner.add(
                     String.format(
                             "%sid%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(String.valueOf(getId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getId()))));
         }
 
         // add `address` to the URL query string
@@ -303,8 +304,7 @@ public class MultichainDeploymentMetadata {
                             "%saddress%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getAddress()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getAddress()))));
         }
 
         // add `templateId` to the URL query string
@@ -314,9 +314,7 @@ public class MultichainDeploymentMetadata {
                             "%stemplateId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getTemplateId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getTemplateId()))));
         }
 
         // add `deploymentSalt` to the URL query string
@@ -326,10 +324,7 @@ public class MultichainDeploymentMetadata {
                             "%sdeploymentSalt%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getDeploymentSalt()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getDeploymentSalt()))));
         }
 
         // add `initParams` to the URL query string
@@ -362,10 +357,7 @@ public class MultichainDeploymentMetadata {
                             "%sencodedInitParams%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getEncodedInitParams()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getEncodedInitParams()))));
         }
 
         return joiner.toString();

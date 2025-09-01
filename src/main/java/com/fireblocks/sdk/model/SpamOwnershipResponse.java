@@ -18,8 +18,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonValue;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -28,16 +27,18 @@ import java.util.StringJoiner;
     SpamOwnershipResponse.JSON_PROPERTY_RESULT,
     SpamOwnershipResponse.JSON_PROPERTY_SOURCE
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class SpamOwnershipResponse {
     public static final String JSON_PROPERTY_RESULT = "result";
-    private Boolean result;
+    @jakarta.annotation.Nonnull private Boolean result;
 
     /** Source of Token&#39;s Spam status value */
     public enum SourceEnum {
-        OWNER("OWNER"),
+        OWNER(String.valueOf("OWNER")),
 
-        SYSTEM("SYSTEM");
+        SYSTEM(String.valueOf("SYSTEM"));
 
         private String value;
 
@@ -67,11 +68,19 @@ public class SpamOwnershipResponse {
     }
 
     public static final String JSON_PROPERTY_SOURCE = "source";
-    private SourceEnum source;
+    @jakarta.annotation.Nonnull private SourceEnum source;
 
     public SpamOwnershipResponse() {}
 
-    public SpamOwnershipResponse result(Boolean result) {
+    @JsonCreator
+    public SpamOwnershipResponse(
+            @JsonProperty(value = JSON_PROPERTY_RESULT, required = true) Boolean result,
+            @JsonProperty(value = JSON_PROPERTY_SOURCE, required = true) SourceEnum source) {
+        this.result = result;
+        this.source = source;
+    }
+
+    public SpamOwnershipResponse result(@jakarta.annotation.Nonnull Boolean result) {
         this.result = result;
         return this;
     }
@@ -90,11 +99,11 @@ public class SpamOwnershipResponse {
 
     @JsonProperty(JSON_PROPERTY_RESULT)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setResult(Boolean result) {
+    public void setResult(@jakarta.annotation.Nonnull Boolean result) {
         this.result = result;
     }
 
-    public SpamOwnershipResponse source(SourceEnum source) {
+    public SpamOwnershipResponse source(@jakarta.annotation.Nonnull SourceEnum source) {
         this.source = source;
         return this;
     }
@@ -113,7 +122,7 @@ public class SpamOwnershipResponse {
 
     @JsonProperty(JSON_PROPERTY_SOURCE)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setSource(SourceEnum source) {
+    public void setSource(@jakarta.annotation.Nonnull SourceEnum source) {
         this.source = source;
     }
 
@@ -196,8 +205,7 @@ public class SpamOwnershipResponse {
                             "%sresult%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getResult()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getResult()))));
         }
 
         // add `source` to the URL query string
@@ -207,8 +215,7 @@ public class SpamOwnershipResponse {
                             "%ssource%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getSource()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getSource()))));
         }
 
         return joiner.toString();

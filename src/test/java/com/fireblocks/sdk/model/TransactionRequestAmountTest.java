@@ -13,15 +13,15 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for TransactionRequestAmount */
-public class TransactionRequestAmountTest {
+class TransactionRequestAmountTest {
     private final TransactionRequestAmount model = new TransactionRequestAmount();
 
     /** Model tests for TransactionRequestAmount */
     @Test
-    public void testTransactionRequestAmount() {
+    void testTransactionRequestAmount() {
         // TODO: test TransactionRequestAmount
     }
 }

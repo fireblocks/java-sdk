@@ -13,27 +13,27 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for AssetAmount */
-public class AssetAmountTest {
+class AssetAmountTest {
     private final AssetAmount model = new AssetAmount();
 
     /** Model tests for AssetAmount */
     @Test
-    public void testAssetAmount() {
+    void testAssetAmount() {
         // TODO: test AssetAmount
     }
 
     /** Test the property 'amount' */
     @Test
-    public void amountTest() {
+    void amountTest() {
         // TODO: test amount
     }
 
     /** Test the property 'assetId' */
     @Test
-    public void assetIdTest() {
+    void assetIdTest() {
         // TODO: test assetId
     }
 }

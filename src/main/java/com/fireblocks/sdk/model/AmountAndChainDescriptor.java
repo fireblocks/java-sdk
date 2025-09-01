@@ -13,11 +13,11 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -26,17 +26,29 @@ import java.util.StringJoiner;
     AmountAndChainDescriptor.JSON_PROPERTY_CHAIN_DESCRIPTOR,
     AmountAndChainDescriptor.JSON_PROPERTY_AMOUNT
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class AmountAndChainDescriptor {
     public static final String JSON_PROPERTY_CHAIN_DESCRIPTOR = "chainDescriptor";
-    private String chainDescriptor;
+    @jakarta.annotation.Nonnull private String chainDescriptor;
 
     public static final String JSON_PROPERTY_AMOUNT = "amount";
-    private String amount;
+    @jakarta.annotation.Nonnull private String amount;
 
     public AmountAndChainDescriptor() {}
 
-    public AmountAndChainDescriptor chainDescriptor(String chainDescriptor) {
+    @JsonCreator
+    public AmountAndChainDescriptor(
+            @JsonProperty(value = JSON_PROPERTY_CHAIN_DESCRIPTOR, required = true)
+                    String chainDescriptor,
+            @JsonProperty(value = JSON_PROPERTY_AMOUNT, required = true) String amount) {
+        this.chainDescriptor = chainDescriptor;
+        this.amount = amount;
+    }
+
+    public AmountAndChainDescriptor chainDescriptor(
+            @jakarta.annotation.Nonnull String chainDescriptor) {
         this.chainDescriptor = chainDescriptor;
         return this;
     }
@@ -55,11 +67,11 @@ public class AmountAndChainDescriptor {
 
     @JsonProperty(JSON_PROPERTY_CHAIN_DESCRIPTOR)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setChainDescriptor(String chainDescriptor) {
+    public void setChainDescriptor(@jakarta.annotation.Nonnull String chainDescriptor) {
         this.chainDescriptor = chainDescriptor;
     }
 
-    public AmountAndChainDescriptor amount(String amount) {
+    public AmountAndChainDescriptor amount(@jakarta.annotation.Nonnull String amount) {
         this.amount = amount;
         return this;
     }
@@ -78,7 +90,7 @@ public class AmountAndChainDescriptor {
 
     @JsonProperty(JSON_PROPERTY_AMOUNT)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setAmount(String amount) {
+    public void setAmount(@jakarta.annotation.Nonnull String amount) {
         this.amount = amount;
     }
 
@@ -161,10 +173,7 @@ public class AmountAndChainDescriptor {
                             "%schainDescriptor%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getChainDescriptor()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getChainDescriptor()))));
         }
 
         // add `amount` to the URL query string
@@ -174,8 +183,7 @@ public class AmountAndChainDescriptor {
                             "%samount%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getAmount()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getAmount()))));
         }
 
         return joiner.toString();

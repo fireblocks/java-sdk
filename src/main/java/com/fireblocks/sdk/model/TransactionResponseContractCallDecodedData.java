@@ -16,8 +16,7 @@ package com.fireblocks.sdk.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -32,17 +31,20 @@ import java.util.StringJoiner;
     TransactionResponseContractCallDecodedData.JSON_PROPERTY_CONTRACT_NAME,
     TransactionResponseContractCallDecodedData.JSON_PROPERTY_FUNCTION_CALLS
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class TransactionResponseContractCallDecodedData {
     public static final String JSON_PROPERTY_CONTRACT_NAME = "contractName";
-    private String contractName;
+    @jakarta.annotation.Nullable private String contractName;
 
     public static final String JSON_PROPERTY_FUNCTION_CALLS = "functionCalls";
-    private List<Object> functionCalls;
+    @jakarta.annotation.Nullable private List<Object> functionCalls = new ArrayList<>();
 
     public TransactionResponseContractCallDecodedData() {}
 
-    public TransactionResponseContractCallDecodedData contractName(String contractName) {
+    public TransactionResponseContractCallDecodedData contractName(
+            @jakarta.annotation.Nullable String contractName) {
         this.contractName = contractName;
         return this;
     }
@@ -61,11 +63,12 @@ public class TransactionResponseContractCallDecodedData {
 
     @JsonProperty(JSON_PROPERTY_CONTRACT_NAME)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setContractName(String contractName) {
+    public void setContractName(@jakarta.annotation.Nullable String contractName) {
         this.contractName = contractName;
     }
 
-    public TransactionResponseContractCallDecodedData functionCalls(List<Object> functionCalls) {
+    public TransactionResponseContractCallDecodedData functionCalls(
+            @jakarta.annotation.Nullable List<Object> functionCalls) {
         this.functionCalls = functionCalls;
         return this;
     }
@@ -93,7 +96,7 @@ public class TransactionResponseContractCallDecodedData {
 
     @JsonProperty(JSON_PROPERTY_FUNCTION_CALLS)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setFunctionCalls(List<Object> functionCalls) {
+    public void setFunctionCalls(@jakarta.annotation.Nullable List<Object> functionCalls) {
         this.functionCalls = functionCalls;
     }
 
@@ -180,10 +183,7 @@ public class TransactionResponseContractCallDecodedData {
                             "%scontractName%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getContractName()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getContractName()))));
         }
 
         // add `functionCalls` to the URL query string
@@ -198,10 +198,8 @@ public class TransactionResponseContractCallDecodedData {
                                         ? ""
                                         : String.format(
                                                 "%s%d%s", containerPrefix, i, containerSuffix),
-                                URLEncoder.encode(
-                                                String.valueOf(getFunctionCalls().get(i)),
-                                                StandardCharsets.UTF_8)
-                                        .replaceAll("\\+", "%20")));
+                                ApiClient.urlEncode(
+                                        ApiClient.valueToString(getFunctionCalls().get(i)))));
             }
         }
 

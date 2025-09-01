@@ -13,27 +13,27 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for SmartTransferStatisticInflow */
-public class SmartTransferStatisticInflowTest {
+class SmartTransferStatisticInflowTest {
     private final SmartTransferStatisticInflow model = new SmartTransferStatisticInflow();
 
     /** Model tests for SmartTransferStatisticInflow */
     @Test
-    public void testSmartTransferStatisticInflow() {
+    void testSmartTransferStatisticInflow() {
         // TODO: test SmartTransferStatisticInflow
     }
 
     /** Test the property 'coins' */
     @Test
-    public void coinsTest() {
+    void coinsTest() {
         // TODO: test coins
     }
 
     /** Test the property 'ticketCount' */
     @Test
-    public void ticketCountTest() {
+    void ticketCountTest() {
         // TODO: test ticketCount
     }
 }

@@ -13,27 +13,27 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for CreateWalletRequest */
-public class CreateWalletRequestTest {
+class CreateWalletRequestTest {
     private final CreateWalletRequest model = new CreateWalletRequest();
 
     /** Model tests for CreateWalletRequest */
     @Test
-    public void testCreateWalletRequest() {
+    void testCreateWalletRequest() {
         // TODO: test CreateWalletRequest
     }
 
     /** Test the property 'name' */
     @Test
-    public void nameTest() {
+    void nameTest() {
         // TODO: test name
     }
 
     /** Test the property 'customerRefId' */
     @Test
-    public void customerRefIdTest() {
+    void customerRefIdTest() {
         // TODO: test customerRefId
     }
 }

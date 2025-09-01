@@ -13,21 +13,21 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for GetConsoleUsersResponse */
-public class GetConsoleUsersResponseTest {
+class GetConsoleUsersResponseTest {
     private final GetConsoleUsersResponse model = new GetConsoleUsersResponse();
 
     /** Model tests for GetConsoleUsersResponse */
     @Test
-    public void testGetConsoleUsersResponse() {
+    void testGetConsoleUsersResponse() {
         // TODO: test GetConsoleUsersResponse
     }
 
     /** Test the property 'users' */
     @Test
-    public void usersTest() {
+    void usersTest() {
         // TODO: test users
     }
 }

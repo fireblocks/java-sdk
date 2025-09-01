@@ -13,57 +13,57 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for TravelRuleValidateNaturalPerson */
-public class TravelRuleValidateNaturalPersonTest {
+class TravelRuleValidateNaturalPersonTest {
     private final TravelRuleValidateNaturalPerson model = new TravelRuleValidateNaturalPerson();
 
     /** Model tests for TravelRuleValidateNaturalPerson */
     @Test
-    public void testTravelRuleValidateNaturalPerson() {
+    void testTravelRuleValidateNaturalPerson() {
         // TODO: test TravelRuleValidateNaturalPerson
     }
 
     /** Test the property 'name' */
     @Test
-    public void nameTest() {
+    void nameTest() {
         // TODO: test name
     }
 
     /** Test the property 'geographicAddress' */
     @Test
-    public void geographicAddressTest() {
+    void geographicAddressTest() {
         // TODO: test geographicAddress
     }
 
     /** Test the property 'nationalIdentification' */
     @Test
-    public void nationalIdentificationTest() {
+    void nationalIdentificationTest() {
         // TODO: test nationalIdentification
     }
 
     /** Test the property 'dateAndPlaceOfBirth' */
     @Test
-    public void dateAndPlaceOfBirthTest() {
+    void dateAndPlaceOfBirthTest() {
         // TODO: test dateAndPlaceOfBirth
     }
 
     /** Test the property 'customerIdentification' */
     @Test
-    public void customerIdentificationTest() {
+    void customerIdentificationTest() {
         // TODO: test customerIdentification
     }
 
     /** Test the property 'countryOfResidence' */
     @Test
-    public void countryOfResidenceTest() {
+    void countryOfResidenceTest() {
         // TODO: test countryOfResidence
     }
 
     /** Test the property 'customerNumber' */
     @Test
-    public void customerNumberTest() {
+    void customerNumberTest() {
         // TODO: test customerNumber
     }
 }

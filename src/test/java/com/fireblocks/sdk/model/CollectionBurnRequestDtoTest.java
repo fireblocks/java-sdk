@@ -13,33 +13,33 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for CollectionBurnRequestDto */
-public class CollectionBurnRequestDtoTest {
+class CollectionBurnRequestDtoTest {
     private final CollectionBurnRequestDto model = new CollectionBurnRequestDto();
 
     /** Model tests for CollectionBurnRequestDto */
     @Test
-    public void testCollectionBurnRequestDto() {
+    void testCollectionBurnRequestDto() {
         // TODO: test CollectionBurnRequestDto
     }
 
     /** Test the property 'vaultAccountId' */
     @Test
-    public void vaultAccountIdTest() {
+    void vaultAccountIdTest() {
         // TODO: test vaultAccountId
     }
 
     /** Test the property 'tokenId' */
     @Test
-    public void tokenIdTest() {
+    void tokenIdTest() {
         // TODO: test tokenId
     }
 
     /** Test the property 'amount' */
     @Test
-    public void amountTest() {
+    void amountTest() {
         // TODO: test amount
     }
 }

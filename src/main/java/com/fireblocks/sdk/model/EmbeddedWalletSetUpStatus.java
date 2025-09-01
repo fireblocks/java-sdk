@@ -18,20 +18,21 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonValue;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
 /** embedded wallet setup status */
 @JsonPropertyOrder({EmbeddedWalletSetUpStatus.JSON_PROPERTY_STATUS})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class EmbeddedWalletSetUpStatus {
     /** status */
     public enum StatusEnum {
-        COMPLETE("COMPLETE"),
+        COMPLETE(String.valueOf("COMPLETE")),
 
-        INCOMPLETE("INCOMPLETE");
+        INCOMPLETE(String.valueOf("INCOMPLETE"));
 
         private String value;
 
@@ -61,11 +62,17 @@ public class EmbeddedWalletSetUpStatus {
     }
 
     public static final String JSON_PROPERTY_STATUS = "status";
-    private StatusEnum status;
+    @jakarta.annotation.Nonnull private StatusEnum status;
 
     public EmbeddedWalletSetUpStatus() {}
 
-    public EmbeddedWalletSetUpStatus status(StatusEnum status) {
+    @JsonCreator
+    public EmbeddedWalletSetUpStatus(
+            @JsonProperty(value = JSON_PROPERTY_STATUS, required = true) StatusEnum status) {
+        this.status = status;
+    }
+
+    public EmbeddedWalletSetUpStatus status(@jakarta.annotation.Nonnull StatusEnum status) {
         this.status = status;
         return this;
     }
@@ -84,7 +91,7 @@ public class EmbeddedWalletSetUpStatus {
 
     @JsonProperty(JSON_PROPERTY_STATUS)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setStatus(StatusEnum status) {
+    public void setStatus(@jakarta.annotation.Nonnull StatusEnum status) {
         this.status = status;
     }
 
@@ -165,8 +172,7 @@ public class EmbeddedWalletSetUpStatus {
                             "%sstatus%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getStatus()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getStatus()))));
         }
 
         return joiner.toString();

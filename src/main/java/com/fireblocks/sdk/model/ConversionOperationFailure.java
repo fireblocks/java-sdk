@@ -18,8 +18,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonValue;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -30,17 +29,19 @@ import java.util.StringJoiner;
     ConversionOperationFailure.JSON_PROPERTY_REASON,
     ConversionOperationFailure.JSON_PROPERTY_DATA
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class ConversionOperationFailure {
     /** Gets or Sets reason */
     public enum ReasonEnum {
-        INVALID_AMOUNT("INVALID_AMOUNT"),
+        INVALID_AMOUNT(String.valueOf("INVALID_AMOUNT")),
 
-        SLIPPAGE_EXCEEDED("SLIPPAGE_EXCEEDED"),
+        SLIPPAGE_EXCEEDED(String.valueOf("SLIPPAGE_EXCEEDED")),
 
-        AMOUNT_TOO_SMALL("AMOUNT_TOO_SMALL"),
+        AMOUNT_TOO_SMALL(String.valueOf("AMOUNT_TOO_SMALL")),
 
-        INSUFFICIENT_FUNDS("INSUFFICIENT_FUNDS");
+        INSUFFICIENT_FUNDS(String.valueOf("INSUFFICIENT_FUNDS"));
 
         private String value;
 
@@ -70,14 +71,20 @@ public class ConversionOperationFailure {
     }
 
     public static final String JSON_PROPERTY_REASON = "reason";
-    private ReasonEnum reason;
+    @jakarta.annotation.Nonnull private ReasonEnum reason;
 
     public static final String JSON_PROPERTY_DATA = "data";
-    private Map<String, Object> data = new HashMap<>();
+    @jakarta.annotation.Nullable private Map<String, Object> data = new HashMap<>();
 
     public ConversionOperationFailure() {}
 
-    public ConversionOperationFailure reason(ReasonEnum reason) {
+    @JsonCreator
+    public ConversionOperationFailure(
+            @JsonProperty(value = JSON_PROPERTY_REASON, required = true) ReasonEnum reason) {
+        this.reason = reason;
+    }
+
+    public ConversionOperationFailure reason(@jakarta.annotation.Nonnull ReasonEnum reason) {
         this.reason = reason;
         return this;
     }
@@ -96,11 +103,11 @@ public class ConversionOperationFailure {
 
     @JsonProperty(JSON_PROPERTY_REASON)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setReason(ReasonEnum reason) {
+    public void setReason(@jakarta.annotation.Nonnull ReasonEnum reason) {
         this.reason = reason;
     }
 
-    public ConversionOperationFailure data(Map<String, Object> data) {
+    public ConversionOperationFailure data(@jakarta.annotation.Nullable Map<String, Object> data) {
         this.data = data;
         return this;
     }
@@ -127,7 +134,7 @@ public class ConversionOperationFailure {
 
     @JsonProperty(JSON_PROPERTY_DATA)
     @JsonInclude(content = JsonInclude.Include.ALWAYS, value = JsonInclude.Include.USE_DEFAULTS)
-    public void setData(Map<String, Object> data) {
+    public void setData(@jakarta.annotation.Nullable Map<String, Object> data) {
         this.data = data;
     }
 
@@ -210,8 +217,7 @@ public class ConversionOperationFailure {
                             "%sreason%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getReason()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getReason()))));
         }
 
         // add `data` to the URL query string
@@ -227,10 +233,7 @@ public class ConversionOperationFailure {
                                         : String.format(
                                                 "%s%d%s", containerPrefix, _key, containerSuffix),
                                 getData().get(_key),
-                                URLEncoder.encode(
-                                                String.valueOf(getData().get(_key)),
-                                                StandardCharsets.UTF_8)
-                                        .replaceAll("\\+", "%20")));
+                                ApiClient.urlEncode(ApiClient.valueToString(getData().get(_key)))));
             }
         }
 

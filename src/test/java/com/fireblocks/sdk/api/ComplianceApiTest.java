@@ -15,6 +15,8 @@ package com.fireblocks.sdk.api;
 
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
+import com.fireblocks.sdk.model.AmlVerdictManualRequest;
+import com.fireblocks.sdk.model.AmlVerdictManualResponse;
 import com.fireblocks.sdk.model.ComplianceResultFullPayload;
 import com.fireblocks.sdk.model.CreateTransactionResponse;
 import com.fireblocks.sdk.model.ScreeningConfigurationsRequest;
@@ -112,6 +114,22 @@ public class ComplianceApiTest {
         String idempotencyKey = null;
         CompletableFuture<ApiResponse<CreateTransactionResponse>> response =
                 api.retryRejectedTransactionBypassScreeningChecks(txId, idempotencyKey);
+    }
+
+    /**
+     * Set AML Verdict for Manual Screening Verdict.
+     *
+     * <p>Set AML verdict for incoming transactions when Manual Screening Verdict feature is
+     * enabled.
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void setAmlVerdictTest() throws ApiException {
+        AmlVerdictManualRequest amlVerdictManualRequest = null;
+        String idempotencyKey = null;
+        CompletableFuture<ApiResponse<AmlVerdictManualResponse>> response =
+                api.setAmlVerdict(amlVerdictManualRequest, idempotencyKey);
     }
 
     /**

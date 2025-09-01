@@ -19,11 +19,11 @@ import com.fireblocks.sdk.ApiClient;
 import com.fireblocks.sdk.ApiException;
 import com.fireblocks.sdk.ApiResponse;
 import com.fireblocks.sdk.ValidationUtils;
-import com.fireblocks.sdk.model.DraftReviewAndValidationResponse;
-import com.fireblocks.sdk.model.PolicyAndValidationResponse;
-import com.fireblocks.sdk.model.PolicyRules;
-import com.fireblocks.sdk.model.PublishDraftRequest;
-import com.fireblocks.sdk.model.PublishResult;
+import com.fireblocks.sdk.model.LegacyDraftReviewAndValidationResponse;
+import com.fireblocks.sdk.model.LegacyPolicyAndValidationResponse;
+import com.fireblocks.sdk.model.LegacyPolicyRules;
+import com.fireblocks.sdk.model.LegacyPublishDraftRequest;
+import com.fireblocks.sdk.model.LegacyPublishResult;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
@@ -34,7 +34,9 @@ import java.time.Duration;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class PolicyEditorBetaApi {
     private final HttpClient memberVarHttpClient;
     private final ObjectMapper memberVarObjectMapper;
@@ -73,18 +75,21 @@ public class PolicyEditorBetaApi {
     }
 
     /**
-     * Get the active policy and its validation Returns the active policy and its validation.
-     * &lt;/br&gt; **Note:** These endpoints are currently in beta and might be subject to changes.
-     * If you want to participate and learn more about the Fireblocks TAP, please contact your
-     * Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.
+     * Get the active policy and its validation Legacy Endpoint – Returns the active policy and its
+     * validation. &lt;/br&gt; **Note:** - This endpoint will remain available for the foreseeable
+     * future and is not deprecated.&lt;/br&gt; - The &#x60;getActivePolicy&#x60; endpoint under
+     * policy/paths provides policy type-specific operations and improved functionality.&lt;/br&gt;
+     * - These endpoints are currently in beta and might be subject to changes.&lt;/br&gt; If you
+     * want to participate and learn more about the Fireblocks TAP, please contact your Fireblocks
+     * Customer Success Manager or send an email to CSM@fireblocks.com.
      *
-     * @return CompletableFuture&lt;ApiResponse&lt;PolicyAndValidationResponse&gt;&gt;
+     * @return CompletableFuture&lt;ApiResponse&lt;LegacyPolicyAndValidationResponse&gt;&gt;
      * @throws ApiException if fails to make API call
      */
-    public CompletableFuture<ApiResponse<PolicyAndValidationResponse>> getActivePolicy()
+    public CompletableFuture<ApiResponse<LegacyPolicyAndValidationResponse>> getActivePolicyLegacy()
             throws ApiException {
         try {
-            HttpRequest.Builder localVarRequestBuilder = getActivePolicyRequestBuilder();
+            HttpRequest.Builder localVarRequestBuilder = getActivePolicyLegacyRequestBuilder();
             return memberVarHttpClient
                     .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
                     .thenComposeAsync(
@@ -94,12 +99,13 @@ public class PolicyEditorBetaApi {
                                 }
                                 if (localVarResponse.statusCode() / 100 != 2) {
                                     return CompletableFuture.failedFuture(
-                                            getApiException("getActivePolicy", localVarResponse));
+                                            getApiException(
+                                                    "getActivePolicyLegacy", localVarResponse));
                                 }
                                 try {
                                     String responseBody = localVarResponse.body();
                                     return CompletableFuture.completedFuture(
-                                            new ApiResponse<PolicyAndValidationResponse>(
+                                            new ApiResponse<LegacyPolicyAndValidationResponse>(
                                                     localVarResponse.statusCode(),
                                                     localVarResponse.headers().map(),
                                                     responseBody == null || responseBody.isBlank()
@@ -107,7 +113,7 @@ public class PolicyEditorBetaApi {
                                                             : memberVarObjectMapper.readValue(
                                                                     responseBody,
                                                                     new TypeReference<
-                                                                            PolicyAndValidationResponse>() {})));
+                                                                            LegacyPolicyAndValidationResponse>() {})));
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
@@ -117,7 +123,7 @@ public class PolicyEditorBetaApi {
         }
     }
 
-    private HttpRequest.Builder getActivePolicyRequestBuilder() throws ApiException {
+    private HttpRequest.Builder getActivePolicyLegacyRequestBuilder() throws ApiException {
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
@@ -137,18 +143,21 @@ public class PolicyEditorBetaApi {
         return localVarRequestBuilder;
     }
     /**
-     * Get the active draft Returns the active draft and its validation. &lt;/br&gt; **Note:** These
-     * endpoints are currently in beta and might be subject to changes. If you want to participate
-     * and learn more about the Fireblocks TAP, please contact your Fireblocks Customer Success
-     * Manager or send an email to CSM@fireblocks.com.
+     * Get the active draft Legacy Endpoint – Returns the active draft and its validation.
+     * &lt;/br&gt; **Note:** - This endpoint will remain available for the foreseeable future and is
+     * not deprecated.&lt;/br&gt; - The &#x60;getDraft&#x60; endpoint under policy/paths provides
+     * policy type-specific operations and improved functionality.&lt;/br&gt; - These endpoints are
+     * currently in beta and might be subject to changes.&lt;/br&gt; If you want to participate and
+     * learn more about the Fireblocks TAP, please contact your Fireblocks Customer Success Manager
+     * or send an email to CSM@fireblocks.com.
      *
-     * @return CompletableFuture&lt;ApiResponse&lt;DraftReviewAndValidationResponse&gt;&gt;
+     * @return CompletableFuture&lt;ApiResponse&lt;LegacyDraftReviewAndValidationResponse&gt;&gt;
      * @throws ApiException if fails to make API call
      */
-    public CompletableFuture<ApiResponse<DraftReviewAndValidationResponse>> getDraft()
+    public CompletableFuture<ApiResponse<LegacyDraftReviewAndValidationResponse>> getDraftLegacy()
             throws ApiException {
         try {
-            HttpRequest.Builder localVarRequestBuilder = getDraftRequestBuilder();
+            HttpRequest.Builder localVarRequestBuilder = getDraftLegacyRequestBuilder();
             return memberVarHttpClient
                     .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
                     .thenComposeAsync(
@@ -158,12 +167,12 @@ public class PolicyEditorBetaApi {
                                 }
                                 if (localVarResponse.statusCode() / 100 != 2) {
                                     return CompletableFuture.failedFuture(
-                                            getApiException("getDraft", localVarResponse));
+                                            getApiException("getDraftLegacy", localVarResponse));
                                 }
                                 try {
                                     String responseBody = localVarResponse.body();
                                     return CompletableFuture.completedFuture(
-                                            new ApiResponse<DraftReviewAndValidationResponse>(
+                                            new ApiResponse<LegacyDraftReviewAndValidationResponse>(
                                                     localVarResponse.statusCode(),
                                                     localVarResponse.headers().map(),
                                                     responseBody == null || responseBody.isBlank()
@@ -171,7 +180,7 @@ public class PolicyEditorBetaApi {
                                                             : memberVarObjectMapper.readValue(
                                                                     responseBody,
                                                                     new TypeReference<
-                                                                            DraftReviewAndValidationResponse>() {})));
+                                                                            LegacyDraftReviewAndValidationResponse>() {})));
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
@@ -181,7 +190,7 @@ public class PolicyEditorBetaApi {
         }
     }
 
-    private HttpRequest.Builder getDraftRequestBuilder() throws ApiException {
+    private HttpRequest.Builder getDraftLegacyRequestBuilder() throws ApiException {
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
@@ -201,24 +210,28 @@ public class PolicyEditorBetaApi {
         return localVarRequestBuilder;
     }
     /**
-     * Send publish request for a certain draft id Send publish request of certain draft id and
-     * returns the response. &lt;/br&gt; **Note:** These endpoints are currently in beta and might
-     * be subject to changes. If you want to participate and learn more about the Fireblocks TAP,
+     * Send publish request for a certain draft id Legacy Endpoint – Send publish request of certain
+     * draft id and returns the response. &lt;/br&gt; **Note:** - This endpoint will remain
+     * available for the foreseeable future and is not deprecated.&lt;/br&gt; - The
+     * &#x60;publishDraft&#x60; endpoint under policy/paths provides improved functionality and
+     * better performance.&lt;/br&gt; - These endpoints are currently in beta and might be subject
+     * to changes.&lt;/br&gt; If you want to participate and learn more about the Fireblocks TAP,
      * please contact your Fireblocks Customer Success Manager or send an email to
      * CSM@fireblocks.com.
      *
-     * @param publishDraftRequest (required)
+     * @param legacyPublishDraftRequest (required)
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;PublishResult&gt;&gt;
+     * @return CompletableFuture&lt;ApiResponse&lt;LegacyPublishResult&gt;&gt;
      * @throws ApiException if fails to make API call
      */
-    public CompletableFuture<ApiResponse<PublishResult>> publishDraft(
-            PublishDraftRequest publishDraftRequest, String idempotencyKey) throws ApiException {
+    public CompletableFuture<ApiResponse<LegacyPublishResult>> publishDraftLegacy(
+            LegacyPublishDraftRequest legacyPublishDraftRequest, String idempotencyKey)
+            throws ApiException {
         try {
             HttpRequest.Builder localVarRequestBuilder =
-                    publishDraftRequestBuilder(publishDraftRequest, idempotencyKey);
+                    publishDraftLegacyRequestBuilder(legacyPublishDraftRequest, idempotencyKey);
             return memberVarHttpClient
                     .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
                     .thenComposeAsync(
@@ -228,12 +241,13 @@ public class PolicyEditorBetaApi {
                                 }
                                 if (localVarResponse.statusCode() / 100 != 2) {
                                     return CompletableFuture.failedFuture(
-                                            getApiException("publishDraft", localVarResponse));
+                                            getApiException(
+                                                    "publishDraftLegacy", localVarResponse));
                                 }
                                 try {
                                     String responseBody = localVarResponse.body();
                                     return CompletableFuture.completedFuture(
-                                            new ApiResponse<PublishResult>(
+                                            new ApiResponse<LegacyPublishResult>(
                                                     localVarResponse.statusCode(),
                                                     localVarResponse.headers().map(),
                                                     responseBody == null || responseBody.isBlank()
@@ -241,7 +255,7 @@ public class PolicyEditorBetaApi {
                                                             : memberVarObjectMapper.readValue(
                                                                     responseBody,
                                                                     new TypeReference<
-                                                                            PublishResult>() {})));
+                                                                            LegacyPublishResult>() {})));
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
@@ -251,10 +265,11 @@ public class PolicyEditorBetaApi {
         }
     }
 
-    private HttpRequest.Builder publishDraftRequestBuilder(
-            PublishDraftRequest publishDraftRequest, String idempotencyKey) throws ApiException {
+    private HttpRequest.Builder publishDraftLegacyRequestBuilder(
+            LegacyPublishDraftRequest legacyPublishDraftRequest, String idempotencyKey)
+            throws ApiException {
         ValidationUtils.assertParamExists(
-                "publishDraft", "publishDraftRequest", publishDraftRequest);
+                "publishDraftLegacy", "legacyPublishDraftRequest", legacyPublishDraftRequest);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
@@ -269,7 +284,8 @@ public class PolicyEditorBetaApi {
         localVarRequestBuilder.header("Accept", "application/json");
 
         try {
-            byte[] localVarPostBody = memberVarObjectMapper.writeValueAsBytes(publishDraftRequest);
+            byte[] localVarPostBody =
+                    memberVarObjectMapper.writeValueAsBytes(legacyPublishDraftRequest);
             localVarRequestBuilder.method(
                     "POST", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
         } catch (IOException e) {
@@ -290,18 +306,18 @@ public class PolicyEditorBetaApi {
      * TAP, please contact your Fireblocks Customer Success Manager or send an email to
      * CSM@fireblocks.com.
      *
-     * @param policyRules (required)
+     * @param legacyPolicyRules (required)
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;PublishResult&gt;&gt;
+     * @return CompletableFuture&lt;ApiResponse&lt;LegacyPublishResult&gt;&gt;
      * @throws ApiException if fails to make API call
      */
-    public CompletableFuture<ApiResponse<PublishResult>> publishPolicyRules(
-            PolicyRules policyRules, String idempotencyKey) throws ApiException {
+    public CompletableFuture<ApiResponse<LegacyPublishResult>> publishPolicyRules(
+            LegacyPolicyRules legacyPolicyRules, String idempotencyKey) throws ApiException {
         try {
             HttpRequest.Builder localVarRequestBuilder =
-                    publishPolicyRulesRequestBuilder(policyRules, idempotencyKey);
+                    publishPolicyRulesRequestBuilder(legacyPolicyRules, idempotencyKey);
             return memberVarHttpClient
                     .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
                     .thenComposeAsync(
@@ -317,7 +333,7 @@ public class PolicyEditorBetaApi {
                                 try {
                                     String responseBody = localVarResponse.body();
                                     return CompletableFuture.completedFuture(
-                                            new ApiResponse<PublishResult>(
+                                            new ApiResponse<LegacyPublishResult>(
                                                     localVarResponse.statusCode(),
                                                     localVarResponse.headers().map(),
                                                     responseBody == null || responseBody.isBlank()
@@ -325,7 +341,7 @@ public class PolicyEditorBetaApi {
                                                             : memberVarObjectMapper.readValue(
                                                                     responseBody,
                                                                     new TypeReference<
-                                                                            PublishResult>() {})));
+                                                                            LegacyPublishResult>() {})));
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
@@ -336,8 +352,9 @@ public class PolicyEditorBetaApi {
     }
 
     private HttpRequest.Builder publishPolicyRulesRequestBuilder(
-            PolicyRules policyRules, String idempotencyKey) throws ApiException {
-        ValidationUtils.assertParamExists("publishPolicyRules", "policyRules", policyRules);
+            LegacyPolicyRules legacyPolicyRules, String idempotencyKey) throws ApiException {
+        ValidationUtils.assertParamExists(
+                "publishPolicyRules", "legacyPolicyRules", legacyPolicyRules);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
@@ -352,7 +369,7 @@ public class PolicyEditorBetaApi {
         localVarRequestBuilder.header("Accept", "application/json");
 
         try {
-            byte[] localVarPostBody = memberVarObjectMapper.writeValueAsBytes(policyRules);
+            byte[] localVarPostBody = memberVarObjectMapper.writeValueAsBytes(legacyPolicyRules);
             localVarRequestBuilder.method(
                     "POST", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
         } catch (IOException e) {
@@ -367,23 +384,26 @@ public class PolicyEditorBetaApi {
         return localVarRequestBuilder;
     }
     /**
-     * Update the draft with a new set of rules Update the draft and return its validation.
-     * &lt;/br&gt; **Note:** These endpoints are currently in beta and might be subject to changes.
-     * If you want to participate and learn more about the Fireblocks TAP, please contact your
-     * Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.
+     * Update the draft with a new set of rules Legacy Endpoint – Update the draft and return its
+     * validation. &lt;/br&gt; **Note:** - This endpoint will remain available for the foreseeable
+     * future and is not deprecated.&lt;/br&gt; - The &#x60;updateDraft&#x60; endpoint under
+     * policy/paths provides policy type-specific operations and improved functionality.&lt;/br&gt;
+     * - These endpoints are currently in beta and might be subject to changes.&lt;/br&gt; If you
+     * want to participate and learn more about the Fireblocks TAP, please contact your Fireblocks
+     * Customer Success Manager or send an email to CSM@fireblocks.com.
      *
-     * @param policyRules (required)
+     * @param legacyPolicyRules (required)
      * @param idempotencyKey A unique identifier for the request. If the request is sent multiple
      *     times with the same idempotency key, the server will return the same response as the
      *     first request. The idempotency key is valid for 24 hours. (optional)
-     * @return CompletableFuture&lt;ApiResponse&lt;DraftReviewAndValidationResponse&gt;&gt;
+     * @return CompletableFuture&lt;ApiResponse&lt;LegacyDraftReviewAndValidationResponse&gt;&gt;
      * @throws ApiException if fails to make API call
      */
-    public CompletableFuture<ApiResponse<DraftReviewAndValidationResponse>> updateDraft(
-            PolicyRules policyRules, String idempotencyKey) throws ApiException {
+    public CompletableFuture<ApiResponse<LegacyDraftReviewAndValidationResponse>> updateDraftLegacy(
+            LegacyPolicyRules legacyPolicyRules, String idempotencyKey) throws ApiException {
         try {
             HttpRequest.Builder localVarRequestBuilder =
-                    updateDraftRequestBuilder(policyRules, idempotencyKey);
+                    updateDraftLegacyRequestBuilder(legacyPolicyRules, idempotencyKey);
             return memberVarHttpClient
                     .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
                     .thenComposeAsync(
@@ -393,12 +413,12 @@ public class PolicyEditorBetaApi {
                                 }
                                 if (localVarResponse.statusCode() / 100 != 2) {
                                     return CompletableFuture.failedFuture(
-                                            getApiException("updateDraft", localVarResponse));
+                                            getApiException("updateDraftLegacy", localVarResponse));
                                 }
                                 try {
                                     String responseBody = localVarResponse.body();
                                     return CompletableFuture.completedFuture(
-                                            new ApiResponse<DraftReviewAndValidationResponse>(
+                                            new ApiResponse<LegacyDraftReviewAndValidationResponse>(
                                                     localVarResponse.statusCode(),
                                                     localVarResponse.headers().map(),
                                                     responseBody == null || responseBody.isBlank()
@@ -406,7 +426,7 @@ public class PolicyEditorBetaApi {
                                                             : memberVarObjectMapper.readValue(
                                                                     responseBody,
                                                                     new TypeReference<
-                                                                            DraftReviewAndValidationResponse>() {})));
+                                                                            LegacyDraftReviewAndValidationResponse>() {})));
                                 } catch (IOException e) {
                                     return CompletableFuture.failedFuture(new ApiException(e));
                                 }
@@ -416,9 +436,10 @@ public class PolicyEditorBetaApi {
         }
     }
 
-    private HttpRequest.Builder updateDraftRequestBuilder(
-            PolicyRules policyRules, String idempotencyKey) throws ApiException {
-        ValidationUtils.assertParamExists("updateDraft", "policyRules", policyRules);
+    private HttpRequest.Builder updateDraftLegacyRequestBuilder(
+            LegacyPolicyRules legacyPolicyRules, String idempotencyKey) throws ApiException {
+        ValidationUtils.assertParamExists(
+                "updateDraftLegacy", "legacyPolicyRules", legacyPolicyRules);
 
         HttpRequest.Builder localVarRequestBuilder = HttpRequest.newBuilder();
 
@@ -433,7 +454,7 @@ public class PolicyEditorBetaApi {
         localVarRequestBuilder.header("Accept", "application/json");
 
         try {
-            byte[] localVarPostBody = memberVarObjectMapper.writeValueAsBytes(policyRules);
+            byte[] localVarPostBody = memberVarObjectMapper.writeValueAsBytes(legacyPolicyRules);
             localVarRequestBuilder.method(
                     "PUT", HttpRequest.BodyPublishers.ofByteArray(localVarPostBody));
         } catch (IOException e) {

@@ -13,45 +13,45 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for TransferConfigOperation */
-public class TransferConfigOperationTest {
+class TransferConfigOperationTest {
     private final TransferConfigOperation model = new TransferConfigOperation();
 
     /** Model tests for TransferConfigOperation */
     @Test
-    public void testTransferConfigOperation() {
+    void testTransferConfigOperation() {
         // TODO: test TransferConfigOperation
     }
 
     /** Test the property 'operationId' */
     @Test
-    public void operationIdTest() {
+    void operationIdTest() {
         // TODO: test operationId
     }
 
     /** Test the property 'type' */
     @Test
-    public void typeTest() {
+    void typeTest() {
         // TODO: test type
     }
 
     /** Test the property 'params' */
     @Test
-    public void paramsTest() {
+    void paramsTest() {
         // TODO: test params
     }
 
     /** Test the property 'status' */
     @Test
-    public void statusTest() {
+    void statusTest() {
         // TODO: test status
     }
 
     /** Test the property 'validationFailure' */
     @Test
-    public void validationFailureTest() {
+    void validationFailureTest() {
         // TODO: test validationFailure
     }
 }

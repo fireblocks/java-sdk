@@ -13,27 +13,27 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for GetLayerZeroDvnConfigResponse */
-public class GetLayerZeroDvnConfigResponseTest {
+class GetLayerZeroDvnConfigResponseTest {
     private final GetLayerZeroDvnConfigResponse model = new GetLayerZeroDvnConfigResponse();
 
     /** Model tests for GetLayerZeroDvnConfigResponse */
     @Test
-    public void testGetLayerZeroDvnConfigResponse() {
+    void testGetLayerZeroDvnConfigResponse() {
         // TODO: test GetLayerZeroDvnConfigResponse
     }
 
     /** Test the property 'sourceAdapterTokenLinkId' */
     @Test
-    public void sourceAdapterTokenLinkIdTest() {
+    void sourceAdapterTokenLinkIdTest() {
         // TODO: test sourceAdapterTokenLinkId
     }
 
     /** Test the property 'channelConfigs' */
     @Test
-    public void channelConfigsTest() {
+    void channelConfigsTest() {
         // TODO: test channelConfigs
     }
 }

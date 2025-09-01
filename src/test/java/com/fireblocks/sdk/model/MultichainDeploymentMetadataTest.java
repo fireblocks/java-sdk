@@ -13,51 +13,51 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for MultichainDeploymentMetadata */
-public class MultichainDeploymentMetadataTest {
+class MultichainDeploymentMetadataTest {
     private final MultichainDeploymentMetadata model = new MultichainDeploymentMetadata();
 
     /** Model tests for MultichainDeploymentMetadata */
     @Test
-    public void testMultichainDeploymentMetadata() {
+    void testMultichainDeploymentMetadata() {
         // TODO: test MultichainDeploymentMetadata
     }
 
     /** Test the property 'id' */
     @Test
-    public void idTest() {
+    void idTest() {
         // TODO: test id
     }
 
     /** Test the property 'address' */
     @Test
-    public void addressTest() {
+    void addressTest() {
         // TODO: test address
     }
 
     /** Test the property 'templateId' */
     @Test
-    public void templateIdTest() {
+    void templateIdTest() {
         // TODO: test templateId
     }
 
     /** Test the property 'deploymentSalt' */
     @Test
-    public void deploymentSaltTest() {
+    void deploymentSaltTest() {
         // TODO: test deploymentSalt
     }
 
     /** Test the property 'initParams' */
     @Test
-    public void initParamsTest() {
+    void initParamsTest() {
         // TODO: test initParams
     }
 
     /** Test the property 'encodedInitParams' */
     @Test
-    public void encodedInitParamsTest() {
+    void encodedInitParamsTest() {
         // TODO: test encodedInitParams
     }
 }

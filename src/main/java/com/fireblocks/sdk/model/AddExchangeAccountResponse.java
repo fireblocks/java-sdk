@@ -16,8 +16,7 @@ package com.fireblocks.sdk.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -27,20 +26,22 @@ import java.util.StringJoiner;
     AddExchangeAccountResponse.JSON_PROPERTY_NAME,
     AddExchangeAccountResponse.JSON_PROPERTY_EXCHANGE_TYPE
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class AddExchangeAccountResponse {
     public static final String JSON_PROPERTY_ID = "id";
-    private String id;
+    @jakarta.annotation.Nullable private String id;
 
     public static final String JSON_PROPERTY_NAME = "name";
-    private String name;
+    @jakarta.annotation.Nullable private String name;
 
     public static final String JSON_PROPERTY_EXCHANGE_TYPE = "exchangeType";
-    private ExchangeType exchangeType;
+    @jakarta.annotation.Nullable private ExchangeType exchangeType;
 
     public AddExchangeAccountResponse() {}
 
-    public AddExchangeAccountResponse id(String id) {
+    public AddExchangeAccountResponse id(@jakarta.annotation.Nullable String id) {
         this.id = id;
         return this;
     }
@@ -59,11 +60,11 @@ public class AddExchangeAccountResponse {
 
     @JsonProperty(JSON_PROPERTY_ID)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setId(String id) {
+    public void setId(@jakarta.annotation.Nullable String id) {
         this.id = id;
     }
 
-    public AddExchangeAccountResponse name(String name) {
+    public AddExchangeAccountResponse name(@jakarta.annotation.Nullable String name) {
         this.name = name;
         return this;
     }
@@ -82,11 +83,12 @@ public class AddExchangeAccountResponse {
 
     @JsonProperty(JSON_PROPERTY_NAME)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setName(String name) {
+    public void setName(@jakarta.annotation.Nullable String name) {
         this.name = name;
     }
 
-    public AddExchangeAccountResponse exchangeType(ExchangeType exchangeType) {
+    public AddExchangeAccountResponse exchangeType(
+            @jakarta.annotation.Nullable ExchangeType exchangeType) {
         this.exchangeType = exchangeType;
         return this;
     }
@@ -105,7 +107,7 @@ public class AddExchangeAccountResponse {
 
     @JsonProperty(JSON_PROPERTY_EXCHANGE_TYPE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setExchangeType(ExchangeType exchangeType) {
+    public void setExchangeType(@jakarta.annotation.Nullable ExchangeType exchangeType) {
         this.exchangeType = exchangeType;
     }
 
@@ -188,10 +190,7 @@ public class AddExchangeAccountResponse {
             joiner.add(
                     String.format(
                             "%sid%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(String.valueOf(getId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getId()))));
         }
 
         // add `name` to the URL query string
@@ -201,8 +200,7 @@ public class AddExchangeAccountResponse {
                             "%sname%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getName()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getName()))));
         }
 
         // add `exchangeType` to the URL query string
@@ -212,10 +210,7 @@ public class AddExchangeAccountResponse {
                             "%sexchangeType%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getExchangeType()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getExchangeType()))));
         }
 
         return joiner.toString();

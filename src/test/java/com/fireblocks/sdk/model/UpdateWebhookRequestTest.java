@@ -13,39 +13,39 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for UpdateWebhookRequest */
-public class UpdateWebhookRequestTest {
+class UpdateWebhookRequestTest {
     private final UpdateWebhookRequest model = new UpdateWebhookRequest();
 
     /** Model tests for UpdateWebhookRequest */
     @Test
-    public void testUpdateWebhookRequest() {
+    void testUpdateWebhookRequest() {
         // TODO: test UpdateWebhookRequest
     }
 
     /** Test the property 'url' */
     @Test
-    public void urlTest() {
+    void urlTest() {
         // TODO: test url
     }
 
     /** Test the property 'description' */
     @Test
-    public void descriptionTest() {
+    void descriptionTest() {
         // TODO: test description
     }
 
     /** Test the property 'events' */
     @Test
-    public void eventsTest() {
+    void eventsTest() {
         // TODO: test events
     }
 
     /** Test the property 'enabled' */
     @Test
-    public void enabledTest() {
+    void enabledTest() {
         // TODO: test enabled
     }
 }

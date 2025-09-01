@@ -13,12 +13,12 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fireblocks.sdk.ApiClient;
 import java.math.BigDecimal;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -36,38 +36,60 @@ import java.util.StringJoiner;
     PayoutResponse.JSON_PROPERTY_INSTRUCTION_SET,
     PayoutResponse.JSON_PROPERTY_REPORT_URL
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class PayoutResponse {
     public static final String JSON_PROPERTY_PAYOUT_ID = "payoutId";
-    private String payoutId;
+    @jakarta.annotation.Nonnull private String payoutId;
 
     public static final String JSON_PROPERTY_PAYMENT_ACCOUNT = "paymentAccount";
-    private PaymentAccountResponse paymentAccount;
+    @jakarta.annotation.Nonnull private PaymentAccountResponse paymentAccount;
 
     public static final String JSON_PROPERTY_CREATED_AT = "createdAt";
-    private BigDecimal createdAt;
+    @jakarta.annotation.Nonnull private BigDecimal createdAt;
 
     public static final String JSON_PROPERTY_STATE = "state";
-    private PayoutState state;
+    @jakarta.annotation.Nonnull private PayoutState state;
 
     public static final String JSON_PROPERTY_STATUS = "status";
-    private PayoutStatus status;
+    @jakarta.annotation.Nonnull private PayoutStatus status;
 
     public static final String JSON_PROPERTY_REASON_OF_FAILURE = "reasonOfFailure";
-    private String reasonOfFailure;
+    @jakarta.annotation.Nullable private String reasonOfFailure;
 
     public static final String JSON_PROPERTY_INIT_METHOD = "initMethod";
-    private PayoutInitMethod initMethod;
+    @jakarta.annotation.Nullable private PayoutInitMethod initMethod;
 
     public static final String JSON_PROPERTY_INSTRUCTION_SET = "instructionSet";
+
+    @jakarta.annotation.Nonnull
     private List<PayoutInstructionResponse> instructionSet = new ArrayList<>();
 
     public static final String JSON_PROPERTY_REPORT_URL = "reportUrl";
-    private String reportUrl;
+    @jakarta.annotation.Nullable private String reportUrl;
 
     public PayoutResponse() {}
 
-    public PayoutResponse payoutId(String payoutId) {
+    @JsonCreator
+    public PayoutResponse(
+            @JsonProperty(value = JSON_PROPERTY_PAYOUT_ID, required = true) String payoutId,
+            @JsonProperty(value = JSON_PROPERTY_PAYMENT_ACCOUNT, required = true)
+                    PaymentAccountResponse paymentAccount,
+            @JsonProperty(value = JSON_PROPERTY_CREATED_AT, required = true) BigDecimal createdAt,
+            @JsonProperty(value = JSON_PROPERTY_STATE, required = true) PayoutState state,
+            @JsonProperty(value = JSON_PROPERTY_STATUS, required = true) PayoutStatus status,
+            @JsonProperty(value = JSON_PROPERTY_INSTRUCTION_SET, required = true)
+                    List<PayoutInstructionResponse> instructionSet) {
+        this.payoutId = payoutId;
+        this.paymentAccount = paymentAccount;
+        this.createdAt = createdAt;
+        this.state = state;
+        this.status = status;
+        this.instructionSet = instructionSet;
+    }
+
+    public PayoutResponse payoutId(@jakarta.annotation.Nonnull String payoutId) {
         this.payoutId = payoutId;
         return this;
     }
@@ -86,11 +108,12 @@ public class PayoutResponse {
 
     @JsonProperty(JSON_PROPERTY_PAYOUT_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setPayoutId(String payoutId) {
+    public void setPayoutId(@jakarta.annotation.Nonnull String payoutId) {
         this.payoutId = payoutId;
     }
 
-    public PayoutResponse paymentAccount(PaymentAccountResponse paymentAccount) {
+    public PayoutResponse paymentAccount(
+            @jakarta.annotation.Nonnull PaymentAccountResponse paymentAccount) {
         this.paymentAccount = paymentAccount;
         return this;
     }
@@ -109,11 +132,12 @@ public class PayoutResponse {
 
     @JsonProperty(JSON_PROPERTY_PAYMENT_ACCOUNT)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setPaymentAccount(PaymentAccountResponse paymentAccount) {
+    public void setPaymentAccount(
+            @jakarta.annotation.Nonnull PaymentAccountResponse paymentAccount) {
         this.paymentAccount = paymentAccount;
     }
 
-    public PayoutResponse createdAt(BigDecimal createdAt) {
+    public PayoutResponse createdAt(@jakarta.annotation.Nonnull BigDecimal createdAt) {
         this.createdAt = createdAt;
         return this;
     }
@@ -132,11 +156,11 @@ public class PayoutResponse {
 
     @JsonProperty(JSON_PROPERTY_CREATED_AT)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setCreatedAt(BigDecimal createdAt) {
+    public void setCreatedAt(@jakarta.annotation.Nonnull BigDecimal createdAt) {
         this.createdAt = createdAt;
     }
 
-    public PayoutResponse state(PayoutState state) {
+    public PayoutResponse state(@jakarta.annotation.Nonnull PayoutState state) {
         this.state = state;
         return this;
     }
@@ -155,11 +179,11 @@ public class PayoutResponse {
 
     @JsonProperty(JSON_PROPERTY_STATE)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setState(PayoutState state) {
+    public void setState(@jakarta.annotation.Nonnull PayoutState state) {
         this.state = state;
     }
 
-    public PayoutResponse status(PayoutStatus status) {
+    public PayoutResponse status(@jakarta.annotation.Nonnull PayoutStatus status) {
         this.status = status;
         return this;
     }
@@ -178,11 +202,11 @@ public class PayoutResponse {
 
     @JsonProperty(JSON_PROPERTY_STATUS)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setStatus(PayoutStatus status) {
+    public void setStatus(@jakarta.annotation.Nonnull PayoutStatus status) {
         this.status = status;
     }
 
-    public PayoutResponse reasonOfFailure(String reasonOfFailure) {
+    public PayoutResponse reasonOfFailure(@jakarta.annotation.Nullable String reasonOfFailure) {
         this.reasonOfFailure = reasonOfFailure;
         return this;
     }
@@ -208,11 +232,11 @@ public class PayoutResponse {
 
     @JsonProperty(JSON_PROPERTY_REASON_OF_FAILURE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setReasonOfFailure(String reasonOfFailure) {
+    public void setReasonOfFailure(@jakarta.annotation.Nullable String reasonOfFailure) {
         this.reasonOfFailure = reasonOfFailure;
     }
 
-    public PayoutResponse initMethod(PayoutInitMethod initMethod) {
+    public PayoutResponse initMethod(@jakarta.annotation.Nullable PayoutInitMethod initMethod) {
         this.initMethod = initMethod;
         return this;
     }
@@ -231,11 +255,12 @@ public class PayoutResponse {
 
     @JsonProperty(JSON_PROPERTY_INIT_METHOD)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setInitMethod(PayoutInitMethod initMethod) {
+    public void setInitMethod(@jakarta.annotation.Nullable PayoutInitMethod initMethod) {
         this.initMethod = initMethod;
     }
 
-    public PayoutResponse instructionSet(List<PayoutInstructionResponse> instructionSet) {
+    public PayoutResponse instructionSet(
+            @jakarta.annotation.Nonnull List<PayoutInstructionResponse> instructionSet) {
         this.instructionSet = instructionSet;
         return this;
     }
@@ -262,11 +287,12 @@ public class PayoutResponse {
 
     @JsonProperty(JSON_PROPERTY_INSTRUCTION_SET)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setInstructionSet(List<PayoutInstructionResponse> instructionSet) {
+    public void setInstructionSet(
+            @jakarta.annotation.Nonnull List<PayoutInstructionResponse> instructionSet) {
         this.instructionSet = instructionSet;
     }
 
-    public PayoutResponse reportUrl(String reportUrl) {
+    public PayoutResponse reportUrl(@jakarta.annotation.Nullable String reportUrl) {
         this.reportUrl = reportUrl;
         return this;
     }
@@ -285,7 +311,7 @@ public class PayoutResponse {
 
     @JsonProperty(JSON_PROPERTY_REPORT_URL)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setReportUrl(String reportUrl) {
+    public void setReportUrl(@jakarta.annotation.Nullable String reportUrl) {
         this.reportUrl = reportUrl;
     }
 
@@ -391,8 +417,7 @@ public class PayoutResponse {
                             "%spayoutId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getPayoutId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getPayoutId()))));
         }
 
         // add `paymentAccount` to the URL query string
@@ -407,9 +432,7 @@ public class PayoutResponse {
                             "%screatedAt%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getCreatedAt()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getCreatedAt()))));
         }
 
         // add `state` to the URL query string
@@ -419,8 +442,7 @@ public class PayoutResponse {
                             "%sstate%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getState()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getState()))));
         }
 
         // add `status` to the URL query string
@@ -430,8 +452,7 @@ public class PayoutResponse {
                             "%sstatus%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getStatus()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getStatus()))));
         }
 
         // add `reasonOfFailure` to the URL query string
@@ -441,10 +462,7 @@ public class PayoutResponse {
                             "%sreasonOfFailure%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getReasonOfFailure()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getReasonOfFailure()))));
         }
 
         // add `initMethod` to the URL query string
@@ -454,9 +472,7 @@ public class PayoutResponse {
                             "%sinitMethod%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getInitMethod()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getInitMethod()))));
         }
 
         // add `instructionSet` to the URL query string
@@ -489,9 +505,7 @@ public class PayoutResponse {
                             "%sreportUrl%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getReportUrl()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getReportUrl()))));
         }
 
         return joiner.toString();

@@ -13,13 +13,13 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for WebhookEvent */
-public class WebhookEventTest {
+class WebhookEventTest {
     /** Model tests for WebhookEvent */
     @Test
-    public void testWebhookEvent() {
+    void testWebhookEvent() {
         // TODO: test WebhookEvent
     }
 }

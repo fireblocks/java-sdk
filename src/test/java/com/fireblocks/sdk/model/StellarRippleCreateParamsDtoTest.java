@@ -13,33 +13,33 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for StellarRippleCreateParamsDto */
-public class StellarRippleCreateParamsDtoTest {
+class StellarRippleCreateParamsDtoTest {
     private final StellarRippleCreateParamsDto model = new StellarRippleCreateParamsDto();
 
     /** Model tests for StellarRippleCreateParamsDto */
     @Test
-    public void testStellarRippleCreateParamsDto() {
+    void testStellarRippleCreateParamsDto() {
         // TODO: test StellarRippleCreateParamsDto
     }
 
     /** Test the property 'symbol' */
     @Test
-    public void symbolTest() {
+    void symbolTest() {
         // TODO: test symbol
     }
 
     /** Test the property 'name' */
     @Test
-    public void nameTest() {
+    void nameTest() {
         // TODO: test name
     }
 
     /** Test the property 'issuerAddress' */
     @Test
-    public void issuerAddressTest() {
+    void issuerAddressTest() {
         // TODO: test issuerAddress
     }
 }

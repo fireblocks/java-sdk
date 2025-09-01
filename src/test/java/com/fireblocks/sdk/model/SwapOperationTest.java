@@ -13,123 +13,123 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for SwapOperation */
-public class SwapOperationTest {
+class SwapOperationTest {
     private final SwapOperation model = new SwapOperation();
 
     /** Model tests for SwapOperation */
     @Test
-    public void testSwapOperation() {
+    void testSwapOperation() {
         // TODO: test SwapOperation
     }
 
     /** Test the property 'id' */
     @Test
-    public void idTest() {
+    void idTest() {
         // TODO: test id
     }
 
     /** Test the property 'accountId' */
     @Test
-    public void accountIdTest() {
+    void accountIdTest() {
         // TODO: test accountId
     }
 
     /** Test the property 'providerId' */
     @Test
-    public void providerIdTest() {
+    void providerIdTest() {
         // TODO: test providerId
     }
 
     /** Test the property 'category' */
     @Test
-    public void categoryTest() {
+    void categoryTest() {
         // TODO: test category
     }
 
     /** Test the property 'protocol' */
     @Test
-    public void protocolTest() {
+    void protocolTest() {
         // TODO: test protocol
     }
 
     /** Test the property 'status' */
     @Test
-    public void statusTest() {
+    void statusTest() {
         // TODO: test status
     }
 
     /** Test the property 'inputAmount' */
     @Test
-    public void inputAmountTest() {
+    void inputAmountTest() {
         // TODO: test inputAmount
     }
 
     /** Test the property 'inputAsset' */
     @Test
-    public void inputAssetTest() {
+    void inputAssetTest() {
         // TODO: test inputAsset
     }
 
     /** Test the property 'slippageTolerance' */
     @Test
-    public void slippageToleranceTest() {
+    void slippageToleranceTest() {
         // TODO: test slippageTolerance
     }
 
     /** Test the property 'outputMinAmount' */
     @Test
-    public void outputMinAmountTest() {
+    void outputMinAmountTest() {
         // TODO: test outputMinAmount
     }
 
     /** Test the property 'outputMaxAmount' */
     @Test
-    public void outputMaxAmountTest() {
+    void outputMaxAmountTest() {
         // TODO: test outputMaxAmount
     }
 
     /** Test the property 'outputAsset' */
     @Test
-    public void outputAssetTest() {
+    void outputAssetTest() {
         // TODO: test outputAsset
     }
 
     /** Test the property 'outputFinalAmount' */
     @Test
-    public void outputFinalAmountTest() {
+    void outputFinalAmountTest() {
         // TODO: test outputFinalAmount
     }
 
     /** Test the property 'requiredActions' */
     @Test
-    public void requiredActionsTest() {
+    void requiredActionsTest() {
         // TODO: test requiredActions
     }
 
     /** Test the property 'error' */
     @Test
-    public void errorTest() {
+    void errorTest() {
         // TODO: test error
     }
 
     /** Test the property 'createdAt' */
     @Test
-    public void createdAtTest() {
+    void createdAtTest() {
         // TODO: test createdAt
     }
 
     /** Test the property 'updatedAt' */
     @Test
-    public void updatedAtTest() {
+    void updatedAtTest() {
         // TODO: test updatedAt
     }
 
     /** Test the property 'createdBy' */
     @Test
-    public void createdByTest() {
+    void createdByTest() {
         // TODO: test createdBy
     }
 }

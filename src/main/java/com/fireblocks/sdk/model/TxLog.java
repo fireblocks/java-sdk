@@ -13,11 +13,11 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -35,38 +35,64 @@ import java.util.StringJoiner;
     TxLog.JSON_PROPERTY_LOG_INDEX,
     TxLog.JSON_PROPERTY_REMOVED
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class TxLog {
     public static final String JSON_PROPERTY_ADDRESS = "address";
-    private String address;
+    @jakarta.annotation.Nonnull private String address;
 
     public static final String JSON_PROPERTY_TOPICS = "topics";
-    private List<String> topics = new ArrayList<>();
+    @jakarta.annotation.Nonnull private List<String> topics = new ArrayList<>();
 
     public static final String JSON_PROPERTY_DATA = "data";
-    private String data;
+    @jakarta.annotation.Nonnull private String data;
 
     public static final String JSON_PROPERTY_BLOCK_NUMBER = "blockNumber";
-    private Integer blockNumber;
+    @jakarta.annotation.Nonnull private Integer blockNumber;
 
     public static final String JSON_PROPERTY_TRANSACTION_HASH = "transactionHash";
-    private String transactionHash;
+    @jakarta.annotation.Nonnull private String transactionHash;
 
     public static final String JSON_PROPERTY_TRANSACTION_INDEX = "transactionIndex";
-    private Integer transactionIndex;
+    @jakarta.annotation.Nonnull private Integer transactionIndex;
 
     public static final String JSON_PROPERTY_BLOCK_HASH = "blockHash";
-    private String blockHash;
+    @jakarta.annotation.Nonnull private String blockHash;
 
     public static final String JSON_PROPERTY_LOG_INDEX = "logIndex";
-    private Integer logIndex;
+    @jakarta.annotation.Nonnull private Integer logIndex;
 
     public static final String JSON_PROPERTY_REMOVED = "removed";
-    private Boolean removed;
+    @jakarta.annotation.Nonnull private Boolean removed;
 
     public TxLog() {}
 
-    public TxLog address(String address) {
+    @JsonCreator
+    public TxLog(
+            @JsonProperty(value = JSON_PROPERTY_ADDRESS, required = true) String address,
+            @JsonProperty(value = JSON_PROPERTY_TOPICS, required = true) List<String> topics,
+            @JsonProperty(value = JSON_PROPERTY_DATA, required = true) String data,
+            @JsonProperty(value = JSON_PROPERTY_BLOCK_NUMBER, required = true) Integer blockNumber,
+            @JsonProperty(value = JSON_PROPERTY_TRANSACTION_HASH, required = true)
+                    String transactionHash,
+            @JsonProperty(value = JSON_PROPERTY_TRANSACTION_INDEX, required = true)
+                    Integer transactionIndex,
+            @JsonProperty(value = JSON_PROPERTY_BLOCK_HASH, required = true) String blockHash,
+            @JsonProperty(value = JSON_PROPERTY_LOG_INDEX, required = true) Integer logIndex,
+            @JsonProperty(value = JSON_PROPERTY_REMOVED, required = true) Boolean removed) {
+        this.address = address;
+        this.topics = topics;
+        this.data = data;
+        this.blockNumber = blockNumber;
+        this.transactionHash = transactionHash;
+        this.transactionIndex = transactionIndex;
+        this.blockHash = blockHash;
+        this.logIndex = logIndex;
+        this.removed = removed;
+    }
+
+    public TxLog address(@jakarta.annotation.Nonnull String address) {
         this.address = address;
         return this;
     }
@@ -85,11 +111,11 @@ public class TxLog {
 
     @JsonProperty(JSON_PROPERTY_ADDRESS)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setAddress(String address) {
+    public void setAddress(@jakarta.annotation.Nonnull String address) {
         this.address = address;
     }
 
-    public TxLog topics(List<String> topics) {
+    public TxLog topics(@jakarta.annotation.Nonnull List<String> topics) {
         this.topics = topics;
         return this;
     }
@@ -116,11 +142,11 @@ public class TxLog {
 
     @JsonProperty(JSON_PROPERTY_TOPICS)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setTopics(List<String> topics) {
+    public void setTopics(@jakarta.annotation.Nonnull List<String> topics) {
         this.topics = topics;
     }
 
-    public TxLog data(String data) {
+    public TxLog data(@jakarta.annotation.Nonnull String data) {
         this.data = data;
         return this;
     }
@@ -139,11 +165,11 @@ public class TxLog {
 
     @JsonProperty(JSON_PROPERTY_DATA)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setData(String data) {
+    public void setData(@jakarta.annotation.Nonnull String data) {
         this.data = data;
     }
 
-    public TxLog blockNumber(Integer blockNumber) {
+    public TxLog blockNumber(@jakarta.annotation.Nonnull Integer blockNumber) {
         this.blockNumber = blockNumber;
         return this;
     }
@@ -162,11 +188,11 @@ public class TxLog {
 
     @JsonProperty(JSON_PROPERTY_BLOCK_NUMBER)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setBlockNumber(Integer blockNumber) {
+    public void setBlockNumber(@jakarta.annotation.Nonnull Integer blockNumber) {
         this.blockNumber = blockNumber;
     }
 
-    public TxLog transactionHash(String transactionHash) {
+    public TxLog transactionHash(@jakarta.annotation.Nonnull String transactionHash) {
         this.transactionHash = transactionHash;
         return this;
     }
@@ -185,11 +211,11 @@ public class TxLog {
 
     @JsonProperty(JSON_PROPERTY_TRANSACTION_HASH)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setTransactionHash(String transactionHash) {
+    public void setTransactionHash(@jakarta.annotation.Nonnull String transactionHash) {
         this.transactionHash = transactionHash;
     }
 
-    public TxLog transactionIndex(Integer transactionIndex) {
+    public TxLog transactionIndex(@jakarta.annotation.Nonnull Integer transactionIndex) {
         this.transactionIndex = transactionIndex;
         return this;
     }
@@ -208,11 +234,11 @@ public class TxLog {
 
     @JsonProperty(JSON_PROPERTY_TRANSACTION_INDEX)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setTransactionIndex(Integer transactionIndex) {
+    public void setTransactionIndex(@jakarta.annotation.Nonnull Integer transactionIndex) {
         this.transactionIndex = transactionIndex;
     }
 
-    public TxLog blockHash(String blockHash) {
+    public TxLog blockHash(@jakarta.annotation.Nonnull String blockHash) {
         this.blockHash = blockHash;
         return this;
     }
@@ -231,11 +257,11 @@ public class TxLog {
 
     @JsonProperty(JSON_PROPERTY_BLOCK_HASH)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setBlockHash(String blockHash) {
+    public void setBlockHash(@jakarta.annotation.Nonnull String blockHash) {
         this.blockHash = blockHash;
     }
 
-    public TxLog logIndex(Integer logIndex) {
+    public TxLog logIndex(@jakarta.annotation.Nonnull Integer logIndex) {
         this.logIndex = logIndex;
         return this;
     }
@@ -254,11 +280,11 @@ public class TxLog {
 
     @JsonProperty(JSON_PROPERTY_LOG_INDEX)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setLogIndex(Integer logIndex) {
+    public void setLogIndex(@jakarta.annotation.Nonnull Integer logIndex) {
         this.logIndex = logIndex;
     }
 
-    public TxLog removed(Boolean removed) {
+    public TxLog removed(@jakarta.annotation.Nonnull Boolean removed) {
         this.removed = removed;
         return this;
     }
@@ -277,7 +303,7 @@ public class TxLog {
 
     @JsonProperty(JSON_PROPERTY_REMOVED)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setRemoved(Boolean removed) {
+    public void setRemoved(@jakarta.annotation.Nonnull Boolean removed) {
         this.removed = removed;
     }
 
@@ -383,8 +409,7 @@ public class TxLog {
                             "%saddress%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getAddress()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getAddress()))));
         }
 
         // add `topics` to the URL query string
@@ -399,10 +424,7 @@ public class TxLog {
                                         ? ""
                                         : String.format(
                                                 "%s%d%s", containerPrefix, i, containerSuffix),
-                                URLEncoder.encode(
-                                                String.valueOf(getTopics().get(i)),
-                                                StandardCharsets.UTF_8)
-                                        .replaceAll("\\+", "%20")));
+                                ApiClient.urlEncode(ApiClient.valueToString(getTopics().get(i)))));
             }
         }
 
@@ -413,8 +435,7 @@ public class TxLog {
                             "%sdata%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getData()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getData()))));
         }
 
         // add `blockNumber` to the URL query string
@@ -424,10 +445,7 @@ public class TxLog {
                             "%sblockNumber%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getBlockNumber()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getBlockNumber()))));
         }
 
         // add `transactionHash` to the URL query string
@@ -437,10 +455,7 @@ public class TxLog {
                             "%stransactionHash%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getTransactionHash()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getTransactionHash()))));
         }
 
         // add `transactionIndex` to the URL query string
@@ -450,10 +465,7 @@ public class TxLog {
                             "%stransactionIndex%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getTransactionIndex()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getTransactionIndex()))));
         }
 
         // add `blockHash` to the URL query string
@@ -463,9 +475,7 @@ public class TxLog {
                             "%sblockHash%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getBlockHash()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getBlockHash()))));
         }
 
         // add `logIndex` to the URL query string
@@ -475,8 +485,7 @@ public class TxLog {
                             "%slogIndex%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getLogIndex()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getLogIndex()))));
         }
 
         // add `removed` to the URL query string
@@ -486,8 +495,7 @@ public class TxLog {
                             "%sremoved%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getRemoved()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getRemoved()))));
         }
 
         return joiner.toString();

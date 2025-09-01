@@ -13,39 +13,39 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for EstimatedTransactionFeeResponse */
-public class EstimatedTransactionFeeResponseTest {
+class EstimatedTransactionFeeResponseTest {
     private final EstimatedTransactionFeeResponse model = new EstimatedTransactionFeeResponse();
 
     /** Model tests for EstimatedTransactionFeeResponse */
     @Test
-    public void testEstimatedTransactionFeeResponse() {
+    void testEstimatedTransactionFeeResponse() {
         // TODO: test EstimatedTransactionFeeResponse
     }
 
     /** Test the property 'low' */
     @Test
-    public void lowTest() {
+    void lowTest() {
         // TODO: test low
     }
 
     /** Test the property 'medium' */
     @Test
-    public void mediumTest() {
+    void mediumTest() {
         // TODO: test medium
     }
 
     /** Test the property 'high' */
     @Test
-    public void highTest() {
+    void highTest() {
         // TODO: test high
     }
 
     /** Test the property 'feeDetails' */
     @Test
-    public void feeDetailsTest() {
+    void feeDetailsTest() {
         // TODO: test feeDetails
     }
 }

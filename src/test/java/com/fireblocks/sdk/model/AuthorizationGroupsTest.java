@@ -13,27 +13,27 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for AuthorizationGroups */
-public class AuthorizationGroupsTest {
+class AuthorizationGroupsTest {
     private final AuthorizationGroups model = new AuthorizationGroups();
 
     /** Model tests for AuthorizationGroups */
     @Test
-    public void testAuthorizationGroups() {
+    void testAuthorizationGroups() {
         // TODO: test AuthorizationGroups
     }
 
     /** Test the property 'th' */
     @Test
-    public void thTest() {
+    void thTest() {
         // TODO: test th
     }
 
     /** Test the property 'users' */
     @Test
-    public void usersTest() {
+    void usersTest() {
         // TODO: test users
     }
 }

@@ -16,8 +16,7 @@ package com.fireblocks.sdk.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -27,20 +26,23 @@ import java.util.StringJoiner;
     TravelRuleNaturalNameIdentifier.JSON_PROPERTY_SECONDARY_IDENTIFIER,
     TravelRuleNaturalNameIdentifier.JSON_PROPERTY_NAME_IDENTIFIER_TYPE
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class TravelRuleNaturalNameIdentifier {
     public static final String JSON_PROPERTY_PRIMARY_IDENTIFIER = "primaryIdentifier";
-    private String primaryIdentifier;
+    @jakarta.annotation.Nullable private String primaryIdentifier;
 
     public static final String JSON_PROPERTY_SECONDARY_IDENTIFIER = "secondaryIdentifier";
-    private String secondaryIdentifier;
+    @jakarta.annotation.Nullable private String secondaryIdentifier;
 
     public static final String JSON_PROPERTY_NAME_IDENTIFIER_TYPE = "nameIdentifierType";
-    private String nameIdentifierType;
+    @jakarta.annotation.Nullable private String nameIdentifierType;
 
     public TravelRuleNaturalNameIdentifier() {}
 
-    public TravelRuleNaturalNameIdentifier primaryIdentifier(String primaryIdentifier) {
+    public TravelRuleNaturalNameIdentifier primaryIdentifier(
+            @jakarta.annotation.Nullable String primaryIdentifier) {
         this.primaryIdentifier = primaryIdentifier;
         return this;
     }
@@ -59,11 +61,12 @@ public class TravelRuleNaturalNameIdentifier {
 
     @JsonProperty(JSON_PROPERTY_PRIMARY_IDENTIFIER)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setPrimaryIdentifier(String primaryIdentifier) {
+    public void setPrimaryIdentifier(@jakarta.annotation.Nullable String primaryIdentifier) {
         this.primaryIdentifier = primaryIdentifier;
     }
 
-    public TravelRuleNaturalNameIdentifier secondaryIdentifier(String secondaryIdentifier) {
+    public TravelRuleNaturalNameIdentifier secondaryIdentifier(
+            @jakarta.annotation.Nullable String secondaryIdentifier) {
         this.secondaryIdentifier = secondaryIdentifier;
         return this;
     }
@@ -82,11 +85,12 @@ public class TravelRuleNaturalNameIdentifier {
 
     @JsonProperty(JSON_PROPERTY_SECONDARY_IDENTIFIER)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setSecondaryIdentifier(String secondaryIdentifier) {
+    public void setSecondaryIdentifier(@jakarta.annotation.Nullable String secondaryIdentifier) {
         this.secondaryIdentifier = secondaryIdentifier;
     }
 
-    public TravelRuleNaturalNameIdentifier nameIdentifierType(String nameIdentifierType) {
+    public TravelRuleNaturalNameIdentifier nameIdentifierType(
+            @jakarta.annotation.Nullable String nameIdentifierType) {
         this.nameIdentifierType = nameIdentifierType;
         return this;
     }
@@ -106,7 +110,7 @@ public class TravelRuleNaturalNameIdentifier {
 
     @JsonProperty(JSON_PROPERTY_NAME_IDENTIFIER_TYPE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setNameIdentifierType(String nameIdentifierType) {
+    public void setNameIdentifierType(@jakarta.annotation.Nullable String nameIdentifierType) {
         this.nameIdentifierType = nameIdentifierType;
     }
 
@@ -203,10 +207,7 @@ public class TravelRuleNaturalNameIdentifier {
                             "%sprimaryIdentifier%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getPrimaryIdentifier()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getPrimaryIdentifier()))));
         }
 
         // add `secondaryIdentifier` to the URL query string
@@ -216,10 +217,8 @@ public class TravelRuleNaturalNameIdentifier {
                             "%ssecondaryIdentifier%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getSecondaryIdentifier()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(
+                                    ApiClient.valueToString(getSecondaryIdentifier()))));
         }
 
         // add `nameIdentifierType` to the URL query string
@@ -229,10 +228,7 @@ public class TravelRuleNaturalNameIdentifier {
                             "%snameIdentifierType%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getNameIdentifierType()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getNameIdentifierType()))));
         }
 
         return joiner.toString();

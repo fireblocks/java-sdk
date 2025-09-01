@@ -13,39 +13,39 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for LayerZeroAdapterCreateParams */
-public class LayerZeroAdapterCreateParamsTest {
+class LayerZeroAdapterCreateParamsTest {
     private final LayerZeroAdapterCreateParams model = new LayerZeroAdapterCreateParams();
 
     /** Model tests for LayerZeroAdapterCreateParams */
     @Test
-    public void testLayerZeroAdapterCreateParams() {
+    void testLayerZeroAdapterCreateParams() {
         // TODO: test LayerZeroAdapterCreateParams
     }
 
     /** Test the property 'tokenLinkId' */
     @Test
-    public void tokenLinkIdTest() {
+    void tokenLinkIdTest() {
         // TODO: test tokenLinkId
     }
 
     /** Test the property 'delegateAddress' */
     @Test
-    public void delegateAddressTest() {
+    void delegateAddressTest() {
         // TODO: test delegateAddress
     }
 
     /** Test the property 'defaultAdminAddress' */
     @Test
-    public void defaultAdminAddressTest() {
+    void defaultAdminAddressTest() {
         // TODO: test defaultAdminAddress
     }
 
     /** Test the property 'pauserAddress' */
     @Test
-    public void pauserAddressTest() {
+    void pauserAddressTest() {
         // TODO: test pauserAddress
     }
 }

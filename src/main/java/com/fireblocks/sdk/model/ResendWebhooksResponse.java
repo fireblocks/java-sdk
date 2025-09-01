@@ -16,22 +16,24 @@ package com.fireblocks.sdk.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fireblocks.sdk.ApiClient;
 import java.math.BigDecimal;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 import java.util.StringJoiner;
 
 /** ResendWebhooksResponse */
 @JsonPropertyOrder({ResendWebhooksResponse.JSON_PROPERTY_MESSAGES_COUNT})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class ResendWebhooksResponse {
     public static final String JSON_PROPERTY_MESSAGES_COUNT = "messagesCount";
-    private BigDecimal messagesCount;
+    @jakarta.annotation.Nullable private BigDecimal messagesCount;
 
     public ResendWebhooksResponse() {}
 
-    public ResendWebhooksResponse messagesCount(BigDecimal messagesCount) {
+    public ResendWebhooksResponse messagesCount(
+            @jakarta.annotation.Nullable BigDecimal messagesCount) {
         this.messagesCount = messagesCount;
         return this;
     }
@@ -50,7 +52,7 @@ public class ResendWebhooksResponse {
 
     @JsonProperty(JSON_PROPERTY_MESSAGES_COUNT)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setMessagesCount(BigDecimal messagesCount) {
+    public void setMessagesCount(@jakarta.annotation.Nullable BigDecimal messagesCount) {
         this.messagesCount = messagesCount;
     }
 
@@ -131,10 +133,7 @@ public class ResendWebhooksResponse {
                             "%smessagesCount%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getMessagesCount()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getMessagesCount()))));
         }
 
         return joiner.toString();

@@ -13,27 +13,27 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for SwapOperationsPaginatedResponse */
-public class SwapOperationsPaginatedResponseTest {
+class SwapOperationsPaginatedResponseTest {
     private final SwapOperationsPaginatedResponse model = new SwapOperationsPaginatedResponse();
 
     /** Model tests for SwapOperationsPaginatedResponse */
     @Test
-    public void testSwapOperationsPaginatedResponse() {
+    void testSwapOperationsPaginatedResponse() {
         // TODO: test SwapOperationsPaginatedResponse
     }
 
     /** Test the property 'data' */
     @Test
-    public void dataTest() {
+    void dataTest() {
         // TODO: test data
     }
 
     /** Test the property 'next' */
     @Test
-    public void nextTest() {
+    void nextTest() {
         // TODO: test next
     }
 }

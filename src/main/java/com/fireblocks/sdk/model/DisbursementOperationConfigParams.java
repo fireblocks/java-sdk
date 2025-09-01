@@ -13,6 +13,7 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -26,17 +27,29 @@ import java.util.StringJoiner;
     DisbursementOperationConfigParams.JSON_PROPERTY_PAYMENT_ACCOUNT,
     DisbursementOperationConfigParams.JSON_PROPERTY_INSTRUCTION_SET
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class DisbursementOperationConfigParams {
     public static final String JSON_PROPERTY_PAYMENT_ACCOUNT = "paymentAccount";
-    private Account paymentAccount;
+    @jakarta.annotation.Nullable private Account paymentAccount;
 
     public static final String JSON_PROPERTY_INSTRUCTION_SET = "instructionSet";
+
+    @jakarta.annotation.Nonnull
     private List<DisbursementInstruction> instructionSet = new ArrayList<>();
 
     public DisbursementOperationConfigParams() {}
 
-    public DisbursementOperationConfigParams paymentAccount(Account paymentAccount) {
+    @JsonCreator
+    public DisbursementOperationConfigParams(
+            @JsonProperty(value = JSON_PROPERTY_INSTRUCTION_SET, required = true)
+                    List<DisbursementInstruction> instructionSet) {
+        this.instructionSet = instructionSet;
+    }
+
+    public DisbursementOperationConfigParams paymentAccount(
+            @jakarta.annotation.Nullable Account paymentAccount) {
         this.paymentAccount = paymentAccount;
         return this;
     }
@@ -55,12 +68,12 @@ public class DisbursementOperationConfigParams {
 
     @JsonProperty(JSON_PROPERTY_PAYMENT_ACCOUNT)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setPaymentAccount(Account paymentAccount) {
+    public void setPaymentAccount(@jakarta.annotation.Nullable Account paymentAccount) {
         this.paymentAccount = paymentAccount;
     }
 
     public DisbursementOperationConfigParams instructionSet(
-            List<DisbursementInstruction> instructionSet) {
+            @jakarta.annotation.Nonnull List<DisbursementInstruction> instructionSet) {
         this.instructionSet = instructionSet;
         return this;
     }
@@ -88,7 +101,8 @@ public class DisbursementOperationConfigParams {
 
     @JsonProperty(JSON_PROPERTY_INSTRUCTION_SET)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setInstructionSet(List<DisbursementInstruction> instructionSet) {
+    public void setInstructionSet(
+            @jakarta.annotation.Nonnull List<DisbursementInstruction> instructionSet) {
         this.instructionSet = instructionSet;
     }
 

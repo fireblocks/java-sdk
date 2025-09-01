@@ -13,11 +13,11 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -26,17 +26,29 @@ import java.util.StringJoiner;
     TransferOperationExecutionParams.JSON_PROPERTY_CONFIG_OPERATION_ID,
     TransferOperationExecutionParams.JSON_PROPERTY_EXECUTION_PARAMS
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class TransferOperationExecutionParams {
     public static final String JSON_PROPERTY_CONFIG_OPERATION_ID = "configOperationId";
-    private String configOperationId;
+    @jakarta.annotation.Nonnull private String configOperationId;
 
     public static final String JSON_PROPERTY_EXECUTION_PARAMS = "executionParams";
+
+    @jakarta.annotation.Nullable
     private TransferOperationExecutionParamsExecutionParams executionParams;
 
     public TransferOperationExecutionParams() {}
 
-    public TransferOperationExecutionParams configOperationId(String configOperationId) {
+    @JsonCreator
+    public TransferOperationExecutionParams(
+            @JsonProperty(value = JSON_PROPERTY_CONFIG_OPERATION_ID, required = true)
+                    String configOperationId) {
+        this.configOperationId = configOperationId;
+    }
+
+    public TransferOperationExecutionParams configOperationId(
+            @jakarta.annotation.Nonnull String configOperationId) {
         this.configOperationId = configOperationId;
         return this;
     }
@@ -55,12 +67,13 @@ public class TransferOperationExecutionParams {
 
     @JsonProperty(JSON_PROPERTY_CONFIG_OPERATION_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setConfigOperationId(String configOperationId) {
+    public void setConfigOperationId(@jakarta.annotation.Nonnull String configOperationId) {
         this.configOperationId = configOperationId;
     }
 
     public TransferOperationExecutionParams executionParams(
-            TransferOperationExecutionParamsExecutionParams executionParams) {
+            @jakarta.annotation.Nullable
+                    TransferOperationExecutionParamsExecutionParams executionParams) {
         this.executionParams = executionParams;
         return this;
     }
@@ -80,7 +93,8 @@ public class TransferOperationExecutionParams {
     @JsonProperty(JSON_PROPERTY_EXECUTION_PARAMS)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
     public void setExecutionParams(
-            TransferOperationExecutionParamsExecutionParams executionParams) {
+            @jakarta.annotation.Nullable
+                    TransferOperationExecutionParamsExecutionParams executionParams) {
         this.executionParams = executionParams;
     }
 
@@ -168,10 +182,7 @@ public class TransferOperationExecutionParams {
                             "%sconfigOperationId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getConfigOperationId()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getConfigOperationId()))));
         }
 
         // add `executionParams` to the URL query string

@@ -16,9 +16,8 @@ package com.fireblocks.sdk.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fireblocks.sdk.ApiClient;
 import java.math.BigDecimal;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -29,23 +28,25 @@ import java.util.StringJoiner;
     SignedMessageSignature.JSON_PROPERTY_S,
     SignedMessageSignature.JSON_PROPERTY_V
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class SignedMessageSignature {
     public static final String JSON_PROPERTY_FULL_SIG = "fullSig";
-    private String fullSig;
+    @jakarta.annotation.Nullable private String fullSig;
 
     public static final String JSON_PROPERTY_R = "r";
-    private String r;
+    @jakarta.annotation.Nullable private String r;
 
     public static final String JSON_PROPERTY_S = "s";
-    private String s;
+    @jakarta.annotation.Nullable private String s;
 
     public static final String JSON_PROPERTY_V = "v";
-    private BigDecimal v;
+    @jakarta.annotation.Nullable private BigDecimal v;
 
     public SignedMessageSignature() {}
 
-    public SignedMessageSignature fullSig(String fullSig) {
+    public SignedMessageSignature fullSig(@jakarta.annotation.Nullable String fullSig) {
         this.fullSig = fullSig;
         return this;
     }
@@ -64,11 +65,11 @@ public class SignedMessageSignature {
 
     @JsonProperty(JSON_PROPERTY_FULL_SIG)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setFullSig(String fullSig) {
+    public void setFullSig(@jakarta.annotation.Nullable String fullSig) {
         this.fullSig = fullSig;
     }
 
-    public SignedMessageSignature r(String r) {
+    public SignedMessageSignature r(@jakarta.annotation.Nullable String r) {
         this.r = r;
         return this;
     }
@@ -87,11 +88,11 @@ public class SignedMessageSignature {
 
     @JsonProperty(JSON_PROPERTY_R)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setR(String r) {
+    public void setR(@jakarta.annotation.Nullable String r) {
         this.r = r;
     }
 
-    public SignedMessageSignature s(String s) {
+    public SignedMessageSignature s(@jakarta.annotation.Nullable String s) {
         this.s = s;
         return this;
     }
@@ -110,11 +111,11 @@ public class SignedMessageSignature {
 
     @JsonProperty(JSON_PROPERTY_S)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setS(String s) {
+    public void setS(@jakarta.annotation.Nullable String s) {
         this.s = s;
     }
 
-    public SignedMessageSignature v(BigDecimal v) {
+    public SignedMessageSignature v(@jakarta.annotation.Nullable BigDecimal v) {
         this.v = v;
         return this;
     }
@@ -133,7 +134,7 @@ public class SignedMessageSignature {
 
     @JsonProperty(JSON_PROPERTY_V)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setV(BigDecimal v) {
+    public void setV(@jakarta.annotation.Nullable BigDecimal v) {
         this.v = v;
     }
 
@@ -220,8 +221,7 @@ public class SignedMessageSignature {
                             "%sfullSig%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getFullSig()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getFullSig()))));
         }
 
         // add `r` to the URL query string
@@ -229,10 +229,7 @@ public class SignedMessageSignature {
             joiner.add(
                     String.format(
                             "%sr%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(String.valueOf(getR()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getR()))));
         }
 
         // add `s` to the URL query string
@@ -240,10 +237,7 @@ public class SignedMessageSignature {
             joiner.add(
                     String.format(
                             "%ss%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(String.valueOf(getS()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getS()))));
         }
 
         // add `v` to the URL query string
@@ -251,10 +245,7 @@ public class SignedMessageSignature {
             joiner.add(
                     String.format(
                             "%sv%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(String.valueOf(getV()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getV()))));
         }
 
         return joiner.toString();

@@ -13,33 +13,33 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for NetworkConnection */
-public class NetworkConnectionTest {
+class NetworkConnectionTest {
     private final NetworkConnection model = new NetworkConnection();
 
     /** Model tests for NetworkConnection */
     @Test
-    public void testNetworkConnection() {
+    void testNetworkConnection() {
         // TODO: test NetworkConnection
     }
 
     /** Test the property 'localNetworkId' */
     @Test
-    public void localNetworkIdTest() {
+    void localNetworkIdTest() {
         // TODO: test localNetworkId
     }
 
     /** Test the property 'remoteNetworkId' */
     @Test
-    public void remoteNetworkIdTest() {
+    void remoteNetworkIdTest() {
         // TODO: test remoteNetworkId
     }
 
     /** Test the property 'routingPolicy' */
     @Test
-    public void routingPolicyTest() {
+    void routingPolicyTest() {
         // TODO: test routingPolicy
     }
 }

@@ -16,8 +16,7 @@ package com.fireblocks.sdk.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -42,59 +41,61 @@ import java.util.StringJoiner;
     TravelRuleGeographicAddress.JSON_PROPERTY_COUNTRY_SUB_DIVISION,
     TravelRuleGeographicAddress.JSON_PROPERTY_ADDRESS_LINE
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class TravelRuleGeographicAddress {
     public static final String JSON_PROPERTY_STREET_NAME = "streetName";
-    private String streetName;
+    @jakarta.annotation.Nullable private String streetName;
 
     public static final String JSON_PROPERTY_TOWN_NAME = "townName";
-    private String townName;
+    @jakarta.annotation.Nullable private String townName;
 
     public static final String JSON_PROPERTY_COUNTRY = "country";
-    private String country;
+    @jakarta.annotation.Nullable private String country;
 
     public static final String JSON_PROPERTY_BUILDING_NUMBER = "buildingNumber";
-    private String buildingNumber;
+    @jakarta.annotation.Nullable private String buildingNumber;
 
     public static final String JSON_PROPERTY_POST_CODE = "postCode";
-    private String postCode;
+    @jakarta.annotation.Nullable private String postCode;
 
     public static final String JSON_PROPERTY_ADDRESS_TYPE = "addressType";
-    private String addressType;
+    @jakarta.annotation.Nullable private String addressType;
 
     public static final String JSON_PROPERTY_DEPARTMENT = "department";
-    private String department;
+    @jakarta.annotation.Nullable private String department;
 
     public static final String JSON_PROPERTY_SUB_DEPARTMENT = "subDepartment";
-    private String subDepartment;
+    @jakarta.annotation.Nullable private String subDepartment;
 
     public static final String JSON_PROPERTY_BUILDING_NAME = "buildingName";
-    private String buildingName;
+    @jakarta.annotation.Nullable private String buildingName;
 
     public static final String JSON_PROPERTY_FLOOR = "floor";
-    private String floor;
+    @jakarta.annotation.Nullable private String floor;
 
     public static final String JSON_PROPERTY_POST_BOX = "postBox";
-    private String postBox;
+    @jakarta.annotation.Nullable private String postBox;
 
     public static final String JSON_PROPERTY_ROOM = "room";
-    private String room;
+    @jakarta.annotation.Nullable private String room;
 
     public static final String JSON_PROPERTY_TOWN_LOCATION_NAME = "townLocationName";
-    private String townLocationName;
+    @jakarta.annotation.Nullable private String townLocationName;
 
     public static final String JSON_PROPERTY_DISTRICT_NAME = "districtName";
-    private String districtName;
+    @jakarta.annotation.Nullable private String districtName;
 
     public static final String JSON_PROPERTY_COUNTRY_SUB_DIVISION = "countrySubDivision";
-    private String countrySubDivision;
+    @jakarta.annotation.Nullable private String countrySubDivision;
 
     public static final String JSON_PROPERTY_ADDRESS_LINE = "addressLine";
-    private List<String> addressLine;
+    @jakarta.annotation.Nullable private List<String> addressLine = new ArrayList<>();
 
     public TravelRuleGeographicAddress() {}
 
-    public TravelRuleGeographicAddress streetName(String streetName) {
+    public TravelRuleGeographicAddress streetName(@jakarta.annotation.Nullable String streetName) {
         this.streetName = streetName;
         return this;
     }
@@ -113,11 +114,11 @@ public class TravelRuleGeographicAddress {
 
     @JsonProperty(JSON_PROPERTY_STREET_NAME)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setStreetName(String streetName) {
+    public void setStreetName(@jakarta.annotation.Nullable String streetName) {
         this.streetName = streetName;
     }
 
-    public TravelRuleGeographicAddress townName(String townName) {
+    public TravelRuleGeographicAddress townName(@jakarta.annotation.Nullable String townName) {
         this.townName = townName;
         return this;
     }
@@ -137,11 +138,11 @@ public class TravelRuleGeographicAddress {
 
     @JsonProperty(JSON_PROPERTY_TOWN_NAME)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setTownName(String townName) {
+    public void setTownName(@jakarta.annotation.Nullable String townName) {
         this.townName = townName;
     }
 
-    public TravelRuleGeographicAddress country(String country) {
+    public TravelRuleGeographicAddress country(@jakarta.annotation.Nullable String country) {
         this.country = country;
         return this;
     }
@@ -160,11 +161,12 @@ public class TravelRuleGeographicAddress {
 
     @JsonProperty(JSON_PROPERTY_COUNTRY)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setCountry(String country) {
+    public void setCountry(@jakarta.annotation.Nullable String country) {
         this.country = country;
     }
 
-    public TravelRuleGeographicAddress buildingNumber(String buildingNumber) {
+    public TravelRuleGeographicAddress buildingNumber(
+            @jakarta.annotation.Nullable String buildingNumber) {
         this.buildingNumber = buildingNumber;
         return this;
     }
@@ -183,11 +185,11 @@ public class TravelRuleGeographicAddress {
 
     @JsonProperty(JSON_PROPERTY_BUILDING_NUMBER)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setBuildingNumber(String buildingNumber) {
+    public void setBuildingNumber(@jakarta.annotation.Nullable String buildingNumber) {
         this.buildingNumber = buildingNumber;
     }
 
-    public TravelRuleGeographicAddress postCode(String postCode) {
+    public TravelRuleGeographicAddress postCode(@jakarta.annotation.Nullable String postCode) {
         this.postCode = postCode;
         return this;
     }
@@ -207,11 +209,12 @@ public class TravelRuleGeographicAddress {
 
     @JsonProperty(JSON_PROPERTY_POST_CODE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setPostCode(String postCode) {
+    public void setPostCode(@jakarta.annotation.Nullable String postCode) {
         this.postCode = postCode;
     }
 
-    public TravelRuleGeographicAddress addressType(String addressType) {
+    public TravelRuleGeographicAddress addressType(
+            @jakarta.annotation.Nullable String addressType) {
         this.addressType = addressType;
         return this;
     }
@@ -232,11 +235,11 @@ public class TravelRuleGeographicAddress {
 
     @JsonProperty(JSON_PROPERTY_ADDRESS_TYPE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAddressType(String addressType) {
+    public void setAddressType(@jakarta.annotation.Nullable String addressType) {
         this.addressType = addressType;
     }
 
-    public TravelRuleGeographicAddress department(String department) {
+    public TravelRuleGeographicAddress department(@jakarta.annotation.Nullable String department) {
         this.department = department;
         return this;
     }
@@ -256,11 +259,12 @@ public class TravelRuleGeographicAddress {
 
     @JsonProperty(JSON_PROPERTY_DEPARTMENT)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setDepartment(String department) {
+    public void setDepartment(@jakarta.annotation.Nullable String department) {
         this.department = department;
     }
 
-    public TravelRuleGeographicAddress subDepartment(String subDepartment) {
+    public TravelRuleGeographicAddress subDepartment(
+            @jakarta.annotation.Nullable String subDepartment) {
         this.subDepartment = subDepartment;
         return this;
     }
@@ -280,11 +284,12 @@ public class TravelRuleGeographicAddress {
 
     @JsonProperty(JSON_PROPERTY_SUB_DEPARTMENT)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setSubDepartment(String subDepartment) {
+    public void setSubDepartment(@jakarta.annotation.Nullable String subDepartment) {
         this.subDepartment = subDepartment;
     }
 
-    public TravelRuleGeographicAddress buildingName(String buildingName) {
+    public TravelRuleGeographicAddress buildingName(
+            @jakarta.annotation.Nullable String buildingName) {
         this.buildingName = buildingName;
         return this;
     }
@@ -303,11 +308,11 @@ public class TravelRuleGeographicAddress {
 
     @JsonProperty(JSON_PROPERTY_BUILDING_NAME)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setBuildingName(String buildingName) {
+    public void setBuildingName(@jakarta.annotation.Nullable String buildingName) {
         this.buildingName = buildingName;
     }
 
-    public TravelRuleGeographicAddress floor(String floor) {
+    public TravelRuleGeographicAddress floor(@jakarta.annotation.Nullable String floor) {
         this.floor = floor;
         return this;
     }
@@ -326,11 +331,11 @@ public class TravelRuleGeographicAddress {
 
     @JsonProperty(JSON_PROPERTY_FLOOR)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setFloor(String floor) {
+    public void setFloor(@jakarta.annotation.Nullable String floor) {
         this.floor = floor;
     }
 
-    public TravelRuleGeographicAddress postBox(String postBox) {
+    public TravelRuleGeographicAddress postBox(@jakarta.annotation.Nullable String postBox) {
         this.postBox = postBox;
         return this;
     }
@@ -349,11 +354,11 @@ public class TravelRuleGeographicAddress {
 
     @JsonProperty(JSON_PROPERTY_POST_BOX)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setPostBox(String postBox) {
+    public void setPostBox(@jakarta.annotation.Nullable String postBox) {
         this.postBox = postBox;
     }
 
-    public TravelRuleGeographicAddress room(String room) {
+    public TravelRuleGeographicAddress room(@jakarta.annotation.Nullable String room) {
         this.room = room;
         return this;
     }
@@ -372,11 +377,12 @@ public class TravelRuleGeographicAddress {
 
     @JsonProperty(JSON_PROPERTY_ROOM)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setRoom(String room) {
+    public void setRoom(@jakarta.annotation.Nullable String room) {
         this.room = room;
     }
 
-    public TravelRuleGeographicAddress townLocationName(String townLocationName) {
+    public TravelRuleGeographicAddress townLocationName(
+            @jakarta.annotation.Nullable String townLocationName) {
         this.townLocationName = townLocationName;
         return this;
     }
@@ -395,11 +401,12 @@ public class TravelRuleGeographicAddress {
 
     @JsonProperty(JSON_PROPERTY_TOWN_LOCATION_NAME)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setTownLocationName(String townLocationName) {
+    public void setTownLocationName(@jakarta.annotation.Nullable String townLocationName) {
         this.townLocationName = townLocationName;
     }
 
-    public TravelRuleGeographicAddress districtName(String districtName) {
+    public TravelRuleGeographicAddress districtName(
+            @jakarta.annotation.Nullable String districtName) {
         this.districtName = districtName;
         return this;
     }
@@ -418,11 +425,12 @@ public class TravelRuleGeographicAddress {
 
     @JsonProperty(JSON_PROPERTY_DISTRICT_NAME)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setDistrictName(String districtName) {
+    public void setDistrictName(@jakarta.annotation.Nullable String districtName) {
         this.districtName = districtName;
     }
 
-    public TravelRuleGeographicAddress countrySubDivision(String countrySubDivision) {
+    public TravelRuleGeographicAddress countrySubDivision(
+            @jakarta.annotation.Nullable String countrySubDivision) {
         this.countrySubDivision = countrySubDivision;
         return this;
     }
@@ -442,11 +450,12 @@ public class TravelRuleGeographicAddress {
 
     @JsonProperty(JSON_PROPERTY_COUNTRY_SUB_DIVISION)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setCountrySubDivision(String countrySubDivision) {
+    public void setCountrySubDivision(@jakarta.annotation.Nullable String countrySubDivision) {
         this.countrySubDivision = countrySubDivision;
     }
 
-    public TravelRuleGeographicAddress addressLine(List<String> addressLine) {
+    public TravelRuleGeographicAddress addressLine(
+            @jakarta.annotation.Nullable List<String> addressLine) {
         this.addressLine = addressLine;
         return this;
     }
@@ -474,7 +483,7 @@ public class TravelRuleGeographicAddress {
 
     @JsonProperty(JSON_PROPERTY_ADDRESS_LINE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAddressLine(List<String> addressLine) {
+    public void setAddressLine(@jakarta.annotation.Nullable List<String> addressLine) {
         this.addressLine = addressLine;
     }
 
@@ -605,9 +614,7 @@ public class TravelRuleGeographicAddress {
                             "%sstreetName%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getStreetName()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getStreetName()))));
         }
 
         // add `townName` to the URL query string
@@ -617,8 +624,7 @@ public class TravelRuleGeographicAddress {
                             "%stownName%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getTownName()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getTownName()))));
         }
 
         // add `country` to the URL query string
@@ -628,8 +634,7 @@ public class TravelRuleGeographicAddress {
                             "%scountry%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getCountry()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getCountry()))));
         }
 
         // add `buildingNumber` to the URL query string
@@ -639,10 +644,7 @@ public class TravelRuleGeographicAddress {
                             "%sbuildingNumber%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getBuildingNumber()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getBuildingNumber()))));
         }
 
         // add `postCode` to the URL query string
@@ -652,8 +654,7 @@ public class TravelRuleGeographicAddress {
                             "%spostCode%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getPostCode()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getPostCode()))));
         }
 
         // add `addressType` to the URL query string
@@ -663,10 +664,7 @@ public class TravelRuleGeographicAddress {
                             "%saddressType%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getAddressType()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getAddressType()))));
         }
 
         // add `department` to the URL query string
@@ -676,9 +674,7 @@ public class TravelRuleGeographicAddress {
                             "%sdepartment%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getDepartment()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getDepartment()))));
         }
 
         // add `subDepartment` to the URL query string
@@ -688,10 +684,7 @@ public class TravelRuleGeographicAddress {
                             "%ssubDepartment%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getSubDepartment()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getSubDepartment()))));
         }
 
         // add `buildingName` to the URL query string
@@ -701,10 +694,7 @@ public class TravelRuleGeographicAddress {
                             "%sbuildingName%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getBuildingName()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getBuildingName()))));
         }
 
         // add `floor` to the URL query string
@@ -714,8 +704,7 @@ public class TravelRuleGeographicAddress {
                             "%sfloor%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getFloor()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getFloor()))));
         }
 
         // add `postBox` to the URL query string
@@ -725,8 +714,7 @@ public class TravelRuleGeographicAddress {
                             "%spostBox%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getPostBox()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getPostBox()))));
         }
 
         // add `room` to the URL query string
@@ -736,8 +724,7 @@ public class TravelRuleGeographicAddress {
                             "%sroom%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getRoom()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getRoom()))));
         }
 
         // add `townLocationName` to the URL query string
@@ -747,10 +734,7 @@ public class TravelRuleGeographicAddress {
                             "%stownLocationName%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getTownLocationName()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getTownLocationName()))));
         }
 
         // add `districtName` to the URL query string
@@ -760,10 +744,7 @@ public class TravelRuleGeographicAddress {
                             "%sdistrictName%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getDistrictName()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getDistrictName()))));
         }
 
         // add `countrySubDivision` to the URL query string
@@ -773,10 +754,7 @@ public class TravelRuleGeographicAddress {
                             "%scountrySubDivision%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getCountrySubDivision()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getCountrySubDivision()))));
         }
 
         // add `addressLine` to the URL query string
@@ -791,10 +769,8 @@ public class TravelRuleGeographicAddress {
                                         ? ""
                                         : String.format(
                                                 "%s%d%s", containerPrefix, i, containerSuffix),
-                                URLEncoder.encode(
-                                                String.valueOf(getAddressLine().get(i)),
-                                                StandardCharsets.UTF_8)
-                                        .replaceAll("\\+", "%20")));
+                                ApiClient.urlEncode(
+                                        ApiClient.valueToString(getAddressLine().get(i)))));
             }
         }
 

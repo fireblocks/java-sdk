@@ -13,11 +13,11 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -29,20 +29,33 @@ import java.util.StringJoiner;
     ContractDataDecodeResponseParams.JSON_PROPERTY_SIGNATURE,
     ContractDataDecodeResponseParams.JSON_PROPERTY_ARGS
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class ContractDataDecodeResponseParams {
     public static final String JSON_PROPERTY_NAME = "name";
-    private String name;
+    @jakarta.annotation.Nonnull private String name;
 
     public static final String JSON_PROPERTY_SIGNATURE = "signature";
-    private String signature;
+    @jakarta.annotation.Nonnull private String signature;
 
     public static final String JSON_PROPERTY_ARGS = "args";
-    private List<ParameterWithValue> args = new ArrayList<>();
+    @jakarta.annotation.Nonnull private List<ParameterWithValue> args = new ArrayList<>();
 
     public ContractDataDecodeResponseParams() {}
 
-    public ContractDataDecodeResponseParams name(String name) {
+    @JsonCreator
+    public ContractDataDecodeResponseParams(
+            @JsonProperty(value = JSON_PROPERTY_NAME, required = true) String name,
+            @JsonProperty(value = JSON_PROPERTY_SIGNATURE, required = true) String signature,
+            @JsonProperty(value = JSON_PROPERTY_ARGS, required = true)
+                    List<ParameterWithValue> args) {
+        this.name = name;
+        this.signature = signature;
+        this.args = args;
+    }
+
+    public ContractDataDecodeResponseParams name(@jakarta.annotation.Nonnull String name) {
         this.name = name;
         return this;
     }
@@ -61,11 +74,12 @@ public class ContractDataDecodeResponseParams {
 
     @JsonProperty(JSON_PROPERTY_NAME)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setName(String name) {
+    public void setName(@jakarta.annotation.Nonnull String name) {
         this.name = name;
     }
 
-    public ContractDataDecodeResponseParams signature(String signature) {
+    public ContractDataDecodeResponseParams signature(
+            @jakarta.annotation.Nonnull String signature) {
         this.signature = signature;
         return this;
     }
@@ -84,11 +98,12 @@ public class ContractDataDecodeResponseParams {
 
     @JsonProperty(JSON_PROPERTY_SIGNATURE)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setSignature(String signature) {
+    public void setSignature(@jakarta.annotation.Nonnull String signature) {
         this.signature = signature;
     }
 
-    public ContractDataDecodeResponseParams args(List<ParameterWithValue> args) {
+    public ContractDataDecodeResponseParams args(
+            @jakarta.annotation.Nonnull List<ParameterWithValue> args) {
         this.args = args;
         return this;
     }
@@ -115,7 +130,7 @@ public class ContractDataDecodeResponseParams {
 
     @JsonProperty(JSON_PROPERTY_ARGS)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setArgs(List<ParameterWithValue> args) {
+    public void setArgs(@jakarta.annotation.Nonnull List<ParameterWithValue> args) {
         this.args = args;
     }
 
@@ -201,8 +216,7 @@ public class ContractDataDecodeResponseParams {
                             "%sname%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getName()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getName()))));
         }
 
         // add `signature` to the URL query string
@@ -212,9 +226,7 @@ public class ContractDataDecodeResponseParams {
                             "%ssignature%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getSignature()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getSignature()))));
         }
 
         // add `args` to the URL query string

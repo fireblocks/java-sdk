@@ -13,33 +13,33 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for GetAuditLogsResponse */
-public class GetAuditLogsResponseTest {
+class GetAuditLogsResponseTest {
     private final GetAuditLogsResponse model = new GetAuditLogsResponse();
 
     /** Model tests for GetAuditLogsResponse */
     @Test
-    public void testGetAuditLogsResponse() {
+    void testGetAuditLogsResponse() {
         // TODO: test GetAuditLogsResponse
     }
 
     /** Test the property 'data' */
     @Test
-    public void dataTest() {
+    void dataTest() {
         // TODO: test data
     }
 
     /** Test the property 'cursor' */
     @Test
-    public void cursorTest() {
+    void cursorTest() {
         // TODO: test cursor
     }
 
     /** Test the property 'total' */
     @Test
-    public void totalTest() {
+    void totalTest() {
         // TODO: test total
     }
 }

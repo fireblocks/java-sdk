@@ -18,8 +18,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonValue;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 import java.util.UUID;
@@ -30,18 +29,20 @@ import java.util.UUID;
     SwapOperationRequest.JSON_PROPERTY_FEE_LEVEL,
     SwapOperationRequest.JSON_PROPERTY_TX_NOTE
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class SwapOperationRequest {
     public static final String JSON_PROPERTY_PROVIDER_QUOTE_ID = "providerQuoteId";
-    private UUID providerQuoteId;
+    @jakarta.annotation.Nonnull private UUID providerQuoteId;
 
     /** The fee level of the transaction */
     public enum FeeLevelEnum {
-        LOW("LOW"),
+        LOW(String.valueOf("LOW")),
 
-        MEDIUM("MEDIUM"),
+        MEDIUM(String.valueOf("MEDIUM")),
 
-        HIGH("HIGH");
+        HIGH(String.valueOf("HIGH"));
 
         private String value;
 
@@ -71,14 +72,21 @@ public class SwapOperationRequest {
     }
 
     public static final String JSON_PROPERTY_FEE_LEVEL = "feeLevel";
-    private FeeLevelEnum feeLevel;
+    @jakarta.annotation.Nullable private FeeLevelEnum feeLevel;
 
     public static final String JSON_PROPERTY_TX_NOTE = "txNote";
-    private String txNote;
+    @jakarta.annotation.Nullable private String txNote;
 
     public SwapOperationRequest() {}
 
-    public SwapOperationRequest providerQuoteId(UUID providerQuoteId) {
+    @JsonCreator
+    public SwapOperationRequest(
+            @JsonProperty(value = JSON_PROPERTY_PROVIDER_QUOTE_ID, required = true)
+                    UUID providerQuoteId) {
+        this.providerQuoteId = providerQuoteId;
+    }
+
+    public SwapOperationRequest providerQuoteId(@jakarta.annotation.Nonnull UUID providerQuoteId) {
         this.providerQuoteId = providerQuoteId;
         return this;
     }
@@ -97,11 +105,11 @@ public class SwapOperationRequest {
 
     @JsonProperty(JSON_PROPERTY_PROVIDER_QUOTE_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setProviderQuoteId(UUID providerQuoteId) {
+    public void setProviderQuoteId(@jakarta.annotation.Nonnull UUID providerQuoteId) {
         this.providerQuoteId = providerQuoteId;
     }
 
-    public SwapOperationRequest feeLevel(FeeLevelEnum feeLevel) {
+    public SwapOperationRequest feeLevel(@jakarta.annotation.Nullable FeeLevelEnum feeLevel) {
         this.feeLevel = feeLevel;
         return this;
     }
@@ -120,11 +128,11 @@ public class SwapOperationRequest {
 
     @JsonProperty(JSON_PROPERTY_FEE_LEVEL)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setFeeLevel(FeeLevelEnum feeLevel) {
+    public void setFeeLevel(@jakarta.annotation.Nullable FeeLevelEnum feeLevel) {
         this.feeLevel = feeLevel;
     }
 
-    public SwapOperationRequest txNote(String txNote) {
+    public SwapOperationRequest txNote(@jakarta.annotation.Nullable String txNote) {
         this.txNote = txNote;
         return this;
     }
@@ -143,7 +151,7 @@ public class SwapOperationRequest {
 
     @JsonProperty(JSON_PROPERTY_TX_NOTE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setTxNote(String txNote) {
+    public void setTxNote(@jakarta.annotation.Nullable String txNote) {
         this.txNote = txNote;
     }
 
@@ -228,10 +236,7 @@ public class SwapOperationRequest {
                             "%sproviderQuoteId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getProviderQuoteId()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getProviderQuoteId()))));
         }
 
         // add `feeLevel` to the URL query string
@@ -241,8 +246,7 @@ public class SwapOperationRequest {
                             "%sfeeLevel%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getFeeLevel()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getFeeLevel()))));
         }
 
         // add `txNote` to the URL query string
@@ -252,8 +256,7 @@ public class SwapOperationRequest {
                             "%stxNote%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getTxNote()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getTxNote()))));
         }
 
         return joiner.toString();

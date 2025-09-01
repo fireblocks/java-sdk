@@ -13,28 +13,28 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for GasslessStandardConfigurationsGaslessStandardConfigurationsValue */
-public class GasslessStandardConfigurationsGaslessStandardConfigurationsValueTest {
+class GasslessStandardConfigurationsGaslessStandardConfigurationsValueTest {
     private final GasslessStandardConfigurationsGaslessStandardConfigurationsValue model =
             new GasslessStandardConfigurationsGaslessStandardConfigurationsValue();
 
     /** Model tests for GasslessStandardConfigurationsGaslessStandardConfigurationsValue */
     @Test
-    public void testGasslessStandardConfigurationsGaslessStandardConfigurationsValue() {
+    void testGasslessStandardConfigurationsGaslessStandardConfigurationsValue() {
         // TODO: test GasslessStandardConfigurationsGaslessStandardConfigurationsValue
     }
 
     /** Test the property 'lastOnChainCheck' */
     @Test
-    public void lastOnChainCheckTest() {
+    void lastOnChainCheckTest() {
         // TODO: test lastOnChainCheck
     }
 
     /** Test the property 'forwarderAddresses' */
     @Test
-    public void forwarderAddressesTest() {
+    void forwarderAddressesTest() {
         // TODO: test forwarderAddresses
     }
 }

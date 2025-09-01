@@ -13,11 +13,11 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 import java.util.UUID;
@@ -27,17 +27,24 @@ import java.util.UUID;
     PairApiKeyResponse.JSON_PROPERTY_ID,
     PairApiKeyResponse.JSON_PROPERTY_CALLBACK_HANDLER
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class PairApiKeyResponse {
     public static final String JSON_PROPERTY_ID = "id";
-    private UUID id;
+    @jakarta.annotation.Nonnull private UUID id;
 
     public static final String JSON_PROPERTY_CALLBACK_HANDLER = "callbackHandler";
-    private CallbackHandlerRequest callbackHandler;
+    @jakarta.annotation.Nullable private CallbackHandlerRequest callbackHandler;
 
     public PairApiKeyResponse() {}
 
-    public PairApiKeyResponse id(UUID id) {
+    @JsonCreator
+    public PairApiKeyResponse(@JsonProperty(value = JSON_PROPERTY_ID, required = true) UUID id) {
+        this.id = id;
+    }
+
+    public PairApiKeyResponse id(@jakarta.annotation.Nonnull UUID id) {
         this.id = id;
         return this;
     }
@@ -56,11 +63,12 @@ public class PairApiKeyResponse {
 
     @JsonProperty(JSON_PROPERTY_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setId(UUID id) {
+    public void setId(@jakarta.annotation.Nonnull UUID id) {
         this.id = id;
     }
 
-    public PairApiKeyResponse callbackHandler(CallbackHandlerRequest callbackHandler) {
+    public PairApiKeyResponse callbackHandler(
+            @jakarta.annotation.Nullable CallbackHandlerRequest callbackHandler) {
         this.callbackHandler = callbackHandler;
         return this;
     }
@@ -79,7 +87,8 @@ public class PairApiKeyResponse {
 
     @JsonProperty(JSON_PROPERTY_CALLBACK_HANDLER)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setCallbackHandler(CallbackHandlerRequest callbackHandler) {
+    public void setCallbackHandler(
+            @jakarta.annotation.Nullable CallbackHandlerRequest callbackHandler) {
         this.callbackHandler = callbackHandler;
     }
 
@@ -160,10 +169,7 @@ public class PairApiKeyResponse {
             joiner.add(
                     String.format(
                             "%sid%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(String.valueOf(getId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getId()))));
         }
 
         // add `callbackHandler` to the URL query string

@@ -16,8 +16,7 @@ package com.fireblocks.sdk.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -28,23 +27,25 @@ import java.util.StringJoiner;
     TravelRuleAddress.JSON_PROPERTY_STATE,
     TravelRuleAddress.JSON_PROPERTY_POSTAL_CODE
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class TravelRuleAddress {
     public static final String JSON_PROPERTY_STREET = "street";
-    private String street;
+    @jakarta.annotation.Nullable private String street;
 
     public static final String JSON_PROPERTY_CITY = "city";
-    private String city;
+    @jakarta.annotation.Nullable private String city;
 
     public static final String JSON_PROPERTY_STATE = "state";
-    private String state;
+    @jakarta.annotation.Nullable private String state;
 
     public static final String JSON_PROPERTY_POSTAL_CODE = "postalCode";
-    private String postalCode;
+    @jakarta.annotation.Nullable private String postalCode;
 
     public TravelRuleAddress() {}
 
-    public TravelRuleAddress street(String street) {
+    public TravelRuleAddress street(@jakarta.annotation.Nullable String street) {
         this.street = street;
         return this;
     }
@@ -63,11 +64,11 @@ public class TravelRuleAddress {
 
     @JsonProperty(JSON_PROPERTY_STREET)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setStreet(String street) {
+    public void setStreet(@jakarta.annotation.Nullable String street) {
         this.street = street;
     }
 
-    public TravelRuleAddress city(String city) {
+    public TravelRuleAddress city(@jakarta.annotation.Nullable String city) {
         this.city = city;
         return this;
     }
@@ -86,11 +87,11 @@ public class TravelRuleAddress {
 
     @JsonProperty(JSON_PROPERTY_CITY)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setCity(String city) {
+    public void setCity(@jakarta.annotation.Nullable String city) {
         this.city = city;
     }
 
-    public TravelRuleAddress state(String state) {
+    public TravelRuleAddress state(@jakarta.annotation.Nullable String state) {
         this.state = state;
         return this;
     }
@@ -109,11 +110,11 @@ public class TravelRuleAddress {
 
     @JsonProperty(JSON_PROPERTY_STATE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setState(String state) {
+    public void setState(@jakarta.annotation.Nullable String state) {
         this.state = state;
     }
 
-    public TravelRuleAddress postalCode(String postalCode) {
+    public TravelRuleAddress postalCode(@jakarta.annotation.Nullable String postalCode) {
         this.postalCode = postalCode;
         return this;
     }
@@ -132,7 +133,7 @@ public class TravelRuleAddress {
 
     @JsonProperty(JSON_PROPERTY_POSTAL_CODE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setPostalCode(String postalCode) {
+    public void setPostalCode(@jakarta.annotation.Nullable String postalCode) {
         this.postalCode = postalCode;
     }
 
@@ -219,8 +220,7 @@ public class TravelRuleAddress {
                             "%sstreet%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getStreet()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getStreet()))));
         }
 
         // add `city` to the URL query string
@@ -230,8 +230,7 @@ public class TravelRuleAddress {
                             "%scity%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getCity()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getCity()))));
         }
 
         // add `state` to the URL query string
@@ -241,8 +240,7 @@ public class TravelRuleAddress {
                             "%sstate%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getState()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getState()))));
         }
 
         // add `postalCode` to the URL query string
@@ -252,9 +250,7 @@ public class TravelRuleAddress {
                             "%spostalCode%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getPostalCode()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getPostalCode()))));
         }
 
         return joiner.toString();

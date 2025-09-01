@@ -13,27 +13,27 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for GetWhitelistIpAddressesResponse */
-public class GetWhitelistIpAddressesResponseTest {
+class GetWhitelistIpAddressesResponseTest {
     private final GetWhitelistIpAddressesResponse model = new GetWhitelistIpAddressesResponse();
 
     /** Model tests for GetWhitelistIpAddressesResponse */
     @Test
-    public void testGetWhitelistIpAddressesResponse() {
+    void testGetWhitelistIpAddressesResponse() {
         // TODO: test GetWhitelistIpAddressesResponse
     }
 
     /** Test the property 'userId' */
     @Test
-    public void userIdTest() {
+    void userIdTest() {
         // TODO: test userId
     }
 
     /** Test the property 'whitelistedIps' */
     @Test
-    public void whitelistedIpsTest() {
+    void whitelistedIpsTest() {
         // TODO: test whitelistedIps
     }
 }

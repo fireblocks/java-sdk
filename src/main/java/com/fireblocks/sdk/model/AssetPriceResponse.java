@@ -18,9 +18,8 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.fireblocks.sdk.ApiClient;
 import java.math.BigDecimal;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -32,25 +31,27 @@ import java.util.StringJoiner;
     AssetPriceResponse.JSON_PROPERTY_PRICE,
     AssetPriceResponse.JSON_PROPERTY_SOURCE
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class AssetPriceResponse {
     public static final String JSON_PROPERTY_LEGACY_ID = "legacyId";
-    private String legacyId;
+    @jakarta.annotation.Nonnull private String legacyId;
 
     public static final String JSON_PROPERTY_LAST_UPDATE_AT = "lastUpdateAt";
-    private BigDecimal lastUpdateAt;
+    @jakarta.annotation.Nonnull private BigDecimal lastUpdateAt;
 
     public static final String JSON_PROPERTY_CURRENCY = "currency";
-    private String currency;
+    @jakarta.annotation.Nonnull private String currency;
 
     public static final String JSON_PROPERTY_PRICE = "price";
-    private BigDecimal price;
+    @jakarta.annotation.Nonnull private BigDecimal price;
 
     /** Source of the price data */
     public enum SourceEnum {
-        PUBLIC("PUBLIC"),
+        PUBLIC(String.valueOf("PUBLIC")),
 
-        PRIVATE("PRIVATE");
+        PRIVATE(String.valueOf("PRIVATE"));
 
         private String value;
 
@@ -80,11 +81,26 @@ public class AssetPriceResponse {
     }
 
     public static final String JSON_PROPERTY_SOURCE = "source";
-    private SourceEnum source;
+    @jakarta.annotation.Nonnull private SourceEnum source;
 
     public AssetPriceResponse() {}
 
-    public AssetPriceResponse legacyId(String legacyId) {
+    @JsonCreator
+    public AssetPriceResponse(
+            @JsonProperty(value = JSON_PROPERTY_LEGACY_ID, required = true) String legacyId,
+            @JsonProperty(value = JSON_PROPERTY_LAST_UPDATE_AT, required = true)
+                    BigDecimal lastUpdateAt,
+            @JsonProperty(value = JSON_PROPERTY_CURRENCY, required = true) String currency,
+            @JsonProperty(value = JSON_PROPERTY_PRICE, required = true) BigDecimal price,
+            @JsonProperty(value = JSON_PROPERTY_SOURCE, required = true) SourceEnum source) {
+        this.legacyId = legacyId;
+        this.lastUpdateAt = lastUpdateAt;
+        this.currency = currency;
+        this.price = price;
+        this.source = source;
+    }
+
+    public AssetPriceResponse legacyId(@jakarta.annotation.Nonnull String legacyId) {
         this.legacyId = legacyId;
         return this;
     }
@@ -103,11 +119,11 @@ public class AssetPriceResponse {
 
     @JsonProperty(JSON_PROPERTY_LEGACY_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setLegacyId(String legacyId) {
+    public void setLegacyId(@jakarta.annotation.Nonnull String legacyId) {
         this.legacyId = legacyId;
     }
 
-    public AssetPriceResponse lastUpdateAt(BigDecimal lastUpdateAt) {
+    public AssetPriceResponse lastUpdateAt(@jakarta.annotation.Nonnull BigDecimal lastUpdateAt) {
         this.lastUpdateAt = lastUpdateAt;
         return this;
     }
@@ -126,11 +142,11 @@ public class AssetPriceResponse {
 
     @JsonProperty(JSON_PROPERTY_LAST_UPDATE_AT)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setLastUpdateAt(BigDecimal lastUpdateAt) {
+    public void setLastUpdateAt(@jakarta.annotation.Nonnull BigDecimal lastUpdateAt) {
         this.lastUpdateAt = lastUpdateAt;
     }
 
-    public AssetPriceResponse currency(String currency) {
+    public AssetPriceResponse currency(@jakarta.annotation.Nonnull String currency) {
         this.currency = currency;
         return this;
     }
@@ -149,11 +165,11 @@ public class AssetPriceResponse {
 
     @JsonProperty(JSON_PROPERTY_CURRENCY)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setCurrency(String currency) {
+    public void setCurrency(@jakarta.annotation.Nonnull String currency) {
         this.currency = currency;
     }
 
-    public AssetPriceResponse price(BigDecimal price) {
+    public AssetPriceResponse price(@jakarta.annotation.Nonnull BigDecimal price) {
         this.price = price;
         return this;
     }
@@ -172,11 +188,11 @@ public class AssetPriceResponse {
 
     @JsonProperty(JSON_PROPERTY_PRICE)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setPrice(BigDecimal price) {
+    public void setPrice(@jakarta.annotation.Nonnull BigDecimal price) {
         this.price = price;
     }
 
-    public AssetPriceResponse source(SourceEnum source) {
+    public AssetPriceResponse source(@jakarta.annotation.Nonnull SourceEnum source) {
         this.source = source;
         return this;
     }
@@ -195,7 +211,7 @@ public class AssetPriceResponse {
 
     @JsonProperty(JSON_PROPERTY_SOURCE)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setSource(SourceEnum source) {
+    public void setSource(@jakarta.annotation.Nonnull SourceEnum source) {
         this.source = source;
     }
 
@@ -284,8 +300,7 @@ public class AssetPriceResponse {
                             "%slegacyId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getLegacyId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getLegacyId()))));
         }
 
         // add `lastUpdateAt` to the URL query string
@@ -295,10 +310,7 @@ public class AssetPriceResponse {
                             "%slastUpdateAt%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getLastUpdateAt()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getLastUpdateAt()))));
         }
 
         // add `currency` to the URL query string
@@ -308,8 +320,7 @@ public class AssetPriceResponse {
                             "%scurrency%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getCurrency()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getCurrency()))));
         }
 
         // add `price` to the URL query string
@@ -319,8 +330,7 @@ public class AssetPriceResponse {
                             "%sprice%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getPrice()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getPrice()))));
         }
 
         // add `source` to the URL query string
@@ -330,8 +340,7 @@ public class AssetPriceResponse {
                             "%ssource%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getSource()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getSource()))));
         }
 
         return joiner.toString();

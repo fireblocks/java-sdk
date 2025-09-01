@@ -13,69 +13,69 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for NonWalletQuoteResponse */
-public class NonWalletQuoteResponseTest {
+class NonWalletQuoteResponseTest {
     private final NonWalletQuoteResponse model = new NonWalletQuoteResponse();
 
     /** Model tests for NonWalletQuoteResponse */
     @Test
-    public void testNonWalletQuoteResponse() {
+    void testNonWalletQuoteResponse() {
         // TODO: test NonWalletQuoteResponse
     }
 
     /** Test the property 'protocol' */
     @Test
-    public void protocolTest() {
+    void protocolTest() {
         // TODO: test protocol
     }
 
     /** Test the property 'inputAmount' */
     @Test
-    public void inputAmountTest() {
+    void inputAmountTest() {
         // TODO: test inputAmount
     }
 
     /** Test the property 'inputAsset' */
     @Test
-    public void inputAssetTest() {
+    void inputAssetTest() {
         // TODO: test inputAsset
     }
 
     /** Test the property 'slippageTolerance' */
     @Test
-    public void slippageToleranceTest() {
+    void slippageToleranceTest() {
         // TODO: test slippageTolerance
     }
 
     /** Test the property 'outputMinAmount' */
     @Test
-    public void outputMinAmountTest() {
+    void outputMinAmountTest() {
         // TODO: test outputMinAmount
     }
 
     /** Test the property 'outputMaxAmount' */
     @Test
-    public void outputMaxAmountTest() {
+    void outputMaxAmountTest() {
         // TODO: test outputMaxAmount
     }
 
     /** Test the property 'outputAsset' */
     @Test
-    public void outputAssetTest() {
+    void outputAssetTest() {
         // TODO: test outputAsset
     }
 
     /** Test the property 'additionalData' */
     @Test
-    public void additionalDataTest() {
+    void additionalDataTest() {
         // TODO: test additionalData
     }
 
     /** Test the property 'estimatedFees' */
     @Test
-    public void estimatedFeesTest() {
+    void estimatedFeesTest() {
         // TODO: test estimatedFees
     }
 }

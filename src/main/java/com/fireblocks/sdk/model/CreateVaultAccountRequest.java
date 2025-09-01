@@ -18,8 +18,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonValue;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -32,28 +31,30 @@ import java.util.StringJoiner;
     CreateVaultAccountRequest.JSON_PROPERTY_VAULT_TYPE,
     CreateVaultAccountRequest.JSON_PROPERTY_AUTO_ASSIGN
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class CreateVaultAccountRequest {
     public static final String JSON_PROPERTY_NAME = "name";
-    private String name;
+    @jakarta.annotation.Nullable private String name;
 
     public static final String JSON_PROPERTY_HIDDEN_ON_U_I = "hiddenOnUI";
-    private Boolean hiddenOnUI;
+    @jakarta.annotation.Nullable private Boolean hiddenOnUI;
 
     public static final String JSON_PROPERTY_CUSTOMER_REF_ID = "customerRefId";
-    private String customerRefId;
+    @jakarta.annotation.Nullable private String customerRefId;
 
     public static final String JSON_PROPERTY_AUTO_FUEL = "autoFuel";
-    private Boolean autoFuel;
+    @jakarta.annotation.Nullable private Boolean autoFuel;
 
     /**
      * Type of vault account. The default type will be set to MPC.&lt;br/&gt; If the workspace does
      * not support the selected type, it will return an error.
      */
     public enum VaultTypeEnum {
-        MPC("MPC"),
+        MPC(String.valueOf("MPC")),
 
-        KEY_LINK("KEY_LINK");
+        KEY_LINK(String.valueOf("KEY_LINK"));
 
         private String value;
 
@@ -83,14 +84,14 @@ public class CreateVaultAccountRequest {
     }
 
     public static final String JSON_PROPERTY_VAULT_TYPE = "vaultType";
-    private VaultTypeEnum vaultType = VaultTypeEnum.MPC;
+    @jakarta.annotation.Nullable private VaultTypeEnum vaultType = VaultTypeEnum.MPC;
 
     public static final String JSON_PROPERTY_AUTO_ASSIGN = "autoAssign";
-    private Boolean autoAssign = false;
+    @jakarta.annotation.Nullable private Boolean autoAssign = false;
 
     public CreateVaultAccountRequest() {}
 
-    public CreateVaultAccountRequest name(String name) {
+    public CreateVaultAccountRequest name(@jakarta.annotation.Nullable String name) {
         this.name = name;
         return this;
     }
@@ -109,11 +110,11 @@ public class CreateVaultAccountRequest {
 
     @JsonProperty(JSON_PROPERTY_NAME)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setName(String name) {
+    public void setName(@jakarta.annotation.Nullable String name) {
         this.name = name;
     }
 
-    public CreateVaultAccountRequest hiddenOnUI(Boolean hiddenOnUI) {
+    public CreateVaultAccountRequest hiddenOnUI(@jakarta.annotation.Nullable Boolean hiddenOnUI) {
         this.hiddenOnUI = hiddenOnUI;
         return this;
     }
@@ -133,11 +134,12 @@ public class CreateVaultAccountRequest {
 
     @JsonProperty(JSON_PROPERTY_HIDDEN_ON_U_I)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setHiddenOnUI(Boolean hiddenOnUI) {
+    public void setHiddenOnUI(@jakarta.annotation.Nullable Boolean hiddenOnUI) {
         this.hiddenOnUI = hiddenOnUI;
     }
 
-    public CreateVaultAccountRequest customerRefId(String customerRefId) {
+    public CreateVaultAccountRequest customerRefId(
+            @jakarta.annotation.Nullable String customerRefId) {
         this.customerRefId = customerRefId;
         return this;
     }
@@ -156,11 +158,11 @@ public class CreateVaultAccountRequest {
 
     @JsonProperty(JSON_PROPERTY_CUSTOMER_REF_ID)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setCustomerRefId(String customerRefId) {
+    public void setCustomerRefId(@jakarta.annotation.Nullable String customerRefId) {
         this.customerRefId = customerRefId;
     }
 
-    public CreateVaultAccountRequest autoFuel(Boolean autoFuel) {
+    public CreateVaultAccountRequest autoFuel(@jakarta.annotation.Nullable Boolean autoFuel) {
         this.autoFuel = autoFuel;
         return this;
     }
@@ -179,11 +181,12 @@ public class CreateVaultAccountRequest {
 
     @JsonProperty(JSON_PROPERTY_AUTO_FUEL)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAutoFuel(Boolean autoFuel) {
+    public void setAutoFuel(@jakarta.annotation.Nullable Boolean autoFuel) {
         this.autoFuel = autoFuel;
     }
 
-    public CreateVaultAccountRequest vaultType(VaultTypeEnum vaultType) {
+    public CreateVaultAccountRequest vaultType(
+            @jakarta.annotation.Nullable VaultTypeEnum vaultType) {
         this.vaultType = vaultType;
         return this;
     }
@@ -203,11 +206,11 @@ public class CreateVaultAccountRequest {
 
     @JsonProperty(JSON_PROPERTY_VAULT_TYPE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setVaultType(VaultTypeEnum vaultType) {
+    public void setVaultType(@jakarta.annotation.Nullable VaultTypeEnum vaultType) {
         this.vaultType = vaultType;
     }
 
-    public CreateVaultAccountRequest autoAssign(Boolean autoAssign) {
+    public CreateVaultAccountRequest autoAssign(@jakarta.annotation.Nullable Boolean autoAssign) {
         this.autoAssign = autoAssign;
         return this;
     }
@@ -230,7 +233,7 @@ public class CreateVaultAccountRequest {
 
     @JsonProperty(JSON_PROPERTY_AUTO_ASSIGN)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAutoAssign(Boolean autoAssign) {
+    public void setAutoAssign(@jakarta.annotation.Nullable Boolean autoAssign) {
         this.autoAssign = autoAssign;
     }
 
@@ -321,8 +324,7 @@ public class CreateVaultAccountRequest {
                             "%sname%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getName()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getName()))));
         }
 
         // add `hiddenOnUI` to the URL query string
@@ -332,9 +334,7 @@ public class CreateVaultAccountRequest {
                             "%shiddenOnUI%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getHiddenOnUI()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getHiddenOnUI()))));
         }
 
         // add `customerRefId` to the URL query string
@@ -344,10 +344,7 @@ public class CreateVaultAccountRequest {
                             "%scustomerRefId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getCustomerRefId()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getCustomerRefId()))));
         }
 
         // add `autoFuel` to the URL query string
@@ -357,8 +354,7 @@ public class CreateVaultAccountRequest {
                             "%sautoFuel%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getAutoFuel()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getAutoFuel()))));
         }
 
         // add `vaultType` to the URL query string
@@ -368,9 +364,7 @@ public class CreateVaultAccountRequest {
                             "%svaultType%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getVaultType()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getVaultType()))));
         }
 
         // add `autoAssign` to the URL query string
@@ -380,9 +374,7 @@ public class CreateVaultAccountRequest {
                             "%sautoAssign%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getAutoAssign()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getAutoAssign()))));
         }
 
         return joiner.toString();

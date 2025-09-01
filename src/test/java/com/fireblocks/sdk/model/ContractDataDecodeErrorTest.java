@@ -13,27 +13,27 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for ContractDataDecodeError */
-public class ContractDataDecodeErrorTest {
+class ContractDataDecodeErrorTest {
     private final ContractDataDecodeError model = new ContractDataDecodeError();
 
     /** Model tests for ContractDataDecodeError */
     @Test
-    public void testContractDataDecodeError() {
+    void testContractDataDecodeError() {
         // TODO: test ContractDataDecodeError
     }
 
     /** Test the property 'message' */
     @Test
-    public void messageTest() {
+    void messageTest() {
         // TODO: test message
     }
 
     /** Test the property 'code' */
     @Test
-    public void codeTest() {
+    void codeTest() {
         // TODO: test code
     }
 }

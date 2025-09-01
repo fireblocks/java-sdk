@@ -13,21 +13,21 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for SetNetworkIdResponse */
-public class SetNetworkIdResponseTest {
+class SetNetworkIdResponseTest {
     private final SetNetworkIdResponse model = new SetNetworkIdResponse();
 
     /** Model tests for SetNetworkIdResponse */
     @Test
-    public void testSetNetworkIdResponse() {
+    void testSetNetworkIdResponse() {
         // TODO: test SetNetworkIdResponse
     }
 
     /** Test the property 'success' */
     @Test
-    public void successTest() {
+    void successTest() {
         // TODO: test success
     }
 }

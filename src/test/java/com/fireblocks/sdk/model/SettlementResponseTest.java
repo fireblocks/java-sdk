@@ -13,45 +13,45 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for SettlementResponse */
-public class SettlementResponseTest {
+class SettlementResponseTest {
     private final SettlementResponse model = new SettlementResponse();
 
     /** Model tests for SettlementResponse */
     @Test
-    public void testSettlementResponse() {
+    void testSettlementResponse() {
         // TODO: test SettlementResponse
     }
 
     /** Test the property 'id' */
     @Test
-    public void idTest() {
+    void idTest() {
         // TODO: test id
     }
 
     /** Test the property 'initiator' */
     @Test
-    public void initiatorTest() {
+    void initiatorTest() {
         // TODO: test initiator
     }
 
     /** Test the property 'exchangeReply' */
     @Test
-    public void exchangeReplyTest() {
+    void exchangeReplyTest() {
         // TODO: test exchangeReply
     }
 
     /** Test the property 'fireblocksInitiatedTransactions' */
     @Test
-    public void fireblocksInitiatedTransactionsTest() {
+    void fireblocksInitiatedTransactionsTest() {
         // TODO: test fireblocksInitiatedTransactions
     }
 
     /** Test the property 'exchangeRequestedTransactions' */
     @Test
-    public void exchangeRequestedTransactionsTest() {
+    void exchangeRequestedTransactionsTest() {
         // TODO: test exchangeRequestedTransactions
     }
 }

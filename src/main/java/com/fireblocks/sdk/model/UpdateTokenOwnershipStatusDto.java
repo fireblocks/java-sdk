@@ -18,20 +18,21 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonValue;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
 /** UpdateTokenOwnershipStatusDto */
 @JsonPropertyOrder({UpdateTokenOwnershipStatusDto.JSON_PROPERTY_STATUS})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class UpdateTokenOwnershipStatusDto {
     /** Gets or Sets status */
     public enum StatusEnum {
-        LISTED("LISTED"),
+        LISTED(String.valueOf("LISTED")),
 
-        ARCHIVED("ARCHIVED");
+        ARCHIVED(String.valueOf("ARCHIVED"));
 
         private String value;
 
@@ -61,11 +62,17 @@ public class UpdateTokenOwnershipStatusDto {
     }
 
     public static final String JSON_PROPERTY_STATUS = "status";
-    private StatusEnum status;
+    @jakarta.annotation.Nonnull private StatusEnum status;
 
     public UpdateTokenOwnershipStatusDto() {}
 
-    public UpdateTokenOwnershipStatusDto status(StatusEnum status) {
+    @JsonCreator
+    public UpdateTokenOwnershipStatusDto(
+            @JsonProperty(value = JSON_PROPERTY_STATUS, required = true) StatusEnum status) {
+        this.status = status;
+    }
+
+    public UpdateTokenOwnershipStatusDto status(@jakarta.annotation.Nonnull StatusEnum status) {
         this.status = status;
         return this;
     }
@@ -84,7 +91,7 @@ public class UpdateTokenOwnershipStatusDto {
 
     @JsonProperty(JSON_PROPERTY_STATUS)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setStatus(StatusEnum status) {
+    public void setStatus(@jakarta.annotation.Nonnull StatusEnum status) {
         this.status = status;
     }
 
@@ -166,8 +173,7 @@ public class UpdateTokenOwnershipStatusDto {
                             "%sstatus%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getStatus()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getStatus()))));
         }
 
         return joiner.toString();

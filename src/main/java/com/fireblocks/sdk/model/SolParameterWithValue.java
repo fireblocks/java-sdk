@@ -13,11 +13,11 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -27,20 +27,32 @@ import java.util.StringJoiner;
     SolParameterWithValue.JSON_PROPERTY_NAME,
     SolParameterWithValue.JSON_PROPERTY_TYPE
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class SolParameterWithValue {
     public static final String JSON_PROPERTY_VALUE = "value";
-    private String value;
+    @jakarta.annotation.Nonnull private String value;
 
     public static final String JSON_PROPERTY_NAME = "name";
-    private String name;
+    @jakarta.annotation.Nonnull private String name;
 
     public static final String JSON_PROPERTY_TYPE = "type";
-    private IdlType type;
+    @jakarta.annotation.Nonnull private IdlType type;
 
     public SolParameterWithValue() {}
 
-    public SolParameterWithValue value(String value) {
+    @JsonCreator
+    public SolParameterWithValue(
+            @JsonProperty(value = JSON_PROPERTY_VALUE, required = true) String value,
+            @JsonProperty(value = JSON_PROPERTY_NAME, required = true) String name,
+            @JsonProperty(value = JSON_PROPERTY_TYPE, required = true) IdlType type) {
+        this.value = value;
+        this.name = name;
+        this.type = type;
+    }
+
+    public SolParameterWithValue value(@jakarta.annotation.Nonnull String value) {
         this.value = value;
         return this;
     }
@@ -59,11 +71,11 @@ public class SolParameterWithValue {
 
     @JsonProperty(JSON_PROPERTY_VALUE)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setValue(String value) {
+    public void setValue(@jakarta.annotation.Nonnull String value) {
         this.value = value;
     }
 
-    public SolParameterWithValue name(String name) {
+    public SolParameterWithValue name(@jakarta.annotation.Nonnull String name) {
         this.name = name;
         return this;
     }
@@ -82,11 +94,11 @@ public class SolParameterWithValue {
 
     @JsonProperty(JSON_PROPERTY_NAME)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setName(String name) {
+    public void setName(@jakarta.annotation.Nonnull String name) {
         this.name = name;
     }
 
-    public SolParameterWithValue type(IdlType type) {
+    public SolParameterWithValue type(@jakarta.annotation.Nonnull IdlType type) {
         this.type = type;
         return this;
     }
@@ -105,7 +117,7 @@ public class SolParameterWithValue {
 
     @JsonProperty(JSON_PROPERTY_TYPE)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setType(IdlType type) {
+    public void setType(@jakarta.annotation.Nonnull IdlType type) {
         this.type = type;
     }
 
@@ -190,8 +202,7 @@ public class SolParameterWithValue {
                             "%svalue%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getValue()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getValue()))));
         }
 
         // add `name` to the URL query string
@@ -201,8 +212,7 @@ public class SolParameterWithValue {
                             "%sname%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getName()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getName()))));
         }
 
         // add `type` to the URL query string
@@ -212,8 +222,7 @@ public class SolParameterWithValue {
                             "%stype%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getType()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getType()))));
         }
 
         return joiner.toString();

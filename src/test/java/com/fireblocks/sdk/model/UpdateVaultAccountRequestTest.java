@@ -13,21 +13,21 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for UpdateVaultAccountRequest */
-public class UpdateVaultAccountRequestTest {
+class UpdateVaultAccountRequestTest {
     private final UpdateVaultAccountRequest model = new UpdateVaultAccountRequest();
 
     /** Model tests for UpdateVaultAccountRequest */
     @Test
-    public void testUpdateVaultAccountRequest() {
+    void testUpdateVaultAccountRequest() {
         // TODO: test UpdateVaultAccountRequest
     }
 
     /** Test the property 'name' */
     @Test
-    public void nameTest() {
+    void nameTest() {
         // TODO: test name
     }
 }

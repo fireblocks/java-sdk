@@ -13,24 +13,31 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
 /** Paging */
 @JsonPropertyOrder({Paging.JSON_PROPERTY_NEXT})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class Paging {
     public static final String JSON_PROPERTY_NEXT = "next";
-    private String next;
+    @jakarta.annotation.Nonnull private String next;
 
     public Paging() {}
 
-    public Paging next(String next) {
+    @JsonCreator
+    public Paging(@JsonProperty(value = JSON_PROPERTY_NEXT, required = true) String next) {
+        this.next = next;
+    }
+
+    public Paging next(@jakarta.annotation.Nonnull String next) {
         this.next = next;
         return this;
     }
@@ -49,7 +56,7 @@ public class Paging {
 
     @JsonProperty(JSON_PROPERTY_NEXT)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setNext(String next) {
+    public void setNext(@jakarta.annotation.Nonnull String next) {
         this.next = next;
     }
 
@@ -130,8 +137,7 @@ public class Paging {
                             "%snext%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getNext()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getNext()))));
         }
 
         return joiner.toString();

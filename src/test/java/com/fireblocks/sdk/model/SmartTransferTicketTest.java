@@ -13,147 +13,147 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for SmartTransferTicket */
-public class SmartTransferTicketTest {
+class SmartTransferTicketTest {
     private final SmartTransferTicket model = new SmartTransferTicket();
 
     /** Model tests for SmartTransferTicket */
     @Test
-    public void testSmartTransferTicket() {
+    void testSmartTransferTicket() {
         // TODO: test SmartTransferTicket
     }
 
     /** Test the property 'id' */
     @Test
-    public void idTest() {
+    void idTest() {
         // TODO: test id
     }
 
     /** Test the property 'type' */
     @Test
-    public void typeTest() {
+    void typeTest() {
         // TODO: test type
     }
 
     /** Test the property 'direction' */
     @Test
-    public void directionTest() {
+    void directionTest() {
         // TODO: test direction
     }
 
     /** Test the property 'status' */
     @Test
-    public void statusTest() {
+    void statusTest() {
         // TODO: test status
     }
 
     /** Test the property 'dvpExecutionStatus' */
     @Test
-    public void dvpExecutionStatusTest() {
+    void dvpExecutionStatusTest() {
         // TODO: test dvpExecutionStatus
     }
 
     /** Test the property 'orderCreatedByNetworkId' */
     @Test
-    public void orderCreatedByNetworkIdTest() {
+    void orderCreatedByNetworkIdTest() {
         // TODO: test orderCreatedByNetworkId
     }
 
     /** Test the property 'terms' */
     @Test
-    public void termsTest() {
+    void termsTest() {
         // TODO: test terms
     }
 
     /** Test the property 'expiresIn' */
     @Test
-    public void expiresInTest() {
+    void expiresInTest() {
         // TODO: test expiresIn
     }
 
     /** Test the property 'expiresAt' */
     @Test
-    public void expiresAtTest() {
+    void expiresAtTest() {
         // TODO: test expiresAt
     }
 
     /** Test the property 'submittedAt' */
     @Test
-    public void submittedAtTest() {
+    void submittedAtTest() {
         // TODO: test submittedAt
     }
 
     /** Test the property 'expiredAt' */
     @Test
-    public void expiredAtTest() {
+    void expiredAtTest() {
         // TODO: test expiredAt
     }
 
     /** Test the property 'canceledAt' */
     @Test
-    public void canceledAtTest() {
+    void canceledAtTest() {
         // TODO: test canceledAt
     }
 
     /** Test the property 'fulfilledAt' */
     @Test
-    public void fulfilledAtTest() {
+    void fulfilledAtTest() {
         // TODO: test fulfilledAt
     }
 
     /** Test the property 'externalRefId' */
     @Test
-    public void externalRefIdTest() {
+    void externalRefIdTest() {
         // TODO: test externalRefId
     }
 
     /** Test the property 'note' */
     @Test
-    public void noteTest() {
+    void noteTest() {
         // TODO: test note
     }
 
     /** Test the property 'createdByNetworkId' */
     @Test
-    public void createdByNetworkIdTest() {
+    void createdByNetworkIdTest() {
         // TODO: test createdByNetworkId
     }
 
     /** Test the property 'createdByNetworkIdName' */
     @Test
-    public void createdByNetworkIdNameTest() {
+    void createdByNetworkIdNameTest() {
         // TODO: test createdByNetworkIdName
     }
 
     /** Test the property 'canceledByNetworkIdName' */
     @Test
-    public void canceledByNetworkIdNameTest() {
+    void canceledByNetworkIdNameTest() {
         // TODO: test canceledByNetworkIdName
     }
 
     /** Test the property 'createdAt' */
     @Test
-    public void createdAtTest() {
+    void createdAtTest() {
         // TODO: test createdAt
     }
 
     /** Test the property 'updatedAt' */
     @Test
-    public void updatedAtTest() {
+    void updatedAtTest() {
         // TODO: test updatedAt
     }
 
     /** Test the property 'canceledByMe' */
     @Test
-    public void canceledByMeTest() {
+    void canceledByMeTest() {
         // TODO: test canceledByMe
     }
 
     /** Test the property 'createdByMe' */
     @Test
-    public void createdByMeTest() {
+    void createdByMeTest() {
         // TODO: test createdByMe
     }
 }

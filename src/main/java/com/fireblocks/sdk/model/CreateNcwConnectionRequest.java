@@ -18,9 +18,8 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.fireblocks.sdk.ApiClient;
 import java.math.BigDecimal;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -34,19 +33,21 @@ import java.util.StringJoiner;
     CreateNcwConnectionRequest.JSON_PROPERTY_URI,
     CreateNcwConnectionRequest.JSON_PROPERTY_CHAIN_IDS
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class CreateNcwConnectionRequest {
     public static final String JSON_PROPERTY_NCW_ID = "ncwId";
-    private String ncwId;
+    @jakarta.annotation.Nonnull private String ncwId;
 
     public static final String JSON_PROPERTY_NCW_ACCOUNT_ID = "ncwAccountId";
-    private BigDecimal ncwAccountId;
+    @jakarta.annotation.Nonnull private BigDecimal ncwAccountId;
 
     /** The default fee level. Valid values are &#x60;MEDIUM&#x60; and &#x60;HIGH&#x60;. */
     public enum FeeLevelEnum {
-        MEDIUM("MEDIUM"),
+        MEDIUM(String.valueOf("MEDIUM")),
 
-        HIGH("HIGH");
+        HIGH(String.valueOf("HIGH"));
 
         private String value;
 
@@ -76,17 +77,30 @@ public class CreateNcwConnectionRequest {
     }
 
     public static final String JSON_PROPERTY_FEE_LEVEL = "feeLevel";
-    private FeeLevelEnum feeLevel;
+    @jakarta.annotation.Nonnull private FeeLevelEnum feeLevel;
 
     public static final String JSON_PROPERTY_URI = "uri";
-    private String uri;
+    @jakarta.annotation.Nonnull private String uri;
 
     public static final String JSON_PROPERTY_CHAIN_IDS = "chainIds";
-    private List<String> chainIds;
+    @jakarta.annotation.Nullable private List<String> chainIds = new ArrayList<>();
 
     public CreateNcwConnectionRequest() {}
 
-    public CreateNcwConnectionRequest ncwId(String ncwId) {
+    @JsonCreator
+    public CreateNcwConnectionRequest(
+            @JsonProperty(value = JSON_PROPERTY_NCW_ID, required = true) String ncwId,
+            @JsonProperty(value = JSON_PROPERTY_NCW_ACCOUNT_ID, required = true)
+                    BigDecimal ncwAccountId,
+            @JsonProperty(value = JSON_PROPERTY_FEE_LEVEL, required = true) FeeLevelEnum feeLevel,
+            @JsonProperty(value = JSON_PROPERTY_URI, required = true) String uri) {
+        this.ncwId = ncwId;
+        this.ncwAccountId = ncwAccountId;
+        this.feeLevel = feeLevel;
+        this.uri = uri;
+    }
+
+    public CreateNcwConnectionRequest ncwId(@jakarta.annotation.Nonnull String ncwId) {
         this.ncwId = ncwId;
         return this;
     }
@@ -105,11 +119,12 @@ public class CreateNcwConnectionRequest {
 
     @JsonProperty(JSON_PROPERTY_NCW_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setNcwId(String ncwId) {
+    public void setNcwId(@jakarta.annotation.Nonnull String ncwId) {
         this.ncwId = ncwId;
     }
 
-    public CreateNcwConnectionRequest ncwAccountId(BigDecimal ncwAccountId) {
+    public CreateNcwConnectionRequest ncwAccountId(
+            @jakarta.annotation.Nonnull BigDecimal ncwAccountId) {
         this.ncwAccountId = ncwAccountId;
         return this;
     }
@@ -128,11 +143,11 @@ public class CreateNcwConnectionRequest {
 
     @JsonProperty(JSON_PROPERTY_NCW_ACCOUNT_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setNcwAccountId(BigDecimal ncwAccountId) {
+    public void setNcwAccountId(@jakarta.annotation.Nonnull BigDecimal ncwAccountId) {
         this.ncwAccountId = ncwAccountId;
     }
 
-    public CreateNcwConnectionRequest feeLevel(FeeLevelEnum feeLevel) {
+    public CreateNcwConnectionRequest feeLevel(@jakarta.annotation.Nonnull FeeLevelEnum feeLevel) {
         this.feeLevel = feeLevel;
         return this;
     }
@@ -151,11 +166,11 @@ public class CreateNcwConnectionRequest {
 
     @JsonProperty(JSON_PROPERTY_FEE_LEVEL)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setFeeLevel(FeeLevelEnum feeLevel) {
+    public void setFeeLevel(@jakarta.annotation.Nonnull FeeLevelEnum feeLevel) {
         this.feeLevel = feeLevel;
     }
 
-    public CreateNcwConnectionRequest uri(String uri) {
+    public CreateNcwConnectionRequest uri(@jakarta.annotation.Nonnull String uri) {
         this.uri = uri;
         return this;
     }
@@ -174,11 +189,11 @@ public class CreateNcwConnectionRequest {
 
     @JsonProperty(JSON_PROPERTY_URI)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setUri(String uri) {
+    public void setUri(@jakarta.annotation.Nonnull String uri) {
         this.uri = uri;
     }
 
-    public CreateNcwConnectionRequest chainIds(List<String> chainIds) {
+    public CreateNcwConnectionRequest chainIds(@jakarta.annotation.Nullable List<String> chainIds) {
         this.chainIds = chainIds;
         return this;
     }
@@ -206,7 +221,7 @@ public class CreateNcwConnectionRequest {
 
     @JsonProperty(JSON_PROPERTY_CHAIN_IDS)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setChainIds(List<String> chainIds) {
+    public void setChainIds(@jakarta.annotation.Nullable List<String> chainIds) {
         this.chainIds = chainIds;
     }
 
@@ -295,8 +310,7 @@ public class CreateNcwConnectionRequest {
                             "%sncwId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getNcwId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getNcwId()))));
         }
 
         // add `ncwAccountId` to the URL query string
@@ -306,10 +320,7 @@ public class CreateNcwConnectionRequest {
                             "%sncwAccountId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getNcwAccountId()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getNcwAccountId()))));
         }
 
         // add `feeLevel` to the URL query string
@@ -319,8 +330,7 @@ public class CreateNcwConnectionRequest {
                             "%sfeeLevel%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getFeeLevel()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getFeeLevel()))));
         }
 
         // add `uri` to the URL query string
@@ -330,8 +340,7 @@ public class CreateNcwConnectionRequest {
                             "%suri%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getUri()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getUri()))));
         }
 
         // add `chainIds` to the URL query string
@@ -346,10 +355,8 @@ public class CreateNcwConnectionRequest {
                                         ? ""
                                         : String.format(
                                                 "%s%d%s", containerPrefix, i, containerSuffix),
-                                URLEncoder.encode(
-                                                String.valueOf(getChainIds().get(i)),
-                                                StandardCharsets.UTF_8)
-                                        .replaceAll("\\+", "%20")));
+                                ApiClient.urlEncode(
+                                        ApiClient.valueToString(getChainIds().get(i)))));
             }
         }
 

@@ -20,49 +20,49 @@ import com.fasterxml.jackson.annotation.JsonValue;
 public enum ComplianceResultStatusesEnum {
     STARTED("Started"),
 
-    NETWORKCONNECTIONADDRESSRESOLVE("NetworkConnectionAddressResolve"),
+    NETWORK_CONNECTION_ADDRESS_RESOLVE("NetworkConnectionAddressResolve"),
 
-    SCREENINGPREPARE("ScreeningPrepare"),
+    SCREENING_PREPARE("ScreeningPrepare"),
 
-    AMLSTARTED("AMLStarted"),
+    AML_STARTED("AMLStarted"),
 
-    AMLCOMPLETED("AMLCompleted"),
+    AML_COMPLETED("AMLCompleted"),
 
-    AMLFAILED("AMLFailed"),
+    AML_FAILED("AMLFailed"),
 
-    AMLINBACKGROUND("AMLInBackground"),
+    AMLIN_BACKGROUND("AMLInBackground"),
 
-    TRPRECONDITIONCHECKS("TRPreconditionChecks"),
+    TR_PRECONDITION_CHECKS("TRPreconditionChecks"),
 
-    TRSTARTED("TRStarted"),
+    TR_STARTED("TRStarted"),
 
-    TRCOMPLETED("TRCompleted"),
+    TR_COMPLETED("TRCompleted"),
 
-    TRFAILED("TRFailed"),
+    TR_FAILED("TRFailed"),
 
     COMPLETED("Completed"),
 
-    INCOMINGSTARTED("IncomingStarted"),
+    INCOMING_STARTED("IncomingStarted"),
 
-    INCOMINGSCREENINGPREPARE("IncomingScreeningPrepare"),
+    INCOMING_SCREENING_PREPARE("IncomingScreeningPrepare"),
 
-    INCOMINGWAITFORFIRSTCONFIRMATION("IncomingWaitForFirstConfirmation"),
+    INCOMING_WAIT_FOR_FIRST_CONFIRMATION("IncomingWaitForFirstConfirmation"),
 
-    AMLINCOMINGSTARTED("AMLIncomingStarted"),
+    AML_INCOMING_STARTED("AMLIncomingStarted"),
 
-    AMLINCOMINGCOMPLETED("AMLIncomingCompleted"),
+    AML_INCOMING_COMPLETED("AMLIncomingCompleted"),
 
-    AMLINCOMINGFAILED("AMLIncomingFailed"),
+    AML_INCOMING_FAILED("AMLIncomingFailed"),
 
-    AMLINCOMINGINBACKGROUND("AMLIncomingInBackground"),
+    AML_INCOMING_IN_BACKGROUND("AMLIncomingInBackground"),
 
-    TRINCOMINGSTARTED("TRIncomingStarted"),
+    TR_INCOMING_STARTED("TRIncomingStarted"),
 
-    TRINCOMINGCOMPLETED("TRIncomingCompleted"),
+    TR_INCOMING_COMPLETED("TRIncomingCompleted"),
 
-    TRINCOMINGFAILED("TRIncomingFailed"),
+    TR_INCOMING_FAILED("TRIncomingFailed"),
 
-    INCOMINGCOMPLETED("IncomingCompleted");
+    INCOMING_COMPLETED("IncomingCompleted");
 
     private String value;
 

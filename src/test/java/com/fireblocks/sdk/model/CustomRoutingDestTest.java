@@ -13,33 +13,33 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for CustomRoutingDest */
-public class CustomRoutingDestTest {
+class CustomRoutingDestTest {
     private final CustomRoutingDest model = new CustomRoutingDest();
 
     /** Model tests for CustomRoutingDest */
     @Test
-    public void testCustomRoutingDest() {
+    void testCustomRoutingDest() {
         // TODO: test CustomRoutingDest
     }
 
     /** Test the property 'scheme' */
     @Test
-    public void schemeTest() {
+    void schemeTest() {
         // TODO: test scheme
     }
 
     /** Test the property 'dstType' */
     @Test
-    public void dstTypeTest() {
+    void dstTypeTest() {
         // TODO: test dstType
     }
 
     /** Test the property 'dstId' */
     @Test
-    public void dstIdTest() {
+    void dstIdTest() {
         // TODO: test dstId
     }
 }

@@ -13,51 +13,51 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for UserResponse */
-public class UserResponseTest {
+class UserResponseTest {
     private final UserResponse model = new UserResponse();
 
     /** Model tests for UserResponse */
     @Test
-    public void testUserResponse() {
+    void testUserResponse() {
         // TODO: test UserResponse
     }
 
     /** Test the property 'id' */
     @Test
-    public void idTest() {
+    void idTest() {
         // TODO: test id
     }
 
     /** Test the property 'firstName' */
     @Test
-    public void firstNameTest() {
+    void firstNameTest() {
         // TODO: test firstName
     }
 
     /** Test the property 'lastName' */
     @Test
-    public void lastNameTest() {
+    void lastNameTest() {
         // TODO: test lastName
     }
 
     /** Test the property 'role' */
     @Test
-    public void roleTest() {
+    void roleTest() {
         // TODO: test role
     }
 
     /** Test the property 'email' */
     @Test
-    public void emailTest() {
+    void emailTest() {
         // TODO: test email
     }
 
     /** Test the property 'enabled' */
     @Test
-    public void enabledTest() {
+    void enabledTest() {
         // TODO: test enabled
     }
 }

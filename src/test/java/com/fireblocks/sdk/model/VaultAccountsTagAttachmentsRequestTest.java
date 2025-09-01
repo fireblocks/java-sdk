@@ -13,28 +13,28 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for VaultAccountsTagAttachmentsRequest */
-public class VaultAccountsTagAttachmentsRequestTest {
+class VaultAccountsTagAttachmentsRequestTest {
     private final VaultAccountsTagAttachmentsRequest model =
             new VaultAccountsTagAttachmentsRequest();
 
     /** Model tests for VaultAccountsTagAttachmentsRequest */
     @Test
-    public void testVaultAccountsTagAttachmentsRequest() {
+    void testVaultAccountsTagAttachmentsRequest() {
         // TODO: test VaultAccountsTagAttachmentsRequest
     }
 
     /** Test the property 'tagIds' */
     @Test
-    public void tagIdsTest() {
+    void tagIdsTest() {
         // TODO: test tagIds
     }
 
     /** Test the property 'vaultAccountIds' */
     @Test
-    public void vaultAccountIdsTest() {
+    void vaultAccountIdsTest() {
         // TODO: test vaultAccountIds
     }
 }

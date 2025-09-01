@@ -13,11 +13,11 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -33,32 +33,44 @@ import java.util.StringJoiner;
     AssetDetailsMetadata.JSON_PROPERTY_MEDIA,
     AssetDetailsMetadata.JSON_PROPERTY_NOTE
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class AssetDetailsMetadata {
     public static final String JSON_PROPERTY_SCOPE = "scope";
-    private AssetScope scope;
+    @jakarta.annotation.Nonnull private AssetScope scope;
 
     public static final String JSON_PROPERTY_VERIFIED = "verified";
-    private Boolean verified;
+    @jakarta.annotation.Nonnull private Boolean verified;
 
     public static final String JSON_PROPERTY_DEPRECATED = "deprecated";
-    private Boolean deprecated;
+    @jakarta.annotation.Nonnull private Boolean deprecated;
 
     public static final String JSON_PROPERTY_DEPRECATION_REFERRAL_ID = "deprecationReferralId";
-    private String deprecationReferralId;
+    @jakarta.annotation.Nullable private String deprecationReferralId;
 
     public static final String JSON_PROPERTY_WEBSITE = "website";
-    private String website;
+    @jakarta.annotation.Nullable private String website;
 
     public static final String JSON_PROPERTY_MEDIA = "media";
-    private List<AssetMedia> media;
+    @jakarta.annotation.Nullable private List<AssetMedia> media = new ArrayList<>();
 
     public static final String JSON_PROPERTY_NOTE = "note";
-    private AssetNote note;
+    @jakarta.annotation.Nullable private AssetNote note;
 
     public AssetDetailsMetadata() {}
 
-    public AssetDetailsMetadata scope(AssetScope scope) {
+    @JsonCreator
+    public AssetDetailsMetadata(
+            @JsonProperty(value = JSON_PROPERTY_SCOPE, required = true) AssetScope scope,
+            @JsonProperty(value = JSON_PROPERTY_VERIFIED, required = true) Boolean verified,
+            @JsonProperty(value = JSON_PROPERTY_DEPRECATED, required = true) Boolean deprecated) {
+        this.scope = scope;
+        this.verified = verified;
+        this.deprecated = deprecated;
+    }
+
+    public AssetDetailsMetadata scope(@jakarta.annotation.Nonnull AssetScope scope) {
         this.scope = scope;
         return this;
     }
@@ -77,11 +89,11 @@ public class AssetDetailsMetadata {
 
     @JsonProperty(JSON_PROPERTY_SCOPE)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setScope(AssetScope scope) {
+    public void setScope(@jakarta.annotation.Nonnull AssetScope scope) {
         this.scope = scope;
     }
 
-    public AssetDetailsMetadata verified(Boolean verified) {
+    public AssetDetailsMetadata verified(@jakarta.annotation.Nonnull Boolean verified) {
         this.verified = verified;
         return this;
     }
@@ -100,11 +112,11 @@ public class AssetDetailsMetadata {
 
     @JsonProperty(JSON_PROPERTY_VERIFIED)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setVerified(Boolean verified) {
+    public void setVerified(@jakarta.annotation.Nonnull Boolean verified) {
         this.verified = verified;
     }
 
-    public AssetDetailsMetadata deprecated(Boolean deprecated) {
+    public AssetDetailsMetadata deprecated(@jakarta.annotation.Nonnull Boolean deprecated) {
         this.deprecated = deprecated;
         return this;
     }
@@ -123,11 +135,12 @@ public class AssetDetailsMetadata {
 
     @JsonProperty(JSON_PROPERTY_DEPRECATED)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setDeprecated(Boolean deprecated) {
+    public void setDeprecated(@jakarta.annotation.Nonnull Boolean deprecated) {
         this.deprecated = deprecated;
     }
 
-    public AssetDetailsMetadata deprecationReferralId(String deprecationReferralId) {
+    public AssetDetailsMetadata deprecationReferralId(
+            @jakarta.annotation.Nullable String deprecationReferralId) {
         this.deprecationReferralId = deprecationReferralId;
         return this;
     }
@@ -146,11 +159,12 @@ public class AssetDetailsMetadata {
 
     @JsonProperty(JSON_PROPERTY_DEPRECATION_REFERRAL_ID)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setDeprecationReferralId(String deprecationReferralId) {
+    public void setDeprecationReferralId(
+            @jakarta.annotation.Nullable String deprecationReferralId) {
         this.deprecationReferralId = deprecationReferralId;
     }
 
-    public AssetDetailsMetadata website(String website) {
+    public AssetDetailsMetadata website(@jakarta.annotation.Nullable String website) {
         this.website = website;
         return this;
     }
@@ -169,11 +183,11 @@ public class AssetDetailsMetadata {
 
     @JsonProperty(JSON_PROPERTY_WEBSITE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setWebsite(String website) {
+    public void setWebsite(@jakarta.annotation.Nullable String website) {
         this.website = website;
     }
 
-    public AssetDetailsMetadata media(List<AssetMedia> media) {
+    public AssetDetailsMetadata media(@jakarta.annotation.Nullable List<AssetMedia> media) {
         this.media = media;
         return this;
     }
@@ -200,11 +214,11 @@ public class AssetDetailsMetadata {
 
     @JsonProperty(JSON_PROPERTY_MEDIA)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setMedia(List<AssetMedia> media) {
+    public void setMedia(@jakarta.annotation.Nullable List<AssetMedia> media) {
         this.media = media;
     }
 
-    public AssetDetailsMetadata note(AssetNote note) {
+    public AssetDetailsMetadata note(@jakarta.annotation.Nullable AssetNote note) {
         this.note = note;
         return this;
     }
@@ -223,7 +237,7 @@ public class AssetDetailsMetadata {
 
     @JsonProperty(JSON_PROPERTY_NOTE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setNote(AssetNote note) {
+    public void setNote(@jakarta.annotation.Nullable AssetNote note) {
         this.note = note;
     }
 
@@ -320,8 +334,7 @@ public class AssetDetailsMetadata {
                             "%sscope%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getScope()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getScope()))));
         }
 
         // add `verified` to the URL query string
@@ -331,8 +344,7 @@ public class AssetDetailsMetadata {
                             "%sverified%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getVerified()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getVerified()))));
         }
 
         // add `deprecated` to the URL query string
@@ -342,9 +354,7 @@ public class AssetDetailsMetadata {
                             "%sdeprecated%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getDeprecated()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getDeprecated()))));
         }
 
         // add `deprecationReferralId` to the URL query string
@@ -354,10 +364,8 @@ public class AssetDetailsMetadata {
                             "%sdeprecationReferralId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getDeprecationReferralId()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(
+                                    ApiClient.valueToString(getDeprecationReferralId()))));
         }
 
         // add `website` to the URL query string
@@ -367,8 +375,7 @@ public class AssetDetailsMetadata {
                             "%swebsite%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getWebsite()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getWebsite()))));
         }
 
         // add `media` to the URL query string

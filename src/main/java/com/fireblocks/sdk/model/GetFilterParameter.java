@@ -16,9 +16,8 @@ package com.fireblocks.sdk.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fireblocks.sdk.ApiClient;
 import java.math.BigDecimal;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -32,32 +31,34 @@ import java.util.StringJoiner;
     GetFilterParameter.JSON_PROPERTY_APP_URL,
     GetFilterParameter.JSON_PROPERTY_APP_NAME
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class GetFilterParameter {
     public static final String JSON_PROPERTY_ID = "id";
-    private String id;
+    @jakarta.annotation.Nullable private String id;
 
     public static final String JSON_PROPERTY_USER_ID = "userId";
-    private String userId;
+    @jakarta.annotation.Nullable private String userId;
 
     public static final String JSON_PROPERTY_VAULT_ACCOUNT_ID = "vaultAccountId";
-    private BigDecimal vaultAccountId;
+    @jakarta.annotation.Nullable private BigDecimal vaultAccountId;
 
     public static final String JSON_PROPERTY_CONNECTION_METHOD = "connectionMethod";
-    private String connectionMethod;
+    @jakarta.annotation.Nullable private String connectionMethod;
 
     public static final String JSON_PROPERTY_FEE_LEVEL = "feeLevel";
-    private String feeLevel;
+    @jakarta.annotation.Nullable private String feeLevel;
 
     public static final String JSON_PROPERTY_APP_URL = "appUrl";
-    private String appUrl;
+    @jakarta.annotation.Nullable private String appUrl;
 
     public static final String JSON_PROPERTY_APP_NAME = "appName";
-    private String appName;
+    @jakarta.annotation.Nullable private String appName;
 
     public GetFilterParameter() {}
 
-    public GetFilterParameter id(String id) {
+    public GetFilterParameter id(@jakarta.annotation.Nullable String id) {
         this.id = id;
         return this;
     }
@@ -76,11 +77,11 @@ public class GetFilterParameter {
 
     @JsonProperty(JSON_PROPERTY_ID)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setId(String id) {
+    public void setId(@jakarta.annotation.Nullable String id) {
         this.id = id;
     }
 
-    public GetFilterParameter userId(String userId) {
+    public GetFilterParameter userId(@jakarta.annotation.Nullable String userId) {
         this.userId = userId;
         return this;
     }
@@ -99,11 +100,12 @@ public class GetFilterParameter {
 
     @JsonProperty(JSON_PROPERTY_USER_ID)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setUserId(String userId) {
+    public void setUserId(@jakarta.annotation.Nullable String userId) {
         this.userId = userId;
     }
 
-    public GetFilterParameter vaultAccountId(BigDecimal vaultAccountId) {
+    public GetFilterParameter vaultAccountId(
+            @jakarta.annotation.Nullable BigDecimal vaultAccountId) {
         this.vaultAccountId = vaultAccountId;
         return this;
     }
@@ -122,11 +124,12 @@ public class GetFilterParameter {
 
     @JsonProperty(JSON_PROPERTY_VAULT_ACCOUNT_ID)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setVaultAccountId(BigDecimal vaultAccountId) {
+    public void setVaultAccountId(@jakarta.annotation.Nullable BigDecimal vaultAccountId) {
         this.vaultAccountId = vaultAccountId;
     }
 
-    public GetFilterParameter connectionMethod(String connectionMethod) {
+    public GetFilterParameter connectionMethod(
+            @jakarta.annotation.Nullable String connectionMethod) {
         this.connectionMethod = connectionMethod;
         return this;
     }
@@ -145,11 +148,11 @@ public class GetFilterParameter {
 
     @JsonProperty(JSON_PROPERTY_CONNECTION_METHOD)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setConnectionMethod(String connectionMethod) {
+    public void setConnectionMethod(@jakarta.annotation.Nullable String connectionMethod) {
         this.connectionMethod = connectionMethod;
     }
 
-    public GetFilterParameter feeLevel(String feeLevel) {
+    public GetFilterParameter feeLevel(@jakarta.annotation.Nullable String feeLevel) {
         this.feeLevel = feeLevel;
         return this;
     }
@@ -168,11 +171,11 @@ public class GetFilterParameter {
 
     @JsonProperty(JSON_PROPERTY_FEE_LEVEL)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setFeeLevel(String feeLevel) {
+    public void setFeeLevel(@jakarta.annotation.Nullable String feeLevel) {
         this.feeLevel = feeLevel;
     }
 
-    public GetFilterParameter appUrl(String appUrl) {
+    public GetFilterParameter appUrl(@jakarta.annotation.Nullable String appUrl) {
         this.appUrl = appUrl;
         return this;
     }
@@ -191,11 +194,11 @@ public class GetFilterParameter {
 
     @JsonProperty(JSON_PROPERTY_APP_URL)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAppUrl(String appUrl) {
+    public void setAppUrl(@jakarta.annotation.Nullable String appUrl) {
         this.appUrl = appUrl;
     }
 
-    public GetFilterParameter appName(String appName) {
+    public GetFilterParameter appName(@jakarta.annotation.Nullable String appName) {
         this.appName = appName;
         return this;
     }
@@ -214,7 +217,7 @@ public class GetFilterParameter {
 
     @JsonProperty(JSON_PROPERTY_APP_NAME)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAppName(String appName) {
+    public void setAppName(@jakarta.annotation.Nullable String appName) {
         this.appName = appName;
     }
 
@@ -306,10 +309,7 @@ public class GetFilterParameter {
             joiner.add(
                     String.format(
                             "%sid%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(String.valueOf(getId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getId()))));
         }
 
         // add `userId` to the URL query string
@@ -319,8 +319,7 @@ public class GetFilterParameter {
                             "%suserId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getUserId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getUserId()))));
         }
 
         // add `vaultAccountId` to the URL query string
@@ -330,10 +329,7 @@ public class GetFilterParameter {
                             "%svaultAccountId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getVaultAccountId()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getVaultAccountId()))));
         }
 
         // add `connectionMethod` to the URL query string
@@ -343,10 +339,7 @@ public class GetFilterParameter {
                             "%sconnectionMethod%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getConnectionMethod()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getConnectionMethod()))));
         }
 
         // add `feeLevel` to the URL query string
@@ -356,8 +349,7 @@ public class GetFilterParameter {
                             "%sfeeLevel%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getFeeLevel()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getFeeLevel()))));
         }
 
         // add `appUrl` to the URL query string
@@ -367,8 +359,7 @@ public class GetFilterParameter {
                             "%sappUrl%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getAppUrl()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getAppUrl()))));
         }
 
         // add `appName` to the URL query string
@@ -378,8 +369,7 @@ public class GetFilterParameter {
                             "%sappName%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getAppName()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getAppName()))));
         }
 
         return joiner.toString();

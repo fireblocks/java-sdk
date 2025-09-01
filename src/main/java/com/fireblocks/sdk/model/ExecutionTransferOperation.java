@@ -13,11 +13,11 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -30,29 +30,43 @@ import java.util.StringJoiner;
     ExecutionTransferOperation.JSON_PROPERTY_PREVIEW,
     ExecutionTransferOperation.JSON_PROPERTY_EXECUTION
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class ExecutionTransferOperation {
     public static final String JSON_PROPERTY_OPERATION_ID = "operationId";
-    private String operationId;
+    @jakarta.annotation.Nonnull private String operationId;
 
     public static final String JSON_PROPERTY_STATUS = "status";
-    private ExecutionOperationStatus status;
+    @jakarta.annotation.Nonnull private ExecutionOperationStatus status;
 
     public static final String JSON_PROPERTY_VALIDATION_FAILURE = "validationFailure";
-    private TransferValidationFailure validationFailure;
+    @jakarta.annotation.Nullable private TransferValidationFailure validationFailure;
 
     public static final String JSON_PROPERTY_OPERATION_TYPE = "operationType";
-    private TransferOperationType operationType;
+    @jakarta.annotation.Nonnull private TransferOperationType operationType;
 
     public static final String JSON_PROPERTY_PREVIEW = "preview";
-    private TransferOperationPreview preview;
+    @jakarta.annotation.Nullable private TransferOperationPreview preview;
 
     public static final String JSON_PROPERTY_EXECUTION = "execution";
-    private TransferOperationExecution execution;
+    @jakarta.annotation.Nullable private TransferOperationExecution execution;
 
     public ExecutionTransferOperation() {}
 
-    public ExecutionTransferOperation operationId(String operationId) {
+    @JsonCreator
+    public ExecutionTransferOperation(
+            @JsonProperty(value = JSON_PROPERTY_OPERATION_ID, required = true) String operationId,
+            @JsonProperty(value = JSON_PROPERTY_STATUS, required = true)
+                    ExecutionOperationStatus status,
+            @JsonProperty(value = JSON_PROPERTY_OPERATION_TYPE, required = true)
+                    TransferOperationType operationType) {
+        this.operationId = operationId;
+        this.status = status;
+        this.operationType = operationType;
+    }
+
+    public ExecutionTransferOperation operationId(@jakarta.annotation.Nonnull String operationId) {
         this.operationId = operationId;
         return this;
     }
@@ -71,11 +85,12 @@ public class ExecutionTransferOperation {
 
     @JsonProperty(JSON_PROPERTY_OPERATION_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setOperationId(String operationId) {
+    public void setOperationId(@jakarta.annotation.Nonnull String operationId) {
         this.operationId = operationId;
     }
 
-    public ExecutionTransferOperation status(ExecutionOperationStatus status) {
+    public ExecutionTransferOperation status(
+            @jakarta.annotation.Nonnull ExecutionOperationStatus status) {
         this.status = status;
         return this;
     }
@@ -94,12 +109,12 @@ public class ExecutionTransferOperation {
 
     @JsonProperty(JSON_PROPERTY_STATUS)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setStatus(ExecutionOperationStatus status) {
+    public void setStatus(@jakarta.annotation.Nonnull ExecutionOperationStatus status) {
         this.status = status;
     }
 
     public ExecutionTransferOperation validationFailure(
-            TransferValidationFailure validationFailure) {
+            @jakarta.annotation.Nullable TransferValidationFailure validationFailure) {
         this.validationFailure = validationFailure;
         return this;
     }
@@ -118,11 +133,13 @@ public class ExecutionTransferOperation {
 
     @JsonProperty(JSON_PROPERTY_VALIDATION_FAILURE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setValidationFailure(TransferValidationFailure validationFailure) {
+    public void setValidationFailure(
+            @jakarta.annotation.Nullable TransferValidationFailure validationFailure) {
         this.validationFailure = validationFailure;
     }
 
-    public ExecutionTransferOperation operationType(TransferOperationType operationType) {
+    public ExecutionTransferOperation operationType(
+            @jakarta.annotation.Nonnull TransferOperationType operationType) {
         this.operationType = operationType;
         return this;
     }
@@ -141,11 +158,12 @@ public class ExecutionTransferOperation {
 
     @JsonProperty(JSON_PROPERTY_OPERATION_TYPE)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setOperationType(TransferOperationType operationType) {
+    public void setOperationType(@jakarta.annotation.Nonnull TransferOperationType operationType) {
         this.operationType = operationType;
     }
 
-    public ExecutionTransferOperation preview(TransferOperationPreview preview) {
+    public ExecutionTransferOperation preview(
+            @jakarta.annotation.Nullable TransferOperationPreview preview) {
         this.preview = preview;
         return this;
     }
@@ -164,11 +182,12 @@ public class ExecutionTransferOperation {
 
     @JsonProperty(JSON_PROPERTY_PREVIEW)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setPreview(TransferOperationPreview preview) {
+    public void setPreview(@jakarta.annotation.Nullable TransferOperationPreview preview) {
         this.preview = preview;
     }
 
-    public ExecutionTransferOperation execution(TransferOperationExecution execution) {
+    public ExecutionTransferOperation execution(
+            @jakarta.annotation.Nullable TransferOperationExecution execution) {
         this.execution = execution;
         return this;
     }
@@ -187,7 +206,7 @@ public class ExecutionTransferOperation {
 
     @JsonProperty(JSON_PROPERTY_EXECUTION)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setExecution(TransferOperationExecution execution) {
+    public void setExecution(@jakarta.annotation.Nullable TransferOperationExecution execution) {
         this.execution = execution;
     }
 
@@ -282,10 +301,7 @@ public class ExecutionTransferOperation {
                             "%soperationId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getOperationId()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getOperationId()))));
         }
 
         // add `status` to the URL query string
@@ -295,8 +311,7 @@ public class ExecutionTransferOperation {
                             "%sstatus%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getStatus()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getStatus()))));
         }
 
         // add `validationFailure` to the URL query string
@@ -312,10 +327,7 @@ public class ExecutionTransferOperation {
                             "%soperationType%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getOperationType()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getOperationType()))));
         }
 
         // add `preview` to the URL query string

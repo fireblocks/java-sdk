@@ -13,6 +13,7 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -23,15 +24,26 @@ import java.util.StringJoiner;
 
 /** SetNetworkIdRoutingPolicyRequest */
 @JsonPropertyOrder({SetNetworkIdRoutingPolicyRequest.JSON_PROPERTY_ROUTING_POLICY})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class SetNetworkIdRoutingPolicyRequest {
     public static final String JSON_PROPERTY_ROUTING_POLICY = "routingPolicy";
+
+    @jakarta.annotation.Nonnull
     private Map<String, NetworkIdRoutingPolicyValue> routingPolicy = new HashMap<>();
 
     public SetNetworkIdRoutingPolicyRequest() {}
 
+    @JsonCreator
+    public SetNetworkIdRoutingPolicyRequest(
+            @JsonProperty(value = JSON_PROPERTY_ROUTING_POLICY, required = true)
+                    Map<String, NetworkIdRoutingPolicyValue> routingPolicy) {
+        this.routingPolicy = routingPolicy;
+    }
+
     public SetNetworkIdRoutingPolicyRequest routingPolicy(
-            Map<String, NetworkIdRoutingPolicyValue> routingPolicy) {
+            @jakarta.annotation.Nonnull Map<String, NetworkIdRoutingPolicyValue> routingPolicy) {
         this.routingPolicy = routingPolicy;
         return this;
     }
@@ -59,7 +71,8 @@ public class SetNetworkIdRoutingPolicyRequest {
 
     @JsonProperty(JSON_PROPERTY_ROUTING_POLICY)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setRoutingPolicy(Map<String, NetworkIdRoutingPolicyValue> routingPolicy) {
+    public void setRoutingPolicy(
+            @jakarta.annotation.Nonnull Map<String, NetworkIdRoutingPolicyValue> routingPolicy) {
         this.routingPolicy = routingPolicy;
     }
 

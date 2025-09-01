@@ -13,24 +13,34 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
 /** RemoveLayerZeroAdapterFailedResult */
 @JsonPropertyOrder({RemoveLayerZeroAdapterFailedResult.JSON_PROPERTY_ADAPTER_TOKEN_LINK_ID})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class RemoveLayerZeroAdapterFailedResult {
     public static final String JSON_PROPERTY_ADAPTER_TOKEN_LINK_ID = "adapterTokenLinkId";
-    private String adapterTokenLinkId;
+    @jakarta.annotation.Nonnull private String adapterTokenLinkId;
 
     public RemoveLayerZeroAdapterFailedResult() {}
 
-    public RemoveLayerZeroAdapterFailedResult adapterTokenLinkId(String adapterTokenLinkId) {
+    @JsonCreator
+    public RemoveLayerZeroAdapterFailedResult(
+            @JsonProperty(value = JSON_PROPERTY_ADAPTER_TOKEN_LINK_ID, required = true)
+                    String adapterTokenLinkId) {
+        this.adapterTokenLinkId = adapterTokenLinkId;
+    }
+
+    public RemoveLayerZeroAdapterFailedResult adapterTokenLinkId(
+            @jakarta.annotation.Nonnull String adapterTokenLinkId) {
         this.adapterTokenLinkId = adapterTokenLinkId;
         return this;
     }
@@ -49,7 +59,7 @@ public class RemoveLayerZeroAdapterFailedResult {
 
     @JsonProperty(JSON_PROPERTY_ADAPTER_TOKEN_LINK_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setAdapterTokenLinkId(String adapterTokenLinkId) {
+    public void setAdapterTokenLinkId(@jakarta.annotation.Nonnull String adapterTokenLinkId) {
         this.adapterTokenLinkId = adapterTokenLinkId;
     }
 
@@ -134,10 +144,7 @@ public class RemoveLayerZeroAdapterFailedResult {
                             "%sadapterTokenLinkId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getAdapterTokenLinkId()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getAdapterTokenLinkId()))));
         }
 
         return joiner.toString();

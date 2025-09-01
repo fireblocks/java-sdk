@@ -13,12 +13,12 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fireblocks.sdk.ApiClient;
 import java.math.BigDecimal;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -41,47 +41,89 @@ import java.util.UUID;
     WalletQuoteResponse.JSON_PROPERTY_REQUIRED_ACTIONS,
     WalletQuoteResponse.JSON_PROPERTY_ESTIMATED_FEES
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class WalletQuoteResponse {
     public static final String JSON_PROPERTY_PROTOCOL = "protocol";
-    private SwapProviderProtocolsEnum protocol;
+    @jakarta.annotation.Nonnull private SwapProviderProtocolsEnum protocol;
 
     public static final String JSON_PROPERTY_INPUT_AMOUNT = "inputAmount";
-    private String inputAmount;
+    @jakarta.annotation.Nonnull private String inputAmount;
 
     public static final String JSON_PROPERTY_INPUT_ASSET = "inputAsset";
-    private String inputAsset;
+    @jakarta.annotation.Nonnull private String inputAsset;
 
     public static final String JSON_PROPERTY_SLIPPAGE_TOLERANCE = "slippageTolerance";
-    private BigDecimal slippageTolerance;
+    @jakarta.annotation.Nonnull private BigDecimal slippageTolerance;
 
     public static final String JSON_PROPERTY_OUTPUT_MIN_AMOUNT = "outputMinAmount";
-    private String outputMinAmount;
+    @jakarta.annotation.Nonnull private String outputMinAmount;
 
     public static final String JSON_PROPERTY_OUTPUT_MAX_AMOUNT = "outputMaxAmount";
-    private String outputMaxAmount;
+    @jakarta.annotation.Nonnull private String outputMaxAmount;
 
     public static final String JSON_PROPERTY_OUTPUT_ASSET = "outputAsset";
-    private String outputAsset;
+    @jakarta.annotation.Nonnull private String outputAsset;
 
     public static final String JSON_PROPERTY_ADDITIONAL_DATA = "additionalData";
-    private ProviderAdditionalData additionalData;
+    @jakarta.annotation.Nonnull private ProviderAdditionalData additionalData;
 
     public static final String JSON_PROPERTY_PROVIDER_QUOTE_ID = "providerQuoteId";
-    private UUID providerQuoteId;
+    @jakarta.annotation.Nonnull private UUID providerQuoteId;
 
     public static final String JSON_PROPERTY_EXPIRED_AT = "expiredAt";
-    private OffsetDateTime expiredAt;
+    @jakarta.annotation.Nonnull private OffsetDateTime expiredAt;
 
     public static final String JSON_PROPERTY_REQUIRED_ACTIONS = "requiredActions";
+
+    @jakarta.annotation.Nonnull
     private List<SwapRequiredActionsEnum> requiredActions = new ArrayList<>();
 
     public static final String JSON_PROPERTY_ESTIMATED_FEES = "estimatedFees";
-    private QuoteFee estimatedFees;
+    @jakarta.annotation.Nonnull private QuoteFee estimatedFees;
 
     public WalletQuoteResponse() {}
 
-    public WalletQuoteResponse protocol(SwapProviderProtocolsEnum protocol) {
+    @JsonCreator
+    public WalletQuoteResponse(
+            @JsonProperty(value = JSON_PROPERTY_PROTOCOL, required = true)
+                    SwapProviderProtocolsEnum protocol,
+            @JsonProperty(value = JSON_PROPERTY_INPUT_AMOUNT, required = true) String inputAmount,
+            @JsonProperty(value = JSON_PROPERTY_INPUT_ASSET, required = true) String inputAsset,
+            @JsonProperty(value = JSON_PROPERTY_SLIPPAGE_TOLERANCE, required = true)
+                    BigDecimal slippageTolerance,
+            @JsonProperty(value = JSON_PROPERTY_OUTPUT_MIN_AMOUNT, required = true)
+                    String outputMinAmount,
+            @JsonProperty(value = JSON_PROPERTY_OUTPUT_MAX_AMOUNT, required = true)
+                    String outputMaxAmount,
+            @JsonProperty(value = JSON_PROPERTY_OUTPUT_ASSET, required = true) String outputAsset,
+            @JsonProperty(value = JSON_PROPERTY_ADDITIONAL_DATA, required = true)
+                    ProviderAdditionalData additionalData,
+            @JsonProperty(value = JSON_PROPERTY_PROVIDER_QUOTE_ID, required = true)
+                    UUID providerQuoteId,
+            @JsonProperty(value = JSON_PROPERTY_EXPIRED_AT, required = true)
+                    OffsetDateTime expiredAt,
+            @JsonProperty(value = JSON_PROPERTY_REQUIRED_ACTIONS, required = true)
+                    List<SwapRequiredActionsEnum> requiredActions,
+            @JsonProperty(value = JSON_PROPERTY_ESTIMATED_FEES, required = true)
+                    QuoteFee estimatedFees) {
+        this.protocol = protocol;
+        this.inputAmount = inputAmount;
+        this.inputAsset = inputAsset;
+        this.slippageTolerance = slippageTolerance;
+        this.outputMinAmount = outputMinAmount;
+        this.outputMaxAmount = outputMaxAmount;
+        this.outputAsset = outputAsset;
+        this.additionalData = additionalData;
+        this.providerQuoteId = providerQuoteId;
+        this.expiredAt = expiredAt;
+        this.requiredActions = requiredActions;
+        this.estimatedFees = estimatedFees;
+    }
+
+    public WalletQuoteResponse protocol(
+            @jakarta.annotation.Nonnull SwapProviderProtocolsEnum protocol) {
         this.protocol = protocol;
         return this;
     }
@@ -100,11 +142,11 @@ public class WalletQuoteResponse {
 
     @JsonProperty(JSON_PROPERTY_PROTOCOL)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setProtocol(SwapProviderProtocolsEnum protocol) {
+    public void setProtocol(@jakarta.annotation.Nonnull SwapProviderProtocolsEnum protocol) {
         this.protocol = protocol;
     }
 
-    public WalletQuoteResponse inputAmount(String inputAmount) {
+    public WalletQuoteResponse inputAmount(@jakarta.annotation.Nonnull String inputAmount) {
         this.inputAmount = inputAmount;
         return this;
     }
@@ -123,11 +165,11 @@ public class WalletQuoteResponse {
 
     @JsonProperty(JSON_PROPERTY_INPUT_AMOUNT)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setInputAmount(String inputAmount) {
+    public void setInputAmount(@jakarta.annotation.Nonnull String inputAmount) {
         this.inputAmount = inputAmount;
     }
 
-    public WalletQuoteResponse inputAsset(String inputAsset) {
+    public WalletQuoteResponse inputAsset(@jakarta.annotation.Nonnull String inputAsset) {
         this.inputAsset = inputAsset;
         return this;
     }
@@ -146,11 +188,12 @@ public class WalletQuoteResponse {
 
     @JsonProperty(JSON_PROPERTY_INPUT_ASSET)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setInputAsset(String inputAsset) {
+    public void setInputAsset(@jakarta.annotation.Nonnull String inputAsset) {
         this.inputAsset = inputAsset;
     }
 
-    public WalletQuoteResponse slippageTolerance(BigDecimal slippageTolerance) {
+    public WalletQuoteResponse slippageTolerance(
+            @jakarta.annotation.Nonnull BigDecimal slippageTolerance) {
         this.slippageTolerance = slippageTolerance;
         return this;
     }
@@ -170,11 +213,11 @@ public class WalletQuoteResponse {
 
     @JsonProperty(JSON_PROPERTY_SLIPPAGE_TOLERANCE)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setSlippageTolerance(BigDecimal slippageTolerance) {
+    public void setSlippageTolerance(@jakarta.annotation.Nonnull BigDecimal slippageTolerance) {
         this.slippageTolerance = slippageTolerance;
     }
 
-    public WalletQuoteResponse outputMinAmount(String outputMinAmount) {
+    public WalletQuoteResponse outputMinAmount(@jakarta.annotation.Nonnull String outputMinAmount) {
         this.outputMinAmount = outputMinAmount;
         return this;
     }
@@ -193,11 +236,11 @@ public class WalletQuoteResponse {
 
     @JsonProperty(JSON_PROPERTY_OUTPUT_MIN_AMOUNT)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setOutputMinAmount(String outputMinAmount) {
+    public void setOutputMinAmount(@jakarta.annotation.Nonnull String outputMinAmount) {
         this.outputMinAmount = outputMinAmount;
     }
 
-    public WalletQuoteResponse outputMaxAmount(String outputMaxAmount) {
+    public WalletQuoteResponse outputMaxAmount(@jakarta.annotation.Nonnull String outputMaxAmount) {
         this.outputMaxAmount = outputMaxAmount;
         return this;
     }
@@ -216,11 +259,11 @@ public class WalletQuoteResponse {
 
     @JsonProperty(JSON_PROPERTY_OUTPUT_MAX_AMOUNT)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setOutputMaxAmount(String outputMaxAmount) {
+    public void setOutputMaxAmount(@jakarta.annotation.Nonnull String outputMaxAmount) {
         this.outputMaxAmount = outputMaxAmount;
     }
 
-    public WalletQuoteResponse outputAsset(String outputAsset) {
+    public WalletQuoteResponse outputAsset(@jakarta.annotation.Nonnull String outputAsset) {
         this.outputAsset = outputAsset;
         return this;
     }
@@ -239,11 +282,12 @@ public class WalletQuoteResponse {
 
     @JsonProperty(JSON_PROPERTY_OUTPUT_ASSET)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setOutputAsset(String outputAsset) {
+    public void setOutputAsset(@jakarta.annotation.Nonnull String outputAsset) {
         this.outputAsset = outputAsset;
     }
 
-    public WalletQuoteResponse additionalData(ProviderAdditionalData additionalData) {
+    public WalletQuoteResponse additionalData(
+            @jakarta.annotation.Nonnull ProviderAdditionalData additionalData) {
         this.additionalData = additionalData;
         return this;
     }
@@ -262,11 +306,12 @@ public class WalletQuoteResponse {
 
     @JsonProperty(JSON_PROPERTY_ADDITIONAL_DATA)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setAdditionalData(ProviderAdditionalData additionalData) {
+    public void setAdditionalData(
+            @jakarta.annotation.Nonnull ProviderAdditionalData additionalData) {
         this.additionalData = additionalData;
     }
 
-    public WalletQuoteResponse providerQuoteId(UUID providerQuoteId) {
+    public WalletQuoteResponse providerQuoteId(@jakarta.annotation.Nonnull UUID providerQuoteId) {
         this.providerQuoteId = providerQuoteId;
         return this;
     }
@@ -285,11 +330,11 @@ public class WalletQuoteResponse {
 
     @JsonProperty(JSON_PROPERTY_PROVIDER_QUOTE_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setProviderQuoteId(UUID providerQuoteId) {
+    public void setProviderQuoteId(@jakarta.annotation.Nonnull UUID providerQuoteId) {
         this.providerQuoteId = providerQuoteId;
     }
 
-    public WalletQuoteResponse expiredAt(OffsetDateTime expiredAt) {
+    public WalletQuoteResponse expiredAt(@jakarta.annotation.Nonnull OffsetDateTime expiredAt) {
         this.expiredAt = expiredAt;
         return this;
     }
@@ -308,11 +353,12 @@ public class WalletQuoteResponse {
 
     @JsonProperty(JSON_PROPERTY_EXPIRED_AT)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setExpiredAt(OffsetDateTime expiredAt) {
+    public void setExpiredAt(@jakarta.annotation.Nonnull OffsetDateTime expiredAt) {
         this.expiredAt = expiredAt;
     }
 
-    public WalletQuoteResponse requiredActions(List<SwapRequiredActionsEnum> requiredActions) {
+    public WalletQuoteResponse requiredActions(
+            @jakarta.annotation.Nonnull List<SwapRequiredActionsEnum> requiredActions) {
         this.requiredActions = requiredActions;
         return this;
     }
@@ -339,11 +385,12 @@ public class WalletQuoteResponse {
 
     @JsonProperty(JSON_PROPERTY_REQUIRED_ACTIONS)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setRequiredActions(List<SwapRequiredActionsEnum> requiredActions) {
+    public void setRequiredActions(
+            @jakarta.annotation.Nonnull List<SwapRequiredActionsEnum> requiredActions) {
         this.requiredActions = requiredActions;
     }
 
-    public WalletQuoteResponse estimatedFees(QuoteFee estimatedFees) {
+    public WalletQuoteResponse estimatedFees(@jakarta.annotation.Nonnull QuoteFee estimatedFees) {
         this.estimatedFees = estimatedFees;
         return this;
     }
@@ -362,7 +409,7 @@ public class WalletQuoteResponse {
 
     @JsonProperty(JSON_PROPERTY_ESTIMATED_FEES)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setEstimatedFees(QuoteFee estimatedFees) {
+    public void setEstimatedFees(@jakarta.annotation.Nonnull QuoteFee estimatedFees) {
         this.estimatedFees = estimatedFees;
     }
 
@@ -479,8 +526,7 @@ public class WalletQuoteResponse {
                             "%sprotocol%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getProtocol()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getProtocol()))));
         }
 
         // add `inputAmount` to the URL query string
@@ -490,10 +536,7 @@ public class WalletQuoteResponse {
                             "%sinputAmount%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getInputAmount()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getInputAmount()))));
         }
 
         // add `inputAsset` to the URL query string
@@ -503,9 +546,7 @@ public class WalletQuoteResponse {
                             "%sinputAsset%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getInputAsset()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getInputAsset()))));
         }
 
         // add `slippageTolerance` to the URL query string
@@ -515,10 +556,7 @@ public class WalletQuoteResponse {
                             "%sslippageTolerance%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getSlippageTolerance()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getSlippageTolerance()))));
         }
 
         // add `outputMinAmount` to the URL query string
@@ -528,10 +566,7 @@ public class WalletQuoteResponse {
                             "%soutputMinAmount%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getOutputMinAmount()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getOutputMinAmount()))));
         }
 
         // add `outputMaxAmount` to the URL query string
@@ -541,10 +576,7 @@ public class WalletQuoteResponse {
                             "%soutputMaxAmount%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getOutputMaxAmount()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getOutputMaxAmount()))));
         }
 
         // add `outputAsset` to the URL query string
@@ -554,10 +586,7 @@ public class WalletQuoteResponse {
                             "%soutputAsset%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getOutputAsset()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getOutputAsset()))));
         }
 
         // add `additionalData` to the URL query string
@@ -572,10 +601,7 @@ public class WalletQuoteResponse {
                             "%sproviderQuoteId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getProviderQuoteId()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getProviderQuoteId()))));
         }
 
         // add `expiredAt` to the URL query string
@@ -585,9 +611,7 @@ public class WalletQuoteResponse {
                             "%sexpiredAt%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getExpiredAt()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getExpiredAt()))));
         }
 
         // add `requiredActions` to the URL query string
@@ -603,10 +627,8 @@ public class WalletQuoteResponse {
                                             ? ""
                                             : String.format(
                                                     "%s%d%s", containerPrefix, i, containerSuffix),
-                                    URLEncoder.encode(
-                                                    String.valueOf(getRequiredActions().get(i)),
-                                                    StandardCharsets.UTF_8)
-                                            .replaceAll("\\+", "%20")));
+                                    ApiClient.urlEncode(
+                                            ApiClient.valueToString(getRequiredActions().get(i)))));
                 }
             }
         }

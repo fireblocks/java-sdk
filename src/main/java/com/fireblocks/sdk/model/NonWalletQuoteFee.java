@@ -13,12 +13,12 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fireblocks.sdk.ApiClient;
 import java.math.BigDecimal;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -30,26 +30,47 @@ import java.util.StringJoiner;
     NonWalletQuoteFee.JSON_PROPERTY_PROVIDER_FEE_ASSET_ID,
     NonWalletQuoteFee.JSON_PROPERTY_PROVIDER_FEE_RATE
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class NonWalletQuoteFee {
     public static final String JSON_PROPERTY_NETWORK_EXECUTION_FEE = "networkExecutionFee";
-    private String networkExecutionFee;
+    @jakarta.annotation.Nonnull private String networkExecutionFee;
 
     public static final String JSON_PROPERTY_NETWORK_FEE_ASSET_ID = "networkFeeAssetId";
-    private String networkFeeAssetId;
+    @jakarta.annotation.Nonnull private String networkFeeAssetId;
 
     public static final String JSON_PROPERTY_PROVIDER_FEE = "providerFee";
-    private String providerFee;
+    @jakarta.annotation.Nonnull private String providerFee;
 
     public static final String JSON_PROPERTY_PROVIDER_FEE_ASSET_ID = "providerFeeAssetId";
-    private String providerFeeAssetId;
+    @jakarta.annotation.Nonnull private String providerFeeAssetId;
 
     public static final String JSON_PROPERTY_PROVIDER_FEE_RATE = "providerFeeRate";
-    private BigDecimal providerFeeRate;
+    @jakarta.annotation.Nonnull private BigDecimal providerFeeRate;
 
     public NonWalletQuoteFee() {}
 
-    public NonWalletQuoteFee networkExecutionFee(String networkExecutionFee) {
+    @JsonCreator
+    public NonWalletQuoteFee(
+            @JsonProperty(value = JSON_PROPERTY_NETWORK_EXECUTION_FEE, required = true)
+                    String networkExecutionFee,
+            @JsonProperty(value = JSON_PROPERTY_NETWORK_FEE_ASSET_ID, required = true)
+                    String networkFeeAssetId,
+            @JsonProperty(value = JSON_PROPERTY_PROVIDER_FEE, required = true) String providerFee,
+            @JsonProperty(value = JSON_PROPERTY_PROVIDER_FEE_ASSET_ID, required = true)
+                    String providerFeeAssetId,
+            @JsonProperty(value = JSON_PROPERTY_PROVIDER_FEE_RATE, required = true)
+                    BigDecimal providerFeeRate) {
+        this.networkExecutionFee = networkExecutionFee;
+        this.networkFeeAssetId = networkFeeAssetId;
+        this.providerFee = providerFee;
+        this.providerFeeAssetId = providerFeeAssetId;
+        this.providerFeeRate = providerFeeRate;
+    }
+
+    public NonWalletQuoteFee networkExecutionFee(
+            @jakarta.annotation.Nonnull String networkExecutionFee) {
         this.networkExecutionFee = networkExecutionFee;
         return this;
     }
@@ -68,11 +89,12 @@ public class NonWalletQuoteFee {
 
     @JsonProperty(JSON_PROPERTY_NETWORK_EXECUTION_FEE)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setNetworkExecutionFee(String networkExecutionFee) {
+    public void setNetworkExecutionFee(@jakarta.annotation.Nonnull String networkExecutionFee) {
         this.networkExecutionFee = networkExecutionFee;
     }
 
-    public NonWalletQuoteFee networkFeeAssetId(String networkFeeAssetId) {
+    public NonWalletQuoteFee networkFeeAssetId(
+            @jakarta.annotation.Nonnull String networkFeeAssetId) {
         this.networkFeeAssetId = networkFeeAssetId;
         return this;
     }
@@ -91,11 +113,11 @@ public class NonWalletQuoteFee {
 
     @JsonProperty(JSON_PROPERTY_NETWORK_FEE_ASSET_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setNetworkFeeAssetId(String networkFeeAssetId) {
+    public void setNetworkFeeAssetId(@jakarta.annotation.Nonnull String networkFeeAssetId) {
         this.networkFeeAssetId = networkFeeAssetId;
     }
 
-    public NonWalletQuoteFee providerFee(String providerFee) {
+    public NonWalletQuoteFee providerFee(@jakarta.annotation.Nonnull String providerFee) {
         this.providerFee = providerFee;
         return this;
     }
@@ -114,11 +136,12 @@ public class NonWalletQuoteFee {
 
     @JsonProperty(JSON_PROPERTY_PROVIDER_FEE)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setProviderFee(String providerFee) {
+    public void setProviderFee(@jakarta.annotation.Nonnull String providerFee) {
         this.providerFee = providerFee;
     }
 
-    public NonWalletQuoteFee providerFeeAssetId(String providerFeeAssetId) {
+    public NonWalletQuoteFee providerFeeAssetId(
+            @jakarta.annotation.Nonnull String providerFeeAssetId) {
         this.providerFeeAssetId = providerFeeAssetId;
         return this;
     }
@@ -137,11 +160,12 @@ public class NonWalletQuoteFee {
 
     @JsonProperty(JSON_PROPERTY_PROVIDER_FEE_ASSET_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setProviderFeeAssetId(String providerFeeAssetId) {
+    public void setProviderFeeAssetId(@jakarta.annotation.Nonnull String providerFeeAssetId) {
         this.providerFeeAssetId = providerFeeAssetId;
     }
 
-    public NonWalletQuoteFee providerFeeRate(BigDecimal providerFeeRate) {
+    public NonWalletQuoteFee providerFeeRate(
+            @jakarta.annotation.Nonnull BigDecimal providerFeeRate) {
         this.providerFeeRate = providerFeeRate;
         return this;
     }
@@ -160,7 +184,7 @@ public class NonWalletQuoteFee {
 
     @JsonProperty(JSON_PROPERTY_PROVIDER_FEE_RATE)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setProviderFeeRate(BigDecimal providerFeeRate) {
+    public void setProviderFeeRate(@jakarta.annotation.Nonnull BigDecimal providerFeeRate) {
         this.providerFeeRate = providerFeeRate;
     }
 
@@ -260,10 +284,8 @@ public class NonWalletQuoteFee {
                             "%snetworkExecutionFee%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getNetworkExecutionFee()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(
+                                    ApiClient.valueToString(getNetworkExecutionFee()))));
         }
 
         // add `networkFeeAssetId` to the URL query string
@@ -273,10 +295,7 @@ public class NonWalletQuoteFee {
                             "%snetworkFeeAssetId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getNetworkFeeAssetId()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getNetworkFeeAssetId()))));
         }
 
         // add `providerFee` to the URL query string
@@ -286,10 +305,7 @@ public class NonWalletQuoteFee {
                             "%sproviderFee%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getProviderFee()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getProviderFee()))));
         }
 
         // add `providerFeeAssetId` to the URL query string
@@ -299,10 +315,7 @@ public class NonWalletQuoteFee {
                             "%sproviderFeeAssetId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getProviderFeeAssetId()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getProviderFeeAssetId()))));
         }
 
         // add `providerFeeRate` to the URL query string
@@ -312,10 +325,7 @@ public class NonWalletQuoteFee {
                             "%sproviderFeeRate%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getProviderFeeRate()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getProviderFeeRate()))));
         }
 
         return joiner.toString();

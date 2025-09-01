@@ -18,9 +18,8 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.fireblocks.sdk.ApiClient;
 import java.math.BigDecimal;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -28,20 +27,22 @@ import java.util.StringJoiner;
 
 /** AuthorizationGroups */
 @JsonPropertyOrder({AuthorizationGroups.JSON_PROPERTY_TH, AuthorizationGroups.JSON_PROPERTY_USERS})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class AuthorizationGroups {
     public static final String JSON_PROPERTY_TH = "th";
-    private BigDecimal th;
+    @jakarta.annotation.Nullable private BigDecimal th;
 
     /** Gets or Sets inner */
     public enum InnerEnum {
-        PENDING_AUTHORIZATION("PENDING_AUTHORIZATION"),
+        PENDING_AUTHORIZATION(String.valueOf("PENDING_AUTHORIZATION")),
 
-        APPROVED("APPROVED"),
+        APPROVED(String.valueOf("APPROVED")),
 
-        REJECTED("REJECTED"),
+        REJECTED(String.valueOf("REJECTED")),
 
-        NA("NA");
+        NA(String.valueOf("NA"));
 
         private String value;
 
@@ -71,11 +72,11 @@ public class AuthorizationGroups {
     }
 
     public static final String JSON_PROPERTY_USERS = "users";
-    private Map<String, InnerEnum> users = new HashMap<>();
+    @jakarta.annotation.Nullable private Map<String, InnerEnum> users = new HashMap<>();
 
     public AuthorizationGroups() {}
 
-    public AuthorizationGroups th(BigDecimal th) {
+    public AuthorizationGroups th(@jakarta.annotation.Nullable BigDecimal th) {
         this.th = th;
         return this;
     }
@@ -94,11 +95,11 @@ public class AuthorizationGroups {
 
     @JsonProperty(JSON_PROPERTY_TH)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setTh(BigDecimal th) {
+    public void setTh(@jakarta.annotation.Nullable BigDecimal th) {
         this.th = th;
     }
 
-    public AuthorizationGroups users(Map<String, InnerEnum> users) {
+    public AuthorizationGroups users(@jakarta.annotation.Nullable Map<String, InnerEnum> users) {
         this.users = users;
         return this;
     }
@@ -125,7 +126,7 @@ public class AuthorizationGroups {
 
     @JsonProperty(JSON_PROPERTY_USERS)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setUsers(Map<String, InnerEnum> users) {
+    public void setUsers(@jakarta.annotation.Nullable Map<String, InnerEnum> users) {
         this.users = users;
     }
 
@@ -206,10 +207,7 @@ public class AuthorizationGroups {
             joiner.add(
                     String.format(
                             "%sth%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(String.valueOf(getTh()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getTh()))));
         }
 
         // add `users` to the URL query string
@@ -225,10 +223,8 @@ public class AuthorizationGroups {
                                         : String.format(
                                                 "%s%d%s", containerPrefix, _key, containerSuffix),
                                 getUsers().get(_key),
-                                URLEncoder.encode(
-                                                String.valueOf(getUsers().get(_key)),
-                                                StandardCharsets.UTF_8)
-                                        .replaceAll("\\+", "%20")));
+                                ApiClient.urlEncode(
+                                        ApiClient.valueToString(getUsers().get(_key)))));
             }
         }
 

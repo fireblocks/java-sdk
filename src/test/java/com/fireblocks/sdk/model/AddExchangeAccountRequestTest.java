@@ -13,45 +13,45 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for AddExchangeAccountRequest */
-public class AddExchangeAccountRequestTest {
+class AddExchangeAccountRequestTest {
     private final AddExchangeAccountRequest model = new AddExchangeAccountRequest();
 
     /** Model tests for AddExchangeAccountRequest */
     @Test
-    public void testAddExchangeAccountRequest() {
+    void testAddExchangeAccountRequest() {
         // TODO: test AddExchangeAccountRequest
     }
 
     /** Test the property 'exchangeType' */
     @Test
-    public void exchangeTypeTest() {
+    void exchangeTypeTest() {
         // TODO: test exchangeType
     }
 
     /** Test the property 'name' */
     @Test
-    public void nameTest() {
+    void nameTest() {
         // TODO: test name
     }
 
     /** Test the property 'creds' */
     @Test
-    public void credsTest() {
+    void credsTest() {
         // TODO: test creds
     }
 
     /** Test the property 'key' */
     @Test
-    public void keyTest() {
+    void keyTest() {
         // TODO: test key
     }
 
     /** Test the property 'mainAccountId' */
     @Test
-    public void mainAccountIdTest() {
+    void mainAccountIdTest() {
         // TODO: test mainAccountId
     }
 }

@@ -13,12 +13,12 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fireblocks.sdk.ApiClient;
 import java.math.BigDecimal;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -31,29 +31,41 @@ import java.util.StringJoiner;
     DisbursementOperationExecution.JSON_PROPERTY_FINISHED_AT,
     DisbursementOperationExecution.JSON_PROPERTY_FAILURE
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class DisbursementOperationExecution {
     public static final String JSON_PROPERTY_INPUT = "input";
-    private DisbursementOperationInput input;
+    @jakarta.annotation.Nonnull private DisbursementOperationInput input;
 
     public static final String JSON_PROPERTY_OUTPUT = "output";
-    private DisbursementOperationExecutionOutput output;
+    @jakarta.annotation.Nullable private DisbursementOperationExecutionOutput output;
 
     public static final String JSON_PROPERTY_PAYOUT_ID = "payoutId";
-    private String payoutId;
+    @jakarta.annotation.Nullable private String payoutId;
 
     public static final String JSON_PROPERTY_STARTED_AT = "startedAt";
-    private BigDecimal startedAt;
+    @jakarta.annotation.Nonnull private BigDecimal startedAt;
 
     public static final String JSON_PROPERTY_FINISHED_AT = "finishedAt";
-    private BigDecimal finishedAt;
+    @jakarta.annotation.Nullable private BigDecimal finishedAt;
 
     public static final String JSON_PROPERTY_FAILURE = "failure";
-    private OperationExecutionFailure failure;
+    @jakarta.annotation.Nullable private OperationExecutionFailure failure;
 
     public DisbursementOperationExecution() {}
 
-    public DisbursementOperationExecution input(DisbursementOperationInput input) {
+    @JsonCreator
+    public DisbursementOperationExecution(
+            @JsonProperty(value = JSON_PROPERTY_INPUT, required = true)
+                    DisbursementOperationInput input,
+            @JsonProperty(value = JSON_PROPERTY_STARTED_AT, required = true) BigDecimal startedAt) {
+        this.input = input;
+        this.startedAt = startedAt;
+    }
+
+    public DisbursementOperationExecution input(
+            @jakarta.annotation.Nonnull DisbursementOperationInput input) {
         this.input = input;
         return this;
     }
@@ -72,11 +84,12 @@ public class DisbursementOperationExecution {
 
     @JsonProperty(JSON_PROPERTY_INPUT)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setInput(DisbursementOperationInput input) {
+    public void setInput(@jakarta.annotation.Nonnull DisbursementOperationInput input) {
         this.input = input;
     }
 
-    public DisbursementOperationExecution output(DisbursementOperationExecutionOutput output) {
+    public DisbursementOperationExecution output(
+            @jakarta.annotation.Nullable DisbursementOperationExecutionOutput output) {
         this.output = output;
         return this;
     }
@@ -95,11 +108,12 @@ public class DisbursementOperationExecution {
 
     @JsonProperty(JSON_PROPERTY_OUTPUT)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setOutput(DisbursementOperationExecutionOutput output) {
+    public void setOutput(
+            @jakarta.annotation.Nullable DisbursementOperationExecutionOutput output) {
         this.output = output;
     }
 
-    public DisbursementOperationExecution payoutId(String payoutId) {
+    public DisbursementOperationExecution payoutId(@jakarta.annotation.Nullable String payoutId) {
         this.payoutId = payoutId;
         return this;
     }
@@ -118,11 +132,12 @@ public class DisbursementOperationExecution {
 
     @JsonProperty(JSON_PROPERTY_PAYOUT_ID)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setPayoutId(String payoutId) {
+    public void setPayoutId(@jakarta.annotation.Nullable String payoutId) {
         this.payoutId = payoutId;
     }
 
-    public DisbursementOperationExecution startedAt(BigDecimal startedAt) {
+    public DisbursementOperationExecution startedAt(
+            @jakarta.annotation.Nonnull BigDecimal startedAt) {
         this.startedAt = startedAt;
         return this;
     }
@@ -141,11 +156,12 @@ public class DisbursementOperationExecution {
 
     @JsonProperty(JSON_PROPERTY_STARTED_AT)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setStartedAt(BigDecimal startedAt) {
+    public void setStartedAt(@jakarta.annotation.Nonnull BigDecimal startedAt) {
         this.startedAt = startedAt;
     }
 
-    public DisbursementOperationExecution finishedAt(BigDecimal finishedAt) {
+    public DisbursementOperationExecution finishedAt(
+            @jakarta.annotation.Nullable BigDecimal finishedAt) {
         this.finishedAt = finishedAt;
         return this;
     }
@@ -164,11 +180,12 @@ public class DisbursementOperationExecution {
 
     @JsonProperty(JSON_PROPERTY_FINISHED_AT)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setFinishedAt(BigDecimal finishedAt) {
+    public void setFinishedAt(@jakarta.annotation.Nullable BigDecimal finishedAt) {
         this.finishedAt = finishedAt;
     }
 
-    public DisbursementOperationExecution failure(OperationExecutionFailure failure) {
+    public DisbursementOperationExecution failure(
+            @jakarta.annotation.Nullable OperationExecutionFailure failure) {
         this.failure = failure;
         return this;
     }
@@ -187,7 +204,7 @@ public class DisbursementOperationExecution {
 
     @JsonProperty(JSON_PROPERTY_FAILURE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setFailure(OperationExecutionFailure failure) {
+    public void setFailure(@jakarta.annotation.Nullable OperationExecutionFailure failure) {
         this.failure = failure;
     }
 
@@ -289,8 +306,7 @@ public class DisbursementOperationExecution {
                             "%spayoutId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getPayoutId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getPayoutId()))));
         }
 
         // add `startedAt` to the URL query string
@@ -300,9 +316,7 @@ public class DisbursementOperationExecution {
                             "%sstartedAt%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getStartedAt()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getStartedAt()))));
         }
 
         // add `finishedAt` to the URL query string
@@ -312,9 +326,7 @@ public class DisbursementOperationExecution {
                             "%sfinishedAt%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getFinishedAt()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getFinishedAt()))));
         }
 
         // add `failure` to the URL query string

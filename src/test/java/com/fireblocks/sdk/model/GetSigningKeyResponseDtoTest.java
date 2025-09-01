@@ -13,27 +13,27 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for GetSigningKeyResponseDto */
-public class GetSigningKeyResponseDtoTest {
+class GetSigningKeyResponseDtoTest {
     private final GetSigningKeyResponseDto model = new GetSigningKeyResponseDto();
 
     /** Model tests for GetSigningKeyResponseDto */
     @Test
-    public void testGetSigningKeyResponseDto() {
+    void testGetSigningKeyResponseDto() {
         // TODO: test GetSigningKeyResponseDto
     }
 
     /** Test the property 'data' */
     @Test
-    public void dataTest() {
+    void dataTest() {
         // TODO: test data
     }
 
     /** Test the property 'next' */
     @Test
-    public void nextTest() {
+    void nextTest() {
         // TODO: test next
     }
 }

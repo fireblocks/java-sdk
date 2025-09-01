@@ -13,57 +13,57 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for VaultAccount */
-public class VaultAccountTest {
+class VaultAccountTest {
     private final VaultAccount model = new VaultAccount();
 
     /** Model tests for VaultAccount */
     @Test
-    public void testVaultAccount() {
+    void testVaultAccount() {
         // TODO: test VaultAccount
     }
 
     /** Test the property 'id' */
     @Test
-    public void idTest() {
+    void idTest() {
         // TODO: test id
     }
 
     /** Test the property 'name' */
     @Test
-    public void nameTest() {
+    void nameTest() {
         // TODO: test name
     }
 
     /** Test the property 'assets' */
     @Test
-    public void assetsTest() {
+    void assetsTest() {
         // TODO: test assets
     }
 
     /** Test the property 'hiddenOnUI' */
     @Test
-    public void hiddenOnUITest() {
+    void hiddenOnUITest() {
         // TODO: test hiddenOnUI
     }
 
     /** Test the property 'customerRefId' */
     @Test
-    public void customerRefIdTest() {
+    void customerRefIdTest() {
         // TODO: test customerRefId
     }
 
     /** Test the property 'autoFuel' */
     @Test
-    public void autoFuelTest() {
+    void autoFuelTest() {
         // TODO: test autoFuel
     }
 
     /** Test the property 'tags' */
     @Test
-    public void tagsTest() {
+    void tagsTest() {
         // TODO: test tags
     }
 }

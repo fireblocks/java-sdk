@@ -13,21 +13,21 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for DeployableAddressResponse */
-public class DeployableAddressResponseTest {
+class DeployableAddressResponseTest {
     private final DeployableAddressResponse model = new DeployableAddressResponse();
 
     /** Model tests for DeployableAddressResponse */
     @Test
-    public void testDeployableAddressResponse() {
+    void testDeployableAddressResponse() {
         // TODO: test DeployableAddressResponse
     }
 
     /** Test the property 'address' */
     @Test
-    public void addressTest() {
+    void addressTest() {
         // TODO: test address
     }
 }

@@ -13,12 +13,12 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fireblocks.sdk.ApiClient;
 import java.math.BigDecimal;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -28,20 +28,32 @@ import java.util.StringJoiner;
     Validator.JSON_PROPERTY_FEE_PERCENT,
     Validator.JSON_PROPERTY_IS_PRIVATE
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class Validator {
     public static final String JSON_PROPERTY_CHAIN_DESCRIPTOR = "chainDescriptor";
-    private String chainDescriptor;
+    @jakarta.annotation.Nonnull private String chainDescriptor;
 
     public static final String JSON_PROPERTY_FEE_PERCENT = "feePercent";
-    private BigDecimal feePercent;
+    @jakarta.annotation.Nonnull private BigDecimal feePercent;
 
     public static final String JSON_PROPERTY_IS_PRIVATE = "isPrivate";
-    private Boolean isPrivate;
+    @jakarta.annotation.Nullable private Boolean isPrivate;
 
     public Validator() {}
 
-    public Validator chainDescriptor(String chainDescriptor) {
+    @JsonCreator
+    public Validator(
+            @JsonProperty(value = JSON_PROPERTY_CHAIN_DESCRIPTOR, required = true)
+                    String chainDescriptor,
+            @JsonProperty(value = JSON_PROPERTY_FEE_PERCENT, required = true)
+                    BigDecimal feePercent) {
+        this.chainDescriptor = chainDescriptor;
+        this.feePercent = feePercent;
+    }
+
+    public Validator chainDescriptor(@jakarta.annotation.Nonnull String chainDescriptor) {
         this.chainDescriptor = chainDescriptor;
         return this;
     }
@@ -60,11 +72,11 @@ public class Validator {
 
     @JsonProperty(JSON_PROPERTY_CHAIN_DESCRIPTOR)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setChainDescriptor(String chainDescriptor) {
+    public void setChainDescriptor(@jakarta.annotation.Nonnull String chainDescriptor) {
         this.chainDescriptor = chainDescriptor;
     }
 
-    public Validator feePercent(BigDecimal feePercent) {
+    public Validator feePercent(@jakarta.annotation.Nonnull BigDecimal feePercent) {
         this.feePercent = feePercent;
         return this;
     }
@@ -83,11 +95,11 @@ public class Validator {
 
     @JsonProperty(JSON_PROPERTY_FEE_PERCENT)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setFeePercent(BigDecimal feePercent) {
+    public void setFeePercent(@jakarta.annotation.Nonnull BigDecimal feePercent) {
         this.feePercent = feePercent;
     }
 
-    public Validator isPrivate(Boolean isPrivate) {
+    public Validator isPrivate(@jakarta.annotation.Nullable Boolean isPrivate) {
         this.isPrivate = isPrivate;
         return this;
     }
@@ -106,7 +118,7 @@ public class Validator {
 
     @JsonProperty(JSON_PROPERTY_IS_PRIVATE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setIsPrivate(Boolean isPrivate) {
+    public void setIsPrivate(@jakarta.annotation.Nullable Boolean isPrivate) {
         this.isPrivate = isPrivate;
     }
 
@@ -191,10 +203,7 @@ public class Validator {
                             "%schainDescriptor%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getChainDescriptor()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getChainDescriptor()))));
         }
 
         // add `feePercent` to the URL query string
@@ -204,9 +213,7 @@ public class Validator {
                             "%sfeePercent%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getFeePercent()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getFeePercent()))));
         }
 
         // add `isPrivate` to the URL query string
@@ -216,9 +223,7 @@ public class Validator {
                             "%sisPrivate%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getIsPrivate()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getIsPrivate()))));
         }
 
         return joiner.toString();

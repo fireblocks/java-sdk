@@ -13,33 +13,33 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for Validator */
-public class ValidatorTest {
+class ValidatorTest {
     private final Validator model = new Validator();
 
     /** Model tests for Validator */
     @Test
-    public void testValidator() {
+    void testValidator() {
         // TODO: test Validator
     }
 
     /** Test the property 'chainDescriptor' */
     @Test
-    public void chainDescriptorTest() {
+    void chainDescriptorTest() {
         // TODO: test chainDescriptor
     }
 
     /** Test the property 'feePercent' */
     @Test
-    public void feePercentTest() {
+    void feePercentTest() {
         // TODO: test feePercent
     }
 
     /** Test the property 'isPrivate' */
     @Test
-    public void isPrivateTest() {
+    void isPrivateTest() {
         // TODO: test isPrivate
     }
 }

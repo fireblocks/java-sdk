@@ -13,27 +13,27 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for AmountAndChainDescriptor */
-public class AmountAndChainDescriptorTest {
+class AmountAndChainDescriptorTest {
     private final AmountAndChainDescriptor model = new AmountAndChainDescriptor();
 
     /** Model tests for AmountAndChainDescriptor */
     @Test
-    public void testAmountAndChainDescriptor() {
+    void testAmountAndChainDescriptor() {
         // TODO: test AmountAndChainDescriptor
     }
 
     /** Test the property 'chainDescriptor' */
     @Test
-    public void chainDescriptorTest() {
+    void chainDescriptorTest() {
         // TODO: test chainDescriptor
     }
 
     /** Test the property 'amount' */
     @Test
-    public void amountTest() {
+    void amountTest() {
         // TODO: test amount
     }
 }

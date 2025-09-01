@@ -13,11 +13,11 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -26,17 +26,28 @@ import java.util.StringJoiner;
     GetExchangeAccountsCredentialsPublicKeyResponse.JSON_PROPERTY_PUBLIC_KEY,
     GetExchangeAccountsCredentialsPublicKeyResponse.JSON_PROPERTY_TENANT_ID
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class GetExchangeAccountsCredentialsPublicKeyResponse {
     public static final String JSON_PROPERTY_PUBLIC_KEY = "publicKey";
-    private String publicKey;
+    @jakarta.annotation.Nonnull private String publicKey;
 
     public static final String JSON_PROPERTY_TENANT_ID = "tenantId";
-    private String tenantId;
+    @jakarta.annotation.Nonnull private String tenantId;
 
     public GetExchangeAccountsCredentialsPublicKeyResponse() {}
 
-    public GetExchangeAccountsCredentialsPublicKeyResponse publicKey(String publicKey) {
+    @JsonCreator
+    public GetExchangeAccountsCredentialsPublicKeyResponse(
+            @JsonProperty(value = JSON_PROPERTY_PUBLIC_KEY, required = true) String publicKey,
+            @JsonProperty(value = JSON_PROPERTY_TENANT_ID, required = true) String tenantId) {
+        this.publicKey = publicKey;
+        this.tenantId = tenantId;
+    }
+
+    public GetExchangeAccountsCredentialsPublicKeyResponse publicKey(
+            @jakarta.annotation.Nonnull String publicKey) {
         this.publicKey = publicKey;
         return this;
     }
@@ -55,11 +66,12 @@ public class GetExchangeAccountsCredentialsPublicKeyResponse {
 
     @JsonProperty(JSON_PROPERTY_PUBLIC_KEY)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setPublicKey(String publicKey) {
+    public void setPublicKey(@jakarta.annotation.Nonnull String publicKey) {
         this.publicKey = publicKey;
     }
 
-    public GetExchangeAccountsCredentialsPublicKeyResponse tenantId(String tenantId) {
+    public GetExchangeAccountsCredentialsPublicKeyResponse tenantId(
+            @jakarta.annotation.Nonnull String tenantId) {
         this.tenantId = tenantId;
         return this;
     }
@@ -78,7 +90,7 @@ public class GetExchangeAccountsCredentialsPublicKeyResponse {
 
     @JsonProperty(JSON_PROPERTY_TENANT_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setTenantId(String tenantId) {
+    public void setTenantId(@jakarta.annotation.Nonnull String tenantId) {
         this.tenantId = tenantId;
     }
 
@@ -165,9 +177,7 @@ public class GetExchangeAccountsCredentialsPublicKeyResponse {
                             "%spublicKey%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getPublicKey()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getPublicKey()))));
         }
 
         // add `tenantId` to the URL query string
@@ -177,8 +187,7 @@ public class GetExchangeAccountsCredentialsPublicKeyResponse {
                             "%stenantId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getTenantId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getTenantId()))));
         }
 
         return joiner.toString();

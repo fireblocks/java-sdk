@@ -13,69 +13,69 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for ExchangeAccount */
-public class ExchangeAccountTest {
+class ExchangeAccountTest {
     private final ExchangeAccount model = new ExchangeAccount();
 
     /** Model tests for ExchangeAccount */
     @Test
-    public void testExchangeAccount() {
+    void testExchangeAccount() {
         // TODO: test ExchangeAccount
     }
 
     /** Test the property 'id' */
     @Test
-    public void idTest() {
+    void idTest() {
         // TODO: test id
     }
 
     /** Test the property 'type' */
     @Test
-    public void typeTest() {
+    void typeTest() {
         // TODO: test type
     }
 
     /** Test the property 'name' */
     @Test
-    public void nameTest() {
+    void nameTest() {
         // TODO: test name
     }
 
     /** Test the property 'status' */
     @Test
-    public void statusTest() {
+    void statusTest() {
         // TODO: test status
     }
 
     /** Test the property 'assets' */
     @Test
-    public void assetsTest() {
+    void assetsTest() {
         // TODO: test assets
     }
 
     /** Test the property 'success' */
     @Test
-    public void successTest() {
+    void successTest() {
         // TODO: test success
     }
 
     /** Test the property 'tradingAccounts' */
     @Test
-    public void tradingAccountsTest() {
+    void tradingAccountsTest() {
         // TODO: test tradingAccounts
     }
 
     /** Test the property 'isSubaccount' */
     @Test
-    public void isSubaccountTest() {
+    void isSubaccountTest() {
         // TODO: test isSubaccount
     }
 
     /** Test the property 'mainAccountId' */
     @Test
-    public void mainAccountIdTest() {
+    void mainAccountIdTest() {
         // TODO: test mainAccountId
     }
 }

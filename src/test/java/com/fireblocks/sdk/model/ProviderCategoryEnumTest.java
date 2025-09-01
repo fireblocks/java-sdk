@@ -13,13 +13,13 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for ProviderCategoryEnum */
-public class ProviderCategoryEnumTest {
+class ProviderCategoryEnumTest {
     /** Model tests for ProviderCategoryEnum */
     @Test
-    public void testProviderCategoryEnum() {
+    void testProviderCategoryEnum() {
         // TODO: test ProviderCategoryEnum
     }
 }

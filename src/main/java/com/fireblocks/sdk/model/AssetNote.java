@@ -13,11 +13,11 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.time.OffsetDateTime;
 import java.util.Objects;
 import java.util.StringJoiner;
@@ -30,23 +30,38 @@ import java.util.UUID;
     AssetNote.JSON_PROPERTY_USER_NAME,
     AssetNote.JSON_PROPERTY_UPDATED_AT
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class AssetNote {
     public static final String JSON_PROPERTY_TEXT = "text";
-    private String text;
+    @jakarta.annotation.Nonnull private String text;
 
     public static final String JSON_PROPERTY_USER_ID = "userId";
-    private UUID userId;
+    @jakarta.annotation.Nonnull private UUID userId;
 
     public static final String JSON_PROPERTY_USER_NAME = "userName";
-    private String userName;
+    @jakarta.annotation.Nonnull private String userName;
 
     public static final String JSON_PROPERTY_UPDATED_AT = "updatedAt";
-    private OffsetDateTime updatedAt;
+    @jakarta.annotation.Nonnull private OffsetDateTime updatedAt;
 
     public AssetNote() {}
 
-    public AssetNote text(String text) {
+    @JsonCreator
+    public AssetNote(
+            @JsonProperty(value = JSON_PROPERTY_TEXT, required = true) String text,
+            @JsonProperty(value = JSON_PROPERTY_USER_ID, required = true) UUID userId,
+            @JsonProperty(value = JSON_PROPERTY_USER_NAME, required = true) String userName,
+            @JsonProperty(value = JSON_PROPERTY_UPDATED_AT, required = true)
+                    OffsetDateTime updatedAt) {
+        this.text = text;
+        this.userId = userId;
+        this.userName = userName;
+        this.updatedAt = updatedAt;
+    }
+
+    public AssetNote text(@jakarta.annotation.Nonnull String text) {
         this.text = text;
         return this;
     }
@@ -65,11 +80,11 @@ public class AssetNote {
 
     @JsonProperty(JSON_PROPERTY_TEXT)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setText(String text) {
+    public void setText(@jakarta.annotation.Nonnull String text) {
         this.text = text;
     }
 
-    public AssetNote userId(UUID userId) {
+    public AssetNote userId(@jakarta.annotation.Nonnull UUID userId) {
         this.userId = userId;
         return this;
     }
@@ -88,11 +103,11 @@ public class AssetNote {
 
     @JsonProperty(JSON_PROPERTY_USER_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setUserId(UUID userId) {
+    public void setUserId(@jakarta.annotation.Nonnull UUID userId) {
         this.userId = userId;
     }
 
-    public AssetNote userName(String userName) {
+    public AssetNote userName(@jakarta.annotation.Nonnull String userName) {
         this.userName = userName;
         return this;
     }
@@ -111,11 +126,11 @@ public class AssetNote {
 
     @JsonProperty(JSON_PROPERTY_USER_NAME)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setUserName(String userName) {
+    public void setUserName(@jakarta.annotation.Nonnull String userName) {
         this.userName = userName;
     }
 
-    public AssetNote updatedAt(OffsetDateTime updatedAt) {
+    public AssetNote updatedAt(@jakarta.annotation.Nonnull OffsetDateTime updatedAt) {
         this.updatedAt = updatedAt;
         return this;
     }
@@ -134,7 +149,7 @@ public class AssetNote {
 
     @JsonProperty(JSON_PROPERTY_UPDATED_AT)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setUpdatedAt(OffsetDateTime updatedAt) {
+    public void setUpdatedAt(@jakarta.annotation.Nonnull OffsetDateTime updatedAt) {
         this.updatedAt = updatedAt;
     }
 
@@ -221,8 +236,7 @@ public class AssetNote {
                             "%stext%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getText()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getText()))));
         }
 
         // add `userId` to the URL query string
@@ -232,8 +246,7 @@ public class AssetNote {
                             "%suserId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getUserId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getUserId()))));
         }
 
         // add `userName` to the URL query string
@@ -243,8 +256,7 @@ public class AssetNote {
                             "%suserName%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getUserName()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getUserName()))));
         }
 
         // add `updatedAt` to the URL query string
@@ -254,9 +266,7 @@ public class AssetNote {
                             "%supdatedAt%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getUpdatedAt()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getUpdatedAt()))));
         }
 
         return joiner.toString();

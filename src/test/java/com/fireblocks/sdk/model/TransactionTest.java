@@ -13,39 +13,39 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for Transaction */
-public class TransactionTest {
+class TransactionTest {
     private final Transaction model = new Transaction();
 
     /** Model tests for Transaction */
     @Test
-    public void testTransaction() {
+    void testTransaction() {
         // TODO: test Transaction
     }
 
     /** Test the property 'id' */
     @Test
-    public void idTest() {
+    void idTest() {
         // TODO: test id
     }
 
     /** Test the property 'state' */
     @Test
-    public void stateTest() {
+    void stateTest() {
         // TODO: test state
     }
 
     /** Test the property 'timestamp' */
     @Test
-    public void timestampTest() {
+    void timestampTest() {
         // TODO: test timestamp
     }
 
     /** Test the property 'instructionId' */
     @Test
-    public void instructionIdTest() {
+    void instructionIdTest() {
         // TODO: test instructionId
     }
 }

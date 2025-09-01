@@ -13,24 +13,32 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
 /** SetNetworkIdNameRequest */
 @JsonPropertyOrder({SetNetworkIdNameRequest.JSON_PROPERTY_NAME})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class SetNetworkIdNameRequest {
     public static final String JSON_PROPERTY_NAME = "name";
-    private String name;
+    @jakarta.annotation.Nonnull private String name;
 
     public SetNetworkIdNameRequest() {}
 
-    public SetNetworkIdNameRequest name(String name) {
+    @JsonCreator
+    public SetNetworkIdNameRequest(
+            @JsonProperty(value = JSON_PROPERTY_NAME, required = true) String name) {
+        this.name = name;
+    }
+
+    public SetNetworkIdNameRequest name(@jakarta.annotation.Nonnull String name) {
         this.name = name;
         return this;
     }
@@ -49,7 +57,7 @@ public class SetNetworkIdNameRequest {
 
     @JsonProperty(JSON_PROPERTY_NAME)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setName(String name) {
+    public void setName(@jakarta.annotation.Nonnull String name) {
         this.name = name;
     }
 
@@ -130,8 +138,7 @@ public class SetNetworkIdNameRequest {
                             "%sname%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getName()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getName()))));
         }
 
         return joiner.toString();

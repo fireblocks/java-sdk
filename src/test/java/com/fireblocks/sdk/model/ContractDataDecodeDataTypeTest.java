@@ -13,13 +13,13 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for ContractDataDecodeDataType */
-public class ContractDataDecodeDataTypeTest {
+class ContractDataDecodeDataTypeTest {
     /** Model tests for ContractDataDecodeDataType */
     @Test
-    public void testContractDataDecodeDataType() {
+    void testContractDataDecodeDataType() {
         // TODO: test ContractDataDecodeDataType
     }
 }

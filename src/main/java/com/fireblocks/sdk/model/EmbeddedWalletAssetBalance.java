@@ -13,11 +13,11 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -33,38 +33,57 @@ import java.util.StringJoiner;
     EmbeddedWalletAssetBalance.JSON_PROPERTY_BLOCK_HASH,
     EmbeddedWalletAssetBalance.JSON_PROPERTY_REWARD_INFO
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class EmbeddedWalletAssetBalance {
     public static final String JSON_PROPERTY_ID = "id";
-    private String id;
+    @jakarta.annotation.Nonnull private String id;
 
     public static final String JSON_PROPERTY_TOTAL = "total";
-    private String total;
+    @jakarta.annotation.Nonnull private String total;
 
     public static final String JSON_PROPERTY_AVAILABLE = "available";
-    private String available;
+    @jakarta.annotation.Nonnull private String available;
 
     public static final String JSON_PROPERTY_PENDING = "pending";
-    private String pending;
+    @jakarta.annotation.Nonnull private String pending;
 
     public static final String JSON_PROPERTY_FROZEN = "frozen";
-    private String frozen;
+    @jakarta.annotation.Nonnull private String frozen;
 
     public static final String JSON_PROPERTY_LOCKED_AMOUNT = "lockedAmount";
-    private String lockedAmount;
+    @jakarta.annotation.Nonnull private String lockedAmount;
 
     public static final String JSON_PROPERTY_BLOCK_HEIGHT = "blockHeight";
-    private String blockHeight;
+    @jakarta.annotation.Nullable private String blockHeight;
 
     public static final String JSON_PROPERTY_BLOCK_HASH = "blockHash";
-    private String blockHash;
+    @jakarta.annotation.Nullable private String blockHash;
 
     public static final String JSON_PROPERTY_REWARD_INFO = "rewardInfo";
-    private EmbeddedWalletAssetRewardInfo rewardInfo;
+    @jakarta.annotation.Nullable private EmbeddedWalletAssetRewardInfo rewardInfo;
 
     public EmbeddedWalletAssetBalance() {}
 
-    public EmbeddedWalletAssetBalance id(String id) {
+    @JsonCreator
+    public EmbeddedWalletAssetBalance(
+            @JsonProperty(value = JSON_PROPERTY_ID, required = true) String id,
+            @JsonProperty(value = JSON_PROPERTY_TOTAL, required = true) String total,
+            @JsonProperty(value = JSON_PROPERTY_AVAILABLE, required = true) String available,
+            @JsonProperty(value = JSON_PROPERTY_PENDING, required = true) String pending,
+            @JsonProperty(value = JSON_PROPERTY_FROZEN, required = true) String frozen,
+            @JsonProperty(value = JSON_PROPERTY_LOCKED_AMOUNT, required = true)
+                    String lockedAmount) {
+        this.id = id;
+        this.total = total;
+        this.available = available;
+        this.pending = pending;
+        this.frozen = frozen;
+        this.lockedAmount = lockedAmount;
+    }
+
+    public EmbeddedWalletAssetBalance id(@jakarta.annotation.Nonnull String id) {
         this.id = id;
         return this;
     }
@@ -83,11 +102,11 @@ public class EmbeddedWalletAssetBalance {
 
     @JsonProperty(JSON_PROPERTY_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setId(String id) {
+    public void setId(@jakarta.annotation.Nonnull String id) {
         this.id = id;
     }
 
-    public EmbeddedWalletAssetBalance total(String total) {
+    public EmbeddedWalletAssetBalance total(@jakarta.annotation.Nonnull String total) {
         this.total = total;
         return this;
     }
@@ -106,11 +125,11 @@ public class EmbeddedWalletAssetBalance {
 
     @JsonProperty(JSON_PROPERTY_TOTAL)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setTotal(String total) {
+    public void setTotal(@jakarta.annotation.Nonnull String total) {
         this.total = total;
     }
 
-    public EmbeddedWalletAssetBalance available(String available) {
+    public EmbeddedWalletAssetBalance available(@jakarta.annotation.Nonnull String available) {
         this.available = available;
         return this;
     }
@@ -129,11 +148,11 @@ public class EmbeddedWalletAssetBalance {
 
     @JsonProperty(JSON_PROPERTY_AVAILABLE)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setAvailable(String available) {
+    public void setAvailable(@jakarta.annotation.Nonnull String available) {
         this.available = available;
     }
 
-    public EmbeddedWalletAssetBalance pending(String pending) {
+    public EmbeddedWalletAssetBalance pending(@jakarta.annotation.Nonnull String pending) {
         this.pending = pending;
         return this;
     }
@@ -152,11 +171,11 @@ public class EmbeddedWalletAssetBalance {
 
     @JsonProperty(JSON_PROPERTY_PENDING)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setPending(String pending) {
+    public void setPending(@jakarta.annotation.Nonnull String pending) {
         this.pending = pending;
     }
 
-    public EmbeddedWalletAssetBalance frozen(String frozen) {
+    public EmbeddedWalletAssetBalance frozen(@jakarta.annotation.Nonnull String frozen) {
         this.frozen = frozen;
         return this;
     }
@@ -175,11 +194,12 @@ public class EmbeddedWalletAssetBalance {
 
     @JsonProperty(JSON_PROPERTY_FROZEN)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setFrozen(String frozen) {
+    public void setFrozen(@jakarta.annotation.Nonnull String frozen) {
         this.frozen = frozen;
     }
 
-    public EmbeddedWalletAssetBalance lockedAmount(String lockedAmount) {
+    public EmbeddedWalletAssetBalance lockedAmount(
+            @jakarta.annotation.Nonnull String lockedAmount) {
         this.lockedAmount = lockedAmount;
         return this;
     }
@@ -198,11 +218,11 @@ public class EmbeddedWalletAssetBalance {
 
     @JsonProperty(JSON_PROPERTY_LOCKED_AMOUNT)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setLockedAmount(String lockedAmount) {
+    public void setLockedAmount(@jakarta.annotation.Nonnull String lockedAmount) {
         this.lockedAmount = lockedAmount;
     }
 
-    public EmbeddedWalletAssetBalance blockHeight(String blockHeight) {
+    public EmbeddedWalletAssetBalance blockHeight(@jakarta.annotation.Nullable String blockHeight) {
         this.blockHeight = blockHeight;
         return this;
     }
@@ -221,11 +241,11 @@ public class EmbeddedWalletAssetBalance {
 
     @JsonProperty(JSON_PROPERTY_BLOCK_HEIGHT)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setBlockHeight(String blockHeight) {
+    public void setBlockHeight(@jakarta.annotation.Nullable String blockHeight) {
         this.blockHeight = blockHeight;
     }
 
-    public EmbeddedWalletAssetBalance blockHash(String blockHash) {
+    public EmbeddedWalletAssetBalance blockHash(@jakarta.annotation.Nullable String blockHash) {
         this.blockHash = blockHash;
         return this;
     }
@@ -244,11 +264,12 @@ public class EmbeddedWalletAssetBalance {
 
     @JsonProperty(JSON_PROPERTY_BLOCK_HASH)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setBlockHash(String blockHash) {
+    public void setBlockHash(@jakarta.annotation.Nullable String blockHash) {
         this.blockHash = blockHash;
     }
 
-    public EmbeddedWalletAssetBalance rewardInfo(EmbeddedWalletAssetRewardInfo rewardInfo) {
+    public EmbeddedWalletAssetBalance rewardInfo(
+            @jakarta.annotation.Nullable EmbeddedWalletAssetRewardInfo rewardInfo) {
         this.rewardInfo = rewardInfo;
         return this;
     }
@@ -267,7 +288,8 @@ public class EmbeddedWalletAssetBalance {
 
     @JsonProperty(JSON_PROPERTY_REWARD_INFO)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setRewardInfo(EmbeddedWalletAssetRewardInfo rewardInfo) {
+    public void setRewardInfo(
+            @jakarta.annotation.Nullable EmbeddedWalletAssetRewardInfo rewardInfo) {
         this.rewardInfo = rewardInfo;
     }
 
@@ -371,10 +393,7 @@ public class EmbeddedWalletAssetBalance {
             joiner.add(
                     String.format(
                             "%sid%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(String.valueOf(getId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getId()))));
         }
 
         // add `total` to the URL query string
@@ -384,8 +403,7 @@ public class EmbeddedWalletAssetBalance {
                             "%stotal%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getTotal()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getTotal()))));
         }
 
         // add `available` to the URL query string
@@ -395,9 +413,7 @@ public class EmbeddedWalletAssetBalance {
                             "%savailable%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getAvailable()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getAvailable()))));
         }
 
         // add `pending` to the URL query string
@@ -407,8 +423,7 @@ public class EmbeddedWalletAssetBalance {
                             "%spending%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getPending()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getPending()))));
         }
 
         // add `frozen` to the URL query string
@@ -418,8 +433,7 @@ public class EmbeddedWalletAssetBalance {
                             "%sfrozen%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getFrozen()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getFrozen()))));
         }
 
         // add `lockedAmount` to the URL query string
@@ -429,10 +443,7 @@ public class EmbeddedWalletAssetBalance {
                             "%slockedAmount%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getLockedAmount()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getLockedAmount()))));
         }
 
         // add `blockHeight` to the URL query string
@@ -442,10 +453,7 @@ public class EmbeddedWalletAssetBalance {
                             "%sblockHeight%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getBlockHeight()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getBlockHeight()))));
         }
 
         // add `blockHash` to the URL query string
@@ -455,9 +463,7 @@ public class EmbeddedWalletAssetBalance {
                             "%sblockHash%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getBlockHash()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getBlockHash()))));
         }
 
         // add `rewardInfo` to the URL query string

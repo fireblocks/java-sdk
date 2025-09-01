@@ -13,11 +13,11 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -28,23 +28,32 @@ import java.util.StringJoiner;
     TransferOperationConfigParams.JSON_PROPERTY_SOURCE,
     TransferOperationConfigParams.JSON_PROPERTY_DESTINATION
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class TransferOperationConfigParams {
     public static final String JSON_PROPERTY_AMOUNT = "amount";
-    private String amount;
+    @jakarta.annotation.Nullable private String amount;
 
     public static final String JSON_PROPERTY_ASSET_ID = "assetId";
-    private String assetId;
+    @jakarta.annotation.Nullable private String assetId;
 
     public static final String JSON_PROPERTY_SOURCE = "source";
-    private Account source;
+    @jakarta.annotation.Nullable private Account source;
 
     public static final String JSON_PROPERTY_DESTINATION = "destination";
-    private Destination destination;
+    @jakarta.annotation.Nonnull private Destination destination;
 
     public TransferOperationConfigParams() {}
 
-    public TransferOperationConfigParams amount(String amount) {
+    @JsonCreator
+    public TransferOperationConfigParams(
+            @JsonProperty(value = JSON_PROPERTY_DESTINATION, required = true)
+                    Destination destination) {
+        this.destination = destination;
+    }
+
+    public TransferOperationConfigParams amount(@jakarta.annotation.Nullable String amount) {
         this.amount = amount;
         return this;
     }
@@ -63,11 +72,11 @@ public class TransferOperationConfigParams {
 
     @JsonProperty(JSON_PROPERTY_AMOUNT)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAmount(String amount) {
+    public void setAmount(@jakarta.annotation.Nullable String amount) {
         this.amount = amount;
     }
 
-    public TransferOperationConfigParams assetId(String assetId) {
+    public TransferOperationConfigParams assetId(@jakarta.annotation.Nullable String assetId) {
         this.assetId = assetId;
         return this;
     }
@@ -86,11 +95,11 @@ public class TransferOperationConfigParams {
 
     @JsonProperty(JSON_PROPERTY_ASSET_ID)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAssetId(String assetId) {
+    public void setAssetId(@jakarta.annotation.Nullable String assetId) {
         this.assetId = assetId;
     }
 
-    public TransferOperationConfigParams source(Account source) {
+    public TransferOperationConfigParams source(@jakarta.annotation.Nullable Account source) {
         this.source = source;
         return this;
     }
@@ -109,11 +118,12 @@ public class TransferOperationConfigParams {
 
     @JsonProperty(JSON_PROPERTY_SOURCE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setSource(Account source) {
+    public void setSource(@jakarta.annotation.Nullable Account source) {
         this.source = source;
     }
 
-    public TransferOperationConfigParams destination(Destination destination) {
+    public TransferOperationConfigParams destination(
+            @jakarta.annotation.Nonnull Destination destination) {
         this.destination = destination;
         return this;
     }
@@ -132,7 +142,7 @@ public class TransferOperationConfigParams {
 
     @JsonProperty(JSON_PROPERTY_DESTINATION)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setDestination(Destination destination) {
+    public void setDestination(@jakarta.annotation.Nonnull Destination destination) {
         this.destination = destination;
     }
 
@@ -220,8 +230,7 @@ public class TransferOperationConfigParams {
                             "%samount%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getAmount()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getAmount()))));
         }
 
         // add `assetId` to the URL query string
@@ -231,8 +240,7 @@ public class TransferOperationConfigParams {
                             "%sassetId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getAssetId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getAssetId()))));
         }
 
         // add `source` to the URL query string

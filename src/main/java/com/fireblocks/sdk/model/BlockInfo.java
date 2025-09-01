@@ -16,8 +16,7 @@ package com.fireblocks.sdk.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -27,17 +26,19 @@ import java.util.StringJoiner;
  * blockHash is set to null.
  */
 @JsonPropertyOrder({BlockInfo.JSON_PROPERTY_BLOCK_HEIGHT, BlockInfo.JSON_PROPERTY_BLOCK_HASH})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class BlockInfo {
     public static final String JSON_PROPERTY_BLOCK_HEIGHT = "blockHeight";
-    private String blockHeight;
+    @jakarta.annotation.Nullable private String blockHeight;
 
     public static final String JSON_PROPERTY_BLOCK_HASH = "blockHash";
-    private String blockHash;
+    @jakarta.annotation.Nullable private String blockHash;
 
     public BlockInfo() {}
 
-    public BlockInfo blockHeight(String blockHeight) {
+    public BlockInfo blockHeight(@jakarta.annotation.Nullable String blockHeight) {
         this.blockHeight = blockHeight;
         return this;
     }
@@ -56,11 +57,11 @@ public class BlockInfo {
 
     @JsonProperty(JSON_PROPERTY_BLOCK_HEIGHT)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setBlockHeight(String blockHeight) {
+    public void setBlockHeight(@jakarta.annotation.Nullable String blockHeight) {
         this.blockHeight = blockHeight;
     }
 
-    public BlockInfo blockHash(String blockHash) {
+    public BlockInfo blockHash(@jakarta.annotation.Nullable String blockHash) {
         this.blockHash = blockHash;
         return this;
     }
@@ -79,7 +80,7 @@ public class BlockInfo {
 
     @JsonProperty(JSON_PROPERTY_BLOCK_HASH)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setBlockHash(String blockHash) {
+    public void setBlockHash(@jakarta.annotation.Nullable String blockHash) {
         this.blockHash = blockHash;
     }
 
@@ -162,10 +163,7 @@ public class BlockInfo {
                             "%sblockHeight%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getBlockHeight()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getBlockHeight()))));
         }
 
         // add `blockHash` to the URL query string
@@ -175,9 +173,7 @@ public class BlockInfo {
                             "%sblockHash%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getBlockHash()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getBlockHash()))));
         }
 
         return joiner.toString();

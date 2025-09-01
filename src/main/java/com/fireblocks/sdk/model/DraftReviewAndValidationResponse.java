@@ -13,6 +13,7 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -24,17 +25,30 @@ import java.util.StringJoiner;
     DraftReviewAndValidationResponse.JSON_PROPERTY_DRAFT_RESPONSE,
     DraftReviewAndValidationResponse.JSON_PROPERTY_VALIDATION
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class DraftReviewAndValidationResponse {
     public static final String JSON_PROPERTY_DRAFT_RESPONSE = "draftResponse";
-    private DraftResponse draftResponse;
+    @jakarta.annotation.Nonnull private DraftResponse draftResponse;
 
     public static final String JSON_PROPERTY_VALIDATION = "validation";
-    private PolicyValidation validation;
+    @jakarta.annotation.Nonnull private PolicyValidation validation;
 
     public DraftReviewAndValidationResponse() {}
 
-    public DraftReviewAndValidationResponse draftResponse(DraftResponse draftResponse) {
+    @JsonCreator
+    public DraftReviewAndValidationResponse(
+            @JsonProperty(value = JSON_PROPERTY_DRAFT_RESPONSE, required = true)
+                    DraftResponse draftResponse,
+            @JsonProperty(value = JSON_PROPERTY_VALIDATION, required = true)
+                    PolicyValidation validation) {
+        this.draftResponse = draftResponse;
+        this.validation = validation;
+    }
+
+    public DraftReviewAndValidationResponse draftResponse(
+            @jakarta.annotation.Nonnull DraftResponse draftResponse) {
         this.draftResponse = draftResponse;
         return this;
     }
@@ -53,11 +67,12 @@ public class DraftReviewAndValidationResponse {
 
     @JsonProperty(JSON_PROPERTY_DRAFT_RESPONSE)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setDraftResponse(DraftResponse draftResponse) {
+    public void setDraftResponse(@jakarta.annotation.Nonnull DraftResponse draftResponse) {
         this.draftResponse = draftResponse;
     }
 
-    public DraftReviewAndValidationResponse validation(PolicyValidation validation) {
+    public DraftReviewAndValidationResponse validation(
+            @jakarta.annotation.Nonnull PolicyValidation validation) {
         this.validation = validation;
         return this;
     }
@@ -76,7 +91,7 @@ public class DraftReviewAndValidationResponse {
 
     @JsonProperty(JSON_PROPERTY_VALIDATION)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setValidation(PolicyValidation validation) {
+    public void setValidation(@jakarta.annotation.Nonnull PolicyValidation validation) {
         this.validation = validation;
     }
 

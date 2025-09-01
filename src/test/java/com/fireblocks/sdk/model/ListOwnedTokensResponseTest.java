@@ -13,27 +13,27 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for ListOwnedTokensResponse */
-public class ListOwnedTokensResponseTest {
+class ListOwnedTokensResponseTest {
     private final ListOwnedTokensResponse model = new ListOwnedTokensResponse();
 
     /** Model tests for ListOwnedTokensResponse */
     @Test
-    public void testListOwnedTokensResponse() {
+    void testListOwnedTokensResponse() {
         // TODO: test ListOwnedTokensResponse
     }
 
     /** Test the property 'paging' */
     @Test
-    public void pagingTest() {
+    void pagingTest() {
         // TODO: test paging
     }
 
     /** Test the property 'data' */
     @Test
-    public void dataTest() {
+    void dataTest() {
         // TODO: test data
     }
 }

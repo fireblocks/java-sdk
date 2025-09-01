@@ -13,11 +13,11 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -27,20 +27,31 @@ import java.util.StringJoiner;
     PayoutInstruction.JSON_PROPERTY_PAYEE_ACCOUNT,
     PayoutInstruction.JSON_PROPERTY_AMOUNT
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class PayoutInstruction {
     public static final String JSON_PROPERTY_ID = "id";
-    private String id;
+    @jakarta.annotation.Nullable private String id;
 
     public static final String JSON_PROPERTY_PAYEE_ACCOUNT = "payeeAccount";
-    private PayeeAccount payeeAccount;
+    @jakarta.annotation.Nonnull private PayeeAccount payeeAccount;
 
     public static final String JSON_PROPERTY_AMOUNT = "amount";
-    private InstructionAmount amount;
+    @jakarta.annotation.Nonnull private InstructionAmount amount;
 
     public PayoutInstruction() {}
 
-    public PayoutInstruction id(String id) {
+    @JsonCreator
+    public PayoutInstruction(
+            @JsonProperty(value = JSON_PROPERTY_PAYEE_ACCOUNT, required = true)
+                    PayeeAccount payeeAccount,
+            @JsonProperty(value = JSON_PROPERTY_AMOUNT, required = true) InstructionAmount amount) {
+        this.payeeAccount = payeeAccount;
+        this.amount = amount;
+    }
+
+    public PayoutInstruction id(@jakarta.annotation.Nullable String id) {
         this.id = id;
         return this;
     }
@@ -59,11 +70,11 @@ public class PayoutInstruction {
 
     @JsonProperty(JSON_PROPERTY_ID)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setId(String id) {
+    public void setId(@jakarta.annotation.Nullable String id) {
         this.id = id;
     }
 
-    public PayoutInstruction payeeAccount(PayeeAccount payeeAccount) {
+    public PayoutInstruction payeeAccount(@jakarta.annotation.Nonnull PayeeAccount payeeAccount) {
         this.payeeAccount = payeeAccount;
         return this;
     }
@@ -82,11 +93,11 @@ public class PayoutInstruction {
 
     @JsonProperty(JSON_PROPERTY_PAYEE_ACCOUNT)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setPayeeAccount(PayeeAccount payeeAccount) {
+    public void setPayeeAccount(@jakarta.annotation.Nonnull PayeeAccount payeeAccount) {
         this.payeeAccount = payeeAccount;
     }
 
-    public PayoutInstruction amount(InstructionAmount amount) {
+    public PayoutInstruction amount(@jakarta.annotation.Nonnull InstructionAmount amount) {
         this.amount = amount;
         return this;
     }
@@ -105,7 +116,7 @@ public class PayoutInstruction {
 
     @JsonProperty(JSON_PROPERTY_AMOUNT)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setAmount(InstructionAmount amount) {
+    public void setAmount(@jakarta.annotation.Nonnull InstructionAmount amount) {
         this.amount = amount;
     }
 
@@ -188,10 +199,7 @@ public class PayoutInstruction {
             joiner.add(
                     String.format(
                             "%sid%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(String.valueOf(getId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getId()))));
         }
 
         // add `payeeAccount` to the URL query string

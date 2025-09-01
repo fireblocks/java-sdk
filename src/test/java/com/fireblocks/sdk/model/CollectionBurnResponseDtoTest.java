@@ -13,21 +13,21 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for CollectionBurnResponseDto */
-public class CollectionBurnResponseDtoTest {
+class CollectionBurnResponseDtoTest {
     private final CollectionBurnResponseDto model = new CollectionBurnResponseDto();
 
     /** Model tests for CollectionBurnResponseDto */
     @Test
-    public void testCollectionBurnResponseDto() {
+    void testCollectionBurnResponseDto() {
         // TODO: test CollectionBurnResponseDto
     }
 
     /** Test the property 'txId' */
     @Test
-    public void txIdTest() {
+    void txIdTest() {
         // TODO: test txId
     }
 }

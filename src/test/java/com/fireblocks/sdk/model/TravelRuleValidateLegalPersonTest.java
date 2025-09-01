@@ -13,51 +13,51 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for TravelRuleValidateLegalPerson */
-public class TravelRuleValidateLegalPersonTest {
+class TravelRuleValidateLegalPersonTest {
     private final TravelRuleValidateLegalPerson model = new TravelRuleValidateLegalPerson();
 
     /** Model tests for TravelRuleValidateLegalPerson */
     @Test
-    public void testTravelRuleValidateLegalPerson() {
+    void testTravelRuleValidateLegalPerson() {
         // TODO: test TravelRuleValidateLegalPerson
     }
 
     /** Test the property 'name' */
     @Test
-    public void nameTest() {
+    void nameTest() {
         // TODO: test name
     }
 
     /** Test the property 'geographicAddress' */
     @Test
-    public void geographicAddressTest() {
+    void geographicAddressTest() {
         // TODO: test geographicAddress
     }
 
     /** Test the property 'nationalIdentification' */
     @Test
-    public void nationalIdentificationTest() {
+    void nationalIdentificationTest() {
         // TODO: test nationalIdentification
     }
 
     /** Test the property 'customerIdentification' */
     @Test
-    public void customerIdentificationTest() {
+    void customerIdentificationTest() {
         // TODO: test customerIdentification
     }
 
     /** Test the property 'customerNumber' */
     @Test
-    public void customerNumberTest() {
+    void customerNumberTest() {
         // TODO: test customerNumber
     }
 
     /** Test the property 'countryOfRegistration' */
     @Test
-    public void countryOfRegistrationTest() {
+    void countryOfRegistrationTest() {
         // TODO: test countryOfRegistration
     }
 }

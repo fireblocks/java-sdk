@@ -13,27 +13,27 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for UserGroupCreateRequest */
-public class UserGroupCreateRequestTest {
+class UserGroupCreateRequestTest {
     private final UserGroupCreateRequest model = new UserGroupCreateRequest();
 
     /** Model tests for UserGroupCreateRequest */
     @Test
-    public void testUserGroupCreateRequest() {
+    void testUserGroupCreateRequest() {
         // TODO: test UserGroupCreateRequest
     }
 
     /** Test the property 'groupName' */
     @Test
-    public void groupNameTest() {
+    void groupNameTest() {
         // TODO: test groupName
     }
 
     /** Test the property 'memberIds' */
     @Test
-    public void memberIdsTest() {
+    void memberIdsTest() {
         // TODO: test memberIds
     }
 }

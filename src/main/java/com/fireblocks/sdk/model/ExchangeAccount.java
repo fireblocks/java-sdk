@@ -16,8 +16,7 @@ package com.fireblocks.sdk.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -35,38 +34,42 @@ import java.util.StringJoiner;
     ExchangeAccount.JSON_PROPERTY_IS_SUBACCOUNT,
     ExchangeAccount.JSON_PROPERTY_MAIN_ACCOUNT_ID
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class ExchangeAccount {
     public static final String JSON_PROPERTY_ID = "id";
-    private String id;
+    @jakarta.annotation.Nullable private String id;
 
     public static final String JSON_PROPERTY_TYPE = "type";
-    private ExchangeType type;
+    @jakarta.annotation.Nullable private ExchangeType type;
 
     public static final String JSON_PROPERTY_NAME = "name";
-    private String name;
+    @jakarta.annotation.Nullable private String name;
 
     public static final String JSON_PROPERTY_STATUS = "status";
-    private String status;
+    @jakarta.annotation.Nullable private String status;
 
     public static final String JSON_PROPERTY_ASSETS = "assets";
-    private List<ExchangeAsset> assets;
+    @jakarta.annotation.Nullable private List<ExchangeAsset> assets = new ArrayList<>();
 
     public static final String JSON_PROPERTY_SUCCESS = "success";
-    private Boolean success;
+    @jakarta.annotation.Nullable private Boolean success;
 
     public static final String JSON_PROPERTY_TRADING_ACCOUNTS = "tradingAccounts";
-    private List<ExchangeTradingAccount> tradingAccounts;
+
+    @jakarta.annotation.Nullable
+    private List<ExchangeTradingAccount> tradingAccounts = new ArrayList<>();
 
     public static final String JSON_PROPERTY_IS_SUBACCOUNT = "isSubaccount";
-    private Boolean isSubaccount;
+    @jakarta.annotation.Nullable private Boolean isSubaccount;
 
     public static final String JSON_PROPERTY_MAIN_ACCOUNT_ID = "mainAccountId";
-    private String mainAccountId;
+    @jakarta.annotation.Nullable private String mainAccountId;
 
     public ExchangeAccount() {}
 
-    public ExchangeAccount id(String id) {
+    public ExchangeAccount id(@jakarta.annotation.Nullable String id) {
         this.id = id;
         return this;
     }
@@ -85,11 +88,11 @@ public class ExchangeAccount {
 
     @JsonProperty(JSON_PROPERTY_ID)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setId(String id) {
+    public void setId(@jakarta.annotation.Nullable String id) {
         this.id = id;
     }
 
-    public ExchangeAccount type(ExchangeType type) {
+    public ExchangeAccount type(@jakarta.annotation.Nullable ExchangeType type) {
         this.type = type;
         return this;
     }
@@ -108,11 +111,11 @@ public class ExchangeAccount {
 
     @JsonProperty(JSON_PROPERTY_TYPE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setType(ExchangeType type) {
+    public void setType(@jakarta.annotation.Nullable ExchangeType type) {
         this.type = type;
     }
 
-    public ExchangeAccount name(String name) {
+    public ExchangeAccount name(@jakarta.annotation.Nullable String name) {
         this.name = name;
         return this;
     }
@@ -131,11 +134,11 @@ public class ExchangeAccount {
 
     @JsonProperty(JSON_PROPERTY_NAME)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setName(String name) {
+    public void setName(@jakarta.annotation.Nullable String name) {
         this.name = name;
     }
 
-    public ExchangeAccount status(String status) {
+    public ExchangeAccount status(@jakarta.annotation.Nullable String status) {
         this.status = status;
         return this;
     }
@@ -154,11 +157,11 @@ public class ExchangeAccount {
 
     @JsonProperty(JSON_PROPERTY_STATUS)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setStatus(String status) {
+    public void setStatus(@jakarta.annotation.Nullable String status) {
         this.status = status;
     }
 
-    public ExchangeAccount assets(List<ExchangeAsset> assets) {
+    public ExchangeAccount assets(@jakarta.annotation.Nullable List<ExchangeAsset> assets) {
         this.assets = assets;
         return this;
     }
@@ -185,11 +188,11 @@ public class ExchangeAccount {
 
     @JsonProperty(JSON_PROPERTY_ASSETS)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAssets(List<ExchangeAsset> assets) {
+    public void setAssets(@jakarta.annotation.Nullable List<ExchangeAsset> assets) {
         this.assets = assets;
     }
 
-    public ExchangeAccount success(Boolean success) {
+    public ExchangeAccount success(@jakarta.annotation.Nullable Boolean success) {
         this.success = success;
         return this;
     }
@@ -208,11 +211,12 @@ public class ExchangeAccount {
 
     @JsonProperty(JSON_PROPERTY_SUCCESS)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setSuccess(Boolean success) {
+    public void setSuccess(@jakarta.annotation.Nullable Boolean success) {
         this.success = success;
     }
 
-    public ExchangeAccount tradingAccounts(List<ExchangeTradingAccount> tradingAccounts) {
+    public ExchangeAccount tradingAccounts(
+            @jakarta.annotation.Nullable List<ExchangeTradingAccount> tradingAccounts) {
         this.tradingAccounts = tradingAccounts;
         return this;
     }
@@ -239,11 +243,12 @@ public class ExchangeAccount {
 
     @JsonProperty(JSON_PROPERTY_TRADING_ACCOUNTS)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setTradingAccounts(List<ExchangeTradingAccount> tradingAccounts) {
+    public void setTradingAccounts(
+            @jakarta.annotation.Nullable List<ExchangeTradingAccount> tradingAccounts) {
         this.tradingAccounts = tradingAccounts;
     }
 
-    public ExchangeAccount isSubaccount(Boolean isSubaccount) {
+    public ExchangeAccount isSubaccount(@jakarta.annotation.Nullable Boolean isSubaccount) {
         this.isSubaccount = isSubaccount;
         return this;
     }
@@ -262,11 +267,11 @@ public class ExchangeAccount {
 
     @JsonProperty(JSON_PROPERTY_IS_SUBACCOUNT)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setIsSubaccount(Boolean isSubaccount) {
+    public void setIsSubaccount(@jakarta.annotation.Nullable Boolean isSubaccount) {
         this.isSubaccount = isSubaccount;
     }
 
-    public ExchangeAccount mainAccountId(String mainAccountId) {
+    public ExchangeAccount mainAccountId(@jakarta.annotation.Nullable String mainAccountId) {
         this.mainAccountId = mainAccountId;
         return this;
     }
@@ -285,7 +290,7 @@ public class ExchangeAccount {
 
     @JsonProperty(JSON_PROPERTY_MAIN_ACCOUNT_ID)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setMainAccountId(String mainAccountId) {
+    public void setMainAccountId(@jakarta.annotation.Nullable String mainAccountId) {
         this.mainAccountId = mainAccountId;
     }
 
@@ -389,10 +394,7 @@ public class ExchangeAccount {
             joiner.add(
                     String.format(
                             "%sid%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(String.valueOf(getId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getId()))));
         }
 
         // add `type` to the URL query string
@@ -402,8 +404,7 @@ public class ExchangeAccount {
                             "%stype%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getType()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getType()))));
         }
 
         // add `name` to the URL query string
@@ -413,8 +414,7 @@ public class ExchangeAccount {
                             "%sname%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getName()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getName()))));
         }
 
         // add `status` to the URL query string
@@ -424,8 +424,7 @@ public class ExchangeAccount {
                             "%sstatus%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getStatus()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getStatus()))));
         }
 
         // add `assets` to the URL query string
@@ -458,8 +457,7 @@ public class ExchangeAccount {
                             "%ssuccess%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getSuccess()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getSuccess()))));
         }
 
         // add `tradingAccounts` to the URL query string
@@ -492,10 +490,7 @@ public class ExchangeAccount {
                             "%sisSubaccount%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getIsSubaccount()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getIsSubaccount()))));
         }
 
         // add `mainAccountId` to the URL query string
@@ -505,10 +500,7 @@ public class ExchangeAccount {
                             "%smainAccountId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getMainAccountId()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getMainAccountId()))));
         }
 
         return joiner.toString();

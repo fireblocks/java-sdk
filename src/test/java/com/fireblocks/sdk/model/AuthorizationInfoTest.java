@@ -13,33 +13,33 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for AuthorizationInfo */
-public class AuthorizationInfoTest {
+class AuthorizationInfoTest {
     private final AuthorizationInfo model = new AuthorizationInfo();
 
     /** Model tests for AuthorizationInfo */
     @Test
-    public void testAuthorizationInfo() {
+    void testAuthorizationInfo() {
         // TODO: test AuthorizationInfo
     }
 
     /** Test the property 'allowOperatorAsAuthorizer' */
     @Test
-    public void allowOperatorAsAuthorizerTest() {
+    void allowOperatorAsAuthorizerTest() {
         // TODO: test allowOperatorAsAuthorizer
     }
 
     /** Test the property 'logic' */
     @Test
-    public void logicTest() {
+    void logicTest() {
         // TODO: test logic
     }
 
     /** Test the property 'groups' */
     @Test
-    public void groupsTest() {
+    void groupsTest() {
         // TODO: test groups
     }
 }

@@ -13,28 +13,28 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for ExchangeSettlementTransactionsResponse */
-public class ExchangeSettlementTransactionsResponseTest {
+class ExchangeSettlementTransactionsResponseTest {
     private final ExchangeSettlementTransactionsResponse model =
             new ExchangeSettlementTransactionsResponse();
 
     /** Model tests for ExchangeSettlementTransactionsResponse */
     @Test
-    public void testExchangeSettlementTransactionsResponse() {
+    void testExchangeSettlementTransactionsResponse() {
         // TODO: test ExchangeSettlementTransactionsResponse
     }
 
     /** Test the property 'toExchange' */
     @Test
-    public void toExchangeTest() {
+    void toExchangeTest() {
         // TODO: test toExchange
     }
 
     /** Test the property 'toCollateral' */
     @Test
-    public void toCollateralTest() {
+    void toCollateralTest() {
         // TODO: test toCollateral
     }
 }

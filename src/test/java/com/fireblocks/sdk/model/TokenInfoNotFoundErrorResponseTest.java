@@ -13,27 +13,27 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for TokenInfoNotFoundErrorResponse */
-public class TokenInfoNotFoundErrorResponseTest {
+class TokenInfoNotFoundErrorResponseTest {
     private final TokenInfoNotFoundErrorResponse model = new TokenInfoNotFoundErrorResponse();
 
     /** Model tests for TokenInfoNotFoundErrorResponse */
     @Test
-    public void testTokenInfoNotFoundErrorResponse() {
+    void testTokenInfoNotFoundErrorResponse() {
         // TODO: test TokenInfoNotFoundErrorResponse
     }
 
     /** Test the property 'message' */
     @Test
-    public void messageTest() {
+    void messageTest() {
         // TODO: test message
     }
 
     /** Test the property 'code' */
     @Test
-    public void codeTest() {
+    void codeTest() {
         // TODO: test code
     }
 }

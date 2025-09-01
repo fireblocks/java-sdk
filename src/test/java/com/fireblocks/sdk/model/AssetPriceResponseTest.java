@@ -13,45 +13,45 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for AssetPriceResponse */
-public class AssetPriceResponseTest {
+class AssetPriceResponseTest {
     private final AssetPriceResponse model = new AssetPriceResponse();
 
     /** Model tests for AssetPriceResponse */
     @Test
-    public void testAssetPriceResponse() {
+    void testAssetPriceResponse() {
         // TODO: test AssetPriceResponse
     }
 
     /** Test the property 'legacyId' */
     @Test
-    public void legacyIdTest() {
+    void legacyIdTest() {
         // TODO: test legacyId
     }
 
     /** Test the property 'lastUpdateAt' */
     @Test
-    public void lastUpdateAtTest() {
+    void lastUpdateAtTest() {
         // TODO: test lastUpdateAt
     }
 
     /** Test the property 'currency' */
     @Test
-    public void currencyTest() {
+    void currencyTest() {
         // TODO: test currency
     }
 
     /** Test the property 'price' */
     @Test
-    public void priceTest() {
+    void priceTest() {
         // TODO: test price
     }
 
     /** Test the property 'source' */
     @Test
-    public void sourceTest() {
+    void sourceTest() {
         // TODO: test source
     }
 }

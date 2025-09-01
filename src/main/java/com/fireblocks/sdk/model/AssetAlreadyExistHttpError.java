@@ -16,8 +16,7 @@ package com.fireblocks.sdk.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -27,20 +26,22 @@ import java.util.StringJoiner;
     AssetAlreadyExistHttpError.JSON_PROPERTY_MESSAGE,
     AssetAlreadyExistHttpError.JSON_PROPERTY_ERROR
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class AssetAlreadyExistHttpError {
     public static final String JSON_PROPERTY_STATUS_CODE = "statusCode";
-    private Integer statusCode;
+    @jakarta.annotation.Nullable private Integer statusCode;
 
     public static final String JSON_PROPERTY_MESSAGE = "message";
-    private String message;
+    @jakarta.annotation.Nullable private String message;
 
     public static final String JSON_PROPERTY_ERROR = "error";
-    private String error;
+    @jakarta.annotation.Nullable private String error;
 
     public AssetAlreadyExistHttpError() {}
 
-    public AssetAlreadyExistHttpError statusCode(Integer statusCode) {
+    public AssetAlreadyExistHttpError statusCode(@jakarta.annotation.Nullable Integer statusCode) {
         this.statusCode = statusCode;
         return this;
     }
@@ -59,11 +60,11 @@ public class AssetAlreadyExistHttpError {
 
     @JsonProperty(JSON_PROPERTY_STATUS_CODE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setStatusCode(Integer statusCode) {
+    public void setStatusCode(@jakarta.annotation.Nullable Integer statusCode) {
         this.statusCode = statusCode;
     }
 
-    public AssetAlreadyExistHttpError message(String message) {
+    public AssetAlreadyExistHttpError message(@jakarta.annotation.Nullable String message) {
         this.message = message;
         return this;
     }
@@ -82,11 +83,11 @@ public class AssetAlreadyExistHttpError {
 
     @JsonProperty(JSON_PROPERTY_MESSAGE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setMessage(String message) {
+    public void setMessage(@jakarta.annotation.Nullable String message) {
         this.message = message;
     }
 
-    public AssetAlreadyExistHttpError error(String error) {
+    public AssetAlreadyExistHttpError error(@jakarta.annotation.Nullable String error) {
         this.error = error;
         return this;
     }
@@ -105,7 +106,7 @@ public class AssetAlreadyExistHttpError {
 
     @JsonProperty(JSON_PROPERTY_ERROR)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setError(String error) {
+    public void setError(@jakarta.annotation.Nullable String error) {
         this.error = error;
     }
 
@@ -190,9 +191,7 @@ public class AssetAlreadyExistHttpError {
                             "%sstatusCode%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getStatusCode()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getStatusCode()))));
         }
 
         // add `message` to the URL query string
@@ -202,8 +201,7 @@ public class AssetAlreadyExistHttpError {
                             "%smessage%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getMessage()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getMessage()))));
         }
 
         // add `error` to the URL query string
@@ -213,8 +211,7 @@ public class AssetAlreadyExistHttpError {
                             "%serror%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getError()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getError()))));
         }
 
         return joiner.toString();

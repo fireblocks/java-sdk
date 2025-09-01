@@ -13,11 +13,11 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -29,26 +29,42 @@ import java.util.StringJoiner;
     ContractMetadataDto.JSON_PROPERTY_CONTRACT_TEMPLATE_ID,
     ContractMetadataDto.JSON_PROPERTY_VAULT_ACCOUNT_ID
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class ContractMetadataDto {
     public static final String JSON_PROPERTY_ID = "id";
-    private String id;
+    @jakarta.annotation.Nonnull private String id;
 
     public static final String JSON_PROPERTY_BLOCKCHAIN_ID = "blockchainId";
-    private String blockchainId;
+    @jakarta.annotation.Nonnull private String blockchainId;
 
     public static final String JSON_PROPERTY_CONTRACT_ADDRESS = "contractAddress";
-    private String contractAddress;
+    @jakarta.annotation.Nonnull private String contractAddress;
 
     public static final String JSON_PROPERTY_CONTRACT_TEMPLATE_ID = "contractTemplateId";
-    private String contractTemplateId;
+    @jakarta.annotation.Nonnull private String contractTemplateId;
 
     public static final String JSON_PROPERTY_VAULT_ACCOUNT_ID = "vaultAccountId";
-    private String vaultAccountId;
+    @jakarta.annotation.Nullable private String vaultAccountId;
 
     public ContractMetadataDto() {}
 
-    public ContractMetadataDto id(String id) {
+    @JsonCreator
+    public ContractMetadataDto(
+            @JsonProperty(value = JSON_PROPERTY_ID, required = true) String id,
+            @JsonProperty(value = JSON_PROPERTY_BLOCKCHAIN_ID, required = true) String blockchainId,
+            @JsonProperty(value = JSON_PROPERTY_CONTRACT_ADDRESS, required = true)
+                    String contractAddress,
+            @JsonProperty(value = JSON_PROPERTY_CONTRACT_TEMPLATE_ID, required = true)
+                    String contractTemplateId) {
+        this.id = id;
+        this.blockchainId = blockchainId;
+        this.contractAddress = contractAddress;
+        this.contractTemplateId = contractTemplateId;
+    }
+
+    public ContractMetadataDto id(@jakarta.annotation.Nonnull String id) {
         this.id = id;
         return this;
     }
@@ -67,11 +83,11 @@ public class ContractMetadataDto {
 
     @JsonProperty(JSON_PROPERTY_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setId(String id) {
+    public void setId(@jakarta.annotation.Nonnull String id) {
         this.id = id;
     }
 
-    public ContractMetadataDto blockchainId(String blockchainId) {
+    public ContractMetadataDto blockchainId(@jakarta.annotation.Nonnull String blockchainId) {
         this.blockchainId = blockchainId;
         return this;
     }
@@ -90,11 +106,11 @@ public class ContractMetadataDto {
 
     @JsonProperty(JSON_PROPERTY_BLOCKCHAIN_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setBlockchainId(String blockchainId) {
+    public void setBlockchainId(@jakarta.annotation.Nonnull String blockchainId) {
         this.blockchainId = blockchainId;
     }
 
-    public ContractMetadataDto contractAddress(String contractAddress) {
+    public ContractMetadataDto contractAddress(@jakarta.annotation.Nonnull String contractAddress) {
         this.contractAddress = contractAddress;
         return this;
     }
@@ -113,11 +129,12 @@ public class ContractMetadataDto {
 
     @JsonProperty(JSON_PROPERTY_CONTRACT_ADDRESS)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setContractAddress(String contractAddress) {
+    public void setContractAddress(@jakarta.annotation.Nonnull String contractAddress) {
         this.contractAddress = contractAddress;
     }
 
-    public ContractMetadataDto contractTemplateId(String contractTemplateId) {
+    public ContractMetadataDto contractTemplateId(
+            @jakarta.annotation.Nonnull String contractTemplateId) {
         this.contractTemplateId = contractTemplateId;
         return this;
     }
@@ -136,11 +153,11 @@ public class ContractMetadataDto {
 
     @JsonProperty(JSON_PROPERTY_CONTRACT_TEMPLATE_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setContractTemplateId(String contractTemplateId) {
+    public void setContractTemplateId(@jakarta.annotation.Nonnull String contractTemplateId) {
         this.contractTemplateId = contractTemplateId;
     }
 
-    public ContractMetadataDto vaultAccountId(String vaultAccountId) {
+    public ContractMetadataDto vaultAccountId(@jakarta.annotation.Nullable String vaultAccountId) {
         this.vaultAccountId = vaultAccountId;
         return this;
     }
@@ -159,7 +176,7 @@ public class ContractMetadataDto {
 
     @JsonProperty(JSON_PROPERTY_VAULT_ACCOUNT_ID)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setVaultAccountId(String vaultAccountId) {
+    public void setVaultAccountId(@jakarta.annotation.Nullable String vaultAccountId) {
         this.vaultAccountId = vaultAccountId;
     }
 
@@ -248,10 +265,7 @@ public class ContractMetadataDto {
             joiner.add(
                     String.format(
                             "%sid%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(String.valueOf(getId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getId()))));
         }
 
         // add `blockchainId` to the URL query string
@@ -261,10 +275,7 @@ public class ContractMetadataDto {
                             "%sblockchainId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getBlockchainId()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getBlockchainId()))));
         }
 
         // add `contractAddress` to the URL query string
@@ -274,10 +285,7 @@ public class ContractMetadataDto {
                             "%scontractAddress%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getContractAddress()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getContractAddress()))));
         }
 
         // add `contractTemplateId` to the URL query string
@@ -287,10 +295,7 @@ public class ContractMetadataDto {
                             "%scontractTemplateId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getContractTemplateId()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getContractTemplateId()))));
         }
 
         // add `vaultAccountId` to the URL query string
@@ -300,10 +305,7 @@ public class ContractMetadataDto {
                             "%svaultAccountId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getVaultAccountId()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getVaultAccountId()))));
         }
 
         return joiner.toString();

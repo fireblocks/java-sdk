@@ -13,33 +13,33 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for NewAddress */
-public class NewAddressTest {
+class NewAddressTest {
     private final NewAddress model = new NewAddress();
 
     /** Model tests for NewAddress */
     @Test
-    public void testNewAddress() {
+    void testNewAddress() {
         // TODO: test NewAddress
     }
 
     /** Test the property 'address' */
     @Test
-    public void addressTest() {
+    void addressTest() {
         // TODO: test address
     }
 
     /** Test the property 'index' */
     @Test
-    public void indexTest() {
+    void indexTest() {
         // TODO: test index
     }
 
     /** Test the property 'description' */
     @Test
-    public void descriptionTest() {
+    void descriptionTest() {
         // TODO: test description
     }
 }

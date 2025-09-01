@@ -16,8 +16,7 @@ package com.fireblocks.sdk.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -27,20 +26,23 @@ import java.util.StringJoiner;
     GasStationConfigurationResponse.JSON_PROPERTY_GAS_CAP,
     GasStationConfigurationResponse.JSON_PROPERTY_MAX_GAS_PRICE
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class GasStationConfigurationResponse {
     public static final String JSON_PROPERTY_GAS_THRESHOLD = "gasThreshold";
-    private String gasThreshold;
+    @jakarta.annotation.Nullable private String gasThreshold;
 
     public static final String JSON_PROPERTY_GAS_CAP = "gasCap";
-    private String gasCap;
+    @jakarta.annotation.Nullable private String gasCap;
 
     public static final String JSON_PROPERTY_MAX_GAS_PRICE = "maxGasPrice";
-    private String maxGasPrice;
+    @jakarta.annotation.Nullable private String maxGasPrice;
 
     public GasStationConfigurationResponse() {}
 
-    public GasStationConfigurationResponse gasThreshold(String gasThreshold) {
+    public GasStationConfigurationResponse gasThreshold(
+            @jakarta.annotation.Nullable String gasThreshold) {
         this.gasThreshold = gasThreshold;
         return this;
     }
@@ -59,11 +61,11 @@ public class GasStationConfigurationResponse {
 
     @JsonProperty(JSON_PROPERTY_GAS_THRESHOLD)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setGasThreshold(String gasThreshold) {
+    public void setGasThreshold(@jakarta.annotation.Nullable String gasThreshold) {
         this.gasThreshold = gasThreshold;
     }
 
-    public GasStationConfigurationResponse gasCap(String gasCap) {
+    public GasStationConfigurationResponse gasCap(@jakarta.annotation.Nullable String gasCap) {
         this.gasCap = gasCap;
         return this;
     }
@@ -82,11 +84,12 @@ public class GasStationConfigurationResponse {
 
     @JsonProperty(JSON_PROPERTY_GAS_CAP)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setGasCap(String gasCap) {
+    public void setGasCap(@jakarta.annotation.Nullable String gasCap) {
         this.gasCap = gasCap;
     }
 
-    public GasStationConfigurationResponse maxGasPrice(String maxGasPrice) {
+    public GasStationConfigurationResponse maxGasPrice(
+            @jakarta.annotation.Nullable String maxGasPrice) {
         this.maxGasPrice = maxGasPrice;
         return this;
     }
@@ -105,7 +108,7 @@ public class GasStationConfigurationResponse {
 
     @JsonProperty(JSON_PROPERTY_MAX_GAS_PRICE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setMaxGasPrice(String maxGasPrice) {
+    public void setMaxGasPrice(@jakarta.annotation.Nullable String maxGasPrice) {
         this.maxGasPrice = maxGasPrice;
     }
 
@@ -191,10 +194,7 @@ public class GasStationConfigurationResponse {
                             "%sgasThreshold%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getGasThreshold()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getGasThreshold()))));
         }
 
         // add `gasCap` to the URL query string
@@ -204,8 +204,7 @@ public class GasStationConfigurationResponse {
                             "%sgasCap%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getGasCap()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getGasCap()))));
         }
 
         // add `maxGasPrice` to the URL query string
@@ -215,10 +214,7 @@ public class GasStationConfigurationResponse {
                             "%smaxGasPrice%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getMaxGasPrice()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getMaxGasPrice()))));
         }
 
         return joiner.toString();

@@ -13,39 +13,39 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for CreateValidationKeyResponseDto */
-public class CreateValidationKeyResponseDtoTest {
+class CreateValidationKeyResponseDtoTest {
     private final CreateValidationKeyResponseDto model = new CreateValidationKeyResponseDto();
 
     /** Model tests for CreateValidationKeyResponseDto */
     @Test
-    public void testCreateValidationKeyResponseDto() {
+    void testCreateValidationKeyResponseDto() {
         // TODO: test CreateValidationKeyResponseDto
     }
 
     /** Test the property 'validationKey' */
     @Test
-    public void validationKeyTest() {
+    void validationKeyTest() {
         // TODO: test validationKey
     }
 
     /** Test the property 'admins' */
     @Test
-    public void adminsTest() {
+    void adminsTest() {
         // TODO: test admins
     }
 
     /** Test the property 'approvalThreshold' */
     @Test
-    public void approvalThresholdTest() {
+    void approvalThresholdTest() {
         // TODO: test approvalThreshold
     }
 
     /** Test the property 'requestId' */
     @Test
-    public void requestIdTest() {
+    void requestIdTest() {
         // TODO: test requestId
     }
 }

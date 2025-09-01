@@ -16,8 +16,7 @@ package com.fireblocks.sdk.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -30,23 +29,26 @@ import java.util.StringJoiner;
     VaultAccountsPagedResponse.JSON_PROPERTY_PREVIOUS_URL,
     VaultAccountsPagedResponse.JSON_PROPERTY_NEXT_URL
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class VaultAccountsPagedResponse {
     public static final String JSON_PROPERTY_ACCOUNTS = "accounts";
-    private List<VaultAccount> accounts;
+    @jakarta.annotation.Nullable private List<VaultAccount> accounts = new ArrayList<>();
 
     public static final String JSON_PROPERTY_PAGING = "paging";
-    private VaultAccountsPagedResponsePaging paging;
+    @jakarta.annotation.Nullable private VaultAccountsPagedResponsePaging paging;
 
     public static final String JSON_PROPERTY_PREVIOUS_URL = "previousUrl";
-    private String previousUrl;
+    @jakarta.annotation.Nullable private String previousUrl;
 
     public static final String JSON_PROPERTY_NEXT_URL = "nextUrl";
-    private String nextUrl;
+    @jakarta.annotation.Nullable private String nextUrl;
 
     public VaultAccountsPagedResponse() {}
 
-    public VaultAccountsPagedResponse accounts(List<VaultAccount> accounts) {
+    public VaultAccountsPagedResponse accounts(
+            @jakarta.annotation.Nullable List<VaultAccount> accounts) {
         this.accounts = accounts;
         return this;
     }
@@ -73,11 +75,12 @@ public class VaultAccountsPagedResponse {
 
     @JsonProperty(JSON_PROPERTY_ACCOUNTS)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAccounts(List<VaultAccount> accounts) {
+    public void setAccounts(@jakarta.annotation.Nullable List<VaultAccount> accounts) {
         this.accounts = accounts;
     }
 
-    public VaultAccountsPagedResponse paging(VaultAccountsPagedResponsePaging paging) {
+    public VaultAccountsPagedResponse paging(
+            @jakarta.annotation.Nullable VaultAccountsPagedResponsePaging paging) {
         this.paging = paging;
         return this;
     }
@@ -96,11 +99,11 @@ public class VaultAccountsPagedResponse {
 
     @JsonProperty(JSON_PROPERTY_PAGING)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setPaging(VaultAccountsPagedResponsePaging paging) {
+    public void setPaging(@jakarta.annotation.Nullable VaultAccountsPagedResponsePaging paging) {
         this.paging = paging;
     }
 
-    public VaultAccountsPagedResponse previousUrl(String previousUrl) {
+    public VaultAccountsPagedResponse previousUrl(@jakarta.annotation.Nullable String previousUrl) {
         this.previousUrl = previousUrl;
         return this;
     }
@@ -119,11 +122,11 @@ public class VaultAccountsPagedResponse {
 
     @JsonProperty(JSON_PROPERTY_PREVIOUS_URL)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setPreviousUrl(String previousUrl) {
+    public void setPreviousUrl(@jakarta.annotation.Nullable String previousUrl) {
         this.previousUrl = previousUrl;
     }
 
-    public VaultAccountsPagedResponse nextUrl(String nextUrl) {
+    public VaultAccountsPagedResponse nextUrl(@jakarta.annotation.Nullable String nextUrl) {
         this.nextUrl = nextUrl;
         return this;
     }
@@ -142,7 +145,7 @@ public class VaultAccountsPagedResponse {
 
     @JsonProperty(JSON_PROPERTY_NEXT_URL)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setNextUrl(String nextUrl) {
+    public void setNextUrl(@jakarta.annotation.Nullable String nextUrl) {
         this.nextUrl = nextUrl;
     }
 
@@ -257,10 +260,7 @@ public class VaultAccountsPagedResponse {
                             "%spreviousUrl%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getPreviousUrl()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getPreviousUrl()))));
         }
 
         // add `nextUrl` to the URL query string
@@ -270,8 +270,7 @@ public class VaultAccountsPagedResponse {
                             "%snextUrl%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getNextUrl()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getNextUrl()))));
         }
 
         return joiner.toString();

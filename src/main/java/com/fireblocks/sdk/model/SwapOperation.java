@@ -18,9 +18,8 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.fireblocks.sdk.ApiClient;
 import java.math.BigDecimal;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -49,22 +48,24 @@ import java.util.UUID;
     SwapOperation.JSON_PROPERTY_UPDATED_AT,
     SwapOperation.JSON_PROPERTY_CREATED_BY
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class SwapOperation {
     public static final String JSON_PROPERTY_ID = "id";
-    private String id;
+    @jakarta.annotation.Nonnull private String id;
 
     public static final String JSON_PROPERTY_ACCOUNT_ID = "accountId";
-    private String accountId;
+    @jakarta.annotation.Nonnull private String accountId;
 
     public static final String JSON_PROPERTY_PROVIDER_ID = "providerId";
-    private UUID providerId;
+    @jakarta.annotation.Nonnull private UUID providerId;
 
     public static final String JSON_PROPERTY_CATEGORY = "category";
-    private ProviderCategoryEnum category;
+    @jakarta.annotation.Nonnull private ProviderCategoryEnum category;
 
     public static final String JSON_PROPERTY_PROTOCOL = "protocol";
-    private SwapProviderProtocolsEnum protocol;
+    @jakarta.annotation.Nonnull private SwapProviderProtocolsEnum protocol;
 
     /**
      * **CREATED** – The swap request has been created but not yet started. **PENDING_USER_ACTION**
@@ -75,17 +76,17 @@ public class SwapOperation {
      * encountered an error.
      */
     public enum StatusEnum {
-        CREATED("CREATED"),
+        CREATED(String.valueOf("CREATED")),
 
-        TRANSACTION_IN_PROGRESS("TRANSACTION_IN_PROGRESS"),
+        TRANSACTION_IN_PROGRESS(String.valueOf("TRANSACTION_IN_PROGRESS")),
 
-        PENDING_PROVIDER_ACTION("PENDING_PROVIDER_ACTION"),
+        PENDING_PROVIDER_ACTION(String.valueOf("PENDING_PROVIDER_ACTION")),
 
-        COMPLETED("COMPLETED"),
+        COMPLETED(String.valueOf("COMPLETED")),
 
-        CANCELED("CANCELED"),
+        CANCELED(String.valueOf("CANCELED")),
 
-        FAILED("FAILED");
+        FAILED(String.valueOf("FAILED"));
 
         private String value;
 
@@ -115,47 +116,93 @@ public class SwapOperation {
     }
 
     public static final String JSON_PROPERTY_STATUS = "status";
-    private StatusEnum status;
+    @jakarta.annotation.Nonnull private StatusEnum status;
 
     public static final String JSON_PROPERTY_INPUT_AMOUNT = "inputAmount";
-    private String inputAmount;
+    @jakarta.annotation.Nonnull private String inputAmount;
 
     public static final String JSON_PROPERTY_INPUT_ASSET = "inputAsset";
-    private String inputAsset;
+    @jakarta.annotation.Nonnull private String inputAsset;
 
     public static final String JSON_PROPERTY_SLIPPAGE_TOLERANCE = "slippageTolerance";
-    private BigDecimal slippageTolerance;
+    @jakarta.annotation.Nonnull private BigDecimal slippageTolerance;
 
     public static final String JSON_PROPERTY_OUTPUT_MIN_AMOUNT = "outputMinAmount";
-    private String outputMinAmount;
+    @jakarta.annotation.Nonnull private String outputMinAmount;
 
     public static final String JSON_PROPERTY_OUTPUT_MAX_AMOUNT = "outputMaxAmount";
-    private String outputMaxAmount;
+    @jakarta.annotation.Nonnull private String outputMaxAmount;
 
     public static final String JSON_PROPERTY_OUTPUT_ASSET = "outputAsset";
-    private String outputAsset;
+    @jakarta.annotation.Nonnull private String outputAsset;
 
     public static final String JSON_PROPERTY_OUTPUT_FINAL_AMOUNT = "outputFinalAmount";
-    private String outputFinalAmount;
+    @jakarta.annotation.Nullable private String outputFinalAmount;
 
     public static final String JSON_PROPERTY_REQUIRED_ACTIONS = "requiredActions";
+
+    @jakarta.annotation.Nonnull
     private List<SwapRequiredAction> requiredActions = new ArrayList<>();
 
     public static final String JSON_PROPERTY_ERROR = "error";
-    private SwapFlowError error;
+    @jakarta.annotation.Nullable private SwapFlowError error;
 
     public static final String JSON_PROPERTY_CREATED_AT = "createdAt";
-    private OffsetDateTime createdAt;
+    @jakarta.annotation.Nonnull private OffsetDateTime createdAt;
 
     public static final String JSON_PROPERTY_UPDATED_AT = "updatedAt";
-    private OffsetDateTime updatedAt;
+    @jakarta.annotation.Nonnull private OffsetDateTime updatedAt;
 
     public static final String JSON_PROPERTY_CREATED_BY = "createdBy";
-    private UUID createdBy;
+    @jakarta.annotation.Nonnull private UUID createdBy;
 
     public SwapOperation() {}
 
-    public SwapOperation id(String id) {
+    @JsonCreator
+    public SwapOperation(
+            @JsonProperty(value = JSON_PROPERTY_ID, required = true) String id,
+            @JsonProperty(value = JSON_PROPERTY_ACCOUNT_ID, required = true) String accountId,
+            @JsonProperty(value = JSON_PROPERTY_PROVIDER_ID, required = true) UUID providerId,
+            @JsonProperty(value = JSON_PROPERTY_CATEGORY, required = true)
+                    ProviderCategoryEnum category,
+            @JsonProperty(value = JSON_PROPERTY_PROTOCOL, required = true)
+                    SwapProviderProtocolsEnum protocol,
+            @JsonProperty(value = JSON_PROPERTY_STATUS, required = true) StatusEnum status,
+            @JsonProperty(value = JSON_PROPERTY_INPUT_AMOUNT, required = true) String inputAmount,
+            @JsonProperty(value = JSON_PROPERTY_INPUT_ASSET, required = true) String inputAsset,
+            @JsonProperty(value = JSON_PROPERTY_SLIPPAGE_TOLERANCE, required = true)
+                    BigDecimal slippageTolerance,
+            @JsonProperty(value = JSON_PROPERTY_OUTPUT_MIN_AMOUNT, required = true)
+                    String outputMinAmount,
+            @JsonProperty(value = JSON_PROPERTY_OUTPUT_MAX_AMOUNT, required = true)
+                    String outputMaxAmount,
+            @JsonProperty(value = JSON_PROPERTY_OUTPUT_ASSET, required = true) String outputAsset,
+            @JsonProperty(value = JSON_PROPERTY_REQUIRED_ACTIONS, required = true)
+                    List<SwapRequiredAction> requiredActions,
+            @JsonProperty(value = JSON_PROPERTY_CREATED_AT, required = true)
+                    OffsetDateTime createdAt,
+            @JsonProperty(value = JSON_PROPERTY_UPDATED_AT, required = true)
+                    OffsetDateTime updatedAt,
+            @JsonProperty(value = JSON_PROPERTY_CREATED_BY, required = true) UUID createdBy) {
+        this.id = id;
+        this.accountId = accountId;
+        this.providerId = providerId;
+        this.category = category;
+        this.protocol = protocol;
+        this.status = status;
+        this.inputAmount = inputAmount;
+        this.inputAsset = inputAsset;
+        this.slippageTolerance = slippageTolerance;
+        this.outputMinAmount = outputMinAmount;
+        this.outputMaxAmount = outputMaxAmount;
+        this.outputAsset = outputAsset;
+        this.requiredActions = requiredActions;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+        this.createdBy = createdBy;
+    }
+
+    public SwapOperation id(@jakarta.annotation.Nonnull String id) {
         this.id = id;
         return this;
     }
@@ -174,11 +221,11 @@ public class SwapOperation {
 
     @JsonProperty(JSON_PROPERTY_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setId(String id) {
+    public void setId(@jakarta.annotation.Nonnull String id) {
         this.id = id;
     }
 
-    public SwapOperation accountId(String accountId) {
+    public SwapOperation accountId(@jakarta.annotation.Nonnull String accountId) {
         this.accountId = accountId;
         return this;
     }
@@ -197,11 +244,11 @@ public class SwapOperation {
 
     @JsonProperty(JSON_PROPERTY_ACCOUNT_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setAccountId(String accountId) {
+    public void setAccountId(@jakarta.annotation.Nonnull String accountId) {
         this.accountId = accountId;
     }
 
-    public SwapOperation providerId(UUID providerId) {
+    public SwapOperation providerId(@jakarta.annotation.Nonnull UUID providerId) {
         this.providerId = providerId;
         return this;
     }
@@ -220,11 +267,11 @@ public class SwapOperation {
 
     @JsonProperty(JSON_PROPERTY_PROVIDER_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setProviderId(UUID providerId) {
+    public void setProviderId(@jakarta.annotation.Nonnull UUID providerId) {
         this.providerId = providerId;
     }
 
-    public SwapOperation category(ProviderCategoryEnum category) {
+    public SwapOperation category(@jakarta.annotation.Nonnull ProviderCategoryEnum category) {
         this.category = category;
         return this;
     }
@@ -243,11 +290,11 @@ public class SwapOperation {
 
     @JsonProperty(JSON_PROPERTY_CATEGORY)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setCategory(ProviderCategoryEnum category) {
+    public void setCategory(@jakarta.annotation.Nonnull ProviderCategoryEnum category) {
         this.category = category;
     }
 
-    public SwapOperation protocol(SwapProviderProtocolsEnum protocol) {
+    public SwapOperation protocol(@jakarta.annotation.Nonnull SwapProviderProtocolsEnum protocol) {
         this.protocol = protocol;
         return this;
     }
@@ -266,11 +313,11 @@ public class SwapOperation {
 
     @JsonProperty(JSON_PROPERTY_PROTOCOL)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setProtocol(SwapProviderProtocolsEnum protocol) {
+    public void setProtocol(@jakarta.annotation.Nonnull SwapProviderProtocolsEnum protocol) {
         this.protocol = protocol;
     }
 
-    public SwapOperation status(StatusEnum status) {
+    public SwapOperation status(@jakarta.annotation.Nonnull StatusEnum status) {
         this.status = status;
         return this;
     }
@@ -294,11 +341,11 @@ public class SwapOperation {
 
     @JsonProperty(JSON_PROPERTY_STATUS)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setStatus(StatusEnum status) {
+    public void setStatus(@jakarta.annotation.Nonnull StatusEnum status) {
         this.status = status;
     }
 
-    public SwapOperation inputAmount(String inputAmount) {
+    public SwapOperation inputAmount(@jakarta.annotation.Nonnull String inputAmount) {
         this.inputAmount = inputAmount;
         return this;
     }
@@ -317,11 +364,11 @@ public class SwapOperation {
 
     @JsonProperty(JSON_PROPERTY_INPUT_AMOUNT)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setInputAmount(String inputAmount) {
+    public void setInputAmount(@jakarta.annotation.Nonnull String inputAmount) {
         this.inputAmount = inputAmount;
     }
 
-    public SwapOperation inputAsset(String inputAsset) {
+    public SwapOperation inputAsset(@jakarta.annotation.Nonnull String inputAsset) {
         this.inputAsset = inputAsset;
         return this;
     }
@@ -340,11 +387,12 @@ public class SwapOperation {
 
     @JsonProperty(JSON_PROPERTY_INPUT_ASSET)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setInputAsset(String inputAsset) {
+    public void setInputAsset(@jakarta.annotation.Nonnull String inputAsset) {
         this.inputAsset = inputAsset;
     }
 
-    public SwapOperation slippageTolerance(BigDecimal slippageTolerance) {
+    public SwapOperation slippageTolerance(
+            @jakarta.annotation.Nonnull BigDecimal slippageTolerance) {
         this.slippageTolerance = slippageTolerance;
         return this;
     }
@@ -364,11 +412,11 @@ public class SwapOperation {
 
     @JsonProperty(JSON_PROPERTY_SLIPPAGE_TOLERANCE)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setSlippageTolerance(BigDecimal slippageTolerance) {
+    public void setSlippageTolerance(@jakarta.annotation.Nonnull BigDecimal slippageTolerance) {
         this.slippageTolerance = slippageTolerance;
     }
 
-    public SwapOperation outputMinAmount(String outputMinAmount) {
+    public SwapOperation outputMinAmount(@jakarta.annotation.Nonnull String outputMinAmount) {
         this.outputMinAmount = outputMinAmount;
         return this;
     }
@@ -387,11 +435,11 @@ public class SwapOperation {
 
     @JsonProperty(JSON_PROPERTY_OUTPUT_MIN_AMOUNT)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setOutputMinAmount(String outputMinAmount) {
+    public void setOutputMinAmount(@jakarta.annotation.Nonnull String outputMinAmount) {
         this.outputMinAmount = outputMinAmount;
     }
 
-    public SwapOperation outputMaxAmount(String outputMaxAmount) {
+    public SwapOperation outputMaxAmount(@jakarta.annotation.Nonnull String outputMaxAmount) {
         this.outputMaxAmount = outputMaxAmount;
         return this;
     }
@@ -410,11 +458,11 @@ public class SwapOperation {
 
     @JsonProperty(JSON_PROPERTY_OUTPUT_MAX_AMOUNT)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setOutputMaxAmount(String outputMaxAmount) {
+    public void setOutputMaxAmount(@jakarta.annotation.Nonnull String outputMaxAmount) {
         this.outputMaxAmount = outputMaxAmount;
     }
 
-    public SwapOperation outputAsset(String outputAsset) {
+    public SwapOperation outputAsset(@jakarta.annotation.Nonnull String outputAsset) {
         this.outputAsset = outputAsset;
         return this;
     }
@@ -433,11 +481,11 @@ public class SwapOperation {
 
     @JsonProperty(JSON_PROPERTY_OUTPUT_ASSET)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setOutputAsset(String outputAsset) {
+    public void setOutputAsset(@jakarta.annotation.Nonnull String outputAsset) {
         this.outputAsset = outputAsset;
     }
 
-    public SwapOperation outputFinalAmount(String outputFinalAmount) {
+    public SwapOperation outputFinalAmount(@jakarta.annotation.Nullable String outputFinalAmount) {
         this.outputFinalAmount = outputFinalAmount;
         return this;
     }
@@ -456,11 +504,12 @@ public class SwapOperation {
 
     @JsonProperty(JSON_PROPERTY_OUTPUT_FINAL_AMOUNT)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setOutputFinalAmount(String outputFinalAmount) {
+    public void setOutputFinalAmount(@jakarta.annotation.Nullable String outputFinalAmount) {
         this.outputFinalAmount = outputFinalAmount;
     }
 
-    public SwapOperation requiredActions(List<SwapRequiredAction> requiredActions) {
+    public SwapOperation requiredActions(
+            @jakarta.annotation.Nonnull List<SwapRequiredAction> requiredActions) {
         this.requiredActions = requiredActions;
         return this;
     }
@@ -488,11 +537,12 @@ public class SwapOperation {
 
     @JsonProperty(JSON_PROPERTY_REQUIRED_ACTIONS)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setRequiredActions(List<SwapRequiredAction> requiredActions) {
+    public void setRequiredActions(
+            @jakarta.annotation.Nonnull List<SwapRequiredAction> requiredActions) {
         this.requiredActions = requiredActions;
     }
 
-    public SwapOperation error(SwapFlowError error) {
+    public SwapOperation error(@jakarta.annotation.Nullable SwapFlowError error) {
         this.error = error;
         return this;
     }
@@ -511,11 +561,11 @@ public class SwapOperation {
 
     @JsonProperty(JSON_PROPERTY_ERROR)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setError(SwapFlowError error) {
+    public void setError(@jakarta.annotation.Nullable SwapFlowError error) {
         this.error = error;
     }
 
-    public SwapOperation createdAt(OffsetDateTime createdAt) {
+    public SwapOperation createdAt(@jakarta.annotation.Nonnull OffsetDateTime createdAt) {
         this.createdAt = createdAt;
         return this;
     }
@@ -534,11 +584,11 @@ public class SwapOperation {
 
     @JsonProperty(JSON_PROPERTY_CREATED_AT)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setCreatedAt(OffsetDateTime createdAt) {
+    public void setCreatedAt(@jakarta.annotation.Nonnull OffsetDateTime createdAt) {
         this.createdAt = createdAt;
     }
 
-    public SwapOperation updatedAt(OffsetDateTime updatedAt) {
+    public SwapOperation updatedAt(@jakarta.annotation.Nonnull OffsetDateTime updatedAt) {
         this.updatedAt = updatedAt;
         return this;
     }
@@ -557,11 +607,11 @@ public class SwapOperation {
 
     @JsonProperty(JSON_PROPERTY_UPDATED_AT)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setUpdatedAt(OffsetDateTime updatedAt) {
+    public void setUpdatedAt(@jakarta.annotation.Nonnull OffsetDateTime updatedAt) {
         this.updatedAt = updatedAt;
     }
 
-    public SwapOperation createdBy(UUID createdBy) {
+    public SwapOperation createdBy(@jakarta.annotation.Nonnull UUID createdBy) {
         this.createdBy = createdBy;
         return this;
     }
@@ -580,7 +630,7 @@ public class SwapOperation {
 
     @JsonProperty(JSON_PROPERTY_CREATED_BY)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setCreatedBy(UUID createdBy) {
+    public void setCreatedBy(@jakarta.annotation.Nonnull UUID createdBy) {
         this.createdBy = createdBy;
     }
 
@@ -715,10 +765,7 @@ public class SwapOperation {
             joiner.add(
                     String.format(
                             "%sid%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(String.valueOf(getId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getId()))));
         }
 
         // add `accountId` to the URL query string
@@ -728,9 +775,7 @@ public class SwapOperation {
                             "%saccountId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getAccountId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getAccountId()))));
         }
 
         // add `providerId` to the URL query string
@@ -740,9 +785,7 @@ public class SwapOperation {
                             "%sproviderId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getProviderId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getProviderId()))));
         }
 
         // add `category` to the URL query string
@@ -752,8 +795,7 @@ public class SwapOperation {
                             "%scategory%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getCategory()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getCategory()))));
         }
 
         // add `protocol` to the URL query string
@@ -763,8 +805,7 @@ public class SwapOperation {
                             "%sprotocol%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getProtocol()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getProtocol()))));
         }
 
         // add `status` to the URL query string
@@ -774,8 +815,7 @@ public class SwapOperation {
                             "%sstatus%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getStatus()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getStatus()))));
         }
 
         // add `inputAmount` to the URL query string
@@ -785,10 +825,7 @@ public class SwapOperation {
                             "%sinputAmount%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getInputAmount()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getInputAmount()))));
         }
 
         // add `inputAsset` to the URL query string
@@ -798,9 +835,7 @@ public class SwapOperation {
                             "%sinputAsset%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getInputAsset()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getInputAsset()))));
         }
 
         // add `slippageTolerance` to the URL query string
@@ -810,10 +845,7 @@ public class SwapOperation {
                             "%sslippageTolerance%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getSlippageTolerance()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getSlippageTolerance()))));
         }
 
         // add `outputMinAmount` to the URL query string
@@ -823,10 +855,7 @@ public class SwapOperation {
                             "%soutputMinAmount%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getOutputMinAmount()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getOutputMinAmount()))));
         }
 
         // add `outputMaxAmount` to the URL query string
@@ -836,10 +865,7 @@ public class SwapOperation {
                             "%soutputMaxAmount%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getOutputMaxAmount()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getOutputMaxAmount()))));
         }
 
         // add `outputAsset` to the URL query string
@@ -849,10 +875,7 @@ public class SwapOperation {
                             "%soutputAsset%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getOutputAsset()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getOutputAsset()))));
         }
 
         // add `outputFinalAmount` to the URL query string
@@ -862,10 +885,7 @@ public class SwapOperation {
                             "%soutputFinalAmount%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getOutputFinalAmount()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getOutputFinalAmount()))));
         }
 
         // add `requiredActions` to the URL query string
@@ -903,9 +923,7 @@ public class SwapOperation {
                             "%screatedAt%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getCreatedAt()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getCreatedAt()))));
         }
 
         // add `updatedAt` to the URL query string
@@ -915,9 +933,7 @@ public class SwapOperation {
                             "%supdatedAt%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getUpdatedAt()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getUpdatedAt()))));
         }
 
         // add `createdBy` to the URL query string
@@ -927,9 +943,7 @@ public class SwapOperation {
                             "%screatedBy%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getCreatedBy()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getCreatedBy()))));
         }
 
         return joiner.toString();

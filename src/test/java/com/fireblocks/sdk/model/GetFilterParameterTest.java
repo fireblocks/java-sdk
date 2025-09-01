@@ -13,57 +13,57 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for GetFilterParameter */
-public class GetFilterParameterTest {
+class GetFilterParameterTest {
     private final GetFilterParameter model = new GetFilterParameter();
 
     /** Model tests for GetFilterParameter */
     @Test
-    public void testGetFilterParameter() {
+    void testGetFilterParameter() {
         // TODO: test GetFilterParameter
     }
 
     /** Test the property 'id' */
     @Test
-    public void idTest() {
+    void idTest() {
         // TODO: test id
     }
 
     /** Test the property 'userId' */
     @Test
-    public void userIdTest() {
+    void userIdTest() {
         // TODO: test userId
     }
 
     /** Test the property 'vaultAccountId' */
     @Test
-    public void vaultAccountIdTest() {
+    void vaultAccountIdTest() {
         // TODO: test vaultAccountId
     }
 
     /** Test the property 'connectionMethod' */
     @Test
-    public void connectionMethodTest() {
+    void connectionMethodTest() {
         // TODO: test connectionMethod
     }
 
     /** Test the property 'feeLevel' */
     @Test
-    public void feeLevelTest() {
+    void feeLevelTest() {
         // TODO: test feeLevel
     }
 
     /** Test the property 'appUrl' */
     @Test
-    public void appUrlTest() {
+    void appUrlTest() {
         // TODO: test appUrl
     }
 
     /** Test the property 'appName' */
     @Test
-    public void appNameTest() {
+    void appNameTest() {
         // TODO: test appName
     }
 }

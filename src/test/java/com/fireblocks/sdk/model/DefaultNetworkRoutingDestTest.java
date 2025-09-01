@@ -13,21 +13,21 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for DefaultNetworkRoutingDest */
-public class DefaultNetworkRoutingDestTest {
+class DefaultNetworkRoutingDestTest {
     private final DefaultNetworkRoutingDest model = new DefaultNetworkRoutingDest();
 
     /** Model tests for DefaultNetworkRoutingDest */
     @Test
-    public void testDefaultNetworkRoutingDest() {
+    void testDefaultNetworkRoutingDest() {
         // TODO: test DefaultNetworkRoutingDest
     }
 
     /** Test the property 'scheme' */
     @Test
-    public void schemeTest() {
+    void schemeTest() {
         // TODO: test scheme
     }
 }

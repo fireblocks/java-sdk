@@ -16,8 +16,7 @@ package com.fireblocks.sdk.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -30,23 +29,25 @@ import java.util.StringJoiner;
     UpdateWebhookRequest.JSON_PROPERTY_EVENTS,
     UpdateWebhookRequest.JSON_PROPERTY_ENABLED
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class UpdateWebhookRequest {
     public static final String JSON_PROPERTY_URL = "url";
-    private String url;
+    @jakarta.annotation.Nullable private String url;
 
     public static final String JSON_PROPERTY_DESCRIPTION = "description";
-    private String description;
+    @jakarta.annotation.Nullable private String description;
 
     public static final String JSON_PROPERTY_EVENTS = "events";
-    private List<WebhookEvent> events;
+    @jakarta.annotation.Nullable private List<WebhookEvent> events = new ArrayList<>();
 
     public static final String JSON_PROPERTY_ENABLED = "enabled";
-    private Boolean enabled;
+    @jakarta.annotation.Nullable private Boolean enabled;
 
     public UpdateWebhookRequest() {}
 
-    public UpdateWebhookRequest url(String url) {
+    public UpdateWebhookRequest url(@jakarta.annotation.Nullable String url) {
         this.url = url;
         return this;
     }
@@ -65,11 +66,11 @@ public class UpdateWebhookRequest {
 
     @JsonProperty(JSON_PROPERTY_URL)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setUrl(String url) {
+    public void setUrl(@jakarta.annotation.Nullable String url) {
         this.url = url;
     }
 
-    public UpdateWebhookRequest description(String description) {
+    public UpdateWebhookRequest description(@jakarta.annotation.Nullable String description) {
         this.description = description;
         return this;
     }
@@ -88,11 +89,11 @@ public class UpdateWebhookRequest {
 
     @JsonProperty(JSON_PROPERTY_DESCRIPTION)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setDescription(String description) {
+    public void setDescription(@jakarta.annotation.Nullable String description) {
         this.description = description;
     }
 
-    public UpdateWebhookRequest events(List<WebhookEvent> events) {
+    public UpdateWebhookRequest events(@jakarta.annotation.Nullable List<WebhookEvent> events) {
         this.events = events;
         return this;
     }
@@ -119,11 +120,11 @@ public class UpdateWebhookRequest {
 
     @JsonProperty(JSON_PROPERTY_EVENTS)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setEvents(List<WebhookEvent> events) {
+    public void setEvents(@jakarta.annotation.Nullable List<WebhookEvent> events) {
         this.events = events;
     }
 
-    public UpdateWebhookRequest enabled(Boolean enabled) {
+    public UpdateWebhookRequest enabled(@jakarta.annotation.Nullable Boolean enabled) {
         this.enabled = enabled;
         return this;
     }
@@ -142,7 +143,7 @@ public class UpdateWebhookRequest {
 
     @JsonProperty(JSON_PROPERTY_ENABLED)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setEnabled(Boolean enabled) {
+    public void setEnabled(@jakarta.annotation.Nullable Boolean enabled) {
         this.enabled = enabled;
     }
 
@@ -229,8 +230,7 @@ public class UpdateWebhookRequest {
                             "%surl%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getUrl()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getUrl()))));
         }
 
         // add `description` to the URL query string
@@ -240,10 +240,7 @@ public class UpdateWebhookRequest {
                             "%sdescription%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getDescription()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getDescription()))));
         }
 
         // add `events` to the URL query string
@@ -259,10 +256,8 @@ public class UpdateWebhookRequest {
                                             ? ""
                                             : String.format(
                                                     "%s%d%s", containerPrefix, i, containerSuffix),
-                                    URLEncoder.encode(
-                                                    String.valueOf(getEvents().get(i)),
-                                                    StandardCharsets.UTF_8)
-                                            .replaceAll("\\+", "%20")));
+                                    ApiClient.urlEncode(
+                                            ApiClient.valueToString(getEvents().get(i)))));
                 }
             }
         }
@@ -274,8 +269,7 @@ public class UpdateWebhookRequest {
                             "%senabled%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getEnabled()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getEnabled()))));
         }
 
         return joiner.toString();

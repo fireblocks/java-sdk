@@ -13,24 +13,32 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
 /** SmartTransferManuallyFundTerm */
 @JsonPropertyOrder({SmartTransferManuallyFundTerm.JSON_PROPERTY_TX_HASH})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class SmartTransferManuallyFundTerm {
     public static final String JSON_PROPERTY_TX_HASH = "txHash";
-    private String txHash;
+    @jakarta.annotation.Nonnull private String txHash;
 
     public SmartTransferManuallyFundTerm() {}
 
-    public SmartTransferManuallyFundTerm txHash(String txHash) {
+    @JsonCreator
+    public SmartTransferManuallyFundTerm(
+            @JsonProperty(value = JSON_PROPERTY_TX_HASH, required = true) String txHash) {
+        this.txHash = txHash;
+    }
+
+    public SmartTransferManuallyFundTerm txHash(@jakarta.annotation.Nonnull String txHash) {
         this.txHash = txHash;
         return this;
     }
@@ -49,7 +57,7 @@ public class SmartTransferManuallyFundTerm {
 
     @JsonProperty(JSON_PROPERTY_TX_HASH)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setTxHash(String txHash) {
+    public void setTxHash(@jakarta.annotation.Nonnull String txHash) {
         this.txHash = txHash;
     }
 
@@ -131,8 +139,7 @@ public class SmartTransferManuallyFundTerm {
                             "%stxHash%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getTxHash()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getTxHash()))));
         }
 
         return joiner.toString();

@@ -16,8 +16,7 @@ package com.fireblocks.sdk.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -26,17 +25,19 @@ import java.util.StringJoiner;
     GasStationPropertiesResponse.JSON_PROPERTY_BALANCE,
     GasStationPropertiesResponse.JSON_PROPERTY_CONFIGURATION
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class GasStationPropertiesResponse {
     public static final String JSON_PROPERTY_BALANCE = "balance";
-    private Object balance;
+    @jakarta.annotation.Nullable private Object balance;
 
     public static final String JSON_PROPERTY_CONFIGURATION = "configuration";
-    private GasStationConfigurationResponse _configuration;
+    @jakarta.annotation.Nullable private GasStationConfigurationResponse _configuration;
 
     public GasStationPropertiesResponse() {}
 
-    public GasStationPropertiesResponse balance(Object balance) {
+    public GasStationPropertiesResponse balance(@jakarta.annotation.Nullable Object balance) {
         this.balance = balance;
         return this;
     }
@@ -55,12 +56,12 @@ public class GasStationPropertiesResponse {
 
     @JsonProperty(JSON_PROPERTY_BALANCE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setBalance(Object balance) {
+    public void setBalance(@jakarta.annotation.Nullable Object balance) {
         this.balance = balance;
     }
 
     public GasStationPropertiesResponse _configuration(
-            GasStationConfigurationResponse _configuration) {
+            @jakarta.annotation.Nullable GasStationConfigurationResponse _configuration) {
         this._configuration = _configuration;
         return this;
     }
@@ -79,7 +80,8 @@ public class GasStationPropertiesResponse {
 
     @JsonProperty(JSON_PROPERTY_CONFIGURATION)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setConfiguration(GasStationConfigurationResponse _configuration) {
+    public void setConfiguration(
+            @jakarta.annotation.Nullable GasStationConfigurationResponse _configuration) {
         this._configuration = _configuration;
     }
 
@@ -163,8 +165,7 @@ public class GasStationPropertiesResponse {
                             "%sbalance%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getBalance()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getBalance()))));
         }
 
         // add `configuration` to the URL query string

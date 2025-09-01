@@ -16,8 +16,7 @@ package com.fireblocks.sdk.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -28,17 +27,19 @@ import java.util.StringJoiner;
  */
 @Deprecated
 @JsonPropertyOrder({NetworkChannel.JSON_PROPERTY_NETWORK_ID, NetworkChannel.JSON_PROPERTY_NAME})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class NetworkChannel {
     public static final String JSON_PROPERTY_NETWORK_ID = "networkId";
-    private String networkId;
+    @jakarta.annotation.Nullable private String networkId;
 
     public static final String JSON_PROPERTY_NAME = "name";
-    private String name;
+    @jakarta.annotation.Nullable private String name;
 
     public NetworkChannel() {}
 
-    public NetworkChannel networkId(String networkId) {
+    public NetworkChannel networkId(@jakarta.annotation.Nullable String networkId) {
         this.networkId = networkId;
         return this;
     }
@@ -57,11 +58,11 @@ public class NetworkChannel {
 
     @JsonProperty(JSON_PROPERTY_NETWORK_ID)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setNetworkId(String networkId) {
+    public void setNetworkId(@jakarta.annotation.Nullable String networkId) {
         this.networkId = networkId;
     }
 
-    public NetworkChannel name(String name) {
+    public NetworkChannel name(@jakarta.annotation.Nullable String name) {
         this.name = name;
         return this;
     }
@@ -80,7 +81,7 @@ public class NetworkChannel {
 
     @JsonProperty(JSON_PROPERTY_NAME)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setName(String name) {
+    public void setName(@jakarta.annotation.Nullable String name) {
         this.name = name;
     }
 
@@ -163,9 +164,7 @@ public class NetworkChannel {
                             "%snetworkId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getNetworkId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getNetworkId()))));
         }
 
         // add `name` to the URL query string
@@ -175,8 +174,7 @@ public class NetworkChannel {
                             "%sname%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getName()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getName()))));
         }
 
         return joiner.toString();

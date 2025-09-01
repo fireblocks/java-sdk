@@ -18,8 +18,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonValue;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -56,48 +55,54 @@ import java.util.StringJoiner;
     TransactionRequest.JSON_PROPERTY_CPU_STAKING,
     TransactionRequest.JSON_PROPERTY_USE_GASLESS
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class TransactionRequest {
     public static final String JSON_PROPERTY_OPERATION = "operation";
+
+    @jakarta.annotation.Nullable
     private TransactionOperation operation = TransactionOperation.TRANSFER;
 
     public static final String JSON_PROPERTY_NOTE = "note";
-    private String note;
+    @jakarta.annotation.Nullable private String note;
 
     public static final String JSON_PROPERTY_EXTERNAL_TX_ID = "externalTxId";
-    private String externalTxId;
+    @jakarta.annotation.Nullable private String externalTxId;
 
     public static final String JSON_PROPERTY_ASSET_ID = "assetId";
-    private String assetId;
+    @jakarta.annotation.Nullable private String assetId;
 
     public static final String JSON_PROPERTY_SOURCE = "source";
-    private SourceTransferPeerPath source;
+    @jakarta.annotation.Nullable private SourceTransferPeerPath source;
 
     public static final String JSON_PROPERTY_DESTINATION = "destination";
-    private DestinationTransferPeerPath destination;
+    @jakarta.annotation.Nullable private DestinationTransferPeerPath destination;
 
     public static final String JSON_PROPERTY_DESTINATIONS = "destinations";
-    private List<TransactionRequestDestination> destinations;
+
+    @jakarta.annotation.Nullable
+    private List<TransactionRequestDestination> destinations = new ArrayList<>();
 
     public static final String JSON_PROPERTY_AMOUNT = "amount";
-    private TransactionRequestAmount amount;
+    @jakarta.annotation.Nullable private TransactionRequestAmount amount;
 
     public static final String JSON_PROPERTY_TREAT_AS_GROSS_AMOUNT = "treatAsGrossAmount";
-    private Boolean treatAsGrossAmount;
+    @jakarta.annotation.Nullable private Boolean treatAsGrossAmount;
 
     public static final String JSON_PROPERTY_FORCE_SWEEP = "forceSweep";
-    private Boolean forceSweep;
+    @jakarta.annotation.Nullable private Boolean forceSweep;
 
     /**
      * For UTXO or EVM-based blockchains only. Defines the blockchain fee level which will be payed
      * for the transaction. Alternatively, specific fee estimation parameters exist below.
      */
     public enum FeeLevelEnum {
-        LOW("LOW"),
+        LOW(String.valueOf("LOW")),
 
-        MEDIUM("MEDIUM"),
+        MEDIUM(String.valueOf("MEDIUM")),
 
-        HIGH("HIGH");
+        HIGH(String.valueOf("HIGH"));
 
         private String value;
 
@@ -127,62 +132,63 @@ public class TransactionRequest {
     }
 
     public static final String JSON_PROPERTY_FEE_LEVEL = "feeLevel";
-    private FeeLevelEnum feeLevel;
+    @jakarta.annotation.Nullable private FeeLevelEnum feeLevel;
 
     public static final String JSON_PROPERTY_FEE = "fee";
-    private TransactionRequestFee fee;
+    @jakarta.annotation.Nullable private TransactionRequestFee fee;
 
     public static final String JSON_PROPERTY_PRIORITY_FEE = "priorityFee";
-    private TransactionRequestPriorityFee priorityFee;
+    @jakarta.annotation.Nullable private TransactionRequestPriorityFee priorityFee;
 
     public static final String JSON_PROPERTY_FAIL_ON_LOW_FEE = "failOnLowFee";
-    private Boolean failOnLowFee;
+    @jakarta.annotation.Nullable private Boolean failOnLowFee;
 
     public static final String JSON_PROPERTY_MAX_FEE = "maxFee";
-    private String maxFee;
+    @jakarta.annotation.Nullable private String maxFee;
 
     public static final String JSON_PROPERTY_MAX_TOTAL_FEE = "maxTotalFee";
-    private String maxTotalFee;
+    @jakarta.annotation.Nullable private String maxTotalFee;
 
     public static final String JSON_PROPERTY_GAS_LIMIT = "gasLimit";
-    private TransactionRequestGasLimit gasLimit;
+    @jakarta.annotation.Nullable private TransactionRequestGasLimit gasLimit;
 
     public static final String JSON_PROPERTY_GAS_PRICE = "gasPrice";
-    private TransactionRequestGasPrice gasPrice;
+    @jakarta.annotation.Nullable private TransactionRequestGasPrice gasPrice;
 
     public static final String JSON_PROPERTY_NETWORK_FEE = "networkFee";
-    private TransactionRequestNetworkFee networkFee;
+    @jakarta.annotation.Nullable private TransactionRequestNetworkFee networkFee;
 
     public static final String JSON_PROPERTY_REPLACE_TX_BY_HASH = "replaceTxByHash";
-    private String replaceTxByHash;
+    @jakarta.annotation.Nullable private String replaceTxByHash;
 
     public static final String JSON_PROPERTY_EXTRA_PARAMETERS = "extraParameters";
-    private Object extraParameters;
+    @jakarta.annotation.Nullable private Object extraParameters;
 
     public static final String JSON_PROPERTY_CUSTOMER_REF_ID = "customerRefId";
-    private String customerRefId;
+    @jakarta.annotation.Nullable private String customerRefId;
 
     public static final String JSON_PROPERTY_TRAVEL_RULE_MESSAGE = "travelRuleMessage";
-    private TravelRuleCreateTransactionRequest travelRuleMessage;
+    @jakarta.annotation.Nullable private TravelRuleCreateTransactionRequest travelRuleMessage;
 
     public static final String JSON_PROPERTY_TRAVEL_RULE_MESSAGE_ID = "travelRuleMessageId";
-    private String travelRuleMessageId;
+    @jakarta.annotation.Nullable private String travelRuleMessageId;
 
     public static final String JSON_PROPERTY_AUTO_STAKING = "autoStaking";
-    private Boolean autoStaking;
+    @jakarta.annotation.Nullable private Boolean autoStaking;
 
     public static final String JSON_PROPERTY_NETWORK_STAKING = "networkStaking";
-    private TransactionRequestNetworkStaking networkStaking;
+    @jakarta.annotation.Nullable private TransactionRequestNetworkStaking networkStaking;
 
     public static final String JSON_PROPERTY_CPU_STAKING = "cpuStaking";
-    private TransactionRequestNetworkStaking cpuStaking;
+    @jakarta.annotation.Nullable private TransactionRequestNetworkStaking cpuStaking;
 
     public static final String JSON_PROPERTY_USE_GASLESS = "useGasless";
-    private Boolean useGasless;
+    @jakarta.annotation.Nullable private Boolean useGasless;
 
     public TransactionRequest() {}
 
-    public TransactionRequest operation(TransactionOperation operation) {
+    public TransactionRequest operation(
+            @jakarta.annotation.Nullable TransactionOperation operation) {
         this.operation = operation;
         return this;
     }
@@ -201,11 +207,11 @@ public class TransactionRequest {
 
     @JsonProperty(JSON_PROPERTY_OPERATION)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setOperation(TransactionOperation operation) {
+    public void setOperation(@jakarta.annotation.Nullable TransactionOperation operation) {
         this.operation = operation;
     }
 
-    public TransactionRequest note(String note) {
+    public TransactionRequest note(@jakarta.annotation.Nullable String note) {
         this.note = note;
         return this;
     }
@@ -225,24 +231,25 @@ public class TransactionRequest {
 
     @JsonProperty(JSON_PROPERTY_NOTE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setNote(String note) {
+    public void setNote(@jakarta.annotation.Nullable String note) {
         this.note = note;
     }
 
-    public TransactionRequest externalTxId(String externalTxId) {
+    public TransactionRequest externalTxId(@jakarta.annotation.Nullable String externalTxId) {
         this.externalTxId = externalTxId;
         return this;
     }
 
     /**
-     * An optional but highly recommended parameter. Fireblocks will reject future transactions with
-     * same ID. You should set this to a unique ID representing the transaction, to avoid submitting
-     * the same transaction twice. This helps with cases where submitting the transaction responds
-     * with an error code due to Internet interruptions, but the transaction was actually sent and
-     * processed. To validate whether a transaction has been processed, [Find a specific transaction
-     * by external transaction
-     * ID](https://developers.fireblocks.com/reference/get_transactions-external-tx-id-externaltxid).
-     * There is no specific format required for this parameter.
+     * **This parameter will become required for all transactions on March 1, 2026.** This parameter
+     * allows you to add a unique ID of your own to help prevent duplicate transactions. No specific
+     * format is required for this parameter. After you submit a transaction with an external ID,
+     * Fireblocks will automatically reject all future transactions with the same ID. Using an
+     * external ID primarily helps in situations where, even though a submitted transaction responds
+     * with an error due to an internet outage, the transaction was still sent to and processed on
+     * the blockchain. Use the [Get a specific transaction by external transaction
+     * ID](https://developers.fireblocks.com/reference/gettransactionbyexternalid) endpoint to
+     * validate whether these transactions have been processed.
      *
      * @return externalTxId
      */
@@ -255,11 +262,11 @@ public class TransactionRequest {
 
     @JsonProperty(JSON_PROPERTY_EXTERNAL_TX_ID)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setExternalTxId(String externalTxId) {
+    public void setExternalTxId(@jakarta.annotation.Nullable String externalTxId) {
         this.externalTxId = externalTxId;
     }
 
-    public TransactionRequest assetId(String assetId) {
+    public TransactionRequest assetId(@jakarta.annotation.Nullable String assetId) {
         this.assetId = assetId;
         return this;
     }
@@ -280,11 +287,11 @@ public class TransactionRequest {
 
     @JsonProperty(JSON_PROPERTY_ASSET_ID)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAssetId(String assetId) {
+    public void setAssetId(@jakarta.annotation.Nullable String assetId) {
         this.assetId = assetId;
     }
 
-    public TransactionRequest source(SourceTransferPeerPath source) {
+    public TransactionRequest source(@jakarta.annotation.Nullable SourceTransferPeerPath source) {
         this.source = source;
         return this;
     }
@@ -303,11 +310,12 @@ public class TransactionRequest {
 
     @JsonProperty(JSON_PROPERTY_SOURCE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setSource(SourceTransferPeerPath source) {
+    public void setSource(@jakarta.annotation.Nullable SourceTransferPeerPath source) {
         this.source = source;
     }
 
-    public TransactionRequest destination(DestinationTransferPeerPath destination) {
+    public TransactionRequest destination(
+            @jakarta.annotation.Nullable DestinationTransferPeerPath destination) {
         this.destination = destination;
         return this;
     }
@@ -326,11 +334,13 @@ public class TransactionRequest {
 
     @JsonProperty(JSON_PROPERTY_DESTINATION)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setDestination(DestinationTransferPeerPath destination) {
+    public void setDestination(
+            @jakarta.annotation.Nullable DestinationTransferPeerPath destination) {
         this.destination = destination;
     }
 
-    public TransactionRequest destinations(List<TransactionRequestDestination> destinations) {
+    public TransactionRequest destinations(
+            @jakarta.annotation.Nullable List<TransactionRequestDestination> destinations) {
         this.destinations = destinations;
         return this;
     }
@@ -357,11 +367,12 @@ public class TransactionRequest {
 
     @JsonProperty(JSON_PROPERTY_DESTINATIONS)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setDestinations(List<TransactionRequestDestination> destinations) {
+    public void setDestinations(
+            @jakarta.annotation.Nullable List<TransactionRequestDestination> destinations) {
         this.destinations = destinations;
     }
 
-    public TransactionRequest amount(TransactionRequestAmount amount) {
+    public TransactionRequest amount(@jakarta.annotation.Nullable TransactionRequestAmount amount) {
         this.amount = amount;
         return this;
     }
@@ -380,11 +391,12 @@ public class TransactionRequest {
 
     @JsonProperty(JSON_PROPERTY_AMOUNT)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAmount(TransactionRequestAmount amount) {
+    public void setAmount(@jakarta.annotation.Nullable TransactionRequestAmount amount) {
         this.amount = amount;
     }
 
-    public TransactionRequest treatAsGrossAmount(Boolean treatAsGrossAmount) {
+    public TransactionRequest treatAsGrossAmount(
+            @jakarta.annotation.Nullable Boolean treatAsGrossAmount) {
         this.treatAsGrossAmount = treatAsGrossAmount;
         return this;
     }
@@ -407,11 +419,11 @@ public class TransactionRequest {
 
     @JsonProperty(JSON_PROPERTY_TREAT_AS_GROSS_AMOUNT)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setTreatAsGrossAmount(Boolean treatAsGrossAmount) {
+    public void setTreatAsGrossAmount(@jakarta.annotation.Nullable Boolean treatAsGrossAmount) {
         this.treatAsGrossAmount = treatAsGrossAmount;
     }
 
-    public TransactionRequest forceSweep(Boolean forceSweep) {
+    public TransactionRequest forceSweep(@jakarta.annotation.Nullable Boolean forceSweep) {
         this.forceSweep = forceSweep;
         return this;
     }
@@ -433,11 +445,11 @@ public class TransactionRequest {
 
     @JsonProperty(JSON_PROPERTY_FORCE_SWEEP)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setForceSweep(Boolean forceSweep) {
+    public void setForceSweep(@jakarta.annotation.Nullable Boolean forceSweep) {
         this.forceSweep = forceSweep;
     }
 
-    public TransactionRequest feeLevel(FeeLevelEnum feeLevel) {
+    public TransactionRequest feeLevel(@jakarta.annotation.Nullable FeeLevelEnum feeLevel) {
         this.feeLevel = feeLevel;
         return this;
     }
@@ -457,11 +469,11 @@ public class TransactionRequest {
 
     @JsonProperty(JSON_PROPERTY_FEE_LEVEL)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setFeeLevel(FeeLevelEnum feeLevel) {
+    public void setFeeLevel(@jakarta.annotation.Nullable FeeLevelEnum feeLevel) {
         this.feeLevel = feeLevel;
     }
 
-    public TransactionRequest fee(TransactionRequestFee fee) {
+    public TransactionRequest fee(@jakarta.annotation.Nullable TransactionRequestFee fee) {
         this.fee = fee;
         return this;
     }
@@ -480,11 +492,12 @@ public class TransactionRequest {
 
     @JsonProperty(JSON_PROPERTY_FEE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setFee(TransactionRequestFee fee) {
+    public void setFee(@jakarta.annotation.Nullable TransactionRequestFee fee) {
         this.fee = fee;
     }
 
-    public TransactionRequest priorityFee(TransactionRequestPriorityFee priorityFee) {
+    public TransactionRequest priorityFee(
+            @jakarta.annotation.Nullable TransactionRequestPriorityFee priorityFee) {
         this.priorityFee = priorityFee;
         return this;
     }
@@ -503,11 +516,12 @@ public class TransactionRequest {
 
     @JsonProperty(JSON_PROPERTY_PRIORITY_FEE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setPriorityFee(TransactionRequestPriorityFee priorityFee) {
+    public void setPriorityFee(
+            @jakarta.annotation.Nullable TransactionRequestPriorityFee priorityFee) {
         this.priorityFee = priorityFee;
     }
 
-    public TransactionRequest failOnLowFee(Boolean failOnLowFee) {
+    public TransactionRequest failOnLowFee(@jakarta.annotation.Nullable Boolean failOnLowFee) {
         this.failOnLowFee = failOnLowFee;
         return this;
     }
@@ -528,11 +542,11 @@ public class TransactionRequest {
 
     @JsonProperty(JSON_PROPERTY_FAIL_ON_LOW_FEE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setFailOnLowFee(Boolean failOnLowFee) {
+    public void setFailOnLowFee(@jakarta.annotation.Nullable Boolean failOnLowFee) {
         this.failOnLowFee = failOnLowFee;
     }
 
-    public TransactionRequest maxFee(String maxFee) {
+    public TransactionRequest maxFee(@jakarta.annotation.Nullable String maxFee) {
         this.maxFee = maxFee;
         return this;
     }
@@ -553,11 +567,11 @@ public class TransactionRequest {
 
     @JsonProperty(JSON_PROPERTY_MAX_FEE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setMaxFee(String maxFee) {
+    public void setMaxFee(@jakarta.annotation.Nullable String maxFee) {
         this.maxFee = maxFee;
     }
 
-    public TransactionRequest maxTotalFee(String maxTotalFee) {
+    public TransactionRequest maxTotalFee(@jakarta.annotation.Nullable String maxTotalFee) {
         this.maxTotalFee = maxTotalFee;
         return this;
     }
@@ -577,11 +591,12 @@ public class TransactionRequest {
 
     @JsonProperty(JSON_PROPERTY_MAX_TOTAL_FEE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setMaxTotalFee(String maxTotalFee) {
+    public void setMaxTotalFee(@jakarta.annotation.Nullable String maxTotalFee) {
         this.maxTotalFee = maxTotalFee;
     }
 
-    public TransactionRequest gasLimit(TransactionRequestGasLimit gasLimit) {
+    public TransactionRequest gasLimit(
+            @jakarta.annotation.Nullable TransactionRequestGasLimit gasLimit) {
         this.gasLimit = gasLimit;
         return this;
     }
@@ -600,11 +615,12 @@ public class TransactionRequest {
 
     @JsonProperty(JSON_PROPERTY_GAS_LIMIT)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setGasLimit(TransactionRequestGasLimit gasLimit) {
+    public void setGasLimit(@jakarta.annotation.Nullable TransactionRequestGasLimit gasLimit) {
         this.gasLimit = gasLimit;
     }
 
-    public TransactionRequest gasPrice(TransactionRequestGasPrice gasPrice) {
+    public TransactionRequest gasPrice(
+            @jakarta.annotation.Nullable TransactionRequestGasPrice gasPrice) {
         this.gasPrice = gasPrice;
         return this;
     }
@@ -623,11 +639,12 @@ public class TransactionRequest {
 
     @JsonProperty(JSON_PROPERTY_GAS_PRICE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setGasPrice(TransactionRequestGasPrice gasPrice) {
+    public void setGasPrice(@jakarta.annotation.Nullable TransactionRequestGasPrice gasPrice) {
         this.gasPrice = gasPrice;
     }
 
-    public TransactionRequest networkFee(TransactionRequestNetworkFee networkFee) {
+    public TransactionRequest networkFee(
+            @jakarta.annotation.Nullable TransactionRequestNetworkFee networkFee) {
         this.networkFee = networkFee;
         return this;
     }
@@ -646,11 +663,12 @@ public class TransactionRequest {
 
     @JsonProperty(JSON_PROPERTY_NETWORK_FEE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setNetworkFee(TransactionRequestNetworkFee networkFee) {
+    public void setNetworkFee(
+            @jakarta.annotation.Nullable TransactionRequestNetworkFee networkFee) {
         this.networkFee = networkFee;
     }
 
-    public TransactionRequest replaceTxByHash(String replaceTxByHash) {
+    public TransactionRequest replaceTxByHash(@jakarta.annotation.Nullable String replaceTxByHash) {
         this.replaceTxByHash = replaceTxByHash;
         return this;
     }
@@ -671,11 +689,11 @@ public class TransactionRequest {
 
     @JsonProperty(JSON_PROPERTY_REPLACE_TX_BY_HASH)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setReplaceTxByHash(String replaceTxByHash) {
+    public void setReplaceTxByHash(@jakarta.annotation.Nullable String replaceTxByHash) {
         this.replaceTxByHash = replaceTxByHash;
     }
 
-    public TransactionRequest extraParameters(Object extraParameters) {
+    public TransactionRequest extraParameters(@jakarta.annotation.Nullable Object extraParameters) {
         this.extraParameters = extraParameters;
         return this;
     }
@@ -714,11 +732,11 @@ public class TransactionRequest {
 
     @JsonProperty(JSON_PROPERTY_EXTRA_PARAMETERS)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setExtraParameters(Object extraParameters) {
+    public void setExtraParameters(@jakarta.annotation.Nullable Object extraParameters) {
         this.extraParameters = extraParameters;
     }
 
-    public TransactionRequest customerRefId(String customerRefId) {
+    public TransactionRequest customerRefId(@jakarta.annotation.Nullable String customerRefId) {
         this.customerRefId = customerRefId;
         return this;
     }
@@ -737,12 +755,12 @@ public class TransactionRequest {
 
     @JsonProperty(JSON_PROPERTY_CUSTOMER_REF_ID)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setCustomerRefId(String customerRefId) {
+    public void setCustomerRefId(@jakarta.annotation.Nullable String customerRefId) {
         this.customerRefId = customerRefId;
     }
 
     public TransactionRequest travelRuleMessage(
-            TravelRuleCreateTransactionRequest travelRuleMessage) {
+            @jakarta.annotation.Nullable TravelRuleCreateTransactionRequest travelRuleMessage) {
         this.travelRuleMessage = travelRuleMessage;
         return this;
     }
@@ -761,11 +779,13 @@ public class TransactionRequest {
 
     @JsonProperty(JSON_PROPERTY_TRAVEL_RULE_MESSAGE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setTravelRuleMessage(TravelRuleCreateTransactionRequest travelRuleMessage) {
+    public void setTravelRuleMessage(
+            @jakarta.annotation.Nullable TravelRuleCreateTransactionRequest travelRuleMessage) {
         this.travelRuleMessage = travelRuleMessage;
     }
 
-    public TransactionRequest travelRuleMessageId(String travelRuleMessageId) {
+    public TransactionRequest travelRuleMessageId(
+            @jakarta.annotation.Nullable String travelRuleMessageId) {
         this.travelRuleMessageId = travelRuleMessageId;
         return this;
     }
@@ -785,11 +805,11 @@ public class TransactionRequest {
 
     @JsonProperty(JSON_PROPERTY_TRAVEL_RULE_MESSAGE_ID)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setTravelRuleMessageId(String travelRuleMessageId) {
+    public void setTravelRuleMessageId(@jakarta.annotation.Nullable String travelRuleMessageId) {
         this.travelRuleMessageId = travelRuleMessageId;
     }
 
-    public TransactionRequest autoStaking(Boolean autoStaking) {
+    public TransactionRequest autoStaking(@jakarta.annotation.Nullable Boolean autoStaking) {
         this.autoStaking = autoStaking;
         return this;
     }
@@ -810,11 +830,12 @@ public class TransactionRequest {
 
     @JsonProperty(JSON_PROPERTY_AUTO_STAKING)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAutoStaking(Boolean autoStaking) {
+    public void setAutoStaking(@jakarta.annotation.Nullable Boolean autoStaking) {
         this.autoStaking = autoStaking;
     }
 
-    public TransactionRequest networkStaking(TransactionRequestNetworkStaking networkStaking) {
+    public TransactionRequest networkStaking(
+            @jakarta.annotation.Nullable TransactionRequestNetworkStaking networkStaking) {
         this.networkStaking = networkStaking;
         return this;
     }
@@ -835,11 +856,13 @@ public class TransactionRequest {
 
     @JsonProperty(JSON_PROPERTY_NETWORK_STAKING)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setNetworkStaking(TransactionRequestNetworkStaking networkStaking) {
+    public void setNetworkStaking(
+            @jakarta.annotation.Nullable TransactionRequestNetworkStaking networkStaking) {
         this.networkStaking = networkStaking;
     }
 
-    public TransactionRequest cpuStaking(TransactionRequestNetworkStaking cpuStaking) {
+    public TransactionRequest cpuStaking(
+            @jakarta.annotation.Nullable TransactionRequestNetworkStaking cpuStaking) {
         this.cpuStaking = cpuStaking;
         return this;
     }
@@ -860,11 +883,12 @@ public class TransactionRequest {
 
     @JsonProperty(JSON_PROPERTY_CPU_STAKING)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setCpuStaking(TransactionRequestNetworkStaking cpuStaking) {
+    public void setCpuStaking(
+            @jakarta.annotation.Nullable TransactionRequestNetworkStaking cpuStaking) {
         this.cpuStaking = cpuStaking;
     }
 
-    public TransactionRequest useGasless(Boolean useGasless) {
+    public TransactionRequest useGasless(@jakarta.annotation.Nullable Boolean useGasless) {
         this.useGasless = useGasless;
         return this;
     }
@@ -883,7 +907,7 @@ public class TransactionRequest {
 
     @JsonProperty(JSON_PROPERTY_USE_GASLESS)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setUseGasless(Boolean useGasless) {
+    public void setUseGasless(@jakarta.annotation.Nullable Boolean useGasless) {
         this.useGasless = useGasless;
     }
 
@@ -1052,9 +1076,7 @@ public class TransactionRequest {
                             "%soperation%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getOperation()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getOperation()))));
         }
 
         // add `note` to the URL query string
@@ -1064,8 +1086,7 @@ public class TransactionRequest {
                             "%snote%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getNote()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getNote()))));
         }
 
         // add `externalTxId` to the URL query string
@@ -1075,10 +1096,7 @@ public class TransactionRequest {
                             "%sexternalTxId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getExternalTxId()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getExternalTxId()))));
         }
 
         // add `assetId` to the URL query string
@@ -1088,8 +1106,7 @@ public class TransactionRequest {
                             "%sassetId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getAssetId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getAssetId()))));
         }
 
         // add `source` to the URL query string
@@ -1137,10 +1154,7 @@ public class TransactionRequest {
                             "%streatAsGrossAmount%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getTreatAsGrossAmount()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getTreatAsGrossAmount()))));
         }
 
         // add `forceSweep` to the URL query string
@@ -1150,9 +1164,7 @@ public class TransactionRequest {
                             "%sforceSweep%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getForceSweep()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getForceSweep()))));
         }
 
         // add `feeLevel` to the URL query string
@@ -1162,8 +1174,7 @@ public class TransactionRequest {
                             "%sfeeLevel%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getFeeLevel()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getFeeLevel()))));
         }
 
         // add `fee` to the URL query string
@@ -1183,10 +1194,7 @@ public class TransactionRequest {
                             "%sfailOnLowFee%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getFailOnLowFee()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getFailOnLowFee()))));
         }
 
         // add `maxFee` to the URL query string
@@ -1196,8 +1204,7 @@ public class TransactionRequest {
                             "%smaxFee%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getMaxFee()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getMaxFee()))));
         }
 
         // add `maxTotalFee` to the URL query string
@@ -1207,10 +1214,7 @@ public class TransactionRequest {
                             "%smaxTotalFee%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getMaxTotalFee()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getMaxTotalFee()))));
         }
 
         // add `gasLimit` to the URL query string
@@ -1235,10 +1239,7 @@ public class TransactionRequest {
                             "%sreplaceTxByHash%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getReplaceTxByHash()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getReplaceTxByHash()))));
         }
 
         // add `extraParameters` to the URL query string
@@ -1248,10 +1249,7 @@ public class TransactionRequest {
                             "%sextraParameters%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getExtraParameters()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getExtraParameters()))));
         }
 
         // add `customerRefId` to the URL query string
@@ -1261,10 +1259,7 @@ public class TransactionRequest {
                             "%scustomerRefId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getCustomerRefId()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getCustomerRefId()))));
         }
 
         // add `travelRuleMessage` to the URL query string
@@ -1280,10 +1275,8 @@ public class TransactionRequest {
                             "%stravelRuleMessageId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getTravelRuleMessageId()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(
+                                    ApiClient.valueToString(getTravelRuleMessageId()))));
         }
 
         // add `autoStaking` to the URL query string
@@ -1293,10 +1286,7 @@ public class TransactionRequest {
                             "%sautoStaking%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getAutoStaking()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getAutoStaking()))));
         }
 
         // add `networkStaking` to the URL query string
@@ -1316,9 +1306,7 @@ public class TransactionRequest {
                             "%suseGasless%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getUseGasless()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getUseGasless()))));
         }
 
         return joiner.toString();

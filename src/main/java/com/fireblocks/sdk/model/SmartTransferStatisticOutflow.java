@@ -16,8 +16,7 @@ package com.fireblocks.sdk.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -28,17 +27,20 @@ import java.util.StringJoiner;
     SmartTransferStatisticOutflow.JSON_PROPERTY_COINS,
     SmartTransferStatisticOutflow.JSON_PROPERTY_TICKET_COUNT
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class SmartTransferStatisticOutflow {
     public static final String JSON_PROPERTY_COINS = "coins";
-    private List<SmartTransferCoinStatistic> coins;
+    @jakarta.annotation.Nullable private List<SmartTransferCoinStatistic> coins = new ArrayList<>();
 
     public static final String JSON_PROPERTY_TICKET_COUNT = "ticketCount";
-    private Integer ticketCount;
+    @jakarta.annotation.Nullable private Integer ticketCount;
 
     public SmartTransferStatisticOutflow() {}
 
-    public SmartTransferStatisticOutflow coins(List<SmartTransferCoinStatistic> coins) {
+    public SmartTransferStatisticOutflow coins(
+            @jakarta.annotation.Nullable List<SmartTransferCoinStatistic> coins) {
         this.coins = coins;
         return this;
     }
@@ -65,11 +67,12 @@ public class SmartTransferStatisticOutflow {
 
     @JsonProperty(JSON_PROPERTY_COINS)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setCoins(List<SmartTransferCoinStatistic> coins) {
+    public void setCoins(@jakarta.annotation.Nullable List<SmartTransferCoinStatistic> coins) {
         this.coins = coins;
     }
 
-    public SmartTransferStatisticOutflow ticketCount(Integer ticketCount) {
+    public SmartTransferStatisticOutflow ticketCount(
+            @jakarta.annotation.Nullable Integer ticketCount) {
         this.ticketCount = ticketCount;
         return this;
     }
@@ -88,7 +91,7 @@ public class SmartTransferStatisticOutflow {
 
     @JsonProperty(JSON_PROPERTY_TICKET_COUNT)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setTicketCount(Integer ticketCount) {
+    public void setTicketCount(@jakarta.annotation.Nullable Integer ticketCount) {
         this.ticketCount = ticketCount;
     }
 
@@ -195,10 +198,7 @@ public class SmartTransferStatisticOutflow {
                             "%sticketCount%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getTicketCount()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getTicketCount()))));
         }
 
         return joiner.toString();

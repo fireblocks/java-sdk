@@ -16,8 +16,7 @@ package com.fireblocks.sdk.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -32,35 +31,37 @@ import java.util.StringJoiner;
     ConsoleUser.JSON_PROPERTY_STATUS,
     ConsoleUser.JSON_PROPERTY_USER_TYPE
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class ConsoleUser {
     public static final String JSON_PROPERTY_ID = "id";
-    private String id;
+    @jakarta.annotation.Nullable private String id;
 
     public static final String JSON_PROPERTY_FIRST_NAME = "firstName";
-    private String firstName;
+    @jakarta.annotation.Nullable private String firstName;
 
     public static final String JSON_PROPERTY_LAST_NAME = "lastName";
-    private String lastName;
+    @jakarta.annotation.Nullable private String lastName;
 
     public static final String JSON_PROPERTY_EMAIL = "email";
-    private String email;
+    @jakarta.annotation.Nullable private String email;
 
     public static final String JSON_PROPERTY_ROLE = "role";
-    private UserRole role;
+    @jakarta.annotation.Nullable private UserRole role;
 
     public static final String JSON_PROPERTY_ENABLED = "enabled";
-    private Boolean enabled;
+    @jakarta.annotation.Nullable private Boolean enabled;
 
     public static final String JSON_PROPERTY_STATUS = "status";
-    private UserStatus status;
+    @jakarta.annotation.Nullable private UserStatus status;
 
     public static final String JSON_PROPERTY_USER_TYPE = "userType";
-    private UserType userType;
+    @jakarta.annotation.Nullable private UserType userType;
 
     public ConsoleUser() {}
 
-    public ConsoleUser id(String id) {
+    public ConsoleUser id(@jakarta.annotation.Nullable String id) {
         this.id = id;
         return this;
     }
@@ -79,11 +80,11 @@ public class ConsoleUser {
 
     @JsonProperty(JSON_PROPERTY_ID)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setId(String id) {
+    public void setId(@jakarta.annotation.Nullable String id) {
         this.id = id;
     }
 
-    public ConsoleUser firstName(String firstName) {
+    public ConsoleUser firstName(@jakarta.annotation.Nullable String firstName) {
         this.firstName = firstName;
         return this;
     }
@@ -102,11 +103,11 @@ public class ConsoleUser {
 
     @JsonProperty(JSON_PROPERTY_FIRST_NAME)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setFirstName(String firstName) {
+    public void setFirstName(@jakarta.annotation.Nullable String firstName) {
         this.firstName = firstName;
     }
 
-    public ConsoleUser lastName(String lastName) {
+    public ConsoleUser lastName(@jakarta.annotation.Nullable String lastName) {
         this.lastName = lastName;
         return this;
     }
@@ -125,11 +126,11 @@ public class ConsoleUser {
 
     @JsonProperty(JSON_PROPERTY_LAST_NAME)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setLastName(String lastName) {
+    public void setLastName(@jakarta.annotation.Nullable String lastName) {
         this.lastName = lastName;
     }
 
-    public ConsoleUser email(String email) {
+    public ConsoleUser email(@jakarta.annotation.Nullable String email) {
         this.email = email;
         return this;
     }
@@ -148,11 +149,11 @@ public class ConsoleUser {
 
     @JsonProperty(JSON_PROPERTY_EMAIL)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setEmail(String email) {
+    public void setEmail(@jakarta.annotation.Nullable String email) {
         this.email = email;
     }
 
-    public ConsoleUser role(UserRole role) {
+    public ConsoleUser role(@jakarta.annotation.Nullable UserRole role) {
         this.role = role;
         return this;
     }
@@ -171,11 +172,11 @@ public class ConsoleUser {
 
     @JsonProperty(JSON_PROPERTY_ROLE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setRole(UserRole role) {
+    public void setRole(@jakarta.annotation.Nullable UserRole role) {
         this.role = role;
     }
 
-    public ConsoleUser enabled(Boolean enabled) {
+    public ConsoleUser enabled(@jakarta.annotation.Nullable Boolean enabled) {
         this.enabled = enabled;
         return this;
     }
@@ -194,11 +195,11 @@ public class ConsoleUser {
 
     @JsonProperty(JSON_PROPERTY_ENABLED)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setEnabled(Boolean enabled) {
+    public void setEnabled(@jakarta.annotation.Nullable Boolean enabled) {
         this.enabled = enabled;
     }
 
-    public ConsoleUser status(UserStatus status) {
+    public ConsoleUser status(@jakarta.annotation.Nullable UserStatus status) {
         this.status = status;
         return this;
     }
@@ -217,11 +218,11 @@ public class ConsoleUser {
 
     @JsonProperty(JSON_PROPERTY_STATUS)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setStatus(UserStatus status) {
+    public void setStatus(@jakarta.annotation.Nullable UserStatus status) {
         this.status = status;
     }
 
-    public ConsoleUser userType(UserType userType) {
+    public ConsoleUser userType(@jakarta.annotation.Nullable UserType userType) {
         this.userType = userType;
         return this;
     }
@@ -240,7 +241,7 @@ public class ConsoleUser {
 
     @JsonProperty(JSON_PROPERTY_USER_TYPE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setUserType(UserType userType) {
+    public void setUserType(@jakarta.annotation.Nullable UserType userType) {
         this.userType = userType;
     }
 
@@ -333,10 +334,7 @@ public class ConsoleUser {
             joiner.add(
                     String.format(
                             "%sid%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(String.valueOf(getId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getId()))));
         }
 
         // add `firstName` to the URL query string
@@ -346,9 +344,7 @@ public class ConsoleUser {
                             "%sfirstName%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getFirstName()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getFirstName()))));
         }
 
         // add `lastName` to the URL query string
@@ -358,8 +354,7 @@ public class ConsoleUser {
                             "%slastName%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getLastName()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getLastName()))));
         }
 
         // add `email` to the URL query string
@@ -369,8 +364,7 @@ public class ConsoleUser {
                             "%semail%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getEmail()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getEmail()))));
         }
 
         // add `role` to the URL query string
@@ -380,8 +374,7 @@ public class ConsoleUser {
                             "%srole%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getRole()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getRole()))));
         }
 
         // add `enabled` to the URL query string
@@ -391,8 +384,7 @@ public class ConsoleUser {
                             "%senabled%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getEnabled()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getEnabled()))));
         }
 
         // add `status` to the URL query string
@@ -402,8 +394,7 @@ public class ConsoleUser {
                             "%sstatus%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getStatus()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getStatus()))));
         }
 
         // add `userType` to the URL query string
@@ -413,8 +404,7 @@ public class ConsoleUser {
                             "%suserType%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getUserType()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getUserType()))));
         }
 
         return joiner.toString();

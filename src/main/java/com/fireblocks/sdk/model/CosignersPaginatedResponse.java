@@ -13,11 +13,11 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -28,17 +28,25 @@ import java.util.StringJoiner;
     CosignersPaginatedResponse.JSON_PROPERTY_DATA,
     CosignersPaginatedResponse.JSON_PROPERTY_NEXT
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class CosignersPaginatedResponse {
     public static final String JSON_PROPERTY_DATA = "data";
-    private List<Cosigner> data = new ArrayList<>();
+    @jakarta.annotation.Nonnull private List<Cosigner> data = new ArrayList<>();
 
     public static final String JSON_PROPERTY_NEXT = "next";
-    private String next;
+    @jakarta.annotation.Nullable private String next;
 
     public CosignersPaginatedResponse() {}
 
-    public CosignersPaginatedResponse data(List<Cosigner> data) {
+    @JsonCreator
+    public CosignersPaginatedResponse(
+            @JsonProperty(value = JSON_PROPERTY_DATA, required = true) List<Cosigner> data) {
+        this.data = data;
+    }
+
+    public CosignersPaginatedResponse data(@jakarta.annotation.Nonnull List<Cosigner> data) {
         this.data = data;
         return this;
     }
@@ -65,11 +73,11 @@ public class CosignersPaginatedResponse {
 
     @JsonProperty(JSON_PROPERTY_DATA)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setData(List<Cosigner> data) {
+    public void setData(@jakarta.annotation.Nonnull List<Cosigner> data) {
         this.data = data;
     }
 
-    public CosignersPaginatedResponse next(String next) {
+    public CosignersPaginatedResponse next(@jakarta.annotation.Nullable String next) {
         this.next = next;
         return this;
     }
@@ -88,7 +96,7 @@ public class CosignersPaginatedResponse {
 
     @JsonProperty(JSON_PROPERTY_NEXT)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setNext(String next) {
+    public void setNext(@jakarta.annotation.Nullable String next) {
         this.next = next;
     }
 
@@ -194,8 +202,7 @@ public class CosignersPaginatedResponse {
                             "%snext%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getNext()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getNext()))));
         }
 
         return joiner.toString();

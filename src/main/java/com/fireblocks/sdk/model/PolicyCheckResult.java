@@ -13,12 +13,12 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fireblocks.sdk.ApiClient;
 import java.math.BigDecimal;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -29,17 +29,28 @@ import java.util.StringJoiner;
     PolicyCheckResult.JSON_PROPERTY_ERRORS,
     PolicyCheckResult.JSON_PROPERTY_RESULTS
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class PolicyCheckResult {
     public static final String JSON_PROPERTY_ERRORS = "errors";
-    private BigDecimal errors;
+    @jakarta.annotation.Nonnull private BigDecimal errors;
 
     public static final String JSON_PROPERTY_RESULTS = "results";
-    private List<PolicyRuleCheckResult> results = new ArrayList<>();
+    @jakarta.annotation.Nonnull private List<PolicyRuleCheckResult> results = new ArrayList<>();
 
     public PolicyCheckResult() {}
 
-    public PolicyCheckResult errors(BigDecimal errors) {
+    @JsonCreator
+    public PolicyCheckResult(
+            @JsonProperty(value = JSON_PROPERTY_ERRORS, required = true) BigDecimal errors,
+            @JsonProperty(value = JSON_PROPERTY_RESULTS, required = true)
+                    List<PolicyRuleCheckResult> results) {
+        this.errors = errors;
+        this.results = results;
+    }
+
+    public PolicyCheckResult errors(@jakarta.annotation.Nonnull BigDecimal errors) {
         this.errors = errors;
         return this;
     }
@@ -58,11 +69,12 @@ public class PolicyCheckResult {
 
     @JsonProperty(JSON_PROPERTY_ERRORS)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setErrors(BigDecimal errors) {
+    public void setErrors(@jakarta.annotation.Nonnull BigDecimal errors) {
         this.errors = errors;
     }
 
-    public PolicyCheckResult results(List<PolicyRuleCheckResult> results) {
+    public PolicyCheckResult results(
+            @jakarta.annotation.Nonnull List<PolicyRuleCheckResult> results) {
         this.results = results;
         return this;
     }
@@ -89,7 +101,7 @@ public class PolicyCheckResult {
 
     @JsonProperty(JSON_PROPERTY_RESULTS)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setResults(List<PolicyRuleCheckResult> results) {
+    public void setResults(@jakarta.annotation.Nonnull List<PolicyRuleCheckResult> results) {
         this.results = results;
     }
 
@@ -172,8 +184,7 @@ public class PolicyCheckResult {
                             "%serrors%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getErrors()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getErrors()))));
         }
 
         // add `results` to the URL query string

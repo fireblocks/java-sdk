@@ -13,11 +13,11 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -31,27 +31,38 @@ import java.util.StringJoiner;
     CreateMultipleAccountsRequest.JSON_PROPERTY_VAULT_ACCOUNT_NAMES_STARTING_INDEX,
     CreateMultipleAccountsRequest.JSON_PROPERTY_PREFIX
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class CreateMultipleAccountsRequest {
     public static final String JSON_PROPERTY_COUNT = "count";
-    private Integer count;
+    @jakarta.annotation.Nonnull private Integer count;
 
     public static final String JSON_PROPERTY_BASE_ASSET_IDS = "baseAssetIds";
-    private List<String> baseAssetIds = new ArrayList<>();
+    @jakarta.annotation.Nonnull private List<String> baseAssetIds = new ArrayList<>();
 
     public static final String JSON_PROPERTY_NAMES = "names";
-    private List<String> names;
+    @jakarta.annotation.Nullable private List<String> names = new ArrayList<>();
 
     public static final String JSON_PROPERTY_VAULT_ACCOUNT_NAMES_STARTING_INDEX =
             "vaultAccountNamesStartingIndex";
-    private Integer vaultAccountNamesStartingIndex;
+    @jakarta.annotation.Nullable private Integer vaultAccountNamesStartingIndex;
 
     public static final String JSON_PROPERTY_PREFIX = "prefix";
-    private String prefix;
+    @jakarta.annotation.Nullable private String prefix;
 
     public CreateMultipleAccountsRequest() {}
 
-    public CreateMultipleAccountsRequest count(Integer count) {
+    @JsonCreator
+    public CreateMultipleAccountsRequest(
+            @JsonProperty(value = JSON_PROPERTY_COUNT, required = true) Integer count,
+            @JsonProperty(value = JSON_PROPERTY_BASE_ASSET_IDS, required = true)
+                    List<String> baseAssetIds) {
+        this.count = count;
+        this.baseAssetIds = baseAssetIds;
+    }
+
+    public CreateMultipleAccountsRequest count(@jakarta.annotation.Nonnull Integer count) {
         this.count = count;
         return this;
     }
@@ -70,11 +81,12 @@ public class CreateMultipleAccountsRequest {
 
     @JsonProperty(JSON_PROPERTY_COUNT)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setCount(Integer count) {
+    public void setCount(@jakarta.annotation.Nonnull Integer count) {
         this.count = count;
     }
 
-    public CreateMultipleAccountsRequest baseAssetIds(List<String> baseAssetIds) {
+    public CreateMultipleAccountsRequest baseAssetIds(
+            @jakarta.annotation.Nonnull List<String> baseAssetIds) {
         this.baseAssetIds = baseAssetIds;
         return this;
     }
@@ -101,11 +113,11 @@ public class CreateMultipleAccountsRequest {
 
     @JsonProperty(JSON_PROPERTY_BASE_ASSET_IDS)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setBaseAssetIds(List<String> baseAssetIds) {
+    public void setBaseAssetIds(@jakarta.annotation.Nonnull List<String> baseAssetIds) {
         this.baseAssetIds = baseAssetIds;
     }
 
-    public CreateMultipleAccountsRequest names(List<String> names) {
+    public CreateMultipleAccountsRequest names(@jakarta.annotation.Nullable List<String> names) {
         this.names = names;
         return this;
     }
@@ -133,12 +145,12 @@ public class CreateMultipleAccountsRequest {
 
     @JsonProperty(JSON_PROPERTY_NAMES)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setNames(List<String> names) {
+    public void setNames(@jakarta.annotation.Nullable List<String> names) {
         this.names = names;
     }
 
     public CreateMultipleAccountsRequest vaultAccountNamesStartingIndex(
-            Integer vaultAccountNamesStartingIndex) {
+            @jakarta.annotation.Nullable Integer vaultAccountNamesStartingIndex) {
         this.vaultAccountNamesStartingIndex = vaultAccountNamesStartingIndex;
         return this;
     }
@@ -157,11 +169,12 @@ public class CreateMultipleAccountsRequest {
 
     @JsonProperty(JSON_PROPERTY_VAULT_ACCOUNT_NAMES_STARTING_INDEX)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setVaultAccountNamesStartingIndex(Integer vaultAccountNamesStartingIndex) {
+    public void setVaultAccountNamesStartingIndex(
+            @jakarta.annotation.Nullable Integer vaultAccountNamesStartingIndex) {
         this.vaultAccountNamesStartingIndex = vaultAccountNamesStartingIndex;
     }
 
-    public CreateMultipleAccountsRequest prefix(String prefix) {
+    public CreateMultipleAccountsRequest prefix(@jakarta.annotation.Nullable String prefix) {
         this.prefix = prefix;
         return this;
     }
@@ -181,7 +194,7 @@ public class CreateMultipleAccountsRequest {
 
     @JsonProperty(JSON_PROPERTY_PREFIX)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setPrefix(String prefix) {
+    public void setPrefix(@jakarta.annotation.Nullable String prefix) {
         this.prefix = prefix;
     }
 
@@ -275,8 +288,7 @@ public class CreateMultipleAccountsRequest {
                             "%scount%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getCount()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getCount()))));
         }
 
         // add `baseAssetIds` to the URL query string
@@ -291,10 +303,8 @@ public class CreateMultipleAccountsRequest {
                                         ? ""
                                         : String.format(
                                                 "%s%d%s", containerPrefix, i, containerSuffix),
-                                URLEncoder.encode(
-                                                String.valueOf(getBaseAssetIds().get(i)),
-                                                StandardCharsets.UTF_8)
-                                        .replaceAll("\\+", "%20")));
+                                ApiClient.urlEncode(
+                                        ApiClient.valueToString(getBaseAssetIds().get(i)))));
             }
         }
 
@@ -310,10 +320,7 @@ public class CreateMultipleAccountsRequest {
                                         ? ""
                                         : String.format(
                                                 "%s%d%s", containerPrefix, i, containerSuffix),
-                                URLEncoder.encode(
-                                                String.valueOf(getNames().get(i)),
-                                                StandardCharsets.UTF_8)
-                                        .replaceAll("\\+", "%20")));
+                                ApiClient.urlEncode(ApiClient.valueToString(getNames().get(i)))));
             }
         }
 
@@ -324,10 +331,8 @@ public class CreateMultipleAccountsRequest {
                             "%svaultAccountNamesStartingIndex%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getVaultAccountNamesStartingIndex()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(
+                                    ApiClient.valueToString(getVaultAccountNamesStartingIndex()))));
         }
 
         // add `prefix` to the URL query string
@@ -337,8 +342,7 @@ public class CreateMultipleAccountsRequest {
                             "%sprefix%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getPrefix()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getPrefix()))));
         }
 
         return joiner.toString();

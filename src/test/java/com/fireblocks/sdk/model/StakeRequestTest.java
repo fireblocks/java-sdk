@@ -13,51 +13,51 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for StakeRequest */
-public class StakeRequestTest {
+class StakeRequestTest {
     private final StakeRequest model = new StakeRequest();
 
     /** Model tests for StakeRequest */
     @Test
-    public void testStakeRequest() {
+    void testStakeRequest() {
         // TODO: test StakeRequest
     }
 
     /** Test the property 'vaultAccountId' */
     @Test
-    public void vaultAccountIdTest() {
+    void vaultAccountIdTest() {
         // TODO: test vaultAccountId
     }
 
     /** Test the property 'providerId' */
     @Test
-    public void providerIdTest() {
+    void providerIdTest() {
         // TODO: test providerId
     }
 
     /** Test the property 'stakeAmount' */
     @Test
-    public void stakeAmountTest() {
+    void stakeAmountTest() {
         // TODO: test stakeAmount
     }
 
     /** Test the property 'txNote' */
     @Test
-    public void txNoteTest() {
+    void txNoteTest() {
         // TODO: test txNote
     }
 
     /** Test the property 'fee' */
     @Test
-    public void feeTest() {
+    void feeTest() {
         // TODO: test fee
     }
 
     /** Test the property 'feeLevel' */
     @Test
-    public void feeLevelTest() {
+    void feeLevelTest() {
         // TODO: test feeLevel
     }
 }

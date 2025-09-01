@@ -13,13 +13,13 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for ExchangeType */
-public class ExchangeTypeTest {
+class ExchangeTypeTest {
     /** Model tests for ExchangeType */
     @Test
-    public void testExchangeType() {
+    void testExchangeType() {
         // TODO: test ExchangeType
     }
 }

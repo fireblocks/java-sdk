@@ -13,13 +13,13 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for CollectionType */
-public class CollectionTypeTest {
+class CollectionTypeTest {
     /** Model tests for CollectionType */
     @Test
-    public void testCollectionType() {
+    void testCollectionType() {
         // TODO: test CollectionType
     }
 }

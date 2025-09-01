@@ -13,27 +13,27 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for TagsPagedResponse */
-public class TagsPagedResponseTest {
+class TagsPagedResponseTest {
     private final TagsPagedResponse model = new TagsPagedResponse();
 
     /** Model tests for TagsPagedResponse */
     @Test
-    public void testTagsPagedResponse() {
+    void testTagsPagedResponse() {
         // TODO: test TagsPagedResponse
     }
 
     /** Test the property 'data' */
     @Test
-    public void dataTest() {
+    void dataTest() {
         // TODO: test data
     }
 
     /** Test the property 'next' */
     @Test
-    public void nextTest() {
+    void nextTest() {
         // TODO: test next
     }
 }

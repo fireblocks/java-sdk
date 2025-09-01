@@ -13,40 +13,40 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for ResendFailedNotificationsJobStatusResponse */
-public class ResendFailedNotificationsJobStatusResponseTest {
+class ResendFailedNotificationsJobStatusResponseTest {
     private final ResendFailedNotificationsJobStatusResponse model =
             new ResendFailedNotificationsJobStatusResponse();
 
     /** Model tests for ResendFailedNotificationsJobStatusResponse */
     @Test
-    public void testResendFailedNotificationsJobStatusResponse() {
+    void testResendFailedNotificationsJobStatusResponse() {
         // TODO: test ResendFailedNotificationsJobStatusResponse
     }
 
     /** Test the property 'jobId' */
     @Test
-    public void jobIdTest() {
+    void jobIdTest() {
         // TODO: test jobId
     }
 
     /** Test the property 'status' */
     @Test
-    public void statusTest() {
+    void statusTest() {
         // TODO: test status
     }
 
     /** Test the property 'processed' */
     @Test
-    public void processedTest() {
+    void processedTest() {
         // TODO: test processed
     }
 
     /** Test the property 'total' */
     @Test
-    public void totalTest() {
+    void totalTest() {
         // TODO: test total
     }
 }

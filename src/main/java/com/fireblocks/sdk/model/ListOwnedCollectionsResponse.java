@@ -26,17 +26,19 @@ import java.util.StringJoiner;
     ListOwnedCollectionsResponse.JSON_PROPERTY_PAGING,
     ListOwnedCollectionsResponse.JSON_PROPERTY_DATA
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class ListOwnedCollectionsResponse {
     public static final String JSON_PROPERTY_PAGING = "paging";
-    private Paging paging;
+    @jakarta.annotation.Nullable private Paging paging;
 
     public static final String JSON_PROPERTY_DATA = "data";
-    private List<CollectionOwnershipResponse> data;
+    @jakarta.annotation.Nullable private List<CollectionOwnershipResponse> data = new ArrayList<>();
 
     public ListOwnedCollectionsResponse() {}
 
-    public ListOwnedCollectionsResponse paging(Paging paging) {
+    public ListOwnedCollectionsResponse paging(@jakarta.annotation.Nullable Paging paging) {
         this.paging = paging;
         return this;
     }
@@ -55,11 +57,12 @@ public class ListOwnedCollectionsResponse {
 
     @JsonProperty(JSON_PROPERTY_PAGING)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setPaging(Paging paging) {
+    public void setPaging(@jakarta.annotation.Nullable Paging paging) {
         this.paging = paging;
     }
 
-    public ListOwnedCollectionsResponse data(List<CollectionOwnershipResponse> data) {
+    public ListOwnedCollectionsResponse data(
+            @jakarta.annotation.Nullable List<CollectionOwnershipResponse> data) {
         this.data = data;
         return this;
     }
@@ -86,7 +89,7 @@ public class ListOwnedCollectionsResponse {
 
     @JsonProperty(JSON_PROPERTY_DATA)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setData(List<CollectionOwnershipResponse> data) {
+    public void setData(@jakarta.annotation.Nullable List<CollectionOwnershipResponse> data) {
         this.data = data;
     }
 

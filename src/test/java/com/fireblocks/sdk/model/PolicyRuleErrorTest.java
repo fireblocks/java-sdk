@@ -13,39 +13,39 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for PolicyRuleError */
-public class PolicyRuleErrorTest {
+class PolicyRuleErrorTest {
     private final PolicyRuleError model = new PolicyRuleError();
 
     /** Model tests for PolicyRuleError */
     @Test
-    public void testPolicyRuleError() {
+    void testPolicyRuleError() {
         // TODO: test PolicyRuleError
     }
 
     /** Test the property 'errorMessage' */
     @Test
-    public void errorMessageTest() {
+    void errorMessageTest() {
         // TODO: test errorMessage
     }
 
     /** Test the property 'errorCode' */
     @Test
-    public void errorCodeTest() {
+    void errorCodeTest() {
         // TODO: test errorCode
     }
 
     /** Test the property 'errorCodeName' */
     @Test
-    public void errorCodeNameTest() {
+    void errorCodeNameTest() {
         // TODO: test errorCodeName
     }
 
     /** Test the property 'errorField' */
     @Test
-    public void errorFieldTest() {
+    void errorFieldTest() {
         // TODO: test errorField
     }
 }

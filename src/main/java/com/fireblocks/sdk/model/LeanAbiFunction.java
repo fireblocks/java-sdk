@@ -18,8 +18,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonValue;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -32,26 +31,28 @@ import java.util.StringJoiner;
     LeanAbiFunction.JSON_PROPERTY_OUTPUTS,
     LeanAbiFunction.JSON_PROPERTY_STATE_MUTABILITY
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class LeanAbiFunction {
     public static final String JSON_PROPERTY_NAME = "name";
-    private String name;
+    @jakarta.annotation.Nullable private String name;
 
     public static final String JSON_PROPERTY_INPUTS = "inputs";
-    private List<ParameterWithValue> inputs = new ArrayList<>();
+    @jakarta.annotation.Nonnull private List<ParameterWithValue> inputs = new ArrayList<>();
 
     public static final String JSON_PROPERTY_OUTPUTS = "outputs";
-    private List<ParameterWithValue> outputs;
+    @jakarta.annotation.Nullable private List<ParameterWithValue> outputs = new ArrayList<>();
 
     /** The state mutability of the function (e.g., view, pure, nonpayable, payable) */
     public enum StateMutabilityEnum {
-        VIEW("view"),
+        VIEW(String.valueOf("view")),
 
-        PURE("pure"),
+        PURE(String.valueOf("pure")),
 
-        NONPAYABLE("nonpayable"),
+        NONPAYABLE(String.valueOf("nonpayable")),
 
-        PAYABLE("payable");
+        PAYABLE(String.valueOf("payable"));
 
         private String value;
 
@@ -81,11 +82,18 @@ public class LeanAbiFunction {
     }
 
     public static final String JSON_PROPERTY_STATE_MUTABILITY = "stateMutability";
-    private StateMutabilityEnum stateMutability;
+    @jakarta.annotation.Nullable private StateMutabilityEnum stateMutability;
 
     public LeanAbiFunction() {}
 
-    public LeanAbiFunction name(String name) {
+    @JsonCreator
+    public LeanAbiFunction(
+            @JsonProperty(value = JSON_PROPERTY_INPUTS, required = true)
+                    List<ParameterWithValue> inputs) {
+        this.inputs = inputs;
+    }
+
+    public LeanAbiFunction name(@jakarta.annotation.Nullable String name) {
         this.name = name;
         return this;
     }
@@ -104,11 +112,11 @@ public class LeanAbiFunction {
 
     @JsonProperty(JSON_PROPERTY_NAME)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setName(String name) {
+    public void setName(@jakarta.annotation.Nullable String name) {
         this.name = name;
     }
 
-    public LeanAbiFunction inputs(List<ParameterWithValue> inputs) {
+    public LeanAbiFunction inputs(@jakarta.annotation.Nonnull List<ParameterWithValue> inputs) {
         this.inputs = inputs;
         return this;
     }
@@ -135,11 +143,11 @@ public class LeanAbiFunction {
 
     @JsonProperty(JSON_PROPERTY_INPUTS)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setInputs(List<ParameterWithValue> inputs) {
+    public void setInputs(@jakarta.annotation.Nonnull List<ParameterWithValue> inputs) {
         this.inputs = inputs;
     }
 
-    public LeanAbiFunction outputs(List<ParameterWithValue> outputs) {
+    public LeanAbiFunction outputs(@jakarta.annotation.Nullable List<ParameterWithValue> outputs) {
         this.outputs = outputs;
         return this;
     }
@@ -166,11 +174,12 @@ public class LeanAbiFunction {
 
     @JsonProperty(JSON_PROPERTY_OUTPUTS)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setOutputs(List<ParameterWithValue> outputs) {
+    public void setOutputs(@jakarta.annotation.Nullable List<ParameterWithValue> outputs) {
         this.outputs = outputs;
     }
 
-    public LeanAbiFunction stateMutability(StateMutabilityEnum stateMutability) {
+    public LeanAbiFunction stateMutability(
+            @jakarta.annotation.Nullable StateMutabilityEnum stateMutability) {
         this.stateMutability = stateMutability;
         return this;
     }
@@ -189,7 +198,8 @@ public class LeanAbiFunction {
 
     @JsonProperty(JSON_PROPERTY_STATE_MUTABILITY)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setStateMutability(StateMutabilityEnum stateMutability) {
+    public void setStateMutability(
+            @jakarta.annotation.Nullable StateMutabilityEnum stateMutability) {
         this.stateMutability = stateMutability;
     }
 
@@ -276,8 +286,7 @@ public class LeanAbiFunction {
                             "%sname%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getName()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getName()))));
         }
 
         // add `inputs` to the URL query string
@@ -333,10 +342,7 @@ public class LeanAbiFunction {
                             "%sstateMutability%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getStateMutability()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getStateMutability()))));
         }
 
         return joiner.toString();

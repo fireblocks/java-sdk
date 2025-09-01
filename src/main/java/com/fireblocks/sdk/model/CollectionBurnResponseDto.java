@@ -13,24 +13,32 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
 /** CollectionBurnResponseDto */
 @JsonPropertyOrder({CollectionBurnResponseDto.JSON_PROPERTY_TX_ID})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class CollectionBurnResponseDto {
     public static final String JSON_PROPERTY_TX_ID = "txId";
-    private String txId;
+    @jakarta.annotation.Nonnull private String txId;
 
     public CollectionBurnResponseDto() {}
 
-    public CollectionBurnResponseDto txId(String txId) {
+    @JsonCreator
+    public CollectionBurnResponseDto(
+            @JsonProperty(value = JSON_PROPERTY_TX_ID, required = true) String txId) {
+        this.txId = txId;
+    }
+
+    public CollectionBurnResponseDto txId(@jakarta.annotation.Nonnull String txId) {
         this.txId = txId;
         return this;
     }
@@ -49,7 +57,7 @@ public class CollectionBurnResponseDto {
 
     @JsonProperty(JSON_PROPERTY_TX_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setTxId(String txId) {
+    public void setTxId(@jakarta.annotation.Nonnull String txId) {
         this.txId = txId;
     }
 
@@ -130,8 +138,7 @@ public class CollectionBurnResponseDto {
                             "%stxId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getTxId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getTxId()))));
         }
 
         return joiner.toString();

@@ -13,6 +13,7 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -23,14 +24,22 @@ import java.util.StringJoiner;
 
 /** GetAPIUsersResponse */
 @JsonPropertyOrder({GetAPIUsersResponse.JSON_PROPERTY_USERS})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class GetAPIUsersResponse {
     public static final String JSON_PROPERTY_USERS = "users";
-    private List<APIUser> users = new ArrayList<>();
+    @jakarta.annotation.Nonnull private List<APIUser> users = new ArrayList<>();
 
     public GetAPIUsersResponse() {}
 
-    public GetAPIUsersResponse users(List<APIUser> users) {
+    @JsonCreator
+    public GetAPIUsersResponse(
+            @JsonProperty(value = JSON_PROPERTY_USERS, required = true) List<APIUser> users) {
+        this.users = users;
+    }
+
+    public GetAPIUsersResponse users(@jakarta.annotation.Nonnull List<APIUser> users) {
         this.users = users;
         return this;
     }
@@ -57,7 +66,7 @@ public class GetAPIUsersResponse {
 
     @JsonProperty(JSON_PROPERTY_USERS)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setUsers(List<APIUser> users) {
+    public void setUsers(@jakarta.annotation.Nonnull List<APIUser> users) {
         this.users = users;
     }
 

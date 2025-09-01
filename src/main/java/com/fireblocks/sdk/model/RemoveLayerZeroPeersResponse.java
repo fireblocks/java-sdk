@@ -13,11 +13,11 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -26,14 +26,22 @@ import java.util.UUID;
 
 /** RemoveLayerZeroPeersResponse */
 @JsonPropertyOrder({RemoveLayerZeroPeersResponse.JSON_PROPERTY_TXN_IDS})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class RemoveLayerZeroPeersResponse {
     public static final String JSON_PROPERTY_TXN_IDS = "txnIds";
-    private List<UUID> txnIds = new ArrayList<>();
+    @jakarta.annotation.Nonnull private List<UUID> txnIds = new ArrayList<>();
 
     public RemoveLayerZeroPeersResponse() {}
 
-    public RemoveLayerZeroPeersResponse txnIds(List<UUID> txnIds) {
+    @JsonCreator
+    public RemoveLayerZeroPeersResponse(
+            @JsonProperty(value = JSON_PROPERTY_TXN_IDS, required = true) List<UUID> txnIds) {
+        this.txnIds = txnIds;
+    }
+
+    public RemoveLayerZeroPeersResponse txnIds(@jakarta.annotation.Nonnull List<UUID> txnIds) {
         this.txnIds = txnIds;
         return this;
     }
@@ -61,7 +69,7 @@ public class RemoveLayerZeroPeersResponse {
 
     @JsonProperty(JSON_PROPERTY_TXN_IDS)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setTxnIds(List<UUID> txnIds) {
+    public void setTxnIds(@jakarta.annotation.Nonnull List<UUID> txnIds) {
         this.txnIds = txnIds;
     }
 
@@ -149,10 +157,8 @@ public class RemoveLayerZeroPeersResponse {
                                             ? ""
                                             : String.format(
                                                     "%s%d%s", containerPrefix, i, containerSuffix),
-                                    URLEncoder.encode(
-                                                    String.valueOf(getTxnIds().get(i)),
-                                                    StandardCharsets.UTF_8)
-                                            .replaceAll("\\+", "%20")));
+                                    ApiClient.urlEncode(
+                                            ApiClient.valueToString(getTxnIds().get(i)))));
                 }
             }
         }

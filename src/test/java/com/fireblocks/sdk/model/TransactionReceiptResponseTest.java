@@ -13,99 +13,99 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for TransactionReceiptResponse */
-public class TransactionReceiptResponseTest {
+class TransactionReceiptResponseTest {
     private final TransactionReceiptResponse model = new TransactionReceiptResponse();
 
     /** Model tests for TransactionReceiptResponse */
     @Test
-    public void testTransactionReceiptResponse() {
+    void testTransactionReceiptResponse() {
         // TODO: test TransactionReceiptResponse
     }
 
     /** Test the property 'blockHash' */
     @Test
-    public void blockHashTest() {
+    void blockHashTest() {
         // TODO: test blockHash
     }
 
     /** Test the property 'blockNumber' */
     @Test
-    public void blockNumberTest() {
+    void blockNumberTest() {
         // TODO: test blockNumber
     }
 
     /** Test the property 'contractAddress' */
     @Test
-    public void contractAddressTest() {
+    void contractAddressTest() {
         // TODO: test contractAddress
     }
 
     /** Test the property 'cumulativeGasUsed' */
     @Test
-    public void cumulativeGasUsedTest() {
+    void cumulativeGasUsedTest() {
         // TODO: test cumulativeGasUsed
     }
 
     /** Test the property 'effectiveGasPrice' */
     @Test
-    public void effectiveGasPriceTest() {
+    void effectiveGasPriceTest() {
         // TODO: test effectiveGasPrice
     }
 
     /** Test the property 'from' */
     @Test
-    public void fromTest() {
+    void fromTest() {
         // TODO: test from
     }
 
     /** Test the property 'gasUsed' */
     @Test
-    public void gasUsedTest() {
+    void gasUsedTest() {
         // TODO: test gasUsed
     }
 
     /** Test the property 'logs' */
     @Test
-    public void logsTest() {
+    void logsTest() {
         // TODO: test logs
     }
 
     /** Test the property 'logsBloom' */
     @Test
-    public void logsBloomTest() {
+    void logsBloomTest() {
         // TODO: test logsBloom
     }
 
     /** Test the property 'status' */
     @Test
-    public void statusTest() {
+    void statusTest() {
         // TODO: test status
     }
 
     /** Test the property 'to' */
     @Test
-    public void toTest() {
+    void toTest() {
         // TODO: test to
     }
 
     /** Test the property 'transactionHash' */
     @Test
-    public void transactionHashTest() {
+    void transactionHashTest() {
         // TODO: test transactionHash
     }
 
     /** Test the property 'transactionIndex' */
     @Test
-    public void transactionIndexTest() {
+    void transactionIndexTest() {
         // TODO: test transactionIndex
     }
 
     /** Test the property 'type' */
     @Test
-    public void typeTest() {
+    void typeTest() {
         // TODO: test type
     }
 }

@@ -18,9 +18,8 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.fireblocks.sdk.ApiClient;
 import java.math.BigDecimal;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -39,25 +38,27 @@ import java.util.StringJoiner;
     SessionDTO.JSON_PROPERTY_CONNECTION_METHOD,
     SessionDTO.JSON_PROPERTY_CREATION_DATE
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class SessionDTO {
     public static final String JSON_PROPERTY_ID = "id";
-    private String id;
+    @jakarta.annotation.Nonnull private String id;
 
     public static final String JSON_PROPERTY_USER_ID = "userId";
-    private String userId;
+    @jakarta.annotation.Nonnull private String userId;
 
     public static final String JSON_PROPERTY_SESSION_METADATA = "sessionMetadata";
-    private SessionMetadata sessionMetadata;
+    @jakarta.annotation.Nonnull private SessionMetadata sessionMetadata;
 
     public static final String JSON_PROPERTY_VAULT_ACCOUNT_ID = "vaultAccountId";
-    private BigDecimal vaultAccountId;
+    @jakarta.annotation.Nonnull private BigDecimal vaultAccountId;
 
     /** The default fee level */
     public enum FeeLevelEnum {
-        MEDIUM("MEDIUM"),
+        MEDIUM(String.valueOf("MEDIUM")),
 
-        HIGH("HIGH");
+        HIGH(String.valueOf("HIGH"));
 
         private String value;
 
@@ -87,14 +88,14 @@ public class SessionDTO {
     }
 
     public static final String JSON_PROPERTY_FEE_LEVEL = "feeLevel";
-    private FeeLevelEnum feeLevel;
+    @jakarta.annotation.Nonnull private FeeLevelEnum feeLevel;
 
     public static final String JSON_PROPERTY_CHAIN_IDS = "chainIds";
-    private List<String> chainIds = new ArrayList<>();
+    @jakarta.annotation.Nonnull private List<String> chainIds = new ArrayList<>();
 
     /** The connection&#39;s type */
     public enum ConnectionTypeEnum {
-        WALLETCONNECT("WalletConnect");
+        WALLET_CONNECT(String.valueOf("WalletConnect"));
 
         private String value;
 
@@ -124,15 +125,15 @@ public class SessionDTO {
     }
 
     public static final String JSON_PROPERTY_CONNECTION_TYPE = "connectionType";
-    private ConnectionTypeEnum connectionType;
+    @jakarta.annotation.Nonnull private ConnectionTypeEnum connectionType;
 
     /** The method through which the connection was established */
     public enum ConnectionMethodEnum {
-        DESKTOP("DESKTOP"),
+        DESKTOP(String.valueOf("DESKTOP")),
 
-        MOBILE("MOBILE"),
+        MOBILE(String.valueOf("MOBILE")),
 
-        API("API");
+        API(String.valueOf("API"));
 
         private String value;
 
@@ -162,14 +163,41 @@ public class SessionDTO {
     }
 
     public static final String JSON_PROPERTY_CONNECTION_METHOD = "connectionMethod";
-    private ConnectionMethodEnum connectionMethod;
+    @jakarta.annotation.Nonnull private ConnectionMethodEnum connectionMethod;
 
     public static final String JSON_PROPERTY_CREATION_DATE = "creationDate";
-    private OffsetDateTime creationDate;
+    @jakarta.annotation.Nonnull private OffsetDateTime creationDate;
 
     public SessionDTO() {}
 
-    public SessionDTO id(String id) {
+    @JsonCreator
+    public SessionDTO(
+            @JsonProperty(value = JSON_PROPERTY_ID, required = true) String id,
+            @JsonProperty(value = JSON_PROPERTY_USER_ID, required = true) String userId,
+            @JsonProperty(value = JSON_PROPERTY_SESSION_METADATA, required = true)
+                    SessionMetadata sessionMetadata,
+            @JsonProperty(value = JSON_PROPERTY_VAULT_ACCOUNT_ID, required = true)
+                    BigDecimal vaultAccountId,
+            @JsonProperty(value = JSON_PROPERTY_FEE_LEVEL, required = true) FeeLevelEnum feeLevel,
+            @JsonProperty(value = JSON_PROPERTY_CHAIN_IDS, required = true) List<String> chainIds,
+            @JsonProperty(value = JSON_PROPERTY_CONNECTION_TYPE, required = true)
+                    ConnectionTypeEnum connectionType,
+            @JsonProperty(value = JSON_PROPERTY_CONNECTION_METHOD, required = true)
+                    ConnectionMethodEnum connectionMethod,
+            @JsonProperty(value = JSON_PROPERTY_CREATION_DATE, required = true)
+                    OffsetDateTime creationDate) {
+        this.id = id;
+        this.userId = userId;
+        this.sessionMetadata = sessionMetadata;
+        this.vaultAccountId = vaultAccountId;
+        this.feeLevel = feeLevel;
+        this.chainIds = chainIds;
+        this.connectionType = connectionType;
+        this.connectionMethod = connectionMethod;
+        this.creationDate = creationDate;
+    }
+
+    public SessionDTO id(@jakarta.annotation.Nonnull String id) {
         this.id = id;
         return this;
     }
@@ -188,11 +216,11 @@ public class SessionDTO {
 
     @JsonProperty(JSON_PROPERTY_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setId(String id) {
+    public void setId(@jakarta.annotation.Nonnull String id) {
         this.id = id;
     }
 
-    public SessionDTO userId(String userId) {
+    public SessionDTO userId(@jakarta.annotation.Nonnull String userId) {
         this.userId = userId;
         return this;
     }
@@ -211,11 +239,11 @@ public class SessionDTO {
 
     @JsonProperty(JSON_PROPERTY_USER_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setUserId(String userId) {
+    public void setUserId(@jakarta.annotation.Nonnull String userId) {
         this.userId = userId;
     }
 
-    public SessionDTO sessionMetadata(SessionMetadata sessionMetadata) {
+    public SessionDTO sessionMetadata(@jakarta.annotation.Nonnull SessionMetadata sessionMetadata) {
         this.sessionMetadata = sessionMetadata;
         return this;
     }
@@ -234,11 +262,11 @@ public class SessionDTO {
 
     @JsonProperty(JSON_PROPERTY_SESSION_METADATA)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setSessionMetadata(SessionMetadata sessionMetadata) {
+    public void setSessionMetadata(@jakarta.annotation.Nonnull SessionMetadata sessionMetadata) {
         this.sessionMetadata = sessionMetadata;
     }
 
-    public SessionDTO vaultAccountId(BigDecimal vaultAccountId) {
+    public SessionDTO vaultAccountId(@jakarta.annotation.Nonnull BigDecimal vaultAccountId) {
         this.vaultAccountId = vaultAccountId;
         return this;
     }
@@ -257,11 +285,11 @@ public class SessionDTO {
 
     @JsonProperty(JSON_PROPERTY_VAULT_ACCOUNT_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setVaultAccountId(BigDecimal vaultAccountId) {
+    public void setVaultAccountId(@jakarta.annotation.Nonnull BigDecimal vaultAccountId) {
         this.vaultAccountId = vaultAccountId;
     }
 
-    public SessionDTO feeLevel(FeeLevelEnum feeLevel) {
+    public SessionDTO feeLevel(@jakarta.annotation.Nonnull FeeLevelEnum feeLevel) {
         this.feeLevel = feeLevel;
         return this;
     }
@@ -280,11 +308,11 @@ public class SessionDTO {
 
     @JsonProperty(JSON_PROPERTY_FEE_LEVEL)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setFeeLevel(FeeLevelEnum feeLevel) {
+    public void setFeeLevel(@jakarta.annotation.Nonnull FeeLevelEnum feeLevel) {
         this.feeLevel = feeLevel;
     }
 
-    public SessionDTO chainIds(List<String> chainIds) {
+    public SessionDTO chainIds(@jakarta.annotation.Nonnull List<String> chainIds) {
         this.chainIds = chainIds;
         return this;
     }
@@ -311,11 +339,12 @@ public class SessionDTO {
 
     @JsonProperty(JSON_PROPERTY_CHAIN_IDS)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setChainIds(List<String> chainIds) {
+    public void setChainIds(@jakarta.annotation.Nonnull List<String> chainIds) {
         this.chainIds = chainIds;
     }
 
-    public SessionDTO connectionType(ConnectionTypeEnum connectionType) {
+    public SessionDTO connectionType(
+            @jakarta.annotation.Nonnull ConnectionTypeEnum connectionType) {
         this.connectionType = connectionType;
         return this;
     }
@@ -334,11 +363,12 @@ public class SessionDTO {
 
     @JsonProperty(JSON_PROPERTY_CONNECTION_TYPE)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setConnectionType(ConnectionTypeEnum connectionType) {
+    public void setConnectionType(@jakarta.annotation.Nonnull ConnectionTypeEnum connectionType) {
         this.connectionType = connectionType;
     }
 
-    public SessionDTO connectionMethod(ConnectionMethodEnum connectionMethod) {
+    public SessionDTO connectionMethod(
+            @jakarta.annotation.Nonnull ConnectionMethodEnum connectionMethod) {
         this.connectionMethod = connectionMethod;
         return this;
     }
@@ -357,11 +387,12 @@ public class SessionDTO {
 
     @JsonProperty(JSON_PROPERTY_CONNECTION_METHOD)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setConnectionMethod(ConnectionMethodEnum connectionMethod) {
+    public void setConnectionMethod(
+            @jakarta.annotation.Nonnull ConnectionMethodEnum connectionMethod) {
         this.connectionMethod = connectionMethod;
     }
 
-    public SessionDTO creationDate(OffsetDateTime creationDate) {
+    public SessionDTO creationDate(@jakarta.annotation.Nonnull OffsetDateTime creationDate) {
         this.creationDate = creationDate;
         return this;
     }
@@ -380,7 +411,7 @@ public class SessionDTO {
 
     @JsonProperty(JSON_PROPERTY_CREATION_DATE)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setCreationDate(OffsetDateTime creationDate) {
+    public void setCreationDate(@jakarta.annotation.Nonnull OffsetDateTime creationDate) {
         this.creationDate = creationDate;
     }
 
@@ -484,10 +515,7 @@ public class SessionDTO {
             joiner.add(
                     String.format(
                             "%sid%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(String.valueOf(getId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getId()))));
         }
 
         // add `userId` to the URL query string
@@ -497,8 +525,7 @@ public class SessionDTO {
                             "%suserId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getUserId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getUserId()))));
         }
 
         // add `sessionMetadata` to the URL query string
@@ -513,10 +540,7 @@ public class SessionDTO {
                             "%svaultAccountId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getVaultAccountId()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getVaultAccountId()))));
         }
 
         // add `feeLevel` to the URL query string
@@ -526,8 +550,7 @@ public class SessionDTO {
                             "%sfeeLevel%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getFeeLevel()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getFeeLevel()))));
         }
 
         // add `chainIds` to the URL query string
@@ -542,10 +565,8 @@ public class SessionDTO {
                                         ? ""
                                         : String.format(
                                                 "%s%d%s", containerPrefix, i, containerSuffix),
-                                URLEncoder.encode(
-                                                String.valueOf(getChainIds().get(i)),
-                                                StandardCharsets.UTF_8)
-                                        .replaceAll("\\+", "%20")));
+                                ApiClient.urlEncode(
+                                        ApiClient.valueToString(getChainIds().get(i)))));
             }
         }
 
@@ -556,10 +577,7 @@ public class SessionDTO {
                             "%sconnectionType%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getConnectionType()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getConnectionType()))));
         }
 
         // add `connectionMethod` to the URL query string
@@ -569,10 +587,7 @@ public class SessionDTO {
                             "%sconnectionMethod%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getConnectionMethod()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getConnectionMethod()))));
         }
 
         // add `creationDate` to the URL query string
@@ -582,10 +597,7 @@ public class SessionDTO {
                             "%screationDate%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getCreationDate()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getCreationDate()))));
         }
 
         return joiner.toString();

@@ -13,27 +13,27 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for BlockchainMedia */
-public class BlockchainMediaTest {
+class BlockchainMediaTest {
     private final BlockchainMedia model = new BlockchainMedia();
 
     /** Model tests for BlockchainMedia */
     @Test
-    public void testBlockchainMedia() {
+    void testBlockchainMedia() {
         // TODO: test BlockchainMedia
     }
 
     /** Test the property 'url' */
     @Test
-    public void urlTest() {
+    void urlTest() {
         // TODO: test url
     }
 
     /** Test the property 'type' */
     @Test
-    public void typeTest() {
+    void typeTest() {
         // TODO: test type
     }
 }

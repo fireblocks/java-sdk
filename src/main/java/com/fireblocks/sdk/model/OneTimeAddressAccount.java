@@ -13,11 +13,11 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -26,17 +26,26 @@ import java.util.StringJoiner;
     OneTimeAddressAccount.JSON_PROPERTY_ONE_TIME_ADDRESS,
     OneTimeAddressAccount.JSON_PROPERTY_TAG
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class OneTimeAddressAccount {
     public static final String JSON_PROPERTY_ONE_TIME_ADDRESS = "oneTimeAddress";
-    private String oneTimeAddress;
+    @jakarta.annotation.Nonnull private String oneTimeAddress;
 
     public static final String JSON_PROPERTY_TAG = "tag";
-    private String tag;
+    @jakarta.annotation.Nullable private String tag;
 
     public OneTimeAddressAccount() {}
 
-    public OneTimeAddressAccount oneTimeAddress(String oneTimeAddress) {
+    @JsonCreator
+    public OneTimeAddressAccount(
+            @JsonProperty(value = JSON_PROPERTY_ONE_TIME_ADDRESS, required = true)
+                    String oneTimeAddress) {
+        this.oneTimeAddress = oneTimeAddress;
+    }
+
+    public OneTimeAddressAccount oneTimeAddress(@jakarta.annotation.Nonnull String oneTimeAddress) {
         this.oneTimeAddress = oneTimeAddress;
         return this;
     }
@@ -55,11 +64,11 @@ public class OneTimeAddressAccount {
 
     @JsonProperty(JSON_PROPERTY_ONE_TIME_ADDRESS)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setOneTimeAddress(String oneTimeAddress) {
+    public void setOneTimeAddress(@jakarta.annotation.Nonnull String oneTimeAddress) {
         this.oneTimeAddress = oneTimeAddress;
     }
 
-    public OneTimeAddressAccount tag(String tag) {
+    public OneTimeAddressAccount tag(@jakarta.annotation.Nullable String tag) {
         this.tag = tag;
         return this;
     }
@@ -78,7 +87,7 @@ public class OneTimeAddressAccount {
 
     @JsonProperty(JSON_PROPERTY_TAG)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setTag(String tag) {
+    public void setTag(@jakarta.annotation.Nullable String tag) {
         this.tag = tag;
     }
 
@@ -161,10 +170,7 @@ public class OneTimeAddressAccount {
                             "%soneTimeAddress%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getOneTimeAddress()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getOneTimeAddress()))));
         }
 
         // add `tag` to the URL query string
@@ -174,8 +180,7 @@ public class OneTimeAddressAccount {
                             "%stag%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getTag()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getTag()))));
         }
 
         return joiner.toString();

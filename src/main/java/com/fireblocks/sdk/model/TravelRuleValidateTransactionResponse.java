@@ -18,8 +18,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonValue;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -35,24 +34,26 @@ import java.util.StringJoiner;
     TravelRuleValidateTransactionResponse.JSON_PROPERTY_BENEFICIARY_V_A_S_PNAME,
     TravelRuleValidateTransactionResponse.JSON_PROPERTY_WARNINGS
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class TravelRuleValidateTransactionResponse {
     public static final String JSON_PROPERTY_IS_VALID = "isValid";
-    private Boolean isValid;
+    @jakarta.annotation.Nonnull private Boolean isValid;
 
     public static final String JSON_PROPERTY_TYPE = "type";
-    private String type;
+    @jakarta.annotation.Nonnull private String type;
 
     /**
      * \&quot;beneficiaryAddressType\&quot; will tell you if your blockchain analytics provider or
      * internal address book has been able to identify the wallet address.
      */
     public enum BeneficiaryAddressTypeEnum {
-        UNKNOWN("UNKNOWN"),
+        UNKNOWN(String.valueOf("UNKNOWN")),
 
-        HOSTED("HOSTED"),
+        HOSTED(String.valueOf("HOSTED")),
 
-        UNHOSTED("UNHOSTED");
+        UNHOSTED(String.valueOf("UNHOSTED"));
 
         private String value;
 
@@ -82,24 +83,24 @@ public class TravelRuleValidateTransactionResponse {
     }
 
     public static final String JSON_PROPERTY_BENEFICIARY_ADDRESS_TYPE = "beneficiaryAddressType";
-    private BeneficiaryAddressTypeEnum beneficiaryAddressType;
+    @jakarta.annotation.Nonnull private BeneficiaryAddressTypeEnum beneficiaryAddressType;
 
     /**
      * \&quot;addressSource\&quot; will tell you if the address was found in your internal address
      * book or identified by the blockchain analytics provider.
      */
     public enum AddressSourceEnum {
-        UNKNOWN("UNKNOWN"),
+        UNKNOWN(String.valueOf("UNKNOWN")),
 
-        ADDRESS_HASH("ADDRESS_HASH"),
+        ADDRESS_HASH(String.valueOf("ADDRESS_HASH")),
 
-        ADDRESS_GRAPH("ADDRESS_GRAPH"),
+        ADDRESS_GRAPH(String.valueOf("ADDRESS_GRAPH")),
 
-        CHAINALYSIS("CHAINALYSIS"),
+        CHAINALYSIS(String.valueOf("CHAINALYSIS")),
 
-        ELLIPTIC("ELLIPTIC"),
+        ELLIPTIC(String.valueOf("ELLIPTIC")),
 
-        CRYSTAL("CRYSTAL");
+        CRYSTAL(String.valueOf("CRYSTAL"));
 
         private String value;
 
@@ -129,20 +130,43 @@ public class TravelRuleValidateTransactionResponse {
     }
 
     public static final String JSON_PROPERTY_ADDRESS_SOURCE = "addressSource";
-    private AddressSourceEnum addressSource;
+    @jakarta.annotation.Nonnull private AddressSourceEnum addressSource;
 
     public static final String JSON_PROPERTY_BENEFICIARY_V_A_S_PDID = "beneficiaryVASPdid";
-    private String beneficiaryVASPdid;
+    @jakarta.annotation.Nonnull private String beneficiaryVASPdid;
 
     public static final String JSON_PROPERTY_BENEFICIARY_V_A_S_PNAME = "beneficiaryVASPname";
-    private String beneficiaryVASPname;
+    @jakarta.annotation.Nonnull private String beneficiaryVASPname;
 
     public static final String JSON_PROPERTY_WARNINGS = "warnings";
-    private List<String> warnings = new ArrayList<>();
+    @jakarta.annotation.Nonnull private List<String> warnings = new ArrayList<>();
 
     public TravelRuleValidateTransactionResponse() {}
 
-    public TravelRuleValidateTransactionResponse isValid(Boolean isValid) {
+    @JsonCreator
+    public TravelRuleValidateTransactionResponse(
+            @JsonProperty(value = JSON_PROPERTY_IS_VALID, required = true) Boolean isValid,
+            @JsonProperty(value = JSON_PROPERTY_TYPE, required = true) String type,
+            @JsonProperty(value = JSON_PROPERTY_BENEFICIARY_ADDRESS_TYPE, required = true)
+                    BeneficiaryAddressTypeEnum beneficiaryAddressType,
+            @JsonProperty(value = JSON_PROPERTY_ADDRESS_SOURCE, required = true)
+                    AddressSourceEnum addressSource,
+            @JsonProperty(value = JSON_PROPERTY_BENEFICIARY_V_A_S_PDID, required = true)
+                    String beneficiaryVASPdid,
+            @JsonProperty(value = JSON_PROPERTY_BENEFICIARY_V_A_S_PNAME, required = true)
+                    String beneficiaryVASPname,
+            @JsonProperty(value = JSON_PROPERTY_WARNINGS, required = true) List<String> warnings) {
+        this.isValid = isValid;
+        this.type = type;
+        this.beneficiaryAddressType = beneficiaryAddressType;
+        this.addressSource = addressSource;
+        this.beneficiaryVASPdid = beneficiaryVASPdid;
+        this.beneficiaryVASPname = beneficiaryVASPname;
+        this.warnings = warnings;
+    }
+
+    public TravelRuleValidateTransactionResponse isValid(
+            @jakarta.annotation.Nonnull Boolean isValid) {
         this.isValid = isValid;
         return this;
     }
@@ -164,11 +188,11 @@ public class TravelRuleValidateTransactionResponse {
 
     @JsonProperty(JSON_PROPERTY_IS_VALID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setIsValid(Boolean isValid) {
+    public void setIsValid(@jakarta.annotation.Nonnull Boolean isValid) {
         this.isValid = isValid;
     }
 
-    public TravelRuleValidateTransactionResponse type(String type) {
+    public TravelRuleValidateTransactionResponse type(@jakarta.annotation.Nonnull String type) {
         this.type = type;
         return this;
     }
@@ -190,12 +214,12 @@ public class TravelRuleValidateTransactionResponse {
 
     @JsonProperty(JSON_PROPERTY_TYPE)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setType(String type) {
+    public void setType(@jakarta.annotation.Nonnull String type) {
         this.type = type;
     }
 
     public TravelRuleValidateTransactionResponse beneficiaryAddressType(
-            BeneficiaryAddressTypeEnum beneficiaryAddressType) {
+            @jakarta.annotation.Nonnull BeneficiaryAddressTypeEnum beneficiaryAddressType) {
         this.beneficiaryAddressType = beneficiaryAddressType;
         return this;
     }
@@ -215,11 +239,13 @@ public class TravelRuleValidateTransactionResponse {
 
     @JsonProperty(JSON_PROPERTY_BENEFICIARY_ADDRESS_TYPE)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setBeneficiaryAddressType(BeneficiaryAddressTypeEnum beneficiaryAddressType) {
+    public void setBeneficiaryAddressType(
+            @jakarta.annotation.Nonnull BeneficiaryAddressTypeEnum beneficiaryAddressType) {
         this.beneficiaryAddressType = beneficiaryAddressType;
     }
 
-    public TravelRuleValidateTransactionResponse addressSource(AddressSourceEnum addressSource) {
+    public TravelRuleValidateTransactionResponse addressSource(
+            @jakarta.annotation.Nonnull AddressSourceEnum addressSource) {
         this.addressSource = addressSource;
         return this;
     }
@@ -239,11 +265,12 @@ public class TravelRuleValidateTransactionResponse {
 
     @JsonProperty(JSON_PROPERTY_ADDRESS_SOURCE)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setAddressSource(AddressSourceEnum addressSource) {
+    public void setAddressSource(@jakarta.annotation.Nonnull AddressSourceEnum addressSource) {
         this.addressSource = addressSource;
     }
 
-    public TravelRuleValidateTransactionResponse beneficiaryVASPdid(String beneficiaryVASPdid) {
+    public TravelRuleValidateTransactionResponse beneficiaryVASPdid(
+            @jakarta.annotation.Nonnull String beneficiaryVASPdid) {
         this.beneficiaryVASPdid = beneficiaryVASPdid;
         return this;
     }
@@ -262,11 +289,12 @@ public class TravelRuleValidateTransactionResponse {
 
     @JsonProperty(JSON_PROPERTY_BENEFICIARY_V_A_S_PDID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setBeneficiaryVASPdid(String beneficiaryVASPdid) {
+    public void setBeneficiaryVASPdid(@jakarta.annotation.Nonnull String beneficiaryVASPdid) {
         this.beneficiaryVASPdid = beneficiaryVASPdid;
     }
 
-    public TravelRuleValidateTransactionResponse beneficiaryVASPname(String beneficiaryVASPname) {
+    public TravelRuleValidateTransactionResponse beneficiaryVASPname(
+            @jakarta.annotation.Nonnull String beneficiaryVASPname) {
         this.beneficiaryVASPname = beneficiaryVASPname;
         return this;
     }
@@ -286,11 +314,12 @@ public class TravelRuleValidateTransactionResponse {
 
     @JsonProperty(JSON_PROPERTY_BENEFICIARY_V_A_S_PNAME)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setBeneficiaryVASPname(String beneficiaryVASPname) {
+    public void setBeneficiaryVASPname(@jakarta.annotation.Nonnull String beneficiaryVASPname) {
         this.beneficiaryVASPname = beneficiaryVASPname;
     }
 
-    public TravelRuleValidateTransactionResponse warnings(List<String> warnings) {
+    public TravelRuleValidateTransactionResponse warnings(
+            @jakarta.annotation.Nonnull List<String> warnings) {
         this.warnings = warnings;
         return this;
     }
@@ -318,7 +347,7 @@ public class TravelRuleValidateTransactionResponse {
 
     @JsonProperty(JSON_PROPERTY_WARNINGS)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setWarnings(List<String> warnings) {
+    public void setWarnings(@jakarta.annotation.Nonnull List<String> warnings) {
         this.warnings = warnings;
     }
 
@@ -432,8 +461,7 @@ public class TravelRuleValidateTransactionResponse {
                             "%sisValid%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getIsValid()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getIsValid()))));
         }
 
         // add `type` to the URL query string
@@ -443,8 +471,7 @@ public class TravelRuleValidateTransactionResponse {
                             "%stype%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getType()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getType()))));
         }
 
         // add `beneficiaryAddressType` to the URL query string
@@ -454,10 +481,8 @@ public class TravelRuleValidateTransactionResponse {
                             "%sbeneficiaryAddressType%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getBeneficiaryAddressType()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(
+                                    ApiClient.valueToString(getBeneficiaryAddressType()))));
         }
 
         // add `addressSource` to the URL query string
@@ -467,10 +492,7 @@ public class TravelRuleValidateTransactionResponse {
                             "%saddressSource%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getAddressSource()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getAddressSource()))));
         }
 
         // add `beneficiaryVASPdid` to the URL query string
@@ -480,10 +502,7 @@ public class TravelRuleValidateTransactionResponse {
                             "%sbeneficiaryVASPdid%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getBeneficiaryVASPdid()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getBeneficiaryVASPdid()))));
         }
 
         // add `beneficiaryVASPname` to the URL query string
@@ -493,10 +512,8 @@ public class TravelRuleValidateTransactionResponse {
                             "%sbeneficiaryVASPname%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getBeneficiaryVASPname()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(
+                                    ApiClient.valueToString(getBeneficiaryVASPname()))));
         }
 
         // add `warnings` to the URL query string
@@ -511,10 +528,8 @@ public class TravelRuleValidateTransactionResponse {
                                         ? ""
                                         : String.format(
                                                 "%s%d%s", containerPrefix, i, containerSuffix),
-                                URLEncoder.encode(
-                                                String.valueOf(getWarnings().get(i)),
-                                                StandardCharsets.UTF_8)
-                                        .replaceAll("\\+", "%20")));
+                                ApiClient.urlEncode(
+                                        ApiClient.valueToString(getWarnings().get(i)))));
             }
         }
 

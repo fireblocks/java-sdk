@@ -13,33 +13,33 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for EstimatedFeeDetails */
-public class EstimatedFeeDetailsTest {
+class EstimatedFeeDetailsTest {
     private final EstimatedFeeDetails model = new EstimatedFeeDetails();
 
     /** Model tests for EstimatedFeeDetails */
     @Test
-    public void testEstimatedFeeDetails() {
+    void testEstimatedFeeDetails() {
         // TODO: test EstimatedFeeDetails
     }
 
     /** Test the property 'low' */
     @Test
-    public void lowTest() {
+    void lowTest() {
         // TODO: test low
     }
 
     /** Test the property 'medium' */
     @Test
-    public void mediumTest() {
+    void mediumTest() {
         // TODO: test medium
     }
 
     /** Test the property 'high' */
     @Test
-    public void highTest() {
+    void highTest() {
         // TODO: test high
     }
 }

@@ -13,33 +13,33 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for AddAssetToExternalWalletRequest */
-public class AddAssetToExternalWalletRequestTest {
+class AddAssetToExternalWalletRequestTest {
     private final AddAssetToExternalWalletRequest model = new AddAssetToExternalWalletRequest();
 
     /** Model tests for AddAssetToExternalWalletRequest */
     @Test
-    public void testAddAssetToExternalWalletRequest() {
+    void testAddAssetToExternalWalletRequest() {
         // TODO: test AddAssetToExternalWalletRequest
     }
 
     /** Test the property 'address' */
     @Test
-    public void addressTest() {
+    void addressTest() {
         // TODO: test address
     }
 
     /** Test the property 'tag' */
     @Test
-    public void tagTest() {
+    void tagTest() {
         // TODO: test tag
     }
 
     /** Test the property 'additionalInfo' */
     @Test
-    public void additionalInfoTest() {
+    void additionalInfoTest() {
         // TODO: test additionalInfo
     }
 }

@@ -13,11 +13,11 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -27,20 +27,30 @@ import java.util.StringJoiner;
     RegisterNewAssetRequest.JSON_PROPERTY_ADDRESS,
     RegisterNewAssetRequest.JSON_PROPERTY_SYMBOL
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class RegisterNewAssetRequest {
     public static final String JSON_PROPERTY_BLOCKCHAIN_ID = "blockchainId";
-    private String blockchainId;
+    @jakarta.annotation.Nonnull private String blockchainId;
 
     public static final String JSON_PROPERTY_ADDRESS = "address";
-    private String address;
+    @jakarta.annotation.Nonnull private String address;
 
     public static final String JSON_PROPERTY_SYMBOL = "symbol";
-    private String symbol;
+    @jakarta.annotation.Nullable private String symbol;
 
     public RegisterNewAssetRequest() {}
 
-    public RegisterNewAssetRequest blockchainId(String blockchainId) {
+    @JsonCreator
+    public RegisterNewAssetRequest(
+            @JsonProperty(value = JSON_PROPERTY_BLOCKCHAIN_ID, required = true) String blockchainId,
+            @JsonProperty(value = JSON_PROPERTY_ADDRESS, required = true) String address) {
+        this.blockchainId = blockchainId;
+        this.address = address;
+    }
+
+    public RegisterNewAssetRequest blockchainId(@jakarta.annotation.Nonnull String blockchainId) {
         this.blockchainId = blockchainId;
         return this;
     }
@@ -59,11 +69,11 @@ public class RegisterNewAssetRequest {
 
     @JsonProperty(JSON_PROPERTY_BLOCKCHAIN_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setBlockchainId(String blockchainId) {
+    public void setBlockchainId(@jakarta.annotation.Nonnull String blockchainId) {
         this.blockchainId = blockchainId;
     }
 
-    public RegisterNewAssetRequest address(String address) {
+    public RegisterNewAssetRequest address(@jakarta.annotation.Nonnull String address) {
         this.address = address;
         return this;
     }
@@ -84,11 +94,11 @@ public class RegisterNewAssetRequest {
 
     @JsonProperty(JSON_PROPERTY_ADDRESS)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setAddress(String address) {
+    public void setAddress(@jakarta.annotation.Nonnull String address) {
         this.address = address;
     }
 
-    public RegisterNewAssetRequest symbol(String symbol) {
+    public RegisterNewAssetRequest symbol(@jakarta.annotation.Nullable String symbol) {
         this.symbol = symbol;
         return this;
     }
@@ -107,7 +117,7 @@ public class RegisterNewAssetRequest {
 
     @JsonProperty(JSON_PROPERTY_SYMBOL)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setSymbol(String symbol) {
+    public void setSymbol(@jakarta.annotation.Nullable String symbol) {
         this.symbol = symbol;
     }
 
@@ -192,10 +202,7 @@ public class RegisterNewAssetRequest {
                             "%sblockchainId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getBlockchainId()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getBlockchainId()))));
         }
 
         // add `address` to the URL query string
@@ -205,8 +212,7 @@ public class RegisterNewAssetRequest {
                             "%saddress%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getAddress()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getAddress()))));
         }
 
         // add `symbol` to the URL query string
@@ -216,8 +222,7 @@ public class RegisterNewAssetRequest {
                             "%ssymbol%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getSymbol()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getSymbol()))));
         }
 
         return joiner.toString();

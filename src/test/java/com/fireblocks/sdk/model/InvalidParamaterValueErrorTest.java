@@ -13,27 +13,27 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for InvalidParamaterValueError */
-public class InvalidParamaterValueErrorTest {
+class InvalidParamaterValueErrorTest {
     private final InvalidParamaterValueError model = new InvalidParamaterValueError();
 
     /** Model tests for InvalidParamaterValueError */
     @Test
-    public void testInvalidParamaterValueError() {
+    void testInvalidParamaterValueError() {
         // TODO: test InvalidParamaterValueError
     }
 
     /** Test the property 'message' */
     @Test
-    public void messageTest() {
+    void messageTest() {
         // TODO: test message
     }
 
     /** Test the property 'code' */
     @Test
-    public void codeTest() {
+    void codeTest() {
         // TODO: test code
     }
 }

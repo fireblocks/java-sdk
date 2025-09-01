@@ -18,8 +18,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonValue;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 import java.util.UUID;
@@ -32,28 +31,30 @@ import java.util.UUID;
     Cosigner.JSON_PROPERTY_TYPE,
     Cosigner.JSON_PROPERTY_VERSION
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class Cosigner {
     public static final String JSON_PROPERTY_ARCHIVED = "archived";
-    private Boolean archived;
+    @jakarta.annotation.Nonnull private Boolean archived;
 
     public static final String JSON_PROPERTY_ID = "id";
-    private UUID id;
+    @jakarta.annotation.Nonnull private UUID id;
 
     public static final String JSON_PROPERTY_NAME = "name";
-    private String name;
+    @jakarta.annotation.Nullable private String name;
 
     /** The type of the cosigner */
     public enum TypeEnum {
-        SANDBOX("SANDBOX"),
+        SANDBOX(String.valueOf("SANDBOX")),
 
-        SGX("SGX"),
+        SGX(String.valueOf("SGX")),
 
-        GCP_CONFSPACE("GCP-CONFSPACE"),
+        GCP_CONFSPACE(String.valueOf("GCP-CONFSPACE")),
 
-        AWS_NITRO("AWS-NITRO"),
+        AWS_NITRO(String.valueOf("AWS-NITRO")),
 
-        PLAIN("PLAIN");
+        PLAIN(String.valueOf("PLAIN"));
 
         private String value;
 
@@ -83,14 +84,22 @@ public class Cosigner {
     }
 
     public static final String JSON_PROPERTY_TYPE = "type";
-    private TypeEnum type;
+    @jakarta.annotation.Nullable private TypeEnum type;
 
     public static final String JSON_PROPERTY_VERSION = "version";
-    private Version version;
+    @jakarta.annotation.Nullable private Version version;
 
     public Cosigner() {}
 
-    public Cosigner archived(Boolean archived) {
+    @JsonCreator
+    public Cosigner(
+            @JsonProperty(value = JSON_PROPERTY_ARCHIVED, required = true) Boolean archived,
+            @JsonProperty(value = JSON_PROPERTY_ID, required = true) UUID id) {
+        this.archived = archived;
+        this.id = id;
+    }
+
+    public Cosigner archived(@jakarta.annotation.Nonnull Boolean archived) {
         this.archived = archived;
         return this;
     }
@@ -109,11 +118,11 @@ public class Cosigner {
 
     @JsonProperty(JSON_PROPERTY_ARCHIVED)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setArchived(Boolean archived) {
+    public void setArchived(@jakarta.annotation.Nonnull Boolean archived) {
         this.archived = archived;
     }
 
-    public Cosigner id(UUID id) {
+    public Cosigner id(@jakarta.annotation.Nonnull UUID id) {
         this.id = id;
         return this;
     }
@@ -132,11 +141,11 @@ public class Cosigner {
 
     @JsonProperty(JSON_PROPERTY_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setId(UUID id) {
+    public void setId(@jakarta.annotation.Nonnull UUID id) {
         this.id = id;
     }
 
-    public Cosigner name(String name) {
+    public Cosigner name(@jakarta.annotation.Nullable String name) {
         this.name = name;
         return this;
     }
@@ -155,11 +164,11 @@ public class Cosigner {
 
     @JsonProperty(JSON_PROPERTY_NAME)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setName(String name) {
+    public void setName(@jakarta.annotation.Nullable String name) {
         this.name = name;
     }
 
-    public Cosigner type(TypeEnum type) {
+    public Cosigner type(@jakarta.annotation.Nullable TypeEnum type) {
         this.type = type;
         return this;
     }
@@ -178,11 +187,11 @@ public class Cosigner {
 
     @JsonProperty(JSON_PROPERTY_TYPE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setType(TypeEnum type) {
+    public void setType(@jakarta.annotation.Nullable TypeEnum type) {
         this.type = type;
     }
 
-    public Cosigner version(Version version) {
+    public Cosigner version(@jakarta.annotation.Nullable Version version) {
         this.version = version;
         return this;
     }
@@ -201,7 +210,7 @@ public class Cosigner {
 
     @JsonProperty(JSON_PROPERTY_VERSION)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setVersion(Version version) {
+    public void setVersion(@jakarta.annotation.Nullable Version version) {
         this.version = version;
     }
 
@@ -290,8 +299,7 @@ public class Cosigner {
                             "%sarchived%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getArchived()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getArchived()))));
         }
 
         // add `id` to the URL query string
@@ -299,10 +307,7 @@ public class Cosigner {
             joiner.add(
                     String.format(
                             "%sid%s=%s",
-                            prefix,
-                            suffix,
-                            URLEncoder.encode(String.valueOf(getId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getId()))));
         }
 
         // add `name` to the URL query string
@@ -312,8 +317,7 @@ public class Cosigner {
                             "%sname%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getName()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getName()))));
         }
 
         // add `type` to the URL query string
@@ -323,8 +327,7 @@ public class Cosigner {
                             "%stype%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getType()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getType()))));
         }
 
         // add `version` to the URL query string

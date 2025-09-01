@@ -49,22 +49,24 @@ import java.util.stream.Collectors;
  * <p>The setter methods of this class return the current object to facilitate a fluent style of
  * configuration.
  */
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class ApiClient {
 
-    private HttpClient.Builder builder;
-    private ObjectMapper mapper;
-    private String scheme;
-    private String host;
-    private int port;
-    private String basePath;
-    private Consumer<HttpRequest.Builder> interceptor;
-    private Consumer<HttpResponse<InputStream>> responseInterceptor;
-    private Consumer<HttpResponse<String>> asyncResponseInterceptor;
-    private Duration readTimeout;
-    private Duration connectTimeout;
+    protected HttpClient.Builder builder;
+    protected ObjectMapper mapper;
+    protected String scheme;
+    protected String host;
+    protected int port;
+    protected String basePath;
+    protected Consumer<HttpRequest.Builder> interceptor;
+    protected Consumer<HttpResponse<InputStream>> responseInterceptor;
+    protected Consumer<HttpResponse<String>> asyncResponseInterceptor;
+    protected Duration readTimeout;
+    protected Duration connectTimeout;
 
-    private static String valueToString(Object value) {
+    public static String valueToString(Object value) {
         if (value == null) {
             return "";
         }
@@ -185,7 +187,7 @@ public class ApiClient {
         asyncResponseInterceptor = null;
     }
 
-    protected ObjectMapper createDefaultObjectMapper() {
+    public static ObjectMapper createDefaultObjectMapper() {
         ObjectMapper mapper = new ObjectMapper();
         mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
         mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
@@ -195,6 +197,7 @@ public class ApiClient {
         mapper.enable(DeserializationFeature.READ_ENUMS_USING_TO_STRING);
         mapper.disable(DeserializationFeature.ADJUST_DATES_TO_CONTEXT_TIME_ZONE);
         mapper.registerModule(new JavaTimeModule());
+        mapper.registerModule(new RFC3339JavaTimeModule());
         return mapper;
     }
 
@@ -202,11 +205,11 @@ public class ApiClient {
         return "https://api.fireblocks.io/v1";
     }
 
-    protected HttpClient.Builder createDefaultHttpClientBuilder() {
+    public static HttpClient.Builder createDefaultHttpClientBuilder() {
         return HttpClient.newBuilder();
     }
 
-    public void updateBaseUri(String baseUri) {
+    public final void updateBaseUri(String baseUri) {
         URI uri = URI.create(baseUri);
         scheme = uri.getScheme();
         host = uri.getHost();

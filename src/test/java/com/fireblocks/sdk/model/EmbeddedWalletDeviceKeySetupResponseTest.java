@@ -13,40 +13,40 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for EmbeddedWalletDeviceKeySetupResponse */
-public class EmbeddedWalletDeviceKeySetupResponseTest {
+class EmbeddedWalletDeviceKeySetupResponseTest {
     private final EmbeddedWalletDeviceKeySetupResponse model =
             new EmbeddedWalletDeviceKeySetupResponse();
 
     /** Model tests for EmbeddedWalletDeviceKeySetupResponse */
     @Test
-    public void testEmbeddedWalletDeviceKeySetupResponse() {
+    void testEmbeddedWalletDeviceKeySetupResponse() {
         // TODO: test EmbeddedWalletDeviceKeySetupResponse
     }
 
     /** Test the property 'status' */
     @Test
-    public void statusTest() {
+    void statusTest() {
         // TODO: test status
     }
 
     /** Test the property 'deviceId' */
     @Test
-    public void deviceIdTest() {
+    void deviceIdTest() {
         // TODO: test deviceId
     }
 
     /** Test the property 'enabled' */
     @Test
-    public void enabledTest() {
+    void enabledTest() {
         // TODO: test enabled
     }
 
     /** Test the property 'setupStatus' */
     @Test
-    public void setupStatusTest() {
+    void setupStatusTest() {
         // TODO: test setupStatus
     }
 }

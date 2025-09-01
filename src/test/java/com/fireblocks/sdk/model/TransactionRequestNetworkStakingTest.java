@@ -13,15 +13,15 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for TransactionRequestNetworkStaking */
-public class TransactionRequestNetworkStakingTest {
+class TransactionRequestNetworkStakingTest {
     private final TransactionRequestNetworkStaking model = new TransactionRequestNetworkStaking();
 
     /** Model tests for TransactionRequestNetworkStaking */
     @Test
-    public void testTransactionRequestNetworkStaking() {
+    void testTransactionRequestNetworkStaking() {
         // TODO: test TransactionRequestNetworkStaking
     }
 }

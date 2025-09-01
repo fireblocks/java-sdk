@@ -16,22 +16,23 @@ package com.fireblocks.sdk.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fireblocks.sdk.ApiClient;
 import java.math.BigDecimal;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 import java.util.StringJoiner;
 
 /** Funds */
 @JsonPropertyOrder({Funds.JSON_PROPERTY_AMOUNT})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class Funds {
     public static final String JSON_PROPERTY_AMOUNT = "amount";
-    private BigDecimal amount;
+    @jakarta.annotation.Nullable private BigDecimal amount;
 
     public Funds() {}
 
-    public Funds amount(BigDecimal amount) {
+    public Funds amount(@jakarta.annotation.Nullable BigDecimal amount) {
         this.amount = amount;
         return this;
     }
@@ -50,7 +51,7 @@ public class Funds {
 
     @JsonProperty(JSON_PROPERTY_AMOUNT)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAmount(BigDecimal amount) {
+    public void setAmount(@jakarta.annotation.Nullable BigDecimal amount) {
         this.amount = amount;
     }
 
@@ -131,8 +132,7 @@ public class Funds {
                             "%samount%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getAmount()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getAmount()))));
         }
 
         return joiner.toString();

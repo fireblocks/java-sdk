@@ -13,11 +13,11 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -28,23 +28,31 @@ import java.util.StringJoiner;
     SessionMetadata.JSON_PROPERTY_APP_DESCRIPTION,
     SessionMetadata.JSON_PROPERTY_APP_ICON
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class SessionMetadata {
     public static final String JSON_PROPERTY_APP_URL = "appUrl";
-    private String appUrl;
+    @jakarta.annotation.Nonnull private String appUrl;
 
     public static final String JSON_PROPERTY_APP_NAME = "appName";
-    private String appName;
+    @jakarta.annotation.Nullable private String appName;
 
     public static final String JSON_PROPERTY_APP_DESCRIPTION = "appDescription";
-    private String appDescription;
+    @jakarta.annotation.Nullable private String appDescription;
 
     public static final String JSON_PROPERTY_APP_ICON = "appIcon";
-    private String appIcon;
+    @jakarta.annotation.Nullable private String appIcon;
 
     public SessionMetadata() {}
 
-    public SessionMetadata appUrl(String appUrl) {
+    @JsonCreator
+    public SessionMetadata(
+            @JsonProperty(value = JSON_PROPERTY_APP_URL, required = true) String appUrl) {
+        this.appUrl = appUrl;
+    }
+
+    public SessionMetadata appUrl(@jakarta.annotation.Nonnull String appUrl) {
         this.appUrl = appUrl;
         return this;
     }
@@ -63,11 +71,11 @@ public class SessionMetadata {
 
     @JsonProperty(JSON_PROPERTY_APP_URL)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setAppUrl(String appUrl) {
+    public void setAppUrl(@jakarta.annotation.Nonnull String appUrl) {
         this.appUrl = appUrl;
     }
 
-    public SessionMetadata appName(String appName) {
+    public SessionMetadata appName(@jakarta.annotation.Nullable String appName) {
         this.appName = appName;
         return this;
     }
@@ -86,11 +94,11 @@ public class SessionMetadata {
 
     @JsonProperty(JSON_PROPERTY_APP_NAME)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAppName(String appName) {
+    public void setAppName(@jakarta.annotation.Nullable String appName) {
         this.appName = appName;
     }
 
-    public SessionMetadata appDescription(String appDescription) {
+    public SessionMetadata appDescription(@jakarta.annotation.Nullable String appDescription) {
         this.appDescription = appDescription;
         return this;
     }
@@ -109,11 +117,11 @@ public class SessionMetadata {
 
     @JsonProperty(JSON_PROPERTY_APP_DESCRIPTION)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAppDescription(String appDescription) {
+    public void setAppDescription(@jakarta.annotation.Nullable String appDescription) {
         this.appDescription = appDescription;
     }
 
-    public SessionMetadata appIcon(String appIcon) {
+    public SessionMetadata appIcon(@jakarta.annotation.Nullable String appIcon) {
         this.appIcon = appIcon;
         return this;
     }
@@ -132,7 +140,7 @@ public class SessionMetadata {
 
     @JsonProperty(JSON_PROPERTY_APP_ICON)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAppIcon(String appIcon) {
+    public void setAppIcon(@jakarta.annotation.Nullable String appIcon) {
         this.appIcon = appIcon;
     }
 
@@ -219,8 +227,7 @@ public class SessionMetadata {
                             "%sappUrl%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getAppUrl()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getAppUrl()))));
         }
 
         // add `appName` to the URL query string
@@ -230,8 +237,7 @@ public class SessionMetadata {
                             "%sappName%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getAppName()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getAppName()))));
         }
 
         // add `appDescription` to the URL query string
@@ -241,10 +247,7 @@ public class SessionMetadata {
                             "%sappDescription%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getAppDescription()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getAppDescription()))));
         }
 
         // add `appIcon` to the URL query string
@@ -254,8 +257,7 @@ public class SessionMetadata {
                             "%sappIcon%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getAppIcon()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getAppIcon()))));
         }
 
         return joiner.toString();

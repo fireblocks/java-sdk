@@ -13,12 +13,12 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fireblocks.sdk.ApiClient;
 import java.math.BigDecimal;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -31,23 +31,40 @@ import java.util.StringJoiner;
     CreateValidationKeyResponseDto.JSON_PROPERTY_APPROVAL_THRESHOLD,
     CreateValidationKeyResponseDto.JSON_PROPERTY_REQUEST_ID
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class CreateValidationKeyResponseDto {
     public static final String JSON_PROPERTY_VALIDATION_KEY = "validationKey";
-    private ValidationKeyDto validationKey;
+    @jakarta.annotation.Nonnull private ValidationKeyDto validationKey;
 
     public static final String JSON_PROPERTY_ADMINS = "admins";
-    private List<String> admins = new ArrayList<>();
+    @jakarta.annotation.Nonnull private List<String> admins = new ArrayList<>();
 
     public static final String JSON_PROPERTY_APPROVAL_THRESHOLD = "approvalThreshold";
-    private BigDecimal approvalThreshold;
+    @jakarta.annotation.Nonnull private BigDecimal approvalThreshold;
 
     public static final String JSON_PROPERTY_REQUEST_ID = "requestId";
-    private BigDecimal requestId;
+    @jakarta.annotation.Nonnull private BigDecimal requestId;
 
     public CreateValidationKeyResponseDto() {}
 
-    public CreateValidationKeyResponseDto validationKey(ValidationKeyDto validationKey) {
+    @JsonCreator
+    public CreateValidationKeyResponseDto(
+            @JsonProperty(value = JSON_PROPERTY_VALIDATION_KEY, required = true)
+                    ValidationKeyDto validationKey,
+            @JsonProperty(value = JSON_PROPERTY_ADMINS, required = true) List<String> admins,
+            @JsonProperty(value = JSON_PROPERTY_APPROVAL_THRESHOLD, required = true)
+                    BigDecimal approvalThreshold,
+            @JsonProperty(value = JSON_PROPERTY_REQUEST_ID, required = true) BigDecimal requestId) {
+        this.validationKey = validationKey;
+        this.admins = admins;
+        this.approvalThreshold = approvalThreshold;
+        this.requestId = requestId;
+    }
+
+    public CreateValidationKeyResponseDto validationKey(
+            @jakarta.annotation.Nonnull ValidationKeyDto validationKey) {
         this.validationKey = validationKey;
         return this;
     }
@@ -66,11 +83,11 @@ public class CreateValidationKeyResponseDto {
 
     @JsonProperty(JSON_PROPERTY_VALIDATION_KEY)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setValidationKey(ValidationKeyDto validationKey) {
+    public void setValidationKey(@jakarta.annotation.Nonnull ValidationKeyDto validationKey) {
         this.validationKey = validationKey;
     }
 
-    public CreateValidationKeyResponseDto admins(List<String> admins) {
+    public CreateValidationKeyResponseDto admins(@jakarta.annotation.Nonnull List<String> admins) {
         this.admins = admins;
         return this;
     }
@@ -97,11 +114,12 @@ public class CreateValidationKeyResponseDto {
 
     @JsonProperty(JSON_PROPERTY_ADMINS)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setAdmins(List<String> admins) {
+    public void setAdmins(@jakarta.annotation.Nonnull List<String> admins) {
         this.admins = admins;
     }
 
-    public CreateValidationKeyResponseDto approvalThreshold(BigDecimal approvalThreshold) {
+    public CreateValidationKeyResponseDto approvalThreshold(
+            @jakarta.annotation.Nonnull BigDecimal approvalThreshold) {
         this.approvalThreshold = approvalThreshold;
         return this;
     }
@@ -120,11 +138,12 @@ public class CreateValidationKeyResponseDto {
 
     @JsonProperty(JSON_PROPERTY_APPROVAL_THRESHOLD)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setApprovalThreshold(BigDecimal approvalThreshold) {
+    public void setApprovalThreshold(@jakarta.annotation.Nonnull BigDecimal approvalThreshold) {
         this.approvalThreshold = approvalThreshold;
     }
 
-    public CreateValidationKeyResponseDto requestId(BigDecimal requestId) {
+    public CreateValidationKeyResponseDto requestId(
+            @jakarta.annotation.Nonnull BigDecimal requestId) {
         this.requestId = requestId;
         return this;
     }
@@ -143,7 +162,7 @@ public class CreateValidationKeyResponseDto {
 
     @JsonProperty(JSON_PROPERTY_REQUEST_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setRequestId(BigDecimal requestId) {
+    public void setRequestId(@jakarta.annotation.Nonnull BigDecimal requestId) {
         this.requestId = requestId;
     }
 
@@ -244,10 +263,7 @@ public class CreateValidationKeyResponseDto {
                                         ? ""
                                         : String.format(
                                                 "%s%d%s", containerPrefix, i, containerSuffix),
-                                URLEncoder.encode(
-                                                String.valueOf(getAdmins().get(i)),
-                                                StandardCharsets.UTF_8)
-                                        .replaceAll("\\+", "%20")));
+                                ApiClient.urlEncode(ApiClient.valueToString(getAdmins().get(i)))));
             }
         }
 
@@ -258,10 +274,7 @@ public class CreateValidationKeyResponseDto {
                             "%sapprovalThreshold%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getApprovalThreshold()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getApprovalThreshold()))));
         }
 
         // add `requestId` to the URL query string
@@ -271,9 +284,7 @@ public class CreateValidationKeyResponseDto {
                             "%srequestId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getRequestId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getRequestId()))));
         }
 
         return joiner.toString();

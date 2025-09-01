@@ -13,24 +13,32 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
 /** SpamTokenResponse */
 @JsonPropertyOrder({SpamTokenResponse.JSON_PROPERTY_RESULT})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class SpamTokenResponse {
     public static final String JSON_PROPERTY_RESULT = "result";
-    private Boolean result;
+    @jakarta.annotation.Nonnull private Boolean result;
 
     public SpamTokenResponse() {}
 
-    public SpamTokenResponse result(Boolean result) {
+    @JsonCreator
+    public SpamTokenResponse(
+            @JsonProperty(value = JSON_PROPERTY_RESULT, required = true) Boolean result) {
+        this.result = result;
+    }
+
+    public SpamTokenResponse result(@jakarta.annotation.Nonnull Boolean result) {
         this.result = result;
         return this;
     }
@@ -49,7 +57,7 @@ public class SpamTokenResponse {
 
     @JsonProperty(JSON_PROPERTY_RESULT)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setResult(Boolean result) {
+    public void setResult(@jakarta.annotation.Nonnull Boolean result) {
         this.result = result;
     }
 
@@ -130,8 +138,7 @@ public class SpamTokenResponse {
                             "%sresult%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getResult()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getResult()))));
         }
 
         return joiner.toString();

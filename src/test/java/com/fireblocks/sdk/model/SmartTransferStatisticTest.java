@@ -13,39 +13,39 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for SmartTransferStatistic */
-public class SmartTransferStatisticTest {
+class SmartTransferStatisticTest {
     private final SmartTransferStatistic model = new SmartTransferStatistic();
 
     /** Model tests for SmartTransferStatistic */
     @Test
-    public void testSmartTransferStatistic() {
+    void testSmartTransferStatistic() {
         // TODO: test SmartTransferStatistic
     }
 
     /** Test the property 'inflow' */
     @Test
-    public void inflowTest() {
+    void inflowTest() {
         // TODO: test inflow
     }
 
     /** Test the property 'outflow' */
     @Test
-    public void outflowTest() {
+    void outflowTest() {
         // TODO: test outflow
     }
 
     /** Test the property 'totalActiveTickets' */
     @Test
-    public void totalActiveTicketsTest() {
+    void totalActiveTicketsTest() {
         // TODO: test totalActiveTickets
     }
 
     /** Test the property 'totalInactiveTickets' */
     @Test
-    public void totalInactiveTicketsTest() {
+    void totalInactiveTicketsTest() {
         // TODO: test totalInactiveTickets
     }
 }

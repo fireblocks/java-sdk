@@ -13,39 +13,39 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for SmartTransferUpdateTicketTerm */
-public class SmartTransferUpdateTicketTermTest {
+class SmartTransferUpdateTicketTermTest {
     private final SmartTransferUpdateTicketTerm model = new SmartTransferUpdateTicketTerm();
 
     /** Model tests for SmartTransferUpdateTicketTerm */
     @Test
-    public void testSmartTransferUpdateTicketTerm() {
+    void testSmartTransferUpdateTicketTerm() {
         // TODO: test SmartTransferUpdateTicketTerm
     }
 
     /** Test the property 'asset' */
     @Test
-    public void assetTest() {
+    void assetTest() {
         // TODO: test asset
     }
 
     /** Test the property 'amount' */
     @Test
-    public void amountTest() {
+    void amountTest() {
         // TODO: test amount
     }
 
     /** Test the property 'fromNetworkId' */
     @Test
-    public void fromNetworkIdTest() {
+    void fromNetworkIdTest() {
         // TODO: test fromNetworkId
     }
 
     /** Test the property 'toNetworkId' */
     @Test
-    public void toNetworkIdTest() {
+    void toNetworkIdTest() {
         // TODO: test toNetworkId
     }
 }

@@ -18,8 +18,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonValue;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -38,34 +37,36 @@ import java.util.StringJoiner;
     ContractUploadRequest.JSON_PROPERTY_ATTRIBUTES,
     ContractUploadRequest.JSON_PROPERTY_PROTOCOL
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class ContractUploadRequest {
     public static final String JSON_PROPERTY_NAME = "name";
-    private String name;
+    @jakarta.annotation.Nonnull private String name;
 
     public static final String JSON_PROPERTY_DESCRIPTION = "description";
-    private String description;
+    @jakarta.annotation.Nonnull private String description;
 
     public static final String JSON_PROPERTY_LONG_DESCRIPTION = "longDescription";
-    private String longDescription;
+    @jakarta.annotation.Nullable private String longDescription;
 
     public static final String JSON_PROPERTY_BYTECODE = "bytecode";
-    private String bytecode;
+    @jakarta.annotation.Nonnull private String bytecode;
 
     public static final String JSON_PROPERTY_SOURCECODE = "sourcecode";
-    private String sourcecode;
+    @jakarta.annotation.Nullable private String sourcecode;
 
     /** The type of the contract template */
     public enum TypeEnum {
-        FUNGIBLE_TOKEN("FUNGIBLE_TOKEN"),
+        FUNGIBLE_TOKEN(String.valueOf("FUNGIBLE_TOKEN")),
 
-        NON_FUNGIBLE_TOKEN("NON_FUNGIBLE_TOKEN"),
+        NON_FUNGIBLE_TOKEN(String.valueOf("NON_FUNGIBLE_TOKEN")),
 
-        NON_TOKEN("NON_TOKEN"),
+        NON_TOKEN(String.valueOf("NON_TOKEN")),
 
-        TOKEN_EXTENSION("TOKEN_EXTENSION"),
+        TOKEN_EXTENSION(String.valueOf("TOKEN_EXTENSION")),
 
-        TOKEN_UTILITY("TOKEN_UTILITY");
+        TOKEN_UTILITY(String.valueOf("TOKEN_UTILITY"));
 
         private String value;
 
@@ -95,22 +96,22 @@ public class ContractUploadRequest {
     }
 
     public static final String JSON_PROPERTY_TYPE = "type";
-    private TypeEnum type;
+    @jakarta.annotation.Nonnull private TypeEnum type;
 
     public static final String JSON_PROPERTY_DOCS = "docs";
-    private ContractDoc docs;
+    @jakarta.annotation.Nullable private ContractDoc docs;
 
     public static final String JSON_PROPERTY_ABI = "abi";
-    private List<AbiFunction> abi = new ArrayList<>();
+    @jakarta.annotation.Nonnull private List<AbiFunction> abi = new ArrayList<>();
 
     public static final String JSON_PROPERTY_ATTRIBUTES = "attributes";
-    private ContractAttributes attributes;
+    @jakarta.annotation.Nullable private ContractAttributes attributes;
 
     /** The protocol that the template will be used for */
     public enum ProtocolEnum {
-        ETH("ETH"),
+        ETH(String.valueOf("ETH")),
 
-        SOL("SOL");
+        SOL(String.valueOf("SOL"));
 
         private String value;
 
@@ -140,11 +141,25 @@ public class ContractUploadRequest {
     }
 
     public static final String JSON_PROPERTY_PROTOCOL = "protocol";
-    private ProtocolEnum protocol;
+    @jakarta.annotation.Nullable private ProtocolEnum protocol;
 
     public ContractUploadRequest() {}
 
-    public ContractUploadRequest name(String name) {
+    @JsonCreator
+    public ContractUploadRequest(
+            @JsonProperty(value = JSON_PROPERTY_NAME, required = true) String name,
+            @JsonProperty(value = JSON_PROPERTY_DESCRIPTION, required = true) String description,
+            @JsonProperty(value = JSON_PROPERTY_BYTECODE, required = true) String bytecode,
+            @JsonProperty(value = JSON_PROPERTY_TYPE, required = true) TypeEnum type,
+            @JsonProperty(value = JSON_PROPERTY_ABI, required = true) List<AbiFunction> abi) {
+        this.name = name;
+        this.description = description;
+        this.bytecode = bytecode;
+        this.type = type;
+        this.abi = abi;
+    }
+
+    public ContractUploadRequest name(@jakarta.annotation.Nonnull String name) {
         this.name = name;
         return this;
     }
@@ -163,11 +178,11 @@ public class ContractUploadRequest {
 
     @JsonProperty(JSON_PROPERTY_NAME)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setName(String name) {
+    public void setName(@jakarta.annotation.Nonnull String name) {
         this.name = name;
     }
 
-    public ContractUploadRequest description(String description) {
+    public ContractUploadRequest description(@jakarta.annotation.Nonnull String description) {
         this.description = description;
         return this;
     }
@@ -186,11 +201,12 @@ public class ContractUploadRequest {
 
     @JsonProperty(JSON_PROPERTY_DESCRIPTION)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setDescription(String description) {
+    public void setDescription(@jakarta.annotation.Nonnull String description) {
         this.description = description;
     }
 
-    public ContractUploadRequest longDescription(String longDescription) {
+    public ContractUploadRequest longDescription(
+            @jakarta.annotation.Nullable String longDescription) {
         this.longDescription = longDescription;
         return this;
     }
@@ -209,11 +225,11 @@ public class ContractUploadRequest {
 
     @JsonProperty(JSON_PROPERTY_LONG_DESCRIPTION)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setLongDescription(String longDescription) {
+    public void setLongDescription(@jakarta.annotation.Nullable String longDescription) {
         this.longDescription = longDescription;
     }
 
-    public ContractUploadRequest bytecode(String bytecode) {
+    public ContractUploadRequest bytecode(@jakarta.annotation.Nonnull String bytecode) {
         this.bytecode = bytecode;
         return this;
     }
@@ -232,11 +248,11 @@ public class ContractUploadRequest {
 
     @JsonProperty(JSON_PROPERTY_BYTECODE)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setBytecode(String bytecode) {
+    public void setBytecode(@jakarta.annotation.Nonnull String bytecode) {
         this.bytecode = bytecode;
     }
 
-    public ContractUploadRequest sourcecode(String sourcecode) {
+    public ContractUploadRequest sourcecode(@jakarta.annotation.Nullable String sourcecode) {
         this.sourcecode = sourcecode;
         return this;
     }
@@ -255,11 +271,11 @@ public class ContractUploadRequest {
 
     @JsonProperty(JSON_PROPERTY_SOURCECODE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setSourcecode(String sourcecode) {
+    public void setSourcecode(@jakarta.annotation.Nullable String sourcecode) {
         this.sourcecode = sourcecode;
     }
 
-    public ContractUploadRequest type(TypeEnum type) {
+    public ContractUploadRequest type(@jakarta.annotation.Nonnull TypeEnum type) {
         this.type = type;
         return this;
     }
@@ -278,11 +294,11 @@ public class ContractUploadRequest {
 
     @JsonProperty(JSON_PROPERTY_TYPE)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setType(TypeEnum type) {
+    public void setType(@jakarta.annotation.Nonnull TypeEnum type) {
         this.type = type;
     }
 
-    public ContractUploadRequest docs(ContractDoc docs) {
+    public ContractUploadRequest docs(@jakarta.annotation.Nullable ContractDoc docs) {
         this.docs = docs;
         return this;
     }
@@ -302,11 +318,11 @@ public class ContractUploadRequest {
 
     @JsonProperty(JSON_PROPERTY_DOCS)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setDocs(ContractDoc docs) {
+    public void setDocs(@jakarta.annotation.Nullable ContractDoc docs) {
         this.docs = docs;
     }
 
-    public ContractUploadRequest abi(List<AbiFunction> abi) {
+    public ContractUploadRequest abi(@jakarta.annotation.Nonnull List<AbiFunction> abi) {
         this.abi = abi;
         return this;
     }
@@ -333,11 +349,12 @@ public class ContractUploadRequest {
 
     @JsonProperty(JSON_PROPERTY_ABI)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setAbi(List<AbiFunction> abi) {
+    public void setAbi(@jakarta.annotation.Nonnull List<AbiFunction> abi) {
         this.abi = abi;
     }
 
-    public ContractUploadRequest attributes(ContractAttributes attributes) {
+    public ContractUploadRequest attributes(
+            @jakarta.annotation.Nullable ContractAttributes attributes) {
         this.attributes = attributes;
         return this;
     }
@@ -357,11 +374,11 @@ public class ContractUploadRequest {
 
     @JsonProperty(JSON_PROPERTY_ATTRIBUTES)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setAttributes(ContractAttributes attributes) {
+    public void setAttributes(@jakarta.annotation.Nullable ContractAttributes attributes) {
         this.attributes = attributes;
     }
 
-    public ContractUploadRequest protocol(ProtocolEnum protocol) {
+    public ContractUploadRequest protocol(@jakarta.annotation.Nullable ProtocolEnum protocol) {
         this.protocol = protocol;
         return this;
     }
@@ -380,7 +397,7 @@ public class ContractUploadRequest {
 
     @JsonProperty(JSON_PROPERTY_PROTOCOL)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setProtocol(ProtocolEnum protocol) {
+    public void setProtocol(@jakarta.annotation.Nullable ProtocolEnum protocol) {
         this.protocol = protocol;
     }
 
@@ -489,8 +506,7 @@ public class ContractUploadRequest {
                             "%sname%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getName()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getName()))));
         }
 
         // add `description` to the URL query string
@@ -500,10 +516,7 @@ public class ContractUploadRequest {
                             "%sdescription%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getDescription()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getDescription()))));
         }
 
         // add `longDescription` to the URL query string
@@ -513,10 +526,7 @@ public class ContractUploadRequest {
                             "%slongDescription%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getLongDescription()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getLongDescription()))));
         }
 
         // add `bytecode` to the URL query string
@@ -526,8 +536,7 @@ public class ContractUploadRequest {
                             "%sbytecode%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getBytecode()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getBytecode()))));
         }
 
         // add `sourcecode` to the URL query string
@@ -537,9 +546,7 @@ public class ContractUploadRequest {
                             "%ssourcecode%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getSourcecode()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getSourcecode()))));
         }
 
         // add `type` to the URL query string
@@ -549,8 +556,7 @@ public class ContractUploadRequest {
                             "%stype%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getType()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getType()))));
         }
 
         // add `docs` to the URL query string
@@ -592,8 +598,7 @@ public class ContractUploadRequest {
                             "%sprotocol%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getProtocol()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getProtocol()))));
         }
 
         return joiner.toString();

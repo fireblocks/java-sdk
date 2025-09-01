@@ -13,6 +13,7 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -25,20 +26,30 @@ import java.util.StringJoiner;
     TransferOperationPreview.JSON_PROPERTY_OUTPUT,
     TransferOperationPreview.JSON_PROPERTY_FAILURE
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class TransferOperationPreview {
     public static final String JSON_PROPERTY_INPUT = "input";
-    private TransferOperationConfigParams input;
+    @jakarta.annotation.Nonnull private TransferOperationConfigParams input;
 
     public static final String JSON_PROPERTY_OUTPUT = "output";
-    private TransferOperationPreviewOutput output;
+    @jakarta.annotation.Nullable private TransferOperationPreviewOutput output;
 
     public static final String JSON_PROPERTY_FAILURE = "failure";
-    private TransferOperationFailure failure;
+    @jakarta.annotation.Nullable private TransferOperationFailure failure;
 
     public TransferOperationPreview() {}
 
-    public TransferOperationPreview input(TransferOperationConfigParams input) {
+    @JsonCreator
+    public TransferOperationPreview(
+            @JsonProperty(value = JSON_PROPERTY_INPUT, required = true)
+                    TransferOperationConfigParams input) {
+        this.input = input;
+    }
+
+    public TransferOperationPreview input(
+            @jakarta.annotation.Nonnull TransferOperationConfigParams input) {
         this.input = input;
         return this;
     }
@@ -57,11 +68,12 @@ public class TransferOperationPreview {
 
     @JsonProperty(JSON_PROPERTY_INPUT)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setInput(TransferOperationConfigParams input) {
+    public void setInput(@jakarta.annotation.Nonnull TransferOperationConfigParams input) {
         this.input = input;
     }
 
-    public TransferOperationPreview output(TransferOperationPreviewOutput output) {
+    public TransferOperationPreview output(
+            @jakarta.annotation.Nullable TransferOperationPreviewOutput output) {
         this.output = output;
         return this;
     }
@@ -80,11 +92,12 @@ public class TransferOperationPreview {
 
     @JsonProperty(JSON_PROPERTY_OUTPUT)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setOutput(TransferOperationPreviewOutput output) {
+    public void setOutput(@jakarta.annotation.Nullable TransferOperationPreviewOutput output) {
         this.output = output;
     }
 
-    public TransferOperationPreview failure(TransferOperationFailure failure) {
+    public TransferOperationPreview failure(
+            @jakarta.annotation.Nullable TransferOperationFailure failure) {
         this.failure = failure;
         return this;
     }
@@ -103,7 +116,7 @@ public class TransferOperationPreview {
 
     @JsonProperty(JSON_PROPERTY_FAILURE)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setFailure(TransferOperationFailure failure) {
+    public void setFailure(@jakarta.annotation.Nullable TransferOperationFailure failure) {
         this.failure = failure;
     }
 

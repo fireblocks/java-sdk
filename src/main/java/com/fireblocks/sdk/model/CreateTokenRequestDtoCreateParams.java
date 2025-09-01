@@ -36,7 +36,9 @@ import java.util.StringJoiner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 @JsonDeserialize(
         using =
                 CreateTokenRequestDtoCreateParams.CreateTokenRequestDtoCreateParamsDeserializer

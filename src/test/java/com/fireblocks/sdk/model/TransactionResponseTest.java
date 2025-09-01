@@ -13,303 +13,303 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for TransactionResponse */
-public class TransactionResponseTest {
+class TransactionResponseTest {
     private final TransactionResponse model = new TransactionResponse();
 
     /** Model tests for TransactionResponse */
     @Test
-    public void testTransactionResponse() {
+    void testTransactionResponse() {
         // TODO: test TransactionResponse
     }
 
     /** Test the property 'id' */
     @Test
-    public void idTest() {
+    void idTest() {
         // TODO: test id
     }
 
     /** Test the property 'externalTxId' */
     @Test
-    public void externalTxIdTest() {
+    void externalTxIdTest() {
         // TODO: test externalTxId
     }
 
     /** Test the property 'status' */
     @Test
-    public void statusTest() {
+    void statusTest() {
         // TODO: test status
     }
 
     /** Test the property 'subStatus' */
     @Test
-    public void subStatusTest() {
+    void subStatusTest() {
         // TODO: test subStatus
     }
 
     /** Test the property 'txHash' */
     @Test
-    public void txHashTest() {
+    void txHashTest() {
         // TODO: test txHash
     }
 
     /** Test the property 'operation' */
     @Test
-    public void operationTest() {
+    void operationTest() {
         // TODO: test operation
     }
 
     /** Test the property 'note' */
     @Test
-    public void noteTest() {
+    void noteTest() {
         // TODO: test note
     }
 
     /** Test the property 'assetId' */
     @Test
-    public void assetIdTest() {
+    void assetIdTest() {
         // TODO: test assetId
     }
 
     /** Test the property 'source' */
     @Test
-    public void sourceTest() {
+    void sourceTest() {
         // TODO: test source
     }
 
     /** Test the property 'sourceAddress' */
     @Test
-    public void sourceAddressTest() {
+    void sourceAddressTest() {
         // TODO: test sourceAddress
     }
 
     /** Test the property 'tag' */
     @Test
-    public void tagTest() {
+    void tagTest() {
         // TODO: test tag
     }
 
     /** Test the property 'destination' */
     @Test
-    public void destinationTest() {
+    void destinationTest() {
         // TODO: test destination
     }
 
     /** Test the property 'destinations' */
     @Test
-    public void destinationsTest() {
+    void destinationsTest() {
         // TODO: test destinations
     }
 
     /** Test the property 'destinationAddress' */
     @Test
-    public void destinationAddressTest() {
+    void destinationAddressTest() {
         // TODO: test destinationAddress
     }
 
     /** Test the property 'destinationAddressDescription' */
     @Test
-    public void destinationAddressDescriptionTest() {
+    void destinationAddressDescriptionTest() {
         // TODO: test destinationAddressDescription
     }
 
     /** Test the property 'destinationTag' */
     @Test
-    public void destinationTagTest() {
+    void destinationTagTest() {
         // TODO: test destinationTag
     }
 
     /** Test the property 'contractCallDecodedData' */
     @Test
-    public void contractCallDecodedDataTest() {
+    void contractCallDecodedDataTest() {
         // TODO: test contractCallDecodedData
     }
 
     /** Test the property 'amountInfo' */
     @Test
-    public void amountInfoTest() {
+    void amountInfoTest() {
         // TODO: test amountInfo
     }
 
     /** Test the property 'treatAsGrossAmount' */
     @Test
-    public void treatAsGrossAmountTest() {
+    void treatAsGrossAmountTest() {
         // TODO: test treatAsGrossAmount
     }
 
     /** Test the property 'feeInfo' */
     @Test
-    public void feeInfoTest() {
+    void feeInfoTest() {
         // TODO: test feeInfo
     }
 
     /** Test the property 'feeCurrency' */
     @Test
-    public void feeCurrencyTest() {
+    void feeCurrencyTest() {
         // TODO: test feeCurrency
     }
 
     /** Test the property 'networkRecords' */
     @Test
-    public void networkRecordsTest() {
+    void networkRecordsTest() {
         // TODO: test networkRecords
     }
 
     /** Test the property 'createdAt' */
     @Test
-    public void createdAtTest() {
+    void createdAtTest() {
         // TODO: test createdAt
     }
 
     /** Test the property 'lastUpdated' */
     @Test
-    public void lastUpdatedTest() {
+    void lastUpdatedTest() {
         // TODO: test lastUpdated
     }
 
     /** Test the property 'createdBy' */
     @Test
-    public void createdByTest() {
+    void createdByTest() {
         // TODO: test createdBy
     }
 
     /** Test the property 'signedBy' */
     @Test
-    public void signedByTest() {
+    void signedByTest() {
         // TODO: test signedBy
     }
 
     /** Test the property 'rejectedBy' */
     @Test
-    public void rejectedByTest() {
+    void rejectedByTest() {
         // TODO: test rejectedBy
     }
 
     /** Test the property 'authorizationInfo' */
     @Test
-    public void authorizationInfoTest() {
+    void authorizationInfoTest() {
         // TODO: test authorizationInfo
     }
 
     /** Test the property 'exchangeTxId' */
     @Test
-    public void exchangeTxIdTest() {
+    void exchangeTxIdTest() {
         // TODO: test exchangeTxId
     }
 
     /** Test the property 'customerRefId' */
     @Test
-    public void customerRefIdTest() {
+    void customerRefIdTest() {
         // TODO: test customerRefId
     }
 
     /** Test the property 'amlScreeningResult' */
     @Test
-    public void amlScreeningResultTest() {
+    void amlScreeningResultTest() {
         // TODO: test amlScreeningResult
     }
 
     /** Test the property 'complianceResults' */
     @Test
-    public void complianceResultsTest() {
+    void complianceResultsTest() {
         // TODO: test complianceResults
     }
 
     /** Test the property 'extraParameters' */
     @Test
-    public void extraParametersTest() {
+    void extraParametersTest() {
         // TODO: test extraParameters
     }
 
     /** Test the property 'signedMessages' */
     @Test
-    public void signedMessagesTest() {
+    void signedMessagesTest() {
         // TODO: test signedMessages
     }
 
     /** Test the property 'numOfConfirmations' */
     @Test
-    public void numOfConfirmationsTest() {
+    void numOfConfirmationsTest() {
         // TODO: test numOfConfirmations
     }
 
     /** Test the property 'blockInfo' */
     @Test
-    public void blockInfoTest() {
+    void blockInfoTest() {
         // TODO: test blockInfo
     }
 
     /** Test the property 'index' */
     @Test
-    public void indexTest() {
+    void indexTest() {
         // TODO: test index
     }
 
     /** Test the property 'rewardInfo' */
     @Test
-    public void rewardInfoTest() {
+    void rewardInfoTest() {
         // TODO: test rewardInfo
     }
 
     /** Test the property 'systemMessages' */
     @Test
-    public void systemMessagesTest() {
+    void systemMessagesTest() {
         // TODO: test systemMessages
     }
 
     /** Test the property 'addressType' */
     @Test
-    public void addressTypeTest() {
+    void addressTypeTest() {
         // TODO: test addressType
     }
 
     /** Test the property 'requestedAmount' */
     @Test
-    public void requestedAmountTest() {
+    void requestedAmountTest() {
         // TODO: test requestedAmount
     }
 
     /** Test the property 'amount' */
     @Test
-    public void amountTest() {
+    void amountTest() {
         // TODO: test amount
     }
 
     /** Test the property 'netAmount' */
     @Test
-    public void netAmountTest() {
+    void netAmountTest() {
         // TODO: test netAmount
     }
 
     /** Test the property 'amountUSD' */
     @Test
-    public void amountUSDTest() {
+    void amountUSDTest() {
         // TODO: test amountUSD
     }
 
     /** Test the property 'serviceFee' */
     @Test
-    public void serviceFeeTest() {
+    void serviceFeeTest() {
         // TODO: test serviceFee
     }
 
     /** Test the property 'fee' */
     @Test
-    public void feeTest() {
+    void feeTest() {
         // TODO: test fee
     }
 
     /** Test the property 'networkFee' */
     @Test
-    public void networkFeeTest() {
+    void networkFeeTest() {
         // TODO: test networkFee
     }
 
     /** Test the property 'errorDescription' */
     @Test
-    public void errorDescriptionTest() {
+    void errorDescriptionTest() {
         // TODO: test errorDescription
     }
 }

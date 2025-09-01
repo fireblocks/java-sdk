@@ -13,24 +13,34 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
 /** EmbeddedWalletAssetRewardInfo */
 @JsonPropertyOrder({EmbeddedWalletAssetRewardInfo.JSON_PROPERTY_PENDING_REWARDS})
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class EmbeddedWalletAssetRewardInfo {
     public static final String JSON_PROPERTY_PENDING_REWARDS = "pendingRewards";
-    private String pendingRewards;
+    @jakarta.annotation.Nonnull private String pendingRewards;
 
     public EmbeddedWalletAssetRewardInfo() {}
 
-    public EmbeddedWalletAssetRewardInfo pendingRewards(String pendingRewards) {
+    @JsonCreator
+    public EmbeddedWalletAssetRewardInfo(
+            @JsonProperty(value = JSON_PROPERTY_PENDING_REWARDS, required = true)
+                    String pendingRewards) {
+        this.pendingRewards = pendingRewards;
+    }
+
+    public EmbeddedWalletAssetRewardInfo pendingRewards(
+            @jakarta.annotation.Nonnull String pendingRewards) {
         this.pendingRewards = pendingRewards;
         return this;
     }
@@ -49,7 +59,7 @@ public class EmbeddedWalletAssetRewardInfo {
 
     @JsonProperty(JSON_PROPERTY_PENDING_REWARDS)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setPendingRewards(String pendingRewards) {
+    public void setPendingRewards(@jakarta.annotation.Nonnull String pendingRewards) {
         this.pendingRewards = pendingRewards;
     }
 
@@ -131,10 +141,7 @@ public class EmbeddedWalletAssetRewardInfo {
                             "%spendingRewards%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getPendingRewards()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getPendingRewards()))));
         }
 
         return joiner.toString();

@@ -13,27 +13,27 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for PolicyAndValidationResponse */
-public class PolicyAndValidationResponseTest {
+class PolicyAndValidationResponseTest {
     private final PolicyAndValidationResponse model = new PolicyAndValidationResponse();
 
     /** Model tests for PolicyAndValidationResponse */
     @Test
-    public void testPolicyAndValidationResponse() {
+    void testPolicyAndValidationResponse() {
         // TODO: test PolicyAndValidationResponse
     }
 
     /** Test the property 'policy' */
     @Test
-    public void policyTest() {
+    void policyTest() {
         // TODO: test policy
     }
 
     /** Test the property 'validation' */
     @Test
-    public void validationTest() {
+    void validationTest() {
         // TODO: test validation
     }
 }

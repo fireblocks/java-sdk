@@ -13,11 +13,11 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -29,28 +29,49 @@ import java.util.StringJoiner;
     SetLayerZeroDvnConfigRequest.JSON_PROPERTY_SEND_CONFIG,
     SetLayerZeroDvnConfigRequest.JSON_PROPERTY_RECEIVE_CONFIG
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class SetLayerZeroDvnConfigRequest {
     public static final String JSON_PROPERTY_VAULT_ACCOUNT_ID = "vaultAccountId";
-    private String vaultAccountId;
+    @jakarta.annotation.Nonnull private String vaultAccountId;
 
     public static final String JSON_PROPERTY_SOURCE_ADAPTER_TOKEN_LINK_ID =
             "sourceAdapterTokenLinkId";
-    private String sourceAdapterTokenLinkId;
+    @jakarta.annotation.Nonnull private String sourceAdapterTokenLinkId;
 
     public static final String JSON_PROPERTY_DESTINATION_ADAPTER_TOKEN_LINK_ID =
             "destinationAdapterTokenLinkId";
-    private String destinationAdapterTokenLinkId;
+    @jakarta.annotation.Nonnull private String destinationAdapterTokenLinkId;
 
     public static final String JSON_PROPERTY_SEND_CONFIG = "sendConfig";
-    private DvnConfig sendConfig;
+    @jakarta.annotation.Nonnull private DvnConfig sendConfig;
 
     public static final String JSON_PROPERTY_RECEIVE_CONFIG = "receiveConfig";
-    private DvnConfig receiveConfig;
+    @jakarta.annotation.Nonnull private DvnConfig receiveConfig;
 
     public SetLayerZeroDvnConfigRequest() {}
 
-    public SetLayerZeroDvnConfigRequest vaultAccountId(String vaultAccountId) {
+    @JsonCreator
+    public SetLayerZeroDvnConfigRequest(
+            @JsonProperty(value = JSON_PROPERTY_VAULT_ACCOUNT_ID, required = true)
+                    String vaultAccountId,
+            @JsonProperty(value = JSON_PROPERTY_SOURCE_ADAPTER_TOKEN_LINK_ID, required = true)
+                    String sourceAdapterTokenLinkId,
+            @JsonProperty(value = JSON_PROPERTY_DESTINATION_ADAPTER_TOKEN_LINK_ID, required = true)
+                    String destinationAdapterTokenLinkId,
+            @JsonProperty(value = JSON_PROPERTY_SEND_CONFIG, required = true) DvnConfig sendConfig,
+            @JsonProperty(value = JSON_PROPERTY_RECEIVE_CONFIG, required = true)
+                    DvnConfig receiveConfig) {
+        this.vaultAccountId = vaultAccountId;
+        this.sourceAdapterTokenLinkId = sourceAdapterTokenLinkId;
+        this.destinationAdapterTokenLinkId = destinationAdapterTokenLinkId;
+        this.sendConfig = sendConfig;
+        this.receiveConfig = receiveConfig;
+    }
+
+    public SetLayerZeroDvnConfigRequest vaultAccountId(
+            @jakarta.annotation.Nonnull String vaultAccountId) {
         this.vaultAccountId = vaultAccountId;
         return this;
     }
@@ -69,11 +90,12 @@ public class SetLayerZeroDvnConfigRequest {
 
     @JsonProperty(JSON_PROPERTY_VAULT_ACCOUNT_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setVaultAccountId(String vaultAccountId) {
+    public void setVaultAccountId(@jakarta.annotation.Nonnull String vaultAccountId) {
         this.vaultAccountId = vaultAccountId;
     }
 
-    public SetLayerZeroDvnConfigRequest sourceAdapterTokenLinkId(String sourceAdapterTokenLinkId) {
+    public SetLayerZeroDvnConfigRequest sourceAdapterTokenLinkId(
+            @jakarta.annotation.Nonnull String sourceAdapterTokenLinkId) {
         this.sourceAdapterTokenLinkId = sourceAdapterTokenLinkId;
         return this;
     }
@@ -92,12 +114,13 @@ public class SetLayerZeroDvnConfigRequest {
 
     @JsonProperty(JSON_PROPERTY_SOURCE_ADAPTER_TOKEN_LINK_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setSourceAdapterTokenLinkId(String sourceAdapterTokenLinkId) {
+    public void setSourceAdapterTokenLinkId(
+            @jakarta.annotation.Nonnull String sourceAdapterTokenLinkId) {
         this.sourceAdapterTokenLinkId = sourceAdapterTokenLinkId;
     }
 
     public SetLayerZeroDvnConfigRequest destinationAdapterTokenLinkId(
-            String destinationAdapterTokenLinkId) {
+            @jakarta.annotation.Nonnull String destinationAdapterTokenLinkId) {
         this.destinationAdapterTokenLinkId = destinationAdapterTokenLinkId;
         return this;
     }
@@ -116,11 +139,13 @@ public class SetLayerZeroDvnConfigRequest {
 
     @JsonProperty(JSON_PROPERTY_DESTINATION_ADAPTER_TOKEN_LINK_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setDestinationAdapterTokenLinkId(String destinationAdapterTokenLinkId) {
+    public void setDestinationAdapterTokenLinkId(
+            @jakarta.annotation.Nonnull String destinationAdapterTokenLinkId) {
         this.destinationAdapterTokenLinkId = destinationAdapterTokenLinkId;
     }
 
-    public SetLayerZeroDvnConfigRequest sendConfig(DvnConfig sendConfig) {
+    public SetLayerZeroDvnConfigRequest sendConfig(
+            @jakarta.annotation.Nonnull DvnConfig sendConfig) {
         this.sendConfig = sendConfig;
         return this;
     }
@@ -139,11 +164,12 @@ public class SetLayerZeroDvnConfigRequest {
 
     @JsonProperty(JSON_PROPERTY_SEND_CONFIG)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setSendConfig(DvnConfig sendConfig) {
+    public void setSendConfig(@jakarta.annotation.Nonnull DvnConfig sendConfig) {
         this.sendConfig = sendConfig;
     }
 
-    public SetLayerZeroDvnConfigRequest receiveConfig(DvnConfig receiveConfig) {
+    public SetLayerZeroDvnConfigRequest receiveConfig(
+            @jakarta.annotation.Nonnull DvnConfig receiveConfig) {
         this.receiveConfig = receiveConfig;
         return this;
     }
@@ -162,7 +188,7 @@ public class SetLayerZeroDvnConfigRequest {
 
     @JsonProperty(JSON_PROPERTY_RECEIVE_CONFIG)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setReceiveConfig(DvnConfig receiveConfig) {
+    public void setReceiveConfig(@jakarta.annotation.Nonnull DvnConfig receiveConfig) {
         this.receiveConfig = receiveConfig;
     }
 
@@ -265,10 +291,7 @@ public class SetLayerZeroDvnConfigRequest {
                             "%svaultAccountId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getVaultAccountId()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getVaultAccountId()))));
         }
 
         // add `sourceAdapterTokenLinkId` to the URL query string
@@ -278,10 +301,8 @@ public class SetLayerZeroDvnConfigRequest {
                             "%ssourceAdapterTokenLinkId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getSourceAdapterTokenLinkId()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(
+                                    ApiClient.valueToString(getSourceAdapterTokenLinkId()))));
         }
 
         // add `destinationAdapterTokenLinkId` to the URL query string
@@ -291,10 +312,8 @@ public class SetLayerZeroDvnConfigRequest {
                             "%sdestinationAdapterTokenLinkId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getDestinationAdapterTokenLinkId()),
-                                            StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(
+                                    ApiClient.valueToString(getDestinationAdapterTokenLinkId()))));
         }
 
         // add `sendConfig` to the URL query string

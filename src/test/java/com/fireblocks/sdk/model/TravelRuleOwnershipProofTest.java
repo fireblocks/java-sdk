@@ -13,57 +13,57 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for TravelRuleOwnershipProof */
-public class TravelRuleOwnershipProofTest {
+class TravelRuleOwnershipProofTest {
     private final TravelRuleOwnershipProof model = new TravelRuleOwnershipProof();
 
     /** Model tests for TravelRuleOwnershipProof */
     @Test
-    public void testTravelRuleOwnershipProof() {
+    void testTravelRuleOwnershipProof() {
         // TODO: test TravelRuleOwnershipProof
     }
 
     /** Test the property 'type' */
     @Test
-    public void typeTest() {
+    void typeTest() {
         // TODO: test type
     }
 
     /** Test the property 'proof' */
     @Test
-    public void proofTest() {
+    void proofTest() {
         // TODO: test proof
     }
 
     /** Test the property 'attestation' */
     @Test
-    public void attestationTest() {
+    void attestationTest() {
         // TODO: test attestation
     }
 
     /** Test the property 'address' */
     @Test
-    public void addressTest() {
+    void addressTest() {
         // TODO: test address
     }
 
     /** Test the property 'walletProvider' */
     @Test
-    public void walletProviderTest() {
+    void walletProviderTest() {
         // TODO: test walletProvider
     }
 
     /** Test the property 'url' */
     @Test
-    public void urlTest() {
+    void urlTest() {
         // TODO: test url
     }
 
     /** Test the property 'confirmed' */
     @Test
-    public void confirmedTest() {
+    void confirmedTest() {
         // TODO: test confirmed
     }
 }

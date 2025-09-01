@@ -13,11 +13,11 @@
 package com.fireblocks.sdk.model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import com.fireblocks.sdk.ApiClient;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -26,17 +26,27 @@ import java.util.StringJoiner;
     RelatedTransaction.JSON_PROPERTY_TX_ID,
     RelatedTransaction.JSON_PROPERTY_COMPLETED
 })
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@jakarta.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.14.0")
 public class RelatedTransaction {
     public static final String JSON_PROPERTY_TX_ID = "txId";
-    private String txId;
+    @jakarta.annotation.Nonnull private String txId;
 
     public static final String JSON_PROPERTY_COMPLETED = "completed";
-    private Boolean completed;
+    @jakarta.annotation.Nonnull private Boolean completed;
 
     public RelatedTransaction() {}
 
-    public RelatedTransaction txId(String txId) {
+    @JsonCreator
+    public RelatedTransaction(
+            @JsonProperty(value = JSON_PROPERTY_TX_ID, required = true) String txId,
+            @JsonProperty(value = JSON_PROPERTY_COMPLETED, required = true) Boolean completed) {
+        this.txId = txId;
+        this.completed = completed;
+    }
+
+    public RelatedTransaction txId(@jakarta.annotation.Nonnull String txId) {
         this.txId = txId;
         return this;
     }
@@ -55,11 +65,11 @@ public class RelatedTransaction {
 
     @JsonProperty(JSON_PROPERTY_TX_ID)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setTxId(String txId) {
+    public void setTxId(@jakarta.annotation.Nonnull String txId) {
         this.txId = txId;
     }
 
-    public RelatedTransaction completed(Boolean completed) {
+    public RelatedTransaction completed(@jakarta.annotation.Nonnull Boolean completed) {
         this.completed = completed;
         return this;
     }
@@ -78,7 +88,7 @@ public class RelatedTransaction {
 
     @JsonProperty(JSON_PROPERTY_COMPLETED)
     @JsonInclude(value = JsonInclude.Include.ALWAYS)
-    public void setCompleted(Boolean completed) {
+    public void setCompleted(@jakarta.annotation.Nonnull Boolean completed) {
         this.completed = completed;
     }
 
@@ -161,8 +171,7 @@ public class RelatedTransaction {
                             "%stxId%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(String.valueOf(getTxId()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getTxId()))));
         }
 
         // add `completed` to the URL query string
@@ -172,9 +181,7 @@ public class RelatedTransaction {
                             "%scompleted%s=%s",
                             prefix,
                             suffix,
-                            URLEncoder.encode(
-                                            String.valueOf(getCompleted()), StandardCharsets.UTF_8)
-                                    .replaceAll("\\+", "%20")));
+                            ApiClient.urlEncode(ApiClient.valueToString(getCompleted()))));
         }
 
         return joiner.toString();

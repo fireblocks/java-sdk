@@ -13,183 +13,183 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for TransactionRequest */
-public class TransactionRequestTest {
+class TransactionRequestTest {
     private final TransactionRequest model = new TransactionRequest();
 
     /** Model tests for TransactionRequest */
     @Test
-    public void testTransactionRequest() {
+    void testTransactionRequest() {
         // TODO: test TransactionRequest
     }
 
     /** Test the property 'operation' */
     @Test
-    public void operationTest() {
+    void operationTest() {
         // TODO: test operation
     }
 
     /** Test the property 'note' */
     @Test
-    public void noteTest() {
+    void noteTest() {
         // TODO: test note
     }
 
     /** Test the property 'externalTxId' */
     @Test
-    public void externalTxIdTest() {
+    void externalTxIdTest() {
         // TODO: test externalTxId
     }
 
     /** Test the property 'assetId' */
     @Test
-    public void assetIdTest() {
+    void assetIdTest() {
         // TODO: test assetId
     }
 
     /** Test the property 'source' */
     @Test
-    public void sourceTest() {
+    void sourceTest() {
         // TODO: test source
     }
 
     /** Test the property 'destination' */
     @Test
-    public void destinationTest() {
+    void destinationTest() {
         // TODO: test destination
     }
 
     /** Test the property 'destinations' */
     @Test
-    public void destinationsTest() {
+    void destinationsTest() {
         // TODO: test destinations
     }
 
     /** Test the property 'amount' */
     @Test
-    public void amountTest() {
+    void amountTest() {
         // TODO: test amount
     }
 
     /** Test the property 'treatAsGrossAmount' */
     @Test
-    public void treatAsGrossAmountTest() {
+    void treatAsGrossAmountTest() {
         // TODO: test treatAsGrossAmount
     }
 
     /** Test the property 'forceSweep' */
     @Test
-    public void forceSweepTest() {
+    void forceSweepTest() {
         // TODO: test forceSweep
     }
 
     /** Test the property 'feeLevel' */
     @Test
-    public void feeLevelTest() {
+    void feeLevelTest() {
         // TODO: test feeLevel
     }
 
     /** Test the property 'fee' */
     @Test
-    public void feeTest() {
+    void feeTest() {
         // TODO: test fee
     }
 
     /** Test the property 'priorityFee' */
     @Test
-    public void priorityFeeTest() {
+    void priorityFeeTest() {
         // TODO: test priorityFee
     }
 
     /** Test the property 'failOnLowFee' */
     @Test
-    public void failOnLowFeeTest() {
+    void failOnLowFeeTest() {
         // TODO: test failOnLowFee
     }
 
     /** Test the property 'maxFee' */
     @Test
-    public void maxFeeTest() {
+    void maxFeeTest() {
         // TODO: test maxFee
     }
 
     /** Test the property 'maxTotalFee' */
     @Test
-    public void maxTotalFeeTest() {
+    void maxTotalFeeTest() {
         // TODO: test maxTotalFee
     }
 
     /** Test the property 'gasLimit' */
     @Test
-    public void gasLimitTest() {
+    void gasLimitTest() {
         // TODO: test gasLimit
     }
 
     /** Test the property 'gasPrice' */
     @Test
-    public void gasPriceTest() {
+    void gasPriceTest() {
         // TODO: test gasPrice
     }
 
     /** Test the property 'networkFee' */
     @Test
-    public void networkFeeTest() {
+    void networkFeeTest() {
         // TODO: test networkFee
     }
 
     /** Test the property 'replaceTxByHash' */
     @Test
-    public void replaceTxByHashTest() {
+    void replaceTxByHashTest() {
         // TODO: test replaceTxByHash
     }
 
     /** Test the property 'extraParameters' */
     @Test
-    public void extraParametersTest() {
+    void extraParametersTest() {
         // TODO: test extraParameters
     }
 
     /** Test the property 'customerRefId' */
     @Test
-    public void customerRefIdTest() {
+    void customerRefIdTest() {
         // TODO: test customerRefId
     }
 
     /** Test the property 'travelRuleMessage' */
     @Test
-    public void travelRuleMessageTest() {
+    void travelRuleMessageTest() {
         // TODO: test travelRuleMessage
     }
 
     /** Test the property 'travelRuleMessageId' */
     @Test
-    public void travelRuleMessageIdTest() {
+    void travelRuleMessageIdTest() {
         // TODO: test travelRuleMessageId
     }
 
     /** Test the property 'autoStaking' */
     @Test
-    public void autoStakingTest() {
+    void autoStakingTest() {
         // TODO: test autoStaking
     }
 
     /** Test the property 'networkStaking' */
     @Test
-    public void networkStakingTest() {
+    void networkStakingTest() {
         // TODO: test networkStaking
     }
 
     /** Test the property 'cpuStaking' */
     @Test
-    public void cpuStakingTest() {
+    void cpuStakingTest() {
         // TODO: test cpuStaking
     }
 
     /** Test the property 'useGasless' */
     @Test
-    public void useGaslessTest() {
+    void useGaslessTest() {
         // TODO: test useGasless
     }
 }

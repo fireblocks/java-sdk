@@ -13,27 +13,27 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for NetworkChannel */
-public class NetworkChannelTest {
+class NetworkChannelTest {
     private final NetworkChannel model = new NetworkChannel();
 
     /** Model tests for NetworkChannel */
     @Test
-    public void testNetworkChannel() {
+    void testNetworkChannel() {
         // TODO: test NetworkChannel
     }
 
     /** Test the property 'networkId' */
     @Test
-    public void networkIdTest() {
+    void networkIdTest() {
         // TODO: test networkId
     }
 
     /** Test the property 'name' */
     @Test
-    public void nameTest() {
+    void nameTest() {
         // TODO: test name
     }
 }

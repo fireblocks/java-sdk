@@ -13,57 +13,57 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for DestinationTransferPeerPath */
-public class DestinationTransferPeerPathTest {
+class DestinationTransferPeerPathTest {
     private final DestinationTransferPeerPath model = new DestinationTransferPeerPath();
 
     /** Model tests for DestinationTransferPeerPath */
     @Test
-    public void testDestinationTransferPeerPath() {
+    void testDestinationTransferPeerPath() {
         // TODO: test DestinationTransferPeerPath
     }
 
     /** Test the property 'type' */
     @Test
-    public void typeTest() {
+    void typeTest() {
         // TODO: test type
     }
 
     /** Test the property 'subType' */
     @Test
-    public void subTypeTest() {
+    void subTypeTest() {
         // TODO: test subType
     }
 
     /** Test the property 'id' */
     @Test
-    public void idTest() {
+    void idTest() {
         // TODO: test id
     }
 
     /** Test the property 'name' */
     @Test
-    public void nameTest() {
+    void nameTest() {
         // TODO: test name
     }
 
     /** Test the property 'walletId' */
     @Test
-    public void walletIdTest() {
+    void walletIdTest() {
         // TODO: test walletId
     }
 
     /** Test the property 'oneTimeAddress' */
     @Test
-    public void oneTimeAddressTest() {
+    void oneTimeAddressTest() {
         // TODO: test oneTimeAddress
     }
 
     /** Test the property 'isCollateral' */
     @Test
-    public void isCollateralTest() {
+    void isCollateralTest() {
         // TODO: test isCollateral
     }
 }

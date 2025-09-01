@@ -13,63 +13,63 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for CreateMultichainTokenRequest */
-public class CreateMultichainTokenRequestTest {
+class CreateMultichainTokenRequestTest {
     private final CreateMultichainTokenRequest model = new CreateMultichainTokenRequest();
 
     /** Model tests for CreateMultichainTokenRequest */
     @Test
-    public void testCreateMultichainTokenRequest() {
+    void testCreateMultichainTokenRequest() {
         // TODO: test CreateMultichainTokenRequest
     }
 
     /** Test the property 'vaultAccountId' */
     @Test
-    public void vaultAccountIdTest() {
+    void vaultAccountIdTest() {
         // TODO: test vaultAccountId
     }
 
     /** Test the property 'createParams' */
     @Test
-    public void createParamsTest() {
+    void createParamsTest() {
         // TODO: test createParams
     }
 
     /** Test the property 'salt' */
     @Test
-    public void saltTest() {
+    void saltTest() {
         // TODO: test salt
     }
 
     /** Test the property 'chains' */
     @Test
-    public void chainsTest() {
+    void chainsTest() {
         // TODO: test chains
     }
 
     /** Test the property 'displayName' */
     @Test
-    public void displayNameTest() {
+    void displayNameTest() {
         // TODO: test displayName
     }
 
     /** Test the property 'useGasless' */
     @Test
-    public void useGaslessTest() {
+    void useGaslessTest() {
         // TODO: test useGasless
     }
 
     /** Test the property 'fee' */
     @Test
-    public void feeTest() {
+    void feeTest() {
         // TODO: test fee
     }
 
     /** Test the property 'feeLevel' */
     @Test
-    public void feeLevelTest() {
+    void feeLevelTest() {
         // TODO: test feeLevel
     }
 }

@@ -13,27 +13,27 @@
 package com.fireblocks.sdk.model;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /** Model tests for RelatedTransaction */
-public class RelatedTransactionTest {
+class RelatedTransactionTest {
     private final RelatedTransaction model = new RelatedTransaction();
 
     /** Model tests for RelatedTransaction */
     @Test
-    public void testRelatedTransaction() {
+    void testRelatedTransaction() {
         // TODO: test RelatedTransaction
     }
 
     /** Test the property 'txId' */
     @Test
-    public void txIdTest() {
+    void txIdTest() {
         // TODO: test txId
     }
 
     /** Test the property 'completed' */
     @Test
-    public void completedTest() {
+    void completedTest() {
         // TODO: test completed
     }
 }
